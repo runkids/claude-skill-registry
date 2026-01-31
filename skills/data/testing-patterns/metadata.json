@@ -1,7 +1,7 @@
 {
   "name": "testing-patterns",
-  "repo": "motoki317/dotfiles",
-  "path": ".claude/skills/testing-patterns/SKILL.md",
-  "source": "github.com/motoki317/dotfiles",
-  "downloaded_at": "2026-01-30T04:42:26.975723Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/testing-patterns/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:01.751308Z"
 }

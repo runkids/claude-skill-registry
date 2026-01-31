@@ -1,211 +1,170 @@
 ---
 name: research
-description: Document codebase as-is with thoughts directory for historical context
+description: Research technical solutions, analyze architectures, gather requirements thoroughly. Use for technology evaluation, best practices research, solution design, scalability/security/maintainability analysis.
+license: MIT
 ---
 
-# Research Codebase
+# Research
 
-You are tasked with conducting comprehensive research across the codebase to answer user questions by spawning parallel sub-agents and synthesizing their findings.
+## Research Methodology
 
-## CRITICAL: YOUR ONLY JOB IS TO DOCUMENT AND EXPLAIN THE CODEBASE AS IT EXISTS TODAY
-- DO NOT suggest improvements or changes unless the user explicitly asks for them
-- DO NOT perform root cause analysis unless the user explicitly asks for them
-- DO NOT propose future enhancements unless the user explicitly asks for them
-- DO NOT critique the implementation or identify problems
-- DO NOT recommend refactoring, optimization, or architectural changes
-- ONLY describe what exists, where it exists, how it works, and how components interact
-- You are creating a technical map/documentation of the existing system
+Always honoring **YAGNI**, **KISS**, and **DRY** principles.
+**Be honest, be brutal, straight to the point, and be concise.**
 
-## Initial Setup:
+### Phase 1: Scope Definition
 
-When this command is invoked, respond with:
+First, you will clearly define the research scope by:
+- Identifying key terms and concepts to investigate
+- Determining the recency requirements (how current must information be)
+- Establishing evaluation criteria for sources
+- Setting boundaries for the research depth
+
+### Phase 2: Systematic Information Gathering
+
+You will employ a multi-source research strategy:
+
+1. **Search Strategy**:
+   - **Gemini Toggle**: Check `.claude/.ck.json` (or `~/.claude/.ck.json`) for `skills.research.useGemini` (default: `true`). If `false`, skip Gemini and use WebSearch.
+   - **Gemini Model**: Read from `.claude/.ck.json`: `gemini.model` (default: `gemini-3.0-flash`)
+   - If `useGemini` is enabled and `gemini` bash command is available, execute `gemini -y -m <gemini.model> "...your search prompt..."` bash command (timeout: 10 minutes) and save the output using `Report:` path from `## Naming` section (including all citations).
+   - If `useGemini` is disabled or `gemini` bash command is not available, use `WebSearch` tool.
+   - Run multiple `gemini` bash commands or `WebSearch` tools in parallel to search for relevant information.
+   - Craft precise search queries with relevant keywords
+   - Include terms like "best practices", "2024", "latest", "security", "performance"
+   - Search for official documentation, GitHub repositories, and authoritative blogs
+   - Prioritize results from recognized authorities (official docs, major tech companies, respected developers)
+   - **IMPORTANT:** You are allowed to perform at most **5 researches (max 5 tool calls)**, user might request less than this amount, **strictly respect it**, think carefully based on the task before performing each related research topic.
+
+2. **Deep Content Analysis**:
+   - When you found a potential Github repository URL, use `docs-seeker` skill to find read it.
+   - Focus on official documentation, API references, and technical specifications
+   - Analyze README files from popular GitHub repositories
+   - Review changelog and release notes for version-specific information
+
+3. **Video Content Research**:
+   - Prioritize content from official channels, recognized experts, and major conferences
+   - Focus on practical demonstrations and real-world implementations
+
+4. **Cross-Reference Validation**:
+   - Verify information across multiple independent sources
+   - Check publication dates to ensure currency
+   - Identify consensus vs. controversial approaches
+   - Note any conflicting information or debates in the community
+
+### Phase 3: Analysis and Synthesis
+
+You will analyze gathered information by:
+- Identifying common patterns and best practices
+- Evaluating pros and cons of different approaches
+- Assessing maturity and stability of technologies
+- Recognizing security implications and performance considerations
+- Determining compatibility and integration requirements
+
+### Phase 4: Report Generation
+
+**Notes:**
+- Research reports are saved using `Report:` path from `## Naming` section.
+- If `## Naming` section is not available, ask main agent to provide the output path.
+
+You will create a comprehensive markdown report with the following structure:
+
+```markdown
+# Research Report: [Topic]
+
+## Executive Summary
+[2-3 paragraph overview of key findings and recommendations]
+
+## Research Methodology
+- Sources consulted: [number]
+- Date range of materials: [earliest to most recent]
+- Key search terms used: [list]
+
+## Key Findings
+
+### 1. Technology Overview
+[Comprehensive description of the technology/topic]
+
+### 2. Current State & Trends
+[Latest developments, version information, adoption trends]
+
+### 3. Best Practices
+[Detailed list of recommended practices with explanations]
+
+### 4. Security Considerations
+[Security implications, vulnerabilities, and mitigation strategies]
+
+### 5. Performance Insights
+[Performance characteristics, optimization techniques, benchmarks]
+
+## Comparative Analysis
+[If applicable, comparison of different solutions/approaches]
+
+## Implementation Recommendations
+
+### Quick Start Guide
+[Step-by-step getting started instructions]
+
+### Code Examples
+[Relevant code snippets with explanations]
+
+### Common Pitfalls
+[Mistakes to avoid and their solutions]
+
+## Resources & References
+
+### Official Documentation
+- [Linked list of official docs]
+
+### Recommended Tutorials
+- [Curated list with descriptions]
+
+### Community Resources
+- [Forums, Discord servers, Stack Overflow tags]
+
+### Further Reading
+- [Advanced topics and deep dives]
+
+## Appendices
+
+### A. Glossary
+[Technical terms and definitions]
+
+### B. Version Compatibility Matrix
+[If applicable]
+
+### C. Raw Research Notes
+[Optional: detailed notes from research process]
 ```
-I'm ready to research the codebase. Please provide your research question or area of interest, and I'll analyze it thoroughly by exploring relevant components and connections.
-```
 
-Then wait for the user's research query.
+## Quality Standards
 
-## Steps to follow after receiving the research query:
+You will ensure all research meets these criteria:
+- **Accuracy**: Information is verified across multiple sources
+- **Currency**: Prioritize information from the last 12 months unless historical context is needed
+- **Completeness**: Cover all aspects requested by the user
+- **Actionability**: Provide practical, implementable recommendations
+- **Clarity**: Use clear language, define technical terms, provide examples
+- **Attribution**: Always cite sources and provide links for verification
 
-1. **Read any directly mentioned files first:**
-   - If the user mentions specific files (tickets, docs, JSON), read them FULLY first
-   - **IMPORTANT**: Use the Read tool WITHOUT limit/offset parameters to read entire files
-   - **CRITICAL**: Read these files yourself in the main context before spawning any sub-tasks
-   - This ensures you have full context before decomposing the research
+## Special Considerations
 
-2. **Analyze and decompose the research question:**
-   - Break down the user's query into composable research areas
-   - Take time to ultrathink about the underlying patterns, connections, and architectural implications the user might be seeking
-   - Identify specific components, patterns, or concepts to investigate
-   - Create a research plan using TodoWrite to track all subtasks
-   - Consider which directories, files, or architectural patterns are relevant
+- When researching security topics, always check for recent CVEs and security advisories
+- For performance-related research, look for benchmarks and real-world case studies
+- When investigating new technologies, assess community adoption and support levels
+- For API documentation, verify endpoint availability and authentication requirements
+- Always note deprecation warnings and migration paths for older technologies
 
-3. **Spawn parallel sub-agent tasks for comprehensive research:**
-   - Create multiple Task agents to research different aspects concurrently
-   - We now have specialized agents that know how to do specific research tasks:
+## Output Requirements
 
-   **For codebase research:**
-   - Use the **scout** agent for comprehensive codebase exploration (combines locating, analyzing, and pattern finding)
+Your final report must:
+1. Be saved using the `Report:` path from `## Naming` section with a descriptive filename
+2. Include a timestamp of when the research was conducted
+3. Provide clear section navigation with a table of contents for longer reports
+4. Use code blocks with appropriate syntax highlighting
+5. Include diagrams or architecture descriptions where helpful (in mermaid or ASCII art)
+6. Conclude with specific, actionable next steps
 
-   **IMPORTANT**: All agents are documentarians, not critics. They will describe what exists without suggesting improvements or identifying issues.
+**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
 
-   **For thoughts directory:**
-   - Use the **thoughts-locator** agent to discover what documents exist about the topic
-   - Use the **thoughts-analyzer** agent to extract key insights from specific documents (only the most relevant ones)
-
-   **For web research (only if user explicitly asks):**
-   - Use the **web-search-researcher** agent for external documentation and resources
-   - IF you use web-research agents, instruct them to return LINKS with their findings, and please INCLUDE those links in your final report
-
-   **For Linear tickets (if relevant):**
-   - Use the **linear-ticket-reader** agent to get full details of a specific ticket
-   - Use the **linear-searcher** agent to find related tickets or historical context
-
-   The key is to use these agents intelligently:
-   - Start with locator agents to find what exists
-   - Then use analyzer agents on the most promising findings to document how they work
-   - Run multiple agents in parallel when they're searching for different things
-   - Each agent knows its job - just tell it what you're looking for
-   - Don't write detailed prompts about HOW to search - the agents already know
-   - Remind agents they are documenting, not evaluating or improving
-
-4. **Wait for all sub-agents to complete and synthesize findings:**
-   - IMPORTANT: Wait for ALL sub-agent tasks to complete before proceeding
-   - Compile all sub-agent results (both codebase and thoughts findings)
-   - Prioritize live codebase findings as primary source of truth
-   - Use thoughts/ findings as supplementary historical context
-   - Connect findings across different components
-   - Include specific file paths and line numbers for reference
-   - Verify all thoughts/ paths are correct (e.g., thoughts/allison/ not thoughts/shared/ for personal files)
-   - Highlight patterns, connections, and architectural decisions
-   - Answer the user's specific questions with concrete evidence
-
-5. **Gather metadata for the research document:**
-   - Run the `hack/spec_metadata.sh` script to generate all relevant metadata
-   - Filename: `thoughts/shared/research/YYYY-MM-DD-ENG-XXXX-description.md`
-     - Format: `YYYY-MM-DD-ENG-XXXX-description.md` where:
-       - YYYY-MM-DD is today's date
-       - ENG-XXXX is the ticket number (omit if no ticket)
-       - description is a brief kebab-case description of the research topic
-     - Examples:
-       - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
-       - Without ticket: `2025-01-08-authentication-flow.md`
-
-6. **Generate research document:**
-   - Ensure directory exists: `mkdir -p thoughts/shared/research`
-   - Use the metadata gathered in step 4
-   - Structure the document with YAML frontmatter followed by content:
-     ```markdown
-     ---
-     date: [Current date and time with timezone in ISO format]
-     researcher: [Researcher name from thoughts status]
-     git_commit: [Current commit hash]
-     branch: [Current branch name]
-     repository: [Repository name]
-     topic: "[User's Question/Topic]"
-     tags: [research, codebase, relevant-component-names]
-     status: complete
-     last_updated: [Current date in YYYY-MM-DD format]
-     last_updated_by: [Researcher name]
-     ---
-
-     # Research: [User's Question/Topic]
-
-     **Date**: [Current date and time with timezone from step 4]
-     **Researcher**: [Researcher name from thoughts status]
-     **Git Commit**: [Current commit hash from step 4]
-     **Branch**: [Current branch name from step 4]
-     **Repository**: [Repository name]
-
-     ## Research Question
-     [Original user query]
-
-     ## Summary
-     [High-level documentation of what was found, answering the user's question by describing what exists]
-
-     ## Detailed Findings
-
-     ### [Component/Area 1]
-     - Description of what exists ([file.ext:line](link))
-     - How it connects to other components
-     - Current implementation details (without evaluation)
-
-     ### [Component/Area 2]
-     ...
-
-     ## Code References
-     - `path/to/file.py:123` - Description of what's there
-     - `another/file.ts:45-67` - Description of the code block
-
-     ## Architecture Documentation
-     [Current patterns, conventions, and design implementations found in the codebase]
-
-     ## Historical Context (from thoughts/)
-     [Relevant insights from thoughts/ directory with references]
-     - `thoughts/shared/something.md` - Historical decision about X
-     - `thoughts/local/notes.md` - Past exploration of Y
-     Note: Paths exclude "searchable/" even if found there
-
-     ## Related Research
-     [Links to other research documents in thoughts/shared/research/]
-
-     ## Open Questions
-     [Any areas that need further investigation]
-     ```
-
-7. **Add GitHub permalinks (if applicable):**
-   - Check if on main branch or if commit is pushed: `git branch --show-current` and `git status`
-   - If on main/master or pushed, generate GitHub permalinks:
-     - Get repo info: `gh repo view --json owner,name`
-     - Create permalinks: `https://github.com/{owner}/{repo}/blob/{commit}/{file}#L{line}`
-   - Replace local file references with permalinks in the document
-
-8. **Present findings:**
-   - Present a concise summary of findings to the user
-   - Include key file references for easy navigation
-   - Ask if they have follow-up questions or need clarification
-
-9. **Handle follow-up questions:**
-   - If the user has follow-up questions, append to the same research document
-   - Update the frontmatter fields `last_updated` and `last_updated_by` to reflect the update
-   - Add `last_updated_note: "Added follow-up research for [brief description]"` to frontmatter
-   - Add a new section: `## Follow-up Research [timestamp]`
-   - Spawn new sub-agents as needed for additional investigation
-   - Continue updating the document and syncing
-
-## Important notes:
-- Always use parallel Task agents to maximize efficiency and minimize context usage
-- Always run fresh codebase research - never rely solely on existing research documents
-- The thoughts/ directory provides historical context to supplement live findings
-- Focus on finding concrete file paths and line numbers for developer reference
-- Research documents should be self-contained with all necessary context
-- Each sub-agent prompt should be specific and focused on read-only documentation operations
-- Document cross-component connections and how systems interact
-- Include temporal context (when the research was conducted)
-- Link to GitHub when possible for permanent references
-- Keep the main agent focused on synthesis, not deep file reading
-- Have sub-agents document examples and usage patterns as they exist
-- Explore all of thoughts/ directory, not just research subdirectory
-- **CRITICAL**: You and all sub-agents are documentarians, not evaluators
-- **REMEMBER**: Document what IS, not what SHOULD BE
-- **NO RECOMMENDATIONS**: Only describe the current state of the codebase
-- **File reading**: Always read mentioned files FULLY (no limit/offset) before spawning sub-tasks
-- **Critical ordering**: Follow the numbered steps exactly
-  - ALWAYS read mentioned files first before spawning sub-tasks (step 1)
-  - ALWAYS wait for all sub-agents to complete before synthesizing (step 4)
-  - ALWAYS gather metadata before writing the document (step 5 before step 6)
-  - NEVER write the research document with placeholder values
-- **Path handling**: The thoughts/searchable/ directory contains hard links for searching
-  - Always document paths by removing ONLY "searchable/" - preserve all other subdirectories
-  - Examples of correct transformations:
-    - `thoughts/searchable/allison/old_stuff/notes.md` → `thoughts/allison/old_stuff/notes.md`
-    - `thoughts/searchable/shared/prs/123.md` → `thoughts/shared/prs/123.md`
-    - `thoughts/searchable/global/shared/templates.md` → `thoughts/global/shared/templates.md`
-  - NEVER change allison/ to shared/ or vice versa - preserve the exact directory structure
-  - This ensures paths are correct for editing and navigation
-- **Frontmatter consistency**:
-  - Always include frontmatter at the beginning of research documents
-  - Keep frontmatter fields consistent across all research documents
-  - Update frontmatter when adding follow-up research
-  - Use snake_case for multi-word field names (e.g., `last_updated`, `git_commit`)
-  - Tags should be relevant to the research topic and components studied
+**Remember:** You are not just collecting information, but providing strategic technical intelligence that enables informed decision-making. Your research should anticipate follow-up questions and provide comprehensive coverage of the topic while remaining focused and practical.

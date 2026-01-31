@@ -1,192 +1,218 @@
 ---
-name: devflow-tdd-enforcer
-description: Enforces TDD order in TASKS.md - Tests MUST be marked complete before Implementation tasks. Blocks violations in real-time.
+name: flow-tdd
+description: "Enforces TDD Iron Law in flow-dev. NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST."
 ---
 
-# DevFlow TDD Enforcer
+# Flow TDD - Test-Driven Development Enforcement
 
-## Purpose
-Enforce Test-First Development (TDD) order by preventing users from marking implementation tasks complete before their corresponding test tasks.
-
-**Trigger**: PreToolUse hook when editing `devflow/requirements/**/TASKS.md`
-
-## Enforcement Rule
-
-**Source**: Extracted from planner agent's TDD mandate + Constitution Article VI
-
-### ❌ BLOCKED Pattern (Violation)
-```markdown
-- [x] **T010** [US1] Implement user registration endpoint
-- [ ] **T011** [US1] Test user registration with valid data
-```
-**Problem**: Implementation marked done BEFORE test
-
-**Regex Pattern**: `\[x\].*Implementation.*\n.*\[ \].*Test`
-
-### ✅ CORRECT Pattern (TDD Sequence)
-```markdown
-- [ ] **T010** [US1] Test user registration with valid data (write FAILING test)
-- [ ] **T011** [US1] Implement user registration endpoint (make test PASS)
-```
-
-**Or after completion**:
-```markdown
-- [x] **T010** [US1] Test user registration with valid data
-- [x] **T011** [US1] Implement user registration endpoint
-```
-
-## Blocking Message
-
-When violation detected, PreToolUse hook returns **exit code 2** (blocks file save):
+## The Iron Law
 
 ```
-⚠️ BLOCKED - TDD Violation Detected
-
-📋 REQUIRED ACTION:
-1. Re-order TASKS.md to follow TDD sequence
-2. Mark test tasks [x] BEFORE implementation tasks
-3. Review Constitution Article VI - Test-First Development
-
-Reason: CC-DevFlow enforces TDD (Tests First → Implementation)
-Source: planner agent mandate + Constitution Article VI
-File: {file_path}
-
-Current Issue:
-  Line {N}: Implementation task marked complete
-  Line {N+1}: Test task NOT marked complete
-
-💡 SKIP: Add `@skip-tdd-check` comment or set SKIP_TDD_ENFORCER=1
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
-## Constitutional Basis
+This is NON-NEGOTIABLE. No exceptions. No "just this once."
 
-### Article VI: Test-First Development
+## The TDD Cycle
+
+```
+RED:    Write a failing test
+        → Run it
+        → Confirm it FAILS
+        → If it passes immediately → ERROR (invalid test)
+
+GREEN:  Write minimal code to pass
+        → Only enough to make the test pass
+        → No extra features
+        → No "while I'm here" additions
+
+REFACTOR: Clean up
+        → Keep tests green
+        → Improve structure
+        → Remove duplication
+```
+
+## Enforcement in flow-dev
+
+### Phase 2: Tests First
+
 ```yaml
-TDD MANDATE:
-  - Write test FIRST (must fail)
-  - Implement code SECOND (make test pass)
-  - No implementation without corresponding test
-  - Test coverage ≥80%
+TASKS.md Phase 2 (Tests):
+  - Write contract tests
+  - Write integration tests
+  - Write unit tests
+  - Run all tests → ALL MUST FAIL
+
+⚠️ TEST VERIFICATION CHECKPOINT:
+  → Run: npm test (or equivalent)
+  → Expected: All new tests FAIL
+  → If any test passes immediately → STOP
+  → Passing test = invalid test or code already exists
 ```
 
-### planner agent enforces
-- Generates TASKS.md with correct TDD order
-- Phase 2: All tests listed first
-- Phase 3+: Each user story has Test task before Implementation task
-- Inserts "⚠️ TEST VERIFICATION CHECKPOINT" between Phase 2 and Phase 3
+### Phase 3: Implementation
 
-### devflow-tdd-enforcer guardrail prevents
-- Users from manually reversing that order
-- Implementation tasks marked complete before test tasks
-- Real-time detection during file editing
+```yaml
+TASKS.md Phase 3 (Implementation):
+  - Implement to make tests pass
+  - One test at a time
+  - Minimal code only
 
-## Additional Violation Patterns
+After each implementation:
+  → Run tests
+  → Verify previously failing test now passes
+  → Verify no regressions
+```
 
-### Pattern 2: Phase 3+ User Story TDD Order
+## What If Code Already Exists?
+
+If you've written code before tests:
+
+```yaml
+Option A: DELETE AND RESTART (Recommended)
+  1. Delete the implementation code
+  2. Keep only the interface/contract
+  3. Write failing tests
+  4. Re-implement with TDD
+
+Option B: WRITE TESTS THAT FAIL FIRST
+  1. Comment out the implementation
+  2. Write tests
+  3. Run tests → verify they fail
+  4. Uncomment implementation
+  5. Run tests → verify they pass
+
+NEVER: Keep code and write passing tests
+  → This is "testing after" disguised as TDD
+  → Tests that pass immediately prove nothing
+```
+
+## Rationalization Prevention
+
+| Excuse | Reality |
+|--------|---------|
+| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
+| "I'll test after" | Tests passing immediately prove nothing. |
+| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
+| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
+| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
+| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
+| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
+| "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
+| "TDD slows me down" | TDD faster than debugging. Pragmatic = test-first. |
+| "This is different because..." | No. This is rationalization. Follow the law. |
+| "Spirit not letter" | Violating letter IS violating spirit. No loopholes. |
+| "I'm being pragmatic, not dogmatic" | TDD IS pragmatic. Shortcuts = debugging in production = slower. |
+| "Just this once" | No exceptions. Rules exist for this exact moment. |
+
+## Red Flags - STOP
+
+If you find yourself:
+- Writing code before tests
+- Tests passing immediately
+- Saying "just this once"
+- Keeping "exploration" code
+- Writing tests that describe existing code
+
+**STOP. Delete the code. Write the test first.**
+
+## Test Quality Requirements
+
+```yaml
+Good Tests:
+  ✅ Test behavior, not implementation
+  ✅ Use realistic data
+  ✅ Cover edge cases
+  ✅ Independent (no shared state)
+  ✅ Fast (< 1 second each)
+  ✅ Descriptive names
+
+Bad Tests (Cheater Tests):
+  ❌ assert True
+  ❌ assert result is not None
+  ❌ Mock everything, test nothing
+  ❌ Test implementation details
+  ❌ Depend on execution order
+```
+
+## Error Recording Protocol
+
+当测试失败或构建错误发生时，必须立即记录到 ERROR_LOG.md:
+
+```yaml
+Error Recording Workflow:
+  1. Capture Error Context:
+     - Phase (flow-dev / T###)
+     - Error Type (Test Failure | Build Error | Runtime Error)
+     - Full error message
+     - Timestamp
+
+  2. Create ERROR_LOG.md if not exists:
+     → Use .claude/docs/templates/ERROR_LOG_TEMPLATE.md
+     → Location: devflow/requirements/${REQ_ID}/ERROR_LOG.md
+
+  3. Append Error Record:
+     ## [TIMESTAMP] E###: TITLE
+     **Phase**: flow-dev / T###
+     **Error Type**: Test Failure
+     **Error Message**:
+     ```
+     [完整错误信息]
+     ```
+     **Root Cause**: [分析后填写]
+     **Resolution**: [解决后填写]
+     **Prevention**: [可选]
+
+  4. Debug with Error Context:
+     → Read ERROR_LOG.md for similar past errors
+     → Apply attention refresh (Protocol 4)
+     → Fix the root cause, not symptoms
+
+  5. Update Record After Fix:
+     → Fill Root Cause
+     → Fill Resolution
+     → Add Prevention if applicable
+```
+
+### Error Recording Example
+
 ```markdown
-# ❌ BLOCKED
-- [x] **T020** [US2] Implement login endpoint
-- [ ] **T021** [US2] Test login with valid credentials
+## [2026-01-08T14:30:00] E001: Test Failure - User Login Validation
 
-# ✅ CORRECT
-- [x] **T020** [US2] Test login with valid credentials
-- [x] **T021** **T021** [US2] Implement login endpoint
+**Phase**: flow-dev / T005
+**Error Type**: Test Failure
+**Error Message**:
+\`\`\`
+FAIL src/auth/login.test.ts
+  × should reject invalid email format
+    Expected: false
+    Received: true
+\`\`\`
+
+**Root Cause**: 正则表达式 `/^.+@.+$/` 过于宽松，接受了 `user@` 这样的无效邮箱
+**Resolution**: 更新正则为 `/^[^\s@]+@[^\s@]+\.[^\s@]+$/` 要求至少有域名和顶级域
+**Prevention**: 扩充测试用例，添加边界情况（无域名、无顶级域、特殊字符等）
 ```
 
-**Regex Pattern**: `\[x\].*\[US\d+\].*Implement.*\n.*\[ \].*\[US\d+\].*Test`
+## Integration with Constitution
 
-### Pattern 3: Implementation without Test
-```markdown
-# ❌ BLOCKED (if no corresponding test found)
-- [ ] **T030** [US3] Implement password reset endpoint
-# (No T029 or T031 test task found)
+- **Article I**: Complete implementation includes tests
+- **Article VI**: TDD Mandate (this skill)
+- **Article IX**: Integration-first testing
 
-# ✅ CORRECT
-- [ ] **T029** [US3] Test password reset with valid email
-- [ ] **T030** [US3] Implement password reset endpoint
-```
+## Integration with Attention Refresh
 
-## Skip Conditions
+- **Protocol 4**: Error Recovery 时读取 ERROR_LOG.md
+- 避免重复犯相同错误
+- 从历史错误中学习
 
-Users can bypass TDD enforcer in specific scenarios:
+## Cross-Reference
 
-### 1. Session Skip (One-time per session)
-- **Mechanism**: `sessionSkillUsed: true` in skill-rules.json
-- **Behavior**: Guardrail only triggers once per Claude session
-- **Use case**: User acknowledged TDD violation, wants to continue
+- [flow-attention-refresh](../flow-attention-refresh/SKILL.md) - Protocol 4
+- [ERROR_LOG_TEMPLATE.md](../../docs/templates/ERROR_LOG_TEMPLATE.md)
+- [rationalization-library.md](../../rules/rationalization-library.md#article-vi-test-first-development---rationalization-table)
+- [project-constitution.md](../../rules/project-constitution.md#article-vi-test-first-development-测试优先开发)
 
-### 2. File Marker (Permanent skip for specific file)
-- **Marker**: Add `@skip-tdd-check` comment anywhere in TASKS.md
-- **Example**:
-  ```markdown
-  <!-- @skip-tdd-check: Hotfix deployment, will add tests in follow-up -->
-  ```
-- **Use case**: Emergency hotfix, tests to be added later
+---
 
-### 3. Environment Variable (Temporary global skip)
-- **Variable**: `SKIP_TDD_ENFORCER=1`
-- **Scope**: Current terminal session
-- **Use case**: Batch operations, automated scripts
-
-## Relationship with Other Components
-
-### mark-task-complete.sh (Script)
-- **Purpose**: Marks tasks complete in正常 workflow (via /flow-dev)
-- **Validation**: Batch validation at phase completion
-- **Timing**: After task execution
-
-### devflow-tdd-enforcer (Guardrail)
-- **Purpose**: Real-time prevention of manual TDD violations
-- **Validation**: Per-edit, blocks save if violation detected
-- **Timing**: During file editing (PreToolUse hook)
-
-**Relationship**: **Complementary (双重保险)**
-- Script ensures正常流程 follows TDD
-- Guardrail prevents手动编辑 from breaking TDD
-
-### Constitution Article VI
-- **Defines**: TDD philosophy and mandates
-- **Enforcement**: planner agent (generation time) + devflow-tdd-enforcer (edit time)
-
-## Configuration
-
-In `.claude/skills/skill-rules.json`:
-
-```json
-{
-  "devflow-tdd-enforcer": {
-    "type": "guardrail",
-    "enforcement": "block",
-    "priority": "critical",
-    "description": "Enforces TDD order, extracted from planner agent rules",
-    "fileTriggers": {
-      "pathPatterns": ["devflow/requirements/**/TASKS.md"],
-      "contentPatterns": [
-        "\\[x\\].*Implementation.*\\n.*\\[ \\].*Test",
-        "\\[x\\].*\\[US\\d+\\].*Implement.*\\n.*\\[ \\].*\\[US\\d+\\].*Test"
-      ]
-    },
-    "blockMessage": "⚠️ BLOCKED - TDD Violation\n\nTasks must follow TDD order:\n1. [ ] Test (write failing test)\n2. [ ] Implementation (make test pass)\n\n📋 ACTION: Re-order TASKS.md\nSource: planner agent mandate + Constitution Article VI\n\n💡 SKIP: @skip-tdd-check or SKIP_TDD_ENFORCER=1",
-    "skipConditions": {
-      "sessionSkillUsed": true,
-      "fileMarkers": ["@skip-tdd-check"],
-      "envOverride": "SKIP_TDD_ENFORCER"
-    }
-  }
-}
-```
-
-## Design Principle
-
-**This guardrail does NOT contain**:
-- ❌ Complete TDD methodology (that's in planner agent)
-- ❌ Task generation logic (that's in planner agent)
-- ❌ Full Constitution Article VI (that's in project-constitution.md)
-
-**This guardrail ONLY contains**:
-- ✅ Prohibition rule extraction (from planner agent)
-- ✅ Real-time violation detection (content pattern matching)
-- ✅ Blocking mechanism (PreToolUse hook, exit code 2)
-- ✅ Links to source documentation
-
-**Rationale**: Avoid duplication ("不重不漏" principle). planner agent owns TDD generation logic, guardrail owns real-time enforcement.
+**[PROTOCOL]**: 变更时更新此头部，然后检查 CLAUDE.md

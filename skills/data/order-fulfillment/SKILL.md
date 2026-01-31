@@ -1,1802 +1,1164 @@
 ---
-name: Order Fulfillment Workflow
-description: Managing the complete order fulfillment process from picking and packing to shipping and returns processing, including warehouse management, 3PL integration, and fulfillment tracking.
+name: order-fulfillment
+description: When the user wants to design or optimize order fulfillment operations, improve pick-pack-ship processes, or reduce fulfillment costs. Also use when the user mentions "order processing," "pick-pack-ship," "picking strategy," "packing operations," "shipping optimization," "wave planning," "batch picking," or "fulfillment center operations." For warehouse layout, see warehouse-design. For routing pickers, see picker-routing-optimization.
 ---
 
-# Order Fulfillment Workflow
+# Order Fulfillment
 
-> **Current Level:** Intermediate  
-> **Domain:** E-commerce / Operations
+You are an expert in order fulfillment operations and optimization. Your goal is to help design efficient, accurate, and cost-effective fulfillment processes that meet customer service expectations while minimizing labor and operational costs.
 
----
+## Initial Assessment
 
-## Overview
+Before optimizing fulfillment, understand:
 
-Order fulfillment manages the complete process from picking and packing to shipping and returns processing. Effective fulfillment systems include warehouse management, batch processing, quality control, shipping label generation, and integration with 3PL providers.
+1. **Order Profile**
+   - Order volume? (orders/day, peak vs. average)
+   - Order characteristics? (lines/order, units/order)
+   - Order types? (B2B pallets, B2C eaches, mixed)
+   - SKU count and velocity distribution?
 
----
+2. **Service Requirements**
+   - Delivery speed? (same-day, next-day, 2-day, standard)
+   - Cutoff times for shipping?
+   - Order accuracy targets? (99.5%+)
+   - Special services? (gift wrap, kitting, customization)
 
-## Core Concepts
+3. **Current Operations**
+   - Current fulfillment process and flow?
+   - Pick accuracy and productivity rates?
+   - Technology in use? (WMS, automation, RF scanners)
+   - Pain points and bottlenecks?
 
-### Table of Contents
-
-1. [Fulfillment Workflow](#fulfillment-workflow)
-2. [Warehouse Management](#warehouse-management)
-3. [Pick, Pack, Ship Process](#pick-pack-ship-process)
-4. [Batch Processing](#batch-processing)
-5. [Packing Slips](#packing-slips)
-6. [Shipping Labels](#shipping-labels)
-7. [Quality Control](#quality-control)
-8. [Returns Processing](#returns-processing)
-9. [3PL Integration](#3pl-integration)
-10. [Fulfillment Tracking](#fulfillment-tracking)
-11. [SLA Management](#sla-management)
-12. [Analytics](#analytics)
-13. [Best Practices](#best-practices)
-
----
-
-## Fulfillment Workflow
-
-### Fulfillment States
-
-```typescript
-enum FulfillmentStatus {
-  PENDING = 'pending',
-  PICKING = 'picking',
-  PICKED = 'picked',
-  PACKING = 'packing',
-  PACKED = 'packed',
-  SHIPPED = 'shipped',
-  DELIVERED = 'delivered',
-  FAILED = 'failed',
-  CANCELLED = 'cancelled',
-}
-
-enum FulfillmentPriority {
-  URGENT = 'urgent',      // < 24 hours
-  HIGH = 'high',         // < 48 hours
-  NORMAL = 'normal',      // < 72 hours
-  LOW = 'low',           // < 5 days
-}
-```
-
-### Fulfillment Workflow
-
-```typescript
-class FulfillmentWorkflow {
-  constructor(private prisma: PrismaClient) {}
-
-  /**
-   * Start fulfillment
-   */
-  async startFulfillment(orderId: string): Promise<Fulfillment> {
-    const order = await this.prisma.order.findUnique({
-      where: { id: orderId },
-      include: {
-        items: {
-          include: {
-            product: true,
-            variant: true,
-          },
-        },
-        shippingAddress: true,
-      },
-    });
-
-    if (!order) {
-      throw new Error('Order not found');
-    }
-
-    if (order.status !== OrderStatus.PAID) {
-      throw new Error('Order must be paid before fulfillment');
-    }
-
-    // Create fulfillment
-    const fulfillment = await this.prisma.$transaction(async (tx) => {
-      const fulfillment = await tx.fulfillment.create({
-        data: {
-          orderId,
-          status: FulfillmentStatus.PENDING,
-          priority: this.calculatePriority(order),
-        },
-      });
-
-      // Create fulfillment items
-      for (const item of order.items) {
-        await tx.fulfillmentItem.create({
-          data: {
-            fulfillmentId: fulfillment.id,
-            orderItemId: item.id,
-            quantity: item.quantity,
-            status: 'pending',
-          },
-        });
-      }
-
-      // Update order status
-      await tx.order.update({
-        where: { id: orderId },
-        data: {
-          status: OrderStatus.PROCESSING,
-          fulfillmentStatus: FulfillmentStatus.PENDING,
-        },
-      });
-
-      return fulfillment;
-    });
-
-    return fulfillment;
-  }
-
-  /**
-   * Calculate priority
-   */
-  private calculatePriority(order: any): FulfillmentPriority {
-    // Check for urgent items
-    const hasUrgentItem = order.items.some((item: any) => {
-      const product = item.product;
-      return product?.isUrgent || false;
-    });
-
-    if (hasUrgentItem) {
-      return FulfillmentPriority.URGENT;
-    }
-
-    // Check for expedited shipping
-    if (order.shippingMethod === 'express') {
-      return FulfillmentPriority.HIGH;
-    }
-
-    // Check order age
-    const hoursSinceOrder = (Date.now() - order.createdAt.getTime()) / (1000 * 60 * 60);
-
-    if (hoursSinceOrder > 48) {
-      return FulfillmentPriority.URGENT;
-    }
-
-    if (hoursSinceOrder > 24) {
-      return FulfillmentPriority.HIGH;
-    }
-
-    return FulfillmentPriority.NORMAL;
-  }
-}
-```
+4. **Constraints**
+   - Labor availability and cost?
+   - Facility layout and space?
+   - Capital budget for improvements?
+   - IT systems and integration capabilities?
 
 ---
 
-## Warehouse Management
+## Order Fulfillment Framework
 
-### Warehouse Manager
+### Core Fulfillment Processes
 
-```typescript
-class WarehouseManager {
-  constructor(private prisma: PrismaClient) {}
+**1. Order Receipt & Validation**
+- Order intake from channels (web, EDI, phone)
+- Inventory availability check (ATP)
+- Credit/payment verification
+- Order prioritization and batching
 
-  /**
-   * Get warehouse layout
-   */
-  async getWarehouseLayout(warehouseId: string): Promise<WarehouseLayout> {
-    const warehouse = await this.prisma.warehouse.findUnique({
-      where: { id: warehouseId },
-      include: {
-        zones: {
-          include: {
-            bins: {
-              include: {
-                inventory: {
-                  include: {
-                    product: true,
-                    variant: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    });
+**2. Picking**
+- Retrieve items from storage locations
+- Verify SKU and quantity accuracy
+- Multiple strategies (discrete, batch, zone, wave)
 
-    if (!warehouse) {
-      throw new Error('Warehouse not found');
-    }
+**3. Packing**
+- Select appropriate packaging
+- Pack items securely
+- Insert documents (packing slip, returns)
+- Generate shipping label
+
+**4. Shipping**
+- Carrier selection and manifesting
+- Trailer loading and departure
+- Track and trace updates
+
+**5. Returns Processing**
+- Receive and inspect returns
+- Disposition (restock, liquidate, destroy)
+- Customer refund/exchange processing
+
+---
+
+## Picking Strategies
+
+### Strategy Comparison
+
+| Strategy | Orders/Hour | Labor Efficiency | Accuracy | Complexity | Best For |
+|----------|-------------|------------------|----------|------------|----------|
+| Discrete (Single Order) | 20-40 | Low | High | Low | Low volume, high value |
+| Batch Picking | 60-100 | Medium | Medium | Medium | Medium volume |
+| Zone Picking | 80-150 | High | Medium | High | High SKU count |
+| Wave Picking | 100-200+ | Very High | Medium | Very High | High volume |
+| Cluster Picking | 100-150 | High | High | Medium | Multi-order picking |
+
+### Discrete Order Picking
+
+**Description:**
+- Pick one order at a time
+- Complete each order before starting next
+- Simple, accurate, inefficient
+
+**When to Use:**
+- Low order volume (<500 orders/day)
+- High-value orders requiring accuracy
+- Complex orders with customization
+
+```python
+import numpy as np
+import pandas as pd
+
+def discrete_picking_capacity(orders_per_day, lines_per_order,
+                              pick_rate_per_hour=100,
+                              working_hours=8):
+    """
+    Calculate labor requirements for discrete picking
+
+    Parameters:
+    - orders_per_day: Daily order volume
+    - lines_per_order: Average lines per order
+    - pick_rate_per_hour: Picks per person per hour (includes travel)
+    - working_hours: Working hours per shift
+    """
+
+    picks_per_day = orders_per_day * lines_per_order
+
+    # Labor hours needed
+    labor_hours_needed = picks_per_day / pick_rate_per_hour
+
+    # Pickers needed
+    pickers_needed = labor_hours_needed / working_hours
+
+    # Orders per picker per day
+    orders_per_picker = orders_per_day / pickers_needed
 
     return {
-      id: warehouse.id,
-      name: warehouse.name,
-      address: warehouse.address,
-      zones: warehouse.zones.map(zone => ({
-        id: zone.id,
-        name: zone.name,
-        type: zone.type,
-        bins: zone.bins.map(bin => ({
-          id: bin.id,
-          name: bin.name,
-          location: bin.location,
-          capacity: bin.capacity,
-          inventory: bin.inventory,
-        })),
-      })),
-    };
-  }
-
-  /**
-   * Find item location
-   */
-  async findItemLocation(params: {
-    productId: string;
-    variantId?: string;
-    warehouseId: string;
-  }): Promise<BinLocation | null> {
-    const bin = await this.prisma.bin.findFirst({
-      where: {
-        warehouseId: params.warehouseId,
-        inventory: {
-          some: {
-            productId: params.productId,
-            variantId: params.variantId || null,
-            quantity: { gt: 0 },
-          },
-        },
-      },
-      include: {
-        inventory: {
-          include: {
-            product: true,
-            variant: true,
-          },
-        },
-      },
-    });
-
-    if (!bin) {
-      return null;
+        'picks_per_day': picks_per_day,
+        'labor_hours_needed': round(labor_hours_needed, 1),
+        'pickers_needed': round(pickers_needed, 1),
+        'orders_per_picker_per_day': round(orders_per_picker, 0),
+        'picks_per_picker_per_hour': pick_rate_per_hour
     }
 
-    return {
-      id: bin.id,
-      name: bin.name,
-      location: bin.location,
-      zoneId: bin.zoneId,
-    };
-  }
+# Example
+discrete = discrete_picking_capacity(
+    orders_per_day=500,
+    lines_per_order=5,
+    pick_rate_per_hour=100,
+    working_hours=8
+)
 
-  /**
-   * Optimize picking route
-   */
-  async optimizePickingRoute(fulfillmentId: string): Promise<PickingRoute> {
-    const fulfillment = await this.prisma.fulfillment.findUnique({
-      where: { id: fulfillmentId },
-      include: {
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
-        },
-      },
-    });
-
-    if (!fulfillment) {
-      throw new Error('Fulfillment not found');
-    }
-
-    // Get locations for all items
-    const locations: Array<{
-      binId: string;
-      binName: string;
-      location: string;
-      productId: string;
-      variantId?: string;
-      quantity: number;
-    }> = [];
-
-    for (const item of fulfillment.items) {
-      const location = await this.findItemLocation({
-        productId: item.orderItem.productId,
-        variantId: item.orderItem.variantId,
-        warehouseId: fulfillment.warehouseId,
-      });
-
-      if (location) {
-        locations.push({
-          binId: location.id,
-          binName: location.name,
-          location: location.location,
-          productId: item.orderItem.productId,
-          variantId: item.orderItem.variantId,
-          quantity: item.quantity,
-        });
-      }
-    }
-
-    // Sort by location (simple nearest neighbor)
-    const sorted = this.sortByLocation(locations);
-
-    return {
-      fulfillmentId,
-      items: sorted,
-      estimatedTime: this.estimatePickingTime(sorted),
-    };
-  }
-
-  /**
-   * Sort by location
-   */
-  private sortByLocation(locations: any[]): any[] {
-    // Simple sorting by zone and bin name
-    return locations.sort((a, b) => {
-      if (a.location !== b.location) {
-        return a.localeCompare(b.location);
-      }
-      return a.binName.localeCompare(b.binName);
-    });
-  }
-
-  /**
-   * Estimate picking time
-   */
-  private estimatePickingTime(locations: any[]): number {
-    // Estimate 30 seconds per item + 1 minute per zone change
-    let time = locations.length * 0.5; // 30 seconds per item
-
-    for (let i = 1; i < locations.length; i++) {
-      if (locations[i].location !== locations[i - 1].location) {
-        time += 1; // 1 minute per zone change
-      }
-    }
-
-    return time; // in minutes
-  }
-}
+print(f"Pickers needed: {discrete['pickers_needed']}")
+print(f"Orders per picker: {discrete['orders_per_picker_per_day']}")
 ```
 
----
+### Batch Picking
 
-## Pick, Pack, Ship Process
+**Description:**
+- Pick multiple orders simultaneously
+- Pick each SKU once for all orders in batch
+- Sort items to orders after picking
 
-### Pick Pack Ship Manager
+**Benefits:**
+- Reduce travel time (visit each location once)
+- 40-60% productivity improvement vs. discrete
 
-```typescript
-class PickPackShipManager {
-  constructor(private prisma: PrismaClient) {}
+**Implementation:**
 
-  /**
-   * Start picking
-   */
-  async startPicking(fulfillmentId: string): Promise<void> {
-    await this.prisma.fulfillment.update({
-      where: { id: fulfillmentId },
-      data: {
-        status: FulfillmentStatus.PICKING,
-        pickingStartedAt: new Date(),
-      },
-    });
-  }
+```python
+def batch_picking_optimization(orders_df, batch_size=10, sort_time_per_unit=3):
+    """
+    Optimize batch picking
 
-  /**
-   * Complete picking
-   */
-  async completePicking(params: {
-    fulfillmentId: string;
-    pickerId: string;
-    notes?: string;
-  }): Promise<void> {
-    await this.prisma.$transaction(async (tx) => {
-      // Update fulfillment
-      await tx.fulfillment.update({
-        where: { id: params.fulfillmentId },
-        data: {
-          status: FulfillmentStatus.PICKED,
-          pickingCompletedAt: new Date(),
-          pickerId: params.pickerId,
-          pickingNotes: params.notes,
-        },
-      });
+    Parameters:
+    - orders_df: DataFrame with columns ['order_id', 'sku', 'quantity', 'location']
+    - batch_size: Orders per batch
+    - sort_time_per_unit: Seconds to sort each unit to order
 
-      // Update fulfillment items
-      await tx.fulfillmentItem.updateMany({
-        where: {
-          fulfillmentId: params.fulfillmentId,
-          status: 'pending',
-        },
-        data: {
-          status: 'picked',
-          pickedAt: new Date(),
-          pickedBy: params.pickerId,
-        },
-      });
-    });
-  }
+    Returns:
+    - Batch assignments and performance metrics
+    """
 
-  /**
-   * Start packing
-   */
-  async startPacking(fulfillmentId: string): Promise<void> {
-    await this.prisma.fulfillment.update({
-      where: { id: fulfillmentId },
-      data: {
-        status: FulfillmentStatus.PACKING,
-        packingStartedAt: new Date(),
-      },
-    });
-  }
+    # Create batches
+    orders_df = orders_df.copy()
+    orders_df['batch'] = (orders_df.index // batch_size) + 1
 
-  /**
-   * Complete packing
-   */
-  async completePacking(params: {
-    fulfillmentId: string;
-    packerId: string;
-    packageType: string;
-    packageWeight: number;
-    packageDimensions: {
-      length: number;
-      width: number;
-      height: number;
-    };
-    trackingNumber?: string;
-    carrier?: string;
-    notes?: string;
-  }): Promise<void> {
-    await this.prisma.$transaction(async (tx) => {
-      // Update fulfillment
-      await tx.fulfillment.update({
-        where: { id: params.fulfillmentId },
-        data: {
-          status: FulfillmentStatus.PACKED,
-          packingCompletedAt: new Date(),
-          packerId: params.packerId,
-          packageType: params.packageType,
-          packageWeight: params.packageWeight,
-          packageDimensions: params.packageDimensions,
-          trackingNumber: params.trackingNumber,
-          carrier: params.carrier,
-          packingNotes: params.notes,
-        },
-      });
+    # Calculate picks per batch
+    batch_summary = orders_df.groupby('batch').agg({
+        'order_id': 'nunique',
+        'sku': 'count',
+        'quantity': 'sum',
+        'location': 'nunique'
+    }).rename(columns={
+        'order_id': 'orders',
+        'sku': 'pick_lines',
+        'location': 'unique_locations'
+    })
 
-      // Update order status
-      await tx.order.updateMany({
-        where: {
-          fulfillments: {
-            some: { id: params.fulfillmentId },
-          },
-        },
-        data: {
-          fulfillmentStatus: FulfillmentStatus.PACKED,
-        },
-      });
-    });
-  }
+    # Estimate time savings
+    # Discrete: visit each location for each order
+    # Batch: visit each location once per batch
 
-  /**
-   * Ship fulfillment
-   */
-  async shipFulfillment(fulfillmentId: string): Promise<void> {
-    const fulfillment = await this.prisma.fulfillment.findUnique({
-      where: { id: fulfillmentId },
-      include: { order: true },
-    });
+    discrete_picks = len(orders_df)
+    batch_picks = batch_summary['unique_locations'].sum()
 
-    if (!fulfillment) {
-      throw new Error('Fulfillment not found');
+    pick_reduction_pct = (discrete_picks - batch_picks) / discrete_picks
+
+    # Sort time required
+    total_units = batch_summary['quantity'].sum()
+    sort_time_hours = (total_units * sort_time_per_unit) / 3600
+
+    return {
+        'total_batches': len(batch_summary),
+        'avg_orders_per_batch': batch_summary['orders'].mean(),
+        'discrete_picks': discrete_picks,
+        'batch_picks': batch_picks,
+        'pick_reduction_%': round(pick_reduction_pct * 100, 1),
+        'sort_time_hours': round(sort_time_hours, 2),
+        'batch_summary': batch_summary
     }
 
-    if (!fulfillment.trackingNumber) {
-      throw new Error('Tracking number required for shipping');
-    }
+# Example
+orders_df = pd.DataFrame({
+    'order_id': [f'ORD_{i}' for i in range(1, 101)],
+    'sku': np.random.choice(['SKU_A', 'SKU_B', 'SKU_C', 'SKU_D'], 100),
+    'quantity': np.random.randint(1, 5, 100),
+    'location': np.random.choice(['A1', 'A2', 'B1', 'B2', 'C1'], 100)
+})
 
-    await this.prisma.$transaction(async (tx) => {
-      // Update fulfillment
-      await tx.fulfillment.update({
-        where: { id: fulfillmentId },
-        data: {
-          status: FulfillmentStatus.SHIPPED,
-          shippedAt: new Date(),
-        },
-      });
-
-      // Update order status
-      if (fulfillment.order) {
-        await tx.order.update({
-          where: { id: fulfillment.orderId },
-          data: {
-            status: OrderStatus.SHIPPED,
-            fulfillmentStatus: FulfillmentStatus.SHIPPED,
-            shippedAt: new Date(),
-          },
-        });
-      }
-
-      // Send shipping notification
-      await this.sendShippingNotification(fulfillment);
-    });
-  }
-
-  /**
-   * Send shipping notification
-   */
-  private async sendShippingNotification(fulfillment: any): Promise<void> {
-    const order = await this.prisma.order.findUnique({
-      where: { id: fulfillment.orderId },
-      include: { user: true },
-    });
-
-    if (!order) return;
-
-    await emailService.send({
-      to: order.customerEmail,
-      subject: `Your order has been shipped!`,
-      templateId: 'order-shipped',
-      dynamicTemplateData: {
-        orderNumber: order.orderNumber,
-        trackingNumber: fulfillment.trackingNumber,
-        carrier: fulfillment.carrier,
-        trackingUrl: this.getTrackingUrl(fulfillment.trackingNumber, fulfillment.carrier),
-      },
-    });
-  }
-
-  /**
-   * Get tracking URL
-   */
-  private getTrackingUrl(trackingNumber: string, carrier?: string): string {
-    const trackingUrls: Record<string, string> = {
-      'thailand_post': `https://track.thailandpost.co.th/?trackNumber=${trackingNumber}`,
-      'kerry_express': `https://th.kerryexpress.com/track/v2/?track=${trackingNumber}`,
-      'flash_express': `https://www.flashexpress.co.th/tracking/?id=${trackingNumber}`,
-      'j_t_express': `https://www.jtexpress.co.th/track/trace?billcode=${trackingNumber}`,
-      'dhl': `https://www.dhl.com/en-us/tracking.html?tracking-id=${trackingNumber}`,
-      'fedex': `https://www.fedex.com/apps/fedextrack/?tracknumbers=${trackingNumber}`,
-    };
-
-    return trackingUrls[carrier || ''] || '#';
-  }
-}
+batch_result = batch_picking_optimization(orders_df, batch_size=10)
+print(f"Pick reduction: {batch_result['pick_reduction_%']}%")
+print(f"Sort time required: {batch_result['sort_time_hours']} hours")
 ```
 
----
+### Zone Picking
 
-## Batch Processing
+**Description:**
+- Divide warehouse into zones
+- Each picker assigned to a zone
+- Orders pass through zones sequentially or consolidate at end
 
-### Batch Manager
+**Types:**
+- **Sequential zone picking**: Order travels zone to zone
+- **Batch zone picking**: Pick to totes, consolidate later
 
-```typescript
-class BatchManager {
-  constructor(private prisma: PrismaClient) {}
+**Benefits:**
+- Pickers become expert in their zone
+- Parallel processing (multiple orders picked simultaneously)
+- Reduces congestion
 
-  /**
-   * Create fulfillment batch
-   */
-  async createBatch(params: {
-    name: string;
-    fulfillmentIds: string[];
-    pickerId?: string;
-  }): Promise<FulfillmentBatch> {
-    return await this.prisma.$transaction(async (tx) => {
-      const batch = await tx.fulfillmentBatch.create({
-        data: {
-          name: params.name,
-          pickerId: params.pickerId,
-          status: 'pending',
-        },
-      });
+```python
+def zone_picking_design(warehouse_sq_ft, num_pickers, orders_per_day,
+                       lines_per_order, sku_distribution):
+    """
+    Design zone picking system
 
-      // Add fulfillments to batch
-      for (const fulfillmentId of params.fulfillmentIds) {
-        await tx.fulfillment.update({
-          where: { id: fulfillmentId },
-          data: { batchId: batch.id },
-        });
-      }
+    Parameters:
+    - warehouse_sq_ft: Total picking area
+    - num_pickers: Available pickers
+    - orders_per_day: Daily order volume
+    - lines_per_order: Average lines per order
+    - sku_distribution: Dict with zone: % of picks
+    """
 
-      return batch;
-    });
-  }
+    picks_per_day = orders_per_day * lines_per_order
 
-  /**
-   * Get optimal batch
-   */
-  async getOptimalBatch(params: {
-    warehouseId: string;
-    maxItems?: number;
-  }): Promise<FulfillmentBatch> {
-    // Get pending fulfillments
-    const fulfillments = await this.prisma.fulfillment.findMany({
-      where: {
-        status: FulfillmentStatus.PENDING,
-        warehouseId: params.warehouseId,
-        batchId: null,
-      },
-      include: {
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
-        },
-      },
-      orderBy: { priority: 'desc' },
-      take: params.maxItems || 50,
-    });
+    # Allocate zones based on pick volume
+    zone_allocation = {}
 
-    // Group by zone
-    const zoneGroups = this.groupByZone(fulfillments);
+    for zone, pct in sku_distribution.items():
+        picks_in_zone = picks_per_day * pct
+        pickers_needed = picks_in_zone / (100 * 8)  # 100 picks/hr, 8 hrs
 
-    // Find optimal batch (most items in fewest zones)
-    let optimalBatch: string[] = [];
-    let minZones = Infinity;
-
-    for (const [zone, items] of Object.entries(zoneGroups)) {
-      if (items.length < minZones) {
-        minZones = items.length;
-        optimalBatch = items.map(f => f.id);
-      }
-    }
-
-    // Create batch
-    return await this.createBatch({
-      name: `Batch ${Date.now()}`,
-      fulfillmentIds: optimalBatch,
-    });
-  }
-
-  /**
-   * Group by zone
-   */
-  private groupByZone(fulfillments: any[]): Record<string, any[]> {
-    const groups: Record<string, any[]> = {};
-
-    for (const fulfillment of fulfillments) {
-      for (const item of fulfillment.items) {
-        const location = await this.findItemLocation({
-          productId: item.orderItem.productId,
-          variantId: item.orderItem.variantId,
-          warehouseId: fulfillment.warehouseId,
-        });
-
-        if (location) {
-          const zone = location.location.split('-')[0];
-          if (!groups[zone]) {
-            groups[zone] = [];
-          }
-          if (!groups[zone].find((f: any) => f.id === fulfillment.id)) {
-            groups[zone].push(fulfillment);
-          }
+        zone_allocation[zone] = {
+            'pick_volume': round(picks_in_zone, 0),
+            'pickers_needed': round(pickers_needed, 1),
+            'sq_ft': round(warehouse_sq_ft * pct, 0)
         }
-      }
-    }
 
-    return groups;
-  }
+    return zone_allocation
 
-  /**
-   * Start batch picking
-   */
-  async startBatchPicking(batchId: string, pickerId: string): Promise<void> {
-    await this.prisma.fulfillmentBatch.update({
-      where: { id: batchId },
-      data: {
-        status: 'picking',
-        pickerId,
-        startedAt: new Date(),
-      },
-    });
-
-    // Start picking for all fulfillments in batch
-    const fulfillments = await this.prisma.fulfillment.findMany({
-      where: { batchId },
-    });
-
-    for (const fulfillment of fulfillments) {
-      await this.prisma.fulfillment.update({
-        where: { id: fulfillment.id },
-        data: {
-          status: FulfillmentStatus.PICKING,
-          pickingStartedAt: new Date(),
-        },
-      });
-    }
-  }
-
-  /**
-   * Complete batch picking
-   */
-  async completeBatchPicking(batchId: string): Promise<void> {
-    await this.prisma.$transaction(async (tx) => {
-      // Update batch
-      await tx.fulfillmentBatch.update({
-        where: { id: batchId },
-        data: {
-          status: 'picked',
-          completedAt: new Date(),
-        },
-      });
-
-      // Update all fulfillments in batch
-      await tx.fulfillment.updateMany({
-        where: { batchId },
-        data: {
-          status: FulfillmentStatus.PICKED,
-          pickingCompletedAt: new Date(),
-        },
-      });
-    });
-  }
-
-  /**
-   * Find item location
-   */
-  private async findItemLocation(params: {
-    productId: string;
-    variantId?: string;
-    warehouseId: string;
-  }): Promise<any> {
-    const bin = await this.prisma.bin.findFirst({
-      where: {
-        warehouseId: params.warehouseId,
-        inventory: {
-          some: {
-            productId: params.productId,
-            variantId: params.variantId || null,
-            quantity: { gt: 0 },
-          },
-        },
-      },
-    });
-
-    return bin;
-  }
+# Example
+sku_dist = {
+    'Zone_A_Fast': 0.40,  # 40% of picks
+    'Zone_B_Medium': 0.35,
+    'Zone_C_Slow': 0.25
 }
+
+zones = zone_picking_design(
+    warehouse_sq_ft=50000,
+    num_pickers=20,
+    orders_per_day=2000,
+    lines_per_order=5,
+    sku_distribution=sku_dist
+)
+
+print("Zone Allocation:")
+for zone, data in zones.items():
+    print(f"\n  {zone}:")
+    print(f"    Pick volume: {data['pick_volume']}")
+    print(f"    Pickers needed: {data['pickers_needed']}")
+    print(f"    Square footage: {data['sq_ft']}")
+```
+
+### Wave Picking
+
+**Description:**
+- Release groups of orders together as "waves"
+- Optimize wave composition for efficiency
+- Coordinate picking, packing, shipping
+
+**Wave Design Factors:**
+- Carrier schedule (UPS pickup at 5pm)
+- Order priority (SLA requirements)
+- Resource availability (pickers, packers)
+- Warehouse capacity (staging space)
+
+```python
+def wave_planning(orders_df, waves_per_day=4, target_wave_size=500):
+    """
+    Plan picking waves
+
+    Parameters:
+    - orders_df: DataFrame with ['order_id', 'priority', 'lines', 'carrier', 'cutoff_time']
+    - waves_per_day: Number of waves per day
+    - target_wave_size: Target orders per wave
+
+    Returns:
+    - Wave assignments
+    """
+
+    orders_df = orders_df.copy()
+
+    # Sort by priority and cutoff time
+    orders_df = orders_df.sort_values(['priority', 'cutoff_time'], ascending=[False, True])
+
+    # Assign to waves
+    orders_df['wave'] = (orders_df.index // target_wave_size) % waves_per_day + 1
+
+    # Wave summary
+    wave_summary = orders_df.groupby('wave').agg({
+        'order_id': 'count',
+        'lines': 'sum',
+        'cutoff_time': 'max'
+    }).rename(columns={
+        'order_id': 'orders',
+        'lines': 'total_picks'
+    })
+
+    # Estimate time required per wave
+    wave_summary['pick_hours'] = wave_summary['total_picks'] / 100  # 100 picks/hr
+    wave_summary['pickers_needed'] = np.ceil(wave_summary['pick_hours'] / 2)  # 2 hr wave
+
+    return orders_df[['order_id', 'wave', 'priority']], wave_summary
+
+# Example
+orders_data = pd.DataFrame({
+    'order_id': [f'ORD_{i}' for i in range(1, 2001)],
+    'priority': np.random.choice([1, 2, 3], 2000, p=[0.1, 0.3, 0.6]),
+    'lines': np.random.poisson(5, 2000),
+    'carrier': np.random.choice(['UPS', 'FedEx', 'USPS'], 2000),
+    'cutoff_time': np.random.choice(['12:00', '15:00', '17:00'], 2000)
+})
+
+wave_assignments, wave_summary = wave_planning(orders_data, waves_per_day=4)
+print("Wave Summary:")
+print(wave_summary)
+```
+
+### Cluster Picking
+
+**Description:**
+- Pick multiple orders to a multi-compartment cart
+- Each compartment represents an order
+- Pick all orders simultaneously
+
+**Benefits:**
+- High productivity (combine benefits of batch and discrete)
+- Maintain order integrity
+- Ideal for e-commerce (small orders, many SKUs)
+
+**Equipment:**
+- Pick carts with 4-12 totes/compartments
+- Voice or RF-directed picking
+
+---
+
+## Pick Path Optimization
+
+### Routing Strategies
+
+**1. S-Shape Routing**
+- Enter aisles with picks, skip empty aisles
+- Most common, simple to implement
+
+**2. Return Routing**
+- Enter and exit same end of aisle
+- Good for selective aisles with few picks
+
+**3. Midpoint Routing**
+- Enter nearest end of aisle
+- Most efficient for random pick locations
+
+**4. Largest Gap**
+- Skip largest gap between picks in aisle
+- Optimal for most scenarios
+
+```python
+def calculate_pick_path_distance(pick_locations, aisle_length_ft=100,
+                                aisle_width_ft=10, routing='s-shape'):
+    """
+    Calculate travel distance for pick path
+
+    Parameters:
+    - pick_locations: List of tuples [(aisle, position_pct), ...]
+    - aisle_length_ft: Length of aisle
+    - aisle_width_ft: Width between aisles
+    - routing: 's-shape', 'return', 'largest-gap'
+
+    Returns:
+    - Total travel distance
+    """
+
+    # Group picks by aisle
+    aisles_with_picks = {}
+    for aisle, position in pick_locations:
+        if aisle not in aisles_with_picks:
+            aisles_with_picks[aisle] = []
+        aisles_with_picks[aisle].append(position)
+
+    total_distance = 0
+
+    if routing == 's-shape':
+        # Traverse aisles with picks, skip empty
+        for aisle, positions in sorted(aisles_with_picks.items()):
+            # Full aisle length + cross-aisle
+            total_distance += aisle_length_ft + aisle_width_ft
+
+    elif routing == 'return':
+        # Enter and exit same end
+        for aisle, positions in aisles_with_picks.items():
+            max_position = max(positions)
+            # Go to furthest pick and return
+            total_distance += (max_position * aisle_length_ft * 2) + aisle_width_ft
+
+    elif routing == 'largest-gap':
+        # Optimal routing (simplified)
+        for aisle, positions in aisles_with_picks.items():
+            positions_sorted = sorted(positions)
+
+            # Find largest gap
+            gaps = [positions_sorted[i+1] - positions_sorted[i]
+                   for i in range(len(positions_sorted)-1)]
+
+            if gaps:
+                largest_gap = max(gaps)
+                # Distance = full aisle - largest gap
+                distance_in_aisle = aisle_length_ft * (1 - largest_gap)
+            else:
+                distance_in_aisle = positions_sorted[0] * aisle_length_ft
+
+            total_distance += distance_in_aisle + aisle_width_ft
+
+    return round(total_distance, 1)
+
+# Example pick path
+picks = [
+    (1, 0.2),   # Aisle 1, 20% down
+    (1, 0.8),   # Aisle 1, 80% down
+    (3, 0.5),   # Aisle 3, 50% down
+    (5, 0.3),   # Aisle 5, 30% down
+]
+
+for routing in ['s-shape', 'return', 'largest-gap']:
+    distance = calculate_pick_path_distance(picks, routing=routing)
+    print(f"{routing}: {distance} ft")
 ```
 
 ---
 
-## Packing Slips
+## Packing Operations
 
-### Packing Slip Generator
+### Packing Strategies
 
-```typescript
-class PackingSlipGenerator {
-  /**
-   * Generate packing slip
-   */
-  async generatePackingSlip(fulfillmentId: string): Promise<Buffer> {
-    const fulfillment = await this.prisma.fulfillment.findUnique({
-      where: { id: fulfillmentId },
-      include: {
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
-        },
-        order: {
-          include: {
-            user: true,
-            shippingAddress: true,
-            billingAddress: true,
-          },
-        },
-      },
-    });
+**1. Single-Pass Packing**
+- Pick directly into shipping box
+- Fastest, but requires known box size
+- Good for single-item orders
 
-    if (!fulfillment) {
-      throw new Error('Fulfillment not found');
-    }
+**2. Pack Station (Traditional)**
+- Central packing area
+- Pickers bring items to packers
+- Flexibility in box selection
 
-    // Generate HTML
-    const html = this.generateHTML(fulfillment);
+**3. In-Line Packing**
+- Pack as you pick
+- Requires pick-to-belt or cart system
 
-    // Convert to PDF
-    const pdf = await this.convertToPDF(html);
+**4. Automated Packing**
+- Auto-box selection and sealing
+- High throughput (500+ boxes/hour)
+- Capital intensive ($500K+)
 
-    return pdf;
-  }
+### Box Selection Optimization
 
-  /**
-   * Generate HTML
-   */
-  private generateHTML(fulfillment: any): string {
-    const order = fulfillment.order;
+```python
+def optimize_box_selection(order_items, box_inventory):
+    """
+    Select optimal box size for order
 
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Packing Slip - ${order.orderNumber}</title>
-        <style>
-          body { font-family: Arial, sans-serif; padding: 20px; }
-          .header { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
-          .section { margin-bottom: 20px; }
-          .item { padding: 10px 0; border-bottom: 1px solid #ccc; }
-          .total { font-weight: bold; font-size: 18px; margin-top: 20px; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h1>Packing Slip</h1>
-          <p>Order Number: ${order.orderNumber}</p>
-          <p>Date: ${new Date().toLocaleDateString()}</p>
-        </div>
+    Parameters:
+    - order_items: List of dicts [{'sku': 'A', 'qty': 2, 'dims': (10,8,4)}, ...]
+    - box_inventory: List of available boxes [{'box_id': 'Small', 'dims': (12,10,8), 'cost': 0.50}, ...]
 
-        <div class="section">
-          <h2>Shipping Address</h2>
-          <p>${order.shippingAddress.firstName} ${order.shippingAddress.lastName}</p>
-          <p>${order.shippingAddress.address1}</p>
-          ${order.shippingAddress.address2 ? `<p>${order.shippingAddress.address2}</p>` : ''}
-          <p>${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}</p>
-          <p>${order.shippingAddress.country}</p>
-          <p>Phone: ${order.shippingAddress.phone}</p>
-        </div>
+    Returns:
+    - Optimal box selection
+    """
 
-        <div class="section">
-          <h2>Items</h2>
-          ${fulfillment.items.map(item => `
-            <div class="item">
-              <p><strong>${item.orderItem.product.name}</strong></p>
-              ${item.orderItem.variant ? `<p>Variant: ${item.orderItem.variant.name}</p>` : ''}
-              <p>SKU: ${item.orderItem.product.sku}</p>
-              <p>Quantity: ${item.quantity}</p>
-            </div>
-          `).join('')}
-        </div>
+    # Calculate total volume needed
+    total_volume = sum(
+        item['qty'] * item['dims'][0] * item['dims'][1] * item['dims'][2]
+        for item in order_items
+    )
 
-        <div class="total">
-          <p>Total Items: ${fulfillment.items.reduce((sum: number, i: any) => sum + i.quantity, 0)}</p>
-        </div>
-      </body>
-      </html>
-    `;
-  }
+    # Find boxes that fit (with utilization target)
+    target_utilization = 0.80  # 80% full
+    required_volume = total_volume / target_utilization
 
-  /**
-   * Convert to PDF
-   */
-  private async convertToPDF(html: string): Promise<Buffer> {
-    // Implement PDF generation using puppeteer or similar
-    return Buffer.from(html);
-  }
-}
-```
+    suitable_boxes = [
+        box for box in box_inventory
+        if box['dims'][0] * box['dims'][1] * box['dims'][2] >= required_volume
+    ]
 
----
+    if not suitable_boxes:
+        return None
 
-## Shipping Labels
+    # Select smallest suitable box (minimize cost)
+    optimal_box = min(suitable_boxes,
+                     key=lambda b: b['dims'][0] * b['dims'][1] * b['dims'][2])
 
-### Label Generator
-
-```typescript
-class LabelGenerator {
-  /**
-   * Generate shipping label
-   */
-  async generateLabel(fulfillmentId: string): Promise<{
-    labelUrl: string;
-    trackingNumber: string;
-  }> {
-    const fulfillment = await this.prisma.fulfillment.findUnique({
-      where: { id: fulfillmentId },
-      include: {
-        order: {
-          include: {
-            shippingAddress: true,
-          },
-        },
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
-        },
-      },
-    });
-
-    if (!fulfillment) {
-      throw new Error('Fulfillment not found');
-    }
-
-    // Calculate package details
-    const { weight, dimensions } = this.calculatePackageDetails(fulfillment.items);
-
-    // Get warehouse address
-    const warehouse = await this.prisma.warehouse.findFirst({
-      where: { isDefault: true },
-    });
-
-    if (!warehouse) {
-      throw new Error('No default warehouse found');
-    }
-
-    // Generate label using carrier API
-    const labelGenerator = new ShippingLabelGenerator();
-    const label = await labelGenerator.generateLabel({
-      from: warehouse.address,
-      to: fulfillment.order.shippingAddress,
-      weight,
-      dimensions,
-      serviceType: fulfillment.order.shippingMethod,
-      referenceNumber: fulfillment.order.orderNumber,
-    });
-
-    // Update fulfillment
-    await this.prisma.fulfillment.update({
-      where: { id: fulfillmentId },
-      data: {
-        trackingNumber: label.trackingNumber,
-        labelUrl: label.labelUrl,
-        labelGeneratedAt: new Date(),
-      },
-    });
-
-    return label;
-  }
-
-  /**
-   * Calculate package details
-   */
-  private calculatePackageDetails(items: any[]): {
-    weight: number;
-    dimensions: {
-      length: number;
-      width: number;
-      height: number;
-    };
-  } {
-    let totalWeight = 0;
-    let maxLength = 0;
-    let maxWidth = 0;
-    let maxHeight = 0;
-
-    for (const item of items) {
-      const product = item.orderItem.product;
-      const variant = item.orderItem.variant;
-
-      const itemWeight = (variant?.weight || product?.weight || 0) * item.quantity;
-      const itemLength = variant?.length || product?.length || 0;
-      const itemWidth = variant?.width || product?.width || 0;
-      const itemHeight = variant?.height || product?.height || 0;
-
-      totalWeight += itemWeight;
-      maxLength = Math.max(maxLength, itemLength);
-      maxWidth = Math.max(maxWidth, itemWidth);
-      maxHeight = Math.max(maxHeight, itemHeight);
-    }
+    actual_volume = optimal_box['dims'][0] * optimal_box['dims'][1] * optimal_box['dims'][2]
+    utilization = total_volume / actual_volume
 
     return {
-      weight: totalWeight,
-      dimensions: {
-        length: maxLength,
-        width: maxWidth,
-        height: maxHeight,
-      },
-    };
-  }
-}
-```
-
----
-
-## Quality Control
-
-### QC Manager
-
-```typescript
-class QualityControlManager {
-  constructor(private prisma: PrismaClient) {}
-
-  /**
-   * Create QC check
-   */
-  async createQCCheck(params: {
-    fulfillmentId: string;
-    inspectorId: string;
-    items: Array<{
-      fulfillmentItemId: string;
-      passed: boolean;
-      notes?: string;
-    }>;
-    overallPassed: boolean;
-    notes?: string;
-  }): Promise<QualityCheck> {
-    return await this.prisma.$transaction(async (tx) => {
-      const qc = await tx.qualityCheck.create({
-        data: {
-          fulfillmentId: params.fulfillmentId,
-          inspectorId: params.inspectorId,
-          overallPassed: params.overallPassed,
-          notes: params.notes,
-          checkedAt: new Date(),
-        },
-      });
-
-      // Create QC items
-      for (const item of params.items) {
-        await tx.qualityCheckItem.create({
-          data: {
-            qualityCheckId: qc.id,
-            fulfillmentItemId: item.fulfillmentItemId,
-            passed: item.passed,
-            notes: item.notes,
-          },
-        });
-      }
-
-      // Update fulfillment if failed
-      if (!params.overallPassed) {
-        await tx.fulfillment.update({
-          where: { id: params.fulfillmentId },
-          data: {
-            status: FulfillmentStatus.FAILED,
-            failedAt: new Date(),
-            failureReason: 'Quality check failed',
-          },
-        });
-      }
-
-      return qc;
-    });
-  }
-
-  /**
-   * Get QC stats
-   */
-  async getQCStats(params: {
-    startDate: Date;
-    endDate: Date;
-    inspectorId?: string;
-  }): Promise<{
-    totalChecks: number;
-    passedChecks: number;
-    failedChecks: number;
-    passRate: number;
-  }> {
-    const where: any = {
-      checkedAt: {
-        gte: params.startDate,
-        lte: params.endDate,
-      },
-    };
-
-    if (params.inspectorId) {
-      where.inspectorId = params.inspectorId;
+        'box_id': optimal_box['box_id'],
+        'box_dims': optimal_box['dims'],
+        'box_cost': optimal_box['cost'],
+        'utilization_%': round(utilization * 100, 1)
     }
 
-    const checks = await this.prisma.qualityCheck.findMany({
-      where,
-    });
+# Example
+order = [
+    {'sku': 'A', 'qty': 1, 'dims': (10, 8, 4)},
+    {'sku': 'B', 'qty': 2, 'dims': (6, 6, 3)}
+]
 
-    const passed = checks.filter(c => c.overallPassed).length;
-    const failed = checks.length - passed;
+boxes = [
+    {'box_id': 'Small', 'dims': (12, 10, 8), 'cost': 0.50},
+    {'box_id': 'Medium', 'dims': (18, 14, 12), 'cost': 0.75},
+    {'box_id': 'Large', 'dims': (24, 18, 16), 'cost': 1.00}
+]
+
+result = optimize_box_selection(order, boxes)
+if result:
+    print(f"Optimal box: {result['box_id']}")
+    print(f"Utilization: {result['utilization_%']}%")
+    print(f"Cost: ${result['box_cost']}")
+```
+
+### Packing Labor Requirements
+
+```python
+def packing_labor_requirements(orders_per_day, packing_rate_per_hour=40,
+                               working_hours=8, multi_item_pct=0.60):
+    """
+    Calculate packing labor needs
+
+    Parameters:
+    - orders_per_day: Daily order volume
+    - packing_rate_per_hour: Orders packed per person per hour
+    - working_hours: Working hours per shift
+    - multi_item_pct: % of orders with multiple items (slower to pack)
+
+    Returns:
+    - Packing labor requirements
+    """
+
+    # Adjust rate for multi-item orders
+    multi_item_orders = orders_per_day * multi_item_pct
+    single_item_orders = orders_per_day * (1 - multi_item_pct)
+
+    # Multi-item takes ~1.5x longer
+    equivalent_orders = single_item_orders + (multi_item_orders * 1.5)
+
+    # Labor hours needed
+    labor_hours = equivalent_orders / packing_rate_per_hour
+
+    # Packers needed
+    packers_needed = labor_hours / working_hours
+
+    # Packing stations needed (assume 80% utilization)
+    stations_needed = packers_needed / 0.80
 
     return {
-      totalChecks: checks.length,
-      passedChecks: passed,
-      failedChecks: failed,
-      passRate: checks.length > 0 ? (passed / checks.length) * 100 : 0,
-    };
-  }
-}
+        'orders_per_day': orders_per_day,
+        'equivalent_orders': round(equivalent_orders, 0),
+        'labor_hours_needed': round(labor_hours, 1),
+        'packers_needed': round(packers_needed, 1),
+        'packing_stations_needed': int(np.ceil(stations_needed))
+    }
+
+# Example
+packing = packing_labor_requirements(
+    orders_per_day=2000,
+    packing_rate_per_hour=40,
+    working_hours=8,
+    multi_item_pct=0.60
+)
+
+print(f"Packers needed: {packing['packers_needed']}")
+print(f"Packing stations: {packing['packing_stations_needed']}")
 ```
 
 ---
 
-## Returns Processing
+## Shipping Operations
 
-### Returns Manager
+### Carrier Selection & Rate Shopping
 
-```typescript
-class ReturnsManager {
-  constructor(private prisma: PrismaClient) {}
+```python
+def carrier_rate_shopping(order_weight_lbs, order_dims, destination_zip,
+                         origin_zip, delivery_speed='ground'):
+    """
+    Compare carrier rates (simplified example)
 
-  /**
-   * Process return
-   */
-  async processReturn(returnId: string): Promise<void> {
-    const returnRecord = await this.prisma.return.findUnique({
-      where: { id: returnId },
-      include: {
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
+    In practice, integrate with carrier APIs:
+    - UPS API
+    - FedEx API
+    - USPS API
+    """
+
+    # Simplified rate tables (actual rates vary by contract, zone, etc.)
+    rates = {
+        'UPS': {
+            'ground': 8.50 + (order_weight_lbs * 0.50),
+            '2day': 15.00 + (order_weight_lbs * 0.75),
+            'overnight': 35.00 + (order_weight_lbs * 1.50)
         },
-      },
-    });
-
-    if (!returnRecord) {
-      throw new Error('Return not found');
+        'FedEx': {
+            'ground': 8.75 + (order_weight_lbs * 0.48),
+            '2day': 14.50 + (order_weight_lbs * 0.70),
+            'overnight': 32.00 + (order_weight_lbs * 1.40)
+        },
+        'USPS': {
+            'ground': 7.50 + (order_weight_lbs * 0.45),
+            '2day': 13.00 + (order_weight_lbs * 0.65),
+            'overnight': 30.00 + (order_weight_lbs * 1.30)
+        }
     }
 
-    await this.prisma.$transaction(async (tx) => {
-      // Update return status
-      await tx.return.update({
-        where: { id: returnId },
-        data: {
-          status: 'processing',
-          processedAt: new Date(),
-        },
-      });
+    # Calculate dimensional weight
+    dim_weight = (order_dims[0] * order_dims[1] * order_dims[2]) / 139
+    billable_weight = max(order_weight_lbs, dim_weight)
 
-      // Process each item
-      for (const item of returnRecord.items) {
-        // Restock inventory
-        await this.restockItem(tx, item);
+    carrier_quotes = {}
+    for carrier, speeds in rates.items():
+        if delivery_speed in speeds:
+            cost = speeds[delivery_speed]
+            # Adjust for dimensional weight
+            if billable_weight > order_weight_lbs:
+                cost += (billable_weight - order_weight_lbs) * 0.50
 
-        // Update return item status
-        await tx.returnItem.update({
-          where: { id: item.id },
-          data: {
-            status: 'processed',
-          },
-        });
-      }
+            carrier_quotes[carrier] = round(cost, 2)
 
-      // Update return status
-      await tx.return.update({
-        where: { id: returnId },
-        data: {
-          status: 'completed',
-        },
-      });
-    });
-  }
-
-  /**
-   * Restock item
-   */
-  private async restockItem(
-    tx: Prisma.TransactionClient,
-    returnItem: any
-  ): Promise<void> {
-    const inventory = await tx.inventory.findFirst({
-      where: {
-        productId: returnItem.orderItem.productId,
-        variantId: returnItem.orderItem.variantId || null,
-      },
-    });
-
-    if (inventory) {
-      await tx.inventory.update({
-        where: { id: inventory.id },
-        data: {
-          quantity: { increment: returnItem.quantity },
-        },
-      });
-    }
-  }
-}
-```
-
----
-
-## 3PL Integration
-
-### 3PL Manager
-
-```typescript
-class ThreePLManager {
-  constructor(private prisma: PrismaClient) {}
-
-  /**
-   * Sync order to 3PL
-   */
-  async syncOrder(orderId: string): Promise<void> {
-    const order = await this.prisma.order.findUnique({
-      where: { id: orderId },
-      include: {
-        items: {
-          include: {
-            product: true,
-            variant: true,
-          },
-        },
-        shippingAddress: true,
-      },
-    });
-
-    if (!order) {
-      throw new Error('Order not found');
-    }
-
-    // Send to 3PL
-    const threePLService = new ThreePLService();
-    const response = await threePLService.createOrder({
-      orderId: order.id,
-      orderNumber: order.orderNumber,
-      items: order.items.map(item => ({
-        productId: item.productId,
-        variantId: item.variantId,
-        sku: item.product.sku,
-        quantity: item.quantity,
-      })),
-      shippingAddress: order.shippingAddress,
-      shippingMethod: order.shippingMethod,
-    });
-
-    // Save 3PL reference
-    await this.prisma.order.update({
-      where: { id: orderId },
-      data: {
-        threePLReference: response.orderId,
-        threePLSyncedAt: new Date(),
-      },
-    });
-  }
-
-  /**
-   * Sync tracking from 3PL
-   */
-  async syncTracking(): Promise<void> {
-    const orders = await this.prisma.order.findMany({
-      where: {
-        threePLReference: { not: null },
-        status: OrderStatus.PROCESSING,
-      },
-    });
-
-    const threePLService = new ThreePLService();
-
-    for (const order of orders) {
-      const tracking = await threePLService.getTracking(order.threePLReference!);
-
-      if (tracking.shipped) {
-        await this.prisma.order.update({
-          where: { id: order.id },
-          data: {
-            status: OrderStatus.SHIPPED,
-            shippedAt: tracking.shippedAt,
-          },
-        });
-
-        // Create fulfillment
-        await this.prisma.fulfillment.create({
-          data: {
-            orderId: order.id,
-            status: FulfillmentStatus.SHIPPED,
-            trackingNumber: tracking.trackingNumber,
-            carrier: tracking.carrier,
-            shippedAt: tracking.shippedAt,
-          },
-        });
-      }
-    }
-  }
-}
-```
-
----
-
-## Fulfillment Tracking
-
-### Tracking Manager
-
-```typescript
-class FulfillmentTrackingManager {
-  constructor(private prisma: PrismaClient) {}
-
-  /**
-   * Get fulfillment status
-   */
-  async getFulfillmentStatus(fulfillmentId: string): Promise<{
-    fulfillment: Fulfillment;
-    trackingEvents: TrackingEvent[];
-  }> {
-    const fulfillment = await this.prisma.fulfillment.findUnique({
-      where: { id: fulfillmentId },
-      include: {
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
-        },
-        order: {
-          include: {
-            user: true,
-            shippingAddress: true,
-          },
-        },
-      },
-    });
-
-    if (!fulfillment) {
-      throw new Error('Fulfillment not found');
-    }
-
-    // Get tracking events from carrier
-    let trackingEvents: TrackingEvent[] = [];
-
-    if (fulfillment.trackingNumber) {
-      const trackingService = new TrackingService();
-      trackingEvents = await trackingService.getTrackingEvents(fulfillment.trackingNumber);
-    }
+    # Find cheapest
+    optimal_carrier = min(carrier_quotes, key=carrier_quotes.get)
 
     return {
-      fulfillment,
-      trackingEvents,
-    };
-  }
+        'carrier_quotes': carrier_quotes,
+        'optimal_carrier': optimal_carrier,
+        'optimal_cost': carrier_quotes[optimal_carrier],
+        'billable_weight': round(billable_weight, 1)
+    }
 
-  /**
-   * Get fulfillment history
-   */
-  async getFulfillmentHistory(orderId: string): Promise<Fulfillment[]> {
-    return await this.prisma.fulfillment.findMany({
-      where: { orderId },
-      include: {
-        items: {
-          include: {
-            orderItem: {
-              include: {
-                product: true,
-                variant: true,
-              },
-            },
-          },
-        },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-}
+# Example
+shipping = carrier_rate_shopping(
+    order_weight_lbs=5.0,
+    order_dims=(16, 12, 8),  # inches
+    destination_zip='90210',
+    origin_zip='10001',
+    delivery_speed='ground'
+)
+
+print("Carrier Quotes:")
+for carrier, cost in shipping['carrier_quotes'].items():
+    print(f"  {carrier}: ${cost}")
+print(f"\nOptimal: {shipping['optimal_carrier']} - ${shipping['optimal_cost']}")
+```
+
+### Manifest & Load Planning
+
+```python
+def manifest_optimization(orders_df, trailer_capacity=50000, carrier='UPS'):
+    """
+    Optimize order manifesting and trailer loading
+
+    Parameters:
+    - orders_df: DataFrame with ['order_id', 'weight', 'cube', 'carrier']
+    - trailer_capacity: Trailer capacity (lbs or cube)
+    - carrier: Filter orders by carrier
+    """
+
+    # Filter orders for carrier
+    carrier_orders = orders_df[orders_df['carrier'] == carrier].copy()
+
+    # Sort by weight (LIFO loading - heavy first)
+    carrier_orders = carrier_orders.sort_values('weight', ascending=False)
+
+    # Assign to trailers
+    trailers = []
+    current_trailer = {'orders': [], 'weight': 0, 'cube': 0}
+
+    for _, order in carrier_orders.iterrows():
+        # Check if fits in current trailer
+        if current_trailer['weight'] + order['weight'] <= trailer_capacity:
+            current_trailer['orders'].append(order['order_id'])
+            current_trailer['weight'] += order['weight']
+            current_trailer['cube'] += order['cube']
+        else:
+            # Start new trailer
+            trailers.append(current_trailer)
+            current_trailer = {
+                'orders': [order['order_id']],
+                'weight': order['weight'],
+                'cube': order['cube']
+            }
+
+    # Add last trailer
+    if current_trailer['orders']:
+        trailers.append(current_trailer)
+
+    # Summary
+    manifest_summary = {
+        'carrier': carrier,
+        'total_orders': len(carrier_orders),
+        'trailers_needed': len(trailers),
+        'avg_weight_per_trailer': round(np.mean([t['weight'] for t in trailers]), 0),
+        'avg_utilization_%': round(np.mean([t['weight']/trailer_capacity for t in trailers]) * 100, 1)
+    }
+
+    return trailers, manifest_summary
+
+# Example
+orders = pd.DataFrame({
+    'order_id': [f'ORD_{i}' for i in range(1, 501)],
+    'weight': np.random.uniform(10, 200, 500),
+    'cube': np.random.uniform(1, 20, 500),
+    'carrier': np.random.choice(['UPS', 'FedEx', 'USPS'], 500)
+})
+
+trailers, summary = manifest_optimization(orders, trailer_capacity=10000, carrier='UPS')
+print(f"Carrier: {summary['carrier']}")
+print(f"Trailers needed: {summary['trailers_needed']}")
+print(f"Average utilization: {summary['avg_utilization_%']}%")
 ```
 
 ---
 
-## SLA Management
+## Fulfillment Performance Metrics
 
-### SLA Manager
+### Key Performance Indicators (KPIs)
 
-```typescript
-class SLAManager {
-  constructor(private prisma: PrismaClient) {}
+```python
+def calculate_fulfillment_kpis(total_orders, orders_on_time, orders_accurate,
+                              total_units, labor_hours, total_cost):
+    """
+    Calculate fulfillment KPIs
 
-  /**
-   * Check SLA compliance
-   */
-  async checkSLACompliance(params: {
-    startDate: Date;
-    endDate: Date;
-  }): Promise<{
-    total: number;
-    onTime: number;
-    late: number;
-    complianceRate: number;
-    averageFulfillmentTime: number;
-  }> {
-    const fulfillments = await this.prisma.fulfillment.findMany({
-      where: {
-        createdAt: {
-          gte: params.startDate,
-          lte: params.endDate,
-        },
-        status: FulfillmentStatus.SHIPPED,
-      },
-    });
+    Parameters:
+    - total_orders: Orders processed
+    - orders_on_time: Orders shipped on time
+    - orders_accurate: Orders shipped accurately
+    - total_units: Total units shipped
+    - labor_hours: Total labor hours
+    - total_cost: Total fulfillment cost
+    """
 
-    let onTime = 0;
-    let late = 0;
-    let totalTime = 0;
+    # On-time delivery rate
+    on_time_rate = orders_on_time / total_orders
 
-    for (const fulfillment of fulfillments) {
-      const slaHours = this.getSLAHours(fulfillment.priority);
-      const fulfillmentHours = fulfillment.shippedAt
-        ? (fulfillment.shippedAt.getTime() - fulfillment.createdAt.getTime()) / (1000 * 60 * 60)
-        : 0;
+    # Order accuracy
+    accuracy_rate = orders_accurate / total_orders
 
-      totalTime += fulfillmentHours;
+    # Units per labor hour
+    units_per_hour = total_units / labor_hours
 
-      if (fulfillmentHours <= slaHours) {
-        onTime++;
-      } else {
-        late++;
-      }
+    # Orders per labor hour
+    orders_per_hour = total_orders / labor_hours
+
+    # Cost per order
+    cost_per_order = total_cost / total_orders
+
+    # Cost per unit
+    cost_per_unit = total_cost / total_units
+
+    kpis = {
+        'On_Time_Delivery_%': round(on_time_rate * 100, 2),
+        'Order_Accuracy_%': round(accuracy_rate * 100, 2),
+        'Units_per_Labor_Hour': round(units_per_hour, 1),
+        'Orders_per_Labor_Hour': round(orders_per_hour, 1),
+        'Cost_per_Order': round(cost_per_order, 2),
+        'Cost_per_Unit': round(cost_per_unit, 2)
     }
+
+    return kpis
+
+# Example
+kpis = calculate_fulfillment_kpis(
+    total_orders=10000,
+    orders_on_time=9700,
+    orders_accurate=9950,
+    total_units=50000,
+    labor_hours=1200,
+    total_cost=120000
+)
+
+print("Fulfillment KPIs:")
+for metric, value in kpis.items():
+    print(f"  {metric}: {value}")
+```
+
+### Benchmark Targets
+
+| Metric | Target | World-Class |
+|--------|--------|-------------|
+| Order Accuracy | 99%+ | 99.8%+ |
+| On-Time Shipment | 95%+ | 99%+ |
+| Units per Labor Hour | 100-150 | 200+ |
+| Pick Accuracy | 99.5%+ | 99.9%+ |
+| Cost per Order | $3-$8 | <$3 |
+| Orders per Labor Hour | 15-25 | 30+ |
+| Dock-to-Stock Time | <24 hrs | <4 hrs |
+
+---
+
+## Advanced Fulfillment Strategies
+
+### Multi-Channel Fulfillment
+
+**Strategies:**
+- **Dedicated inventory**: Separate stock for each channel
+- **Shared inventory**: Single pool, allocate dynamically
+- **Hybrid**: Fast movers shared, slow movers dedicated
+
+```python
+def multi_channel_inventory_allocation(total_inventory, channels):
+    """
+    Allocate inventory across channels
+
+    Parameters:
+    - total_inventory: Total available inventory
+    - channels: Dict with channel: {'demand_rate': X, 'priority': Y}
+
+    Returns:
+    - Inventory allocation by channel
+    """
+
+    # Calculate total demand
+    total_demand = sum(ch['demand_rate'] for ch in channels.values())
+
+    allocations = {}
+
+    for channel, data in channels.items():
+        # Proportional allocation based on demand
+        base_allocation = (data['demand_rate'] / total_demand) * total_inventory
+
+        # Adjust for priority (higher priority gets +10% buffer)
+        priority_factor = 1 + ((data['priority'] - 2) * 0.10)  # Priority 1-3
+        allocation = base_allocation * priority_factor
+
+        allocations[channel] = round(allocation, 0)
+
+    # Normalize to total inventory
+    adjustment_factor = total_inventory / sum(allocations.values())
+    allocations = {ch: round(qty * adjustment_factor, 0)
+                  for ch, qty in allocations.items()}
+
+    return allocations
+
+# Example
+channels = {
+    'Retail_Stores': {'demand_rate': 1000, 'priority': 1},
+    'Ecommerce': {'demand_rate': 800, 'priority': 2},
+    'Wholesale': {'demand_rate': 500, 'priority': 3}
+}
+
+allocation = multi_channel_inventory_allocation(10000, channels)
+print("Inventory Allocation:")
+for channel, qty in allocation.items():
+    print(f"  {channel}: {qty} units")
+```
+
+### Returns Processing
+
+**Reverse Logistics Process:**
+1. Customer initiates return
+2. Generate return label
+3. Receive at facility
+4. Inspect and grade condition
+5. Disposition (restock, liquidate, destroy)
+6. Process refund/exchange
+
+```python
+def returns_processing_analysis(returns_per_day, inspection_rate_per_hour=50,
+                               restock_pct=0.70, liquidate_pct=0.25,
+                               destroy_pct=0.05):
+    """
+    Analyze returns processing requirements
+
+    Parameters:
+    - returns_per_day: Daily return volume
+    - inspection_rate_per_hour: Returns inspected per person per hour
+    - restock_pct, liquidate_pct, destroy_pct: Disposition percentages
+    """
+
+    # Labor for inspection
+    labor_hours = returns_per_day / inspection_rate_per_hour
+
+    # Disposition volumes
+    restock_units = returns_per_day * restock_pct
+    liquidate_units = returns_per_day * liquidate_pct
+    destroy_units = returns_per_day * destroy_pct
+
+    # Financial impact (example)
+    # Assume average unit value $50
+    avg_unit_value = 50
+
+    # Restock: 90% recovery
+    # Liquidate: 20% recovery
+    # Destroy: 0% recovery
+
+    value_recovered = (restock_units * avg_unit_value * 0.90 +
+                      liquidate_units * avg_unit_value * 0.20)
+
+    value_lost = (restock_units * avg_unit_value * 0.10 +
+                 liquidate_units * avg_unit_value * 0.80 +
+                 destroy_units * avg_unit_value)
 
     return {
-      total: fulfillments.length,
-      onTime,
-      late,
-      complianceRate: fulfillments.length > 0 ? (onTime / fulfillments.length) * 100 : 0,
-      averageFulfillmentTime: fulfillments.length > 0 ? totalTime / fulfillments.length : 0,
-    };
-  }
-
-  /**
-   * Get SLA hours
-   */
-  private getSLAHours(priority: FulfillmentPriority): number {
-    switch (priority) {
-      case FulfillmentPriority.URGENT:
-        return 24;
-      case FulfillmentPriority.HIGH:
-        return 48;
-      case FulfillmentPriority.NORMAL:
-        return 72;
-      case FulfillmentPriority.LOW:
-        return 120;
-      default:
-        return 72;
-    }
-  }
-
-  /**
-   * Get SLA breaches
-   */
-  async getSLABreaches(params: {
-    startDate: Date;
-    endDate: Date;
-  }): Promise<Fulfillment[]> {
-    const fulfillments = await this.prisma.fulfillment.findMany({
-      where: {
-        createdAt: {
-          gte: params.startDate,
-          lte: params.endDate,
-        },
-        status: FulfillmentStatus.SHIPPED,
-      },
-    });
-
-    const breaches: Fulfillment[] = [];
-
-    for (const fulfillment of fulfillments) {
-      const slaHours = this.getSLAHours(fulfillment.priority);
-      const fulfillmentHours = fulfillment.shippedAt
-        ? (fulfillment.shippedAt.getTime() - fulfillment.createdAt.getTime()) / (1000 * 60 * 60)
-        : 0;
-
-      if (fulfillmentHours > slaHours) {
-        breaches.push(fulfillment);
-      }
+        'returns_per_day': returns_per_day,
+        'inspection_hours': round(labor_hours, 1),
+        'restock_units': round(restock_units, 0),
+        'liquidate_units': round(liquidate_units, 0),
+        'destroy_units': round(destroy_units, 0),
+        'value_recovered_daily': round(value_recovered, 0),
+        'value_lost_daily': round(value_lost, 0),
+        'recovery_rate_%': round((value_recovered / (value_recovered + value_lost)) * 100, 1)
     }
 
-    return breaches;
-  }
-}
+# Example
+returns = returns_processing_analysis(
+    returns_per_day=100,
+    inspection_rate_per_hour=50
+)
+
+print(f"Returns per day: {returns['returns_per_day']}")
+print(f"Inspection hours: {returns['inspection_hours']}")
+print(f"Restock: {returns['restock_units']} units")
+print(f"Value recovery rate: {returns['recovery_rate_%']}%")
 ```
 
 ---
 
-## Analytics
+## Tools & Libraries
 
-### Fulfillment Analytics
+### Warehouse Management Systems (WMS)
 
-```typescript
-class FulfillmentAnalytics {
-  constructor(private prisma: PrismaClient) {}
+**Enterprise WMS:**
+- **Manhattan Associates**: Tier 1 WMS, highly configurable
+- **Blue Yonder (JDA)**: Warehouse management suite
+- **SAP EWM**: Extended warehouse management
+- **Oracle WMS**: Cloud-based warehouse management
+- **Infor WMS**: Industry-specific solutions
 
-  /**
-   * Get fulfillment metrics
-   */
-  async getMetrics(params: {
-    startDate: Date;
-    endDate: Date;
-  }): Promise<{
-    totalFulfillments: number;
-    shipped: number;
-    pending: number;
-    averageFulfillmentTime: number;
-    averagePickingTime: number;
-    averagePackingTime: number;
-    topPickers: Array<{
-      pickerId: string;
-      pickerName: string;
-      fulfillments: number;
-      averageTime: number;
-    }>;
-  }> {
-    const fulfillments = await this.prisma.fulfillment.findMany({
-      where: {
-        createdAt: {
-          gte: params.startDate,
-          lte: params.endDate,
-        },
-      },
-      include: {
-        picker: true,
-      },
-    });
+**Mid-Market WMS:**
+- **HighJump (Korber)**: Flexible WMS
+- **NetSuite WMS**: Cloud ERP with WMS
+- **Fishbowl**: Small to mid-market
+- **3PL Central**: 3PL-focused WMS
 
-    const shipped = fulfillments.filter(f => f.status === FulfillmentStatus.SHIPPED).length;
-    const pending = fulfillments.filter(f => f.status === FulfillmentStatus.PENDING).length;
+**Open Source:**
+- **Odoo**: Open-source ERP with WMS modules
+- **iDempiere**: Open-source ERP/WMS
 
-    // Calculate average times
-    const shippedFulfillments = fulfillments.filter(f => f.status === FulfillmentStatus.SHIPPED);
+### Technology Stack
 
-    const averageFulfillmentTime = shippedFulfillments.length > 0
-      ? shippedFulfillments.reduce((sum, f) => {
-          return sum + (f.shippedAt!.getTime() - f.createdAt.getTime()) / (1000 * 60);
-        }, 0) / shippedFulfillments.length
-      : 0;
+**Hardware:**
+- RF scanners (Zebra, Honeywell)
+- Mobile computers
+- Voice picking systems (Vocollect, Honeywell)
+- Label printers (Zebra ZT series)
+- Automated sortation
+- Pick-to-light / put-to-light
 
-    const averagePickingTime = shippedFulfillments.length > 0
-      ? shippedFulfillments.reduce((sum, f) => {
-          return sum + (f.pickingCompletedAt!.getTime() - f.pickingStartedAt!.getTime()) / (1000 * 60);
-        }, 0) / shippedFulfillments.length
-      : 0;
-
-    const averagePackingTime = shippedFulfillments.length > 0
-      ? shippedFulfillments.reduce((sum, f) => {
-          return sum + (f.packingCompletedAt!.getTime() - f.packingStartedAt!.getTime()) / (1000 * 60);
-        }, 0) / shippedFulfillments.length
-      : 0;
-
-    // Top pickers
-    const pickerStats = new Map<string, { count: number; totalTime: number }>();
-
-    for (const fulfillment of shippedFulfillments) {
-      if (fulfillment.pickerId) {
-        const stats = pickerStats.get(fulfillment.pickerId) || { count: 0, totalTime: 0 };
-        stats.count++;
-        stats.totalTime += fulfillment.pickingCompletedAt!.getTime() - fulfillment.pickingStartedAt!.getTime();
-        pickerStats.set(fulfillment.pickerId, stats);
-      }
-    }
-
-    const topPickers = Array.from(pickerStats.entries())
-      .map(([pickerId, stats]) => ({
-        pickerId,
-        pickerName: fulfillments.find(f => f.pickerId === pickerId)?.picker?.name || 'Unknown',
-        fulfillments: stats.count,
-        averageTime: stats.totalTime / stats.count / (1000 * 60),
-      }))
-      .sort((a, b) => b.fulfillments - a.fulfillments)
-      .slice(0, 10);
-
-    return {
-      totalFulfillments: fulfillments.length,
-      shipped,
-      pending,
-      averageFulfillmentTime,
-      averagePickingTime,
-      averagePackingTime,
-      topPickers,
-    };
-  }
-}
-```
+**Software Integrations:**
+- OMS (Order Management System)
+- TMS (Transportation Management)
+- Carrier integrations (APIs)
+- E-commerce platforms (Shopify, Magento)
 
 ---
 
-## Best Practices
+## Common Challenges & Solutions
 
-### Fulfillment Best Practices
+### Challenge: Order Accuracy Issues
 
-```typescript
-// 1. Always validate before fulfillment
-async function validateBeforeFulfillment(orderId: string): Promise<boolean> {
-  const order = await prisma.order.findUnique({
-    where: { id: orderId },
-    include: { items: true },
-  });
+**Problem:**
+- Picking wrong items or quantities
+- Shipping incorrect orders
+- Customer complaints and returns
 
-  if (!order) {
-    throw new Error('Order not found');
-  }
+**Solutions:**
+- Implement barcode scanning verification
+- Use pick-to-light or voice picking
+- Require dual verification for high-value items
+- QA checkweigh at packing
+- Root cause analysis on errors
+- Picker training and accountability
 
-  // Check payment status
-  if (order.status !== OrderStatus.PAID) {
-    throw new Error('Order must be paid');
-  }
+### Challenge: Labor Productivity Variability
 
-  // Check inventory
-  for (const item of order.items) {
-    const stock = await getAvailableStock(item.productId, item.variantId);
-    if (stock < item.quantity) {
-      throw new Error('Insufficient stock');
-    }
-  }
+**Problem:**
+- Inconsistent picker rates
+- Some workers much slower than others
+- Difficult to staff appropriately
 
-  return true;
-}
+**Solutions:**
+- Implement labor management system (LMS)
+- Track individual productivity
+- Gamification and incentives
+- Standard work procedures
+- Ongoing training
+- Ergonomic improvements
 
-// 2. Use batch processing for efficiency
-async function processBatch(fulfillmentIds: string[]): Promise<void> {
-  const batchManager = new BatchManager(prisma);
+### Challenge: Peak Season Capacity
 
-  const batch = await batchManager.createBatch({
-    name: `Batch ${Date.now()}`,
-    fulfillmentIds,
-  });
+**Problem:**
+- 2-3x normal volume during holidays
+- Can't hire/train enough temporary workers
+- Space constraints
 
-  await batchManager.startBatchPicking(batch.id, 'picker-id');
-}
+**Solutions:**
+- Start hiring/training 2+ months early
+- Extended hours (add shifts)
+- Simplify processes for temps
+- Overflow to 3PL partners
+- Automation (scales better than labor)
+- Wave planning to spread work
 
-// 3. Implement proper QC checks
-async function performQCCheck(fulfillmentId: string): Promise<void> {
-  const qcManager = new QualityControlManager(prisma);
+### Challenge: Shipping Cost Escalation
 
-  const qc = await qcManager.createQCCheck({
-    fulfillmentId,
-    inspectorId: 'inspector-id',
-    items: [],
-    overallPassed: true,
-  });
+**Problem:**
+- Carrier rates increasing
+- Dimensional weight charges
+- Residential surcharges
 
-  if (!qc.overallPassed) {
-    // Handle failed QC
-    await handleFailedQC(fulfillmentId);
-  }
-}
+**Solutions:**
+- Rate shop across carriers
+- Negotiate better contracts (volume commitments)
+- Right-size packaging (avoid dim weight)
+- Zone skipping (bulk to local carrier facility)
+- Regional fulfillment centers (reduce zones)
+- Customer incentives for slower shipping
 
-// 4. Track fulfillment metrics
-async function trackFulfillmentMetrics(fulfillmentId: string): Promise<void> {
-  const fulfillment = await prisma.fulfillment.findUnique({
-    where: { id: fulfillmentId },
-  });
+### Challenge: Returns Volume
 
-  if (!fulfillment) return;
+**Problem:**
+- High return rates (especially apparel)
+- Processing costs add up
+- Inventory loss from damaged returns
 
-  const metrics = {
-    fulfillmentId,
-    pickingTime: fulfillment.pickingCompletedAt && fulfillment.pickingStartedAt
-      ? fulfillment.pickingCompletedAt.getTime() - fulfillment.pickingStartedAt.getTime()
-      : null,
-    packingTime: fulfillment.packingCompletedAt && fulfillment.packingStartedAt
-      ? fulfillment.packingCompletedAt.getTime() - fulfillment.packingStartedAt.getTime()
-      : null,
-    totalFulfillmentTime: fulfillment.shippedAt && fulfillment.createdAt
-      ? fulfillment.shippedAt.getTime() - fulfillment.createdAt.getTime()
-      : null,
-  };
-
-  // Send to analytics
-  await sendToAnalytics(metrics);
-}
-
-// 5. Implement proper error handling
-async function handleFulfillmentError(
-  fulfillmentId: string,
-  error: Error
-): Promise<void> {
-  await prisma.fulfillment.update({
-    where: { id: fulfillmentId },
-    data: {
-      status: FulfillmentStatus.FAILED,
-      failureReason: error.message,
-      failedAt: new Date(),
-    },
-  });
-
-  // Notify team
-  await notifyTeam({
-    type: 'fulfillment_error',
-    fulfillmentId,
-    error: error.message,
-  });
-}
-```
+**Solutions:**
+- Better product descriptions (reduce wrong item returns)
+- Free returns policy vs. cost trade-off
+- Efficient returns processing
+- Improve disposition logic (maximize restock %)
+- Returns analytics to identify root causes
+- Consider restocking fees for policy returns
 
 ---
 
----
+## Output Format
 
-## Quick Start
+### Fulfillment Operations Design Document
 
-### Fulfillment Workflow
+**Executive Summary:**
+- Order volume and profile
+- Recommended fulfillment strategy
+- Labor requirements and costs
+- Expected performance metrics
 
-```typescript
-interface Fulfillment {
-  id: string
-  orderId: string
-  status: 'pending' | 'picking' | 'packing' | 'shipped' | 'delivered'
-  warehouseId: string
-  trackingNumber?: string
-  shippedAt?: Date
-}
+**Order Profile:**
 
-async function processFulfillment(orderId: string) {
-  const order = await getOrder(orderId)
-  
-  // 1. Create fulfillment
-  const fulfillment = await db.fulfillments.create({
-    data: {
-      orderId,
-      status: 'pending',
-      warehouseId: selectWarehouse(order)
-    }
-  })
-  
-  // 2. Generate pick list
-  await generatePickList(fulfillment.id)
-  
-  // 3. Update status
-  await updateFulfillmentStatus(fulfillment.id, 'picking')
-}
-```
+| Metric | Value |
+|--------|-------|
+| Orders per Day (Avg) | 2,000 |
+| Orders per Day (Peak) | 5,000 |
+| Lines per Order | 5.2 |
+| Units per Order | 6.8 |
+| Order Types | 60% each, 30% case, 10% pallet |
 
----
+**Recommended Picking Strategy:**
+- **Fast movers (A items)**: Zone picking, dedicated forward pick area
+- **Medium movers (B items)**: Batch picking, 10 orders per batch
+- **Slow movers (C items)**: Discrete picking from reserve
 
-## Production Checklist
+**Labor Requirements:**
 
-- [ ] **Workflow**: Complete fulfillment workflow
-- [ ] **Warehouse Management**: Multi-warehouse support
-- [ ] **Pick List**: Generate pick lists
-- [ ] **Packing**: Packing slip generation
-- [ ] **Shipping Labels**: Shipping label generation
-- [ ] **Quality Control**: QC checkpoints
-- [ ] **Tracking**: Order tracking integration
-- [ ] **3PL Integration**: Third-party logistics integration
-- [ ] **SLA Management**: Fulfillment SLA tracking
-- [ ] **Returns**: Returns processing
-- [ ] **Analytics**: Fulfillment analytics
-- [ ] **Documentation**: Document fulfillment process
+| Function | Staff Needed | Hours per Day | Shifts |
+|----------|--------------|---------------|--------|
+| Picking | 15 | 120 | 2 shifts |
+| Packing | 10 | 80 | 2 shifts |
+| Shipping | 5 | 40 | 2 shifts |
+| Returns | 2 | 16 | 1 shift |
+| **Total** | **32** | **256** | - |
 
----
+**Technology Requirements:**
+- WMS with wave planning and task management
+- RF scanners for all pickers (20 units)
+- Pack stations with scales and label printers (12 stations)
+- Shipping manifesting software with carrier integrations
+- Pick-to-light for fast movers (optional, $200K)
 
-## Anti-patterns
+**Performance Targets:**
 
-### ❌ Don't: No Status Tracking
+| KPI | Target | Current (if optimizing) |
+|-----|--------|-------------------------|
+| Order Accuracy | 99.5% | 97.2% |
+| On-Time Shipment | 98% | 92% |
+| Cost per Order | $5.50 | $7.20 |
+| Units per Labor Hour | 150 | 110 |
 
-```typescript
-// ❌ Bad - No status tracking
-await shipOrder(orderId)
-// Status unknown!
-```
-
-```typescript
-// ✅ Good - Status tracking
-await updateFulfillmentStatus(fulfillmentId, 'shipped')
-await updateOrderStatus(orderId, 'shipped')
-await sendTrackingEmail(orderId)
-```
-
-### ❌ Don't: No Quality Control
-
-```markdown
-# ❌ Bad - Ship without QC
-Pick → Pack → Ship
-# No quality check!
-```
-
-```markdown
-# ✅ Good - QC checkpoints
-Pick → QC Check → Pack → QC Check → Ship
-```
+**Implementation Plan:**
+1. Months 1-2: WMS implementation and configuration
+2. Month 3: Slotting optimization and layout changes
+3. Month 4: Process rollout and training
+4. Month 5: Ramp-up and optimization
+5. Month 6: Full production, continuous improvement
 
 ---
 
-## Integration Points
+## Questions to Ask
 
-- **Order Management** (`30-ecommerce/order-management/`) - Order processing
-- **Inventory Management** (`30-ecommerce/inventory-management/`) - Stock management
-- **Shipping Integration** (`30-ecommerce/shipping-integration/`) - Shipping providers
+If you need more context:
+1. What's the order volume? (daily average and peak)
+2. What's the order profile? (lines/order, units/order, types)
+3. What's the SKU count and velocity distribution?
+4. What are the service requirements? (delivery speed, accuracy)
+5. What's the current fulfillment process and pain points?
+6. What technology is in place? (WMS, automation, RF scanning)
+7. What's the labor availability and cost in your market?
+8. What's the budget for improvements?
 
 ---
 
-## Further Reading
+## Related Skills
 
-- [Shopify Fulfillment](https://shopify.dev/api/admin-graphql/latest/objects/Fulfillment)
-- [WooCommerce Orders](https://woocommerce.github.io/woocommerce-rest-api-docs/#orders)
-- [Magento 2 Order Management](https://devdocs.magento.com/guides/v2.4/rest/bk-rest-api.html)
-
-## Resources
-- [BigCommerce Orders](https://developer.bigcommerce.com/api-reference/orders/orders-api)
+- **warehouse-design**: Design facility layout for fulfillment
+- **warehouse-slotting-optimization**: Optimize product placement
+- **picker-routing-optimization**: Optimize pick paths
+- **order-batching-optimization**: Batch order optimization
+- **wave-planning-optimization**: Wave release optimization
+- **ecommerce-fulfillment**: E-commerce specific strategies
+- **omnichannel-fulfillment**: Multi-channel fulfillment
+- **last-mile-delivery**: Final delivery optimization

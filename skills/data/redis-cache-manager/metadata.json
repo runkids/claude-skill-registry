@@ -1,9 +1,7 @@
 {
   "name": "redis-cache-manager",
-  "description": "Redis Cache Manager - Auto-activating skill for Backend Development.Triggers on: redis cache manager, redis cache managerPart of the Backend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/redis-cache-manager/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-31T03:32:42.806853Z"
 }

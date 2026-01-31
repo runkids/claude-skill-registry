@@ -1,7 +1,7 @@
 {
   "name": "slash-commands",
-  "repo": "carmandale/agent-config",
-  "path": "skills/cc3/slash-commands/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:43.595111Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/slash-commands/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-31T04:36:22.993109Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "interview",
-  "repo": "carmandale/agent-config",
-  "path": "skills/tools/interview/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:41.861058Z"
+  "repo": "robzolkos/zolkos-agent-skills",
+  "path": "skills/interview/SKILL.md",
+  "source": "github.com/robzolkos/zolkos-agent-skills",
+  "downloaded_at": "2026-01-31T04:13:18.237480Z"
 }

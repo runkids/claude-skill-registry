@@ -1,1788 +1,756 @@
 ---
-name: "Rails Localization (i18n) - English & Arabic"
-description: "Comprehensive internationalization skill for Ruby on Rails applications with proper English and Arabic translations, RTL support, pluralization rules, date/time formatting, and culturally appropriate content adaptation."
+name: Localization (l10n)
+description: Adapting internationalized applications to specific languages and regions, going beyond translation to include cultural, regional, and technical adaptations.
 ---
 
-# Rails Localization Skill (English & Arabic)
+# Localization (l10n)
 
-This skill provides comprehensive guidance for implementing internationalization (i18n) in Ruby on Rails applications with proper support for English and Arabic languages.
+> **Current Level:** Intermediate  
+> **Domain:** Internationalization / UX
 
-## Core Principles
+---
 
-### Arabic Localization is NOT Just Translation
+## Overview
 
-Arabic localization requires cultural and linguistic adaptation, not direct translation:
+Localization (l10n) is the process of adapting an internationalized application to specific languages and regions. It goes beyond translation to include cultural, regional, and technical adaptations like date formats, currency, timezones, and cultural preferences.
 
-1. **Right-to-Left (RTL) Layout**: Arabic reads right-to-left
-2. **Pluralization**: Arabic has 6 plural forms (zero, one, two, few, many, other)
-3. **Gender Agreement**: Arabic nouns and adjectives have grammatical gender
-4. **Number Formatting**: Arabic uses Eastern Arabic numerals (٠١٢٣٤٥٦٧٨٩) or Western (0123456789)
-5. **Date Formatting**: Hijri calendar support may be needed
-6. **Cultural Context**: Greetings, formality levels, and idioms differ significantly
+### l10n vs i18n
 
-## Project Setup
+| Aspect | i18n | l10n |
+|--------|-------|-------|
+| **Focus** | Making app translatable | Adapting to specific locale |
+| **When** | During development | After i18n is complete |
+| **Who** | Developers | Translators |
+| **Output** | Code with translation keys | Localized content |
 
-### 1. Configure Available Locales
+### Beyond Translation
 
-```ruby
-# config/application.rb
-module MyApp
-  class Application < Rails::Application
-    # Available locales
-    config.i18n.available_locales = [:en, :ar]
-    
-    # Default locale
-    config.i18n.default_locale = :en
-    
-    # Fallback chain
-    config.i18n.fallbacks = {
-      ar: [:ar, :en],
-      en: [:en]
-    }
-    
-    # Load all locale files including nested directories
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-  end
-end
+| Aspect | Description |
+|--------|-------------|
+| **Language** | Translate text content |
+
+---
+
+## Core Concepts
+| **Cultural** | Adapt to cultural norms |
+| **Regional** | Adapt to regional preferences |
+| **Technical** | Format dates, numbers, currencies |
+| **Visual** | Adapt images, colors, layouts |
+
+## Cultural Considerations
+
+### Colors
+
+| Color | Western Meaning | Eastern Meaning |
+|--------|-----------------|-----------------|
+| **White** | Purity, peace | Death, mourning (some Asian cultures) |
+| **Red** | Danger, love | Good fortune (China) |
+| **Green** | Nature, go | Islam (some cultures) |
+| **Yellow** | Happiness | Imperial (China) |
+
+### Images and Symbols
+
+| Element | Western | Eastern | Notes |
+|---------|---------|---------|-------|
+| **Hand gestures** | Thumbs up = good | Thumbs up = offensive (Middle East) |
+| **Animals** | Dogs = pets | Dogs = unclean (some cultures) |
+| **Food** | Beef = common | Beef = taboo (Hindu, Buddhist) |
+| **Clothing** | Casual wear | Modest dress (conservative cultures) |
+
+### Numbers and Numerology
+
+| Culture | Lucky Numbers | Unlucky Numbers |
+|----------|----------------|------------------|
+| **Chinese** | 8 (wealth), 9 (longevity) | 4 (death) |
+| **Japanese** | 7 (lucky) | 4 (death) |
+| **Western** | 7 (lucky) | 13 (unlucky) |
+
+### Names and Titles
+
+| Culture | Naming Convention |
+|----------|------------------|
+| **Western** | First name + Last name |
+| **East Asian** | Family name + Given name |
+| **Hispanic** | First name + Father's surname + Mother's surname |
+| **Arabic** | Personal name + Father's name + Grandfather's name |
+
+## Date and Time Formats
+
+### Date Formats
+
+| Locale | Format | Example |
+|--------|--------|---------|
+| **en-US** | MM/DD/YYYY | 01/15/2024 |
+| **en-GB** | DD/MM/YYYY | 15/01/2024 |
+| **th-TH** | DD/MM/YYYY | 15/01/2567 |
+| **ja-JP** | YYYY/MM/DD | 2024/01/15 |
+| **de-DE** | DD.MM.YYYY | 15.01.2024 |
+
+### Time Formats
+
+| Locale | Format | Example |
+|--------|--------|---------|
+| **en-US** | 12-hour AM/PM | 2:30 PM |
+| **en-GB** | 24-hour | 14:30 |
+| **th-TH** | 24-hour | 14:30 |
+| **ja-JP** | 12-hour | 午後2:30 |
+| **de-DE** | 24-hour | 14:30 |
+
+### Day and Month Names
+
+| Locale | Day Names | Month Names |
+|--------|-----------|-------------|
+| **en-US** | Monday, Tuesday, ... | January, February, ... |
+| **th-TH** | จันทร์, อังคาร, ... | มกราคม, กุมภาพันธุ, ... |
+| **ja-JP** | 月曜日, 火曜日, ... | 1月, 2月, ... |
+| **de-DE** | Montag, Dienstag, ... | Januar, Februar, ... |
+
+## Number Formats
+
+### Decimal Separators
+
+| Locale | Decimal Separator | Thousands Separator | Example |
+|--------|------------------|---------------------|---------|
+| **en-US** | . | , | 1,234.56 |
+| **de-DE** | , | . | 1,234.56 |
+| **th-TH** | . | , | 1,234.56 |
+| **ja-JP** | . | , | 1,234.56 |
+
+### Currency Formats
+
+| Locale | Symbol Position | Decimal Places | Example |
+|--------|---------------|----------------|---------|
+| **en-US** | Prefix | 2 | $1,234.56 |
+| **de-DE** | Suffix | 2 | 1,234.56 € |
+| **th-TH** | Prefix | 2 | ฿1,234.56 |
+| **JPY** | Prefix | 0 | ¥1,235 |
+
+## Currency Display
+
+### Currency Symbols
+
+| Currency | Symbol | Position | Example |
+|----------|--------|-----------|---------|
+| **USD** | $ | Prefix | $100.00 |
+| **EUR** | € | Suffix | 100,00 € |
+| **GBP** | £ | Prefix | £100.00 |
+| **JPY** | ¥ | Prefix | ¥100 |
+| **THB** | ฿ | Prefix | ฿100.00 |
+
+### Currency Formatting
+
+```javascript
+function formatCurrency(amount, currency, locale) {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency
+    }).format(amount);
+}
+
+// Examples
+formatCurrency(100, 'USD', 'en-US'); // $100.00
+formatCurrency(100, 'EUR', 'de-DE'); // 100,00 €
+formatCurrency(100, 'THB', 'th-TH'); // ฿100.00
 ```
 
-### 2. Locale File Structure
+## Address Formats
+
+### Address Components
+
+| Component | US | UK | Japan | Thailand |
+|-----------|-----|-----|--------|----------|
+| **Line 1** | Name | Name | Postal code | Name |
+| **Line 2** | Street | Street | Prefecture | Address |
+| **Line 3** | City, State | City, Postcode | Sub-district, District |
+| **Line 4** | ZIP Code | Postcode | Country | Province, Postal code |
+
+### Address Examples
 
 ```
-config/
-└── locales/
-    ├── en/
-    │   ├── activerecord.en.yml
-    │   ├── controllers.en.yml
-    │   ├── mailers.en.yml
-    │   ├── models.en.yml
-    │   └── views.en.yml
-    ├── ar/
-    │   ├── activerecord.ar.yml
-    │   ├── controllers.ar.yml
-    │   ├── mailers.ar.yml
-    │   ├── models.ar.yml
-    │   └── views.ar.yml
-    ├── defaults/
-    │   ├── en.yml      # Rails defaults, pagination, etc.
-    │   └── ar.yml
-    └── shared/
-        ├── errors.en.yml
-        ├── errors.ar.yml
-        ├── flash.en.yml
-        └── flash.ar.yml
+US:
+John Doe
+123 Main Street
+New York, NY 10001
+USA
+
+UK:
+John Doe
+123 Main Street
+London
+SW1A 1AA
+United Kingdom
+
+Japan:
+山田 太郎
+〒100-0001
+東京都渋谷区
+日本
+
+Thailand:
+สมชช ใจร์
+123 ถนนเจริญ แขวน
+แขวงหลัก 10101
+กรุงเทพฯ 10100
+ประเทศไทย
 ```
 
-### 3. Application Controller Setup
-
-```ruby
-# app/controllers/application_controller.rb
-class ApplicationController < ActionController::Base
-  around_action :switch_locale
-
-  private
-
-  def switch_locale(&action)
-    locale = extract_locale || I18n.default_locale
-    I18n.with_locale(locale, &action)
-  end
-
-  def extract_locale
-    # Priority: URL param > User preference > Cookie > Accept-Language header
-    extract_locale_from_param ||
-      extract_locale_from_user ||
-      extract_locale_from_cookie ||
-      extract_locale_from_header
-  end
-
-  def extract_locale_from_param
-    parsed_locale = params[:locale]
-    I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
-  end
-
-  def extract_locale_from_user
-    current_user&.preferred_locale if user_signed_in?
-  end
-
-  def extract_locale_from_cookie
-    cookies[:locale] if I18n.available_locales.map(&:to_s).include?(cookies[:locale])
-  end
-
-  def extract_locale_from_header
-    request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/^[a-z]{2}/)&.first&.then do |locale|
-      I18n.available_locales.map(&:to_s).include?(locale) ? locale : nil
-    end
-  end
-
-  def default_url_options
-    { locale: I18n.locale }
-  end
-end
-```
-
-### 4. Route Configuration
-
-```ruby
-# config/routes.rb
-Rails.application.routes.draw do
-  # Locale-scoped routes
-  scope "(:locale)", locale: /en|ar/ do
-    resources :users
-    resources :transactions
-    resources :accounts
-    
-    root "home#index"
-  end
-  
-  # API routes (typically not localized in URL)
-  namespace :api do
-    namespace :v1 do
-      resources :users
-    end
-  end
-  
-  # Locale switcher
-  get "locale/:locale", to: "locales#switch", as: :switch_locale
-end
-```
-
-```ruby
-# app/controllers/locales_controller.rb
-class LocalesController < ApplicationController
-  def switch
-    locale = params[:locale]
-    
-    if I18n.available_locales.map(&:to_s).include?(locale)
-      cookies[:locale] = { value: locale, expires: 1.year.from_now }
-      current_user&.update(preferred_locale: locale) if user_signed_in?
-    end
-    
-    redirect_back(fallback_location: root_path(locale: locale))
-  end
-end
-```
-
-## Locale Files
-
-### Base English Locale
-
-```yaml
-# config/locales/defaults/en.yml
-en:
-  # Direction and language metadata
-  direction: ltr
-  language_name: "English"
-  language_name_native: "English"
-  
-  # Date and time formats
-  date:
-    formats:
-      default: "%Y-%m-%d"
-      short: "%b %d"
-      long: "%B %d, %Y"
-      month_year: "%B %Y"
-      day_month: "%d %B"
-    day_names:
-      - Sunday
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
-    abbr_day_names:
-      - Sun
-      - Mon
-      - Tue
-      - Wed
-      - Thu
-      - Fri
-      - Sat
-    month_names:
-      - ~
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - October
-      - November
-      - December
-    abbr_month_names:
-      - ~
-      - Jan
-      - Feb
-      - Mar
-      - Apr
-      - May
-      - Jun
-      - Jul
-      - Aug
-      - Sep
-      - Oct
-      - Nov
-      - Dec
-    order:
-      - :year
-      - :month
-      - :day
-
-  time:
-    formats:
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      short: "%d %b %H:%M"
-      long: "%B %d, %Y %H:%M"
-      time_only: "%H:%M"
-      time_with_zone: "%H:%M %Z"
-    am: "AM"
-    pm: "PM"
-
-  # Number formats
-  number:
-    format:
-      separator: "."
-      delimiter: ","
-      precision: 2
-      significant: false
-      strip_insignificant_zeros: false
-    currency:
-      format:
-        format: "%u%n"
-        unit: "$"
-        separator: "."
-        delimiter: ","
-        precision: 2
-        significant: false
-        strip_insignificant_zeros: false
-    percentage:
-      format:
-        delimiter: ""
-        format: "%n%"
-    precision:
-      format:
-        delimiter: ""
-    human:
-      format:
-        delimiter: ""
-        precision: 3
-        significant: true
-        strip_insignificant_zeros: true
-      storage_units:
-        format: "%n %u"
-        units:
-          byte:
-            one: "Byte"
-            other: "Bytes"
-          kb: "KB"
-          mb: "MB"
-          gb: "GB"
-          tb: "TB"
-          pb: "PB"
-      decimal_units:
-        format: "%n %u"
-        units:
-          unit: ""
-          thousand: "Thousand"
-          million: "Million"
-          billion: "Billion"
-          trillion: "Trillion"
-          quadrillion: "Quadrillion"
-
-  # Distance of time in words
-  datetime:
-    distance_in_words:
-      half_a_minute: "half a minute"
-      less_than_x_seconds:
-        one: "less than 1 second"
-        other: "less than %{count} seconds"
-      x_seconds:
-        one: "1 second"
-        other: "%{count} seconds"
-      less_than_x_minutes:
-        one: "less than a minute"
-        other: "less than %{count} minutes"
-      x_minutes:
-        one: "1 minute"
-        other: "%{count} minutes"
-      about_x_hours:
-        one: "about 1 hour"
-        other: "about %{count} hours"
-      x_days:
-        one: "1 day"
-        other: "%{count} days"
-      about_x_months:
-        one: "about 1 month"
-        other: "about %{count} months"
-      x_months:
-        one: "1 month"
-        other: "%{count} months"
-      about_x_years:
-        one: "about 1 year"
-        other: "about %{count} years"
-      over_x_years:
-        one: "over 1 year"
-        other: "over %{count} years"
-      almost_x_years:
-        one: "almost 1 year"
-        other: "almost %{count} years"
-    prompts:
-      year: "Year"
-      month: "Month"
-      day: "Day"
-      hour: "Hour"
-      minute: "Minute"
-      second: "Second"
-
-  # Support
-  support:
-    array:
-      words_connector: ", "
-      two_words_connector: " and "
-      last_word_connector: ", and "
-
-  # Common UI elements
-  common:
-    actions:
-      save: "Save"
-      cancel: "Cancel"
-      delete: "Delete"
-      edit: "Edit"
-      create: "Create"
-      update: "Update"
-      back: "Back"
-      next: "Next"
-      previous: "Previous"
-      submit: "Submit"
-      confirm: "Confirm"
-      close: "Close"
-      search: "Search"
-      filter: "Filter"
-      clear: "Clear"
-      reset: "Reset"
-      download: "Download"
-      upload: "Upload"
-      export: "Export"
-      import: "Import"
-      print: "Print"
-      refresh: "Refresh"
-      view: "View"
-      view_all: "View All"
-      show_more: "Show More"
-      show_less: "Show Less"
-      loading: "Loading..."
-      processing: "Processing..."
-    
-    confirmations:
-      delete: "Are you sure you want to delete this?"
-      unsaved_changes: "You have unsaved changes. Are you sure you want to leave?"
-      action_irreversible: "This action cannot be undone."
-    
-    status:
-      active: "Active"
-      inactive: "Inactive"
-      pending: "Pending"
-      approved: "Approved"
-      rejected: "Rejected"
-      completed: "Completed"
-      cancelled: "Cancelled"
-      draft: "Draft"
-      published: "Published"
-      archived: "Archived"
-    
-    labels:
-      yes: "Yes"
-      no: "No"
-      all: "All"
-      none: "None"
-      select: "Select"
-      select_option: "Select an option"
-      optional: "Optional"
-      required: "Required"
-      not_available: "N/A"
-      unknown: "Unknown"
-      other: "Other"
-    
-    messages:
-      no_results: "No results found"
-      no_data: "No data available"
-      error_occurred: "An error occurred"
-      try_again: "Please try again"
-      success: "Success"
-      saved_successfully: "Saved successfully"
-      deleted_successfully: "Deleted successfully"
-      updated_successfully: "Updated successfully"
-      created_successfully: "Created successfully"
-    
-    pagination:
-      first: "First"
-      last: "Last"
-      previous: "Previous"
-      next: "Next"
-      showing: "Showing %{from} to %{to} of %{total} entries"
-      per_page: "per page"
-
-  # Greetings (time-based)
-  greetings:
-    morning: "Good morning"
-    afternoon: "Good afternoon"
-    evening: "Good evening"
-    welcome: "Welcome"
-    welcome_back: "Welcome back"
-    hello: "Hello"
-    goodbye: "Goodbye"
-    thank_you: "Thank you"
-```
-
-### Base Arabic Locale
-
-```yaml
-# config/locales/defaults/ar.yml
-ar:
-  # Direction and language metadata
-  direction: rtl
-  language_name: "Arabic"
-  language_name_native: "العربية"
-  
-  # Date and time formats
-  date:
-    formats:
-      default: "%Y-%m-%d"
-      short: "%d %b"
-      long: "%d %B، %Y"
-      month_year: "%B %Y"
-      day_month: "%d %B"
-    day_names:
-      - الأحد
-      - الاثنين
-      - الثلاثاء
-      - الأربعاء
-      - الخميس
-      - الجمعة
-      - السبت
-    abbr_day_names:
-      - أحد
-      - اثنين
-      - ثلاثاء
-      - أربعاء
-      - خميس
-      - جمعة
-      - سبت
-    month_names:
-      - ~
-      - يناير
-      - فبراير
-      - مارس
-      - أبريل
-      - مايو
-      - يونيو
-      - يوليو
-      - أغسطس
-      - سبتمبر
-      - أكتوبر
-      - نوفمبر
-      - ديسمبر
-    abbr_month_names:
-      - ~
-      - يناير
-      - فبراير
-      - مارس
-      - أبريل
-      - مايو
-      - يونيو
-      - يوليو
-      - أغسطس
-      - سبتمبر
-      - أكتوبر
-      - نوفمبر
-      - ديسمبر
-    order:
-      - :day
-      - :month
-      - :year
-
-  time:
-    formats:
-      default: "%a، %d %b %Y %H:%M:%S %z"
-      short: "%d %b %H:%M"
-      long: "%d %B، %Y %H:%M"
-      time_only: "%H:%M"
-      time_with_zone: "%H:%M %Z"
-    am: "ص"
-    pm: "م"
-
-  # Number formats (using Western Arabic numerals - common in business)
-  # For Eastern Arabic numerals, see the helper section
-  number:
-    format:
-      separator: "٫"
-      delimiter: "٬"
-      precision: 2
-      significant: false
-      strip_insignificant_zeros: false
-    currency:
-      format:
-        format: "%n %u"
-        unit: "ر.س"
-        separator: "٫"
-        delimiter: "٬"
-        precision: 2
-        significant: false
-        strip_insignificant_zeros: false
-    percentage:
-      format:
-        delimiter: ""
-        format: "%%n"
-    precision:
-      format:
-        delimiter: ""
-    human:
-      format:
-        delimiter: ""
-        precision: 3
-        significant: true
-        strip_insignificant_zeros: true
-      storage_units:
-        format: "%n %u"
-        units:
-          byte:
-            zero: "بايت"
-            one: "بايت"
-            two: "بايت"
-            few: "بايت"
-            many: "بايت"
-            other: "بايت"
-          kb: "ك.ب"
-          mb: "م.ب"
-          gb: "ج.ب"
-          tb: "ت.ب"
-          pb: "ب.ب"
-      decimal_units:
-        format: "%n %u"
-        units:
-          unit: ""
-          thousand: "ألف"
-          million: "مليون"
-          billion: "مليار"
-          trillion: "تريليون"
-          quadrillion: "كوادريليون"
-
-  # Distance of time in words (with Arabic pluralization)
-  datetime:
-    distance_in_words:
-      half_a_minute: "نصف دقيقة"
-      less_than_x_seconds:
-        zero: "أقل من ثانية"
-        one: "أقل من ثانية واحدة"
-        two: "أقل من ثانيتين"
-        few: "أقل من %{count} ثوانٍ"
-        many: "أقل من %{count} ثانية"
-        other: "أقل من %{count} ثانية"
-      x_seconds:
-        zero: "صفر ثوانٍ"
-        one: "ثانية واحدة"
-        two: "ثانيتان"
-        few: "%{count} ثوانٍ"
-        many: "%{count} ثانية"
-        other: "%{count} ثانية"
-      less_than_x_minutes:
-        zero: "أقل من دقيقة"
-        one: "أقل من دقيقة واحدة"
-        two: "أقل من دقيقتين"
-        few: "أقل من %{count} دقائق"
-        many: "أقل من %{count} دقيقة"
-        other: "أقل من %{count} دقيقة"
-      x_minutes:
-        zero: "صفر دقائق"
-        one: "دقيقة واحدة"
-        two: "دقيقتان"
-        few: "%{count} دقائق"
-        many: "%{count} دقيقة"
-        other: "%{count} دقيقة"
-      about_x_hours:
-        zero: "أقل من ساعة"
-        one: "حوالي ساعة واحدة"
-        two: "حوالي ساعتين"
-        few: "حوالي %{count} ساعات"
-        many: "حوالي %{count} ساعة"
-        other: "حوالي %{count} ساعة"
-      x_days:
-        zero: "صفر أيام"
-        one: "يوم واحد"
-        two: "يومان"
-        few: "%{count} أيام"
-        many: "%{count} يومًا"
-        other: "%{count} يوم"
-      about_x_months:
-        zero: "أقل من شهر"
-        one: "حوالي شهر واحد"
-        two: "حوالي شهرين"
-        few: "حوالي %{count} أشهر"
-        many: "حوالي %{count} شهرًا"
-        other: "حوالي %{count} شهر"
-      x_months:
-        zero: "صفر أشهر"
-        one: "شهر واحد"
-        two: "شهران"
-        few: "%{count} أشهر"
-        many: "%{count} شهرًا"
-        other: "%{count} شهر"
-      about_x_years:
-        zero: "أقل من سنة"
-        one: "حوالي سنة واحدة"
-        two: "حوالي سنتين"
-        few: "حوالي %{count} سنوات"
-        many: "حوالي %{count} سنة"
-        other: "حوالي %{count} سنة"
-      over_x_years:
-        zero: "أقل من سنة"
-        one: "أكثر من سنة واحدة"
-        two: "أكثر من سنتين"
-        few: "أكثر من %{count} سنوات"
-        many: "أكثر من %{count} سنة"
-        other: "أكثر من %{count} سنة"
-      almost_x_years:
-        zero: "أقل من سنة"
-        one: "ما يقارب سنة واحدة"
-        two: "ما يقارب سنتين"
-        few: "ما يقارب %{count} سنوات"
-        many: "ما يقارب %{count} سنة"
-        other: "ما يقارب %{count} سنة"
-    prompts:
-      year: "السنة"
-      month: "الشهر"
-      day: "اليوم"
-      hour: "الساعة"
-      minute: "الدقيقة"
-      second: "الثانية"
-
-  # Support
-  support:
-    array:
-      words_connector: "، "
-      two_words_connector: " و"
-      last_word_connector: "، و"
-
-  # Common UI elements
-  common:
-    actions:
-      save: "حفظ"
-      cancel: "إلغاء"
-      delete: "حذف"
-      edit: "تعديل"
-      create: "إنشاء"
-      update: "تحديث"
-      back: "رجوع"
-      next: "التالي"
-      previous: "السابق"
-      submit: "إرسال"
-      confirm: "تأكيد"
-      close: "إغلاق"
-      search: "بحث"
-      filter: "تصفية"
-      clear: "مسح"
-      reset: "إعادة تعيين"
-      download: "تحميل"
-      upload: "رفع"
-      export: "تصدير"
-      import: "استيراد"
-      print: "طباعة"
-      refresh: "تحديث"
-      view: "عرض"
-      view_all: "عرض الكل"
-      show_more: "عرض المزيد"
-      show_less: "عرض أقل"
-      loading: "جارٍ التحميل..."
-      processing: "جارٍ المعالجة..."
-    
-    confirmations:
-      delete: "هل أنت متأكد من الحذف؟"
-      unsaved_changes: "لديك تغييرات غير محفوظة. هل تريد المغادرة؟"
-      action_irreversible: "لا يمكن التراجع عن هذا الإجراء."
-    
-    status:
-      active: "نشط"
-      inactive: "غير نشط"
-      pending: "قيد الانتظار"
-      approved: "معتمد"
-      rejected: "مرفوض"
-      completed: "مكتمل"
-      cancelled: "ملغي"
-      draft: "مسودة"
-      published: "منشور"
-      archived: "مؤرشف"
-    
-    labels:
-      yes: "نعم"
-      no: "لا"
-      all: "الكل"
-      none: "لا شيء"
-      select: "اختر"
-      select_option: "اختر خيارًا"
-      optional: "اختياري"
-      required: "مطلوب"
-      not_available: "غير متوفر"
-      unknown: "غير معروف"
-      other: "أخرى"
-    
-    messages:
-      no_results: "لا توجد نتائج"
-      no_data: "لا توجد بيانات"
-      error_occurred: "حدث خطأ"
-      try_again: "يرجى المحاولة مرة أخرى"
-      success: "نجاح"
-      saved_successfully: "تم الحفظ بنجاح"
-      deleted_successfully: "تم الحذف بنجاح"
-      updated_successfully: "تم التحديث بنجاح"
-      created_successfully: "تم الإنشاء بنجاح"
-    
-    pagination:
-      first: "الأولى"
-      last: "الأخيرة"
-      previous: "السابق"
-      next: "التالي"
-      showing: "عرض %{from} إلى %{to} من %{total} سجل"
-      per_page: "لكل صفحة"
-
-  # Greetings (time-based) - Culturally appropriate Arabic
-  greetings:
-    morning: "صباح الخير"
-    afternoon: "مساء الخير"
-    evening: "مساء الخير"
-    welcome: "أهلاً وسهلاً"
-    welcome_back: "أهلاً بعودتك"
-    hello: "مرحبًا"
-    goodbye: "مع السلامة"
-    thank_you: "شكرًا لك"
-```
-
-### ActiveRecord Translations
-
-```yaml
-# config/locales/en/activerecord.en.yml
-en:
-  activerecord:
-    models:
-      user:
-        one: "User"
-        other: "Users"
-      transaction:
-        one: "Transaction"
-        other: "Transactions"
-      account:
-        one: "Account"
-        other: "Accounts"
-    
-    attributes:
-      user:
-        email: "Email"
-        password: "Password"
-        password_confirmation: "Password confirmation"
-        first_name: "First name"
-        last_name: "Last name"
-        full_name: "Full name"
-        phone_number: "Phone number"
-        created_at: "Created at"
-        updated_at: "Updated at"
-      transaction:
-        amount: "Amount"
-        description: "Description"
-        category: "Category"
-        date: "Date"
-        status: "Status"
-      account:
-        name: "Name"
-        balance: "Balance"
-        currency: "Currency"
-        account_number: "Account number"
-    
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              taken: "is already registered"
-              invalid: "is not a valid email address"
-            password:
-              too_short: "must be at least %{count} characters"
-      messages:
-        record_invalid: "Validation failed: %{errors}"
-        restrict_dependent_destroy:
-          has_one: "Cannot delete record because dependent %{record} exists"
-          has_many: "Cannot delete record because dependent %{record} exist"
-        required: "must exist"
-        taken: "has already been taken"
-        blank: "can't be blank"
-        present: "must be blank"
-        too_long:
-          one: "is too long (maximum is 1 character)"
-          other: "is too long (maximum is %{count} characters)"
-        too_short:
-          one: "is too short (minimum is 1 character)"
-          other: "is too short (minimum is %{count} characters)"
-        wrong_length:
-          one: "is the wrong length (should be 1 character)"
-          other: "is the wrong length (should be %{count} characters)"
-        not_a_number: "is not a number"
-        not_an_integer: "must be an integer"
-        greater_than: "must be greater than %{count}"
-        greater_than_or_equal_to: "must be greater than or equal to %{count}"
-        equal_to: "must be equal to %{count}"
-        less_than: "must be less than %{count}"
-        less_than_or_equal_to: "must be less than or equal to %{count}"
-        other_than: "must be other than %{count}"
-        odd: "must be odd"
-        even: "must be even"
-        invalid: "is invalid"
-        confirmation: "doesn't match %{attribute}"
-        accepted: "must be accepted"
-        empty: "can't be empty"
-        inclusion: "is not included in the list"
-        exclusion: "is reserved"
-        not_saved:
-          one: "1 error prohibited this %{resource} from being saved:"
-          other: "%{count} errors prohibited this %{resource} from being saved:"
-```
-
-```yaml
-# config/locales/ar/activerecord.ar.yml
-ar:
-  activerecord:
-    models:
-      user:
-        zero: "مستخدمين"
-        one: "مستخدم"
-        two: "مستخدمان"
-        few: "مستخدمين"
-        many: "مستخدمًا"
-        other: "مستخدم"
-      transaction:
-        zero: "معاملات"
-        one: "معاملة"
-        two: "معاملتان"
-        few: "معاملات"
-        many: "معاملة"
-        other: "معاملة"
-      account:
-        zero: "حسابات"
-        one: "حساب"
-        two: "حسابان"
-        few: "حسابات"
-        many: "حسابًا"
-        other: "حساب"
-    
-    attributes:
-      user:
-        email: "البريد الإلكتروني"
-        password: "كلمة المرور"
-        password_confirmation: "تأكيد كلمة المرور"
-        first_name: "الاسم الأول"
-        last_name: "اسم العائلة"
-        full_name: "الاسم الكامل"
-        phone_number: "رقم الهاتف"
-        created_at: "تاريخ الإنشاء"
-        updated_at: "تاريخ التحديث"
-      transaction:
-        amount: "المبلغ"
-        description: "الوصف"
-        category: "الفئة"
-        date: "التاريخ"
-        status: "الحالة"
-      account:
-        name: "الاسم"
-        balance: "الرصيد"
-        currency: "العملة"
-        account_number: "رقم الحساب"
-    
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              taken: "مسجّل مسبقًا"
-              invalid: "غير صالح"
-            password:
-              too_short: "يجب أن تكون %{count} أحرف على الأقل"
-      messages:
-        record_invalid: "فشل التحقق: %{errors}"
-        restrict_dependent_destroy:
-          has_one: "لا يمكن حذف السجل لوجود %{record} مرتبط"
-          has_many: "لا يمكن حذف السجل لوجود %{record} مرتبطة"
-        required: "مطلوب"
-        taken: "محجوز مسبقًا"
-        blank: "لا يمكن أن يكون فارغًا"
-        present: "يجب أن يكون فارغًا"
-        too_long:
-          zero: "طويل جدًا (الحد الأقصى صفر أحرف)"
-          one: "طويل جدًا (الحد الأقصى حرف واحد)"
-          two: "طويل جدًا (الحد الأقصى حرفان)"
-          few: "طويل جدًا (الحد الأقصى %{count} أحرف)"
-          many: "طويل جدًا (الحد الأقصى %{count} حرفًا)"
-          other: "طويل جدًا (الحد الأقصى %{count} حرف)"
-        too_short:
-          zero: "قصير جدًا (الحد الأدنى صفر أحرف)"
-          one: "قصير جدًا (الحد الأدنى حرف واحد)"
-          two: "قصير جدًا (الحد الأدنى حرفان)"
-          few: "قصير جدًا (الحد الأدنى %{count} أحرف)"
-          many: "قصير جدًا (الحد الأدنى %{count} حرفًا)"
-          other: "قصير جدًا (الحد الأدنى %{count} حرف)"
-        wrong_length:
-          zero: "الطول غير صحيح (يجب أن يكون صفر أحرف)"
-          one: "الطول غير صحيح (يجب أن يكون حرفًا واحدًا)"
-          two: "الطول غير صحيح (يجب أن يكون حرفين)"
-          few: "الطول غير صحيح (يجب أن يكون %{count} أحرف)"
-          many: "الطول غير صحيح (يجب أن يكون %{count} حرفًا)"
-          other: "الطول غير صحيح (يجب أن يكون %{count} حرف)"
-        not_a_number: "ليس رقمًا"
-        not_an_integer: "يجب أن يكون عددًا صحيحًا"
-        greater_than: "يجب أن يكون أكبر من %{count}"
-        greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
-        equal_to: "يجب أن يساوي %{count}"
-        less_than: "يجب أن يكون أقل من %{count}"
-        less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي %{count}"
-        other_than: "يجب أن يكون مختلفًا عن %{count}"
-        odd: "يجب أن يكون فرديًا"
-        even: "يجب أن يكون زوجيًا"
-        invalid: "غير صالح"
-        confirmation: "غير مطابق لـ %{attribute}"
-        accepted: "يجب قبوله"
-        empty: "لا يمكن أن يكون فارغًا"
-        inclusion: "غير مدرج في القائمة"
-        exclusion: "محجوز"
-        not_saved:
-          zero: "لم يتم الحفظ:"
-          one: "خطأ واحد منع حفظ %{resource}:"
-          two: "خطآن منعا حفظ %{resource}:"
-          few: "%{count} أخطاء منعت حفظ %{resource}:"
-          many: "%{count} خطأً منع حفظ %{resource}:"
-          other: "%{count} خطأ منع حفظ %{resource}:"
-```
-
-## Helper Methods
-
-### Localization Helper
-
-```ruby
-# app/helpers/localization_helper.rb
-module LocalizationHelper
-  # Direction helper for RTL/LTR
-  def text_direction
-    I18n.t('direction', default: 'ltr')
-  end
-
-  def rtl?
-    text_direction == 'rtl'
-  end
-
-  def ltr?
-    text_direction == 'ltr'
-  end
-
-  # CSS class for direction
-  def direction_class
-    rtl? ? 'rtl' : 'ltr'
-  end
-
-  # Opposite direction (for certain UI elements)
-  def opposite_direction
-    rtl? ? 'ltr' : 'rtl'
-  end
-
-  # Locale-aware text alignment
-  def start_align
-    rtl? ? 'right' : 'left'
-  end
-
-  def end_align
-    rtl? ? 'left' : 'right'
-  end
-
-  # Eastern Arabic numerals conversion
-  EASTERN_ARABIC_NUMERALS = {
-    '0' => '٠', '1' => '١', '2' => '٢', '3' => '٣', '4' => '٤',
-    '5' => '٥', '6' => '٦', '7' => '٧', '8' => '٨', '9' => '٩'
-  }.freeze
-
-  def to_eastern_arabic(number)
-    number.to_s.gsub(/[0-9]/, EASTERN_ARABIC_NUMERALS)
-  end
-
-  def to_western_arabic(number)
-    number.to_s.gsub(/[٠-٩]/, EASTERN_ARABIC_NUMERALS.invert)
-  end
-
-  # Locale-aware number display
-  def localized_number(number, eastern_arabic: false)
-    formatted = number_with_delimiter(number)
-    eastern_arabic && I18n.locale == :ar ? to_eastern_arabic(formatted) : formatted
-  end
-
-  # Time-based greeting
-  def greeting
-    hour = Time.current.hour
-    key = case hour
-          when 5..11 then 'greetings.morning'
-          when 12..16 then 'greetings.afternoon'
-          else 'greetings.evening'
-          end
-    I18n.t(key)
-  end
-
-  # Personalized greeting with name
-  def greeting_with_name(name)
-    "#{greeting}، #{name}" if I18n.locale == :ar
-    "#{greeting}, #{name}"
-  end
-
-  # Language switcher links
-  def locale_switch_links
-    I18n.available_locales.map do |locale|
-      next if locale == I18n.locale
-      
-      link_to(
-        I18n.t('language_name_native', locale: locale),
-        switch_locale_path(locale: locale),
-        class: 'locale-switch',
-        data: { locale: locale }
-      )
-    end.compact.join(' | ').html_safe
-  end
-
-  # Format currency with locale awareness
-  def localized_currency(amount, currency: nil)
-    currency ||= current_currency
-    
-    options = {
-      unit: currency_unit(currency),
-      format: I18n.t('number.currency.format.format'),
-      separator: I18n.t('number.currency.format.separator'),
-      delimiter: I18n.t('number.currency.format.delimiter')
-    }
-    
-    number_to_currency(amount, options)
-  end
-
-  # Saudi Riyal specific formatting
-  def format_sar(amount, show_halalas: true)
-    precision = show_halalas ? 2 : 0
-    formatted = number_with_precision(amount, precision: precision)
-    
-    if I18n.locale == :ar
-      "#{formatted} ر.س"
-    else
-      "SAR #{formatted}"
-    end
-  end
-
-  # Currency units mapping
-  def currency_unit(currency)
-    {
-      'SAR' => I18n.locale == :ar ? 'ر.س' : 'SAR',
-      'USD' => I18n.locale == :ar ? '$' : '$',
-      'EUR' => I18n.locale == :ar ? '€' : '€',
-      'GBP' => I18n.locale == :ar ? '£' : '£',
-      'AED' => I18n.locale == :ar ? 'د.إ' : 'AED'
-    }[currency.to_s.upcase] || currency
-  end
-
-  private
-
-  def current_currency
-    # Override this based on your app's logic
-    'SAR'
-  end
-end
-```
-
-### Arabic-Specific Helper
-
-```ruby
-# app/helpers/arabic_helper.rb
-module ArabicHelper
-  # Arabic pluralization helper for custom cases
-  # Arabic has: zero, one, two, few (3-10), many (11-99), other (100+)
-  def arabic_pluralize(count, singular, dual, plural_few, plural_many, plural_other = nil)
-    return I18n.locale == :ar ? singular : singular unless count
-
-    plural_other ||= plural_many
-
-    case count
-    when 0
-      singular
-    when 1
-      singular
-    when 2
-      dual
-    when 3..10
-      "#{count} #{plural_few}"
-    when 11..99
-      "#{count} #{plural_many}"
-    else
-      "#{count} #{plural_other}"
-    end
-  end
-
-  # Common Arabic plural forms
-  def items_count(count)
-    arabic_pluralize(
-      count,
-      I18n.t('common.items.zero'),
-      I18n.t('common.items.one'),
-      I18n.t('common.items.two'),
-      I18n.t('common.items.few'),
-      I18n.t('common.items.many')
-    )
-  end
-
-  # Gender-aware translation
-  # Usage: gender_t('welcome_message', gender: user.gender)
-  def gender_t(key, gender:, **options)
-    gendered_key = "#{key}.#{gender == 'female' ? 'female' : 'male'}"
-    
-    if I18n.exists?(gendered_key)
-      I18n.t(gendered_key, **options)
-    else
-      I18n.t(key, **options)
-    end
-  end
-
-  # Hijri date display (requires hijri gem or custom implementation)
-  def hijri_date(date, format: :default)
-    return unless date
-    
-    # Using the hijri gem if available
-    if defined?(Hijri)
-      hijri = Hijri::Date.new(date.year, date.month, date.day)
-      format_hijri_date(hijri, format)
-    else
-      # Fallback: just show Gregorian
-      I18n.l(date, format: format)
-    end
-  end
-
-  # Format phone number for Saudi Arabia
-  def format_saudi_phone(phone)
-    return phone unless phone.present?
-    
-    # Remove non-digits
-    digits = phone.gsub(/\D/, '')
-    
-    # Format: +966 XX XXX XXXX
-    if digits.start_with?('966')
-      "+966 #{digits[3..4]} #{digits[5..7]} #{digits[8..11]}"
-    elsif digits.start_with?('0')
-      "+966 #{digits[1..2]} #{digits[3..5]} #{digits[6..9]}"
-    else
-      phone
-    end
-  end
-
-  # Arabic-aware truncation (doesn't break in middle of word)
-  def arabic_truncate(text, length: 100, separator: ' ', omission: '...')
-    return '' unless text
-    
-    if I18n.locale == :ar
-      # Arabic omission
-      omission = '...'
-    end
-    
-    truncate(text, length: length, separator: separator, omission: omission)
-  end
-
-  # Wrap Arabic text in proper direction span
-  def bidi_text(text, direction: nil)
-    direction ||= detect_direction(text)
-    content_tag(:span, text, dir: direction)
-  end
-
-  private
-
-  def detect_direction(text)
-    return 'ltr' unless text
-    
-    # Check if first letter is Arabic
-    text.match?(/[\u0600-\u06FF]/) ? 'rtl' : 'ltr'
-  end
-
-  def format_hijri_date(hijri, format)
-    # Custom Hijri date formatting
-    case format
-    when :short
-      "#{hijri.day}/#{hijri.month}/#{hijri.year}"
-    when :long
-      month_names = %w[محرم صفر ربيع\ الأول ربيع\ الثاني جمادى\ الأولى جمادى\ الآخرة رجب شعبان رمضان شوال ذو\ القعدة ذو\ الحجة]
-      "#{hijri.day} #{month_names[hijri.month - 1]} #{hijri.year} هـ"
-    else
-      "#{hijri.day}/#{hijri.month}/#{hijri.year} هـ"
-    end
-  end
-end
-```
-
-## View Components
-
-### Layout with RTL Support
-
-```erb
-<%# app/views/layouts/application.html.erb %>
-<!DOCTYPE html>
-<html lang="<%= I18n.locale %>" dir="<%= text_direction %>">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= yield(:title) || t('app.name') %></title>
-  
-  <%# Load RTL stylesheet when needed %>
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <% if rtl? %>
-    <%= stylesheet_link_tag "rtl", "data-turbo-track": "reload" %>
-  <% end %>
-  
-  <%= javascript_importmap_tags %>
-</head>
-<body class="<%= direction_class %>" data-locale="<%= I18n.locale %>">
-  <%= render 'shared/header' %>
-  
-  <main class="container">
-    <%= render 'shared/flash_messages' %>
-    <%= yield %>
-  </main>
-  
-  <%= render 'shared/footer' %>
-</body>
-</html>
-```
-
-### Language Switcher Component
-
-```erb
-<%# app/views/shared/_language_switcher.html.erb %>
-<div class="language-switcher" data-controller="language-switcher">
-  <button type="button" 
-          class="language-button"
-          data-action="click->language-switcher#toggle"
-          aria-expanded="false"
-          aria-haspopup="true">
-    <span class="current-language">
-      <%= I18n.t('language_name_native') %>
-    </span>
-    <svg class="icon" aria-hidden="true"><!-- dropdown icon --></svg>
-  </button>
-  
-  <ul class="language-menu hidden" role="menu">
-    <% I18n.available_locales.each do |locale| %>
-      <li role="menuitem">
-        <%= link_to switch_locale_path(locale: locale),
-                    class: "language-option #{'active' if I18n.locale == locale}",
-                    data: { locale: locale } do %>
-          <span dir="<%= locale == :ar ? 'rtl' : 'ltr' %>">
-            <%= I18n.t('language_name_native', locale: locale) %>
-          </span>
-          <span class="language-name-english">
-            (<%= I18n.t('language_name', locale: locale) %>)
-          </span>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+## Phone Number Formats
+
+### International Dialing Codes
+
+| Country | Code | Format | Example |
+|---------|------|--------|---------|
+| **US** | +1 | (XXX) XXX-XXXX | +1 (555) 123-4567 |
+| **UK** | +44 | XXXX XXX XXXX | +44 20 7123 4567 |
+| **Japan** | +81 | XX-XXXX-XXXX | +81 3-1234-5678 |
+| **Thailand** | +66 | XXX-XXX-XXXX | +66 2-123-4567 |
+
+### Phone Input
+
+```html
+<!-- Phone input with country code -->
+<div class="phone-input">
+    <select name="country_code">
+        <option value="+1">+1 (US)</option>
+        <option value="+44">+44 (UK)</option>
+        <option value="+81">+81 (Japan)</option>
+        <option value="+66">+66 (Thailand)</option>
+    </select>
+    <input type="tel" name="phone_number" placeholder="123-4567" />
 </div>
 ```
 
-### Bidirectional Form Example
+## Name Formats
 
-```erb
-<%# app/views/users/_form.html.erb %>
-<%= form_with model: @user, class: "form #{direction_class}" do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error-summary" role="alert">
-      <h3><%= t('activerecord.errors.messages.not_saved', 
-                 count: @user.errors.count, 
-                 resource: t('activerecord.models.user.one')) %></h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+### Name Order
+
+| Culture | Format | Example |
+|---------|--------|---------|
+| **Western** | First Last | John Doe |
+| **East Asian** | Family Given | 山田 太郎 |
+| **Hispanic** | First Paternal Maternal | Juan Carlos García Rodríguez |
+| **Hungarian** | Family Given | Kovács János |
+
+### Name Input
+
+```html
+<!-- Name input with cultural awareness -->
+<div class="name-input">
+    <label>First Name</label>
+    <input type="text" name="first_name" />
+    
+    <label>Last Name</label>
+    <input type="text" name="last_name" />
+    
+    <label>Family Name (if applicable)</label>
+    <input type="text" name="family_name" />
+</div>
+```
+
+## Measurement Units
+
+### Metric vs Imperial
+
+| Unit | Metric | Imperial |
+|------|--------|-----------|
+| **Length** | Meters, Kilometers | Feet, Miles |
+| **Weight** | Kilograms, Grams | Pounds, Ounces |
+| **Temperature** | Celsius | Fahrenheit |
+| **Volume** | Liters, Milliliters | Gallons, Quarts |
+
+### Unit Conversion
+
+```javascript
+function convertTemperature(celsius, toFahrenheit) {
+    return (celsius * 9/5) + 32;
+}
+
+function convertLength(kilometers, toMiles) {
+    return kilometers * 0.621371;
+}
+
+function convertWeight(kilograms, toPounds) {
+    return kilograms * 2.20462;
+}
+
+// Usage
+const tempC = 25;
+const tempF = convertTemperature(tempC, true); // 77°F
+```
+
+### Unit Display
+
+```javascript
+function formatMeasurement(value, unit, locale, system) {
+    if (system === 'metric') {
+        return `${value} ${unit}`;
+    } else {
+        // Convert to imperial
+        const converted = convertToImperial(value, unit);
+        return `${converted} ${imperialUnit}`;
+    }
+}
+
+// Usage
+formatMeasurement(100, 'kg', 'en-US', 'imperial'); // 220.46 lbs
+```
+
+## Legal and Compliance
+
+### Privacy Laws
+
+| Regulation | Region | Key Requirements |
+|------------|--------|------------------|
+| **GDPR** | EU | Consent, data portability, right to be forgotten |
+| **CCPA** | California | Opt-out of sale, disclosure, deletion |
+| **PDPA** | Thailand | Consent, data access, security |
+
+### Cookie Consent
+
+```html
+<!-- GDPR-compliant cookie banner -->
+<div class="cookie-banner">
+    <p>We use cookies to improve your experience.</p>
+    <button onclick="acceptCookies()">Accept</button>
+    <button onclick="rejectCookies()">Reject</button>
+    <a href="/privacy-policy">Privacy Policy</a>
+</div>
+```
+
+### Terms of Service
+
+```html
+<!-- Localized terms of service -->
+<div class="terms">
+    <h1>Terms of Service</h1>
+    <p>Last updated: {last_updated_date}</p>
+    <h2>1. Acceptance</h2>
+    <p>{terms_acceptance_text}</p>
+    <h2>2. User Accounts</h2>
+    <p>{user_accounts_text}</p>
+    <h2>3. Privacy Policy</h2>
+    <p>{privacy_policy_text}</p>
+</div>
+```
+
+## Payment Methods
+
+### Regional Preferences
+
+| Region | Popular Payment Methods |
+|---------|----------------------|
+| **US** | Credit cards, PayPal, Apple Pay |
+| **Europe** | Credit cards, PayPal, SEPA, iDEAL |
+| **Asia** | Credit cards, Alipay, WeChat Pay |
+| **Thailand** | Credit cards, PromptPay, TrueMoney |
+
+### Payment Icons
+
+```html
+<!-- Localized payment methods -->
+<div class="payment-methods">
+    <div class="method">
+        <img src="/images/visa.png" alt="Visa" />
+        <img src="/images/mastercard.png" alt="Mastercard" />
     </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :email, class: 'form-label' %>
-    <%= f.email_field :email, 
-                      class: 'form-input',
-                      dir: 'ltr',  # Email always LTR
-                      placeholder: t('placeholders.email'),
-                      required: true %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :first_name, class: 'form-label' %>
-    <%= f.text_field :first_name, 
-                     class: 'form-input',
-                     dir: 'auto',  # Auto-detect direction
-                     required: true %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :last_name, class: 'form-label' %>
-    <%= f.text_field :last_name, 
-                     class: 'form-input',
-                     dir: 'auto',
-                     required: true %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :phone_number, class: 'form-label' %>
-    <%= f.telephone_field :phone_number, 
-                          class: 'form-input',
-                          dir: 'ltr',  # Phone numbers always LTR
-                          placeholder: '+966 5X XXX XXXX' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :bio, class: 'form-label' %>
-    <%= f.text_area :bio, 
-                    class: 'form-input',
-                    dir: 'auto',
-                    rows: 4 %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit t('common.actions.save'), class: 'btn btn-primary' %>
-    <%= link_to t('common.actions.cancel'), users_path, class: 'btn btn-secondary' %>
-  </div>
-<% end %>
+    <div class="method">
+        <img src="/images/paypal.png" alt="PayPal" />
+    </div>
+    <div class="method thailand-only">
+        <img src="/images/promptpay.png" alt="PromptPay" />
+    </div>
+</div>
 ```
 
-## CSS for RTL Support
+## Holidays and Business Hours
 
-```css
-/* app/assets/stylesheets/rtl.css */
+### Regional Holidays
 
-/* Base RTL styles */
-[dir="rtl"] {
-  text-align: right;
+| Country | Major Holidays |
+|---------|----------------|
+| **US** | New Year, Independence Day, Thanksgiving, Christmas |
+| **UK** | New Year, Easter, Christmas |
+| **Japan** | New Year, Golden Week, Obon |
+| **Thailand** | New Year, Songkran, Chakri Memorial Day, Visakha Puja, Coronation Day |
+
+### Business Hours
+
+| Country | Typical Hours |
+|---------|---------------|
+| **US** | 9 AM - 5 PM, Mon-Fri |
+| **Europe** | 9 AM - 5 PM, Mon-Fri |
+| **Japan** | 9 AM - 5 PM, Mon-Fri |
+| **Thailand** | 9 AM - 5 PM, Mon-Fri |
+
+### Holiday Display
+
+```javascript
+function getHolidays(country) {
+    const holidays = {
+        'US': [
+            '2024-01-01', // New Year's Day
+            '2024-07-04', // Independence Day
+            '2024-11-28', // Thanksgiving
+            '2024-12-25'  // Christmas Day
+        ],
+        'TH': [
+            '2024-01-01', // New Year's Day
+            '2024-04-13', // Songkran Festival
+            '2024-05-06', // Coronation Day
+            '2024-05-20', // Visakha Puja
+            '2024-07-28', // H.M. The King's Birthday
+            '2024-10-23', // Chulalongkorn Day
+        ]
+    };
+    
+    return holidays[country] || [];
 }
 
-/* Flip flexbox and grid directions */
-[dir="rtl"] .flex-row {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .grid {
-  direction: rtl;
-}
-
-/* Form alignment */
-[dir="rtl"] .form-label {
-  text-align: right;
-}
-
-[dir="rtl"] .form-input {
-  text-align: right;
-}
-
-/* Keep certain inputs LTR */
-[dir="rtl"] input[type="email"],
-[dir="rtl"] input[type="url"],
-[dir="rtl"] input[type="tel"],
-[dir="rtl"] input[type="number"],
-[dir="rtl"] input[dir="ltr"] {
-  direction: ltr;
-  text-align: left;
-}
-
-/* Navigation */
-[dir="rtl"] .nav {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .nav-item {
-  margin-left: 0;
-  margin-right: 1rem;
-}
-
-/* Buttons with icons */
-[dir="rtl"] .btn-icon-start {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .btn-icon-start svg {
-  margin-left: 0.5rem;
-  margin-right: 0;
-}
-
-/* Tables */
-[dir="rtl"] table {
-  direction: rtl;
-}
-
-[dir="rtl"] th,
-[dir="rtl"] td {
-  text-align: right;
-}
-
-/* Numbers in tables stay LTR for readability */
-[dir="rtl"] .numeric,
-[dir="rtl"] .currency,
-[dir="rtl"] .date {
-  direction: ltr;
-  text-align: left;
-}
-
-/* Pagination */
-[dir="rtl"] .pagination {
-  flex-direction: row-reverse;
-}
-
-/* Sidebar */
-[dir="rtl"] .sidebar {
-  right: 0;
-  left: auto;
-  border-left: 1px solid var(--border-color);
-  border-right: none;
-}
-
-/* Dropdowns */
-[dir="rtl"] .dropdown-menu {
-  right: 0;
-  left: auto;
-  text-align: right;
-}
-
-/* Modals */
-[dir="rtl"] .modal-close {
-  right: auto;
-  left: 1rem;
-}
-
-/* Icons that should flip */
-[dir="rtl"] .icon-arrow-left {
-  transform: scaleX(-1);
-}
-
-[dir="rtl"] .icon-arrow-right {
-  transform: scaleX(-1);
-}
-
-/* Margins and paddings - use logical properties */
-.container {
-  margin-inline-start: auto;
-  margin-inline-end: auto;
-  padding-inline-start: 1rem;
-  padding-inline-end: 1rem;
-}
-
-/* Border radius for RTL */
-[dir="rtl"] .rounded-start {
-  border-radius: 0 0.25rem 0.25rem 0;
-}
-
-[dir="rtl"] .rounded-end {
-  border-radius: 0.25rem 0 0 0.25rem;
+function isBusinessDay(date, country) {
+    const holidays = getHolidays(country);
+    const dayOfWeek = date.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isHoliday = holidays.includes(date.toISOString().split('T')[0]);
+    
+    return !isWeekend && !isHoliday;
 }
 ```
 
-```css
-/* Tailwind RTL support with logical properties */
-/* app/assets/stylesheets/tailwind-rtl.css */
+## Locale-Specific Content
 
-/* Use with Tailwind - these utilities support both directions */
-.ms-auto { margin-inline-start: auto; }
-.me-auto { margin-inline-end: auto; }
-.ms-0 { margin-inline-start: 0; }
-.me-0 { margin-inline-end: 0; }
-.ms-1 { margin-inline-start: 0.25rem; }
-.me-1 { margin-inline-end: 0.25rem; }
-.ms-2 { margin-inline-start: 0.5rem; }
-.me-2 { margin-inline-end: 0.5rem; }
-.ms-4 { margin-inline-start: 1rem; }
-.me-4 { margin-inline-end: 1rem; }
+### Cultural Adaptations
 
-.ps-0 { padding-inline-start: 0; }
-.pe-0 { padding-inline-end: 0; }
-.ps-1 { padding-inline-start: 0.25rem; }
-.pe-1 { padding-inline-end: 0.25rem; }
-.ps-2 { padding-inline-start: 0.5rem; }
-.pe-2 { padding-inline-end: 0.5rem; }
-.ps-4 { padding-inline-start: 1rem; }
-.pe-4 { padding-inline-end: 1rem; }
+| Element | US | Japan | Thailand |
+|---------|-----|--------|----------|
+| **Colors** | Red = danger | Red = good fortune | Red = good fortune |
+| **Images** | Handshakes | Bowing | Wai |
+| **Layout** | Left-to-right | Top-to-bottom | Left-to-right |
+| **Text** | Direct address | Formal address | Formal address |
 
-.start-0 { inset-inline-start: 0; }
-.end-0 { inset-inline-end: 0; }
+### Content Examples
 
-.text-start { text-align: start; }
-.text-end { text-align: end; }
+```html
+<!-- US version -->
+<div class="content">
+    <h1>Welcome!</h1>
+    <p>Sign up for our newsletter to get 10% off.</p>
+    <button>Sign Up</button>
+</div>
 
-.border-s { border-inline-start-width: 1px; }
-.border-e { border-inline-end-width: 1px; }
+<!-- Japan version -->
+<div class="content">
+    <h1>ようこそ！</h1>
+    <p>ニュースレターにご登録いただくと10%の割引がございます。</p>
+    <button>登録</button>
+</div>
 
-.rounded-s { border-start-start-radius: 0.25rem; border-end-start-radius: 0.25rem; }
-.rounded-e { border-start-end-radius: 0.25rem; border-end-end-radius: 0.25rem; }
+<!-- Thailand version -->
+<div class="content">
+    <h1>ยินดีต้อนรับ!</h1>
+    <p>สมัครในรับรับจดหนัสเพื่อรับส่วนลด 10%</p>
+    <button>ลงทะเบียน</button>
+</div>
 ```
 
 ## Testing Localization
 
-```ruby
-# spec/support/i18n_helpers.rb
-module I18nHelpers
-  def with_locale(locale, &block)
-    original_locale = I18n.locale
-    I18n.locale = locale
-    yield
-  ensure
-    I18n.locale = original_locale
-  end
+### Test Checklist
 
-  def t(key, **options)
-    I18n.t(key, **options)
-  end
+| Category | Items |
+|----------|-------|
+| **Language** | All text translated |
+| **Dates** | Format correct for locale |
+| **Numbers** | Format correct for locale |
+| **Currency** | Symbol and format correct |
+| **Layout** | Works for RTL/LTR |
+| **Images** | Culturally appropriate |
+| **Forms** | Input order correct |
+| **Holidays** | Holiday dates correct |
 
-  def l(object, **options)
-    I18n.l(object, **options)
-  end
-end
+### Visual Testing
 
-RSpec.configure do |config|
-  config.include I18nHelpers
-end
+```bash
+# Take screenshots in different locales
+npm run test:visual --locale=en-US
+npm run test:visual --locale=ja-JP
+npm run test:visual --locale=th-TH
 ```
 
-```ruby
-# spec/helpers/localization_helper_spec.rb
-require 'rails_helper'
+### Automated Testing
 
-RSpec.describe LocalizationHelper, type: :helper do
-  describe '#text_direction' do
-    it 'returns ltr for English' do
-      with_locale(:en) do
-        expect(helper.text_direction).to eq('ltr')
-      end
-    end
-
-    it 'returns rtl for Arabic' do
-      with_locale(:ar) do
-        expect(helper.text_direction).to eq('rtl')
-      end
-    end
-  end
-
-  describe '#to_eastern_arabic' do
-    it 'converts Western to Eastern Arabic numerals' do
-      expect(helper.to_eastern_arabic('123')).to eq('١٢٣')
-      expect(helper.to_eastern_arabic('0')).to eq('٠')
-      expect(helper.to_eastern_arabic('9876543210')).to eq('٩٨٧٦٥٤٣٢١٠')
-    end
-  end
-
-  describe '#localized_currency' do
-    it 'formats currency for English locale' do
-      with_locale(:en) do
-        expect(helper.localized_currency(1000, currency: 'SAR')).to include('SAR')
-      end
-    end
-
-    it 'formats currency for Arabic locale' do
-      with_locale(:ar) do
-        expect(helper.localized_currency(1000, currency: 'SAR')).to include('ر.س')
-      end
-    end
-  end
-end
+```javascript
+describe('Localization', () => {
+    const locales = ['en-US', 'ja-JP', 'th-TH'];
+    
+    locales.forEach(locale => {
+        describe(`Locale: ${locale}`, () => {
+            test('Date formatting', () => {
+                const date = new Date('2024-01-15');
+                const formatted = formatDate(date, locale);
+                expect(formatted).toBeDefined();
+            });
+            
+            test('Number formatting', () => {
+                const number = 1234.56;
+                const formatted = formatNumber(number, locale);
+                expect(formatted).toBeDefined();
+            });
+            
+            test('Currency formatting', () => {
+                const amount = 100;
+                const currency = getCurrencyForLocale(locale);
+                const formatted = formatCurrency(amount, currency, locale);
+                expect(formatted).toBeDefined();
+            });
+        });
+    });
+});
 ```
 
-```ruby
-# spec/i18n_spec.rb
-require 'rails_helper'
+## Real Examples
 
-RSpec.describe 'I18n' do
-  describe 'locale files' do
-    it 'has all required locales' do
-      expect(I18n.available_locales).to contain_exactly(:en, :ar)
-    end
+### US vs Europe vs Asia Localization
 
-    it 'has no missing translations for English' do
-      I18n.with_locale(:en) do
-        expect { I18n.t('common.actions.save', raise: true) }.not_to raise_error
-        expect { I18n.t('activerecord.models.user.one', raise: true) }.not_to raise_error
-      end
-    end
+#### E-commerce Product Page
 
-    it 'has no missing translations for Arabic' do
-      I18n.with_locale(:ar) do
-        expect { I18n.t('common.actions.save', raise: true) }.not_to raise_error
-        expect { I18n.t('activerecord.models.user.one', raise: true) }.not_to raise_error
-      end
-    end
-  end
+```
+US Version:
+Price: $99.99
+Shipping: 5-7 business days
+Returns: 30 days
+Contact: support@example.com
 
-  describe 'Arabic pluralization' do
-    it 'handles all plural forms' do
-      I18n.with_locale(:ar) do
-        expect(I18n.t('datetime.distance_in_words.x_days', count: 0)).to include('صفر')
-        expect(I18n.t('datetime.distance_in_words.x_days', count: 1)).to include('يوم واحد')
-        expect(I18n.t('datetime.distance_in_words.x_days', count: 2)).to include('يومان')
-        expect(I18n.t('datetime.distance_in_words.x_days', count: 5)).to include('أيام')
-        expect(I18n.t('datetime.distance_in_words.x_days', count: 20)).to include('يومًا')
-        expect(I18n.t('datetime.distance_in_words.x_days', count: 100)).to include('يوم')
-      end
-    end
-  end
+Europe (Germany) Version:
+Preis: 99,99 €
+Versand: 5-7 Werktage
+Rücksendungen: 30 Tage
+Kontakt: support@example.de
 
-  describe 'date formatting' do
-    let(:date) { Date.new(2024, 1, 15) }
+Asia (Japan) Version:
+価格: 9,999円
+配送: 5-7営業日
+返品: 30日
+お問い合わせ: support@example.jp
 
-    it 'formats dates in English' do
-      I18n.with_locale(:en) do
-        expect(I18n.l(date, format: :long)).to eq('January 15, 2024')
-      end
-    end
-
-    it 'formats dates in Arabic' do
-      I18n.with_locale(:ar) do
-        expect(I18n.l(date, format: :long)).to include('يناير')
-      end
-    end
-  end
-end
+Asia (Thailand) Version:
+ราคา: ฿3,499.-
+การจัดส่ง: 5-7 วันทำการ
+การคืนสินค้า: 30 วัน
+ติดต่อ: support@example.co.th
 ```
 
-```ruby
-# spec/system/localization_spec.rb
-require 'rails_helper'
+#### Signup Form
 
-RSpec.describe 'Localization', type: :system do
-  describe 'language switching' do
-    it 'switches to Arabic' do
-      visit root_path
+```
+US Version:
+First Name: [John]
+Last Name: [Doe]
+Email: [john@example.com]
+Password: [•••••••]
+Sign Up
 
-      click_link 'العربية'
+Japan Version:
+名前: [田中]
+名: [太郎]
+メールアドレス: [tanaka@example.com]
+パスワード: [•••••••]
+登録
 
-      expect(page).to have_css('html[dir="rtl"]')
-      expect(page).to have_css('html[lang="ar"]')
-    end
-
-    it 'persists locale preference' do
-      visit root_path(locale: :ar)
-      
-      visit users_path
-      
-      expect(page).to have_css('html[lang="ar"]')
-    end
-  end
-
-  describe 'RTL layout' do
-    before { visit root_path(locale: :ar) }
-
-    it 'applies RTL direction to body' do
-      expect(page).to have_css('body.rtl')
-    end
-
-    it 'displays Arabic content' do
-      expect(page).to have_content('أهلاً وسهلاً')
-    end
-  end
-
-  describe 'form localization' do
-    it 'displays localized labels and errors' do
-      visit new_user_path(locale: :ar)
-
-      click_button 'إرسال'
-
-      expect(page).to have_content('لا يمكن أن يكون فارغًا')
-    end
-  end
-end
+Thailand Version:
+ชื่อ: [สมชช]
+นามสกุล: [ใจร์]
+อีเมล: [somchai@example.com]
+รหัสผ่าน: [•••••••]
+ลงทะเบียน
 ```
 
-## Common Pitfalls & Best Practices
+## Summary Checklist
 
-### Pitfalls to Avoid
+### Planning
 
-1. **Direct Translation**: Never use Google Translate or similar for production translations. Hire native Arabic speakers.
+- [ ] Target locales identified
+- [ ] Cultural requirements documented
+- [ ] Legal requirements researched
+- [ ] Budget allocated for translation
 
-2. **Ignoring Pluralization**: Arabic has 6 plural forms. Always provide all forms:
-   ```yaml
-   # Wrong
-   items:
-     one: "item"
-     other: "items"
-   
-   # Correct for Arabic
-   items:
-     zero: "عناصر"
-     one: "عنصر"
-     two: "عنصران"
-     few: "عناصر"
-     many: "عنصرًا"
-     other: "عنصر"
-   ```
+### Content
 
-3. **Hardcoded Strings**: Never hardcode user-facing strings.
-   ```ruby
-   # Wrong
-   flash[:notice] = "User created successfully"
-   
-   # Correct
-   flash[:notice] = t('users.created_successfully')
-   ```
+- [ ] All text translated
+- [ ] Images adapted culturally
+- [ ] Dates formatted correctly
+- [ ] Numbers formatted correctly
+- [ ] Currency displayed correctly
+- [ ] Addresses formatted correctly
+```
 
-4. **Assuming LTR Layout**: Always use CSS logical properties.
-   ```css
-   /* Wrong */
-   margin-left: 1rem;
-   
-   /* Correct */
-   margin-inline-start: 1rem;
-   ```
+---
 
-5. **Breaking Numbers in RTL**: Keep numbers, dates, and technical content LTR.
-   ```erb
-   <%# Wrong - numbers will display incorrectly %>
-   <span><%= amount %></span>
-   
-   <%# Correct %>
-   <span dir="ltr"><%= amount %></span>
-   ```
+## Quick Start
 
-### Best Practices
+### Basic Localization Setup
 
-1. **Use Lazy Lookup**: Let Rails find translations automatically.
-   ```erb
-   <%# In app/views/users/show.html.erb %>
-   <%= t('.welcome_message') %>
-   <%# Looks for: en.users.show.welcome_message %>
-   ```
+```javascript
+// i18n configuration
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
-2. **Namespace Translations**: Organize by feature, not by language structure.
-   ```yaml
-   en:
-     users:
-       index:
-         title: "Users"
-       show:
-         title: "User Details"
-   ```
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: {
+        welcome: 'Welcome',
+        goodbye: 'Goodbye'
+      }
+    },
+    th: {
+      translation: {
+        welcome: 'ยินดีต้อนรับ',
+        goodbye: 'ลาก่อน'
+      }
+    }
+  },
+  lng: 'en',
+  fallbackLng: 'en'
+})
+```
 
-3. **Use Interpolation**: Don't concatenate strings.
-   ```ruby
-   # Wrong
-   "Hello " + name
-   
-   # Correct
-   t('greetings.hello_name', name: name)
-   ```
+### Using Translations
 
-4. **Test Both Languages**: Include locale tests in your test suite.
+```jsx
+import { useTranslation } from 'react-i18next'
 
-5. **Document Cultural Differences**: Maintain a guide for translators explaining context.
+function App() {
+  const { t, i18n } = useTranslation()
+  
+  return (
+    <div>
+      <h1>{t('welcome')}</h1>
+      <button onClick={() => i18n.changeLanguage('th')}>
+        Switch to Thai
+      </button>
+    </div>
+  )
+}
+```
 
-## Resources
+### Date/Number Formatting
 
-- [Rails I18n Guide](https://guides.rubyonrails.org/i18n.html)
-- [Unicode CLDR Plural Rules](https://cldr.unicode.org/index/cldr-spec/plural-rules)
-- [Arabic Localization Best Practices](https://www.w3.org/International/articles/article-text-size)
-- [RTL Styling Guide](https://rtlstyling.com/)
+```javascript
+// Date formatting
+const date = new Date()
+const formatted = new Intl.DateTimeFormat('th-TH', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}).format(date)
+
+// Number formatting
+const number = 1234.56
+const formatted = new Intl.NumberFormat('th-TH', {
+  style: 'currency',
+  currency: 'THB'
+}).format(number)  // ฿1,234.56
+```
+
+---
+
+## Production Checklist
+
+- [ ] **i18n Setup**: Internationalization framework configured
+- [ ] **Translation Keys**: All text uses translation keys
+- [ ] **Translations**: Content translated for target languages
+- [ ] **Date Formatting**: Dates formatted per locale
+- [ ] **Number Formatting**: Numbers formatted per locale
+- [ ] **Currency**: Currency displayed correctly
+- [ ] **RTL Support**: Right-to-left languages supported
+- [ ] **Cultural Adaptation**: Images and content culturally appropriate
+- [ ] **Testing**: Tested with native speakers
+- [ ] **Fallbacks**: Fallback language configured
+- [ ] **Performance**: Translations loaded efficiently
+- [ ] **Updates**: Translation process for updates
+
+---
+
+## Anti-patterns
+
+### ❌ Don't: Hardcoded Text
+
+```jsx
+// ❌ Bad - Hardcoded
+<h1>Welcome</h1>
+<p>Hello, user!</p>
+```
+
+```jsx
+// ✅ Good - Translation keys
+<h1>{t('welcome')}</h1>
+<p>{t('greeting', { name: user.name })}</p>
+```
+
+### ❌ Don't: Ignore Date Formats
+
+```javascript
+// ❌ Bad - US format everywhere
+const date = '01/15/2024'  // Confusing for non-US users
+```
+
+```javascript
+// ✅ Good - Locale-aware
+const date = new Intl.DateTimeFormat(locale, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}).format(new Date())
+```
+
+### ❌ Don't: No RTL Support
+
+```css
+/* ❌ Bad - Left-aligned only */
+.text {
+  text-align: left;
+}
+```
+
+```css
+/* ✅ Good - RTL-aware */
+.text {
+  text-align: start;  /* Adapts to direction */
+}
+
+[dir="rtl"] .text {
+  text-align: right;
+}
+```
+
+---
+
+## Integration Points
+
+- **i18n Setup** (`25-internationalization/i18n-setup/`) - Internationalization setup
+- **Multi-language** (`25-internationalization/multi-language/`) - Multi-language support
+- **RTL Support** (`25-internationalization/rtl-support/`) - Right-to-left languages
+
+---
+
+## Further Reading
+
+- [i18next Documentation](https://www.i18next.com/)
+- [React Intl](https://formatjs.io/docs/react-intl/)
+- [Localization Best Practices](https://www.w3.org/International/techniques/developing-specs)
+
+### Technical
+
+- [ ] RTL support implemented
+- [ ] Timezone handling correct
+- [ ] Character encoding correct (UTF-8)
+- [ ] Font supports all characters
+- [ ] Layout works for all locales
+
+### Testing
+
+- [ ] All locales tested
+- [ ] Visual testing completed
+- [ ] Automated tests passing
+- [ ] User acceptance testing
+- [ ] Browser compatibility verified

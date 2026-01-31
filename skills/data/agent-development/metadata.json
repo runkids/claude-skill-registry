@@ -1,7 +1,7 @@
 {
   "name": "agent-development",
-  "repo": "fcakyon/claude-codex-settings",
-  "path": "plugins/plugin-dev/skills/agent-development/SKILL.md",
-  "source": "github.com/fcakyon/claude-codex-settings",
-  "downloaded_at": "2026-01-30T04:42:13.433269Z"
+  "repo": "dennislee928/Smart_Zone",
+  "path": ".claude/skills/agent-development/SKILL.md",
+  "source": "github.com/dennislee928/Smart_Zone",
+  "downloaded_at": "2026-01-31T04:46:51.774833Z"
 }

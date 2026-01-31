@@ -1,7 +1,7 @@
 {
   "name": "github-actions",
-  "repo": "duthaho/claudekit",
-  "path": ".claude/skills/devops/github-actions/SKILL.md",
-  "source": "github.com/duthaho/claudekit",
-  "downloaded_at": "2026-01-30T04:41:22.279631Z"
+  "repo": "mcclowes/omg",
+  "path": ".claude/skills/github-actions/SKILL.md",
+  "source": "github.com/mcclowes/omg",
+  "downloaded_at": "2026-01-31T04:28:00.770186Z"
 }

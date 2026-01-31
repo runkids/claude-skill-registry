@@ -1,7 +1,7 @@
 {
   "name": "sentry-error-capture",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/sentry-error-capture/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-29T03:34:14.492218Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/saas-packs/sentry-pack/skills/sentry-error-capture/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:39.065527Z"
 }

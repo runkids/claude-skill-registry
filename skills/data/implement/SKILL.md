@@ -1,92 +1,149 @@
 ---
 name: implement
-description: 指定されたGitHub Issueをworktree環境で実装する完全ワークフロー。Subtask検出からPR作成までを統括。
+description: Implement a task from the backlog with code and tests
+argument-hint: <task ID or description>
+user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Grep
+  - Glob
+  - Bash
+  - Task
+  - AskUserQuestion
+context: fork
+agent: developer
 ---
 
-# Issue実装ワークフロー (/implement)
+# /implement - Task Implementation
 
-> **役割**: Sisyphus (Main Agent) が実行する実装のメインループ
-> **環境**: Host環境 + Git Worktree
+Implement a specific task from the backlog with production code and tests.
 
----
+## Purpose
 
-## 🔄 全体フロー
+Execute a task by:
+- Understanding the requirement and acceptance criteria
+- Writing production code following existing patterns
+- Creating tests for new functionality
+- Preparing a commit message
 
-1. **Issue分析 & 準備**
-   - 粒度チェック (200行以下?)
-   - Subtask検出 (親Issueの場合 → 再帰的に実行)
-   - 既存実装の確認
+## Inputs
 
-2. **環境構築 (Phase 1)**
-   - `/create-worktree` で独立環境を作成
-   - 作業ディレクトリへ移動 (`cd .worktrees/issue-XXX`)
+- `$ARGUMENTS`: Task ID (e.g., "T-001") or task description
+- BACKLOG: `docs/development/BACKLOG.md` for task details
+- Architecture: `docs/architecture/ARCHITECTURE.md` for patterns
+- `${PROJECT_NAME}`: Current project context
 
-3. **実装サイクル (Phase 2-3)**
-   - **TDDサイクル**: Red → Green → Refactor
-   - **品質保証**: Lint, Test, 品質レビュー (9点以上)
-   - **客観的基準**: `quality-review-flow` 準拠
+## Outputs
 
-4. **完了 & クリーンアップ (Phase 4)**
-   - ユーザー承認
-   - `/pr-and-cleanup` でPR作成と環境削除
+- Production code in appropriate source files
+- Tests alongside implementation
+- Suggested commit message
 
----
+## Workflow
 
-## 📋 Sisyphus 実行ガイド
+### 1. Identify Task
+Parse `$ARGUMENTS` to find the task:
+- If task ID provided, look up in BACKLOG.md
+- If description provided, match to existing task or confirm new work
 
-### 1. 準備フェーズ
+### 2. Read Task Details
+From BACKLOG.md, extract:
+- Task description
+- Acceptance criteria
+- Epic context
+- Dependencies (ensure they're complete)
 
-まず、Issueのサイズと依存関係を確認します。
+### 3. Explore Codebase
+Before writing code:
+- Find related existing code
+- Identify patterns to follow
+- Check for similar implementations
+- Understand the module structure
 
-- **粒度チェック**: 200行を超える場合は `/decompose-issue` を提案
-- **Subtask検出**: 親Issueの場合は `/decompose-issue` を実行し、各Subtaskに対してこのワークフローを適用
-- **作業開始**:
-  ```bash
-  /create-worktree <issue_id> <branch_name>
-  ```
+### 4. Plan Implementation
+Outline the approach:
+- Files to modify/create
+- Functions/classes needed
+- Test approach
+- Edge cases to handle
 
-### 2. 実装フェーズ
+### 5. Implement
+Write code following these principles:
+- **Read Before Write**: Understand existing code
+- **Minimal Changes**: Only modify what's necessary
+- **Follow Patterns**: Match existing style
+- **No Over-Engineering**: Simple solutions preferred
+- **Security Aware**: Avoid common vulnerabilities
 
-**重要**: すべてのファイル操作・コマンド実行は **Worktreeディレクトリ内** で行います。
+### 6. Write Tests
+For new functionality:
+- Unit tests for core logic
+- Integration tests if crossing boundaries
+- Edge case coverage
+- Follow existing test patterns
 
-```bash
-# 必ず移動してから作業
-cd .worktrees/issue-<id>-<name>
+### 7. Verify
+Check against acceptance criteria:
+- [ ] Each AC is met
+- [ ] Tests pass
+- [ ] No regressions
+- [ ] Code follows patterns
+
+### 8. Prepare Commit
+Suggest commit message:
+```
+type(scope): description
+
+- Detail of change 1
+- Detail of change 2
+
+Refs: T-XXX
 ```
 
-#### TDDの実践
-1. **Red**: テストケースを作成（`write` tool）
-2. **Green**: テストを通す最小限の実装（`write`/`edit` tool）
-3. **Refactor**: コードを整理
+Types: feat, fix, refactor, test, docs, chore
 
-### 3. 品質レビューフェーズ
+## Implementation Guidelines
 
-PR作成前に必ず品質チェックを行います。
+### Code Quality
+- Use descriptive variable/function names
+- Keep functions focused (single responsibility)
+- Add comments only where logic isn't self-evident
+- Handle errors appropriately
 
-1. **自己チェック**:
-   ```bash
-   # プロジェクトに応じたコマンド
-   npm run lint && npm test
-   # または
-   cargo clippy && cargo test
-   ```
-2. **専門レビュアーによるレビュー**:
-   - `quality-review-flow` skill を参照
-   - 9点未満の場合は修正して再レビュー
+### Testing
+- Test behavior, not implementation
+- One assertion per test when possible
+- Clear test names describing expected behavior
+- Mock external dependencies
 
-### 4. 完了フェーズ
+### Security
+- Validate inputs at boundaries
+- Escape outputs appropriately
+- No secrets in code
+- Follow OWASP guidelines
 
-1. **承認ゲート**: ユーザーにPR作成の許可を得る
-2. **PR作成と削除**:
-   ```bash
-   /pr-and-cleanup <issue_id>
-   ```
+## Validation Checklist
+Before completing:
+- [ ] All acceptance criteria met
+- [ ] Tests written and passing
+- [ ] Code follows existing patterns
+- [ ] No hardcoded secrets or credentials
+- [ ] Commit message prepared
+- [ ] Task ready to mark complete
 
----
+## Error Handling
 
-## ⛔ 禁止事項
+If blocked:
+1. Document the blocker clearly
+2. Suggest alternatives if possible
+3. Don't make assumptions without verification
+4. Consider invoking /analyse for investigation
 
-1. **メインブランチでの直接作業**: 必ずWorktreeを作成すること
-2. **テストなしの実装**: TDDを原則とする
-3. **レビューなしのPR作成**: 必ず品質レビューを通すこと
-4. **Worktree外のファイル操作**: 誤ってルートディレクトリのファイルを書き換えないこと
+## Policy References
+
+**Should-read** from `~/.claude/policy/RULES.md`:
+- Implementation Completeness - No partial features, no TODOs
+- Git Workflow - Feature branches, incremental commits
+- Safety Rules - Framework respect, pattern adherence

@@ -1,160 +1,455 @@
 ---
-name: prompt-engineering
-description: Use this skill when you writing commands, hooks, skills for Agent, or prompts for sub agents or any other LLM interaction, including optimizing prompts, improving LLM outputs, or designing production prompt templates.
+name: prompt-engineering-patterns
+description: Master advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability in production. Use when optimizing prompts, improving LLM outputs, or designing production prompt templates.
 ---
 
 # Prompt Engineering Patterns
 
-Advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability.
+Master advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability.
+
+## When to Use This Skill
+
+- Designing complex prompts for production LLM applications
+- Optimizing prompt performance and consistency
+- Implementing structured reasoning patterns (chain-of-thought, tree-of-thought)
+- Building few-shot learning systems with dynamic example selection
+- Creating reusable prompt templates with variable interpolation
+- Debugging and refining prompts that produce inconsistent outputs
+- Implementing system prompts for specialized AI assistants
+- Using structured outputs (JSON mode) for reliable parsing
 
 ## Core Capabilities
 
 ### 1. Few-Shot Learning
 
-Teach the model by showing examples instead of explaining rules. Include 2-5 input-output pairs that demonstrate the desired behavior. Use when you need consistent formatting, specific reasoning patterns, or handling of edge cases. More examples improve accuracy but consume tokens—balance based on task complexity.
-
-**Example:**
-
-```markdown
-Extract key information from support tickets:
-
-Input: "My login doesn't work and I keep getting error 403"
-Output: {"issue": "authentication", "error_code": "403", "priority": "high"}
-
-Input: "Feature request: add dark mode to settings"
-Output: {"issue": "feature_request", "error_code": null, "priority": "low"}
-
-Now process: "Can't upload files larger than 10MB, getting timeout"
-```
+- Example selection strategies (semantic similarity, diversity sampling)
+- Balancing example count with context window constraints
+- Constructing effective demonstrations with input-output pairs
+- Dynamic example retrieval from knowledge bases
+- Handling edge cases through strategic example selection
 
 ### 2. Chain-of-Thought Prompting
 
-Request step-by-step reasoning before the final answer. Add "Let's think step by step" (zero-shot) or include example reasoning traces (few-shot). Use for complex problems requiring multi-step logic, mathematical reasoning, or when you need to verify the model's thought process. Improves accuracy on analytical tasks by 30-50%.
+- Step-by-step reasoning elicitation
+- Zero-shot CoT with "Let's think step by step"
+- Few-shot CoT with reasoning traces
+- Self-consistency techniques (sampling multiple reasoning paths)
+- Verification and validation steps
 
-**Example:**
+### 3. Structured Outputs
 
-```markdown
-Analyze this bug report and determine root cause.
+- JSON mode for reliable parsing
+- Pydantic schema enforcement
+- Type-safe response handling
+- Error handling for malformed outputs
 
-Think step by step:
-1. What is the expected behavior?
-2. What is the actual behavior?
-3. What changed recently that could cause this?
-4. What components are involved?
-5. What is the most likely root cause?
+### 4. Prompt Optimization
 
-Bug: "Users can't save drafts after the cache update deployed yesterday"
-```
+- Iterative refinement workflows
+- A/B testing prompt variations
+- Measuring prompt performance metrics (accuracy, consistency, latency)
+- Reducing token usage while maintaining quality
+- Handling edge cases and failure modes
 
-### 3. Prompt Optimization
+### 5. Template Systems
 
-Systematically improve prompts through testing and refinement. Start simple, measure performance (accuracy, consistency, token usage), then iterate. Test on diverse inputs including edge cases. Use A/B testing to compare variations. Critical for production prompts where consistency and cost matter.
+- Variable interpolation and formatting
+- Conditional prompt sections
+- Multi-turn conversation templates
+- Role-based prompt composition
+- Modular prompt components
 
-**Example:**
+### 6. System Prompt Design
 
-```markdown
-Version 1 (Simple): "Summarize this article"
-→ Result: Inconsistent length, misses key points
+- Setting model behavior and constraints
+- Defining output formats and structure
+- Establishing role and expertise
+- Safety guidelines and content policies
+- Context setting and background information
 
-Version 2 (Add constraints): "Summarize in 3 bullet points"
-→ Result: Better structure, but still misses nuance
-
-Version 3 (Add reasoning): "Identify the 3 main findings, then summarize each"
-→ Result: Consistent, accurate, captures key information
-```
-
-### 4. Template Systems
-
-Build reusable prompt structures with variables, conditional sections, and modular components. Use for multi-turn conversations, role-based interactions, or when the same pattern applies to different inputs. Reduces duplication and ensures consistency across similar tasks.
-
-**Example:**
+## Quick Start
 
 ```python
-# Reusable code review template
-template = """
-Review this {language} code for {focus_area}.
+from langchain_anthropic import ChatAnthropic
+from langchain_core.prompts import ChatPromptTemplate
+from pydantic import BaseModel, Field
 
-Code:
-{code_block}
+# Define structured output schema
+class SQLQuery(BaseModel):
+    query: str = Field(description="The SQL query")
+    explanation: str = Field(description="Brief explanation of what the query does")
+    tables_used: list[str] = Field(description="List of tables referenced")
 
-Provide feedback on:
-{checklist}
-"""
+# Initialize model with structured output
+llm = ChatAnthropic(model="claude-sonnet-4-5")
+structured_llm = llm.with_structured_output(SQLQuery)
 
-# Usage
-prompt = template.format(
-    language="Python",
-    focus_area="security vulnerabilities",
-    code_block=user_code,
-    checklist="1. SQL injection\n2. XSS risks\n3. Authentication"
-)
-```
+# Create prompt template
+prompt = ChatPromptTemplate.from_messages([
+    ("system", """You are an expert SQL developer. Generate efficient, secure SQL queries.
+    Always use parameterized queries to prevent SQL injection.
+    Explain your reasoning briefly."""),
+    ("user", "Convert this to SQL: {query}")
+])
 
-### 5. System Prompt Design
+# Create chain
+chain = prompt | structured_llm
 
-Set global behavior and constraints that persist across the conversation. Define the model's role, expertise level, output format, and safety guidelines. Use system prompts for stable instructions that shouldn't change turn-to-turn, freeing up user message tokens for variable content.
-
-**Example:**
-
-```markdown
-System: You are a senior backend engineer specializing in API design.
-
-Rules:
-- Always consider scalability and performance
-- Suggest RESTful patterns by default
-- Flag security concerns immediately
-- Provide code examples in Python
-- Use early return pattern
-
-Format responses as:
-1. Analysis
-2. Recommendation
-3. Code example
-4. Trade-offs
+# Use
+result = await chain.ainvoke({
+    "query": "Find all users who registered in the last 30 days"
+})
+print(result.query)
+print(result.explanation)
 ```
 
 ## Key Patterns
 
-### Progressive Disclosure
+### Pattern 1: Structured Output with Pydantic
+
+```python
+from anthropic import Anthropic
+from pydantic import BaseModel, Field
+from typing import Literal
+import json
+
+class SentimentAnalysis(BaseModel):
+    sentiment: Literal["positive", "negative", "neutral"]
+    confidence: float = Field(ge=0, le=1)
+    key_phrases: list[str]
+    reasoning: str
+
+async def analyze_sentiment(text: str) -> SentimentAnalysis:
+    """Analyze sentiment with structured output."""
+    client = Anthropic()
+
+    message = client.messages.create(
+        model="claude-sonnet-4-5",
+        max_tokens=500,
+        messages=[{
+            "role": "user",
+            "content": f"""Analyze the sentiment of this text.
+
+Text: {text}
+
+Respond with JSON matching this schema:
+{{
+    "sentiment": "positive" | "negative" | "neutral",
+    "confidence": 0.0-1.0,
+    "key_phrases": ["phrase1", "phrase2"],
+    "reasoning": "brief explanation"
+}}"""
+        }]
+    )
+
+    return SentimentAnalysis(**json.loads(message.content[0].text))
+```
+
+### Pattern 2: Chain-of-Thought with Self-Verification
+
+```python
+from langchain_core.prompts import ChatPromptTemplate
+
+cot_prompt = ChatPromptTemplate.from_template("""
+Solve this problem step by step.
+
+Problem: {problem}
+
+Instructions:
+1. Break down the problem into clear steps
+2. Work through each step showing your reasoning
+3. State your final answer
+4. Verify your answer by checking it against the original problem
+
+Format your response as:
+## Steps
+[Your step-by-step reasoning]
+
+## Answer
+[Your final answer]
+
+## Verification
+[Check that your answer is correct]
+""")
+```
+
+### Pattern 3: Few-Shot with Dynamic Example Selection
+
+```python
+from langchain_voyageai import VoyageAIEmbeddings
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
+from langchain_chroma import Chroma
+
+# Create example selector with semantic similarity
+example_selector = SemanticSimilarityExampleSelector.from_examples(
+    examples=[
+        {"input": "How do I reset my password?", "output": "Go to Settings > Security > Reset Password"},
+        {"input": "Where can I see my order history?", "output": "Navigate to Account > Orders"},
+        {"input": "How do I contact support?", "output": "Click Help > Contact Us or email support@example.com"},
+    ],
+    embeddings=VoyageAIEmbeddings(model="voyage-3-large"),
+    vectorstore_cls=Chroma,
+    k=2  # Select 2 most similar examples
+)
+
+async def get_few_shot_prompt(query: str) -> str:
+    """Build prompt with dynamically selected examples."""
+    examples = await example_selector.aselect_examples({"input": query})
+
+    examples_text = "\n".join(
+        f"User: {ex['input']}\nAssistant: {ex['output']}"
+        for ex in examples
+    )
+
+    return f"""You are a helpful customer support assistant.
+
+Here are some example interactions:
+{examples_text}
+
+Now respond to this query:
+User: {query}
+Assistant:"""
+```
+
+### Pattern 4: Progressive Disclosure
 
 Start with simple prompts, add complexity only when needed:
 
-1. **Level 1**: Direct instruction
-   - "Summarize this article"
+```python
+PROMPT_LEVELS = {
+    # Level 1: Direct instruction
+    "simple": "Summarize this article: {text}",
 
-2. **Level 2**: Add constraints
-   - "Summarize this article in 3 bullet points, focusing on key findings"
+    # Level 2: Add constraints
+    "constrained": """Summarize this article in 3 bullet points, focusing on:
+- Key findings
+- Main conclusions
+- Practical implications
 
-3. **Level 3**: Add reasoning
-   - "Read this article, identify the main findings, then summarize in 3 bullet points"
+Article: {text}""",
 
-4. **Level 4**: Add examples
-   - Include 2-3 example summaries with input-output pairs
+    # Level 3: Add reasoning
+    "reasoning": """Read this article carefully.
+1. First, identify the main topic and thesis
+2. Then, extract the key supporting points
+3. Finally, summarize in 3 bullet points
 
-### Instruction Hierarchy
+Article: {text}
 
+Summary:""",
+
+    # Level 4: Add examples
+    "few_shot": """Read articles and provide concise summaries.
+
+Example:
+Article: "New research shows that regular exercise can reduce anxiety by up to 40%..."
+Summary:
+• Regular exercise reduces anxiety by up to 40%
+• 30 minutes of moderate activity 3x/week is sufficient
+• Benefits appear within 2 weeks of starting
+
+Now summarize this article:
+Article: {text}
+
+Summary:"""
+}
 ```
-[System Context] → [Task Instruction] → [Examples] → [Input Data] → [Output Format]
+
+### Pattern 5: Error Recovery and Fallback
+
+```python
+from pydantic import BaseModel, ValidationError
+import json
+
+class ResponseWithConfidence(BaseModel):
+    answer: str
+    confidence: float
+    sources: list[str]
+    alternative_interpretations: list[str] = []
+
+ERROR_RECOVERY_PROMPT = """
+Answer the question based on the context provided.
+
+Context: {context}
+Question: {question}
+
+Instructions:
+1. If you can answer confidently (>0.8), provide a direct answer
+2. If you're somewhat confident (0.5-0.8), provide your best answer with caveats
+3. If you're uncertain (<0.5), explain what information is missing
+4. Always provide alternative interpretations if the question is ambiguous
+
+Respond in JSON:
+{{
+    "answer": "your answer or 'I cannot determine this from the context'",
+    "confidence": 0.0-1.0,
+    "sources": ["relevant context excerpts"],
+    "alternative_interpretations": ["if question is ambiguous"]
+}}
+"""
+
+async def answer_with_fallback(
+    context: str,
+    question: str,
+    llm
+) -> ResponseWithConfidence:
+    """Answer with error recovery and fallback."""
+    prompt = ERROR_RECOVERY_PROMPT.format(context=context, question=question)
+
+    try:
+        response = await llm.ainvoke(prompt)
+        return ResponseWithConfidence(**json.loads(response.content))
+    except (json.JSONDecodeError, ValidationError) as e:
+        # Fallback: try to extract answer without structure
+        simple_prompt = f"Based on: {context}\n\nAnswer: {question}"
+        simple_response = await llm.ainvoke(simple_prompt)
+        return ResponseWithConfidence(
+            answer=simple_response.content,
+            confidence=0.5,
+            sources=["fallback extraction"],
+            alternative_interpretations=[]
+        )
 ```
 
-### Error Recovery
+### Pattern 6: Role-Based System Prompts
 
-Build prompts that gracefully handle failures:
+```python
+SYSTEM_PROMPTS = {
+    "analyst": """You are a senior data analyst with expertise in SQL, Python, and business intelligence.
 
-- Include fallback instructions
-- Request confidence scores
-- Ask for alternative interpretations when uncertain
-- Specify how to indicate missing information
+Your responsibilities:
+- Write efficient, well-documented queries
+- Explain your analysis methodology
+- Highlight key insights and recommendations
+- Flag any data quality concerns
+
+Communication style:
+- Be precise and technical when discussing methodology
+- Translate technical findings into business impact
+- Use clear visualizations when helpful""",
+
+    "assistant": """You are a helpful AI assistant focused on accuracy and clarity.
+
+Core principles:
+- Always cite sources when making factual claims
+- Acknowledge uncertainty rather than guessing
+- Ask clarifying questions when the request is ambiguous
+- Provide step-by-step explanations for complex topics
+
+Constraints:
+- Do not provide medical, legal, or financial advice
+- Redirect harmful requests appropriately
+- Protect user privacy""",
+
+    "code_reviewer": """You are a senior software engineer conducting code reviews.
+
+Review criteria:
+- Correctness: Does the code work as intended?
+- Security: Are there any vulnerabilities?
+- Performance: Are there efficiency concerns?
+- Maintainability: Is the code readable and well-structured?
+- Best practices: Does it follow language idioms?
+
+Output format:
+1. Summary assessment (approve/request changes)
+2. Critical issues (must fix)
+3. Suggestions (nice to have)
+4. Positive feedback (what's done well)"""
+}
+```
+
+## Integration Patterns
+
+### With RAG Systems
+
+```python
+RAG_PROMPT = """You are a knowledgeable assistant that answers questions based on provided context.
+
+Context (retrieved from knowledge base):
+{context}
+
+Instructions:
+1. Answer ONLY based on the provided context
+2. If the context doesn't contain the answer, say "I don't have information about that in my knowledge base"
+3. Cite specific passages using [1], [2] notation
+4. If the question is ambiguous, ask for clarification
+
+Question: {question}
+
+Answer:"""
+```
+
+### With Validation and Verification
+
+```python
+VALIDATED_PROMPT = """Complete the following task:
+
+Task: {task}
+
+After generating your response, verify it meets ALL these criteria:
+✓ Directly addresses the original request
+✓ Contains no factual errors
+✓ Is appropriately detailed (not too brief, not too verbose)
+✓ Uses proper formatting
+✓ Is safe and appropriate
+
+If verification fails on any criterion, revise before responding.
+
+Response:"""
+```
+
+## Performance Optimization
+
+### Token Efficiency
+
+```python
+# Before: Verbose prompt (150+ tokens)
+verbose_prompt = """
+I would like you to please take the following text and provide me with a comprehensive
+summary of the main points. The summary should capture the key ideas and important details
+while being concise and easy to understand.
+"""
+
+# After: Concise prompt (30 tokens)
+concise_prompt = """Summarize the key points concisely:
+
+{text}
+
+Summary:"""
+```
+
+### Caching Common Prefixes
+
+```python
+from anthropic import Anthropic
+
+client = Anthropic()
+
+# Use prompt caching for repeated system prompts
+response = client.messages.create(
+    model="claude-sonnet-4-5",
+    max_tokens=1000,
+    system=[
+        {
+            "type": "text",
+            "text": LONG_SYSTEM_PROMPT,
+            "cache_control": {"type": "ephemeral"}
+        }
+    ],
+    messages=[{"role": "user", "content": user_query}]
+)
+```
 
 ## Best Practices
 
 1. **Be Specific**: Vague prompts produce inconsistent results
 2. **Show, Don't Tell**: Examples are more effective than descriptions
-3. **Test Extensively**: Evaluate on diverse, representative inputs
-4. **Iterate Rapidly**: Small changes can have large impacts
-5. **Monitor Performance**: Track metrics in production
-6. **Version Control**: Treat prompts as code with proper versioning
-7. **Document Intent**: Explain why prompts are structured as they are
+3. **Use Structured Outputs**: Enforce schemas with Pydantic for reliability
+4. **Test Extensively**: Evaluate on diverse, representative inputs
+5. **Iterate Rapidly**: Small changes can have large impacts
+6. **Monitor Performance**: Track metrics in production
+7. **Version Control**: Treat prompts as code with proper versioning
+8. **Document Intent**: Explain why prompts are structured as they are
 
 ## Common Pitfalls
 
@@ -163,397 +458,23 @@ Build prompts that gracefully handle failures:
 - **Context overflow**: Exceeding token limits with excessive examples
 - **Ambiguous instructions**: Leaving room for multiple interpretations
 - **Ignoring edge cases**: Not testing on unusual or boundary inputs
+- **No error handling**: Assuming outputs will always be well-formed
+- **Hardcoded values**: Not parameterizing prompts for reuse
 
-## Integration Patterns
+## Success Metrics
 
-### With RAG Systems
+Track these KPIs for your prompts:
 
-```python
-# Combine retrieved context with prompt engineering
-prompt = f"""Given the following context:
-{retrieved_context}
+- **Accuracy**: Correctness of outputs
+- **Consistency**: Reproducibility across similar inputs
+- **Latency**: Response time (P50, P95, P99)
+- **Token Usage**: Average tokens per request
+- **Success Rate**: Percentage of valid, parseable outputs
+- **User Satisfaction**: Ratings and feedback
 
-{few_shot_examples}
+## Resources
 
-Question: {user_question}
-
-Provide a detailed answer based solely on the context above. If the context doesn't contain enough information, explicitly state what's missing."""
-```
-
-### With Validation
-
-```python
-# Add self-verification step
-prompt = f"""{main_task_prompt}
-
-After generating your response, verify it meets these criteria:
-1. Answers the question directly
-2. Uses only information from provided context
-3. Cites specific sources
-4. Acknowledges any uncertainty
-
-If verification fails, revise your response."""
-```
-
-## Performance Optimization
-
-### Token Efficiency
-
-- Remove redundant words and phrases
-- Use abbreviations consistently after first definition
-- Consolidate similar instructions
-- Move stable content to system prompts
-
-### Latency Reduction
-
-- Minimize prompt length without sacrificing quality
-- Use streaming for long-form outputs
-- Cache common prompt prefixes
-- Batch similar requests when possible
-
----
-
-# Agent Prompting Best Practices
-
-Based on Anthropic's official best practices for agent prompting.
-
-## Core principles
-
-### Context Window
-
-The “context window” refers to the entirety of the amount of text a language model can look back on and reference when generating new text plus the new text it generates. This is different from the large corpus of data the language model was trained on, and instead represents a “working memory” for the model. A larger context window allows the model to understand and respond to more complex and lengthy prompts, while a smaller context window may limit the model’s ability to handle longer prompts or maintain coherence over extended conversations.
-
-- Progressive token accumulation: As the conversation advances through turns, each user message and assistant response accumulates within the context window. Previous turns are preserved completely.
-- Linear growth pattern: The context usage grows linearly with each turn, with previous turns preserved completely.
-- 200K token capacity: The total available context window (200,000 tokens) represents the maximum capacity for storing conversation history and generating new output from Claude.
-- Input-output flow: Each turn consists of:
-  - Input phase: Contains all previous conversation history plus the current user message
-  - Output phase: Generates a text response that becomes part of a future input
-
-### Concise is key
-
-The context window is a public good. Your prompt, command, skill shares the context window with everything else Claude needs to know, including:
-
-- The system prompt
-- Conversation history
-- Other commands, skills, hooks, metadata
-- Your actual request
-
-**Default assumption**: Claude is already very smart
-
-Only add context Claude doesn't already have. Challenge each piece of information:
-
-- "Does Claude really need this explanation?"
-- "Can I assume Claude knows this?"
-- "Does this paragraph justify its token cost?"
-
-**Good example: Concise** (approximately 50 tokens):
-
-````markdown  theme={null}
-## Extract PDF text
-
-Use pdfplumber for text extraction:
-
-```python
-import pdfplumber
-
-with pdfplumber.open("file.pdf") as pdf:
-    text = pdf.pages[0].extract_text()
-```
-````
-
-**Bad example: Too verbose** (approximately 150 tokens):
-
-```markdown  theme={null}
-## Extract PDF text
-
-PDF (Portable Document Format) files are a common file format that contains
-text, images, and other content. To extract text from a PDF, you'll need to
-use a library. There are many libraries available for PDF processing, but we
-recommend pdfplumber because it's easy to use and handles most cases well.
-First, you'll need to install it using pip. Then you can use the code below...
-```
-
-The concise version assumes Claude knows what PDFs are and how libraries work.
-
-### Set appropriate degrees of freedom
-
-Match the level of specificity to the task's fragility and variability.
-
-**High freedom** (text-based instructions):
-
-Use when:
-
-- Multiple approaches are valid
-- Decisions depend on context
-- Heuristics guide the approach
-
-Example:
-
-```markdown  theme={null}
-## Code review process
-
-1. Analyze the code structure and organization
-2. Check for potential bugs or edge cases
-3. Suggest improvements for readability and maintainability
-4. Verify adherence to project conventions
-```
-
-**Medium freedom** (pseudocode or scripts with parameters):
-
-Use when:
-
-- A preferred pattern exists
-- Some variation is acceptable
-- Configuration affects behavior
-
-Example:
-
-````markdown  theme={null}
-## Generate report
-
-Use this template and customize as needed:
-
-```python
-def generate_report(data, format="markdown", include_charts=True):
-    # Process data
-    # Generate output in specified format
-    # Optionally include visualizations
-```
-````
-
-**Low freedom** (specific scripts, few or no parameters):
-
-Use when:
-
-- Operations are fragile and error-prone
-- Consistency is critical
-- A specific sequence must be followed
-
-Example:
-
-````markdown  theme={null}
-## Database migration
-
-Run exactly this script:
-
-```bash
-python scripts/migrate.py --verify --backup
-```
-
-Do not modify the command or add additional flags.
-````
-
-**Analogy**: Think of Claude as a robot exploring a path:
-
-- **Narrow bridge with cliffs on both sides**: There's only one safe way forward. Provide specific guardrails and exact instructions (low freedom). Example: database migrations that must run in exact sequence.
-- **Open field with no hazards**: Many paths lead to success. Give general direction and trust Claude to find the best route (high freedom). Example: code reviews where context determines the best approach.
-
-# Persuasion Principles for Agent Communication
-
-Usefull for writing prompts, including but not limited to: commands, hooks, skills for Claude Code, or prompts for sub agents or any other LLM interaction.
-
-## Overview
-
-LLMs respond to the same persuasion principles as humans. Understanding this psychology helps you design more effective skills - not to manipulate, but to ensure critical practices are followed even under pressure.
-
-**Research foundation:** Meincke et al. (2025) tested 7 persuasion principles with N=28,000 AI conversations. Persuasion techniques more than doubled compliance rates (33% → 72%, p < .001).
-
-## The Seven Principles
-
-### 1. Authority
-
-**What it is:** Deference to expertise, credentials, or official sources.
-
-**How it works in prompts:**
-
-- Imperative language: "YOU MUST", "Never", "Always"
-- Non-negotiable framing: "No exceptions"
-- Eliminates decision fatigue and rationalization
-
-**When to use:**
-
-- Discipline-enforcing skills (TDD, verification requirements)
-- Safety-critical practices
-- Established best practices
-
-**Example:**
-
-```markdown
-✅ Write code before test? Delete it. Start over. No exceptions.
-❌ Consider writing tests first when feasible.
-```
-
-### 2. Commitment
-
-**What it is:** Consistency with prior actions, statements, or public declarations.
-
-**How it works in prompts:**
-
-- Require announcements: "Announce skill usage"
-- Force explicit choices: "Choose A, B, or C"
-- Use tracking: TodoWrite for checklists
-
-**When to use:**
-
-- Ensuring skills are actually followed
-- Multi-step processes
-- Accountability mechanisms
-
-**Example:**
-
-```markdown
-✅ When you find a skill, you MUST announce: "I'm using [Skill Name]"
-❌ Consider letting your partner know which skill you're using.
-```
-
-### 3. Scarcity
-
-**What it is:** Urgency from time limits or limited availability.
-
-**How it works in prompts:**
-
-- Time-bound requirements: "Before proceeding"
-- Sequential dependencies: "Immediately after X"
-- Prevents procrastination
-
-**When to use:**
-
-- Immediate verification requirements
-- Time-sensitive workflows
-- Preventing "I'll do it later"
-
-**Example:**
-
-```markdown
-✅ After completing a task, IMMEDIATELY request code review before proceeding.
-❌ You can review code when convenient.
-```
-
-### 4. Social Proof
-
-**What it is:** Conformity to what others do or what's considered normal.
-
-**How it works in prompts:**
-
-- Universal patterns: "Every time", "Always"
-- Failure modes: "X without Y = failure"
-- Establishes norms
-
-**When to use:**
-
-- Documenting universal practices
-- Warning about common failures
-- Reinforcing standards
-
-**Example:**
-
-```markdown
-✅ Checklists without TodoWrite tracking = steps get skipped. Every time.
-❌ Some people find TodoWrite helpful for checklists.
-```
-
-### 5. Unity
-
-**What it is:** Shared identity, "we-ness", in-group belonging.
-
-**How it works in prompts:**
-
-- Collaborative language: "our codebase", "we're colleagues"
-- Shared goals: "we both want quality"
-
-**When to use:**
-
-- Collaborative workflows
-- Establishing team culture
-- Non-hierarchical practices
-
-**Example:**
-
-```markdown
-✅ We're colleagues working together. I need your honest technical judgment.
-❌ You should probably tell me if I'm wrong.
-```
-
-### 6. Reciprocity
-
-**What it is:** Obligation to return benefits received.
-
-**How it works:**
-
-- Use sparingly - can feel manipulative
-- Rarely needed in prompts
-
-**When to avoid:**
-
-- Almost always (other principles more effective)
-
-### 7. Liking
-
-**What it is:** Preference for cooperating with those we like.
-
-**How it works:**
-
-- **DON'T USE for compliance**
-- Conflicts with honest feedback culture
-- Creates sycophancy
-
-**When to avoid:**
-
-- Always for discipline enforcement
-
-## Principle Combinations by Prompt Type
-
-| Prompt Type | Use | Avoid |
-|------------|-----|-------|
-| Discipline-enforcing | Authority + Commitment + Social Proof | Liking, Reciprocity |
-| Guidance/technique | Moderate Authority + Unity | Heavy authority |
-| Collaborative | Unity + Commitment | Authority, Liking |
-| Reference | Clarity only | All persuasion |
-
-## Why This Works: The Psychology
-
-**Bright-line rules reduce rationalization:**
-
-- "YOU MUST" removes decision fatigue
-- Absolute language eliminates "is this an exception?" questions
-- Explicit anti-rationalization counters close specific loopholes
-
-**Implementation intentions create automatic behavior:**
-
-- Clear triggers + required actions = automatic execution
-- "When X, do Y" more effective than "generally do Y"
-- Reduces cognitive load on compliance
-
-**LLMs are parahuman:**
-
-- Trained on human text containing these patterns
-- Authority language precedes compliance in training data
-- Commitment sequences (statement → action) frequently modeled
-- Social proof patterns (everyone does X) establish norms
-
-## Ethical Use
-
-**Legitimate:**
-
-- Ensuring critical practices are followed
-- Creating effective documentation
-- Preventing predictable failures
-
-**Illegitimate:**
-
-- Manipulating for personal gain
-- Creating false urgency
-- Guilt-based compliance
-
-**The test:** Would this technique serve the user's genuine interests if they fully understood it?
-
-## Quick Reference
-
-When designing a prompt, ask:
-
-1. **What type is it?** (Discipline vs. guidance vs. reference)
-2. **What behavior am I trying to change?**
-3. **Which principle(s) apply?** (Usually authority + commitment for discipline)
-4. **Am I combining too many?** (Don't use all seven)
-5. **Is this ethical?** (Serves user's genuine interests?)
+- [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering)
+- [Claude Prompt Caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)
+- [OpenAI Prompt Engineering](https://platform.openai.com/docs/guides/prompt-engineering)
+- [LangChain Prompts](https://python.langchain.com/docs/concepts/prompts/)

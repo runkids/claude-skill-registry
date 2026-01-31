@@ -4,6 +4,7 @@ description: "Toolkit for comprehensive document reading and creation with visua
 metadata:
   author: OpenAI
   license: Proprietary.
+  version: 2025.12.12
 ---
 
 # DOCX reading, creation, and review guidance

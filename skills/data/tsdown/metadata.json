@@ -1,7 +1,7 @@
 {
   "name": "tsdown",
-  "repo": "onmax/claude-config",
+  "repo": "antfu/skills",
   "path": "skills/tsdown/SKILL.md",
-  "source": "github.com/onmax/claude-config",
-  "downloaded_at": "2026-01-30T03:44:40.207494Z"
+  "source": "github.com/antfu/skills",
+  "downloaded_at": "2026-01-31T01:49:34.924196Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "cookie-security-analyzer",
-  "description": "Cookie Security Analyzer - Auto-activating skill for Security Fundamentals.Triggers on: cookie security analyzer, cookie security analyzerPart of the Security Fundamentals skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/03-security-fundamentals/cookie-security-analyzer/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:32.927180Z"
 }

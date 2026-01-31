@@ -1,640 +1,524 @@
 ---
 name: responsive-design
-description: Implement mobile-first responsive design with Tailwind CSS breakpoints for mobile, tablet, and desktop. Use when building responsive layouts or fixing layout issues.
-allowed-tools: Read, Write, Edit, Glob
+description: Implement modern responsive layouts using container queries, fluid typography, CSS Grid, and mobile-first breakpoint strategies. Use when building adaptive interfaces, implementing fluid layouts, or creating component-level responsive behavior.
 ---
 
-You implement responsive design for the QA Team Portal using Tailwind CSS mobile-first approach.
+# Responsive Design
 
-## Requirements from PROJECT_PLAN.md
+Master modern responsive design techniques to create interfaces that adapt seamlessly across all screen sizes and device contexts.
 
-- Responsive: Mobile, tablet, desktop support
-- Mobile-first design approach
-- Touch-friendly interface
-- Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
-- Responsive images and media
-- Flexible layouts with CSS Grid and Flexbox
+## When to Use This Skill
 
-## Tailwind CSS Breakpoints
+- Implementing mobile-first responsive layouts
+- Using container queries for component-based responsiveness
+- Creating fluid typography and spacing scales
+- Building complex layouts with CSS Grid and Flexbox
+- Designing breakpoint strategies for design systems
+- Implementing responsive images and media
+- Creating adaptive navigation patterns
+- Building responsive tables and data displays
 
+## Core Capabilities
+
+### 1. Container Queries
+
+- Component-level responsiveness independent of viewport
+- Container query units (cqi, cqw, cqh)
+- Style queries for conditional styling
+- Fallbacks for browser support
+
+### 2. Fluid Typography & Spacing
+
+- CSS clamp() for fluid scaling
+- Viewport-relative units (vw, vh, dvh)
+- Fluid type scales with min/max bounds
+- Responsive spacing systems
+
+### 3. Layout Patterns
+
+- CSS Grid for 2D layouts
+- Flexbox for 1D distribution
+- Intrinsic layouts (content-based sizing)
+- Subgrid for nested grid alignment
+
+### 4. Breakpoint Strategy
+
+- Mobile-first media queries
+- Content-based breakpoints
+- Design token integration
+- Feature queries (@supports)
+
+## Quick Reference
+
+### Modern Breakpoint Scale
+
+```css
+/* Mobile-first breakpoints */
+/* Base: Mobile (< 640px) */
+@media (min-width: 640px) {
+  /* sm: Landscape phones, small tablets */
+}
+@media (min-width: 768px) {
+  /* md: Tablets */
+}
+@media (min-width: 1024px) {
+  /* lg: Laptops, small desktops */
+}
+@media (min-width: 1280px) {
+  /* xl: Desktops */
+}
+@media (min-width: 1536px) {
+  /* 2xl: Large desktops */
+}
+
+/* Tailwind CSS equivalent */
+/* sm:  @media (min-width: 640px) */
+/* md:  @media (min-width: 768px) */
+/* lg:  @media (min-width: 1024px) */
+/* xl:  @media (min-width: 1280px) */
+/* 2xl: @media (min-width: 1536px) */
 ```
-sm:  @media (min-width: 640px)   - Mobile landscape, small tablets
-md:  @media (min-width: 768px)   - Tablets
-lg:  @media (min-width: 1024px)  - Desktop
-xl:  @media (min-width: 1280px)  - Large desktop
-2xl: @media (min-width: 1536px)  - Extra large desktop
-```
 
-## Implementation
+## Key Patterns
 
-### 1. Mobile-First Layout Pattern
+### Pattern 1: Container Queries
 
-**Start with mobile styles, then add larger breakpoints:**
+```css
+/* Define a containment context */
+.card-container {
+  container-type: inline-size;
+  container-name: card;
+}
 
-```typescript
-// ❌ Wrong: Desktop-first approach
-<div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+/* Query the container, not the viewport */
+@container card (min-width: 400px) {
+  .card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1rem;
+  }
 
-// ✅ Correct: Mobile-first approach
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-```
+  .card-image {
+    aspect-ratio: 1;
+  }
+}
 
-### 2. Responsive Navigation
+@container card (min-width: 600px) {
+  .card {
+    grid-template-columns: 250px 1fr;
+  }
 
-**Location:** `frontend/src/components/Navigation.tsx`
+  .card-title {
+    font-size: 1.5rem;
+  }
+}
 
-```typescript
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
-export const Navigation = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-  return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Evoke" className="h-8 w-8" />
-            <span className="hidden sm:inline font-heading text-xl font-bold">
-              QA Team Portal
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">
-              Team
-            </a>
-            <a href="#updates" className="text-sm font-medium hover:text-primary transition-colors">
-              Updates
-            </a>
-            <a href="#tools" className="text-sm font-medium hover:text-primary transition-colors">
-              Tools
-            </a>
-            <a href="#resources" className="text-sm font-medium hover:text-primary transition-colors">
-              Resources
-            </a>
-            <Button size="sm">Admin Portal</Button>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-border animate-slide-in">
-            <div className="flex flex-col gap-4">
-              <a
-                href="#team"
-                className="text-base font-medium hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Team
-              </a>
-              <a
-                href="#updates"
-                className="text-base font-medium hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Updates
-              </a>
-              <a
-                href="#tools"
-                className="text-base font-medium hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Tools
-              </a>
-              <a
-                href="#resources"
-                className="text-base font-medium hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Resources
-              </a>
-              <Button className="w-full">Admin Portal</Button>
-            </div>
-          </nav>
-        )}
-      </div>
-    </header>
-  )
+/* Container query units */
+.card-title {
+  /* 5% of container width, clamped between 1rem and 2rem */
+  font-size: clamp(1rem, 5cqi, 2rem);
 }
 ```
 
-### 3. Responsive Grid Layouts
-
-**Team Members Grid:**
-
-```typescript
-// frontend/src/components/TeamGrid.tsx
-export const TeamGrid = ({ members }: { members: TeamMember[] }) => {
+```tsx
+// React component with container queries
+function ResponsiveCard({ title, image, description }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-      {members.map((member) => (
-        <TeamCard key={member.id} member={member} />
-      ))}
-    </div>
-  )
-}
-```
-
-**Tools by Category:**
-
-```typescript
-// frontend/src/components/ToolsSection.tsx
-export const ToolsSection = ({ tools }: { tools: Tool[] }) => {
-  return (
-    <div className="space-y-8">
-      {Object.entries(toolsByCategory).map(([category, categoryTools]) => (
-        <div key={category}>
-          <h3 className="text-xl sm:text-2xl font-bold mb-4">{category}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {categoryTools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-```
-
-### 4. Responsive Typography
-
-```typescript
-// frontend/src/components/Hero.tsx
-export const Hero = () => {
-  return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-32">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Responsive heading sizes */}
-          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-balance mb-4 sm:mb-6">
-            Welcome to Evoke QA Team
-          </h1>
-
-          {/* Responsive paragraph sizes */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-balance mb-6 sm:mb-8">
-            Building quality software through comprehensive testing and collaboration
-          </p>
-
-          {/* Responsive button sizes */}
-          <Button size="default" className="w-full sm:w-auto">
-            Get Started
-          </Button>
-        </div>
-      </div>
-    </section>
-  )
-}
-```
-
-### 5. Responsive Spacing
-
-```typescript
-// Use responsive padding, margin, gap
-<div className="
-  p-4 sm:p-6 lg:p-8           // Padding increases on larger screens
-  mb-4 sm:mb-6 lg:mb-8        // Margin increases
-  space-y-4 sm:space-y-6      // Gap between children increases
-">
-  <h2 className="text-2xl sm:text-3xl lg:text-4xl">Title</h2>
-  <p className="text-sm sm:text-base lg:text-lg">Content</p>
-</div>
-```
-
-### 6. Responsive Card Component
-
-```typescript
-// frontend/src/components/TeamCard.tsx
-export const TeamCard = ({ member }: { member: TeamMember }) => {
-  return (
-    <Card className="group h-full flex flex-col">
-      {/* Responsive image aspect ratio */}
-      <div className="relative overflow-hidden rounded-t-lg aspect-square sm:aspect-[4/3] lg:aspect-square">
+    <div className="@container">
+      <article className="flex flex-col @md:flex-row @md:gap-4">
         <img
-          src={member.photo_url}
-          alt={member.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          src={image}
+          alt=""
+          className="w-full @md:w-48 @lg:w-64 aspect-video @md:aspect-square object-cover"
         />
-      </div>
-
-      <CardContent className="flex-1 p-4 sm:p-6">
-        {/* Responsive text sizes */}
-        <h3 className="font-heading text-lg sm:text-xl font-semibold mb-1">
-          {member.name}
-        </h3>
-        <p className="text-sm sm:text-base text-primary-600 mb-2 sm:mb-3">
-          {member.role}
-        </p>
-
-        {/* Hide bio on very small screens */}
-        {member.bio && (
-          <p className="hidden sm:block text-sm text-muted-foreground line-clamp-3">
-            {member.bio}
+        <div className="p-4 @md:p-0">
+          <h2 className="text-lg @md:text-xl @lg:text-2xl font-semibold">
+            {title}
+          </h2>
+          <p className="mt-2 text-muted-foreground @md:line-clamp-3">
+            {description}
           </p>
-        )}
-      </CardContent>
-    </Card>
-  )
+        </div>
+      </article>
+    </div>
+  );
 }
 ```
 
-### 7. Responsive Table
+### Pattern 2: Fluid Typography
 
-**Desktop: Full table, Mobile: Card layout:**
+```css
+/* Fluid type scale using clamp() */
+:root {
+  /* Min size, preferred (fluid), max size */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1rem + 1.25vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+  --text-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+  --text-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);
+}
 
-```typescript
-// frontend/src/components/admin/TeamMembersTable.tsx
-export const TeamMembersTable = ({ members }: { members: TeamMember[] }) => {
+/* Usage */
+h1 {
+  font-size: var(--text-4xl);
+}
+h2 {
+  font-size: var(--text-3xl);
+}
+h3 {
+  font-size: var(--text-2xl);
+}
+p {
+  font-size: var(--text-base);
+}
+
+/* Fluid spacing scale */
+:root {
+  --space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+  --space-md: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  --space-xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+}
+```
+
+```tsx
+// Utility function for fluid values
+function fluidValue(
+  minSize: number,
+  maxSize: number,
+  minWidth = 320,
+  maxWidth = 1280,
+) {
+  const slope = (maxSize - minSize) / (maxWidth - minWidth);
+  const yAxisIntersection = -minWidth * slope + minSize;
+
+  return `clamp(${minSize}rem, ${yAxisIntersection.toFixed(4)}rem + ${(slope * 100).toFixed(4)}vw, ${maxSize}rem)`;
+}
+
+// Generate fluid type scale
+const fluidTypeScale = {
+  sm: fluidValue(0.875, 1),
+  base: fluidValue(1, 1.125),
+  lg: fluidValue(1.25, 1.5),
+  xl: fluidValue(1.5, 2),
+  "2xl": fluidValue(2, 3),
+};
+```
+
+### Pattern 3: CSS Grid Responsive Layout
+
+```css
+/* Auto-fit grid - items wrap automatically */
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1.5rem;
+}
+
+/* Auto-fill grid - maintains empty columns */
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Responsive grid with named areas */
+.page-layout {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "sidebar"
+    "footer";
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-layout {
+    grid-template-columns: 1fr 300px;
+    grid-template-areas:
+      "header header"
+      "main sidebar"
+      "footer footer";
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-layout {
+    grid-template-columns: 250px 1fr 300px;
+    grid-template-areas:
+      "header header header"
+      "nav main sidebar"
+      "footer footer footer";
+  }
+}
+
+.header {
+  grid-area: header;
+}
+.main {
+  grid-area: main;
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.footer {
+  grid-area: footer;
+}
+```
+
+```tsx
+// Responsive grid component
+function ResponsiveGrid({ children, minItemWidth = "250px", gap = "1.5rem" }) {
+  return (
+    <div
+      className="grid"
+      style={{
+        gridTemplateColumns: `repeat(auto-fit, minmax(min(${minItemWidth}, 100%), 1fr))`,
+        gap,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Usage with Tailwind
+function ProductGrid({ products }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+```
+
+### Pattern 4: Responsive Navigation
+
+```tsx
+function ResponsiveNav({ items }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <nav className="relative">
+      {/* Mobile menu button */}
+      <button
+        className="lg:hidden p-2"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls="nav-menu"
+      >
+        <span className="sr-only">Toggle navigation</span>
+        {isOpen ? <X /> : <Menu />}
+      </button>
+
+      {/* Navigation links */}
+      <ul
+        id="nav-menu"
+        className={cn(
+          // Base: hidden on mobile
+          "absolute top-full left-0 right-0 bg-background border-b",
+          "flex flex-col",
+          // Mobile: slide down
+          isOpen ? "flex" : "hidden",
+          // Desktop: always visible, horizontal
+          "lg:static lg:flex lg:flex-row lg:border-0 lg:bg-transparent",
+        )}
+      >
+        {items.map((item) => (
+          <li key={item.href}>
+            <a
+              href={item.href}
+              className={cn(
+                "block px-4 py-3",
+                "lg:px-3 lg:py-2",
+                "hover:bg-muted lg:hover:bg-transparent lg:hover:text-primary",
+              )}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+```
+
+### Pattern 5: Responsive Images
+
+```tsx
+// Responsive image with art direction
+function ResponsiveHero() {
+  return (
+    <picture>
+      {/* Art direction: different crops for different screens */}
+      <source
+        media="(min-width: 1024px)"
+        srcSet="/hero-wide.webp"
+        type="image/webp"
+      />
+      <source
+        media="(min-width: 768px)"
+        srcSet="/hero-medium.webp"
+        type="image/webp"
+      />
+      <source srcSet="/hero-mobile.webp" type="image/webp" />
+
+      {/* Fallback */}
+      <img
+        src="/hero-mobile.jpg"
+        alt="Hero image description"
+        className="w-full h-auto"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </picture>
+  );
+}
+
+// Responsive image with srcset for resolution switching
+function ProductImage({ product }) {
+  return (
+    <img
+      src={product.image}
+      srcSet={`
+        ${product.image}?w=400 400w,
+        ${product.image}?w=800 800w,
+        ${product.image}?w=1200 1200w
+      `}
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      alt={product.name}
+      className="w-full h-auto object-cover"
+      loading="lazy"
+    />
+  );
+}
+```
+
+### Pattern 6: Responsive Tables
+
+```tsx
+// Responsive table with horizontal scroll
+function ResponsiveTable({ data, columns }) {
+  return (
+    <div className="w-full overflow-x-auto">
+      <table className="w-full min-w-[600px]">
+        <thead>
+          <tr>
+            {columns.map((col) => (
+              <th key={col.key} className="text-left p-3">
+                {col.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, i) => (
+            <tr key={i} className="border-t">
+              {columns.map((col) => (
+                <td key={col.key} className="p-3">
+                  {row[col.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Card-based table for mobile
+function ResponsiveDataTable({ data, columns }) {
   return (
     <>
-      {/* Desktop Table - hidden on mobile */}
-      <div className="hidden md:block overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b">
-              <th className="text-left p-4">Photo</th>
-              <th className="text-left p-4">Name</th>
-              <th className="text-left p-4">Role</th>
-              <th className="text-left p-4">Email</th>
-              <th className="text-right p-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.map((member) => (
-              <tr key={member.id} className="border-b">
-                <td className="p-4">
-                  <img src={member.photo_url} className="w-12 h-12 rounded-full" />
-                </td>
-                <td className="p-4">{member.name}</td>
-                <td className="p-4">{member.role}</td>
-                <td className="p-4">{member.email}</td>
-                <td className="p-4 text-right">
-                  <Button variant="ghost" size="sm">Edit</Button>
-                  <Button variant="ghost" size="sm">Delete</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Desktop table */}
+      <table className="hidden md:table w-full">
+        {/* ... standard table */}
+      </table>
 
-      {/* Mobile Card Layout - hidden on desktop */}
+      {/* Mobile cards */}
       <div className="md:hidden space-y-4">
-        {members.map((member) => (
-          <Card key={member.id}>
-            <CardContent className="p-4">
-              <div className="flex items-start gap-4">
-                <img src={member.photo_url} className="w-16 h-16 rounded-full" />
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold truncate">{member.name}</h3>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
-                  <p className="text-sm text-muted-foreground truncate">{member.email}</p>
-                </div>
+        {data.map((row, i) => (
+          <div key={i} className="border rounded-lg p-4 space-y-2">
+            {columns.map((col) => (
+              <div key={col.key} className="flex justify-between">
+                <span className="font-medium text-muted-foreground">
+                  {col.label}
+                </span>
+                <span>{row[col.key]}</span>
               </div>
-              <div className="flex gap-2 mt-4">
-                <Button variant="outline" size="sm" className="flex-1">Edit</Button>
-                <Button variant="outline" size="sm" className="flex-1">Delete</Button>
-              </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
         ))}
       </div>
     </>
-  )
+  );
 }
 ```
 
-### 8. Responsive Form Layout
+## Viewport Units
 
-```typescript
-// frontend/src/components/admin/TeamMemberForm.tsx
-export const TeamMemberForm = () => {
-  return (
-    <form className="space-y-6">
-      {/* Single column on mobile, two columns on desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
-          <Input id="name" />
-        </div>
+```css
+/* Standard viewport units */
+.full-height {
+  height: 100vh; /* May cause issues on mobile */
+}
 
-        <div className="space-y-2">
-          <Label htmlFor="role">Role</Label>
-          <Input id="role" />
-        </div>
-      </div>
+/* Dynamic viewport units (recommended for mobile) */
+.full-height-dynamic {
+  height: 100dvh; /* Accounts for mobile browser UI */
+}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" />
-        </div>
+/* Small viewport (minimum) */
+.min-full-height {
+  min-height: 100svh;
+}
 
-        <div className="space-y-2">
-          <Label htmlFor="photo">Photo</Label>
-          <Input id="photo" type="file" />
-        </div>
-      </div>
+/* Large viewport (maximum) */
+.max-full-height {
+  max-height: 100lvh;
+}
 
-      {/* Full width */}
-      <div className="space-y-2">
-        <Label htmlFor="bio">Bio</Label>
-        <Textarea id="bio" rows={4} />
-      </div>
-
-      {/* Responsive button layout */}
-      <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
-        <Button type="button" variant="outline" className="w-full sm:w-auto">
-          Cancel
-        </Button>
-        <Button type="submit" className="w-full sm:w-auto">
-          Save Changes
-        </Button>
-      </div>
-    </form>
-  )
+/* Viewport-relative font sizing */
+.hero-title {
+  /* 5vw with min/max bounds */
+  font-size: clamp(2rem, 5vw, 4rem);
 }
 ```
 
-### 9. Responsive Images
+## Best Practices
 
-```typescript
-// frontend/src/components/OptimizedImage.tsx
-export const ResponsiveImage = ({ src, alt }: { src: string; alt: string }) => {
-  return (
-    <picture>
-      {/* Mobile: 640w */}
-      <source
-        media="(max-width: 640px)"
-        srcSet={`${src}?w=640 1x, ${src}?w=1280 2x`}
-      />
-      {/* Tablet: 1024w */}
-      <source
-        media="(max-width: 1024px)"
-        srcSet={`${src}?w=1024 1x, ${src}?w=2048 2x`}
-      />
-      {/* Desktop: 1920w */}
-      <source
-        media="(min-width: 1025px)"
-        srcSet={`${src}?w=1920 1x, ${src}?w=3840 2x`}
-      />
-      {/* Fallback */}
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        className="w-full h-auto"
-      />
-    </picture>
-  )
-}
-```
+1. **Mobile-First**: Start with mobile styles, enhance for larger screens
+2. **Content Breakpoints**: Set breakpoints based on content, not devices
+3. **Fluid Over Fixed**: Use fluid values for typography and spacing
+4. **Container Queries**: Use for component-level responsiveness
+5. **Test Real Devices**: Simulators don't catch all issues
+6. **Performance**: Optimize images, lazy load off-screen content
+7. **Touch Targets**: Maintain 44x44px minimum on mobile
+8. **Logical Properties**: Use inline/block for internationalization
 
-### 10. Responsive Container
+## Common Issues
 
-```typescript
-// frontend/src/components/Container.tsx
-export const Container = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  return (
-    <div className={cn(
-      "mx-auto w-full",
-      "px-4 sm:px-6 lg:px-8",          // Responsive horizontal padding
-      "max-w-7xl",                      // Maximum width
-      className
-    )}>
-      {children}
-    </div>
-  )
-}
-```
+- **Horizontal Overflow**: Content breaking out of viewport
+- **Fixed Widths**: Using px instead of relative units
+- **Viewport Height**: 100vh issues on mobile browsers
+- **Font Size**: Text too small on mobile
+- **Touch Targets**: Buttons too small to tap accurately
+- **Aspect Ratio**: Images squishing or stretching
+- **Z-Index Stacking**: Overlays breaking on different screens
 
-### 11. Touch-Friendly Targets
+## Resources
 
-```typescript
-// Ensure minimum 44x44px touch targets on mobile
-<Button
-  size="default"  // default is 40px height
-  className="h-11 px-4 sm:h-10"  // 44px on mobile, 40px on desktop
->
-  Click Me
-</Button>
-
-// Increase spacing between interactive elements
-<div className="flex gap-3 sm:gap-2">
-  <Button>Action 1</Button>
-  <Button>Action 2</Button>
-  <Button>Action 3</Button>
-</div>
-```
-
-### 12. Responsive Sidebar Layout
-
-```typescript
-// frontend/src/layouts/AdminLayout.tsx
-export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside className={cn(
-        "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r transform transition-transform",
-        "lg:translate-x-0 lg:static",  // Always visible on desktop
-        sidebarOpen ? "translate-x-0" : "-translate-x-full"  // Slide in/out on mobile
-      )}>
-        <nav className="p-4 space-y-2">
-          <a href="/admin/dashboard" className="block px-4 py-2 rounded-lg hover:bg-accent">
-            Dashboard
-          </a>
-          <a href="/admin/team-members" className="block px-4 py-2 rounded-lg hover:bg-accent">
-            Team Members
-          </a>
-          <a href="/admin/tools" className="block px-4 py-2 rounded-lg hover:bg-accent">
-            Tools
-          </a>
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <div className="lg:pl-64">
-        {/* Header with mobile menu button */}
-        <header className="sticky top-0 z-30 border-b bg-background px-4 sm:px-6 h-16 flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="h-6 w-6" />
-          </Button>
-          <h1 className="text-xl font-bold">Admin Portal</h1>
-        </header>
-
-        {/* Page Content */}
-        <main className="p-4 sm:p-6 lg:p-8">
-          {children}
-        </main>
-      </div>
-    </div>
-  )
-}
-```
-
-## Responsive Design Checklist
-
-### Layout
-- [ ] Mobile-first approach used (base styles for mobile, breakpoints for larger)
-- [ ] Grid layouts adjust columns based on screen size
-- [ ] Sidebar collapses on mobile with hamburger menu
-- [ ] Containers use responsive padding (px-4 sm:px-6 lg:px-8)
-- [ ] Max-width set for very large screens
-- [ ] Flexbox direction changes on smaller screens (flex-col sm:flex-row)
-
-### Typography
-- [ ] Headings use responsive sizes (text-3xl sm:text-4xl lg:text-5xl)
-- [ ] Body text readable on all devices (text-base sm:text-lg)
-- [ ] Line height appropriate for small screens
-- [ ] Text balance used for headings
-
-### Navigation
-- [ ] Desktop: Horizontal navigation bar
-- [ ] Mobile: Hamburger menu with slide-out drawer
-- [ ] Touch targets >= 44x44px on mobile
-- [ ] Active state visible on all devices
-
-### Images
-- [ ] Responsive images with srcset
-- [ ] Aspect ratios adjust for different screens
-- [ ] Lazy loading enabled
-- [ ] WebP format with fallback
-
-### Forms
-- [ ] Single column on mobile, multiple columns on desktop
-- [ ] Labels above inputs on mobile
-- [ ] Full-width buttons on mobile, auto-width on desktop
-- [ ] Adequate spacing between form fields
-
-### Tables
-- [ ] Desktop: Full table
-- [ ] Mobile: Card layout or horizontal scroll
-- [ ] Important columns visible on small screens
-- [ ] Sticky header on scroll (optional)
-
-### Testing
-- [ ] Tested on real devices (iOS, Android)
-- [ ] Tested on different browsers (Chrome, Safari, Firefox)
-- [ ] Tested all breakpoints (sm, md, lg, xl)
-- [ ] Tested landscape and portrait orientations
-- [ ] Touch interactions work smoothly
-- [ ] No horizontal scrolling on any screen size
-
-## Testing Responsive Design
-
-**Chrome DevTools:**
-```
-1. Open DevTools (F12)
-2. Click "Toggle device toolbar" (Ctrl+Shift+M)
-3. Test different devices and screen sizes
-4. Check both portrait and landscape
-```
-
-**Test Breakpoints:**
-```typescript
-// Add to development environment
-const breakpoints = [
-  { name: 'Mobile', width: 375, height: 667 },
-  { name: 'Mobile L', width: 425, height: 667 },
-  { name: 'Tablet', width: 768, height: 1024 },
-  { name: 'Laptop', width: 1024, height: 768 },
-  { name: 'Desktop', width: 1440, height: 900 },
-]
-```
-
-**Playwright Responsive Tests:**
-```python
-# tests/e2e/test_responsive.py
-def test_mobile_layout(page):
-    page.set_viewport_size({'width': 375, 'height': 667})
-    page.goto('http://localhost:5173')
-
-    # Mobile menu should be visible
-    assert page.locator('[data-testid="mobile-menu-button"]').is_visible()
-
-    # Desktop menu should be hidden
-    assert not page.locator('[data-testid="desktop-menu"]').is_visible()
-
-def test_desktop_layout(page):
-    page.set_viewport_size({'width': 1920, 'height': 1080})
-    page.goto('http://localhost:5173')
-
-    # Desktop menu should be visible
-    assert page.locator('[data-testid="desktop-menu"]').is_visible()
-
-    # Mobile menu button should be hidden
-    assert not page.locator('[data-testid="mobile-menu-button"]').is_visible()
-```
-
-## Common Responsive Patterns
-
-```typescript
-// Hide/Show based on screen size
-<div className="hidden md:block">Desktop only</div>
-<div className="block md:hidden">Mobile only</div>
-
-// Change layout direction
-<div className="flex flex-col md:flex-row">...</div>
-
-// Adjust gap/spacing
-<div className="space-y-4 md:space-y-6 lg:space-y-8">...</div>
-<div className="gap-3 md:gap-4 lg:gap-6">...</div>
-
-// Full width on mobile, auto on desktop
-<Button className="w-full md:w-auto">Click Me</Button>
-
-// Responsive grid columns
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">...</div>
-
-// Responsive font sizes
-<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Title</h1>
-
-// Responsive padding
-<div className="p-4 sm:p-6 md:p-8 lg:p-12">Content</div>
-```
-
-## Report
-
-✅ Mobile-first approach implemented
-✅ All breakpoints defined (sm, md, lg, xl)
-✅ Responsive navigation with mobile menu
-✅ Grid layouts adjust for different screens
-✅ Typography scales responsively
-✅ Forms optimized for mobile input
-✅ Tables convert to cards on mobile
-✅ Touch targets >= 44x44px
-✅ Images responsive with srcset
-✅ Tested on multiple devices and browsers
+- [CSS Container Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_container_queries)
+- [Utopia Fluid Type Calculator](https://utopia.fyi/type/calculator/)
+- [Every Layout](https://every-layout.dev/)
+- [Responsive Images Guide](https://web.dev/responsive-images/)
+- [CSS Grid Garden](https://cssgridgarden.com/)

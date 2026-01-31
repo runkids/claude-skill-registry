@@ -1,536 +1,535 @@
 ---
 name: owasp-security
-description: Implement secure coding practices following OWASP Top 10. Use when preventing security vulnerabilities, implementing authentication, securing APIs, or conducting security reviews. Triggers on OWASP, security, XSS, SQL injection, CSRF, authentication security, secure coding, vulnerability.
+description: Use when reviewing code for security vulnerabilities, implementing authentication/authorization, handling user input, or discussing web application security. Covers OWASP Top 10:2025, ASVS 5.0, and Agentic AI security (2026).
 ---
 
-# OWASP Top 10 Security
+# OWASP Security Best Practices Skill
 
-Prevent common security vulnerabilities in web applications.
+Apply these security standards when writing or reviewing code.
 
-## OWASP Top 10 (2021)
+## Quick Reference: OWASP Top 10:2025
 
-| # | Vulnerability | Prevention |
-|---|---------------|------------|
-| A01 | Broken Access Control | Proper authorization checks |
-| A02 | Cryptographic Failures | Strong encryption, secure storage |
-| A03 | Injection | Input validation, parameterized queries |
-| A04 | Insecure Design | Threat modeling, secure patterns |
-| A05 | Security Misconfiguration | Hardened configs, no defaults |
-| A06 | Vulnerable Components | Dependency scanning, updates |
-| A07 | Auth Failures | MFA, secure session management |
-| A08 | Data Integrity Failures | Input validation, signed updates |
-| A09 | Logging Failures | Comprehensive audit logs |
-| A10 | SSRF | URL validation, allowlists |
+| # | Vulnerability | Key Prevention |
+|---|---------------|----------------|
+| A01 | Broken Access Control | Deny by default, enforce server-side, verify ownership |
+| A02 | Security Misconfiguration | Harden configs, disable defaults, minimize features |
+| A03 | Supply Chain Failures | Lock versions, verify integrity, audit dependencies |
+| A04 | Cryptographic Failures | TLS 1.2+, AES-256-GCM, Argon2/bcrypt for passwords |
+| A05 | Injection | Parameterized queries, input validation, safe APIs |
+| A06 | Insecure Design | Threat model, rate limit, design security controls |
+| A07 | Auth Failures | MFA, check breached passwords, secure sessions |
+| A08 | Integrity Failures | Sign packages, SRI for CDN, safe serialization |
+| A09 | Logging Failures | Log security events, structured format, alerting |
+| A10 | Exception Handling | Fail-closed, hide internals, log with context |
 
-## A01: Broken Access Control
+## Security Code Review Checklist
 
-### Prevention Patterns
-```typescript
-// ❌ BAD: No authorization check
-app.get('/api/users/:id', async (req, res) => {
-  const user = await db.users.findById(req.params.id);
-  res.json(user);
-});
+When reviewing code, check for these issues:
 
-// ✅ GOOD: Verify ownership
-app.get('/api/users/:id', authenticate, async (req, res) => {
-  const userId = req.params.id;
-  
-  // Users can only access their own data
-  if (req.user.id !== userId && req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Forbidden' });
-  }
-  
-  const user = await db.users.findById(userId);
-  res.json(user);
-});
+### Input Handling
+- [ ] All user input validated server-side
+- [ ] Using parameterized queries (not string concatenation)
+- [ ] Input length limits enforced
+- [ ] Allowlist validation preferred over denylist
 
-// ✅ GOOD: Role-based access control (RBAC)
-const requireRole = (...roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    if (!roles.includes(req.user?.role)) {
-      return res.status(403).json({ error: 'Insufficient permissions' });
-    }
-    next();
-  };
-};
+### Authentication & Sessions
+- [ ] Passwords hashed with Argon2/bcrypt (not MD5/SHA1)
+- [ ] Session tokens have sufficient entropy (128+ bits)
+- [ ] Sessions invalidated on logout
+- [ ] MFA available for sensitive operations
 
-app.delete('/api/posts/:id', authenticate, requireRole('admin', 'moderator'), deletePost);
-```
+### Access Control
+- [ ] Authorization checked on every request
+- [ ] Using object references user cannot manipulate
+- [ ] Deny by default policy
+- [ ] Privilege escalation paths reviewed
 
-### Insecure Direct Object Reference (IDOR)
-```typescript
-// ❌ BAD: Predictable IDs exposed
-GET /api/invoices/1001
-GET /api/invoices/1002  // Can enumerate others' invoices
+### Data Protection
+- [ ] Sensitive data encrypted at rest
+- [ ] TLS for all data in transit
+- [ ] No sensitive data in URLs/logs
+- [ ] Secrets in environment/vault (not code)
 
-// ✅ GOOD: Use UUIDs + ownership check
-app.get('/api/invoices/:id', authenticate, async (req, res) => {
-  const invoice = await db.invoices.findOne({
-    id: req.params.id,
-    userId: req.user.id,  // Enforce ownership
-  });
-  
-  if (!invoice) {
-    return res.status(404).json({ error: 'Not found' });
-  }
-  
-  res.json(invoice);
-});
-```
+### Error Handling
+- [ ] No stack traces exposed to users
+- [ ] Fail-closed on errors (deny, not allow)
+- [ ] All exceptions logged with context
+- [ ] Consistent error responses (no enumeration)
 
-## A02: Cryptographic Failures
-
-### Password Hashing
-```typescript
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
-
-// ✅ Hash passwords with bcrypt
-const SALT_ROUNDS = 12;
-
-async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, SALT_ROUNDS);
-}
-
-async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(password, hash);
-}
-
-// ✅ Secure token generation
-function generateSecureToken(length = 32): string {
-  return crypto.randomBytes(length).toString('hex');
-}
-
-// ✅ Encrypt sensitive data
-const ALGORITHM = 'aes-256-gcm';
-const KEY = crypto.scryptSync(process.env.ENCRYPTION_KEY!, 'salt', 32);
-
-function encrypt(text: string): { encrypted: string; iv: string; tag: string } {
-  const iv = crypto.randomBytes(16);
-  const cipher = crypto.createCipheriv(ALGORITHM, KEY, iv);
-  
-  let encrypted = cipher.update(text, 'utf8', 'hex');
-  encrypted += cipher.final('hex');
-  
-  return {
-    encrypted,
-    iv: iv.toString('hex'),
-    tag: cipher.getAuthTag().toString('hex'),
-  };
-}
-
-function decrypt(encrypted: string, iv: string, tag: string): string {
-  const decipher = crypto.createDecipheriv(ALGORITHM, KEY, Buffer.from(iv, 'hex'));
-  decipher.setAuthTag(Buffer.from(tag, 'hex'));
-  
-  let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-  decrypted += decipher.final('utf8');
-  
-  return decrypted;
-}
-```
-
-### Secure Headers
-```typescript
-import helmet from 'helmet';
-
-app.use(helmet());
-app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }));
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'strict-dynamic'"],
-    styleSrc: ["'self'", "'unsafe-inline'"],
-    imgSrc: ["'self'", 'data:', 'https:'],
-    connectSrc: ["'self'"],
-    fontSrc: ["'self'"],
-    objectSrc: ["'none'"],
-    frameAncestors: ["'none'"],
-  },
-}));
-```
-
-## A03: Injection
+## Secure Code Patterns
 
 ### SQL Injection Prevention
-```typescript
-// ❌ BAD: String concatenation
-const query = `SELECT * FROM users WHERE email = '${email}'`;
+```python
+# UNSAFE
+cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
 
-// ✅ GOOD: Parameterized queries
-// With Prisma
-const user = await prisma.user.findUnique({ where: { email } });
-
-// With raw SQL (parameterized)
-const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
-
-// With Knex
-const user = await knex('users').where({ email }).first();
-```
-
-### NoSQL Injection Prevention
-```typescript
-// ❌ BAD: Direct user input in query
-const user = await User.findOne({ username: req.body.username });
-// Attack: { "username": { "$gt": "" } } returns first user
-
-// ✅ GOOD: Validate input type
-import { z } from 'zod';
-
-const loginSchema = z.object({
-  username: z.string().min(3).max(50),
-  password: z.string().min(8),
-});
-
-app.post('/login', async (req, res) => {
-  const { username, password } = loginSchema.parse(req.body);
-  const user = await User.findOne({ username: String(username) });
-  // ...
-});
+# SAFE
+cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
 ```
 
 ### Command Injection Prevention
-```typescript
-import { execFile } from 'child_process';
+```python
+# UNSAFE
+os.system(f"convert {filename} output.png")
 
-// ❌ BAD: Shell injection
-exec(`convert ${userInput} output.png`);  // userInput: "; rm -rf /"
-
-// ✅ GOOD: Use execFile with array args
-execFile('convert', [userInput, 'output.png'], (error, stdout) => {
-  // Safe - arguments are not shell-interpreted
-});
-
-// ✅ GOOD: Validate and sanitize
-const allowedFormats = ['png', 'jpg', 'gif'];
-if (!allowedFormats.includes(format)) {
-  throw new Error('Invalid format');
-}
+# SAFE
+subprocess.run(["convert", filename, "output.png"], shell=False)
 ```
 
-## A04: Insecure Design
+### Password Storage
+```python
+# UNSAFE
+hashlib.md5(password.encode()).hexdigest()
 
-### Rate Limiting
-```typescript
-import rateLimit from 'express-rate-limit';
-
-// General rate limit
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per window
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
-// Strict limit for auth endpoints
-const authLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // 5 failed attempts
-  skipSuccessfulRequests: true,
-});
-
-app.use('/api/', limiter);
-app.use('/api/auth/', authLimiter);
+# SAFE
+from argon2 import PasswordHasher
+PasswordHasher().hash(password)
 ```
 
-### Input Validation
-```typescript
-import { z } from 'zod';
+### Access Control
+```python
+# UNSAFE - No authorization check
+@app.route('/api/user/<user_id>')
+def get_user(user_id):
+    return db.get_user(user_id)
 
-const userSchema = z.object({
-  email: z.string().email(),
-  password: z.string()
-    .min(8)
-    .regex(/[A-Z]/, 'Must contain uppercase')
-    .regex(/[a-z]/, 'Must contain lowercase')
-    .regex(/[0-9]/, 'Must contain number')
-    .regex(/[^A-Za-z0-9]/, 'Must contain special character'),
-  age: z.number().int().min(13).max(120),
-  role: z.enum(['user', 'admin']).default('user'),
-});
-
-app.post('/api/users', async (req, res) => {
-  try {
-    const data = userSchema.parse(req.body);
-    // Validated data is safe to use
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({ errors: error.errors });
-    }
-    throw error;
-  }
-});
+# SAFE - Authorization enforced
+@app.route('/api/user/<user_id>')
+@login_required
+def get_user(user_id):
+    if current_user.id != user_id and not current_user.is_admin:
+        abort(403)
+    return db.get_user(user_id)
 ```
 
-## A05: Security Misconfiguration
+### Error Handling
+```python
+# UNSAFE - Exposes internals
+@app.errorhandler(Exception)
+def handle_error(e):
+    return str(e), 500
 
-### Environment Configuration
-```typescript
-// ✅ Never expose stack traces in production
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack); // Log for debugging
-  
-  res.status(500).json({
-    error: process.env.NODE_ENV === 'production' 
-      ? 'Internal server error' 
-      : err.message,
-  });
-});
-
-// ✅ Disable sensitive headers
-app.disable('x-powered-by');
-
-// ✅ Secure cookie configuration
-app.use(session({
-  secret: process.env.SESSION_SECRET!,
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
-    sameSite: 'strict',
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
-  },
-  resave: false,
-  saveUninitialized: false,
-}));
+# SAFE - Fail-closed, log context
+@app.errorhandler(Exception)
+def handle_error(e):
+    error_id = uuid.uuid4()
+    logger.exception(f"Error {error_id}: {e}")
+    return {"error": "An error occurred", "id": str(error_id)}, 500
 ```
 
-## A06: Vulnerable Components
+### Fail-Closed Pattern
+```python
+# UNSAFE - Fail-open
+def check_permission(user, resource):
+    try:
+        return auth_service.check(user, resource)
+    except Exception:
+        return True  # DANGEROUS!
 
-### Dependency Scanning
+# SAFE - Fail-closed
+def check_permission(user, resource):
+    try:
+        return auth_service.check(user, resource)
+    except Exception as e:
+        logger.error(f"Auth check failed: {e}")
+        return False  # Deny on error
+```
+
+## Agentic AI Security (OWASP 2026)
+
+When building or reviewing AI agent systems, check for:
+
+| Risk | Description | Mitigation |
+|------|-------------|------------|
+| ASI01: Goal Hijack | Prompt injection alters agent objectives | Input sanitization, goal boundaries, behavioral monitoring |
+| ASI02: Tool Misuse | Tools used in unintended ways | Least privilege, fine-grained permissions, validate I/O |
+| ASI03: Privilege Abuse | Credential escalation across agents | Short-lived scoped tokens, identity verification |
+| ASI04: Supply Chain | Compromised plugins/MCP servers | Verify signatures, sandbox, allowlist plugins |
+| ASI05: Code Execution | Unsafe code generation/execution | Sandbox execution, static analysis, human approval |
+| ASI06: Memory Poisoning | Corrupted RAG/context data | Validate stored content, segment by trust level |
+| ASI07: Agent Comms | Spoofing between agents | Authenticate, encrypt, verify message integrity |
+| ASI08: Cascading Failures | Errors propagate across systems | Circuit breakers, graceful degradation, isolation |
+| ASI09: Trust Exploitation | Social engineering via AI | Label AI content, user education, verification steps |
+| ASI10: Rogue Agents | Compromised agents acting maliciously | Behavior monitoring, kill switches, anomaly detection |
+
+### Agent Security Checklist
+
+- [ ] All agent inputs sanitized and validated
+- [ ] Tools operate with minimum required permissions
+- [ ] Credentials are short-lived and scoped
+- [ ] Third-party plugins verified and sandboxed
+- [ ] Code execution happens in isolated environments
+- [ ] Agent communications authenticated and encrypted
+- [ ] Circuit breakers between agent components
+- [ ] Human approval for sensitive operations
+- [ ] Behavior monitoring for anomaly detection
+- [ ] Kill switch available for agent systems
+
+## ASVS 5.0 Key Requirements
+
+### Level 1 (All Applications)
+- Passwords minimum 12 characters
+- Check against breached password lists
+- Rate limiting on authentication
+- Session tokens 128+ bits entropy
+- HTTPS everywhere
+
+### Level 2 (Sensitive Data)
+- All L1 requirements plus:
+- MFA for sensitive operations
+- Cryptographic key management
+- Comprehensive security logging
+- Input validation on all parameters
+
+### Level 3 (Critical Systems)
+- All L1/L2 requirements plus:
+- Hardware security modules for keys
+- Threat modeling documentation
+- Advanced monitoring and alerting
+- Penetration testing validation
+
+## Language-Specific Security Quirks
+
+> **Important:** The examples below are illustrative starting points, not exhaustive. When reviewing code, think like a senior security researcher: consider the language's memory model, type system, standard library pitfalls, ecosystem-specific attack vectors, and historical CVE patterns. Each language has deeper quirks beyond what's listed here.
+
+Different languages have unique security pitfalls. Here are the top 20 languages with key security considerations. **Go deeper for the specific language you're working in:**
+
+---
+
+### JavaScript / TypeScript
+**Main Risks:** Prototype pollution, XSS, eval injection
+```javascript
+// UNSAFE: Prototype pollution
+Object.assign(target, userInput)
+// SAFE: Use null prototype or validate keys
+Object.assign(Object.create(null), validated)
+
+// UNSAFE: eval injection
+eval(userCode)
+// SAFE: Never use eval with user input
+```
+**Watch for:** `eval()`, `innerHTML`, `document.write()`, prototype chain manipulation, `__proto__`
+
+---
+
+### Python
+**Main Risks:** Pickle deserialization, format string injection, shell injection
+```python
+# UNSAFE: Pickle RCE
+pickle.loads(user_data)
+# SAFE: Use JSON or validate source
+json.loads(user_data)
+
+# UNSAFE: Format string injection
+query = "SELECT * FROM users WHERE name = '%s'" % user_input
+# SAFE: Parameterized
+cursor.execute("SELECT * FROM users WHERE name = %s", (user_input,))
+```
+**Watch for:** `pickle`, `eval()`, `exec()`, `os.system()`, `subprocess` with `shell=True`
+
+---
+
+### Java
+**Main Risks:** Deserialization RCE, XXE, JNDI injection
+```java
+// UNSAFE: Arbitrary deserialization
+ObjectInputStream ois = new ObjectInputStream(userStream);
+Object obj = ois.readObject();
+
+// SAFE: Use allowlist or JSON
+ObjectMapper mapper = new ObjectMapper();
+mapper.readValue(json, SafeClass.class);
+```
+**Watch for:** `ObjectInputStream`, `Runtime.exec()`, XML parsers without XXE protection, JNDI lookups
+
+---
+
+### C#
+**Main Risks:** Deserialization, SQL injection, path traversal
+```csharp
+// UNSAFE: BinaryFormatter RCE
+BinaryFormatter bf = new BinaryFormatter();
+object obj = bf.Deserialize(stream);
+
+// SAFE: Use System.Text.Json
+var obj = JsonSerializer.Deserialize<SafeType>(json);
+```
+**Watch for:** `BinaryFormatter`, `JavaScriptSerializer`, `TypeNameHandling.All`, raw SQL strings
+
+---
+
+### PHP
+**Main Risks:** Type juggling, file inclusion, object injection
+```php
+// UNSAFE: Type juggling in auth
+if ($password == $stored_hash) { ... }
+// SAFE: Use strict comparison
+if (hash_equals($stored_hash, $password)) { ... }
+
+// UNSAFE: File inclusion
+include($_GET['page'] . '.php');
+// SAFE: Allowlist pages
+$allowed = ['home', 'about']; include(in_array($page, $allowed) ? "$page.php" : 'home.php');
+```
+**Watch for:** `==` vs `===`, `include/require`, `unserialize()`, `preg_replace` with `/e`, `extract()`
+
+---
+
+### Go
+**Main Risks:** Race conditions, template injection, slice bounds
+```go
+// UNSAFE: Race condition
+go func() { counter++ }()
+// SAFE: Use sync primitives
+atomic.AddInt64(&counter, 1)
+
+// UNSAFE: Template injection
+template.HTML(userInput)
+// SAFE: Let template escape
+{{.UserInput}}
+```
+**Watch for:** Goroutine data races, `template.HTML()`, `unsafe` package, unchecked slice access
+
+---
+
+### Ruby
+**Main Risks:** Mass assignment, YAML deserialization, regex DoS
+```ruby
+# UNSAFE: Mass assignment
+User.new(params[:user])
+# SAFE: Strong parameters
+User.new(params.require(:user).permit(:name, :email))
+
+# UNSAFE: YAML RCE
+YAML.load(user_input)
+# SAFE: Use safe_load
+YAML.safe_load(user_input)
+```
+**Watch for:** `YAML.load`, `Marshal.load`, `eval`, `send` with user input, `.permit!`
+
+---
+
+### Rust
+**Main Risks:** Unsafe blocks, FFI boundary issues, integer overflow in release
+```rust
+// CAUTION: Unsafe bypasses safety
+unsafe { ptr::read(user_ptr) }
+
+// CAUTION: Release integer overflow
+let x: u8 = 255;
+let y = x + 1; // Wraps to 0 in release!
+// SAFE: Use checked arithmetic
+let y = x.checked_add(1).unwrap_or(255);
+```
+**Watch for:** `unsafe` blocks, FFI calls, integer overflow in release builds, `.unwrap()` on untrusted input
+
+---
+
+### Swift
+**Main Risks:** Force unwrapping crashes, Objective-C interop
+```swift
+// UNSAFE: Force unwrap on untrusted data
+let value = jsonDict["key"]!
+// SAFE: Safe unwrapping
+guard let value = jsonDict["key"] else { return }
+
+// UNSAFE: Format string
+String(format: userInput, args)
+// SAFE: Don't use user input as format
+```
+**Watch for:** `!` force unwrap, `try!`, ObjC bridging, `NSSecureCoding` misuse
+
+---
+
+### Kotlin
+**Main Risks:** Null safety bypass, Java interop, serialization
+```kotlin
+// UNSAFE: Platform type from Java
+val len = javaString.length // NPE if null
+// SAFE: Explicit null check
+val len = javaString?.length ?: 0
+
+// UNSAFE: Reflection
+clazz.getDeclaredMethod(userInput)
+// SAFE: Allowlist methods
+```
+**Watch for:** Java interop nulls (`!`), reflection, serialization, platform types
+
+---
+
+### C / C++
+**Main Risks:** Buffer overflow, use-after-free, format string
+```c
+// UNSAFE: Buffer overflow
+char buf[10]; strcpy(buf, userInput);
+// SAFE: Bounds checking
+strncpy(buf, userInput, sizeof(buf) - 1);
+
+// UNSAFE: Format string
+printf(userInput);
+// SAFE: Always use format specifier
+printf("%s", userInput);
+```
+**Watch for:** `strcpy`, `sprintf`, `gets`, pointer arithmetic, manual memory management, integer overflow
+
+---
+
+### Scala
+**Main Risks:** XML external entities, serialization, pattern matching exhaustiveness
+```scala
+// UNSAFE: XXE
+val xml = XML.loadString(userInput)
+// SAFE: Disable external entities
+val factory = SAXParserFactory.newInstance()
+factory.setFeature("http://xml.org/sax/features/external-general-entities", false)
+```
+**Watch for:** Java interop issues, XML parsing, `Serializable`, exhaustive pattern matching
+
+---
+
+### R
+**Main Risks:** Code injection, file path manipulation
+```r
+# UNSAFE: eval injection
+eval(parse(text = user_input))
+# SAFE: Never parse user input as code
+
+# UNSAFE: Path traversal
+read.csv(paste0("data/", user_file))
+# SAFE: Validate filename
+if (grepl("^[a-zA-Z0-9]+\\.csv$", user_file)) read.csv(...)
+```
+**Watch for:** `eval()`, `parse()`, `source()`, `system()`, file path manipulation
+
+---
+
+### Perl
+**Main Risks:** Regex injection, open() injection, taint mode bypass
+```perl
+# UNSAFE: Regex DoS
+$input =~ /$user_pattern/;
+# SAFE: Use quotemeta
+$input =~ /\Q$user_pattern\E/;
+
+# UNSAFE: open() command injection
+open(FILE, $user_file);
+# SAFE: Three-argument open
+open(my $fh, '<', $user_file);
+```
+**Watch for:** Two-arg `open()`, regex from user input, backticks, `eval`, disabled taint mode
+
+---
+
+### Shell (Bash)
+**Main Risks:** Command injection, word splitting, globbing
 ```bash
-# Check for vulnerabilities
-npm audit
-npm audit fix
+# UNSAFE: Unquoted variables
+rm $user_file
+# SAFE: Always quote
+rm "$user_file"
 
-# Use Snyk for deeper scanning
-npx snyk test
-npx snyk monitor
-
-# Keep dependencies updated
-npx npm-check-updates -u
+# UNSAFE: eval
+eval "$user_command"
+# SAFE: Never eval user input
 ```
+**Watch for:** Unquoted variables, `eval`, backticks, `$(...)` with user input, missing `set -euo pipefail`
 
-```json
-// package.json - Use exact versions or ranges
-{
-  "dependencies": {
-    "express": "^4.18.0",  // Minor updates OK
-    "lodash": "4.17.21"    // Exact version
-  },
-  "overrides": {
-    "vulnerable-package": "^2.0.0"  // Force safe version
-  }
-}
+---
+
+### Lua
+**Main Risks:** Sandbox escape, loadstring injection
+```lua
+-- UNSAFE: Code injection
+loadstring(user_code)()
+-- SAFE: Use sandboxed environment with restricted functions
 ```
+**Watch for:** `loadstring`, `loadfile`, `dofile`, `os.execute`, `io` library, debug library
 
-## A07: Authentication Failures
+---
 
-### Secure Session Management
-```typescript
-import jwt from 'jsonwebtoken';
+### Elixir
+**Main Risks:** Atom exhaustion, code injection, ETS access
+```elixir
+# UNSAFE: Atom exhaustion DoS
+String.to_atom(user_input)
+# SAFE: Use existing atoms only
+String.to_existing_atom(user_input)
 
-// ✅ JWT with short expiry + refresh tokens
-function generateTokens(userId: string) {
-  const accessToken = jwt.sign(
-    { userId },
-    process.env.JWT_SECRET!,
-    { expiresIn: '15m' }  // Short-lived
-  );
-  
-  const refreshToken = jwt.sign(
-    { userId, type: 'refresh' },
-    process.env.JWT_REFRESH_SECRET!,
-    { expiresIn: '7d' }
-  );
-  
-  return { accessToken, refreshToken };
-}
-
-// ✅ Secure password reset
-async function initiatePasswordReset(email: string) {
-  const user = await db.users.findByEmail(email);
-  if (!user) return; // Don't reveal if email exists
-  
-  const token = crypto.randomBytes(32).toString('hex');
-  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-  
-  await db.passwordResets.create({
-    userId: user.id,
-    token: hashedToken,
-    expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-  });
-  
-  await sendEmail(email, `Reset link: /reset?token=${token}`);
-}
+# UNSAFE: Code injection
+Code.eval_string(user_input)
+# SAFE: Never eval user input
 ```
+**Watch for:** `String.to_atom`, `Code.eval_string`, `:erlang.binary_to_term`, ETS public tables
 
-### Multi-Factor Authentication
-```typescript
-import { authenticator } from 'otplib';
-import QRCode from 'qrcode';
+---
 
-// Setup TOTP
-async function setupMFA(userId: string) {
-  const secret = authenticator.generateSecret();
-  const otpauth = authenticator.keyuri(userId, 'MyApp', secret);
-  const qrCode = await QRCode.toDataURL(otpauth);
-  
-  await db.users.update(userId, { mfaSecret: encrypt(secret) });
-  
-  return { qrCode, secret };
-}
-
-// Verify TOTP
-function verifyMFA(token: string, secret: string): boolean {
-  return authenticator.verify({ token, secret });
-}
+### Dart / Flutter
+**Main Risks:** Platform channel injection, insecure storage
+```dart
+// UNSAFE: Storing secrets in SharedPreferences
+prefs.setString('auth_token', token);
+// SAFE: Use flutter_secure_storage
+secureStorage.write(key: 'auth_token', value: token);
 ```
+**Watch for:** Platform channel data, `dart:mirrors`, `Function.apply`, insecure local storage
 
-## A08: XSS Prevention
+---
 
-```typescript
-// ✅ React auto-escapes by default
-const UserProfile = ({ user }) => (
-  <div>{user.name}</div>  // Safe - auto-escaped
-);
+### PowerShell
+**Main Risks:** Command injection, execution policy bypass
+```powershell
+# UNSAFE: Injection
+Invoke-Expression $userInput
+# SAFE: Avoid Invoke-Expression with user data
 
-// ⚠️ Dangerous - avoid if possible
-<div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
-
-// ✅ Sanitize HTML if needed
-import DOMPurify from 'dompurify';
-
-const sanitizedHtml = DOMPurify.sanitize(userHtml, {
-  ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a'],
-  ALLOWED_ATTR: ['href'],
-});
-
-// ✅ Content Security Policy
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    scriptSrc: ["'self'"],  // No inline scripts
-    styleSrc: ["'self'", "'unsafe-inline'"],
-  },
-}));
+# UNSAFE: Unvalidated path
+Get-Content $userPath
+# SAFE: Validate path is within allowed directory
 ```
+**Watch for:** `Invoke-Expression`, `& $userVar`, `Start-Process` with user args, `-ExecutionPolicy Bypass`
 
-## A09: Logging & Monitoring
+---
 
-```typescript
-import winston from 'winston';
+### SQL (All Dialects)
+**Main Risks:** Injection, privilege escalation, data exfiltration
+```sql
+-- UNSAFE: String concatenation
+"SELECT * FROM users WHERE id = " + userId
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
-  ),
-  transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
-});
-
-// ✅ Log security events
-function logSecurityEvent(event: string, details: object) {
-  logger.warn({
-    type: 'security',
-    event,
-    ...details,
-    timestamp: new Date().toISOString(),
-  });
-}
-
-// Usage
-logSecurityEvent('failed_login', { email, ip: req.ip, userAgent: req.headers['user-agent'] });
-logSecurityEvent('access_denied', { userId, resource, action });
-logSecurityEvent('suspicious_activity', { userId, pattern: 'rapid_requests' });
+-- SAFE: Parameterized query (language-specific)
+-- Use prepared statements in ALL cases
 ```
+**Watch for:** Dynamic SQL, `EXECUTE IMMEDIATE`, stored procedures with dynamic queries, privilege grants
 
-## A10: SSRF Prevention
+---
 
-```typescript
-import { URL } from 'url';
+## Deep Security Analysis Mindset
 
-// ✅ Validate URLs against allowlist
-const ALLOWED_HOSTS = ['api.example.com', 'cdn.example.com'];
+When reviewing any language, think like a senior security researcher:
 
-function isAllowedUrl(urlString: string): boolean {
-  try {
-    const url = new URL(urlString);
-    
-    // Block private IPs
-    const privatePatterns = [
-      /^localhost$/i,
-      /^127\./,
-      /^10\./,
-      /^172\.(1[6-9]|2[0-9]|3[01])\./,
-      /^192\.168\./,
-      /^0\./,
-      /^169\.254\./,  // Link-local
-    ];
-    
-    if (privatePatterns.some(p => p.test(url.hostname))) {
-      return false;
-    }
-    
-    // Check allowlist
-    return ALLOWED_HOSTS.includes(url.hostname);
-  } catch {
-    return false;
-  }
-}
+1. **Memory Model:** How does the language handle memory? Managed vs manual? GC pauses exploitable?
+2. **Type System:** Weak typing = type confusion attacks. Look for coercion exploits.
+3. **Serialization:** Every language has its pickle/Marshal equivalent. All are dangerous.
+4. **Concurrency:** Race conditions, TOCTOU, atomicity failures specific to the threading model.
+5. **FFI Boundaries:** Native interop is where type safety breaks down.
+6. **Standard Library:** Historic CVEs in std libs (Python urllib, Java XML, Ruby OpenSSL).
+7. **Package Ecosystem:** Typosquatting, dependency confusion, malicious packages.
+8. **Build System:** Makefile/gradle/npm script injection during builds.
+9. **Runtime Behavior:** Debug vs release differences (Rust overflow, C++ assertions).
+10. **Error Handling:** How does the language fail? Silently? With stack traces? Fail-open?
 
-app.post('/api/fetch-url', async (req, res) => {
-  const { url } = req.body;
-  
-  if (!isAllowedUrl(url)) {
-    return res.status(400).json({ error: 'URL not allowed' });
-  }
-  
-  const response = await fetch(url);
-  // ...
-});
-```
+**For any language not listed:** Research its specific CWE patterns, CVE history, and known footguns. The examples above are entry points, not complete coverage.
 
-## Security Checklist
+## When to Apply This Skill
 
-```markdown
-## Pre-Deployment Checklist
-
-### Authentication
-- [ ] Passwords hashed with bcrypt (cost ≥ 12)
-- [ ] JWT tokens have short expiry
-- [ ] Session cookies are httpOnly, secure, sameSite
-- [ ] Rate limiting on auth endpoints
-
-### Authorization
-- [ ] All endpoints have auth checks
-- [ ] RBAC implemented correctly
-- [ ] No IDOR vulnerabilities
-
-### Input/Output
-- [ ] All input validated with Zod/Joi
-- [ ] SQL queries parameterized
-- [ ] XSS prevented (CSP, escaping)
-- [ ] File uploads validated and sandboxed
-
-### Infrastructure
-- [ ] HTTPS enforced
-- [ ] Security headers configured
-- [ ] Dependencies audited
-- [ ] Secrets in environment variables
-
-### Monitoring
-- [ ] Security events logged
-- [ ] Error monitoring enabled
-- [ ] Alerts configured
-```
-
-## Resources
-
-- **OWASP Top 10**: https://owasp.org/Top10/
-- **OWASP Cheat Sheets**: https://cheatsheetseries.owasp.org/
-- **Node.js Security**: https://nodejs.org/en/docs/guides/security/
-- **Snyk**: https://snyk.io/
+Use this skill when:
+- Writing authentication or authorization code
+- Handling user input or external data
+- Implementing cryptography or password storage
+- Reviewing code for security vulnerabilities
+- Designing API endpoints
+- Building AI agent systems
+- Configuring application security settings
+- Handling errors and exceptions
+- Working with third-party dependencies
+- **Working in any language** - apply the deep analysis mindset above

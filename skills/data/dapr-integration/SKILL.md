@@ -1,352 +1,296 @@
 ---
 name: dapr-integration
-description: Integrate Dapr for pub/sub messaging and scheduled jobs. Use this skill when implementing event-driven architectures with Dapr, handling CloudEvent message formats, setting up pub/sub subscriptions, or scheduling jobs with Dapr Jobs API. Covers common pitfalls like CloudEvent unwrapping and callback URL patterns.
+description: Integrate Dapr building blocks for event-driven microservices - Pub/Sub, State Management, Secrets, Service Invocation, and Jobs API. Use when implementing event-driven architecture for Phase 5. (project)
+allowed-tools: Bash, Write, Read, Glob, Edit, Grep
 ---
 
-# Dapr Integration
-
-Integrate Dapr sidecar for pub/sub messaging, state management, and scheduled jobs in Kubernetes environments.
-
-## When to Use
-
-- Setting up Dapr pub/sub for event-driven microservices
-- Scheduling jobs with Dapr Jobs API (v1.0-alpha1)
-- Handling CloudEvent message formats
-- Implementing subscription handlers in FastAPI
-- Debugging Dapr integration issues
+# Dapr Integration Skill
 
 ## Quick Start
 
-```bash
-# Install Dapr CLI
-curl -fsSL https://raw.githubusercontent.com/dapr/cli/master/install/install.sh | bash
+1. **Read Phase 5 Constitution** - `constitution-prompt-phase-5.md`
+2. **Check Dapr installation** - `dapr --version`
+3. **Initialize Dapr** - `dapr init` or `dapr init -k` for Kubernetes
+4. **Create component files** - In `dapr-components/` directory
+5. **Configure sidecar** - Annotations for Kubernetes deployments
+6. **Test locally** - `dapr run` commands
 
-# Initialize Dapr (local)
-dapr init
+## Dapr Building Blocks Overview
 
-# Run app with Dapr sidecar
-dapr run --app-id myapp --app-port 8000 -- uvicorn main:app
-```
+| Building Block | Purpose | Phase 5 Usage |
+|----------------|---------|---------------|
+| **Pub/Sub** | Event messaging | Task events, reminders, audit logs |
+| **State** | Key-value storage | Cache, session state |
+| **Secrets** | Secret management | API keys, DB credentials |
+| **Service Invocation** | Service-to-service calls | Microservice communication |
+| **Jobs API** | Scheduled tasks | Recurring task scheduling |
 
-## Core Patterns
+## Component Configuration
 
-### 1. Pub/Sub Subscription Handler (FastAPI)
+### Pub/Sub Component (Kafka)
 
-```python
-from fastapi import APIRouter, Request
-from sqlmodel.ext.asyncio.session import AsyncSession
-
-router = APIRouter(prefix="/dapr", tags=["Dapr"])
-
-# Topics we subscribe to
-SUBSCRIPTIONS = [
-    {"pubsubname": "taskflow-pubsub", "topic": "task-events", "route": "/dapr/events/task-events"},
-    {"pubsubname": "taskflow-pubsub", "topic": "reminders", "route": "/dapr/events/reminders"},
-]
-
-@router.get("/subscribe")
-async def get_subscriptions() -> list[dict]:
-    """Dapr calls this on startup to discover subscriptions."""
-    return SUBSCRIPTIONS
-```
-
-### 2. CloudEvent Handling (CRITICAL)
-
-Dapr wraps all pub/sub messages in CloudEvent format. **You MUST unwrap it.**
-
-```python
-@router.post("/events/task-events")
-async def handle_task_events(
-    request: Request,
-    session: AsyncSession = Depends(get_session),
-) -> dict:
-    try:
-        # Step 1: Get raw CloudEvent
-        raw_event = await request.json()
-
-        # Step 2: ALWAYS unwrap CloudEvent "data" field
-        # CloudEvent structure:
-        # {
-        #   "data": {              <-- Your payload is HERE
-        #     "event_type": "task.created",
-        #     "data": {...},
-        #     "timestamp": "..."
-        #   },
-        #   "datacontenttype": "application/json",
-        #   "id": "...",
-        #   "pubsubname": "taskflow-pubsub",
-        #   "source": "myapp",
-        #   "topic": "task-events",
-        #   ...
-        # }
-        event = raw_event.get("data", raw_event)  # Unwrap or use as-is
-
-        # Step 3: Now access your payload
-        event_type = event.get("event_type")  # "task.created"
-        data = event.get("data", {})          # Your actual data
-
-        # Process event...
-
-        return {"status": "SUCCESS"}
-
-    except Exception as e:
-        logger.exception("Error handling event: %s", e)
-        # Return SUCCESS to prevent Dapr retries for bad events
-        return {"status": "SUCCESS"}
-```
-
-### 3. Publishing Events
-
-```python
-import httpx
-
-DAPR_HTTP_ENDPOINT = "http://localhost:3500"
-PUBSUB_NAME = "taskflow-pubsub"
-
-async def publish_event(
-    topic: str,
-    event_type: str,
-    data: dict,
-) -> bool:
-    """Publish event to Dapr pub/sub."""
-    url = f"{DAPR_HTTP_ENDPOINT}/v1.0/publish/{PUBSUB_NAME}/{topic}"
-
-    payload = {
-        "event_type": event_type,
-        "data": data,
-        "timestamp": datetime.utcnow().isoformat(),
-    }
-
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.post(url, json=payload)
-            return response.status_code == 204
-    except Exception as e:
-        logger.error("Failed to publish event: %s", e)
-        return False
-```
-
-### 4. Dapr Jobs API (Scheduled Jobs)
-
-**CRITICAL**: Dapr Jobs v1.0-alpha1 calls back to `/job/{job_name}` by default!
-
-```python
-# Scheduling a job
-async def schedule_job(
-    job_name: str,
-    due_time: datetime,
-    data: dict,
-    dapr_http_endpoint: str = "http://localhost:3500",
-) -> bool:
-    """Schedule a one-time Dapr job."""
-    url = f"{dapr_http_endpoint}/v1.0-alpha1/jobs/{job_name}"
-
-    payload = {
-        "dueTime": due_time.strftime("%Y-%m-%dT%H:%M:%SZ"),  # RFC3339
-        "data": data,
-    }
-
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.post(url, json=payload)
-            return response.status_code == 204
-    except Exception as e:
-        logger.error("Failed to schedule job: %s", e)
-        return False
-```
-
-**Handling the callback** - Dapr calls `/job/{job_name}`, NOT a custom endpoint:
-
-```python
-# WRONG - Dapr won't call this!
-@router.post("/api/jobs/trigger")
-async def handle_trigger(...):
-    pass
-
-# CORRECT - This is what Dapr actually calls
-@router.post("/job/{job_name}")
-async def handle_dapr_job_callback(
-    job_name: str,
-    request: Request,
-    session: AsyncSession = Depends(get_session),
-) -> dict:
-    """Handle Dapr Jobs v1.0-alpha1 callback.
-
-    Dapr calls POST /job/{job_name} when a scheduled job fires.
-    """
-    try:
-        body = await request.json()
-        job_data = body.get("data", body)  # Unwrap if needed
-
-        task_id = job_data.get("task_id")
-        job_type = job_data.get("type")
-
-        logger.info("Job callback: job=%s, type=%s", job_name, job_type)
-
-        if job_type == "reminder":
-            return await handle_reminder(session, job_data)
-        elif job_type == "spawn":
-            return await handle_spawn(session, task_id)
-
-        return {"status": "unknown_type"}
-
-    except Exception as e:
-        logger.exception("Error handling job %s: %s", job_name, e)
-        return {"status": "error"}
-```
-
-### 5. Deleting Scheduled Jobs
-
-```python
-async def delete_job(
-    job_name: str,
-    dapr_http_endpoint: str = "http://localhost:3500",
-) -> bool:
-    """Cancel a scheduled Dapr job."""
-    url = f"{dapr_http_endpoint}/v1.0-alpha1/jobs/{job_name}"
-
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.delete(url)
-            # 204 = deleted, 500 = not found (both OK)
-            return response.status_code in (204, 500)
-    except Exception as e:
-        logger.error("Failed to delete job: %s", e)
-        return False
-```
-
-## Kubernetes/Helm Configuration
-
-### Dapr Pub/Sub Component (Redis)
+Create `dapr-components/pubsub.yaml`:
 
 ```yaml
-# dapr-pubsub.yaml
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: taskflow-pubsub
-  namespace: taskflow
+  name: taskpubsub
+  namespace: todo-app
 spec:
-  type: pubsub.redis
+  type: pubsub.kafka
+  version: v1
+  metadata:
+    - name: brokers
+      value: "kafka:9092"
+    - name: consumerGroup
+      value: "todo-consumer-group"
+    - name: authType
+      value: "none"
+    - name: disableTls
+      value: "true"
+scopes:
+  - backend
+  - notification-service
+  - recurring-service
+  - audit-service
+```
+
+### State Store Component
+
+Create `dapr-components/statestore.yaml`:
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+  namespace: todo-app
+spec:
+  type: state.redis
   version: v1
   metadata:
     - name: redisHost
       value: "redis:6379"
     - name: redisPassword
-      secretKeyRef:
-        name: redis-secret
-        key: password
-    - name: enableTLS
-      value: "true"  # Required for Upstash
+      value: ""
+    - name: actorStateStore
+      value: "true"
+scopes:
+  - backend
 ```
 
-### Dapr Annotations for Deployment
+### Secrets Component
+
+Create `dapr-components/secrets.yaml`:
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: kubernetes-secrets
+  namespace: todo-app
+spec:
+  type: secretstores.kubernetes
+  version: v1
+  metadata: []
+```
+
+## Python SDK Integration
+
+### Installation
+
+```bash
+uv add dapr dapr-ext-fastapi
+```
+
+### Pub/Sub Publisher
+
+```python
+from dapr.clients import DaprClient
+
+async def publish_task_event(event_type: str, task_data: dict):
+    """Publish task event to Kafka via Dapr."""
+    with DaprClient() as client:
+        client.publish_event(
+            pubsub_name="taskpubsub",
+            topic_name="task-events",
+            data=json.dumps({
+                "event_type": event_type,
+                "task": task_data,
+                "timestamp": datetime.utcnow().isoformat()
+            }),
+            data_content_type="application/json"
+        )
+```
+
+### Pub/Sub Subscriber (FastAPI)
+
+```python
+from dapr.ext.fastapi import DaprApp
+from fastapi import FastAPI
+
+app = FastAPI()
+dapr_app = DaprApp(app)
+
+@dapr_app.subscribe(pubsub="taskpubsub", topic="task-events")
+async def handle_task_event(event: dict):
+    """Handle incoming task events."""
+    event_type = event.get("event_type")
+    task_data = event.get("task")
+
+    if event_type == "task.created":
+        await process_new_task(task_data)
+    elif event_type == "task.completed":
+        await process_completed_task(task_data)
+```
+
+### State Management
+
+```python
+from dapr.clients import DaprClient
+
+async def save_state(key: str, value: dict):
+    """Save state to Dapr state store."""
+    with DaprClient() as client:
+        client.save_state(
+            store_name="statestore",
+            key=key,
+            value=json.dumps(value)
+        )
+
+async def get_state(key: str) -> dict | None:
+    """Get state from Dapr state store."""
+    with DaprClient() as client:
+        state = client.get_state(store_name="statestore", key=key)
+        return json.loads(state.data) if state.data else None
+```
+
+### Service Invocation
+
+```python
+from dapr.clients import DaprClient
+
+async def invoke_notification_service(user_id: str, message: str):
+    """Invoke notification service via Dapr."""
+    with DaprClient() as client:
+        response = client.invoke_method(
+            app_id="notification-service",
+            method_name="send",
+            data=json.dumps({
+                "user_id": user_id,
+                "message": message
+            }),
+            http_verb="POST"
+        )
+        return response.json()
+```
+
+### Jobs API (Scheduled Tasks)
+
+```python
+from dapr.clients import DaprClient
+
+async def schedule_reminder(reminder_id: str, due_at: datetime):
+    """Schedule a reminder using Dapr Jobs API."""
+    with DaprClient() as client:
+        # Create a scheduled job
+        client.start_workflow(
+            workflow_component="dapr",
+            workflow_name="reminder-workflow",
+            input={
+                "reminder_id": reminder_id,
+                "scheduled_time": due_at.isoformat()
+            }
+        )
+```
+
+## Kubernetes Deployment Annotations
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: taskflow-api
+  name: backend
 spec:
   template:
     metadata:
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "taskflow-api"
+        dapr.io/app-id: "backend"
         dapr.io/app-port: "8000"
         dapr.io/enable-api-logging: "true"
+        dapr.io/log-level: "info"
+        dapr.io/config: "dapr-config"
+    spec:
+      containers:
+        - name: backend
+          image: evolution-todo/backend:latest
 ```
 
-## Common Pitfalls
+## Local Development with Dapr
 
-### 1. Not Unwrapping CloudEvent
-
-```python
-# WRONG - event_type will be None!
-event = await request.json()
-event_type = event.get("event_type")  # None - it's nested in "data"
-
-# CORRECT
-raw_event = await request.json()
-event = raw_event.get("data", raw_event)  # Unwrap CloudEvent
-event_type = event.get("event_type")  # "task.created"
-```
-
-### 2. Wrong Job Callback URL
-
-```python
-# WRONG - Dapr calls /job/{name}, not custom endpoints
-@router.post("/api/jobs/trigger")  # Dapr won't call this!
-
-# CORRECT
-@router.post("/job/{job_name}")  # Dapr WILL call this
-```
-
-### 3. Forgetting to Return SUCCESS
-
-```python
-# WRONG - Dapr will retry on errors
-@router.post("/events/task-events")
-async def handle(request: Request):
-    try:
-        # process...
-        return {"status": "SUCCESS"}
-    except Exception:
-        raise  # Dapr will retry!
-
-# CORRECT - Always return SUCCESS to stop retries
-@router.post("/events/task-events")
-async def handle(request: Request):
-    try:
-        # process...
-    except Exception as e:
-        logger.exception("Error: %s", e)
-    return {"status": "SUCCESS"}  # Always, even on error
-```
-
-### 4. Using Wrong Dapr HTTP Port
-
-```python
-# Local development
-DAPR_HTTP_ENDPOINT = "http://localhost:3500"
-
-# In Kubernetes (sidecar)
-DAPR_HTTP_ENDPOINT = "http://localhost:3500"  # Same! Sidecar is localhost
-```
-
-## Debugging
-
-### Check Dapr Sidecar Logs
+### Run with Dapr Sidecar
 
 ```bash
-# Kubernetes
-kubectl logs deploy/myapp -c daprd -n mynamespace
+# Run backend with Dapr
+dapr run --app-id backend \
+         --app-port 8000 \
+         --dapr-http-port 3500 \
+         --components-path ./dapr-components \
+         -- uv run uvicorn src.main:app --host 0.0.0.0 --port 8000
 
-# Look for:
-# - "Scheduler stream connected" = Jobs API working
-# - "HTTP API Called" = API calls to Dapr
+# Run notification service with Dapr
+dapr run --app-id notification-service \
+         --app-port 8002 \
+         --dapr-http-port 3502 \
+         --components-path ./dapr-components \
+         -- uv run uvicorn services.notification.main:app --host 0.0.0.0 --port 8002
 ```
 
-### Verify Subscriptions
-
-```bash
-# Call your subscribe endpoint
-curl http://localhost:8000/dapr/subscribe
-
-# Should return your subscriptions list
-```
-
-### Test Pub/Sub Locally
+### Test Pub/Sub
 
 ```bash
 # Publish test event
-curl -X POST http://localhost:3500/v1.0/publish/taskflow-pubsub/task-events \
-  -H "Content-Type: application/json" \
-  -d '{"event_type": "test", "data": {}}'
+dapr publish --publish-app-id backend \
+             --pubsub taskpubsub \
+             --topic task-events \
+             --data '{"event_type":"task.created","task":{"id":"123","title":"Test"}}'
 ```
+
+## Verification Checklist
+
+- [ ] Dapr CLI installed (`dapr --version`)
+- [ ] Dapr initialized (`dapr init` or `dapr init -k`)
+- [ ] Component files created in `dapr-components/`
+- [ ] Python SDK installed (`dapr`, `dapr-ext-fastapi`)
+- [ ] Pub/Sub working (publish → subscribe)
+- [ ] State store working (save → get)
+- [ ] Service invocation working
+- [ ] Kubernetes annotations configured
+- [ ] All services have Dapr sidecars
+
+## Event Topics
+
+| Topic | Publisher | Subscribers | Purpose |
+|-------|-----------|-------------|---------|
+| `task-events` | Backend | Notification, Audit, WebSocket | Task CRUD events |
+| `reminder-events` | Recurring Service | Notification, Backend | Reminder triggers |
+| `audit-events` | All Services | Audit Service | Audit logging |
+
+## Troubleshooting
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Sidecar not starting | Missing annotations | Add `dapr.io/enabled: "true"` |
+| Pub/Sub not working | Component not loaded | Check component scope |
+| Connection refused | Wrong port | Verify `app-port` matches app |
+| State not persisting | Redis not running | Start Redis container |
 
 ## References
 
+- [Dapr Documentation](https://docs.dapr.io/)
+- [Dapr Python SDK](https://github.com/dapr/python-sdk)
 - [Dapr Pub/Sub](https://docs.dapr.io/developing-applications/building-blocks/pubsub/)
-- [Dapr Jobs API](https://docs.dapr.io/developing-applications/building-blocks/jobs/)
-- [CloudEvents Spec](https://cloudevents.io/)
+- [Dapr State Management](https://docs.dapr.io/developing-applications/building-blocks/state-management/)
+- [Phase 5 Constitution](../../../constitution-prompt-phase-5.md)

@@ -1,200 +1,379 @@
 ---
 name: e2e
-description: Run E2E tests for Sentry JavaScript SDK test applications
-argument-hint: <test-app-name> [--variant <variant-name>]
+description: E2Eテストの生成・実行ガイド。テストジャーニーの作成、テスト実行、スクリーンショット/動画/トレースの取得、アーティファクトのアップロードをサポート。「E2Eテスト」「エンドツーエンドテスト」「Playwrightテスト」「ユーザージャーニーのテスト」などのフレーズで発動。
 ---
 
-# E2E Test Runner Skill
+# E2Eテスト生成（E2E）
 
-This skill runs end-to-end tests for Sentry JavaScript SDK test applications. It ensures SDK packages are built before running tests.
+エンドツーエンドテストを生成・保守・実行するためのガイド。
 
-## Input
+## 対応言語
 
-The user provides a test application name and optionally a variant:
+このスキルは以下の言語に対応しています。プロジェクトの言語を自動検出し、適切なテストフレームワークとコマンドを使用します。
 
-- `e2e-tests/test-applications/nextjs-app-dir` (full path)
-- `nextjs-app-dir` (just the app name)
-- `nextjs-app-dir --variant nextjs-15` (with variant)
+| 言語 | E2Eフレームワーク | 詳細 |
+|------|------------------|------|
+| TypeScript/JavaScript | Playwright, Cypress | [reference/typescript/frameworks.md](reference/typescript/frameworks.md) |
+| Python | Playwright for Python, Selenium | [reference/python/frameworks.md](reference/python/frameworks.md) |
+| C# | Playwright for .NET, Selenium | [reference/csharp/frameworks.md](reference/csharp/frameworks.md) |
 
-## Workflow
+### 言語自動検出
 
-### Step 1: Parse the Test Application Name
+プロジェクトの言語は以下のファイルの存在で判別します：
 
-Extract the test app name from user input:
+| ファイル | 判定される言語 |
+|----------|----------------|
+| `package.json` | TypeScript/JavaScript |
+| `pyproject.toml`, `setup.py`, `requirements.txt` | Python |
+| `*.csproj`, `*.sln` | C# |
 
-- Strip `e2e-tests/test-applications/` prefix if present
-- Extract variant flag if provided (e.g., `--variant nextjs-15`)
-- Store the clean app name (e.g., `nextjs-app-dir`)
+`{{language}}` 変数が指定された場合は、その言語の設定を優先します。
 
-### Step 2: Determine Which Packages Need Rebuilding
+## このスキルの目的
 
-If the user recently edited files in `packages/*`, identify which packages were modified:
+1. **テストジャーニーの生成** - ユーザーフローのPlaywrightテストを作成
+2. **E2Eテストの実行** - 複数ブラウザでテストを実行
+3. **アーティファクトの取得** - 失敗時のスクリーンショット、動画、トレースを保存
+4. **結果のアップロード** - HTMLレポートとJUnit XMLを生成
+5. **不安定なテストの検出** - 不安定なテストを特定・隔離
+
+## 使用するタイミング
+
+以下の場合に使用：
+- 重要なユーザージャーニーのテスト（ログイン、決済、購入フロー等）
+- 複数ステップのフローがエンドツーエンドで動作することの検証
+- UIインタラクションとナビゲーションのテスト
+- フロントエンドとバックエンドの統合検証
+- 本番デプロイ前の品質確認
+
+## ワークフロー
+
+### ステップ1: ユーザーフローの分析
+
+リクエストを分析し、テストシナリオを特定する。
+
+- ユーザージャーニーの流れ
+- テストで検証すべき項目
+- 必要なテストケース数
+
+### ステップ2: E2Eテストの生成
+
+Page Object Modelパターンを使用してテストコードを生成する。
+
+テストには以下を含める：
+- ナビゲーション
+- ユーザーアクション
+- アサーション（検証）
+- スクリーンショット取得
+
+### ステップ3: テストの実行
+
+複数ブラウザでテストを実行する。
+
+対象ブラウザ：
+- Chromium（デスクトップChrome）
+- Firefox（デスクトップ）
+- WebKit（デスクトップSafari）
+- Mobile Chrome（オプション）
+
+### ステップ4: 結果の報告
+
+テスト結果とアーティファクトを報告する。
+
+- 成功/失敗の状態
+- 実行時間
+- 生成されたアーティファクト
+- 推奨事項（必要に応じて）
+
+## 言語別テストコード例
+
+以下に各言語でのE2Eテスト例を示します。詳細な情報は各言語のリファレンスを参照してください。
+
+### TypeScript/JavaScript (Playwright)
+
+```typescript
+// tests/e2e/market-search.spec.ts
+import { test, expect } from '@playwright/test'
+import { MarketsPage } from '../pages/MarketsPage'
+
+test.describe('市場検索', () => {
+  test('ユーザーは市場を検索してフィルタリングできる', async ({ page }) => {
+    // 1. ページへ移動
+    const marketsPage = new MarketsPage(page)
+    await marketsPage.goto()
+
+    // 2. 検索を実行
+    await marketsPage.search('election')
+
+    // 3. 結果を検証
+    await expect(marketsPage.marketCards).toHaveCount(5)
+  })
+})
+```
+
+**テスト実行:**
 
 ```bash
-# Check which packages have uncommitted changes (including untracked files)
-git status --porcelain | grep "^[ MARC?][ MD?] packages/" | cut -d'/' -f2 | sort -u
+npx playwright test
+npx playwright test --headed  # ブラウザ表示
+npx playwright show-report    # レポート表示
 ```
 
-For each modified package, rebuild its tarball:
+### Python (Playwright for Python)
+
+```python
+# tests/e2e/test_market_search.py
+from playwright.sync_api import Page, expect
+from pages.markets_page import MarketsPage
+
+class TestMarketSearch:
+    def test_user_can_search_and_filter_markets(self, page: Page):
+        # 1. ページへ移動
+        markets_page = MarketsPage(page)
+        markets_page.goto()
+
+        # 2. 検索を実行
+        markets_page.search('election')
+
+        # 3. 結果を検証
+        expect(markets_page.market_cards).to_have_count(5)
+```
+
+**テスト実行:**
 
 ```bash
-cd packages/<package-name>
-yarn build && yarn build:tarball
-cd ../..
+pytest tests/e2e/
+pytest tests/e2e/ --headed  # ブラウザ表示
 ```
 
-**Option C: User Specifies Packages**
+### C# (Playwright for .NET)
 
-If the user says "I changed @sentry/node" or similar, rebuild just that package:
+```csharp
+// Tests/E2E/MarketSearchTests.cs
+using Microsoft.Playwright;
+using Xunit;
+
+public class MarketSearchTests : PlaywrightTest
+{
+    [Fact]
+    public async Task UserCanSearchAndFilterMarkets()
+    {
+        // 1. ページへ移動
+        var marketsPage = new MarketsPage(Page);
+        await marketsPage.GotoAsync();
+
+        // 2. 検索を実行
+        await marketsPage.SearchAsync("election");
+
+        // 3. 結果を検証
+        await Expect(marketsPage.MarketCards).ToHaveCountAsync(5);
+    }
+}
+```
+
+**テスト実行:**
 
 ```bash
-cd packages/node
-yarn build && yarn build:tarball
-cd ../..
+dotnet test
+dotnet test --filter "Category=E2E"
 ```
 
-### Step 3: Verify Test Application Exists
+## テストコードテンプレート（TypeScript）
 
-Check that the test app exists:
+```typescript
+// tests/e2e/{機能名}/{テスト名}.spec.ts
+import { test, expect } from '@playwright/test'
+import { {ページ名}Page } from '../../pages/{ページ名}Page'
+
+test.describe('{テストスイート名}', () => {
+  test('{テストケース名}', async ({ page }) => {
+    // 1. ページへ移動
+    const targetPage = new {ページ名}Page(page)
+    await targetPage.goto()
+
+    // 2. ページ読み込みを検証
+    await expect(page).toHaveTitle(/{期待するタイトル}/)
+    await expect(page.locator('h1')).toContainText('{期待するテキスト}')
+
+    // 3. ユーザーアクションを実行
+    await targetPage.{アクションメソッド}('{入力値}')
+
+    // 4. APIレスポンスを待機
+    await page.waitForResponse(resp =>
+      resp.url().includes('{APIエンドポイント}') && resp.status() === 200
+    )
+
+    // 5. 結果を検証
+    await expect(page.locator('{セレクタ}')).toBeVisible()
+
+    // 6. スクリーンショットを取得
+    await page.screenshot({ path: 'artifacts/{スクリーンショット名}.png' })
+  })
+})
+```
+
+## Page Objectテンプレート
+
+```typescript
+// tests/pages/{ページ名}Page.ts
+import { Page, Locator } from '@playwright/test'
+
+export class {ページ名}Page {
+  readonly page: Page
+  readonly {要素名}: Locator
+
+  constructor(page: Page) {
+    this.page = page
+    this.{要素名} = page.locator('[data-testid="{テストID}"]')
+  }
+
+  async goto() {
+    await this.page.goto('{URL}')
+  }
+
+  async {アクションメソッド}(input: string) {
+    await this.{要素名}.fill(input)
+    await this.{要素名}.press('Enter')
+  }
+}
+```
+
+## テストアーティファクト
+
+テスト実行時に以下のアーティファクトを取得：
+
+**全テストで取得：**
+- HTMLレポート（タイムラインと結果）
+- JUnit XML（CI統合用）
+
+**失敗時のみ取得：**
+- 失敗状態のスクリーンショット
+- テストの動画記録
+- デバッグ用トレースファイル（ステップバイステップ再生）
+- ネットワークログ
+- コンソールログ
+
+## クイックコマンド
+
+### TypeScript/JavaScript (Playwright)
 
 ```bash
-ls -d dev-packages/e2e-tests/test-applications/<app-name>
+# 全E2Eテストを実行
+npx playwright test
+
+# 特定のテストファイルを実行
+npx playwright test tests/e2e/market-search.spec.ts
+
+# ヘッドモードで実行（ブラウザを表示）
+npx playwright test --headed
+
+# デバッグモードで実行
+npx playwright test --debug
+
+# テストコードを生成
+npx playwright codegen http://localhost:3000
+
+# レポートを表示
+npx playwright show-report
+
+# トレースファイルを表示
+npx playwright show-trace artifacts/trace.zip
 ```
 
-If it doesn't exist, list available test apps:
+### Python (Playwright for Python)
 
 ```bash
-ls dev-packages/e2e-tests/test-applications/
+# 全E2Eテストを実行
+pytest tests/e2e/
+
+# ヘッドモードで実行
+pytest tests/e2e/ --headed
+
+# 特定のブラウザで実行
+pytest tests/e2e/ --browser chromium
+
+# トレース記録
+pytest tests/e2e/ --tracing on
 ```
 
-Ask the user which one they meant.
-
-### Step 4: Run the E2E Test
-
-Navigate to the e2e-tests directory and run the test:
+### C# (Playwright for .NET)
 
 ```bash
-cd dev-packages/e2e-tests
-yarn test:run <app-name>
+# 全E2Eテストを実行
+dotnet test --filter "Category=E2E"
+
+# 詳細出力
+dotnet test -v detailed
+
+# Playwrightブラウザインストール
+pwsh bin/Debug/net8.0/playwright.ps1 install
 ```
 
-If a variant was specified:
+## 不安定なテストの検出
 
-```bash
-cd dev-packages/e2e-tests
-yarn test:run <app-name> --variant <variant-name>
+テストが断続的に失敗する場合：
+
+1. **原因の特定**
+   - タイムアウト問題
+   - レース条件
+   - アニメーションによる要素の非表示
+
+2. **推奨される修正**
+   - 明示的な待機を追加: `await page.waitForSelector('{セレクタ}')`
+   - タイムアウトを増加: `{ timeout: 10000 }`
+   - コンポーネント内のレース条件を確認
+   - アニメーションによる要素非表示を検証
+
+3. **隔離の推奨**
+   - 修正まで `test.fixme()` でマーク
+
+## ベストプラクティス
+
+**推奨事項：**
+- Page Object Modelを使用して保守性を向上
+- セレクタには `data-testid` 属性を使用
+- 任意の待ち時間ではなくAPIレスポンスを待機
+- 重要なユーザージャーニーをエンドツーエンドでテスト
+- mainへのマージ前にテストを実行
+- 失敗時はアーティファクトを確認
+
+**避けるべきこと：**
+- 脆いセレクタの使用（CSSクラスは変更される可能性がある）
+- 実装の詳細をテスト
+- 本番環境でテストを実行
+- 不安定なテストを無視
+- 失敗時のアーティファクト確認をスキップ
+- 全てのエッジケースをE2Eでテスト（ユニットテストを使用）
+
+## CI/CD統合
+
+```yaml
+# .github/workflows/e2e.yml
+- name: Install Playwright
+  run: npx playwright install --with-deps
+
+- name: Run E2E tests
+  run: npx playwright test
+
+- name: Upload artifacts
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: playwright-report
+    path: playwright-report/
 ```
 
-### Step 5: Report Results
+## 重要な注意事項
 
-After the test completes, provide a summary:
+**本番環境での注意点：**
+- 金銭が関わるE2Eテストはテストネット/ステージング環境のみで実行
+- 本番環境で決済・取引テストを実行しない
+- 金融関連テストには `test.skip(process.env.NODE_ENV === 'production')` を設定
+- テスト用のウォレット/アカウントのみを使用
 
-**If tests passed:**
+## 他のスキルとの連携
 
-```
-✅ E2E tests passed for <app-name>
-
-All tests completed successfully. Your SDK changes work correctly with this test application.
-```
-
-**If tests failed:**
-
-```
-❌ E2E tests failed for <app-name>
-
-[Include relevant error output]
-```
-
-**If package rebuild was needed:**
-
-```
-📦 Rebuilt SDK packages: <list of packages>
-🧪 Running E2E tests for <app-name>...
-```
-
-## Error Handling
-
-- **No tarballs found**: Run `yarn build && yarn build:tarball` at repository root
-- **Test app not found**: List available apps and ask user to clarify
-- **Verdaccio not running**: Tests should start Verdaccio automatically, but if issues occur, check Docker
-- **Build failures**: Fix build errors before running tests
-
-## Common Test Applications
-
-Here are frequently tested applications:
-
-- `nextjs-app-dir` - Next.js App Router
-- `nextjs-15` - Next.js 15.x
-- `react-create-hash-router` - React with React Router
-- `node-express-esm-loader` - Node.js Express with ESM
-- `sveltekit-2` - SvelteKit 2.x
-- `remix-2` - Remix 2.x
-- `nuxt-3` - Nuxt 3.x
-
-To see all available test apps:
-
-```bash
-ls dev-packages/e2e-tests/test-applications/
-```
-
-## Example Workflows
-
-### Example 1: After modifying @sentry/node
-
-```bash
-# User: "Run e2e tests for node-express-esm-loader"
-
-# Step 1: Detect recent changes to packages/node
-# Step 2: Rebuild the modified package
-cd packages/node
-yarn build && yarn build:tarball
-cd ../..
-
-# Step 3: Run the test
-cd dev-packages/e2e-tests
-yarn test:run node-express-esm-loader
-```
-
-### Example 2: First-time test run
-
-```bash
-# User: "Run e2e tests for nextjs-app-dir"
-
-# Step 1: Check for existing tarballs
-# Step 2: None found, build all packages
-yarn build && yarn build:tarball
-
-# Step 3: Run the test
-cd dev-packages/e2e-tests
-yarn test:run nextjs-app-dir
-```
-
-### Example 3: With variant
-
-```bash
-# User: "Run e2e tests for nextjs-app-dir with nextjs-15 variant"
-
-# Step 1: Rebuild if needed
-# Step 2: Run with variant
-cd dev-packages/e2e-tests
-yarn test:run nextjs-app-dir --variant nextjs-15
-```
-
-## Tips
-
-- **Always rebuild after SDK changes**: Tarballs contain the compiled SDK code
-- **Watch build output**: Build errors must be fixed before testing
-
-## Integration with Development Workflow
-
-This skill integrates with the standard SDK development workflow:
-
-1. Make changes to SDK code in `packages/*`
-2. Run `/e2e <app-name>` to test your changes
-3. Fix any test failures
-
-The skill automates the tedious parts of:
-
-- Remembering to rebuild tarballs
-- Navigating to the correct directory
-- Running tests with the right flags
+- **plan**: テストすべき重要なジャーニーを特定
+- **tdd**: ユニットテスト用（より高速で詳細）
+- **e2e**: 統合テストとユーザージャーニーテスト用
+- **code-review**: テスト品質の検証

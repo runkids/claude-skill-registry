@@ -1,458 +1,179 @@
 ---
 name: creating-pr
-description: Creates GitHub Pull Requests with existing PR detection, branch pushing, and intelligent title/body generation. Use when user requests to create pull request, open PR, update PR, push for review, ready for review, send for review, get this reviewed, make a PR, share code, request review, create draft PR, submit for review, run /create-pr command, or mentions "PR", "pull request", "merge request", "code review", "GitHub PR", or "draft".
+description: Use when creating or updating pull requests with comprehensive descriptions and meaningful commits - streamlines PR workflow with branch management and commit best practices
 ---
 
-# ⚠️ CRITICAL CONSTRAINTS
+You are an expert Git and GitHub workflow automation specialist with deep knowledge of version control best practices and pull request management. Your primary responsibility is streamlining the pull request creation process, ensuring high-quality commits with meaningful descriptions.
 
-## No Claude Code Footer Policy
+## Common Operations
 
-**YOU MUST NEVER add Claude Code attribution to pull requests.**
-
-- ❌ **NO** "🤖 Generated with [Claude Code]" in PR titles or descriptions
-- ❌ **NO** "Co-Authored-By: Claude <noreply@anthropic.com>" in PR content
-- ❌ **NO** Claude Code attribution, footer, or branding of any kind
-
-Pull requests are public code review documents and must remain clean and professional.
-
----
-
-# GitHub PR Creation Workflow
-
-Execute GitHub Pull Request workflows with automatic repository detection, branch management, and intelligent PR content generation.
-
-## Usage
-
-This skill is invoked when:
-- User runs `/create-pr` or `/git:create-pr` command
-- User requests to create a pull request
-- User asks to open a PR or push changes for review
-
-## How It Works
-
-This skill handles the complete PR workflow:
-
-1. **Repository Detection** - Detect current repository context (root or submodule)
-2. **Branch Validation** - Verify not on protected branch, check for uncommitted changes
-3. **Branch Pushing** - Ensure branch exists on remote
-4. **Existing PR Detection** - Check if PR already exists for current branch
-5. **PR Content Generation** - Create title and description from commits
-6. **PR Creation** - Create or update PR using GitHub CLI
-
-## Supported Arguments
-
-Parse arguments from user input:
-
-- **No arguments**: Auto-detect repository and create PR to main branch
-- **`<scope>`**: Direct PR for specific repository (root, submodule-name)
-- **`--draft`**: Create as draft PR
-- **`--base <branch>`**: Target branch (default: main)
-- **Combinations**: `<scope> --draft`, `root --base staging`, etc.
-
-## Prerequisites
-
-**GitHub CLI Required**: Must have `gh` installed and authenticated
+### GitHub CLI Commands Reference
 
 ```bash
-# Install GitHub CLI (if not installed)
-# macOS: brew install gh
-# Linux: See https://cli.github.com/
+# PR Management
+gh pr view                                    # View current branch PR
+gh pr list                                    # List open PRs
+gh pr view <number> --json number -q .number # Get PR number
+gh pr create --title "" --body ""            # Create new PR
+gh pr edit --body ""                         # Update description
+gh pr edit --add-label ""                    # Add labels
 
-# Authenticate
-gh auth login
+# Git Commands
+git branch --show-current                    # Current branch
+git status                                   # Check changes
+git diff                                     # View unstaged changes
+git diff --cached                           # View staged changes
+git diff HEAD~1..HEAD                       # Last commit diff
+git rev-parse HEAD                          # Get commit SHA
+git log -1 --pretty=%s                      # Last commit message
 ```
 
-## PR Creation Workflow Steps
+## Workflow
 
-### Step 1: Parse Arguments
+### Creating/Updating Pull Requests
 
-Extract scope, draft flag, and base branch from user input:
+1. **Branch Management**:
 
-```bash
-# Parse arguments
-SCOPE=""
-DRAFT_FLAG=""
-BASE_BRANCH="main"
+   - Check current branch: `git branch --show-current`
+   - If on main/master/next, create feature branch with conventional naming
+   - Switch to new branch: `git checkout -b branch-name`
 
-# Example parsing:
-# "root --draft" → SCOPE="root", DRAFT_FLAG="--draft", BASE_BRANCH="main"
-# "--base staging" → SCOPE="", DRAFT_FLAG="", BASE_BRANCH="staging"
-# "my-service --draft --base develop" → SCOPE="my-service", DRAFT_FLAG="--draft", BASE_BRANCH="develop"
+2. **Analyze & Stage**:
+
+   - Review changes: `git status` and `git diff`
+   - Identify change type (feature, fix, refactor, docs, test, chore)
+   - Stage ALL changes: `git add .` (preferred due to slow Husky hooks)
+   - Verify: `git diff --cached`
+
+3. **Commit & Push**:
+
+   - **Single Commit Strategy**: Use one comprehensive commit per push due to slow Husky hooks
+   - Format: `type: brief description` (simple format preferred)
+   - Commit: `git commit -m "type: description"` with average git comment
+   - Push: `git push -u origin branch-name`
+
+4. **PR Management**:
+
+   - Check existing: `gh pr view`
+   - If exists: push updates, **add update comment** (preserve original description)
+   - If not: `gh pr create` with title and description
+
+## Update Comment Templates
+
+When updating existing PRs, use these comment templates to preserve the original description:
+
+### General PR Update Template
+
+```markdown
+## 🔄 PR Update
+
+**Commit**: `<commit-sha>` - `<commit-message>`
+
+### Changes Made
+
+- [List specific changes in this update]
+- [Highlight any breaking changes]
+- [Note new features or fixes]
+
+### Impact
+
+- [Areas of code affected]
+- [Performance/behavior changes]
+- [Dependencies updated]
+
+### Testing
+
+- [How to test these changes]
+- [Regression testing notes]
+
+### Next Steps
+
+- [Remaining work if any]
+- [Items for review focus]
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
 ```
 
-### Step 2: Detect Repository Context
+### Critical Fix Update Template
 
-Find monorepo root and determine current repository:
+```markdown
+## 🚨 Critical Fix Applied
 
-```bash
-# Find monorepo root (handles submodules)
-if SUPERPROJECT=$(git rev-parse --show-superproject-working-tree 2>/dev/null) && [ -n "$SUPERPROJECT" ]; then
-    # We're in a submodule
-    MONOREPO_ROOT="$SUPERPROJECT"
-else
-    # We're in root or standalone repo
-    MONOREPO_ROOT=$(git rev-parse --show-toplevel)
-fi
+**Commit**: `<commit-sha>` - `<commit-message>`
 
-# Get current working directory
-CURRENT_DIR=$(pwd)
+### Issue Addressed
 
-# Determine repository context
-if [ -n "$SCOPE" ]; then
-    # User specified scope
-    if [ "$SCOPE" = "root" ]; then
-        REPO_PATH="$MONOREPO_ROOT"
-    else
-        REPO_PATH="$MONOREPO_ROOT/$SCOPE"
-    fi
-else
-    # Auto-detect from current directory
-    # If in submodule, use submodule path
-    # If in root, use root path
-    if [[ "$CURRENT_DIR" == "$MONOREPO_ROOT" ]]; then
-        REPO_PATH="$MONOREPO_ROOT"
-    else
-        # Find which submodule we're in
-        REPO_PATH=$(git -C "$CURRENT_DIR" rev-parse --show-toplevel)
-    fi
-fi
+[Description of critical issue fixed]
 
-# Validate repository
-if [ ! -d "$REPO_PATH/.git" ]; then
-    echo "❌ Error: Not a valid git repository: $REPO_PATH" >&2
-    exit 1
-fi
+### Solution
+
+[Technical approach taken]
+
+### Verification Steps
+
+1. [Step to reproduce original issue]
+2. [Step to verify fix]
+3. [Regression test steps]
+
+### Risk Assessment
+
+- **Impact**: [Low/Medium/High]
+- **Scope**: [Files/features affected]
+- **Backwards Compatible**: [Yes/No - details if no]
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
 ```
 
-### Step 3: Validate Branch State
+### Feature Enhancement Template
 
-Check current branch and uncommitted changes:
+```markdown
+## ✨ Feature Enhancement
 
-```bash
-# Change to repository directory
-cd "$REPO_PATH"
+**Commit**: `<commit-sha>` - `<commit-message>`
 
-# Get current branch
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+### Enhancement Details
 
-# Check if on protected branch
-if [ "$CURRENT_BRANCH" = "main" ] || [ "$CURRENT_BRANCH" = "master" ]; then
-    echo "❌ Cannot create PR from protected branch: $CURRENT_BRANCH" >&2
-    echo "" >&2
-    echo "Please create a feature branch first:" >&2
-    echo "  git checkout -b feature/your-feature-name" >&2
-    echo "" >&2
-    exit 1
-fi
+[Description of feature improvement/addition]
 
-# Check for uncommitted changes
-UNCOMMITTED=$(git status --porcelain)
-if [ -n "$UNCOMMITTED" ]; then
-    echo "❌ Error: You have uncommitted changes" >&2
-    echo "" >&2
-    echo "Please commit or stash your changes before creating a PR:" >&2
-    git status --short
-    echo "" >&2
-    exit 1
-fi
+### Technical Implementation
 
-# Check if branch has commits ahead of base
-COMMITS_AHEAD=$(git rev-list --count "$BASE_BRANCH..HEAD" 2>/dev/null || echo "0")
-if [ "$COMMITS_AHEAD" = "0" ]; then
-    echo "❌ Error: No commits to create PR from" >&2
-    echo "Current branch '$CURRENT_BRANCH' has no commits ahead of '$BASE_BRANCH'" >&2
-    exit 1
-fi
+- [Key architectural decisions]
+- [New dependencies or patterns]
+- [Performance considerations]
 
-echo "ℹ️  Branch: $CURRENT_BRANCH ($COMMITS_AHEAD commits ahead of $BASE_BRANCH)"
+### User Experience Impact
+
+[How this affects end users]
+
+### Testing Strategy
+
+[Approach to testing this enhancement]
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
 ```
 
-### Step 4: Push Branch to Remote
-
-Ensure branch exists on remote:
-
-```bash
-# Check if branch exists on remote
-REMOTE_BRANCH=$(git ls-remote --heads origin "$CURRENT_BRANCH" 2>/dev/null)
-
-if [ -z "$REMOTE_BRANCH" ]; then
-    echo "ℹ️  Branch not on remote, pushing..."
-    git push -u origin "$CURRENT_BRANCH" || {
-        echo "❌ Failed to push branch to remote" >&2
-        exit 1
-    }
-    echo "✅ Branch pushed to origin/$CURRENT_BRANCH"
-else
-    # Check if local is behind remote
-    LOCAL_HASH=$(git rev-parse HEAD)
-    REMOTE_HASH=$(git rev-parse "origin/$CURRENT_BRANCH" 2>/dev/null || echo "")
-
-    if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
-        echo "ℹ️  Local branch differs from remote, pushing..."
-        git push origin "$CURRENT_BRANCH" || {
-            echo "❌ Failed to push branch to remote" >&2
-            exit 1
-        }
-        echo "✅ Branch updated on remote"
-    else
-        echo "ℹ️  Branch already up to date on remote"
-    fi
-fi
-```
-
-### Step 5: Check for Existing PR
-
-Detect if PR already exists for this branch:
-
-```bash
-# Check for existing PR using GitHub CLI
-EXISTING_PR=$(gh pr view "$CURRENT_BRANCH" --json number,title,url 2>/dev/null || echo "")
-
-if [ -n "$EXISTING_PR" ]; then
-    # PR exists - extract info
-    PR_NUMBER=$(echo "$EXISTING_PR" | jq -r '.number')
-    PR_TITLE=$(echo "$EXISTING_PR" | jq -r '.title')
-    PR_URL=$(echo "$EXISTING_PR" | jq -r '.url')
-
-    echo ""
-    echo "ℹ️  Existing PR found:"
-    echo "  #$PR_NUMBER: $PR_TITLE"
-    echo "  $PR_URL"
-    echo ""
-
-    # Use AskUserQuestion to ask user what to do
-    # Options:
-    # 1. Update PR (regenerate title/body and update)
-    # 2. View PR in browser (open URL)
-    # 3. Cancel (do nothing)
-
-    # If user chooses "Update PR":
-    # - Generate new title and body (Steps 6-7)
-    # - Update PR using: gh pr edit "$PR_NUMBER" --title "..." --body "..."
-    # - Show success message
-
-    # If user chooses "View PR":
-    # - Open PR URL in browser: gh pr view --web
-
-    # If user chooses "Cancel":
-    # - Exit gracefully
-fi
-```
-
-### Step 6: Generate PR Title
-
-Analyze commits to create conventional PR title:
-
-```bash
-# Get all commits from base branch to current branch
-COMMITS=$(git log "$BASE_BRANCH..HEAD" --oneline)
-COMMIT_COUNT=$(echo "$COMMITS" | wc -l | tr -d ' ')
-
-echo "ℹ️  Analyzing $COMMIT_COUNT commits..."
-
-# Get the first commit message (most recent)
-LATEST_COMMIT=$(git log -1 --pretty=%B)
-
-# Detect commit type from latest commit or analyze all commits
-# Try to extract type from conventional commit format
-if echo "$LATEST_COMMIT" | grep -qE '^(feat|fix|docs|refactor|test|chore|perf|ci|build):'; then
-    # Extract type and description from conventional commit
-    COMMIT_TYPE=$(echo "$LATEST_COMMIT" | grep -oE '^[a-z]+' | head -1)
-    COMMIT_DESC=$(echo "$LATEST_COMMIT" | sed -E 's/^[a-z]+(\([^)]+\))?:\s*//')
-else
-    # Analyze changes to determine type
-    ALL_COMMITS=$(git log "$BASE_BRANCH..HEAD" --pretty=%B)
-
-    if echo "$ALL_COMMITS" | grep -qi "fix\|bug"; then
-        COMMIT_TYPE="fix"
-    elif echo "$ALL_COMMITS" | grep -qi "feat\|feature\|add"; then
-        COMMIT_TYPE="feat"
-    elif echo "$ALL_COMMITS" | grep -qi "docs\|documentation"; then
-        COMMIT_TYPE="docs"
-    elif echo "$ALL_COMMITS" | grep -qi "refactor"; then
-        COMMIT_TYPE="refactor"
-    elif echo "$ALL_COMMITS" | grep -qi "test"; then
-        COMMIT_TYPE="test"
-    else
-        COMMIT_TYPE="feat"
-    fi
-
-    # Generate description from branch name or commit
-    COMMIT_DESC=$(echo "$LATEST_COMMIT" | head -1 | sed 's/^\s*//')
-fi
-
-# Generate PR title (capitalize first letter)
-PR_TITLE="$COMMIT_TYPE: $COMMIT_DESC"
-
-echo "ℹ️  Generated PR title: $PR_TITLE"
-```
-
-### Step 7: Generate PR Body
-
-Create PR description with summary and test plan:
-
-```bash
-# Generate PR body with summary from commits
-PR_BODY="## Summary
-
-"
-
-# Add commit summaries
-if [ "$COMMIT_COUNT" -eq 1 ]; then
-    # Single commit - use full message
-    PR_BODY+="$LATEST_COMMIT
-
-"
-else
-    # Multiple commits - list them
-    PR_BODY+="This PR includes $COMMIT_COUNT commits:
-
-"
-    while IFS= read -r commit; do
-        PR_BODY+="- $commit
-"
-    done <<< "$COMMITS"
-    PR_BODY+="
-"
-fi
-
-# Add test plan section
-PR_BODY+="## Test Plan
-
-- [ ] Code builds successfully
-- [ ] Tests pass
-- [ ] Manual testing completed
-- [ ] Documentation updated (if needed)
-
-## Changes
-
-"
-
-# List changed files
-CHANGED_FILES=$(git diff --name-only "$BASE_BRANCH..HEAD")
-while IFS= read -r file; do
-    PR_BODY+="- \`$file\`
-"
-done <<< "$CHANGED_FILES"
-
-echo ""
-echo "Generated PR description:"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "$PR_BODY"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-```
-
-### Step 8: Create PR
-
-Use GitHub CLI to create the PR:
-
-```bash
-# IMPORTANT: No Claude Code attribution in PR content
-
-# Build gh pr create command
-GH_CMD="gh pr create --title \"$PR_TITLE\" --body \"$PR_BODY\" --base \"$BASE_BRANCH\""
-
-# Add draft flag if specified
-if [ "$DRAFT_FLAG" = "--draft" ]; then
-    GH_CMD+=" --draft"
-fi
-
-# Execute PR creation
-eval "$GH_CMD" || {
-    echo "❌ Failed to create PR" >&2
-    exit 1
-}
-
-# Get PR URL
-PR_URL=$(gh pr view --json url -q '.url')
-
-echo ""
-echo "✅ Pull Request created successfully!"
-echo ""
-echo "PR URL: $PR_URL"
-echo ""
-echo "Next steps:"
-echo "  - Review PR in browser: gh pr view --web"
-echo "  - Check CI status: gh pr checks"
-echo "  - Request reviews: gh pr ready (if draft)"
-echo ""
-```
-
-### Alternative: Update Existing PR
-
-If updating an existing PR (user chose "Update" in Step 5):
-
-```bash
-# Update PR title and body
-gh pr edit "$PR_NUMBER" --title "$PR_TITLE" --body "$PR_BODY" || {
-    echo "❌ Failed to update PR" >&2
-    exit 1
-}
-
-echo "✅ Pull Request #$PR_NUMBER updated successfully!"
-echo "PR URL: $PR_URL"
-```
-
-## PR Title Generation Rules
-
-The skill generates PR titles following conventional commit format:
-
-| Detected Pattern | Type | Example Title |
-|-----------------|------|---------------|
-| "feat:" in commits | `feat` | feat: add user authentication |
-| "fix:" in commits | `fix` | fix: resolve login timeout issue |
-| "docs:" in commits | `docs` | docs: update API documentation |
-| "refactor:" in commits | `refactor` | refactor: optimize database queries |
-| "test:" in commits | `test` | test: add integration tests |
-| Mentions "bug", "fix" | `fix` | fix: correct calculation error |
-| Mentions "feature", "add" | `feat` | feat: implement new feature |
-| Default | `feat` | feat: [description from commits] |
-
-## Important Notes
-
-1. **GitHub CLI Required**: Must have `gh` installed and authenticated
-   ```bash
-   gh auth login
-   ```
-
-2. **Branch Protection**: Cannot create PR from main/master branch
-
-3. **Existing PRs**: Automatically detects and offers to update existing PRs
-
-4. **Commit-Based Content**: PR title and body generated from commit messages
-
-5. **Works Anywhere**: Executes from any directory, resolves paths absolutely
-
-6. **Submodule Support**: Can create PRs for both root repository and submodules
-
-7. **Clean PR Content**: No Claude Code attribution in PR titles or descriptions
-
-## GitHub CLI Commands Used
-
-This skill uses the following `gh` commands:
-
-```bash
-# Check for existing PR
-gh pr view <branch> --json number,title,url
-
-# Create new PR
-gh pr create --title "..." --body "..." --base <branch> [--draft]
-
-# Update existing PR
-gh pr edit <number> --title "..." --body "..."
-
-# View PR in browser
-gh pr view --web
-
-# Check PR status
-gh pr checks
-```
-
-## Supporting Documentation
-
-For detailed information, see:
-
-- **[WORKFLOW.md](WORKFLOW.md)** - Step-by-step PR creation process including repository detection, branch management, and GitHub CLI integration
-- **[EXAMPLES.md](EXAMPLES.md)** - Real-world PR scenarios covering features, bug fixes, drafts, and submodule PRs
-- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions for GitHub CLI errors, authentication, and branch conflicts
+## Example Usage Patterns
+
+### Creating PR:
+
+1. Create branch and make changes
+2. Stage, commit, push → triggers PR creation
+3. Each subsequent push triggers update comment
+
+### Commit Message Conventions
+
+- `feat:` - New features
+- `fix:` - Bug fixes
+- `refactor:` - Code refactoring
+- `docs:` - Documentation changes
+- `test:` - Test additions/modifications
+- `chore:` - Maintenance tasks
+- `style:` - Formatting changes
+
+### Branch Naming Conventions
+
+- `feature/description` - New features
+- `fix/bug-description` - Bug fixes
+- `refactor/component-name` - Code refactoring
+- `docs/update-readme` - Documentation updates
+- `test/add-unit-tests` - Test additions

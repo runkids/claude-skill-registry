@@ -1,40 +1,69 @@
 ---
 name: gpt
-description: OpenAI GPT integration. Chat completions, image generation, embeddings, and fine-tuning via OpenAI API.
-metadata: {"clawdbot":{"emoji":"🤖","always":true,"requires":{"bins":["curl","jq"]},"primaryEnv":"OPENAI_API_KEY"}}
+description: "Use GPT-5.2 for long-running coding tasks: large refactors, feature implementation etc."
+allowed-tools: Bash, Read
 ---
 
-# GPT 🤖
+# GPT-5.2 (via ocw)
 
-OpenAI GPT integration.
+Long-context coding. Best for: large refactors, feature implementation.
 
-## Setup
+## Prompt Guidelines
 
-```bash
-export OPENAI_API_KEY="sk-..."
-```
+GPT strictly follows instructions. Provide as much **high-level design context** as possible:
 
-## Features
+- Architecture decisions, data flow, component responsibilities
+- Constraints, edge cases, expected behaviors
 
-- Chat completions (GPT-4, GPT-4o)
-- Image generation (DALL-E)
-- Text embeddings
-- Fine-tuning
-- Assistants API
+**Avoid**:
 
-## Usage Examples
+- Contradictory requirements (GPT will struggle to reconcile conflicts)
+- Code snippets — GPT writes code well on its own; use tokens for design info instead
 
-```
-"Ask GPT: Explain quantum computing"
-"Generate image of a sunset"
-"Create embeddings for this text"
-```
-
-## API Reference
+## Create Session (with worktree for code edits)
 
 ```bash
-curl -s https://api.openai.com/v1/chat/completions \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+ocw new gpt --worktree
+```
+
+Returns:
+
+- Line 1: 6-char hash
+- Line 2: worktree path (e.g., `/path/to/ocw-abc123`)
+
+The worktree is an isolated git branch. Work there freely.
+
+## Create Session (read-only, no worktree)
+
+```bash
+ocw new gpt
+```
+
+## Chat
+
+```bash
+ocw chat <hash> << 'EOF'
+your prompt
+EOF
+```
+
+## Chat with File
+
+```bash
+ocw chat <hash> -f /path/to/spec.md << 'EOF'
+implement based on this
+EOF
+```
+
+## Worktree Workflow
+
+1. `ocw new gpt --worktree` → get hash + path
+2. Work in worktree: `cd /path/to/ocw-{hash}`
+3. Edit, commit, push as needed
+4. When done: `git worktree remove /path/to/ocw-{hash}`
+
+## List Sessions
+
+```bash
+ocw list
 ```

@@ -1,7 +1,7 @@
 {
   "name": "ollama-setup",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/ollama-setup/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:24.395707Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/plugins/ai-ml/ollama-local-ai/ollama-setup/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-31T03:27:10.991387Z"
 }

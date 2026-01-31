@@ -22,10 +22,10 @@ Transform ephemeral session learnings into permanent, compounding capabilities.
 
 ```bash
 # List learnings (most recent first)
-ls -t $CLAUDE_PROJECT_DIR/.claude/cache/learnings/*.md | head -20
+ls -t $CLAUDE_PROJECT_DIR/.maestro/cache/learnings/*.md | head -20
 
 # Count total
-ls $CLAUDE_PROJECT_DIR/.claude/cache/learnings/*.md | wc -l
+ls $CLAUDE_PROJECT_DIR/.maestro/cache/learnings/*.md | wc -l
 ```
 
 Read the most recent 5-10 files (or specify a date range).
@@ -135,7 +135,7 @@ Present each proposal in this format:
 [Actual content that would be written to file]
 \`\`\`
 
-**File:** `.claude/rules/[name].md` or `.claude/skills/[name]/SKILL.md`
+**File:** `.maestro/rules/[name].md` or `.maestro/skills/[name]/SKILL.md`
 
 ---
 ```
@@ -147,7 +147,7 @@ Use `AskUserQuestion` to get approval for each artifact (or batch approval).
 #### For Rules:
 ```bash
 # Write to rules directory
-cat > $CLAUDE_PROJECT_DIR/.claude/rules/<name>.md << 'EOF'
+cat > $CLAUDE_PROJECT_DIR/.maestro/rules/<name>.md << 'EOF'
 # Rule Name
 
 [Context: why this rule exists, based on N sessions]
@@ -168,7 +168,7 @@ EOF
 ```
 
 #### For Skills:
-Create `.claude/skills/<name>/SKILL.md` with:
+Create `.maestro/skills/<name>/SKILL.md` with:
 - Frontmatter (name, description, allowed-tools)
 - When to Use
 - Step-by-step instructions (executable)
@@ -181,13 +181,13 @@ Create shell wrapper + TypeScript handler:
 
 ```bash
 # Shell wrapper
-cat > $CLAUDE_PROJECT_DIR/.claude/hooks/<name>.sh << 'EOF'
+cat > $CLAUDE_PROJECT_DIR/.maestro/hooks/<name>.sh << 'EOF'
 #!/bin/bash
 set -e
-cd "$CLAUDE_PROJECT_DIR/.claude/hooks"
+cd "$CLAUDE_PROJECT_DIR/.maestro/hooks"
 cat | node dist/<name>.mjs
 EOF
-chmod +x $CLAUDE_PROJECT_DIR/.claude/hooks/<name>.sh
+chmod +x $CLAUDE_PROJECT_DIR/.maestro/hooks/<name>.sh
 ```
 
 Then create `src/<name>.ts`, build with esbuild, and register in `settings.json`:
@@ -198,7 +198,7 @@ Then create `src/<name>.ts`, build with esbuild, and register in `settings.json`
     "EventName": [{
       "hooks": [{
         "type": "command",
-        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/<name>.sh"
+        "command": "$CLAUDE_PROJECT_DIR/.maestro/hooks/<name>.sh"
       }]
     }]
   }
@@ -206,7 +206,7 @@ Then create `src/<name>.ts`, build with esbuild, and register in `settings.json`
 ```
 
 #### For Agent Updates:
-Edit existing agent in `.claude/agents/<name>.md` to add the learned capability.
+Edit existing agent in `.maestro/agents/<name>.md` to add the learned capability.
 
 ### Step 8: Summary Report
 
@@ -233,15 +233,15 @@ Before creating any artifact:
 
 1. **Is it general enough?** Would it apply in other projects?
 2. **Is it specific enough?** Does it give concrete guidance?
-3. **Does it already exist?** Check `.claude/rules/` and `.claude/skills/` first
+3. **Does it already exist?** Check `.maestro/rules/` and `.maestro/skills/` first
 4. **Is it the right type?** Sequences → skills, heuristics → rules
 
 ## Files Reference
 
-- Learnings: `.claude/cache/learnings/*.md`
-- Skills: `.claude/skills/<name>/SKILL.md`
-- Rules: `.claude/rules/<name>.md`
-- Hooks: `.claude/hooks/<name>.sh` + `src/<name>.ts` + `dist/<name>.mjs`
-- Agents: `.claude/agents/<name>.md`
-- Skill triggers: `.claude/skills/skill-rules.json`
-- Hook registration: `.claude/settings.json` → `hooks` section
+- Learnings: `.maestro/cache/learnings/*.md`
+- Skills: `.maestro/skills/<name>/SKILL.md`
+- Rules: `.maestro/rules/<name>.md`
+- Hooks: `.maestro/hooks/<name>.sh` + `src/<name>.ts` + `dist/<name>.mjs`
+- Agents: `.maestro/agents/<name>.md`
+- Skill triggers: `.maestro/skills/skill-rules.json`
+- Hook registration: `.maestro/settings.json` → `hooks` section

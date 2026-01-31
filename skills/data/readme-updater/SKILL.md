@@ -1,340 +1,203 @@
 ---
 name: readme-updater
-description: Keep README files current with project changes. Use when project structure changes, features added, or setup instructions modified. Suggests README updates based on code changes. Triggers on significant project changes, new features, dependency changes.
-allowed-tools: Read, Write, Edit, Grep
+description: Intelligently update README.md to sync with code changes. Triggers: readme, 說明, 更新說明, update readme, 文檔同步, documentation, doc, 文件, 說明文件, 更新文檔, sync readme, 同步說明, 專案說明.
+version: 2.2.0
+category: documentation
+compatibility:
+  - claude-code
+  - github-copilot
+  - vscode
+  - codex-cli
+dependencies:
+  - readme-i18n
+allowed-tools:
+  - read_file
+  - write_file
+  - replace_string_in_file
+  - list_dir
+  - get_changed_files
+  - run_in_terminal
 ---
 
-# README Updater Skill
+# README 更新技能
 
-Keep your README current with project changes.
+## 描述
 
-## When I Activate
+智能更新 README.md，保持與程式碼變更同步。
 
-- ✅ New features added
-- ✅ Project structure changes
-- ✅ Dependencies added/removed
-- ✅ Setup instructions change
-- ✅ User mentions README or documentation
-- ✅ Configuration files modified
+## 觸發條件
 
-## What I Update
+- 「更新 README」「readme」「文檔同步」
+- 被 `git-precommit` 編排器調用
+- 新增重要功能後
 
-### README Sections
+## 法規依據
 
-**Installation:**
-- New dependencies
-- Setup steps
-- Prerequisites
-- Environment variables
+- 憲法：CONSTITUTION.md 第 6 條
 
-**Features:**
-- New capabilities
-- Functionality changes
-- Feature deprecation
+---
 
-**Usage:**
-- API changes
-- New examples
-- Updated screenshots
+## 📁 README.md 建議結構
 
-**Configuration:**
-- New options
-- Environment variables
-- Config file changes
+```markdown
+# 專案名稱
 
-## Examples
+> 一句話描述
 
-### New Feature Addition
+## ✨ 功能特色
 
-```bash
-# You add authentication:
-git diff
-# + auth.service.ts
-# + login.component.tsx
-# + JWT middleware
+- 🔥 功能 1
+- 🚀 功能 2
 
-# I suggest README update:
-## Features
-- ✨ User authentication with JWT  # NEW
-- 🔐 Role-based access control    # NEW
-- User management
-- Dashboard
-```
+## 📦 安裝
 
-### New Dependency
+### 前置需求
+- Node.js >= 18
+- Python >= 3.11
 
-```bash
-# You add: npm install stripe
-
-# I suggest:
-## Installation
-
-```bash
+### 安裝步驟
+\`\`\`bash
 npm install
-npm install stripe  # Added for payment processing
+\`\`\`
+
+## 🚀 快速開始
+
+\`\`\`bash
+npm run dev
+\`\`\`
+
+## 📖 使用說明
+
+### 基本用法
+...
+
+### 進階用法
+...
+
+## 📁 專案結構
+
+\`\`\`
+src/
+├── domain/
+├── application/
+├── infrastructure/
+└── presentation/
+\`\`\`
+
+## ⚙️ 設定
+
+| 變數 | 說明 | 預設值 |
+| ---- | ---- | ------ |
+| PORT | 服務埠號 | 3000 |
+
+## 🤝 貢獻
+
+請參閱 CONTRIBUTING.md
+
+## 📄 授權
+
+MIT License
 ```
 
-## Environment Variables
-```bash
-STRIPE_SECRET_KEY=your_stripe_key  # Required for payments
+---
+
+## 🔧 操作步驟
+
+### Step 1: 讀取現有 README
+
 ```
-```
-
-### Setup Instructions
-
-```bash
-# You modify docker-compose.yml
-
-# I update README:
-## Development Setup
-
-```bash
-# 1. Clone repository
-git clone [url]
-
-# 2. Install dependencies
-npm install
-
-# 3. Start services (UPDATED)
-docker-compose up -d  # Now includes Redis cache
-
-# 4. Run migrations
-npm run migrate
-```
+read_file("README.md")
 ```
 
-## Detection Logic
+### Step 2: 分析變更內容
 
-### Change Analysis
+從 `git-precommit` 調用時：
 
-I detect these changes automatically:
-- **package.json** → Update dependencies section
-- **New routes** → Update API documentation
-- **.env.example** → Update environment variables
-- **docker-compose.yml** → Update setup instructions
-- **New features** → Update features list
-
-### Section Mapping
-
-```yaml
-Code Change → README Section:
-  - New API endpoint → Usage / API Reference
-  - New dependency → Installation
-  - New env var → Configuration
-  - New feature → Features list
-  - Architecture change → Architecture section
+```
+get_changed_files()
 ```
 
-## Intelligent Updates
+或分析專案結構：
 
-### Keep Structure
-
-I maintain your README structure:
-- Preserve emoji style
-- Keep formatting consistent
-- Maintain tone and voice
-- Respect existing organization
-
-### Add Missing Sections
-
-```markdown
-# Suggested additions:
-
-## Prerequisites
-- Node.js 18+
-- Docker (for development)
-- PostgreSQL 14+
-
-## Environment Variables
-```bash
-DATABASE_URL=postgresql://localhost/mydb
-API_KEY=your_api_key
+```
+list_dir("src/")
 ```
 
-## Testing
-```bash
-npm test
+### Step 3: 判斷需要更新的區塊
+
+| 變更類型 | 更新區塊 | 偵測方式 |
+| -------- | -------- | -------- |
+| 新功能 | ✨ 功能特色 | 新增 feature 資料夾 |
+| 新依賴 | 📦 安裝 | pyproject.toml/package.json 變更 |
+| API 變更 | 📖 使用說明 | 公開 API 檔案變更 |
+| 目錄變更 | 📁 專案結構 | 新增/移除主要資料夾 |
+| 新設定 | ⚙️ 設定 | config 檔案變更 |
+
+### Step 4: 執行更新
+
+使用 `replace_string_in_file` 精確更新：
+
+**新增功能到功能列表**：
+
 ```
-```
-
-### Update Examples
-
-```markdown
-# Before:
-```javascript
-const result = api.getUsers();
-```
-
-# After (API changed):
-```javascript
-const result = await api.getUsers({ page: 1, limit: 10 });
-```
-```
-
-## Version Compatibility
-
-I track version-specific documentation:
-
-```markdown
-## Requirements
-
-- Node.js 18+ (updated from 16+)
-- TypeScript 5.0+ (new requirement)
-- React 18+ (unchanged)
+oldString: "## ✨ 功能特色\n\n- 🔥 功能 1\n- 🚀 功能 2"
+newString: "## ✨ 功能特色\n\n- 🔥 功能 1\n- 🚀 功能 2\n- 🔐 用戶認證（新）"
 ```
 
-## Changelog Integration
+**更新專案結構**：
 
-I can sync with CHANGELOG.md:
-
-```markdown
-## Recent Changes
-
-See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
-
-### Latest (v2.1.0)
-- ✨ Added user authentication
-- 🔧 Fixed memory leak in data processing
-- 📝 Updated API documentation
+```
+oldString: "## 📁 專案結構\n\n```\nsrc/\n├── domain/"
+newString: "## 📁 專案結構\n\n```\nsrc/\n├── domain/\n│   └── entities/"
 ```
 
-## Screenshot Management
+---
 
-```markdown
-# I suggest when UI changes:
-## Screenshots
+## 🛡️ 保護區塊
 
-![Dashboard](screenshots/dashboard.png)
-*Updated: 2025-10-24 - New authentication panel*
+以下區塊**不應自動修改**（需人工確認）：
 
-![User Profile](screenshots/profile.png)
-*New feature - user profile management*
+- 📄 授權資訊（License）
+- 🤝 貢獻指南（Contributing）
+- 🙏 致謝（Acknowledgments）
+- 📜 免責聲明（Disclaimer）
+
+---
+
+## 🔄 與其他 Skills 整合
+
+| Skill | 整合方式 |
+| ----- | -------- |
+| `git-precommit` | 自動調用，傳入變更資訊 |
+| `readme-i18n` | 更新後同步多語言版本 |
+| `changelog-updater` | 參考 CHANGELOG 新功能 |
+
+---
+
+## 📊 輸出格式
+
+```
+📝 README 更新報告
+
+變更偵測：
+- ✅ 新增功能：用戶認證模組
+- ✅ 新增依賴：bcrypt
+
+建議更新：
+- [功能列表] 新增「🔐 用戶認證」
+- [安裝說明] 新增 bcrypt 安裝指令
+
+執行結果：
+- ✅ README.md 已更新 (2 處變更)
+
+📌 提醒：請檢查 readme-i18n 是否需要同步
 ```
 
-## Relationship with @docs-writer
+---
 
-**Me (Skill):** Keep README current with code changes
-**@docs-writer (Sub-Agent):** Comprehensive documentation strategy
+## ⚠️ 注意事項
 
-### Workflow
-1. I detect changes
-2. I suggest README updates
-3. For full docs → Invoke **@docs-writer** sub-agent
-4. Sub-agent creates complete documentation
-
-## Sandboxing Compatibility
-
-**Works without sandboxing:** ✅ Yes
-**Works with sandboxing:** ✅ Yes
-
-- **Filesystem**: Writes to README.md
-- **Network**: None required
-- **Configuration**: None required
-
-## Best Practices
-
-1. **Keep it current** - Update README with every feature
-2. **Be specific** - Include version numbers, prerequisites
-3. **Add examples** - Show actual usage, not just API
-4. **Include troubleshooting** - Common issues and solutions
-5. **Badge status** - Keep build/coverage badges current
-
-## README Templates
-
-### Basic Structure
-
-```markdown
-# Project Name
-
-Brief description
-
-## Features
-- Feature 1
-- Feature 2
-
-## Installation
-```bash
-npm install
-```
-
-## Usage
-```javascript
-// Example
-```
-
-## Configuration
-Environment variables needed
-
-## Contributing
-How to contribute
-
-## License
-MIT
-```
-
-### Comprehensive Structure
-
-```markdown
-# Project Name
-> Tagline
-
-[Badges]
-
-## Table of Contents
-- Features
-- Installation
-- Usage
-- API Reference
-- Configuration
-- Development
-- Testing
-- Deployment
-- Contributing
-- License
-
-[Sections with detailed content]
-```
-
-## Integration
-
-### With /docs-gen Command
-
-```bash
-/docs-gen --format markdown
-
-# Generates:
-# 1. README.md (via me)
-# 2. Full documentation site (via @docs-writer)
-# 3. API reference (via api-documenter)
-```
-
-### With CI/CD
-
-```yaml
-# .github/workflows/docs.yml
-- name: Update README
-  run: |
-    # Skill suggests updates based on changes
-    # Review and commit
-```
-
-## Customization
-
-Add company-specific README standards:
-
-```bash
-cp -r ~/.claude/skills/documentation/readme-updater \
-      ~/.claude/skills/documentation/company-readme-updater
-
-# Edit to add:
-# - Company README template
-# - Required sections
-# - Badge standards
-```
-
-## Related Tools
-
-- **api-documenter skill**: API documentation
-- **@docs-writer sub-agent**: Comprehensive docs
-- **git-commit-helper skill**: Commit messages for updates
-- **/docs-gen command**: Full documentation generation
+1. **保持格式一致**：使用 emoji 時要與現有風格一致
+2. **不要移除內容**：只新增或更新，不主動刪除區塊
+3. **程式碼範例驗證**：更新範例時確保語法正確
+4. **多語言同步**：有 README.zh-TW.md 時需通知 readme-i18n

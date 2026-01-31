@@ -22,49 +22,35 @@ This skill enables Claude to use Google's Gemini API for advanced image understa
 
 ### API Key Configuration
 
-The skill supports both **Google AI Studio** and **Vertex AI** endpoints.
-
-#### Option 1: Google AI Studio (Default)
-
 The skill checks for `GEMINI_API_KEY` in this order:
 
-1. **Process environment**: `export GEMINI_API_KEY="your-key"`
-2. **Project root**: `.env`
-3. **.claude directory**: `.claude/.env`
-4. **.claude/skills directory**: `.claude/skills/.env`
-5. **Skill directory**: `.claude/skills/gemini-vision/.env`
+1. **Process environment variable** (recommended)
 
-**Get your API key**: Visit [Google AI Studio](https://aistudio.google.com/apikey)
+   ```bash
+   export GEMINI_API_KEY="your-api-key"
+   ```
 
-#### Option 2: Vertex AI
+2. **Skill directory**: `.claude/skills/gemini-vision/.env`
 
-To use Vertex AI instead:
+   ```
+   GEMINI_API_KEY=your-api-key
+   ```
 
-```bash
-# Enable Vertex AI
-export GEMINI_USE_VERTEX=true
-export VERTEX_PROJECT_ID=your-gcp-project-id
-export VERTEX_LOCATION=us-central1  # Optional, defaults to us-central1
-```
-
-Or in `.env` file:
-```bash
-GEMINI_USE_VERTEX=true
-VERTEX_PROJECT_ID=your-gcp-project-id
-VERTEX_LOCATION=us-central1
-```
+3. **Project directory**: `.env` or `.gemini_api_key` in project root
 
 **Security**: Never commit API keys to version control. Add `.env` to `.gitignore`.
 
 ## Core Capabilities
 
 ### Image Analysis
+
 - **Captioning**: Generate descriptive text for images
 - **Classification**: Categorize and identify image content
 - **Visual QA**: Answer questions about image content
 - **Multi-image**: Compare and analyze up to 3,600 images
 
 ### Advanced Features (Model-Specific)
+
 - **Object Detection**: Identify and locate objects with bounding boxes (Gemini 2.0+)
 - **Segmentation**: Create pixel-level masks for objects (Gemini 2.5+)
 - **Document Understanding**: Process PDFs with vision (up to 1,000 pages)
@@ -144,6 +130,7 @@ Images consume tokens based on size:
 - **Large**: Tiled into 768×768 chunks, 258 tokens each
 
 **Token Formula**:
+
 ```
 crop_unit = floor(min(width, height) / 1.5)
 tiles = (width / crop_unit) × (height / crop_unit)
@@ -155,6 +142,7 @@ total_tokens = tiles × 258
 ## Rate Limits
 
 Limits vary by tier (Free, Tier 1, 2, 3):
+
 - Measured in RPM (requests/min), TPM (tokens/min), RPD (requests/day)
 - Applied per project, not per API key
 - RPD resets at midnight Pacific
@@ -162,23 +150,27 @@ Limits vary by tier (Free, Tier 1, 2, 3):
 ## Best Practices
 
 ### Image Quality
+
 - Use clear, non-blurry images
 - Verify correct image rotation
 - Consider token costs when sizing
 
 ### Prompting
+
 - Be specific in instructions
 - Place text after image for single-image prompts
 - Use few-shot examples for better accuracy
 - Specify output format (JSON, markdown, etc.)
 
 ### File Management
+
 - Use File API for files >20MB
 - Use File API for repeated usage (saves tokens)
 - Files auto-delete after 48 hours
 - Clean up manually when done
 
 ### Security
+
 - Never expose API keys in code
 - Use environment variables
 - Add API key restrictions in Google Cloud Console
@@ -188,6 +180,7 @@ Limits vary by tier (Free, Tier 1, 2, 3):
 ## Error Handling
 
 Common errors:
+
 - **401**: Invalid API key
 - **429**: Rate limit exceeded
 - **400**: Invalid request (check file size, format)
@@ -196,6 +189,7 @@ Common errors:
 ## Additional Resources
 
 See the `references/` directory for:
+
 - **api-reference.md**: Detailed API methods and endpoints
 - **examples.md**: Comprehensive code examples
 - **best-practices.md**: Advanced tips and optimization strategies
@@ -205,8 +199,6 @@ See the `references/` directory for:
 When implementing Gemini vision features:
 
 1. **Check API key availability** using the 3-step lookup
-   - If no key is found, fall back to the workspace **default vision model**.
-   - If the default model is missing or unavailable, surface a clear message to the user explaining the absence and next steps to configure either an API key or model.
 2. **Choose appropriate model** based on requirements:
    - Need segmentation? Use 2.5+ models
    - Need detection? Use 2.0+ models

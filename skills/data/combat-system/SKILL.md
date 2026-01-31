@@ -6,23 +6,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Combat System Implementation
 
-## Quick Reference Links
-
-**Official Documentation:**
-- [Raycasting](https://create.roblox.com/docs/workspace/raycasting) - Ray-based hit detection
-- [Spatial Query](https://create.roblox.com/docs/workspace/spatial-queries) - GetPartBoundsInBox, GetPartsInPart
-- [Humanoid API](https://create.roblox.com/docs/reference/engine/classes/Humanoid)
-- [OverlapParams API](https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams)
-- [RaycastParams API](https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams)
-- [BodyVelocity API](https://create.roblox.com/docs/reference/engine/classes/BodyVelocity) - Knockback
-- [BodyPosition API](https://create.roblox.com/docs/reference/engine/classes/BodyPosition) - Stun positioning
-
-**Wiki References:**
-- [Combat Systems (Wiki)](https://roblox.fandom.com/wiki/Combat)
-- [Humanoid (Wiki)](https://roblox.fandom.com/wiki/Humanoid)
-
----
-
 When implementing combat systems, follow these Roblox-specific patterns.
 
 ## Hitbox Systems

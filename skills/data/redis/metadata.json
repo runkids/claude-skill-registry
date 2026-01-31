@@ -1,7 +1,7 @@
 {
   "name": "redis",
-  "repo": "mgd34msu/goodvibes-gemini",
-  "path": "skills/redis/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-gemini",
-  "downloaded_at": "2026-01-30T04:12:45.338161Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": ".claude/skills/redis/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-31T04:13:33.346137Z"
 }

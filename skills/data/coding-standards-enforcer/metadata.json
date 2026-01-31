@@ -1,9 +1,7 @@
 {
   "name": "coding-standards-enforcer",
-  "description": "Enforce repository coding standards for Swift 6.2 concurrency, Swift language rules, Use when reviewing or implementing Swift code changes.",
-  "repo": "tomkrikorian/visionOSAgents",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "4444J99/a-i--skills",
+  "path": "skills/development/coding-standards-enforcer/SKILL.md",
+  "source": "github.com/4444J99/a-i--skills",
+  "downloaded_at": "2026-01-31T04:19:45.886746Z"
 }

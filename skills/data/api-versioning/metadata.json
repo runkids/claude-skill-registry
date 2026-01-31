@@ -1,7 +1,7 @@
 {
   "name": "api-versioning",
-  "repo": "dadbodgeoff/drift",
-  "path": "skills/api-versioning/SKILL.md",
-  "source": "github.com/dadbodgeoff/drift",
-  "downloaded_at": "2026-01-30T04:08:48.499625Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/systems-design/skills/api-versioning/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-31T04:13:11.400229Z"
 }

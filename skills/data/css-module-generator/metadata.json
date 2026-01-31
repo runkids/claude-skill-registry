@@ -1,9 +1,7 @@
 {
   "name": "css-module-generator",
-  "description": "Css Module Generator - Auto-activating skill for Frontend Development.Triggers on: css module generator, css module generatorPart of the Frontend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/css-module-generator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-31T03:32:43.252070Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "security-scanner",
-  "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "path": "plugins/dapr/skills/security-scanner/SKILL.md",
-  "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "downloaded_at": "2026-01-30T03:57:11.737747Z"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/community/security-scanner/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-31T02:51:32.064674Z"
 }

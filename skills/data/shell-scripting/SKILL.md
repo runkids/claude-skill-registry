@@ -1,373 +1,573 @@
 ---
 name: shell-scripting
-description: Write robust, portable shell scripts with proper error handling, argument parsing, and testing. Use when automating system tasks, building CI/CD scripts, or creating container entrypoints.
+description: Practical bash scripting guidance emphasising defensive programming, ShellCheck compliance, and simplicity. Use when writing shell scripts that need to be reliable and maintainable.
 ---
 
-# Shell Scripting
+# Bash Scripting Best Practices
 
-## Purpose
+Guidance for writing reliable, maintainable bash scripts following modern best practices. Emphasises simplicity, automated tooling, and defensive programming without over-engineering.
 
-Provides patterns and best practices for writing maintainable shell scripts with error handling, argument parsing, and portability considerations. Covers POSIX sh vs Bash decision-making, parameter expansion, integration with common utilities (jq, yq, awk), and testing with ShellCheck and Bats.
+## When to Use Shell (and When Not To)
 
-## When to Use This Skill
+### Use Shell For:
+- Small utilities and simple wrapper scripts (<100 lines)
+- Orchestrating other programmes and tools
+- Simple automation tasks
+- Build/deployment scripts with straightforward logic
+- Quick data transformation pipelines
 
-Use shell scripting when:
-- Orchestrating existing command-line tools and system utilities
-- Writing CI/CD pipeline scripts (GitHub Actions, GitLab CI)
-- Creating container entrypoints and initialization scripts
-- Automating system administration tasks (backups, log rotation)
-- Building development tooling (build scripts, test runners)
+### Do NOT Use Shell For:
+- Complex business logic or data structures
+- Performance-critical code
+- Scripts requiring extensive error handling
+- Anything over ~100 lines or with non-straightforward control flow
+- When you need proper data structures beyond arrays
 
-Consider Python/Go instead when:
-- Complex business logic or data structures required
-- Cross-platform GUI needed
-- Heavy API integration (REST, gRPC)
-- Script exceeds 200 lines with significant logic complexity
+**Critical**: If your script grows too large (1000+ lines) or complex, consider offering to rewrite it in a proper language (Python, Go, etc.) before it becomes unmaintainable.
 
-## POSIX sh vs Bash
+## Mandatory Foundations
 
-**Use POSIX sh (#!/bin/sh) when:**
-- Maximum portability required (Linux, macOS, BSD, Alpine)
-- Minimal container images needed
-- Embedded systems or unknown target environments
+Every bash script must have these elements:
 
-**Use Bash (#!/bin/bash) when:**
-- Controlled environment (specific OS, container)
-- Arrays or associative arrays needed
-- Advanced parameter expansion beneficial
-- Process substitution `<(cmd)` useful
-
-For detailed comparison and testing strategies, see `references/portability-guide.md`.
-
-## Essential Error Handling
-
-### Fail-Fast Pattern
-
+### 1. Proper Shebang
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
+```
+**Why**: Portable across systems where bash may not be at `/bin/bash` (e.g., macOS, BSD, NixOS).
+
+**Alternative**: `#!/bin/bash` if you know the script only runs on Linux and prefer explicit paths.
+
+### 2. Strict Mode
+```bash
 set -euo pipefail
-
-# -e: Exit on error
-# -u: Exit on undefined variable
-# -o pipefail: Pipeline fails if any command fails
 ```
+**What each flag does:**
+- `-e`: Exit immediately if any command fails (non-zero exit)
+- `-u`: Treat unset variables as errors
+- `-o pipefail`: Pipe fails if ANY command in pipeline fails (not just the last)
 
-Use for production automation, CI/CD scripts, and critical operations.
+**When to add `-x`**: Only for debugging, not in production scripts (makes output noisy).
 
-### Explicit Exit Code Checking
-
+### 3. ShellCheck Compliance
+Run ShellCheck on EVERY script before committing:
 ```bash
-#!/bin/bash
-
-if ! command_that_might_fail; then
-    echo "Error: Command failed" >&2
-    exit 1
-fi
-```
-
-Use for custom error messages and interactive scripts.
-
-### Trap Handlers for Cleanup
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-TEMP_FILE=$(mktemp)
-
-cleanup() {
-    rm -f "$TEMP_FILE"
-}
-
-trap cleanup EXIT
-```
-
-Use for guaranteed cleanup of temporary files, locks, and resources.
-
-For comprehensive error patterns, see `references/error-handling.md`.
-
-## Argument Parsing
-
-### Short Options with getopts (POSIX)
-
-```bash
-#!/bin/bash
-
-while getopts "hvf:o:" opt; do
-    case "$opt" in
-        h) usage ;;
-        v) VERBOSE=true ;;
-        f) INPUT_FILE="$OPTARG" ;;
-        o) OUTPUT_FILE="$OPTARG" ;;
-        *) usage ;;
-    esac
-done
-
-shift $((OPTIND - 1))
-```
-
-### Long Options (Manual Parsing)
-
-```bash
-#!/bin/bash
-
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --help) usage ;;
-        --verbose) VERBOSE=true; shift ;;
-        --file) INPUT_FILE="$2"; shift 2 ;;
-        --file=*) INPUT_FILE="${1#*=}"; shift ;;
-        *) break ;;
-    esac
-done
-```
-
-For hybrid approaches and validation patterns, see `references/argument-parsing.md`.
-
-## Parameter Expansion Quick Reference
-
-```bash
-# Default values
-${var:-default}              # Use default if unset
-${var:=default}              # Assign default if unset
-: "${API_KEY:?Error: required}"  # Error if unset
-
-# String manipulation
-${#var}                      # String length
-${var:offset:length}         # Substring
-${var%.txt}                  # Remove suffix
-${var##*/}                   # Basename
-${var/old/new}               # Replace first
-${var//old/new}              # Replace all
-
-# Case conversion (Bash 4+)
-${var^^}                     # Uppercase
-${var,,}                     # Lowercase
-```
-
-For complete expansion patterns and array handling, see `references/parameter-expansion.md`.
-
-## Common Utilities Integration
-
-### JSON with jq
-
-```bash
-# Extract field
-name=$(curl -sSL https://api.example.com/user | jq -r '.name')
-
-# Filter array
-active=$(jq '.users[] | select(.active) | .name' data.json)
-
-# Check existence
-if ! echo "$json" | jq -e '.field' >/dev/null; then
-    echo "Error: Field missing" >&2
-fi
-```
-
-### YAML with yq
-
-```bash
-# Read value (yq v4)
-host=$(yq eval '.database.host' config.yaml)
-
-# Update in-place
-yq eval '.port = 5432' -i config.yaml
-
-# Convert to JSON
-yq eval -o=json config.yaml
-```
-
-### Text Processing
-
-```bash
-# awk: Extract columns
-awk -F',' '{print $1, $3}' data.csv
-
-# sed: Replace text
-sed 's/old/new/g' file.txt
-
-# grep: Pattern match
-grep -E "ERROR|WARN" logfile.txt
-```
-
-For detailed examples and best practices, see `references/common-utilities.md`.
-
-## Testing and Validation
-
-### ShellCheck: Static Analysis
-
-```bash
-# Check script
 shellcheck script.sh
-
-# POSIX compliance
-shellcheck --shell=sh script.sh
-
-# Exclude warnings
-shellcheck --exclude=SC2086 script.sh
 ```
 
-### Bats: Automated Testing
+Fix all warnings. ShellCheck catches:
+- Unquoted variables
+- Deprecated syntax
+- Common bugs and pitfalls
+- Portability issues
 
+### 4. Basic Script Structure
 ```bash
-#!/usr/bin/env bats
-
-@test "script runs successfully" {
-    run ./script.sh --help
-    [ "$status" -eq 0 ]
-    [ "${lines[0]}" = "Usage: script.sh [OPTIONS]" ]
-}
-
-@test "handles missing argument" {
-    run ./script.sh
-    [ "$status" -eq 1 ]
-    [[ "$output" =~ "Error" ]]
-}
-```
-
-Run tests:
-```bash
-bats test/
-```
-
-For CI/CD integration and debugging techniques, see `references/testing-guide.md`.
-
-## Defensive Programming Checklist
-
-```bash
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
-# Check required commands
-command -v jq >/dev/null 2>&1 || {
-    echo "Error: jq required" >&2
+# Brief description of what this script does
+
+# Simple error reporting
+die() {
+    echo "Error: ${1}" >&2
     exit 1
 }
 
-# Check environment variables
-: "${API_KEY:?Error: API_KEY required}"
+# Your code here
+```
 
-# Check files
-[ -f "$CONFIG_FILE" ] || {
-    echo "Error: Config not found: $CONFIG_FILE" >&2
+## Core Safety Patterns
+
+### Always Quote Variables
+**Why**: Prevents word splitting and globbing disasters.
+
+```bash
+# Wrong - dangerous
+cp $source $destination
+rm -rf $prefix/bin
+
+# Correct - safe
+cp "${source}" "${destination}"
+rm -rf "${prefix}/bin"
+
+# Special case: Always use braces with variables
+echo "${var}"      # Good
+echo "$var"        # Acceptable but less consistent
+echo $var          # Bad - unquoted
+```
+
+### Check Required Variables
+```bash
+# Fail fast if required variables aren't set
+: "${REQUIRED_VAR:?REQUIRED_VAR must be set}"
+
+# Or with custom message
+: "${DATABASE_URL:?DATABASE_URL is required. Set it in .env}"
+```
+
+### Validate Inputs
+```bash
+# Check file exists before operating on it
+[[ -f "${config_file}" ]] || die "Config file not found: ${config_file}"
+
+# Check command exists before using it
+command -v jq >/dev/null 2>&1 || die "jq is required but not installed"
+
+# Validate directory before cd
+[[ -d "${target_dir}" ]] || die "Directory does not exist: ${target_dir}"
+```
+
+## Essential Patterns
+
+### Pattern 1: Simple Script Template
+Use this for straightforward scripts:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Description: Process log files and extract errors
+
+die() {
+    echo "Error: ${1}" >&2
     exit 1
 }
 
-# Quote all variables
-echo "Processing: $file"        # ❌ Unquoted
-echo "Processing: \"$file\""    # ✅ Quoted
+# Check dependencies
+command -v jq >/dev/null 2>&1 || die "jq required"
+
+# Validate arguments
+[[ $# -eq 1 ]] || die "Usage: ${0} <logfile>"
+logfile="${1}"
+[[ -f "${logfile}" ]] || die "File not found: ${logfile}"
+
+# Main logic
+grep ERROR "${logfile}" | jq -r '.message'
 ```
 
-## Platform Considerations
-
-### macOS vs Linux Differences
-
-```bash
-# sed in-place
-sed -i '' 's/old/new/g' file.txt    # macOS
-sed -i 's/old/new/g' file.txt       # Linux
-
-# Portable: Use temp file
-sed 's/old/new/g' file.txt > file.txt.tmp
-mv file.txt.tmp file.txt
-
-# readlink
-readlink -f /path                    # Linux only
-cd "$(dirname "$0")" && pwd         # Portable
-```
-
-For complete platform differences, see `references/portability-guide.md`.
-
-## Script Categories
-
-**System Administration:** Cron jobs, log rotation, backup automation
-**Build/Deployment:** CI/CD pipelines, Docker builds, deployments
-**Development Tooling:** Project setup, test runners, code generators
-**Container Entrypoints:** Initialization, signal handling, configuration
-
-## Production Script Template
+### Pattern 2: Cleanup on Exit
+Use trap for guaranteed cleanup:
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
-readonly SCRIPT_NAME="$(basename "$0")"
-readonly SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# Create temp directory and ensure cleanup
+tmpdir=$(mktemp -d)
+trap 'rm -rf "${tmpdir}"' EXIT
 
-TEMP_DIR=""
+# Now use tmpdir safely - cleanup happens automatically
+echo "Working in: ${tmpdir}"
+```
+
+### Pattern 3: Safe Function Definition
+Functions should be simple and focused:
+
+```bash
+# Good: Simple, single-purpose function
+check_dependency() {
+    local cmd="${1}"
+    command -v "${cmd}" >/dev/null 2>&1 || die "${cmd} not installed"
+}
+
+# Good: Local variables, clear purpose
+process_file() {
+    local file="${1}"
+    local output="${2}"
+
+    [[ -f "${file}" ]] || die "Input file missing: ${file}"
+
+    # Do processing
+    sed 's/foo/bar/g' "${file}" > "${output}"
+}
+```
+
+**Important**: Declare and set variables from command substitution separately to catch errors:
+
+```bash
+# Wrong - hides errors
+local result="$(failing_command)"
+
+# Correct - catches errors
+local result
+result="$(failing_command)"  # Will fail properly with set -e
+```
+
+### Pattern 4: Safe Array Handling
+Arrays are useful for handling lists with spaces:
+
+```bash
+# Create array
+declare -a files=("file one.txt" "file two.txt" "file three.txt")
+
+# Iterate safely - always quote with [@]
+for file in "${files[@]}"; do
+    echo "Processing: ${file}"
+done
+
+# Build command arguments safely
+declare -a flags=(--verbose --output "${output_file}")
+mycommand "${flags[@]}" "${input}"
+
+# Read command output into array
+mapfile -t lines < <(grep pattern "${file}")
+```
+
+### Pattern 5: Conditional Testing
+Use `[[ ]]` for bash (safer and more features):
+
+```bash
+# File tests
+[[ -f "${file}" ]]          # File exists
+[[ -d "${dir}" ]]           # Directory exists
+[[ -r "${file}" ]]          # File readable
+[[ -w "${file}" ]]          # File writable
+[[ -x "${binary}" ]]        # File executable
+
+# String tests
+[[ -z "${var}" ]]           # String is empty
+[[ -n "${var}" ]]           # String is not empty
+[[ "${a}" == "${b}" ]]      # String equality (use ==, not =)
+
+# Numeric comparison (use (( )) for numbers)
+(( count > 0 ))
+(( total >= minimum ))
+
+# Combined conditions
+[[ -f "${file}" && -r "${file}" ]] || die "File not readable: ${file}"
+```
+
+### Pattern 6: Simple Argument Handling
+For simple scripts, prefer positional arguments:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# For 1-3 arguments, just use positional parameters
+[[ $# -eq 2 ]] || die "Usage: ${0} <source> <dest>"
+
+source="${1}"
+dest="${2}"
+
+[[ -f "${source}" ]] || die "Source not found: ${source}"
+```
+
+For scripts needing flags, keep it simple:
+
+```bash
+# Use environment variables instead of complex flag parsing
+VERBOSE="${VERBOSE:-false}"
+DRY_RUN="${DRY_RUN:-false}"
+
+# Run like: VERBOSE=true DRY_RUN=true ./script.sh input.txt
+```
+
+### Pattern 7: Process Substitution Over Temp Files
+Avoid creating temporary files when possible:
+
+```bash
+# Instead of:
+first_command > /tmp/output.txt
+second_command < /tmp/output.txt
+rm /tmp/output.txt
+
+# Use process substitution:
+second_command <(first_command)
+
+# For multiple inputs:
+diff <(sort file1.txt) <(sort file2.txt)
+```
+
+### Pattern 8: Prefer Builtins Over External Commands
+Builtins are faster and more reliable:
+
+```bash
+# Use bash parameter expansion over sed/awk for simple cases
+filename="${path##*/}"           # basename
+dirname="${path%/*}"             # dirname
+extension="${filename##*.}"      # get extension
+name="${filename%.*}"            # remove extension
+
+# Use (( )) for arithmetic over expr
+count=$(( count + 1 ))           # Not: count=$(expr ${count} + 1)
+
+# Use [[ ]] over [ ] or test
+[[ -f "${file}" ]]               # Not: test -f "${file}"
+
+# Use ${#var} for string length
+length="${#string}"              # Not: length=$(echo "${string}" | wc -c)
+```
+
+## Intermediate Patterns
+
+### Pattern 9: Structured Logging
+Keep logging simple and consistent:
+
+```bash
+log() {
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ${1}" >&2
+}
+
+error() {
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: ${1}" >&2
+}
+
+# Usage
+log "Starting process"
+error "Failed to connect to database"
+```
+
+### Pattern 10: Main Function Pattern
+For longer scripts (50+ lines), use a main function:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+setup() {
+    # Dependency checks, variable initialisation
+    command -v jq >/dev/null 2>&1 || die "jq required"
+}
+
+process() {
+    # Main logic here
+    log "Processing data"
+}
 
 cleanup() {
-    local exit_code=$?
-    rm -rf "$TEMP_DIR"
-    exit "$exit_code"
-}
-
-trap cleanup EXIT
-
-log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $*" >&2
+    # Cleanup if needed
+    log "Cleanup complete"
 }
 
 main() {
-    # Check dependencies
-    command -v jq >/dev/null 2>&1 || exit 1
-
-    # Parse arguments
-    # Validate input
-    # Process
-    # Report results
-
-    log "Completed successfully"
+    setup
+    process
+    cleanup
 }
 
-main "$@"
+# Call main with all script arguments
+main "${@}"
 ```
 
-For complete production template, see `examples/production-template.sh`.
+### Pattern 11: Idempotent Operations
+Scripts should be safe to run multiple times:
 
-## Tool Recommendations
-
-**Core Tools:**
-- **jq**: JSON parsing and transformation
-- **yq**: YAML parsing (v4 recommended)
-- **ShellCheck**: Static analysis and linting
-- **Bats**: Automated testing framework
-
-**Installation:**
 ```bash
-# macOS
-brew install jq yq shellcheck bats-core
+# Check before creating
+if [[ ! -d "${target_dir}" ]]; then
+    mkdir -p "${target_dir}"
+fi
 
-# Ubuntu/Debian
-apt-get install jq shellcheck
+# Check before writing config
+if [[ ! -f "${config_file}" ]]; then
+    echo "DEFAULT_VALUE=true" > "${config_file}"
+fi
+
+# Use atomic operations
+mv "${source}" "${dest}"  # Atomic on same filesystem
 ```
 
-## Related Skills
+### Pattern 12: Safe While Loop Reading
+Don't pipe to while (creates subshell):
 
-- **linux-administration**: System commands and administration
-- **building-ci-pipelines**: Using scripts in CI/CD
-- **infrastructure-as-code**: Terraform/Pulumi wrappers
-- **kubernetes-operations**: kubectl scripts, Helm hooks
-- **writing-dockerfiles**: Container entrypoints
+```bash
+# Wrong - variables modified in subshell are lost
+count=0
+cat file.txt | while read -r line; do
+    (( count++ ))
+done
+echo "${count}"  # Will be 0!
 
-## Additional Resources
+# Correct - use process substitution
+count=0
+while read -r line; do
+    (( count++ ))
+done < <(cat file.txt)
+echo "${count}"  # Correct count
 
-**Reference Files:**
-- `references/error-handling.md` - Comprehensive error patterns
-- `references/argument-parsing.md` - Advanced parsing techniques
-- `references/parameter-expansion.md` - Complete expansion reference
-- `references/portability-guide.md` - POSIX vs Bash differences
-- `references/testing-guide.md` - ShellCheck and Bats guide
-- `references/common-utilities.md` - jq, yq, awk, sed usage
+# Or use mapfile for simple cases
+mapfile -t lines <file.txt
+count="${#lines[@]}"
+```
 
-**Example Scripts:**
-- `examples/production-template.sh` - Production-ready template
-- `examples/getopts-basic.sh` - Simple getopts usage
-- `examples/getopts-advanced.sh` - Complex option handling
-- `examples/long-options.sh` - Manual long option parsing
-- `examples/error-handling.sh` - Error handling patterns
-- `examples/json-yaml-processing.sh` - jq/yq examples
+## Style Guidelines
 
-**Utility Scripts:**
-- `scripts/lint-script.sh` - ShellCheck wrapper for CI
-- `scripts/test-script.sh` - Bats wrapper for CI
+### Formatting
+- **Indentation**: 2 spaces, never tabs
+- **Line length**: Maximum 120 characters
+- **Long strings**: Use here-documents or embedded newlines
+
+```bash
+# Long command - break at logical points
+docker run \
+    --name my-container \
+    --volume "${PWD}:/data" \
+    --env "FOO=bar" \
+    my-image:latest
+
+# Long string - use here-doc
+cat <<EOF
+This is a long message
+that spans multiple lines
+and is more readable this way.
+EOF
+```
+
+### Naming Conventions
+```bash
+# Functions: lowercase with underscores
+check_dependencies() { ... }
+process_files() { ... }
+
+# Local variables: lowercase with underscores
+local input_file="${1}"
+local line_count=0
+
+# Constants/environment variables: UPPERCASE with underscores
+readonly MAX_RETRIES=3
+readonly CONFIG_DIR="/etc/myapp"
+
+# Source files: lowercase with underscores
+# my_library.sh
+```
+
+### File Extensions
+- **Executables**: `.sh` extension OR no extension (prefer no extension for user-facing commands)
+- **Libraries**: Always `.sh` extension and NOT executable
+
+## Function Documentation
+
+Document functions that aren't obvious:
+
+```bash
+# Good: Simple function, no comment needed (name says it all)
+check_file_exists() {
+    [[ -f "${1}" ]]
+}
+
+# Good: Complex function, documented
+# Processes log files and extracts error messages
+# Arguments:
+#   $1 - Input log file path
+#   $2 - Output directory
+# Returns:
+#   0 on success, 1 on failure
+process_logs() {
+    local logfile="${1}"
+    local output_dir="${2}"
+    # Implementation
+}
+```
+
+## What to Avoid
+
+### Don't Use These
+```bash
+# Don't use backticks - use $()
+output=`command`          # Old style
+output=$(command)         # Correct
+
+# Don't use eval - almost always wrong
+eval "${user_input}"      # Dangerous!
+
+# Don't use expr - use (( ))
+result=$(expr 5 + 3)      # Old style
+result=$(( 5 + 3 ))       # Correct
+
+# Don't use [ ] when [[ ]] is available
+[ -f "${file}" ]          # POSIX compatible, less features
+[[ -f "${file}" ]]        # Bash, safer and more features
+
+# Don't use $[ ] for arithmetic - deprecated
+result=$[5 + 3]           # Deprecated
+result=$(( 5 + 3 ))       # Correct
+
+# Don't use function keyword unnecessarily
+function foo() { ... }    # Redundant
+foo() { ... }             # Cleaner
+```
+
+### Anti-Patterns
+```bash
+# Don't glob or split unquoted
+rm ${files}               # DANGEROUS
+rm "${files}"             # Safe
+
+# Don't use ls output in scripts
+for file in $(ls); do     # Breaks with spaces
+for file in *; do         # Correct
+
+# Don't pipe yes to commands
+yes | risky-command       # Bypasses important prompts
+
+# Don't ignore error codes
+make build                # Did it work?
+make build || die "Build failed"  # Better
+```
+
+## Complexity Warning Signs
+
+If your script has any of these, consider rewriting in Python/Go:
+
+- More than 100 lines
+- Complex data structures beyond simple arrays
+- Nested loops over arrays of arrays
+- Heavy string manipulation logic
+- Complex state management
+- Mathematical calculations beyond basic arithmetic
+- Need for unit testing individual functions
+- JSON/YAML parsing beyond simple jq queries
+
+## Advanced: Dry-Run Pattern
+
+For scripts that modify things:
+
+```bash
+DRY_RUN="${DRY_RUN:-false}"
+
+run() {
+    if [[ "${DRY_RUN}" == "true" ]]; then
+        echo "[DRY RUN] ${*}" >&2
+        return 0
+    fi
+    "${@}"
+}
+
+# Usage
+run cp "${source}" "${dest}"
+run rm -f "${old_file}"
+
+# Run script: DRY_RUN=true ./script.sh
+```
+
+## Quick Reference Checklist
+
+Before considering a bash script complete:
+
+- [ ] ShellCheck passes with no warnings
+- [ ] Has proper shebang (`#!/usr/bin/env bash`)
+- [ ] Has strict mode (`set -euo pipefail`)
+- [ ] All variables quoted (`"${var}"`)
+- [ ] Required dependencies checked
+- [ ] Proper error messages to stderr
+- [ ] Cleanup trap if using temp files
+- [ ] Script is idempotent where possible
+- [ ] Under 100 lines (or has strong justification)
+- [ ] Uses `command -v` not `which`
+- [ ] Arrays used for lists with spaces
+- [ ] No `eval`, `ls` parsing, or backticks
+- [ ] Functions have local variables
+
+## Summary
+
+1. **Start simple**: Don't over-engineer. Most scripts should be <50 lines.
+2. **Use ShellCheck**: It catches most problems automatically.
+3. **Quote everything**: `"${var}"` not `$var`.
+4. **Fail fast**: `set -euo pipefail` and validate inputs.
+5. **Know when to stop**: If it's getting complex, use a real language.
+6. **Compose don't complicate**: Use pipes and process substitution.
+7. **Be idempotent**: Scripts should be safe to run multiple times.
+8. **Test error paths**: Make sure your script fails safely.
+
+Remember: Shell scripts are for gluing things together, not building complex logic. Keep them simple, safe, and focused.

@@ -1,7 +1,7 @@
 {
   "name": "posix-shell-pro",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/posix-shell-pro/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:05.274100Z"
+  "repo": "rmyndharis/antigravity-skills",
+  "path": "skills/posix-shell-pro/SKILL.md",
+  "source": "github.com/rmyndharis/antigravity-skills",
+  "downloaded_at": "2026-01-31T03:01:00.580077Z"
 }

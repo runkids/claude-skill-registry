@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-apikey-list
 description: List all API keys. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.0.104"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:

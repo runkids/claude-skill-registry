@@ -1,7 +1,7 @@
 {
   "name": "accessibility-auditor",
-  "repo": "Takeaki0817/hibioru",
-  "path": ".claude/skills/accessibility-auditor/SKILL.md",
-  "source": "github.com/Takeaki0817/hibioru",
-  "downloaded_at": "2026-01-30T04:25:32.017939Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/accessibility-auditor/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-31T02:21:12.506794Z"
 }

@@ -4,6 +4,7 @@ description: Guide pour la rédaction de notifications de licenciement conformes
 metadata:
   author: Sélim Brihi
   license: AGPL-3.0
+  version: 2026.01.16
 ---
 
 # Notification de Licenciement - Droit Français

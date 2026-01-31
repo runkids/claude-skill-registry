@@ -1,285 +1,124 @@
 ---
 name: update-task-board
-description: Manage TASK_BOARD.md by reading project logs and synchronizing task status. Use when tasks are completed, when progress is made, or when needing to sync task tracking. Reads MIGRATION_LOG.md, DEBUG_LOG.md, GIT_LOG.md to assess actual progress and updates TASK_BOARD.md accordingly. Does NOT modify CLAUDE.md or MIGRATION_LOG.md.
+description: Task management and tracking system using markdown files. Create and maintain task boards to track project progress, status, and priorities. Use when starting new projects, refactoring code, or managing complex multi-step tasks that require organized tracking.
 ---
 
-# Task Board Manager
+# Task Board Management Skill
 
-Manage TASK_BOARD.md by synchronizing it with actual project progress from various log files.
+This skill provides tools and templates for managing project tasks using markdown-based task boards.
 
-## Core Responsibility
+## Quick Start
 
-**Manage TASK_BOARD.md ONLY** - This skill:
-- ✅ Reads: MIGRATION_LOG.md, DEBUG_LOG.md, GIT_LOG.md, git status
-- ✅ Updates: TASK_BOARD.md
-- ❌ Does NOT modify: CLAUDE.md, MIGRATION_LOG.md, or other files
+1. **Create a new task board**: Use the task board template to start tracking your project
+2. **Add tasks**: Use the task template to add individual tasks with details
+3. **Update progress**: Mark tasks as pending, in_progress, or completed
+4. **Review status**: Generate status reports from the task board
 
-**Clear separation:**
-- `update-task-board` → Manages TASK_BOARD.md
-- `update-migration-log` → Manages MIGRATION_LOG.md only
-- CLAUDE.md → Entry point, rarely modified
+## Core Workflow
 
-## When to Use
+### Creating a Task Board
+
+When starting a new project or refactoring:
+
+1. Create a `task-board.md` file in your project root
+2. Copy the task board template from `assets/task-board-template.md`
+3. Customize the project name, objectives, and initial tasks
+4. Use the task template for adding detailed tasks
+
+### Adding and Managing Tasks
+
+For each task:
+
+1. Use the task template format
+2. Include essential information:
+   - Task description (content)
+   - Status (pending/in_progress/completed)
+   - Active form description
+   - Optional: priority, assignee, due date
+3. Update status as work progresses
+
+### Generating Status Reports
+
+To get an overview of project progress:
+
+1. Review the task board markdown file
+2. Count tasks by status
+3. Identify blockers or overdue tasks
+4. Update stakeholders with current status
+
+## Task Board Structure
+
+A task board should include:
+
+- **Project overview**: Name, objectives, timeline
+- **Task list**: All tasks with status tracking
+- **Progress metrics**: Completed vs total tasks
+- **Recent updates**: Change log of task status changes
+
+## Task Template
+
+```markdown
+### [Task Number]. [Task Title]
+
+**Status**: `pending` | `in_progress` | `completed`
+**Priority**: `high` | `medium` | `low` (optional)
+**Assignee**: [Person/Team] (optional)
+**Due Date**: YYYY-MM-DD (optional)
+
+**Description**:
+[Detailed task description]
+
+**Subtasks**:
+- [ ] Subtask 1
+- [ ] Subtask 2
+
+**Notes**:
+[Additional context or dependencies]
+
+**Last Updated**: YYYY-MM-DD HH:MM
+```
+
+## Integration with Claude Code
+
+When working with Claude Code:
+
+1. Use the TodoWrite tool to track real-time task status
+2. Sync the task board with the current todo list
+3. Update task status when completing work items
+4. Document decisions and changes in task notes
+
+## Best Practices
+
+### Task Definition
+- Create specific, actionable tasks
+- Break complex tasks into smaller subtasks
+- Include acceptance criteria when possible
+- Assign realistic priorities and due dates
+
+### Status Updates
+- Update task status immediately when work begins/completes
+- Add notes explaining status changes
+- Regularly review and prioritize tasks
+- Archive completed tasks periodically
+
+### Collaboration
+- Use clear task descriptions for team understanding
+- Include relevant context and dependencies
+- Document decisions and rationale in task notes
+- Share task board updates with stakeholders
+
+## Resources
+
+- **Task Board Template**: See `assets/task-board-template.md` for a complete starting template
+- **Task Examples**: See `references/task-examples.md` for sample tasks in different contexts
+- **Progress Reporting**: See `references/progress-reporting.md` for status report templates
+
+## When to Use This Skill
 
 Use this skill when:
-- Completing tasks and need to update task board
-- Starting new tasks and want to track them
-- Syncing project status after work sessions
-- Reviewing overall project progress
-- Preparing status reports
-- Identifying task-log inconsistencies
 
-## Workflow
-
-### Step 1: Read All Logs
-
-Read project documentation to understand current state:
-
-**Files to read:**
-1. **TASK_BOARD.md** - Current task status
-2. **MIGRATION_LOG.md** - Migration progress
-3. **DEBUG_LOG.md** - Active/resolved issues
-4. **GIT_LOG.md** - Recent commits
-5. **Git status** - Uncommitted changes
-
-### Step 2: Analyze Progress
-
-Compare documented tasks with actual progress:
-
-**Check for:**
-- Completed tasks with log evidence
-- In-progress tasks that may be complete
-- New tasks mentioned in logs
-- Resolved blockers
-- Migration progress updates
-
-### Step 3: Update TASK_BOARD.md
-
-Update sections based on analysis:
-
-**Sections:**
-- **Completed ✅** - Move finished tasks here
-- **In Progress 🚧** - Current work
-- **Next Steps 📋** - Upcoming priorities
-- **Blockers 🚫** - Issues preventing progress
-
-### Step 4: Verify Consistency
-
-Ensure logs and task board tell consistent story:
-
-**Cross-reference:**
-- Migration entries match completed migration tasks
-- Resolved DEBUG_LOG issues match removed blockers
-- Recent commits relate to completed tasks
-- No contradictions
-
-## TASK_BOARD.md Structure
-
-### Task Status Sections
-
-**Completed:**
-```markdown
-### Completed ✅
-
-**Phase 1: Minimal Migration**
-- [x] Task description
-- [x] Another completed task
-
-**Phase 2: Refactoring**
-- [x] Architecture refactored
-```
-
-**In Progress:**
-```markdown
-### 🚧 In Progress
-
-### Current Focus
-- [ ] Task being worked on
-
-### Details
-- Subtask details
-- Progress notes
-```
-
-**Next Steps:**
-```markdown
-### 📋 Next Steps
-
-### Phase 2 Completion
-1. [ ] Task to do next
-2. [ ] Another upcoming task
-
-### Phase 3 Planning
-1. [ ] Future work
-```
-
-**Blockers:**
-```markdown
-### 🚫 Blockers
-
-**Current:** Description of active blocker
-
-**Resolved:**
-- ~~Previous blocker~~ - Fixed YYYY-MM-DD
-```
-
-## Log Integration
-
-### MIGRATION_LOG.md
-
-**Extract:**
-- Recent migration entries
-- Files completed
-- Issues encountered
-
-**Actions:**
-- Mark migration tasks complete
-- Add migration-related blockers
-- Update phase progress
-
-### DEBUG_LOG.md
-
-**Extract:**
-- Active issues
-- Resolved issues
-- Issue severity
-
-**Actions:**
-- Add significant issues to Blockers
-- Remove resolved blockers
-- Track debugging tasks
-
-### GIT_LOG.md
-
-**Extract:**
-- Recent commits
-- Modified files
-- Commit patterns
-
-**Actions:**
-- Identify completed work
-- Cross-reference with tasks
-- Add untracked completed work
-
-## Update Patterns
-
-### Task Completion
-
-When log evidence shows task is done:
-
-```markdown
-**Before (In Progress):**
-- [ ] Implement unified Solver interface
-
-**After (Completed):**
-- [x] Implement unified Solver interface
-```
-
-Add to appropriate phase section in Completed.
-
-### New Task
-
-When new task identified:
-
-```markdown
-### 🚧 In Progress
-
-### Current Focus
-- [ ] Fix matplotlib import issues on Windows
-
-### Details
-- Identified from DEBUG_LOG.md
-- Platform compatibility issue
-```
-
-### Blocker Resolution
-
-When blocker is fixed:
-
-```markdown
-**Resolved:**
-- ~~Dependency conflict numpy/pandas~~ - Fixed 2026-01-03
-```
-
-Move from "Current" to "Resolved" in Blockers section.
-
-## Integration with Other Skills
-
-**Works with:**
-- `update-migration-log` - Reads MIGRATION_LOG.md for evidence
-- `log-debug-issue` - Reads DEBUG_LOG.md for blockers
-- `git-log` - Reads GIT_LOG.md for commits
-- `build-session-context` - Reads TASK_BOARD.md for status
-
-**Does NOT interfere with:**
-- CLAUDE.md management (not this skill's job)
-- Migration logging (update-migration-log handles)
-- Debug logging (log-debug-issue handles)
-
-## Evidence-Based Updates
-
-**Principles:**
-- Only mark complete with log evidence
-- Cite sources when updating
-- Be conservative - when uncertain, keep in-progress
-- Cross-reference multiple logs
-
-**Example:**
-```
-Task: "Migrate instance.py"
-Evidence: MIGRATION_LOG.md entry dated 2026-01-01
-Action: Move to Completed ✅ with date reference
-```
-
-## Usage Examples
-
-### Example 1: Migration Complete
-
-**Situation:** MIGRATION_LOG.md shows "instance.py migration completed"
-
-**Actions:**
-1. Find task in TASK_BOARD.md "In Progress"
-2. Move to "Completed" under appropriate phase
-3. Mark [x] as complete
-4. Update "Last Updated" date in TASK_BOARD.md
-5. Update progress metrics
-
-### Example 2: Bug Resolved
-
-**Situation:** DEBUG_LOG.md shows issue marked "Resolved"
-
-**Actions:**
-1. Find blocker in TASK_BOARD.md "Blockers" section
-2. Move to "Resolved" subsection
-3. Add resolution date
-4. Update "Last Updated"
-
-### Example 3: New Work Started
-
-**Situation:** GIT_LOG.md shows commits for new feature
-
-**Actions:**
-1. Check if task exists in TASK_BOARD.md
-2. If not, add to "In Progress" with details
-3. If complete, add to "Completed"
-4. Update "Last Updated"
-
-## File References
-
-- **Manages:** `.claude/TASK_BOARD.md`
-- **Reads:** `.claude/MIGRATION_LOG.md`, `.claude/DEBUG_LOG.md`, `.claude/GIT_LOG.md`
-- **Does NOT modify:** `.claude/CLAUDE.md`, `.claude/MIGRATION_LOG.md`
-
-## Maintenance Notes
-
-**Update frequency:**
-- After completing tasks
-- After work sessions
-- Weekly for comprehensive review
-- At project milestones
-
-**Keep TASK_BOARD.md:**
-- Up to date with logs
-- Consistent across sections
-- Clear and actionable
-- Evidence-based
+- Starting a new software project or refactoring
+- Managing complex multi-step tasks
+- Tracking progress for team projects
+- Documenting work for reports or presentations
+- Organizing work into manageable chunks

@@ -1,144 +1,123 @@
 ---
-name: ui-design
-description: "Create HTML UI mockups stored in ideas/[project]/docs/ui-designs/"
-model: claude-opus-4-5-20251101
-allowed-tools: Read, Write, Edit, Glob, Grep, Task
+name: UI Design
+description: Create beautiful, production-ready interfaces using Gemini with design system constraints
+triggers:
+  - "design ui"
+  - "create interface"
+  - "implement frontend"
+  - "gemini design"
+  - "build component"
 ---
 
-# /ui-design
+# UI Design Skill
 
-Generate HTML UI mockups with optional parallel variant exploration.
+Generate beautiful, non-generic UI using Gemini CLI with strict design system adherence and Apple-level simplicity.
 
-## Usage
+## Philosophy
 
+**Principles**:
+- Zero learning curve
+- Instant value
+- Delightful micro-interactions
+- Beautiful by default
+
+**Anti-Patterns to Avoid**:
+- Generic purple gradients
+- Overused glassmorphism
+- Stock AI imagery
+- Cluttered interfaces
+- Too many CTAs
+
+## Workflow
+
+### 1. Design System Check
+Read `.ai/design.json` (if exists) for:
+- Brand colors
+- Typography
+- Component patterns
+- Animation standards
+- Spacing system
+
+### 2. Inspiration Research (Optional)
 ```bash
-/ui-design yourbench "login screen"
-/ui-design yourbench "dashboard" --variants 3
-/ui-design coordinatr "project list" --tech shadcn
-/ui-design yourbench list                    # Show existing designs
+"scrape design inspiration from:
+ - bubble.io (clean SaaS)
+ - shadcn.com (component excellence)
+ - ui.aceternity.com (unique animations)
+ Save screenshots to: temp/design-inspiration/"
 ```
 
-## Where Designs Live
-
-```
-ideas/yourbench/docs/ui-designs/
-├── login-screen-v1.html
-├── login-screen-v2a.html      # Variant A
-├── login-screen-v2b.html      # Variant B (approved)
-├── dashboard-v1.html
-└── components/
-    └── button-variants.html
-```
-
-**Why in ideas/?** Designs are planning artifacts, not code.
-
-## Execution Flow
-
-### 1. Parse Request
-- Project (yourbench)
-- Design name (login screen)
-- Variant count (--variants 3)
-- Technology (--tech shadcn)
-
-### 2. Load Context
+### 3. Gemini Implementation
 ```bash
-Glob: ideas/[project]/docs/ui-designs/*.html
-Read: shared/docs/style-guide.md
-Read: ideas/[project]/project-brief.md
+"fork terminal use gemini to implement UI:
+ Component: {Name}
+ Purpose: {Description}
+ Requirements: {List}
+ Read: .ai/design.json (if exists)
+ Reference: temp/design-inspiration/ (if exists)
+ Create: src/components/{ComponentName}.tsx
+ Apply: Framer Motion for animations
+ Ensure: TypeScript strict, accessible (WCAG AA)"
 ```
 
-### 3. Generate Design(s)
-
-**Single design:**
-```
-→ ideas/yourbench/docs/ui-designs/login-screen-v1.html
-```
-
-**Multiple variants (parallel ui-ux-designer agents):**
-```
-→ login-screen-v1a.html
-→ login-screen-v1b.html
-→ login-screen-v1c.html
-```
-
-### 4. Present Options
-
-```
-Created 3 login screen variants:
-
-1. v1a.html - Minimal, centered form
-2. v1b.html - Split screen with illustration
-3. v1c.html - Card-based with social logins
-
-View: open ideas/yourbench/docs/ui-designs/login-screen-v1a.html
-
-Which direction? (a/b/c/iterate/combine)
-```
-
-### 5. Iterate
-
-User requests changes:
-- "Move OAuth buttons below the form"
-- "Try a darker color scheme"
-
-### 6. Approve
-
-```
-User: approve v1b
-
-AI: ✓ Marked login-screen-v1b.html as APPROVED
-
-    Reference in TASK.md:
-    "Implement login per docs/ui-designs/login-screen-v1b.html"
-```
-
-## Technology Options
-
-| Option | Description |
-|--------|-------------|
-| `--tech vanilla` | Plain HTML/CSS/JS (default) |
-| `--tech shadcn` | Styled for shadcn/ui with implementation hints |
-| `--tech chakra` | Styled for Chakra UI |
-
-## HTML Structure
-
-Self-contained with embedded CSS/JS:
-- CSS variables from style-guide.md
-- Responsive breakpoints
-- Interactive behaviors
-- Metadata block at end (status, decisions, related specs)
-
-## Listing Designs
-
+### 4. Claude Review
 ```bash
-/ui-design yourbench list
-
-UI Designs for yourbench:
-├── login-screen-v1b.html [APPROVED]
-├── dashboard-v1.html [DRAFT]
-└── settings-v1a.html [DRAFT]
+"Review Gemini's implementation:
+ Check: TypeScript types, accessibility, performance
+ Test: npm run build && npm run lint
+ Validate: Matches design system
+ If issues: Provide feedback to Gemini for fixes"
 ```
 
-## Integration with Implementation
+## Design System Enforcement
 
+If `.ai/design.json` exists:
+```typescript
+// GOOD: Using design system
+import design from '@/ai/design.json';
+const className = `bg-[${design.colors.primary[500]}]`;
+
+// BAD: Hard-coded colors
+const className = "bg-purple-500"; // Generic!
+```
+
+## Quality Checklist
+
+Before accepting UI implementation:
+- [ ] Uses design system colors (if defined)
+- [ ] Framer Motion animations present
+- [ ] TypeScript strict (no `any`)
+- [ ] Accessible (WCAG AA)
+- [ ] Responsive (tested on mobile)
+- [ ] Performance <100ms interactions
+- [ ] No generic/stock elements
+- [ ] Delightful micro-interactions
+
+## Example Prompts for Gemini
+
+### Input Component
 ```bash
-/implement yourbench 001 1.3  # "Implement login UI"
+"Create PromptInput component:
+Purpose: Main input where users enter requests
+Inspiration: Linear command palette + Raycast search
 
-AI: Found approved design: login-screen-v1b.html
-    Implementing to match design...
+Requirements:
+- Large textarea (4 lines, auto-expand to 12)
+- Floating placeholder animation
+- Gradient border on focus
+- Character counter (subtle, bottom-right)
+- Submit button with loading state
+- Cmd+Enter shortcut
+
+Interactions:
+- Focus: Border gradient animates in
+- Placeholder: Slides up and shrinks
+- Auto-save: localStorage every 2s
+- Loading: Pulsing gradient on border
+
+Create: src/components/PromptInput.tsx"
 ```
 
-Reference in TASK.md:
-```markdown
-## Acceptance Criteria
-- [ ] Matches docs/ui-designs/login-screen-v1b.html
-- [ ] Responsive at 320px, 768px, 1280px
-```
+---
 
-## Best Practices
-
-1. **Start with variants** - Explore before converging
-2. **Approve explicitly** - Clear handoff to implementation
-3. **Include metadata** - Future you will thank you
-4. **Test responsiveness** - Check 320px, 768px, 1280px
-5. **Document decisions** - Why this approach?
+**Remember**: Gemini excels at UI. Use it for all frontend work, but always Claude-review for quality!

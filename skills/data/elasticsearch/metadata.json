@@ -1,7 +1,7 @@
 {
   "name": "elasticsearch",
-  "repo": "kaxuna1/ecomsite",
-  "path": ".claude/skills/elasticsearch/SKILL.md",
-  "source": "github.com/kaxuna1/ecomsite",
-  "downloaded_at": "2026-01-30T03:07:44.211396Z"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/elasticsearch/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-31T04:19:57.575511Z"
 }

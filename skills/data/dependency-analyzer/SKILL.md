@@ -1,167 +1,161 @@
 ---
 name: dependency-analyzer
-description: Analyze Python imports and dependencies. Use to understand project structure, find unused imports, or generate requirements.txt files.
+description: Analyze project dependencies for vulnerabilities, updates, and optimization opportunities. Use when auditing dependencies or managing package versions.
 ---
 
-# Dependency Analyzer
+# Dependency Analyzer Skill
 
-Analyze Python file imports and project dependencies.
+プロジェクトの依存関係を分析するスキルです。
 
-## Features
+## 概要
 
-- **Import Extraction**: List all imports from Python files
-- **Dependency Graph**: Visualize import relationships
-- **Unused Detection**: Find unused imports
-- **Requirements Generation**: Auto-generate requirements.txt
-- **Standard Library Detection**: Separate stdlib from third-party
-- **Circular Import Detection**: Find circular dependencies
+依存関係のバージョン、脆弱性、ライセンス、アップデート可否を分析します。
 
-## Quick Start
+## 主な機能
 
-```python
-from dependency_analyzer import DependencyAnalyzer
+- **バージョン確認**: 最新版との比較
+- **脆弱性スキャン**: CVE検出
+- **ライセンス確認**: 互換性チェック
+- **依存関係ツリー**: 視覚化
+- **重複検出**: 同じパッケージの複数バージョン
+- **未使用検出**: 使われていない依存関係
 
-analyzer = DependencyAnalyzer()
+## 分析例
 
-# Analyze single file
-imports = analyzer.analyze_file("main.py")
-print(imports)
+### package.json分析
 
-# Analyze project
-result = analyzer.analyze_project("./src")
-print(result['third_party'])  # External dependencies
+```json
+{
+  "dependencies": {
+    "express": "4.17.1",      // ⚠️ 最新: 4.18.2
+    "lodash": "4.17.15",      // 🔴 CVE-2020-8203
+    "react": "18.2.0",        // ✅ 最新
+    "axios": "0.21.1"         // ⚠️ 最新: 1.6.0
+  }
+}
 ```
 
-## CLI Usage
+**分析結果**:
+
+```markdown
+## 依存関係分析レポート
+
+### 🔴 Critical Issues (2)
+
+1. **lodash@4.17.15**
+   - CVE: CVE-2020-8203
+   - 重大度: High
+   - 推奨: 4.17.21以上にアップデート
+   - 影響: Prototype Pollution
+
+2. **axios@0.21.1**
+   - CVE: CVE-2021-3749
+   - 重大度: Medium
+   - 推奨: 1.6.0にアップデート
+
+### ⚠️ 更新可能 (2)
+
+- express: 4.17.1 → 4.18.2
+- axios: 0.21.1 → 1.6.0
+
+### ライセンス確認
+
+| Package | Version | License | Compatible |
+|---------|---------|---------|------------|
+| express | 4.17.1 | MIT | ✅ |
+| lodash | 4.17.15 | MIT | ✅ |
+| react | 18.2.0 | MIT | ✅ |
+
+### 推奨アクション
 
 ```bash
-# Analyze single file
-python dependency_analyzer.py --file main.py
-
-# Analyze project directory
-python dependency_analyzer.py --dir ./src
-
-# Generate requirements.txt
-python dependency_analyzer.py --dir ./src --requirements --output requirements.txt
-
-# Find unused imports
-python dependency_analyzer.py --file main.py --unused
-
-# Show dependency graph
-python dependency_analyzer.py --dir ./src --graph
-
-# JSON output
-python dependency_analyzer.py --dir ./src --json
+npm update lodash
+npm update axios
+npm update express
 ```
 
-## API Reference
+### 依存関係ツリー
 
-### DependencyAnalyzer Class
-
-```python
-class DependencyAnalyzer:
-    def __init__(self)
-
-    # Analysis
-    def analyze_file(self, filepath: str) -> dict
-    def analyze_project(self, directory: str) -> dict
-
-    # Detection
-    def find_unused_imports(self, filepath: str) -> list
-    def find_circular_imports(self, directory: str) -> list
-
-    # Generation
-    def generate_requirements(self, directory: str) -> list
-    def save_requirements(self, deps: list, output: str)
-
-    # Classification
-    def is_stdlib(self, module: str) -> bool
-    def is_local(self, module: str, directory: str) -> bool
+```
+myapp
+├── express@4.17.1
+│   ├── body-parser@1.19.0
+│   └── cookie@0.4.0
+├── lodash@4.17.15 (⚠️ 脆弱性あり)
+├── react@18.2.0
+│   └── loose-envify@1.4.0
+└── axios@0.21.1 (⚠️ 更新必要)
+```
 ```
 
-## Output Format
+## コマンド例
 
-### File Analysis
-```python
-{
-    "file": "main.py",
-    "imports": [
-        {"module": "os", "type": "stdlib", "line": 1},
-        {"module": "json", "type": "stdlib", "line": 2},
-        {"module": "requests", "type": "third_party", "line": 3},
-        {"module": "utils.helpers", "type": "local", "line": 4}
-    ],
-    "from_imports": [
-        {"module": "typing", "names": ["Dict", "List"], "type": "stdlib"},
-        {"module": "flask", "names": ["Flask", "request"], "type": "third_party"}
-    ]
-}
+### npm
+
+```bash
+# 脆弱性スキャン
+npm audit
+
+# 修正
+npm audit fix
+
+# 強制修正
+npm audit fix --force
+
+# 更新確認
+npm outdated
+
+# 依存関係ツリー
+npm list
+
+# 特定パッケージの依存
+npm list express
 ```
 
-### Project Analysis
-```python
-{
-    "directory": "./src",
-    "files_analyzed": 15,
-    "stdlib": ["os", "sys", "json", "typing", ...],
-    "third_party": ["requests", "flask", "pandas", ...],
-    "local": ["utils", "models", "config", ...],
-    "by_file": {
-        "main.py": {...},
-        "app.py": {...}
-    }
-}
+### yarn
+
+```bash
+# 脆弱性スキャン
+yarn audit
+
+# 更新確認
+yarn outdated
+
+# 依存関係ツリー
+yarn list
+
+# 重複検出
+yarn dedupe
 ```
 
-## Example Workflows
+### Python (pip)
 
-### Generate Requirements
-```python
-analyzer = DependencyAnalyzer()
-deps = analyzer.generate_requirements("./src")
-analyzer.save_requirements(deps, "requirements.txt")
+```bash
+# 更新確認
+pip list --outdated
+
+# 脆弱性スキャン
+pip-audit
+
+# 依存関係
+pipdeptree
 ```
 
-### Find Unused Imports
-```python
-analyzer = DependencyAnalyzer()
-unused = analyzer.find_unused_imports("main.py")
-for imp in unused:
-    print(f"Line {imp['line']}: {imp['module']} is unused")
-```
+## ライセンス互換性
 
-### Analyze Project Structure
-```python
-analyzer = DependencyAnalyzer()
-result = analyzer.analyze_project("./myproject")
+### MIT License
+- ✅ 商用利用可能
+- ✅ 改変可能
+- ✅ 配布可能
 
-print("Third-party dependencies:")
-for dep in result['third_party']:
-    print(f"  - {dep}")
+### GPL License
+- ⚠️ コピーレフト
+- 派生物もGPL必須
 
-print("\nLocal modules:")
-for mod in result['local']:
-    print(f"  - {mod}")
-```
+### Apache 2.0
+- ✅ 商用利用可能
+- ✅ 特許保護
 
-### Check for Circular Imports
-```python
-analyzer = DependencyAnalyzer()
-circular = analyzer.find_circular_imports("./src")
-if circular:
-    print("Circular imports detected:")
-    for cycle in circular:
-        print(f"  {' -> '.join(cycle)}")
-```
+## バージョン情報
 
-## Module Classification
-
-| Type | Description | Example |
-|------|-------------|---------|
-| `stdlib` | Python standard library | `os`, `sys`, `json` |
-| `third_party` | External packages | `requests`, `pandas` |
-| `local` | Project modules | `utils.helpers` |
-
-## Dependencies
-
-No external dependencies - uses Python standard library (ast module).
+- スキルバージョン: 1.0.0

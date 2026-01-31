@@ -1,7 +1,7 @@
 {
   "name": "idor-testing",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/idor-testing/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:03.655554Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/idor-testing/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:02.856361Z"
 }

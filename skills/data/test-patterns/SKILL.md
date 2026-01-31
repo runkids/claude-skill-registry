@@ -1,240 +1,218 @@
 ---
-name: Test Patterns
-description: Effective patterns for writing maintainable, reliable tests
-version: 1.0.0
-triggers:
-  - test patterns
-  - testing best practices
-  - how to write tests
-  - test structure
-  - arrange act assert
-tags:
-  - testing
-  - patterns
-  - quality
-  - best-practices
-difficulty: intermediate
-estimatedTime: 10
-relatedSkills:
-  - testing/red-green-refactor
-  - testing/anti-patterns
+name: test-patterns
+description: This skill provides patterns and best practices for generating and organizing tests. It covers unit testing, integration testing, test data factories, and coverage strategies across multiple languages and frameworks.
+context: fork
+user-invocable: false
 ---
 
-# Test Patterns
+# Test Patterns Skill
 
-You are applying proven testing patterns to write maintainable, reliable tests. These patterns help ensure tests are readable, focused, and trustworthy.
+Generate and organize tests following project conventions and industry best practices.
 
-## Core Pattern: Arrange-Act-Assert (AAA)
+## When to Use
 
-Structure every test with three distinct phases:
+- Generating unit tests for new or existing code
+- Creating integration/API tests
+- Setting up test data factories
+- Analyzing and improving test coverage
+- Establishing testing conventions in a project
 
-```
-// Arrange - Set up test data and dependencies
-const user = createTestUser({ role: 'admin' });
-const service = new UserService(mockRepository);
+## Reference Documents
 
-// Act - Execute the code under test
-const result = await service.updateRole(user.id, 'member');
+- [Unit Test Patterns](./references/unit-test-patterns.md) - Patterns for unit tests including mocking, fixtures, and assertions
+- [Integration Test Patterns](./references/integration-test-patterns.md) - API and integration testing patterns
+- [Test Data Factories](./references/test-data-factories.md) - Factory patterns for generating test data
+- [Coverage Strategies](./references/coverage-strategies.md) - Approaches to meaningful test coverage
 
-// Assert - Verify the expected outcome
-expect(result.role).toBe('member');
-expect(mockRepository.save).toHaveBeenCalledWith(user);
-```
+## Core Principles
 
-Guidelines:
-- Keep sections visually separated (blank lines or comments)
-- Arrange should be minimal - only what's needed for this test
-- Act should be a single operation
-- Assert should verify one logical concept
-
-## Pattern: Given-When-Then (BDD Style)
-
-For behavior-focused tests:
+### 1. Test Behavior, Not Implementation
 
 ```
-describe('Shopping Cart', () => {
-  describe('when adding an item', () => {
-    it('should increase the item count', () => {
-      // Given
-      const cart = new Cart();
-
-      // When
-      cart.add({ id: '1', quantity: 2 });
-
-      // Then
-      expect(cart.itemCount).toBe(2);
-    });
-  });
-});
+WRONG: Testing internal method calls
+RIGHT: Testing observable behavior and outputs
 ```
 
-## Pattern: Test Data Builders
+Tests should verify what code does, not how it does it. This makes tests resilient to refactoring.
 
-Create flexible test data without repetition:
+### 2. Arrange-Act-Assert (AAA) Pattern
 
-```
-// Builder function
-function createTestOrder(overrides = {}) {
-  return {
-    id: 'order-123',
-    status: 'pending',
-    items: [],
-    total: 0,
-    ...overrides
-  };
-}
+Every test should have three distinct sections:
 
-// Usage
-const completedOrder = createTestOrder({ status: 'completed', total: 99.99 });
-const emptyOrder = createTestOrder({ items: [] });
+```python
+# Arrange - Set up test data and conditions
+user = create_user(name="Alice")
+order = create_order(user=user, items=[item1, item2])
+
+# Act - Execute the behavior being tested
+result = order.calculate_total()
+
+# Assert - Verify the expected outcome
+assert result == 150.00
 ```
 
-Benefits:
-- Reduces test setup boilerplate
-- Makes test intent clearer
-- Easy to create variations
+### 3. One Assertion Per Test (Logical)
 
-## Pattern: Object Mother
+Each test should verify one logical concept, though it may have multiple assertions for that concept:
 
-Factory for complex test objects:
+```python
+def test_user_creation_sets_defaults():
+    user = User.create(email="test@example.com")
 
-```
-class TestUserFactory {
-  static admin() {
-    return new User({ role: 'admin', permissions: ALL_PERMISSIONS });
-  }
-
-  static guest() {
-    return new User({ role: 'guest', permissions: [] });
-  }
-
-  static withSubscription(tier) {
-    return new User({ subscription: { tier, active: true } });
-  }
-}
+    # Multiple assertions for one concept: default values
+    assert user.status == "pending"
+    assert user.role == "member"
+    assert user.created_at is not None
 ```
 
-## Pattern: Parameterized Tests
+### 4. Descriptive Test Names
 
-Test multiple cases efficiently:
+Test names should describe the scenario and expected outcome:
 
-```
-describe('isValidEmail', () => {
-  const validCases = [
-    'user@example.com',
-    'user.name@domain.co.uk',
-    'user+tag@example.org'
-  ];
+```python
+# WRONG
+def test_order():
+def test_calculate():
 
-  const invalidCases = [
-    '',
-    'not-an-email',
-    '@no-local.com',
-    'no-domain@'
-  ];
-
-  test.each(validCases)('should accept valid email: %s', (email) => {
-    expect(isValidEmail(email)).toBe(true);
-  });
-
-  test.each(invalidCases)('should reject invalid email: %s', (email) => {
-    expect(isValidEmail(email)).toBe(false);
-  });
-});
+# RIGHT
+def test_order_with_discount_applies_percentage_reduction():
+def test_calculate_total_includes_tax_for_taxable_items():
 ```
 
-## Pattern: Test Fixtures
+### 5. Test Independence
 
-Reusable test setup:
+Tests must not depend on each other or on execution order:
 
-```
-describe('OrderService', () => {
-  let service;
-  let mockPaymentGateway;
-  let mockInventory;
+- Each test sets up its own data
+- Each test cleans up after itself (or uses transactions)
+- No shared mutable state between tests
 
-  beforeEach(() => {
-    mockPaymentGateway = createMockPaymentGateway();
-    mockInventory = createMockInventory();
-    service = new OrderService(mockPaymentGateway, mockInventory);
-  });
+## Workflow: Generating Tests
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-});
-```
+### Step 1: Analyze the Code Under Test
 
-## Pattern: Spy on Dependencies
+1. Read the file/function to be tested
+2. Identify public interfaces and behaviors
+3. List edge cases and error conditions
+4. Note dependencies that need mocking
 
-Verify interactions without implementation:
+### Step 2: Determine Test Type
 
-```
-it('should send notification on order completion', async () => {
-  const notifySpy = jest.spyOn(notificationService, 'send');
+| Code Type | Test Type | Focus |
+|-----------|-----------|-------|
+| Pure function | Unit test | Input/output |
+| Class with dependencies | Unit test with mocks | Behavior |
+| API endpoint | Integration test | Request/response |
+| Database operation | Integration test | Data persistence |
+| External service call | Unit test with mocks | Contract |
 
-  await orderService.complete(orderId);
-
-  expect(notifySpy).toHaveBeenCalledWith({
-    type: 'order_completed',
-    orderId: orderId
-  });
-});
-```
-
-## Pattern: Test Doubles
-
-Choose the right type:
-
-| Type | Purpose | When to Use |
-|------|---------|-------------|
-| **Stub** | Returns canned data | Need predictable inputs |
-| **Mock** | Verifies interactions | Testing side effects |
-| **Spy** | Records calls | Partial mocking |
-| **Fake** | Working implementation | Need realistic behavior |
-
-## Pattern: Test Isolation
-
-Ensure tests don't affect each other:
-
-1. **Fresh instances** - Create new objects in each test
-2. **Reset mocks** - Clear mock state between tests
-3. **Clean up** - Remove side effects (files, database rows)
-4. **No shared mutable state** - Avoid global variables
-
-## Naming Conventions
-
-Test names should describe:
-- What is being tested
-- Under what conditions
-- What the expected outcome is
-
-Good examples:
-- `shouldReturnEmptyArrayWhenNoItemsExist`
-- `throwsErrorWhenUserNotAuthenticated`
-- `calculatesDiscountForPremiumMembers`
-
-## Test Organization
+### Step 3: Create Test Structure
 
 ```
-src/
-  services/
-    UserService.ts
-    UserService.test.ts    # Co-located tests
-
 tests/
-  integration/
-    api.test.ts            # Integration tests
-  e2e/
-    checkout.spec.ts       # End-to-end tests
+├── unit/
+│   └── [module]/
+│       └── test_[file].py
+├── integration/
+│   └── test_[feature].py
+└── fixtures/
+    └── [shared fixtures]
 ```
 
-## Verification Checklist
+### Step 4: Write Tests
 
-For each test:
-- [ ] Single responsibility (tests one thing)
-- [ ] Clear AAA or GWT structure
-- [ ] Descriptive name
-- [ ] Fast execution (< 100ms for unit tests)
-- [ ] Deterministic (no flakiness)
-- [ ] Independent (runs in any order)
+Follow the patterns in reference documents for specific test types.
+
+### Step 5: Verify Coverage
+
+Run coverage analysis and add tests for uncovered critical paths.
+
+## Language-Specific Patterns
+
+### Python (pytest)
+
+```python
+import pytest
+from unittest.mock import Mock, patch
+
+class TestOrderCalculation:
+    @pytest.fixture
+    def order(self):
+        return Order(items=[Item(price=100), Item(price=50)])
+
+    def test_calculates_subtotal(self, order):
+        assert order.subtotal == 150
+
+    @pytest.mark.parametrize("discount,expected", [
+        (0, 150),
+        (10, 135),
+        (50, 75),
+    ])
+    def test_applies_discount(self, order, discount, expected):
+        order.apply_discount(discount)
+        assert order.total == expected
+```
+
+### TypeScript (Jest/Vitest)
+
+```typescript
+import { describe, it, expect, vi } from 'vitest';
+
+describe('OrderService', () => {
+  it('calculates total with tax', () => {
+    const order = new Order([
+      { price: 100 },
+      { price: 50 }
+    ]);
+
+    expect(order.totalWithTax(0.1)).toBe(165);
+  });
+
+  it('sends confirmation email on completion', async () => {
+    const emailService = { send: vi.fn() };
+    const order = new Order([], { emailService });
+
+    await order.complete();
+
+    expect(emailService.send).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'confirmation' })
+    );
+  });
+});
+```
+
+### Ruby (RSpec)
+
+```ruby
+RSpec.describe Order do
+  subject(:order) { described_class.new(items: items) }
+  let(:items) { [Item.new(price: 100), Item.new(price: 50)] }
+
+  describe '#total' do
+    it 'sums item prices' do
+      expect(order.total).to eq(150)
+    end
+
+    context 'with discount applied' do
+      before { order.apply_discount(10) }
+
+      it 'reduces total by percentage' do
+        expect(order.total).to eq(135)
+      end
+    end
+  end
+end
+```
+
+## Quick Reference
+
+| Pattern | When to Use |
+|---------|-------------|
+| Factory | Creating test objects with defaults |
+| Builder | Creating complex test objects step-by-step |
+| Mock | Replacing dependencies |
+| Stub | Providing canned responses |
+| Spy | Verifying method calls |
+| Fake | Lightweight implementation for testing |
+| Fixture | Shared test data setup |
+| Parametrize | Testing multiple inputs |

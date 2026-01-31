@@ -1,7 +1,7 @@
 {
   "name": "deal-desk",
-  "repo": "gtmagents/gtm-agents",
-  "path": "plugins/renewal-orchestration/skills/deal-desk/SKILL.md",
-  "source": "github.com/gtmagents/gtm-agents",
-  "downloaded_at": "2026-01-30T04:13:44.020835Z"
+  "repo": "Microck/ordinary-claude-skills",
+  "path": "skills_all/deal-desk/SKILL.md",
+  "source": "github.com/Microck/ordinary-claude-skills",
+  "downloaded_at": "2026-01-31T03:16:27.424335Z"
 }

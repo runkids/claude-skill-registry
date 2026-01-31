@@ -1,181 +1,102 @@
 ---
 name: supabase
-description: "Manage Supabase projects, databases, migrations, Edge Functions, and storage using the `supabase` CLI."
+description: Comprehensive Supabase specialist for database schema design, security audits, RLS policies, migrations, and realtime optimization. Use PROACTIVELY for any Supabase/PostgreSQL work.
+tools: Read, Write, Edit, Bash, Grep
+model: sonnet
+argument-hint: [task] | --audit | --schema | --realtime | --migration
 ---
 
-# Supabase Skill
+# Supabase Expert Skill
 
-Use the `supabase` CLI to manage Supabase projects and local development.
+Comprehensive Supabase/PostgreSQL specialist covering security, schema design, migrations, and realtime optimization.
 
-## Projects
+## Quick Reference - Required Patterns
 
-List all projects:
+| Object | Required Pattern |
+|--------|-----------------|
+| Function | `SET search_path = public` |
+| View | `WITH (security_invoker = true)` |
+| Table | `ENABLE ROW LEVEL SECURITY` |
+| RLS Policy | Use `(SELECT auth.uid())` not `auth.uid()` |
+| RLS Policy | One policy per role/action (consolidate with OR) |
+| Foreign Key | Create covering index |
+
+## Capabilities
+
+### 1. Security & Performance (`--audit`)
+- RLS policy analysis and optimization
+- Function search_path security fixes
+- View security_invoker enforcement
+- Permission audits and vulnerability assessment
+- @./references/security-checklist.md
+- @./references/common-issues.md
+- @./references/security-audit.md
+
+### 2. Schema Design (`--schema`)
+- Normalized database schema design
+- Table relationships and constraints
+- Index optimization strategies
+- TypeScript type generation
+- @./references/schema-design.md
+
+### 3. Migration Management (`--migration`)
+- Safe, reversible migration scripts
+- Rollback strategies
+- Production impact validation
+- @./references/schema-design.md
+
+### 4. Realtime Optimization (`--realtime`)
+- WebSocket connection optimization
+- Subscription performance tuning
+- Connection stability debugging
+- @./references/realtime-optimization.md
+
+## MCP Verification Tools
+
 ```bash
-supabase projects list
+# Security check
+mcp__supabase-local__get_advisors type=security
+
+# Performance check
+mcp__supabase-local__get_advisors type=performance
+
+# List tables
+mcp__supabase-local__list_tables schemas=["public"]
+
+# Execute SQL
+mcp__supabase-local__execute_sql query="..."
+
+# Generate types
+mcp__supabase-local__generate_typescript_types
 ```
 
-Link to a remote project:
-```bash
-supabase link --project-ref <project-id>
+## Verification Queries
+
+```sql
+-- Tables without RLS
+SELECT tablename FROM pg_tables t
+JOIN pg_class c ON c.relname = t.tablename
+WHERE schemaname = 'public' AND NOT rowsecurity;
+
+-- Functions missing search_path
+SELECT proname FROM pg_proc p
+JOIN pg_namespace n ON p.pronamespace = n.oid
+WHERE n.nspname = 'public'
+AND (p.proconfig IS NULL OR NOT EXISTS (
+  SELECT 1 FROM unnest(p.proconfig) WHERE unnest LIKE 'search_path=%'
+));
+
+-- Multiple permissive policies
+SELECT tablename, cmd, count(*)
+FROM pg_policies WHERE schemaname = 'public' AND permissive = 'PERMISSIVE'
+GROUP BY tablename, cmd, roles HAVING count(*) > 1;
 ```
 
-## Local Development
+## Reference Documentation
 
-Start local Supabase stack (Postgres, Auth, Storage, etc.):
-```bash
-supabase start
-```
-
-Stop local stack:
-```bash
-supabase stop
-```
-
-Check status of local services:
-```bash
-supabase status
-```
-
-## Database
-
-Run SQL query:
-```bash
-supabase db execute --sql "SELECT * FROM users LIMIT 10"
-```
-
-Pull remote schema to local:
-```bash
-supabase db pull
-```
-
-Push local migrations to remote:
-```bash
-supabase db push
-```
-
-Reset local database:
-```bash
-supabase db reset
-```
-
-Diff local vs remote schema:
-```bash
-supabase db diff
-```
-
-## Migrations
-
-Create a new migration:
-```bash
-supabase migration new <migration-name>
-```
-
-List migrations:
-```bash
-supabase migration list
-```
-
-Apply migrations locally:
-```bash
-supabase migration up
-```
-
-Squash migrations:
-```bash
-supabase migration squash
-```
-
-## Edge Functions
-
-List functions:
-```bash
-supabase functions list
-```
-
-Create a new function:
-```bash
-supabase functions new <function-name>
-```
-
-Deploy a function:
-```bash
-supabase functions deploy <function-name>
-```
-
-Deploy all functions:
-```bash
-supabase functions deploy
-```
-
-Serve functions locally:
-```bash
-supabase functions serve
-```
-
-View function logs:
-```bash
-supabase functions logs <function-name>
-```
-
-## Storage
-
-List buckets:
-```bash
-supabase storage ls
-```
-
-List objects in a bucket:
-```bash
-supabase storage ls <bucket-name>
-```
-
-Copy file to storage:
-```bash
-supabase storage cp <local-path> ss:///<bucket>/<path>
-```
-
-Download from storage:
-```bash
-supabase storage cp ss:///<bucket>/<path> <local-path>
-```
-
-## Secrets
-
-Set a secret for Edge Functions:
-```bash
-supabase secrets set <NAME>=<value>
-```
-
-List secrets:
-```bash
-supabase secrets list
-```
-
-Unset a secret:
-```bash
-supabase secrets unset <NAME>
-```
-
-## Type Generation
-
-Generate TypeScript types from database schema:
-```bash
-supabase gen types typescript --local > types/supabase.ts
-```
-
-Generate types from remote:
-```bash
-supabase gen types typescript --project-id <project-id> > types/supabase.ts
-```
-
-## Authentication
-
-Login to Supabase:
-```bash
-supabase login
-```
-
-Check current status:
-```bash
-supabase projects list
-```
+- @./references/security-checklist.md - Security checklists for all objects
+- @./references/common-issues.md - Common issues with fixes
+- @./references/schema-design.md - Schema design standards
+- @./references/realtime-optimization.md - Realtime performance guide
+- @./references/security-audit.md - Security audit procedures
+- https://supabase.com/docs/guides/database/database-linter

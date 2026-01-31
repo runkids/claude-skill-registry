@@ -113,11 +113,11 @@ Guard scans for these common secret patterns:
 
 | Pattern | Example |
 |---------|---------|
-| AWS Keys | `AKIA...`, `aws_secret_access_key` |
-| API Tokens | `Bearer ...`, `token: ...` |
+| AWS Keys | `AKIA...`, `aws_secret_access_key` | <!-- allow-secret -->
+| API Tokens | `Bearer ...`, `token: ...` | <!-- allow-secret -->
 | Private Keys | `-----BEGIN RSA PRIVATE KEY-----` |
-| GitHub Tokens | `ghp_...`, `github_pat_...` |
-| Generic Secrets | `password=`, `secret=`, `api_key=` |
+| GitHub Tokens | `ghp_...`, `github_pat_...` | <!-- allow-secret -->
+| Generic Secrets | `password=`, `secret=`, `api_key=` | <!-- allow-secret -->
 
 ## Tuning with Allowlist
 

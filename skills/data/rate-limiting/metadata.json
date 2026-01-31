@@ -1,7 +1,7 @@
 {
   "name": "rate-limiting",
-  "repo": "dadbodgeoff/drift",
-  "path": "skills/rate-limiting/SKILL.md",
-  "source": "github.com/dadbodgeoff/drift",
-  "downloaded_at": "2026-01-30T04:08:49.029369Z"
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "path": ".claude/skills/gemini-api/rate-limiting/SKILL.md",
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-01-31T02:21:54.440364Z"
 }

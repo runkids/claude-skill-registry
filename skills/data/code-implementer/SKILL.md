@@ -1,310 +1,139 @@
 ---
-name: react-code-implementer
-description: Practical guidelines for implementing React 19 components with TypeScript
+name: code-implementer
+version: "1.0.0"
+description: "This skill should be used when the user asks to 'implement', 'write code', 'build a feature', 'create a function', 'add functionality', 'code this', 'make this work', or needs to write production code for Java/Spring Boot or TypeScript/Next.js following FP, DDD, and testability patterns. Ensures code follows functional core/imperative shell, proper invariants, Either-based error handling, and is designed for testing without mocks."
+imports:
+  - "../../rules/architecture.md"
+  - "../../rules/java-patterns.md"
+  - "../../rules/typescript-patterns.md"
+  - "../../rules/property-testing.md"
 ---
 
-# React Code Implementation
+# Code Implementer Skill
 
-## Component Implementation
+Expert implementation guidance ensuring code follows FP principles, DDD patterns, and is designed for maximum testability.
 
-### Default Approach
+**This is an IMPLEMENTATION skill** - write production code following the architectural patterns in the imported rules. For design decisions and architectural review, use `/architecture-tech-lead` instead.
 
-- Start with Server Components by default
-- Add 'use client' only when needed
-- Use TypeScript for all components
-- Define prop types with interfaces
-- Export component as named export
+---
 
-### Server Components
+## Pre-Implementation Checklist
 
-```tsx
-// components/UserProfile.tsx
-interface UserProfileProps {
-  userId: string;
-}
+Before writing code, verify:
 
-export async function UserProfile({ userId }: UserProfileProps) {
-  const user = await fetchUser(userId); // Direct database/API call
+- [ ] **Boundaries clear**: Where does I/O happen vs pure logic?
+- [ ] **Invariants identified**: What must always be true?
+- [ ] **Types designed**: Records/sealed types for domain? Discriminated unions?
+- [ ] **Parse, don't validate**: Return validated types? Invalid states unrepresentable?
+- [ ] **Error handling**: Using Either/Result? What errors are possible?
+- [ ] **Testability**: Can business logic be unit tested without mocks?
 
-  return (
-    <div>
-      <h1>{user.name}</h1>
-      <p>{user.email}</p>
-    </div>
-  );
-}
+---
+
+## During Implementation
+
+### Structure Code as Functional Core + Imperative Shell
+
+**Imperative Shell (thin)**:
+- Fetches data (DB, APIs)
+- Calls pure functions
+- Persists results
+- Handles I/O errors
+
+**Functional Core (where logic lives)**:
+- Pure functions, no side effects
+- Receives all data as parameters
+- Returns new data, never mutates
+- Trivially unit testable
+
+### Apply Type Design
+
+Apply patterns from imported rules:
+- **Java**: Records, sealed types, pattern matching (see java-patterns.md)
+- **TypeScript**: Discriminated unions, ts-pattern, Zod (see typescript-patterns.md)
+
+### Handle Errors Properly
+
+Use Either/Result for all expected failures (see java-patterns.md for Either examples):
+- Chain operations with `flatMap`
+- Collect validation errors with `Eithers.allFailures()`
+- Never throw for expected failures - return typed errors
+
+---
+
+## Post-Implementation Checklist
+
+After writing code, verify:
+
+- [ ] **No business logic in shell**: All logic in pure functions?
+- [ ] **Immutability**: No mutations? Defensive copies where needed?
+- [ ] **Invariants enforced**: Constructors validate? Invalid states unrepresentable?
+- [ ] **Error paths typed**: Using Either/Result? No hidden throws?
+- [ ] **Testable without mocks**: Can test core logic with plain data?
+
+---
+
+## Implementation Patterns Quick Reference
+
+### Data Transformation Flow
+```
+fetch (I/O) -> transform (pure) -> persist (I/O)
 ```
 
-**Guidelines:**
-- Make async when fetching data
-- Fetch data directly without useEffect
-- No hooks allowed
-- Can use Suspense boundaries for loading states
-- Return JSX directly
-
-### Client Components
-
-```tsx
-'use client';
-
-import { useState } from 'react';
-
-interface CounterProps {
-  initialCount?: number;
-}
-
-export function Counter({ initialCount = 0 }: CounterProps) {
-  const [count, setCount] = useState(initialCount);
-
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  );
-}
+### Service Method Structure
+```
+1. Fetch required data (shell - I/O)
+2. Call pure function with data (core - testable)
+3. Persist result (shell - I/O)
+4. Return result
 ```
 
-**Guidelines:**
-- Add 'use client' at the top
-- Use hooks for state and effects
-- Handle events and interactivity
-- Optimize re-renders with memo/useMemo/useCallback
-
-## State Management
-
-### Local State
-
-**Usage:** Component-specific state
-
-**Tools:**
-- `useState` for simple values
-- `useReducer` for complex state logic
-
-```tsx
-const [isOpen, setIsOpen] = useState(false);
-const [user, setUser] = useState<User | null>(null);
+### Invariant Enforcement
+```
+Constructor validates -> Object always valid -> No defensive checks elsewhere
 ```
 
-### Shared State
-
-**Usage:** State shared across components
-
-**Approaches:**
-- **Lifting state:** Lift to common ancestor
-- **Context:** Use Context for deep prop threading
-- **Zustand:** Global client state management
-
-```tsx
-// Using Zustand store
-import { useUserStore } from '@/stores/user';
-
-export function UserMenu() {
-  const { user, logout } = useUserStore();
-  // ...
-}
+### Error Handling Chain
+```
+validate -> process -> transform -> (all via flatMap/map)
 ```
 
-### Server State
+---
 
-**Usage:** Data from API/database
+## Test Strategy
 
-**Tool:** TanStack React Query
+For every implementation, consider:
 
-```tsx
-'use client';
+### Unit Tests (core logic)
+- Test pure functions with plain data
+- No mocks needed
+- Cover edge cases
 
-import { useQuery } from '@tanstack/react-query';
+### Property Tests (invariants)
+- What must ALWAYS be true?
+- Round-trip properties
+- Idempotence where applicable
 
-export function Posts() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
-  });
+### Integration Tests (shell only)
+- Minimal - just verify I/O works
+- Use real DB/APIs in test containers
+- Don't test business logic here
 
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage error={error} />;
+---
 
-  return <PostList posts={data} />;
-}
-```
+## Quality Standards
 
-## Hooks Implementation
+- **Complete**: Implement full feature, not partial
+- **Testable**: Every function testable without mocks
+- **Typed Errors**: Either/Result for all failures
+- **Immutable**: No mutations without justification
+- **Validated**: Parse, don't validate - return validated types
 
-### Custom Hooks
+---
 
-**Naming:** Always prefix with 'use'
+## Context Awareness
 
-```tsx
-// hooks/useLocalStorage.ts
-import { useState, useEffect } from 'react';
-
-export function useLocalStorage<T>(key: string, initialValue: T) {
-  const [value, setValue] = useState<T>(() => {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : initialValue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
-  return [value, setValue] as const;
-}
-```
-
-**Best Practices:**
-- Return tuple [value, setValue] or object { data, error }
-- Handle cleanup in useEffect return
-- Memoize complex calculations
-- Document dependencies and side effects
-
-### Common Hooks
-
-| Hook | Purpose |
-|------|---------|
-| useState | Local component state |
-| useEffect | Side effects and subscriptions |
-| useCallback | Memoize callback functions |
-| useMemo | Memoize expensive calculations |
-| useRef | Mutable refs and DOM access |
-| useContext | Access context values |
-
-## Error Handling
-
-### Component Level
-
-```tsx
-'use client';
-
-export function DataDisplay() {
-  const { data, error, isLoading } = useQuery(queryOptions);
-
-  if (error) {
-    return (
-      <ErrorAlert>
-        <p>Failed to load data</p>
-        <button onClick={() => refetch()}>Retry</button>
-      </ErrorAlert>
-    );
-  }
-
-  if (isLoading) return <LoadingSkeleton />;
-
-  return <DataView data={data} />;
-}
-```
-
-### Error Boundary
-
-- **Usage:** Catch unexpected React errors
-- **Implementation:** Use error.tsx in Next.js or custom boundary
-- **Fallback:** Show user-friendly error message
-
-## Styling
-
-### Tailwind CSS
-
-```tsx
-<button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-  Click me
-</button>
-```
-
-### CSS Modules
-
-```tsx
-import styles from './Button.module.css';
-
-<button className={styles.primary}>Click me</button>
-```
-
-### Conditional Classes
-
-```tsx
-import clsx from 'clsx';
-
-<div className={clsx(
-  'base-class',
-  isActive && 'active',
-  isDisabled && 'disabled'
-)}>
-```
-
-## Forms
-
-### Controlled Components
-
-```tsx
-const [email, setEmail] = useState('');
-
-<input
-  type="email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>
-```
-
-### Form Libraries
-
-**Recommended:** React Hook Form for complex forms
-
-```tsx
-import { useForm } from 'react-hook-form';
-
-const { register, handleSubmit, formState: { errors } } = useForm();
-
-<form onSubmit={handleSubmit(onSubmit)}>
-  <input {...register('email', { required: true })} />
-  {errors.email && <span>Email is required</span>}
-</form>
-```
-
-## Performance
-
-### Optimization Checklist
-
-- Use React.memo for expensive pure components
-- useMemo for expensive calculations
-- useCallback for functions passed to children
-- Split large components into smaller ones
-- Lazy load components with dynamic imports
-- Virtualize long lists
-
-### When to Optimize
-
-- After identifying actual performance issue
-- For components that render frequently
-- For expensive calculations
-- Not prematurely - profile first
-
-## Testing
-
-### Component Tests
-
-**Library:** React Testing Library
-
-**Focus:** Test user behavior, not implementation
-
-```tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { Counter } from './Counter';
-
-test('increments count on click', () => {
-  render(<Counter />);
-  const button = screen.getByRole('button');
-
-  fireEvent.click(button);
-
-  expect(button).toHaveTextContent('Count: 1');
-});
-```
-
-## Code Quality Checklist
-
-- [ ] All props have TypeScript types
-- [ ] No 'any' types without justification
-- [ ] Components are focused (single responsibility)
-- [ ] Proper error handling
-- [ ] Loading states for async operations
-- [ ] Accessibility attributes (ARIA labels, roles)
-- [ ] Tests cover main user flows
+Tailor to detected stack. See imported rules for patterns:
+- **Java**: java-patterns.md (records, sealed types, Either)
+- **TypeScript**: typescript-patterns.md (discriminated unions, ts-pattern)
+- **Testing**: property-testing.md (jqwik patterns)

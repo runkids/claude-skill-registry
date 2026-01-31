@@ -1,18 +1,18 @@
 ---
-name: environment-variables-handler
+name: "environment-variables-handler"
 description: |
-  Environment Variables Handler - Auto-activating skill for DevOps Basics.
+  Manage environment variables handler operations. Auto-activating skill for DevOps Basics.
   Triggers on: environment variables handler, environment variables handler
-  Part of the DevOps Basics skill category.
-allowed-tools: Read, Write, Edit, Bash, Grep
+  Part of the DevOps Basics skill category. Use when working with environment variables handler functionality. Trigger with phrases like "environment variables handler", "environment handler", "environment".
+allowed-tools: "Read, Write, Edit, Bash(cmd:*), Grep"
 version: 1.0.0
 license: MIT
-author: Jeremy Longshore <jeremy@intentsolutions.io>
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
 # Environment Variables Handler
 
-## Purpose
+## Overview
 
 This skill provides automated assistance for environment variables handler tasks within the DevOps Basics domain.
 
@@ -23,18 +23,48 @@ This skill activates automatically when you:
 - Ask about environment variables handler patterns or best practices
 - Need help with foundational devops skills covering version control, containerization, basic ci/cd, and infrastructure fundamentals.
 
-## Capabilities
+## Instructions
 
-- Provides step-by-step guidance for environment variables handler
-- Follows industry best practices and patterns
-- Generates production-ready code and configurations
-- Validates outputs against common standards
+1. Provides step-by-step guidance for environment variables handler
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-## Example Triggers
+## Examples
 
-- "Help me with environment variables handler"
-- "Set up environment variables handler"
-- "How do I implement environment variables handler?"
+**Example: Basic Usage**
+Request: "Help me with environment variables handler"
+Result: Provides step-by-step guidance and generates appropriate configurations
+
+
+## Prerequisites
+
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of devops basics concepts
+
+
+## Output
+
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
+
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
+
+
+## Resources
+
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
 
 ## Related Skills
 

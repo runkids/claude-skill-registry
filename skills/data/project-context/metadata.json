@@ -1,7 +1,7 @@
 {
   "name": "project-context",
-  "repo": "shinpr/ai-coding-project-boilerplate",
-  "path": ".claude/skills-ja/project-context/SKILL.md",
-  "source": "github.com/shinpr/ai-coding-project-boilerplate",
-  "downloaded_at": "2026-01-30T03:52:55.901653Z"
+  "repo": "eug-subscription/ERP_v3",
+  "path": ".agent/skills/project-context/SKILL.md",
+  "source": "github.com/eug-subscription/ERP_v3",
+  "downloaded_at": "2026-01-31T03:52:28.292084Z"
 }

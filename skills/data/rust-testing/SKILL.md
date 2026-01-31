@@ -1,244 +1,113 @@
 ---
 name: rust-testing
-description: Write and run Rust tests using cargo test with unit tests, integration tests, doc tests, and property-based testing. Use when writing Rust tests or setting up test infrastructure.
+description: Rust testing patterns for CLI applications, libraries, and frameworks. This skill should be used when writing, reviewing, or refactoring Rust tests including unit tests, integration tests, mocking, async testing, and CI integration. Triggers on tasks involving Rust testing, cargo test, mockall, proptest, tokio test, or test organization.
 ---
 
-# Rust Testing Skill
+# Rust Testing Best Practices
 
-## When to Activate
+Comprehensive testing guide for Rust applications, covering CLI testing, library testing, async patterns, and CI integration. Contains 42 rules across 8 categories, prioritized by impact to guide test design, mocking strategies, and CI optimization.
 
-Activate this skill when:
-- Writing Rust unit tests
-- Creating integration tests
-- Working with doc tests
-- Setting up property-based testing
-- Running benchmarks
+## When to Apply
 
-## Quick Commands
+Reference these guidelines when:
+- Writing unit tests for Rust libraries or modules
+- Creating integration tests for CLI applications
+- Setting up mocking with mockall or trait-based design
+- Testing async code with Tokio
+- Configuring CI pipelines for Rust projects
 
-```bash
-# Run all tests
-cargo test
+## Rule Categories by Priority
 
-# With output
-cargo test -- --nocapture
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Test Organization | CRITICAL | `org-` |
+| 2 | Mocking and Test Doubles | CRITICAL | `mock-` |
+| 3 | Async Testing | HIGH | `async-` |
+| 4 | Property-Based Testing | HIGH | `prop-` |
+| 5 | Test Fixtures and Setup | MEDIUM | `fix-` |
+| 6 | Assertions and Error Testing | MEDIUM | `assert-` |
+| 7 | CI Integration | MEDIUM | `ci-` |
+| 8 | Test Performance | LOW-MEDIUM | `perf-` |
 
-# Run specific test
-cargo test test_user_create
+## Quick Reference
 
-# Run tests in module
-cargo test auth::
+### 1. Test Organization (CRITICAL)
 
-# Run ignored tests
-cargo test -- --ignored
+- [`org-unit-test-modules`](references/org-unit-test-modules.md) - Use cfg(test) modules for unit tests
+- [`org-integration-tests-directory`](references/org-integration-tests-directory.md) - Place integration tests in tests directory
+- [`org-shared-test-utilities`](references/org-shared-test-utilities.md) - Use tests/common/mod.rs for shared utilities
+- [`org-binary-crate-pattern`](references/org-binary-crate-pattern.md) - Extract logic from main.rs into lib.rs
+- [`org-test-naming`](references/org-test-naming.md) - Name tests after behavior not implementation
+- [`org-test-cli-with-assert-cmd`](references/org-test-cli-with-assert-cmd.md) - Use assert_cmd for CLI testing
 
-# Doc tests only
-cargo test --doc
+### 2. Mocking and Test Doubles (CRITICAL)
 
-# Integration tests only
-cargo test --test integration
-```
+- [`mock-trait-based-design`](references/mock-trait-based-design.md) - Design for testability with traits
+- [`mock-automock-attribute`](references/mock-automock-attribute.md) - Use mockall automock for complex mocking
+- [`mock-avoid-mocking-owned-types`](references/mock-avoid-mocking-owned-types.md) - Avoid mocking types you own
+- [`mock-expect-call-counts`](references/mock-expect-call-counts.md) - Verify mock call counts explicitly
+- [`mock-predicate-arguments`](references/mock-predicate-arguments.md) - Use predicates to verify mock arguments
+- [`mock-returning-sequences`](references/mock-returning-sequences.md) - Use sequences for multiple return values
+- [`mock-static-methods`](references/mock-static-methods.md) - Use mock! macro for static methods
 
-## Unit Tests (Same File)
+### 3. Async Testing (HIGH)
 
-```rust
-pub fn add(a: i32, b: i32) -> i32 {
-    a + b
-}
+- [`async-tokio-test-macro`](references/async-tokio-test-macro.md) - Use tokio::test for async test functions
+- [`async-time-control`](references/async-time-control.md) - Use paused time for timeout testing
+- [`async-mock-io`](references/async-mock-io.md) - Use tokio_test for mocking async IO
+- [`async-spawn-blocking`](references/async-spawn-blocking.md) - Test spawn_blocking with multi-threaded runtime
+- [`async-test-channels`](references/async-test-channels.md) - Use channels for testing async communication
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+### 4. Property-Based Testing (HIGH)
 
-    #[test]
-    fn test_add() {
-        assert_eq!(add(2, 3), 5);
-    }
+- [`prop-proptest-basics`](references/prop-proptest-basics.md) - Use proptest for property-based testing
+- [`prop-custom-strategies`](references/prop-custom-strategies.md) - Create custom strategies for domain types
+- [`prop-shrinking`](references/prop-shrinking.md) - Use shrinking to find minimal failing cases
+- [`prop-invariant-testing`](references/prop-invariant-testing.md) - Test invariants instead of specific values
 
-    #[test]
-    fn test_add_negative() {
-        assert_eq!(add(-1, -1), -2);
-    }
-}
-```
+### 5. Test Fixtures and Setup (MEDIUM)
 
-## Test Attributes
+- [`fix-rstest-fixtures`](references/fix-rstest-fixtures.md) - Use rstest fixtures for test setup
+- [`fix-rstest-parametrized`](references/fix-rstest-parametrized.md) - Use rstest case for parameterized tests
+- [`fix-temp-directories`](references/fix-temp-directories.md) - Use TempDir for file system tests
+- [`fix-test-context`](references/fix-test-context.md) - Use test-context for setup and teardown
+- [`fix-once-cell-shared-state`](references/fix-once-cell-shared-state.md) - Use OnceCell for expensive shared setup
 
-```rust
-#[test]
-fn regular_test() { }
+### 6. Assertions and Error Testing (MEDIUM)
 
-#[test]
-#[ignore]
-fn slow_test() { }  // Skip unless --ignored
+- [`assert-specific-errors`](references/assert-specific-errors.md) - Assert specific error types not just is_err
+- [`assert-should-panic`](references/assert-should-panic.md) - Use should_panic for panic testing
+- [`assert-debug-display`](references/assert-debug-display.md) - Implement Debug for clear failure messages
+- [`assert-custom-messages`](references/assert-custom-messages.md) - Add context to assertions with custom messages
+- [`assert-floating-point`](references/assert-floating-point.md) - Use approximate comparison for floating point
+- [`assert-collection-contents`](references/assert-collection-contents.md) - Assert collection contents not just length
 
-#[test]
-#[should_panic]
-fn test_panic() {
-    panic!("This should panic");
-}
+### 7. CI Integration (MEDIUM)
 
-#[test]
-#[should_panic(expected = "specific message")]
-fn test_panic_message() {
-    panic!("specific message here");
-}
+- [`ci-cargo-nextest`](references/ci-cargo-nextest.md) - Use cargo-nextest for faster CI
+- [`ci-caching`](references/ci-caching.md) - Cache Cargo dependencies in CI
+- [`ci-test-isolation`](references/ci-test-isolation.md) - Ensure test isolation in parallel CI
+- [`ci-coverage`](references/ci-coverage.md) - Generate coverage reports in CI
 
-#[test]
-fn test_with_result() -> Result<(), String> {
-    let result = some_operation()?;
-    assert_eq!(result, expected);
-    Ok(())
-}
-```
+### 8. Test Performance (LOW-MEDIUM)
 
-## Assertions
+- [`perf-compile-time`](references/perf-compile-time.md) - Reduce test compilation time
+- [`perf-test-filtering`](references/perf-test-filtering.md) - Filter tests for faster feedback loops
+- [`perf-avoid-io-in-unit-tests`](references/perf-avoid-io-in-unit-tests.md) - Avoid real IO in unit tests
+- [`perf-parallel-test-execution`](references/perf-parallel-test-execution.md) - Configure parallel test threads
+- [`perf-benchmark-critical-paths`](references/perf-benchmark-critical-paths.md) - Benchmark critical paths with Criterion
 
-```rust
-// Basic
-assert_eq!(1 + 1, 2);
-assert_ne!(1 + 1, 3);
-assert!(true);
+## How to Use
 
-// With messages
-assert_eq!(result, expected, "values should match: got {}", result);
+Read individual reference files for detailed explanations and code examples:
 
-// Pattern matching
-assert!(matches!(value, Pattern::Variant(_)));
+- [Section definitions](references/_sections.md) - Category structure and impact levels
+- [Rule template](assets/templates/_template.md) - Template for adding new rules
 
-// Option/Result
-assert!(some_option.is_some());
-assert!(some_result.is_ok());
-```
+## Reference Files
 
-## Integration Tests
-
-```rust
-// tests/api_integration.rs
-use my_crate::{Config, Server};
-
-#[test]
-fn test_server_startup() {
-    let config = Config::default();
-    let server = Server::new(config);
-    assert!(server.start().is_ok());
-}
-```
-
-## Directory Structure
-
-```
-project/
-├── Cargo.toml
-├── src/
-│   ├── lib.rs          # Unit tests in #[cfg(test)]
-│   └── user.rs         # Module with inline tests
-└── tests/              # Integration tests
-    ├── common/
-    │   └── mod.rs      # Shared utilities
-    └── api_test.rs
-```
-
-## Mocking with Traits
-
-```rust
-pub trait UserRepository {
-    fn find_by_id(&self, id: u64) -> Option<User>;
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use std::collections::HashMap;
-
-    struct MockUserRepo {
-        users: HashMap<u64, User>,
-    }
-
-    impl UserRepository for MockUserRepo {
-        fn find_by_id(&self, id: u64) -> Option<User> {
-            self.users.get(&id).cloned()
-        }
-    }
-
-    #[test]
-    fn test_user_service() {
-        let mut users = HashMap::new();
-        users.insert(1, User { id: 1, email: "test@example.com".into() });
-        let repo = MockUserRepo { users };
-
-        let service = UserService::new(Box::new(repo));
-        let user = service.get_user(1).unwrap();
-        assert_eq!(user.email, "test@example.com");
-    }
-}
-```
-
-## Async Testing (tokio)
-
-```rust
-#[tokio::test]
-async fn test_async_operation() {
-    let result = fetch_data().await;
-    assert!(result.is_ok());
-}
-
-#[tokio::test]
-async fn test_with_timeout() {
-    let result = tokio::time::timeout(
-        Duration::from_secs(5),
-        slow_operation()
-    ).await;
-    assert!(result.is_ok());
-}
-```
-
-## Doc Tests
-
-```rust
-/// Adds two numbers together.
-///
-/// # Examples
-///
-/// ```
-/// use my_crate::add;
-/// let result = add(2, 3);
-/// assert_eq!(result, 5);
-/// ```
-pub fn add(a: i32, b: i32) -> i32 {
-    a + b
-}
-```
-
-## Property-Based Testing (proptest)
-
-```rust
-use proptest::prelude::*;
-
-proptest! {
-    #[test]
-    fn test_add_commutative(a: i32, b: i32) {
-        prop_assert_eq!(add(a, b), add(b, a));
-    }
-}
-```
-
-## Coverage
-
-```bash
-# Using cargo-tarpaulin
-cargo install cargo-tarpaulin
-cargo tarpaulin --out Html
-
-# Using cargo-llvm-cov
-cargo install cargo-llvm-cov
-cargo llvm-cov --html
-```
-
-## Related Resources
-
-See `AgentUsage/testing_rust.md` for complete documentation including:
-- Benchmarking with criterion
-- Setup/teardown patterns
-- Mockall crate usage
-- CI configuration
+| File | Description |
+|------|-------------|
+| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
+| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
+| [metadata.json](metadata.json) | Version and reference information |

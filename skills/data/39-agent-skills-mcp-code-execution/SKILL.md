@@ -1,798 +1,697 @@
 ---
-sidebar_position: 8
-title: "Capstone: Shippable Agent Skill"
-description: "Build a specification-first Digital FTE that orchestrates accumulated intelligence from Lessons 1-7. Learn to compose execution skills into production-ready agents, validate against specifications, and position for monetization."
-keywords: ["capstone project", "specification-first design", "skill composition", "digital FTE production", "acceptance testing", "skill deployment", "monetization strategy", "customer-facing execution skill", "production safety", "business positioning"]
+sidebar_position: 6
+title: "Build Script-Execution Skill"
+description: "Create a skill that orchestrates the write-execute-analyze loop to autonomously process data. Learn to implement error recovery, iterate toward robust solutions, and test your skill across diverse input scenarios. This is where specification-driven development meets real problem-solving."
+keywords: ["script execution skill", "write-execute-analyze implementation", "error recovery automation", "iterative refinement", "data processing skill", "skill testing", "convergence detection", "CSV analysis", "edge case handling"]
 chapter: 39
-lesson: 8
-duration_minutes: 90
+lesson: 6
+duration_minutes: 50
 
 # HIDDEN SKILLS METADATA
 skills:
-  - name: "Specification-Driven Skill Composition"
+  - name: "Script-Execution Skill Implementation"
     proficiency_level: "B2"
     category: "Technical"
     bloom_level: "Create"
     digcomp_area: "Problem-Solving"
-    measurable_at_this_level: "Student can write clear specifications for domain-specific execution skills, identifying success criteria, constraints, and integration points for composed subcomponents from Lessons 1-7. Specification drives implementation without requiring clarification."
+    measurable_at_this_level: "Student can build a working skill that writes Python code from specifications, executes it, detects errors, generates fixes, and iterates until success criteria are met. Skill demonstrates error recovery handling syntax and runtime failures."
 
-  - name: "Multi-Component Skill Architecture"
+  - name: "Error Detection and Automated Recovery"
+    proficiency_level: "B2"
+    category: "Technical"
+    bloom_level: "Apply"
+    digcomp_area: "Problem-Solving"
+    measurable_at_this_level: "Student can parse error messages from code execution, categorize error types (syntax vs runtime), and prompt AI to generate corrected code. Student validates fixes against original specification."
+
+  - name: "Convergence Validation and Iteration Control"
     proficiency_level: "B2"
     category: "Technical"
     bloom_level: "Analyze"
     digcomp_area: "Problem-Solving"
-    measurable_at_this_level: "Student can design how MCP-wrapping skills, script-execution skills, and orchestration layers combine into cohesive Digital FTE. Student identifies data flow, error recovery paths, and composition dependencies."
-
-  - name: "Acceptance Testing for Production Readiness"
-    proficiency_level: "B2"
-    category: "Technical"
-    bloom_level: "Evaluate"
-    digcomp_area: "Problem-Solving"
-    measurable_at_this_level: "Student can design test scenarios covering success paths, edge cases, error conditions, and business constraints. Student validates that specification ↔ implementation alignment is complete before production claim."
-
-  - name: "Digital FTE Monetization Strategy"
-    proficiency_level: "B2"
-    category: "Applied"
-    bloom_level: "Create"
-    digcomp_area: "Digital Citizenship"
-    measurable_at_this_level: "Student can articulate business value proposition, identify customer segments, select appropriate monetization model (subscription, success-fee, license), and design go-to-market strategy positioning skill as standalone product."
+    measurable_at_this_level: "Student can define and implement convergence criteria (specification compliance, error-free execution, edge case handling) and iteration limits (max retries, timeouts) that prevent infinite loops while allowing sufficient attempts."
 
 learning_objectives:
-  - objective: "Write specification for domain-specific execution skill that serves a clear customer need with measurable success criteria"
+  - objective: "Write skill specification for script execution task including success criteria, edge cases, and convergence conditions"
     proficiency_level: "B2"
     bloom_level: "Create"
-    assessment_method: "Students complete spec.md with intent, success criteria, constraints, acceptance tests, and architecture design"
+    assessment_method: "Students define complete skill spec with data inputs, transformation logic, success criteria, and at least 3 edge cases"
 
-  - objective: "Compose 3+ skills from Lessons 1-7 into integrated Digital FTE architecture with clear data flow and error recovery"
+  - objective: "Implement write-execute-analyze loop with error detection and recovery"
+    proficiency_level: "B2"
+    bloom_level: "Create"
+    assessment_method: "Students build working skill that generates code, executes it, catches errors, generates fixes, and validates results"
+
+  - objective: "Design and test error recovery for syntax errors, runtime errors, and timeout scenarios"
+    proficiency_level: "B2"
+    bloom_level: "Apply"
+    assessment_method: "Students test skill with intentional failures (malformed data, missing columns, timeout conditions) and validate recovery behavior"
+
+  - objective: "Validate skill convergence through acceptance testing across clean, malformed, and edge case data"
     proficiency_level: "B2"
     bloom_level: "Analyze"
-    assessment_method: "Students design architecture diagram and implementation plan showing which Lesson skills compose together and how"
-
-  - objective: "Validate skill meets specification through acceptance testing with clean data, edge cases, and failure scenarios"
-    proficiency_level: "B2"
-    bloom_level: "Evaluate"
-    assessment_method: "Students run skill against 5+ test scenarios, document results, identify any spec gaps, and remediate"
-
-  - objective: "Package skill as deployable artifact and create business positioning for monetization"
-    proficiency_level: "B2"
-    bloom_level: "Create"
-    assessment_method: "Students create customer-facing documentation, pricing model proposal, and positioning statement for their Digital FTE"
+    assessment_method: "Students run skill against 5+ test scenarios and document pass/fail results with convergence evidence"
 
 cognitive_load:
-  new_concepts: 11
-  assessment: "11 concepts (specification-first capstone, skill composition architecture, acceptance testing framework, test scenario design, spec ↔ implementation validation, error path testing, business value articulation, monetization models, customer segmentation, go-to-market positioning, production readiness criteria). L4 capstone has no upper limit per constitution ✓"
+  new_concepts: 9
+  assessment: "9 concepts (skill spec for script execution, script generation prompting, execution environment setup, error detection/parsing, iterative fix generation, iteration limits, output validation, state management, logging) within B2 limit (7-10 concepts) ✓"
 
 differentiation:
-  extension_for_advanced: "Design a skill composition that integrates 5+ components from this chapter. Implement canary deployment strategy with A/B testing for monetization model. Create monitoring/observability for production skill—how would you track performance, detect failures, and optimize based on customer usage? Design customer feedback loop that informs skill evolution."
-  remedial_for_struggling: "Start with a simpler domain (data validation rather than transformation). Focus first on completing ONE specification → implementation cycle with a single composed skill. Use the provided capstone template and walk through each section with AI guidance. Practice writing ONE acceptance test and validating it passes before expanding to full test suite."
+  extension_for_advanced: "Add state checkpointing: If execution fails midway, can the skill resume from the last successful iteration rather than starting from scratch? Implement persistence layer and recovery mechanism. Also explore: how would you handle timeout scenarios where code starts but takes too long? Design a pause-analyze-resume strategy."
+  remedial_for_struggling: "Start with a simpler specification (CSV row counting instead of complex analysis). Use the provided CSV template and walk through one complete iteration manually with AI. Focus on understanding the error messages first—what does each type tell you? Then practice generating one fix before building the full loop."
 ---
 
-# Capstone: Shippable Agent Skill
+# Build Script-Execution Skill
 
-You've now learned every pattern this chapter teaches: persona design (Lesson 1), skill composition (Lesson 2), MCP-wrapping (Lessons 3-4), script execution (Lessons 5-6), and workflow orchestration (Lesson 7).
+You've learned the pattern (Lesson 5): write code from specification → execute it → analyze errors → iterate. Now you're going to build a skill that orchestrates this loop autonomously.
 
-But learning patterns is not the same as building products.
+But here's what makes this different from following a tutorial: You'll specify what problem you're solving FIRST, then let AI help you build the skill while you validate each decision. You're not just learning a pattern—you're learning to think about error recovery, convergence criteria, and edge cases the way production systems demand.
 
-This capstone is different. You're not following steps or solving a predetermined problem. You're doing what every AI-native entrepreneur must do: **articulate a problem clearly enough that AI can build a solution to it, then validate that solution works in the real world.**
+## Step 1: Write Your Specification
 
-You're building a **specification-first Digital FTE**—a complete, shippable execution skill that solves a real customer problem. This skill will orchestrate the accumulated intelligence from all previous lessons, handle production edge cases, and be ready to monetize.
+Before touching any skill code, write a specification for the problem you're solving. You'll use a CSV data processing task because it's concrete and has natural edge cases.
 
-## Why This Capstone Matters
+Choose one of these:
+- **CSV Analysis**: Analyze customer or sales data for patterns
+- **CSV Transformation**: Clean and restructure messy CSV data
+- **CSV Aggregation**: Group data by dimensions and calculate metrics
 
-In the agent economy, the developers who win are those who can:
+Or define your own data processing task.
 
-1. **Identify customer problems** that are specific enough to solve but broad enough to charge for
-2. **Write specifications clearly** so AI can implement without ambiguity
-3. **Compose existing intelligence** rather than reinventing patterns
-4. **Validate ruthlessly** that the product works before claiming it's production-ready
-5. **Price strategically** to capture value without leaving money on the table
+### Your Specification
 
-This capstone exercises all five. You're not learning to code faster. You're learning to build products that customers pay for.
-
-## Phase 1: Domain Specification (Spec FIRST)
-
-Before any implementation, define what problem you're solving for whom.
-
-### Select Your Domain
-
-Choose a domain where you have expertise or strong interest. This skill should solve a real problem you've experienced or observed:
-
-**Domain Categories**:
-
-- **Professional Services**: Legal document review, financial analysis, code review, technical writing
-- **Content Operations**: Social media scheduling, newsletter writing, content moderation, SEO optimization
-- **Data Processing**: Sales pipeline analysis, customer segmentation, report generation, data validation
-- **System Operations**: Log analysis, configuration validation, performance monitoring, security compliance
-- **Creative**: Image description, metadata generation, caption writing, style adaptation
-
-**Real Examples**:
-
-- **Legal Brief Analyzer**: Ingest case documents, extract relevant precedents, summarize arguments, flag contradictions
-- **Sales Data Processor**: Import sales data, identify anomalies, segment customers, forecast pipeline
-- **Code Review Enforcer**: Check PRs against team standards, catch security issues, suggest improvements
-- **Content Quality Inspector**: Validate blog posts for SEO, readability, brand consistency, factual accuracy
-
-Pick something specific. "Data processing tool" is too vague. "CSV sales data analyzer that identifies top performers, flags stagnant accounts, and generates forecasts" is right-sized.
-
-### Write Your Specification
-
-Create a `skill-spec.md` that answers these questions:
-
-#### Intent (The Customer Problem)
+Write this to a file (skill-spec.md) or document:
 
 ```markdown
-## Intent
-
-**What customer problem does this skill solve?**
-
-A [company type] needs to [specific business outcome] but currently [current friction]. This skill [specific solution] enabling them to [measurable business result].
-
-**Example:**
-Sales teams need to identify which accounts are growing vs stagnating to prioritize outreach. Currently, managers spend 4-6 hours weekly manually reviewing spreadsheets. This skill analyzes customer transaction history, flags trends, and generates weekly reports in 5 minutes, freeing managers for strategy.
-
-**Why customers would buy:**
-- [Time saved per week/month]
-- [Cost reduction: (current cost) → (new cost)]
-- [Risk reduced: (current failure rate) → (new failure rate)]
-- [Revenue impact: (new revenue opportunity OR cost avoidance)]
-```
-
-#### Success Criteria (How You'll Know It Works)
-
-Define 5-7 measurable success criteria that a customer would use to evaluate if the skill works:
-
-```markdown
-## Success Criteria
-
-- Accuracy: [specific metric] achieved on test data (e.g., "Correctly identifies 95%+ of anomalies in clean data")
-- Speed: [completes in X time] (e.g., "Processes 1000 records in under 30 seconds")
-- Reliability: [uptime or error rate] (e.g., "Handles 99%+ of real-world data formats without crashes")
-- Completeness: [coverage metric] (e.g., "Generates all required report fields with no missing values")
-- Safety: [risk mitigation] (e.g., "Flags confidence levels <80% for manual review before acting")
-- Integration: [system compatibility] (e.g., "Imports from Salesforce, HubSpot, and CSV formats")
-- Learning: [improvement mechanism] (e.g., "Generates error logs enabling continuous pattern improvement")
-```
-
-#### Constraints (What's NOT Included)
-
-Define explicit boundaries—what this skill does NOT do:
-
-```markdown
-## Constraints (Non-Goals)
-
-- Does NOT: Real-time decision-making (only batch processing)
-- Does NOT: Modify source data (analysis only, read-only)
-- Does NOT: Handle unstructured text (CSV/database inputs only)
-- Does NOT: Provide legal interpretation (flags issues, humans decide)
-
-Why: [reasoning for each boundary]
-```
-
-#### Acceptance Tests (Proof of Success)
-
-Write concrete test cases proving each success criterion:
-
-```markdown
-## Acceptance Tests
-
-### Test 1: Accuracy on Clean Data
-Input: [clean_data.csv with known patterns]
-Expected: [specific output meeting criterion]
-Pass/Fail Criteria: [measurable validation rule]
-
-### Test 2: Robustness to Missing Values
-Input: [data_with_nulls.csv]
-Expected: [skill either fills intelligently or flags for review]
-Pass/Fail Criteria: [specific error handling rule]
-
-### Test 3: Performance at Scale
-Input: [1000_records.csv]
-Expected: [completes in <30 seconds]
-Pass/Fail Criteria: [timing measurement]
-
-### Test 4: Integration with MCP
-Input: [real-world data from Salesforce MCP]
-Expected: [processes without format errors]
-Pass/Fail Criteria: [data shape validation]
-
-### Test 5: Error Recovery
-Input: [malformed_data.csv]
-Expected: [skill detects issue, suggests fix, asks for confirmation]
-Pass/Fail Criteria: [user can recovery without restarting]
-```
-
-#### Architecture (Which Skills Compose)
-
-Map which skills from Lessons 1-7 you'll use:
-
-```markdown
-## Architecture
-
-### Component 1: Data Ingestion (Lesson 4 - MCP Wrapping)
-- Which MCP? [e.g., "Salesforce connector MCP from Chapter 37"]
-- Skill wrapping it: [e.g., "sales-data-fetcher skill"]
-- What it does: Fetches data, validates format, transforms to internal schema
-
-### Component 2: Data Analysis (Lesson 6 - Script Execution)
-- Script type: [Python, Bash, SQL]
-- Skill orchestrating it: [e.g., "anomaly-detector skill"]
-- What it does: Runs analysis script, catches errors, retries on failure
-
-### Component 3: Workflow Coordination (Lesson 7 - Orchestration)
-- Master skill: [e.g., "sales-analyzer orchestrator"]
-- Coordination: Calls Component 1 → Component 2 → generates report
-- Error recovery: If Component 2 fails, Component 3 retries with constraints
-
-### Data Flow
-[Diagram showing: MCP Input → Component 1 → Component 2 → Component 3 → Output]
-```
-
-## Phase 2: Skill Composition
-
-With specification complete, design how components integrate.
-
-### Map Component Dependencies
-
-Which skills call which?
-
-```
-orchestrator-skill (master coordinator)
-├─ mcp-wrapping-skill (data source)
-│  └─ Context7 MCP (external data)
-├─ script-execution-skill (analysis)
-│  └─ Python code generation
-└─ validation-skill (error checking)
-   └─ Test data against spec
-```
-
-### Design Data Contracts
-
-How does each skill accept/produce data?
-
-```markdown
-## Data Contracts
-
-### MCP-Wrapping Skill Input/Output
-Input: {source: "salesforce", filters: {...}}
-Output: {records: [...], schema: {...}, validation_passed: bool}
-
-### Script-Execution Skill Input/Output
-Input: {data: [...], analysis_type: "anomaly_detection", params: {...}}
-Output: {results: [...], errors: [...], iterations: n}
-
-### Orchestrator Skill Input/Output
-Input: {customer_id: "...", report_type: "weekly", confidence_threshold: 0.8}
-Output: {report: {...}, success: bool, issues_requiring_human_review: [...]}
-```
-
-### Define Error Recovery Paths
-
-What happens when each component fails?
-
-```markdown
-## Error Recovery Strategy
-
-### If MCP Fails (Network timeout, auth issue)
-→ Retry 3x with exponential backoff
-→ If still failing, return cached data (if available) with staleness warning
-→ If no cache, escalate to human with actionable error
-
-### If Script Execution Fails (Bad data format)
-→ Log specific error message
-→ Generate corrected input (remove nulls, handle encoding)
-→ Retry script execution with modified input
-→ If still failing after 3 iterations, flag for manual review
-
-### If Orchestrator Detects Inconsistency
-→ Example: Analysis claims "high growth" but raw data shows decline
-→ Generate diagnostic to investigate root cause
-→ Present both interpretations to user
-→ Ask user to validate which interpretation is correct
-```
-
-## Phase 3: Specification → Implementation
-
-Now you have a clear spec. Time to build.
-
-### Create the Skill Implementation
-
-Work with AI to implement your SKILL.md file that orchestrates all components:
-
-```yaml
----
-name: "your-domain-skill"
-version: "1.0.0"
-description: "[From your spec intent]"
-proficiency_level: "B2"
-category: "Applied"
----
-
-# Persona
-
-You are a [domain] execution orchestrator. Your job is to:
-
-1. Accept customer specifications from intent above
-2. Invoke appropriate data sources (MCP-wrapping skill)
-3. Execute analysis (script-execution skill)
-4. Validate results against success criteria
-5. Generate human-readable output
-6. Flag confidence issues for human review
-7. Iterate if partial success until spec satisfaction
-
-...
-```
-
-### Test Each Component
-
-Before testing the full orchestration, validate each component works:
-
-1. **MCP Component**: Does it fetch data correctly?
-2. **Script Component**: Does it analyze data without errors?
-3. **Validation Component**: Does it catch actual problems?
-4. **Integration**: When combined, does data flow correctly between components?
-
-### Document Implementation Decisions
-
-As you build, document why you made each architectural choice:
-
-```markdown
-## Implementation Notes
-
-### Why we chose [MCP X] over [MCP Y]
-- Comparison: [criteria]
-- Decision: X provides [advantage] that Y lacks
-
-### Why error recovery retries 3x maximum
-- Risk: Infinite loops would timeout
-- Benefit: 3x usually sufficient for transient failures
-- Tradeoff: Some failures might need manual intervention
-
-### Why we validate output against original spec
-- Purpose: Ensure analysis actually answers customer question
-- Example: If spec asked for "anomalies" and we found "seasonal patterns", both valid but different
-```
-
-## Phase 4: Acceptance Testing & Validation
-
-Production readiness means: **Every acceptance test passes**. No exceptions.
-
-### Run Full Acceptance Test Suite
-
-Execute each test case from your spec:
-
-```markdown
-## Test Results
-
-### Test 1: Accuracy on Clean Data
-- Input: clean_data.csv (100 records)
-- Expected: 95%+ anomaly detection accuracy
-- Actual: ✓ PASS (97.2% accuracy)
-
-### Test 2: Robustness to Missing Values
-- Input: data_with_nulls.csv (50 records, 15% nulls)
-- Expected: Handles nulls intelligently
-- Actual: ✓ PASS (Imputes using mean, documents assumptions)
-
-### Test 3: Performance at Scale
-- Input: 1000_records.csv
-- Expected: <30 seconds
-- Actual: ✓ PASS (24.3 seconds)
-
-### Test 4: Integration with MCP
-- Input: Real Salesforce data
-- Expected: Processes without format errors
-- Actual: ✓ PASS (5 test runs, 0 format failures)
-
-### Test 5: Error Recovery
-- Input: malformed_data.csv (bad encoding)
-- Expected: Detects error, asks user
-- Actual: ✓ PASS (Error caught, user prompted, recovery successful)
-```
-
-### Document Any Spec Gaps
-
-If testing reveals issues, update specification:
-
-```markdown
-## Discovered During Validation
-
-### Issue 1: Specification was unclear about timezone handling
-- Original: "Process timestamps from multiple regions"
-- Realized: Didn't specify how to normalize timezones
-- Updated Spec: "Normalize all timestamps to UTC before analysis, document source timezone in output"
-- Test Added: Verify timezone conversion accuracy
-
-### Issue 2: Edge case not covered: Empty dataset
-- Original spec didn't mention: "What if data has 0 records?"
-- Solution: Return empty results with explanatory message
-- Updated spec: "If input has <1 record, return {success: true, records_processed: 0, message: '...'}"
-```
-
-## Phase 5: Production Packaging
-
-Now package the skill for customers to use.
-
-### Create Customer Documentation
-
-Write a simple guide customers will use:
-
-```markdown
-# [Your Skill] User Guide
-
-## What This Does
-
-[2-3 sentence summary of business value]
-
-## What You Need
-
-- Input data format: [CSV / database connection / API]
-- Required fields: [column names or schema]
-- Recommended data size: [e.g., "Works best with 100-10,000 records"]
-
-## How to Use It
-
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-## Understanding Results
-
-[Explain key fields in output]
-
-## Troubleshooting
-
-**Problem**: [Common failure scenario]
-**Solution**: [How to fix]
-
-## Support
-
-Contact: [your email]
-Response time: [e.g., "24 hours"]
-```
-
-### Version Your Skill
-
-Use semantic versioning:
-
-```yaml
-version: "1.0.0"  # Major.Minor.Patch
-# Major: Breaking changes to input/output format
-# Minor: New features that are backward compatible
-# Patch: Bug fixes
-```
-
-### Create Installation Instructions
-
-How does a customer deploy this skill?
-
-```markdown
-## Installation
-
-### Option 1: Claude Code (Recommended)
-1. Save this SKILL.md file to ~/.claude/skills/your-domain-skill/SKILL.md
-2. In Claude Code, type: /skill-list to see your new skill
-3. Activate it: /skill-activate your-domain-skill
-4. Test it: Ask Claude "Help me analyze my data with your-domain-skill"
-
-### Option 2: Custom Integration
-[For customers integrating with their own LLM provider]
-```
-
-## Phase 6: Digital FTE Positioning
-
-Finally, position this skill as a product.
-
-### Identify Your Customer
-
-Who would pay for this?
-
-```markdown
-## Customer Profile
-
-### Primary Segment
-- Title: [e.g., "Sales Manager at B2B SaaS companies"]
-- Pain point: [specific problem they face]
-- Current solution: [what they do today, poorly]
-- Budget: [How much would they pay monthly/annually?]
-
-### Secondary Segments
-[Other customer types who might benefit]
-```
-
-### Articulate Business Value
-
-Why should customers choose your skill over alternatives?
-
-```markdown
-## Value Proposition
-
-**Problem**: [Customer's current pain]
-**Our solution**: [What this skill does]
-**Outcome**: [Specific business result]
-**Differentiation**: [Why ours is better than]
-- Alternative 1: [comparison on key dimension]
-- Alternative 2: [comparison on key dimension]
-
-### ROI Calculation
-- Time saved per week: [X hours]
-- Cost per hour: [$Y]
-- Monthly savings: [X × Y × 4.33 weeks = $Z]
-- Skill cost: [$P/month]
-- Payback period: [Z/P months]
-```
-
-### Select Monetization Model
-
-Choose how you'll charge:
-
-```markdown
-## Monetization Model
-
-### Option 1: Subscription
-- Price: $[X]/month or $[Y]/year
-- Users included: [1 / unlimited]
-- Data volume: [up to X records/month]
-- Pros: Predictable revenue, customer lock-in
-- Cons: Requires ongoing support
-
-### Option 2: Success Fee
-- Price: [X%] of business value generated
-- Example: "2% of monthly savings" or "5% of revenue increase"
-- Pros: Aligned incentives, higher ceiling
-- Cons: Requires tracking customer results
-
-### Option 3: License
-- Price: $[X] one-time fee for unlimited use
-- Pros: Simple, customer owns it
-- Cons: No recurring revenue
-
-### Recommendation
-[Which model fits this skill best and why?]
-```
-
-### Design Go-to-Market
-
-How will customers find and adopt your skill?
-
-```markdown
-## Go-to-Market Strategy
-
-### Positioning
-"[Your skill] is the [category] for [audience] that [specific benefit]."
-
-Example: "sales-analyzer is the revenue intelligence tool for B2B SaaS sales leaders that identifies growth opportunities in 5 minutes instead of 5 hours."
-
-### Customer Acquisition
-1. [Channel 1]: [Tactic]
-   - Target: [Who you'll reach]
-   - Cost: [acquisition cost]
-   - Conversion: [estimated %]
-
-2. [Channel 2]: [Tactic]
-
-### Success Metrics
-- Month 1: [X customers]
-- Month 3: [X customers]
-- Month 6: [X customers]
-- Target: [$Y MRR by month 12]
-```
-
-## Try With AI: Build Your Capstone Skill
-
-This is where you move from learning patterns to building products.
-
-### Prompt 1: Specification Refinement
-
-Ask AI to review your domain choice and help sharpen your specification:
-
-```
-I'm building a Digital FTE in [domain] that solves [customer problem].
-
-My current specification:
-- Intent: [your intent statement]
-- Success criteria: [your success criteria]
-- Non-goals: [your constraints]
-
-Review my specification. Is it:
-1. Specific enough that you could implement without asking clarifying questions?
-2. Focused enough (not trying to solve everything)?
-3. Measurable (could you write a test that proves it works)?
-
-If any answer is "no", what's missing from my specification?
-```
-
-**What you're learning**: How clear specifications prevent implementation rework. Vague specs require clarification loops; clear specs compile cleanly.
-
-### Prompt 2: Architecture Design
-
-Have AI help you design which skills compose together:
-
-```
-I need to compose skills from Chapter 39 into an orchestrator that implements my specification above.
-
-The skills I have available:
-- Lesson 1: [Advanced Skill Patterns]
-- Lesson 2: [Skill Composition patterns]
-- Lesson 3-4: [MCP-wrapping skill for my data source]
-- Lesson 5-6: [Script-execution skill for my analysis]
-- Lesson 7: [Orchestration skill combining them]
-
-Design an architecture showing:
-1. Which skills I should compose
-2. Data flow between them
-3. Error recovery if any component fails
-4. How each component validates its output before passing to next
-
-Draw a diagram using ASCII or describe in text.
-```
-
-**What you're learning**: Composition thinking—reusing tested components rather than building from scratch. This is Digital FTE production practice.
-
-### Prompt 3: Implementation & Testing
-
-Ask AI to help implement while you validate each decision:
-
-```
-Implement my orchestrator skill (SKILL.md) that composes the architecture above.
-
-As you implement, explain:
-1. Why you chose this persona for the orchestrator
-2. What decision questions activate autonomous behavior
-3. How error recovery paths will work in practice
-4. Which parts need explicit safety constraints
-
-Then, let's test it against my acceptance criteria:
-[Paste your 5-7 success criteria]
-
-Create a test plan showing which tests validate which criteria.
-```
-
-**What you're learning**: How specifications drive implementation. AI uses your spec to make decisions without ambiguity. If it needs to guess, your spec was incomplete.
-
-### Prompt 4: Validation & Gap Analysis
-
-Run your tests and document what happens:
-
-```
-I ran my skill against my test data with these results:
-
-[Paste your test results]
-
-Issues discovered:
-1. [Issue 1 and what caused it]
-2. [Issue 2 and what caused it]
-
-For each issue, should I:
-- Fix the skill implementation?
-- Update the specification to be more accurate?
-- Both?
-
-Help me update either the spec or the implementation to make all tests pass.
-```
-
-**What you're learning**: The specification ↔ implementation feedback loop. Tests reveal gaps in both. Fixing only the code misses the root cause (underspecified requirements).
-
-### Prompt 5: Business Positioning
-
-Finally, articulate why someone would pay for this:
-
-```
-I've built a working Digital FTE that [what it does]. Now help me position it as a product:
-
-1. What customer segment has the most acute version of this problem?
-2. What's the annual cost of them NOT having this solution? (time wasted, missed revenue, etc.)
-3. What would be a fair price that captures 20-30% of that value?
-4. What should my go-to-market strategy focus on (direct sales, self-serve, marketplace)?
-5. What's one surprising use case for this skill that customers might not think of?
-
-Use this to help me write a positioning statement and pricing proposal.
-```
-
-**What you're learning**: Digital FTEs aren't just technical products—they're customer solutions. This prompt teaches the business side of the agent economy.
-
-### Success Criteria (Validation Checklist)
-
-Your capstone is complete when:
-
-**Specification Phase:**
-- [ ] Spec clearly describes a customer problem, not a technology exercise
-- [ ] Success criteria are measurable (could write automated tests)
-- [ ] Constraints explicitly define what's NOT included
-- [ ] Architecture diagram shows 3+ composed skills from Lessons 1-7
-
-**Implementation Phase:**
-- [ ] Skill implementation based on spec (not invented during coding)
-- [ ] Each component (MCP, script, orchestration) tested independently
-- [ ] Implementation decisions documented with reasoning
-- [ ] Skill version defined using semantic versioning
-
-**Validation Phase:**
-- [ ] All acceptance tests designed before implementation
-- [ ] All acceptance tests run and documented (pass/fail)
-- [ ] Any spec gaps discovered during testing are documented and remediated
-- [ ] Results prove skill meets original specification
-
-**Production Phase:**
-- [ ] Customer-facing documentation complete (not internal jargon)
-- [ ] Installation instructions for both Claude Code and custom integrations
-- [ ] Troubleshooting guide addresses common failure modes
-- [ ] Version control / release notes prepared
-
-**Business Phase:**
-- [ ] Customer profile clearly defined (title, problem, budget)
-- [ ] ROI calculation shows when customers break even on investment
-- [ ] Monetization model selected with reasoning (subscription/success-fee/license)
-- [ ] Go-to-market positioning statement (single sentence describing what/for-whom/why)
-
-### Reference: Capstone Skill Template
-
-If you get stuck, use this template:
-
-```markdown
----
-name: "my-digital-fte-skill"
-version: "1.0.0"
-description: "Production-ready skill orchestrating code execution pattern"
-proficiency_level: "B2"
----
-
-# Specification
+# CSV Analysis Skill Specification
 
 ## Intent
-[2-3 sentences describing customer problem and solution]
+[What does this skill do? Be specific about the business problem it solves]
+
+## Input
+- data_file: [type and format, e.g., "CSV with columns: customer_id, purchase_date, amount"]
+- parameters: [what configuration does skill accept?]
+
+## Output
+- format: [JSON, CSV, report?]
+- required_fields: [exact fields that must be in output]
+- validation_rules: [how to verify output is correct]
 
 ## Success Criteria
-1. [Measurable criterion 1]
-2. [Measurable criterion 2]
-3. [Measurable criterion 3]
+- All data processed without loss
+- Output format exactly matches specification
+- Edge cases handled gracefully (malformed rows, missing values, etc.)
+- Execution completes within 30 seconds
 
-## Non-Goals
-- Does NOT: [explicit boundary 1]
-- Does NOT: [explicit boundary 2]
+## Edge Cases to Handle
+- [Case 1: e.g., "Empty CSV file"]
+- [Case 2: e.g., "Missing column header"]
+- [Case 3: e.g., "Non-numeric values in amount field"]
+```
 
-## Architecture
-[Component 1] → [Component 2] → [Component 3] → Output
+**Key principle**: Your specification must be complete enough that AI can generate correct code without additional context. If your spec is vague, the generated code will be equally vague.
 
-# Persona
+## Step 2: Design Your Skill's Persona and Questions
 
-You are a [domain] orchestrator that:
-1. [Action 1]
-2. [Action 2]
-3. [Action 3]
+Before building, define how your skill thinks about this problem.
 
-# Questions
+```yaml
+# Skill Persona
+persona: |
+  You are a data orchestrator: your role is to write Python scripts that
+  process data robustly. When you encounter errors, you read the error message
+  carefully, understand why the code failed, and generate corrected code.
+  You validate results against the specification. You handle edge cases explicitly
+  rather than hoping they don't occur.
 
-- [Question 1: What analysis is needed?]
-- [Question 2: What data validates success?]
-- [Question 3: What errors require human intervention?]
+questions:
+  - "What does the data structure look like? (columns, data types, edge cases)"
+  - "What transformation or analysis does the specification require?"
+  - "What output format must the code produce?"
+  - "What validation proves the output is correct?"
+  - "What edge cases are most likely to occur in real data?"
 
-# Principles
+principles:
+  - "Validate data before processing: Check columns exist, types are correct"
+  - "Fail explicitly: Raise errors with clear messages rather than silently producing wrong results"
+  - "Test assumptions: Don't assume column names; inspect actual data first"
+  - "Document the transformation: Add comments explaining the logic"
+```
 
-- [Principle 1: Safety/Reliability]
-- [Principle 2: Completeness]
+## Step 3: Build the Skill Core with AI Collaboration
 
-# Implementation
+Now you're going to build this skill with AI. You'll test code, discover error patterns you hadn't anticipated, and learn what your actual data requires. As you iterate, the skill improves—not because you're following a formula, but because specification-driven feedback drives real improvements.
 
-[Your skill implementation details]
+### Part A: Generate Initial Implementation
 
-# Business Positioning
+**Your prompt to AI:**
 
-- **Customer**: [Who pays]
-- **Problem**: [What pain]
-- **Value**: [Specific outcome]
+```
+I'm building a skill that processes CSV data. Here's my specification:
+
+[PASTE YOUR SPEC]
+
+Generate a Python skill implementation that:
+1. Reads the CSV file
+2. Validates the data structure (check columns, types)
+3. Performs the required transformation/analysis
+4. Returns results in the specified format
+5. Includes error handling for common CSV issues
+
+The code should be production-quality (defensive, not assuming data format).
+```
+
+AI will generate code. Study it. Does it match your specification?
+
+**Critical evaluation**:
+- Does the code check for expected columns before using them?
+- Does it handle missing/null values?
+- Does it validate the output format matches your spec?
+
+**Document what you notice**:
+```
+Things I observe:
+- [Good pattern in the approach]
+- [Assumption that might not hold]
+- [Edge case not addressed yet]
+```
+
+Use these observations to guide your feedback to AI when iterating.
+
+### Part B: Test with Real Data
+
+Get or create sample CSV data that matches your specification's expected format.
+
+**Run the generated code**:
+
+```python
+# Save AI-generated code to analysis.py
+# Create test_data.csv with sample data
+# Run it
+
+python analysis.py test_data.csv
+```
+
+**What happens**?
+- ✓ Success: Output matches specification → Great! Move to Part C
+- ✗ Syntax Error: Code won't even parse
+- ✗ Runtime Error: Code runs but crashes (KeyError, TypeError, etc.)
+- ✗ Logic Error: Code runs, output is wrong or incomplete
+
+### Part C: Recover from Errors
+
+This is where error recovery becomes visible.
+
+**If you got a syntax error:**
+
+```
+Show AI the error:
+"Here's my code:
+[show problematic section]
+
+Error: [paste error message]
+
+What's wrong and how do I fix it?"
+```
+
+AI explains and provides corrected code.
+
+**If you got a runtime error:**
+
+```
+Show AI the error:
+"The code crashed with:
+[error message and traceback]
+
+What does this error mean?
+What assumption did the code make that's wrong?
+How should I fix it to handle real data?"
+```
+
+**If output is wrong/incomplete:**
+
+```
+"My spec requires [required output].
+My code produces [what it actually produces].
+
+What's missing? How should the code be changed to match the spec?"
+```
+
+### Part D: Iterate Until Convergence
+
+Keep improving until:
+
+✓ Code runs without errors
+✓ Output matches your specification exactly
+✓ Edge cases are handled (test with malformed data)
+✓ Execution completes within time limit
+
+**Test with multiple scenarios:**
+
+```python
+# Test 1: Clean data (happy path)
+python analysis.py clean_data.csv
+
+# Test 2: Missing columns
+python analysis.py missing_columns.csv
+
+# Test 3: Non-numeric values where numeric expected
+python analysis.py malformed_data.csv
+
+# Test 4: Empty file
+python analysis.py empty.csv
+
+# Test 5: Large file (check performance)
+python analysis.py large_data.csv
+```
+
+For each test, document:
+- Did it run without error? (Yes/No)
+- Does output match spec format? (Yes/No)
+- Are edge cases handled gracefully? (Yes/No)
+
+## Step 4: Build the Iteration Loop (The Skill Automating the Pattern)
+
+Now that you've manually gone through the loop, you're going to build a skill that does this automatically.
+
+**Your skill needs these components:**
+
+```python
+def build_analysis_skill():
+    """
+    The full script-execution skill that orchestrates:
+    1. Generate code from spec
+    2. Execute the code
+    3. Check for errors
+    4. Generate fixes if needed
+    5. Iterate until convergence
+    """
+
+    # Component 1: Code Generation
+    def generate_code(specification: str) -> str:
+        """Generate Python code from specification using AI"""
+        # Prompt AI with: "Given this spec: [spec],
+        # write complete Python code that implements it"
+        # Return the generated code
+        pass
+
+    # Component 2: Code Execution
+    def execute_code(code: str, input_file: str, timeout: int = 30) -> tuple[bool, str, str]:
+        """Execute code, return (success, output, error_message)"""
+        # Run code with subprocess
+        # Capture stdout, stderr
+        # Return results with timeout protection
+        pass
+
+    # Component 3: Error Analysis
+    def analyze_error(error_message: str, code: str) -> str:
+        """Understand what went wrong"""
+        # Parse error type (SyntaxError, RuntimeError, etc.)
+        # Extract the problematic line
+        # Return clear analysis of the issue
+        pass
+
+    # Component 4: Fix Generation
+    def generate_fix(error_analysis: str, code: str, spec: str) -> str:
+        """Generate corrected code"""
+        # Prompt AI: "This code failed with: [error]
+        # Here's the problem: [analysis]
+        # The spec is: [spec]
+        # Generate corrected code that fixes this"
+        pass
+
+    # Component 5: Convergence Check
+    def check_convergence(output: str, spec: dict) -> bool:
+        """Does output satisfy the specification?"""
+        # Validate: all required fields present
+        # Validate: output format correct
+        # Validate: no error messages in output
+        # Return True if spec is satisfied
+        pass
+
+    # Component 6: Main Iteration Loop
+    def execute_skill(specification: str, input_file: str) -> str:
+        """Main skill that orchestrates everything"""
+        max_iterations = 5
+        iteration = 0
+        code = None
+
+        while iteration < max_iterations:
+            iteration += 1
+
+            if iteration == 1:
+                # First iteration: generate from spec
+                code = generate_code(specification)
+
+            # Execute the code
+            success, output, error = execute_code(code, input_file)
+
+            if success and check_convergence(output, spec):
+                # ✓ Converged! Specification is satisfied
+                return output
+
+            if not success:
+                # ✗ Error occurred
+                analysis = analyze_error(error, code)
+                code = generate_fix(analysis, code, specification)
+                # Loop continues, retry with fixed code
+
+            elif not check_convergence(output, spec):
+                # ✗ Output doesn't match spec
+                fix_request = f"Output is incomplete: {output}.
+                               Required by spec: {spec}. Generate code that adds missing parts."
+                code = generate_fix(fix_request, code, specification)
+                # Loop continues, retry with improved code
+
+        # If we get here, max iterations reached without converging
+        raise RuntimeError(f"Failed to converge after {max_iterations} iterations")
+```
+
+## Step 5: Implementation Guidance with AI
+
+You're going to build this skill using AI, but testing and validating each component.
+
+### Get AI Help Building the Iteration Loop
+
+```
+I'm building a Python skill that generates code, executes it, and iterates
+until a specification is satisfied.
+
+Here's my specification:
+[PASTE YOUR SPEC]
+
+Here's my first attempt at code generation and execution:
+[PASTE YOUR MANUAL CODE FROM STEP 3-4]
+
+Now I need to build an automated loop that:
+1. Generates code once (given spec)
+2. Executes code (capture output/errors, 30-second timeout)
+3. If error: analyze error, prompt you to generate fixed code
+4. If output doesn't match spec: prompt you to improve code
+5. Check convergence (spec is satisfied) → Stop
+6. Repeat until convergence or 5 iterations max
+
+Show me how to structure this as a Python class/functions.
+Include error handling, timeout protection, and convergence checking.
+```
+
+### Build Convergence Validation
+
+This is critical. Your skill must STOP when the specification is satisfied.
+
+```python
+def convergence_check(output: str, specification: dict) -> dict:
+    """
+    Validate whether output satisfies specification.
+    Returns: {
+        'converged': bool,
+        'missing': [list of unsatisfied requirements],
+        'issues': [any problems found]
+    }
+    """
+    results = {
+        'converged': True,
+        'missing': [],
+        'issues': []
+    }
+
+    # Check all required fields are present
+    for field in specification.get('output', {}).get('required_fields', []):
+        if field not in output:
+            results['missing'].append(f"Field missing: {field}")
+            results['converged'] = False
+
+    # Check output format (if JSON specified)
+    if specification.get('output', {}).get('format') == 'JSON':
+        try:
+            json.loads(output)
+        except:
+            results['issues'].append("Output is not valid JSON")
+            results['converged'] = False
+
+    # Add domain-specific validation based on your spec
+    # Example: if analyzing customers, verify segments exist
+    if 'required_segments' in specification:
+        for segment in specification['required_segments']:
+            if segment not in output:
+                results['missing'].append(f"Segment missing: {segment}")
+                results['converged'] = False
+
+    return results
+```
+
+### Add Timeout and Resource Protection
+
+```python
+import subprocess
+import signal
+
+def execute_code_safely(code: str, input_file: str, timeout: int = 30) -> tuple[bool, str, str]:
+    """
+    Execute Python code with timeout and error capture.
+    Returns: (success: bool, output: str, error: str)
+    """
+    # Write code to temporary file
+    with open('_temp_analysis.py', 'w') as f:
+        f.write(code)
+
+    try:
+        # Run with timeout
+        result = subprocess.run(
+            ['python', '_temp_analysis.py', input_file],
+            capture_output=True,
+            text=True,
+            timeout=timeout
+        )
+
+        if result.returncode == 0:
+            # Success
+            return (True, result.stdout, '')
+        else:
+            # Execution failed
+            return (False, result.stdout, result.stderr)
+
+    except subprocess.TimeoutExpired:
+        return (False, '', 'TimeoutError: Execution exceeded 30 seconds')
+    except Exception as e:
+        return (False, '', f'ExecutionError: {str(e)}')
+```
+
+## Step 6: Test Your Skill Against Edge Cases
+
+Your skill should handle:
+
+### Test 1: Clean Data (Happy Path)
+
+```python
+skill = ScriptExecutionSkill(
+    specification=your_spec,
+    input_file='clean_data.csv'
+)
+
+result = skill.execute()
+assert result is not None
+assert 'error' not in result.lower()
+```
+
+**Expected**: Succeeds on first iteration
+
+### Test 2: Malformed Data (Edge Case)
+
+```python
+# CSV with missing columns, non-numeric values, etc.
+result = skill.execute(input_file='malformed_data.csv')
+
+# Skill should detect error, fix code, retry
+assert 'error' not in result.lower()  # After recovery, still valid
+```
+
+**Expected**: Skill generates fix after detecting error
+
+### Test 3: Empty File (Non-Recoverable)
+
+```python
+result = skill.execute(input_file='empty.csv')
+
+# This SHOULD fail (non-recoverable)
+assert result is None or 'error' in result.lower()
+```
+
+**Expected**: Skill recognizes this is non-recoverable, stops gracefully
+
+### Test 4: Timeout Scenario
+
+```python
+# Spec with large data processing that might timeout
+result = skill.execute(input_file='large_data.csv', timeout=5)
+
+# Skill should timeout gracefully, not hang
+assert 'timeout' in result.lower() or result is None
+```
+
+**Expected**: Skill times out, reports clearly
+
+## Step 7: Document Your Skill
+
+Real skills are documented for others to use.
+
+```markdown
+# CSV Analysis Skill
+
+## Purpose
+[What problem does this solve?]
+
+## Usage
+```python
+from my_skill import ScriptExecutionSkill
+
+skill = ScriptExecutionSkill(
+    specification={
+        'input': ['customers.csv'],
+        'output': {'format': 'JSON', 'required_fields': [...]},
+        'success_criteria': [...]
+    },
+    input_file='customers.csv'
+)
+
+result = skill.execute()
+print(result)
+```
+
+## How It Works
+1. Specification defines what code must do
+2. Skill generates Python code from spec
+3. Code executes against input file
+4. Errors trigger automatic fix generation
+5. Iteration continues until spec is satisfied or max retries reached
+
+## Success Metrics
+- Execution time: < 30 seconds
+- Convergence rate: 95%+ (passes with clean data)
+- Edge case handling: Gracefully recovers or fails clearly
+
+## Known Limitations
+- [What doesn't it handle?]
+- [When should you use something else?]
 ```
 
 ---
 
-### What This Capstone Teaches
+## Try With AI
 
-This capstone represents mastery of one critical truth: **In the agent economy, your value is not your code. Your value is your specification and your composition skills.**
+Now you'll refine your skill with AI collaboration, focused on error recovery and robustness.
 
-You've now learned that the developers who build billion-dollar AI businesses are exactly those who:
+### Prompt 1: Design Error Recovery Patterns
 
-1. **Write clear specifications** that prevent ambiguity
-2. **Compose reusable intelligence** rather than reinventing patterns
-3. **Validate ruthlessly** through acceptance testing
-4. **Position strategically** as products with customer value
+```
+I've built a skill that generates Python code from specifications and
+executes it. It encounters three types of errors:
 
-You just completed all four. This skill is now deployable—it could be sold as-is through subscription, license, or success-fee model. Scale this process across multiple skills, and you're building the Digital FTE empire that will define the next decade of software.
+1. Syntax errors (code won't parse)
+2. Runtime errors (code crashes during execution)
+3. Logic errors (code runs but output is wrong)
+
+For each error type, help me design the recovery strategy:
+
+**Syntax errors**:
+- How should I prompt you to generate fixed code?
+- What context should I provide?
+
+**Runtime errors**:
+- How should I parse the error message?
+- What information helps you generate a better fix?
+
+**Logic errors**:
+- How do I detect these (they don't produce error messages)?
+- How should I describe the problem to you?
+
+Show me the exact prompts I should use for each type.
+```
+
+**What you're learning**: How to design prompts that help AI generate fixes, not just resuggest the same broken code.
+
+### Prompt 2: Implement Convergence Testing
+
+```
+My specification requires these success criteria:
+[PASTE YOUR CRITERIA FROM YOUR SPEC]
+
+I need a function that validates whether code output satisfies these criteria.
+
+For each criterion, what should the validation check?
+- How do I verify the output format is correct?
+- How do I verify all required fields are present?
+- How do I detect if the output is incomplete or wrong?
+
+Show me a Python function that validates all criteria and returns
+which ones passed, which ones failed, and what's missing.
+```
+
+**What you're learning**: How to translate specification requirements into automated validation that tells you exactly when to stop iterating.
+
+### Prompt 3: Test Your Skill with Intentional Failures
+
+```
+I want to test my skill's error recovery. Help me design test cases:
+
+**Test Case 1: Missing column**
+- Create CSV data where a required column is missing
+- Show me what error the generated code will produce
+- What should my skill do to recover?
+
+**Test Case 2: Wrong data type**
+- Create data where a numeric column contains text
+- Show the error this produces
+- How should the skill fix this?
+
+**Test Case 3: Timeout scenario**
+- What operation would cause a timeout?
+- How should my skill handle timeouts gracefully?
+
+For each test case, show me:
+1. The test data
+2. The error produced
+3. How my skill should recover
+```
+
+**What you're learning**: Testing is not about success cases—it's about understanding how your skill behaves when things break.
+
+### Prompt 4: Validate Convergence Against Diverse Inputs
+
+```
+My skill has processed the following test scenarios:
+
+**Test 1 - Clean data**: PASSED
+**Test 2 - Missing column**: RECOVERED (3 iterations)
+**Test 3 - Empty file**: FAILED (non-recoverable)
+**Test 4 - Malformed values**: RECOVERED (2 iterations)
+
+Based on these results:
+- Is my skill ready for production?
+- What patterns suggest robustness?
+- What edge cases might still break it?
+- What should I test next?
+
+Help me evaluate the skill's readiness.
+```
+
+**What you're learning**: Testing isn't a binary pass/fail. It's about understanding your skill's behavior patterns and building confidence in its robustness.
+
+---
+
+## Success Criteria
+
+Your skill is complete when:
+
+✓ **Specification is clear and complete** — AI can generate code from it without asking questions
+✓ **Code executes successfully on clean data** — Happy path works
+✓ **Error recovery works** — Syntax and runtime errors trigger fixes
+✓ **Convergence is detected** — Skill stops when spec is satisfied
+✓ **Edge cases are handled** — Tested with malformed, empty, large data
+✓ **Iteration limits work** — Skill stops after 5 attempts or timeout
+✓ **Skill is documented** — Someone else could use it
+
+Your skill will become a reusable component in Lesson 7 (orchestration) when you combine it with MCP-wrapping skills to create complete workflows.
+
+---
+
+**Takeaway**: You didn't just learn the write-execute-analyze loop—you built a skill that automates it. You discovered that error recovery isn't magic; it's specification clarity + intelligent prompting + convergence validation. In Lesson 7, you'll orchestrate this skill with MCP-wrapping skills to build complex workflows that combine code execution with external tools.

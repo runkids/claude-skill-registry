@@ -1,742 +1,348 @@
 ---
 name: cloudflare-kv
 description: |
-  Store key-value data globally with Cloudflare KV's edge network. Use when: caching API responses, storing configuration, managing user preferences, handling TTL expiration, or troubleshooting KV_ERROR, 429 rate limits, eventual consistency, or cacheTtl errors.
-license: MIT
+  Store key-value data globally with Cloudflare KV's edge network. Use when: caching API responses, storing configuration, managing user preferences, handling TTL expiration, or troubleshooting KV_ERROR, 429 rate limits, eventual consistency, cacheTtl errors, wrangler types issues, or remote binding configuration.
+user-invocable: true
 ---
 
 # Cloudflare Workers KV
 
 **Status**: Production Ready ✅
-**Last Updated**: 2025-10-21
+**Last Updated**: 2026-01-20
 **Dependencies**: cloudflare-worker-base (for Worker setup)
-**Latest Versions**: wrangler@4.43.0, @cloudflare/workers-types@4.20251014.0
+**Latest Versions**: wrangler@4.59.2, @cloudflare/workers-types@4.20260109.0
+
+**Recent Updates (2025)**:
+- **August 2025**: Architecture redesign (40x performance gain, <5ms p99 latency, hybrid storage with R2)
+- **April 2025**: Bulk reads API (retrieve up to 100 keys in single request, counts as 1 operation)
+- **January 2025**: Namespace limit increased (200 → 1,000 namespaces per account for Free and Paid plans)
 
 ---
 
 ## Quick Start (5 Minutes)
 
-### 1. Create KV Namespace
-
 ```bash
-# Create a new KV namespace
+# Create namespace
 npx wrangler kv namespace create MY_NAMESPACE
-
-# Output includes namespace_id - save this!
-# ✅ Success!
-# Add the following to your wrangler.toml or wrangler.jsonc:
-#
-# [[kv_namespaces]]
-# binding = "MY_NAMESPACE"
-# id = "<UUID>"
+# Output: [[kv_namespaces]] binding = "MY_NAMESPACE" id = "<UUID>"
 ```
 
-**For development (preview) namespace:**
-
-```bash
-npx wrangler kv namespace create MY_NAMESPACE --preview
-
-# Output:
-# [[kv_namespaces]]
-# binding = "MY_NAMESPACE"
-# preview_id = "<UUID>"
-```
-
-### 2. Configure Bindings
-
-Add to your `wrangler.jsonc`:
-
+**wrangler.jsonc:**
 ```jsonc
 {
-  "name": "my-worker",
-  "main": "src/index.ts",
-  "compatibility_date": "2025-10-11",
-  "kv_namespaces": [
-    {
-      "binding": "MY_NAMESPACE",          // Available as env.MY_NAMESPACE
-      "id": "<production-uuid>",           // Production namespace ID
-      "preview_id": "<preview-uuid>"       // Local dev namespace ID (optional)
-    }
-  ]
+  "kv_namespaces": [{
+    "binding": "MY_NAMESPACE",  // Access as env.MY_NAMESPACE
+    "id": "<production-uuid>",
+    "preview_id": "<preview-uuid>"  // Optional: local dev
+  }]
 }
 ```
 
-**Or use `wrangler.toml`:**
-
-```toml
-name = "my-worker"
-main = "src/index.ts"
-compatibility_date = "2025-10-11"
-
-[[kv_namespaces]]
-binding = "MY_NAMESPACE"
-id = "<production-uuid>"
-preview_id = "<preview-uuid>"  # optional
-```
-
-**CRITICAL:**
-- `binding` is how you access the namespace in code (`env.MY_NAMESPACE`)
-- `id` is the production namespace UUID
-- `preview_id` is for local dev (optional, separate namespace)
-- **Never commit real namespace IDs to public repos** - use environment variables or secrets
-
-### 3. Write Your First Key-Value Pair
-
+**Basic Usage:**
 ```typescript
-import { Hono } from 'hono';
-
-type Bindings = {
-  MY_NAMESPACE: KVNamespace;
-};
-
-const app = new Hono<{ Bindings: Bindings }>();
+type Bindings = { MY_NAMESPACE: KVNamespace };
 
 app.post('/set/:key', async (c) => {
-  const key = c.req.param('key');
-  const value = await c.req.text();
-
-  // Simple write
-  await c.env.MY_NAMESPACE.put(key, value);
-
-  return c.json({ success: true, key });
+  await c.env.MY_NAMESPACE.put(c.req.param('key'), await c.req.text());
+  return c.json({ success: true });
 });
 
 app.get('/get/:key', async (c) => {
-  const key = c.req.param('key');
-  const value = await c.env.MY_NAMESPACE.get(key);
-
-  if (!value) {
-    return c.json({ error: 'Not found' }, 404);
-  }
-
-  return c.json({ value });
+  const value = await c.env.MY_NAMESPACE.get(c.req.param('key'));
+  return value ? c.json({ value }) : c.json({ error: 'Not found' }, 404);
 });
-
-export default app;
-```
-
-### 4. Test Locally
-
-```bash
-# Start local development server
-npm run dev
-
-# In another terminal, test the endpoints
-curl -X POST http://localhost:8787/set/test -d "Hello KV"
-# {"success":true,"key":"test"}
-
-curl http://localhost:8787/get/test
-# {"value":"Hello KV"}
 ```
 
 ---
 
-## Complete Workers KV API
+## KV API Reference
 
-### 1. Read Operations
-
-#### `get()` - Read Single Key
+### Read Operations
 
 ```typescript
-// Get as string (default)
-const value: string | null = await env.MY_KV.get('my-key');
+// Get single key
+const value = await env.MY_KV.get('key');  // string | null
+const data = await env.MY_KV.get('key', { type: 'json' });  // object | null
+const buffer = await env.MY_KV.get('key', { type: 'arrayBuffer' });
+const stream = await env.MY_KV.get('key', { type: 'stream' });
 
-// Get as JSON
-const data: MyType | null = await env.MY_KV.get('my-key', { type: 'json' });
+// Get with cache (minimum 60s)
+const value = await env.MY_KV.get('key', { cacheTtl: 300 });  // 5 min edge cache
 
-// Get as ArrayBuffer
-const buffer: ArrayBuffer | null = await env.MY_KV.get('my-key', { type: 'arrayBuffer' });
+// Bulk read (counts as 1 operation)
+const values = await env.MY_KV.get(['key1', 'key2']);  // Map<string, string | null>
 
-// Get as ReadableStream
-const stream: ReadableStream | null = await env.MY_KV.get('my-key', { type: 'stream' });
-
-// Get with cache optimization
-const value = await env.MY_KV.get('my-key', {
-  type: 'text',
-  cacheTtl: 300, // Cache at edge for 5 minutes (minimum 60 seconds)
-});
+// With metadata
+const { value, metadata } = await env.MY_KV.getWithMetadata('key');
+const result = await env.MY_KV.getWithMetadata(['key1', 'key2']);  // Bulk with metadata
 ```
 
-#### `get()` - Read Multiple Keys (Bulk)
+### Write Operations
 
 ```typescript
-// Read multiple keys at once (counts as 1 operation)
-const keys = ['key1', 'key2', 'key3'];
-const values: Map<string, string | null> = await env.MY_KV.get(keys);
-
-// Access values
-const value1 = values.get('key1'); // string | null
-const value2 = values.get('key2'); // string | null
-
-// Convert to object
-const obj = Object.fromEntries(values);
-```
-
-#### `getWithMetadata()` - Read with Metadata
-
-```typescript
-// Get single key with metadata
-const { value, metadata } = await env.MY_KV.getWithMetadata('my-key');
-
-// value: string | null
-// metadata: any | null
-
-// Get as JSON with metadata
-const { value, metadata } = await env.MY_KV.getWithMetadata<MyType>('my-key', {
-  type: 'json',
-  cacheTtl: 300,
-});
-
-// Get multiple keys with metadata
-const keys = ['key1', 'key2'];
-const result: Map<string, { value: string | null, metadata: any | null }> =
-  await env.MY_KV.getWithMetadata(keys);
-
-for (const [key, data] of result) {
-  console.log(key, data.value, data.metadata);
-}
-```
-
-**Type Options:**
-- `text` (default) - Returns `string`
-- `json` - Parses JSON, returns `object`
-- `arrayBuffer` - Returns `ArrayBuffer`
-- `stream` - Returns `ReadableStream`
-
-**Note:** Bulk read with `get(keys[])` only supports `text` and `json` types. For `arrayBuffer` or `stream`, use individual `get()` calls with `Promise.all()`.
-
----
-
-### 2. Write Operations
-
-#### `put()` - Write Key-Value Pair
-
-```typescript
-// Simple write
+// Basic write (max 1/second per key)
 await env.MY_KV.put('key', 'value');
+await env.MY_KV.put('user:123', JSON.stringify({ name: 'John' }));
 
-// Write JSON
-await env.MY_KV.put('user:123', JSON.stringify({ name: 'John', age: 30 }));
+// With expiration
+await env.MY_KV.put('session', data, { expirationTtl: 3600 });  // 1 hour
+await env.MY_KV.put('token', value, { expiration: Math.floor(Date.now()/1000) + 86400 });
 
-// Write with expiration (TTL)
-await env.MY_KV.put('session:abc', sessionData, {
-  expirationTtl: 3600, // Expire in 1 hour (minimum 60 seconds)
-});
-
-// Write with absolute expiration
-const expirationTime = Math.floor(Date.now() / 1000) + 86400; // 24 hours from now
-await env.MY_KV.put('token', tokenValue, {
-  expiration: expirationTime, // Seconds since epoch
-});
-
-// Write with metadata
-await env.MY_KV.put('config:theme', 'dark', {
-  metadata: {
-    updatedAt: Date.now(),
-    updatedBy: 'admin',
-    version: 2
-  },
-});
-
-// Write with everything
-await env.MY_KV.put('feature:flags', JSON.stringify(flags), {
-  expirationTtl: 600,
-  metadata: { source: 'api', timestamp: Date.now() },
+// With metadata (max 1024 bytes)
+await env.MY_KV.put('config', 'dark', {
+  metadata: { updatedAt: Date.now(), version: 2 }
 });
 ```
 
-**CRITICAL Limits:**
-- **Key size**: Maximum 512 bytes
-- **Value size**: Maximum 25 MiB
-- **Metadata size**: Maximum 1024 bytes (JSON serialized)
-- **Write rate**: Maximum 1 write per second **per key**
-- **Expiration minimum**: 60 seconds (both TTL and absolute)
+**Critical Limits:**
+- Key: 512 bytes max
+- Value: 25 MiB max
+- Metadata: 1024 bytes max
+- Write rate: 1/second per key (429 error if exceeded)
+- Expiration: 60 seconds minimum
 
-**Rate Limit Handling:**
-
-```typescript
-async function putWithRetry(
-  kv: KVNamespace,
-  key: string,
-  value: string,
-  options?: KVPutOptions
-) {
-  let attempts = 0;
-  const maxAttempts = 5;
-  let delay = 1000; // Start with 1 second
-
-  while (attempts < maxAttempts) {
-    try {
-      await kv.put(key, value, options);
-      return; // Success
-    } catch (error) {
-      const message = (error as Error).message;
-
-      if (message.includes('429') || message.includes('Too Many Requests')) {
-        attempts++;
-        if (attempts >= maxAttempts) {
-          throw new Error('Max retry attempts reached');
-        }
-
-        console.warn(`Attempt ${attempts} failed. Retrying in ${delay}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-
-        // Exponential backoff
-        delay *= 2;
-      } else {
-        throw error; // Different error, rethrow
-      }
-    }
-  }
-}
-```
-
----
-
-### 3. List Operations
-
-#### `list()` - List Keys
+### List Operations
 
 ```typescript
-// List all keys (up to 1000)
-const result = await env.MY_KV.list();
+// List with pagination
+const result = await env.MY_KV.list({ prefix: 'user:', limit: 1000, cursor });
+// result: { keys: [], list_complete: boolean, cursor?: string }
 
-console.log(result.keys);         // Array of key objects
-console.log(result.list_complete); // boolean - false if more keys exist
-console.log(result.cursor);        // string - for pagination
-
-// List with prefix filter
-const result = await env.MY_KV.list({
-  prefix: 'user:', // Only keys starting with 'user:'
-});
-
-// List with limit
-const result = await env.MY_KV.list({
-  limit: 100, // Maximum 1000 (default 1000)
-});
-
-// Pagination with cursor
+// CRITICAL: Always check list_complete, not keys.length === 0
 let cursor: string | undefined;
-let allKeys: any[] = [];
-
 do {
-  const result = await env.MY_KV.list({ cursor });
-  allKeys = allKeys.concat(result.keys);
-  cursor = result.list_complete ? undefined : result.cursor;
-} while (cursor);
-
-// Combined: prefix + pagination
-let cursor: string | undefined;
-const userKeys: any[] = [];
-
-do {
-  const result = await env.MY_KV.list({
-    prefix: 'user:',
-    cursor,
-  });
-
-  userKeys.push(...result.keys);
+  const result = await env.MY_KV.list({ prefix: 'user:', cursor });
+  processKeys(result.keys);
   cursor = result.list_complete ? undefined : result.cursor;
 } while (cursor);
 ```
 
-**List Response Format:**
-
-```typescript
-{
-  keys: [
-    {
-      name: "user:123",
-      expiration: 1234567890,  // Optional: seconds since epoch
-      metadata: { ... }         // Optional: metadata object
-    },
-    // ... more keys
-  ],
-  list_complete: false,  // true if no more keys
-  cursor: "6Ck1la0VxJ0djhidm1MdX2FyD"  // Use for next page
-}
-```
-
-**IMPORTANT:**
-- Keys are **always** returned in lexicographically sorted order (UTF-8)
-- **Always check `list_complete`**, not `keys.length === 0`
-- Empty `keys` array doesn't mean no more data (expired/deleted keys create "tombstones")
-- When paginating with `prefix`, you **must** pass the same `prefix` with each `cursor` request
-
----
-
-### 4. Delete Operations
-
-#### `delete()` - Delete Key
+### Delete Operations
 
 ```typescript
 // Delete single key
-await env.MY_KV.delete('my-key');
+await env.MY_KV.delete('key');  // Always succeeds
 
-// Delete always succeeds, even if key doesn't exist
-await env.MY_KV.delete('non-existent-key'); // No error
-
-// Bulk delete pattern (in Worker)
-const keysToDelete = ['key1', 'key2', 'key3', ...];
-
-// Delete in parallel (careful of Worker subrequest limits)
-await Promise.all(
-  keysToDelete.map(key => env.MY_KV.delete(key))
-);
-
-// For more than 1000 keys, use REST API bulk delete (via wrangler or API)
+// Bulk delete (CLI only, up to 10,000 keys)
+// npx wrangler kv bulk delete --binding=MY_KV keys.json
 ```
-
-**Bulk Delete via REST API:**
-
-The Workers binding doesn't support bulk delete, but you can use the REST API (via `wrangler` or direct API calls):
-
-```bash
-# Using wrangler CLI
-npx wrangler kv bulk delete --namespace-id=<UUID> keys.json
-
-# keys.json format:
-# ["key1", "key2", "key3"]
-```
-
-**REST API Limit:** Up to 10,000 keys per bulk delete request.
 
 ---
 
-## Advanced Patterns & Best Practices
+## Advanced Patterns
 
-### 1. Caching Pattern with CacheTtl
+### Caching Pattern with CacheTtl
 
 ```typescript
-async function getCachedData(
-  kv: KVNamespace,
-  cacheKey: string,
-  fetchFn: () => Promise<any>,
-  cacheTtl: number = 300
-) {
-  // Try to get from KV cache
-  const cached = await kv.get(cacheKey, {
-    type: 'json',
-    cacheTtl, // Cache at edge for faster subsequent reads
-  });
+async function getCachedData(kv: KVNamespace, key: string, fetchFn: () => Promise<any>, ttl = 300) {
+  const cached = await kv.get(key, { type: 'json', cacheTtl: ttl });
+  if (cached) return cached;
 
-  if (cached) {
-    return cached;
-  }
-
-  // Cache miss - fetch fresh data
   const data = await fetchFn();
-
-  // Store in KV with expiration
-  await kv.put(cacheKey, JSON.stringify(data), {
-    expirationTtl: cacheTtl * 2, // Store longer than cache
-  });
-
+  await kv.put(key, JSON.stringify(data), { expirationTtl: ttl * 2 });
   return data;
 }
-
-// Usage
-app.get('/api/data/:id', async (c) => {
-  const id = c.req.param('id');
-
-  const data = await getCachedData(
-    c.env.CACHE,
-    `data:${id}`,
-    () => fetchFromDatabase(id),
-    300 // 5 minutes
-  );
-
-  return c.json(data);
-});
 ```
 
-**CacheTtl Guidelines:**
-- **Minimum:** 60 seconds
-- **Default:** 60 seconds
-- **Maximum:** `Number.MAX_SAFE_INTEGER`
-- **Use case:** Frequently read, infrequently updated data
-- **Trade-off:** Higher cacheTtl = faster reads but slower update propagation
+**Guidelines**: Minimum 60s, use for read-heavy workloads (100:1 read/write ratio)
 
----
-
-### 2. Metadata Optimization Pattern
-
-Store small values in metadata to avoid separate `get()` calls:
+### Metadata Optimization
 
 ```typescript
-// ❌ Bad: Two operations
-await env.MY_KV.put('user:123', 'active');
-const status = await env.MY_KV.get('user:123');
-
-// ✅ Good: Store in metadata with empty value
+// Store small values (<1024 bytes) in metadata to avoid separate get() calls
 await env.MY_KV.put('user:123', '', {
-  metadata: {
-    status: 'active',
-    lastSeen: Date.now(),
-    plan: 'pro'
-  },
+  metadata: { status: 'active', plan: 'pro', lastSeen: Date.now() }
 });
 
-// List returns metadata automatically
+// list() returns metadata automatically (no additional get() calls)
 const users = await env.MY_KV.list({ prefix: 'user:' });
-
-users.keys.forEach(({ name, metadata }) => {
-  console.log(name, metadata.status, metadata.plan);
-  // No additional get() calls needed!
-});
+users.keys.forEach(({ name, metadata }) => console.log(name, metadata.status));
 ```
 
-**When to Use:**
-- ✅ Values fit in 1024 bytes
-- ✅ You frequently use `list()` operations
-- ✅ You need to filter/process many keys
-- ❌ Don't use for large values (use regular value storage)
+### Understanding Hot vs Cold Keys
 
----
+KV performance varies based on key temperature:
 
-### 3. Key Coalescing for Performance
+| Type | Response Time | When It Happens |
+|------|---------------|-----------------|
+| **Hot keys** | 6-8ms | Read 2+ times/minute per datacenter |
+| **Cold keys** | 100-300ms | Infrequently accessed, fetched from central storage |
 
-Combine related cold keys with hot keys:
+**Post-August 2025 Improvements**:
+- P90 for all KV Worker invocations: <12ms (was 22ms before)
+- Hot reads up to 3x faster
+- All operations faster by up to 20ms
+
+**Optimization**: Use key coalescing to make cold keys benefit from hot key caching:
 
 ```typescript
-// ❌ Bad: Many individual keys (some hot, some cold)
+// ❌ Bad: Many cold keys (300ms each)
 await kv.put('user:123:name', 'John');
 await kv.put('user:123:email', 'john@example.com');
-await kv.put('user:123:age', '30');
+await kv.put('user:123:plan', 'pro');
 
-// ✅ Good: Coalesce into single hot key
+// Each read of a cold key: ~100-300ms
+const name = await kv.get('user:123:name');    // Cold
+const email = await kv.get('user:123:email');  // Cold
+const plan = await kv.get('user:123:plan');    // Cold
+
+// ✅ Good: Single hot key (6-8ms)
 await kv.put('user:123', JSON.stringify({
   name: 'John',
   email: 'john@example.com',
-  age: 30,
+  plan: 'pro'
 }));
 
-// Single read gets everything
-const user = await kv.get<User>('user:123', { type: 'json' });
+// Single read, cached as hot key: ~6-8ms
+const user = JSON.parse(await kv.get('user:123'));
 ```
 
-**Advantages:**
-- Cold keys benefit from hot key caching
-- Fewer operations = better performance
-- Single cache entry instead of multiple
+**CacheTtl helps cold keys**: For infrequently-read data, `cacheTtl` reduces cold read latency.
 
-**Disadvantages:**
-- Can't update individual fields easily (requires read-modify-write)
-- Large coalesced values may hit memory limits
-- Concurrent updates need locking mechanism
+**Trade-off**: Coalescing requires read-modify-write for updates
 
----
-
-### 4. Pagination Helper
+### Pagination Helper
 
 ```typescript
-async function* paginateKV(
-  kv: KVNamespace,
-  options: { prefix?: string; limit?: number } = {}
-) {
+async function* paginateKV(kv: KVNamespace, options: { prefix?: string } = {}) {
   let cursor: string | undefined;
-
   do {
-    const result = await kv.list({
-      prefix: options.prefix,
-      limit: options.limit || 1000,
-      cursor,
-    });
-
+    const result = await kv.list({ ...options, cursor });
     yield result.keys;
-
     cursor = result.list_complete ? undefined : result.cursor;
   } while (cursor);
 }
 
 // Usage
-app.get('/all-users', async (c) => {
-  const allUsers = [];
-
-  for await (const keys of paginateKV(c.env.MY_KV, { prefix: 'user:' })) {
-    // Process batch
-    allUsers.push(...keys.map(k => k.name));
-  }
-
-  return c.json({ users: allUsers, count: allUsers.length });
-});
+for await (const keys of paginateKV(env.MY_KV, { prefix: 'user:' })) {
+  processKeys(keys);
+}
 ```
 
----
-
-### 5. Feature Flags Pattern
+### Rate Limit Retry with Exponential Backoff
 
 ```typescript
-interface FeatureFlags {
-  darkMode: boolean;
-  newDashboard: boolean;
-  betaFeatures: boolean;
-}
-
-async function getFeatureFlags(
-  kv: KVNamespace,
-  userId?: string
-): Promise<FeatureFlags> {
-  // Try user-specific flags first
-  if (userId) {
-    const userFlags = await kv.get<FeatureFlags>(`flags:user:${userId}`, {
-      type: 'json',
-      cacheTtl: 300,
-    });
-    if (userFlags) return userFlags;
+async function putWithRetry(kv: KVNamespace, key: string, value: string, opts?: KVPutOptions) {
+  let attempts = 0, delay = 1000;
+  while (attempts < 5) {
+    try {
+      await kv.put(key, value, opts);
+      return;
+    } catch (error) {
+      if ((error as Error).message.includes('429')) {
+        attempts++;
+        if (attempts >= 5) throw new Error('Max retry attempts');
+        await new Promise(r => setTimeout(r, delay));
+        delay *= 2;  // Exponential backoff
+      } else throw error;
+    }
   }
-
-  // Fallback to global flags
-  const globalFlags = await kv.get<FeatureFlags>('flags:global', {
-    type: 'json',
-    cacheTtl: 300,
-  });
-
-  return globalFlags || {
-    darkMode: false,
-    newDashboard: false,
-    betaFeatures: false,
-  };
 }
-
-// Update global flags
-app.post('/admin/flags', async (c) => {
-  const flags = await c.req.json<FeatureFlags>();
-
-  await c.env.CONFIG.put('flags:global', JSON.stringify(flags), {
-    metadata: { updatedAt: Date.now() },
-  });
-
-  return c.json({ success: true });
-});
 ```
 
 ---
 
 ## Understanding Eventual Consistency
 
-KV is **eventually consistent** across Cloudflare's global network:
+KV is **eventually consistent** across Cloudflare's global network (Aug 2025 redesign: hybrid storage, <5ms p99 latency):
 
-### How It Works:
+**How It Works:**
+1. Writes immediately visible in same location (read-your-own-write consistency within same POP)
+2. Other locations see update within ~60 seconds (or cacheTtl value)
+3. Cached reads may return stale data during propagation
 
-1. **Writes** are immediately visible in the **same location**
-2. **Other locations** see the update within **~60 seconds** (or your `cacheTtl` value)
-3. **Cached reads** may return stale data during propagation
-
-### Implications:
-
+**Example:**
 ```typescript
-// In Tokyo data center:
+// Tokyo: Write
 await env.MY_KV.put('counter', '1');
-const value1 = await env.MY_KV.get('counter'); // "1" ✅
+const value = await env.MY_KV.get('counter'); // "1" ✅ (same POP, RYOW)
 
-// In London data center (within 60 seconds):
-const value2 = await env.MY_KV.get('counter'); // Might still be old value ⚠️
+// London (within 60s): May be stale ⚠️
+const value2 = await env.MY_KV.get('counter'); // Might be old value
 
-// After 60+ seconds:
-const value3 = await env.MY_KV.get('counter'); // "1" ✅
+// After 60+ seconds: Consistent ✅
 ```
 
-### Best Practices:
+**Read-Your-Own-Write (RYOW) Guarantee**: Since August 2025 redesign, requests routed through the **same Cloudflare point of presence** see their own writes immediately. Global consistency across different POPs still takes up to 60 seconds.
 
-✅ **Use KV for:**
-- Read-heavy workloads (100:1 read/write ratio)
-- Data that doesn't require immediate global consistency
-- Configuration, feature flags, caching
-- User preferences, session data
+**Timestamp Mitigation Pattern** (for critical consistency needs):
+```typescript
+// Use timestamp in key structure to avoid consistency issues
+const timestamp = Date.now();
+await kv.put(`user:123:${timestamp}`, userData);
 
-❌ **Don't use KV for:**
-- Financial transactions requiring atomic operations
-- Data requiring strong consistency
-- High-frequency writes to same key (>1/second)
-- Critical data where stale reads are unacceptable
+// Find latest using list with prefix
+const result = await kv.list({ prefix: 'user:123:' });
+const latestKey = result.keys.sort((a, b) =>
+  parseInt(b.name.split(':')[2]) - parseInt(a.name.split(':')[2])
+).at(0);
+```
 
-**If you need strong consistency, use [Durable Objects](https://developers.cloudflare.com/durable-objects/).**
+**Use KV for**: Read-heavy workloads (100:1 ratio), config, feature flags, caching, user preferences
+**Don't use KV for**: Financial transactions, strong consistency, >1/second writes per key, critical data
+
+**Need strong consistency?** Use [Durable Objects](https://developers.cloudflare.com/durable-objects/)
+
+**Source**: [Redesigning Workers KV](https://blog.cloudflare.com/rearchitecting-workers-kv-for-redundancy/)
 
 ---
 
-## Wrangler CLI Operations
-
-### Create Namespace
+## Wrangler CLI Essentials
 
 ```bash
-# Production namespace
-npx wrangler kv namespace create MY_NAMESPACE
+# Create namespace
+npx wrangler kv namespace create MY_NAMESPACE [--preview]
 
-# Preview/development namespace
-npx wrangler kv namespace create MY_NAMESPACE --preview
+# Manage keys (add --remote flag to access production data)
+npx wrangler kv key put --binding=MY_KV "key" "value" [--ttl=3600] [--metadata='{}']
+npx wrangler kv key get --binding=MY_KV "key" [--remote]
+npx wrangler kv key list --binding=MY_KV [--prefix="user:"] [--remote]
+npx wrangler kv key delete --binding=MY_KV "key"
+
+# Bulk operations (up to 10,000 keys)
+npx wrangler kv bulk put --binding=MY_KV data.json
+npx wrangler kv bulk delete --binding=MY_KV keys.json
 ```
 
-### List Namespaces
+**IMPORTANT**: CLI commands default to **local storage**. Add `--remote` flag to access production/remote data.
 
-```bash
-npx wrangler kv namespace list
+---
+
+## Development vs Production
+
+### Remote Bindings for Local Development (Wrangler 4.37+)
+
+Connect local Workers to production KV namespaces during development:
+
+**wrangler.jsonc:**
+```jsonc
+{
+  "kv_namespaces": [{
+    "binding": "MY_KV",
+    "id": "production-uuid",
+    "remote": true  // Connect to live KV
+  }]
+}
 ```
 
-### Write Key-Value Pairs
+**How It Works:**
+- Local Worker code executes locally (fast iteration)
+- KV operations route to production namespace through proxy
+- No manual data seeding required
 
-```bash
-# Write single key
-npx wrangler kv key put --binding=MY_NAMESPACE "my-key" "my-value"
+**Benefits:**
+- Test against real production data without deploying
+- Fast local code execution with production data access
+- Faster feedback loop (no deploy-test cycle)
 
-# Write from file
-npx wrangler kv key put --binding=MY_NAMESPACE "config" --path=config.json
+**⚠️ Warning**: Writes affect production data. Consider using a staging namespace with `remote: true` instead of production.
 
-# Write with metadata
-npx wrangler kv key put --binding=MY_NAMESPACE "key" "value" --metadata='{"version":1}'
+**Version Support:**
+- Wrangler 4.37.0+
+- @cloudflare/vite-plugin 1.13.0+
+- @cloudflare/vitest-pool-workers 0.9.0+
 
-# Write with TTL (seconds)
-npx wrangler kv key put --binding=MY_NAMESPACE "session" "data" --ttl=3600
-```
-
-### Read Key-Value Pairs
-
-```bash
-# Read single key
-npx wrangler kv key get --binding=MY_NAMESPACE "my-key"
-
-# Read to file
-npx wrangler kv key get --binding=MY_NAMESPACE "image" --path=image.png
-```
-
-### List Keys
-
-```bash
-# List all keys
-npx wrangler kv key list --binding=MY_NAMESPACE
-
-# List with prefix
-npx wrangler kv key list --binding=MY_NAMESPACE --prefix="user:"
-
-# Pretty print
-npx wrangler kv key list --binding=MY_NAMESPACE | jq "."
-```
-
-### Delete Keys
-
-```bash
-# Delete single key
-npx wrangler kv key delete --binding=MY_NAMESPACE "my-key"
-```
-
-### Bulk Operations
-
-```bash
-# Bulk write (up to 10,000 keys)
-npx wrangler kv bulk put --binding=MY_NAMESPACE data.json
-
-# data.json format:
-# [
-#   {"key": "key1", "value": "value1"},
-#   {"key": "key2", "value": "value2", "expiration_ttl": 3600}
-# ]
-
-# Bulk delete (up to 10,000 keys)
-npx wrangler kv bulk delete --binding=MY_NAMESPACE keys.json
-
-# keys.json format:
-# ["key1", "key2", "key3"]
-```
+**Source**: [Remote bindings architecture](https://blog.cloudflare.com/connecting-to-production-the-architecture-of-remote-bindings/)
 
 ---
 
@@ -744,157 +350,61 @@ npx wrangler kv bulk delete --binding=MY_NAMESPACE keys.json
 
 | Feature | Free Plan | Paid Plan |
 |---------|-----------|-----------|
-| **Reads per day** | 100,000 | Unlimited |
-| **Writes per day** (different keys) | 1,000 | Unlimited |
-| **Writes per key per second** | 1 | 1 |
-| **Operations per Worker invocation** | 1,000 | 1,000 |
-| **Namespaces per account** | 1,000 | 1,000 |
-| **Storage per account** | 1 GB | Unlimited |
-| **Storage per namespace** | 1 GB | Unlimited |
-| **Keys per namespace** | Unlimited | Unlimited |
-| **Key size** | 512 bytes | 512 bytes |
-| **Metadata size** | 1024 bytes | 1024 bytes |
-| **Value size** | 25 MiB | 25 MiB |
-| **Minimum cacheTtl** | 60 seconds | 60 seconds |
-| **Maximum cacheTtl** | Number.MAX_SAFE_INTEGER | Number.MAX_SAFE_INTEGER |
+| Reads per day | 100,000 | Unlimited |
+| Writes per day (different keys) | 1,000 | Unlimited |
+| **Writes per key per second** | **1** | **1** |
+| Operations per Worker invocation | 1,000 | 1,000 |
+| **Namespaces per account** | **1,000** | **1,000** |
+| Storage per account | 1 GB | Unlimited |
+| Key size | 512 bytes | 512 bytes |
+| Metadata size | 1024 bytes | 1024 bytes |
+| Value size | 25 MiB | 25 MiB |
+| Minimum cacheTtl | 60 seconds | 60 seconds |
 
-**Important Notes:**
-- **1 write/second per key**: Concurrent writes to the same key cause 429 errors
-- **1000 operations per invocation**: Bulk operations count as **1 operation**
-- **Bulk reads** (reading multiple keys) count as a single operation
-- **REST API** is subject to [Cloudflare API rate limits](https://developers.cloudflare.com/fundamentals/api/reference/limits/)
+**Critical**: 1 write/second per key (429 if exceeded), bulk operations count as 1 operation, namespace limit increased from 200 → 1,000 (Jan 2025)
 
 ---
 
-## TypeScript Types
-
-```typescript
-// KVNamespace type is provided by @cloudflare/workers-types
-interface KVNamespace {
-  get(key: string, options?: Partial<KVGetOptions<undefined>>): Promise<string | null>;
-  get(key: string, type: "text"): Promise<string | null>;
-  get<ExpectedValue = unknown>(key: string, type: "json"): Promise<ExpectedValue | null>;
-  get(key: string, type: "arrayBuffer"): Promise<ArrayBuffer | null>;
-  get(key: string, type: "stream"): Promise<ReadableStream | null>;
-  get(key: string, options?: KVGetOptions<"text">): Promise<string | null>;
-  get<ExpectedValue = unknown>(key: string, options?: KVGetOptions<"json">): Promise<ExpectedValue | null>;
-  get(key: string, options?: KVGetOptions<"arrayBuffer">): Promise<ArrayBuffer | null>;
-  get(key: string, options?: KVGetOptions<"stream">): Promise<ReadableStream | null>;
-  get(keys: string[]): Promise<Map<string, string | null>>;
-  get(keys: string[], type: "text"): Promise<Map<string, string | null>>;
-  get<ExpectedValue = unknown>(keys: string[], type: "json"): Promise<Map<string, ExpectedValue | null>>;
-
-  getWithMetadata<Metadata = unknown>(key: string, options?: Partial<KVGetOptions<undefined>>): Promise<KVGetWithMetadataResult<string, Metadata>>;
-  getWithMetadata<Metadata = unknown>(key: string, type: "text"): Promise<KVGetWithMetadataResult<string, Metadata>>;
-  getWithMetadata<ExpectedValue = unknown, Metadata = unknown>(key: string, type: "json"): Promise<KVGetWithMetadataResult<ExpectedValue, Metadata>>;
-  getWithMetadata<Metadata = unknown>(key: string, options?: KVGetOptions<"text">): Promise<KVGetWithMetadataResult<string, Metadata>>;
-  getWithMetadata<ExpectedValue = unknown, Metadata = unknown>(key: string, options?: KVGetOptions<"json">): Promise<KVGetWithMetadataResult<ExpectedValue, Metadata>>;
-  getWithMetadata<Metadata = unknown>(keys: string[]): Promise<Map<string, KVGetWithMetadataResult<string, Metadata>>>;
-  getWithMetadata<Metadata = unknown>(keys: string[], type: "text"): Promise<Map<string, KVGetWithMetadataResult<string, Metadata>>>;
-  getWithMetadata<ExpectedValue = unknown, Metadata = unknown>(keys: string[], type: "json"): Promise<Map<string, KVGetWithMetadataResult<ExpectedValue, Metadata>>>;
-
-  put(key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream, options?: KVPutOptions): Promise<void>;
-
-  delete(key: string): Promise<void>;
-
-  list<Metadata = unknown>(options?: KVListOptions): Promise<KVListResult<Metadata>>;
-}
-
-interface KVGetOptions<Type> {
-  type: Type;
-  cacheTtl?: number;
-}
-
-interface KVGetWithMetadataResult<Value, Metadata> {
-  value: Value | null;
-  metadata: Metadata | null;
-}
-
-interface KVPutOptions {
-  expiration?: number;        // Seconds since epoch
-  expirationTtl?: number;     // Seconds from now (minimum 60)
-  metadata?: any;             // Serializable to JSON, max 1024 bytes
-}
-
-interface KVListOptions {
-  prefix?: string;
-  limit?: number;   // Default 1000, max 1000
-  cursor?: string;
-}
-
-interface KVListResult<Metadata = unknown> {
-  keys: {
-    name: string;
-    expiration?: number;
-    metadata?: Metadata;
-  }[];
-  list_complete: boolean;
-  cursor?: string;
-}
-```
-
----
 
 ## Error Handling
 
-### Common Errors
-
-#### 1. Rate Limit (429 Too Many Requests)
+### 1. Rate Limit (429 Too Many Requests)
+**Cause**: Writing to same key >1/second
+**Solution**: Use retry with exponential backoff (see Advanced Patterns)
 
 ```typescript
-try {
-  await env.MY_KV.put('counter', '1');
-  await env.MY_KV.put('counter', '2'); // Too fast! < 1 second
-} catch (error) {
-  // Error: KV PUT failed: 429 Too Many Requests
-  console.error(error);
-}
+// ❌ Bad
+await env.MY_KV.put('counter', '1');
+await env.MY_KV.put('counter', '2'); // 429 error!
 
-// Solution: Use retry with backoff (see putWithRetry example above)
+// ✅ Good
+await putWithRetry(env.MY_KV, 'counter', '2');
 ```
 
-#### 2. Value Too Large
+### 2. Value Too Large
+**Cause**: Value exceeds 25 MiB
+**Solution**: Validate size before writing
 
 ```typescript
-const largeValue = 'x'.repeat(26 * 1024 * 1024); // > 25 MiB
-
-try {
-  await env.MY_KV.put('large', largeValue);
-} catch (error) {
-  // Error: Value too large
-  console.error(error);
-}
-
-// Solution: Check size before writing
-if (value.length > 25 * 1024 * 1024) {
-  throw new Error('Value exceeds 25 MiB limit');
-}
+if (value.length > 25 * 1024 * 1024) throw new Error('Value exceeds 25 MiB');
 ```
 
-#### 3. Metadata Too Large
+### 3. Metadata Too Large
+**Cause**: Metadata exceeds 1024 bytes when serialized
+**Solution**: Validate serialized size
 
 ```typescript
-const metadata = { data: 'x'.repeat(2000) }; // > 1024 bytes serialized
-
-try {
-  await env.MY_KV.put('key', 'value', { metadata });
-} catch (error) {
-  // Error: Metadata too large
-  console.error(error);
-}
-
-// Solution: Validate metadata size
 const serialized = JSON.stringify(metadata);
-if (serialized.length > 1024) {
-  throw new Error('Metadata exceeds 1024 byte limit');
-}
+if (serialized.length > 1024) throw new Error('Metadata exceeds 1024 bytes');
 ```
 
-#### 4. Invalid CacheTtl
+### 4. Invalid CacheTtl
+**Cause**: cacheTtl <60 seconds
+**Solution**: Use minimum 60
 
 ```typescript
-// ❌ Too low
-await env.MY_KV.get('key', { cacheTtl: 30 }); // Error: minimum is 60
+// ❌ Error
+await env.MY_KV.get('key', { cacheTtl: 30 });
 
 // ✅ Correct
 await env.MY_KV.get('key', { cacheTtl: 60 });
@@ -902,128 +412,164 @@ await env.MY_KV.get('key', { cacheTtl: 60 });
 
 ---
 
-## Always Do ✅
+## Critical Rules
 
-1. **Use bulk operations** when reading multiple keys (counts as 1 operation)
-2. **Set cacheTtl** for frequently-read, infrequently-updated data
-3. **Store small values in metadata** when using `list()` frequently
-4. **Check `list_complete`** when paginating, not `keys.length === 0`
-5. **Use retry logic with exponential backoff** for write operations
-6. **Validate sizes** before writing (key 512 bytes, value 25 MiB, metadata 1 KB)
-7. **Use preview namespaces** for local development
-8. **Set appropriate TTLs** for cache invalidation (minimum 60 seconds)
-9. **Coalesce related keys** for better caching performance
-10. **Use KV for read-heavy workloads** (100:1 read/write ratio ideal)
+### Always Do ✅
 
----
+1. Use bulk operations when reading multiple keys (counts as 1 operation)
+2. Set cacheTtl for frequently-read, infrequently-updated data (min 60s)
+3. Store small values (<1024 bytes) in metadata when using `list()` frequently
+4. Check `list_complete` when paginating, not `keys.length === 0`
+5. Use retry logic with exponential backoff for write operations
+6. Validate sizes before writing (key 512B, value 25MiB, metadata 1KB)
+7. Coalesce related keys for better caching performance
+8. Use KV for read-heavy workloads (100:1 read/write ratio ideal)
 
-## Never Do ❌
+### Never Do ❌
 
-1. **Never write to same key >1/second** - Causes 429 rate limit errors
-2. **Never assume immediate global consistency** - Takes ~60 seconds to propagate
-3. **Never use KV for atomic operations** - Use Durable Objects instead
-4. **Never set cacheTtl <60 seconds** - Will fail
-5. **Never commit namespace IDs to public repos** - Use environment variables
-6. **Never exceed 1000 operations per invocation** - Use bulk operations
-7. **Never rely on write order** - Eventual consistency means no guarantees
-8. **Never store sensitive data without encryption** - KV is not encrypted at rest by default
-9. **Never use KV for high-frequency writes** - Not designed for write-heavy workloads
-10. **Never forget to handle null values** - `get()` returns `null` if key doesn't exist
+1. Never write to same key >1/second (causes 429 rate limit errors)
+2. Never assume immediate global consistency (takes ~60 seconds to propagate)
+3. Never use KV for atomic operations (use Durable Objects instead)
+4. Never set cacheTtl <60 seconds (will fail)
+5. Never commit namespace IDs to public repos (use environment variables)
+6. Never exceed 1000 operations per invocation (use bulk operations)
+7. Never rely on write order (eventual consistency = no guarantees)
+8. Never forget to handle null values (`get()` returns `null` if key doesn't exist)
 
 ---
 
 ## Troubleshooting
 
-### Issue: "429 Too Many Requests" on writes
+### Issue 1: "429 Too Many Requests" on writes
+**Cause**: Writing to same key >1/second
+**Solution**: Consolidate writes or use retry with exponential backoff
 
-**Cause:** Writing to same key more than once per second
-
-**Solution:**
 ```typescript
-// ❌ Bad
-for (let i = 0; i < 10; i++) {
-  await kv.put('counter', String(i)); // Rate limit!
-}
+// ❌ Bad: Rate limit
+for (let i = 0; i < 10; i++) await kv.put('counter', String(i));
 
-// ✅ Good - consolidate writes
-const finalValue = '9';
-await kv.put('counter', finalValue);
+// ✅ Good: Single write
+await kv.put('counter', '9');
 
-// ✅ Good - use retry with backoff
+// ✅ Good: Retry with backoff
 await putWithRetry(kv, 'counter', String(i));
 ```
 
----
+### Issue 2: Stale reads after write
+**Cause**: Eventual consistency (~60 seconds propagation)
+**Solution**: Accept stale reads, use Durable Objects for strong consistency, or implement app-level cache invalidation
 
-### Issue: Stale reads after write
+### Issue 3: "Operations limit exceeded"
+**Cause**: >1000 KV operations in single Worker invocation
+**Solution**: Use bulk operations
 
-**Cause:** Eventual consistency - writes take up to 60 seconds to propagate globally
-
-**Solution:**
 ```typescript
-// Accept that reads may be stale for up to 60 seconds
-// OR use Durable Objects for strong consistency
-// OR implement application-level cache invalidation
+// ❌ Bad: 5000 operations
+for (const key of 5000keys) await kv.get(key);
+
+// ✅ Good: 1 operation
+const values = await kv.get(keys);  // Bulk read
 ```
 
----
+### Issue 4: List returns empty but cursor exists
+**Cause**: Deleted/expired keys create "tombstones" that must be iterated through
+**Solution**: Always check `list_complete`, not `keys.length`
 
-### Issue: "Operations limit exceeded"
-
-**Cause:** More than 1000 KV operations in single Worker invocation
-
-**Solution:**
 ```typescript
-// ❌ Bad - 5000 operations
-const keys = Array.from({ length: 5000 }, (_, i) => `key${i}`);
-for (const key of keys) {
-  await kv.get(key); // Exceeds 1000 limit
-}
-
-// ✅ Good - 1 operation (bulk read)
-const values = await kv.get(keys);
-```
-
----
-
-### Issue: List returns empty but cursor exists
-
-**Cause:** Recently deleted/expired keys create "tombstones" in the list
-
-**Solution:**
-```typescript
-// Always check list_complete, not keys.length
+// ✅ Correct pagination
 let cursor: string | undefined;
-
 do {
   const result = await kv.list({ cursor });
-
-  // Process keys even if empty
-  processKeys(result.keys);
-
-  // CORRECT: Check list_complete
+  processKeys(result.keys);  // Even if empty
   cursor = result.list_complete ? undefined : result.cursor;
 } while (cursor);
 ```
+
+**CRITICAL**: When using `prefix`, you **must include it in all paginated calls**:
+
+```typescript
+// ❌ WRONG - Loses prefix on subsequent pages
+let result = await kv.list({ prefix: 'user:' });
+result = await kv.list({ cursor: result.cursor });  // Missing prefix!
+
+// ✅ CORRECT - Include prefix on every call
+let cursor: string | undefined;
+do {
+  const result = await kv.list({ prefix: 'user:', cursor });
+  processKeys(result.keys);
+  cursor = result.list_complete ? undefined : result.cursor;
+} while (cursor);
+```
+
+**Source**: [List keys documentation](https://developers.cloudflare.com/kv/api/list-keys/)
+
+### Issue 5: `wrangler types` Does Not Generate Types for Environment-Nested KV Bindings
+
+**Cause**: KV namespaces defined within environment configurations (e.g., `[env.feature.kv_namespaces]`) are not included in generated TypeScript types
+**Impact**: Loss of TypeScript autocomplete and type checking for KV bindings
+**Source**: [GitHub Issue #9709](https://github.com/cloudflare/workers-sdk/issues/9709)
+
+**Example Configuration:**
+```toml
+# wrangler.toml
+[env.feature]
+name = "my-worker-feature"
+[[env.feature.kv_namespaces]]
+binding = "MY_STORAGE_FEATURE"
+id = "xxxxxxxxxxxx"
+```
+
+Running `npx wrangler types` creates type definitions for environment variables but not for the KV namespace bindings.
+
+**Workaround:**
+```bash
+# Generate types for specific environment
+npx wrangler types -e feature
+```
+
+Or define KV namespaces at top level instead of nested in environments:
+```toml
+# Top-level (types generated correctly)
+[[kv_namespaces]]
+binding = "MY_STORAGE"
+id = "xxxxxxxxxxxx"
+```
+
+**Note**: Runtime bindings still work correctly; this only affects type generation.
+
+### Issue 6: `wrangler kv key list` Returns Empty Array for Remote Data
+
+**Cause**: CLI commands default to **local storage**, not remote/production KV
+**Impact**: Users expect to see production data but get empty array from local storage
+**Source**: [GitHub Issue #10395](https://github.com/cloudflare/workers-sdk/issues/10395)
+
+**Solution**: Use `--remote` flag to access production/remote data
+
+```bash
+# ❌ Shows local storage (likely empty)
+npx wrangler kv key list --binding=MY_KV
+
+# ✅ Shows remote/production data
+npx wrangler kv key list --binding=MY_KV --remote
+```
+
+**Why This Happens**: By design, `wrangler dev` uses local KV storage to avoid interfering with production data. CLI commands follow the same default for consistency.
+
+**Applies to**: All `wrangler kv key` commands (get, list, delete, put)
 
 ---
 
 ## Production Checklist
 
-Before deploying to production:
-
 - [ ] Environment-specific namespaces configured (`id` vs `preview_id`)
 - [ ] Namespace IDs stored in environment variables (not hardcoded)
 - [ ] Rate limit retry logic implemented for writes
-- [ ] Appropriate `cacheTtl` values set for reads
-- [ ] Metadata sizes validated (<1024 bytes)
-- [ ] Value sizes validated (<25 MiB)
-- [ ] Key sizes validated (<512 bytes)
+- [ ] Appropriate `cacheTtl` values set for reads (min 60s)
+- [ ] Sizes validated (key 512B, value 25MiB, metadata 1KB)
 - [ ] Bulk operations used where possible
-- [ ] Pagination implemented correctly for `list()`
+- [ ] Pagination with `list_complete` check (not `keys.length`)
 - [ ] Error handling for null values
 - [ ] Monitoring/alerting for rate limits
-- [ ] Documentation for eventual consistency behavior
 
 ---
 
@@ -1037,6 +583,6 @@ Before deploying to production:
 
 ---
 
-**Last Updated**: 2025-10-21
-**Version**: 1.0.0
-**Maintainer**: Jeremy Dawes | jeremy@jezweb.net
+**Last Updated**: 2026-01-20
+**Package Versions**: wrangler@4.59.2, @cloudflare/workers-types@4.20260109.0
+**Changes**: Added 6 research findings - hot/cold key performance patterns, remote bindings (Wrangler 4.37+), wrangler types environment issue, CLI --remote flag requirement, RYOW consistency details, prefix persistence in pagination

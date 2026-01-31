@@ -1,7 +1,7 @@
 {
   "name": "ab-test-setup",
-  "repo": "Monsoft-Solutions/alluring-website-v1",
-  "path": ".agents/skills/ab-test-setup/SKILL.md",
-  "source": "github.com/Monsoft-Solutions/alluring-website-v1",
-  "downloaded_at": "2026-01-30T04:30:43.123428Z"
+  "repo": "kunhai-88/skills",
+  "path": "ab-test-setup/SKILL.md",
+  "source": "github.com/kunhai-88/skills",
+  "downloaded_at": "2026-01-31T03:28:37.383062Z"
 }

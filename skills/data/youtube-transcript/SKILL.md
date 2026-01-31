@@ -1,415 +1,137 @@
 ---
 name: youtube-transcript
-description: Download YouTube video transcripts when user provides a YouTube URL or asks to download/get/fetch a transcript from YouTube. Also use when user wants to transcribe or get captions/subtitles from a YouTube video.
-allowed-tools: Bash,Read,Write
+description: Download and process YouTube video transcripts using yt-dlp. Use this when extracting subtitles, creating summaries from videos, or processing video content.
+allowed-tools: Read, Glob, Grep, Bash, Write
+license: MIT
+metadata:
+  author: michalparkola
+  version: "1.0"
 ---
 
 # YouTube Transcript Downloader
 
-This skill helps download transcripts (subtitles/captions) from YouTube videos using yt-dlp.
+유튜브 영상에서 자막을 추출하고 처리하는 스킬입니다.
 
-## When to Use This Skill
+## Priority Order
 
-Activate this skill when the user:
-- Provides a YouTube URL and wants the transcript
-- Asks to "download transcript from YouTube"
-- Wants to "get captions" or "get subtitles" from a video
-- Asks to "transcribe a YouTube video"
-- Needs text content from a YouTube video
-
-## How It Works
-
-### Priority Order:
-1. **Check if yt-dlp is installed** - install if needed
-2. **List available subtitles** - see what's actually available
-3. **Try manual subtitles first** (`--write-sub`) - highest quality
-4. **Fallback to auto-generated** (`--write-auto-sub`) - usually available
-5. **Last resort: Whisper transcription** - if no subtitles exist (requires user confirmation)
-6. **Confirm the download** and show the user where the file is saved
-7. **Optionally clean up** the VTT format if the user wants plain text
-
-## Installation Check
-
-**IMPORTANT**: Always check if yt-dlp is installed first:
-
-```bash
-which yt-dlp || command -v yt-dlp
+```
+1. yt-dlp 설치 확인
+2. 사용 가능한 자막 목록 확인
+3. 수동 자막 우선 시도
+4. 자동 생성 자막 폴백
+5. 최후 수단: Whisper 변환
 ```
 
-### If Not Installed
+## Requirements
 
-Attempt automatic installation based on the system:
-
-**macOS (Homebrew)**:
 ```bash
+# macOS
 brew install yt-dlp
+
+# Linux
+sudo apt install yt-dlp
+
+# Universal
+pip install yt-dlp
 ```
 
-**Linux (apt/Debian/Ubuntu)**:
+## Workflow
+
+### Step 1: 자막 목록 확인
+
 ```bash
-sudo apt update && sudo apt install -y yt-dlp
+yt-dlp --list-subs "VIDEO_URL"
 ```
 
-**Alternative (pip - works on all systems)**:
+### Step 2: 수동 자막 다운로드 (권장)
+
 ```bash
-pip3 install yt-dlp
-# or
-python3 -m pip install yt-dlp
+# 한국어 자막
+yt-dlp --write-sub --sub-lang ko --skip-download "VIDEO_URL"
+
+# 영어 자막
+yt-dlp --write-sub --sub-lang en --skip-download "VIDEO_URL"
 ```
 
-**If installation fails**: Inform the user they need to install yt-dlp manually and provide them with installation instructions from https://github.com/yt-dlp/yt-dlp#installation
-
-## Check Available Subtitles
-
-**ALWAYS do this first** before attempting to download:
+### Step 3: 자동 생성 자막 (폴백)
 
 ```bash
-yt-dlp --list-subs "YOUTUBE_URL"
+yt-dlp --write-auto-sub --sub-lang ko --skip-download "VIDEO_URL"
 ```
 
-This shows what subtitle types are available without downloading anything. Look for:
-- Manual subtitles (better quality)
-- Auto-generated subtitles (usually available)
-- Available languages
-
-## Download Strategy
-
-### Option 1: Manual Subtitles (Preferred)
-
-Try this first - highest quality, human-created:
+### Step 4: VTT → 텍스트 변환
 
 ```bash
-yt-dlp --write-sub --skip-download --output "OUTPUT_NAME" "YOUTUBE_URL"
+# VTT 파일에서 타임스탬프 제거
+sed '/^[0-9]/d; /^$/d; /-->/d' subtitle.ko.vtt > transcript.txt
 ```
 
-### Option 2: Auto-Generated Subtitles (Fallback)
+## Output Processing
 
-If manual subtitles aren't available:
+### 중복 제거
+자동 생성 자막은 progressive 캡션으로 인해 중복이 많음:
 
-```bash
-yt-dlp --write-auto-sub --skip-download --output "OUTPUT_NAME" "YOUTUBE_URL"
-```
-
-Both commands create a `.vtt` file (WebVTT subtitle format).
-
-## Option 3: Whisper Transcription (Last Resort)
-
-**ONLY use this if both manual and auto-generated subtitles are unavailable.**
-
-### Step 1: Show File Size and Ask for Confirmation
-
-```bash
-# Get audio file size estimate
-yt-dlp --print "%(filesize,filesize_approx)s" -f "bestaudio" "YOUTUBE_URL"
-
-# Or get duration to estimate
-yt-dlp --print "%(duration)s %(title)s" "YOUTUBE_URL"
-```
-
-**IMPORTANT**: Display the file size to the user and ask: "No subtitles are available. I can download the audio (approximately X MB) and transcribe it using Whisper. Would you like to proceed?"
-
-**Wait for user confirmation before continuing.**
-
-### Step 2: Check for Whisper Installation
-
-```bash
-command -v whisper
-```
-
-If not installed, ask user: "Whisper is not installed. Install it with `pip install openai-whisper` (requires ~1-3GB for models)? This is a one-time installation."
-
-**Wait for user confirmation before installing.**
-
-Install if approved:
-```bash
-pip3 install openai-whisper
-```
-
-### Step 3: Download Audio Only
-
-```bash
-yt-dlp -x --audio-format mp3 --output "audio_%(id)s.%(ext)s" "YOUTUBE_URL"
-```
-
-### Step 4: Transcribe with Whisper
-
-```bash
-# Auto-detect language (recommended)
-whisper audio_VIDEO_ID.mp3 --model base --output_format vtt
-
-# Or specify language if known
-whisper audio_VIDEO_ID.mp3 --model base --language en --output_format vtt
-```
-
-**Model Options** (stick to `base` for now):
-- `tiny` - fastest, least accurate (~1GB)
-- `base` - good balance (~1GB) ← **USE THIS**
-- `small` - better accuracy (~2GB)
-- `medium` - very good (~5GB)
-- `large` - best accuracy (~10GB)
-
-### Step 5: Cleanup
-
-After transcription completes, ask user: "Transcription complete! Would you like me to delete the audio file to save space?"
-
-If yes:
-```bash
-rm audio_VIDEO_ID.mp3
-```
-
-## Getting Video Information
-
-### Extract Video Title (for filename)
-
-```bash
-yt-dlp --print "%(title)s" "YOUTUBE_URL"
-```
-
-Use this to create meaningful filenames based on the video title. Clean the title for filesystem compatibility:
-- Replace `/` with `-`
-- Replace special characters that might cause issues
-- Consider using sanitized version: `$(yt-dlp --print "%(title)s" "URL" | tr '/' '-' | tr ':' '-')`
-
-## Post-Processing
-
-### Convert to Plain Text (Recommended)
-
-YouTube's auto-generated VTT files contain **duplicate lines** because captions are shown progressively with overlapping timestamps. Always deduplicate when converting to plain text while preserving the original speaking order.
-
-```bash
-python3 -c "
-import sys, re
+```python
+# 중복 라인 제거
 seen = set()
-with open('transcript.en.vtt', 'r') as f:
-    for line in f:
-        line = line.strip()
-        if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
-            clean = re.sub('<[^>]*>', '', line)
-            clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
-            if clean and clean not in seen:
-                print(clean)
-                seen.add(clean)
-" > transcript.txt
+unique_lines = []
+for line in lines:
+    if line not in seen:
+        seen.add(line)
+        unique_lines.append(line)
 ```
 
-### Complete Post-Processing with Video Title
+### 요약 생성
+추출된 자막으로:
+- 핵심 내용 요약
+- 타임스탬프별 챕터 생성
+- 주요 키워드 추출
 
-```bash
-# Get video title
-VIDEO_TITLE=$(yt-dlp --print "%(title)s" "YOUTUBE_URL" | tr '/' '_' | tr ':' '-' | tr '?' '' | tr '"' '')
+## Examples
 
-# Find the VTT file
-VTT_FILE=$(ls *.vtt | head -n 1)
+### Example 1: 강의 영상 요약
+```
+User: 이 유튜브 강의 요약해줘 - https://youtube.com/watch?v=xxx
 
-# Convert with deduplication
-python3 -c "
-import sys, re
-seen = set()
-with open('$VTT_FILE', 'r') as f:
-    for line in f:
-        line = line.strip()
-        if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
-            clean = re.sub('<[^>]*>', '', line)
-            clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
-            if clean and clean not in seen:
-                print(clean)
-                seen.add(clean)
-" > "${VIDEO_TITLE}.txt"
-
-echo "✓ Saved to: ${VIDEO_TITLE}.txt"
-
-# Clean up VTT file
-rm "$VTT_FILE"
-echo "✓ Cleaned up temporary VTT file"
+Claude:
+1. yt-dlp로 자막 다운로드
+2. VTT → 텍스트 변환
+3. 핵심 내용 요약 생성
+4. 타임스탬프별 목차 제공
 ```
 
-## Output Formats
-
-- **VTT format** (`.vtt`): Includes timestamps and formatting, good for video players
-- **Plain text** (`.txt`): Just the text content, good for reading or analysis
-
-## Tips
-
-- The filename will be `{output_name}.{language_code}.vtt` (e.g., `transcript.en.vtt`)
-- Most YouTube videos have auto-generated English subtitles
-- Some videos may have multiple language options
-- If auto-subtitles aren't available, try `--write-sub` instead for manual subtitles
-
-## Complete Workflow Example
-
-```bash
-VIDEO_URL="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-
-# Get video title for filename
-VIDEO_TITLE=$(yt-dlp --print "%(title)s" "$VIDEO_URL" | tr '/' '_' | tr ':' '-' | tr '?' '' | tr '"' '')
-OUTPUT_NAME="transcript_temp"
-
-# ============================================
-# STEP 1: Check if yt-dlp is installed
-# ============================================
-if ! command -v yt-dlp &> /dev/null; then
-    echo "yt-dlp not found, attempting to install..."
-    if command -v brew &> /dev/null; then
-        brew install yt-dlp
-    elif command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y yt-dlp
-    else
-        pip3 install yt-dlp
-    fi
-fi
-
-# ============================================
-# STEP 2: List available subtitles
-# ============================================
-echo "Checking available subtitles..."
-yt-dlp --list-subs "$VIDEO_URL"
-
-# ============================================
-# STEP 3: Try manual subtitles first
-# ============================================
-echo "Attempting to download manual subtitles..."
-if yt-dlp --write-sub --skip-download --output "$OUTPUT_NAME" "$VIDEO_URL" 2>/dev/null; then
-    echo "✓ Manual subtitles downloaded successfully!"
-    ls -lh ${OUTPUT_NAME}.*
-else
-    # ============================================
-    # STEP 4: Fallback to auto-generated
-    # ============================================
-    echo "Manual subtitles not available. Trying auto-generated..."
-    if yt-dlp --write-auto-sub --skip-download --output "$OUTPUT_NAME" "$VIDEO_URL" 2>/dev/null; then
-        echo "✓ Auto-generated subtitles downloaded successfully!"
-        ls -lh ${OUTPUT_NAME}.*
-    else
-        # ============================================
-        # STEP 5: Last resort - Whisper transcription
-        # ============================================
-        echo "⚠ No subtitles available for this video."
-
-        # Get file size
-        FILE_SIZE=$(yt-dlp --print "%(filesize_approx)s" -f "bestaudio" "$VIDEO_URL")
-        DURATION=$(yt-dlp --print "%(duration)s" "$VIDEO_URL")
-        TITLE=$(yt-dlp --print "%(title)s" "$VIDEO_URL")
-
-        echo "Video: $TITLE"
-        echo "Duration: $((DURATION / 60)) minutes"
-        echo "Audio size: ~$((FILE_SIZE / 1024 / 1024)) MB"
-        echo ""
-        echo "Would you like to download and transcribe with Whisper? (y/n)"
-        read -r RESPONSE
-
-        if [[ "$RESPONSE" =~ ^[Yy]$ ]]; then
-            # Check for Whisper
-            if ! command -v whisper &> /dev/null; then
-                echo "Whisper not installed. Install now? (requires ~1-3GB) (y/n)"
-                read -r INSTALL_RESPONSE
-                if [[ "$INSTALL_RESPONSE" =~ ^[Yy]$ ]]; then
-                    pip3 install openai-whisper
-                else
-                    echo "Cannot proceed without Whisper. Exiting."
-                    exit 1
-                fi
-            fi
-
-            # Download audio
-            echo "Downloading audio..."
-            yt-dlp -x --audio-format mp3 --output "audio_%(id)s.%(ext)s" "$VIDEO_URL"
-
-            # Get the actual audio filename
-            AUDIO_FILE=$(ls audio_*.mp3 | head -n 1)
-
-            # Transcribe
-            echo "Transcribing with Whisper (this may take a few minutes)..."
-            whisper "$AUDIO_FILE" --model base --output_format vtt
-
-            # Cleanup
-            echo "Transcription complete! Delete audio file? (y/n)"
-            read -r CLEANUP_RESPONSE
-            if [[ "$CLEANUP_RESPONSE" =~ ^[Yy]$ ]]; then
-                rm "$AUDIO_FILE"
-                echo "Audio file deleted."
-            fi
-
-            ls -lh *.vtt
-        else
-            echo "Transcription cancelled."
-            exit 0
-        fi
-    fi
-fi
-
-# ============================================
-# STEP 6: Convert to readable plain text with deduplication
-# ============================================
-VTT_FILE=$(ls ${OUTPUT_NAME}*.vtt 2>/dev/null || ls *.vtt | head -n 1)
-if [ -f "$VTT_FILE" ]; then
-    echo "Converting to readable format and removing duplicates..."
-    python3 -c "
-import sys, re
-seen = set()
-with open('$VTT_FILE', 'r') as f:
-    for line in f:
-        line = line.strip()
-        if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
-            clean = re.sub('<[^>]*>', '', line)
-            clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
-            if clean and clean not in seen:
-                print(clean)
-                seen.add(clean)
-" > "${VIDEO_TITLE}.txt"
-    echo "✓ Saved to: ${VIDEO_TITLE}.txt"
-
-    # Clean up temporary VTT file
-    rm "$VTT_FILE"
-    echo "✓ Cleaned up temporary VTT file"
-else
-    echo "⚠ No VTT file found to convert"
-fi
-
-echo "✓ Complete!"
+### Example 2: 다국어 자막 추출
 ```
+User: 이 영상의 영어/한국어 자막 둘 다 추출해줘
 
-**Note**: This complete workflow handles all scenarios with proper error checking and user prompts at each decision point.
+Claude:
+1. --list-subs로 가용 언어 확인
+2. 각 언어별 자막 다운로드
+3. 정리된 텍스트 파일 제공
+```
 
 ## Error Handling
 
-### Common Issues and Solutions:
+| 에러 | 원인 | 해결책 |
+|------|------|--------|
+| `yt-dlp not found` | 미설치 | brew/apt/pip 설치 |
+| `No subtitles available` | 자막 없음 | Whisper 사용 제안 |
+| `Invalid URL` | URL 오류 | URL 형식 확인 |
+| `Video unavailable` | 비공개/삭제 | 사용자에게 알림 |
 
-**1. yt-dlp not installed**
-- Attempt automatic installation based on system (Homebrew/apt/pip)
-- If installation fails, provide manual installation link
-- Verify installation before proceeding
+## Whisper Fallback
 
-**2. No subtitles available**
-- List available subtitles first to confirm
-- Try both `--write-sub` and `--write-auto-sub`
-- If both fail, offer Whisper transcription option
-- Show file size and ask for user confirmation before downloading audio
+자막이 전혀 없는 경우 (사용자 확인 필요):
 
-**3. Invalid or private video**
-- Check if URL is correct format: `https://www.youtube.com/watch?v=VIDEO_ID`
-- Some videos may be private, age-restricted, or geo-blocked
-- Inform user of the specific error from yt-dlp
+```bash
+# 파일 크기 확인
+yt-dlp --print filesize "VIDEO_URL"
 
-**4. Whisper installation fails**
-- May require system dependencies (ffmpeg, rust)
-- Provide fallback: "Install manually with: `pip3 install openai-whisper`"
-- Check available disk space (models require 1-10GB depending on size)
+# 사용자 승인 후 오디오 다운로드
+yt-dlp -x --audio-format mp3 "VIDEO_URL"
 
-**5. Download interrupted or failed**
-- Check internet connection
-- Verify sufficient disk space
-- Try again with `--no-check-certificate` if SSL issues occur
+# Whisper로 변환
+whisper audio.mp3 --language ko --model base
+```
 
-**6. Multiple subtitle languages**
-- By default, yt-dlp downloads all available languages
-- Can specify with `--sub-langs en` for English only
-- List available with `--list-subs` first
-
-### Best Practices:
-
-- ✅ Always check what's available before attempting download (`--list-subs`)
-- ✅ Verify success at each step before proceeding to next
-- ✅ Ask user before large downloads (audio files, Whisper models)
-- ✅ Clean up temporary files after processing
-- ✅ Provide clear feedback about what's happening at each stage
-- ✅ Handle errors gracefully with helpful messages
+**주의**: 대역폭/처리 시간 소요로 사용자 확인 필수

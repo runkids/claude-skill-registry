@@ -1,317 +1,308 @@
 ---
 name: today
-description: Interactive daily productivity review with guided priority setting. Supports morning planning, midday check-ins, and end-of-day wrap-ups. Use for daily ritual or cron automation.
-version: 1.1.0
-category: productivity
-last_updated: 2026-01-21
-related_skills:
-  - context-management
-  - planning
+description: Displays tasks and work for today with progress tracking and prioritization. Use when the user asks "what should I work on today", "show my tasks", or "/today". Pulls from the beads task system and provides a personalized, actionable digest.
 ---
 
-# Today - Daily Productivity Skill
+# Today's Task Dashboard
 
-## Overview
-
-A daily ritual skill that reviews your workspace activity, summarizes progress, identifies blockers, and suggests focus items for sustained productivity. Features **interactive review mode** that guides you through priority setting and progress tracking.
-
-## Quick Start
-
-```bash
-# Interactive review (auto-detects morning/midday/evening)
-/today
-
-# Specific modes
-/today morning    # Full review + set priorities
-/today midday     # Quick progress check
-/today --eod      # End-of-day wrap-up
-
-# Weekly review
-/today --week
-
-# Cron automation (runs at 6 AM)
-0 6 * * * /path/to/workspace-hub/scripts/productivity/daily_today.sh
-```
-
-## Interactive Modes
-
-| Mode | When | Duration | What It Does |
-|------|------|----------|--------------|
-| **Morning** | Before noon | 5 min | Full review, set 3 priorities |
-| **Midday** | Noon-5pm | 2 min | Progress check, log blockers |
-| **Evening** | After 5pm / `--eod` | 3 min | Wrap-up, capture tomorrow's focus |
-
-### Morning Flow
-1. Review yesterday's git activity
-2. See open TODOs and in-progress work
-3. **Interactive:** Choose your top 3 priorities
-4. Optional: Block focus time
-
-### Midday Flow
-1. Quick status on priority #1
-2. Log any blockers
-3. Adjust priorities if needed
-
-### Evening Flow
-1. Mark priorities as done/partial/blocked
-2. Capture blockers for tomorrow
-3. Set tomorrow's starting focus
+Shows your prioritized work for today with context, dependencies, and progress tracking.
 
 ## When to Use
 
-- Start of workday ritual
-- After returning from break/vacation
-- Weekly planning sessions
-- Automated daily reports via cron
-- Before standup meetings
+Activate when users:
+- Ask "what should I work on today?"
+- Request "show my tasks"
+- Want to check their task list or project status
+- Use the `/today` slash command
+- Ask for a daily digest or summary
 
-## Instructions
+## What Gets Displayed
 
-### Daily Review Process
+The skill gathers and displays:
 
-Execute these steps in order:
+1. **Today's Tasks** - All active tasks with status
+2. **Blocked Tasks** - Tasks waiting on dependencies
+3. **Progress Summary** - Completion percentage and momentum
+4. **Priority Order** - Recommended work sequence
+5. **Context Notes** - Task descriptions and acceptance criteria
 
-#### 1. Gather Context (Automated)
+## Display Format
 
-Collect data from these sources:
+### Task List Layout
 
-| Source | What to Extract |
-|--------|-----------------|
-| Git logs | Commits from last 24h across all repos |
-| TODO files | Open items in `TODO.md`, `TASKS.md` |
-| Specs | In-progress specs in `specs/modules/` |
-| Calendar | Today's meetings (if integrated) |
-| Notes | Recent entries in daily notes |
+```
+═══════════════════════════════════════════════════════════════
+  📋 TODAY'S DASHBOARD
+  {date} • {task_count} tasks • {completed}/{total} complete
+═══════════════════════════════════════════════════════════════
 
-#### 2. Generate Daily Summary
+🎯 READY TO START ({ready_count})
+───────────────────────────────────────────────────────────────
+{task-1-priority} {task_1_title}
+   {task_1_description}
+   Status: {status} | Estimate: {estimate}
 
-```markdown
-## Daily Summary - {DATE}
+{task-2-priority} {task_2_title}
+   {task_2_description}
+   Status: {status} | Estimate: {estimate}
 
-### Completed Yesterday
-- [ ] List completed tasks from git commits
-- [ ] Closed issues/PRs
 
-### In Progress
-- [ ] Active branches/PRs
-- [ ] Open specs/plans
+🔄 IN PROGRESS ({in_progress_count})
+───────────────────────────────────────────────────────────────
+{task-3-title}
+   Progress: {progress_bar} {percent}%
+   Current step: {current_step}
 
-### Blocked/Waiting
-- [ ] Items awaiting input
-- [ ] Dependency blockers
 
-### Today's Focus (Recommended)
-1. **High Priority:** [Most impactful task]
-2. **Quick Wins:** [Tasks completable in <30min]
-3. **Deep Work:** [Requires focus time]
+⏳ BLOCKED ({blocked_count})
+───────────────────────────────────────────────────────────────
+{task-4-title}
+   Waiting on: {blocking_task}
+   Status: {blocker_status}
+
+
+✅ COMPLETED ({completed_count})
+───────────────────────────────────────────────────────────────
+{completed_tasks_summary}
+
+
+📊 TODAY'S METRICS
+───────────────────────────────────────────────────────────────
+Completion Rate: {percent}%
+Estimated Completion: {est_time}
+Context Available: {context_used}% of limit
 ```
 
-#### 3. Long-Term Productivity Suggestions
+## Generation Process
 
-Analyze patterns and suggest improvements:
+### Step 1: Invoke Today Agent
 
-| Pattern | Suggestion |
-|---------|------------|
-| Many small commits | Consider batching related changes |
-| Stale branches | Clean up or merge abandoned work |
-| Repeated context switches | Block focus time for deep work |
-| No tests in commits | Add TDD to workflow |
-| Large uncommitted changes | Commit more frequently |
-
-#### 4. Create Daily Log Entry
-
-Save to `logs/daily/{YYYY-MM-DD}.md`:
-
-```markdown
----
-date: {YYYY-MM-DD}
-generated: auto
-reviewed: false
----
-
-# Daily Log - {DATE}
-
-## Summary
-[Auto-generated summary]
-
-## Priorities
-1.
-2.
-3.
-
-## Notes
-[Space for manual notes]
-
-## End of Day Review
-- [ ] Completed priorities
-- [ ] Blockers encountered
-- [ ] Tomorrow's focus
-```
-
-### Data Sources Configuration
-
-Configure in `.claude/config/today.yaml`:
-
-```yaml
-today:
-  sources:
-    git:
-      enabled: true
-      lookback_hours: 24
-      repos:
-        - .  # Current repo
-        - ../related-project
-
-    files:
-      todo_patterns:
-        - "**/TODO.md"
-        - "**/TASKS.md"
-        - "**/.todo"
-
-      notes_dir: "logs/daily"
-
-    calendar:
-      enabled: false  # Requires calendar integration
-
-  output:
-    daily_log_dir: "logs/daily"
-    summary_format: "markdown"
-
-  automation:
-    cron_enabled: true
-    notify_on_complete: false
-```
-
-## Cron Setup
-
-### Installation
+Run the TypeScript agent to fetch and format task data:
 
 ```bash
-# Make script executable
-chmod +x scripts/productivity/daily_today.sh
-
-# Add to crontab (runs at 6 AM daily)
-crontab -e
-# Add line:
-0 6 * * * /path/to/workspace-hub/scripts/productivity/daily_today.sh >> /tmp/daily_today.log 2>&1
+bun run packages/agents/src/cli/agent-cli.ts today
 ```
 
-### Cron Script Features
+The agent will:
+1. Query the beads task system for all tasks
+2. Filter tasks by status (pending, in_progress, completed, blocked)
+3. Determine task priority based on:
+   - Dependencies (blockedBy, blocks)
+   - Priority field (if set)
+   - Estimated complexity
+4. Generate a markdown digest with prioritized recommendations
+5. Output context metrics for awareness
 
-- Generates daily summary without interactive Claude
-- Creates log file in `logs/daily/`
-- Can trigger notifications (configurable)
-- Supports multiple workspace roots
-
-## Examples
-
-### Morning Ritual
-
+**Example output:**
 ```
-User: /today
+📋 TODAY'S DASHBOARD
+2026-01-26 • 8 tasks • 3/8 complete (38%)
 
-Claude: ## Daily Summary - 2026-01-21
+🎯 READY TO START (3)
+───────────────────────────────────────
+⭐ Fix authentication bug in login flow
+   Critical vulnerability allowing bypass. Acceptance: no
+   /auth endpoints allow unauthenticated POST
+   Status: pending | Estimate: 1-2 hours
 
-### Completed Yesterday
-- Merged PR #42: Add user authentication
-- Fixed 3 bugs in payment module
-- Updated API documentation
+🎯 Update database schema migration
+   Add support for new user preferences table
+   Status: pending | Estimate: 30 min
 
-### In Progress
-- Feature: Dashboard analytics (branch: feature/analytics)
-- Spec: Mobile app redesign (specs/modules/mobile-v2/)
+🔄 IN PROGRESS (2)
+───────────────────────────────────────
+🏃 Implement new blog feature
+   Progress: ████████░░ 80%
+   Current: Writing tests
 
-### Blocked
-- Waiting: Design review for mobile spec
-- Dependency: Backend team to deploy auth service
-
-### Today's Focus (Recommended)
-1. **High Priority:** Complete analytics dashboard tests
-2. **Quick Wins:** Review open PRs (2 waiting)
-3. **Deep Work:** Start mobile navigation implementation
-
-### Long-Term Suggestions
-- Consider: 15 context switches yesterday - block 2h focus time
-- Action: Stale branch `feature/old-feature` (30 days) - archive or delete
-```
-
-### Weekly Planning
-
-```
-User: /today --week
-
-Claude: ## Weekly Summary - Week of 2026-01-20
-
-### Accomplishments
-- 23 commits across 4 repositories
-- 5 PRs merged, 2 pending
-- 2 specs completed
-
-### Patterns Observed
-- Most productive: Tuesday (8 commits)
-- Most meetings: Wednesday (4 hours)
-- Suggestion: Protect Tuesday mornings for deep work
-
-### Next Week Focus
-1. Complete mobile spec review
-2. Ship analytics v1
-3. Technical debt: Refactor auth module
+⏳ BLOCKED (1)
+───────────────────────────────────────
+⏸️ Deploy to production
+   Waiting on: Fix authentication bug (pending)
 ```
 
-## Best Practices
+### Step 2: Present the Digest
 
-### Do
+After agent output, present:
 
-1. Run `/today` at consistent time each morning
-2. Review and adjust auto-generated priorities
-3. Update end-of-day notes before closing
-4. Use cron for consistent data collection
-5. Archive old daily logs monthly
+1. **Task digest** - Formatted list with priorities
+2. **Quick actions** - Suggested next steps:
+   ```bash
+   Start work: bd update <task-id> --status=in_progress
+   Mark done: bd update <task-id> --status=completed
+   View details: bd show <task-id>
+   Create task: bd create
+   ```
+3. **Context reminder** - Time-box estimate and context headroom
 
-### Don't
+### Step 3: Interactive Suggestions
 
-1. Skip the review - consistency builds habits
-2. Overload daily priorities (max 3-5 items)
-3. Ignore long-term suggestions repeatedly
-4. Let daily logs accumulate without review
+Offer next steps based on task state:
 
-## Error Handling
+**If tasks are blocked:**
+```
+Some tasks are waiting on dependencies. Would you like to:
+1. Focus on unblocked work first
+2. Check blocker status
+3. Escalate blockers to get them moving
+```
 
-| Situation | Action |
-|-----------|--------|
-| No git activity | Note "No commits" - suggest catching up |
-| Missing config | Use defaults, create template config |
-| Calendar unavailable | Skip calendar section, note in summary |
-| Cron fails | Check log at `/tmp/daily_today.log` |
+**If many tasks completed:**
+```
+You've made great progress (70% complete)! Consider:
+1. Taking a break
+2. Reviewing completed work
+3. Planning for tomorrow
+```
 
-## Metrics
+**If high priority tasks pending:**
+```
+You have 2 critical tasks waiting. Recommended priority:
+1. Fix authentication bug (1-2 hours) - unblocks deployment
+2. Update schema (30 min) - prerequisite for feature
+3. Implement feature (2-3 hours) - depends on above
+```
 
-Track these for productivity insights:
+## Optional Parameters
 
-| Metric | Target | Description |
-|--------|--------|-------------|
-| Daily completion rate | >70% | Priorities marked done |
-| Focus time | >4h/day | Uninterrupted work blocks |
-| Context switches | <10/day | Task transitions |
-| Commit frequency | 3-8/day | Healthy progress indicators |
+### Filter by Status
 
-## Output Locations
+Show only specific task statuses:
 
-| Output | Location |
-|--------|----------|
-| Daily logs | `logs/daily/{YYYY-MM-DD}.md` |
-| Weekly summaries | `logs/weekly/{YYYY-WW}.md` |
-| Cron output | `/tmp/daily_today.log` |
-| Config | `.claude/config/today.yaml` |
+```bash
+bun run packages/agents/src/cli/agent-cli.ts today --status=in_progress
+bun run packages/agents/src/cli/agent-cli.ts today --status=ready
+```
 
-## Related Skills
+### Filter by Priority
 
-- [context-management](../../context-management/SKILL.md) - Manage context efficiently
-- [planning](../../development/planning/SKILL.md) - Detailed planning methodology
+Show only high-priority tasks:
+
+```bash
+bun run packages/agents/src/cli/agent-cli.ts today --priority=critical,high
+```
+
+### Custom Date
+
+Show tasks for a different date:
+
+```bash
+bun run packages/agents/src/cli/agent-cli.ts today --date=2026-01-27
+```
+
+## Task Workflow Integration
+
+After showing today's digest, help with task management:
+
+**Starting work:**
+- User picks a task
+- Run `bd update <task-id> --status=in_progress`
+- Ask if they need task details or context
+
+**Reporting progress:**
+- Remind user can update status anytime: `bd update <id> --status=...`
+- Offer to check for newly unblocked tasks
+- Suggest taking a screenshot/snapshot of progress
+
+**Completing work:**
+- Prompt to mark complete: `bd update <task-id> --status=completed`
+- Check if any previously blocked tasks are now ready
+- Suggest creating a follow-up task if needed
+
+## Voice and Tone
+
+- **Energetic and encouraging** - Help user see momentum
+- **Clear priorities** - Remove ambiguity about what matters today
+- **Dependency-aware** - Highlight blockers and unblock paths
+- **Progress-focused** - Celebrate completed work
+- **Realistic estimates** - Under-promise, over-deliver
+
+## File Locations
+
+| Resource | Path |
+|----------|------|
+| Task system | `.beads/issues.jsonl` |
+| Task schema | `.beads/schema.json` |
+| Today Agent | `packages/agents/src/cli/agent-cli.ts` |
+| Beads CLI | `gt` / `bd` commands |
+| Config | `.beads/.local_version` |
+
+## Example Interactions
+
+**User:** What should I work on today?
+
+**Assistant:** Let me pull up your task dashboard for today.
+
+```bash
+bun run packages/agents/src/cli/agent-cli.ts today
+```
+
+```
+📋 TODAY'S DASHBOARD
+2026-01-26 • 5 tasks • 2/5 complete (40%)
+
+🎯 READY TO START (2)
+───────────────────────────────────────
+⭐ Review and merge PR #42
+   Waiting for your review before merge. All checks pass.
+   Status: pending | Estimate: 15 min
+
+🎯 Fix typo in documentation
+   Three instances in README and guides
+   Status: pending | Estimate: 5 min
+
+🔄 IN PROGRESS (1)
+───────────────────────────────────────
+🏃 Implement new API endpoint
+   Progress: ██████░░░░ 60%
+   Current: Writing unit tests
+
+✅ COMPLETED (2)
+───────────────────────────────────────
+✓ Set up database fixtures
+✓ Create test user seed data
+
+📊 TODAY'S METRICS
+───────────────────────────────────────
+Completion Rate: 40%
+Momentum: Good (2 completed this morning)
+Context Available: 65% of limit
+```
+
+**Recommended priority:**
+1. **Finish API endpoint** (in progress - 30 min remaining) - highest momentum
+2. **Review PR #42** (15 min) - unblocks deployment
+3. **Documentation typo** (5 min) - quick win
+
+Would you like to continue with the API tests, or switch to reviewing the PR?
 
 ---
 
-## Version History
+**User:** Show only my blocked tasks.
 
-- **1.1.0** (2026-01-21): Add interactive review mode with morning/midday/evening flows
-- **1.0.0** (2026-01-21): Initial release with daily review, cron support, long-term suggestions
+**Assistant:**
+```bash
+bun run packages/agents/src/cli/agent-cli.ts today --status=blocked
+```
+
+You don't have any blocked tasks right now! All your work is either ready to start or already in progress. That's great momentum.
+
+Ready to jump into something? Your highest priority unstarted task is "Review PR #42" (15 min estimate).
+
+---
+
+**User:** I just finished the API endpoint. What's next?
+
+**Assistant:** Excellent! Let me update your task status and show what's next.
+
+```bash
+bd update <task-id> --status=completed
+bun run packages/agents/src/cli/agent-cli.ts today
+```
+
+Congratulations on finishing the API endpoint! You're now at 60% complete for today (3/5 tasks).
+
+**Next recommended:** Review PR #42 (15 min)
+This unblocks the deployment and is critical path. Then the quick documentation fix.
+
+Want to start the PR review now?

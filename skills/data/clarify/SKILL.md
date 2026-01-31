@@ -1,88 +1,262 @@
 ---
 name: clarify
-description: 요구사항 명확화 스킬. 모호한 요청을 구체적인 스펙으로 변환. Plan Mode 진입 전 사용.
+version: "1.0.0"
+description: "This skill should be used when the user asks to 'clarify requirements', 'resolve uncertainties', 'answer spec questions', or when auto-triggered by /specify with >3 NEEDS CLARIFICATION markers. Systematically surfaces and resolves ambiguities in specifications."
 ---
 
-# Clarify Skill
+# Clarify - Systematic Uncertainty Resolution
 
-모호한 요구사항을 구체적이고 실행 가능한 스펙으로 변환.
+Scan specifications for ambiguities and resolve them through structured questioning. Produces cleaner specs that feed into architecture and planning.
 
-## 프로세스
+**Triggers:**
+- Auto-triggered by `/specify` when >3 `[NEEDS CLARIFICATION]` markers
+- Manual: `/clarify` to review current spec
+- Manual: `/clarify path/to/spec.md` for specific spec
 
+---
+
+## Process
+
+### 1. Load Specification
+
+Find active spec:
+```bash
+# Most recent spec
+ls -t .claude/specs/*/spec.md | head -1
 ```
-/clarify "요청"
-    │
-    ├─ Phase 1: 원본 기록
-    │   └─ 원본 요청 그대로 기록
-    │
-    ├─ Phase 2: 반복 질문
-    │   └─ AskUserQuestion으로 모호한 점 해결
-    │
-    ├─ Phase 3: Before/After 비교
-    │   └─ 원본 vs 명확화된 스펙 비교 제시
-    │
-    └─ Phase 4: 저장 옵션
-        └─ docs/requirements/ 에 저장 여부 확인
+
+Or use provided path.
+
+### 2. Extract Markers
+
+```bash
+grep -n "NEEDS CLARIFICATION" .claude/specs/*/spec.md
 ```
 
-## 질문 원칙
+Parse each marker:
+- Line number
+- Requirement ID (FR-xxx, SC-xxx, etc.)
+- Context (what section)
+- Question text
 
-- **구체적 > 일반적**: 추상적 선호보다 구체적 세부사항
-- **선택지 > 개방형**: 2-4개 옵션 제시 (인식 > 회상)
-- **하나씩 질문**: 여러 질문 묶지 않기
-- **중립적 프레이밍**: 편향 없이 옵션 제시
+### 3. Scan for Implicit Ambiguities
 
-## 모호함 카테고리
+Beyond explicit markers, scan for:
 
-| 카테고리 | 질문 예시 |
+| Pattern | Example | Issue |
+|---------|---------|-------|
+| Vague adjectives | "fast", "reliable", "user-friendly" | Not measurable |
+| Undefined terms | "admin user", "valid input" | Domain-specific |
+| Missing edge cases | Only happy path defined | Incomplete |
+| Passive voice | "data is validated" | Who validates? When? |
+| Unbounded lists | "users can upload files" | What types? Size limits? |
+
+Add discovered ambiguities to question queue.
+
+### 4. Categorize Uncertainties
+
+Group by taxonomy:
+
+| Category | Examples |
 |----------|----------|
-| **범위** | 포함/제외 항목? |
-| **동작** | 엣지 케이스? 에러 시나리오? |
-| **인터페이스** | 누가/무엇이 상호작용? |
-| **데이터** | 입력? 출력? 포맷? |
-| **제약** | 성능? 호환성? |
-| **우선순위** | 필수 vs 있으면 좋은 것? |
+| **Functional scope** | What features? What's excluded? |
+| **Data model** | What entities? Relationships? |
+| **UX flows** | User journey? Error states? |
+| **Performance** | Latency? Throughput? Scale? |
+| **Integration** | External systems? APIs? |
+| **Edge cases** | Limits? Errors? Recovery? |
+| **Constraints** | Budget? Timeline? Tech restrictions? |
+| **Terminology** | Domain-specific definitions? |
+| **Completion** | Definition of done? |
 
-## 결과 템플릿
+### 5. Prioritize Questions
+
+Score each: `Impact × Uncertainty`
+
+- **Impact:** How much does this affect architecture, data model, task breakdown, or testing?
+- **Uncertainty:** How unclear is this currently?
+
+Take top 5 questions maximum per clarify session.
+
+### 6. Generate Questions
+
+**Format rules:**
+- Multiple choice (2-5 options) preferred
+- If open-ended: constrain to ≤5 word answer
+- One question at a time
+- Include context from spec
+
+**Question template:**
+```markdown
+## Question 1 of 5
+
+**Context:** FR-003 states "System MUST validate user input"
+
+**Question:** What validation rules apply to email addresses?
+
+**Options:**
+A) RFC 5322 strict validation
+B) Simple format check (contains @ and .)
+C) Format check + DNS MX record verification
+D) Custom business rules (please specify)
+
+**Impact:** Affects error messages, test cases, and integration complexity.
+```
+
+### 7. Apply Answers Immediately
+
+After each answer:
+
+1. Update spec.md - replace marker with resolved requirement
+2. Log to `.claude/specs/{slug}/clarifications/log.md`
+
+**Before:**
+```markdown
+- FR-003: System MUST validate email [NEEDS CLARIFICATION: validation rules]
+```
+
+**After:**
+```markdown
+- FR-003: System MUST validate email format (RFC 5322) and verify domain has MX record
+```
+
+**Clarification log entry:**
+```markdown
+## 2025-01-29: Email Validation Rules
+
+**Question:** What validation rules apply to email addresses?
+**Answer:** RFC 5322 + MX verification (Option C)
+**Updated:** FR-003
+**Rationale:** Balance strictness with user experience, catch typos in domain
+```
+
+### 8. Track Coverage
+
+After all questions answered, report coverage:
 
 ```markdown
-## Before (원본)
-"{원본 요청}"
+## Clarification Summary
 
-## After (명확화)
-**목표**: [구체적 설명]
-**범위**: [포함/제외 항목]
-**제약**: [제한사항, 요구사항]
-**성공 기준**: [완료 판단 기준]
+| Category | Status |
+|----------|--------|
+| Functional scope | Resolved |
+| Data model | Resolved |
+| UX flows | Outstanding (1 marker) |
+| Performance | Clear |
+| Integration | Deferred |
+| Edge cases | Resolved |
+| Constraints | Clear |
+| Terminology | Resolved |
+| Completion | Clear |
 
-**결정 사항**:
-| 질문 | 결정 |
-|------|------|
-| [모호함 1] | [선택된 옵션] |
-| [모호함 2] | [선택된 옵션] |
+**Remaining markers:** 1
+**Ready for architecture:** Yes (≤3 markers)
 ```
 
-## 예시
+---
 
-### 입력
+## Question Patterns
+
+### Multiple Choice (Preferred)
+
+```markdown
+**Question:** How should the system handle failed payment attempts?
+
+A) Retry automatically up to 3 times
+B) Notify user immediately, no retry
+C) Queue for manual review
+D) Combination (specify)
 ```
-/clarify 태그 필터링 추가
+
+### Constrained Open-Ended
+
+```markdown
+**Question:** Maximum file upload size? (≤5 words)
+
+Example answers: "10MB", "50MB per file", "No limit"
 ```
 
-### 질문
-1. 다중 태그 선택 시 동작? → AND (모든 태그 포함)
-2. UI 위치? → 검색바 아래
-3. 태그 없는 링크 표시? → "태그 없음" 필터 제공
+### Binary with Justification
 
-### 결과
-- 목표: 다중 태그 AND 필터링 기능 추가
-- 범위: 태그 칩 UI, 필터 로직, "태그 없음" 옵션
-- 성공 기준: 선택한 모든 태그를 포함하는 링크만 표시
+```markdown
+**Question:** Should inactive users be auto-deleted?
 
-## 규칙
+A) Yes - after [specify duration]
+B) No - keep indefinitely
 
-1. **가정 금지**: 물어보기
-2. **의도 보존**: 방향 수정 아닌 명확화
-3. **최소 질문**: 필요한 것만
-4. **답변 존중**: 사용자 결정 수용
-5. **변화 추적**: 항상 Before/After 표시
+If yes, what defines "inactive"?
+```
+
+---
+
+## Handling Technical Uncertainties
+
+Some markers are technical (HOW, not WHAT). Don't resolve these in clarify.
+
+**Technical markers → arch-lead:**
+```
+[NEEDS CLARIFICATION: which database?]
+[NEEDS CLARIFICATION: sync or async processing?]
+[NEEDS CLARIFICATION: API design]
+```
+
+**Flag for arch-lead:**
+```markdown
+## Technical Uncertainties (for Architecture)
+
+These require technical research, not stakeholder input:
+
+1. FR-015: Processing approach (sync/async) - arch-lead to evaluate
+2. NFR-003: Database selection based on scale requirements
+```
+
+---
+
+## Deferral
+
+Some questions can't be answered yet. Mark as deferred:
+
+```markdown
+- FR-020: System MUST integrate with payment provider [DEFERRED: vendor selection pending]
+```
+
+Deferred items:
+- Don't block spec completion
+- Must have clear unblock condition
+- Tracked in clarification log
+
+---
+
+## Completion Criteria
+
+Clarify session complete when:
+
+1. All explicit markers addressed (resolved or deferred)
+2. No implicit ambiguities in P1 scenarios
+3. Coverage summary shows no Outstanding in critical categories
+4. Remaining markers ≤ 3 (threshold for arch-lead handoff)
+
+---
+
+## Output
+
+Updates to:
+- `.claude/specs/{slug}/spec.md` - markers replaced with answers
+- `.claude/specs/{slug}/clarifications/log.md` - decision history
+
+Commit changes:
+```bash
+git add .claude/specs/{slug}/
+git commit -m "clarify: resolve {N} uncertainties in {slug}"
+```
+
+---
+
+## Constraints
+
+- Maximum 5 questions per session (avoid fatigue)
+- Multiple choice whenever possible
+- Open-ended answers ≤5 words
+- Update spec immediately after each answer
+- Never resolve technical uncertainties (arch-lead's job)
+- Always log decisions with rationale

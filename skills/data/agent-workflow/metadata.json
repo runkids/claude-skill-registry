@@ -1,7 +1,7 @@
 {
   "name": "agent-workflow",
-  "repo": "NeverSight/skills.sh_feed",
-  "path": "data/skills-md/adenhq/hive/agent-workflow/SKILL.md",
-  "source": "github.com/NeverSight/skills.sh_feed",
-  "downloaded_at": "2026-01-30T01:11:08.267926Z"
+  "repo": "adenhq/hive",
+  "path": ".claude/skills/agent-workflow/SKILL.md",
+  "source": "github.com/adenhq/hive",
+  "downloaded_at": "2026-01-31T04:50:53.499462Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "database-admin",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/database-admin/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:04.800240Z"
+  "repo": "rmyndharis/antigravity-skills",
+  "path": "skills/database-admin/SKILL.md",
+  "source": "github.com/rmyndharis/antigravity-skills",
+  "downloaded_at": "2026-01-31T03:00:59.845888Z"
 }

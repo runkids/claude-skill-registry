@@ -1,7 +1,7 @@
 {
   "name": "plan-complete",
-  "repo": "savvy-web/pnpm-monorepo-template",
-  "path": ".claude/skills/plan-complete/SKILL.md",
-  "source": "github.com/savvy-web/pnpm-monorepo-template",
-  "downloaded_at": "2026-01-30T04:43:26.597601Z"
+  "repo": "brmatola/gremlins",
+  "path": "skills/plan-complete/SKILL.md",
+  "source": "github.com/brmatola/gremlins",
+  "downloaded_at": "2026-01-31T04:47:46.564942Z"
 }

@@ -4,6 +4,7 @@ description: "Toolkit for comprehensive presentation creation, editing, and anal
 metadata:
   author: Anthropic
   license: Proprietary. See LICENSE.txt
+  version: 2025.12.01
 ---
 
 # PPTX creation, editing, and analysis

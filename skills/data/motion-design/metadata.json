@@ -1,9 +1,7 @@
 {
   "name": "motion-design",
-  "description": "name: motion-design-expert",
-  "repo": "martinholovsky/claude-skills-generator",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/martinholovsky/claude-skills-generator"
+  "repo": "richtabor/agent-skills",
+  "path": "skills/motion-design/SKILL.md",
+  "source": "github.com/richtabor/agent-skills",
+  "downloaded_at": "2026-01-31T01:55:55.106724Z"
 }

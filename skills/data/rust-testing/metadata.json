@@ -1,7 +1,7 @@
 {
   "name": "rust-testing",
-  "repo": "AutumnsGrove/GroveEngine",
-  "path": ".claude/skills/rust-testing/SKILL.md",
-  "source": "github.com/AutumnsGrove/GroveEngine",
-  "downloaded_at": "2026-01-30T03:12:57.274200Z"
+  "repo": "pproenca/dot-skills",
+  "path": "skills/.experimental/rust-testing/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-01-31T03:35:41.459956Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "clerk-sdk-patterns",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/clerk-sdk-patterns/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:25.315980Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/plugins/saas-packs/clerk-pack/clerk-sdk-patterns/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-31T03:27:14.982830Z"
 }

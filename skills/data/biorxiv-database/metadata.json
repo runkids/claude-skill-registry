@@ -1,7 +1,7 @@
 {
   "name": "biorxiv-database",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/biorxiv-database/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-30T03:01:20.799258Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/biorxiv-database/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-31T03:49:21.724584Z"
 }

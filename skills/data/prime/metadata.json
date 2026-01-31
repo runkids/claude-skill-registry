@@ -1,7 +1,7 @@
 {
   "name": "prime",
-  "repo": "ianphil/prism",
-  "path": ".claude/skills/prime/SKILL.md",
-  "source": "github.com/ianphil/prism",
-  "downloaded_at": "2026-01-30T02:15:04.381970Z"
+  "repo": "robzolkos/zolkos-agent-skills",
+  "path": "skills/prime/SKILL.md",
+  "source": "github.com/robzolkos/zolkos-agent-skills",
+  "downloaded_at": "2026-01-31T04:13:17.744988Z"
 }

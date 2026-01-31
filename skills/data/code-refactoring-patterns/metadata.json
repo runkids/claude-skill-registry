@@ -1,9 +1,7 @@
 {
   "name": "code-refactoring-patterns",
-  "description": "This skill should be used when the user asks to \"refactor large files\", \"split code into smaller pieces\", \"extract methods\", \"how should I refactor\", \"improve code structure\", \"break down large functi",
-  "repo": "MaxBoiko21/claude-plugins-marketplace",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "4444J99/a-i--skills",
+  "path": "skills/development/code-refactoring-patterns/SKILL.md",
+  "source": "github.com/4444J99/a-i--skills",
+  "downloaded_at": "2026-01-31T04:19:44.774087Z"
 }

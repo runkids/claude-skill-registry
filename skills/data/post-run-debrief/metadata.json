@@ -1,15 +1,7 @@
 {
   "name": "post-run-debrief",
-  "description": "Converts run telemetry and user notes into structured reflections with confidence scores. Use after runs to capture qualitative feedback and generate next-step guidance with safety checks for pain or ",
   "repo": "nadavyigal/Running-coach-",
-  "category": "data",
-  "tags": [
-    "post",
-    "run",
-    "debrief"
-  ],
-  "stars": 1,
-  "dir_name": "post-run-debrief",
-  "github_path": ".claude/skills/post-run-debrief",
-  "github_branch": "main"
+  "path": ".cursor/skills/post-run-debrief/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:41.253937Z"
 }

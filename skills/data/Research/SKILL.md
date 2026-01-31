@@ -1,232 +1,196 @@
 ---
-name: research
-description: Comprehensive research, analysis, and content extraction system. Multi-source parallel research using available researcher agents. Deep content analysis with extended thinking. Intelligent retrieval for difficult sites. Fabric pattern selection for 242+ specialized prompts. USE WHEN user says 'do research', 'extract wisdom', 'analyze content', 'find information about', or requests web/content research.
+name: Research
+description: Multi-source parallel research using Perplexity, Gemini, and Claude. Three modes - Quick (1 query), Standard (3 queries), Extensive (8 queries). USE WHEN user says 'research', 'investigate', 'find out about', 'do research on', or requests comprehensive information gathering.
 ---
 
 # Research Skill
 
-## API Keys Required
+## CRITICAL: Use the Research CLI for Multi-Source Research
 
-**This skill works best with these optional API keys configured in `~/.env`:**
-
-| Feature | API Key | Get It From |
-|---------|---------|-------------|
-| Perplexity Research | `PERPLEXITY_API_KEY` | https://perplexity.ai/settings/api |
-| Gemini Research | `GOOGLE_API_KEY` | https://aistudio.google.com/app/apikey |
-| BrightData Scraping | `BRIGHTDATA_API_KEY` | https://brightdata.com |
-
-**Works without API keys:**
-- Claude-based research (uses built-in WebSearch)
-- Basic web fetching (uses built-in WebFetch)
-- Fabric patterns (if Fabric CLI installed)
-
----
-
-## Workflow Routing
-
-### Multi-Source Research Workflows
-
-**When user requests comprehensive parallel research:**
-Examples: "do research on X", "research this topic", "find information about Y", "investigate this subject"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/conduct.md`
-→ **EXECUTE:** Parallel multi-agent research using available researcher agents
-
-**When user requests Claude-based research (FREE - no API keys):**
-Examples: "use claude for research", "claude research on X", "use websearch to research Y"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/claude-research.md`
-→ **EXECUTE:** Intelligent query decomposition with Claude's WebSearch
-
-**When user requests Perplexity research (requires PERPLEXITY_API_KEY):**
-Examples: "use perplexity to research X", "perplexity research on Y"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/perplexity-research.md`
-→ **EXECUTE:** Fast web search with query decomposition via Perplexity API
-
-**When user requests interview preparation:**
-Examples: "prepare interview questions for X", "interview research on Y"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/interview-research.md`
-→ **EXECUTE:** Interview prep with diverse question generation
-
-### Content Retrieval Workflows
-
-**When user indicates difficulty accessing content:**
-Examples: "can't get this content", "site is blocking me", "CAPTCHA blocking"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/retrieve.md`
-→ **EXECUTE:** Escalation through layers (WebFetch → BrightData → Apify)
-
-**When user provides YouTube URL:**
-Examples: "get this youtube video", "extract from youtube URL"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/youtube-extraction.md`
-→ **EXECUTE:** YouTube content extraction using fabric -y
-
-**When user requests web scraping:**
-Examples: "scrape this site", "extract data from this website"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/web-scraping.md`
-→ **EXECUTE:** Web scraping techniques and tools
-
-### Fabric Pattern Processing
-
-**When user requests Fabric pattern usage:**
-Examples: "use fabric to X", "create threat model", "summarize with fabric"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/fabric.md`
-→ **EXECUTE:** Auto-select best pattern from 242+ Fabric patterns
-
-### Content Enhancement Workflows
-
-**When user requests content enhancement:**
-Examples: "enhance this content", "improve this draft"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/enhance.md`
-→ **EXECUTE:** Content improvement and refinement
-
-**When user requests knowledge extraction:**
-Examples: "extract knowledge from X", "get insights from this"
-→ **READ:** `${PAI_DIR}/skills/research/workflows/extract-knowledge.md`
-→ **EXECUTE:** Knowledge extraction and synthesis
-
----
-
-## Multi-Source Research
-
-### Three Research Modes
-
-**QUICK RESEARCH MODE:**
-- User says "quick research" → Launch 1 agent per researcher type
-- **Timeout: 2 minutes**
-- Best for: Simple queries, straightforward questions
-
-**STANDARD RESEARCH MODE (Default):**
-- Default for most research requests → Launch 3 agents per researcher type
-- **Timeout: 3 minutes**
-- Best for: Most research needs, comprehensive coverage
-
-**EXTENSIVE RESEARCH MODE:**
-- User says "extensive research" → Launch 8 agents per researcher type
-- **Timeout: 10 minutes**
-- Best for: Deep-dive research, comprehensive reports
-
-### Available Research Agents
-
-Check `${PAI_DIR}/agents/` for agents with "researcher" in their name:
-- `claude-researcher` - Uses Claude's WebSearch (FREE, no API key needed)
-- `perplexity-researcher` - Uses Perplexity API (requires PERPLEXITY_API_KEY)
-- `gemini-researcher` - Uses Gemini API (requires GOOGLE_API_KEY)
-
-### Speed Benefits
-
-- ❌ **Old approach**: Sequential searches → 5-10 minutes
-- ✅ **Quick mode**: 1 agent per type → **2 minute timeout**
-- ✅ **Standard mode**: 3 agents per type → **3 minute timeout**
-- ✅ **Extensive mode**: 8 agents per type → **10 minute timeout**
-
----
-
-## Intelligent Content Retrieval
-
-### Three-Layer Escalation System
-
-**Layer 1: Built-in Tools (Try First - FREE)**
-- WebFetch - Standard web content fetching
-- WebSearch - Search engine queries
-- When to use: Default for all content retrieval
-
-**Layer 2: BrightData MCP (requires BRIGHTDATA_API_KEY)**
-- CAPTCHA solving via Scraping Browser
-- Advanced JavaScript rendering
-- When to use: Bot detection blocking, CAPTCHA protection
-
-**Layer 3: Apify MCP (requires Apify account)**
-- Specialized site scrapers (Instagram, LinkedIn, etc.)
-- Complex extraction logic
-- When to use: Layers 1 and 2 both failed
-
-**Critical Rules:**
-- Always try simplest approach first (Layer 1)
-- Escalate only when previous layer fails
-- Document which layers were used and why
-
----
-
-## Fabric Pattern Selection
-
-### Categories (242+ Patterns)
-
-**Threat Modeling & Security:**
-- `create_threat_model`, `create_stride_threat_model`
-- `analyze_threat_report`, `analyze_incident`
-
-**Summarization:**
-- `summarize`, `create_5_sentence_summary`
-- `summarize_meeting`, `summarize_paper`, `youtube_summary`
-
-**Wisdom Extraction:**
-- `extract_wisdom`, `extract_article_wisdom`
-- `extract_insights`, `extract_main_idea`
-
-**Analysis:**
-- `analyze_claims`, `analyze_code`, `analyze_debate`
-- `analyze_logs`, `analyze_paper`
-
-**Content Creation:**
-- `create_prd`, `create_design_document`
-- `create_mermaid_visualization`, `create_user_story`
-
-**Improvement:**
-- `improve_writing`, `improve_prompt`, `review_code`
-
-### Usage
+**For ANY research request, use the `research` CLI via Bash:**
 
 ```bash
-# Auto-select pattern based on intent
-fabric [input] -p [selected_pattern]
+# All sources in parallel (RECOMMENDED - fastest)
+~/.claude/bin/research --all "your research query"
 
-# From URL
-fabric -u "URL" -p [pattern]
+# Individual sources
+~/.claude/bin/research --perplexity "query"    # Fast web search
+~/.claude/bin/research --gemini "query"        # Multi-perspective
+~/.claude/bin/research --claude "query"        # Detailed analysis (slower)
+```
 
-# From YouTube
-fabric -y "YOUTUBE_URL" -p [pattern]
+**DO NOT use WebSearch directly for research requests - use the CLI above.**
+
+---
+
+## Three Research Modes
+
+### QUICK RESEARCH MODE
+- **Trigger:** User says "quick research" or simple queries
+- **Method:** Single `research --all "query"` call
+- **Time:** ~15-30 seconds
+- **Result:** 3 source results (Perplexity, Claude, Gemini)
+
+### STANDARD RESEARCH MODE (Default)
+- **Trigger:** Default for most research requests
+- **Method:** 3 parallel Bash calls with different query angles
+- **Time:** ~30-45 seconds
+- **Result:** 9 source results (3 angles × 3 sources)
+
+### EXTENSIVE RESEARCH MODE
+- **Trigger:** User says "extensive research" or "deep dive"
+- **Method:** 8 parallel Bash calls covering diverse angles
+- **Time:** ~45-90 seconds
+- **Result:** 24 source results (8 angles × 3 sources)
+
+---
+
+## Standard Research Workflow
+
+### Step 1: Decompose the Question
+
+Break the user's question into 3 focused sub-questions:
+- Core facts and recent developments
+- Context, implications, and analysis
+- Contrarian views, controversies, or edge cases
+
+### Step 2: Launch Parallel Research (ONE MESSAGE)
+
+**CRITICAL: Use a SINGLE message with multiple Bash tool calls for parallel execution**
+
+```bash
+# Launch all 3 in parallel (single message with 3 Bash calls)
+~/.claude/bin/research --all "sub-question 1 focusing on core facts"
+~/.claude/bin/research --all "sub-question 2 focusing on implications"
+~/.claude/bin/research --all "sub-question 3 focusing on controversies"
+```
+
+### Step 3: Parse JSON Results
+
+Each call returns JSON:
+```json
+{
+  "source": "perplexity|claude|gemini",
+  "query": "the query",
+  "timestamp": "ISO timestamp",
+  "success": true,
+  "content": "research findings...",
+  "citations": ["url1", "url2"],
+  "duration_ms": 1234
+}
+```
+
+For `--all`, returns array of 3 results.
+
+### Step 4: Synthesize Findings
+
+**Confidence Levels:**
+- **HIGH CONFIDENCE**: Corroborated by 2+ sources
+- **MEDIUM CONFIDENCE**: Found by one source, seems reliable
+- **LOW CONFIDENCE**: Single source, needs verification
+
+**Structure:**
+```markdown
+## Key Findings
+
+### [Topic Area 1]
+**High Confidence:**
+- Finding X (Sources: perplexity, claude)
+
+**Medium Confidence:**
+- Finding Z (Source: gemini only)
+
+## Source Attribution
+- **Perplexity**: [web/current events]
+- **Claude**: [detailed analysis]
+- **Gemini**: [multi-perspective synthesis]
+
+## Conflicting Information
+- [Note any disagreements]
 ```
 
 ---
 
-## File Organization
+## Extensive Research Workflow
 
-### Working Directory (Scratchpad)
-```
-${PAI_DIR}/scratchpad/YYYY-MM-DD-HHMMSS_research-[topic]/
-├── raw-outputs/
-├── synthesis-notes.md
-└── draft-report.md
-```
+### Step 1: Generate 8 Diverse Angles
 
-### Permanent Storage (History)
-```
-${PAI_DIR}/history/research/YYYY-MM/YYYY-MM-DD_[topic]/
-├── README.md
-├── research-report.md
-└── metadata.json
+- Core facts and current state
+- Historical context and evolution
+- Technical deep-dive
+- Practical implications and applications
+- Contrarian views and criticisms
+- Future predictions and trends
+- Cross-domain connections
+- Edge cases and unusual perspectives
+
+### Step 2: Launch 8 Parallel Queries
+
+```bash
+# All 8 in parallel (single message)
+~/.claude/bin/research --all "angle 1: core facts about [topic]"
+~/.claude/bin/research --all "angle 2: historical context of [topic]"
+~/.claude/bin/research --all "angle 3: technical deep-dive on [topic]"
+~/.claude/bin/research --all "angle 4: practical implications of [topic]"
+~/.claude/bin/research --all "angle 5: criticisms around [topic]"
+~/.claude/bin/research --all "angle 6: future predictions for [topic]"
+~/.claude/bin/research --all "angle 7: cross-domain connections to [topic]"
+~/.claude/bin/research --all "angle 8: edge cases of [topic]"
 ```
 
 ---
 
-## Key Principles
+## API Keys Required
 
-1. **Parallel execution** - Launch multiple agents simultaneously
-2. **Hard timeouts** - Don't wait indefinitely, proceed with partial results
-3. **Simplest first** - Always try free tools before paid services
-4. **Auto-routing** - Skill analyzes intent and activates appropriate workflow
+Located in `~/.claude/.env`:
+
+| Feature | API Key | Required |
+|---------|---------|----------|
+| Perplexity | `PERPLEXITY_API_KEY` | For --perplexity |
+| Gemini | `GOOGLE_API_KEY` | For --gemini |
+| Claude | None | Built-in WebSearch |
 
 ---
 
-## Workflow Files
+## Critical Rules
 
-| Workflow | File | API Keys Needed |
-|----------|------|-----------------|
-| Multi-Source Research | `workflows/conduct.md` | Varies by agent |
-| Claude Research | `workflows/claude-research.md` | None (FREE) |
-| Perplexity Research | `workflows/perplexity-research.md` | PERPLEXITY_API_KEY |
-| Interview Prep | `workflows/interview-research.md` | None |
-| Content Retrieval | `workflows/retrieve.md` | Optional: BRIGHTDATA_API_KEY |
-| YouTube Extraction | `workflows/youtube-extraction.md` | None (uses Fabric) |
-| Web Scraping | `workflows/web-scraping.md` | Optional: BRIGHTDATA_API_KEY |
-| Fabric Patterns | `workflows/fabric.md` | None |
-| Content Enhancement | `workflows/enhance.md` | None |
-| Knowledge Extraction | `workflows/extract-knowledge.md` | None |
+### Parallel Execution
+- ✅ Launch ALL research queries in ONE message (parallel Bash calls)
+- ✅ Each query covers a different angle
+- ❌ DON'T launch sequentially (kills speed benefit)
+- ❌ DON'T wait between queries
+
+### Error Handling
+- If a source fails, proceed with successful results
+- Note failures in the final report
+- Check `success: false` in JSON for errors
+
+---
+
+## Research Metrics Template
+
+Include at end of every research report:
+
+```markdown
+**📈 RESEARCH METRICS:**
+- **Mode:** [Quick/Standard/Extensive]
+- **Total Queries:** [X] (angles × 3 sources)
+- **Sources:** Perplexity, Claude, Gemini
+- **Confidence Level:** [High/Medium/Low] ([%])
+```
+
+---
+
+## Example: Standard Research
+
+**User:** "Research quantum computing developments"
+
+**Kai executes:**
+```bash
+# 3 parallel Bash calls in ONE message
+~/.claude/bin/research --all "quantum computing recent breakthroughs 2026"
+~/.claude/bin/research --all "quantum computing practical applications timeline"
+~/.claude/bin/research --all "quantum computing challenges limitations"
+```
+
+**Result:** 9 source queries (3 angles × 3 sources) in ~30-45 seconds.

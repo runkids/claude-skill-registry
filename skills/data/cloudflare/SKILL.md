@@ -12,6 +12,7 @@ Cloudflare Developer Platform is a comprehensive edge computing ecosystem for bu
 ## When to Use This Skill
 
 Use this skill when:
+
 - Building serverless applications on the edge
 - Implementing edge databases (D1 SQLite)
 - Working with object storage (R2) or key-value stores (KV)
@@ -29,6 +30,7 @@ Use this skill when:
 **Cloudflare's Edge Network**: Code runs on servers globally distributed across 300+ cities, executing requests from the nearest location for ultra-low latency.
 
 **Key Components**:
+
 - **Workers**: Serverless functions on the edge
 - **D1**: SQLite database with global read replication
 - **KV**: Distributed key-value store with eventual consistency
@@ -42,45 +44,20 @@ Use this skill when:
 ### Execution Model
 
 **V8 Isolates**: Lightweight execution environments (faster than containers) with:
+
 - Millisecond cold starts
 - Zero infrastructure management
 - Automatic scaling
 - Pay-per-request pricing
 
 **Handler Types**:
+
 - `fetch`: HTTP requests
 - `scheduled`: Cron jobs
 - `queue`: Message processing
 - `tail`: Log aggregation
 - `email`: Email handling
 - `alarm`: Durable Object timers
-
-## API Key Configuration
-
-Cloudflare skills require API credentials for authentication. The system searches for API keys in this order:
-
-1. `process.env` - Runtime environment variables
-2. `<project-root>/.env` - Project-level environment file
-3. `.claude/.env` - Claude configuration directory
-4. `.claude/skills/.env` - Skills shared configuration
-5. `.claude/skills/cloudflare*/.env` - Skill-specific configuration
-
-**Required Environment Variables:**
-```bash
-CLOUDFLARE_API_TOKEN=your_api_token_here
-CLOUDFLARE_ACCOUNT_ID=your_account_id_here
-```
-
-**Where to Get Credentials:**
-- API Token: Cloudflare Dashboard → My Profile → API Tokens → Create Token
-- Account ID: Cloudflare Dashboard → Overview → Account ID (right sidebar)
-
-**Example .env File:**
-```bash
-# See .claude/skills/.env.example for complete configuration
-CLOUDFLARE_API_TOKEN=abc123...
-CLOUDFLARE_ACCOUNT_ID=def456...
-```
 
 ## Getting Started with Workers
 
@@ -110,8 +87,8 @@ wrangler deploy
 // src/index.ts
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    return new Response('Hello from Cloudflare Workers!');
-  }
+    return new Response("Hello from Cloudflare Workers!");
+  },
 };
 ```
 
@@ -142,6 +119,7 @@ ENVIRONMENT = "production"
 **Use Cases**: Relational data, complex queries, ACID transactions
 
 **Setup**:
+
 ```bash
 # Create database
 wrangler d1 create my-database
@@ -157,31 +135,37 @@ wrangler d1 execute my-database --file=./schema.sql
 ```
 
 **Usage**:
+
 ```typescript
 export default {
   async fetch(request: Request, env: Env) {
     // Query
-    const result = await env.DB.prepare(
-      "SELECT * FROM users WHERE id = ?"
-    ).bind(userId).first();
+    const result = await env.DB.prepare("SELECT * FROM users WHERE id = ?")
+      .bind(userId)
+      .first();
 
     // Insert
-    await env.DB.prepare(
-      "INSERT INTO users (name, email) VALUES (?, ?)"
-    ).bind("Alice", "alice@example.com").run();
+    await env.DB.prepare("INSERT INTO users (name, email) VALUES (?, ?)")
+      .bind("Alice", "alice@example.com")
+      .run();
 
     // Batch (atomic)
     await env.DB.batch([
-      env.DB.prepare("UPDATE accounts SET balance = balance - 100 WHERE id = ?").bind(user1),
-      env.DB.prepare("UPDATE accounts SET balance = balance + 100 WHERE id = ?").bind(user2)
+      env.DB.prepare(
+        "UPDATE accounts SET balance = balance - 100 WHERE id = ?",
+      ).bind(user1),
+      env.DB.prepare(
+        "UPDATE accounts SET balance = balance + 100 WHERE id = ?",
+      ).bind(user2),
     ]);
 
     return new Response(JSON.stringify(result));
-  }
+  },
 };
 ```
 
 **Key Features**:
+
 - Global read replication (low-latency reads)
 - Single-writer consistency
 - Standard SQLite syntax
@@ -192,6 +176,7 @@ export default {
 **Use Cases**: Cache, sessions, feature flags, rate limiting
 
 **Setup**:
+
 ```bash
 # Create namespace
 wrangler kv:namespace create MY_KV
@@ -203,12 +188,13 @@ id = "YOUR_NAMESPACE_ID"
 ```
 
 **Usage**:
+
 ```typescript
 export default {
   async fetch(request: Request, env: Env) {
     // Put with TTL
     await env.KV.put("session:token", JSON.stringify(data), {
-      expirationTtl: 3600 // 1 hour
+      expirationTtl: 3600, // 1 hour
     });
 
     // Get
@@ -221,11 +207,12 @@ export default {
     const list = await env.KV.list({ prefix: "user:123:" });
 
     return new Response(JSON.stringify(data));
-  }
+  },
 };
 ```
 
 **Key Features**:
+
 - Sub-millisecond reads (edge-cached)
 - Eventual consistency (~60 seconds globally)
 - 25MB value size limit
@@ -236,6 +223,7 @@ export default {
 **Use Cases**: File storage, media hosting, backups, static assets
 
 **Setup**:
+
 ```bash
 # Create bucket
 wrangler r2 bucket create my-bucket
@@ -247,14 +235,15 @@ bucket_name = "my-bucket"
 ```
 
 **Usage**:
+
 ```typescript
 export default {
   async fetch(request: Request, env: Env) {
     // Put object
     await env.R2_BUCKET.put("path/to/file.jpg", fileBuffer, {
       httpMetadata: {
-        contentType: "image/jpeg"
-      }
+        contentType: "image/jpeg",
+      },
     });
 
     // Get object
@@ -266,8 +255,9 @@ export default {
     // Stream response
     return new Response(object.body, {
       headers: {
-        "Content-Type": object.httpMetadata?.contentType || "application/octet-stream"
-      }
+        "Content-Type":
+          object.httpMetadata?.contentType || "application/octet-stream",
+      },
     });
 
     // Delete
@@ -275,11 +265,12 @@ export default {
 
     // List
     const list = await env.R2_BUCKET.list({ prefix: "uploads/" });
-  }
+  },
 };
 ```
 
 **Key Features**:
+
 - S3-compatible API
 - **Zero egress fees** (huge cost advantage)
 - Unlimited storage
@@ -291,6 +282,7 @@ export default {
 **Use Cases**: Real-time apps, WebSockets, coordination, stateful logic
 
 **Setup**:
+
 ```toml
 # wrangler.toml
 [[durable_objects.bindings]]
@@ -300,6 +292,7 @@ script_name = "my-worker"
 ```
 
 **Usage**:
+
 ```typescript
 // Define Durable Object class
 export class Counter {
@@ -311,11 +304,11 @@ export class Counter {
 
   async fetch(request: Request) {
     // Get current count
-    let count = (await this.state.storage.get<number>('count')) || 0;
+    let count = (await this.state.storage.get<number>("count")) || 0;
 
     // Increment
     count++;
-    await this.state.storage.put('count', count);
+    await this.state.storage.put("count", count);
 
     return new Response(JSON.stringify({ count }));
   }
@@ -330,11 +323,12 @@ export default {
 
     // Forward request
     return counter.fetch(request);
-  }
+  },
 };
 ```
 
 **WebSocket Example**:
+
 ```typescript
 export class ChatRoom {
   state: DurableObjectState;
@@ -369,6 +363,7 @@ export class ChatRoom {
 ```
 
 **Key Features**:
+
 - Single-instance coordination (strong consistency)
 - Persistent storage (1GB limit on paid plans)
 - WebSocket support
@@ -379,6 +374,7 @@ export class ChatRoom {
 **Use Cases**: Background jobs, email sending, async processing
 
 **Setup**:
+
 ```toml
 # wrangler.toml
 [[queues.producers]]
@@ -392,18 +388,19 @@ max_batch_timeout = 30
 ```
 
 **Usage**:
+
 ```typescript
 // Producer: Send messages
 export default {
   async fetch(request: Request, env: Env) {
     await env.MY_QUEUE.send({
-      type: 'email',
-      to: 'user@example.com',
-      subject: 'Welcome!'
+      type: "email",
+      to: "user@example.com",
+      subject: "Welcome!",
     });
 
-    return new Response('Message queued');
-  }
+    return new Response("Message queued");
+  },
 };
 
 // Consumer: Process messages
@@ -417,11 +414,12 @@ export default {
         message.retry(); // Retry on failure
       }
     }
-  }
+  },
 };
 ```
 
 **Key Features**:
+
 - At-least-once delivery
 - Automatic retries (exponential backoff)
 - Dead-letter queue support
@@ -434,6 +432,7 @@ export default {
 **Use Cases**: Run AI models directly on the edge
 
 **Setup**:
+
 ```toml
 # wrangler.toml
 [ai]
@@ -441,32 +440,32 @@ binding = "AI"
 ```
 
 **Usage**:
+
 ```typescript
 export default {
   async fetch(request: Request, env: Env) {
     // Text generation
-    const response = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
-      messages: [
-        { role: 'user', content: 'What is edge computing?' }
-      ]
+    const response = await env.AI.run("@cf/meta/llama-3-8b-instruct", {
+      messages: [{ role: "user", content: "What is edge computing?" }],
     });
 
     // Image classification
-    const imageResponse = await env.AI.run('@cf/microsoft/resnet-50', {
-      image: imageBuffer
+    const imageResponse = await env.AI.run("@cf/microsoft/resnet-50", {
+      image: imageBuffer,
     });
 
     // Text embeddings
-    const embeddings = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: 'Hello world'
+    const embeddings = await env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      text: "Hello world",
     });
 
     return new Response(JSON.stringify(response));
-  }
+  },
 };
 ```
 
 **Available Models**:
+
 - LLMs: Llama 3, Mistral, Gemma, Qwen
 - Image: Stable Diffusion, DALL-E, ResNet
 - Embeddings: BGE, GTE
@@ -477,25 +476,27 @@ export default {
 **Use Cases**: Unified interface for AI providers with caching, rate limiting, analytics
 
 **Setup**:
+
 ```typescript
 // OpenAI via AI Gateway
 const response = await fetch(
-  'https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/openai/chat/completions',
+  "https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/openai/chat/completions",
   {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: 'Hello!' }]
-    })
-  }
+      model: "gpt-4",
+      messages: [{ role: "user", content: "Hello!" }],
+    }),
+  },
 );
 ```
 
 **Features**:
+
 - Request caching (reduce costs)
 - Rate limiting
 - Analytics and logging
@@ -506,33 +507,33 @@ const response = await fetch(
 **Use Cases**: Build AI agents with tools and workflows
 
 ```typescript
-import { Agent } from '@cloudflare/agents';
+import { Agent } from "@cloudflare/agents";
 
 export default {
   async fetch(request: Request, env: Env) {
     const agent = new Agent({
-      model: '@cf/meta/llama-3-8b-instruct',
+      model: "@cf/meta/llama-3-8b-instruct",
       tools: [
         {
-          name: 'get_weather',
-          description: 'Get current weather',
+          name: "get_weather",
+          description: "Get current weather",
           parameters: {
-            type: 'object',
+            type: "object",
             properties: {
-              location: { type: 'string' }
-            }
+              location: { type: "string" },
+            },
           },
           handler: async ({ location }) => {
             // Fetch weather data
-            return { temperature: 72, conditions: 'sunny' };
-          }
-        }
-      ]
+            return { temperature: 72, conditions: "sunny" };
+          },
+        },
+      ],
     });
 
-    const result = await agent.run('What is the weather in San Francisco?');
+    const result = await agent.run("What is the weather in San Francisco?");
     return new Response(JSON.stringify(result));
-  }
+  },
 };
 ```
 
@@ -541,33 +542,33 @@ export default {
 **Use Cases**: Build retrieval-augmented generation applications
 
 ```typescript
-import { VectorizeIndex } from '@cloudflare/workers-types';
+import { VectorizeIndex } from "@cloudflare/workers-types";
 
 export default {
   async fetch(request: Request, env: Env) {
     // Generate embeddings
-    const embeddings = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: query
+    const embeddings = await env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      text: query,
     });
 
     // Search vector database
     const results = await env.VECTORIZE_INDEX.query(embeddings.data[0], {
-      topK: 5
+      topK: 5,
     });
 
     // Generate response with context
-    const response = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
+    const response = await env.AI.run("@cf/meta/llama-3-8b-instruct", {
       messages: [
         {
-          role: 'system',
-          content: `Context: ${results.matches.map(m => m.metadata.text).join('\n')}`
+          role: "system",
+          content: `Context: ${results.matches.map((m) => m.metadata.text).join("\n")}`,
         },
-        { role: 'user', content: query }
-      ]
+        { role: "user", content: query },
+      ],
     });
 
     return new Response(JSON.stringify(response));
-  }
+  },
 };
 ```
 
@@ -576,6 +577,7 @@ export default {
 ### Static Sites + Serverless Functions
 
 **Deployment**:
+
 ```bash
 # Deploy via Git (recommended)
 # Connect GitHub repo in Cloudflare dashboard
@@ -598,21 +600,23 @@ functions/
 ```
 
 **Example Function**:
+
 ```typescript
 // functions/api/users/[id].ts
 export async function onRequestGet(context) {
   const { params, env } = context;
-  const user = await env.DB.prepare(
-    "SELECT * FROM users WHERE id = ?"
-  ).bind(params.id).first();
+  const user = await env.DB.prepare("SELECT * FROM users WHERE id = ?")
+    .bind(params.id)
+    .first();
 
   return new Response(JSON.stringify(user), {
-    headers: { 'Content-Type': 'application/json' }
+    headers: { "Content-Type": "application/json" },
   });
 }
 ```
 
 **Middleware**:
+
 ```typescript
 // functions/_middleware.ts
 export async function onRequest(context) {
@@ -620,7 +624,9 @@ export async function onRequest(context) {
   const response = await context.next();
   const duration = Date.now() - start;
 
-  console.log(`${context.request.method} ${context.request.url} - ${duration}ms`);
+  console.log(
+    `${context.request.method} ${context.request.url} - ${duration}ms`,
+  );
   return response;
 }
 ```
@@ -628,6 +634,7 @@ export async function onRequest(context) {
 ### Framework Support
 
 **Next.js**:
+
 ```bash
 npx create-next-app@latest my-app
 cd my-app
@@ -637,17 +644,20 @@ wrangler pages deploy .vercel/output/static
 ```
 
 **Remix**:
+
 ```bash
 npx create-remix@latest --template cloudflare/remix
 ```
 
 **Astro**:
+
 ```bash
 npm create astro@latest
 # Select "Cloudflare" adapter during setup
 ```
 
 **SvelteKit**:
+
 ```bash
 npm create svelte@latest
 npm install -D @sveltejs/adapter-cloudflare
@@ -737,9 +747,9 @@ export default {
     if (cached) return new Response(cached);
 
     // D1: Structured data
-    const user = await env.DB.prepare(
-      "SELECT * FROM users WHERE id = ?"
-    ).bind(userId).first();
+    const user = await env.DB.prepare("SELECT * FROM users WHERE id = ?")
+      .bind(userId)
+      .first();
 
     // R2: Media files
     const avatar = await env.R2_BUCKET.get(`avatars/${user.id}.jpg`);
@@ -748,57 +758,57 @@ export default {
     const chat = env.CHAT_ROOM.get(env.CHAT_ROOM.idFromName(roomId));
 
     // Queue: Async processing
-    await env.EMAIL_QUEUE.send({ to: user.email, template: 'welcome' });
+    await env.EMAIL_QUEUE.send({ to: user.email, template: "welcome" });
 
     return new Response(JSON.stringify({ user, avatar }));
-  }
+  },
 };
 ```
 
 ### Authentication Pattern
 
 ```typescript
-import { verifyJWT, createJWT } from './jwt';
+import { verifyJWT, createJWT } from "./jwt";
 
 export default {
   async fetch(request: Request, env: Env) {
     const url = new URL(request.url);
 
     // Login
-    if (url.pathname === '/api/login') {
+    if (url.pathname === "/api/login") {
       const { email, password } = await request.json();
 
-      const user = await env.DB.prepare(
-        "SELECT * FROM users WHERE email = ?"
-      ).bind(email).first();
+      const user = await env.DB.prepare("SELECT * FROM users WHERE email = ?")
+        .bind(email)
+        .first();
 
-      if (!user || !await verifyPassword(password, user.password_hash)) {
-        return new Response('Invalid credentials', { status: 401 });
+      if (!user || !(await verifyPassword(password, user.password_hash))) {
+        return new Response("Invalid credentials", { status: 401 });
       }
 
       const token = await createJWT({ userId: user.id }, env.JWT_SECRET);
 
       return new Response(JSON.stringify({ token }), {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" },
       });
     }
 
     // Protected route
-    const authHeader = request.headers.get('Authorization');
+    const authHeader = request.headers.get("Authorization");
     if (!authHeader) {
-      return new Response('Unauthorized', { status: 401 });
+      return new Response("Unauthorized", { status: 401 });
     }
 
-    const token = authHeader.replace('Bearer ', '');
+    const token = authHeader.replace("Bearer ", "");
     const payload = await verifyJWT(token, env.JWT_SECRET);
 
     // Store session in KV
     await env.KV.put(`session:${payload.userId}`, JSON.stringify(payload), {
-      expirationTtl: 86400 // 24 hours
+      expirationTtl: 86400, // 24 hours
     });
 
-    return new Response('Authenticated');
-  }
+    return new Response("Authenticated");
+  },
 };
 ```
 
@@ -831,7 +841,7 @@ export default {
     await env.KV.put(request.url, data, { expirationTtl: 3600 });
 
     return response;
-  }
+  },
 };
 ```
 
@@ -874,24 +884,24 @@ export default {
 ### API Gateway
 
 ```typescript
-import { Hono } from 'hono';
+import { Hono } from "hono";
 
 const app = new Hono();
 
-app.get('/api/users/:id', async (c) => {
-  const user = await c.env.DB.prepare(
-    "SELECT * FROM users WHERE id = ?"
-  ).bind(c.req.param('id')).first();
+app.get("/api/users/:id", async (c) => {
+  const user = await c.env.DB.prepare("SELECT * FROM users WHERE id = ?")
+    .bind(c.req.param("id"))
+    .first();
 
   return c.json(user);
 });
 
-app.post('/api/users', async (c) => {
+app.post("/api/users", async (c) => {
   const { name, email } = await c.req.json();
 
-  await c.env.DB.prepare(
-    "INSERT INTO users (name, email) VALUES (?, ?)"
-  ).bind(name, email).run();
+  await c.env.DB.prepare("INSERT INTO users (name, email) VALUES (?, ?)")
+    .bind(name, email)
+    .run();
 
   return c.json({ success: true }, 201);
 });
@@ -905,27 +915,27 @@ export default app;
 export default {
   async fetch(request: Request, env: Env) {
     const url = new URL(request.url);
-    const imageKey = url.pathname.replace('/images/', '');
+    const imageKey = url.pathname.replace("/images/", "");
 
     // Get from R2
     const object = await env.R2_BUCKET.get(imageKey);
     if (!object) {
-      return new Response('Not found', { status: 404 });
+      return new Response("Not found", { status: 404 });
     }
 
     // Transform with Cloudflare Images
     return new Response(object.body, {
       headers: {
-        'Content-Type': object.httpMetadata?.contentType || 'image/jpeg',
-        'Cache-Control': 'public, max-age=86400',
-        'cf-image-resize': JSON.stringify({
+        "Content-Type": object.httpMetadata?.contentType || "image/jpeg",
+        "Cache-Control": "public, max-age=86400",
+        "cf-image-resize": JSON.stringify({
           width: 800,
           height: 600,
-          fit: 'cover'
-        })
-      }
+          fit: "cover",
+        }),
+      },
     });
-  }
+  },
 };
 ```
 
@@ -945,7 +955,7 @@ async function rateLimit(ip: string, env: Env): Promise<boolean> {
   }
 
   await env.KV.put(key, (count + 1).toString(), {
-    expirationTtl: window
+    expirationTtl: window,
   });
 
   return true;
@@ -953,14 +963,14 @@ async function rateLimit(ip: string, env: Env): Promise<boolean> {
 
 export default {
   async fetch(request: Request, env: Env) {
-    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
 
-    if (!await rateLimit(ip, env)) {
-      return new Response('Rate limit exceeded', { status: 429 });
+    if (!(await rateLimit(ip, env))) {
+      return new Response("Rate limit exceeded", { status: 429 });
     }
 
-    return new Response('OK');
-  }
+    return new Response("OK");
+  },
 };
 ```
 
@@ -976,14 +986,14 @@ crons = ["0 0 * * *"] # Daily at midnight
 export default {
   async scheduled(event: ScheduledEvent, env: Env) {
     // Cleanup old sessions
-    const sessions = await env.KV.list({ prefix: 'session:' });
+    const sessions = await env.KV.list({ prefix: "session:" });
     for (const key of sessions.keys) {
-      const session = await env.KV.get(key.name, 'json');
+      const session = await env.KV.get(key.name, "json");
       if (session.expiresAt < Date.now()) {
         await env.KV.delete(key.name);
       }
     }
-  }
+  },
 };
 ```
 
@@ -992,38 +1002,44 @@ export default {
 ### Common Issues
 
 **"Module not found" errors**
+
 - Ensure dependencies are in `package.json`
 - Run `npm install` before deploying
 - Check compatibility_date in wrangler.toml
 
 **Database connection errors (D1)**
+
 - Verify database_id in wrangler.toml
 - Check database exists: `wrangler d1 list`
 - Run migrations: `wrangler d1 execute DB --file=schema.sql`
 
 **KV not found errors**
+
 - Create namespace: `wrangler kv:namespace create MY_KV`
 - Add binding to wrangler.toml
 - Deploy after configuration changes
 
 **Cold start timeout**
+
 - Reduce bundle size (<1MB ideal)
 - Remove unnecessary dependencies
 - Use dynamic imports for large libraries
 
 **CORS errors**
+
 - Add CORS headers to responses:
   ```typescript
   return new Response(data, {
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    }
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
   });
   ```
 
 **Deployment fails**
+
 - Check wrangler version: `wrangler --version`
 - Verify authentication: `wrangler whoami`
 - Review build errors in console output
@@ -1046,39 +1062,43 @@ wrangler deployments list
 
 ## Decision Matrix
 
-| Need | Choose |
-|------|--------|
-| Sub-millisecond reads | KV |
-| SQL queries | D1 |
-| Large files (>25MB) | R2 |
-| Real-time WebSockets | Durable Objects |
-| Async background jobs | Queues |
-| ACID transactions | D1 |
-| Strong consistency | Durable Objects |
-| Zero egress costs | R2 |
-| AI inference | Workers AI |
-| Static site hosting | Pages |
-| Serverless functions | Workers |
-| Multi-provider AI | AI Gateway |
+| Need                  | Choose          |
+| --------------------- | --------------- |
+| Sub-millisecond reads | KV              |
+| SQL queries           | D1              |
+| Large files (>25MB)   | R2              |
+| Real-time WebSockets  | Durable Objects |
+| Async background jobs | Queues          |
+| ACID transactions     | D1              |
+| Strong consistency    | Durable Objects |
+| Zero egress costs     | R2              |
+| AI inference          | Workers AI      |
+| Static site hosting   | Pages           |
+| Serverless functions  | Workers         |
+| Multi-provider AI     | AI Gateway      |
 
 ## Framework-Specific Guides
 
 ### Next.js
+
 - Use `@cloudflare/next-on-pages` adapter
 - Configure `next.config.js` for edge runtime
 - Deploy via `wrangler pages deploy`
 
 ### Remix
+
 - Use official Cloudflare template
 - Configure `server.ts` for Workers
 - Access bindings via `context.cloudflare.env`
 
 ### Astro
+
 - Use `@astrojs/cloudflare` adapter
 - Enable SSR in `astro.config.mjs`
 - Access env via `Astro.locals.runtime.env`
 
 ### SvelteKit
+
 - Use `@sveltejs/adapter-cloudflare`
 - Configure in `svelte.config.js`
 - Access platform via `event.platform.env`
@@ -1095,6 +1115,7 @@ wrangler deployments list
 ## Implementation Checklist
 
 ### Workers Setup
+
 - [ ] Install Wrangler CLI (`npm install -g wrangler`)
 - [ ] Login to Cloudflare (`wrangler login`)
 - [ ] Create project (`wrangler init`)
@@ -1104,6 +1125,7 @@ wrangler deployments list
 - [ ] Deploy (`wrangler deploy`)
 
 ### Storage Setup (as needed)
+
 - [ ] Create D1 database and apply schema
 - [ ] Create KV namespace
 - [ ] Create R2 bucket
@@ -1112,6 +1134,7 @@ wrangler deployments list
 - [ ] Add bindings to wrangler.toml
 
 ### Pages Setup
+
 - [ ] Connect Git repository or use CLI
 - [ ] Configure build settings
 - [ ] Set environment variables
@@ -1119,6 +1142,7 @@ wrangler deployments list
 - [ ] Deploy and test
 
 ### Production Checklist
+
 - [ ] Set up custom domain
 - [ ] Configure DNS records
 - [ ] Enable SSL/TLS

@@ -1,15 +1,7 @@
 {
   "name": "load-anomaly-guard",
-  "description": "Detects unsafe training load spikes (>20-30% week-over-week) and emits safety flags. Use in nightly background jobs or when reviewing weekly training volume with conservative adjustment recommendation",
   "repo": "nadavyigal/Running-coach-",
-  "category": "data",
-  "tags": [
-    "load",
-    "anomaly",
-    "guard"
-  ],
-  "stars": 1,
-  "dir_name": "load-anomaly-guard",
-  "github_path": ".claude/skills/load-anomaly-guard",
-  "github_branch": "main"
+  "path": ".claude/skills/load-anomaly-guard/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:40.765917Z"
 }

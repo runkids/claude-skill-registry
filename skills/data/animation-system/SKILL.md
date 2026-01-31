@@ -1,1103 +1,495 @@
 ---
 name: animation-system
-description: Implements animation systems including custom animators, animation blending, procedural animation, and IK. Use when creating character animations, custom rigs, or procedural movement.
+description: Implements animation systems using AnimationPlayer, AnimationTree, blend trees, and procedural animation. Use when creating character animations and visual effects.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Roblox Animation Systems
+# Godot Animation System
 
-## Quick Reference Links
+When implementing animations, use these patterns for smooth and responsive character movement.
 
-**Official Documentation:**
-- [Animation Overview](https://create.roblox.com/docs/animation) - Complete animation guide
-- [Animation Editor](https://create.roblox.com/docs/animation/animation-editor) - Creating animations
-- [Inverse Kinematics](https://create.roblox.com/docs/animation/inverse-kinematics) - IK systems
-- [Animator API](https://create.roblox.com/docs/reference/engine/classes/Animator)
-- [AnimationTrack API](https://create.roblox.com/docs/reference/engine/classes/AnimationTrack)
-- [Animation API](https://create.roblox.com/docs/reference/engine/classes/Animation)
-- [Motor6D API](https://create.roblox.com/docs/reference/engine/classes/Motor6D) - Joint connections
+## AnimationPlayer Basics
 
-**Wiki References:**
-- [Animation (Wiki)](https://roblox.fandom.com/wiki/Animation)
-- [Animator (Wiki)](https://roblox.fandom.com/wiki/Animator)
+### Playing Animations
+```gdscript
+extends CharacterBody2D
 
----
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-When implementing animations, follow these patterns for smooth, performant character and object animations.
+func _ready() -> void:
+    # Connect to animation finished signal
+    anim_player.animation_finished.connect(_on_animation_finished)
 
-## Animation Basics
+func play_animation(anim_name: String, speed: float = 1.0) -> void:
+    if anim_player.current_animation != anim_name:
+        anim_player.play(anim_name)
+        anim_player.speed_scale = speed
 
-### Loading and Playing Animations
-```lua
-local function setupAnimations(character)
-    local humanoid = character:WaitForChild("Humanoid")
-    local animator = humanoid:WaitForChild("Animator")
+func play_backwards(anim_name: String) -> void:
+    anim_player.play_backwards(anim_name)
 
-    -- Create animation instance
-    local walkAnim = Instance.new("Animation")
-    walkAnim.AnimationId = "rbxassetid://123456789"
+func stop_animation() -> void:
+    anim_player.stop()
 
-    -- Load animation track
-    local walkTrack = animator:LoadAnimation(walkAnim)
+func pause_animation() -> void:
+    anim_player.pause()
 
-    -- Configure track
-    walkTrack.Priority = Enum.AnimationPriority.Movement
-    walkTrack.Looped = true
+func resume_animation() -> void:
+    anim_player.play()
 
-    -- Play with parameters
-    walkTrack:Play(
-        0.1,  -- Fade in time
-        1,    -- Weight (0-1)
-        1     -- Speed multiplier
-    )
-
-    return walkTrack
-end
+func _on_animation_finished(anim_name: String) -> void:
+    match anim_name:
+        "attack":
+            play_animation("idle")
+        "death":
+            queue_free()
 ```
 
-### Animation Priorities
-```lua
--- Priority order (lowest to highest):
--- Core < Idle < Movement < Action < Action2 < Action3 < Action4
+### Animation Blending
+```gdscript
+extends AnimationPlayer
 
-local function setAnimationPriority(track, priority)
-    track.Priority = priority
-end
+func crossfade_to(anim_name: String, duration: float = 0.2) -> void:
+    if current_animation == anim_name:
+        return
 
--- Example priority usage
-idleTrack.Priority = Enum.AnimationPriority.Idle
-walkTrack.Priority = Enum.AnimationPriority.Movement
-attackTrack.Priority = Enum.AnimationPriority.Action
--- Action always overrides Movement, Movement overrides Idle
+    # Queue the new animation with crossfade
+    queue(anim_name)
+    advance(0)  # Start immediately
+
+    # Use AnimationPlayer's built-in blending
+    set_blend_time(current_animation, anim_name, duration)
+
+# Manual crossfade using AnimationTree is preferred for complex blending
 ```
 
-### Animation Events (Keyframe Markers)
-```lua
--- Add markers in Animation Editor, then listen:
-local function setupAnimationEvents(track)
-    -- Listen for specific marker
-    track:GetMarkerReachedSignal("Footstep"):Connect(function(paramValue)
-        playFootstepSound()
-    end)
+### Animation Callbacks
+```gdscript
+extends CharacterBody2D
 
-    track:GetMarkerReachedSignal("DamageFrame"):Connect(function()
-        applyDamage()
-    end)
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-    track:GetMarkerReachedSignal("SpawnVFX"):Connect(function(vfxName)
-        spawnEffect(vfxName)
-    end)
-end
+func _ready() -> void:
+    # Add method track call in animation
+    # Or use animation_finished signal
 
--- Animation completion
-track.Stopped:Connect(function()
-    print("Animation stopped or completed")
-end)
+    pass
 
--- Check if playing
-if track.IsPlaying then
-    -- Animation is active
-end
+# Called from animation track
+func spawn_projectile() -> void:
+    var projectile := preload("res://projectile.tscn").instantiate()
+    projectile.global_position = $ProjectileSpawn.global_position
+    get_parent().add_child(projectile)
+
+func play_sound(sound_name: String) -> void:
+    var sound := $Sounds.get_node(sound_name) as AudioStreamPlayer2D
+    if sound:
+        sound.play()
+
+func enable_hitbox() -> void:
+    $Hitbox/CollisionShape2D.disabled = false
+
+func disable_hitbox() -> void:
+    $Hitbox/CollisionShape2D.disabled = true
 ```
 
-## Animation Controller
+## AnimationTree
 
-### State-Based Animation Controller
-```lua
-local AnimationController = {}
-AnimationController.__index = AnimationController
+### State Machine Setup
+```gdscript
+extends CharacterBody2D
 
-function AnimationController.new(character)
-    local self = setmetatable({}, AnimationController)
+@onready var anim_tree: AnimationTree = $AnimationTree
+@onready var state_machine: AnimationNodeStateMachinePlayback = \
+    anim_tree.get("parameters/playback")
 
-    self.character = character
-    self.humanoid = character:WaitForChild("Humanoid")
-    self.animator = self.humanoid:WaitForChild("Animator")
-    self.tracks = {}
-    self.currentState = "Idle"
-    self.stateAnimations = {}
+func _ready() -> void:
+    anim_tree.active = true
 
-    return self
-end
+func travel_to_state(state_name: String) -> void:
+    state_machine.travel(state_name)
 
-function AnimationController:loadAnimation(name, animationId, config)
-    config = config or {}
+func force_state(state_name: String) -> void:
+    state_machine.start(state_name)
 
-    local animation = Instance.new("Animation")
-    animation.AnimationId = animationId
+func get_current_state() -> String:
+    return state_machine.get_current_node()
 
-    local track = self.animator:LoadAnimation(animation)
-    track.Priority = config.priority or Enum.AnimationPriority.Movement
-    track.Looped = config.looped or false
+func is_playing(state_name: String) -> bool:
+    return state_machine.get_current_node() == state_name
 
-    self.tracks[name] = track
-    return track
-end
+func _physics_process(_delta: float) -> void:
+    update_animation_state()
 
-function AnimationController:setState(stateName, fadeTime)
-    fadeTime = fadeTime or 0.1
-
-    if self.currentState == stateName then return end
-
-    -- Stop current state animation
-    local currentTrack = self.tracks[self.currentState]
-    if currentTrack and currentTrack.IsPlaying then
-        currentTrack:Stop(fadeTime)
-    end
-
-    -- Play new state animation
-    local newTrack = self.tracks[stateName]
-    if newTrack then
-        newTrack:Play(fadeTime)
-    end
-
-    self.currentState = stateName
-end
-
-function AnimationController:playOneShot(name, fadeTime, weight, speed)
-    local track = self.tracks[name]
-    if track then
-        track:Play(fadeTime or 0.1, weight or 1, speed or 1)
-    end
-    return track
-end
-
--- Usage
-local controller = AnimationController.new(character)
-controller:loadAnimation("Idle", "rbxassetid://idle", {looped = true, priority = Enum.AnimationPriority.Idle})
-controller:loadAnimation("Walk", "rbxassetid://walk", {looped = true, priority = Enum.AnimationPriority.Movement})
-controller:loadAnimation("Attack", "rbxassetid://attack", {priority = Enum.AnimationPriority.Action})
-
-controller:setState("Idle")
--- When moving:
-controller:setState("Walk")
--- Attack (plays on top):
-controller:playOneShot("Attack")
+func update_animation_state() -> void:
+    if not is_on_floor():
+        if velocity.y < 0:
+            travel_to_state("Jump")
+        else:
+            travel_to_state("Fall")
+    elif velocity.length() > 10:
+        travel_to_state("Run")
+    else:
+        travel_to_state("Idle")
 ```
 
-### Movement-Based Animation Selection
-```lua
-local function setupMovementAnimations(character)
-    local humanoid = character:WaitForChild("Humanoid")
-    local animator = humanoid:WaitForChild("Animator")
-    local hrp = character:WaitForChild("HumanoidRootPart")
+### Blend Tree Setup
+```gdscript
+extends CharacterBody2D
 
-    local animations = {
-        idle = loadAnimation(animator, "rbxassetid://idle"),
-        walk = loadAnimation(animator, "rbxassetid://walk"),
-        run = loadAnimation(animator, "rbxassetid://run"),
-        jump = loadAnimation(animator, "rbxassetid://jump"),
-        fall = loadAnimation(animator, "rbxassetid://fall")
-    }
+@onready var anim_tree: AnimationTree = $AnimationTree
 
-    -- Set looping
-    animations.idle.Looped = true
-    animations.walk.Looped = true
-    animations.run.Looped = true
-    animations.fall.Looped = true
+func _physics_process(_delta: float) -> void:
+    update_blend_parameters()
 
-    local currentAnim = nil
+func update_blend_parameters() -> void:
+    # For BlendSpace2D (8-directional movement)
+    var input := Input.get_vector("left", "right", "up", "down")
+    anim_tree.set("parameters/Move/blend_position", input)
 
-    local function updateAnimation()
-        local velocity = hrp.AssemblyLinearVelocity
-        local horizontalSpeed = Vector3.new(velocity.X, 0, velocity.Z).Magnitude
-        local isGrounded = humanoid.FloorMaterial ~= Enum.Material.Air
+    # For BlendSpace1D (speed-based)
+    var speed_ratio := velocity.length() / max_speed
+    anim_tree.set("parameters/Speed/blend_position", speed_ratio)
 
-        local targetAnim
-
-        if not isGrounded then
-            if velocity.Y > 1 then
-                targetAnim = animations.jump
-            else
-                targetAnim = animations.fall
-            end
-        elseif horizontalSpeed < 0.5 then
-            targetAnim = animations.idle
-        elseif horizontalSpeed < 12 then
-            targetAnim = animations.walk
-            -- Adjust speed based on movement
-            animations.walk:AdjustSpeed(horizontalSpeed / 8)
-        else
-            targetAnim = animations.run
-            animations.run:AdjustSpeed(horizontalSpeed / 16)
-        end
-
-        if targetAnim ~= currentAnim then
-            if currentAnim then
-                currentAnim:Stop(0.2)
-            end
-            targetAnim:Play(0.2)
-            currentAnim = targetAnim
-        end
-    end
-
-    RunService.Heartbeat:Connect(updateAnimation)
-end
+    # For animation transitions
+    anim_tree.set("parameters/conditions/is_jumping", not is_on_floor() and velocity.y < 0)
+    anim_tree.set("parameters/conditions/is_falling", not is_on_floor() and velocity.y > 0)
+    anim_tree.set("parameters/conditions/is_grounded", is_on_floor())
 ```
 
-## Animation Blending
+### One-Shot Animations
+```gdscript
+extends CharacterBody2D
 
-### Weight-Based Blending
-```lua
-local BlendedAnimator = {}
+@onready var anim_tree: AnimationTree = $AnimationTree
 
-function BlendedAnimator.new(animator)
-    return {
-        animator = animator,
-        layers = {}
-    }
-end
+func play_attack() -> void:
+    # Trigger one-shot animation
+    anim_tree.set("parameters/Attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
-function BlendedAnimator:addLayer(name, animationId, priority)
-    local animation = Instance.new("Animation")
-    animation.AnimationId = animationId
+func abort_attack() -> void:
+    anim_tree.set("parameters/Attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 
-    local track = self.animator:LoadAnimation(animation)
-    track.Priority = priority or Enum.AnimationPriority.Movement
-    track.Looped = true
+func is_attacking() -> bool:
+    return anim_tree.get("parameters/Attack/active")
 
-    self.layers[name] = {
-        track = track,
-        weight = 0,
-        targetWeight = 0
-    }
-
-    track:Play(0, 0)  -- Start at weight 0
-    return track
-end
-
-function BlendedAnimator:setLayerWeight(name, weight, blendTime)
-    local layer = self.layers[name]
-    if not layer then return end
-
-    layer.targetWeight = math.clamp(weight, 0, 1)
-
-    if blendTime and blendTime > 0 then
-        -- Smooth blend
-        local startWeight = layer.weight
-        local startTime = os.clock()
-
-        local conn
-        conn = RunService.Heartbeat:Connect(function()
-            local elapsed = os.clock() - startTime
-            local t = math.min(elapsed / blendTime, 1)
-
-            layer.weight = startWeight + (layer.targetWeight - startWeight) * t
-            layer.track:AdjustWeight(layer.weight)
-
-            if t >= 1 then
-                conn:Disconnect()
-            end
-        end)
-    else
-        layer.weight = layer.targetWeight
-        layer.track:AdjustWeight(layer.weight)
-    end
-end
-
--- Usage: Blend between walk and limp
-local blender = BlendedAnimator.new(animator)
-blender:addLayer("Walk", "rbxassetid://walk", Enum.AnimationPriority.Movement)
-blender:addLayer("Limp", "rbxassetid://limp", Enum.AnimationPriority.Movement)
-
--- Normal walking
-blender:setLayerWeight("Walk", 1, 0.3)
-blender:setLayerWeight("Limp", 0, 0.3)
-
--- Injured (blend to limp)
-blender:setLayerWeight("Walk", 0.3, 0.5)
-blender:setLayerWeight("Limp", 0.7, 0.5)
+func _on_attack_finished() -> void:
+    # Called when one-shot completes
+    pass
 ```
 
-### Additive Animation Blending
-```lua
--- Additive animations add on top of base animation
-local function setupAdditiveBlending(animator)
-    local baseWalk = loadAnimation(animator, "rbxassetid://walk")
-    local leanLeft = loadAnimation(animator, "rbxassetid://lean_left")
-    local leanRight = loadAnimation(animator, "rbxassetid://lean_right")
+### Layered Animations
+```gdscript
+# AnimationTree structure:
+# - AnimationNodeBlendTree
+#   - Add2 (blend lower and upper body)
+#     - Input 0: State Machine (lower body: idle, walk, run)
+#     - Input 1: State Machine (upper body: idle, aim, shoot)
+#     - Filter: Upper body bones only
 
-    baseWalk.Looped = true
-    leanLeft.Looped = true
-    leanRight.Looped = true
+extends CharacterBody2D
 
-    baseWalk:Play()
-    leanLeft:Play(0, 0)  -- Start at 0 weight
-    leanRight:Play(0, 0)
+@onready var anim_tree: AnimationTree = $AnimationTree
 
-    -- Update lean based on input
-    local function updateLean(turnAmount)
-        -- turnAmount: -1 (left) to 1 (right)
-        if turnAmount < 0 then
-            leanLeft:AdjustWeight(math.abs(turnAmount))
-            leanRight:AdjustWeight(0)
-        else
-            leanLeft:AdjustWeight(0)
-            leanRight:AdjustWeight(turnAmount)
-        end
-    end
+func _ready() -> void:
+    # Set up bone filter for upper body layer
+    # This is usually done in editor, but can be done in code
+    pass
 
-    return updateLean
-end
+func update_animations() -> void:
+    # Lower body follows movement
+    var move_state := "idle" if velocity.length() < 10 else "run"
+    anim_tree.set("parameters/LowerBody/playback").travel(move_state)
+
+    # Upper body independent
+    if is_aiming:
+        anim_tree.set("parameters/UpperBody/playback").travel("aim")
+    elif is_shooting:
+        anim_tree.set("parameters/UpperBody/playback").travel("shoot")
+    else:
+        anim_tree.set("parameters/UpperBody/playback").travel("idle")
+
+    # Blend amount
+    anim_tree.set("parameters/Add2/add_amount", 1.0 if is_aiming else 0.0)
 ```
 
 ## Procedural Animation
 
-### Procedural Head Look
-```lua
-local function setupHeadLook(character, target)
-    local neck = character:FindFirstChild("Neck", true)
-    if not neck then return end
+### Look At / Head Tracking
+```gdscript
+extends Node3D
 
-    local originalC0 = neck.C0
+@export var head_bone: String = "Head"
+@export var max_angle := 70.0
+@export var look_speed := 5.0
 
-    RunService.RenderStepped:Connect(function()
-        if not target then
-            neck.C0 = originalC0
-            return
-        end
+var skeleton: Skeleton3D
+var head_bone_idx: int
+var target: Node3D
 
-        local headPos = neck.Part1.Position
-        local targetPos = target.Position
-        local direction = (targetPos - headPos).Unit
+func _ready() -> void:
+    skeleton = $Skeleton3D
+    head_bone_idx = skeleton.find_bone(head_bone)
 
-        -- Convert to local space
-        local torsoLook = neck.Part0.CFrame.LookVector
-        local torsoCFrame = neck.Part0.CFrame
+func _process(delta: float) -> void:
+    if not target or head_bone_idx < 0:
+        return
 
-        local localDirection = torsoCFrame:VectorToObjectSpace(direction)
+    var head_transform := skeleton.get_bone_global_pose(head_bone_idx)
+    var head_position := skeleton.to_global(head_transform.origin)
 
-        -- Calculate angles
-        local yaw = math.atan2(localDirection.X, -localDirection.Z)
-        local pitch = math.asin(localDirection.Y)
+    var target_direction := (target.global_position - head_position).normalized()
+    var local_direction := skeleton.global_transform.basis.inverse() * target_direction
 
-        -- Clamp to prevent unnatural rotation
-        yaw = math.clamp(yaw, math.rad(-70), math.rad(70))
-        pitch = math.clamp(pitch, math.rad(-40), math.rad(40))
+    # Calculate rotation to look at target
+    var target_rotation := Quaternion(Vector3.FORWARD, local_direction)
 
-        -- Apply rotation
-        local lookCFrame = CFrame.Angles(pitch, yaw, 0)
-        neck.C0 = originalC0 * lookCFrame
-    end)
-end
+    # Clamp rotation
+    var angle := target_rotation.get_euler()
+    angle.x = clamp(angle.x, deg_to_rad(-max_angle), deg_to_rad(max_angle))
+    angle.y = clamp(angle.y, deg_to_rad(-max_angle), deg_to_rad(max_angle))
+
+    var clamped_rotation := Quaternion.from_euler(angle)
+
+    # Apply smooth rotation
+    var current := skeleton.get_bone_pose_rotation(head_bone_idx)
+    var new_rotation := current.slerp(clamped_rotation, look_speed * delta)
+
+    skeleton.set_bone_pose_rotation(head_bone_idx, new_rotation)
 ```
 
-### Procedural Breathing
-```lua
-local function setupBreathing(character)
-    local torso = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")
-    if not torso then return end
+### Procedural Walk Cycle
+```gdscript
+extends CharacterBody2D
 
-    local waist = character:FindFirstChild("Waist", true)
-    if not waist then return end
+@export var leg_length := 20.0
+@export var step_height := 10.0
+@export var step_duration := 0.3
 
-    local originalC0 = waist.C0
-    local breathSpeed = 2  -- Cycles per second
-    local breathIntensity = 0.02
+@onready var left_foot: Node2D = $LeftFoot
+@onready var right_foot: Node2D = $RightFoot
 
-    local time = 0
+var left_foot_target: Vector2
+var right_foot_target: Vector2
+var step_progress := 0.0
+var is_left_stepping := true
 
-    RunService.RenderStepped:Connect(function(dt)
-        time = time + dt
+func _physics_process(delta: float) -> void:
+    if velocity.length() > 10:
+        update_procedural_walk(delta)
+    else:
+        reset_feet()
 
-        local breathOffset = math.sin(time * breathSpeed * math.pi * 2) * breathIntensity
+func update_procedural_walk(delta: float) -> void:
+    step_progress += delta / step_duration
 
-        waist.C0 = originalC0 * CFrame.new(0, breathOffset, 0)
-    end)
-end
+    if step_progress >= 1.0:
+        step_progress = 0.0
+        is_left_stepping = not is_left_stepping
+        calculate_next_step()
+
+    # Interpolate foot positions
+    var stepping_foot := left_foot if is_left_stepping else right_foot
+    var grounded_foot := right_foot if is_left_stepping else left_foot
+    var target := left_foot_target if is_left_stepping else right_foot_target
+
+    # Arc motion for stepping foot
+    var t := step_progress
+    var horizontal := stepping_foot.position.lerp(target, t)
+    var vertical_offset := sin(t * PI) * step_height
+
+    stepping_foot.position = horizontal + Vector2(0, -vertical_offset)
+
+func calculate_next_step() -> void:
+    var forward := velocity.normalized()
+    var step_distance := velocity.length() * step_duration
+
+    if is_left_stepping:
+        left_foot_target = left_foot.position + forward * step_distance
+    else:
+        right_foot_target = right_foot.position + forward * step_distance
 ```
 
-### Procedural Tail/Cape Physics
-```lua
-local function setupProceduralChain(parts, config)
-    config = config or {}
-    local stiffness = config.stiffness or 0.5
-    local damping = config.damping or 0.3
-    local gravity = config.gravity or Vector3.new(0, -10, 0)
+### Squash and Stretch
+```gdscript
+extends Sprite2D
 
-    local velocities = {}
-    local restOffsets = {}
+@export var squash_amount := 0.3
+@export var stretch_amount := 0.2
+@export var return_speed := 10.0
 
-    -- Store rest positions
-    for i, part in ipairs(parts) do
-        velocities[i] = Vector3.new()
-        if i > 1 then
-            restOffsets[i] = parts[i-1].CFrame:ToObjectSpace(part.CFrame)
-        end
-    end
+var target_scale := Vector2.ONE
 
-    RunService.Heartbeat:Connect(function(dt)
-        for i = 2, #parts do
-            local part = parts[i]
-            local parent = parts[i-1]
+func squash() -> void:
+    target_scale = Vector2(1 + squash_amount, 1 - squash_amount)
 
-            -- Target position (relative to parent)
-            local targetCFrame = parent.CFrame * restOffsets[i]
-            local targetPos = targetCFrame.Position
+func stretch() -> void:
+    target_scale = Vector2(1 - stretch_amount, 1 + stretch_amount)
 
-            -- Current position
-            local currentPos = part.Position
+func _process(delta: float) -> void:
+    scale = scale.lerp(target_scale, return_speed * delta)
+    target_scale = target_scale.lerp(Vector2.ONE, return_speed * delta)
 
-            -- Spring force toward target
-            local displacement = targetPos - currentPos
-            local springForce = displacement * stiffness
+# Usage with physics
+extends CharacterBody2D
 
-            -- Apply gravity
-            local totalForce = springForce + gravity
+func _physics_process(delta: float) -> void:
+    var was_on_floor := is_on_floor()
+    move_and_slide()
 
-            -- Update velocity with damping
-            velocities[i] = velocities[i] * (1 - damping) + totalForce * dt
+    # Landing squash
+    if is_on_floor() and not was_on_floor:
+        $Sprite2D.squash()
 
-            -- Update position
-            local newPos = currentPos + velocities[i]
-
-            -- Maintain distance constraint
-            local toParent = parent.Position - newPos
-            local distance = toParent.Magnitude
-            local restDistance = restOffsets[i].Position.Magnitude
-
-            if distance > restDistance then
-                newPos = parent.Position - toParent.Unit * restDistance
-            end
-
-            -- Apply
-            part.CFrame = CFrame.new(newPos) * (targetCFrame - targetCFrame.Position)
-        end
-    end)
-end
+    # Jumping stretch
+    if Input.is_action_just_pressed("jump") and is_on_floor():
+        $Sprite2D.stretch()
 ```
 
-## Inverse Kinematics (IK)
+### Screen Shake
+```gdscript
+extends Camera2D
 
-### Two-Bone IK (Arms/Legs)
-```lua
-local function solveTwoBoneIK(upperBone, lowerBone, target, pole)
-    local upperLength = (lowerBone.Position - upperBone.Position).Magnitude
-    local lowerLength = (target - lowerBone.Position).Magnitude
+var shake_amount := 0.0
+var shake_decay := 5.0
 
-    local origin = upperBone.Position
-    local targetPos = target
-    local polePos = pole or (origin + Vector3.new(0, 0, 1))
+func shake(amount: float, duration: float = 0.2) -> void:
+    shake_amount = amount
+    var tween := create_tween()
+    tween.tween_property(self, "shake_amount", 0.0, duration)
 
-    -- Calculate distance to target
-    local targetDistance = (targetPos - origin).Magnitude
-    local totalLength = upperLength + lowerLength
-
-    -- Clamp target to reachable distance
-    if targetDistance > totalLength * 0.999 then
-        targetDistance = totalLength * 0.999
-    end
-
-    -- Law of cosines to find angles
-    local a = upperLength
-    local b = lowerLength
-    local c = targetDistance
-
-    -- Angle at upper joint
-    local upperAngle = math.acos(
-        math.clamp((a*a + c*c - b*b) / (2*a*c), -1, 1)
-    )
-
-    -- Angle at lower joint (elbow/knee)
-    local lowerAngle = math.acos(
-        math.clamp((a*a + b*b - c*c) / (2*a*b), -1, 1)
-    )
-
-    -- Direction to target
-    local directionToTarget = (targetPos - origin).Unit
-
-    -- Calculate pole plane
-    local poleDirection = (polePos - origin).Unit
-    local cross = directionToTarget:Cross(poleDirection)
-    local normal = cross:Cross(directionToTarget).Unit
-
-    -- Apply rotations
-    local upperRotation = CFrame.fromAxisAngle(cross, -upperAngle)
-    local elbowPosition = origin + upperRotation:VectorToWorldSpace(directionToTarget) * upperLength
-
-    return elbowPosition, lowerAngle
-end
-
--- Foot IK for terrain
-local function setupFootIK(character)
-    local humanoid = character:WaitForChild("Humanoid")
-    local hrp = character:WaitForChild("HumanoidRootPart")
-
-    local leftFoot = character:FindFirstChild("LeftFoot")
-    local rightFoot = character:FindFirstChild("RightFoot")
-    local leftLeg = character:FindFirstChild("LeftLowerLeg")
-    local rightLeg = character:FindFirstChild("RightLowerLeg")
-
-    local rayParams = RaycastParams.new()
-    rayParams.FilterDescendantsInstances = {character}
-
-    RunService.RenderStepped:Connect(function()
-        if humanoid.FloorMaterial == Enum.Material.Air then return end
-
-        -- Raycast for each foot
-        for _, footData in ipairs({{leftFoot, leftLeg}, {rightFoot, rightLeg}}) do
-            local foot, lowerLeg = footData[1], footData[2]
-
-            local result = workspace:Raycast(
-                foot.Position + Vector3.new(0, 1, 0),
-                Vector3.new(0, -2, 0),
-                rayParams
-            )
-
-            if result then
-                local targetY = result.Position.Y
-                local offset = targetY - foot.Position.Y + 0.1
-
-                -- Apply IK offset (simplified)
-                -- In practice, you'd solve the full IK chain
-            end
-        end
-    end)
-end
+func _process(delta: float) -> void:
+    if shake_amount > 0:
+        offset = Vector2(
+            randf_range(-shake_amount, shake_amount),
+            randf_range(-shake_amount, shake_amount)
+        )
+    else:
+        offset = Vector2.ZERO
 ```
 
-## Custom Rigs
+## Sprite Animation
 
-### Motor6D Setup for Custom Rigs
-```lua
-local function createCustomRig(model)
-    local root = model.PrimaryPart
-    local parts = {}
+### AnimatedSprite2D Controller
+```gdscript
+extends CharacterBody2D
 
-    for _, part in ipairs(model:GetDescendants()) do
-        if part:IsA("BasePart") and part ~= root then
-            table.insert(parts, part)
-        end
-    end
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-    -- Create Motor6Ds
-    local motors = {}
+func _physics_process(_delta: float) -> void:
+    update_animation()
+    update_facing()
 
-    for _, part in ipairs(parts) do
-        local motor = Instance.new("Motor6D")
-        motor.Name = part.Name
+func update_animation() -> void:
+    if not is_on_floor():
+        if velocity.y < 0:
+            sprite.play("jump")
+        else:
+            sprite.play("fall")
+    elif abs(velocity.x) > 10:
+        sprite.play("run")
+    else:
+        sprite.play("idle")
 
-        -- Find parent part (closest connected part toward root)
-        local parentPart = findParentPart(part, root, parts)
+func update_facing() -> void:
+    if velocity.x > 0:
+        sprite.flip_h = false
+    elif velocity.x < 0:
+        sprite.flip_h = true
 
-        motor.Part0 = parentPart
-        motor.Part1 = part
-
-        -- Calculate C0 and C1 (joint positions)
-        local jointPos = (parentPart.Position + part.Position) / 2
-        motor.C0 = parentPart.CFrame:ToObjectSpace(CFrame.new(jointPos))
-        motor.C1 = part.CFrame:ToObjectSpace(CFrame.new(jointPos))
-
-        motor.Parent = parentPart
-        motors[part.Name] = motor
-    end
-
-    return motors
-end
+func play_attack() -> void:
+    sprite.play("attack")
+    await sprite.animation_finished
+    # Return to idle or movement animation
 ```
 
-### Motor6D C0/C1 Joint Positioning (CRITICAL)
+### Frame-Based Events
+```gdscript
+extends AnimatedSprite2D
 
-**Key insight**: C0 and C1 define where the joint is relative to each part. For parts to TOUCH (no gap), place the joint at the EDGE of each part, not the center.
+signal attack_frame
+signal step_frame
 
-```lua
--- WRONG: Parts will have gap (joint at centers)
-motor.C0 = CFrame.new()  -- Center of Part0
-motor.C1 = CFrame.new()  -- Center of Part1
+func _ready() -> void:
+    frame_changed.connect(_on_frame_changed)
 
--- CORRECT: Parts touch (joint at edges)
--- If Part0 is in front, Part1 behind (along Z axis):
-motor.C0 = CFrame.new(0, 0, part0Size.Z/2)   -- Back edge of Part0
-motor.C1 = CFrame.new(0, 0, -part1Size.Z/2)  -- Front edge of Part1
+func _on_frame_changed() -> void:
+    var current_anim := animation
 
--- Example: Dragon spine chain
-local chestSize = Vector3.new(5, 4, 6)
-local midSize = Vector3.new(4.5, 3.5, 5)
-
--- Chest to MidBody (MidBody is behind Chest)
-motors.Spine1 = createMotor(chest, midBody,
-    CFrame.new(0, 0, chestSize.Z/2),   -- Back of chest
-    CFrame.new(0, 0, -midSize.Z/2),    -- Front of midBody
-    "Spine1")
+    match current_anim:
+        "attack":
+            if frame == 3:  # Attack connects on frame 3
+                attack_frame.emit()
+        "run":
+            if frame == 2 or frame == 6:  # Footstep frames
+                step_frame.emit()
 ```
 
-### Creature Rigging Pattern
+## Animation Tips
 
-Build creatures with a clear hierarchy from root outward:
+### Animation Speed Based on Movement
+```gdscript
+extends CharacterBody2D
 
-```lua
---[[
-Creature Hierarchy:
-    HumanoidRootPart (invisible, anchored for physics)
-        └── Chest (body center)
-            ├── Neck1 → Neck2 → Neck3 → Skull → Snout → Jaw
-            ├── LShoulder → LUpperArm → LForearm → LWrist → Fingers
-            ├── RShoulder → RUpperArm → RForearm → RWrist → Fingers
-            ├── MidBody → Hips
-            │       ├── LUpperLeg → LLowerLeg → LFoot
-            │       ├── RUpperLeg → RLowerLeg → RFoot
-            │       └── Tail1 → Tail2 → Tail3 → ...
-]]
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-local function createCreatureMotor(part0, part1, c0, c1, name)
-    local motor = Instance.new("Motor6D")
-    motor.Part0 = part0
-    motor.Part1 = part1
-    motor.C0 = c0
-    motor.C1 = c1 or CFrame.new()
-    motor.Name = name
-    motor.Parent = part0
-    return motor
-end
+@export var walk_speed := 100.0
+@export var run_speed := 200.0
 
--- Store motors in a table for animation access
-local motors = {}
-motors.Spine1 = createCreatureMotor(chest, midBody, ...)
-motors.Neck1 = createCreatureMotor(chest, neck1, ...)
-motors.LWingFlap = createCreatureMotor(lShoulder, lUpperArm, ...)
+func _physics_process(_delta: float) -> void:
+    var speed := velocity.length()
+
+    if speed > 10:
+        # Scale animation speed with movement speed
+        var anim_speed := speed / walk_speed
+        anim_player.speed_scale = clamp(anim_speed, 0.5, 2.0)
+        anim_player.play("walk")
+    else:
+        anim_player.speed_scale = 1.0
+        anim_player.play("idle")
 ```
 
-### Creature Animation Patterns
+### Root Motion
+```gdscript
+extends CharacterBody2D
 
-```lua
-local function setupCreatureAnimation(creature, motors)
-    local RunService = game:GetService("RunService")
+@onready var anim_tree: AnimationTree = $AnimationTree
 
-    -- Store original C0 values (CRITICAL for animation)
-    local baseC0 = {}
-    for name, motor in pairs(motors) do
-        baseC0[name] = motor.C0
-    end
+var root_motion_position := Vector2.ZERO
 
-    -- Animation state
-    local wingAngle = 0
-    local tailAngle = 0
-    local breathAngle = 0
+func _physics_process(delta: float) -> void:
+    # Get root motion from animation
+    var root_motion := anim_tree.get_root_motion_position()
 
-    RunService.Heartbeat:Connect(function(dt)
-        -- Wing flapping (rotation around Z axis)
-        wingAngle = wingAngle + dt * 6
-        local flap = math.sin(wingAngle) * 0.5  -- 0.5 radians amplitude
+    # Apply root motion as velocity
+    if root_motion.length() > 0:
+        velocity = Vector2(root_motion.x, root_motion.z) / delta
+    else:
+        # Normal movement when no root motion
+        apply_movement_input()
 
-        if motors.LWingFlap then
-            -- Animate ON TOP of base C0, don't replace it!
-            motors.LWingFlap.C0 = baseC0.LWingFlap * CFrame.Angles(0, 0, -flap)
-        end
-        if motors.RWingFlap then
-            motors.RWingFlap.C0 = baseC0.RWingFlap * CFrame.Angles(0, 0, flap)
-        end
-
-        -- Tail sway (Y rotation for side-to-side)
-        tailAngle = tailAngle + dt * 2
-        local sway = math.sin(tailAngle) * 0.15
-
-        for i = 1, 8 do
-            local motor = motors["Tail" .. i]
-            local base = baseC0["Tail" .. i]
-            if motor and base then
-                -- Each segment sways more than the previous
-                motor.C0 = base * CFrame.Angles(0, sway * i * 0.3, 0)
-            end
-        end
-
-        -- Breathing (subtle Y movement on chest)
-        breathAngle = breathAngle + dt * 1.5
-        local breathOffset = math.sin(breathAngle) * 0.1
-        -- Apply to body motors...
-    end)
-end
+    move_and_slide()
 ```
 
-### Multi-Segment Neck Animation (Fire Breathing)
-
-```lua
-local function animateFireBreath(motors, baseC0, isBreathing, progress)
-    if not isBreathing then return end
-
-    -- progress: 0 to 1 over the breath duration
-    local neckAngle
-
-    if progress < 0.2 then
-        -- Phase 1: Rear head back (windup)
-        neckAngle = progress * 5 * math.rad(-20)
-    else
-        -- Phase 2: Thrust forward with shake
-        neckAngle = math.rad(15) + math.sin(progress * 10) * math.rad(5)
-    end
-
-    -- Each neck segment gets progressively more rotation
-    if motors.Neck1 then
-        motors.Neck1.C0 = baseC0.Neck1 * CFrame.Angles(neckAngle * 0.5, 0, 0)
-    end
-    if motors.Neck2 then
-        motors.Neck2.C0 = baseC0.Neck2 * CFrame.Angles(neckAngle * 0.7, 0, 0)
-    end
-    if motors.Neck3 then
-        motors.Neck3.C0 = baseC0.Neck3 * CFrame.Angles(neckAngle, 0, 0)
-    end
-    if motors.Head then
-        motors.Head.C0 = baseC0.Head * CFrame.Angles(neckAngle * 1.2, 0, 0)
-    end
-
-    -- Open jaw wide
-    if motors.Jaw then
-        motors.Jaw.C0 = baseC0.Jaw * CFrame.Angles(math.rad(35), 0, 0)
-    end
-end
-```
-
-### Wing Structure (Bat-Style)
-
-```lua
--- Detailed wing with multiple finger bones
-local function createWing(side, shoulder, colors, scale)
-    local sideName = side == 1 and "R" or "L"
-    local motors = {}
-
-    -- Upper arm
-    local upperArmSize = Vector3.new(5, 1.2, 1.5) * scale
-    local upperArm = createPart(upperArmSize, colors.secondary)
-    motors.WingFlap = createMotor(shoulder, upperArm,
-        CFrame.new(side * shoulder.Size.X/2, 0, 0) * CFrame.Angles(0, 0, math.rad(side * 10)),
-        CFrame.new(-side * upperArmSize.X/2, 0, 0))
-
-    -- Forearm
-    local forearmSize = Vector3.new(4, 1, 1.2) * scale
-    local forearm = createPart(forearmSize, colors.secondary)
-    motors.Elbow = createMotor(upperArm, forearm,
-        CFrame.new(side * upperArmSize.X/2, 0, 0),
-        CFrame.new(-side * forearmSize.X/2, 0, 0))
-
-    -- Wrist with 4 finger bones radiating out
-    local wristSize = Vector3.new(1.5, 1.5, 1.5) * scale
-    local wrist = createPart(wristSize, colors.primary)
-    createMotor(forearm, wrist, ...)
-
-    local fingerAngles = {-25, -8, 8, 25}  -- Spread angles in degrees
-    local fingerLengths = {6, 7, 6, 4}
-
-    for f = 1, 4 do
-        local angle = math.rad(fingerAngles[f])
-
-        -- First finger segment
-        local finger1Size = Vector3.new(fingerLengths[f] * 0.6, 0.6, 0.5) * scale
-        local finger1 = createPart(finger1Size, colors.secondary)
-        createMotor(wrist, finger1,
-            CFrame.new(side * wristSize.X/2, 0, 0) * CFrame.Angles(0, angle, 0),
-            CFrame.new(-side * finger1Size.X/2, 0, 0))
-
-        -- Second finger segment (tip)
-        local finger2Size = Vector3.new(fingerLengths[f] * 0.5, 0.4, 0.4) * scale
-        local finger2 = createPart(finger2Size, colors.secondary)
-        createMotor(finger1, finger2,
-            CFrame.new(side * finger1Size.X/2, 0, 0),
-            CFrame.new(-side * finger2Size.X/2, 0, 0))
-    end
-
-    -- Membrane between fingers (semi-transparent)
-    for m = 1, 3 do
-        local membrane = createPart(Vector3.new(5, 0.15, 4) * scale, colors.secondary)
-        membrane.Transparency = 0.2
-        -- Position between finger angles...
-    end
-
-    return motors
-end
-
--- Animate custom rig
-local function animateCustomRig(motors, animationData)
-    -- animationData: {motorName = {CFrame sequence}}
-
-    local time = 0
-    local duration = animationData.duration or 1
-
-    RunService.RenderStepped:Connect(function(dt)
-        time = (time + dt) % duration
-        local t = time / duration
-
-        for motorName, keyframes in pairs(animationData.motors or {}) do
-            local motor = motors[motorName]
-            if motor then
-                -- Interpolate between keyframes
-                local transform = interpolateKeyframes(keyframes, t)
-                motor.Transform = transform
-            end
-        end
-    end)
-end
-```
-
-### Humanoid Description for NPCs
-```lua
-local function applyHumanoidDescription(character, description)
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-
-    -- Create or modify description
-    local desc = description or Instance.new("HumanoidDescription")
-
-    -- Body parts
-    desc.Head = 123456789  -- Asset ID
-    desc.Torso = 123456789
-    desc.LeftArm = 123456789
-    desc.RightArm = 123456789
-    desc.LeftLeg = 123456789
-    desc.RightLeg = 123456789
-
-    -- Animations
-    desc.IdleAnimation = 123456789
-    desc.WalkAnimation = 123456789
-    desc.RunAnimation = 123456789
-    desc.JumpAnimation = 123456789
-    desc.FallAnimation = 123456789
-
-    -- Body scales
-    desc.HeadScale = 1
-    desc.BodyTypeScale = 0.5
-    desc.ProportionScale = 1
-    desc.WidthScale = 1
-    desc.HeightScale = 1
-    desc.DepthScale = 1
-
-    humanoid:ApplyDescription(desc)
-end
-```
-
-## Animation Performance
-
-### Animation Caching
-```lua
-local AnimationCache = {}
-AnimationCache.cache = {}
-
-function AnimationCache.load(animator, animationId)
-    local cacheKey = tostring(animator) .. "_" .. animationId
-
-    if AnimationCache.cache[cacheKey] then
-        return AnimationCache.cache[cacheKey]
-    end
-
-    local animation = Instance.new("Animation")
-    animation.AnimationId = animationId
-
-    local track = animator:LoadAnimation(animation)
-    AnimationCache.cache[cacheKey] = track
-
-    return track
-end
-
-function AnimationCache.clear(animator)
-    local prefix = tostring(animator) .. "_"
-
-    for key, track in pairs(AnimationCache.cache) do
-        if string.sub(key, 1, #prefix) == prefix then
-            track:Stop()
-            track:Destroy()
-            AnimationCache.cache[key] = nil
-        end
-    end
-end
-```
-
-### LOD for Animations
-```lua
-local AnimationLOD = {}
-
-function AnimationLOD.setup(character, camera)
-    local animator = character:WaitForChild("Humanoid"):WaitForChild("Animator")
-    local hrp = character:WaitForChild("HumanoidRootPart")
-
-    local LOD_DISTANCES = {50, 100, 200}
-    local UPDATE_RATES = {1, 0.5, 0.25, 0.1}  -- Animation update rate
-
-    local lastUpdate = 0
-    local currentLOD = 1
-
-    RunService.Heartbeat:Connect(function()
-        local distance = (hrp.Position - camera.CFrame.Position).Magnitude
-
-        -- Determine LOD level
-        local lodLevel = 1
-        for i, threshold in ipairs(LOD_DISTANCES) do
-            if distance > threshold then
-                lodLevel = i + 1
-            end
-        end
-
-        -- Update animation rate based on LOD
-        if lodLevel ~= currentLOD then
-            currentLOD = lodLevel
-
-            -- Adjust all playing animations
-            for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
-                -- Distant characters: slower animation updates
-                -- This is a simplified approach; Roblox handles this internally
-            end
-        end
-    end)
-end
-```
-
-### Pooled Animation Tracks
-```lua
-local TrackPool = {}
-TrackPool.pools = {}
-
-function TrackPool.getTrack(animator, animationId)
-    local poolKey = animationId
-
-    if not TrackPool.pools[poolKey] then
-        TrackPool.pools[poolKey] = {
-            available = {},
-            inUse = {}
-        }
-    end
-
-    local pool = TrackPool.pools[poolKey]
-
-    -- Check for available track
-    local track = table.remove(pool.available)
-
-    if not track then
-        -- Create new track
-        local animation = Instance.new("Animation")
-        animation.AnimationId = animationId
-        track = animator:LoadAnimation(animation)
-    end
-
-    table.insert(pool.inUse, track)
-    return track
-end
-
-function TrackPool.releaseTrack(animationId, track)
-    local pool = TrackPool.pools[animationId]
-    if not pool then return end
-
-    track:Stop(0)
-
-    local index = table.find(pool.inUse, track)
-    if index then
-        table.remove(pool.inUse, index)
-    end
-
-    table.insert(pool.available, track)
-end
-```
-
-## Animation Tools
-
-### Animation Recording
-```lua
-local AnimationRecorder = {}
-
-function AnimationRecorder.record(character, duration)
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    local motors = {}
-
-    -- Find all Motor6Ds
-    for _, motor in ipairs(character:GetDescendants()) do
-        if motor:IsA("Motor6D") then
-            table.insert(motors, motor)
-        end
-    end
-
-    local keyframes = {}
-    local startTime = os.clock()
-    local recording = true
-
-    -- Record at 30 fps
-    local frameTime = 1/30
-    local lastFrame = 0
-
-    local conn
-    conn = RunService.Heartbeat:Connect(function()
-        local elapsed = os.clock() - startTime
-
-        if elapsed >= duration then
-            recording = false
-            conn:Disconnect()
-            return
-        end
-
-        if elapsed - lastFrame >= frameTime then
-            lastFrame = elapsed
-
-            local frame = {
-                time = elapsed,
-                poses = {}
-            }
-
-            for _, motor in ipairs(motors) do
-                frame.poses[motor.Name] = {
-                    C0 = motor.C0,
-                    C1 = motor.C1,
-                    Transform = motor.Transform
-                }
-            end
-
-            table.insert(keyframes, frame)
-        end
-    end)
-
-    -- Return promise-like
-    return {
-        getKeyframes = function()
-            while recording do
-                task.wait()
-            end
-            return keyframes
-        end
-    }
-end
-```
-
-### Animation Playback from Data
-```lua
-local function playRecordedAnimation(character, keyframes)
-    local motors = {}
-
-    for _, motor in ipairs(character:GetDescendants()) do
-        if motor:IsA("Motor6D") then
-            motors[motor.Name] = motor
-        end
-    end
-
-    local duration = keyframes[#keyframes].time
-    local startTime = os.clock()
-
-    local conn
-    conn = RunService.Heartbeat:Connect(function()
-        local elapsed = os.clock() - startTime
-
-        if elapsed >= duration then
-            conn:Disconnect()
-            return
-        end
-
-        -- Find surrounding keyframes
-        local prevFrame, nextFrame
-        for i, frame in ipairs(keyframes) do
-            if frame.time <= elapsed then
-                prevFrame = frame
-                nextFrame = keyframes[i + 1]
-            end
-        end
-
-        if not prevFrame or not nextFrame then return end
-
-        -- Interpolate
-        local t = (elapsed - prevFrame.time) / (nextFrame.time - prevFrame.time)
-
-        for motorName, motor in pairs(motors) do
-            local prevPose = prevFrame.poses[motorName]
-            local nextPose = nextFrame.poses[motorName]
-
-            if prevPose and nextPose then
-                motor.Transform = prevPose.Transform:Lerp(nextPose.Transform, t)
-            end
-        end
-    end)
-
-    return conn
-end
+### Animation Retargeting
+```gdscript
+# When sharing animations between different skeletons
+extends Skeleton3D
+
+@export var source_skeleton: Skeleton3D
+@export var bone_mapping: Dictionary  # {source_bone: target_bone}
+
+func _process(_delta: float) -> void:
+    if not source_skeleton:
+        return
+
+    for source_bone in bone_mapping:
+        var target_bone: String = bone_mapping[source_bone]
+
+        var source_idx := source_skeleton.find_bone(source_bone)
+        var target_idx := find_bone(target_bone)
+
+        if source_idx >= 0 and target_idx >= 0:
+            var pose := source_skeleton.get_bone_pose(source_idx)
+            set_bone_pose_rotation(target_idx, pose.basis.get_rotation_quaternion())
 ```

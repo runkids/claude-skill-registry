@@ -1,7 +1,7 @@
 {
   "name": "dockerfile-generator",
-  "repo": "cornmanwtf/ABANG-COLEK",
-  "path": "skills/codegen-scaffolding/dockerfile-generator/SKILL.md",
-  "source": "github.com/cornmanwtf/ABANG-COLEK",
-  "downloaded_at": "2026-01-30T02:34:26.571894Z"
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/dockerfile-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-31T04:02:59.849274Z"
 }

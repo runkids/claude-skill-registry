@@ -1,103 +1,127 @@
 ---
 name: logging-best-practices
-description: Structured logging with proper levels, context, PII handling, centralized aggregation. Use for application logging, log management integration, distributed tracing, or encountering log bloat, PII exposure, missing context errors.
+description: Logging best practices focused on wide events (canonical log lines) for powerful debugging and analytics
+license: MIT
+metadata:
+  author: boristane
+  version: "1.0.0"
 ---
 
-# Logging Best Practices
+# Logging Best Practices Skill
 
-Implement secure, structured logging with proper levels and context.
+Version: 1.0.0
 
-## Log Levels
+## Purpose
 
-| Level | Use For | Production |
-|-------|---------|------------|
-| DEBUG | Detailed debugging | Off |
-| INFO | Normal operations | On |
-| WARN | Potential issues | On |
-| ERROR | Errors with recovery | On |
-| FATAL | Critical failures | On |
+This skill provides guidelines for implementing effective logging in applications. It focuses on **wide events** (also called canonical log lines) - a pattern where you emit a single, context-rich event per request per service, enabling powerful debugging and analytics.
 
-## Structured Logging (Winston)
+## When to Apply
 
-```javascript
-const winston = require('winston');
+Apply these guidelines when:
+- Writing or reviewing logging code
+- Adding console.log, logger.info, or similar
+- Designing logging strategy for new services
+- Setting up logging infrastructure
 
-const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
-  ),
-  defaultMeta: { service: 'api-service' },
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'error.log', level: 'error' })
-  ]
-});
+## Core Principles
 
-// Usage
-logger.info('User logged in', { userId: '123', ip: '192.168.1.1' });
-logger.error('Payment failed', { error: err.message, orderId: '456' });
-```
+### 1. Wide Events (CRITICAL)
 
-## Request Context
+Emit **one context-rich event per request per service**. Instead of scattering log lines throughout your handler, consolidate everything into a single structured event emitted at request completion.
 
-```javascript
-const { AsyncLocalStorage } = require('async_hooks');
-const storage = new AsyncLocalStorage();
+```typescript
+const wideEvent: Record<string, unknown> = {
+  method: 'POST',
+  path: '/checkout',
+  requestId: c.get('requestId'),
+  timestamp: new Date().toISOString(),
+};
 
-app.use((req, res, next) => {
-  const context = {
-    requestId: req.headers['x-request-id'] || uuid(),
-    userId: req.user?.id
-  };
-  storage.run(context, next);
-});
+try {
+  const user = await getUser(c.get('userId'));
+  wideEvent.user = { id: user.id, subscription: user.subscription };
 
-function log(level, message, meta = {}) {
-  const context = storage.getStore() || {};
-  logger.log(level, message, { ...context, ...meta });
+  const cart = await getCart(user.id);
+  wideEvent.cart = { total_cents: cart.total, item_count: cart.items.length };
+
+  wideEvent.status_code = 200;
+  wideEvent.outcome = 'success';
+  return c.json({ success: true });
+} catch (error) {
+  wideEvent.status_code = 500;
+  wideEvent.outcome = 'error';
+  wideEvent.error = { message: error.message, type: error.name };
+  throw error;
+} finally {
+  wideEvent.duration_ms = Date.now() - startTime;
+  logger.info(wideEvent);
 }
 ```
 
-## PII Sanitization
+### 2. High Cardinality & Dimensionality (CRITICAL)
 
-```javascript
-const sensitiveFields = ['password', 'ssn', 'creditCard', 'token'];
+Include fields with high cardinality (user IDs, request IDs - millions of unique values) and high dimensionality (many fields per event). This enables querying by specific users and answering questions you haven't anticipated yet.
 
-function sanitize(obj) {
-  const sanitized = { ...obj };
-  for (const field of sensitiveFields) {
-    if (sanitized[field]) sanitized[field] = '[REDACTED]';
-  }
-  if (sanitized.email) {
-    sanitized.email = sanitized.email.replace(/(.{2}).*@/, '$1***@');
-  }
-  return sanitized;
-}
-```
+### 3. Business Context (CRITICAL)
 
-## Best Practices
+Always include business context: user subscription tier, cart value, feature flags, account age. The goal is to know "a premium customer couldn't complete a $2,499 purchase" not just "checkout failed."
 
-- Use structured JSON format
-- Include correlation IDs across services
-- Sanitize all PII before logging
-- Use async logging for performance
-- Implement log rotation
-- Never log at DEBUG in production
+### 4. Environment Characteristics (CRITICAL)
 
-## Additional Implementations
+Include environment and deployment info in every event: commit hash, service version, region, instance ID. This enables correlating issues with deployments and identifying region-specific problems.
 
-See [references/advanced-logging.md](references/advanced-logging.md) for:
-- Python structlog setup
-- Go zap high-performance logging
-- ELK Stack integration
-- AWS CloudWatch configuration
-- OpenTelemetry tracing
+### 5. Single Logger (HIGH)
 
-## Never Do
+Use one logger instance configured at startup and import it everywhere. This ensures consistent formatting and automatic environment context.
 
-- Log passwords or tokens
-- Use console.log in production
-- Log inside tight loops
-- Include stack traces for client errors
+### 6. Middleware Pattern (HIGH)
+
+Use middleware to handle wide event infrastructure (timing, status, environment, emission). Handlers should only add business context.
+
+### 7. Structure & Consistency (HIGH)
+
+- Use JSON format consistently
+- Maintain consistent field names across services
+- Simplify to two log levels: `info` and `error`
+- Never log unstructured strings
+
+## Anti-Patterns to Avoid
+
+1. **Scattered logs**: Multiple console.log() calls per request
+2. **Multiple loggers**: Different logger instances in different files
+3. **Missing environment context**: No commit hash or deployment info
+4. **Missing business context**: Logging technical details without user/business data
+5. **Unstructured strings**: `console.log('something happened')` instead of structured data
+6. **Inconsistent schemas**: Different field names across services
+
+## Guidelines
+
+### Wide Events (`rules/wide-events.md`)
+- Emit one wide event per service hop
+- Include all relevant context
+- Connect events with request ID
+- Emit at request completion in finally block
+
+### Context (`rules/context.md`)
+- Support high cardinality fields (user_id, request_id)
+- Include high dimensionality (many fields)
+- Always include business context
+- Always include environment characteristics (commit_hash, version, region)
+
+### Structure (`rules/structure.md`)
+- Use a single logger throughout the codebase
+- Use middleware for consistent wide events
+- Use JSON format
+- Maintain consistent schema
+- Simplify to info and error levels
+- Never log unstructured strings
+
+### Common Pitfalls (`rules/pitfalls.md`)
+- Avoid multiple log lines per request
+- Design for unknown unknowns
+- Always propagate request IDs across services
+
+References:
+- [Logging Sucks](https://loggingsucks.com)
+- [Observability Wide Events 101](https://boristane.com/blog/observability-wide-events-101/)
+- [Stripe - Canonical Log Lines](https://stripe.com/blog/canonical-log-lines)

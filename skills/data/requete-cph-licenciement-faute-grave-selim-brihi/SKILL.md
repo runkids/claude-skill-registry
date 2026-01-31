@@ -4,6 +4,7 @@ description: Rédaction de requêtes devant le Conseil de prud'hommes pour conte
 metadata:
   author: Sélim Brihi
   license: AGPL-3.0
+  version: 2026.01.23
 ---
 
 # Requête CPH - Contestation Licenciement pour Faute Grave

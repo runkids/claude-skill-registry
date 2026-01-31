@@ -1,11 +1,22 @@
 ---
 name: iterate-pr
-description: Iterate on a PR until CI passes. Use when you need to fix CI failures, address review feedback, or continuously push fixes until all checks are green. Automates the feedback-fix-push-wait cycle.
+description: "Iterate on a PR until CI passes. Use when you need to fix CI failures, address review feedback, or continuously push fixes until all checks are green. Automates the feedback-fix-push-wait cycle."
+source: "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/iterate-pr"
+risk: safe
 ---
 
 # Iterate on PR Until CI Passes
 
 Continuously iterate on the current branch until all CI checks pass and review feedback is addressed.
+
+## When to Use This Skill
+
+Use this skill when:
+- Fixing CI failures
+- Addressing review feedback
+- Continuously pushing fixes until all checks are green
+- Automating the feedback-fix-push-wait cycle
+- Ensuring PR meets all quality gates
 
 **Requires**: GitHub CLI (`gh`) authenticated and available.
 
@@ -90,7 +101,7 @@ Make minimal, targeted code changes. Only fix what is actually broken.
 ```bash
 git add -A
 git commit -m "fix: <descriptive message of what was fixed>"
-git push
+git push origin $(git branch --show-current)
 ```
 
 ### Step 8: Wait for CI

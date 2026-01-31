@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "shinpr/agentic-code",
-  "path": ".agents/skills/testing/SKILL.md",
-  "source": "github.com/shinpr/agentic-code",
-  "downloaded_at": "2026-01-30T04:49:27.797645Z"
+  "repo": "ngxtm/devkit",
+  "path": "rules/flutter/testing/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-31T04:37:27.663309Z"
 }

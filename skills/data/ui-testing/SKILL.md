@@ -1,604 +1,289 @@
 ---
 name: ui-testing
-description: UI testing expert for Cypress, Testing Library, and component tests. Use when testing UI components or implementing component tests.
+description: |
+  Browser automation skill for UI testing via Chrome MCP tools. Use when:
+  (1) QA Agent needs to verify UI visually or test interactions,
+  (2) UI/UX Designer needs to check responsive design or component states,
+  (3) Frontend Dev needs quick visual verification during development,
+  (4) Test Writer needs to document user flows with screenshots/GIFs,
+  (5) Any agent needs to test web interfaces, record demos, or debug UI issues.
+  Capabilities: screenshots, interaction testing, accessibility checks, GIF recording,
+  responsive testing, console/network debugging.
 ---
 
 # UI Testing Skill
 
-Expert in UI testing with **Cypress** and **Testing Library**. For deep Playwright expertise, see the `e2e-playwright` skill.
+Browser automation for UI verification using Chrome MCP tools.
 
-## Framework Selection Guide
+## Quick Reference
 
-| Framework | Best For | Key Strength |
-|-----------|----------|--------------|
-| **Playwright** | E2E, cross-browser | Auto-wait, multi-browser → Use `e2e-playwright` skill |
-| **Cypress** | E2E, developer experience | Time-travel debugging, real-time reload |
-| **Testing Library** | Component tests | User-centric queries, accessibility-first |
+| Task | Tool | Key Parameters |
+|------|------|----------------|
+| Screenshot | `computer` | `action: "screenshot"` |
+| Click | `computer` | `action: "left_click", coordinate: [x,y]` or `ref: "ref_1"` |
+| Type | `computer` | `action: "type", text: "..."` |
+| Find element | `find` | `query: "search button"` |
+| Read page | `read_page` | `filter: "interactive"` or `"all"` |
+| Navigate | `navigate` | `url: "https://..."` |
+| Resize | `resize_window` | `width: 1920, height: 1080` |
+| Record GIF | `gif_creator` | `action: "start_recording"` |
+| Console | `read_console_messages` | `pattern: "error"` |
+| Network | `read_network_requests` | `urlPattern: "/api/"` |
 
----
+All tools prefixed with `mcp__claude-in-chrome__`.
 
-## 1. Cypress (E2E Testing)
+## Workflow: Visual Testing
 
-**Why Cypress?**
-- Developer-friendly API
-- Real-time reloading
-- Time-travel debugging
-- Screenshot/video recording
-- Stubbing and mocking built-in
-
-#### Basic Test
-
-```javascript
-describe('User Authentication', () => {
-  it('should login with valid credentials', () => {
-    cy.visit('/login');
-
-    cy.get('input[name="email"]').type('user@example.com');
-    cy.get('input[name="password"]').type('SecurePass123!');
-    cy.get('button[type="submit"]').click();
-
-    cy.url().should('include', '/dashboard');
-    cy.get('h1').should('have.text', 'Welcome, User');
-  });
-
-  it('should show error with invalid credentials', () => {
-    cy.visit('/login');
-
-    cy.get('input[name="email"]').type('wrong@example.com');
-    cy.get('input[name="password"]').type('WrongPass');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.error-message')
-      .should('be.visible')
-      .and('have.text', 'Invalid credentials');
-  });
-});
-```
-
-#### Custom Commands (Reusable Actions)
-
-```javascript
-// cypress/support/commands.js
-Cypress.Commands.add('login', (email, password) => {
-  cy.visit('/login');
-  cy.get('input[name="email"]').type(email);
-  cy.get('input[name="password"]').type(password);
-  cy.get('button[type="submit"]').click();
-  cy.url().should('include', '/dashboard');
-});
-
-// Usage in tests
-it('should display dashboard for logged-in user', () => {
-  cy.login('user@example.com', 'SecurePass123!');
-  cy.get('h1').should('have.text', 'Dashboard');
-});
-```
-
-#### API Mocking with Intercept
-
-```javascript
-it('should display mocked user data', () => {
-  cy.intercept('GET', '/api/user', {
-    statusCode: 200,
-    body: {
-      id: 1,
-      name: 'Mock User',
-      email: 'mock@example.com',
-    },
-  }).as('getUser');
-
-  cy.visit('/profile');
-
-  cy.wait('@getUser');
-  cy.get('.user-name').should('have.text', 'Mock User');
-});
-```
-
-### 3. React Testing Library (Component Tests)
-
-**Why Testing Library?**
-- User-centric queries (accessibility-first)
-- Encourages best practices (testing behavior, not implementation)
-- Works with React, Vue, Svelte, Angular
-
-#### Component Test Example
-
-```typescript
-import { render, screen, fireEvent } from '@testing-library/react';
-import { LoginForm } from './LoginForm';
-
-describe('LoginForm', () => {
-  it('should render email and password inputs', () => {
-    render(<LoginForm />);
-
-    expect(screen.getByLabelText('Email')).toBeInTheDocument();
-    expect(screen.getByLabelText('Password')).toBeInTheDocument();
-  });
-
-  it('should call onSubmit with email and password', async () => {
-    const handleSubmit = vi.fn();
-    render(<LoginForm onSubmit={handleSubmit} />);
-
-    // Type into inputs
-    fireEvent.change(screen.getByLabelText('Email'), {
-      target: { value: 'user@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'SecurePass123!' },
-    });
-
-    // Submit form
-    fireEvent.click(screen.getByRole('button', { name: /login/i }));
-
-    // Verify callback
-    expect(handleSubmit).toHaveBeenCalledWith({
-      email: 'user@example.com',
-      password: 'SecurePass123!',
-    });
-  });
-
-  it('should show validation error for invalid email', async () => {
-    render(<LoginForm />);
-
-    fireEvent.change(screen.getByLabelText('Email'), {
-      target: { value: 'invalid-email' },
-    });
-    fireEvent.blur(screen.getByLabelText('Email'));
-
-    expect(await screen.findByText('Invalid email format')).toBeInTheDocument();
-  });
-});
-```
-
-#### User-Centric Queries (Preferred)
-
-```typescript
-// ✅ GOOD: Accessible queries (user-facing)
-screen.getByRole('button', { name: /submit/i });
-screen.getByLabelText('Email');
-screen.getByPlaceholderText('Enter your email');
-screen.getByText('Welcome');
-
-// ❌ BAD: Implementation-detail queries (fragile)
-screen.getByClassName('btn-primary'); // Changes when CSS changes
-screen.getByTestId('submit-button'); // Not user-facing
-```
-
-## Test Strategies
-
-### 1. Testing Pyramid
+### 1. Setup Test Session
 
 ```
-         /\
-        /  \  E2E (10%)
-       /____\
-      /      \  Integration (30%)
-     /________\
-    /          \  Unit (60%)
-   /____________\
+1. tabs_context_mcp (createIfEmpty: true)
+2. tabs_create_mcp  → get new tabId
+3. navigate (url: target_url, tabId: {tab})
+4. computer (action: "wait", duration: 2, tabId: {tab})
+5. computer (action: "screenshot", tabId: {tab})
 ```
 
-**Unit Tests** (60%):
-- Individual components in isolation
-- Fast, cheap, many tests
-- Mock external dependencies
+### 2. Responsive Testing
 
-**Integration Tests** (30%):
-- Multiple components working together
-- API integration, data flow
-- Moderate speed, moderate cost
+Test at standard breakpoints:
 
-**E2E Tests** (10%):
-- Full user journeys (login → checkout)
-- Slowest, most expensive
-- Critical paths only
+| Device | Width | Height |
+|--------|-------|--------|
+| Mobile | 375 | 667 |
+| Tablet | 768 | 1024 |
+| Desktop | 1440 | 900 |
+| Wide | 1920 | 1080 |
 
-### 2. Test Coverage Strategy
-
-**What to Test**:
-- ✅ Happy paths (core user flows)
-- ✅ Error states (validation, API failures)
-- ✅ Edge cases (empty states, max limits)
-- ✅ Accessibility (keyboard navigation, screen readers)
-- ✅ Regression bugs (add test for each bug fix)
-
-**What NOT to Test**:
-- ❌ Third-party libraries (assume they work)
-- ❌ Implementation details (internal state, CSS classes)
-- ❌ Trivial code (getters, setters)
-
-### 3. Flakiness Mitigation
-
-**Common Causes of Flaky Tests**:
-
-1. **Race Conditions**
-
-❌ **Bad**:
-```typescript
-await page.click('button');
-const text = await page.textContent('.result'); // May fail!
+```
+1. resize_window (width: 375, height: 667, tabId: {tab})
+2. computer (action: "wait", duration: 1, tabId: {tab})
+3. computer (action: "screenshot", tabId: {tab})
+4. Repeat for other breakpoints
 ```
 
-✅ **Good**:
-```typescript
-await page.click('button');
-await page.waitForSelector('.result'); // Wait for element
-const text = await page.textContent('.result');
+### 3. Component State Testing
+
+Test hover, active, focus states:
+
+```
+# Hover state
+1. find (query: "submit button", tabId: {tab})
+2. computer (action: "hover", ref: "ref_X", tabId: {tab})
+3. computer (action: "screenshot", tabId: {tab})
+
+# Focus state (tab to element)
+4. computer (action: "key", text: "Tab", tabId: {tab})
+5. computer (action: "screenshot", tabId: {tab})
+
+# Click state
+6. computer (action: "left_click", ref: "ref_X", tabId: {tab})
+7. computer (action: "screenshot", tabId: {tab})
 ```
 
-2. **Non-Deterministic Data**
+## Workflow: Interaction Testing
 
-❌ **Bad**:
-```typescript
-expect(page.locator('.user')).toHaveCount(5); // Depends on database state
+### Form Testing
+
+```
+1. find (query: "email input", tabId: {tab})
+2. computer (action: "left_click", ref: "ref_X", tabId: {tab})
+3. computer (action: "type", text: "test@example.com", tabId: {tab})
+4. computer (action: "key", text: "Tab", tabId: {tab})  # Move to next field
+5. computer (action: "type", text: "password123", tabId: {tab})
+6. computer (action: "screenshot", tabId: {tab})  # Capture filled form
+7. find (query: "submit button", tabId: {tab})
+8. computer (action: "left_click", ref: "ref_Y", tabId: {tab})
+9. computer (action: "wait", duration: 2, tabId: {tab})
+10. computer (action: "screenshot", tabId: {tab})  # Capture result
 ```
 
-✅ **Good**:
-```typescript
-// Mock API to return deterministic data
-await page.route('**/api/users', (route) =>
-  route.fulfill({
-    body: JSON.stringify([{ id: 1, name: 'User 1' }, { id: 2, name: 'User 2' }]),
-  })
-);
+### Navigation Testing
 
-expect(page.locator('.user')).toHaveCount(2); // Predictable
+```
+1. find (query: "navigation menu", tabId: {tab})
+2. computer (action: "left_click", ref: "ref_X", tabId: {tab})
+3. computer (action: "wait", duration: 1, tabId: {tab})
+4. computer (action: "screenshot", tabId: {tab})
+5. Check URL changed: read_page to verify content
 ```
 
-3. **Timing Issues**
+### Error State Testing
 
-❌ **Bad**:
-```typescript
-await page.waitForTimeout(3000); // Arbitrary wait
+```
+# Test validation errors
+1. find (query: "email input", tabId: {tab})
+2. computer (action: "left_click", ref: "ref_X", tabId: {tab})
+3. computer (action: "type", text: "invalid-email", tabId: {tab})
+4. computer (action: "key", text: "Tab", tabId: {tab})
+5. computer (action: "screenshot", tabId: {tab})  # Capture error state
+6. read_page (tabId: {tab})  # Verify error message in DOM
 ```
 
-✅ **Good**:
-```typescript
-await page.waitForSelector('.loaded'); // Wait for specific condition
-await page.waitForLoadState('networkidle'); // Wait for network idle
+## Workflow: Accessibility Testing
+
+### Read Accessibility Tree
+
+```
+1. read_page (tabId: {tab}, filter: "all")
+   → Returns full a11y tree with roles, names, states
+
+2. read_page (tabId: {tab}, filter: "interactive")
+   → Returns only interactive elements (buttons, links, inputs)
 ```
 
-4. **Test Interdependence**
+### Accessibility Checklist
 
-❌ **Bad**:
-```typescript
-test('create user', async () => {
-  // Creates user in DB
-});
+| Check | How to Verify |
+|-------|---------------|
+| All buttons have labels | `read_page` → check button names not empty |
+| Images have alt text | `read_page` → check img elements have names |
+| Form inputs have labels | `read_page` → verify input descriptions |
+| Focus visible | Tab through elements, screenshot each |
+| Color contrast | Visual inspection of screenshots |
+| Keyboard navigable | Use `key: "Tab"` to traverse |
 
-test('login user', async () => {
-  // Depends on previous test creating user
-});
+### Keyboard Navigation Test
+
+```
+1. computer (action: "key", text: "Tab", tabId: {tab})
+2. computer (action: "screenshot", tabId: {tab})  # Focus indicator visible?
+3. Repeat Tab, screenshot each focused element
+4. computer (action: "key", text: "Return", tabId: {tab})  # Activate element
+5. computer (action: "screenshot", tabId: {tab})
 ```
 
-✅ **Good**:
-```typescript
-test.beforeEach(async () => {
-  // Each test creates its own user
-  await createTestUser();
-});
+## Workflow: GIF Recording
 
-test.afterEach(async () => {
-  await cleanupTestUsers();
-});
+### Record User Flow
+
+```
+# Start recording
+1. gif_creator (action: "start_recording", tabId: {tab})
+2. computer (action: "screenshot", tabId: {tab})  # First frame
+
+# Perform actions (each screenshot captures a frame)
+3. computer (action: "left_click", coordinate: [x,y], tabId: {tab})
+4. computer (action: "screenshot", tabId: {tab})
+5. computer (action: "type", text: "...", tabId: {tab})
+6. computer (action: "screenshot", tabId: {tab})
+... continue flow ...
+
+# Stop and export
+7. computer (action: "screenshot", tabId: {tab})  # Last frame
+8. gif_creator (action: "stop_recording", tabId: {tab})
+9. gif_creator (action: "export", download: true, filename: "user-flow.gif", tabId: {tab})
 ```
 
-## Accessibility Testing
+### GIF Options
 
-### 1. Automated Accessibility Tests (axe-core)
-
-```typescript
-import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
-
-test('should have no accessibility violations', async ({ page }) => {
-  await page.goto('https://example.com');
-
-  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
 ```
-
-### 2. Keyboard Navigation
-
-```typescript
-test('should navigate form with keyboard', async ({ page }) => {
-  await page.goto('/form');
-
-  // Tab through form fields
-  await page.keyboard.press('Tab');
-  await expect(page.locator('input[name="email"]')).toBeFocused();
-
-  await page.keyboard.press('Tab');
-  await expect(page.locator('input[name="password"]')).toBeFocused();
-
-  await page.keyboard.press('Tab');
-  await expect(page.locator('button[type="submit"]')).toBeFocused();
-
-  // Submit with Enter
-  await page.keyboard.press('Enter');
-  await expect(page).toHaveURL('**/dashboard');
-});
-```
-
-### 3. Screen Reader Testing (aria-label, roles)
-
-```typescript
-test('should have proper ARIA labels', async ({ page }) => {
-  await page.goto('/login');
-
-  // Verify accessible names
-  await expect(page.getByRole('textbox', { name: 'Email' })).toBeVisible();
-  await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
-
-  // Verify error announcements (aria-live)
-  await page.fill('input[name="email"]', 'invalid-email');
-  await page.click('button[type="submit"]');
-
-  const errorRegion = page.locator('[role="alert"]');
-  await expect(errorRegion).toHaveText('Invalid email format');
-});
-```
-
-## CI/CD Integration
-
-### 1. GitHub Actions (Playwright)
-
-```yaml
-name: E2E Tests
-
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests
-        run: npx playwright test
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: playwright-report
-          path: playwright-report/
-```
-
-### 2. Parallel Execution
-
-```typescript
-// playwright.config.ts
-export default defineConfig({
-  workers: process.env.CI ? 2 : undefined, // Parallel in CI
-  fullyParallel: true,
-  retries: process.env.CI ? 2 : 0, // Retry flaky tests in CI
-  reporter: process.env.CI ? 'github' : 'html',
-});
-```
-
-### 3. Sharding (Large Test Suites)
-
-```bash
-# Split tests across 4 machines
-npx playwright test --shard=1/4
-npx playwright test --shard=2/4
-npx playwright test --shard=3/4
-npx playwright test --shard=4/4
-```
-
-## Best Practices
-
-### 1. Use Data Attributes for Stable Selectors
-
-```html
-<!-- ✅ GOOD: Stable selector -->
-<button data-testid="submit-button">Submit</button>
-
-<!-- ❌ BAD: Fragile selectors -->
-<button class="btn btn-primary">Submit</button> <!-- CSS changes break tests -->
-```
-
-```typescript
-// Test
-await page.click('[data-testid="submit-button"]');
-```
-
-### 2. Test User Behavior, Not Implementation
-
-❌ **Bad**:
-```typescript
-// Testing internal state
-expect(component.state.isLoading).toBe(true);
-```
-
-✅ **Good**:
-```typescript
-// Testing visible UI
-expect(screen.getByText('Loading...')).toBeInTheDocument();
-```
-
-### 3. Keep Tests Independent
-
-```typescript
-// ✅ GOOD: Each test is independent
-test.beforeEach(async ({ page }) => {
-  await page.goto('/');
-  await login(page, 'user@example.com', 'password');
-});
-
-test('test 1', async ({ page }) => {
-  // Fresh state
-});
-
-test('test 2', async ({ page }) => {
-  // Fresh state
-});
-```
-
-### 4. Use Meaningful Assertions
-
-❌ **Bad**:
-```typescript
-expect(true).toBe(true); // Useless assertion
-```
-
-✅ **Good**:
-```typescript
-await expect(page.locator('.success-message')).toHaveText(
-  'Order placed successfully'
-);
-```
-
-### 5. Avoid Hard-Coded Waits
-
-❌ **Bad**:
-```typescript
-await page.waitForTimeout(5000); // Slow, brittle
-```
-
-✅ **Good**:
-```typescript
-await page.waitForSelector('.results'); // Wait for specific element
-await expect(page.locator('.results')).toBeVisible(); // Built-in wait
-```
-
-## Debugging Tests
-
-### 1. Headed Mode (See Browser)
-
-```bash
-npx playwright test --headed
-npx playwright test --headed --debug # Pause on each step
-```
-
-### 2. Screenshot on Failure
-
-```typescript
-test.afterEach(async ({ page }, testInfo) => {
-  if (testInfo.status !== 'passed') {
-    await page.screenshot({ path: `failure-${testInfo.title}.png` });
-  }
-});
-```
-
-### 3. Trace Viewer (Time-Travel Debugging)
-
-```typescript
-// playwright.config.ts
-export default defineConfig({
-  use: {
-    trace: 'on-first-retry', // Record trace on retry
+gif_creator (
+  action: "export",
+  download: true,
+  filename: "demo.gif",
+  options: {
+    showClickIndicators: true,   # Orange circles at clicks
+    showActionLabels: true,      # Labels for actions
+    showProgressBar: true,       # Progress bar at bottom
+    quality: 10                  # 1-30, lower = better quality
   },
-});
+  tabId: {tab}
+)
 ```
 
-```bash
-# View trace
-npx playwright show-trace trace.zip
+## Workflow: Debugging
+
+### Console Errors
+
+```
+1. read_console_messages (tabId: {tab}, onlyErrors: true)
+   → Shows only errors and exceptions
+
+2. read_console_messages (tabId: {tab}, pattern: "TypeError|ReferenceError")
+   → Filter specific error types
+
+3. read_console_messages (tabId: {tab}, pattern: "MyApp", clear: true)
+   → App-specific logs, clear after reading
 ```
 
-### 4. Console Logs
+### Network Requests
 
-```typescript
-page.on('console', (msg) => console.log('Browser log:', msg.text()));
-page.on('pageerror', (error) => console.error('Page error:', error));
+```
+1. read_network_requests (tabId: {tab}, urlPattern: "/api/")
+   → Filter API calls only
+
+2. read_network_requests (tabId: {tab}, limit: 50)
+   → Last 50 requests
+
+3. read_network_requests (tabId: {tab}, clear: true)
+   → Clear after reading to track new requests
 ```
 
-## Common Patterns
+### JavaScript Execution
 
-### 1. Testing Forms
-
-```typescript
-test('should validate form fields', async ({ page }) => {
-  await page.goto('/form');
-
-  // Empty submission (validation)
-  await page.click('button[type="submit"]');
-  await expect(page.locator('.email-error')).toHaveText('Email is required');
-
-  // Invalid email
-  await page.fill('input[name="email"]', 'invalid');
-  await page.click('button[type="submit"]');
-  await expect(page.locator('.email-error')).toHaveText('Invalid email format');
-
-  // Valid submission
-  await page.fill('input[name="email"]', 'user@example.com');
-  await page.fill('input[name="password"]', 'SecurePass123!');
-  await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('**/success');
-});
+```
+javascript_tool (
+  action: "javascript_exec",
+  text: "document.querySelector('.error-message')?.textContent",
+  tabId: {tab}
+)
 ```
 
-### 2. Testing Modals
+## Test Report Format
 
-```typescript
-test('should open and close modal', async ({ page }) => {
-  await page.goto('/');
+After testing, report findings:
 
-  // Open modal
-  await page.click('[data-testid="open-modal"]');
-  await expect(page.locator('.modal')).toBeVisible();
+```markdown
+## UI Test Report
 
-  // Close with X button
-  await page.click('.modal .close-button');
-  await expect(page.locator('.modal')).not.toBeVisible();
+**Page:** {url}
+**Date:** {date}
+**Tester:** {agent}
 
-  // Open again, close with Escape
-  await page.click('[data-testid="open-modal"]');
-  await page.keyboard.press('Escape');
-  await expect(page.locator('.modal')).not.toBeVisible();
-});
+### Visual Verification
+- [ ] Layout matches design spec
+- [ ] Responsive at mobile (375px)
+- [ ] Responsive at tablet (768px)
+- [ ] Responsive at desktop (1440px)
+
+### Interaction Testing
+- [ ] Forms submit correctly
+- [ ] Navigation works
+- [ ] Error states display properly
+- [ ] Loading states visible
+
+### Accessibility
+- [ ] All interactive elements keyboard accessible
+- [ ] Focus indicators visible
+- [ ] Labels on all inputs
+- [ ] Alt text on images
+
+### Issues Found
+| Severity | Issue | Screenshot |
+|----------|-------|------------|
+| High | {issue} | {screenshot_id} |
+
+### Recommendations
+- {recommendation 1}
+- {recommendation 2}
 ```
 
-### 3. Testing Drag and Drop
+## Tips
 
-```typescript
-test('should drag and drop items', async ({ page }) => {
-  await page.goto('/kanban');
+1. **Always get tab context first** - `tabs_context_mcp` before any operation
+2. **Wait after navigation** - Pages need time to load
+3. **Use `find` for elements** - More reliable than coordinates
+4. **Screenshot after each action** - Captures state for verification
+5. **Clear console/network** - Before testing to isolate new issues
+6. **Name GIFs descriptively** - `login-flow.gif` not `recording.gif`
 
-  const todoItem = page.locator('[data-testid="item-1"]');
-  const doneColumn = page.locator('[data-testid="column-done"]');
+## Common Issues
 
-  // Drag item from TODO to DONE
-  await todoItem.dragTo(doneColumn);
-
-  // Verify item moved
-  await expect(doneColumn.locator('[data-testid="item-1"]')).toBeVisible();
-});
-```
-
-## Resources
-
-- [Playwright Documentation](https://playwright.dev/)
-- [Cypress Documentation](https://docs.cypress.io/)
-- [Testing Library](https://testing-library.com/)
-- [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/WCAG21/quickref/)
-
-## Activation Keywords
-
-Ask me about:
-- "How to write E2E tests with Playwright"
-- "Cypress test examples"
-- "React Testing Library best practices"
-- "Page Object Model for UI tests"
-- "Accessibility testing with axe-core"
-- "How to fix flaky tests"
-- "CI/CD integration for UI tests"
-- "Debugging Playwright tests"
-- "Test automation strategies"
+| Problem | Solution |
+|---------|----------|
+| Element not found | Wait longer, check selector |
+| Click missed | Use `ref` from `find` instead of coordinates |
+| Page not loaded | Increase wait duration |
+| GIF too large | Use fewer frames, lower quality |
+| Tab invalid | Call `tabs_context_mcp` for fresh IDs |

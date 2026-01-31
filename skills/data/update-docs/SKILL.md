@@ -1,264 +1,281 @@
 ---
 name: update-docs
-description: This skill should be used when the user asks to "update documentation for my changes", "check docs for this PR", "what docs need updating", "sync docs with code", "scaffold docs for this feature", "document this feature", "review docs completeness", "add docs for this change", "what documentation is affected", "docs impact", or mentions "docs/", "docs/01-app", "docs/02-pages", "MDX", "documentation update", "API reference", ".mdx files". Provides guided workflow for updating Next.js documentation based on code changes.
+description: ドキュメント更新ガイド。ソースコードの信頼できる情報源（Single Source of Truth）からドキュメントを同期・更新する。package.json、pyproject.toml、.csprojなどから自動的にドキュメントを生成し、古いドキュメントを特定する。「ドキュメント更新」「docs更新」「ドキュメント同期」などのフレーズで発動。
+variables:
+  language: auto  # auto | typescript | python | csharp
 ---
 
-# Next.js Documentation Updater
+# ドキュメント更新（Update Documentation）
 
-Guides you through updating Next.js documentation based on code changes on the active branch. Designed for maintainers reviewing PRs for documentation completeness.
+信頼できる情報源からドキュメントを同期・更新するためのガイド。
 
-## Quick Start
+## このスキルの目的
 
-1. **Analyze changes**: Run `git diff canary...HEAD --stat` to see what files changed
-2. **Identify affected docs**: Map changed source files to documentation paths
-3. **Review each doc**: Walk through updates with user confirmation
-4. **Validate**: Run `pnpm lint` to check formatting
-5. **Commit**: Stage documentation changes
+ソースコードの信頼できる情報源（Single Source of Truth）からドキュメントを自動的に生成・更新し、ドキュメントとコードの整合性を保つ。
 
-## Workflow: Analyze Code Changes
+---
 
-### Step 1: Get the diff
+## 🌐 言語自動検出
+
+`{{language}}` が `auto` の場合、以下の順序でプロジェクトの言語を検出する：
+
+1. **メタデータファイルの存在確認:**
+   - `package.json` or `tsconfig.json` → TypeScript/Node.js
+   - `pyproject.toml`, `setup.py`, or `requirements.txt` → Python
+   - `*.csproj`, `*.sln`, or `global.json` → C#/.NET
+
+2. **ユーザーの指定:** ユーザーが明示的に言語を指定した場合はそれを使用
+
+3. **デフォルト:** TypeScript/Node.js
+
+---
+
+## 信頼できる情報源（言語別）
+
+| 言語 | メタデータファイル | スクリプト | 依存関係 |
+|------|-------------------|------------|----------|
+| **TypeScript/Node.js** | `package.json` | `scripts` セクション | `dependencies`, `devDependencies` |
+| **Python** | `pyproject.toml` / `setup.py` | `[project.scripts]`, `[tool.poetry.scripts]` | `[project.dependencies]` |
+| **C#/.NET** | `*.csproj` | `dotnet` コマンド, MSBuild ターゲット | `PackageReference` 要素 |
+
+### 言語別リファレンス
+
+- [📦 TypeScript/Node.js メタデータガイド](./reference/typescript/typescript_metadata.md)
+- [🐍 Python メタデータガイド](./reference/python/python_metadata.md)
+- [🔷 C# メタデータガイド](./reference/csharp/csharp_metadata.md)
+
+## ワークフロー
+
+### ステップ1: メタデータファイルを読み取る
+
+言語を検出し、適切なメタデータファイルからスクリプトと依存関係を抽出する。
+
+#### TypeScript/Node.js の場合
+
+`package.json` の `scripts` セクションから以下を生成する：
+
+```markdown
+## 利用可能なスクリプト
+
+| スクリプト | 説明 |
+|-----------|------|
+| `npm run build` | プロジェクトをビルド |
+| `npm run test` | テストを実行 |
+| `npm run lint` | リンターを実行 |
+```
+
+#### Python の場合
+
+`pyproject.toml` または `setup.py` からスクリプトを抽出する：
+
+```markdown
+## 利用可能なスクリプト
+
+| スクリプト | 説明 |
+|-----------|------|
+| `poetry run my-cli` | CLI ツールを実行 |
+| `pytest` | テストを実行 |
+| `black .` | コードフォーマット |
+```
+
+#### C#/.NET の場合
+
+標準的な `dotnet` コマンドとカスタムターゲットを抽出する：
+
+```markdown
+## 利用可能なコマンド
+
+| コマンド | 説明 |
+|----------|------|
+| `dotnet build` | プロジェクトをビルド |
+| `dotnet test` | テストを実行 |
+| `dotnet run` | アプリケーションを実行 |
+```
+
+### ステップ2: .env.example を読み取る
+
+`.env.example` から以下を抽出する：
+
+- すべての環境変数を抽出
+- 目的と形式をドキュメント化
+
+```markdown
+## 環境変数
+
+| 変数名 | 説明 | 形式 |
+|--------|------|------|
+| `DATABASE_URL` | データベース接続文字列 | `postgresql://...` |
+| `API_KEY` | API認証キー | 文字列 |
+```
+
+### ステップ3: docs/CONTRIB.md を生成
+
+以下の内容を含むコントリビューションガイドを生成する：
+
+- 開発ワークフロー
+- 利用可能なスクリプト
+- 環境セットアップ
+- テスト手順
+
+### ステップ4: docs/RUNBOOK.md を生成
+
+以下の内容を含む運用手順書を生成する：
+
+- デプロイ手順
+- 監視とアラート
+- よくある問題と解決策
+- ロールバック手順
+
+### ステップ5: 古いドキュメントの特定
+
+陳腐化したドキュメントを特定する：
+
+- 90日以上更新されていないドキュメントを検索
+- 手動レビュー用にリストアップ
 
 ```bash
-# See all changed files on this branch
-git diff canary...HEAD --stat
-
-# See changes in specific areas
-git diff canary...HEAD -- packages/next/src/
+# 90日以上更新されていないドキュメントを検索
+find docs -name "*.md" -mtime +90 -type f
 ```
 
-### Step 2: Identify documentation-relevant changes
+### ステップ6: 差分サマリーを表示
 
-Look for changes in these areas:
+更新内容の差分サマリーを表示する：
 
-| Source Path                            | Likely Doc Impact           |
-| -------------------------------------- | --------------------------- |
-| `packages/next/src/client/components/` | Component API reference     |
-| `packages/next/src/server/`            | Function API reference      |
-| `packages/next/src/shared/lib/`        | Varies by export            |
-| `packages/next/src/build/`             | Configuration or build docs |
-| `packages/next/src/lib/`               | Various features            |
+- 追加・変更・削除された内容
+- 影響を受けるファイル
 
-### Step 3: Map to documentation files
+## ドキュメントテンプレート
 
-Use the code-to-docs mapping in `references/CODE-TO-DOCS-MAPPING.md` to find corresponding documentation files.
+### CONTRIB.md テンプレート（言語別）
 
-Example mappings:
+#### TypeScript/Node.js
 
-- `src/client/components/image.tsx` → `docs/01-app/03-api-reference/02-components/image.mdx`
-- `src/server/config-shared.ts` → `docs/01-app/03-api-reference/05-config/`
+```markdown
+# コントリビューションガイド
 
-## Workflow: Update Existing Documentation
+## 開発環境のセットアップ
 
-### Step 1: Read the current documentation
+1. リポジトリをクローン
+2. 依存関係をインストール: `npm install`
+3. 環境変数を設定: `.env.example` を `.env` にコピー
 
-Before making changes, read the existing doc to understand:
+## 開発ワークフロー
 
-- Current structure and sections
-- Frontmatter fields in use
-- Whether it uses `<AppOnly>` / `<PagesOnly>` for router-specific content
+### 利用可能なスクリプト
 
-### Step 2: Identify what needs updating
+{package.json scripts から自動生成}
 
-Common updates include:
+## テスト
 
-- **New props/options**: Add to the props table and create a section explaining usage
-- **Changed behavior**: Update descriptions and examples
-- **Deprecated features**: Add deprecation notices and migration guidance
-- **New examples**: Add code blocks following conventions
+`npm test` を実行
 
-### Step 3: Apply updates with confirmation
+## 環境変数
 
-For each change:
-
-1. Show the user what you plan to change
-2. Wait for confirmation before editing
-3. Apply the edit
-4. Move to the next change
-
-### Step 4: Check for shared content
-
-If the doc uses the `source` field pattern (common for Pages Router docs), the source file is the one to edit. Example:
-
-```yaml
-# docs/02-pages/... file with shared content
----
-source: app/building-your-application/optimizing/images
----
+{.env.example から自動生成}
 ```
 
-Edit the App Router source, not the Pages Router file.
+#### Python
 
-### Step 5: Validate changes
+```markdown
+# コントリビューションガイド
 
-```bash
-pnpm lint          # Check formatting
-pnpm prettier-fix  # Auto-fix formatting issues
+## 開発環境のセットアップ
+
+1. リポジトリをクローン
+2. 仮想環境を作成: `python -m venv .venv`
+3. 仮想環境を有効化: `source .venv/bin/activate`
+4. 依存関係をインストール: `pip install -e ".[dev]"` または `poetry install`
+5. 環境変数を設定: `.env.example` を `.env` にコピー
+
+## 開発ワークフロー
+
+### 利用可能なスクリプト
+
+{pyproject.toml scripts から自動生成}
+
+## テスト
+
+`pytest` を実行
+
+## 環境変数
+
+{.env.example から自動生成}
 ```
 
-## Workflow: Scaffold New Feature Documentation
+#### C#/.NET
 
-Use this when adding documentation for entirely new features.
+```markdown
+# コントリビューションガイド
 
-### Step 1: Determine the doc type
+## 開発環境のセットアップ
 
-| Feature Type        | Doc Location                                        | Template         |
-| ------------------- | --------------------------------------------------- | ---------------- |
-| New component       | `docs/01-app/03-api-reference/02-components/`       | API Reference    |
-| New function        | `docs/01-app/03-api-reference/04-functions/`        | API Reference    |
-| New config option   | `docs/01-app/03-api-reference/05-config/`           | Config Reference |
-| New concept/guide   | `docs/01-app/02-guides/`                            | Guide            |
-| New file convention | `docs/01-app/03-api-reference/03-file-conventions/` | File Convention  |
+1. リポジトリをクローン
+2. 依存関係を復元: `dotnet restore`
+3. 環境変数を設定: `appsettings.Development.json` または `.env`
 
-### Step 2: Create the file with proper naming
+## 開発ワークフロー
 
-- Use kebab-case: `my-new-feature.mdx`
-- Add numeric prefix if ordering matters: `05-my-new-feature.mdx`
-- Place in the correct directory based on feature type
+### 利用可能なコマンド
 
-### Step 3: Use the appropriate template
+| コマンド | 説明 |
+|----------|------|
+| `dotnet build` | プロジェクトをビルド |
+| `dotnet test` | テストを実行 |
+| `dotnet run` | アプリケーションを実行 |
+| `dotnet watch run` | ホットリロード付きで実行 |
 
-**API Reference Template:**
+## テスト
 
-```mdx
----
-title: Feature Name
-description: Brief description of what this feature does.
----
+`dotnet test` を実行
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+## 環境変数
 
-Brief introduction to the feature.
-
-## Reference
-
-### Props
-
-<div style={{ overflowX: 'auto', width: '100%' }}>
-
-| Prop                    | Example            | Type   | Status   |
-| ----------------------- | ------------------ | ------ | -------- |
-| [`propName`](#propname) | `propName="value"` | String | Required |
-
-</div>
-
-#### `propName`
-
-Description of the prop.
-
-\`\`\`tsx filename="app/example.tsx" switcher
-// TypeScript example
-\`\`\`
-
-\`\`\`jsx filename="app/example.js" switcher
-// JavaScript example
-\`\`\`
+{appsettings.json から自動生成}
 ```
 
-**Guide Template:**
+### RUNBOOK.md テンプレート
 
-```mdx
----
-title: How to do X in Next.js
-nav_title: X
-description: Learn how to implement X in your Next.js application.
----
+```markdown
+# 運用手順書（Runbook）
 
-Introduction explaining why this guide is useful.
+## デプロイ手順
 
-## Prerequisites
+### 本番環境へのデプロイ
+{デプロイ手順}
 
-What the reader needs to know before starting.
+### ステージング環境へのデプロイ
+{デプロイ手順}
 
-## Step 1: First Step
+## 監視とアラート
 
-Explanation and code example.
+### 監視項目
+- {監視項目1}
+- {監視項目2}
 
-\`\`\`tsx filename="app/example.tsx" switcher
-// Code example
-\`\`\`
+### アラート対応
+{アラート対応手順}
 
-## Step 2: Second Step
+## よくある問題と解決策
 
-Continue with more steps...
+### 問題1: {問題の説明}
+**症状**: {症状}
+**原因**: {原因}
+**解決策**: {解決策}
 
-## Next Steps
+## ロールバック手順
 
-Related topics to explore.
+### 即座のロールバック
+{ロールバック手順}
+
+### データベースのロールバック
+{データベースロールバック手順}
 ```
 
-### Step 4: Add related links
+## 重要な注意事項
 
-Update frontmatter with related documentation:
-
-```yaml
-related:
-  title: Next Steps
-  description: Learn more about related features.
-  links:
-    - app/api-reference/functions/related-function
-    - app/guides/related-guide
-```
-
-## Documentation Conventions
-
-See `references/DOC-CONVENTIONS.md` for complete formatting rules.
-
-### Quick Reference
-
-**Frontmatter (required):**
-
-```yaml
----
-title: Page Title (2-3 words)
-description: One or two sentences describing the page.
----
-```
-
-**Code blocks:**
-
-```
-\`\`\`tsx filename="app/page.tsx" switcher
-// TypeScript first
-\`\`\`
-
-\`\`\`jsx filename="app/page.js" switcher
-// JavaScript second
-\`\`\`
-```
-
-**Router-specific content:**
-
-```mdx
-<AppOnly>Content only for App Router docs.</AppOnly>
-
-<PagesOnly>Content only for Pages Router docs.</PagesOnly>
-```
-
-**Notes:**
-
-```mdx
-> **Good to know**: Single line note.
-
-> **Good to know**:
->
-> - Multi-line note point 1
-> - Multi-line note point 2
-```
-
-## Validation Checklist
-
-Before committing documentation changes:
-
-- [ ] Frontmatter has `title` and `description`
-- [ ] Code blocks have `filename` attribute
-- [ ] TypeScript examples use `switcher` with JS variant
-- [ ] Props tables are properly formatted
-- [ ] Related links point to valid paths
-- [ ] `pnpm lint` passes
-- [ ] Changes render correctly (if preview available)
-
-## References
-
-- `references/DOC-CONVENTIONS.md` - Complete frontmatter and formatting rules
-- `references/CODE-TO-DOCS-MAPPING.md` - Source code to documentation mapping
+1. **信頼できる情報源を優先**: ドキュメントはメタデータファイル（`package.json`, `pyproject.toml`, `*.csproj` など）と `.env.example` の内容を反映する
+2. **言語の自動検出**: プロジェクトの言語を自動検出し、適切なリファレンスを参照する
+3. **定期的な同期**: コード変更後はドキュメントも更新する
+4. **古いドキュメントの管理**: 90日以上更新されていないドキュメントはレビュー対象
+5. **差分の確認**: 更新前に必ず差分を確認し、意図しない変更がないか確認する

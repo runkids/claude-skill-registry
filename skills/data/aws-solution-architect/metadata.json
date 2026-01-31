@@ -1,7 +1,7 @@
 {
   "name": "aws-solution-architect",
-  "repo": "alirezarezvani/claude-code-skill-factory",
-  "path": "generated-skills/aws-solution-architect/SKILL.md",
-  "source": "github.com/alirezarezvani/claude-code-skill-factory",
-  "downloaded_at": "2026-01-30T04:23:36.837869Z"
+  "repo": "alirezarezvani/claude-skills",
+  "path": "engineering-team/aws-solution-architect/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-skills",
+  "downloaded_at": "2026-01-31T04:50:58.233819Z"
 }

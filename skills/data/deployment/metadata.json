@@ -1,7 +1,7 @@
 {
   "name": "deployment",
-  "repo": "saknarinZ/agent_skills_gemini",
-  "path": ".agent/skills/deployment/SKILL.md",
-  "source": "github.com/saknarinZ/agent_skills_gemini",
-  "downloaded_at": "2026-01-30T04:46:35.143475Z"
+  "repo": "acidsound/acidApps",
+  "path": "skills/deployment/SKILL.md",
+  "source": "github.com/acidsound/acidApps",
+  "downloaded_at": "2026-01-31T04:34:12.876782Z"
 }

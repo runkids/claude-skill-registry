@@ -1,7 +1,7 @@
 {
   "name": "state",
-  "repo": "bitwikiorg/skills.md",
-  "path": "sources/langchain/state/SKILL.md",
-  "source": "github.com/bitwikiorg/skills.md",
-  "downloaded_at": "2026-01-27T01:51:41.753781Z"
+  "repo": "synaptiai/agent-capability-standard",
+  "path": "skills/state/SKILL.md",
+  "source": "github.com/synaptiai/agent-capability-standard",
+  "downloaded_at": "2026-01-31T04:20:34.277964Z"
 }

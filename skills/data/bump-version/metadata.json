@@ -1,7 +1,7 @@
 {
   "name": "bump-version",
-  "repo": "ROBOTIS-GIT/zenoh_ros2_sdk",
+  "repo": "amyodov/pytest-claude-agent-sdk",
   "path": ".claude/skills/bump-version/SKILL.md",
-  "source": "github.com/ROBOTIS-GIT/zenoh_ros2_sdk",
-  "downloaded_at": "2026-01-30T03:43:37.163468Z"
+  "source": "github.com/amyodov/pytest-claude-agent-sdk",
+  "downloaded_at": "2026-01-31T01:20:03.474869Z"
 }

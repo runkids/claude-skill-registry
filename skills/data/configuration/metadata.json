@@ -1,7 +1,7 @@
 {
   "name": "configuration",
-  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "path": ".github/agents/app-starter/agents-context/skills/configuration/SKILL.md",
-  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "downloaded_at": "2026-01-30T03:22:41.566921Z"
+  "repo": "andrueandersoncs/claude-skill-effect-ts",
+  "path": "skills/configuration/SKILL.md",
+  "source": "github.com/andrueandersoncs/claude-skill-effect-ts",
+  "downloaded_at": "2026-01-31T03:31:12.427319Z"
 }

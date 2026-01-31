@@ -1,173 +1,274 @@
 ---
 name: context7
-description: Context7 MCP - Intelligent documentation search and context for any library
-metadata:
-  version: 1.0.3
-  tags: ["documentation", "search", "context", "mcp", "llm"]
-  clawdbot:
-    requires:
-      bins: ["node"]
-      npm: true
-    install:
-      - id: "skill-install"
-        kind: "skill"
-        source: "clawdhub"
-        slug: "context7"
-        label: "Install Context7 skill"
+description: "Fetch up-to-date library documentation via Context7 REST API. Use when needing current API docs, framework patterns, or code examples for any library. Use when user asks about React, Next.js, Prisma, Express, Vue, Angular, Svelte, or any npm/PyPI package. Use when user says 'how do I use X library', 'what's the API for Y', or needs official documentation. Lightweight alternative to Context7 MCP with no persistent context overhead."
+allowed-tools: Bash(python:*)
 ---
 
-# Context7 MCP
+# Context7 Documentation Lookup Skill
 
-Context7 provides intelligent documentation search and context for any library, powered by LLMs.
+Fetch current library documentation, API references, and code examples without MCP context overhead.
 
-## Setup
+**Works on all platforms via REST API.**
 
-1. Copy `.env.example` to `.env` and add your Context7 API key:
-   ```bash
-   cp .env.example .env
-   ```
+## When to Use
 
-   Add your API key to `.env`:
-   ```
-   CONTEXT7_API_KEY=your-api-key-here
-   ```
+**Activate automatically when:**
 
-   Get your key from [context7.com/dashboard](https://context7.com/dashboard)
+- User asks about library APIs or framework patterns
+- User requests code generation using specific libraries/frameworks
+- Import statements suggest documentation needs: `import`, `require`, `from`
+- Questions about specific library versions or migration
+- Need for official documentation patterns vs generic solutions
+- Setting up or configuring third-party tools
+- "How do I use X library?", "What's the API for Y?"
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+**Examples:**
 
-## Usage
+- "Create Next.js middleware with authentication" → Use context7
+- "Set up Prisma with PostgreSQL" → Use context7
+- "Implement Supabase authentication" → Use context7
 
-Context7 provides two main commands:
+## Workflow
 
-### Search Command
+### Quick Start (If You Know the Library)
 
-Search for libraries by name with intelligent LLM-powered ranking:
-
-```bash
-npx tsx query.ts search <library_name> <query>
-
-# Examples:
-npx tsx query.ts search "nextjs" "setup ssr"
-npx tsx query.ts search "react" "useEffect cleanup"
-npx tsx query.ts search "better-auth" "authentication flow"
-```
-
-This calls the Context7 Search API:
-```
-GET https://context7.com/api/v2/libs/search?libraryName=<name>&query=<query>
-```
-
-**Response includes:**
-- id: Library ID (e.g., `/vercel/next.js`)
-- name: Display name
-- trustScore: Source reputation (0-100)
-- benchmarkScore: Quality indicator (0-100)
-- versions: Available version tags
-
-### Context Command
-
-Retrieve intelligent, LLM-reranked documentation context:
+**Skip the search** when you already know the library:
 
 ```bash
-npx tsx query.ts context <owner/repo> <query>
-
-# Examples:
-npx tsx query.ts context "vercel/next.js" "setup ssr"
-npx tsx query.ts context "facebook/react" "useState hook"
+scripts/context7.py docs "/vercel/next.js" "middleware authentication"
 ```
 
-This calls the Context7 Context API:
-```
-GET https://context7.com/api/v2/context?libraryId=<repo>&query=<query>&type=txt
-```
+Common library IDs:
 
-**Response includes:**
-- title: Documentation section title
-- content: Documentation text/snippet
-- source: URL to source page
+- React: `/facebook/react`
+- Next.js: `/vercel/next.js`
+- Prisma: `/prisma/prisma`
+- Supabase: `/supabase/supabase`
+- Express: `/expressjs/express`
 
-### Quick Reference
+### Full Workflow
+
+#### Step 1: Search for Library ID (if unknown)
+
+Search first to get the correct library ID:
 
 ```bash
-# Search for documentation
-npx tsx query.ts search "library-name" "your search query"
-
-# Get context from a specific repo
-npx tsx query.ts context "owner/repo" "your question"
+scripts/context7.py search "library-name"
 ```
 
-## Best Practices
+Example output shows library IDs you can use:
 
-Get the most out of the Context7 API with these best practices:
-
-### Optimize Search Relevance
-
-When using the `/libs/search` endpoint, always include the user's original question in the query parameter. This allows the API to use LLM-powered ranking to find the most relevant library for the specific task, rather than relying on a simple name match.
-
-**Example:** If a user asks about SSR in Next.js, search with:
-- `libraryName=nextjs`
-- `query=setup+ssr`
-
-This ensures the best ranking for the specific task.
-
-### Use Specific Library IDs
-
-For the fastest and most accurate results with the `/context` endpoint, provide the full libraryId (e.g., `/vercel/next.js`). If you already know the library the user is asking about, skipping the search step and calling the context endpoint directly reduces latency.
-
-### Leverage Versioning
-
-To ensure documentation accuracy for older or specific project requirements, include the version in the libraryId using the `/owner/repo/version` format. You can find available version tags in the response from the search endpoint.
-
-### Choose the Right Response Type
-
-Tailor the `/context` response to your needs using the `type` parameter:
-- Use `type=json` when you need to programmatically handle titles, content snippets, and source URLs (ideal for UI display).
-- Use `type=txt` when you want to pipe the documentation directly into an LLM prompt as plain text.
-
-### Filter by Quality Scores
-
-When programmatically selecting a library from search results, use the `trustScore` and `benchmarkScore` to prioritize high-quality, reputable documentation sources for your users.
-
-### Find Navigation Pages
-
-Find navigation and other pages in this documentation by fetching the `llms.txt` file at:
-```
-https://context7.com/docs/llms.txt
+```txt
+ID: /facebook/react
+Name: React
+Snippets: 2135 | Score: 79.4
 ```
 
-## API Reference
+#### Step 2: Fetch Documentation
 
-### Context7 REST API
-
-**Search Endpoint:**
-```
-GET https://context7.com/api/v2/libs/search
-  ?libraryName=<library_name>
-  &query=<user_query>
+```bash
+scripts/context7.py docs "<library-id>" "[topic]" "[mode]"
 ```
 
-**Context Endpoint:**
+**Parameters:**
+
+- `library-id`: From search results (e.g., `/facebook/react`) or known library ID
+- `topic`: Optional focus area (e.g., `hooks`, `routing`, `authentication`)
+- `mode`: `code` (default) for API/examples, `info` for guides
+
+**Version-Specific Docs:**
+
+```bash
+# Request specific version by adding it to the library ID
+scripts/context7.py docs "/vercel/next.js/14" "middleware"
+
+# Or mention in topic
+scripts/context7.py docs "/facebook/react" "hooks in React 18"
 ```
-GET https://context7.com/api/v2/context
-  ?libraryId=<owner/repo>
-  &query=<user_query>
-  &type=txt|json
+
+**Examples:**
+
+```bash
+# Get React hooks documentation
+scripts/context7.py docs "/facebook/react" "hooks"
+
+# Get Next.js routing docs
+scripts/context7.py docs "/vercel/next.js" "routing"
+
+# Get conceptual guide (info mode)
+scripts/context7.py docs "/vercel/next.js" "app router" info
+
+# Get version-specific docs
+scripts/context7.py docs "/vercel/next.js/14" "server components"
 ```
 
-## Troubleshooting
+#### Step 3: Apply to User's Question
 
-**No results found?**
-- Check your API key is valid
-- Verify the library name is correct (e.g., 'react' not 'React')
+Use the returned documentation to:
 
-**Authentication errors?**
-- Ensure CONTEXT7_API_KEY is set in `.env`
-- Check your key hasn't expired at context7.com/dashboard
+1. Provide accurate, version-specific answers
+2. Show official code patterns and examples
+3. Reference correct API signatures
+4. Include relevant caveats or deprecations
+5. Cite the source URL when available
 
-## License
+## Script Reference
 
-MIT
+| Command | Purpose | Example |
+|---------|---------|---------|
+| `search` | Find library ID | `scripts/context7.py search "prisma"` |
+| `docs` | Fetch documentation | `scripts/context7.py docs "/prisma/prisma" "queries"` |
+
+**Requirements:**
+
+- Python 3.6+ (built-in on most systems)
+- No external dependencies - uses Python standard library only
+
+## Documentation Modes
+
+| Mode | Use For | Example |
+|------|---------|---------|
+| `code` | API references, code examples, function signatures (default) | `scripts/context7.py docs "/facebook/react" "useState"` |
+| `info` | Conceptual guides, tutorials, architecture docs | `scripts/context7.py docs "/vercel/next.js" "routing" info` |
+
+## Example Workflow
+
+```bash
+# User asks: "How do I use React hooks?"
+
+# Option A: If you know the library ID, skip search
+scripts/context7.py docs "/facebook/react" "hooks"
+
+# Option B: If you don't know the library ID
+# Step 1: Search for React
+scripts/context7.py search "react"
+# Output shows: ID: /facebook/react
+
+# Step 2: Fetch hooks docs
+scripts/context7.py docs "/facebook/react" "hooks"
+
+# Step 3: Use the returned documentation to answer
+```
+
+## Validation & Recovery
+
+If results are unsatisfactory, follow this recovery workflow:
+
+1. **Empty or irrelevant results?**
+   - Try a broader topic (e.g., "hooks" instead of "useEffect cleanup")
+   - Switch mode: use `info` if `code` returns nothing, or vice versa
+   - Verify library ID is correct with a fresh search
+
+2. **Library not found?**
+   - Search with alternative names (e.g., "nextjs" vs "next.js")
+   - Try the organization name (e.g., "vercel next")
+   - Check for typos in the library ID format (`/org/repo`)
+
+3. **Rate limited?**
+   - Inform user about CONTEXT7_API_KEY for higher limits
+   - Provide cached/general knowledge as fallback
+
+**Always verify** the documentation matches the user's version requirements before providing answers.
+
+## Common Use Cases
+
+### Use Case 1: Direct Library Lookup
+
+When you know the exact library the user is asking about:
+
+```bash
+# User: "Create a Next.js API route with authentication"
+scripts/context7.py docs "/vercel/next.js" "api routes authentication"
+```
+
+### Use Case 2: Version-Specific Documentation
+
+When the user mentions or needs a specific version:
+
+```bash
+# User: "How do I use Next.js 14 server actions?"
+scripts/context7.py docs "/vercel/next.js/14" "server actions"
+
+# Or search for the version
+scripts/context7.py search "next.js 14"
+```
+
+### Use Case 3: Conceptual Understanding
+
+When the user needs to understand concepts, not just code:
+
+```bash
+# User: "Explain how Next.js app router works"
+scripts/context7.py docs "/vercel/next.js" "app router architecture" info
+```
+
+### Use Case 4: Discovery Search
+
+When you're unsure which library the user means:
+
+```bash
+# User: "I need a database ORM for Node.js"
+scripts/context7.py search "node.js ORM"
+# Review results, pick most relevant (e.g., /prisma/prisma)
+scripts/context7.py docs "/prisma/prisma" "getting started"
+```
+
+## Error Handling
+
+If the script fails:
+
+1. **Dependencies**: Verify Python 3.6+ is installed (`python3 --version`)
+2. **Library ID format**: Check the format is `/org/project` (with leading slash)
+3. **Topic too narrow**: Try a broader topic or no topic filter
+4. **Wrong mode**: Try `info` mode if `code` returns insufficient results
+5. **Network issues**: Check connectivity and firewall settings
+6. **Rate limiting**: If using without API key, you may be rate-limited. Get a free key at [context7.com/dashboard](https://context7.com/dashboard)
+
+**Debug mode:**
+
+```bash
+# Check Python version
+python3 --version
+
+# Test basic connectivity
+python3 scripts/context7.py search "react"
+```
+
+## Notes
+
+- **Script path**: All `scripts/context7.py` commands are relative to this skill's directory
+- **No MCP overhead**: Uses REST API directly, no tool schemas in context
+- **API key optional**: Works without key, but rate-limited. Get free key at [context7.com/dashboard](https://context7.com/dashboard)
+- **Topic filtering**: Use specific topics for focused results
+- **Search first (when needed)**: Search to find the correct library ID only if you don't know it
+- **Skip search (when possible)**: Use known library IDs directly (e.g., `/facebook/react`, `/vercel/next.js`)
+- **Caching**: Results are not cached; each call fetches fresh data
+- **Version support**: Append version to library ID (e.g., `/vercel/next.js/14`) or mention in topic
+- **Cross-platform**: Python 3.6+ works on Windows, macOS, and Linux
+- **No external dependencies**: Uses only Python standard library
+
+**Performance Tips:**
+
+- Keep known library IDs in memory (React = `/facebook/react`, Next.js = `/vercel/next.js`, etc.)
+- Skip search when you know the library
+- Use specific topics to get focused results faster
+- Use `code` mode (default) for implementation details, `info` mode for concepts
+
+**Environment Variables:**
+
+```bash
+# Set API key (all platforms)
+export CONTEXT7_API_KEY="your-api-key"
+
+# Windows Command Prompt
+set CONTEXT7_API_KEY=your-api-key
+
+# Windows PowerShell
+$env:CONTEXT7_API_KEY="your-api-key"
+```
+
+---
+
+> **License:** MIT License - See LICENSE for complete terms
+> **Author:** Arvind Menon
+> **Based on:** Context7 REST API by Upstash

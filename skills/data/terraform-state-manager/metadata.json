@@ -1,7 +1,7 @@
 {
   "name": "terraform-state-manager",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/terraform-state-manager/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-30T02:39:36.238615Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/02-devops-advanced/terraform-state-manager/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:38.208991Z"
 }

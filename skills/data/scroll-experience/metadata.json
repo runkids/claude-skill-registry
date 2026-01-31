@@ -1,7 +1,7 @@
 {
   "name": "scroll-experience",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/scroll-experience/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:06.790619Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/scroll-experience/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:05.556374Z"
 }

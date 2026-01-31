@@ -1,7 +1,7 @@
 {
   "name": "cli-reference",
-  "repo": "carmandale/agent-config",
-  "path": "skills/cc3/cli-reference/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:43.055281Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/cli-reference/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-31T04:36:22.571346Z"
 }

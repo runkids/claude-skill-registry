@@ -1,7 +1,7 @@
 {
   "name": "vscode-ext-localization",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/github-copilot/vscode-ext-localization/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:08:56.362641Z"
+  "repo": "github/awesome-copilot",
+  "path": "skills/vscode-ext-localization/SKILL.md",
+  "source": "github.com/github/awesome-copilot",
+  "downloaded_at": "2026-01-31T03:29:03.231273Z"
 }

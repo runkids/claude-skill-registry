@@ -1,7 +1,7 @@
 {
   "name": "peer-reviewer",
-  "repo": "eddiebe147/claude-settings",
-  "path": "skills/peer-reviewer/SKILL.md",
-  "source": "github.com/eddiebe147/claude-settings",
-  "downloaded_at": "2026-01-29T04:17:03.959429Z"
+  "repo": "nealcaren/social-data-analysis",
+  "path": "plugins/peer-reviewer/skills/peer-reviewer/SKILL.md",
+  "source": "github.com/nealcaren/social-data-analysis",
+  "downloaded_at": "2026-01-31T03:13:21.953486Z"
 }

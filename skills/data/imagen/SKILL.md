@@ -1,10 +1,8 @@
 ---
 name: imagen
 description: |
-  Generate images using Google Gemini's image generation capabilities.
-  Use this skill when the user needs to create, generate, or produce images
-  for any purpose including UI mockups, icons, illustrations, diagrams,
-  concept art, placeholder images, or visual representations.
+source: "https://github.com/sanjay3290/ai-skills/tree/main/skills/imagen"
+risk: safe
 ---
 
 # Imagen - AI Image Generation Skill

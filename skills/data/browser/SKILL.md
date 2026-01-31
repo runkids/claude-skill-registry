@@ -1,204 +1,66 @@
 ---
 name: browser
-description: Web browser automation with AI-optimized snapshots for claude-flow agents
-version: 1.0.0
-triggers:
-  - /browser
-  - browse
-  - web automation
-  - scrape
-  - navigate
-  - screenshot
-tools:
-  - browser/open
-  - browser/snapshot
-  - browser/click
-  - browser/fill
-  - browser/screenshot
-  - browser/close
+description: Minimal Chrome DevTools Protocol tools for browser automation and scraping. Use when you need to start Chrome, navigate pages, execute JavaScript, take screenshots, or interactively pick DOM elements.
 ---
 
-# Browser Automation Skill
+# Browser Tools
 
-Web browser automation using agent-browser with AI-optimized snapshots. Reduces context by 93% using element refs (@e1, @e2) instead of full DOM.
+Minimal CDP tools for collaborative site exploration and scraping.
 
-## Core Workflow
+**IMPORTANT**: All scripts are located in `~/.factory/skills/browser/` and must be called with full paths.
+
+## Start Chrome
 
 ```bash
-# 1. Navigate to page
-agent-browser open <url>
-
-# 2. Get accessibility tree with element refs
-agent-browser snapshot -i    # -i = interactive elements only
-
-# 3. Interact using refs from snapshot
-agent-browser click @e2
-agent-browser fill @e3 "text"
-
-# 4. Re-snapshot after page changes
-agent-browser snapshot -i
+~/.factory/skills/browser/start.js              # Fresh profile
+~/.factory/skills/browser/start.js --profile    # Copy your profile (cookies, logins)
 ```
 
-## Quick Reference
+Start Chrome on `:9222` with remote debugging.
 
-### Navigation
-| Command | Description |
-|---------|-------------|
-| `open <url>` | Navigate to URL |
-| `back` | Go back |
-| `forward` | Go forward |
-| `reload` | Reload page |
-| `close` | Close browser |
+## Navigate
 
-### Snapshots (AI-Optimized)
-| Command | Description |
-|---------|-------------|
-| `snapshot` | Full accessibility tree |
-| `snapshot -i` | Interactive elements only (buttons, links, inputs) |
-| `snapshot -c` | Compact (remove empty elements) |
-| `snapshot -d 3` | Limit depth to 3 levels |
-| `screenshot [path]` | Capture screenshot (base64 if no path) |
-
-### Interaction
-| Command | Description |
-|---------|-------------|
-| `click <sel>` | Click element |
-| `fill <sel> <text>` | Clear and fill input |
-| `type <sel> <text>` | Type with key events |
-| `press <key>` | Press key (Enter, Tab, etc.) |
-| `hover <sel>` | Hover element |
-| `select <sel> <val>` | Select dropdown option |
-| `check/uncheck <sel>` | Toggle checkbox |
-| `scroll <dir> [px]` | Scroll page |
-
-### Get Info
-| Command | Description |
-|---------|-------------|
-| `get text <sel>` | Get text content |
-| `get html <sel>` | Get innerHTML |
-| `get value <sel>` | Get input value |
-| `get attr <sel> <attr>` | Get attribute |
-| `get title` | Get page title |
-| `get url` | Get current URL |
-
-### Wait
-| Command | Description |
-|---------|-------------|
-| `wait <selector>` | Wait for element |
-| `wait <ms>` | Wait milliseconds |
-| `wait --text "text"` | Wait for text |
-| `wait --url "pattern"` | Wait for URL |
-| `wait --load networkidle` | Wait for load state |
-
-### Sessions
-| Command | Description |
-|---------|-------------|
-| `--session <name>` | Use isolated session |
-| `session list` | List active sessions |
-
-## Selectors
-
-### Element Refs (Recommended)
 ```bash
-# Get refs from snapshot
-agent-browser snapshot -i
-# Output: button "Submit" [ref=e2]
-
-# Use ref to interact
-agent-browser click @e2
+~/.factory/skills/browser/nav.js https://example.com
+~/.factory/skills/browser/nav.js https://example.com --new
 ```
 
-### CSS Selectors
+Navigate current tab or open new tab.
+
+## Evaluate JavaScript
+
 ```bash
-agent-browser click "#submit"
-agent-browser fill ".email-input" "test@test.com"
+~/.factory/skills/browser/eval.js 'document.title'
+~/.factory/skills/browser/eval.js 'document.querySelectorAll("a").length'
 ```
 
-### Semantic Locators
+Execute JavaScript in active tab (async context).
+
+**IMPORTANT**: The code must be a single expression or use IIFE for multiple statements:
+
+- Single expression: `'document.title'`
+- Multiple statements: `'(() => { const x = 1; return x + 1; })()'`
+- Avoid newlines in the code string - keep it on one line
+
+## Screenshot
+
 ```bash
-agent-browser find role button click --name "Submit"
-agent-browser find label "Email" fill "test@test.com"
-agent-browser find testid "login-btn" click
+~/.factory/skills/browser/screenshot.js
 ```
 
-## Examples
+Screenshot current viewport, returns temp file path.
 
-### Login Flow
+## Pick Elements
+
 ```bash
-agent-browser open https://example.com/login
-agent-browser snapshot -i
-agent-browser fill @e2 "user@example.com"
-agent-browser fill @e3 "password123"
-agent-browser click @e4
-agent-browser wait --url "**/dashboard"
+~/.factory/skills/browser/pick.js "Click the submit button"
 ```
 
-### Form Submission
-```bash
-agent-browser open https://example.com/contact
-agent-browser snapshot -i
-agent-browser fill @e1 "John Doe"
-agent-browser fill @e2 "john@example.com"
-agent-browser fill @e3 "Hello, this is my message"
-agent-browser click @e4
-agent-browser wait --text "Thank you"
-```
+Interactive element picker. Click to select, Cmd/Ctrl+Click for multi-select, Enter to finish.
 
-### Data Extraction
-```bash
-agent-browser open https://example.com/products
-agent-browser snapshot -i
-# Iterate through product refs
-agent-browser get text @e1  # Product name
-agent-browser get text @e2  # Price
-agent-browser get attr @e3 href  # Link
-```
+## Usage Notes
 
-### Multi-Session (Swarm)
-```bash
-# Session 1: Navigator
-agent-browser --session nav open https://example.com
-agent-browser --session nav state save auth.json
-
-# Session 2: Scraper (uses same auth)
-agent-browser --session scrape state load auth.json
-agent-browser --session scrape open https://example.com/data
-agent-browser --session scrape snapshot -i
-```
-
-## Integration with Claude Flow
-
-### MCP Tools
-All browser operations are available as MCP tools with `browser/` prefix:
-- `browser/open`
-- `browser/snapshot`
-- `browser/click`
-- `browser/fill`
-- `browser/screenshot`
-- etc.
-
-### Memory Integration
-```bash
-# Store successful patterns
-npx @claude-flow/cli memory store --namespace browser-patterns --key "login-flow" --value "snapshot->fill->click->wait"
-
-# Retrieve before similar task
-npx @claude-flow/cli memory search --query "login automation"
-```
-
-### Hooks
-```bash
-# Pre-browse hook (get context)
-npx @claude-flow/cli hooks pre-edit --file "browser-task.ts"
-
-# Post-browse hook (record success)
-npx @claude-flow/cli hooks post-task --task-id "browse-1" --success true
-```
-
-## Tips
-
-1. **Always use snapshots** - They're optimized for AI with refs
-2. **Prefer `-i` flag** - Gets only interactive elements, smaller output
-3. **Use refs, not selectors** - More reliable, deterministic
-4. **Re-snapshot after navigation** - Page state changes
-5. **Use sessions for parallel work** - Each session is isolated
+- Start Chrome first before using other tools
+- The `--profile` flag syncs your actual Chrome profile so you're logged in everywhere
+- JavaScript evaluation runs in an async context in the page
+- Pick tool allows you to visually select DOM elements by clicking on them

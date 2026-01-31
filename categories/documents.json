@@ -1,7 +1,7 @@
 {
   "category": "documents",
-  "count": 2738,
-  "updated_at": "2026-01-30T04:53:29.767929Z",
+  "count": 2734,
+  "updated_at": "2026-01-31T04:52:27.025951Z",
   "skills": [
     {
       "name": "docs-review",
@@ -7800,20 +7800,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "commonmark",
-      "description": "Use when parsing or generating Markdown following the CommonMark specification - AST structure, block/inline elements, and extensions",
-      "repo": "mcclowes/omg",
-      "path": "data/commonmark",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "commonmark"
-      ],
-      "stars": 1,
-      "install": "mcclowes/omg",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "comparative-matrix",
       "description": "Generate structured comparisons and decision matrices across analyzed frameworks. Use when (1) comparing multiple frameworks or approaches side-by-side, (2) making architectural decisions between alte",
       "repo": "Dowwie/agent_framework_study",
@@ -12014,21 +12000,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "auto-commit",
-      "description": "Automatically commits changes using conventional commits format (feat:, fix:, docs:, chore:, refactor:, test:, style:). Use after completing bug fixes, feature implementations, or documentation update",
-      "repo": "James1218/claude-code-configurations",
-      "path": "data/auto-commit",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "auto",
-        "commit"
-      ],
-      "stars": 0,
-      "install": "James1218/claude-code-configurations",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "auto-docs",
       "description": "Generate comprehensive documentation from codebase analysis - creates README sections, API docs, migration guides, and examples from code",
       "repo": "jrc1883/popkit-claude",
@@ -13227,18 +13198,6 @@
       "tags": [],
       "stars": 0,
       "install": "wchklaus97/remind-me-pwa/.cursor/skills/changelog-management",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "changelog-management",
-      "description": "Manage project changelogs with commit tracking and structured documentation. Use when updating CHANGELOG.md, tracking project changes, or documenting version releases.",
-      "repo": "wchklaus97/remind-me-pwa",
-      "path": "data/changelog-management",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "wchklaus97/remind-me-pwa",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25555,18 +25514,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/mkdocs-config-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mkdocs-config-generator",
-      "description": "Mkdocs Config Generator - Auto-activating skill for Technical Documentation.Triggers on: mkdocs config generator, mkdocs config generatorPart of the Technical Documentation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/mkdocs-config-generator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

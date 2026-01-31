@@ -1,7 +1,7 @@
 {
   "name": "tdd-guide",
-  "repo": "alirezarezvani/claude-code-skill-factory",
-  "path": "generated-skills/tdd-guide/SKILL.md",
-  "source": "github.com/alirezarezvani/claude-code-skill-factory",
-  "downloaded_at": "2026-01-30T04:23:36.034581Z"
+  "repo": "alirezarezvani/claude-skills",
+  "path": "engineering-team/tdd-guide/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-skills",
+  "downloaded_at": "2026-01-31T04:50:56.182597Z"
 }

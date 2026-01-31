@@ -1,9 +1,7 @@
 {
   "name": "changelog-management",
-  "description": "Manage project changelogs with commit tracking and structured documentation. Use when updating CHANGELOG.md, tracking project changes, or documenting version releases.",
-  "repo": "wchklaus97/remind-me-pwa",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "AmnadTaowsoam/CerebraSkills",
+  "path": "21-documentation/changelog-management/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/CerebraSkills",
+  "downloaded_at": "2026-01-31T01:11:36.828325Z"
 }

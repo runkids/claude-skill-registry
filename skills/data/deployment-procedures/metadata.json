@@ -1,7 +1,7 @@
 {
   "name": "deployment-procedures",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/deployment-procedures/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:26.874240Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/deployment-procedures/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:03.753319Z"
 }

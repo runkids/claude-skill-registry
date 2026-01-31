@@ -1,9 +1,7 @@
 {
   "name": "environment-variables-handler",
-  "description": "Environment Variables Handler - Auto-activating skill for DevOps Basics.Triggers on: environment variables handler, environment variables handlerPart of the DevOps Basics skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/01-devops-basics/environment-variables-handler/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:37.996645Z"
 }

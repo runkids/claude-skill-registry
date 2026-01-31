@@ -1,243 +1,252 @@
 ---
 name: browser-use
-description: Browser automation for UI testing, screenshots, and workflow verification. Routes to optimal tool based on context.
-allowed-tools: all
+description: Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or extract information from web pages.
+allowed-tools: Bash(browser-use:*)
 ---
 
-# Browser Use Skill
+# Browser Automation with browser-use CLI
 
-Browser automation for UI testing, visual verification, and workflow testing. This skill routes to the optimal browser tool based on your specific needs.
+The `browser-use` command provides fast, persistent browser automation. It maintains browser sessions across commands, enabling complex multi-step workflows.
 
-## Available Browser Tools
+## Installation
 
-| Tool | Type | Best For |
-|------|------|----------|
-| **Claude in Chrome** | MCP (`mcp__claude-in-chrome__*`) | Authenticated flows, GIF recording, live debugging, network monitoring |
-| **Browser MCP** | MCP (`mcp__browsermcp__*`) | Interactive isolated testing, simple interactions, accessibility snapshots |
-| **Playwright Test** | CLI (`npx playwright test`) | Structured test suites, assertions, CI/CD, regression testing |
-
-## Quick Decision
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    WHICH BROWSER TOOL?                          │
-│                                                                 │
-│  Running structured test suite with assertions?                 │
-│      YES ──► Playwright Test (npx playwright test)              │
-│      NO  ──► Continue below                                     │
-│                                                                 │
-│  Need user's logged-in session?                                 │
-│      YES ──► Claude in Chrome                                   │
-│      NO  ──► Either MCP tool works                              │
-│                                                                 │
-│  Creating a GIF/recording?                                      │
-│      YES ──► Claude in Chrome (has gif_creator)                 │
-│      NO  ──► Either MCP tool works                              │
-│                                                                 │
-│  Monitoring network requests?                                   │
-│      YES ──► Claude in Chrome (read_network_requests)           │
-│      NO  ──► Either MCP tool works                              │
-│                                                                 │
-│  Need clean/isolated test state?                                │
-│      YES ──► Browser MCP                                        │
-│      NO  ──► Either MCP tool works                              │
-│                                                                 │
-│  Quick smoke test, simple interaction?                          │
-│      YES ──► Browser MCP (simpler API)                          │
-│      NO  ──► Claude in Chrome (more features)                   │
-│                                                                 │
-│  DEFAULT for interactive: Claude in Chrome (most capabilities)  │
-│  DEFAULT for test suites: Playwright Test (assertions/reports)  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## Decision Matrix
-
-| Scenario | Recommended | Why |
-|----------|-------------|-----|
-| **Test suites with assertions** | Playwright Test | Built for structured testing |
-| **CI/CD integration** | Playwright Test | Reports, parallelization, retries |
-| **Regression test suite** | Playwright Test | Repeatable, deterministic |
-| Test authenticated flow | Claude in Chrome | Uses user's logged-in session |
-| Create demo/documentation GIF | Claude in Chrome | Has gif_creator tool |
-| Debug live issue with user | Claude in Chrome | See exactly what user sees |
-| Monitor API/network calls | Claude in Chrome | read_network_requests |
-| Execute JavaScript in page | Claude in Chrome | javascript_tool |
-| Multi-tab workflow | Claude in Chrome | Tab management |
-| Quick isolated smoke test | Browser MCP | Clean state, simpler API |
-| Accessibility tree inspection | Browser MCP | browser_snapshot |
-| Simple form fill + submit | Either MCP | Both capable |
-| Console error checking | Either MCP | Both have console access |
-
-## Claude in Chrome
-
-**Use when you need:**
-- User's authenticated session (already logged in)
-- GIF recording for documentation
-- Network request monitoring
-- JavaScript execution in page context
-- Multi-tab coordination
-- Real-time user observation
-
-**Setup:** Call `tabs_context_mcp` first to get available tabs.
-
-**Key tools:**
-```
-mcp__claude-in-chrome__tabs_context_mcp    # Get tab context (call FIRST)
-mcp__claude-in-chrome__tabs_create_mcp     # Create new tab
-mcp__claude-in-chrome__navigate            # Go to URL
-mcp__claude-in-chrome__computer            # Click, type, screenshot, scroll
-mcp__claude-in-chrome__read_page           # Get accessibility tree
-mcp__claude-in-chrome__find                # Natural language element search
-mcp__claude-in-chrome__form_input          # Fill form fields
-mcp__claude-in-chrome__javascript_tool     # Execute JS in page
-mcp__claude-in-chrome__read_network_requests  # Monitor API calls
-mcp__claude-in-chrome__read_console_messages  # Get console output
-mcp__claude-in-chrome__gif_creator         # Record GIF
-```
-
-See `reference/claude-in-chrome.md` for complete documentation.
-
-## Browser MCP
-
-**Use when you need:**
-- Clean/isolated test environment
-- Simple navigation and interaction
-- Accessibility snapshots
-- When Claude in Chrome isn't available
-
-**Key tools:**
-```
-mcp__browsermcp__browser_navigate          # Go to URL
-mcp__browsermcp__browser_snapshot          # Get accessibility tree
-mcp__browsermcp__browser_screenshot        # Capture page
-mcp__browsermcp__browser_click             # Click element
-mcp__browsermcp__browser_type              # Type text
-mcp__browsermcp__browser_hover             # Hover element
-mcp__browsermcp__browser_select_option     # Select dropdown
-mcp__browsermcp__browser_press_key         # Press key
-mcp__browsermcp__browser_wait              # Wait
-mcp__browsermcp__browser_get_console_logs  # Get console
-```
-
-See `reference/browser-mcp.md` for complete documentation.
-
-## Playwright Test
-
-**Use when you need:**
-- Structured test suites with assertions
-- CI/CD integration with reports
-- Regression testing (repeatable, deterministic)
-- Parallel test execution
-- Test retries and flaky test handling
-
-**Key commands:**
 ```bash
-# Run all tests
-npx playwright test
+# Run without installing (recommended for one-off use)
+uvx browser-use[cli] open https://example.com
 
-# Run specific test file
-npx playwright test tests/e2e/auth.spec.ts
+# Or install permanently
+uv pip install browser-use[cli]
 
-# Run tests with UI mode (interactive debugging)
-npx playwright test --ui
-
-# Run tests in headed mode (see the browser)
-npx playwright test --headed
-
-# Generate test report
-npx playwright show-report
+# Install browser dependencies (Chromium)
+browser-use install
 ```
 
-**Test file structure:**
-```typescript
-// tests/e2e/example.spec.ts
-import { test, expect } from '@playwright/test';
+## Quick Start
 
-test('user can log in', async ({ page }) => {
-  await page.goto('http://localhost:3001/login');
-  await page.fill('[name="email"]', 'test@example.com');
-  await page.fill('[name="password"]', 'password');
-  await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/dashboard');
-});
+```bash
+browser-use open https://example.com           # Navigate to URL
+browser-use state                              # Get page elements with indices
+browser-use click 5                            # Click element by index
+browser-use type "Hello World"                 # Type text
+browser-use screenshot                         # Take screenshot
+browser-use close                              # Close browser
 ```
 
-See `reference/playwright-test.md` for complete documentation.
+## Core Workflow
 
-## Common Patterns
+1. **Navigate**: `browser-use open <url>` - Opens URL (starts browser if needed)
+2. **Inspect**: `browser-use state` - Returns clickable elements with indices
+3. **Interact**: Use indices from state to interact (`browser-use click 5`, `browser-use input 3 "text"`)
+4. **Verify**: `browser-use state` or `browser-use screenshot` to confirm actions
+5. **Repeat**: Browser stays open between commands
 
-### Verify UI Change (Quick)
-```
-1. Browser MCP: browser_navigate to localhost:3001/[page]
-2. Browser MCP: browser_screenshot
-3. Browser MCP: browser_get_console_logs
-```
+## Browser Modes
 
-### Verify UI Change (Authenticated)
-```
-1. Claude in Chrome: tabs_context_mcp (get tab context)
-2. Claude in Chrome: navigate to page
-3. Claude in Chrome: computer action=screenshot
-4. Claude in Chrome: read_console_messages
+```bash
+browser-use --browser chromium open <url>      # Default: headless Chromium
+browser-use --browser chromium --headed open <url>  # Visible Chromium window
+browser-use --browser real open <url>          # User's Chrome with login sessions
+browser-use --browser remote open <url>        # Cloud browser (requires API key)
 ```
 
-### Test Form Submission
-```
-1. Navigate to form page
-2. Get element refs (snapshot or read_page)
-3. Fill fields (type or form_input)
-4. Submit
-5. Check console for errors
-6. Screenshot result
+- **chromium**: Fast, isolated, headless by default
+- **real**: Uses your Chrome with cookies, extensions, logged-in sessions
+- **remote**: Cloud-hosted browser with proxy support (requires BROWSER_USE_API_KEY)
+
+## Commands
+
+### Navigation
+```bash
+browser-use open <url>                    # Navigate to URL
+browser-use back                          # Go back in history
+browser-use scroll down                   # Scroll down
+browser-use scroll up                     # Scroll up
 ```
 
-### Create Demo GIF
-```
-1. Claude in Chrome: tabs_context_mcp
-2. Claude in Chrome: gif_creator action=start_recording
-3. Claude in Chrome: computer action=screenshot (initial frame)
-4. Perform demo steps (navigate, click, etc.)
-5. Claude in Chrome: computer action=screenshot (final frame)
-6. Claude in Chrome: gif_creator action=stop_recording
-7. Claude in Chrome: gif_creator action=export download=true
+### Page State
+```bash
+browser-use state                         # Get URL, title, and clickable elements
+browser-use screenshot                    # Take screenshot (outputs base64)
+browser-use screenshot path.png           # Save screenshot to file
+browser-use screenshot --full path.png    # Full page screenshot
 ```
 
-### Monitor Network Requests
-```
-1. Claude in Chrome: tabs_context_mcp
-2. Claude in Chrome: navigate to page
-3. Perform actions that trigger API calls
-4. Claude in Chrome: read_network_requests urlPattern="/api/"
+### Interactions (use indices from `browser-use state`)
+```bash
+browser-use click <index>                 # Click element
+browser-use type "text"                   # Type text into focused element
+browser-use input <index> "text"          # Click element, then type text
+browser-use keys "Enter"                  # Send keyboard keys
+browser-use keys "Control+a"              # Send key combination
+browser-use select <index> "option"       # Select dropdown option
 ```
 
-## Best Practices
+### Tab Management
+```bash
+browser-use switch <tab>                  # Switch to tab by index
+browser-use close-tab                     # Close current tab
+browser-use close-tab <tab>               # Close specific tab
+```
 
-1. **Start with context**: Claude in Chrome requires `tabs_context_mcp` first
-2. **Get refs before interacting**: Use snapshot/read_page to get element references
-3. **Check console after actions**: Both tools support console access
-4. **Screenshot for evidence**: Capture visual state at key points
-5. **Use patterns for filtering**: Console and network tools support pattern filtering
+### JavaScript & Data
+```bash
+browser-use eval "document.title"         # Execute JavaScript, return result
+browser-use extract "all product prices"  # Extract data using LLM (requires API key)
+```
+
+### Python Execution (Persistent Session)
+```bash
+browser-use python "x = 42"               # Set variable
+browser-use python "print(x)"             # Access variable (outputs: 42)
+browser-use python "print(browser.url)"   # Access browser object
+browser-use python --vars                 # Show defined variables
+browser-use python --reset                # Clear Python namespace
+browser-use python --file script.py       # Execute Python file
+```
+
+The Python session maintains state across commands. The `browser` object provides:
+- `browser.url` - Current page URL
+- `browser.title` - Page title
+- `browser.goto(url)` - Navigate
+- `browser.click(index)` - Click element
+- `browser.type(text)` - Type text
+- `browser.screenshot(path)` - Take screenshot
+- `browser.scroll()` - Scroll page
+- `browser.html` - Get page HTML
+
+### Agent Tasks (Requires API Key)
+```bash
+browser-use run "Fill the contact form with test data"    # Run AI agent
+browser-use run "Extract all product prices" --max-steps 50
+```
+
+Agent tasks use an LLM to autonomously complete complex browser tasks. Requires `BROWSER_USE_API_KEY` or configured LLM API key (OPENAI_API_KEY, ANTHROPIC_API_KEY, etc).
+
+### Session Management
+```bash
+browser-use sessions                      # List active sessions
+browser-use close                         # Close current session
+browser-use close --all                   # Close all sessions
+```
+
+### Server Control
+```bash
+browser-use server status                 # Check if server is running
+browser-use server stop                   # Stop server
+browser-use server logs                   # View server logs
+```
+
+### Setup
+```bash
+browser-use install                       # Install Chromium and system dependencies
+```
+
+## Global Options
+
+| Option | Description |
+|--------|-------------|
+| `--session NAME` | Use named session (default: "default") |
+| `--browser MODE` | Browser mode: chromium, real, remote |
+| `--headed` | Show browser window (chromium mode) |
+| `--profile NAME` | Chrome profile (real mode only) |
+| `--json` | Output as JSON |
+| `--api-key KEY` | Override API key |
+
+**Session behavior**: All commands without `--session` use the same "default" session. The browser stays open and is reused across commands. Use `--session NAME` to run multiple browsers in parallel.
+
+## API Key Configuration
+
+Some features (`run`, `extract`, `--browser remote`) require an API key. The CLI checks these locations in order:
+
+1. `--api-key` command line flag
+2. `BROWSER_USE_API_KEY` environment variable
+3. `~/.config/browser-use/config.json` file
+
+To configure permanently:
+```bash
+mkdir -p ~/.config/browser-use
+echo '{"api_key": "your-key-here"}' > ~/.config/browser-use/config.json
+```
+
+## Examples
+
+### Form Submission
+```bash
+browser-use open https://example.com/contact
+browser-use state
+# Shows: [0] input "Name", [1] input "Email", [2] textarea "Message", [3] button "Submit"
+browser-use input 0 "John Doe"
+browser-use input 1 "john@example.com"
+browser-use input 2 "Hello, this is a test message."
+browser-use click 3
+browser-use state  # Verify success
+```
+
+### Multi-Session Workflows
+```bash
+browser-use --session work open https://work.example.com
+browser-use --session personal open https://personal.example.com
+browser-use --session work state    # Check work session
+browser-use --session personal state  # Check personal session
+browser-use close --all             # Close both sessions
+```
+
+### Data Extraction with Python
+```bash
+browser-use open https://example.com/products
+browser-use python "
+products = []
+for i in range(20):
+    browser.scroll('down')
+browser.screenshot('products.png')
+"
+browser-use python "print(f'Captured {len(products)} products')"
+```
+
+### Using Real Browser (Logged-In Sessions)
+```bash
+browser-use --browser real open https://gmail.com
+# Uses your actual Chrome with existing login sessions
+browser-use state  # Already logged in!
+```
+
+## Tips
+
+1. **Always run `browser-use state` first** to see available elements and their indices
+2. **Use `--headed` for debugging** to see what the browser is doing
+3. **Sessions persist** - the browser stays open between commands
+4. **Use `--json` for parsing** output programmatically
+5. **Python variables persist** across `browser-use python` commands within a session
+6. **Real browser mode** preserves your login sessions and extensions
+7. **CLI aliases**: `bu`, `browser`, and `browseruse` all work identically to `browser-use`
 
 ## Troubleshooting
 
-### Claude in Chrome not responding
-- Check extension is installed and enabled
-- Try `tabs_context_mcp` to reset state
-- User may need to dismiss browser dialogs manually
+**Browser won't start?**
+```bash
+browser-use install                   # Install/reinstall Chromium
+browser-use server stop               # Stop any stuck server
+browser-use --headed open <url>       # Try with visible window
+```
 
-### Element not found
-- Take fresh snapshot/read_page
-- Wait for page to load (`browser_wait` or `computer action=wait`)
-- Check if element is in different tab or iframe
+**Element not found?**
+```bash
+browser-use state                     # Check current elements
+browser-use scroll down               # Element might be below fold
+browser-use state                     # Check again
+```
 
-### Authentication needed
-- Use Claude in Chrome to leverage user's logged-in session
-- Or manually log in via Browser MCP before testing
+**Session issues?**
+```bash
+browser-use sessions                  # Check active sessions
+browser-use close --all               # Clean slate
+browser-use open <url>                # Fresh start
+```
 
-## Integration
+## Cleanup
 
-This skill is used by:
-- **Test Agent** for comprehensive testing
-- **Any agent** for quick visual verification
-- **test-from-docs** Phase 4 (Browser Verification)
+**Always close the browser when done.** Run this after completing browser automation:
+
+```bash
+browser-use close
+```

@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-secret-import
-description: Import secrets from a file to cloud and local .env.production. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.0.103"
+description: Import secrets from a file to cloud and local .env. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 argument-hint: "<file>"
@@ -12,7 +12,7 @@ metadata:
 
 # Cloud Secret Import
 
-Import secrets from a file to cloud and local .env.production
+Import secrets from a file to cloud and local .env
 
 ## Prerequisites
 
@@ -39,10 +39,10 @@ Run .env.local command:
 bunx @agentuity/cli secret import .env.local
 ```
 
-Run .env.production.backup command:
+Run .env.backup command:
 
 ```bash
-bunx @agentuity/cli secret import .env.production.backup
+bunx @agentuity/cli secret import .env.backup
 ```
 
 ## Output

@@ -1,7 +1,7 @@
 {
   "name": "system-info",
-  "repo": "AIDotNet/MoYuCode",
-  "path": "skills/tools/system-info/SKILL.md",
-  "source": "github.com/AIDotNet/MoYuCode",
-  "downloaded_at": "2026-01-30T03:46:46.085064Z"
+  "repo": "agno-agi/agno",
+  "path": "cookbook/05_agent_os/skills/sample_skills/system-info/SKILL.md",
+  "source": "github.com/agno-agi/agno",
+  "downloaded_at": "2026-01-31T03:14:41.878138Z"
 }

@@ -1,6 +1,5 @@
 ---
 name: skill-a
-description: Skill A from skills directory
+description: A fake skill for testing
 ---
-
-# Skill A
+@.agents-common/skills/skill-a/SKILL.md

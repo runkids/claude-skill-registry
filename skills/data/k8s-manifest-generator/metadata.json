@@ -1,7 +1,7 @@
 {
   "name": "k8s-manifest-generator",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/kubernetes-operations/skills/k8s-manifest-generator/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:44.164270Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/kubernetes-operations/skills/k8s-manifest-generator/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-31T03:36:52.489385Z"
 }

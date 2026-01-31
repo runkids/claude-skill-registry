@@ -1,48 +1,35 @@
 ---
 name: ask
-description: Send via ask, end turn immediately; use when user explicitly delegates to any AI provider (gemini/codex/opencode/droid); NOT for questions about the providers themselves.
-metadata:
-  short-description: Ask AI provider asynchronously
+description: Present a multiple-choice question to the user using AskUserQuestion tool
 ---
 
-# Ask AI Provider
+# Ask Skill
 
-Send the user's request to the specified AI provider via ask.
+Quick invocation of the AskUserQuestion tool for single-select questions.
 
 ## Usage
 
-The first argument must be the provider name. The message MUST be provided via stdin
-(heredoc or pipe), not as CLI arguments, to avoid shell globbing issues:
-- `gemini` - Send to Gemini
-- `codex` - Send to Codex
-- `opencode` - Send to OpenCode
-- `droid` - Send to Droid
-Optional flags after the provider:
-- `--foreground` / `--background`
-- Env overrides: `CCB_ASK_FOREGROUND=1` / `CCB_ASK_BACKGROUND=1`
-
-## Execution (MANDATORY)
-
-```bash
-CCB_CALLER=codex ask $PROVIDER <<'EOF'
-$MESSAGE
-EOF
+```
+/ask "Question" "Option 1" "Option 2" ["Option 3"] ["Option 4"]
 ```
 
-## Rules
+## Instructions
 
-- After running the command, say "[Provider] processing..." and immediately end your turn.
-- Do not wait for results or check status in the same turn.
-- The task ID and log file path will be displayed for tracking.
+When this skill is invoked:
+1. First quoted argument = question text
+2. Remaining arguments = options (2-4 required)
+3. Invoke AskUserQuestion tool with parsed arguments
+4. Set multiSelect: false
+
+## Constraints
+
+- Minimum 2 options, maximum 4 options
+- If constraints violated, inform user of limits
 
 ## Examples
 
-- `/ask gemini What is 12+12?` (send via heredoc)
-- `CCB_CALLER=codex ask gemini <<'EOF'`
-  `What is 12+12?`
-  `EOF`
-
-## Notes
-
-- If it fails, check backend health with the corresponding ping command (`ping <provider>` (e.g., `ping gemini`)).
-- Codex-managed sessions default to foreground; use `--background` or `CCB_ASK_BACKGROUND=1` for async.
+```
+/ask "Which testing framework?" "pytest" "unittest" "nose2"
+/ask "Deploy to which environment?" "staging" "production"
+/ask "Database choice?" "PostgreSQL" "MySQL" "SQLite" "MongoDB"
+```

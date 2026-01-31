@@ -1,13 +1,7 @@
 {
   "name": "git-workflow-manager",
-  "description": "Manage git worktrees with GitFlow conventions for parallel development. This skill should be used when creating, managing, or cleaning up git worktrees, following standard GitFlow branch naming (featu",
-  "repo": "LaizyIO/WorkflowSkills",
-  "category": "development",
-  "tags": [
-    "git",
-    "workflow",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "planned-skills/generated/01-devops-basics/git-workflow-manager/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:36.921730Z"
 }

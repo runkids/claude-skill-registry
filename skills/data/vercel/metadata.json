@@ -1,7 +1,7 @@
 {
   "name": "vercel",
-  "repo": "carmandale/agent-config",
-  "path": "skills/tools/vercel/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:40.302337Z"
+  "repo": "mgd34msu/goodvibes-gemini",
+  "path": "skills/vercel/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-gemini",
+  "downloaded_at": "2026-01-31T03:59:40.121640Z"
 }

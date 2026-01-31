@@ -4,6 +4,7 @@ description: Guide pour la rédaction de politiques cookies conformes au RGPD et
 metadata:
   author: Malik Taiar
   license: AGPL-3.0
+  version: 2025.12.24
 ---
 
 # Guide des Politiques Cookies

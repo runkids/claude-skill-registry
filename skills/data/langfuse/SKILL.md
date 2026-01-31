@@ -1,238 +1,229 @@
 ---
 name: langfuse
-description: "Expert in Langfuse - the open-source LLM observability platform. Covers tracing, prompt management, evaluation, datasets, and integration with LangChain, LlamaIndex, and OpenAI. Essential for debugging, monitoring, and improving LLM applications in production. Use when: langfuse, llm observability, llm tracing, prompt management, llm evaluation."
-source: vibeship-spawner-skills (Apache 2.0)
+version: 1.0.2
+description: Debug AI traces, find exceptions, analyze sessions, and manage prompts via Langfuse MCP. Also handles MCP setup and configuration.
+metadata:
+  short-description: Langfuse observability via MCP
+  compatibility: claude-code, codex-cli
 ---
 
-# Langfuse
+# Langfuse Skill
 
-**Role**: LLM Observability Architect
+Debug your AI systems through Langfuse observability.
 
-You are an expert in LLM observability and evaluation. You think in terms of
-traces, spans, and metrics. You know that LLM applications need monitoring
-just like traditional software - but with different dimensions (cost, quality,
-latency). You use data to drive prompt improvements and catch regressions.
+**Triggers:** langfuse, traces, debug AI, find exceptions, set up langfuse, what went wrong, why is it slow, datasets, evaluation sets
 
-## Capabilities
+## Setup
 
-- LLM tracing and observability
-- Prompt management and versioning
-- Evaluation and scoring
-- Dataset management
-- Cost tracking
-- Performance monitoring
-- A/B testing prompts
+**Step 1:** Get credentials from https://cloud.langfuse.com → Settings → API Keys
 
-## Requirements
+If self-hosted, use your instance URL for `LANGFUSE_HOST` and create keys there.
 
-- Python or TypeScript/JavaScript
-- Langfuse account (cloud or self-hosted)
-- LLM API keys
+**Step 2:** Install MCP (pick one):
 
-## Patterns
+```bash
+# Claude Code (project-scoped, shared via .mcp.json)
+claude mcp add \
+  --scope project \
+  --env LANGFUSE_PUBLIC_KEY=pk-... \
+  --env LANGFUSE_SECRET_KEY=sk-... \
+  --env LANGFUSE_HOST=https://cloud.langfuse.com \
+  langfuse -- uvx --python 3.11 langfuse-mcp
 
-### Basic Tracing Setup
-
-Instrument LLM calls with Langfuse
-
-**When to use**: Any LLM application
-
-```python
-from langfuse import Langfuse
-
-# Initialize client
-langfuse = Langfuse(
-    public_key="pk-...",
-    secret_key="sk-...",
-    host="https://cloud.langfuse.com"  # or self-hosted URL
-)
-
-# Create a trace for a user request
-trace = langfuse.trace(
-    name="chat-completion",
-    user_id="user-123",
-    session_id="session-456",  # Groups related traces
-    metadata={"feature": "customer-support"},
-    tags=["production", "v2"]
-)
-
-# Log a generation (LLM call)
-generation = trace.generation(
-    name="gpt-4o-response",
-    model="gpt-4o",
-    model_parameters={"temperature": 0.7},
-    input={"messages": [{"role": "user", "content": "Hello"}]},
-    metadata={"attempt": 1}
-)
-
-# Make actual LLM call
-response = openai.chat.completions.create(
-    model="gpt-4o",
-    messages=[{"role": "user", "content": "Hello"}]
-)
-
-# Complete the generation with output
-generation.end(
-    output=response.choices[0].message.content,
-    usage={
-        "input": response.usage.prompt_tokens,
-        "output": response.usage.completion_tokens
-    }
-)
-
-# Score the trace
-trace.score(
-    name="user-feedback",
-    value=1,  # 1 = positive, 0 = negative
-    comment="User clicked helpful"
-)
-
-# Flush before exit (important in serverless)
-langfuse.flush()
+# Codex CLI (user-scoped, stored in ~/.codex/config.toml)
+codex mcp add langfuse \
+  --env LANGFUSE_PUBLIC_KEY=pk-... \
+  --env LANGFUSE_SECRET_KEY=sk-... \
+  --env LANGFUSE_HOST=https://cloud.langfuse.com \
+  -- uvx --python 3.11 langfuse-mcp
 ```
 
-### OpenAI Integration
+**Step 3:** Restart CLI, verify with `/mcp` (Claude) or `codex mcp list` (Codex)
 
-Automatic tracing with OpenAI SDK
+**Step 4:** Test: `fetch_traces(age=60)`
 
-**When to use**: OpenAI-based applications
+### Read-Only Mode
 
-```python
-from langfuse.openai import openai
+For safer observability without risk of modifying prompts or datasets, enable read-only mode:
 
-# Drop-in replacement for OpenAI client
-# All calls automatically traced
+```bash
+# CLI flag
+langfuse-mcp --read-only
 
-response = openai.chat.completions.create(
-    model="gpt-4o",
-    messages=[{"role": "user", "content": "Hello"}],
-    # Langfuse-specific parameters
-    name="greeting",  # Trace name
-    session_id="session-123",
-    user_id="user-456",
-    tags=["test"],
-    metadata={"feature": "chat"}
-)
-
-# Works with streaming
-stream = openai.chat.completions.create(
-    model="gpt-4o",
-    messages=[{"role": "user", "content": "Tell me a story"}],
-    stream=True,
-    name="story-generation"
-)
-
-for chunk in stream:
-    print(chunk.choices[0].delta.content, end="")
-
-# Works with async
-import asyncio
-from langfuse.openai import AsyncOpenAI
-
-async_client = AsyncOpenAI()
-
-async def main():
-    response = await async_client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": "Hello"}],
-        name="async-greeting"
-    )
+# Or environment variable
+LANGFUSE_MCP_READ_ONLY=true
 ```
 
-### LangChain Integration
+This disables write tools: `create_text_prompt`, `create_chat_prompt`, `update_prompt_labels`, `create_dataset`, `create_dataset_item`, `delete_dataset_item`.
 
-Trace LangChain applications
+For manual `.mcp.json` setup or troubleshooting, see `references/setup.md`.
 
-**When to use**: LangChain-based applications
+---
 
-```python
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langfuse.callback import CallbackHandler
+## Playbooks
 
-# Create Langfuse callback handler
-langfuse_handler = CallbackHandler(
-    public_key="pk-...",
-    secret_key="sk-...",
-    host="https://cloud.langfuse.com",
-    session_id="session-123",
-    user_id="user-456"
-)
+### "Where are the errors?"
 
-# Use with any LangChain component
-llm = ChatOpenAI(model="gpt-4o")
+```
+find_exceptions(age=1440, group_by="file")
+```
+→ Shows error counts by file. Pick the worst offender.
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant."),
-    ("user", "{input}")
-])
+```
+find_exceptions_in_file(filepath="src/ai/chat.py", age=1440)
+```
+→ Lists specific exceptions. Grab a trace_id.
 
-chain = prompt | llm
+```
+get_exception_details(trace_id="...")
+```
+→ Full stacktrace and context.
 
-# Pass handler to invoke
-response = chain.invoke(
-    {"input": "Hello"},
-    config={"callbacks": [langfuse_handler]}
-)
+---
 
-# Or set as default
-import langchain
-langchain.callbacks.manager.set_handler(langfuse_handler)
+### "What happened in this interaction?"
 
-# Then all calls are traced
-response = chain.invoke({"input": "Hello"})
+```
+fetch_traces(age=60, user_id="...")
+```
+→ Find the trace. Note the trace_id.
 
-# Works with agents, retrievers, etc.
-from langchain.agents import create_openai_tools_agent
-
-agent = create_openai_tools_agent(llm, tools, prompt)
-agent_executor = AgentExecutor(agent=agent, tools=tools)
-
-result = agent_executor.invoke(
-    {"input": "What's the weather?"},
-    config={"callbacks": [langfuse_handler]}
-)
+If you don't know the user_id, start with:
+```
+fetch_traces(age=60)
 ```
 
-## Anti-Patterns
+```
+fetch_trace(trace_id="...", include_observations=true)
+```
+→ See all LLM calls in the trace.
 
-### ❌ Not Flushing in Serverless
+```
+fetch_observation(observation_id="...")
+```
+→ Inspect a specific generation's input/output.
 
-**Why bad**: Traces are batched.
-Serverless may exit before flush.
-Data is lost.
+---
 
-**Instead**: Always call langfuse.flush() at end.
-Use context managers where available.
-Consider sync mode for critical traces.
+### "Why is it slow?"
 
-### ❌ Tracing Everything
+```
+fetch_observations(age=60, type="GENERATION")
+```
+→ Find recent LLM calls. Look for high latency.
 
-**Why bad**: Noisy traces.
-Performance overhead.
-Hard to find important info.
+```
+fetch_observation(observation_id="...")
+```
+→ Check token counts, model, timing.
 
-**Instead**: Focus on: LLM calls, key logic, user actions.
-Group related operations.
-Use meaningful span names.
+---
 
-### ❌ No User/Session IDs
+### "What's this user experiencing?"
 
-**Why bad**: Can't debug specific users.
-Can't track sessions.
-Analytics limited.
+```
+get_user_sessions(user_id="...", age=1440)
+```
+→ List their sessions.
 
-**Instead**: Always pass user_id and session_id.
-Use consistent identifiers.
-Add relevant metadata.
+```
+get_session_details(session_id="...")
+```
+→ See all traces in the session.
 
-## Limitations
+---
 
-- Self-hosted requires infrastructure
-- High-volume may need optimization
-- Real-time dashboard has latency
-- Evaluation requires setup
+### "Manage datasets"
 
-## Related Skills
+```
+list_datasets()
+```
+→ See all datasets.
 
-Works well with: `langgraph`, `crewai`, `structured-output`, `autonomous-agents`
+```
+get_dataset(name="evaluation-set-v1")
+```
+→ Get dataset details.
+
+```
+list_dataset_items(dataset_name="evaluation-set-v1", page=1, limit=10)
+```
+→ Browse items in the dataset.
+
+```
+create_dataset(name="qa-test-cases", description="QA evaluation set")
+```
+→ Create a new dataset.
+
+```
+create_dataset_item(
+  dataset_name="qa-test-cases",
+  input={"question": "What is 2+2?"},
+  expected_output={"answer": "4"}
+)
+```
+→ Add test cases.
+
+```
+create_dataset_item(
+  dataset_name="qa-test-cases",
+  item_id="item_123",
+  input={"question": "What is 3+3?"},
+  expected_output={"answer": "6"}
+)
+```
+→ Upsert: updates existing item by id or creates if missing.
+
+---
+
+### "Manage prompts"
+
+```
+list_prompts()
+```
+→ See all prompts with labels.
+
+```
+get_prompt(name="...", label="production")
+```
+→ Fetch current production version.
+
+```
+create_text_prompt(name="...", prompt="...", labels=["staging"])
+```
+→ Create new version in staging.
+
+```
+update_prompt_labels(name="...", version=N, labels=["production"])
+```
+→ Promote to production. (Rollback = re-apply label to older version)
+
+---
+
+## Quick Reference
+
+| Task | Tool |
+|------|------|
+| List traces | `fetch_traces(age=N)` |
+| Get trace details | `fetch_trace(trace_id="...", include_observations=true)` |
+| List LLM calls | `fetch_observations(age=N, type="GENERATION")` |
+| Get observation | `fetch_observation(observation_id="...")` |
+| Error count | `get_error_count(age=N)` |
+| Find exceptions | `find_exceptions(age=N, group_by="file")` |
+| List sessions | `fetch_sessions(age=N)` |
+| User sessions | `get_user_sessions(user_id="...", age=N)` |
+| List prompts | `list_prompts()` |
+| Get prompt | `get_prompt(name="...", label="production")` |
+| List datasets | `list_datasets()` |
+| Get dataset | `get_dataset(name="...")` |
+| List dataset items | `list_dataset_items(dataset_name="...", limit=N)` |
+| Create/update dataset item | `create_dataset_item(dataset_name="...", item_id="...")` |
+
+`age` = minutes to look back (max 10080 = 7 days)
+
+---
+
+## References
+
+- `references/tool-reference.md` — Full parameter docs, filter semantics, response schemas
+- `references/setup.md` — Manual setup, troubleshooting, advanced configuration

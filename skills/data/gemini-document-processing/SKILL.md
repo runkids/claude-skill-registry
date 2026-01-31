@@ -19,6 +19,7 @@ Process and analyze PDF documents using Google Gemini's native vision capabiliti
 ## When to Use This Skill
 
 Use this skill when you need to:
+
 - Extract structured data from PDF documents (invoices, resumes, forms)
 - Summarize long documents or reports
 - Answer questions about PDF content
@@ -31,45 +32,31 @@ Use this skill when you need to:
 
 ### 1. API Key Configuration
 
-The skill supports both **Google AI Studio** and **Vertex AI** endpoints.
-
-#### Option 1: Google AI Studio (Default)
-
 The skill checks for `GEMINI_API_KEY` in this priority order:
+
 1. Process environment variable
-2. Project root `.env`
-3. `.claude/.env`
-4. `.claude/skills/.env`
-5. `.env` file in skill directory (`.claude/skills/gemini-document-processing/.env`)
+2. `.env` file in skill directory (`.claude/skills/gemini-document-processing/.env`)
+3. `.env` file in project root
 
 **Get your API key:** https://aistudio.google.com/apikey
 
-**Environment Variable (Recommended)**
+**Option A: Environment Variable (Recommended)**
+
 ```bash
 export GEMINI_API_KEY="your-api-key-here"
 ```
 
-**Or in .env file:**
+**Option B: Skill Directory**
+
 ```bash
+cd .claude/skills/gemini-document-processing
 echo "GEMINI_API_KEY=your-api-key-here" > .env
 ```
 
-#### Option 2: Vertex AI
-
-To use Vertex AI instead:
+**Option C: Project Root**
 
 ```bash
-# Enable Vertex AI
-export GEMINI_USE_VERTEX=true
-export VERTEX_PROJECT_ID=your-gcp-project-id
-export VERTEX_LOCATION=us-central1  # Optional, defaults to us-central1
-```
-
-Or in `.env` file:
-```bash
-GEMINI_USE_VERTEX=true
-VERTEX_PROJECT_ID=your-gcp-project-id
-VERTEX_LOCATION=us-central1
+echo "GEMINI_API_KEY=your-api-key-here" > .env
 ```
 
 ### 2. Install Dependencies
@@ -220,6 +207,7 @@ python scripts/process-document.py --file document.pdf --prompt "Question 1" --p
 ## References
 
 For comprehensive documentation, see:
+
 - `references/gemini-document-processing-report.md` - Complete API reference
 - `references/quick-reference.md` - Quick lookup guide
 - `references/code-examples.md` - Additional code patterns
@@ -227,16 +215,19 @@ For comprehensive documentation, see:
 ## Troubleshooting
 
 **API Key Not Found:**
+
 ```bash
 # Check API key is set
 ./scripts/check-api-key.sh
 ```
 
 **File Too Large:**
+
 - Use File API for files > 20MB
 - Add `--use-file-api` flag to the script
 
 **Vision Not Working:**
+
 - Ensure file is PDF format
 - Other formats (TXT, HTML) don't support vision processing
 

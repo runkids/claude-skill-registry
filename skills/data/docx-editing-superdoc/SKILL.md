@@ -1,55 +1,82 @@
 ---
 name: docx-editing-superdoc
 description: Programmatically edit Word documents (.docx) with live preview and track changes via SuperDoc VS Code extension. Use when editing DOCX files, making tracked changes, redlining, marking up contracts, or when the user wants to modify Word documents with insertions/deletions visible. Triggers on docx, Word, track changes, redline, markup.
+metadata:
+  author: Antoine Louis
+  license: AGPL-3.0
+  version: 2026.01.29
 ---
 
 # DOCX Live Editor
 
-Edit Word documents with live preview and track changes in VS Code via SuperDoc extension.
+Edit Word documents with live preview and track changes in VS Code-compatible IDEs via [SuperDoc extension](https://github.com/lawvable/superdoc-vscode-extension/tree/feat/programmatic-command-api).
+
+## How It Works
+
+1. Write custom command to `path/to/.superdoc/{docname}.json`
+2. Extension executes and overwrites file with response
+3. Changes appear live in SuperDoc webview.
+
+**State:** `"command"` field = pending | `"success"` field = response ready
 
 ## Prerequisites
 
 1. SuperDoc VS Code extension installed. Check with:
-    ```bash
-    $(command -v code || echo /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code) --profile "Lawvable" --list-extensions | grep -i superdoc
     ```
-2. Document must be open in VS Code before editing. Open with:
-    ```bash
-    $(command -v code || echo /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code) path/to/doc.docx
+    // macOS/Linux
+    $(case "$(ps -p $PPID -o args= 2>/dev/null)" in *Cursor*) echo cursor ;; *Antigravity*) echo antigravity ;; *Code*) echo code ;; *) echo code ;; esac) --profile "Lawvable" --list-extensions | grep -i superdoc
+
+    // Windows (PowerShell)
+    $cli = switch -Regex ((Get-Process -Id (Get-CimInstance Win32_Process -Filter "ProcessId=$PID").ParentProcessId).ProcessName) { 'Cursor' { 'cursor' } 'Antigravity' { 'antigravity' } default { 'code' } }; & $cli --profile "Lawvable" --list-extensions | Select-String superdoc
     ```
+
+2. Document must be open in VS Code/Cursor/Antigravity before editing. Open with:
+    ```
+    // macOS/Linux
+    $(case "$(ps -p $PPID -o args= 2>/dev/null)" in *Cursor*) echo cursor ;; *Antigravity*) echo antigravity ;; *Code*) echo code ;; *) echo code ;; esac) path/to/doc.docx
+
+    // Windows (PowerShell)
+    $cli = switch -Regex ((Get-Process -Id (Get-CimInstance Win32_Process -Filter "ProcessId=$PID").ParentProcessId).ProcessName) { 'Cursor' { 'cursor' } 'Antigravity' { 'antigravity' } default { 'code' } }; & $cli path/to/doc.docx
+    ```
+
+3. To create a new blank document:
+    ```
+    // macOS/Linux
+    $(case "$(ps -p $PPID -o args= 2>/dev/null)" in *Cursor*) echo cursor ;; *Antigravity*) echo antigravity ;; *Code*) echo code ;; *) echo code ;; esac) --open-url "vscode://superdoc.superdoc-vscode-extension/create?path=./new-document.docx"
+
+    // Windows (PowerShell)
+    $cli = switch -Regex ((Get-Process -Id (Get-CimInstance Win32_Process -Filter "ProcessId=$PID").ParentProcessId).ProcessName) { 'Cursor' { 'cursor' } 'Antigravity' { 'antigravity' } default { 'code' } }; & $cli --open-url "vscode://superdoc.superdoc-vscode-extension/create?path=./new-document.docx"
+    ```
+    The path can be relative (to workspace) or absolute. The `.docx` extension is added automatically if missing.
 
 ## File Structure
 
-Commands go to `.superdoc/{docname}.json` (same basename as the DOCX):
+The `.superdoc/` folder must be **in the same directory** as the DOCX file. The JSON file uses the same basename as the DOCX:
 
 ```
 project/
-├── contract.docx
-└── .superdoc/
-    └── contract.json   ← commands for contract.docx
+├── contract.docx              ← document at root
+├── .superdoc/
+│   └── contract.json          ← commands for contract.docx
+└── subfolder/
+    ├── report.docx            ← document in subfolder
+    └── .superdoc/
+        └── report.json        ← commands for subfolder/report.docx
 ```
-
-## How It Works
-
-1. Write command to `.superdoc/{docname}.json`
-2. Extension executes and overwrites file with response
-3. Changes appear live (green insertions, red deletions)
-
-**State:** `"command"` field = pending | `"success"` field = response ready
 
 ## Commands
 
 ### `getText` - Read Document Content
 
-```bash
-# Get both text and HTML (default)
-echo '{"id":"1","command":"getText","args":{}}' > .superdoc/contract.json
+```json
+// Get both text and HTML (default)
+{"command":"getText","args":{}}
 
-# Get only plain text (fewer tokens)
-echo '{"id":"2","command":"getText","args":{"format":"text"}}' > .superdoc/contract.json
+// Get only plain text (fewer tokens)
+{"command":"getText","args":{"format":"text"}}
 
-# Get only HTML (preserves structure)
-echo '{"id":"3","command":"getText","args":{"format":"html"}}' > .superdoc/contract.json
+// Get only HTML (preserves structure)
+{"command":"getText","args":{"format":"html"}}
 ```
 
 **Formats:** `text` (plain text with paragraph breaks), `html` (full HTML), `both` (default)
@@ -58,94 +85,107 @@ echo '{"id":"3","command":"getText","args":{"format":"html"}}' > .superdoc/contr
 
 Get all nodes of a specific type with their positions. Useful for understanding document structure before making edits.
 
-```bash
-# Get all tables
-echo '{"id":"2","command":"getNodes","args":{"type":"table"}}' > .superdoc/contract.json
+```json
+// Get all paragraphs (use to identify section titles for TOC)
+{"command":"getNodes","args":{"type":"paragraph"}}
 
-# Get all headings
-echo '{"id":"3","command":"getNodes","args":{"type":"heading"}}' > .superdoc/contract.json
+// Get all tables
+{"command":"getNodes","args":{"type":"table"}}
 ```
 
-**Valid types:** `paragraph`, `heading`, `table`, `tableRow`, `tableCell`, `bulletList`, `orderedList`, `listItem`, `image`, `blockquote`
+**Valid types:** `paragraph`, `table`, `tableRow`, `tableCell`, `bulletList`, `orderedList`, `listItem`, `image`, `blockquote`
 
 **Returns:**
 ```json
 {
   "nodes": [
-    {"index": 0, "type": "heading", "from": 1, "to": 25, "text": "1. Introduction", "level": 1},
-    {"index": 1, "type": "heading", "from": 100, "to": 130, "text": "2. Definitions", "level": 1}
+    {"index": 0, "type": "paragraph", "from": 0, "to": 31, "text": "Non-Disclosure Agreement", "textLength": 24},
+    {"index": 1, "type": "paragraph", "from": 227, "to": 241, "text": "Background", "textLength": 10},
+    {"index": 2, "type": "paragraph", "from": 586, "to": 601, "text": "Definitions", "textLength": 11, "marker": "1."}
   ],
-  "count": 2
+  "count": 3
 }
 ```
 
-### `replaceText` - Find and Replace
+### `replaceText` - Find and Replace (DELETION + INSERTION)
 
 **Use when:** Changing existing text to something different. The found text is DELETED and replaced.
+**Track changes effect:** Shows as ~~deleted text~~ + <u>new text</u> (strikethrough + underline).
 
-```bash
-# Change a value: "2024" → "2025"
-echo '{"id":"2","command":"replaceText","args":{"search":"2024","replacement":"2025"}}' > .superdoc/contract.json
+```json
+// Change a value: "2024" → "2025"
+{"command":"replaceText","args":{"search":"2024","replacement":"2025"}}
 
-# Change a placeholder: "[ORG_NAME]" → "Lawvable"
-echo '{"id":"3","command":"replaceText","args":{"search":"[ORG_NAME]","replacement":"Lawvable"}}' > .superdoc/contract.json
+// Change a placeholder: "[ORG_NAME]" → "Lawvable"
+{"command":"replaceText","args":{"search":"[ORG_NAME]","replacement":"Lawvable"}}
 
-# Change a word: "shall" → "must"
-echo '{"id":"4","command":"replaceText","args":{"search":"shall","replacement":"must","occurrence":1}}' > .superdoc/contract.json
+// Change a word: "shall" → "must"
+{"command":"replaceText","args":{"search":"shall","replacement":"must","occurrence":1}}
 
-# Add formatting to existing text (text is replaced with formatted version)
-echo '{"id":"5","command":"replaceText","args":{"search":"Important Notice","replacement":"<strong>Important Notice</strong>"}}' > .superdoc/contract.json
+// Add formatting to existing text (text is replaced with formatted version)
+{"command":"replaceText","args":{"search":"Important Notice","replacement":"<strong>Important Notice</strong>"}}
 ```
 
-### `insertContent` - Insert NEW Content
+### `insertContent` - Insert New Content (INSERTION ONLY)
 
 **Use when:** Adding new text/elements while keeping the anchor text intact. The anchor text STAYS, new content is added before/after.
+**Track changes effect:** Shows as <u>new text</u> only (underline, no strikethrough).
 
-```bash
-# Add a word after existing text: "agrees to pay" + " promptly"
-echo '{"id":"5","command":"insertContent","args":{"content":" promptly","position":{"after":"agrees to pay"}}}' > .superdoc/contract.json
+**CRITICAL:** When you need to ADD words to a sentence without changing existing words, you MUST use `insertContent`, NOT `replaceText`. Using `replaceText` will show the entire sentence as deleted and rewritten, which clutters the track changes view.
 
-# Add a new section after a heading
-echo '{"id":"6","command":"insertContent","args":{"content":"<h2>New Section</h2><p>Content here.</p>","position":{"after":"Introduction"}}}' > .superdoc/contract.json
+```json
+// CORRECT: Add a word after existing text - shows only the addition as tracked
+// Original: "The party agrees to pay"  →  Result: "The party agrees to pay promptly"
+{"command":"insertContent","args":{"content":" promptly","position":{"after":"agrees to pay"}}}
 
-# Add a disclaimer before signatures
-echo '{"id":"7","command":"insertContent","args":{"content":"<p>By signing below, parties confirm agreement.</p>","position":{"before":"Signatures"}}}' > .superdoc/contract.json
+// WRONG: Using replaceText to add a word - shows entire phrase as deleted + rewritten
+// This would show: "~~agrees to pay~~" + "agrees to pay promptly" (ugly track changes!)
+// {"command":"replaceText","args":{"search":"agrees to pay","replacement":"agrees to pay promptly"}}
 
-# Add a clause after a section
-echo '{"id":"8","command":"insertContent","args":{"content":"<p>Additional clause text.</p>","position":{"after":"Section 2."},"author":{"name":"Jane Smith"}}}' > .superdoc/contract.json
+// Add a new section after a heading
+{"command":"insertContent","args":{"content":"<h2>New Section</h2><p>Content here.</p>","position":{"after":"Introduction"}}}
+
+// Add a disclaimer before signatures
+{"command":"insertContent","args":{"content":"<p>By signing below, parties confirm agreement.</p>","position":{"before":"Signatures"}}}
+
+// Add a clause after a section
+{"command":"insertContent","args":{"content":"<p>Additional clause text.</p>","position":{"after":"Section 2."},"author":{"name":"Jane Smith"}}}
 ```
 
-### When to Use Which
+### When to Use Which (Track Changes Guide)
 
-| Task | Command | Example |
-|------|---------|---------|
-| Change a value | `replaceText` | "2024" → "2025" |
-| Fill a placeholder | `replaceText` | "[NAME]" → "John" |
-| Fix a typo | `replaceText` | "teh" → "the" |
-| Change a word | `replaceText` | "shall" → "must" |
-| Add a word after text | `insertContent` | add " promptly" after "agrees to pay" |
-| Add a new paragraph | `insertContent` | add clause after "Section 3" |
-| Add a new section | `insertContent` | add heading after "Introduction" |
-| Add disclaimer | `insertContent` | add text before "Signatures" |
-| Add review comment | `addComment` | comment on "confidential information" |
+**Key principle:** Use `replaceText` only when you're CHANGING existing text. Use `insertContent` when you're ADDING new text.
+
+| Task | Command | Track Changes Display |
+|------|---------|----------------------|
+| Change a value | `replaceText` | ~~2024~~ <u>2025</u> |
+| Fill a placeholder | `replaceText` | ~~[NAME]~~ <u>John</u> |
+| Fix a typo | `replaceText` | ~~teh~~ <u>the</u> |
+| Change a word | `replaceText` | ~~shall~~ <u>must</u> |
+| **Add a word to sentence** | `insertContent` | existing text<u> added word</u> |
+| Add a new paragraph | `insertContent` | <u>entire new paragraph</u> |
+| Add a new section | `insertContent` | <u>entire new section</u> |
+| Add disclaimer | `insertContent` | <u>disclaimer text</u> |
+| Add review comment | `addComment` | (comment balloon, no track change) |
+
 
 ### `insertTable` - Create a Table
 
-```bash
-# Insert 3x4 table after specific text
-echo '{"id":"8","command":"insertTable","args":{"rows":3,"cols":4,"position":{"after":"Introduction"}}}' > .superdoc/contract.json
+```json
+// Insert 3x4 table after specific text
+{"command":"insertTable","args":{"rows":3,"cols":4,"position":{"after":"Introduction"}}}
 
-# Insert 2x2 table (default) before specific text
-echo '{"id":"9","command":"insertTable","args":{"position":{"before":"Signatures"}}}' > .superdoc/contract.json
+// Insert 2x2 table (default) before specific text
+{"command":"insertTable","args":{"position":{"before":"Signatures"}}}
 
-# Pre-populated table with headers and data (dimensions inferred)
-echo '{"id":"10","command":"insertTable","args":{"data":[["Name","Role"],["Alice","Engineer"]],"position":{"after":"Team:"}}}' > .superdoc/contract.json
+// Pre-populated table with headers and data (dimensions inferred)
+{"command":"insertTable","args":{"data":[["Name","Role"],["Alice","Engineer"]],"position":{"after":"Team:"}}}
 
-# Cells support HTML formatting
-echo '{"id":"11","command":"insertTable","args":{"data":[["<strong>Header</strong>"],["Value"]]}}' > .superdoc/contract.json
+// Cells support HTML formatting
+{"command":"insertTable","args":{"data":[["<strong>Header</strong>"],["Value"]]}}
 
-# With custom author for track changes
-echo '{"id":"12","command":"insertTable","args":{"rows":2,"cols":3,"author":{"name":"John"}}}' > .superdoc/contract.json
+// With custom author for track changes
+{"command":"insertTable","args":{"rows":2,"cols":3,"author":{"name":"John"}}}
 ```
 
 **Parameters:**
@@ -156,12 +196,12 @@ echo '{"id":"12","command":"insertTable","args":{"rows":2,"cols":3,"author":{"na
 
 ### `addComment` - Add Comment to Text
 
-```bash
-# Add a comment on specific text
-echo '{"id":"1","command":"addComment","args":{"search":"confidential information","comment":"This clause needs legal review"}}' > .superdoc/contract.json
+```json
+// Add a comment on specific text
+{"command":"addComment","args":{"search":"confidential information","comment":"This clause needs legal review"}}
 
-# Comment on nth occurrence
-echo '{"id":"2","command":"addComment","args":{"search":"Party","comment":"Verify party name","occurrence":2}}' > .superdoc/contract.json
+// Comment on nth occurrence
+{"command":"addComment","args":{"search":"Party","comment":"Verify party name","occurrence":2}}
 ```
 
 **Parameters:**
@@ -172,47 +212,99 @@ echo '{"id":"2","command":"addComment","args":{"search":"Party","comment":"Verif
 
 ### `undo` / `redo` - History Navigation
 
-```bash
-# Undo the last action
-echo '{"id":"16","command":"undo","args":{}}' > .superdoc/contract.json
+```json
+// Undo the last action
+{"command":"undo","args":{}}
 
-# Redo the last undone action
-echo '{"id":"17","command":"redo","args":{}}' > .superdoc/contract.json
+// Redo the last undone action
+{"command":"redo","args":{}}
 ```
 
 **Returns:** `{"success": true}` if action was undone/redone, `{"success": false}` if nothing to undo/redo.
 
-### `formatText` - Apply Text Formatting
+### `formatText` - Apply Formatting
 
-Apply font properties and text styling. **Not tracked** (applied directly for performance).
+Apply text styling, paragraph properties, and heading conversion. **Not tracked** (applied directly for performance).
 
-```bash
-# Multiple formats on entire document
-echo '{"id":"8","command":"formatText","args":{"fontFamily":"Arial","fontSize":"12pt","color":"#333333","scope":"document"}}' > .superdoc/contract.json
+```json
+// Multiple text formats on entire document
+{"command":"formatText","args":{"fontFamily":"Arial","fontSize":"12pt","color":"#333333","scope":"document"}}
 
-# Bold + highlight on specific range (use getNodes to find positions)
-echo '{"id":"9","command":"formatText","args":{"bold":true,"highlight":"#FFEB3B","scope":{"from":100,"to":200}}}' > .superdoc/contract.json
+// Bold + highlight on specific range (use getNodes to find positions)
+{"command":"formatText","args":{"bold":true,"highlight":"#FFEB3B","scope":{"from":100,"to":200}}}
 
-# Remove formatting (false removes, omit leaves unchanged)
-echo '{"id":"10","command":"formatText","args":{"bold":false,"highlight":false,"scope":{"from":100,"to":200}}}' > .superdoc/contract.json
+// Remove formatting (false removes, omit leaves unchanged)
+{"command":"formatText","args":{"bold":false,"highlight":false,"scope":{"from":100,"to":200}}}
 
-# Add hyperlink to text range
-echo '{"id":"11","command":"formatText","args":{"link":"https://example.com","scope":{"from":100,"to":120}}}' > .superdoc/contract.json
+// Add hyperlink to text range
+{"command":"formatText","args":{"link":"https://example.com","scope":{"from":100,"to":120}}}
 
-# Remove hyperlink
-echo '{"id":"12","command":"formatText","args":{"link":false,"scope":{"from":100,"to":120}}}' > .superdoc/contract.json
+// Remove hyperlink
+{"command":"formatText","args":{"link":false,"scope":{"from":100,"to":120}}}
+
+// Set line height on entire document
+{"command":"formatText","args":{"lineHeight":"1.5","scope":"document"}}
+
+// Set spacing + indent
+{"command":"formatText","args":{"spacingBefore":"12pt","spacingAfter":"6pt","indent":36,"scope":"document"}}
 ```
 
-**Parameters:**
+**Text-level parameters:**
 - `fontFamily` - Font name (e.g., "Arial", "Times New Roman")
 - `fontSize` - Size with unit (e.g., "12pt", "14px")
 - `color` - Text color as CSS (e.g., "#ff0000", "red")
 - `highlight` - Background color, or `false` to remove
 - `bold`, `italic`, `underline`, `strikethrough` - `true` to apply, `false` to remove, omit to leave unchanged
 - `link` - URL string to create hyperlink, or `false` to remove
-- `scope` - `"document"` for entire doc, or `{"from": N, "to": M}` for range
 
-**To format a specific paragraph:** Use `getNodes` with type `paragraph` to get positions, then apply formatting to that range.
+**Block-level parameters:**
+- `lineHeight` - Line spacing (e.g., "1.0", "1.5", "2.0")
+- `indent` - Left indentation in points (e.g., 36 for 0.5", 72 for 1"). Use 0 to remove.
+- `spacingBefore` - Space before paragraph (e.g., "12pt", "6pt")
+- `spacingAfter` - Space after paragraph (e.g., "12pt", "6pt")
+
+**Scope:** `"document"` for entire doc, or `{"from": N, "to": M}` for range. Use `getNodes` to find positions.
+
+### `insertTableOfContents` - Create TOC with Bookmarks
+
+Insert a proper table of contents with internal navigation links. You identify the heading entries (position + level), the command handles bookmarks and TOC node creation.
+
+**Workflow:**
+1. Use `getNodes` with type `paragraph` to get all paragraph positions
+2. Identify which paragraphs are section titles (by text content, bold styling, numbering, etc.). Numbered paragraphs include a `marker` field (e.g., `"marker": "1."`) — the TOC automatically prepends it to the entry text.
+3. Pass their positions and heading levels to `insertTableOfContents`
+
+```json
+// TOC matching document font (always pass style with fontFamily + fontSize)
+{"command":"insertTableOfContents","args":{"entries":[{"level":1,"from":227,"to":241},{"level":2,"from":586,"to":601}],"position":{"after":"Non-Disclosure Agreement"},"style":{"fontFamily":"Arial","fontSize":"10pt"}}}
+
+// Custom title
+{"command":"insertTableOfContents","args":{"entries":[{"level":2,"from":229,"to":243}],"style":{"fontFamily":"Arial","fontSize":"10pt"},"title":"Contents"}}
+
+// No title
+{"command":"insertTableOfContents","args":{"entries":[{"level":2,"from":229,"to":243}],"style":{"fontFamily":"Arial","fontSize":"10pt"},"title":""}}
+```
+
+**Parameters:**
+- `entries` (required) - Array of `{level: 1-6, from: N, to: M}`. Positions from `getNodes` output. The command reads the text automatically.
+- `position` - `{"after": "text"}` or `{"before": "text"}` (default: beginning of document)
+- `title` - TOC title (default: "Table of Contents", `""` for none)
+- `style` (required) - `{fontFamily, fontSize}` to match the document's font conventions. **ALWAYS detect the document's font family and size** from `getText` with `html` format and pass them here. Bold and black (#000000) are applied by default. The title is automatically 2pt larger than entries. Optional: `color` to override the default black.
+- `author` - Optional author for track changes attribution
+
+The command inserts invisible bookmarks at each heading and creates TOC entries with internal links pointing to them. All entries are automatically left-indented based on their `level` (0.5" per level). The existing text and styling are not modified.
+
+### `deleteTableOfContents` - Remove TOC
+
+Delete the table of contents from the document.
+
+```json
+// Remove TOC only
+{"command":"deleteTableOfContents","args":{}}
+
+// Remove TOC and its bookmarks
+{"command":"deleteTableOfContents","args":{"removeBookmarks":true}}
+```
 
 ## HTML Formatting
 
@@ -228,21 +320,23 @@ echo '{"id":"12","command":"formatText","args":{"link":false,"scope":{"from":100
 **Adding a link to existing text:**
 
 Use `formatText` with `link` parameter and position scope:
-```bash
-# Get paragraph positions, then apply link to range
-echo '{"id":"1","command":"getNodes","args":{"type":"paragraph"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
-echo '{"id":"2","command":"formatText","args":{"link":"https://example.com","scope":{"from":218,"to":230}}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
+```json
+// Step 1: Get paragraph positions
+{"command":"getNodes","args":{"type":"paragraph"}}
+
+// Step 2: Apply link to the target range
+{"command":"formatText","args":{"link":"https://example.com","scope":{"from":218,"to":230}}}
 ```
 
 **Important:** Replacement strings are only parsed as HTML if they **start with `<tag>` and end with `</tag>`**. Including text before/after (e.g., `(<a>text</a>)`) treats the entire string as literal text.
 
 **Creating lists with `insertContent`:**
-```bash
-# Bullet list
-echo '{"id":"1","command":"insertContent","args":{"content":"<ul><li>First</li><li>Second</li></ul>","position":{"after":"Key points:"}}}' > .superdoc/contract.json
+```json
+// Bullet list
+{"command":"insertContent","args":{"content":"<ul><li>First</li><li>Second</li></ul>","position":{"after":"Key points:"}}}
 
-# Numbered list with nested items and formatting
-echo '{"id":"2","command":"insertContent","args":{"content":"<ol><li><strong>Step one</strong><ul><li>Sub-item</li></ul></li><li>Step two</li></ol>","position":{"after":"Instructions:"}}}' > .superdoc/contract.json
+// Numbered list with nested items and formatting
+{"command":"insertContent","args":{"content":"<ol><li><strong>Step one</strong><ul><li>Sub-item</li></ul></li><li>Step two</li></ol>","position":{"after":"Instructions:"}}}
 ```
 
 ## How Search Works
@@ -269,59 +363,35 @@ Search extracts **plain text only**, ignoring all formatting:
 
 ## Workflow
 
-**ALWAYS chain echo + sleep + cat in a single bash command to send and read response together.**
+**CRITICAL:** ALWAYS chain echo + sleep + cat in a single bash command to send and read response together.
 
-### Step 0: Clarify Author (once per session)
-Before making any edits, use `AskUserQuestion` to ask whether changes should be attributed to the user (ask their name) or the agent (default: "Claude"). If the user wants their name, pass `"author":{"name":"Their Name"}` in **every** `replaceText`, `insertContent`, `insertTable`, and `addComment` command.
+### Step 1: Clarify Author (once per session)
+Before making any edits, ALWAYS use `AskUserQuestion` to ask whether changes should be attributed to the user (ask their name) or the agent. If the user wants their name, pass `"author":{"name":"Their Name"}` in **every** `replaceText`, `insertContent`, `insertTable`, and `addComment` command.
 
-### Step 1: Read First
+### Step 2: Read First
 Get document content to understand structure and find anchor text:
 ```bash
-echo '{"id":"1","command":"getText","args":{"format":"text"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
+mkdir -p path/to/.superdoc && echo '{"command":"getText","args":{"format":"text"}}' > path/to/.superdoc/doc.json && sleep 2 && cat path/to/.superdoc/doc.json
 ```
 
-### Step 2: Make Edit + Read Response
+Use `sleep 2` for the first command (extension needs time to detect the file). Use `sleep 0.5` for subsequent commands, except `insertTableOfContents` which needs `sleep 3` (it inserts bookmarks + TOC node). If the response still shows the command JSON instead of a result, re-send the full `echo + sleep + cat` — do NOT run `sleep && cat` separately.
+
+### Step 3: Make Edit
 Execute command and immediately read the response in one bash call (see "When to Use Which" table to pick the right command):
 ```bash
-echo '{"id":"2","command":"replaceText","args":{"search":"2024","replacement":"2025"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
+echo '{"command":"replaceText","args":{"search":"2024","replacement":"2025"}}' > path/to/.superdoc/doc.json && sleep 0.5 && cat path/to/.superdoc/doc.json
 ```
 
-### Step 3: Verify with getText (content changes only)
+### Step 4: Verify with getText (content changes only)
 For `replaceText`, `insertContent`, `insertTable` - verify the change is visible:
 ```bash
-echo '{"id":"3","command":"getText","args":{"format":"text"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
+echo '{"command":"getText","args":{"format":"text"}}' > path/to/.superdoc/doc.json && sleep 0.5 && cat path/to/.superdoc/doc.json
 ```
 
-**Skip verification for `formatText`** - formatting (font, color, highlight) is not visible in text output. The command response `{"success": true}` is sufficient.
+**Skip verification for `formatText`** - formatting (font, color, highlight, spacing) is not visible in text output. The command response `{"success": true}` is sufficient.
 
-### Multi-Edit Example
-Each command is a single bash call (echo + sleep + cat chained):
-```bash
-# 1. Read document
-echo '{"id":"1","command":"getText","args":{"format":"text"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
-
-# 2. First edit + response
-echo '{"id":"2","command":"replaceText","args":{"search":"2024","replacement":"2025"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
-
-# 3. Verify first edit
-echo '{"id":"3","command":"getText","args":{"format":"text"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
-
-# 4. Second edit + response
-echo '{"id":"4","command":"insertContent","args":{"content":"<p>Reviewed.</p>","position":{"after":"Signatures"}}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
-
-# 5. Final verification
-echo '{"id":"5","command":"getText","args":{"format":"text"}}' > .superdoc/contract.json && sleep 0.5 && cat .superdoc/contract.json
-```
-
-## Track Changes & Comments
-
-Content edits (`replaceText`, `insertContent`) appear as tracked changes (author: "Claude"):
-- Insertions: green/underline
-- Deletions: red/strikethrough
-
-Comments (`addComment`) appear as comment balloons attached to text ranges.
-
-**Note:** Formatting changes (`formatText`) are applied directly without tracking.
+### Multi-Edit Pattern
+Repeat Steps 1-3 for each edit: `getText` → edit command → `getText` to verify. Each as a separate bash call.
 
 ## Troubleshooting
 

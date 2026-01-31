@@ -1,58 +1,106 @@
 ---
 name: social-media
-description: Manages social media content creation and posting across LinkedIn, Twitter/X, Facebook, and Instagram. Use when creating posts, scheduling content, managing social media strategy, or analyzing engagement.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash
+description: Activate for social media content, platform-specific posting, engagement strategies, cross-posting, and social analytics. Use when creating social posts, planning content calendars, or optimizing for specific platforms.
+license: MIT
 ---
 
-# Social Media Skill
+# Social Media
 
-This skill provides comprehensive social media management for the Personal AI Employee, including content creation, scheduling, and cross-platform posting.
+Platform-specific content creation, scheduling, and engagement strategies.
 
-## Supported Platforms
+## When to Use
 
-| Platform | Max Length | Optimal Post Times | Key Features |
-|----------|------------|-------------------|--------------|
-| LinkedIn | 3000 chars | Tue-Thu, 9am-12pm | Professional, B2B, long-form |
-| Twitter/X | 280 chars | Mon-Fri, 12pm-3pm | Concise, hashtags, threads |
-| Facebook | 63,206 chars | Wed-Fri, 1pm-4pm | Community, engagement |
-| Instagram | 2200 chars | Mon-Fri, 11am-1pm | Visual-first, hashtags |
+- Social media post creation
+- Platform-specific optimization
+- Content calendar planning
+- Engagement strategy
+- Cross-posting adaptation
+- Thread creation
+- Hashtag research
 
-## Content Types
+## Core Capabilities
 
-1. **Thought Leadership** - Industry insights, expertise sharing
-2. **Business Updates** - Announcements, milestones
-3. **Engagement** - Questions, polls, discussions
-4. **Promotional** - Products, services, offers
-5. **Curated** - Sharing relevant third-party content
+### Platform Specifications
+Load: `references/platform-specs.md`
 
-## Post Format
+### Posting Best Practices
+Load: `references/posting-best-practices.md`
+
+### Thread Templates
+Load: `references/thread-templates.md`
+
+### Engagement Templates
+Load: `references/engagement-templates.md`
+
+## Quick Reference
+
+| Platform | Post Length | Best Times |
+|----------|-------------|------------|
+| LinkedIn | 3000 chars | Tue-Thu 8-10am |
+| Twitter/X | 280 chars | Tue-Fri 9am-12pm |
+| Instagram | 2200 chars | Mon-Fri 11am-2pm |
+| TikTok | 4000 chars | Tue-Thu 7-9pm |
+
+## Workflow
+
+### Post Creation
+1. Define platform and goal
+2. Select content format
+3. Write platform-optimized copy
+4. Create/select visuals
+5. Add hashtags and mentions
+6. Schedule optimal time
+7. Plan follow-up engagement
+
+### Thread Creation
+1. Choose thread type (educational, story, list, how-to, breakdown)
+2. Write hook (tweet 1 - most important)
+3. Outline key points (5-15 tweets)
+4. Add visuals where relevant
+5. End with CTA
+
+### Cross-Posting
+1. Create primary content
+2. Adapt tone per platform
+3. Adjust format/length
+4. Customize hashtags
+5. Stagger posting times
+
+## Output Format
 
 ```markdown
----
-type: social_post
-platform: linkedin
-status: draft
-scheduled_time: 2026-01-08T10:00:00Z
-campaign: [optional]
----
+## Social Post: [Platform]
 
-[Post content here]
+**Format:** [single/carousel/video/thread]
+**Goal:** [awareness/engagement/traffic/conversion]
 
-**Hashtags**: #tag1 #tag2 #tag3
+### Content
+[Post copy]
 
-**Image**: [path or description]
+### Hashtags
+[Platform-appropriate hashtags]
+
+### Visual
+[Image/video description]
 ```
 
-## Content Strategy
+## Report Output
 
-### Weekly Mix
-- 40% Educational/Value
-- 30% Engagement
-- 20% Promotional
-- 10% Curated
+**Activate:** `assets-organizing` skill for report file paths
 
-## Reference
+Social reports go to `assets/reports/social/{date}-{platform}-{report-type}.md`
 
-For platform-specific guidelines, see [reference.md](reference.md)
+## Agent Integration
 
-For post examples, see [examples.md](examples.md)
+**Primary Agents:** social-media-manager, content-creator, community-manager
+
+**Skill Dependencies:** creativity, assets-organizing (report organization)
+
+## Best Practices
+
+1. Native content > cross-posted content
+2. Engage before and after posting
+3. Use platform-native features
+4. Post consistently, not constantly
+5. Respond to comments within 1 hour
+6. Test posting times for your audience

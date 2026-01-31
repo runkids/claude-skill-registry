@@ -1,64 +1,69 @@
 ---
 name: web-research
-description: Query Pollinations text API with web-search models (gemini-search, perplexity-fast, nomnom, etc.). Use when you need web search grounded answers via Pollinations.
+description: Use this skill for requests related to web research; it provides a structured approach to conducting comprehensive web research.
 ---
 
-# Web Research
+# Web Research Skill
 
-## Available Models
+This skill provides guidance on conducting comprehensive web research. It emphasizes planning, efficient information gathering, and systematic synthesis of findings.
 
-- **gemini-search** — Google Gemini with web search grounding (default)
-- **perplexity-fast** — Perplexity AI, faster (default)
-- **perplexity** — Perplexity AI
-- **nomnom** — NomNom search model
+**Note:** This skill provides a methodology and best practices for web research. It does not include executable scripts or tools beyond what's available in your agent's toolset.
 
-By default, queries both **gemini-search** and **perplexity-fast** in parallel.
+## When to Use This Skill
 
-## Requirements
+Use this skill when you need to:
 
-- `curl`
+- Research complex topics requiring multiple information sources
+- Gather and synthesize current information from the web
+- Conduct comparative analysis across multiple subjects
+- Produce well-sourced research reports with clear citations
 
-## Authentication
+## Research Process
 
-Set an API key in an environment variable (preferred):
+### Step 1: Create and Save Research Plan
 
-```bash
-export POLLINATIONS_API_KEY="YOUR_KEY"
-```
+Before conducting research:
 
-Or create a local `.env` file at `.claude/skills/web-research/.env`:
+1. **Analyze the research question** - Break it down into distinct, non-overlapping subtopics
 
-```bash
-POLLINATIONS_API_KEY="YOUR_KEY"
-```
+2. **Create a research plan** - Determine:
+   - The main research question
+   - 2-5 specific subtopics to investigate
+   - Expected information from each subtopic
+   - How results will be synthesized
 
-If `POLLINATIONS_API_KEY` is not set, the script will prompt for a key (input hidden).
+**Planning Guidelines:**
 
-## Quick usage
+- **Simple fact-finding**: 1-2 subtopics
+- **Comparative analysis**: 1 subtopic per comparison element (max 3)
+- **Complex investigations**: 3-5 subtopics
 
-```bash
-.claude/skills/web-research/scripts/web-research.sh "What is pollinations.ai?" 
-```
+### Step 2: Gather Information
 
-Choose a model:
+For each subtopic in your plan:
 
-```bash
-.claude/skills/web-research/scripts/web-research.sh --model perplexity-fast "Fact-check this claim with sources"
-```
+1. **Use available web search tools** to gather information with:
+   - Clear, specific search queries
+   - Target: 3-5 searches per subtopic maximum
 
-Compare multiple models:
+2. **Organize findings** as you gather them
 
-```bash
-.claude/skills/web-research/scripts/web-research.sh --models gemini-search,perplexity-fast,nomnom "Compare answers"
-```
+### Step 3: Synthesize Findings
 
-Run multi-model in parallel:
+After gathering information:
 
-```bash
-.claude/skills/web-research/scripts/web-research.sh --models gemini-search,perplexity-fast --parallel "Compare answers"
-```
+1. **Review all collected information** from your searches
 
-## Notes
+2. **Synthesize the information** - Create a comprehensive response that:
+   - Directly answers the original question
+   - Integrates insights from all subtopics
+   - Cites specific sources with URLs
+   - Identifies any gaps or limitations
 
-- Uses `https://gen.pollinations.ai/v1/chat/completions`
-- Sends `Authorization: Bearer <key>`
+## Best Practices
+
+- **Plan before searching** - Understand what you need to find and organize your approach
+- **Clear subtopics** - Ensure each search has a distinct, non-overlapping scope
+- **Systematic synthesis** - Review all findings before creating final response
+- **Stop appropriately** - Don't over-research; 3-5 searches per subtopic is usually sufficient
+- **Cite sources** - Always include URLs to sources in your final response

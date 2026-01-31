@@ -1,11 +1,7 @@
 {
   "name": "data-catalog-updater",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Data Catalog Updater - Auto-activating skill for Data Pipelines.Triggers on: data catalog updater, data catalog updaterPart of the Data Pipelines skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:05.907993Z",
-  "dir_name": "data-catalog-updater",
-  "github_path": "planned-skills/generated/11-data-pipelines/data-catalog-updater",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/data-catalog-updater/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-31T03:32:42.881163Z"
 }

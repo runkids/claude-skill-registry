@@ -1,7 +1,7 @@
 {
   "name": "content-creator",
-  "repo": "chrissargent48/weekly_report",
-  "path": ".claude/skills/external-skills/skills/content-creator/SKILL.md",
-  "source": "github.com/chrissargent48/weekly_report",
-  "downloaded_at": "2026-01-30T04:29:45.003279Z"
+  "repo": "alirezarezvani/claude-skills",
+  "path": "marketing-skill/content-creator/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-skills",
+  "downloaded_at": "2026-01-31T04:50:58.625850Z"
 }

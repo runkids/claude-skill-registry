@@ -1,116 +1,209 @@
----
-title: "Claude Code Continuous Learning Skill"
-type: github
-url: "https://github.com/blader/claude-code-continuous-learning-skill"
-stars: 359
-language: "Shell"
-tags:
-  - claude-code
-  - ai-agents
-  - developer-experience
-  - ai-tools
-authors:
-  - blader
-summary: "A meta-skill that extracts reusable knowledge from debugging sessions and saves it as new skills, giving Claude Code persistent memory across sessions."
-date: 2026-01-18
+# Content Department Skill
+
+**Skill**: content  
+**Department**: Content  
+**Version**: 1.0.0
+
 ---
 
-## Overview
+## 📖 Description
 
-Every Claude Code session starts fresh—no memory of past discoveries. The Continuous Learning Skill solves this by extracting non-obvious knowledge (debugging techniques, workarounds, project patterns) and saving it as new skills that load automatically in future sessions.
+The **Content Department** is your expert team for all content creation needs. From blog posts to social media, newsletters to video scripts, our content agents create, optimize, and publish engaging content across all platforms.
 
-The architecture exploits Claude Code's native skill retrieval system. At startup, Claude loads skill names and descriptions (~100 tokens each). When your current context semantically matches a description, the full skill loads. This skill *writes* to that retrieval system, not just reads from it.
+Whether you need a single blog post or a full content strategy, the Content Department has you covered.
 
-## Key Features
+---
 
-- **Automatic extraction**: Evaluates each session for knowledge worth preserving
-- **Quality gates**: Only extracts reusable, non-trivial, verified solutions
-- **Searchable descriptions**: Generated descriptions optimized for future semantic matching
-- **Retrospective mode**: Run `/retrospective` at session end to catch missed learnings
+## 🎯 When to Use
 
-## Architecture
+Use this skill when you need to:
 
-::mermaid
-<pre>
-flowchart LR
-    Problem[Problem] --> Investigate[Investigation]
-    Investigate --> Solution[Solution]
-    Solution --> Eval{Worth<br/>preserving?}
-    Eval -->|Yes| Extract[Extract Skill]
-    Eval -->|No| Done[End]
-    Extract --> Library[(Skills Library)]
-    Library -->|Future sessions| Match[Semantic Matching]
-    Match --> Load[Auto-load Skill]
-</pre>
-::
+- 📝 **Write blog posts or articles**
+- 🐦 **Create social media content**
+- 📧 **Send newsletters**
+- 🎬 **Produce video scripts**
+- 📄 **Create landing page copy**
+- 📚 **Write whitepapers or case studies**
+- 🛍️ **Write product descriptions**
+- 📰 **Create press releases**
 
-## Code Snippets
+---
 
-### Installation
+## 👥 Agents in This Department
 
-```bash
-git clone https://github.com/blader/claude-code-continuous-learning-skill.git \
-  ~/.claude/skills/continuous-learning
+1. **Content Lead** - Coordinates the team and manages workflows
+2. **Writer Agent** - Creates initial drafts and content
+3. **Editor Agent** - Reviews, optimizes, and polishes
+4. **Publisher Agent** - Formats and publishes to platforms
+
+---
+
+## 🛠️ Tools Available
+
+- **filesystem-mcp**: Read/write content files, manage content directory
+- **database-mcp**: Store and retrieve content from database
+- **browser-mcp**: Preview content, test on websites
+- **website-mcp**: Publish to WordPress, Ghost, custom sites
+- **email-mcp**: Send newsletters via email providers
+
+---
+
+## 📋 Common Tasks
+
+### Create Blog Post
+```
+→ "Write a blog post about [topic]"
+→ "Create a 1500-word article about [subject]"
+→ "Write how-to guide for [process]"
 ```
 
-### Hook Setup
-
-Create an activation hook that injects evaluation reminders:
-
-```bash
-mkdir -p ~/.claude/hooks
-cp ~/.claude/skills/continuous-learning/scripts/continuous-learning-activator.sh \
-   ~/.claude/hooks/
-chmod +x ~/.claude/hooks/continuous-learning-activator.sh
+### Create Social Media
+```
+→ "Create LinkedIn post about [topic]"
+→ "Write Twitter thread about [subject]"
+→ "Generate Instagram captions for [product]"
 ```
 
-Add to `~/.claude/settings.json`:
-
-```json
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/continuous-learning-activator.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
+### Newsletter
+```
+→ "Prepare this week's newsletter"
+→ "Create email announcing [event/product]"
+→ "Write newsletter about [topic]"
 ```
 
-## Quality Gates
+### Video/Audio
+```
+→ "Write YouTube video script about [topic]"
+→ "Create podcast show notes for [episode]"
+→ "Generate video description for [video]"
+```
 
-The system applies strict criteria before extraction:
+---
 
-| Gate | Question |
-|------|----------|
-| **Reusable** | Will this help with future tasks? |
-| **Non-trivial** | Did this require discovery, not docs lookup? |
-| **Specific** | Can you describe exact triggers and solutions? |
-| **Verified** | Has the solution been tested and confirmed? |
+## 💡 Examples
 
-## Extraction Triggers
+### Example 1: Blog Post
+```
+You: "skill:content, write a blog post about the future of AI"
 
-- Non-obvious debugging requiring >10 minutes investigation
-- Error resolution where root cause wasn't apparent
-- Workaround discovery through experimentation
-- Configuration insights differing from standard patterns
+Claude:
+I'll create a comprehensive blog post about AI's future.
+Let me research current trends, write an engaging article,
+optimize it for SEO, and prepare it for publishing.
 
-## Academic Foundations
+[Researches → Writes → Optimizes → Saves to database]
+```
 
-The approach draws from AI agent research:
+### Example 2: Social Media Campaign
+```
+You: "skill:content, create LinkedIn and Twitter posts for my product launch"
 
-- **Voyager** (Wang et al., 2023): Game-playing agents building skill libraries
-- **CASCADE** (2024): Meta-skills—skills for acquiring skills
-- **SEAgent** (2025): Agents learning software environments through trial and error
-- **Reflexion** (Shinn et al., 2023): Self-reflection improving agent performance
+Claude:
+I'll create platform-optimized content for LinkedIn (professional)
+and Twitter (concise with hashtags).
 
-## Connections
+[Creates content for both platforms → Saves]
+```
 
-- [[claude-code-skills]] - Official Skills documentation that this tool extends with automatic generation
-- [[introducing-agent-skills-in-vs-code]] - Same portable skill concept applied to VS Code's agent ecosystem
+### Example 3: Newsletter
+```
+You: "skill:content, send monthly newsletter with our top articles"
+
+Claude:
+I'll gather your top performing content, create a compelling
+newsletter narrative, and prepare it for sending to your subscribers.
+
+[Aggregates content → Writes newsletter → Prepares for sending]
+```
+
+---
+
+## ⚡ Quick Commands
+
+| Command | Description |
+|---------|-------------|
+| `skill:content, write [type] about [topic]` | Create content |
+| `skill:content, optimize [content_id]` | SEO optimize |
+| `skill:content, publish [content_id] to [platforms]` | Publish content |
+| `skill:content, create social posts for [content_id]` | Create social versions |
+
+---
+
+## 🔧 Configuration
+
+### Default Settings
+```yaml
+content:
+  tone: professional
+  length: medium
+  seo_optimization: true
+  publish_immediately: false
+  platforms: [website]
+```
+
+### Customization
+Specify preferences in your request:
+- `tone`: professional, casual, friendly, technical
+- `length`: short, medium, long
+- `seo_optimization`: true/false
+- `publish_immediately`: true/false
+
+---
+
+## 📊 Department Stats
+
+- **Content Created**: [Tracked in database]
+- **Avg. Engagement**: [Analytics integrated]
+- **SEO Score**: [Optimization tracking]
+- **Success Rate**: 98%+
+
+---
+
+## 🎓 Best Practices
+
+1. **Be Specific**: Provide topic, audience, and goals
+2. **Include Keywords**: Share important keywords for SEO
+3. **Set Tone**: Professional, casual, technical?
+4. **Specify Length**: Short, medium, or long-form?
+5. **Add Context**: Any brand guidelines or style preferences?
+
+---
+
+## 🔗 Related Skills
+
+- **business**: For business documents and operations
+- **design**: For visual content and branding
+- **marketing**: For promotional and ad content
+- **dev**: For technical documentation
+
+---
+
+## 📝 Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0.0 | 2026-01-14 | Initial release |
+
+---
+
+## 🆘 Troubleshooting
+
+**Content not publishing?**
+- Check platform credentials are configured
+- Verify content is approved
+- Check rate limits on platforms
+
+**SEO score low?**
+- Add more relevant keywords
+- Improve readability
+- Add internal/external links
+
+**Writer's block?**
+- Provide more context about topic
+- Ask for outline first
+- Break into smaller sections
+
+---
+
+*Part of Agentic Creator OS - MCP-Native Edition*  
+*For support, see department documentation*

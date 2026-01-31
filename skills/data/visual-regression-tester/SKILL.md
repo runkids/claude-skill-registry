@@ -1,75 +1,54 @@
 ---
-name: visual-regression-tester
-category: testing-quality
-description: Compare screenshots and pixel diffs.
+name: performing-visual-regression-testing
+description: |
+  This skill enables Claude to execute visual regression tests using tools like Percy, Chromatic, and BackstopJS. It captures screenshots, compares them against baselines, and analyzes visual differences to identify unintended UI changes. Use this skill when the user requests visual testing, UI change verification, or regression testing for a web application or component. Trigger phrases include "visual test," "UI regression," "check visual changes," or "/visual-test".
+allowed-tools: Read, Bash, Grep, Glob
+version: 1.0.0
 ---
 
-# Visual Regression Tester
+## Overview
 
-## Purpose
-- Compare screenshots and pixel diffs.
+This skill empowers Claude to automatically detect unintended UI changes by performing visual regression tests. It integrates with popular visual testing tools to streamline the process of capturing screenshots, comparing them against baselines, and identifying visual differences.
 
-## Preconditions
-- Access to system context (repos, infra, environments)
-- Confirmed requirements and constraints
-- Required approvals for security, compliance, or governance
+## How It Works
 
-## Inputs
-- Problem statement and scope
-- Current architecture or system constraints
-- Non-functional requirements (performance, security, compliance)
-- Target stack and environment
+1. **Capture Screenshots**: Captures screenshots of specified components or pages using the configured visual testing tool.
+2. **Compare Against Baselines**: Compares the captured screenshots against established baseline images.
+3. **Analyze Visual Diffs**: Identifies and analyzes visual differences between the current screenshots and the baselines.
 
-## Outputs
-- Design or implementation plan
-- Required artifacts (diagrams, configs, specs, checklists)
-- Validation steps and acceptance criteria
+## When to Use This Skill
 
-## Detailed Step-by-Step Procedures
-1. Clarify scope, constraints, and success metrics.
-2. Review current system state, dependencies, and integration points.
-3. Select patterns, tools, and architecture options that match constraints.
-4. Produce primary artifacts (docs/specs/configs/code stubs).
-5. Validate against requirements and known risks.
-6. Provide rollout and rollback guidance.
+This skill activates when you need to:
+- Detect unintended UI changes introduced by recent code modifications.
+- Verify the visual consistency of a web application across different browsers or environments.
+- Automate visual regression testing as part of a CI/CD pipeline.
 
-## Decision Trees and Conditional Logic
-- If compliance or regulatory scope applies -> add required controls and audit steps.
-- If latency budget is strict -> choose low-latency storage and caching.
-- Else -> prefer cost-optimized storage and tiering.
-- If data consistency is critical -> prefer transactional boundaries and strong consistency.
-- Else -> evaluate eventual consistency or async processing.
+## Examples
 
-## Error Handling and Edge Cases
-- Partial failures across dependencies -> isolate blast radius and retry with backoff.
-- Data corruption or loss risk -> enable backups and verify restore path.
-- Limited access to systems -> document gaps and request access early.
-- Legacy dependencies with limited change tolerance -> use adapters and phased rollout.
+### Example 1: Verifying UI Changes After a Feature Update
 
-## Tool Requirements and Dependencies
-- CLI and SDK tooling for the target stack
-- Credentials or access tokens for required environments
-- Diagramming or spec tooling when producing docs
+User request: "Run a visual test on the homepage to check for any UI regressions after the latest feature update."
 
-## Stack Profiles
-- Use Profile A, B, or C from `skills/STACK_PROFILES.md`.
-- Note selected profile in outputs for traceability.
+The skill will:
+1. Capture a screenshot of the homepage.
+2. Compare the screenshot against the baseline image of the homepage.
+3. Report any visual differences detected, highlighting potential UI regressions.
 
-## Validation
-- Requirements coverage check
-- Security and compliance review
-- Performance and reliability review
-- Peer or stakeholder sign-off
+### Example 2: Checking Visual Consistency Across Browsers
 
-## Rollback Procedures
-- Revert config or deployment to last known good state.
-- Roll back database migrations if applicable.
-- Verify service health, data integrity, and error rates after rollback.
+User request: "Perform a visual regression test on the product details page to ensure it renders correctly in Chrome and Firefox."
 
-## Success Metrics
-- Measurable outcomes (latency, error rate, uptime, cost)
-- Acceptance thresholds defined with stakeholders
+The skill will:
+1. Capture screenshots of the product details page in both Chrome and Firefox.
+2. Compare the screenshots against the respective baseline images for each browser.
+3. Identify and report any visual inconsistencies detected between the browsers.
 
-## Example Workflows and Use Cases
-- Minimal: apply the skill to a small service or single module.
-- Production: apply the skill to a multi-service or multi-tenant system.
+## Best Practices
+
+- **Configuration**: Ensure the visual testing tool is properly configured with the correct API keys and project settings.
+- **Baselines**: Maintain accurate and up-to-date baseline images to avoid false positives.
+- **Viewport Sizes**: Define appropriate viewport sizes to cover different screen resolutions and devices.
+
+## Integration
+
+This skill can be integrated with other Claude Code plugins to automate end-to-end testing workflows. For example, it can be combined with a testing plugin to run visual tests after functional tests have passed.

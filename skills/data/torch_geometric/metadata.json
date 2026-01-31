@@ -1,7 +1,7 @@
 {
   "name": "torch_geometric",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/torch_geometric/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-30T04:39:07.147603Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/torch_geometric/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-31T04:03:44.507510Z"
 }

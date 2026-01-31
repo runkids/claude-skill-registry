@@ -1,9 +1,7 @@
 {
   "name": "dspy-ruby",
-  "description": "This skill should be used when working with DSPy.rb, a Ruby framework for building type-safe, composable LLM applications. Use this when implementing predictable AI features, creating LLM signatures a",
-  "repo": "EveryInc/compound-engineering-plugin",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/plugins/compound-engineering/skills/dspy-ruby/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:18.556106Z"
 }

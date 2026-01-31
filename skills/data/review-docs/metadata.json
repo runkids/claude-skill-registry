@@ -1,7 +1,7 @@
 {
   "name": "review-docs",
-  "repo": "freepik-company/knowledge-agent",
+  "repo": "reactjs/react.dev",
   "path": ".claude/skills/review-docs/SKILL.md",
-  "source": "github.com/freepik-company/knowledge-agent",
-  "downloaded_at": "2026-01-30T04:06:40.274768Z"
+  "source": "github.com/reactjs/react.dev",
+  "downloaded_at": "2026-01-31T03:07:08.808878Z"
 }

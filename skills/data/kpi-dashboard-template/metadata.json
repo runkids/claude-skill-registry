@@ -1,9 +1,7 @@
 {
   "name": "kpi-dashboard-template",
-  "description": "Kpi Dashboard Template - Auto-activating skill for Enterprise Workflows.Triggers on: kpi dashboard template, kpi dashboard templatePart of the Enterprise Workflows skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/20-enterprise-workflows/kpi-dashboard-template/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:38.315909Z"
 }

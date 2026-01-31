@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-30T04:53:31.710387Z",
+  "updated_at": "2026-01-31T04:52:29.033315Z",
   "categories": [
     {
       "name": ".github-skills",
@@ -13939,7 +13939,7 @@
     },
     {
       "name": "data",
-      "count": 23681
+      "count": 24620
     },
     {
       "name": "data-access",
@@ -15211,7 +15211,7 @@
     },
     {
       "name": "design",
-      "count": 5576
+      "count": 5565
     },
     {
       "name": "design-and-build",
@@ -15855,7 +15855,7 @@
     },
     {
       "name": "development",
-      "count": 18359
+      "count": 18307
     },
     {
       "name": "development-code",
@@ -15907,7 +15907,7 @@
     },
     {
       "name": "devops",
-      "count": 3191
+      "count": 3180
     },
     {
       "name": "devops-agent",
@@ -16827,7 +16827,7 @@
     },
     {
       "name": "documents",
-      "count": 2738
+      "count": 2734
     },
     {
       "name": "docusaurus",
@@ -29591,7 +29591,7 @@
     },
     {
       "name": "marketing",
-      "count": 459
+      "count": 457
     },
     {
       "name": "marketing-audit",
@@ -34543,7 +34543,7 @@
     },
     {
       "name": "other",
-      "count": 18812
+      "count": 18719
     },
     {
       "name": "other-entries",
@@ -37251,7 +37251,7 @@
     },
     {
       "name": "productivity",
-      "count": 1546
+      "count": 1539
     },
     {
       "name": "professeur_lycee",
@@ -43439,7 +43439,7 @@
     },
     {
       "name": "security",
-      "count": 770
+      "count": 763
     },
     {
       "name": "security-agent",
@@ -49475,7 +49475,7 @@
     },
     {
       "name": "testing",
-      "count": 4037
+      "count": 4025
     },
     {
       "name": "testing-agent",

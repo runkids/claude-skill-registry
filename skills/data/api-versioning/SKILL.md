@@ -1,361 +1,395 @@
 ---
 name: api-versioning
-description: Implement API versioning strategies for backward compatibility. Covers URL versioning, header versioning, and deprecation workflows.
-license: MIT
-compatibility: TypeScript/JavaScript, Python
-metadata:
-  category: api
-  time: 3h
-  source: drift-masterguide
+description: Use when planning API versioning strategy, handling breaking changes, or managing API deprecation. Covers URL, header, and query parameter versioning approaches.
+allowed-tools: Read, Glob, Grep
 ---
 
 # API Versioning
 
-Evolve your API without breaking existing clients.
+Strategies for versioning APIs, managing breaking changes, and deprecating old versions gracefully.
 
 ## When to Use This Skill
 
-- Public APIs with external consumers
-- Mobile apps (can't force updates)
-- Breaking changes to existing endpoints
-- Long-term API maintenance
+- Choosing an API versioning strategy
+- Planning for breaking changes
+- Deprecating API versions
+- Managing multiple API versions
+- Designing for API evolution
+
+## Why Version APIs?
+
+```text
+APIs are contracts with clients.
+Breaking changes break clients.
+
+Without versioning:
+- Change field name → All clients break
+- Remove endpoint → All clients break
+- Change behavior → Unexpected client behavior
+
+With versioning:
+- Old clients use old version
+- New clients use new version
+- Gradual migration possible
+```
 
 ## Versioning Strategies
 
-### 1. URL Path Versioning (Recommended)
+### URL Path Versioning
 
-```
-GET /api/v1/users
-GET /api/v2/users
-```
+```text
+https://api.example.com/v1/users
+https://api.example.com/v2/users
 
-Pros: Clear, cacheable, easy to route
-Cons: URL pollution
+Pros:
+- Clear and explicit
+- Easy to understand
+- Easy to route
+- Easy to cache
 
-### 2. Header Versioning
-
-```
-GET /api/users
-Accept: application/vnd.myapp.v2+json
-```
-
-Pros: Clean URLs
-Cons: Harder to test, not cacheable by URL
-
-### 3. Query Parameter
-
-```
-GET /api/users?version=2
+Cons:
+- Version embedded in client code
+- Multiple URLs for same resource
+- Not truly RESTful (URL should identify resource)
 ```
 
-Pros: Simple
-Cons: Easy to forget, caching issues
+### Header Versioning
 
-## TypeScript Implementation
+```text
+GET /users
+Accept: application/vnd.example.v1+json
 
-### Version Router
+or custom header:
+GET /users
+API-Version: 1
 
-```typescript
-// version-router.ts
-import { Router, Request, Response, NextFunction } from 'express';
+Pros:
+- Clean URLs
+- More RESTful
+- Version separate from resource
 
-type VersionHandler = (req: Request, res: Response, next: NextFunction) => void;
+Cons:
+- Hidden from URL
+- Harder to test in browser
+- Requires header support
+```
 
-interface VersionedRoute {
-  v1?: VersionHandler;
-  v2?: VersionHandler;
-  v3?: VersionHandler;
-  default: VersionHandler;
+### Query Parameter Versioning
+
+```text
+GET /users?version=1
+GET /users?api-version=2023-01-01
+
+Pros:
+- Easy to add
+- Optional (can default)
+- Easy to test
+
+Cons:
+- Can be forgotten
+- Pollutes query string
+- Caching complexity
+```
+
+### Content Negotiation
+
+```text
+Accept: application/vnd.example+json; version=1
+
+Pros:
+- Standard HTTP mechanism
+- Flexible
+
+Cons:
+- Complex to implement
+- Hard to discover
+```
+
+## Strategy Comparison
+
+| Strategy | Visibility | Implementation | Caching | Recommendation |
+| -------- | ---------- | -------------- | ------- | -------------- |
+| URL Path | High | Easy | Easy | Best for public APIs |
+| Header | Low | Medium | Medium | Good for internal APIs |
+| Query Param | Medium | Easy | Complex | Good for simple cases |
+| Content Neg | Low | Complex | Medium | Rarely used |
+
+## Versioning Schemes
+
+### Integer Versions
+
+```text
+v1, v2, v3
+
+Pros: Simple, clear major changes
+Cons: Coarse-grained
+
+Best for: Public APIs with infrequent breaking changes
+```
+
+### Semantic Versioning
+
+```text
+v1.2.3 (major.minor.patch)
+
+Major: Breaking changes
+Minor: New features (backward compatible)
+Patch: Bug fixes
+
+Pros: Fine-grained, predictable
+Cons: More complex
+
+Best for: Libraries, SDKs
+```
+
+### Date-Based Versioning
+
+```text
+2023-01-15, 2023-06-01
+
+Pros: Clear when version was current
+Cons: Doesn't indicate change magnitude
+
+Best for: Frequently changing APIs (Stripe, GitHub)
+
+Example (Stripe):
+Stripe-Version: 2023-10-16
+```
+
+## What Requires a New Version?
+
+### Breaking Changes (New Major Version)
+
+```text
+Always breaking:
+- Removing endpoint
+- Removing field
+- Changing field type
+- Changing field meaning
+- Renaming field
+- Adding required field
+- Changing authentication
+- Changing error format
+```
+
+### Non-Breaking Changes (No Version Needed)
+
+```text
+Safe changes:
+- Adding new endpoint
+- Adding optional field
+- Adding new enum value
+- Adding optional parameter
+- Relaxing validation
+- Adding new error codes
+```
+
+## Version Management
+
+### Running Multiple Versions
+
+```text
+Option 1: Separate codebases
+/v1/* → v1 service
+/v2/* → v2 service
+
+Pros: Full isolation
+Cons: Duplication, maintenance burden
+
+Option 2: Shared codebase with branching
+if (version == 1) {
+  return formatV1(data);
+} else {
+  return formatV2(data);
 }
 
-class VersionRouter {
-  private router = Router();
-  private currentVersion = 'v2';
-  private supportedVersions = ['v1', 'v2'];
-  private deprecatedVersions = ['v1'];
+Pros: Single codebase
+Cons: Code complexity grows
 
-  constructor() {
-    // Add version detection middleware
-    this.router.use(this.detectVersion.bind(this));
-  }
+Option 3: Transformation layer
+Internal model → Version-specific transformer → Response
 
-  private detectVersion(req: Request, res: Response, next: NextFunction) {
-    // Extract version from URL path
-    const match = req.path.match(/^\/v(\d+)\//);
-    if (match) {
-      req.apiVersion = `v${match[1]}`;
-    } else {
-      req.apiVersion = this.currentVersion;
-    }
-
-    // Check if version is supported
-    if (!this.supportedVersions.includes(req.apiVersion)) {
-      return res.status(400).json({
-        error: 'Unsupported API version',
-        supportedVersions: this.supportedVersions,
-      });
-    }
-
-    // Add deprecation warning header
-    if (this.deprecatedVersions.includes(req.apiVersion)) {
-      res.setHeader('Deprecation', 'true');
-      res.setHeader('Sunset', '2025-01-01');
-      res.setHeader('Link', '</api/v2>; rel="successor-version"');
-    }
-
-    next();
-  }
-
-  versioned(path: string, handlers: VersionedRoute) {
-    this.router.all(path, (req: Request, res: Response, next: NextFunction) => {
-      const version = req.apiVersion as keyof VersionedRoute;
-      const handler = handlers[version] || handlers.default;
-      handler(req, res, next);
-    });
-  }
-
-  getRouter() {
-    return this.router;
-  }
-}
-
-// Extend Express Request type
-declare global {
-  namespace Express {
-    interface Request {
-      apiVersion?: string;
-    }
-  }
-}
-
-export { VersionRouter };
+Pros: Clean separation
+Cons: Requires transformation code
 ```
 
-### Usage Example
+### Version Routing
 
-```typescript
-// routes/users.ts
-import { VersionRouter } from './version-router';
+```text
+API Gateway pattern:
 
-const versionRouter = new VersionRouter();
+Client → Gateway → Route by version → Service
 
-// Different implementations per version
-versionRouter.versioned('/users', {
-  v1: async (req, res) => {
-    // V1: Returns flat user object
-    const users = await db.users.findMany();
-    res.json(users.map(u => ({
-      id: u.id,
-      name: u.name,
-      email: u.email,
-    })));
-  },
-  v2: async (req, res) => {
-    // V2: Returns nested structure with metadata
-    const users = await db.users.findMany({ include: { profile: true } });
-    res.json({
-      data: users.map(u => ({
-        id: u.id,
-        attributes: {
-          name: u.name,
-          email: u.email,
-          profile: u.profile,
-        },
-      })),
-      meta: { total: users.length },
-    });
-  },
-  default: async (req, res) => {
-    // Default to latest
-    res.redirect(307, `/api/v2${req.path}`);
-  },
-});
-
-export const userRoutes = versionRouter.getRouter();
+Gateway responsibilities:
+- Parse version from URL/header
+- Route to appropriate backend
+- Transform if needed
+- Handle defaults
 ```
 
-### Version Middleware (Header-based)
+## Deprecation Strategy
 
-```typescript
-// header-version-middleware.ts
-function headerVersionMiddleware(req: Request, res: Response, next: NextFunction) {
-  const acceptHeader = req.headers.accept || '';
-  
-  // Parse: application/vnd.myapp.v2+json
-  const match = acceptHeader.match(/application\/vnd\.myapp\.v(\d+)\+json/);
-  
-  if (match) {
-    req.apiVersion = `v${match[1]}`;
-  } else {
-    req.apiVersion = 'v2'; // Default
-  }
-  
-  next();
-}
+### Lifecycle Phases
+
+```text
+1. Current: Active development
+2. Maintained: Bug fixes only
+3. Deprecated: No changes, sunset announced
+4. Sunset: Removed
+
+Timeline example:
+v1: Current (12 months)
+v1: Maintained when v2 launches (6 months)
+v1: Deprecated (6 months)
+v1: Sunset
 ```
 
-## Python Implementation
+### Deprecation Communication
 
-```python
-# version_router.py
-from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import JSONResponse
-from typing import Callable, Dict
+```text
+Headers:
+Deprecation: true
+Sunset: Sat, 1 Jul 2024 00:00:00 GMT
+Link: <https://api.example.com/v2/docs>; rel="successor-version"
 
-class VersionedRouter:
-    def __init__(self):
-        self.router = APIRouter()
-        self.current_version = "v2"
-        self.supported_versions = ["v1", "v2"]
-        self.deprecated_versions = ["v1"]
-
-    def versioned_route(
-        self,
-        path: str,
-        methods: list[str],
-        handlers: Dict[str, Callable],
-    ):
-        async def route_handler(request: Request):
-            # Extract version from path
-            version = self._extract_version(request.url.path)
-            
-            if version not in self.supported_versions:
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"Unsupported version. Supported: {self.supported_versions}"
-                )
-
-            handler = handlers.get(version, handlers.get("default"))
-            if not handler:
-                raise HTTPException(status_code=404)
-
-            response = await handler(request)
-            
-            # Add deprecation headers
-            if version in self.deprecated_versions:
-                response.headers["Deprecation"] = "true"
-                response.headers["Sunset"] = "2025-01-01"
-            
-            return response
-
-        for method in methods:
-            self.router.add_api_route(path, route_handler, methods=[method])
-
-    def _extract_version(self, path: str) -> str:
-        import re
-        match = re.search(r"/v(\d+)/", path)
-        return f"v{match.group(1)}" if match else self.current_version
-```
-
-### FastAPI Usage
-
-```python
-# routes/users.py
-from version_router import VersionedRouter
-
-router = VersionedRouter()
-
-async def get_users_v1(request: Request):
-    users = await db.users.find_many()
-    return JSONResponse([{"id": u.id, "name": u.name} for u in users])
-
-async def get_users_v2(request: Request):
-    users = await db.users.find_many(include={"profile": True})
-    return JSONResponse({
-        "data": [{"id": u.id, "attributes": {"name": u.name}} for u in users],
-        "meta": {"total": len(users)},
-    })
-
-router.versioned_route(
-    "/users",
-    methods=["GET"],
-    handlers={
-        "v1": get_users_v1,
-        "v2": get_users_v2,
-        "default": get_users_v2,
-    },
-)
-```
-
-## Deprecation Workflow
-
-### 1. Announce Deprecation
-
-```typescript
-// Add to all v1 responses
-res.setHeader('Deprecation', 'true');
-res.setHeader('Sunset', '2025-06-01T00:00:00Z');
-res.setHeader('Link', '</api/v2/docs>; rel="successor-version"');
-```
-
-### 2. Log Usage
-
-```typescript
-// Track v1 usage for migration planning
-if (req.apiVersion === 'v1') {
-  metrics.increment('api.v1.requests', {
-    endpoint: req.path,
-    client: req.headers['x-client-id'],
-  });
-}
-```
-
-### 3. Gradual Sunset
-
-```typescript
-// Phase 1: Warnings (3 months)
-// Phase 2: Rate limit v1 (1 month)
-if (req.apiVersion === 'v1') {
-  await rateLimiter.consume(req.ip, { points: 10 }); // 10x cost
-}
-
-// Phase 3: Return 410 Gone
-if (req.apiVersion === 'v1' && Date.now() > SUNSET_DATE) {
-  return res.status(410).json({
-    error: 'API version v1 has been sunset',
-    migration: 'https://docs.example.com/v2-migration',
-  });
-}
-```
-
-## Response Format Evolution
-
-```typescript
-// V1 Response (flat)
+Response body:
 {
-  "id": "123",
-  "name": "John",
-  "email": "john@example.com"
-}
-
-// V2 Response (JSON:API style)
-{
-  "data": {
-    "id": "123",
-    "type": "user",
-    "attributes": {
-      "name": "John",
-      "email": "john@example.com"
-    }
-  },
-  "meta": {
-    "version": "v2"
+  "data": {...},
+  "_deprecation": {
+    "message": "This API version is deprecated",
+    "sunset": "2024-07-01",
+    "successor": "https://api.example.com/v2"
   }
 }
+```
+
+### Migration Support
+
+```text
+Provide:
+1. Migration guide documenting all changes
+2. Mapping of old → new endpoints
+3. Code examples for common operations
+4. SDK updates with compatibility layer
+5. Sandbox environment for testing
 ```
 
 ## Best Practices
 
-1. **Support at least 2 versions** - Give clients time to migrate
-2. **Use semantic versioning** - Major version = breaking changes
-3. **Document all changes** - Changelog per version
-4. **Provide migration guides** - Help clients upgrade
-5. **Monitor version usage** - Know when to sunset
+### Default Version
 
-## Common Mistakes
+```text
+Options:
+1. Require explicit version (recommended for public APIs)
+2. Default to latest (dangerous for stability)
+3. Default to oldest supported (conservative)
 
-- Breaking changes without version bump
-- No deprecation period
-- Removing versions without notice
-- Inconsistent versioning across endpoints
-- Not tracking version usage metrics
+Recommendation: Require version, fail without it
+```
+
+### Version in Response
+
+```text
+Include version info in responses:
+
+{
+  "data": {...},
+  "_meta": {
+    "api_version": "v2",
+    "deprecated": false
+  }
+}
+```
+
+### Graceful Degradation
+
+```text
+When version unknown:
+1. Return error with supported versions
+2. Redirect to documentation
+3. Return latest version with warning
+
+HTTP 400 Bad Request
+{
+  "error": "Unknown API version",
+  "supported_versions": ["v1", "v2"],
+  "documentation": "https://docs.example.com/api"
+}
+```
+
+### Testing Multiple Versions
+
+```text
+Test matrix:
+- All supported versions
+- Breaking change boundaries
+- Deprecation warnings
+- Sunset behavior
+
+Automated tests:
+- Contract tests per version
+- Backward compatibility tests
+- Migration path tests
+```
+
+## Real-World Examples
+
+### Stripe
+
+```text
+Date-based: 2023-10-16
+Header: Stripe-Version
+Default: Account's API version
+Rollback: Can pin to older version
+Upgrades: Preview in dashboard
+```
+
+### GitHub
+
+```text
+Date-based: 2022-11-28
+Header: X-GitHub-Api-Version
+Default: Latest
+Preview features: Accept header
+```
+
+### Google
+
+```text
+URL path: /v1/, /v2/
+Discovery document for each version
+Long deprecation cycles (years)
+```
+
+### Twilio
+
+```text
+Date-based: 2010-04-01
+URL path includes date
+Very long support windows
+```
+
+## Anti-Patterns
+
+```text
+1. Too many versions
+   → Consolidate, set deprecation schedule
+
+2. Breaking changes in minor versions
+   → Follow semantic versioning strictly
+
+3. No deprecation warnings
+   → Always communicate before breaking
+
+4. Instant sunset
+   → Give clients time to migrate (6-12 months minimum)
+
+5. Version per endpoint
+   → Keep all endpoints in sync per version
+```
+
+## Related Skills
+
+- `api-design-fundamentals` - API design patterns
+- `idempotency-patterns` - Safe API operations
+- `quality-attributes-taxonomy` - Maintainability attributes

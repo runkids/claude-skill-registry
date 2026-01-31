@@ -4,6 +4,7 @@ description: Toolkit for comprehensive PDF manipulation, including extracting te
 metadata:
   author: Anthropic
   license: Proprietary. See LICENSE.txt
+  version: 2025.12.01
 ---
 
 # PDF Processing Guide

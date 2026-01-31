@@ -1,368 +1,249 @@
 ---
-name: deep-analysis
-description: "⚡ PRIMARY SKILL for: 'how does X work', 'investigate', 'analyze architecture', 'trace flow', 'find implementations'. PREREQUISITE: code-search-selector must validate tool choice. Launches codebase-detective with claudemem INDEXED MEMORY."
-allowed-tools: Task
-prerequisites:
-  - code-search-selector  # Must run before this skill
-dependencies:
-  - claudemem must be indexed (claudemem status)
+name: Deep Analysis
+description: Perform complex fault analysis requiring multi-step diagnostics and subtask decomposition. Use when user asks to "troubleshoot", "analyze root cause", "why is network slow", "cannot access server", or needs systematic network fault diagnosis.
+version: 1.0.0
+
+# OLAV Extended Fields
+intent: diagnose
+complexity: complex
+
+# Output Configuration
+output:
+  format: markdown
+  language: auto
+  sections:
+    - summary
+    - details
+    - recommendations
 ---
 
-# Deep Code Analysis
+# Deep Analysis
 
-This Skill provides comprehensive codebase investigation capabilities using the codebase-detective agent with semantic search and pattern matching.
+## Applicable Scenarios
+- Network fault troubleshooting
+- Performance problem analysis
+- Path tracing
+- Root cause identification
 
-## Prerequisites (MANDATORY)
+## Identification Signals
+User questions contain: "why", "troubleshoot", "analyze", "fault", "not working", "cannot access", "slow"
 
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                        BEFORE INVOKING THIS SKILL                             ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  1. INVOKE code-search-selector skill FIRST                                  ║
-║     → Validates tool selection (claudemem vs grep)                           ║
-║     → Checks if claudemem is indexed                                         ║
-║     → Prevents tool familiarity bias                                         ║
-║                                                                              ║
-║  2. VERIFY claudemem status                                                  ║
-║     → Run: claudemem status                                                  ║
-║     → If not indexed: claudemem index -y                                     ║
-║                                                                              ║
-║  3. DO NOT start with Read/Glob                                              ║
-║     → Even if file paths are mentioned in the prompt                         ║
-║     → Semantic search first, Read specific lines after                       ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
+## Execution Strategy
+1. **Use write_todos to decompose problems**
+2. Identify problem type and choose analysis direction
+3. Delegate to appropriate Subagent
+4. Synthesize analysis and provide conclusions and recommendations
 
-## When to use this Skill
+## Subagent Delegation Strategy (Phase 3)
 
-Claude should invoke this Skill when:
+### How to Use Subagents
 
-- User asks "how does [feature] work?"
-- User wants to understand code architecture or patterns
-- User is debugging and needs to trace code flow
-- User asks "where is [functionality] implemented?"
-- User needs to find all usages of a component/service
-- User wants to understand dependencies between files
-- User mentions: "investigate", "analyze", "find", "trace", "understand"
-- User is exploring an unfamiliar codebase
-- User needs to understand complex multi-file functionality
-
-## Instructions
-
-### Phase 1: Determine Investigation Scope
-
-Understand what the user wants to investigate:
-
-1. **Specific Feature**: "How does user authentication work?"
-2. **Find Implementation**: "Where is the payment processing logic?"
-3. **Trace Flow**: "What happens when I click the submit button?"
-4. **Debug Issue**: "Why is the profile page showing undefined?"
-5. **Find Patterns**: "Where are all the API calls made?"
-6. **Analyze Architecture**: "What's the structure of the data layer?"
-
-### Phase 2: Invoke codebase-detective Agent
-
-Use the Task tool to launch the codebase-detective agent with comprehensive instructions:
+OLAV now supports specialized Subagents for complex analysis tasks. Use the `task` tool to delegate:
 
 ```
-Use Task tool with:
-- subagent_type: "code-analysis:detective"
-- description: "Investigate [brief summary]"
-- prompt: [Detailed investigation instructions]
+task(subagent_type="macro-analyzer", task_description="...")
+task(subagent_type="micro-analyzer", task_description="...")
 ```
 
-**Prompt structure for codebase-detective**:
+### macro-analyzer (Macro Analysis Agent)
 
-```markdown
-# Code Investigation Task
+**When to Use**:
+- "Which node is the problem"
+- "Where is packet loss on the path"
+- "How large is the fault scope"
+- Need to view topology relationships
+- End-to-end connectivity issues
+- Multi-device failures
+- Routing path analysis
+- BGP/OSPF neighbor problems
 
-## Investigation Target
-[What needs to be investigated - be specific]
+**Delegation Method**:
+```
+task(subagent_type="macro-analyzer",
+     task_description="Analyze the path from R1 to R3, locate which node causes packet loss. Please:
+     1. Execute traceroute to trace the path
+     2. Check BGP/OSPF neighbor status
+     3. Determine fault domain and impact scope
+     Return: Fault node location, impact scope description")
+```
 
-## Context
-- Working Directory: [current working directory]
-- Purpose: [debugging/learning/refactoring/etc]
-- User's Question: [original user question]
+**Subagent Capabilities**:
+- Network topology analysis (LLDP/CDP/BGP)
+- Data path tracing (traceroute, routing table)
+- End-to-end connectivity checks
+- Fault domain identification
 
-## Investigation Steps
+### micro-analyzer (Micro Analysis Agent)
 
-1. **Initial Search** (CLAUDEMEM REQUIRED):
-   - FIRST: Check `claudemem status` - is index available?
-   - ALWAYS: Use `claudemem search "semantic query"` for investigation
-   - NEVER: Use grep/glob for semantic understanding tasks
-   - Search for: [concepts, functionality, patterns by meaning]
+**When to Use**:
+- "Why is this port not working"
+- "Interface has errors"
+- Need to troubleshoot specific device layer-by-layer
+- Single port failure
+- High interface error counts
+- VLAN issues
+- ARP/MAC problems
 
-2. **Code Location**:
-   - Find exact file paths and line numbers
-   - Identify entry points and main implementations
-   - Note related files and dependencies
+**Delegation Method**:
+```
+task(subagent_type="micro-analyzer",
+     task_description="Perform TCP/IP layer-by-layer troubleshooting for R1's Gi0/1:
+     1. Physical layer: Check interface status, CRC errors, optical power
+     2. Data link layer: Check VLAN, MAC table, STP
+     3. Network layer: Check IP configuration, routing, ARP
+     Analyze layer by layer and return results for each layer")
+```
 
-3. **Code Flow Analysis**:
-   - Trace how data/control flows through the code
-   - Identify key functions and their roles
-   - Map out component/service relationships
+**Subagent Capabilities**:
+- TCP/IP layer-by-layer troubleshooting (physical to application layer)
+- Deep device diagnostics
+- Interface-level problem identification
+- Configuration checks and validation
 
-4. **Pattern Recognition**:
-   - Identify architectural patterns used
-   - Note code conventions and styles
-   - Find similar implementations for reference
+### Combined Usage Strategy (Recommended)
 
-## Deliverables
+**Two-Stage Analysis Method**:
+1. **Stage 1: Delegate macro-analyzer**
+   - Goal: Determine fault domain
+   - Output: Problem device/interface list
 
-Provide a comprehensive report including:
+2. **Stage 2: Delegate micro-analyzer**
+   - Goal: Locate specific root cause
+   - Output: Layer-by-layer check results
 
-1. **📍 Primary Locations**:
-   - Main implementation files with line numbers
-   - Entry points and key functions
-   - Configuration and setup files
+**Example**:
+```
+# User: "R1 to R3 network is slow"
 
-2. **🔍 Code Flow**:
-   - Step-by-step flow explanation
-   - How components interact
-   - Data transformation points
+# Agent Response:
+# 1. Use macro analysis to locate problem
+task("macro-analyzer", "Check R1-R3 path, find which node is slow")
 
-3. **🗺️ Architecture Map**:
-   - High-level structure diagram
-   - Component relationships
-   - Dependency graph
+# 2. Based on macro analysis, use micro analysis to dig deeper
+task("micro-analyzer", "Perform TCP/IP layer-by-layer troubleshooting on [R2], find why network is slow")
 
-4. **📝 Code Snippets**:
-   - Key implementations (show important code)
-   - Patterns and conventions used
-   - Notable details or gotchas
+# 3. Synthesize subagent results and generate report
+```
 
-5. **🚀 Navigation Guide**:
-   - How to explore the code further
-   - Related files to examine
-   - Commands to run for testing
+## TCP/IP Layer-by-Layer Troubleshooting Framework (Micro)
 
-6. **💡 Insights**:
-   - Why the code is structured this way
-   - Potential issues or improvements
-   - Best practices observed
-
-## Search Strategy
-
-### ⚠️ CRITICAL: Tool Selection
-
-**BEFORE ANY SEARCH, CHECK CLAUDEMEM STATUS:**
+### 1. Physical Layer
+**Symptoms**: Complete communication failure, link down
+**Check**:
 ```bash
-claudemem status
+show interfaces status          # Port status
+show interfaces transceiver     # Optical module info
+show interfaces counters errors # Error counts
 ```
+**Common Issues**: Optical module failure, high optical power loss, cable damage, CRC errors
 
-### ✅ PRIMARY METHOD: claudemem (Indexed Memory)
-
+### 2. Data Link Layer
+**Symptoms**: Link up but cannot ping
+**Check**:
 ```bash
-# Index if needed
-claudemem index -y
-
-# Semantic search (ALWAYS use this for investigation)
-claudemem search "authentication login session" -n 15
-claudemem search "API endpoint handler route" -n 20
-claudemem search "data transformation pipeline" -n 10
+show vlan brief                 # VLAN status
+show mac address-table          # MAC table
+show spanning-tree              # STP status
+show lldp neighbors             # Neighbor discovery
 ```
+**Common Issues**: VLAN mismatch, STP blocked, MAC not learned
 
-**Why claudemem is REQUIRED for investigation:**
-- Understands code MEANING, not just text patterns
-- Finds related code even with different terminology
-- Returns ranked, relevant results
-- AST-aware (understands code structure)
-
-### ❌ WHEN NOT TO USE GREP
-
-| User Request | ❌ DON'T | ✅ DO |
-|-------------|----------|-------|
-| "How does auth work?" | `grep -r "auth" src/` | `claudemem search "authentication flow"` |
-| "Find API endpoints" | `grep -r "router" src/` | `claudemem search "API endpoint handler"` |
-| "Trace data flow" | `grep -r "transform" src/` | `claudemem search "data transformation"` |
-| "Audit architecture" | `ls -la src/` | `claudemem search "architecture layers"` |
-
-### ⚠️ DEGRADED FALLBACK (Only if claudemem unavailable)
-
-**Only use grep/find if:**
-1. claudemem is NOT installed, AND
-2. User explicitly accepts degraded mode
-
+### 3. Network Layer
+**Symptoms**: Cannot communicate across subnets
+**Check**:
 ```bash
-# DEGRADED MODE - inferior results expected
-grep -r "pattern" src/  # Text match only, no semantic understanding
-find . -name "*.ts"     # File discovery only
+show ip interface brief         # IP status
+show ip route                   # Routing table
+show arp                        # ARP table
+show ip ospf neighbor           # OSPF neighbors
+show ip bgp summary             # BGP neighbors
 ```
+**Common Issues**: Missing route, ARP unresolved, routing protocol not established
 
-**Always warn user**: "Using grep fallback - results will be less accurate than semantic search."
+### 4. Transport Layer
+**Symptoms**: Some applications not working
+**Check**:
+```bash
+show access-lists               # ACL rules
+show ip nat translations        # NAT table
+show control-plane              # CoPP configuration
+```
+**Common Issues**: ACL blocking, NAT misconfiguration, port filtering
+
+### 5. Application Layer
+**Symptoms**: Specific application failure
+**Check**:
+```bash
+show ip dns server              # DNS configuration
+show running-config | include service # Application services
+```
+**Common Issues**: DNS resolution failure, service not enabled
+
+## Typical Fault Scenarios
+
+### Scenario 1: Slow Network
+1. macro-analyzer: traceroute to locate slow node
+2. micro-analyzer: Check node interface errors, CPU, queues
+
+### Scenario 2: Cannot Access Server
+1. macro-analyzer: Check end-to-end path
+2. micro-analyzer: Start from server and troubleshoot toward source
+
+### Scenario 3: Route Flapping
+1. macro-analyzer: Check all BGP/OSPF neighbors
+2. micro-analyzer: Check problem neighbor's interface and route configuration
+
+### Scenario 4: Broadcast Storm
+1. macro-analyzer: Determine storm scope
+2. micro-analyzer: Find loop port, check STP
 
 ## Output Format
+Use structured report:
+```
+## 故障分析报告
 
-Structure your findings clearly with:
-- File paths using backticks: `src/auth/login.ts:45`
-- Code blocks for snippets
-- Clear headings and sections
-- Actionable next steps
+### 问题概述
+用户反映: 从上海到北京专线不稳定
+
+### 宏观分析 (macro-analyzer)
+1. 路径: 上海路由器 → 出口 → 运营商 → 北京入口
+2. 故障点: 上海路由器 Gi0/1 接口错误率高
+3. 影响范围: 所有经该接口的流量
+
+### 微观分析 (micro-analyzer)
+1. 物理层: 接口up，CRC错误增长中
+2. 数据链路层: 正常
+3. 网络层: 正常
+4. **根因**: 光模块老化，接收功率偏低
+
+### 建议
+1. 更换上海路由器 Gi0/1 光模块
+2. 临时方案: 降低接口速率至1G
 ```
 
-### Phase 3: Present Analysis Results
+## 学习行为
+成功解决后，将案例保存到 knowledge/solutions/:
+```markdown
+# 案例: [问题标题]
 
-After the agent completes, present results to the user:
+## 问题描述
+[用户描述]
 
-1. **Executive Summary** (2-3 sentences):
-   - What was found
-   - Where it's located
-   - Key insight
+## 排查过程
+1. [第一步]
+2. [第二步]
+...
 
-2. **Detailed Findings**:
-   - Primary file locations with line numbers
-   - Code flow explanation
-   - Architecture overview
+## 根因
+[根本原因]
 
-3. **Visual Structure** (if complex):
-   ```
-   EntryPoint (file:line)
-     ├── Validator (file:line)
-     ├── BusinessLogic (file:line)
-     │   └── DataAccess (file:line)
-     └── ResponseHandler (file:line)
-   ```
+## 解决方案
+[解决方法]
 
-4. **Code Examples**:
-   - Show key code snippets inline
-   - Highlight important patterns
+## 关键命令
+- command1
+- command2
 
-5. **Next Steps**:
-   - Suggest follow-up investigations
-   - Offer to dive deeper into specific parts
-   - Provide commands to test/run the code
-
-### Phase 4: Offer Follow-up
-
-Ask the user:
-- "Would you like me to investigate any specific part in more detail?"
-- "Do you want to see how [related feature] works?"
-- "Should I trace [specific function] further?"
-
-## Example Scenarios
-
-### Example 1: Understanding Authentication
-
+## 标签
+#标签1 #标签2
 ```
-User: "How does login work in this app?"
-
-Skill invokes codebase-detective agent with:
-"Investigate user authentication and login flow:
-1. Find login API endpoint or form handler
-2. Trace authentication logic
-3. Identify token generation/storage
-4. Find session management
-5. Locate authentication middleware"
-
-Agent provides:
-- src/api/auth/login.ts:34-78 (login endpoint)
-- src/services/authService.ts:12-45 (JWT generation)
-- src/middleware/authMiddleware.ts:23 (token validation)
-- Flow: Form → API → Service → Middleware → Protected Routes
-```
-
-### Example 2: Debugging Undefined Error
-
-```
-User: "The dashboard shows 'undefined' for user name"
-
-Skill invokes codebase-detective agent with:
-"Debug undefined user name in dashboard:
-1. Find Dashboard component
-2. Locate where user name is rendered
-3. Trace user data fetching
-4. Check data transformation/mapping
-5. Identify where undefined is introduced"
-
-Agent provides:
-- src/components/Dashboard.tsx:156 renders user.name
-- src/hooks/useUser.ts:45 fetches user data
-- Issue: API returns 'full_name' but code expects 'name'
-- Fix: Map 'full_name' to 'name' in useUser hook
-```
-
-### Example 3: Finding All API Calls
-
-```
-User: "Where are all the API calls made?"
-
-Skill invokes codebase-detective agent with:
-"Find all API call locations:
-1. Search for fetch, axios, http client usage
-2. Identify API client/service files
-3. List all endpoints used
-4. Note patterns (REST, GraphQL, etc)
-5. Find error handling approach"
-
-Agent provides:
-- 23 API calls across 8 files
-- Centralized in src/services/*
-- Using axios with interceptors
-- Base URL in src/config/api.ts
-- Error handling in src/utils/errorHandler.ts
-```
-
-## Success Criteria
-
-The Skill is successful when:
-
-1. ✅ User's question is comprehensively answered
-2. ✅ Exact code locations provided with line numbers
-3. ✅ Code relationships and flow clearly explained
-4. ✅ User can navigate to code and understand it
-5. ✅ Architecture patterns identified and explained
-6. ✅ Follow-up questions anticipated
-
-## Tips for Optimal Results
-
-1. **Be Comprehensive**: Don't just find one file, map the entire flow
-2. **Provide Context**: Explain why code is structured this way
-3. **Show Examples**: Include actual code snippets
-4. **Think Holistically**: Connect related pieces across files
-5. **Anticipate Questions**: Answer follow-up questions proactively
-
-## Integration with Other Tools
-
-This Skill works well with:
-
-- **claudemem CLI**: For local semantic code search with Tree-sitter parsing
-- **MCP gopls**: For Go-specific analysis
-- **Standard CLI tools**: grep, ripgrep, find, git
-- **Project-specific tools**: Use project's search/navigation tools
-
-## Notes
-
-- The codebase-detective agent uses extended thinking for complex analysis
-- **claudemem is REQUIRED** - grep/find produce inferior results
-- Fallback to grep ONLY if claudemem unavailable AND user accepts degraded mode
-- claudemem requires OpenRouter API key (https://openrouter.ai)
-- Default model: `voyage/voyage-code-3` (best code understanding)
-- Run `claudemem --models` to see all options and pricing
-- Results are actionable and navigable
-- Great for onboarding to new codebases
-- Helps prevent incorrect assumptions about code
-
-## Tool Selection Quick Reference
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ BEFORE ANY CODE INVESTIGATION:                                       │
-│                                                                      │
-│ 1. INVOKE code-search-selector skill                                │
-│ 2. Run: claudemem status                                            │
-│ 3. If indexed → USE claudemem search                                │
-│ 4. If not indexed → Index first OR ask user                         │
-│ 5. NEVER default to grep when claudemem available                   │
-│ 6. NEVER start with Read/Glob for semantic questions                │
-│                                                                      │
-│ grep is for EXACT STRING MATCHES only, NOT semantic understanding   │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-**Maintained by:** MadAppGang
-**Plugin:** code-analysis v2.2.0
-**Last Updated:** December 2025

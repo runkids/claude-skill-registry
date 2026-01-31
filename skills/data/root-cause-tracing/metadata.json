@@ -1,7 +1,7 @@
 {
   "name": "root-cause-tracing",
-  "repo": "kienhaminh/speed-reader",
-  "path": ".claude/skills/debugging/root-cause-tracing/SKILL.md",
-  "source": "github.com/kienhaminh/speed-reader",
-  "downloaded_at": "2026-01-30T04:40:07.991839Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/root-cause-tracing/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-31T04:47:12.479351Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "readiness-check",
-  "description": "Pre-run safety gate that evaluates readiness and recommends proceed/modify/skip decisions. Use before scheduled workouts to assess recovery status, injury signals, and training load based on sleep, so",
   "repo": "nadavyigal/Running-coach-",
-  "category": "data",
-  "tags": [
-    "readiness",
-    "check"
-  ],
-  "stars": 1,
-  "dir_name": "readiness-check",
-  "github_path": ".claude/skills/readiness-check",
-  "github_branch": "main"
+  "path": ".claude/skills/readiness-check/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:40.681557Z"
 }

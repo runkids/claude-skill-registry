@@ -1,7 +1,7 @@
 {
   "name": "openapi-spec-generation",
-  "repo": "ma1orek/replay",
-  "path": "skills/openapi-spec-generation/SKILL.md",
-  "source": "github.com/ma1orek/replay",
-  "downloaded_at": "2026-01-30T04:00:29.701261Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/documentation/skills/openapi-spec-generation/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-01-31T03:32:09.794442Z"
 }

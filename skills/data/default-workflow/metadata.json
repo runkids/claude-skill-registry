@@ -1,7 +1,7 @@
 {
   "name": "default-workflow",
-  "repo": "rysweet/azlin",
-  "path": ".claude/skills/default-workflow/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-30T04:31:36.874207Z"
+  "repo": "rysweet/amplihack",
+  "path": "docs/claude/skills/default-workflow/SKILL.md",
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-01-31T04:25:08.994607Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "sast-configuration",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/security-scanning/skills/sast-configuration/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:39.745616Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/security-scanning/skills/sast-configuration/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-31T03:36:50.465278Z"
 }

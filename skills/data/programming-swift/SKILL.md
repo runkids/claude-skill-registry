@@ -1,11 +1,11 @@
 ---
 name: programming-swift
-description: Provides the complete content of 'The Swift Programming Language (6.2.3)' book by Apple. Use this skill when you need to verify Swift syntax, look up language features, understand concurrency, resolve compiler errors, or consult the formal language reference.
+description: Provides the complete content of 'The Swift Programming Language (6.2.1)' book by Apple. Use this skill when you need to verify Swift syntax, look up language features, understand concurrency, resolve compiler errors, or consult the formal language reference.
 ---
 
 # The Swift Programming Language
 
-The entire content of The Swift Programming Language (6.2.3) book by Apple. This is a comprehensive language reference and guide to the Swift programming language.
+The entire content of The Swift Programming Language (6.2.1) book by Apple. This is a comprehensive language reference and guide to the Swift programming language.
 
 ## Documentation Structure
 
@@ -58,6 +58,7 @@ The entire content of The Swift Programming Language (6.2.3) book by Apple. This
 - **Attributes** ([ReferenceManual/Attributes.md](ReferenceManual/Attributes.md)): Add information to declarations and types.
 - **Patterns** ([ReferenceManual/Patterns.md](ReferenceManual/Patterns.md)): Match and destructure values.
 - **Generic Parameters and Arguments** ([ReferenceManual/GenericParametersAndArguments.md](ReferenceManual/GenericParametersAndArguments.md)): Generalize declarations to abstract away concrete types.
+- **Summary of the Grammar** ([ReferenceManual/SummaryOfTheGrammar.md](ReferenceManual/SummaryOfTheGrammar.md)): Read the whole formal grammar.
 
 ## Usage Notes
 

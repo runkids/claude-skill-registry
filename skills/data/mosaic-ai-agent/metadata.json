@@ -1,14 +1,7 @@
 {
   "name": "mosaic-ai-agent",
-  "description": "Expert guidance for building production-ready tool-calling agents with Databricks Mosaic AI Agent Framework. Use when users need to create agents that orchestrate multiple data sources or APIs, implem",
   "repo": "juanlamadrid20/dbrx-multi-agent-retail-intelligence",
-  "category": "data",
-  "tags": [
-    "mosaic",
-    "agent"
-  ],
-  "stars": 0,
-  "dir_name": "mosaic-ai-agent",
-  "github_path": ".claude/skills/mosaic-ai-agent",
-  "github_branch": "main"
+  "path": ".claude/skills/mosaic-ai-agent/SKILL.md",
+  "source": "github.com/juanlamadrid20/dbrx-multi-agent-retail-intelligence",
+  "downloaded_at": "2026-01-31T03:27:04.472158Z"
 }

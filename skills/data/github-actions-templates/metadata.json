@@ -1,7 +1,7 @@
 {
   "name": "github-actions-templates",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/cicd-automation/skills/github-actions-templates/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:41.787869Z"
+  "repo": "haxllo/repolens",
+  "path": ".gemini/skills/github-actions-templates/SKILL.md",
+  "source": "github.com/haxllo/repolens",
+  "downloaded_at": "2026-01-31T04:21:42.879916Z"
 }

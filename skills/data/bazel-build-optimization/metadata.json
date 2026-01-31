@@ -1,7 +1,7 @@
 {
   "name": "bazel-build-optimization",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/developer-essentials/skills/bazel-build-optimization/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-30T04:16:14.608691Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/developer-essentials/skills/bazel-build-optimization/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-01-31T03:32:11.526204Z"
 }

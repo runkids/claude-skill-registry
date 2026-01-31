@@ -6,24 +6,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Security & Anti-Exploit
 
-## Quick Reference Links
-
-**Official Documentation:**
-- [Security Best Practices](https://create.roblox.com/docs/security) - Official security guide
-- [Client-Server Model](https://create.roblox.com/docs/projects/client-server) - Architecture security
-- [Remote Events](https://create.roblox.com/docs/scripting/events/remote-events) - Secure communication
-- [Script Capabilities](https://create.roblox.com/docs/studio/script-capabilities) - Permission model
-
-**Wiki References:**
-- [Exploiting (Wiki)](https://roblox.fandom.com/wiki/Exploiting) - Understanding threats
-- [FilteringEnabled (Wiki)](https://roblox.fandom.com/wiki/FilteringEnabled)
-- [Security (Wiki)](https://roblox.fandom.com/wiki/Security)
-
-**DevForum Resources:**
-- [DevForum Security Category](https://devforum.roblox.com/c/resources/community-tutorials/36)
-
----
-
 When implementing security, follow the principle: **Never trust the client**. All important logic must be validated server-side.
 
 ## Core Principles

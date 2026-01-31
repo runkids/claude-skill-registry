@@ -1,7 +1,7 @@
 {
   "name": "device-testing",
-  "repo": "anton-abyzov/specweave",
-  "path": "plugins/specweave-mobile/skills/device-testing/SKILL.md",
-  "source": "github.com/anton-abyzov/specweave",
-  "downloaded_at": "2026-01-30T01:38:42.118633Z"
+  "repo": "EvanBacon/apple-health",
+  "path": ".claude/skills/device-testing/SKILL.md",
+  "source": "github.com/EvanBacon/apple-health",
+  "downloaded_at": "2026-01-31T03:59:28.591335Z"
 }

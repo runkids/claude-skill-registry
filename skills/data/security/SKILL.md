@@ -1,230 +1,87 @@
 ---
-name: security
-description: Security audit workflow - vulnerability scan → verification
+name: NestJS Security
+description: Authentication, RBAC, and Hardening standards.
+metadata:
+  labels: [nestjs, security, auth, jwt]
+  triggers:
+    files: ['**/*.guard.ts', '**/*.strategy.ts', '**/auth/**']
+    keywords: [Passport, JWT, AuthGuard, CSRF, Helmet]
 ---
 
-# /security - Security Audit Workflow
+# NestJS Security Standards
 
-Dedicated security analysis for sensitive code.
+## Authentication
 
-## When to Use
+- **Strategies**: Use `@nestjs/passport` with `passport-jwt`.
+- **JWT Hardening**:
+  - **Algorithm**: Enforce `algorithms: ['RS256']` (preferred) or `['HS256']`. **Reject `none`**.
+  - **Claims**: Validate `iss` (Issuer) and `aud` (Audience).
+  - **Secrets**: High entropy (> 256-bit) for HS256.
+- **State**: Stateless. Short access tokens (15m), Long httponly refresh tokens (7d).
+- **MFA**: Require 2FA for sensitive access (admin panels).
 
-- "Security audit"
-- "Check for vulnerabilities"
-- "Is this secure?"
-- "Review authentication code"
-- "Check for injection attacks"
-- Before handling auth, payments, user data
-- After adding security-sensitive features
+## Authorization (RBAC)
 
-## Workflow Overview
+- **Strategy**: **Deny by default**.
+  - **Implementation**: Bind `AuthGuard` globally (APP_GUARD).
+  - **Bypass**: Create a `@Public()` decorator and allow access if present in the Guard.
+- **Metadata**: Use `Reflector.createDecorator<string[]>()`.
+- **Guards**: Use `Reflector` to merge Method/Class roles (`getAllAndOverride`).
 
-```
-┌─────────┐    ┌───────────┐
-│  aegis  │───▶│ arbiter  │
-│         │    │           │
-└─────────┘    └───────────┘
-  Security       Verify
-  audit          fixes
-```
+## Cryptography & Hashing
 
-## Agent Sequence
+- **Hashing**:
+  - **Algorithm**: Use **Argon2id** (`argon2`) instead of Bcrypt (vulnerable to GPU/FPGA cracking).
+  - **Implementation**: `await argon2.hash(password)`.
+- **Encryption** (At Rest):
+  - **Algorithm**: Use **AES-256-GCM** (Authenticated Encryption).
+  - **Keys**: Never hardcode. Rotate keys using a KMS (Key Management Service).
+  - **Native**: Use Node.js `crypto.createCipheriv`.
 
-| # | Agent | Role | Output |
-|---|-------|------|--------|
-| 1 | **aegis** | Comprehensive security scan | Vulnerability report |
-| 2 | **arbiter** | Verify fixes, run security tests | Verification report |
+## CSRF (Cross-Site Request Forgery)
 
-## Why Dedicated Security?
+- **Context**: Mandatory if using **Cookie-based sessions** or **Cookie-based JWTs**.
+- **Mitigation**:
+  - **Synchronizer Token**: Use `csurf` via `@nest-middlewares/csurf` or similar wrapper.
+  - **State**: Token must be cryptographically strong and verified on every state-changing request (POST/PUT/DELETE).
+- **Note**: If using strictly `Authorization: Bearer` headers (localStorage), CSRF is less critical but `SameSite: Strict` cookies are still recommended for defense-in-depth.
 
-The `/review` workflow focuses on code quality. Security needs:
-- Specialized vulnerability patterns
-- Dependency scanning
-- Secret detection
-- OWASP Top 10 checks
-- Authentication/authorization review
+## Hardening
 
-## Execution
+1. **Helmet**: Mandatory. `app.use(helmet())`.
+   - **HSTS**: Enable `Strict-Transport-Security` with `preload`.
+   - **CSP**: Configure Content Security Policy specifically if serving any UI.
+2. **Permissions-Policy**: Restrict browser permissions via `helmet.permissionsPolicy()`.
+3. **CORS**: Explicit origins only. No `*`.
+4. **Throttling**:
+   - **Distributed**: Do not use in-memory rate limiting in production. Use `@nestjs/throttler` with **Redis storage** (`throttler-storage-redis`) to sync limits across instances.
 
-### Phase 1: Security Audit
+## Audit Logging
 
-```
-Task(
-  subagent_type="aegis",
-  prompt="""
-  Security audit: [SCOPE]
+- **Requirement**: Track critical mutations (Who, What, When).
+- **Pattern**: Implement an `AuditInterceptor` that logs `POST/PUT/DELETE` actions to a secure, immutable log store (separate from app logs).
 
-  Scan for:
+## Secrets & Config
 
-  **Injection Attacks:**
-  - SQL injection
-  - Command injection
-  - XSS (Cross-Site Scripting)
-  - LDAP injection
+- **CI/CD**: Run `npm audit` or `pnpm audit --prod` in pipelines.
+- **Runtime**: Avoid `.env` files in production runtime. Inject secrets via environment variables from a vault (AWS Secret Manager / HashiCorp Vault) into the container environment.
 
-  **Authentication/Authorization:**
-  - Broken authentication
-  - Session management issues
-  - Privilege escalation
-  - Insecure direct object references
+## Data Sanitization
 
-  **Data Protection:**
-  - Sensitive data exposure
-  - Hardcoded secrets/credentials
-  - Insecure cryptography
-  - Missing encryption
+- **Transform**: Use `ClassSerializerInterceptor` + `@Exclude()` globally or per-controller to strip sensitive fields (passwords) from responses.
+- **Validation**: `ValidationPipe({ whitelist: true })` prevents mass assignment attacks by stripping unknown properties from payloads.
 
-  **Configuration:**
-  - Security misconfigurations
-  - Default credentials
-  - Verbose error messages
-  - Missing security headers
+## Improper Assets Management
 
-  **Dependencies:**
-  - Known vulnerable packages
-  - Outdated dependencies
-  - Supply chain risks
+- **Shadow APIs**: Audit routes regularly.
+- **Deprecation**: Disable Swagger/OpenAPI endpoints (`/api`, `/docs`) in **production**.
 
-  Output: Detailed report with:
-  - Severity (CRITICAL/HIGH/MEDIUM/LOW)
-  - Location (file:line)
-  - Description
-  - Remediation steps
-  """
-)
-```
+## Server-Side Request Forgery (SSRF)
 
-### Phase 2: Verification (After Fixes)
+- **Validation**: Validate/Allowlist domains for **all** outgoing HTTP requests (`HttpService`).
+- **Network**: Restrict egress traffic (e.g., block AWS metadata `169.254.169.254`) via infrastructure/firewall.
 
-```
-Task(
-  subagent_type="arbiter",
-  prompt="""
-  Verify security fixes: [SCOPE]
+## Injection Prevention
 
-  Run:
-  - Security-focused tests
-  - Dependency audit (npm audit, pip audit)
-  - Re-check reported vulnerabilities
-  - Verify fixes don't introduce regressions
-
-  Output: Verification report
-  """
-)
-```
-
-## Security Scopes
-
-### Full Codebase
-```
-User: /security
-→ Scan entire codebase
-```
-
-### Specific Area
-```
-User: /security authentication
-→ Focus on auth-related code
-```
-
-### Single File
-```
-User: /security src/api/auth.py
-→ Deep dive on one file
-```
-
-### Dependencies Only
-```
-User: /security --deps
-→ Only dependency vulnerabilities
-```
-
-## Example
-
-```
-User: /security the payment processing code
-
-Claude: Starting /security audit for payment code...
-
-Phase 1: Security audit...
-[Spawns aegis]
-
-┌─────────────────────────────────────────────────────────────┐
-│ Security Audit Report                                       │
-├─────────────────────────────────────────────────────────────┤
-│ Scope: src/services/payment/                                │
-│ Files scanned: 12                                           │
-│ Lines analyzed: 2,847                                       │
-├─────────────────────────────────────────────────────────────┤
-│ CRITICAL (1)                                                │
-│ ──────────                                                  │
-│ [C1] SQL Injection in payment.py:89                         │
-│      query = f"SELECT * FROM orders WHERE id = {order_id}"  │
-│      Fix: Use parameterized queries                         │
-│                                                             │
-│ HIGH (2)                                                    │
-│ ────────                                                    │
-│ [H1] Hardcoded API key in stripe_client.py:12               │
-│      STRIPE_KEY = "sk_live_..."                             │
-│      Fix: Move to environment variable                      │
-│                                                             │
-│ [H2] Missing input validation in refund.py:45               │
-│      amount = request.json['amount']  # No validation       │
-│      Fix: Validate amount is positive number                │
-│                                                             │
-│ MEDIUM (1)                                                  │
-│ ──────────                                                  │
-│ [M1] Verbose error messages in error_handler.py:23          │
-│      return {"error": str(e)}  # Leaks internal details     │
-│      Fix: Return generic message, log details internally    │
-│                                                             │
-│ LOW (0)                                                     │
-│ ───────                                                     │
-│ None                                                        │
-├─────────────────────────────────────────────────────────────┤
-│ Summary: 1 critical, 2 high, 1 medium, 0 low                │
-│ Status: BLOCKING - Fix critical issues before release       │
-└─────────────────────────────────────────────────────────────┘
-
-Fix the critical and high issues, then run:
-/security --verify
-```
-
-### After Fixes
-
-```
-User: /security --verify
-
-Claude: Phase 2: Verifying fixes...
-[Spawns arbiter]
-
-✅ C1: SQL injection fixed - using parameterized queries
-✅ H1: API key moved to environment variable
-✅ H2: Input validation added
-✅ M1: Error messages sanitized
-
-All security tests passing.
-Security audit: PASSED
-```
-
-## OWASP Top 10 Coverage
-
-| Risk | Checked |
-|------|---------|
-| A01 Broken Access Control | ✅ |
-| A02 Cryptographic Failures | ✅ |
-| A03 Injection | ✅ |
-| A04 Insecure Design | ✅ |
-| A05 Security Misconfiguration | ✅ |
-| A06 Vulnerable Components | ✅ |
-| A07 Auth Failures | ✅ |
-| A08 Data Integrity Failures | ✅ |
-| A09 Logging Failures | ✅ |
-| A10 SSRF | ✅ |
-
-## Flags
-
-- `--deps`: Dependencies only
-- `--verify`: Re-run after fixes
-- `--owasp`: Explicit OWASP Top 10 report
-- `--secrets`: Focus on secret detection
+- **SQLi**: Prefer ORM/ODM methods. **Avoid raw queries** (`query()`) with string concatenation. Use parameterized queries if raw SQL is strictly necessary.
+- **XSS**: Input validation is not enough. Sanitize HTML input (e.g., `dompurify`) before storage or output.

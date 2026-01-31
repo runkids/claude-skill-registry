@@ -1,7 +1,7 @@
 {
   "name": "sarif-parsing",
-  "repo": "trailofbits/skills",
-  "path": "plugins/static-analysis/skills/sarif-parsing/SKILL.md",
-  "source": "github.com/trailofbits/skills",
-  "downloaded_at": "2026-01-30T04:22:32.061300Z"
+  "repo": "jakubciszak/family-plan",
+  "path": ".claude/skills/external/static-analysis/skills/sarif-parsing/SKILL.md",
+  "source": "github.com/jakubciszak/family-plan",
+  "downloaded_at": "2026-01-31T04:03:50.619020Z"
 }

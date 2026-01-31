@@ -1,7 +1,7 @@
 {
   "name": "docx-official",
-  "repo": "Nguyenthang2292/Sovereign-IQ",
-  "path": ".claude/skills/docx-official/SKILL.md",
-  "source": "github.com/Nguyenthang2292/Sovereign-IQ",
-  "downloaded_at": "2026-01-30T04:19:29.693364Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/docx-official/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:01.287622Z"
 }

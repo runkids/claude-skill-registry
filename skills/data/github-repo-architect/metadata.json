@@ -1,9 +1,7 @@
 {
   "name": "github-repo-architect",
-  "description": "Repository structure optimization and multi-repo management with swarm coordination for scalable project architecture and development workflows. Use for structure analysis, template management, cross-",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/development/github/github-repo-architect/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-31T03:09:30.124646Z"
 }

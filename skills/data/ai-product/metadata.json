@@ -1,7 +1,7 @@
 {
   "name": "ai-product",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/ai-product/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:24.048524Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/ai-product/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-31T02:35:49.436368Z"
 }

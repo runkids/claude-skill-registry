@@ -1,7 +1,7 @@
 {
   "name": "web-research",
-  "repo": "pollinations/pollinations",
-  "path": ".claude/skills/web-research/SKILL.md",
-  "source": "github.com/pollinations/pollinations",
-  "downloaded_at": "2026-01-30T03:35:07.638607Z"
+  "repo": "DougTrajano/pydantic-ai-skills",
+  "path": "examples/skills/web-research/SKILL.md",
+  "source": "github.com/DougTrajano/pydantic-ai-skills",
+  "downloaded_at": "2026-01-31T04:18:45.314999Z"
 }

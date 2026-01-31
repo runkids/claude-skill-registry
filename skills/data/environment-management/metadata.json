@@ -1,7 +1,7 @@
 {
   "name": "environment-management",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/environment-management/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:09.216569Z"
+  "repo": "fluxlabs/project-autopilot",
+  "path": "skills/environment-management/SKILL.md",
+  "source": "github.com/fluxlabs/project-autopilot",
+  "downloaded_at": "2026-01-31T01:42:01.969777Z"
 }

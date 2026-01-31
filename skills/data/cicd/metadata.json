@@ -1,7 +1,7 @@
 {
   "name": "cicd",
-  "repo": "tidemann/st44-home",
-  "path": ".claude/skills/cicd/SKILL.md",
-  "source": "github.com/tidemann/st44-home",
-  "downloaded_at": "2026-01-30T02:56:15.145315Z"
+  "repo": "ngxtm/devkit",
+  "path": "rules/flutter/cicd/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-31T04:37:23.444635Z"
 }

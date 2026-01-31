@@ -1,7 +1,7 @@
 {
   "name": "github-workflow-automation",
-  "repo": "proffesor-for-testing/agentic-qe",
+  "repo": "zellycloud/zyflow",
   "path": ".claude/skills/github-workflow-automation/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-30T04:32:42.274900Z"
+  "source": "github.com/zellycloud/zyflow",
+  "downloaded_at": "2026-01-31T04:44:50.731838Z"
 }

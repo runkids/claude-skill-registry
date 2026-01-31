@@ -1,7 +1,7 @@
 {
   "name": "mcp-builder",
-  "repo": "Blurjp/ImagePrepMCP",
-  "path": ".claude/skills/mcp-builder/SKILL.md",
-  "source": "github.com/Blurjp/ImagePrepMCP",
-  "downloaded_at": "2026-01-30T04:45:23.967442Z"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/mcp-builder/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-31T04:48:56.060787Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "api-route",
-  "description": "Create Next.js 16 API Route Handlers. Use when building REST endpoints (GET, POST, PUT, DELETE), implementing CRUD operations, or creating authenticated APIs with Zod validation.",
-  "repo": "xmark168/VibeSDLC",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "tadams95/kardashev-network",
+  "path": ".claude/skills/api-route/SKILL.md",
+  "source": "github.com/tadams95/kardashev-network",
+  "downloaded_at": "2026-01-31T02:48:31.274127Z"
 }

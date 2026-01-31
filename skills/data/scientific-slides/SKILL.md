@@ -1,6 +1,6 @@
 ---
 name: scientific-slides
-description: "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific talk. Provides slide structure, design templates, timing guidance, and visual validation. Works with PowerPoint and LaTeX Beamer."
+description: "使用 Nano Banana Pro AI 构建科研报告和演示幻灯片。可生成高质量、视觉效果出色的 PDF 演示文稿，包含 AI 生成的幻灯片内容。适用于会议报告、学术研讨会报告、论文答辩幻灯片或各类科学演讲。提供幻灯片结构设计、版式与设计指导、时间安排建议以及视觉效果校验。"
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 
@@ -31,6 +31,239 @@ This skill should be used when:
 - Preparing journal club presentations
 - Giving research talks at institutions or companies
 - Teaching or tutorial presentations on scientific topics
+
+## Slide Generation with Nano Banana Pro
+
+**This skill uses Nano Banana Pro AI to generate stunning presentation slides automatically.**
+
+### Workflow: PDF Slides
+
+Generate each slide as a complete image using Nano Banana Pro, then combine into a PDF. This produces the most visually stunning results.
+
+**How it works:**
+1. **Plan the deck**: Create a detailed plan for each slide (title, key points, visual elements)
+2. **Generate slides**: Call Nano Banana Pro for each slide to create complete slide images
+3. **Combine to PDF**: Assemble slide images into a single PDF presentation
+
+**Step 1: Plan Each Slide**
+
+Before generating, create a detailed plan for your presentation:
+
+```markdown
+# Presentation Plan: Introduction to Machine Learning
+
+## Slide 1: Title Slide
+- Title: "Machine Learning: From Theory to Practice"
+- Subtitle: "AI Conference 2025"
+- Speaker: Dr. Jane Smith, University of XYZ
+- Visual: Modern abstract neural network background
+
+## Slide 2: Introduction
+- Title: "Why Machine Learning Matters"
+- Key points: Industry adoption, breakthrough applications, future potential
+- Visual: Icons showing different ML applications (healthcare, finance, robotics)
+
+## Slide 3: Core Concepts
+- Title: "The Three Types of Learning"
+- Content: Supervised, Unsupervised, Reinforcement
+- Visual: Three-part diagram showing each type with examples
+
+... (continue for all slides)
+```
+
+**Step 2: Generate Each Slide**
+
+Use the `generate_slide_image.py` script to create each slide.
+
+**CRITICAL: Formatting Consistency Protocol**
+
+To ensure unified formatting across all slides in a presentation:
+
+1. **Define a Formatting Goal** at the start of your presentation and include it in EVERY prompt:
+   - Color scheme (e.g., "dark blue background, white text, gold accents")
+   - Typography style (e.g., "bold sans-serif titles, clean body text")
+   - Visual style (e.g., "minimal, professional, corporate aesthetic")
+   - Layout approach (e.g., "generous white space, left-aligned content")
+
+2. **Always attach the previous slide** when generating subsequent slides using `--attach`:
+   - This allows Nano Banana Pro to see and match the existing style
+   - Creates visual continuity throughout the deck
+   - Ensures consistent colors, fonts, and design language
+
+3. **Default author is "K-Dense"** unless another name is specified
+
+4. **Include citations directly in the prompt** for slides that reference research:
+   - Add citations in the prompt text so they appear on the generated slide
+   - Use format: "Include citation: (Author et al., Year)" or "Show reference: Author et al., Year"
+   - For multiple citations, list them all in the prompt
+   - Citations should appear in small text at the bottom of the slide or near relevant content
+
+5. **Attach existing figures/data for results slides** (CRITICAL for data-driven presentations):
+   - When creating slides about results, ALWAYS check for existing figures in:
+     - The working directory (e.g., `figures/`, `results/`, `plots/`, `images/`)
+     - User-provided input files or directories
+     - Any data visualizations, charts, or graphs relevant to the presentation
+   - Use `--attach` to include these figures so Nano Banana Pro can incorporate them:
+     - Attach the actual data figure/chart for results slides
+     - Attach relevant diagrams for methodology slides
+     - Attach logos or institutional images for title slides
+   - When attaching data figures, describe what you want in the prompt:
+     - "Create a slide presenting the attached results chart with key findings highlighted"
+     - "Build a slide around this attached figure, add title and bullet points explaining the data"
+     - "Incorporate the attached graph into a results slide with interpretation"
+   - **Before generating results slides**: List files in the working directory to find relevant figures
+   - Multiple figures can be attached: `--attach fig1.png --attach fig2.png`
+
+**Example with formatting consistency, citations, and figure attachments:**
+
+```bash
+# Title slide (first slide - establishes the style)
+python scripts/generate_slide_image.py "Title slide for presentation: 'Machine Learning: From Theory to Practice'. Subtitle: 'AI Conference 2025'. Speaker: K-Dense. FORMATTING GOAL: Dark blue background (#1a237e), white text, gold accents (#ffc107), minimal design, sans-serif fonts, generous margins, no decorative elements." -o slides/01_title.png
+
+# Content slide with citations (attach previous slide for consistency)
+python scripts/generate_slide_image.py "Presentation slide titled 'Why Machine Learning Matters'. Three key points with simple icons: 1) Industry adoption, 2) Breakthrough applications, 3) Future potential. CITATIONS: Include at bottom in small text: (LeCun et al., 2015; Goodfellow et al., 2016). FORMATTING GOAL: Match attached slide style - dark blue background, white text, gold accents, minimal professional design, no visual clutter." -o slides/02_intro.png --attach slides/01_title.png
+
+# Background slide with multiple citations
+python scripts/generate_slide_image.py "Presentation slide titled 'Deep Learning Revolution'. Key milestones: ImageNet breakthrough (2012), transformer architecture (2017), GPT models (2018-present). CITATIONS: Show references at bottom: (Krizhevsky et al., 2012; Vaswani et al., 2017; Brown et al., 2020). FORMATTING GOAL: Match attached slide style exactly - same colors, fonts, minimal design." -o slides/03_background.png --attach slides/02_intro.png
+
+# RESULTS SLIDE - Attach actual data figure from working directory
+# First, check what figures exist: ls figures/ or ls results/
+python scripts/generate_slide_image.py "Presentation slide titled 'Model Performance Results'. Create a slide presenting the attached accuracy chart. Key findings to highlight: 1) 95% accuracy achieved, 2) Outperforms baseline by 12%, 3) Consistent across test sets. CITATIONS: Include at bottom: (Our results, 2025). FORMATTING GOAL: Match attached slide style exactly." -o slides/04_results.png --attach slides/03_background.png --attach figures/accuracy_chart.png
+
+# RESULTS SLIDE - Multiple figures comparison
+python scripts/generate_slide_image.py "Presentation slide titled 'Before vs After Comparison'. Build a side-by-side comparison slide using the two attached figures. Left: baseline results, Right: our improved results. Add brief labels explaining the improvement. FORMATTING GOAL: Match attached slide style exactly." -o slides/05_comparison.png --attach slides/04_results.png --attach figures/baseline.png --attach figures/improved.png
+
+# METHODOLOGY SLIDE - Attach existing diagram
+python scripts/generate_slide_image.py "Presentation slide titled 'System Architecture'. Present the attached architecture diagram with brief explanatory bullet points: 1) Input processing, 2) Model inference, 3) Output generation. FORMATTING GOAL: Match attached slide style exactly." -o slides/06_architecture.png --attach slides/05_comparison.png --attach diagrams/system_architecture.png
+```
+
+**IMPORTANT: Before creating results slides, always:**
+1. List files in working directory: `ls -la figures/` or `ls -la results/`
+2. Check user-provided directories for relevant figures
+3. Attach ALL relevant figures that should appear on the slide
+4. Describe how Nano Banana Pro should incorporate the attached figures
+
+**Prompt Template:**
+
+Include these elements in every prompt (customize as needed):
+```
+[Slide content description]
+CITATIONS: Include at bottom: (Author1 et al., Year; Author2 et al., Year)
+FORMATTING GOAL: [Background color], [text color], [accent color], minimal professional design, no decorative elements, consistent with attached slide style.
+```
+
+**Step 3: Combine to PDF**
+
+```bash
+# Combine all slides into a PDF presentation
+python scripts/slides_to_pdf.py slides/*.png -o presentation.pdf
+```
+
+---
+
+## Nano Banana Pro Script Reference
+
+### generate_slide_image.py
+
+Generate presentation slides using Nano Banana Pro AI.
+
+```bash
+# Generate a complete slide as image
+python scripts/generate_slide_image.py "slide description" -o output.png
+
+# With reference images attached (Nano Banana Pro will see these)
+python scripts/generate_slide_image.py "Create a slide explaining this chart" -o slide.png --attach chart.png
+python scripts/generate_slide_image.py "Combine these into a comparison slide" -o compare.png --attach before.png --attach after.png
+```
+
+**Options:**
+- `-o, --output`: Output file path (required)
+- `--attach IMAGE`: Attach image file(s) as context for generation (can use multiple times)
+- `--iterations`: Max refinement iterations (default: 2)
+- `--api-key`: OpenRouter API key (or set OPENROUTER_API_KEY env var)
+- `-v, --verbose`: Verbose output
+
+**Attaching Reference Images:**
+
+Use `--attach` when you want Nano Banana Pro to see existing images as context:
+- "Create a slide about this data" + attach the data chart
+- "Make a title slide with this logo" + attach the logo
+- "Combine these figures into one slide" + attach multiple images
+- "Explain this diagram in a slide" + attach the diagram
+
+**Environment Setup:**
+```bash
+export OPENROUTER_API_KEY='your_api_key_here'
+# Get key at: https://openrouter.ai/keys
+```
+
+### slides_to_pdf.py
+
+Combine multiple slide images into a single PDF.
+
+```bash
+# Combine PNG files
+python scripts/slides_to_pdf.py slides/*.png -o presentation.pdf
+
+# Combine specific files in order
+python scripts/slides_to_pdf.py title.png intro.png methods.png -o talk.pdf
+
+# From directory (sorted by filename)
+python scripts/slides_to_pdf.py slides/ -o presentation.pdf
+```
+
+**Options:**
+- `-o, --output`: Output PDF path (required)
+- `--dpi`: PDF resolution (default: 150)
+- `-v, --verbose`: Verbose output
+
+**Tip:** Name slides with numbers for correct ordering: `01_title.png`, `02_intro.png`, etc.
+
+---
+
+## Prompt Writing for Slide Generation
+
+### Slide Prompts
+
+For complete slides, include:
+1. **Slide type**: Title slide, content slide, diagram slide, etc.
+2. **Title**: The slide title text
+3. **Content**: Key points, bullet items, or descriptions
+4. **Visual elements**: What imagery, icons, or graphics to include
+5. **Design style**: Color scheme, mood, aesthetic
+
+**Example prompts:**
+
+```
+Title slide:
+"Title slide for a medical research presentation. Title: 'Advances in Cancer Immunotherapy'. Subtitle: 'Clinical Trial Results 2024'. Professional medical theme with subtle DNA helix in background. Navy blue and white color scheme."
+
+Content slide:
+"Presentation slide titled 'Key Findings'. Three bullet points: 1) 40% improvement in response rate, 2) Reduced side effects, 3) Extended survival outcomes. Include relevant medical icons. Clean, professional design with green and white colors."
+
+Diagram slide:
+"Presentation slide showing the research methodology. Title: 'Study Design'. Flowchart showing: Patient Screening → Randomization → Treatment Groups (A, B, Control) → Follow-up → Analysis. CONSORT-style flow diagram. Professional academic style."
+```
+
+---
+
+## Visual Enhancement with Scientific Schematics
+
+In addition to slide generation, use the **scientific-schematics** skill for technical diagrams:
+
+**When to use scientific-schematics instead:**
+- Complex technical diagrams (circuit diagrams, chemical structures)
+- Publication-quality figures for papers (higher quality threshold)
+- Diagrams requiring scientific accuracy review
+
+**How to generate schematics:**
+```bash
+python scripts/generate_schematic.py "your diagram description" -o figures/output.png
+```
+
+For detailed guidance on creating schematics, refer to the scientific-schematics skill documentation.
+
+---
 
 ## Core Capabilities
 
@@ -179,71 +412,19 @@ Different presentation contexts require different approaches. For comprehensive 
 - Style: Educational, critical, discussion-facilitating
 - Goal: Learn, critique, discuss implications
 
-### 5. Implementation Options
-
-#### PowerPoint via PPTX Skill
-
-**Best for**: Custom designs, data visualizations, template-based workflows
-
-**Reference**: See `document-skills/pptx/SKILL.md` for complete documentation
-
-**Key Resources**:
-- `assets/powerpoint_design_guide.md`: Complete PowerPoint design guide
-- PPTX skill's `html2pptx.md`: Programmatic creation workflow
-- PPTX skill's scripts: `rearrange.py`, `inventory.py`, `replace.py`, `thumbnail.py`
-
-**Workflow**:
-1. Design HTML slides (for programmatic) or use templates
-2. Create presentation using html2pptx or template editing
-3. Add scientific content (figures, tables, equations)
-4. Generate thumbnails for visual validation
-5. Iterate based on visual inspection
-
-#### LaTeX Beamer
-
-**Best for**: Mathematical content, consistent formatting, version control
-
-**Reference**: See `references/beamer_guide.md` for complete documentation
-
-**Templates Available**:
-- `assets/beamer_template_conference.tex`: 15-minute conference talk
-- `assets/beamer_template_seminar.tex`: 45-minute academic seminar
-- `assets/beamer_template_defense.tex`: Dissertation defense
-
-**Workflow**:
-1. Choose appropriate template
-2. Customize theme and colors
-3. Add content (LaTeX native: equations, code, algorithms)
-4. Compile to PDF
-5. Convert to images for visual validation
-
-**Advantages**:
-- Beautiful mathematics and equations
-- Consistent, professional appearance
-- Version control friendly (plain text)
-- Excellent for algorithms and code
-- Reproducible and programmatic
-
-### 6. Visual Review and Iteration
+### 5. Visual Review and Iteration
 
 Implement iterative improvement through visual inspection. For complete workflow, refer to `references/visual_review_workflow.md`.
 
 **Visual Validation Workflow**:
 
-**Step 1: Generate PDF** (if not already PDF)
-- PowerPoint: Export as PDF
-- Beamer: Compile LaTeX source
-
-**Step 2: Convert to Images**
+**Step 1: Convert PDF to Images**
 ```bash
 # Using the pdf_to_images script
 python scripts/pdf_to_images.py presentation.pdf review/slide --dpi 150
-
-# Or use pptx skill's thumbnail tool
-python ../document-skills/pptx/scripts/thumbnail.py presentation.pptx review/thumb
 ```
 
-**Step 3: Systematic Inspection**
+**Step 2: Systematic Inspection**
 
 Check each slide for:
 - **Text overflow**: Text cut off at edges
@@ -253,7 +434,7 @@ Check each slide for:
 - **Layout issues**: Misalignment, poor spacing
 - **Visual quality**: Pixelated images, poor rendering
 
-**Step 4: Document Issues**
+**Step 3: Document Issues**
 
 Create issue log:
 ```
@@ -264,15 +445,13 @@ Slide # | Issue Type | Description | Priority
 12      | Font size | Axis labels too small | Medium
 ```
 
-**Step 5: Apply Fixes**
+**Step 4: Regenerate Problem Slides**
 
-Make corrections to source files:
-- PowerPoint: Edit text boxes, resize elements
-- Beamer: Adjust LaTeX code, recompile
+Regenerate any slides that have issues with improved prompts, then re-combine to PDF.
 
-**Step 6: Re-Validate**
+**Step 5: Re-Validate**
 
-Repeat Steps 1-5 until no critical issues remain.
+Repeat Steps 1-4 until no critical issues remain.
 
 **Stopping Criteria**:
 - No text overflow
@@ -281,7 +460,7 @@ Repeat Steps 1-5 until no critical issues remain.
 - Adequate contrast (≥4.5:1)
 - Professional appearance
 
-### 7. Timing and Pacing
+### 6. Timing and Pacing
 
 Ensure presentations fit allocated time. For comprehensive timing guidance, refer to `assets/timing_guidelines.md`.
 
@@ -315,7 +494,7 @@ For 15-minute talk:
 - Running ahead: Expand examples, slow slightly
 - Never skip conclusions
 
-### 8. Validation and Quality Assurance
+### 7. Validation and Quality Assurance
 
 **Automated Validation**:
 ```bash
@@ -326,8 +505,6 @@ python scripts/validate_presentation.py presentation.pdf --duration 15
 # - Slide count vs. recommended range
 # - File size warnings
 # - Slide dimensions
-# - Font size issues (PowerPoint)
-# - Compilation success (Beamer)
 ```
 
 **Manual Validation Checklist**:
@@ -391,33 +568,16 @@ and discussion (slides 13-14) BEFORE creating slides.
 
 ### Stage 2: Design and Creation
 
-**Choose Implementation Method**:
-
-**Option A: PowerPoint (via PPTX skill)**
-1. Read `assets/powerpoint_design_guide.md`
-2. Read `document-skills/pptx/SKILL.md`
-3. Choose approach (programmatic or template-based)
-4. Create master slides with consistent design
-5. Build presentation following outline
-
-**Option B: LaTeX Beamer**
-1. Read `references/beamer_guide.md`
-2. Select appropriate template from `assets/`
-3. Customize theme and colors
-4. Write content in LaTeX
-5. Compile to PDF
-
 **Design Considerations** (Make It Visually Appealing):
 - **Select MODERN color palette**: Match your topic (biotech=vibrant, physics=sleek, health=warm)
-  - Use pptx skill's color palette examples (Teal & Coral, Bold Red, Deep Purple & Emerald, etc.)
-  - NOT just default blue/gray themes
+  - NOT default blue/gray themes
   - 3-5 colors with high contrast
 - **Choose clean fonts**: Sans-serif, large sizes (24pt+ body)
 - **Plan visual elements**: What images, diagrams, icons for each slide?
 - **Create varied layouts**: Mix full-figure, two-column, text-overlay (not all bullets)
 - **Design section dividers**: Visual breaks with striking graphics
-- **Plan animations/builds**: Control information flow for complex slides
 - **Add visual interest**: Background images, color blocks, shapes, icons
+- **Define formatting goal**: Include consistent styling in every prompt (colors, fonts, style)
 
 ### Stage 3: Content Development
 
@@ -466,9 +626,6 @@ and discussion (slides 13-14) BEFORE creating slides.
 ```bash
 # Convert PDF to images
 python scripts/pdf_to_images.py presentation.pdf review/slides
-
-# Or create thumbnail grid
-python ../document-skills/pptx/scripts/thumbnail.py presentation.pptx review/grid
 ```
 
 **Systematic Review**:
@@ -485,9 +642,9 @@ python ../document-skills/pptx/scripts/thumbnail.py presentation.pptx review/gri
 - Misalignment
 
 **Iteration**:
-1. Fix identified issues in source
-2. Regenerate PDF/presentation
-3. Convert to images again
+1. Identify issues in generated slides
+2. Regenerate problem slides with improved prompts
+3. Re-combine to PDF
 4. Re-inspect
 5. Repeat until clean
 
@@ -554,12 +711,6 @@ python ../document-skills/pptx/scripts/thumbnail.py presentation.pptx review/gri
 - Use same figures (but redesigned for slides)
 - Maintain consistent terminology
 
-**PPTX Skill**:
-- Use for PowerPoint creation and editing
-- Leverage scripts for template workflows
-- Use thumbnail generation for validation
-- Reference html2pptx for programmatic creation
-
 **Data Visualization**:
 - Create presentation-appropriate figures
 - Simplify complex visualizations
@@ -603,8 +754,8 @@ python ../document-skills/pptx/scripts/thumbnail.py presentation.pptx review/gri
 ### Design Mistakes
 
 **Generic, Default Appearance**:
-- Problem: Using default PowerPoint/Beamer themes without customization, looks dated
-- Solution: Choose modern color palette, customize fonts/layouts, add visual personality
+- Problem: Using generic styling without customization, looks dated
+- Solution: Choose modern color palette in prompts, specify fonts/layouts, add visual personality
 
 **Text-Heavy, Visual-Poor**:
 - Problem: All bullet point slides, no images or graphics, boring to look at
@@ -650,6 +801,34 @@ python ../document-skills/pptx/scripts/thumbnail.py presentation.pptx review/gri
 
 ## Tools and Scripts
 
+### Nano Banana Pro Scripts
+
+**generate_slide_image.py** - Generate slides with AI:
+```bash
+# Generate a complete slide
+python scripts/generate_slide_image.py "Title: Introduction\nContent: Key points" -o slide.png
+
+# Options:
+# -o, --output       Output file path (required)
+# --attach IMAGE     Attach reference images for context
+# --iterations N     Max refinement iterations (default: 2)
+# -v, --verbose      Verbose output
+```
+
+**slides_to_pdf.py** - Combine slide images into PDF:
+```bash
+# From glob pattern
+python scripts/slides_to_pdf.py slides/*.png -o presentation.pdf
+
+# From directory (sorted by filename)
+python scripts/slides_to_pdf.py slides/ -o presentation.pdf
+
+# Options:
+# -o, --output    Output PDF path (required)
+# --dpi N         PDF resolution (default: 150)
+# -v, --verbose   Verbose output
+```
+
 ### Validation Scripts
 
 **validate_presentation.py**:
@@ -660,8 +839,6 @@ python scripts/validate_presentation.py presentation.pdf --duration 15
 # - Slide count vs. recommended range
 # - File size warnings
 # - Slide dimensions
-# - Font sizes (PowerPoint)
-# - Compilation (Beamer)
 ```
 
 **pdf_to_images.py**:
@@ -673,14 +850,6 @@ python scripts/pdf_to_images.py presentation.pdf output/slide --dpi 150
 # Adjustable DPI
 # Page range selection
 ```
-
-### PPTX Skill Scripts
-
-From `document-skills/pptx/scripts/`:
-- `thumbnail.py`: Create thumbnail grids
-- `rearrange.py`: Duplicate and reorder slides
-- `inventory.py`: Extract text content
-- `replace.py`: Update text programmatically
 
 ### External Tools
 
@@ -699,20 +868,12 @@ Comprehensive guides for specific aspects:
 - **`references/slide_design_principles.md`**: Typography, color theory, layout, accessibility, visual hierarchy, design workflow
 - **`references/data_visualization_slides.md`**: Simplifying figures, chart types, progressive disclosure, common mistakes, recreation workflow
 - **`references/talk_types_guide.md`**: Specific guidance for conferences, seminars, defenses, grants, journal clubs, with examples
-- **`references/beamer_guide.md`**: Complete LaTeX Beamer documentation, themes, customization, advanced features, compilation
 - **`references/visual_review_workflow.md`**: PDF to images conversion, systematic inspection, issue documentation, iterative improvement
 
 ## Assets
 
-### Templates
-
-- **`assets/beamer_template_conference.tex`**: 15-minute conference talk template
-- **`assets/beamer_template_seminar.tex`**: 45-minute academic seminar template
-- **`assets/beamer_template_defense.tex`**: Dissertation defense template
-
 ### Guides
 
-- **`assets/powerpoint_design_guide.md`**: Complete PowerPoint design and implementation guide
 - **`assets/timing_guidelines.md`**: Comprehensive timing, pacing, and practice strategies
 
 ## Quick Start Guide
@@ -723,23 +884,31 @@ Comprehensive guides for specific aspects:
    - **Use research-lookup** to find 8-12 relevant papers for citations
    - Build reference list (background, comparison studies)
    - Outline content (intro → methods → 2-3 key results → conclusion)
-   - **Select 3-6 key figures** and identify visual elements for each slide
-   - **Choose modern color palette** matching your topic (see pptx skill examples)
+   - **Create detailed plan for each slide** (title, key points, visual elements)
    - Target 15-18 slides
 
-2. **Design & Create** (2-3 hours):
-   - Choose PowerPoint (pptx skill) or Beamer (use template)
-   - **Select modern, topic-appropriate color scheme** (NOT default themes)
-   - **Visual-first approach**: Add figures, images, diagrams to EVERY slide
-   - Minimal text with large fonts (24-28pt body, 36-44pt titles)
-   - **Add citations from research-lookup** to intro and discussion slides
-   - Vary layouts (full-figure, two-column, visual overlays)
-   - Emphasize results visually (6-8 slides, figure-focused)
+2. **Generate Slides with Nano Banana Pro** (1-2 hours):
+   
+   **Important: Use consistent formatting, attach previous slides, and include citations!**
+   
+   ```bash
+   # Title slide (establishes style - default author: K-Dense)
+   python scripts/generate_slide_image.py "Title slide: 'Your Research Title'. Conference name, K-Dense. FORMATTING GOAL: [your color scheme], minimal professional design, no decorative elements, clean and corporate." -o slides/01_title.png
+   
+   # Introduction slide with citations (attach previous for consistency)
+   python scripts/generate_slide_image.py "Slide titled 'Why This Matters'. Three key points with simple icons. CITATIONS: Include at bottom: (Smith et al., 2023; Jones et al., 2024). FORMATTING GOAL: Match attached slide style exactly." -o slides/02_intro.png --attach slides/01_title.png
+   
+   # Continue for each slide (always attach previous, include citations where relevant)
+   python scripts/generate_slide_image.py "Slide titled 'Methods'. Key methodology points. CITATIONS: (Based on Chen et al., 2022). FORMATTING GOAL: Match attached slide style exactly." -o slides/03_methods.png --attach slides/02_intro.png
+   
+   # Combine to PDF
+   python scripts/slides_to_pdf.py slides/*.png -o presentation.pdf
+   ```
 
-3. **Validate** (30 minutes):
-   - Convert to images: `python scripts/pdf_to_images.py talk.pdf review/s`
-   - Check for text overflow, overlaps, small fonts
-   - Fix issues and regenerate
+3. **Review & Iterate** (30 minutes):
+   - Open the PDF and review each slide
+   - Regenerate any slides that need improvement
+   - Re-combine to PDF
 
 4. **Practice** (2-3 hours):
    - Practice 3-5 times with timer
@@ -748,12 +917,11 @@ Comprehensive guides for specific aspects:
    - **Prepare for questions** (use research-lookup to anticipate)
 
 5. **Finalize** (30 minutes):
-   - Create backup slides with extra citations
+   - Generate backup/appendix slides if needed
    - Save multiple copies
    - Test on presentation computer
-   - Prepare notes if needed
 
-Total time: ~7-9 hours for quality presentation with proper literature context
+Total time: ~5-6 hours for quality AI-generated presentation
 
 ## Summary: Key Principles
 

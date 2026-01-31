@@ -1,415 +1,539 @@
 ---
 name: analytics-tracking
-description: Event tracking with GA4 + PostHog, adding new events, and updating GTM. Use when implementing tracking, adding analytics events, or configuring GTM/PostHog. Keywords: analytics, tracking, GA4, PostHog, GTM, dataLayer, event, conversion, metrics, proxy, ad blocker.
-compatibility: Antigravity, Claude Code, Cursor
-metadata:
-  version: "1.2"
-  project: "stepleague"
-  last_updated: "2026-01-26"
+description: When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions "set up tracking," "GA4," "Google Analytics," "conversion tracking," "event tracking," "UTM parameters," "tag manager," "GTM," "analytics implementation," or "tracking plan." For A/B test measurement, see ab-test-setup.
 ---
 
-# Analytics Tracking Skill
+# Analytics Tracking
 
-## Overview
+You are an expert in analytics implementation and measurement. Your goal is to help set up tracking that provides actionable insights for marketing and product decisions.
 
-StepLeague uses a **dual-tracking architecture**:
-- **GA4 (via GTM)**: Google Analytics for standard web analytics
-- **PostHog SDK**: Session replay, feature flags, funnels, and product analytics
+## Initial Assessment
 
-All events are pushed to both systems from a single `trackEvent()` call.
+Before implementing tracking, understand:
 
-## Architecture
+1. **Business Context**
+   - What decisions will this data inform?
+   - What are the key conversion actions?
+   - What questions need answering?
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                       analytics.ts                               │
-│                                                                  │
-│  trackEvent('event_name', { properties })                        │
-│       │                                                          │
-│       ├──────────────────▶ window.dataLayer.push() ──▶ GTM ──▶ GA4
-│       │                                                          │
-│       └──────────────────▶ posthog.capture() ──────────▶ PostHog │
-└──────────────────────────────────────────────────────────────────┘
-```
+2. **Current State**
+   - What tracking exists?
+   - What tools are in use (GA4, Mixpanel, Amplitude, etc.)?
+   - What's working/not working?
 
-## Ad Blocker Bypass (First-Party Proxy)
-
-Analytics requests are routed through first-party domain proxies to bypass ad blockers.
-Ad blockers maintain lists of known tracking domains (posthog.com, googletagmanager.com).
-By proxying through our own paths, these requests appear first-party and are not blocked.
-
-**Expected improvement: 10-30% more events captured.**
-
-```
-Without proxy (blocked):
-Browser → us.i.posthog.com (BLOCKED by uBlock/AdBlock)
-Browser → www.googletagmanager.com (BLOCKED)
-
-With proxy (bypasses blockers):
-Browser → /ingest/* → Vercel rewrite → us.i.posthog.com (NOT blocked)
-Browser → /gtm/* → Vercel rewrite → googletagmanager.com (NOT blocked)
-```
-
-### Proxy Configuration
-
-| Service | Proxy Path | Original Host |
-|---------|------------|---------------|
-| PostHog | `/ingest/*` | `us.i.posthog.com` |
-| PostHog Static | `/ingest/static/*` | `us-assets.i.posthog.com/static` |
-| GTM | `/gtm/*` | `www.googletagmanager.com` |
-| GA4 | `/ga/*` | `www.google-analytics.com` |
-
-**Key Files:**
-- `next.config.js` - Rewrite rules that proxy requests
-- `src/lib/analytics/proxyConfig.ts` - Central registry of proxy configurations
-- `PostHogProvider.tsx` - Uses `/ingest` as api_host
-- `GoogleTagManager.tsx` - Loads GTM from `/gtm/gtm.js`
-
-### Adding New Analytics Services
-
-1. Add entry to `ANALYTICS_PROXIES` in `src/lib/analytics/proxyConfig.ts`
-2. Add corresponding rewrite rules in `next.config.js`
-3. Update the service's initialization to use the proxy path
-
-## Key Files
-
-| File | Purpose |
-|------|---------|
-| `src/lib/analytics.ts` | Main tracking library with all event methods |
-| `src/components/analytics/PostHogProvider.tsx` | PostHog SDK initialization via `/ingest` proxy |
-| `src/components/analytics/GoogleTagManager.tsx` | GTM loading via `/gtm` proxy |
-| `src/lib/analytics/proxyConfig.ts` | Central registry of proxy configurations |
-| `src/lib/consent/cookieConsent.ts` | Cookie consent helpers |
-| `src/lib/__tests__/analytics.test.ts` | Test suite for analytics events |
-| `next.config.js` | Vercel rewrite rules for analytics proxies |
-
-## Critical Rules
-
-> [!WARNING]
-> **Always follow these rules when adding analytics tracking:**
-
-### 1. Event Naming
-- Use `snake_case` for event names: `league_created`, NOT `leagueCreated`
-- Use past tense verbs: `submitted`, `created`, `clicked`
-- Max 40 characters
-- **Never use reserved prefixes**: `ga_`, `firebase_`, `google_`
-
-### 2. Dual-Push Architecture
-- **Never call PostHog or GTM directly** - always use `trackEvent()` from `analytics.ts`
-- This ensures events go to both GA4 and PostHog automatically
-- The `analytics` object exports all event methods
-
-### 3. User Identification
-- `identifyUser()` is called after login (handled in AuthProvider)
-- `clearUser()` is called on logout (handled in `analytics.logout()`)
-- **Never track PII** (emails, names) in event properties
-
-### 4. Consent Compliance
-- Analytics only fire after user grants consent via cookie banner
-- Never bypass the consent check in PostHogProvider
-- Consent state is managed by `vanilla-cookieconsent`
-
-### 5. Testing New Events
-- Add tests to `src/lib/__tests__/analytics.test.ts`
-- Test both dataLayer push and PostHog capture calls
-- See existing tests for `proxyClaimed` and `highFiveSent` as examples
-
-## Recently Added Events (Jan 2026)
-
-| Event | Purpose | Parameters |
-|-------|---------|------------|
-| `proxy_claimed` | Tracks when a proxy user claims their profile | `proxy_id`, `submission_count`, `league_count` |
-| `high_five_sent` | Tracks high-five engagement interactions | `recipient_id`, `action` (send/remove) |
+3. **Technical Context**
+   - What's the tech stack?
+   - Who will implement and maintain?
+   - Any privacy/compliance requirements?
 
 ---
 
-## Share Funnel Tracking (PRD-51)
+## Core Principles
 
-Social sharing is a key growth driver. Track the full funnel:
+### 1. Track for Decisions, Not Data
+- Every event should inform a decision
+- Avoid vanity metrics
+- Quality > quantity of events
 
-### Share Events
+### 2. Start with the Questions
+- What do you need to know?
+- What actions will you take based on this data?
+- Work backwards to what you need to track
 
-| Event | When Fired | Parameters |
-|-------|------------|------------|
-| `share_intent` | User opens share modal | `card_type`, `metric_type`, `source` |
-| `share` | User completes share action | `content_type`, `item_id`, `method` (platform) |
-| `share_link_click` | Recipient clicks shared link | `short_code`, `card_type`, `referrer` |
-| `share_conversion` | Recipient signs up after clicking share | `short_code`, `card_type` |
+### 3. Name Things Consistently
+- Naming conventions matter
+- Establish patterns before implementing
+- Document everything
 
-### Implementation Pattern
+### 4. Maintain Data Quality
+- Validate implementation
+- Monitor for issues
+- Clean data > more data
 
-```typescript
-// Track share intent (modal opened)
-analytics.shareIntent = (cardType: string, metricType: string, source: string) => {
-  trackEvent('share_intent', {
-    card_type: cardType,        // 'daily', 'weekly', 'streak', etc.
-    metric_type: metricType,    // 'steps', 'calories', etc.
-    source: source,             // 'stats_hub', 'post_submission', 'milestone'
-    category: 'social',
-    action: 'open_modal',
-  });
-};
+---
 
-// Track share completion (existing analytics.share method)
-analytics.share = (contentType: string, itemId: string, method: string) => {
-  trackEvent('share', {
-    content_type: contentType,
-    item_id: itemId,
-    method: method,  // 'whatsapp', 'twitter', 'copy', 'native'
-    category: 'social',
-    action: 'share',
-  });
-};
+## Tracking Plan Framework
 
-// Track shared link clicks (on share landing page)
-analytics.shareLinkClick = (shortCode: string, cardType: string) => {
-  trackEvent('share_link_click', {
-    short_code: shortCode,
-    card_type: cardType,
-    referrer: document.referrer,
-    category: 'social',
-    action: 'click',
-  });
-};
-```
-
-### UTM Parameter Conventions
-
-Always add UTM parameters to share URLs:
-
-```typescript
-const shareUrl = new URL(baseUrl);
-shareUrl.searchParams.set('utm_source', 'share');
-shareUrl.searchParams.set('utm_medium', platform);    // 'whatsapp', 'twitter', 'copy'
-shareUrl.searchParams.set('utm_campaign', cardType);  // 'daily', 'streak', 'challenge'
-```
-
-### PostHog Funnel Configuration
-
-Create a funnel in PostHog to track conversion:
+### Structure
 
 ```
-share_intent → share → share_link_click → share_conversion
+Event Name | Event Category | Properties | Trigger | Notes
+---------- | ------------- | ---------- | ------- | -----
 ```
 
-### A/B Testing Share Cards
+### Event Types
 
-Use PostHog experiments to test:
-- Different card designs (theme variants)
-- Message templates
-- CTA button text
-- Share prompt timing
+**Pageviews**
+- Automatic in most tools
+- Enhanced with page metadata
 
-```typescript
-const variant = useFeatureFlagVariantKey('share-card-experiment');
-// 'control', 'variant_a', 'variant_b'
+**User Actions**
+- Button clicks
+- Form submissions
+- Feature usage
+- Content interactions
 
-// Track which variant was shown
-analytics.trackEvent('share_experiment_shown', {
-  experiment: 'share-card-experiment',
-  variant: variant,
-});
-```
+**System Events**
+- Signup completed
+- Purchase completed
+- Subscription changed
+- Errors occurred
 
-## Adding a New Tracking Event
+**Custom Conversions**
+- Goal completions
+- Funnel stages
+- Business-specific milestones
 
-### Step 1: Add event to `analytics.ts`
-
-```typescript
-// In src/lib/analytics.ts, add to the `analytics` object:
-
-export const analytics = {
-    // ... existing events ...
-
-    // Add your new event:
-    myNewEvent: (someParam: string, anotherParam: number) => {
-        trackEvent('my_new_event', {
-            some_param: someParam,
-            another_param: anotherParam,
-            category: 'engagement',  // or 'conversion', 'navigation', etc.
-            action: 'click',
-        });
-    },
-};
-```
-
-### Step 2: Use it in your component
-
-```typescript
-import { analytics } from '@/lib/analytics';
-
-function MyComponent() {
-    const handleClick = () => {
-        analytics.myNewEvent('value', 123);
-    };
-    return <button onClick={handleClick}>Do Thing</button>;
-}
-```
-
-### Step 3: Done! (Usually)
-
-The event now flows to **both GA4 and PostHog automatically**. No GTM changes needed!
-
-## When GTM Updates ARE Required
-
-You only need to update GTM if you want to:
-
-1. **Create a GA4 "Key Event"** - Mark the event as a conversion in GA4
-2. **Add custom dimensions** - Register new parameters in GA4
-3. **Create GTM triggers** - Fire other tags based on this event
-
-### GTM Manual Steps (if needed)
-
-1. Log into [Google Tag Manager](https://tagmanager.google.com/)
-2. Create a **Custom Event Trigger** with Event Name = `my_new_event`
-3. Create a **GA4 Event Tag** that fires on this trigger
-4. Add the event to GA4 as a "Key Event" if it's a conversion
-
-> **Tell the user**: "To complete the tracking setup, you'll need to add a Custom Event trigger in GTM for `my_new_event` and optionally mark it as a Key Event in GA4."
+---
 
 ## Event Naming Conventions
 
-- Use **snake_case**: `league_created`, `steps_submitted`
-- Use **past tense verbs**: `submitted`, `created`, `clicked`
-- Max 40 characters
-- No special prefixes: avoid `ga_`, `firebase_`, `google_`
+### Format Options
 
-## Parameter Naming
-
-- Use **snake_case**: `league_id`, `step_count`
-- Reuse existing parameters when possible
-- Standard parameters: `user_id`, `league_id`, `method`, `category`, `action`, `component`
-
-## User Identification
-
-Handled automatically by `AuthProvider`:
-
-```typescript
-// In AuthProvider after login:
-identifyUser(user.id, { display_name: user.display_name });
-
-// On logout:
-clearUser();
+**Object-Action (Recommended)**
+```
+signup_completed
+button_clicked
+form_submitted
+article_read
 ```
 
-## Consent Requirements
-
-Both GTM and PostHog respect the cookie consent banner. Analytics only load after `analytics` category consent is granted.
-
-## PostHog Features Available
-
-- **Session Replay**: Automatically recorded for all consented users
-- **Feature Flags**: Use `posthogFeatureFlag('flag-name')` to check flags
-- **Funnels**: Configure in PostHog dashboard based on events
-- **A/B Testing**: Create experiments in PostHog, check variants with feature flags
-
-## Removing GTM PostHog Tag
-
-After this SDK integration, the "PostHog Tracking" custom HTML tag in GTM should be removed to avoid duplicate tracking.
-
-**Steps:**
-1. Go to [GTM](https://tagmanager.google.com/) → Your Container
-2. Find "PostHog Tracking" tag (Custom HTML)
-3. Delete it
-4. Publish new container version
-
-## Troubleshooting
-
-### Events not showing in PostHog
-1. Check consent was granted
-2. Check `NEXT_PUBLIC_POSTHOG_KEY` is set
-3. Check browser console for `[PostHog]` logs in development
-
-### Events not in GA4
-1. Check GTM Preview mode to see if events fire
-2. Verify GA4 DebugView shows the event
-3. Ensure GTM has a tag configured for this event
-
-## Environment Variables
-
-```env
-# GA4 via GTM
-NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
-
-# PostHog SDK
-NEXT_PUBLIC_POSTHOG_KEY=phc_your_key_here
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+**Action-Object**
+```
+click_button
+submit_form
+complete_signup
 ```
 
-## MCP Servers for AI-Assisted Analytics Management
+**Category_Object_Action**
+```
+checkout_payment_completed
+blog_article_viewed
+onboarding_step_completed
+```
 
-> **For a full list of available MCP servers and project-wide configuration, see [AGENTS.md](../../../AGENTS.md).**
+### Best Practices
 
-Three MCP servers are configured for managing analytics via AI:
+- Lowercase with underscores
+- Be specific: `cta_hero_clicked` vs. `button_clicked`
+- Include context in properties, not event name
+- Avoid spaces and special characters
+- Document decisions
 
-### GTM MCP Server (Stape) ✅ Write Access
+---
 
-**Purpose**: Create, modify, and delete GTM tags, triggers, variables, and containers.
+## Essential Events to Track
 
-**StepLeague Account**: `6331302038` (StepLeague)
+### Marketing Site
 
-**Capabilities**:
-- Create/update/delete tags, triggers, variables
-- Manage containers and workspaces
-- Audit GTM configuration
-- Set up GA4 event tags programmatically
-- Preview and publish container versions
+**Navigation**
+- page_view (enhanced)
+- outbound_link_clicked
+- scroll_depth (25%, 50%, 75%, 100%)
 
-**Authentication**: OAuth-based (browser popup on first use)
+**Engagement**
+- cta_clicked (button_text, location)
+- video_played (video_id, duration)
+- form_started
+- form_submitted (form_type)
+- resource_downloaded (resource_name)
 
-**Example usages**:
-- "List all GTM containers in my account"
-- "Create a new GA4 event tag for `league_created` with a custom event trigger"
-- "List all tags in the StepLeague container"
-- "Get the live version of the container"
+**Conversion**
+- signup_started
+- signup_completed
+- demo_requested
+- contact_submitted
 
-### GA4 MCP Server (Stape) 📊 Read-only
+### Product/App
 
-**Purpose**: Query GA4 reports and property information.
+**Onboarding**
+- signup_completed
+- onboarding_step_completed (step_number, step_name)
+- onboarding_completed
+- first_key_action_completed
 
-**StepLeague Property**: `517956149` (StepLeague WebApp, Account: `378957957`)
+**Core Usage**
+- feature_used (feature_name)
+- action_completed (action_type)
+- session_started
+- session_ended
 
-**Capabilities**:
-- Run core reports (page views, sessions, conversions)
-- Run realtime reports
-- Get account summaries and property details
-- List Google Ads links
-- Get custom dimensions and metrics
+**Monetization**
+- trial_started
+- pricing_viewed
+- checkout_started
+- purchase_completed (plan, value)
+- subscription_cancelled
 
-**Authentication**: OAuth-based (browser popup on first use, same as GTM)
+### E-commerce
 
-**Example usages**:
-- "Get my GA4 account summaries"
-- "What were my top 10 pages by sessions last week?"
-- "Show realtime active users on the site"
-- "Run a report of page views for the last 30 days"
+**Browsing**
+- product_viewed (product_id, category, price)
+- product_list_viewed (list_name, products)
+- product_searched (query, results_count)
 
-### PostHog MCP Server 📊 Full Access
+**Cart**
+- product_added_to_cart
+- product_removed_from_cart
+- cart_viewed
 
-**Purpose**: Manage PostHog analytics, feature flags, experiments, and insights.
+**Checkout**
+- checkout_started
+- checkout_step_completed (step)
+- payment_info_entered
+- purchase_completed (order_id, value, products)
 
-**Capabilities**:
-- Create/update/query insights and dashboards
-- Manage feature flags (create, update, delete)
-- Create and monitor A/B test experiments
-- Query event data and user analytics
-- Manage surveys and actions
-- Search PostHog documentation
+---
 
-**Authentication**: API key-based (configured in `.vscode/mcp.json`)
+## Event Properties (Parameters)
 
-**Example usages**:
-- "Get all feature flags in the project"
-- "Create a new A/B test for the signup flow"
-- "What are my top events in the last 7 days?"
-- "Create an insight showing daily active users"
+### Standard Properties to Consider
+
+**Page/Screen**
+- page_title
+- page_location (URL)
+- page_referrer
+- content_group
+
+**User**
+- user_id (if logged in)
+- user_type (free, paid, admin)
+- account_id (B2B)
+- plan_type
+
+**Campaign**
+- source
+- medium
+- campaign
+- content
+- term
+
+**Product** (e-commerce)
+- product_id
+- product_name
+- category
+- price
+- quantity
+- currency
+
+**Timing**
+- timestamp
+- session_duration
+- time_on_page
+
+### Best Practices
+
+- Use consistent property names
+- Include relevant context
+- Don't duplicate GA4 automatic properties
+- Avoid PII in properties
+- Document expected values
+
+---
+
+## GA4 Implementation
+
+### Configuration
+
+**Data Streams**
+- One stream per platform (web, iOS, Android)
+- Enable enhanced measurement
+
+**Enhanced Measurement Events**
+- page_view (automatic)
+- scroll (90% depth)
+- outbound_click
+- site_search
+- video_engagement
+- file_download
+
+**Recommended Events**
+- Use Google's predefined events when possible
+- Correct naming for enhanced reporting
+- See: https://support.google.com/analytics/answer/9267735
+
+### Custom Events (GA4)
+
+```javascript
+// gtag.js
+gtag('event', 'signup_completed', {
+  'method': 'email',
+  'plan': 'free'
+});
+
+// Google Tag Manager (dataLayer)
+dataLayer.push({
+  'event': 'signup_completed',
+  'method': 'email',
+  'plan': 'free'
+});
+```
+
+### Conversions Setup
+
+1. Collect event in GA4
+2. Mark as conversion in Admin > Events
+3. Set conversion counting (once per session or every time)
+4. Import to Google Ads if needed
+
+### Custom Dimensions and Metrics
+
+**When to use:**
+- Properties you want to segment by
+- Metrics you want to aggregate
+- Beyond standard parameters
+
+**Setup:**
+1. Create in Admin > Custom definitions
+2. Scope: Event, User, or Item
+3. Parameter name must match
+
+---
+
+## Google Tag Manager Implementation
+
+### Container Structure
+
+**Tags**
+- GA4 Configuration (base)
+- GA4 Event tags (one per event or grouped)
+- Conversion pixels (Facebook, LinkedIn, etc.)
+
+**Triggers**
+- Page View (DOM Ready, Window Loaded)
+- Click - All Elements / Just Links
+- Form Submission
+- Custom Events
+
+**Variables**
+- Built-in: Click Text, Click URL, Page Path, etc.
+- Data Layer variables
+- JavaScript variables
+- Lookup tables
+
+### Best Practices
+
+- Use folders to organize
+- Consistent naming (Tag_Type_Description)
+- Version notes on every publish
+- Preview mode for testing
+- Workspaces for team collaboration
+
+### Data Layer Pattern
+
+```javascript
+// Push custom event
+dataLayer.push({
+  'event': 'form_submitted',
+  'form_name': 'contact',
+  'form_location': 'footer'
+});
+
+// Set user properties
+dataLayer.push({
+  'user_id': '12345',
+  'user_type': 'premium'
+});
+
+// E-commerce event
+dataLayer.push({
+  'event': 'purchase',
+  'ecommerce': {
+    'transaction_id': 'T12345',
+    'value': 99.99,
+    'currency': 'USD',
+    'items': [{
+      'item_id': 'SKU123',
+      'item_name': 'Product Name',
+      'price': 99.99
+    }]
+  }
+});
+```
+
+---
+
+## UTM Parameter Strategy
+
+### Standard Parameters
+
+| Parameter | Purpose | Example |
+|-----------|---------|---------|
+| utm_source | Where traffic comes from | google, facebook, newsletter |
+| utm_medium | Marketing medium | cpc, email, social, referral |
+| utm_campaign | Campaign name | spring_sale, product_launch |
+| utm_content | Differentiate versions | hero_cta, sidebar_link |
+| utm_term | Paid search keywords | running+shoes |
+
+### Naming Conventions
+
+**Lowercase everything**
+- google, not Google
+- email, not Email
+
+**Use underscores or hyphens consistently**
+- product_launch or product-launch
+- Pick one, stick with it
+
+**Be specific but concise**
+- blog_footer_cta, not cta1
+- 2024_q1_promo, not promo
+
+### UTM Documentation
+
+Track all UTMs in a spreadsheet or tool:
+
+| Campaign | Source | Medium | Content | Full URL | Owner | Date |
+|----------|--------|--------|---------|----------|-------|------|
+| ... | ... | ... | ... | ... | ... | ... |
+
+### UTM Builder
+
+Provide a consistent UTM builder link to team:
+- Google's URL builder
+- Internal tool
+- Spreadsheet formula
+
+---
+
+## Debugging and Validation
+
+### Testing Tools
+
+**GA4 DebugView**
+- Real-time event monitoring
+- Enable with ?debug_mode=true
+- Or via Chrome extension
+
+**GTM Preview Mode**
+- Test triggers and tags
+- See data layer state
+- Validate before publish
+
+**Browser Extensions**
+- GA Debugger
+- Tag Assistant
+- dataLayer Inspector
+
+### Validation Checklist
+
+- [ ] Events firing on correct triggers
+- [ ] Property values populating correctly
+- [ ] No duplicate events
+- [ ] Works across browsers
+- [ ] Works on mobile
+- [ ] Conversions recorded correctly
+- [ ] User ID passing when logged in
+- [ ] No PII leaking
+
+### Common Issues
+
+**Events not firing**
+- Trigger misconfigured
+- Tag paused
+- GTM not loaded on page
+
+**Wrong values**
+- Variable not configured
+- Data layer not pushing correctly
+- Timing issues (fire before data ready)
+
+**Duplicate events**
+- Multiple GTM containers
+- Multiple tag instances
+- Trigger firing multiple times
+
+---
+
+## Privacy and Compliance
+
+### Considerations
+
+- Cookie consent required in EU/UK/CA
+- No PII in analytics properties
+- Data retention settings
+- User deletion capabilities
+- Cross-device tracking consent
+
+### Implementation
+
+**Consent Mode (GA4)**
+- Wait for consent before tracking
+- Use consent mode for partial tracking
+- Integrate with consent management platform
+
+**Data Minimization**
+- Only collect what you need
+- IP anonymization
+- No PII in custom dimensions
+
+---
+
+## Output Format
+
+### Tracking Plan Document
+
+```
+# [Site/Product] Tracking Plan
+
+## Overview
+- Tools: GA4, GTM
+- Last updated: [Date]
+- Owner: [Name]
+
+## Events
+
+### Marketing Events
+
+| Event Name | Description | Properties | Trigger |
+|------------|-------------|------------|---------|
+| signup_started | User initiates signup | source, page | Click signup CTA |
+| signup_completed | User completes signup | method, plan | Signup success page |
+
+### Product Events
+[Similar table]
+
+## Custom Dimensions
+
+| Name | Scope | Parameter | Description |
+|------|-------|-----------|-------------|
+| user_type | User | user_type | Free, trial, paid |
+
+## Conversions
+
+| Conversion | Event | Counting | Google Ads |
+|------------|-------|----------|------------|
+| Signup | signup_completed | Once per session | Yes |
+
+## UTM Convention
+
+[Guidelines]
+```
+
+### Implementation Code
+
+Provide ready-to-use code snippets
+
+### Testing Checklist
+
+Specific validation steps
+
+---
+
+## Questions to Ask
+
+If you need more context:
+1. What tools are you using (GA4, Mixpanel, etc.)?
+2. What key actions do you want to track?
+3. What decisions will this data inform?
+4. Who implements - dev team or marketing?
+5. Are there privacy/consent requirements?
+6. What's already tracked?
 
 ---
 
 ## Related Skills
 
-- **`testing-patterns`** - Write tests for analytics events (see `analytics.test.ts` for examples)
-- **`auth-patterns`** - User identification flow integrates with analytics
-- **`project-updates`** - Document new events in AGENTS.md and CHANGELOG.md
-- **`error-handling`** - Track error events alongside regular analytics
-- **`social-sharing`** - Share hook patterns and OG image generation
+- **ab-test-setup**: For experiment tracking
+- **seo-audit**: For organic traffic analysis
+- **page-cro**: For conversion optimization (uses this data)

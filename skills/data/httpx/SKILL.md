@@ -324,13 +324,13 @@ httpx>=0.24.0
 ## Installation
 
 ```bash
-pip install httpx
+uv add httpx
 
 # For HTTP/2 support
-pip install httpx[http2]
+uv add httpx[http2]
 
 # For WebSocket support
-pip install httpx-ws
+uv add httpx-ws
 ```
 
 This skill provides comprehensive HTTP client capabilities for modern Python applications, with excellent async support and production-ready features.

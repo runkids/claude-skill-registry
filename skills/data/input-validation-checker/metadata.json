@@ -1,9 +1,7 @@
 {
   "name": "input-validation-checker",
-  "description": "Input Validation Checker - Auto-activating skill for Security Fundamentals.Triggers on: input validation checker, input validation checkerPart of the Security Fundamentals skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/03-security-fundamentals/input-validation-checker/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:43.325824Z"
 }

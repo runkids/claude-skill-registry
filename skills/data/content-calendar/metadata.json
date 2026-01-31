@@ -1,9 +1,7 @@
 {
   "name": "content-calendar",
-  "description": "Generate a complete 30-day content calendar with viral content ideas, format variety, hooks, and CTAs tailored to your niche and platform. Includes content pillars, weekly themes, and batch creation w",
-  "repo": "majesticlabs-dev/majestic-marketplace",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/skills/_available/marketing/content-calendar/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:18.335141Z"
 }

@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-storage-delete
 description: Delete a storage resource or file. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.0.104"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 argument-hint: "[name] [filename]"

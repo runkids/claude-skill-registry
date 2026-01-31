@@ -1,7 +1,7 @@
 {
   "name": "valid-skill",
-  "repo": "maxvaega/skillkit",
-  "path": "tests/fixtures/skills/valid-skill/SKILL.md",
-  "source": "github.com/maxvaega/skillkit",
-  "downloaded_at": "2026-01-30T03:47:48.527929Z"
+  "repo": "pproenca/dot-skills",
+  "path": "tests/fixtures/valid-skill/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-01-31T03:35:43.148215Z"
 }

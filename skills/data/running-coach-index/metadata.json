@@ -1,15 +1,7 @@
 {
   "name": "running-coach-index",
-  "description": "Reference catalog for all running coach AI skills, shared TypeScript contracts, safety guardrails, and telemetry conventions. Use when working with any running coach feature to understand data schemas",
   "repo": "nadavyigal/Running-coach-",
-  "category": "data",
-  "tags": [
-    "running",
-    "coach",
-    "index"
-  ],
-  "stars": 1,
-  "dir_name": "running-coach-index",
-  "github_path": ".claude/skills/running-coach-index",
-  "github_branch": "main"
+  "path": ".cursor/skills/running-coach-index/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:39.763422Z"
 }

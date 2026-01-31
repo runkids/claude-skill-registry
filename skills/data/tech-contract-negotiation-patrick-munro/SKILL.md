@@ -4,6 +4,7 @@ description: "Guide to negotiating technology services agreements, professional 
 metadata:
   author: Patrick Munro
   license: AGPL-3.0
+  version: 2026.01.12
 ---
 
 # Contract Negotiation Playbook

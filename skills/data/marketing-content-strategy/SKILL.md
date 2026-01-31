@@ -1,168 +1,356 @@
 ---
-name: marketing-content-strategy
-description: Content strategy and operations for marketing teams. Positioning, messaging hierarchy, content pillars, editorial calendars, trust-building content, brand architecture, GEO/AI discovery, and content ROI measurement. Use for positioning sprints, trust audits, messaging matrices, content pillar planning, editorial ops, or ROI attribution (including regulated industries).
+name: content-strategy
+version: 1.0.0
+description: When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also use when the user mentions "content strategy," "what should I write about," "content ideas," "blog strategy," "topic clusters," or "content planning." For writing individual pieces, see copywriting. For SEO-specific audits, see seo-audit.
 ---
 
-# CONTENT STRATEGY - POSITIONING & TRUST OS (OPERATIONAL)
+# Content Strategy
 
-Built as a **no-fluff execution skill** for content strategy, positioning, and trust-building.
+You are a content strategist. Your goal is to help plan content that drives traffic, builds authority, and generates leads by being either searchable, shareable, or both.
 
-**Structure**: Core frameworks first. Fintech/sensitive data examples throughout. AI-specific automation in clearly labeled "Optional: AI / Automation" sections.
+## Before Planning
 
-**Modern Best Practices (Jan 2026)**:
+**Check for product marketing context first:**
+If `.claude/product-marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-- Start from positioning (who you're for, what you replace, why you win), then derive messaging hierarchy.
-- Build trust signals before scaling traffic. Low trust + high traffic = wasted spend.
-- Use brand architecture intentionally: endorsed brands inherit credibility; standalone brands don't.
-- Instrument content to funnel stage; measure content-attributed pipeline, not just traffic.
-- Optimize for GEO (Generative Engine Optimization); your content becomes a source cited by AI, not just a destination users visit.
+Gather this context (ask if not provided):
 
----
+### 1. Business Context
+- What does the company do?
+- Who is the ideal customer?
+- What's the primary goal for content? (traffic, leads, brand awareness, thought leadership)
+- What problems does your product solve?
 
-## Default Workflow (Operational)
+### 2. Customer Research
+- What questions do customers ask before buying?
+- What objections come up in sales calls?
+- What topics appear repeatedly in support tickets?
+- What language do customers use to describe their problems?
 
-Use this as the default response plan unless the user requests a specific artifact.
+### 3. Current State
+- Do you have existing content? What's working?
+- What resources do you have? (writers, budget, time)
+- What content formats can you produce? (written, video, audio)
 
-1. Clarify: product, ICP, stage, constraints, primary channel(s), and success metric.
-2. Select module(s) via the decision tree.
-3. Produce 1–3 concrete artifacts using the templates in `assets/` (not just advice).
-4. Add a trust + compliance pass (claims, proof, disclosures; especially for sensitive data).
-5. Add measurement: define 1–3 leading indicators + 1–2 business outcomes.
-6. Close with next steps: what to validate, what to publish, what to instrument.
-
-## Default Outputs (Pick 1–3)
-
-- Positioning sprint output: `assets/positioning-canvas.md` + `references/positioning-framework.md`
-- Messaging matrix: `assets/messaging-matrix.md` + `references/message-hierarchy.md`
-- Trust audit + fixes: `assets/trust-signals-checklist.md` + `references/trust-building-playbook.md`
-- Brand architecture decision: `assets/brand-connection-template.md` + `references/brand-architecture-guide.md`
-- Content pillars + plan: `assets/content-pillar-plan.md` + `references/content-pillars.md`
-- Editorial calendar: `assets/editorial-calendar.md` + `references/content-ops-checklist.md`
-- Content brief: `assets/content-brief.md`
-- ROI model + tracking plan: `assets/content-roi-calculator.md` + `references/content-roi-attribution.md`
-
-## GEO: Generative Engine Optimization (2026)
-
-Content discoverability shifting from websites to AI chat interfaces. Optimize for LLM retrieval, not just Google SERP.
-
-**Key shift**: Success = citations + brand mentions in AI responses, not just traffic.
-
-For full GEO implementation, see [references/geo-optimization.md](references/geo-optimization.md).
+### 4. Competitive Landscape
+- Who are your main competitors?
+- What content gaps exist in your market?
 
 ---
 
-## Decision Tree: What Content Strategy Task?
+## Searchable vs Shareable
 
-```text
-CONTENT STRATEGY QUESTION
-    |
-    +-> "How do I position my product?" -----> POSITIONING
-    |                                          --> positioning-framework.md
-    |
-    +-> "How do I build trust?" --------------> TRUST-BUILDING
-    |                                          --> trust-building-playbook.md
-    |
-    +-> "How do I connect sub-brand to       -> BRAND ARCHITECTURE
-    |    parent brand?"                        --> brand-architecture-guide.md
-    |
-    +-> "What should I say to whom?" ---------> MESSAGE HIERARCHY
-    |                                          --> message-hierarchy.md
-    |
-    +-> "What content do I create?" ----------> CONTENT PILLARS
-    |                                          --> content-pillar-plan.md
-    |                                          --> content-pillars.md
-    |
-    +-> "Fintech/regulated industry?" --------> COMPLIANCE MESSAGING
-    |                                          --> fintech-compliance-messaging.md
-    |
-    +-> "How do I prove content ROI?" --------> ROI ATTRIBUTION
-    |                                          --> content-roi-attribution.md
-    |                                          --> content-roi-calculator.md
-    |
-    +-> "Full content strategy" --------------> COMPREHENSIVE
-                                               --> Use all resources
+Every piece of content must be searchable, shareable, or both. Prioritize in that order—search traffic is the foundation.
+
+**Searchable content** captures existing demand. Optimized for people actively looking for answers.
+
+**Shareable content** creates demand. Spreads ideas and gets people talking.
+
+### When Writing Searchable Content
+
+- Target a specific keyword or question
+- Match search intent exactly—answer what the searcher wants
+- Use clear titles that match search queries
+- Structure with headings that mirror search patterns
+- Place keywords in title, headings, first paragraph, URL
+- Provide comprehensive coverage (don't leave questions unanswered)
+- Include data, examples, and links to authoritative sources
+- Optimize for AI/LLM discovery: clear positioning, structured content, brand consistency across the web
+
+### When Writing Shareable Content
+
+- Lead with a novel insight, original data, or counterintuitive take
+- Challenge conventional wisdom with well-reasoned arguments
+- Tell stories that make people feel something
+- Create content people want to share to look smart or help others
+- Connect to current trends or emerging problems
+- Share vulnerable, honest experiences others can learn from
+
+---
+
+## Content Types
+
+### Searchable Content Types
+
+**Use-Case Content**
+Formula: [persona] + [use-case]. Targets long-tail keywords.
+- "Project management for designers"
+- "Task tracking for developers"
+- "Client collaboration for freelancers"
+
+**Hub and Spoke**
+Hub = comprehensive overview. Spokes = related subtopics.
+```
+/topic (hub)
+├── /topic/subtopic-1 (spoke)
+├── /topic/subtopic-2 (spoke)
+└── /topic/subtopic-3 (spoke)
+```
+Create hub first, then build spokes. Interlink strategically.
+
+**Note:** Most content works fine under `/blog`. Only use dedicated hub/spoke URL structures for major topics with layered depth (e.g., Atlassian's `/agile` guide). For typical blog posts, `/blog/post-title` is sufficient.
+
+**Template Libraries**
+High-intent keywords + product adoption.
+- Target searches like "marketing plan template"
+- Provide immediate standalone value
+- Show how product enhances the template
+
+### Shareable Content Types
+
+**Thought Leadership**
+- Articulate concepts everyone feels but hasn't named
+- Challenge conventional wisdom with evidence
+- Share vulnerable, honest experiences
+
+**Data-Driven Content**
+- Product data analysis (anonymized insights)
+- Public data analysis (uncover patterns)
+- Original research (run experiments, share results)
+
+**Expert Roundups**
+15-30 experts answering one specific question. Built-in distribution.
+
+**Case Studies**
+Structure: Challenge → Solution → Results → Key learnings
+
+**Meta Content**
+Behind-the-scenes transparency. "How We Got Our First $5k MRR," "Why We Chose Debt Over VC."
+
+For programmatic content at scale, see **programmatic-seo** skill.
+
+---
+
+## Content Pillars and Topic Clusters
+
+Content pillars are the 3-5 core topics your brand will own. Each pillar spawns a cluster of related content.
+
+Most of the time, all content can live under `/blog` with good internal linking between related posts. Dedicated pillar pages with custom URL structures (like `/guides/topic`) are only needed when you're building comprehensive resources with multiple layers of depth.
+
+### How to Identify Pillars
+
+1. **Product-led**: What problems does your product solve?
+2. **Audience-led**: What does your ICP need to learn?
+3. **Search-led**: What topics have volume in your space?
+4. **Competitor-led**: What are competitors ranking for?
+
+### Pillar Structure
+
+```
+Pillar Topic (Hub)
+├── Subtopic Cluster 1
+│   ├── Article A
+│   ├── Article B
+│   └── Article C
+├── Subtopic Cluster 2
+│   ├── Article D
+│   ├── Article E
+│   └── Article F
+└── Subtopic Cluster 3
+    ├── Article G
+    ├── Article H
+    └── Article I
 ```
 
----
+### Pillar Criteria
 
-## Core Modules (Open Subfiles)
-
-Use the linked guides/templates for implementation details:
-
-- Expert mental models (how to decide): [references/expert-mental-models.md](references/expert-mental-models.md)
-- Positioning: [references/positioning-framework.md](references/positioning-framework.md) and [assets/positioning-canvas.md](assets/positioning-canvas.md)
-- Trust-building: [references/trust-building-playbook.md](references/trust-building-playbook.md) and [assets/trust-signals-checklist.md](assets/trust-signals-checklist.md)
-- Brand architecture: [references/brand-architecture-guide.md](references/brand-architecture-guide.md) and [assets/brand-connection-template.md](assets/brand-connection-template.md)
-- Messaging hierarchy: [references/message-hierarchy.md](references/message-hierarchy.md) and [assets/messaging-matrix.md](assets/messaging-matrix.md)
-- Content pillars and video: [references/content-pillars.md](references/content-pillars.md) and [assets/content-pillar-plan.md](assets/content-pillar-plan.md)
-- Fintech/regulated messaging: [references/fintech-compliance-messaging.md](references/fintech-compliance-messaging.md)
-- Content ROI: [references/content-roi-attribution.md](references/content-roi-attribution.md) and [assets/content-roi-calculator.md](assets/content-roi-calculator.md)
-- Content ops and SOPs: [references/content-ops-checklist.md](references/content-ops-checklist.md) and [assets/editorial-calendar.md](assets/editorial-calendar.md)
+Good pillars should:
+- Align with your product/service
+- Match what your audience cares about
+- Have search volume and/or social interest
+- Be broad enough for many subtopics
 
 ---
 
-## Resources & Templates
+## Keyword Research by Buyer Stage
 
-**References** (deep-dive guides):
-[expert-mental-models.md](references/expert-mental-models.md) | [positioning-framework.md](references/positioning-framework.md) | [trust-building-playbook.md](references/trust-building-playbook.md) | [brand-architecture-guide.md](references/brand-architecture-guide.md) | [message-hierarchy.md](references/message-hierarchy.md) | [fintech-compliance-messaging.md](references/fintech-compliance-messaging.md) | [content-ops-checklist.md](references/content-ops-checklist.md) | [geo-optimization.md](references/geo-optimization.md) | [content-roi-attribution.md](references/content-roi-attribution.md) | [ai-content-automation.md](references/ai-content-automation.md) | [trend-awareness-protocol.md](references/trend-awareness-protocol.md) | [content-pillars.md](references/content-pillars.md)
+Map topics to the buyer's journey using proven keyword modifiers:
 
-**Templates** (copy-paste assets):
-[positioning-canvas.md](assets/positioning-canvas.md) | [trust-signals-checklist.md](assets/trust-signals-checklist.md) | [brand-connection-template.md](assets/brand-connection-template.md) | [messaging-matrix.md](assets/messaging-matrix.md) | [content-pillar-plan.md](assets/content-pillar-plan.md) | [content-brief.md](assets/content-brief.md) | [editorial-calendar.md](assets/editorial-calendar.md) | [content-strategy-brief.md](assets/content-strategy-brief.md) | [trust-brief.md](assets/trust-brief.md) | [content-roi-calculator.md](assets/content-roi-calculator.md)
+### Awareness Stage
+Modifiers: "what is," "how to," "guide to," "introduction to"
 
-**Data**: [sources.json](data/sources.json)
+Example: If customers ask about project management basics:
+- "What is Agile Project Management"
+- "Guide to Sprint Planning"
+- "How to Run a Standup Meeting"
+
+### Consideration Stage
+Modifiers: "best," "top," "vs," "alternatives," "comparison"
+
+Example: If customers evaluate multiple tools:
+- "Best Project Management Tools for Remote Teams"
+- "Asana vs Trello vs Monday"
+- "Basecamp Alternatives"
+
+### Decision Stage
+Modifiers: "pricing," "reviews," "demo," "trial," "buy"
+
+Example: If pricing comes up in sales calls:
+- "Project Management Tool Pricing Comparison"
+- "How to Choose the Right Plan"
+- "[Product] Reviews"
+
+### Implementation Stage
+Modifiers: "templates," "examples," "tutorial," "how to use," "setup"
+
+Example: If support tickets show implementation struggles:
+- "Project Template Library"
+- "Step-by-Step Setup Tutorial"
+- "How to Use [Feature]"
 
 ---
 
-## When NOT to Use This Skill
+## Content Ideation Sources
 
-| Need | Use Instead |
-|------|-------------|
-| Channel-specific tactics (posting, engagement) | [marketing-social-media](../marketing-social-media/SKILL.md) |
-| SEO/technical optimization | [marketing-seo-complete](../marketing-seo-complete/SKILL.md) |
-| Landing page conversion | [marketing-leads-generation](../marketing-leads-generation/SKILL.md) |
-| AI search optimization (GEO deep-dive) | [marketing-ai-search-optimization](../marketing-ai-search-optimization/SKILL.md) |
-| Product roadmap communication | [product-management](../product-management/SKILL.md) |
+### 1. Keyword Data
+
+If user provides keyword exports (Ahrefs, SEMrush, GSC), analyze for:
+- Topic clusters (group related keywords)
+- Buyer stage (awareness/consideration/decision/implementation)
+- Search intent (informational, commercial, transactional)
+- Quick wins (low competition + decent volume + high relevance)
+- Content gaps (keywords competitors rank for that you don't)
+
+Output as prioritized table:
+| Keyword | Volume | Difficulty | Buyer Stage | Content Type | Priority |
+
+### 2. Call Transcripts
+
+If user provides sales or customer call transcripts, extract:
+- Questions asked → FAQ content or blog posts
+- Pain points → problems in their own words
+- Objections → content to address proactively
+- Language patterns → exact phrases to use (voice of customer)
+- Competitor mentions → what they compared you to
+
+Output content ideas with supporting quotes.
+
+### 3. Survey Responses
+
+If user provides survey data, mine for:
+- Open-ended responses (topics and language)
+- Common themes (30%+ mention = high priority)
+- Resource requests (what they wish existed)
+- Content preferences (formats they want)
+
+### 4. Forum Research
+
+Use web search to find content ideas:
+
+**Reddit:** `site:reddit.com [topic]`
+- Top posts in relevant subreddits
+- Questions and frustrations in comments
+- Upvoted answers (validates what resonates)
+
+**Quora:** `site:quora.com [topic]`
+- Most-followed questions
+- Highly upvoted answers
+
+**Other:** Indie Hackers, Hacker News, Product Hunt, industry Slack/Discord
+
+Extract: FAQs, misconceptions, debates, problems being solved, terminology used.
+
+### 5. Competitor Analysis
+
+Use web search to analyze competitor content:
+
+**Find their content:** `site:competitor.com/blog`
+
+**Analyze:**
+- Top-performing posts (comments, shares)
+- Topics covered repeatedly
+- Gaps they haven't covered
+- Case studies (customer problems, use cases, results)
+- Content structure (pillars, categories, formats)
+
+**Identify opportunities:**
+- Topics you can cover better
+- Angles they're missing
+- Outdated content to improve on
+
+### 6. Sales and Support Input
+
+Extract from customer-facing teams:
+- Common objections
+- Repeated questions
+- Support ticket patterns
+- Success stories
+- Feature requests and underlying problems
 
 ---
 
-## International Markets
+## Prioritizing Content Ideas
 
-This skill uses US/UK market defaults. For international marketing:
+Score each idea on four factors:
 
-| Need | See Skill |
-|------|-----------|
-| Regional platforms (WeChat, LINE, Naver) | [marketing-geo-localization](../marketing-geo-localization/SKILL.md) |
-| Cultural messaging adaptation | [marketing-geo-localization](../marketing-geo-localization/SKILL.md) |
-| Regional compliance (GDPR, CASL, LGPD, PIPL) | [marketing-geo-localization](../marketing-geo-localization/SKILL.md) |
-| Non-English content strategy | [marketing-geo-localization](../marketing-geo-localization/SKILL.md) |
+### 1. Customer Impact (40%)
+- How frequently did this topic come up in research?
+- What percentage of customers face this challenge?
+- How emotionally charged was this pain point?
+- What's the potential LTV of customers with this need?
 
-**Auto-triggers**: When your query mentions a specific country, region, language, or compliance framework, both skills load automatically.
+### 2. Content-Market Fit (30%)
+- Does this align with problems your product solves?
+- Can you offer unique insights from customer research?
+- Do you have customer stories to support this?
+- Will this naturally lead to product interest?
+
+### 3. Search Potential (20%)
+- What's the monthly search volume?
+- How competitive is this topic?
+- Are there related long-tail opportunities?
+- Is search interest growing or declining?
+
+### 4. Resource Requirements (10%)
+- Do you have expertise to create authoritative content?
+- What additional research is needed?
+- What assets (graphics, data, examples) will you need?
+
+### Scoring Template
+
+| Idea | Customer Impact (40%) | Content-Market Fit (30%) | Search Potential (20%) | Resources (10%) | Total |
+|------|----------------------|-------------------------|----------------------|-----------------|-------|
+| Topic A | 8 | 9 | 7 | 6 | 8.0 |
+| Topic B | 6 | 7 | 9 | 8 | 7.1 |
+
+---
+
+## Output Format
+
+When creating a content strategy, provide:
+
+### 1. Content Pillars
+- 3-5 pillars with rationale
+- Subtopic clusters for each pillar
+- How pillars connect to product
+
+### 2. Priority Topics
+For each recommended piece:
+- Topic/title
+- Searchable, shareable, or both
+- Content type (use-case, hub/spoke, thought leadership, etc.)
+- Target keyword and buyer stage
+- Why this topic (customer research backing)
+
+### 3. Topic Cluster Map
+Visual or structured representation of how content interconnects.
+
+---
+
+## Task-Specific Questions
+
+1. What patterns emerge from your last 10 customer conversations?
+2. What questions keep coming up in sales calls?
+3. Where are competitors' content efforts falling short?
+4. What unique insights from customer research aren't being shared elsewhere?
+5. Which existing content drives the most conversions, and why?
 
 ---
 
 ## Related Skills
 
-- [marketing-geo-localization](../marketing-geo-localization/SKILL.md) - International marketing, regional platforms, cultural adaptation
-- [marketing-leads-generation](../marketing-leads-generation/SKILL.md) - Funnel design, landing page optimization, conversion
-- [marketing-social-media](../marketing-social-media/SKILL.md) - Channel-specific content tactics
-- [marketing-seo-complete](../marketing-seo-complete/SKILL.md) - Search visibility for content
-- [marketing-ai-search-optimization](../marketing-ai-search-optimization/SKILL.md) - AI search surface optimization
-- [startup-go-to-market](../startup-go-to-market/SKILL.md) - GTM strategy, ICP, channel selection
-- [product-management](../product-management/SKILL.md) - Product positioning, roadmap communication
-
----
-
-## Usage Notes
-
-- Stay operational: return positioning statements, trust checklists, message matrices; avoid theory.
-- Use fintech examples for sensitive data products; adapt for other regulated industries.
-- If positioning unclear, run positioning sprint before content planning.
-- For new products with parent brand, default to endorsed brand pattern.
-- Cite template/resource path when providing frameworks.
-- Use `data/sources.json` as the default web research shortlist when external validation is required.
-
----
-
-## Optional: AI / Automation
-
-Core positioning and trust frameworks work without AI. For AI content automation, agentic workflows, C2PA provenance, and 2026 disclosure requirements, see [references/ai-content-automation.md](references/ai-content-automation.md).
+- **copywriting**: For writing individual content pieces
+- **seo-audit**: For technical SEO and on-page optimization
+- **programmatic-seo**: For scaled content generation
+- **email-sequence**: For email-based content
+- **social-content**: For social media content

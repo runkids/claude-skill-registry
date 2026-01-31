@@ -1,83 +1,146 @@
 ---
 name: skill-loader
-description: Skill-Loader standards and best practices for Skill Loader. Includes implementation guidelines, common patterns, and testing strategies.
+description: Dynamic skill loading via polynomial functor arrangements. Loads skills as interfaces p = A^y^B where state changes rewire the system.
+metadata:
+  trit: 0
+  category: meta
 ---
 
 # Skill Loader
 
-> **Quick Navigation:**
-> Level 1: [Quick Start](#level-1-quick-start) (5 min) → Level 2: [Implementation](#level-2-implementation) (30 min) → Level 3: [Mastery](#level-3-mastery-resources) (Extended)
+**Dynamic Skill Loading via Polynomial Functor Arrangements**
 
----
+Based on Samantha Jarvis & David Spivak's work on dynamic structures, this skill treats skill loading as dynamic arrangement morphisms in the category **Poly**.
 
-## Level 1: Quick Start
+## Polynomial Semantics
 
-### Core Principles
+Each skill is an interface polynomial:
+```
+p_skill = Outputs^y^Inputs
+```
 
-1. **Best Practices**: Follow industry-standard patterns for skill loader
-2. **Security First**: Implement secure defaults and validate all inputs
-3. **Maintainability**: Write clean, documented, testable code
-4. **Performance**: Optimize for common use cases
+Loading skills creates composite arrangements:
+```
+p₁ ⊗ p₂ → System
+```
 
-### Essential Checklist
+The **state** `S` determines which arrangement is active. Loading a skill updates `s : S`, rewiring the system dynamically.
 
-- [ ] Follow established patterns for skill loader
-- [ ] Implement proper error handling
-- [ ] Add comprehensive logging
-- [ ] Write unit and integration tests
-- [ ] Document public interfaces
+## Usage
 
-### Quick Links to Level 2
+```bash
+# Load a single skill
+bb ~/.claude/skills/skill-loader/load.bb skill-name
 
-- [Core Concepts](#core-concepts)
-- [Implementation Patterns](#implementation-patterns)
-- [Common Pitfalls](#common-pitfalls)
+# Load multiple skills with GF(3) trit assignment
+bb ~/.claude/skills/skill-loader/load.bb skill1:-1 skill2:0 skill3:+1
 
----
+# List loadable skills
+bb ~/.claude/skills/skill-loader/load.bb --list
 
-## Level 2: Implementation
+# Query skill lattice
+bb ~/.claude/skills/skill-loader/load.bb --lattice
 
-### Core Concepts
+# Reverse derivative: find skills that influence current state
+bb ~/.claude/skills/skill-loader/load.bb --reverse
+```
 
-This skill covers essential practices for skill loader.
+## Dynamic Arrangement Protocol
 
-**Key areas include:**
+### State Space
 
-- Architecture patterns
-- Implementation best practices
-- Testing strategies
-- Performance optimization
+```
+State = (M, move, f, m)
+```
+Where:
+- `M` = Parameterizing object (skill configuration space)
+- `move : F(M) × F(M) → F(M)` = State update function
+- `f : M × A → B` = Skill morphism (input → output transformation)
+- `m : F(M)` = Current parameter (loaded skill configuration)
 
-### Implementation Patterns
+### Load Operation
 
-Apply these patterns when working with skill loader:
+Loading skill `s` creates arrangement morphism:
+```
+F(A) --[m × id]--> F(M) × F(A) --[F(f)]--> F(B)
+```
 
-1. **Pattern Selection**: Choose appropriate patterns for your use case
-2. **Error Handling**: Implement comprehensive error recovery
-3. **Monitoring**: Add observability hooks for production
+### Update Rule
 
-### Common Pitfalls
+After skill execution, update state via reverse derivative:
+```
+F(A) × F(B) --[R[f]]--> F(M) × F(A) --[π; move]--> F(M)
+```
 
-Avoid these common mistakes:
+## GF(3) Trit Assignment
 
-- Skipping validation of inputs
-- Ignoring edge cases
-- Missing test coverage
-- Poor documentation
+Skills loaded in triads conserve:
+```
+Σ trits ≡ 0 (mod 3)
+```
 
----
+| Trit | Role | Hue Range |
+|------|------|-----------|
+| -1 (MINUS) | Validator/Constrainer | 180°-300° (cold) |
+| 0 (ERGODIC) | Coordinator/Synthesizer | 60°-180° (neutral) |
+| +1 (PLUS) | Generator/Executor | 0°-60°, 300°-360° (warm) |
 
-## Level 3: Mastery Resources
+## Babashka Implementation
 
-### Reference Materials
+```clojure
+(ns skill-loader
+  (:require [babashka.fs :as fs]
+            [clojure.edn :as edn]
+            [clojure.string :as str]))
 
-- [Related Standards](../../docs/standards/)
-- [Best Practices Guide](../../docs/guides/)
+(def skills-dir (str (System/getProperty "user.home") "/.claude/skills"))
 
-### Templates
+(defn list-skills []
+  (->> (fs/list-dir skills-dir)
+       (filter fs/directory?)
+       (map fs/file-name)
+       (filter #(fs/exists? (fs/path skills-dir % "skill.md")))
+       sort))
 
-See the `templates/` directory for starter configurations.
+(defn parse-frontmatter [content]
+  (when-let [[_ yaml] (re-find #"(?s)^---\n(.*?)\n---" content)]
+    (reduce (fn [m line]
+              (if-let [[_ k v] (re-find #"^(\w+):\s*(.+)$" line)]
+                (assoc m (keyword k) v)
+                m))
+            {} (str/split-lines yaml))))
 
-### External Resources
+(defn load-skill [skill-name]
+  (let [path (fs/path skills-dir skill-name "skill.md")]
+    (when (fs/exists? path)
+      (let [content (slurp (str path))
+            meta (parse-frontmatter content)]
+        {:name skill-name
+         :meta meta
+         :content content
+         :loaded-at (System/currentTimeMillis)}))))
 
-Consult official documentation and community best practices for skill loader.
+(defn load-triad [s1 s2 s3]
+  "Load three skills with GF(3) conservation"
+  (let [skills [(assoc (load-skill s1) :trit -1)
+                (assoc (load-skill s2) :trit 0)
+                (assoc (load-skill s3) :trit +1)]]
+    {:skills skills
+     :sum (reduce + (map :trit skills))
+     :conserved? (zero? (mod (reduce + (map :trit skills)) 3))}))
+```
+
+## Integration with Dynamic Categories
+
+Following (Shapiro & Spivak 2022), skill loading forms a **dynamic monoidal category** where:
+- Objects are skill interfaces
+- Morphisms are arrangements
+- State updates follow reverse derivative backpropagation
+
+This enables gradient-based skill optimization analogous to neural network training.
+
+## References
+
+- Jarvis, S. (2024). "Building dynamic structures". Topos Institute Blog.
+- Shapiro, B.T. & Spivak, D.I. (2022). "Dynamic Categories, Dynamic Operads: From Deep Learning to Prediction Markets."
+- Cockett et al. (2020). "Reverse Derivative Categories." CSL 2020.

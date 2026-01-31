@@ -1,81 +1,147 @@
 ---
 name: handoff
-description: Writes comprehensive handoff note at session end. Captures work done, files changed, remaining tasks, and next steps. Use before ending any work session or switching contexts.
-allowed-tools: Read, Write, Glob
+description: Capture session context before ending or compaction
+invocable: true
 ---
 
-# Handoff
+# Session Handoff Skill
 
-Make work portable across sessions. Write to `.context/handoff.md`.
+Captures the current session context to ensure continuity across sessions and after auto-compaction.
 
-## When to Use
+## Instructions
 
-- End of every work session
-- Before switching tasks or contexts
-- Before user leaves
-- When compacting context
+When this skill is invoked, create a comprehensive session handoff document:
 
-## Process
+1. **Check for uncommitted changes**:
+   - Run `git status` to check for uncommitted changes
+   - If there are uncommitted changes, inform the user and ask if they want to:
+     - Commit the changes now (offer to help create the commit)
+     - Continue with handoff anyway (changes will be documented but not committed)
+     - Cancel the handoff to commit manually first
+   - If working tree is clean, proceed to step 2
 
-1. **Gather**: What was requested? What did we do? What changed?
-2. **Document**: Files, agents, decisions, docs updated
-3. **Verify**: How to confirm the work is correct
-4. **Remaining**: What's incomplete, issues, blockers
-5. **Prepare**: What does next session need?
+2. **Determine the date and time**:
+   - Use today's date in YYYY-MM-DD format
+   - Use bash command `date '+%I:%M %p'` to get the current time (e.g., "09:33 AM")
+   - Use bash command `date '+%A'` to get the day of week if helpful for context
 
-## Output Location
+3. **Create the handoff file**:
+   - Location: `contexts/_LifeOS/handoff/session-handoff-YYYY-MM-DD.md`
+   - If a file for today already exists, read it first and append with a new timestamp section
+   - Format session header as: `## Session N (Day Period - HH:MM AM/PM)` where Day Period is descriptive (e.g., "Morning", "Afternoon", "Evening", "Early Morning")
 
-Write to: `.context/handoff.md`
+4. **Capture the following sections**:
 
-## Essential Sections
+   ### Session Summary
+   - Brief overview of what was accomplished in this session
+   - Main topics discussed or worked on
+   - Time range if relevant
+
+   ### Key Decisions Made
+   - Important choices and why they were made
+   - Architectural decisions
+   - Approach selections
+   - What was chosen and what was rejected
+
+   ### Code Changes
+   - List files modified with specific line numbers when relevant (use format `file.ts:123`)
+   - Brief description of what changed and why
+   - Any patterns or conventions established
+   - New files created
+
+   ### Open Questions & Blockers
+   - Unresolved questions
+   - Things that need investigation
+   - Blockers preventing progress
+   - Edge cases to consider
+
+   ### Next Steps
+   - Concrete action items as a checklist using `- [ ]` format
+   - Priorities for next session
+   - Follow-up tasks
+
+   ### Context for Next Session
+   - Important background that would be lost in compaction
+   - Links to relevant files or resources
+   - Any special considerations
+   - Current working directory or focus area
+
+5. **Format guidelines**:
+   - Use clear markdown headings
+   - Be specific with file references (include line numbers)
+   - Keep it concise but complete
+   - Use bullet points and checklists
+   - Include timestamps for multiple sessions in one day
+
+6. **Commit and push the handoff**:
+   - Add the handoff file to git staging
+   - Commit with message format: "Add Session N handoff: [brief summary]"
+   - Push to remote to ensure context is backed up
+   - Confirm to the user what was committed and pushed
+   - Show a brief summary of what was documented
+
+## Example Output Format
 
 ```markdown
-# Session Handoff — [Date]
+# Session Handoff - 2026-01-11
 
-## Summary
-[2-3 sentences: what was accomplished]
+## Session 1 (Morning - 9:00 AM)
 
-## Work Completed
-- [Feature/fix]: [description]
+### Session Summary
 
-## Files Changed
-| File | Change | Description |
-|------|--------|-------------|
-| path | modified | what changed |
+Researched Claude Code session management strategies and created comprehensive documentation. Set up handoff infrastructure for future session continuity.
 
-## Verification
-[Commands to run, UI to check, tests to execute]
+### Key Decisions Made
 
-## Remaining
-- [ ] [Incomplete task]
-- **Issue**: [description + workaround]
+- **Storage location**: Decided to store session context in `contexts/_LifeOS/handoff/` following existing PARA structure
+- **Skill creation**: Chose to create a reusable `/handoff` skill rather than manual process
+- **Naming convention**: Will use `session-handoff-YYYY-MM-DD.md` format
 
-## Next Session
-1. Run `/session-start`
-2. Load [specific docs]
-3. Start with [first action]
+### Code Changes
+
+- Created `contexts/tech/3_resources/ai-learnings/Claude Code Session Management.md`
+  - Comprehensive guide to session management
+  - Community resources and best practices
+  - References to GitHub repos and tools
+
+- Created `contexts/_LifeOS/handoff/README.md`
+  - Explains purpose of handoff folder
+  - Documents naming conventions
+  - Links to related resources
+
+- Updated `CLAUDE.md:32` and `CLAUDE.md:56`
+  - Added handoff folder documentation
+  - Mentioned `/handoff` skill usage
+
+- Updated `contexts/tech/3_resources/ai-learnings/README.md:17-18`
+  - Added new session management topic
+
+- Created `.claude/skills/handoff/SKILL.md`
+  - Custom skill for session handoff automation
+  - Follows PARA methodology
+
+### Open Questions & Blockers
+
+None currently
+
+### Next Steps
+
+- [ ] Test the `/handoff` skill in practice
+- [ ] Consider creating additional skills for common workflows (journal entry, learning log, etc.)
+- [ ] Explore community skill repositories for other useful tools
+- [ ] Review wshobson/commands and claude-code-showcase repos
+
+### Context for Next Session
+
+This session focused on meta-work: improving the Claude Code workflow itself. The repository is a personal knowledge management system using PARA methodology, primarily for Obsidian notes. The handoff system is now in place to preserve context across sessions and auto-compaction events.
 ```
 
-## Quick Handoff (Short Sessions)
+## Implementation Notes
 
-```markdown
-# Quick Handoff — [Date]
-**Did**: [one sentence]
-**Changed**: [file list]
-**Verify**: [one command/action]
-**Next**: [what to do]
-```
-
-## Quality Check
-
-- [ ] Summary is specific, not vague
-- [ ] All changed files listed
-- [ ] Verification steps are actionable
-- [ ] Remaining work is explicit
-- [ ] Next session can start immediately
-
-## Related
-
-- Full template: See [reference/full-template.md](reference/full-template.md)
-- Compaction handoff: See [reference/compact-handoff.md](reference/compact-handoff.md)
-- Consumed by: `/session-start`
+- This skill follows the PARA methodology for personal knowledge management
+- Session handoff files are stored in `_LifeOS/handoff/` as they're related to daily workflow
+- The skill can be invoked simply by typing `/handoff` in Claude Code
+- Multiple sessions in one day append to the same file with new timestamp sections
+- The handoff is automatically committed and pushed to remote for backup
+- The handoff file serves as input for the next session to recover full context
+- Pushing ensures context is preserved even if local machine fails or user switches machines

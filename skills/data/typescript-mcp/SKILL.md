@@ -1,69 +1,31 @@
 ---
 name: typescript-mcp
-description: MCP servers with TypeScript on Cloudflare Workers using @modelcontextprotocol/sdk. Use for API integrations, stateless tools, edge deployments, or encountering export syntax, schema validation, memory leak, CORS, auth errors.
+description: |
+  Build MCP servers with TypeScript on Cloudflare Workers. Covers tools, resources, prompts, tasks, authentication (API keys, OAuth, Zero Trust), and Cloudflare service integrations. Prevents 20 documented errors.
 
-  Keywords: mcp, model context protocol, typescript mcp, cloudflare workers mcp, mcp server, mcp tools, mcp resources, mcp sdk, @modelcontextprotocol/sdk, hono mcp, streamablehttpservertransport, mcp authentication, mcp cloudflare, edge mcp server, serverless mcp, typescript mcp server, mcp api, llm tools, ai tools, cloudflare d1 mcp, cloudflare kv mcp, mcp testing, mcp deployment, wrangler mcp, export syntax error, schema validation error, memory leak mcp, cors mcp, rate limiting mcp
-license: MIT
-metadata:
-  version: 2.0.0
-  last_updated: 2025-12-17
-  optimization_date: 2025-12-17
-  token_savings: ~55%
-  sdk_version: "@modelcontextprotocol/sdk@1.22.0"
-  platform: cloudflare-workers
-  production_tested: true
-  errors_prevented: 13
+  Use when exposing APIs to LLMs or troubleshooting export syntax errors, transport leaks, server instance reuse bugs, CORS misconfigurations, or task validation errors.
+user-invocable: true
 allowed-tools: [Read, Write, Edit, Bash, Grep, Glob]
 ---
 
-# TypeScript MCP Server on Cloudflare Workers
+# TypeScript MCP on Cloudflare Workers
 
-Build production-ready Model Context Protocol (MCP) servers using TypeScript and deploy them on Cloudflare Workers. This skill covers the official `@modelcontextprotocol/sdk`, HTTP transport setup, authentication patterns, Cloudflare service integrations, and comprehensive error prevention.
-
----
-
-## When to Use This Skill
-
-Use this skill when:
-- Building **MCP servers** to expose APIs, tools, or data to LLMs
-- Deploying **serverless MCP endpoints** on Cloudflare Workers
-- Integrating **external APIs** as MCP tools (REST, GraphQL, databases)
-- Creating **stateless MCP servers** for edge deployment
-- Exposing **Cloudflare services** (D1, KV, R2, Vectorize) via MCP protocol
-- Implementing **authenticated MCP servers** with API keys, OAuth, or Zero Trust
-- Building **multi-tool MCP servers** with resources and prompts
-- Needing **production-ready templates** that prevent common MCP errors
-
-**Do NOT use this skill when**:
-- Building **Python MCP servers** (use FastMCP skill instead)
-- Needing **stateful agents** with WebSockets (use Cloudflare Agents SDK)
-- Wanting **long-running persistent agents** with SQLite storage (use Durable Objects)
-- Building **local CLI tools** (use stdio transport, not HTTP)
-
----
-
-## Core Concepts
-
-**MCP Protocol Components**:
-
-1. **Tools** - Functions LLMs can invoke (Zod schemas, async handlers, external APIs)
-2. **Resources** - Data exposure (URI-based: `config://app`, `user://{userId}`)
-3. **Prompts** - Pre-configured templates for LLM interactions
-4. **Completions** - Argument auto-complete (optional)
+**Last Updated**: 2026-01-21
+**Versions**: @modelcontextprotocol/sdk@1.25.3, hono@4.11.3, zod@4.3.5
+**Spec Version**: 2025-11-25
 
 ---
 
 ## Quick Start
 
-### 1. Install Dependencies
-
 ```bash
-bun add @modelcontextprotocol/sdk hono zod
-bun add -d @cloudflare/workers-types wrangler typescript
+npm install @modelcontextprotocol/sdk@latest hono zod
+npm install -D @cloudflare/workers-types wrangler typescript
 ```
 
-### 2. Create Basic MCP Server
+**Transport Recommendation**: Use `StreamableHTTPServerTransport` for production. SSE transport is deprecated and maintained for backwards compatibility only. Streamable HTTP provides better error recovery, bidirectional communication, and simplified deployment.
 
+**Basic MCP Server**:
 ```typescript
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -72,17 +34,15 @@ import { z } from 'zod';
 
 const server = new McpServer({ name: 'my-mcp-server', version: '1.0.0' });
 
-// Register a tool
 server.registerTool(
   'echo',
   {
-    description: 'Echoes back the input text',
-    inputSchema: z.object({ text: z.string().describe('Text to echo') })
+    description: 'Echoes back input',
+    inputSchema: z.object({ text: z.string() })
   },
   async ({ text }) => ({ content: [{ type: 'text', text }] })
 );
 
-// HTTP endpoint
 const app = new Hono();
 
 app.post('/mcp', async (c) => {
@@ -90,6 +50,11 @@ app.post('/mcp', async (c) => {
     sessionIdGenerator: undefined,
     enableJsonResponse: true
   });
+
+  // CRITICAL: Set error handler to catch transport errors
+  transport.onerror = (error) => {
+    console.error('MCP transport error:', error);
+  };
 
   // CRITICAL: Close transport to prevent memory leaks
   c.res.raw.on('close', () => transport.close());
@@ -99,357 +64,568 @@ app.post('/mcp', async (c) => {
   return c.body(null);
 });
 
-export default app;
+export default app; // CRITICAL: Direct export, not { fetch: app.fetch }
 ```
 
-### 3. Deploy
-
-```bash
-wrangler deploy
-```
-
-### 4. Use Production Templates
-
-**For complete implementations**, copy from `templates/` directory:
-- `templates/basic-mcp-server.ts` - Minimal working server
-- `templates/tool-server.ts` - Multiple tools (API integrations, calculations)
-- `templates/resource-server.ts` - Static and dynamic resources
-- `templates/full-server.ts` - Complete server (tools + resources + prompts)
-- `templates/authenticated-server.ts` - Production security with API key authentication
-- `templates/wrangler.jsonc` - Cloudflare Workers configuration
+**Deploy**: `wrangler deploy`
 
 ---
 
-## Authentication Patterns
+## Authentication
 
-**Quick Example** - API Key Authentication (Most Common):
-
+**API Key** (KV-based):
 ```typescript
 app.use('/mcp', async (c, next) => {
-  const authHeader = c.req.header('Authorization');
-  if (!authHeader?.startsWith('Bearer ')) {
-    return c.json({ error: 'Unauthorized' }, 401);
-  }
-
-  const apiKey = authHeader.replace('Bearer ', '');
+  const apiKey = c.req.header('Authorization')?.replace('Bearer ', '');
   const isValid = await c.env.MCP_API_KEYS.get(`key:${apiKey}`);
-  if (!isValid) return c.json({ error: 'Invalid API key' }, 403);
-
+  if (!isValid) return c.json({ error: 'Unauthorized' }, 403);
   await next();
 });
 ```
 
-**For complete authentication guide**: Load `references/authentication-guide.md` when implementing production authentication. Covers 5 methods: API Key (recommended), Cloudflare Zero Trust Access, OAuth 2.0, JWT custom, and mTLS. Includes security best practices, testing strategies, and migration guides.
+**Cloudflare Zero Trust**:
+```typescript
+const jwt = c.req.header('Cf-Access-Jwt-Assertion');
+const payload = await verifyJWT(jwt, c.env.CF_ACCESS_TEAM_DOMAIN);
+```
 
 ---
 
-## Cloudflare Service Integration
+## Tasks (v1.24.0+)
 
-**Quick Example** - D1 Database Tool:
+Tasks enable **long-running operations** that return a handle for polling results later. Useful for expensive computations, batch processing, or operations that may need input.
 
+**Task States**: `working` → `input_required` → `completed` / `failed` / `cancelled`
+
+**Server Capability Declaration**:
+```typescript
+const server = new McpServer({
+  name: 'my-server',
+  version: '1.0.0',
+  capabilities: {
+    tasks: {
+      list: {},
+      cancel: {},
+      requests: {
+        tools: { call: {} }
+      }
+    }
+  }
+});
+```
+
+**Tool with Task Support**:
 ```typescript
 server.registerTool(
-  'query-database',
+  'long-running-analysis',
   {
-    description: 'Executes SQL query on D1 database',
-    inputSchema: z.object({
-      query: z.string(),
-      params: z.array(z.union([z.string(), z.number()])).optional()
-    })
+    description: 'Analyze large dataset',
+    inputSchema: z.object({ datasetId: z.string() }),
+    execution: { taskSupport: 'optional' }  // 'forbidden' | 'optional' | 'required'
   },
-  async ({ query, params }, env) => {
-    const result = await env.DB.prepare(query).bind(...(params || [])).all();
-    return { content: [{ type: 'text', text: JSON.stringify(result.results, null, 2) }] };
+  async ({ datasetId }, extra) => {
+    // If invoked as task, extra.task contains taskId
+    const result = await performAnalysis(datasetId);
+    return { content: [{ type: 'text', text: JSON.stringify(result) }] };
   }
 );
 ```
 
-**Supported Services**: D1 (SQL Database), KV (Key-Value Store), R2 (Object Storage), Vectorize (Vector Database), Workers AI, Queues, Analytics Engine.
+**Client Task Request**:
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "long-running-analysis",
+    "arguments": { "datasetId": "abc123" },
+    "task": { "ttl": 60000 }
+  }
+}
+```
 
-**For complete integration guide**: Load `references/cloudflare-integration.md` when integrating Cloudflare services. Includes setup, MCP tool examples, best practices, and advanced patterns (RAG systems, combining services).
+**Task Lifecycle**:
+1. Client sends request with `task` param → receives `taskId`
+2. Client polls via `tasks/get` with `taskId`
+3. When status is `completed`, client calls `tasks/result` to get output
+4. Optional: Client can `tasks/cancel` to abort
+
+📚 **Spec**: https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks
 
 ---
 
-## Testing Strategies
+## Sampling with Tools (v1.24.0+)
 
-**Quick Testing Workflow**:
+Servers can now include **tool definitions in sampling requests**, enabling server-side agent loops.
 
-1. **Unit Tests** (Vitest): Test tool logic in isolation
-2. **Integration Tests** (MCP Inspector): Test with `bunx @modelcontextprotocol/inspector`
-3. **E2E Tests**: Test with real MCP clients
+**Use Case**: Server needs to orchestrate multi-step reasoning using LLM + tools without custom frameworks.
 
-```bash
-# Local dev
-npm run dev
+```typescript
+// Server initiates sampling with tools available
+const result = await server.requestSampling({
+  messages: [{ role: 'user', content: 'Analyze this data and fetch more if needed' }],
+  maxTokens: 4096,
+  tools: [
+    {
+      name: 'fetch_data',
+      description: 'Fetch additional data from API',
+      inputSchema: { type: 'object', properties: { query: { type: 'string' } } }
+    }
+  ]
+});
 
-# Test with Inspector
-bunx @modelcontextprotocol/inspector
+// Handle tool calls in response
+if (result.content[0].type === 'tool_use') {
+  const toolResult = await executeLocalTool(result.content[0]);
+  // Continue conversation with tool result...
+}
 ```
 
-**For complete testing guide**: Load `references/testing-guide.md` when writing tests. Covers unit testing with Vitest, integration testing with MCP Inspector, E2E testing, authentication testing, load testing with Artillery, mocking external APIs, and CI/CD testing patterns.
+**Key Points**:
+- Server-side agentic behavior as first-class MCP feature
+- Standard MCP primitives (no custom frameworks)
+- Tool definitions follow same schema as `tools/list`
+
+📚 **Spec**: SEP-1577
+
+---
+
+## Cloudflare Service Tools
+
+**D1 Database**:
+```typescript
+server.registerTool('query-db', {
+  inputSchema: z.object({ query: z.string(), params: z.array(z.union([z.string(), z.number()])).optional() })
+}, async ({ query, params }, env) => {
+  const result = await env.DB.prepare(query).bind(...(params || [])).all();
+  return { content: [{ type: 'text', text: JSON.stringify(result.results) }] };
+});
+```
+
+**KV, R2, Vectorize**: See `references/cloudflare-integration.md`
 
 ---
 
 ## Known Issues Prevention
 
-This skill prevents **13 documented errors**. Here are the **top 5 most critical**:
+This skill prevents 20 production issues documented in official MCP SDK and Cloudflare repos:
 
 ### Issue #1: Export Syntax Issues (CRITICAL)
 **Error**: `"Cannot read properties of undefined (reading 'map')"`
-**Source**: honojs/hono#3955
+**Source**: honojs/hono#3955, honojs/vite-plugins#237
+**Why It Happens**: Incorrect export format with Vite build causes cryptic errors
 **Prevention**:
 ```typescript
-// ❌ WRONG                      // ✅ CORRECT
-export default { fetch: app.fetch };    export default app;
+// ❌ WRONG - Causes cryptic build errors
+export default { fetch: app.fetch };
+
+// ✅ CORRECT - Direct export
+export default app;
 ```
 
 ### Issue #2: Unclosed Transport Connections
 **Error**: Memory leaks, hanging connections
+**Source**: Best practice from SDK maintainers
+**Why It Happens**: Not closing StreamableHTTPServerTransport on request end
 **Prevention**:
 ```typescript
 app.post('/mcp', async (c) => {
-  const transport = new StreamableHTTPServerTransport({...});
-  c.res.raw.on('close', () => transport.close()); // CRITICAL
+  const transport = new StreamableHTTPServerTransport(/*...*/);
+
+  // CRITICAL: Always close on response end
+  c.res.raw.on('close', () => transport.close());
+
   // ... handle request
 });
 ```
 
 ### Issue #3: Tool Schema Validation Failure
 **Error**: `ListTools request handler fails to generate inputSchema`
-**Source**: modelcontextprotocol/typescript-sdk#1028
-**Prevention**: Pass Zod schema directly - SDK handles conversion automatically
+**Source**: GitHub modelcontextprotocol/typescript-sdk#1028
+**Why It Happens**: Zod schemas not properly converted to JSON Schema
+**Prevention**:
 ```typescript
-server.registerTool('tool', { inputSchema: z.object({...}) }, handler);
+// ✅ CORRECT - SDK handles Zod schema conversion automatically
+server.registerTool(
+  'tool-name',
+  {
+    inputSchema: z.object({ a: z.number() })
+  },
+  handler
+);
+
+// No need for manual zodToJsonSchema() unless custom validation
 ```
 
 ### Issue #4: Tool Arguments Not Passed to Handler
 **Error**: Handler receives `undefined` arguments
-**Source**: modelcontextprotocol/typescript-sdk#1026
-**Prevention**: Use `z.infer<typeof schema>` for type-safe handler parameters
+**Source**: GitHub modelcontextprotocol/typescript-sdk#1026
+**Why It Happens**: Schema type mismatch between registration and invocation
+**Prevention**:
+```typescript
+const schema = z.object({ a: z.number(), b: z.number() });
+type Input = z.infer<typeof schema>;
+
+server.registerTool(
+  'add',
+  { inputSchema: schema },
+  async (args: Input) => {
+    // args.a and args.b properly typed and passed
+    return { content: [{ type: 'text', text: String(args.a + args.b) }] };
+  }
+);
+```
 
 ### Issue #5: CORS Misconfiguration
-**Error**: Browser clients can't connect
+**Error**: Browser clients can't connect to MCP server
+**Source**: Common production issue
+**Why It Happens**: Missing CORS headers for HTTP transport
 **Prevention**:
 ```typescript
 import { cors } from 'hono/cors';
-app.use('/mcp', cors({ origin: ['http://localhost:3000'], allowMethods: ['POST', 'OPTIONS'] }));
+
+app.use('/mcp', cors({
+  origin: ['http://localhost:3000', 'https://your-app.com'],
+  allowMethods: ['POST', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization']
+}));
 ```
 
-**For complete error catalog**: Load `references/common-errors.md` when debugging. Covers all 13 errors with detailed solutions, root causes from GitHub issues, and debugging checklist.
+### Issue #6: Missing Rate Limiting
+**Error**: API abuse, DDoS vulnerability
+**Source**: Production security best practice
+**Why It Happens**: No rate limiting on MCP endpoints
+**Prevention**:
+```typescript
+app.post('/mcp', async (c) => {
+  const ip = c.req.header('CF-Connecting-IP');
+  const rateLimitKey = `ratelimit:${ip}`;
 
----
-
-## Deployment Workflow
-
-**Quick Deployment**:
-
-```bash
-# Local development
-npm run dev  # Server at http://localhost:8787/mcp
-
-# Production
-npm run build
-wrangler deploy
-
-# Specific environment
-wrangler deploy --env production
-```
-
-**For complete deployment guide**: Load `references/deployment-guide.md` when setting up production. Covers environment setup (dev/staging/prod), multiple environments, custom domains, CI/CD with GitHub Actions, database migrations, monitoring & logs, rollback strategy, performance optimization, health checks, cost optimization, security checklist, and troubleshooting.
-
----
-
-## Package Versions (Verified 2025-10-28)
-
-```json
-{
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.20.2",
-    "@cloudflare/workers-types": "^4.20251011.0",
-    "hono": "^4.10.1",
-    "zod": "^4.1.12"
-  },
-  "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.5.29",
-    "vitest": "^3.0.0",
-    "wrangler": "^4.43.0",
-    "typescript": "^5.7.0"
+  const count = await c.env.CACHE.get(rateLimitKey);
+  if (count && parseInt(count) > 100) {
+    return c.json({ error: 'Rate limit exceeded' }, 429);
   }
+
+  await c.env.CACHE.put(
+    rateLimitKey,
+    String((parseInt(count || '0') + 1)),
+    { expirationTtl: 60 }
+  );
+
+  // Continue...
+});
+```
+
+### Issue #7: TypeScript Compilation Memory Issues
+**Error**: `Out of memory` during `tsc` build
+**Source**: GitHub modelcontextprotocol/typescript-sdk#985
+**Why It Happens**: Large dependency tree in MCP SDK
+**Prevention**:
+```bash
+# Add to package.json scripts
+"build": "NODE_OPTIONS='--max-old-space-size=4096' tsc && vite build"
+```
+
+### Issue #8: UriTemplate ReDoS Vulnerability
+**Error**: Server hangs on malicious URI patterns
+**Source**: GitHub modelcontextprotocol/typescript-sdk#965 (Security)
+**Why It Happens**: Regex denial-of-service in URI template parsing
+**Prevention**: Update to SDK v1.20.2 or later (includes fix)
+
+### Issue #9: Authentication Bypass
+**Error**: Unauthenticated access to MCP tools
+**Source**: Production security best practice
+**Why It Happens**: Missing or improperly implemented authentication
+**Prevention**: Always implement authentication for production servers (see Authentication Patterns section)
+
+### Issue #10: Environment Variable Leakage
+**Error**: Secrets exposed in error messages or logs
+**Source**: Cloudflare Workers security best practice
+**Why It Happens**: Environment variables logged or returned in responses
+**Prevention**:
+```typescript
+// ❌ WRONG - Exposes secrets
+console.log('Env:', JSON.stringify(env));
+
+// ✅ CORRECT - Never log env objects
+try {
+  // ... use env.SECRET_KEY
+} catch (error) {
+  // Don't include env in error context
+  console.error('Operation failed:', error.message);
 }
 ```
 
+### Issue #11: Server Instance Reuse Breaks Concurrent HTTP Sessions (CRITICAL)
+**Error**: `AbortError: This operation was aborted`
+**Source**: [GitHub Issue #1405](https://github.com/modelcontextprotocol/typescript-sdk/issues/1405)
+**Why It Happens**: Calling `Server.connect(transport)` silently overwrites the previous transport without warning, breaking all earlier connections
+**Prevention**:
+```typescript
+// ✅ CORRECT - Create fresh McpServer per HTTP session
+app.post('/mcp', async (c) => {
+  const server = new McpServer({ name: 'my-server', version: '1.0.0' });
+
+  // Register tools per request
+  server.registerTool('echo', { inputSchema: z.object({ text: z.string() }) },
+    async ({ text }) => ({ content: [{ type: 'text', text }] })
+  );
+
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+    enableJsonResponse: true
+  });
+
+  transport.onerror = (error) => console.error('Transport error:', error);
+  c.res.raw.on('close', () => transport.close());
+  await server.connect(transport);
+  await transport.handleRequest(c.req.raw, c.res.raw, await c.req.json());
+  return c.body(null);
+});
+
+// ❌ WRONG - Reusing server instance across sessions
+const sharedServer = new McpServer({ name: 'my-server', version: '1.0.0' });
+app.post('/mcp', async (c) => {
+  await sharedServer.connect(transport); // Breaks previous sessions!
+});
+```
+
+### Issue #12: sessionIdGenerator Type Error with TypeScript Strict Mode
+**Error**: `Type 'undefined' is not assignable to type '() => string'`
+**Source**: [GitHub Issue #1397](https://github.com/modelcontextprotocol/typescript-sdk/issues/1397)
+**Why It Happens**: SDK 1.25.2 types break projects using `exactOptionalPropertyTypes: true` in tsconfig.json
+**Prevention**:
+```typescript
+// With exactOptionalPropertyTypes: true
+
+// ✅ CORRECT - Omit the property instead of setting to undefined
+const transport = new StreamableHTTPServerTransport({
+  enableJsonResponse: true
+  // sessionIdGenerator omitted entirely
+});
+
+// ❌ WRONG - Setting to undefined causes type error in SDK 1.25.2
+const transport = new StreamableHTTPServerTransport({
+  sessionIdGenerator: undefined,  // Type error!
+  enableJsonResponse: true
+});
+
+// Alternative: Provide a generator function
+const transport = new StreamableHTTPServerTransport({
+  sessionIdGenerator: () => crypto.randomUUID(),
+  enableJsonResponse: true
+});
+```
+
+### Issue #13: Global fetch Pollution from Hono (SDK 1.25.0-1.25.2)
+**Error**: Native Node.js fetch behavior breaks after importing SDK
+**Source**: [GitHub Issue #1376](https://github.com/modelcontextprotocol/typescript-sdk/issues/1376)
+**Why It Happens**: Hono's server code globally overwrites `global.fetch`, breaking libraries expecting native behavior
+**Prevention**:
+```typescript
+// FIXED in SDK v1.25.3 - Update to latest version
+npm install @modelcontextprotocol/sdk@1.25.3
+
+// Workaround for older versions (1.25.0-1.25.2):
+const nativeFetch = global.fetch;
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+global.fetch = nativeFetch; // Restore if needed
+```
+
+### Issue #14: Task Error Wrapping Masks Validation Errors
+**Error**: Confusing error message hides actual validation failure
+**Source**: [GitHub Issue #1385](https://github.com/modelcontextprotocol/typescript-sdk/issues/1385)
+**Why It Happens**: When task-augmented tool call fails validation before task creation, SDK wraps error incorrectly
+**Prevention**:
+```typescript
+// Expected error for invalid input:
+// "Invalid arguments: Too small: expected number to be >=500"
+
+// Actual error (confusing):
+// "Invalid task creation result: expected object, received undefined"
+
+// WORKAROUND: Add explicit validation before task logic
+server.experimental.tasks.registerToolTask(
+  'batch_process',
+  {
+    inputSchema: z.object({
+      itemCount: z.number().min(1).max(10),
+      processingTimeMs: z.number().min(500).max(5000).optional()
+    })
+  },
+  {
+    createTask: async (args, extra) => {
+      // SDK should fix this - currently no workaround
+      // Validation errors are masked by task wrapping
+    }
+  }
+);
+```
+
+### Issue #15: Tool Schema with All Optional Fields Causes InvalidParams
+**Error**: `"expected": "object", "received": "undefined"`
+**Source**: [GitHub Issue #400](https://github.com/modelcontextprotocol/typescript-sdk/issues/400)
+**Why It Happens**: Some LLM clients omit `arguments` field when all schema properties are optional
+**Prevention**:
+```typescript
+// ❌ WRONG - All optional fields may cause issues
+server.registerTool('fetch-records', {
+  inputSchema: z.object({
+    limit: z.number().optional()
+  })
+}, handler);
+
+// ✅ CORRECT - Always include at least one required field
+server.registerTool('fetch-records', {
+  inputSchema: z.object({
+    action: z.literal('fetch').default('fetch'),  // Required
+    limit: z.number().optional()
+  })
+}, handler);
+
+// Alternative: Use empty object schema
+server.registerTool('fetch-records', {
+  inputSchema: z.object({}).passthrough()
+}, handler);
+```
+
+### Issue #16: Bulk Tool Registration Triggers EventEmitter Memory Leak Warnings
+**Error**: `MaxListenersExceededWarning: Possible EventEmitter memory leak detected`
+**Source**: [GitHub Issue #842](https://github.com/modelcontextprotocol/typescript-sdk/issues/842)
+**Why It Happens**: Registering 80+ tools in a loop overwhelms stdout buffer with rapid `sendToolListChanged()` notifications
+**Prevention**:
+```typescript
+// Workaround: Increase maxListeners before bulk registration
+process.stdout.setMaxListeners(100);
+
+const tools = [...]; // Array of 80+ tool definitions
+for (const tool of tools) {
+  server.registerTool(tool.name, tool.schema, tool.handler);
+}
+
+// Future SDK may provide batch registration API
+```
+
+### Issue #17: Silent Transport Errors Without onerror Handler
+**Error**: Transport errors vanish without logs or exceptions
+**Source**: [GitHub Issue #1395](https://github.com/modelcontextprotocol/typescript-sdk/issues/1395)
+**Why It Happens**: SDK silently swallows transport errors if `onerror` callback is not set
+**Prevention**:
+```typescript
+// ✅ CORRECT - Always set onerror handler
+const transport = new StreamableHTTPServerTransport({
+  sessionIdGenerator: undefined,
+  enableJsonResponse: true
+});
+
+transport.onerror = (error) => {
+  console.error('Transport error:', error);
+  // Handle error appropriately
+};
+
+await server.connect(transport);
+```
+
+### Issue #18: DoS via Query String Array Limit Bypass
+**Error**: Memory exhaustion from malicious query parameters
+**Source**: [GitHub Issue #1368](https://github.com/modelcontextprotocol/typescript-sdk/issues/1368)
+**Why It Happens**: The `qs` library's `arrayLimit` can be bypassed using bracket notation like `?foo[99999999]=bar`
+**Prevention**:
+```typescript
+// Validate query parameters to prevent DoS
+app.post('/mcp', async (c) => {
+  const queryParams = c.req.query();
+
+  // Reject malicious patterns
+  if (Object.keys(queryParams).some(key => /\[\d{6,}\]/.test(key))) {
+    return c.json({ error: 'Invalid query parameters' }, 400);
+  }
+
+  // ... handle request
+});
+```
+
+### Issue #19: Request Handlers Not Cancelled on Transport Close
+**Error**: Long-running handlers continue executing after client disconnect, wasting resources
+**Source**: [GitHub Issue #611](https://github.com/modelcontextprotocol/typescript-sdk/issues/611)
+**Why It Happens**: SDK doesn't automatically cancel request handlers when transport connection closes
+**Prevention**:
+```typescript
+// Workaround: Use AbortController pattern manually
+server.registerTool(
+  'long-running-task',
+  { inputSchema: z.object({ duration: z.number() }) },
+  async ({ duration }, extra) => {
+    const abortController = new AbortController();
+
+    // Listen for transport close
+    const transport = extra.transport;
+    if (transport) {
+      const originalOnClose = transport.onclose;
+      transport.onclose = () => {
+        abortController.abort();
+        if (originalOnClose) originalOnClose();
+      };
+    }
+
+    try {
+      await longRunningTask(duration, abortController.signal);
+      return { content: [{ type: 'text', text: 'Done' }] };
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        return { content: [{ type: 'text', text: 'Cancelled' }], isError: true };
+      }
+      throw error;
+    }
+  }
+);
+```
+
+### Issue #20: $defs Schema References Failed in SDK 1.22.0-1.22.x
+**Error**: `can't resolve reference #/$defs/...`
+**Source**: [GitHub Issue #1175](https://github.com/modelcontextprotocol/typescript-sdk/issues/1175)
+**Why It Happens**: SDK 1.22.0 regression in `cacheToolOutputSchemas` broke `listTools()` with complex JSON Schema
+**Prevention**: Update to SDK v1.23.0 or later (fixed). If on 1.22.x, upgrade immediately.
+
 ---
 
-## When to Use Cloudflare Agents SDK Instead
+## Deployment
 
-Use **Cloudflare Agents MCP** when you need:
-- **Stateful agents** with persistent storage (SQLite up to 1GB)
-- **WebSocket support** for real-time bidirectional communication
-- **Long-running sessions** with conversation history
-- **Scheduled agent tasks** with Durable Objects alarms
-- **Global distribution** with automatic state replication
+```bash
+# Local
+wrangler dev  # http://localhost:8787/mcp
 
-Use **this skill (standalone TypeScript MCP)** when you need:
-- **Stateless tools** and API integrations
-- **Edge deployment** with minimal cold start latency
-- **Simple authentication** (API keys, OAuth)
-- **Pay-per-request pricing** (no Durable Objects overhead)
-- **Maximum portability** (works on any platform, not just Cloudflare)
+# Production
+wrangler deploy
+```
 
-See `references/cloudflare-agents-vs-standalone.md` for detailed comparison.
+**Testing**: `npx @modelcontextprotocol/inspector` (connect to http://localhost:8787/mcp)
 
 ---
 
-## When to Load References
+## Templates & References
 
-Load reference files when working on specific aspects of TypeScript MCP servers:
+**Templates**: `basic-mcp-server.ts`, `tool-server.ts`, `resource-server.ts`, `authenticated-server.ts`, `tasks-server.ts`, `wrangler.jsonc`
 
-### authentication-guide.md
-Load when:
-- **Setup-based**: Implementing authentication for production MCP server
-- **Method-based**: Choosing between API Key, OAuth 2.0, Zero Trust, JWT, or mTLS
-- **Security-based**: Implementing rate limiting, API key rotation, audit logging
-- **Testing-based**: Writing authentication tests (unit, integration, E2E)
-- **Migration-based**: Upgrading from one auth method to another
-
-### cloudflare-agents-vs-standalone.md
-Load when:
-- **Decision-based**: Choosing between standalone MCP and Cloudflare Agents SDK
-- **Architecture-based**: Need stateful agents vs stateless tools
-- **Cost-based**: Comparing pricing for low/high traffic scenarios
-- **Feature-based**: Need WebSockets, persistent storage, or scheduled tasks
-- **Migration-based**: Moving from standalone to Agents SDK or vice versa
-
-### cloudflare-integration.md
-Load when:
-- **Service-based**: Integrating D1, KV, R2, Vectorize, Workers AI, Queues, or Analytics Engine
-- **Pattern-based**: Building RAG systems or multi-service applications
-- **Setup-based**: Configuring wrangler.jsonc bindings for Cloudflare services
-- **Example-based**: Need working code for specific service integration
-
-### common-errors.md
-Load when:
-- **Error-based**: Encountering any of the 13 documented errors
-- **Debugging-based**: Server not working, need systematic debugging checklist
-- **Prevention-based**: Want to prevent all known issues before deployment
-- **Source-based**: Need GitHub issue references for specific errors
-
-### deployment-guide.md
-Load when:
-- **CI/CD-based**: Setting up GitHub Actions for automated deployment
-- **Environment-based**: Configuring staging/production environments
-- **Migration-based**: Running D1 database migrations in CI/CD
-- **Monitoring-based**: Setting up logs, analytics, health checks
-- **Optimization-based**: Implementing caching, performance optimization, cost reduction
-
-### testing-guide.md
-Load when:
-- **Testing-based**: Writing unit tests, integration tests, or E2E tests
-- **Tool-based**: Using Vitest, MCP Inspector, or Artillery for testing
-- **CI/CD-based**: Setting up automated testing in GitHub Actions
-- **Authentication-based**: Testing authentication middleware
-- **Load-based**: Need to load test MCP server endpoints
-
-### tool-patterns.md
-Load when:
-- **Pattern-based**: Implementing external API wrappers, database queries, file operations
-- **Example-based**: Need production-tested tool implementation examples
-- **Architecture-based**: Building multi-step operations, streaming responses, caching tools
-- **Error-based**: Need error handling best practices for tools
-- **Response-based**: Understanding tool response formats
-
----
-
-## Using Bundled Resources
-
-**Templates** (`templates/`): Production-ready implementations
-- `basic-mcp-server.ts` - Minimal working server
-- `tool-server.ts` - Multiple tools (API integrations)
-- `resource-server.ts` - Static and dynamic resources
-- `full-server.ts` - Complete server (tools + resources + prompts)
-- `authenticated-server.ts` - Production security
-- `wrangler.jsonc` - Cloudflare Workers configuration
-
-**Reference Guides** (`references/`): Comprehensive documentation (see "When to Load References" section above)
-- `tool-patterns.md` - Implementation patterns
-- `authentication-guide.md` - All 5 auth methods
-- `testing-guide.md` - Unit, integration, E2E testing
-- `deployment-guide.md` - CI/CD, environments, monitoring
-- `cloudflare-integration.md` - D1, KV, R2, Vectorize, Workers AI
-- `common-errors.md` - All 13 errors + debugging
-- `cloudflare-agents-vs-standalone.md` - Decision matrix
-
-**Scripts** (`scripts/`): Automation tools
-- `init-mcp-server.sh` - Initialize new project
-- `test-mcp-connection.sh` - Test server connectivity
-
----
-
-## Official Documentation
-
-- **MCP Specification**: https://spec.modelcontextprotocol.io/
-- **TypeScript SDK**: https://github.com/modelcontextprotocol/typescript-sdk
-- **Cloudflare Workers**: https://developers.cloudflare.com/workers/
-- **Hono Framework**: https://hono.dev/
-- **Context7 Library ID**: `/websites/modelcontextprotocol` (if available)
-
-**Example Servers**:
-- Official examples: https://github.com/modelcontextprotocol/servers
-- Cloudflare MCP server: https://github.com/cloudflare/mcp-server-cloudflare
+**References**: `tool-patterns.md`, `authentication-guide.md`, `testing-guide.md`, `cloudflare-integration.md`, `common-errors.md`
 
 ---
 
 ## Critical Rules
 
-**Always Do**:
-✅ Close transport on response end | ✅ Use `export default app` syntax | ✅ Implement authentication | ✅ Add rate limiting | ✅ Use Zod schemas | ✅ Test with MCP Inspector | ✅ Update to SDK v1.20.2+ | ✅ Document all tools | ✅ Handle errors gracefully | ✅ Use environment variables
+**Always**:
+- ✅ Create fresh `McpServer` instance per HTTP request (never reuse across sessions)
+- ✅ Set `transport.onerror` handler to catch silent errors
+- ✅ Close transport on response end (`c.res.raw.on('close', () => transport.close())`)
+- ✅ Use direct export (`export default app`, NOT `{ fetch: app.fetch }`)
+- ✅ Implement authentication for production
+- ✅ Update to SDK v1.25.3+ for security fixes, Tasks support, and fetch pollution fix
+- ✅ Include at least one required field in tool schemas (avoid all-optional)
+- ✅ Use `StreamableHTTPServerTransport` for production (SSE is deprecated)
 
-**Never Do**:
-❌ Object wrapper export | ❌ Forget to close transport | ❌ Deploy without auth | ❌ Log env variables | ❌ Use CommonJS | ❌ Skip CORS config | ❌ Hardcode credentials | ❌ Return raw errors | ❌ Deploy untested | ❌ Use outdated SDK
-
----
-
-## Complete Setup Checklist
-
-Use this checklist to verify your MCP server setup:
-
-- [ ] SDK version is 1.20.2 or later
-- [ ] Export syntax is correct (direct export, not object wrapper)
-- [ ] Transport is closed on response end
-- [ ] Authentication is implemented (if production)
-- [ ] Rate limiting is configured (if public-facing)
-- [ ] CORS headers are set (if browser clients)
-- [ ] All tools have clear descriptions and Zod schemas
-- [ ] Environment variables are used for secrets
-- [ ] wrangler.jsonc includes all necessary bindings
-- [ ] Local testing with `wrangler dev` succeeds
-- [ ] MCP Inspector can connect and list tools
-- [ ] Production deployment succeeds
-- [ ] All tools/resources return expected responses
-
----
-
-## Production Example
-
-This skill is based on patterns from:
-- **Official MCP TypeScript SDK examples**: https://github.com/modelcontextprotocol/servers
-- **Cloudflare MCP server**: https://github.com/cloudflare/mcp-server-cloudflare
-- **Errors**: 0 (all 10+ known issues prevented)
-- **Token Savings**: ~70% vs manual implementation
-- **Validation**: ✅ All templates tested on Cloudflare Workers
-
----
-
-**Questions? Issues?**
-
-1. Check `references/common-errors.md` for troubleshooting
-2. Verify all steps in the Quick Start section
-3. Test with MCP Inspector: `bunx @modelcontextprotocol/inspector`
-4. Check official docs: https://spec.modelcontextprotocol.io/
-5. Ensure SDK version is 1.20.2 or later
-
----
-
-**Last Updated**: 2025-10-28
-**SDK Version**: @modelcontextprotocol/sdk@1.20.2
-**Maintainer**: Claude Skills Repository
+**Never**:
+- ❌ Reuse `McpServer` instance across concurrent HTTP sessions
+- ❌ Export with object wrapper
+- ❌ Forget to close StreamableHTTPServerTransport
+- ❌ Omit `transport.onerror` handler
+- ❌ Log environment variables or secrets
+- ❌ Use outdated SDK versions (<1.23.0 has schema bugs, <1.25.3 has fetch pollution)

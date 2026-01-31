@@ -1,7 +1,7 @@
 {
   "name": "stripe-integration",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/payment-processing/skills/stripe-integration/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:40.136162Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/stripe-integration/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-31T03:49:22.434750Z"
 }

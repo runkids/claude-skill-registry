@@ -405,6 +405,7 @@ Check for:
 - [ ] Consistency with similar modules
 - [ ] No duplicate relationship definitions (FK + type:relationship in same
       module)
+- [ ] **Indexed fields have index name ≤ 63 chars (add `indexName` if needed)**
 
 ### 3. Generate Report
 
@@ -481,6 +482,8 @@ description: >
 - [ ] Description explains context and usage
 - [ ] No `length` property on `id` type fields
 - [ ] Consistent with similar fields in other modules
+- [ ] **If field has `index`: calculate index name length (see Index Names
+      section). If > 63 chars → add `indexName` property**
 - [ ] **If new module: includes `rowId` and timestamp fields (`createdAt`,
       `updatedAt`, `deletedAt`)**
 
@@ -592,13 +595,38 @@ If field is referenced in relationships:
 
 ---
 
-## Index Names (63-char limit)
+## Index Names (63-char limit) — MANDATORY VALIDATION
 
 PostgreSQL limits index names to **63 characters**. Aurora generates:
 `{boundedContext}_{module}_{fieldName}` (snake_case). If > 63 chars, Sequelize
 enters infinite loop trying to create the truncated index.
 
-**Solution:** Use `indexName` property with abbreviated name:
+### MANDATORY: Calculate Index Length BEFORE Creating Any Indexed Field
+
+**Every time you add `index: index` or `index: unique` to a field, you MUST
+calculate the generated index name length and add `indexName` if it exceeds 63
+characters.**
+
+**Calculation formula:**
+
+```
+index_name = snake_case(boundedContextName) + "_" + snake_case(moduleName) + "_" + snake_case(fieldName)
+```
+
+**Example:**
+
+```
+boundedContextName: production-planning → production_planning (19)
+moduleName: production-order-header → production_order_header (22)
+fieldName: productionCenterId → production_center_id (19)
+
+Result: production_planning_production_order_header_production_center_id
+Length: 19 + 1 + 22 + 1 + 19 = 62 chars ← OK (but borderline!)
+```
+
+**If length > 63 → MUST add `indexName` property with abbreviated name.**
+
+### Solution: `indexName` Property
 
 ```yaml
 - name: administrativeAreaLevel1Id
@@ -607,17 +635,21 @@ enters infinite loop trying to create the truncated index.
   indexName: bpp_partner_addr_admin_area_lvl1_id # < 63 chars
 ```
 
-**Abbreviation pattern:** BC acronym + short module + short field
+### Abbreviation Pattern
+
+`{BC_abbrev}_{short_module}_{short_field}`
 
 | Bounded Context           | Abbrev |
 | ------------------------- | ------ |
+| `production-planning`     | `pp`   |
 | `business-partner-portal` | `bpp`  |
 | `common`                  | `cmn`  |
 | `whatsapp`                | `wa`   |
 | `queue-manager`           | `qm`   |
 
 Common word abbreviations: `administrative` → `admin`, `address` → `addr`,
-`level` → `lvl`, `position` → `pos`, `configuration` → `config`
+`level` → `lvl`, `position` → `pos`, `configuration` → `config`, `production` →
+`prod`, `order` → `order`, `header` → `header`, `center` → `center`
 
 ---
 

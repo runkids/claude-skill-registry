@@ -1,9 +1,7 @@
 {
   "name": "sentry-common-errors",
-  "description": "Troubleshoot common Sentry integration issues and fixes.Use when encountering Sentry errors, missing events,or configuration problems.Trigger with phrases like \"sentry not working\", \"sentry errors mis",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/sentry-common-errors/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-31T03:32:43.183407Z"
 }

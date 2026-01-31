@@ -1,298 +1,183 @@
 ---
 name: project-memory
-description: Set up and maintain a structured project memory system in docs/project_notes/ that tracks bugs with solutions, architectural decisions, key project facts, and work history. Use this skill when asked to "set up project memory", "track our decisions", "log a bug fix", "update project memory", or "initialize memory system". Configures both CLAUDE.md and AGENTS.md to maintain memory awareness across different AI coding tools.
+description: Persist and recall project-specific context across sessions. Store architectural decisions, patterns, solutions, and learnings. Automatically recall relevant context when facing similar problems.
 ---
 
-# Project Memory
+# Project Memory Skill
 
-## Table of Contents
+Use the memory MCP (`mcp__memory__*`) to persist project knowledge across sessions. This complements personal memory (Qdrant) by focusing on **project-specific** technical context.
 
-- [Overview](#overview)
-- [When to Use This Skill](#when-to-use-this-skill)
-- [Core Capabilities](#core-capabilities)
-  - [1. Initial Setup - Create Memory Infrastructure](#1-initial-setup---create-memory-infrastructure)
-  - [2. Configure CLAUDE.md - Memory-Aware Behavior](#2-configure-claudemd---memory-aware-behavior)
-  - [3. Configure AGENTS.md - Multi-Tool Support](#3-configure-agentsmd---multi-tool-support)
-  - [4. Searching Memory Files](#4-searching-memory-files)
-  - [5. Updating Memory Files](#5-updating-memory-files)
-  - [6. Memory File Maintenance](#6-memory-file-maintenance)
-- [Templates and References](#templates-and-references)
-- [Example Workflows](#example-workflows)
-- [Integration with Other Skills](#integration-with-other-skills)
-- [Success Criteria](#success-criteria)
+## When to Store
 
-## Overview
-
-Maintain institutional knowledge for projects by establishing a structured memory system in `docs/project_notes/`. This skill sets up four key memory files (bugs, decisions, key facts, issues) and configures CLAUDE.md and AGENTS.md to automatically reference and maintain them. The result is a project that remembers past decisions, solutions to problems, and important configuration details across coding sessions and across different AI tools.
-
-## When to Use This Skill
-
-Invoke this skill when:
-
-- Starting a new project that will accumulate knowledge over time
-- The project already has recurring bugs or decisions that should be documented
-- The user asks to "set up project memory" or "track our decisions"
-- The user wants to log a bug fix, architectural decision, or completed work
-- Encountering a problem that feels familiar ("didn't we solve this before?")
-- Before proposing an architectural change (check existing decisions first)
-- Working on projects with multiple developers or AI tools (Claude Code, Cursor, etc.)
-
-## Core Capabilities
-
-### 1. Initial Setup - Create Memory Infrastructure
-
-When invoked for the first time in a project, create the following structure:
+### Architectural Decisions
+Store when you make or discover significant choices:
+- "We chose X pattern over Y because..."
+- "This service uses Z approach for..."
+- "The team decided to structure components as..."
 
 ```
-docs/
-└── project_notes/
-    ├── bugs.md         # Bug log with solutions
-    ├── decisions.md    # Architectural Decision Records
-    ├── key_facts.md    # Project configuration and constants
-    └── issues.md       # Work log with ticket references
+Store: "Auth architecture: JWT tokens with httpOnly cookies, refresh tokens in Redis,
+15min access / 7d refresh. Chosen over session-based for API scalability."
+Tags: ["architecture", "auth", "decisions"]
 ```
 
-**Directory naming rationale:** Using `docs/project_notes/` instead of `memory/` makes it look like standard engineering organization, not AI-specific tooling. This increases adoption and maintenance by human developers.
-
-**Initial file content:** Copy templates from the `references/` directory in this skill:
-- Use `references/bugs_template.md` for initial `bugs.md`
-- Use `references/decisions_template.md` for initial `decisions.md`
-- Use `references/key_facts_template.md` for initial `key_facts.md`
-- Use `references/issues_template.md` for initial `issues.md`
-
-Each template includes format examples and usage tips.
-
-### 2. Configure CLAUDE.md - Memory-Aware Behavior
-
-Add or update the following section in the project's `CLAUDE.md` file:
-
-```markdown
-## Project Memory System
-
-This project maintains institutional knowledge in `docs/project_notes/` for consistency across sessions.
-
-### Memory Files
-
-- **bugs.md** - Bug log with dates, solutions, and prevention notes
-- **decisions.md** - Architectural Decision Records (ADRs) with context and trade-offs
-- **key_facts.md** - Project configuration, credentials, ports, important URLs
-- **issues.md** - Work log with ticket IDs, descriptions, and URLs
-
-### Memory-Aware Protocols
-
-**Before proposing architectural changes:**
-- Check `docs/project_notes/decisions.md` for existing decisions
-- Verify the proposed approach doesn't conflict with past choices
-- If it does conflict, acknowledge the existing decision and explain why a change is warranted
-
-**When encountering errors or bugs:**
-- Search `docs/project_notes/bugs.md` for similar issues
-- Apply known solutions if found
-- Document new bugs and solutions when resolved
-
-**When looking up project configuration:**
-- Check `docs/project_notes/key_facts.md` for credentials, ports, URLs, service accounts
-- Prefer documented facts over assumptions
-
-**When completing work on tickets:**
-- Log completed work in `docs/project_notes/issues.md`
-- Include ticket ID, date, brief description, and URL
-
-**When user requests memory updates:**
-- Update the appropriate memory file (bugs, decisions, key_facts, or issues)
-- Follow the established format and style (bullet lists, dates, concise entries)
-
-### Style Guidelines for Memory Files
-
-- **Prefer bullet lists over tables** for simplicity and ease of editing
-- **Keep entries concise** (1-3 lines for descriptions)
-- **Always include dates** for temporal context
-- **Include URLs** for tickets, documentation, monitoring dashboards
-- **Manual cleanup** of old entries is expected (not automated)
-```
-
-### 3. Configure AGENTS.md - Multi-Tool Support
-
-If the project has an `AGENTS.md` file (used for agent workflows or multi-tool projects), add the same memory protocols. This ensures consistency whether using Claude Code, Cursor, GitHub Copilot, or other AI tools.
-
-**If AGENTS.md exists:** Add the same "Project Memory System" section as above.
-
-**If AGENTS.md doesn't exist:** Ask the user if they want to create it. Many projects use multiple AI tools and benefit from shared memory protocols.
-
-### 4. Searching Memory Files
-
-When encountering problems or making decisions, proactively search memory files:
-
-**Search bugs.md:**
-```bash
-# Look for similar errors
-grep -i "connection refused" docs/project_notes/bugs.md
-
-# Find bugs by date range
-grep "2025-01" docs/project_notes/bugs.md
-```
-
-**Search decisions.md:**
-```bash
-# Check for decisions about a technology
-grep -i "database" docs/project_notes/decisions.md
-
-# Find all ADRs
-grep "^### ADR-" docs/project_notes/decisions.md
-```
-
-**Search key_facts.md:**
-```bash
-# Find database connection info
-grep -A 5 "Database" docs/project_notes/key_facts.md
-
-# Look up service accounts
-grep -i "service account" docs/project_notes/key_facts.md
-```
-
-**Use Grep tool for more complex searches:**
-- Search across all memory files: `Grep(pattern="oauth", path="docs/project_notes/")`
-- Context-aware search: `Grep(pattern="bug", path="docs/project_notes/bugs.md", -A=3, -B=3)`
-
-### 5. Updating Memory Files
-
-When the user requests updates or when documenting resolved issues, update the appropriate memory file:
-
-**Adding a bug entry:**
-```markdown
-### YYYY-MM-DD - Brief Bug Description
-- **Issue**: What went wrong
-- **Root Cause**: Why it happened
-- **Solution**: How it was fixed
-- **Prevention**: How to avoid it in the future
-```
-
-**Adding a decision:**
-```markdown
-### ADR-XXX: Decision Title (YYYY-MM-DD)
-
-**Context:**
-- Why the decision was needed
-- What problem it solves
-
-**Decision:**
-- What was chosen
-
-**Alternatives Considered:**
-- Option 1 -> Why rejected
-- Option 2 -> Why rejected
-
-**Consequences:**
-- Benefits
-- Trade-offs
-```
-
-**Adding key facts:**
-- Organize by category (GCP Project, Database, API, Local Development, etc.)
-- Use bullet lists for clarity
-- Include both production and development details
-- Add URLs for easy navigation
-- See `references/key_facts_template.md` for security guidelines on what NOT to store
-
-**Adding work log entry:**
-```markdown
-### YYYY-MM-DD - TICKET-ID: Brief Description
-- **Status**: Completed / In Progress / Blocked
-- **Description**: 1-2 line summary
-- **URL**: https://jira.company.com/browse/TICKET-ID
-- **Notes**: Any important context
-```
-
-### 6. Memory File Maintenance
-
-**Periodically clean old entries:**
-- User is responsible for manual cleanup (no automation)
-- Remove very old bug entries (6+ months) that are no longer relevant
-- Archive completed work from issues.md (3+ months old)
-- Keep all decisions (they're lightweight and provide historical context)
-- Update key_facts.md when project configuration changes
-
-**Conflict resolution:**
-- If proposing something that conflicts with decisions.md, explain why revisiting the decision is warranted
-- Update the decision entry if the choice changes
-- Add date of revision to show evolution
-
-## Templates and References
-
-This skill includes template files in `references/` that demonstrate proper formatting:
-
-- **references/bugs_template.md** - Bug entry format with examples
-- **references/decisions_template.md** - ADR format with examples
-- **references/key_facts_template.md** - Key facts organization with examples (includes security guidelines)
-- **references/issues_template.md** - Work log format with examples
-
-When creating initial memory files, copy these templates to `docs/project_notes/` and customize them for the project.
-
-## Example Workflows
-
-### Scenario 1: Encountering a Familiar Bug
+### Solved Problems
+Store when you fix non-trivial issues:
+- Complex debugging sessions
+- Performance optimizations
+- Integration gotchas
 
 ```
-User: "I'm getting a 'connection refused' error from the database"
--> Search docs/project_notes/bugs.md for "connection"
--> Find previous solution: "Use AlloyDB Auth Proxy on port 5432"
--> Apply known fix
+Store: "Prisma N+1 fix: Use `include` with explicit `select` for nested relations.
+findMany({ include: { posts: { select: { id: true, title: true } } } })"
+Tags: ["prisma", "performance", "patterns"]
 ```
 
-### Scenario 2: Proposing an Architectural Change
+### Project-Specific Patterns
+Store recurring patterns unique to this codebase:
+- Custom hooks and their usage
+- Service layer conventions
+- Error handling approaches
 
 ```
-Internal: "User might benefit from using SQLAlchemy for migrations"
--> Check docs/project_notes/decisions.md
--> Find ADR-002: Already decided to use Alembic
--> Use Alembic instead, maintaining consistency
+Store: "Error handling pattern: All API errors extend BaseError with code,
+statusCode, isOperational. Use errorHandler middleware for centralized catching."
+Tags: ["patterns", "errors", "conventions"]
 ```
 
-### Scenario 3: User Requests Memory Update
+### Implementation Learnings
+Store insights from implementation:
+- "This API requires X header"
+- "This library has quirk Y"
+- "Integration with Z needs..."
+
+## When to Recall
+
+### Before Implementation
+Check memory when starting work that might have prior context:
+- "Implementing auth" → recall auth-related memories
+- "Adding new API endpoint" → recall API patterns
+- "Fixing performance" → recall past optimizations
+
+### When Stuck
+Query memory when facing challenges:
+- "Similar error before?"
+- "How did we handle this pattern?"
+- "What was the decision about X?"
+
+### During Review
+Check for consistency with past decisions:
+- "Does this align with our patterns?"
+- "Have we solved this differently elsewhere?"
+
+## How to Use
+
+### Storing Memories
 
 ```
-User: "Add that CORS fix to our bug log"
--> Read docs/project_notes/bugs.md
--> Add new entry with date, issue, solution, prevention
--> Confirm addition to user
+Use mcp__memory__store or similar tool:
+- content: Clear, searchable description
+- tags: Relevant categories for retrieval
+- metadata: { project: "project-name", type: "decision|pattern|fix|learning" }
 ```
 
-### Scenario 4: Looking Up Project Configuration
+**Good memory content:**
+- Concise but complete
+- Includes the "why" not just "what"
+- Searchable keywords
+- Context for future recall
+
+### Recalling Memories
 
 ```
-Internal: "Need to connect to database"
--> Check docs/project_notes/key_facts.md
--> Find Database Configuration section
--> Use documented connection string and credentials
+Use mcp__memory__search or similar tool:
+- query: Natural language description of what you need
+- tags: Filter by category if known
+- limit: Start with 5, expand if needed
 ```
 
-## Tips for Effective Memory Management
+**Effective queries:**
+- "authentication implementation decisions"
+- "prisma performance patterns"
+- "error handling conventions"
+- "API rate limiting approach"
 
-1. **Be proactive**: Check memory files before proposing solutions
-2. **Be concise**: Keep entries brief (1-3 lines for descriptions)
-3. **Be dated**: Always include dates for temporal context
-4. **Be linked**: Include URLs to tickets, docs, monitoring dashboards
-5. **Be selective**: Focus on recurring or instructive issues, not every bug
+## Memory Categories
 
-## Integration with Other Skills
+Use consistent tags for organization:
 
-The project-memory skill complements other skills:
+| Tag | Use For |
+|-----|---------|
+| `architecture` | System design, service boundaries |
+| `patterns` | Recurring code patterns |
+| `decisions` | Why we chose X over Y |
+| `fixes` | Bug fixes and debugging solutions |
+| `performance` | Optimizations, bottlenecks |
+| `integrations` | External API quirks, configs |
+| `conventions` | Team standards, naming, structure |
+| `gotchas` | Non-obvious behaviors, pitfalls |
 
-- **requirements-documenter**: Requirements -> Decisions (ADRs reference requirements)
-- **root-cause-debugger**: Bug diagnosis -> Bug log (document solutions after fixes)
-- **code-quality-reviewer**: Quality issues -> Decisions (document quality standards)
-- **docs-sync-editor**: Code changes -> Key facts (update when config changes)
+## What NOT to Store
 
-When using these skills together, consider updating memory files as a follow-up action.
+- Generic programming knowledge (you already know this)
+- Trivial fixes (typos, simple syntax)
+- Temporary workarounds (unless documenting tech debt)
+- Sensitive data (credentials, keys, PII)
 
-## Success Criteria
+## Relationship with Personal Memory (Qdrant)
 
-This skill is successfully deployed when:
+| Project Memory | Personal Memory (Qdrant) |
+|----------------|--------------------------|
+| Technical decisions | Life experiences |
+| Code patterns | Personal preferences |
+| Project-specific | Cross-project/personal |
+| Implementation details | Skills, relationships |
+| Ephemeral (project lifetime) | Permanent (life memory) |
 
-- `docs/project_notes/` directory exists with all four memory files
-- CLAUDE.md includes "Project Memory System" section with protocols
-- AGENTS.md includes the same protocols (if file exists or user requested)
-- Memory files follow template format and style guidelines
-- AI assistant checks memory files before proposing changes
-- User can easily request memory updates ("add this to bugs.md")
-- Memory files look like standard engineering documentation, not AI artifacts
+**Rule:** If it's about THIS project's code → project memory. If it's about Berry → Qdrant.
+
+## Session Start Reminder
+
+At session start, consider:
+1. What work am I continuing?
+2. Are there relevant memories to load?
+3. Query: "recent decisions about [current task area]"
+
+## Examples
+
+### Example 1: Storing an Architecture Decision
+
+After implementing a feature:
+```
+"Implemented image generation queue with Bull + Redis. Chose over in-memory
+because: 1) Survives restarts, 2) Rate limiting per user, 3) Priority queues
+for premium users. Max 3 concurrent jobs per user, 10 global."
+
+Tags: ["architecture", "queue", "images", "decisions"]
+```
+
+### Example 2: Recalling Before Work
+
+Starting work on similar feature:
+```
+Query: "queue implementation patterns"
+→ Recalls Bull + Redis decision
+→ Apply same patterns for consistency
+```
+
+### Example 3: Storing a Gotcha
+
+After debugging:
+```
+"Gemini API safetySettings must be top-level param, NOT inside generationConfig.
+Wasted 2 hours on this. SDK docs are misleading."
+
+Tags: ["gotchas", "gemini", "api", "integrations"]
+```
+
+## Integration with Workflow
+
+1. **Issue Pickup** → Recall related context
+2. **Implementation** → Store patterns/decisions as you go
+3. **PR Creation** → Ensure key decisions are stored
+4. **Review** → Check consistency with stored patterns

@@ -4,6 +4,7 @@ description: "Toolkit for comprehensive PDF reading and creation with visual qua
 metadata:
   author: OpenAI
   license: Proprietary.
+  version: 2025.12.12
 ---
 
 # PDF reading, creation, and review guidance

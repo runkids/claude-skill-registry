@@ -1,395 +1,406 @@
 ---
 name: database-migrations
-description: Safe database migration strategies for zero-downtime deployments. Covers backward-compatible changes, data migrations, and rollback procedures.
-license: MIT
-compatibility: TypeScript/JavaScript, Python
-metadata:
-  category: database
-  time: 3h
-  source: drift-masterguide
+description: Doctrine ORM and database migrations for PostgreSQL. Use this skill when creating entities, generating migrations, managing database schema, or working with Doctrine repositories.
 ---
 
-# Database Migrations
+# Database Migrations Skill
 
-Change your schema without breaking production.
+This skill provides guidance for managing the PostgreSQL database using Doctrine ORM and migrations in the Family Plan backend.
 
-## When to Use This Skill
+## Migration Commands
 
-- Adding/removing columns
-- Changing data types
-- Creating indexes
-- Data transformations
-- Zero-downtime deployments
+### Essential Commands
 
-## The Golden Rule
+```bash
+# Generate migration from entity changes
+make db-diff
+# or: docker compose exec php php bin/console doctrine:migrations:diff
 
-**Every migration must be backward compatible with the previous version of your code.**
+# Run pending migrations
+make db-migrate
+# or: docker compose exec php php bin/console doctrine:migrations:migrate
 
-Why? During deployment, both old and new code versions run simultaneously.
+# Reset database (drop + create + migrate)
+make db-reset
 
-## Safe Migration Patterns
+# Check migration status
+docker compose exec php php bin/console doctrine:migrations:status
 
-### Adding a Column
-
-```sql
--- ✅ SAFE: New column with default or nullable
-ALTER TABLE users ADD COLUMN phone VARCHAR(20);
-
--- ❌ UNSAFE: Required column without default
-ALTER TABLE users ADD COLUMN phone VARCHAR(20) NOT NULL;
+# List all migrations
+docker compose exec php php bin/console doctrine:migrations:list
 ```
 
-### Removing a Column
+### Migration Management
 
+```bash
+# Roll back last migration
+docker compose exec php php bin/console doctrine:migrations:migrate prev
+
+# Roll back to specific version
+docker compose exec php php bin/console doctrine:migrations:migrate 'DoctrineMigrations\Version20240101120000'
+
+# Execute single migration up
+docker compose exec php php bin/console doctrine:migrations:execute 'DoctrineMigrations\Version20240101120000' --up
+
+# Execute single migration down
+docker compose exec php php bin/console doctrine:migrations:execute 'DoctrineMigrations\Version20240101120000' --down
+
+# Skip migration (mark as executed without running)
+docker compose exec php php bin/console doctrine:migrations:version 'DoctrineMigrations\Version20240101120000' --add
 ```
-Phase 1: Stop using column in code (deploy)
-Phase 2: Remove column from database (migrate)
-```
 
-### Renaming a Column
+## Entity Definition
 
-```
-Phase 1: Add new column, write to both (deploy)
-Phase 2: Backfill data (migrate)
-Phase 3: Read from new column (deploy)
-Phase 4: Remove old column (migrate)
-```
+### Basic Entity
 
-## TypeScript Implementation
+```php
+declare(strict_types=1);
 
-### Migration Runner
+namespace App\TaskManagement\Domain\Entity;
 
-```typescript
-// migration-runner.ts
-import { Pool } from 'pg';
-import * as fs from 'fs';
-import * as path from 'path';
+use App\Shared\Domain\ValueObject\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 
-interface Migration {
-  id: string;
-  name: string;
-  up: string;
-  down: string;
+#[ORM\Entity]
+#[ORM\Table(name: 'tasks')]
+#[ORM\Index(columns: ['team_id'], name: 'idx_task_team')]
+#[ORM\Index(columns: ['status'], name: 'idx_task_status')]
+final class Task
+{
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $id;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $name;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(type: 'string', length: 50)]
+    private string $status;
+
+    #[ORM\Column(type: 'integer')]
+    private int $points;
+
+    #[ORM\Column(type: 'uuid', name: 'team_id')]
+    private Uuid $teamId;
+
+    #[ORM\Column(type: 'uuid', name: 'assignee_id', nullable: true)]
+    private ?Uuid $assigneeId = null;
+
+    #[ORM\Column(type: 'datetime_immutable', name: 'created_at')]
+    private \DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: 'datetime_immutable', name: 'updated_at')]
+    private \DateTimeImmutable $updatedAt;
 }
-
-class MigrationRunner {
-  constructor(private pool: Pool, private migrationsDir: string) {}
-
-  async run(): Promise<void> {
-    await this.ensureMigrationsTable();
-    
-    const applied = await this.getAppliedMigrations();
-    const pending = await this.getPendingMigrations(applied);
-
-    for (const migration of pending) {
-      console.log(`Running migration: ${migration.name}`);
-      
-      const client = await this.pool.connect();
-      try {
-        await client.query('BEGIN');
-        
-        // Run migration
-        await client.query(migration.up);
-        
-        // Record migration
-        await client.query(
-          'INSERT INTO migrations (id, name, applied_at) VALUES ($1, $2, NOW())',
-          [migration.id, migration.name]
-        );
-        
-        await client.query('COMMIT');
-        console.log(`✓ ${migration.name}`);
-      } catch (error) {
-        await client.query('ROLLBACK');
-        console.error(`✗ ${migration.name}:`, error);
-        throw error;
-      } finally {
-        client.release();
-      }
-    }
-  }
-
-  async rollback(steps = 1): Promise<void> {
-    const applied = await this.getAppliedMigrations();
-    const toRollback = applied.slice(-steps).reverse();
-
-    for (const migrationId of toRollback) {
-      const migration = await this.loadMigration(migrationId);
-      
-      const client = await this.pool.connect();
-      try {
-        await client.query('BEGIN');
-        await client.query(migration.down);
-        await client.query('DELETE FROM migrations WHERE id = $1', [migration.id]);
-        await client.query('COMMIT');
-        console.log(`Rolled back: ${migration.name}`);
-      } catch (error) {
-        await client.query('ROLLBACK');
-        throw error;
-      } finally {
-        client.release();
-      }
-    }
-  }
-
-  private async ensureMigrationsTable(): Promise<void> {
-    await this.pool.query(`
-      CREATE TABLE IF NOT EXISTS migrations (
-        id VARCHAR(255) PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        applied_at TIMESTAMP DEFAULT NOW()
-      )
-    `);
-  }
-
-  private async getAppliedMigrations(): Promise<string[]> {
-    const result = await this.pool.query(
-      'SELECT id FROM migrations ORDER BY applied_at'
-    );
-    return result.rows.map(r => r.id);
-  }
-
-  private async getPendingMigrations(applied: string[]): Promise<Migration[]> {
-    const files = fs.readdirSync(this.migrationsDir)
-      .filter(f => f.endsWith('.sql'))
-      .sort();
-
-    const pending: Migration[] = [];
-    for (const file of files) {
-      const id = file.replace('.sql', '');
-      if (!applied.includes(id)) {
-        pending.push(await this.loadMigration(id));
-      }
-    }
-    return pending;
-  }
-
-  private async loadMigration(id: string): Promise<Migration> {
-    const filePath = path.join(this.migrationsDir, `${id}.sql`);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    
-    const [up, down] = content.split('-- DOWN');
-    
-    return {
-      id,
-      name: id,
-      up: up.replace('-- UP', '').trim(),
-      down: down?.trim() || '',
-    };
-  }
-}
-
-export { MigrationRunner };
 ```
 
-### Migration File Format
+### Entity with Relations
 
-```sql
--- migrations/20240115_001_add_phone_to_users.sql
+```php
+declare(strict_types=1);
 
--- UP
-ALTER TABLE users ADD COLUMN phone VARCHAR(20);
-CREATE INDEX idx_users_phone ON users(phone);
+namespace App\TeamManagement\Domain\Entity;
 
--- DOWN
-DROP INDEX idx_users_phone;
-ALTER TABLE users DROP COLUMN phone;
-```
+use App\Shared\Domain\ValueObject\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-### Zero-Downtime Column Rename
+#[ORM\Entity]
+#[ORM\Table(name: 'teams')]
+final class Team
+{
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $id;
 
-```typescript
-// Step 1: Add new column (migration)
-// 20240115_001_add_display_name.sql
-`
--- UP
-ALTER TABLE users ADD COLUMN display_name VARCHAR(255);
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $name;
 
--- DOWN
-ALTER TABLE users DROP COLUMN display_name;
-`
+    /** @var Collection<int, TeamMember> */
+    #[ORM\OneToMany(
+        mappedBy: 'team',
+        targetEntity: TeamMember::class,
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
+    private Collection $members;
 
-// Step 2: Write to both columns (code change)
-async function updateUser(id: string, name: string) {
-  await db.query(
-    'UPDATE users SET name = $1, display_name = $1 WHERE id = $2',
-    [name, id]
-  );
-}
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', nullable: false)]
+    private User $owner;
 
-// Step 3: Backfill existing data (migration)
-// 20240116_001_backfill_display_name.sql
-`
--- UP
-UPDATE users SET display_name = name WHERE display_name IS NULL;
-
--- DOWN
--- No rollback needed for data backfill
-`
-
-// Step 4: Read from new column (code change)
-async function getUser(id: string) {
-  const result = await db.query(
-    'SELECT id, display_name as name FROM users WHERE id = $1',
-    [id]
-  );
-  return result.rows[0];
-}
-
-// Step 5: Remove old column (migration)
-// 20240117_001_remove_name_column.sql
-`
--- UP
-ALTER TABLE users DROP COLUMN name;
-
--- DOWN
-ALTER TABLE users ADD COLUMN name VARCHAR(255);
-UPDATE users SET name = display_name;
-`
-```
-
-### Safe Index Creation
-
-```sql
--- ❌ UNSAFE: Locks table during creation
-CREATE INDEX idx_orders_user ON orders(user_id);
-
--- ✅ SAFE: Non-blocking index creation
-CREATE INDEX CONCURRENTLY idx_orders_user ON orders(user_id);
-```
-
-### Data Migration with Batching
-
-```typescript
-// data-migration.ts
-async function migrateUserEmails(): Promise<void> {
-  const BATCH_SIZE = 1000;
-  let processed = 0;
-  let lastId = '';
-
-  while (true) {
-    const users = await db.query(`
-      SELECT id, email 
-      FROM users 
-      WHERE id > $1 
-      ORDER BY id 
-      LIMIT $2
-    `, [lastId, BATCH_SIZE]);
-
-    if (users.rows.length === 0) break;
-
-    for (const user of users.rows) {
-      await db.query(
-        'UPDATE users SET email_normalized = LOWER($1) WHERE id = $2',
-        [user.email, user.id]
-      );
+    private function __construct()
+    {
+        $this->members = new ArrayCollection();
     }
 
-    lastId = users.rows[users.rows.length - 1].id;
-    processed += users.rows.length;
-    console.log(`Processed ${processed} users`);
-
-    // Avoid overwhelming the database
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-}
-```
-
-## Python Implementation
-
-```python
-# migration_runner.py
-import os
-import psycopg2
-from datetime import datetime
-
-class MigrationRunner:
-    def __init__(self, connection_string: str, migrations_dir: str):
-        self.conn = psycopg2.connect(connection_string)
-        self.migrations_dir = migrations_dir
-
-    def run(self):
-        self._ensure_migrations_table()
-        applied = self._get_applied_migrations()
-        pending = self._get_pending_migrations(applied)
-
-        for migration in pending:
-            print(f"Running: {migration['name']}")
-            cursor = self.conn.cursor()
-            try:
-                cursor.execute(migration['up'])
-                cursor.execute(
-                    "INSERT INTO migrations (id, name) VALUES (%s, %s)",
-                    (migration['id'], migration['name'])
-                )
-                self.conn.commit()
-                print(f"✓ {migration['name']}")
-            except Exception as e:
-                self.conn.rollback()
-                print(f"✗ {migration['name']}: {e}")
-                raise
-
-    def _ensure_migrations_table(self):
-        cursor = self.conn.cursor()
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS migrations (
-                id VARCHAR(255) PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                applied_at TIMESTAMP DEFAULT NOW()
-            )
-        """)
-        self.conn.commit()
-
-    def _get_applied_migrations(self) -> list[str]:
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT id FROM migrations ORDER BY applied_at")
-        return [row[0] for row in cursor.fetchall()]
-
-    def _get_pending_migrations(self, applied: list[str]) -> list[dict]:
-        files = sorted(f for f in os.listdir(self.migrations_dir) if f.endswith('.sql'))
-        pending = []
-        for f in files:
-            migration_id = f.replace('.sql', '')
-            if migration_id not in applied:
-                pending.append(self._load_migration(migration_id))
-        return pending
-
-    def _load_migration(self, migration_id: str) -> dict:
-        path = os.path.join(self.migrations_dir, f"{migration_id}.sql")
-        with open(path) as f:
-            content = f.read()
-        up, down = content.split('-- DOWN') if '-- DOWN' in content else (content, '')
-        return {
-            'id': migration_id,
-            'name': migration_id,
-            'up': up.replace('-- UP', '').strip(),
-            'down': down.strip(),
+    public function addMember(TeamMember $member): void
+    {
+        if (!$this->members->contains($member)) {
+            $this->members->add($member);
         }
+    }
+
+    public function removeMember(TeamMember $member): void
+    {
+        $this->members->removeElement($member);
+    }
+
+    /** @return Collection<int, TeamMember> */
+    public function members(): Collection
+    {
+        return $this->members;
+    }
+}
 ```
 
-## Pre-Deployment Checklist
+## Custom Doctrine Types
 
-```markdown
-- [ ] Migration is backward compatible
-- [ ] Indexes created with CONCURRENTLY
-- [ ] Large data migrations batched
-- [ ] Rollback script tested
-- [ ] Migration tested on production-like data
-- [ ] Estimated lock time acceptable
+### UUID Type
+
+```php
+// config/packages/doctrine.yaml
+doctrine:
+    dbal:
+        types:
+            uuid: App\Shared\Infrastructure\Doctrine\Type\UuidType
+
+// Implementation
+declare(strict_types=1);
+
+namespace App\Shared\Infrastructure\Doctrine\Type;
+
+use App\Shared\Domain\ValueObject\Uuid;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\Type;
+
+final class UuidType extends Type
+{
+    public const NAME = 'uuid';
+
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        return 'UUID';
+    }
+
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Uuid
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return Uuid::fromString($value);
+    }
+
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return $value instanceof Uuid ? $value->toString() : $value;
+    }
+
+    public function getName(): string
+    {
+        return self::NAME;
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
+    }
+}
+```
+
+## Migration File Structure
+
+```php
+// migrations/Version20240115120000.php
+declare(strict_types=1);
+
+namespace DoctrineMigrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+final class Version20240115120000 extends AbstractMigration
+{
+    public function getDescription(): string
+    {
+        return 'Create tasks table';
+    }
+
+    public function up(Schema $schema): void
+    {
+        $this->addSql('
+            CREATE TABLE tasks (
+                id UUID NOT NULL,
+                name VARCHAR(255) NOT NULL,
+                description TEXT DEFAULT NULL,
+                status VARCHAR(50) NOT NULL,
+                points INTEGER NOT NULL,
+                team_id UUID NOT NULL,
+                assignee_id UUID DEFAULT NULL,
+                created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+                updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('CREATE INDEX idx_task_team ON tasks (team_id)');
+        $this->addSql('CREATE INDEX idx_task_status ON tasks (status)');
+
+        $this->addSql('
+            ALTER TABLE tasks
+            ADD CONSTRAINT fk_task_team
+            FOREIGN KEY (team_id) REFERENCES teams (id)
+            ON DELETE CASCADE
+        ');
+    }
+
+    public function down(Schema $schema): void
+    {
+        $this->addSql('DROP TABLE tasks');
+    }
+}
+```
+
+## Repository Implementation
+
+```php
+declare(strict_types=1);
+
+namespace App\TaskManagement\Infrastructure\Doctrine;
+
+use App\Shared\Domain\ValueObject\Uuid;
+use App\TaskManagement\Domain\Entity\Task;
+use App\TaskManagement\Domain\Repository\TaskRepositoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+final class DoctrineTaskRepository extends ServiceEntityRepository implements TaskRepositoryInterface
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Task::class);
+    }
+
+    public function save(Task $task): void
+    {
+        $this->getEntityManager()->persist($task);
+        $this->getEntityManager()->flush();
+    }
+
+    public function remove(Task $task): void
+    {
+        $this->getEntityManager()->remove($task);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findById(Uuid $id): ?Task
+    {
+        return $this->find($id->toString());
+    }
+
+    public function findByTeamId(Uuid $teamId): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.teamId = :teamId')
+            ->setParameter('teamId', $teamId->toString())
+            ->orderBy('t.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPendingByAssignee(Uuid $assigneeId): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.assigneeId = :assigneeId')
+            ->andWhere('t.status = :status')
+            ->setParameter('assigneeId', $assigneeId->toString())
+            ->setParameter('status', 'pending')
+            ->getQuery()
+            ->getResult();
+    }
+}
+```
+
+## Database Console Operations
+
+```bash
+# Access PostgreSQL shell
+make shell-db
+
+# Inside psql:
+\dt                    # List all tables
+\d+ tasks              # Show table structure
+\di                    # List indexes
+
+# Common queries
+SELECT * FROM tasks LIMIT 10;
+SELECT COUNT(*) FROM tasks WHERE status = 'pending';
+
+# Show foreign keys
+SELECT
+    tc.table_name,
+    kcu.column_name,
+    ccu.table_name AS foreign_table_name,
+    ccu.column_name AS foreign_column_name
+FROM information_schema.table_constraints AS tc
+JOIN information_schema.key_column_usage AS kcu
+    ON tc.constraint_name = kcu.constraint_name
+JOIN information_schema.constraint_column_usage AS ccu
+    ON ccu.constraint_name = tc.constraint_name
+WHERE tc.constraint_type = 'FOREIGN KEY';
+```
+
+## Schema Validation
+
+```bash
+# Validate mapping files
+docker compose exec php php bin/console doctrine:schema:validate
+
+# Show SQL that would be executed
+docker compose exec php php bin/console doctrine:schema:update --dump-sql
+
+# Compare current schema with entities (dry run)
+docker compose exec php php bin/console doctrine:migrations:diff --no-interaction
 ```
 
 ## Best Practices
 
-1. **One change per migration** - Easier to rollback
-2. **Always write DOWN migrations** - You will need them
-3. **Test on production data copy** - Size matters
-4. **Use transactions** - Atomic changes
-5. **Monitor during migration** - Watch for locks
+1. **Never edit executed migrations** - Create new migration instead
+2. **Use descriptive migration descriptions** - Helps with debugging
+3. **Add indexes for frequently queried columns** - team_id, status, etc.
+4. **Use foreign keys** - Maintain referential integrity
+5. **Test migrations both ways** - up() and down() should be reversible
+6. **Use transactions** - Wrap complex migrations in transactions
+7. **Review generated SQL** - Check diff before applying
 
-## Common Mistakes
+## Common Issues
 
-- Adding NOT NULL without default
-- Creating indexes without CONCURRENTLY
-- Large data migrations in single transaction
-- No rollback plan
-- Not testing with production data volume
+### Migration Version Mismatch
+
+```bash
+# Mark all migrations as executed
+docker compose exec php php bin/console doctrine:migrations:sync-metadata-storage
+```
+
+### Entity Not Found
+
+```bash
+# Clear metadata cache
+docker compose exec php php bin/console doctrine:cache:clear-metadata
+```
+
+### Schema Out of Sync
+
+```bash
+# Reset and re-run all migrations
+make db-reset
+```

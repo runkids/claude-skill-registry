@@ -1,7 +1,7 @@
 {
   "name": "video-to-gif",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/video-creator-workflow/.claude/skills/video-to-gif/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-30T04:18:19.109932Z"
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "path": "video-to-gif/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-31T03:55:20.508366Z"
 }

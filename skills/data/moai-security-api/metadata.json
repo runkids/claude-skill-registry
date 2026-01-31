@@ -1,7 +1,7 @@
 {
   "name": "moai-security-api",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-security-api/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-30T03:23:30.257562Z"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-security-api/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-31T03:28:45.077990Z"
 }

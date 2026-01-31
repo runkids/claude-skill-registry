@@ -4,6 +4,7 @@ description: "Toolkit for comprehensive spreadsheet creation, editing, and analy
 metadata:
   author: Anthropic
   license: Proprietary. See LICENSE.txt
+  version: 2025.12.01
 ---
 
 # Requirements for Outputs

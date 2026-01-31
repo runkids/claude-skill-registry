@@ -1,206 +1,279 @@
 ---
-name: datadog
-description: Query logs, metrics, monitors, and dashboards from Datadog. Search logs, check alert status, and investigate incidents.
+name: datadog-cli
+description: "Use this skill when you need to search Datadog logs, query metrics, tail logs in real-time, trace distributed requests, investigate errors, compare time periods, find log patterns, check service health, or export observability data."
+license: MIT
+compatibility: opencode
 ---
 
-# Datadog Monitoring
+# Datadog
 
-This skill provides access to Datadog for monitoring, logging, and alerting via the Datadog API.
+This skill will help you to interact with Datadog, through the unofficial datadog-cli to search Datadog logs, query metrics, tail logs in real-time, trace distributed requests, investigate errors, compare time periods, find log patterns, check service health, or export observability data.
 
-## Setup Required
+## When to Use This Skill
 
-**You need to set up API credentials:**
+- Trigger phrases include:
+  - "search logs"
+  - "tail logs"
+  - "query metrics"
+  - "check Datadog"
+  - "find errors"
+  - "trace request"
+  - "compare errors"
+  - "what services exist"
+  - "log patterns"
+  - "CPU usage"
+  - "service health"
+  - "get service activity"
 
-1. Go to Datadog → Organization Settings → API Keys
-2. Create or copy an API Key
-3. Go to Organization Settings → Application Keys
-4. Create an Application Key
+## How to Use
 
-Set these as environment variables (add to your shell profile or .env):
+### Log Search
+
 ```bash
-export DD_API_KEY="your-api-key"
-export DD_APP_KEY="your-application-key"
-export DD_SITE="us3.datadoghq.com"  # Your Datadog site (from browser history: us3)
+datadog logs search --query "<query>" [--from <time>] [--to <time>] [--limit <n>] [--sort <order>]
 ```
 
-## When to Use
+**Examples:**
 
-Use this skill when the user:
-- Asks about logs, errors, or application behavior
-- Wants to check monitor/alert status
-- Needs to investigate an incident
-- Asks about metrics or performance
-- Mentions "Datadog" or monitoring
-
-## API Endpoints
-
-Base URL: `https://api.$(printenv DD_SITE)/api/v1` or `v2`
-
-### Logs
-
-**Search Logs** (POST /api/v2/logs/events/search):
 ```bash
-curl -s -X POST "https://api.$(printenv DD_SITE)/api/v2/logs/events/search" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "filter": {
-      "query": "service:my-service status:error",
-      "from": "now-1h",
-      "to": "now"
-    },
-    "sort": "-timestamp",
-    "page": {"limit": 50}
-  }'
+datadog logs search --query "status:error" --from 1h
+datadog logs search --query "service:api status:error @http.status_code:500" --from 1h
 ```
 
-Common log query filters:
-- `service:name` - Filter by service
-- `status:error` - Filter by log level (error, warn, info, debug)
-- `@http.status_code:500` - Filter by HTTP status
-- `host:hostname` - Filter by host
-- `env:production` - Filter by environment
+### Live Tail (Real-time Streaming)
 
-### Monitors (Alerts)
+Stream logs as they arrive. Press Ctrl+C to stop.
 
-**List All Monitors** (GET /api/v1/monitor):
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v1/monitor" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog logs tail --query "<query>" [--interval <seconds>]
 ```
 
-**Get Monitor by ID** (GET /api/v1/monitor/{id}):
+**Examples:**
+
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v1/monitor/{MONITOR_ID}" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog logs tail --query "status:error"
+datadog logs tail --query "service:api" --interval 5
 ```
 
-**Search Monitors**:
+### Trace Correlation
+
+Find all logs for a distributed trace across services.
+
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v1/monitor?query=status:Alert" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog logs trace --id "<trace-id>" [--from <time>] [--to <time>]
 ```
 
-### Metrics
+**Example:**
 
-**Query Metrics** (GET /api/v1/query):
 ```bash
-curl -s -G "https://api.$(printenv DD_SITE)/api/v1/query" \
-  --data-urlencode "query=avg:system.cpu.user{*}" \
-  --data-urlencode "from=$(date -v-1H +%s)" \
-  --data-urlencode "to=$(date +%s)" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog logs trace --id "abc123def456" --from 24h
 ```
 
-**List Available Metrics** (GET /api/v1/metrics):
+### Log Context
+
+Get logs before and after a specific timestamp to understand what happened.
+
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v1/metrics?from=$(date -v-1d +%s)" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog logs context --timestamp "<iso-timestamp>" [--before <time>] [--after <time>] [--service <svc>]
 ```
 
-### Events
+**Examples:**
 
-**Query Events** (GET /api/v1/events):
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v1/events?start=$(date -v-1d +%s)&end=$(date +%s)" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog logs context --timestamp "2024-01-15T10:30:00Z" --before 5m --after 2m
+datadog logs context --timestamp "2024-01-15T10:30:00Z" --service api --before 10m
 ```
 
-### Dashboards
+### Error Summary
 
-**List Dashboards** (GET /api/v1/dashboard):
+Quick breakdown of errors by service, type, and message.
+
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v1/dashboard" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog errors [--from <time>] [--to <time>] [--service <svc>]
 ```
 
-### Incidents
+**Examples:**
 
-**List Incidents** (GET /api/v2/incidents):
 ```bash
-curl -s "https://api.$(printenv DD_SITE)/api/v2/incidents" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)"
+datadog errors --from 1h
+datadog errors --service payment-api --from 24h
 ```
+
+### Period Comparison
+
+Compare log counts between current period and previous period.
+
+```bash
+datadog logs compare --query "<query>" --period <time>
+```
+
+**Examples:**
+
+```bash
+datadog logs compare --query "status:error" --period 1h
+datadog logs compare --query "service:api status:error" --period 6h
+```
+
+### Log Patterns
+
+Group similar log messages to find patterns (replaces UUIDs, numbers, etc.).
+
+```bash
+datadog logs patterns --query "<query>" [--from <time>] [--limit <n>]
+```
+
+**Examples:**
+
+```bash
+datadog logs patterns --query "status:error" --from 1h
+datadog logs patterns --query "service:api" --from 6h --limit 1000
+```
+
+### Service Discovery
+
+List all services with recent log activity.
+
+```bash
+datadog services [--from <time>] [--to <time>]
+```
+
+**Example:**
+
+```bash
+datadog services --from 24h
+```
+
+### Log Aggregation
+
+```bash
+datadog logs agg --query "<query>" --facet <facet> [--from <time>]
+```
+
+**Common facets:** `status`, `service`, `host`, `@http.status_code`, `@error.kind`
+
+**Examples:**
+
+```bash
+datadog logs agg --query "*" --facet status --from 1h
+datadog logs agg --query "status:error" --facet service --from 24h
+```
+
+### Multiple Queries
+
+Run multiple queries in parallel.
+
+```bash
+datadog logs multi --queries "name1:query1,name2:query2" [--from <time>]
+```
+
+**Example:**
+
+```bash
+datadog logs multi --queries "errors:status:error,warnings:status:warn" --from 1h
+```
+
+### Metrics Query
+
+```bash
+datadog metrics query --query "<metrics-query>" [--from <time>] [--to <time>]
+```
+
+**Query format:** `<aggregation>:<metric>{<tags>}`
+
+**Examples:**
+
+```bash
+datadog metrics query --query "avg:system.cpu.user{*}" --from 1h
+datadog metrics query --query "avg:system.cpu.user{service:api}" --from 1h
+datadog metrics query --query "sum:trace.http.request.errors{service:api}.as_count()" --from 1h
+```
+
+## Global Flags
+
+| Flag | Description |
+|------|-------------|
+| `--pretty` | Human-readable output with colors |
+| `--output <file>` | Export results to JSON file |
+| `--site <site>` | Datadog site (e.g., `datadoghq.eu`) |
+
+## Time Formats
+
+- Relative: `30m`, `1h`, `6h`, `24h`, `7d`
+- ISO 8601: `2024-01-15T10:30:00Z`
 
 ## Common Workflows
 
-### Check for Recent Errors
+### Incident Triage
+
 ```bash
-# Search for error logs in the last hour
-curl -s -X POST "https://api.$(printenv DD_SITE)/api/v2/logs/events/search" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "filter": {
-      "query": "status:error",
-      "from": "now-1h",
-      "to": "now"
-    },
-    "page": {"limit": 25}
-  }' | jq '.data[] | {timestamp: .attributes.timestamp, message: .attributes.message, service: .attributes.service}'
+# 1. Quick error overview
+datadog errors --from 1h
+
+# 2. Is this new? Compare to previous period
+datadog logs compare --query "status:error" --period 1h
+
+# 3. What patterns are we seeing?
+datadog logs patterns --query "status:error" --from 1h
+
+# 4. Narrow down by service
+datadog logs search --query "status:error service:payment-api" --from 1h
+
+# 5. Get context around a specific timestamp
+datadog logs context --timestamp "2024-01-15T10:30:00Z" --service api --before 5m --after 2m
+
+# 6. Follow the distributed trace
+datadog logs trace --id "TRACE_ID"
 ```
 
-### Check Alert Status
+### Real-time Debugging
+
 ```bash
-# List monitors that are currently alerting
-curl -s "https://api.$(printenv DD_SITE)/api/v1/monitor?query=status:Alert" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)" | jq '.[] | {name, overall_state, message}'
+# Stream errors as they happen
+datadog logs tail --query "status:error"
+
+# Watch specific service
+datadog logs tail --query "service:api status:error"
 ```
 
-### Investigate a Service
+### Service Health Check
+
 ```bash
-# Get logs for a specific service
-curl -s -X POST "https://api.$(printenv DD_SITE)/api/v2/logs/events/search" \
-  -H "DD-API-KEY: $(printenv DD_API_KEY)" \
-  -H "DD-APPLICATION-KEY: $(printenv DD_APP_KEY)" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "filter": {
-      "query": "service:SERVICE_NAME",
-      "from": "now-30m",
-      "to": "now"
-    },
-    "page": {"limit": 100}
-  }'
+# List services
+datadog services --from 24h
+
+# Check error distribution
+datadog logs agg --query "service:api" --facet status --from 1h
+
+# Check CPU/memory
+datadog metrics query --query "avg:system.cpu.user{service:api}" --from 1h
 ```
 
-## Log Query Syntax
+### Export for Sharing
 
-Datadog uses a powerful query syntax for logs:
+```bash
+# Save search results
+datadog logs search --query "status:error" --from 1h --output errors.json
+
+# Save error summary
+datadog errors --from 24h --output error-report.json
+```
+
+## Datadog Query Syntax
 
 | Operator | Example | Description |
 |----------|---------|-------------|
-| AND | `service:api status:error` | Both conditions (implicit) |
-| OR | `status:error OR status:warn` | Either condition |
-| NOT | `-status:debug` | Exclude matches |
-| Wildcard | `service:api-*` | Pattern matching |
-| Range | `@duration:>1000` | Numeric comparisons |
-| Exists | `@http.url:*` | Field exists |
+| `AND` | `service:api status:error` | Both conditions |
+| `OR` | `status:error OR status:warn` | Either condition |
+| `-` | `-status:info` | Exclude |
+| `*` | `service:api-*` | Wildcard |
+| `>=` `<=` | `@http.status_code:>=400` | Numeric comparison |
+| `[TO]` | `@duration:[1000 TO 5000]` | Range |
 
-## Time Ranges
+### Common Attributes
 
-For the `from` and `to` parameters:
-- `now` - Current time
-- `now-1h` - 1 hour ago
-- `now-1d` - 1 day ago
-- `now-7d` - 1 week ago
-- Unix timestamps (seconds)
-
-## Notes
-
-- Your Datadog site appears to be `us3.datadoghq.com` based on browser history
-- API rate limits apply - be mindful of query frequency
-- Log queries return max 1000 results per request; use pagination for more
-- Use `jq` to parse JSON responses
-- Monitor status values: OK, Alert, Warn, No Data
+- `service` - Service name
+- `status` - Log level (error, warn, info, debug)
+- `host` - Hostname
+- `@http.status_code` - HTTP status code
+- `@error.kind` - Error type
+- `@trace_id` / `@dd.trace_id` - Trace ID

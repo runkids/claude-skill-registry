@@ -1,9 +1,7 @@
 {
   "name": "planning-code-goal",
-  "description": "Code-centric Goal-Oriented Action Planning integrated with SPARC methodology. Use for feature implementation planning, performance optimization goals, testing strategy development, or any software dev",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/development/planning/planning-code-goal/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-31T03:09:31.400875Z"
 }

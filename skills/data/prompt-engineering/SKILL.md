@@ -1,243 +1,208 @@
 ---
 name: prompt-engineering
-description: Comprehensive prompt engineering framework for designing, optimizing, and iterating LLM prompts. This skill should be used when users request prompt creation, optimization, or improvement for any LLM task, or when users need help translating vague requirements into effective prompts through collaborative dialogue and iterative refinement.
+description: Advanced prompt engineering techniques for optimal AI responses. Use this when crafting prompts, optimizing AI interactions, or designing system prompts for applications.
+allowed-tools: Read, Glob, Grep, Edit, Write
+license: MIT
+metadata:
+  author: NeoLabHQ
+  version: "1.0"
 ---
 
 # Prompt Engineering
 
-## Overview
+효과적인 프롬프트 작성을 위한 고급 기법 가이드입니다.
 
-This skill transforms vague user requests into precise, effective prompts through collaborative dialogue, systematic analysis, and iterative refinement. It combines proven prompt engineering techniques with a structured development process to create prompts that reliably achieve user objectives.
+## Core Principles
 
-## Workflow Decision Tree
-
-When a user requests prompt assistance, follow this decision flow:
+### 1. Clarity (명확성)
 
 ```
-User Request
-├─ "Create a prompt" / "Make a prompt" / Vague request
-│  └─ → Start with EXPLORATION PHASE
-├─ "Optimize this prompt" / Has existing prompt
-│  └─ → Start with SIMPLE OPTIMIZATION
-└─ "Fix this issue with my prompt" / Specific problem
-   └─ → Start with ANALYSIS PHASE (focused on problem)
+❌ "코드 좀 고쳐줘"
+✅ "auth.js의 validateToken 함수에서 만료된 토큰 처리 시
+    발생하는 TypeError를 수정해주세요"
 ```
 
-## Core Process
+### 2. Context (맥락)
 
-### Phase 1: Exploration - Uncovering True Needs
+```
+❌ "이 에러 해결해줘: TypeError"
+✅ "Node.js 18, Express 4 환경에서 JWT 검증 시
+    다음 에러 발생: TypeError: Cannot read property 'exp' of undefined
+    관련 코드: [코드 첨부]"
+```
 
-Before creating any prompt, deeply understand the user's actual needs through strategic questioning. Start broad, then narrow down systematically.
+### 3. Specificity (구체성)
 
-**Initial Context Gathering:**
-- What task will this prompt accomplish?
-- Who will use it and in what environment?
-- How frequently will it be used?
-- What does success look like?
+```
+❌ "좋은 API 만들어줘"
+✅ "다음 요구사항의 REST API 설계:
+    - 리소스: 사용자, 게시물
+    - 인증: JWT Bearer
+    - 페이지네이션: cursor 기반
+    - 응답 형식: JSON:API 스펙"
+```
 
-**Deepening Understanding:**
-- Request concrete examples of desired outputs
-- Ask about past failures or attempts
-- Identify critical success factors
-- Uncover unstated assumptions and constraints
+## Prompting Techniques
 
-**Technical Requirements:**
-- Model and platform constraints
-- Token limits and cost considerations
-- Response time requirements
-- Integration with other systems
+### Zero-Shot Prompting
 
-Continue exploration until the core requirements are crystal clear. Never assume—always verify.
+```
+직접 지시만으로 결과 도출
 
-### Phase 2: Analysis - Choosing the Right Strategy
+예: "다음 텍스트의 감정을 분석하세요: [텍스트]"
+```
 
-Analyze the task to determine the optimal prompting approach.
+### Few-Shot Prompting
 
-**Task Classification:**
+```
+예시를 통한 패턴 학습
 
-Classify the task along key dimensions:
-- **Complexity**: Simple directive vs multi-step reasoning
-- **Output Type**: Creative vs analytical vs structured
-- **Error Tolerance**: High-stakes vs experimental
-- **Frequency**: One-time vs repeated use
+예시 1: 입력 → 출력
+예시 2: 입력 → 출력
+---
+실제 입력 → ?
+```
 
-**Strategy Selection:**
+### Chain-of-Thought (CoT)
 
-Based on classification, choose primary techniques:
-- **Simple Tasks**: Direct instructions with clear constraints
-- **Complex Reasoning**: Chain-of-thought with step-by-step breakdown
-- **Creative Tasks**: Role setting with flexible boundaries
-- **Structured Output**: Explicit format specifications with examples
-- **High-Stakes**: Self-consistency checks and validation steps
+```
+단계별 추론 유도
 
-**Trade-off Analysis:**
+"단계별로 생각해보세요:
+1. 먼저 문제를 분석합니다
+2. 가능한 해결책을 나열합니다
+3. 각 해결책의 장단점을 평가합니다
+4. 최적의 해결책을 선택합니다"
+```
 
-Present multiple approaches with clear trade-offs:
-- Approach A: Detailed but token-heavy
-- Approach B: Concise but requires interpretation
-- Approach C: Balanced with moderate complexity
+### Role Prompting
 
-Always explain WHY each approach fits the specific context.
+```
+특정 역할 부여
 
-### Phase 3: Implementation - Building Iteratively
+"당신은 10년 경력의 시니어 백엔드 개발자입니다.
+코드 리뷰 관점에서 다음 코드를 평가해주세요..."
+```
 
-Create the prompt through progressive refinement, starting simple and adding complexity as needed.
+## Prompt Structure
 
-**Version 1 - Minimal Viable Prompt:**
-- Core instructions only
-- Test basic functionality
-- Identify gaps and ambiguities
+### 기본 구조
 
-**Version 2 - Enhanced Clarity:**
-- Add specific examples if needed
-- Clarify ambiguous points
-- Include essential constraints
+```markdown
+## Role (역할)
+[AI가 수행할 역할 정의]
 
-**Version 3+ - Optimization:**
-- Refine wording for precision
-- Remove redundancy
-- Balance detail with conciseness
+## Context (맥락)
+[배경 정보, 제약 조건]
 
-Document each version's changes and rationale. Store prompts in markdown files with:
-- Version history
-- Design decisions
-- Known limitations
-- Usage examples
+## Task (작업)
+[구체적인 요청 사항]
 
-### Phase 4: Validation - Critical Evaluation
+## Format (형식)
+[원하는 출력 형식]
 
-Rigorously evaluate the prompt against quality criteria.
+## Examples (예시) - 선택적
+[입출력 예시]
+```
 
-**Essential Checks:**
-- **Clarity**: Can the instructions be misunderstood?
-- **Completeness**: Are all necessary elements present?
-- **Consistency**: Do instructions contradict each other?
-- **Efficiency**: Can anything be removed without loss?
-- **Robustness**: How does it handle edge cases?
+### 코드 관련 프롬프트
 
-**Testing Approach:**
-- Run through typical use cases
-- Test boundary conditions
-- Imagine failure modes
-- Check for unwanted behaviors
+```markdown
+## 환경
+- 언어/프레임워크: [명시]
+- 버전: [명시]
+- 관련 의존성: [명시]
 
-Be ruthlessly honest about weaknesses. If something isn't working, acknowledge it and iterate.
+## 현재 상태
+[현재 코드 또는 상황]
 
-## Simple Optimization
+## 목표
+[달성하려는 결과]
 
-When optimizing an existing prompt, focus on minimal, targeted improvements:
+## 제약 조건
+- [제약 1]
+- [제약 2]
+```
 
-1. **Identify Specific Issues**: What exactly isn't working?
-2. **Diagnose Root Causes**: Why is the current prompt failing?
-3. **Apply Minimal Edits**: Change only what's necessary
-4. **Preserve Working Elements**: Keep what already works well
-5. **Test Improvements**: Verify fixes don't break other aspects
+## Anti-Patterns
 
-Common optimization targets:
-- Ambiguous language → Specific instructions
-- Missing constraints → Added boundaries
-- Inconsistent outputs → Format specifications
-- Verbose responses → Length constraints
-- Off-topic responses → Clearer scope definition
+### 피해야 할 패턴
 
-## Prompt Creation from Scratch
+| 안티패턴 | 문제점 | 개선 |
+|----------|--------|------|
+| 모호한 요청 | 해석의 여지가 많음 | 구체적 조건 명시 |
+| 과도한 정보 | 핵심이 묻힘 | 관련 정보만 포함 |
+| 부정형 지시 | "~하지 마세요" | "~해주세요" 로 변경 |
+| 열린 결말 | 범위가 무한함 | 범위와 제약 명시 |
 
-When creating new prompts, structure them as instructions for an eager but inexperienced assistant who needs clear guidance.
+### 예시
 
-**Essential Components:**
+```
+❌ "이상한 코드 패턴 사용하지 마세요"
+✅ "ESLint 규칙을 따르고, 함수는 20줄 이내로 작성해주세요"
 
-1. **Role/Context** (if beneficial):
-   - Set perspective or expertise level
-   - Establish tone and approach
-   
-2. **Clear Objective**:
-   - State the primary goal explicitly
-   - Define success criteria
+❌ "좋은 성능으로 만들어주세요"
+✅ "응답 시간 100ms 이내, 메모리 사용 512MB 이하로 최적화해주세요"
+```
 
-3. **Specific Instructions**:
-   - Break complex tasks into steps
-   - Provide decision criteria
-   - Specify constraints and boundaries
+## System Prompt Design
 
-4. **Output Format** (when relevant):
-   - Define structure explicitly
-   - Provide format examples
-   - Specify length or detail level
+### 구조
 
-5. **Examples** (when clarifying):
-   - Show desired patterns
-   - Illustrate edge cases
-   - Demonstrate style/tone
+```markdown
+# Identity
+[AI의 정체성과 목적]
 
-## Key Techniques Reference
+# Capabilities
+[할 수 있는 것]
 
-### Foundation Techniques
+# Constraints
+[제한 사항]
 
-**Role Setting**: Establish perspective when expertise or tone matters
-- Effective for: Specialized knowledge, consistent voice
-- Example: "As an experienced code reviewer, analyze..."
+# Response Format
+[응답 형식 규칙]
 
-**Progressive Disclosure**: Start general, add detail as needed
-- Effective for: Complex multi-part tasks
-- Example: "First outline the approach, then implement each section..."
+# Examples
+[대표적인 상호작용 예시]
+```
 
-**Explicit Constraints**: Define boundaries clearly
-- Effective for: Preventing unwanted outputs
-- Example: "Limit response to 3 paragraphs, focus only on technical aspects"
+### 예시: 코드 리뷰 봇
 
-### Advanced Techniques
+```markdown
+# Identity
+당신은 코드 품질 향상을 돕는 시니어 개발자입니다.
 
-**Chain-of-Thought**: Request reasoning before conclusions
-- Use when: Logic and transparency matter
-- Trigger: "Think step-by-step" or "Explain your reasoning"
+# Capabilities
+- 코드 스타일 검토
+- 버그 탐지
+- 성능 개선 제안
+- 보안 취약점 식별
 
-**Few-Shot Learning**: Provide input-output examples
-- Use when: Pattern is easier shown than explained
-- Caution: 2-3 examples usually sufficient
+# Constraints
+- 개인적 스타일 강요 금지
+- 프로젝트 컨벤션 우선
+- 건설적 피드백만 제공
 
-**Self-Consistency**: Have model verify its own outputs
-- Use when: Accuracy is critical
-- Implementation: "Review your answer for errors and inconsistencies"
+# Response Format
+## 요약
+[한 줄 요약]
 
-For detailed technique explanations and examples, consult:
-- `references/techniques.md` - Comprehensive technique catalog
-- `references/patterns.md` - Common prompt patterns
-- `references/antipatterns.md` - What to avoid
+## 주요 발견
+- [이슈 1]: [설명] → [제안]
 
-## Collaboration Principles
+## 긍정적 측면
+- [잘한 점]
+```
 
-### Be a Thought Partner, Not Just an Executor
+## Iteration Strategies
 
-- **Bad**: "Here's your prompt" (without understanding needs)
-- **Good**: "Let me understand what you're trying to achieve first..."
-
-### Question Assumptions Constructively
-
-- Surface hidden requirements through dialogue
-- Challenge unclear objectives respectfully
-- Propose alternatives when original approach seems suboptimal
-
-### Iterate Based on Feedback
-
-- Start with minimum viable prompt
-- Test and refine based on actual outputs
-- Document what works and what doesn't
-
-### Teach While Doing
-
-- Explain why certain techniques work
-- Share the reasoning behind design choices
-- Help users understand prompt engineering principles
-
-## References
-
-This skill includes detailed reference documentation:
-
-### references/
-- `techniques.md` - Complete catalog of prompting techniques with examples
-- `patterns.md` - Reusable prompt patterns for common scenarios  
-- `antipatterns.md` - Common mistakes and how to avoid them
-- `evaluation.md` - Comprehensive quality evaluation framework
-- `examples.md` - Library of before/after prompt improvements
-
-Consult these references for in-depth technical details and extensive examples not included in this overview.
+```
+1. 초기 프롬프트 작성
+2. 결과 평가
+3. 문제점 식별:
+   - 불완전한 응답 → 더 구체적인 지시 추가
+   - 잘못된 방향 → 제약 조건 강화
+   - 형식 불일치 → 예시 추가
+4. 프롬프트 수정
+5. 반복
+```

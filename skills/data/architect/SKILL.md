@@ -1,227 +1,249 @@
 ---
-name: architect
-description: This skill designs industry-grade Cloudflare architectures with wrangler.toml generation, Mermaid diagrams, and Edge-Native Constraint validation. Use this skill when the user asks about "designing new systems", "planning migrations", "evaluating architecture options", or mentions "Node.js libraries" that may not work on Workers.
+name: System Architect
+description: Software architecture, system design, and technical planning. USE WHEN user mentions architecture, design systems, refactor, restructure, scalability, patterns, tech debt, dependencies, or asks about how to structure or organize code.
 ---
 
-# Cloudflare Architect Skill
+# System Architect Skill
 
-Design production-ready Cloudflare architectures with proper service selection, wrangler configuration generation, visual diagrams, and Edge-Native Constraint enforcement.
+AI-powered system architecture guidance for designing, planning, and improving software systems with focus on maintainability, scalability, and clean code principles.
 
-## Core Capabilities
+## What This Skill Does
 
-1. **Architecture Design** - Service selection, data flow, scalability/cost trade-offs
-2. **Configuration Generation** - Complete wrangler.toml/jsonc with all bindings
-3. **Visual Documentation** - Mermaid diagrams for architecture and data flow
-4. **Edge-Native Validation** - Cross-reference code against Workers runtime compatibility
-5. **Workers + Assets** - Unified Worker with `[assets]` block for frontend + API
+This skill provides expert-level architectural guidance including system design, code organization, dependency management, pattern selection, and technical debt reduction. It combines software engineering best practices with practical, actionable recommendations.
 
-## Service Selection Matrix
+**Key Capabilities:**
+- **System Design**: Architecture diagrams, component design, API planning
+- **Code Organization**: Module structure, separation of concerns, layered architectures
+- **Pattern Selection**: Design patterns, architectural patterns, anti-pattern detection
+- **Dependency Management**: Coupling analysis, interface design, dependency injection
+- **Tech Debt Assessment**: Code health metrics, refactoring priorities, migration strategies
+- **Scalability Planning**: Performance considerations, caching strategies, distributed systems
 
-### Storage Selection
+## Core Principles
 
-| Need | Service | Limits | Cost |
-|------|---------|--------|------|
-| Relational queries | D1 | 10GB, 128MB memory | $0.25/B reads, $1/M writes |
-| Key-value lookups | KV | 25MB/value, 1 write/sec/key | $0.50/M reads, $5/M writes |
-| Large files/blobs | R2 | 5TB/object | $0.36/M reads, $4.50/M writes |
-| Coordination/locks | Durable Objects | Per-object isolation | CPU time based |
-| Time-series metrics | Analytics Engine | Adaptive sampling | FREE |
-| Vector similarity | Vectorize | 1536 dims, 5M vectors | $0.01/M queries |
+### The SOLID Foundation
+- **S**ingle Responsibility: Each module/class has one reason to change
+- **O**pen/Closed: Open for extension, closed for modification
+- **L**iskov Substitution: Subtypes must be substitutable for base types
+- **I**nterface Segregation: Many specific interfaces > one general interface
+- **D**ependency Inversion: Depend on abstractions, not concretions
 
-### Compute Selection
+### Architectural Qualities
+1. **Maintainability** - Code that's easy to understand and modify
+2. **Testability** - Components that can be tested in isolation
+3. **Scalability** - Systems that grow gracefully with load
+4. **Resilience** - Graceful degradation under failure
+5. **Evolvability** - Ability to adapt to changing requirements
 
-| Need | Service | Limits | Best For |
-|------|---------|--------|----------|
-| HTTP handlers | Workers (Isolates) | 128MB, 30s/req | API endpoints |
-| Background jobs | Queues | 128KB/msg, batches ≤100 | Async processing |
-| Long-running tasks | Workflows | 1024 steps, 1GB state | Multi-step pipelines |
-| Stateful coordination | Durable Objects | Per-object | Sessions, locks |
-| Scheduled jobs | Cron Triggers | 1-minute minimum | Periodic tasks |
-| OS-level dependencies | Containers (Beta) | Full Linux | FFmpeg, headless browsers |
+## Architecture Assessment Workflow
 
-### AI/ML Selection
-
-| Need | Service | Cost | Best For |
-|------|---------|------|----------|
-| LLM inference | Workers AI | $0.011/1K neurons | Serverless AI |
-| LLM caching/logging | AI Gateway | Free tier + $0.10/M | Production AI |
-| Embeddings + search | Vectorize | Per-dimension | RAG, semantic search |
-
-## Workload Router
-
-Select the right compute model:
-
-- **Workers (Isolates)**: Standard APIs, database CRUD, AI inference via Workers AI
-- **Python Workers**: Pure Python scripts, AI SDKs (limited packages)
-- **Containers (Beta)**: FFmpeg, Puppeteer, numpy/pandas, long-running processes
-
-**See**: `references/workload-router.md` for decision trees and compatibility tables.
-
-## Edge-Native Constraints
-
-Workers use V8 isolates, NOT Node.js. Key incompatibilities:
-
-| Can't Use | Alternative |
-|-----------|-------------|
-| `express` | Hono, itty-router |
-| `fs` | R2 |
-| `pg`, `mysql2` | Hyperdrive |
-| `sharp` | Cloudflare Images |
-| `puppeteer` | Browser Rendering API |
-| `redis` | KV, Durable Objects |
-
-**See**: `references/edge-constraints.md` for full compatibility tables.
-
-## Workers + Assets (Replaces Pages)
-
-For fullstack apps, use unified Worker with `[assets]` block:
-
-```jsonc
-{
-  "name": "fullstack-app",
-  "main": "src/worker.ts",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
-}
+### 1. Initial Analysis
+```
+Analyze the current system:
+├── Structure (directories, modules, packages)
+├── Dependencies (internal and external)
+├── Data Flow (how information moves)
+├── Integration Points (APIs, databases, services)
+└── Pain Points (what causes friction)
 ```
 
-**See**: `references/workers-assets.md` for migration from legacy `[site]` and Pages.
+### 2. Architecture Metrics
+- **Coupling Score**: How tightly connected are components?
+- **Cohesion Score**: How focused are individual modules?
+- **Complexity Index**: Cyclomatic and cognitive complexity
+- **Dependency Depth**: How deep is the import chain?
+- **Change Risk**: Which areas are most frequently modified?
 
-## Wrangler Health Check
+### 3. Recommendations
+Generate prioritized recommendations based on:
+- Impact (how much improvement)
+- Effort (how much work)
+- Risk (what could break)
+- Dependencies (what needs to happen first)
 
-Before designing, verify wrangler version:
+## Common Architectural Patterns
 
+### Layered Architecture
+```
+┌─────────────────────────────────────┐
+│           Presentation              │
+├─────────────────────────────────────┤
+│            Application              │
+├─────────────────────────────────────┤
+│             Domain                  │
+├─────────────────────────────────────┤
+│          Infrastructure             │
+└─────────────────────────────────────┘
+```
+**Use When:** Traditional business applications, clear separation needed
+
+### Hexagonal (Ports & Adapters)
+```
+              ┌───────────────────┐
+   Adapters   │                   │   Adapters
+ ┌──────────┐ │      Domain       │ ┌──────────┐
+ │   API    │←│       Core        │→│    DB    │
+ │   CLI    │ │                   │ │ External │
+ └──────────┘ └───────────────────┘ └──────────┘
+              Ports (Interfaces)
+```
+**Use When:** Core logic must be isolated from infrastructure
+
+### Event-Driven
+```
+┌──────────┐     ┌──────────────┐     ┌──────────┐
+│ Producer │────►│  Event Bus   │────►│ Consumer │
+└──────────┘     └──────────────┘     └──────────┘
+```
+**Use When:** Loose coupling, async processing, scalable systems
+
+### Microservices
+```
+┌─────────┐  ┌─────────┐  ┌─────────┐
+│Service A│  │Service B│  │Service C│
+└────┬────┘  └────┬────┘  └────┬────┘
+     │            │            │
+     └────────────┼────────────┘
+            API Gateway
+```
+**Use When:** Independent deployment, team autonomy, scale by component
+
+## Refactoring Strategies
+
+### Strangler Fig Pattern
+Gradually replace legacy system by routing new features to new code:
+1. Identify a seam (boundary in the old system)
+2. Build new functionality behind that seam
+3. Route traffic to new implementation
+4. Repeat until old system is gone
+
+### Branch by Abstraction
+Refactor in-place by introducing abstractions:
+1. Create abstraction layer over existing code
+2. Implement new version behind abstraction
+3. Migrate consumers to abstraction
+4. Switch implementation
+5. Remove old code
+
+### Parallel Run
+Run old and new implementations simultaneously:
+1. Route requests to both systems
+2. Compare outputs
+3. Verify correctness
+4. Switch over when confident
+
+## Code Organization Guidelines
+
+### Directory Structure (Python Example)
+```
+project/
+├── src/
+│   ├── core/           # Domain logic, no external deps
+│   │   ├── entities/
+│   │   ├── services/
+│   │   └── interfaces/
+│   ├── adapters/       # External integrations
+│   │   ├── database/
+│   │   ├── api/
+│   │   └── messaging/
+│   ├── application/    # Use cases, coordination
+│   │   ├── commands/
+│   │   └── queries/
+│   └── presentation/   # User-facing code
+│       ├── cli/
+│       └── web/
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+└── config/
+```
+
+### Naming Conventions
+- **Classes**: `UserService`, `PaymentProcessor` (noun + role)
+- **Interfaces**: `IRepository`, `PaymentGateway` (capability)
+- **Functions**: `calculate_total()`, `validate_input()` (verb + noun)
+- **Modules**: `authentication`, `billing`, `notifications` (domain)
+
+## Anti-Pattern Detection
+
+### Common Anti-Patterns
+| Anti-Pattern | Symptoms | Solution |
+|--------------|----------|----------|
+| **God Class** | Class with 1000+ lines, does everything | Extract cohesive responsibilities |
+| **Spaghetti** | Deep nesting, unclear flow | Refactor to small functions |
+| **Circular Deps** | A imports B imports A | Introduce interfaces |
+| **Feature Envy** | Method uses other class's data more | Move method to data owner |
+| **Shotgun Surgery** | One change touches many files | Group related code together |
+| **Primitive Obsession** | Raw types everywhere | Create domain types |
+
+## Dependency Analysis
+
+### Healthy Dependencies
+```
+✓ Core → (nothing)
+✓ Application → Core
+✓ Adapters → Core
+✓ Presentation → Application
+```
+
+### Unhealthy Dependencies
+```
+✗ Core → Database (infrastructure leak)
+✗ Adapters → Adapters (coupling)
+✗ Circular: A → B → A
+```
+
+### Analysis Commands
 ```bash
-npx wrangler --version
+# Python dependency analysis
+pipdeptree --graph-output png > deps.png
+pydeps src/core --max-bacon 2
+
+# TypeScript/JavaScript
+npx madge --circular --extensions ts src/
+npx depcruise --output-type dot src | dot -T svg > deps.svg
 ```
 
-| Version | Status | Action |
-|---------|--------|--------|
-| 3.100+ | Current | Good to go |
-| 3.80-3.99 | Acceptable | Update when convenient |
-| <3.80 | Outdated | `npm install -g wrangler@latest` |
+## When to Use This Skill
 
-## Design Workflow
+**Trigger Phrases:**
+- "How should I structure..."
+- "What's the best way to organize..."
+- "This code is getting hard to maintain"
+- "We need to refactor..."
+- "How do I reduce coupling..."
+- "What pattern should I use for..."
+- "Help me design..."
+- "Review the architecture of..."
 
-### Step 1: Requirements Gathering
+**Example Requests:**
+1. "How should I structure a new Python CLI app?"
+2. "This file has grown to 2000 lines, help me break it up"
+3. "We're adding a new feature, where should the code live?"
+4. "Our tests are slow, is there an architectural issue?"
+5. "Help me migrate from monolith to services"
 
-Ask about:
-1. **Traffic patterns**: Requests/second, geographic distribution
-2. **Data characteristics**: Size, structure, access patterns
-3. **Processing needs**: Sync vs async, latency requirements
-4. **Budget constraints**: Target monthly cost
-5. **Compliance**: Data residency, encryption requirements
+## Architecture Review Checklist
 
-### Step 2: Service Selection
+Before implementing major changes:
 
-For each requirement, select appropriate service using the matrices above.
+- [ ] **Boundaries clear?** Can you draw boxes around components?
+- [ ] **Dependencies one-way?** No circular imports?
+- [ ] **Core isolated?** Domain logic has no infrastructure deps?
+- [ ] **Testable?** Can you test components in isolation?
+- [ ] **Scalable?** What happens with 10x load?
+- [ ] **Evolvable?** How hard to add new features?
+- [ ] **Observable?** Can you see what's happening?
+- [ ] **Recoverable?** What happens when parts fail?
 
-### Step 3: Architecture Draft
+## Integration with Other Skills
 
-Create Mermaid diagram showing:
-- All Workers and their responsibilities
-- Storage bindings and data flow
-- Queue topology (if async processing)
-- External service integrations
+- **Pair Programming**: Use architect mode for design phases
+- **Code Review**: Architectural concerns in review process
+- **Performance Analysis**: Architecture impacts performance
+- **Testing**: Architecture determines test strategy
 
-**See**: `references/architecture-templates.md` for pre-built templates.
+---
 
-### Step 4: Configuration Generation
-
-Generate wrangler.jsonc with:
-- All bindings properly named
-- Environment-specific overrides
-- Proper placement mode
-- Observability enabled
-- Queue DLQs configured
-
-### Step 5: Cost Estimation
-
-Calculate monthly costs using service rates from the selection matrices.
-
-### Step 6: Review Checklist
-
-Before finalizing:
-- [ ] All queues have DLQs
-- [ ] D1 has appropriate indexes planned
-- [ ] Smart placement enabled for latency-sensitive
-- [ ] Observability configured
-- [ ] Secrets use wrangler secret (not vars)
-- [ ] Rate limiting for public APIs
-- [ ] `limits.cpu_ms` set appropriately
-
-## Billing Safety Limits
-
-**CRITICAL**: Set CPU limits to prevent runaway loops:
-
-```jsonc
-{
-  "limits": {
-    "cpu_ms": 100  // Kill execution if CPU churns >100ms
-  }
-}
-```
-
-| Use Case | cpu_ms |
-|----------|--------|
-| Simple API | 50-100 |
-| Database CRUD | 100-200 |
-| AI inference | 500-1000 |
-| Heavy processing | 5000 |
-
-**See**: `references/billing-safety.md` for anti-patterns and protection strategies.
-
-## Output Format
-
-When designing an architecture, provide:
-
-1. **Requirements Summary** - Confirmed requirements
-2. **Architecture Diagram** - Mermaid visualization
-3. **Service Justification** - Why each service was chosen
-4. **Wrangler Configuration** - Complete, deployable config
-5. **Cost Estimate** - Monthly projection with breakdown
-6. **Migration Path** - If replacing existing system
-7. **Next Steps** - Implementation order
-
-## Quick Reference Diagrams
-
-### Basic API
-```mermaid
-graph LR
-    Client --> W[Worker]
-    W --> D1[(D1)]
-    W --> KV[(KV Cache)]
-```
-
-### Event Pipeline
-```mermaid
-graph LR
-    I[Ingest] --> Q[Queue] --> P[Processor]
-    P --> D1[(Storage)]
-    P -.->|failed| DLQ[Dead Letter]
-```
-
-### Fullstack App
-```mermaid
-graph LR
-    Client -->|/*| Assets
-    Client -->|/api/*| API[Worker]
-    API --> D1[(D1)]
-```
-
-## Related Skills
-
-- **implement**: Scaffold code with Hono, Drizzle patterns
-- **loop-breaker**: Recursion guards for Worker-to-Worker calls
-- **guardian**: Security and budget auditing
-- **patterns**: Detailed architecture patterns (service-bindings, circuit-breaker, d1-batching)
-
-## Reference Files
-
-- `references/edge-constraints.md` - Node.js API and library compatibility
-- `references/workload-router.md` - Isolates vs Containers vs Python decision trees
-- `references/workers-assets.md` - Pages migration and unified Worker patterns
-- `references/architecture-templates.md` - Pre-built architecture configs
-- `references/billing-safety.md` - Loop protection and anti-patterns
+*Skill designed for Thanos + Antigravity integration*

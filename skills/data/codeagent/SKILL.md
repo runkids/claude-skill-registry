@@ -1,6 +1,8 @@
 ---
-name: codeagent
-description: "Execute codeagent-wrapper for multi-backend AI code tasks. Supports Codex, Claude, and Gemini backends with file references (@syntax) and structured output."
+name: running-codeagent-tasks
+description: Executes codeagent-wrapper for multi-backend AI code tasks supporting Codex, Claude, and Gemini. Use when running complex code analysis, large-scale refactoring, or parallel AI tasks with backend selection. Triggers include "codeagent", "multi-backend", or "parallel code tasks".
+allowed-tools: Bash, Read, Task, TaskOutput
+user-invocable: true
 ---
 
 # Codeagent Wrapper Integration
@@ -18,13 +20,15 @@ Execute codeagent-wrapper commands with pluggable AI backends (Codex, Claude, Ge
 ## Usage
 
 **HEREDOC syntax** (recommended):
+
 ```bash
-codeagent-wrapper - [working_dir] <<'EOF'
+codeagent-wrapper --backend codex - [working_dir] <<'EOF'
 <task content here>
 EOF
 ```
 
 **With backend selection**:
+
 ```bash
 codeagent-wrapper --backend claude - <<'EOF'
 <task content here>
@@ -32,40 +36,45 @@ EOF
 ```
 
 **Simple tasks**:
+
 ```bash
-codeagent-wrapper "simple task" [working_dir]
+codeagent-wrapper --backend codex "simple task" [working_dir]
 codeagent-wrapper --backend gemini "simple task"
 ```
 
 ## Backends
 
-| Backend | Command | Description | Best For |
-|---------|---------|-------------|----------|
-| codex | `--backend codex` | OpenAI Codex (default) | Code analysis, complex development |
-| claude | `--backend claude` | Anthropic Claude | Simple tasks, documentation, prompts |
-| gemini | `--backend gemini` | Google Gemini | UI/UX prototyping |
+| Backend | Command            | Description            | Best For                             |
+| ------- | ------------------ | ---------------------- | ------------------------------------ |
+| codex   | `--backend codex`  | OpenAI Codex (default) | Code analysis, complex development   |
+| claude  | `--backend claude` | Anthropic Claude       | Simple tasks, documentation, prompts |
+| gemini  | `--backend gemini` | Google Gemini          | UI/UX prototyping                    |
 
 ### Backend Selection Guide
 
 **Codex** (default):
+
 - Deep code understanding and complex logic implementation
 - Large-scale refactoring with precise dependency tracking
 - Algorithm optimization and performance tuning
 - Example: "Analyze the call graph of @src/core and refactor the module dependency structure"
 
 **Claude**:
+
 - Quick feature implementation with clear requirements
 - Technical documentation, API specs, README generation
 - Professional prompt engineering (e.g., product requirements, design specs)
 - Example: "Generate a comprehensive README for @package.json with installation, usage, and API docs"
 
 **Gemini**:
+
 - UI component scaffolding and layout prototyping
 - Design system implementation with style consistency
 - Interactive element generation with accessibility support
 - Example: "Create a responsive dashboard layout with sidebar navigation and data visualization cards"
 
 **Backend Switching**:
+
 - Start with Codex for analysis, switch to Claude for documentation, then Gemini for UI implementation
 - Use per-task backend selection in parallel mode to optimize for each task's strengths
 
@@ -73,7 +82,7 @@ codeagent-wrapper --backend gemini "simple task"
 
 - `task` (required): Task description, supports `@file` references
 - `working_dir` (optional): Working directory (default: current)
-- `--backend` (optional): Select AI backend (codex/claude/gemini, default: codex)
+- `--backend` (required): Select AI backend (codex/claude/gemini)
   - **Note**: Claude backend only adds `--dangerously-skip-permissions` when explicitly enabled
 
 ## Return Format
@@ -88,8 +97,8 @@ SESSION_ID: 019a7247-ac9d-71f3-89e2-a823dbd8fd14
 ## Resume Session
 
 ```bash
-# Resume with default backend
-codeagent-wrapper resume <session_id> - <<'EOF'
+# Resume with codex backend
+codeagent-wrapper --backend codex resume <session_id> - <<'EOF'
 <follow-up task>
 EOF
 
@@ -102,6 +111,7 @@ EOF
 ## Parallel Execution
 
 **Default (summary mode - context-efficient):**
+
 ```bash
 codeagent-wrapper --parallel <<'EOF'
 ---TASK---
@@ -119,6 +129,7 @@ EOF
 ```
 
 **Full output mode (for debugging):**
+
 ```bash
 codeagent-wrapper --parallel --full-output <<'EOF'
 ...
@@ -126,10 +137,12 @@ EOF
 ```
 
 **Output Modes:**
+
 - **Summary (default)**: Structured report with changes, output, verification, and review summary.
 - **Full (`--full-output`)**: Complete task messages. Use only when debugging specific failures.
 
 **With per-task backend**:
+
 ```bash
 codeagent-wrapper --parallel <<'EOF'
 ---TASK---
@@ -167,6 +180,7 @@ Set `CODEAGENT_MAX_PARALLEL_WORKERS` to limit concurrent tasks (default: unlimit
 ## Invocation Pattern
 
 **Single Task**:
+
 ```
 Bash tool parameters:
 - command: codeagent-wrapper --backend <backend> - [working_dir] <<'EOF'
@@ -174,9 +188,12 @@ Bash tool parameters:
   EOF
 - timeout: 7200000
 - description: <brief description>
+
+Note: --backend is required (codex/claude/gemini)
 ```
 
 **Parallel Tasks**:
+
 ```
 Bash tool parameters:
 - command: codeagent-wrapper --parallel --backend <backend> <<'EOF'
@@ -190,7 +207,38 @@ Bash tool parameters:
   EOF
 - timeout: 7200000
 - description: <brief description>
+
+Note: Global --backend is required; per-task backend is optional
 ```
+
+## Critical Rules
+
+**NEVER kill codeagent processes.** Long-running tasks are normal. Instead:
+
+1. **Check task status via log file**:
+
+   ```bash
+   # View real-time output
+   tail -f /tmp/claude/<workdir>/tasks/<task_id>.output
+
+   # Check if task is still running
+   cat /tmp/claude/<workdir>/tasks/<task_id>.output | tail -50
+   ```
+
+1. **Wait with timeout**:
+
+   ```bash
+   # Use TaskOutput tool with block=true and timeout
+   TaskOutput(task_id="<id>", block=true, timeout=300000)
+   ```
+
+1. **Check process without killing**:
+
+   ```bash
+   ps aux | grep codeagent-wrapper | rg -v grep
+   ```
+
+**Why:** codeagent tasks often take 2-10 minutes. Killing them wastes API costs and loses progress.
 
 ## Security Best Practices
 

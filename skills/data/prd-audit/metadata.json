@@ -1,7 +1,7 @@
 {
   "name": "prd-audit",
-  "repo": "turbobeest/squawk",
-  "path": ".claude/skills/prd-audit/SKILL.md",
-  "source": "github.com/turbobeest/squawk",
-  "downloaded_at": "2026-01-30T03:58:12.324291Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/prd-audit/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-31T04:51:01.274763Z"
 }

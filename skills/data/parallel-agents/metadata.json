@@ -1,7 +1,7 @@
 {
   "name": "parallel-agents",
-  "repo": "chrissargent48/weekly_report",
-  "path": ".claude/skills/external-skills/skills/parallel-agents/SKILL.md",
-  "source": "github.com/chrissargent48/weekly_report",
-  "downloaded_at": "2026-01-30T04:29:40.149448Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/parallel-agents/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:01.422456Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "dbt-migration-ms-sql-server",
-  "description": "Convert Microsoft SQL Server/Azure Synapse T-SQL DDL to dbt models compatible with Snowflake. This skill should be used when converting views, tables, or stored procedures from SQL Server to dbt code,",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo"
+  "path": ".claude/skills/dbt-migration-ms-sql-server/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-31T03:37:26.773804Z"
 }

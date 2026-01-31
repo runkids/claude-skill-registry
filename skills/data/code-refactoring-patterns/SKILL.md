@@ -1,292 +1,398 @@
 ---
-name: Code Refactoring Patterns
-description: This skill should be used when the user asks to "refactor large files", "split code into smaller pieces", "extract methods", "how should I refactor", "improve code structure", "break down large functions", or discusses strategies for dividing monolithic code into smaller, maintainable components.
-version: 0.1.0
+name: code-refactoring-patterns
+description: Systematic approach to refactoring code for improved maintainability, performance, and clarity while preserving functionality
+license: MIT
+metadata:
+  adapted-by: ai-skills
+  category: code-quality
 ---
 
 # Code Refactoring Patterns
 
-## Purpose
+A comprehensive guide to refactoring code systematically while maintaining functionality and improving quality.
 
-This skill provides guidance on refactoring large, complex code files into smaller, focused, and maintainable components. It covers fundamental refactoring principles, extraction strategies, and patterns that apply across programming languages and frameworks.
+## When to Refactor
 
-## When to Use
+- Code smells detected (duplicated code, long functions, etc.)
+- Before adding new features to complex areas
+- After understanding improves ("now I see a better way")
+- When tests are in place
+- Performance optimization needed
 
-Use this skill when analyzing code structure, planning refactoring strategies, or deciding how to split large files. It provides language-agnostic principles that work whether refactoring Laravel controllers, React components, Node.js services, or any codebase.
+## Refactoring Rules
 
-## Core Refactoring Principles
+1. **Never refactor without tests**: Write tests first if they don't exist
+2. **Small steps**: Make one change at a time
+3. **Run tests after each change**: Ensure nothing breaks
+4. **Commit often**: Each working refactor is a commit
+5. **Don't mix refactoring with feature work**: Separate concerns
 
-### 1. Single Responsibility Principle (SRP)
+## Common Code Smells
 
-Each function, class, or module should have one reason to change. Identify when code violates SRP:
+### 1. Long Method/Function
 
-- **Controllers handling validation, business logic, and response formatting** → Extract validation and business logic to separate classes
-- **Components managing state, data fetching, and rendering** → Extract hooks and services
-- **Service classes with 15+ public methods** → Break into focused services
-- **Functions doing multiple operations** → Extract each operation to its own function
+**Smell**: Functions over 20-30 lines
 
-**Question to ask:** "If this code needs to change, how many different reasons could require that change?" More than one reason signals SRP violation.
+**Refactor**: Extract Method
 
-### 2. Extractable Boundaries
-
-Identify clear extraction boundaries by looking for:
-
-- **Distinct workflows**: Methods performing completely different operations (e.g., user creation separate from email sending)
-- **Reusable logic**: Code that appears in multiple places or could be used elsewhere
-- **High complexity**: Methods exceeding 15-20 lines or with nested conditionals
-- **Clear input/output**: Methods with well-defined inputs and outputs (easier to extract)
-- **Testability**: Logic that would benefit from independent testing
-
-**Extraction pattern:**
-```
-1. Identify the boundary (start/end of related operations)
-2. Extract to new method/function
-3. Verify no side effects or tight coupling
-4. Test independently
-5. Update references
-```
-
-### 3. Complexity Metrics
-
-Recognize complexity that signals refactoring need:
-
-- **Cyclomatic Complexity > 10**: Multiple branches, nested conditions → Extract conditional logic to separate methods
-- **Method length > 20 lines**: Likely handling multiple concerns → Break into smaller methods
-- **Nesting depth > 3 levels**: Hard to follow logic → Extract inner logic to separate methods
-- **Parameter count > 4**: Hard to understand and test → Group parameters into objects
-- **Method with many local variables**: Suggests multiple concerns → Extract to separate methods
-
-### 4. Naming and Intent
-
-After extraction, ensure clear naming:
-
-- **Method names should describe intent**: `validateUserEmail()` not `check()`, `processPayment()` not `do()`
-- **Extract Guard Clauses**: Early returns for edge cases make the happy path clear
-- **Extract Error Handling**: Separate validation from business logic
-- **Extract Loops**: Extract loop bodies to named methods that describe the operation
-
-**Example**:
-```php
-// Before: Hard to understand at a glance
-public function createUser($data) {
-    if (!$data['email']) return false;
-    if (User::where('email', $data['email'])->exists()) return false;
-    // ... 30 more lines
+```typescript
+// Before
+function processOrder(order: Order) {
+  // Validate order (10 lines)
+  // Calculate totals (15 lines)
+  // Apply discounts (12 lines)
+  // Send confirmation (8 lines)
 }
 
-// After: Clear intent with extracted boundaries
-public function createUser($data) {
-    if (!$this->validateUserData($data)) return false;
-    if ($this->userExists($data['email'])) return false;
-    return $this->storeUser($data);
+// After
+function processOrder(order: Order) {
+  validateOrder(order);
+  const totals = calculateTotals(order);
+  const finalPrice = applyDiscounts(totals, order);
+  sendConfirmation(order, finalPrice);
 }
 ```
 
-## Extraction Patterns by Language
+### 2. Duplicated Code
 
-### PHP / Laravel
+**Smell**: Same code in multiple places
 
-**Extract CRUD operations into Action classes:**
-- `CreateUserAction` - Only handles creation logic
-- `UpdateUserAction` - Only handles updates
-- `DeleteUserAction` - Only handles deletion
-- `GetUserAction` - Only handles retrieval with related data
+**Refactor**: Extract Function/Class
 
-**Extract validation into separate methods or Form Requests:**
-- `ValidateUserInput` method or Form Request class
-- Keep business logic separate from validation
+```typescript
+// Before
+function formatUserName(user: User) {
+  return `${user.firstName} ${user.lastName}`;
+}
 
-**Extract queries into scopes and methods:**
-- `scopeActive()` → `User::query()->active()`
-- `scopeByEmail()` → `User::query()->byEmail($email)`
+function formatAuthorName(author: Author) {
+  return `${author.firstName} ${author.lastName}`;
+}
 
-**Extract relationships into dedicated classes:**
-- Models with complex relationships → Separate trait files
-- Resource formatting → Dedicated Resource class
+// After
+function formatFullName(person: { firstName: string; lastName: string }) {
+  return `${person.firstName} ${person.lastName}`;
+}
+```
 
-### React / Vue
+### 3. Long Parameter List
 
-**Extract large components into smaller pieces:**
-- Container components (data management) separate from presentational components (rendering)
-- Extract hooks for reusable logic
-- Extract smaller, focused sub-components
+**Smell**: Functions with 4+ parameters
 
-**Extract hooks for reusable logic:**
-- `useUserPermissions()` → Encapsulates permission checking
-- `useFormValidation()` → Handles form state and validation
-- `useDataFetching()` → Wraps React Query or SWR
+**Refactor**: Parameter Object
 
-**Extract context providers:**
-- Theme context separate from Auth context
-- Each context for one concern
+```typescript
+// Before
+function createUser(
+  firstName: string,
+  lastName: string,
+  email: string,
+  phone: string,
+  address: string
+) { }
 
-### Node.js / TypeScript
+// After
+interface UserDetails {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 
-**Extract service methods into focused services:**
-- `UserService` → User-specific operations
-- `EmailService` → Email operations
-- `PaymentService` → Payment operations
+function createUser(details: UserDetails) { }
+```
 
-**Extract helper/utility functions:**
-- `validateEmail()`, `hashPassword()`, `formatResponse()`
-- Keep pure functions in separate files
+### 4. Large Class
 
-**Extract data access patterns:**
-- Database queries → Repository pattern or separate data access file
-- API calls → Separate API client file
+**Smell**: Classes with many responsibilities
+
+**Refactor**: Extract Class
+
+```typescript
+// Before
+class UserManager {
+  createUser() { }
+  deleteUser() { }
+  sendEmail() { }
+  generateReport() { }
+  logActivity() { }
+}
+
+// After
+class UserService {
+  createUser() { }
+  deleteUser() { }
+}
+
+class EmailService {
+  sendEmail() { }
+}
+
+class ReportService {
+  generateReport() { }
+}
+```
+
+### 5. Feature Envy
+
+**Smell**: Method uses data from another class more than its own
+
+**Refactor**: Move Method
+
+```typescript
+// Before
+class Order {
+  calculate() {
+    return this.customer.getDiscount() * this.amount;
+  }
+}
+
+// After
+class Customer {
+  calculateOrderAmount(order: Order) {
+    return this.getDiscount() * order.amount;
+  }
+}
+```
+
+## Refactoring Techniques
+
+### Extract Method
+
+Break large functions into smaller, named pieces:
+
+```typescript
+// Before
+function renderUser(user: User) {
+  console.log(`<div>`);
+  console.log(`  <h1>${user.firstName} ${user.lastName}</h1>`);
+  console.log(`  <p>${user.email}</p>`);
+  console.log(`</div>`);
+}
+
+// After
+function renderUser(user: User) {
+  console.log(`<div>`);
+  console.log(`  ${renderUserHeader(user)}`);
+  console.log(`  ${renderUserEmail(user)}`);
+  console.log(`</div>`);
+}
+
+function renderUserHeader(user: User) {
+  return `<h1>${user.firstName} ${user.lastName}</h1>`;
+}
+
+function renderUserEmail(user: User) {
+  return `<p>${user.email}</p>`;
+}
+```
+
+### Rename for Clarity
+
+Use descriptive names:
+
+```typescript
+// Before
+function calc(a: number, b: number) {
+  return a * b * 0.08;
+}
+
+// After
+function calculateSalesTax(amount: number, quantity: number) {
+  const TAX_RATE = 0.08;
+  return amount * quantity * TAX_RATE;
+}
+```
+
+### Introduce Explaining Variable
+
+Make complex expressions clear:
+
+```typescript
+// Before
+if (platform.toUpperCase().includes('MAC') && 
+    browser.toUpperCase().includes('IE') &&
+    wasInitialized() && resized) {
+  // do something
+}
+
+// After
+const isMacOS = platform.toUpperCase().includes('MAC');
+const isIE = browser.toUpperCase().includes('IE');
+const wasResized = wasInitialized() && resized;
+
+if (isMacOS && isIE && wasResized) {
+  // do something
+}
+```
+
+### Replace Conditional with Polymorphism
+
+Use inheritance/interfaces instead of switch/if-else chains:
+
+```typescript
+// Before
+function getSpeed(vehicle: Vehicle) {
+  switch (vehicle.type) {
+    case 'car': return vehicle.speed * 1.0;
+    case 'bike': return vehicle.speed * 0.8;
+    case 'truck': return vehicle.speed * 0.6;
+  }
+}
+
+// After
+interface Vehicle {
+  getSpeed(): number;
+}
+
+class Car implements Vehicle {
+  getSpeed() { return this.speed * 1.0; }
+}
+
+class Bike implements Vehicle {
+  getSpeed() { return this.speed * 0.8; }
+}
+```
+
+### Simplify Conditional Logic
+
+Use early returns and guard clauses:
+
+```typescript
+// Before
+function processPayment(payment: Payment) {
+  if (payment.isValid()) {
+    if (payment.amount > 0) {
+      if (payment.method === 'card') {
+        // process card payment
+      } else {
+        // invalid method
+      }
+    } else {
+      // invalid amount
+    }
+  } else {
+    // invalid payment
+  }
+}
+
+// After
+function processPayment(payment: Payment) {
+  if (!payment.isValid()) {
+    throw new Error('Invalid payment');
+  }
+  
+  if (payment.amount <= 0) {
+    throw new Error('Invalid amount');
+  }
+  
+  if (payment.method !== 'card') {
+    throw new Error('Invalid method');
+  }
+  
+  // process card payment
+}
+```
 
 ## Refactoring Workflow
 
-### Step 1: Analyze Current Code
+### Step 1: Understand Current Code
 
-Read the file and identify:
-- Current responsibilities (what does this code do?)
-- Violation areas (where are multiple concerns mixed?)
-- Extraction candidates (which parts could be separate?)
-- Dependencies (what does extracted code depend on?)
+```bash
+# Read the code thoroughly
+cat src/feature.ts
 
-### Step 2: Design Target Structure
+# Check tests
+cat src/feature.test.ts
 
-Plan the refactoring:
-- How many files/classes should be created?
-- What will each contain?
-- How will they interact?
-- What's the folder structure?
+# Find all usages
+grep -r "functionName" src/
+```
 
-### Step 3: Extract with Care
+### Step 2: Ensure Tests Exist
 
-- Extract one concern at a time
-- Update references to extracted code
-- Verify functionality still works
-- Run tests (if available)
+```bash
+# Run existing tests
+npm test src/feature.test.ts
 
-### Step 4: Validate
+# Add missing tests if needed
+```
 
-- Does each extracted component have single responsibility?
-- Are dependencies clear and minimal?
-- Is the code easier to understand and test?
-- Can extracted code be reused elsewhere?
+### Step 3: Refactor in Small Steps
 
-## Common Extraction Scenarios
+```bash
+# Make one refactoring change
+# Run tests
+npm test
 
-### Scenario 1: Large Controller Class
+# Commit if tests pass
+git add . && git commit -m "refactor: extract method calculateTotal"
 
-**Problem:** 50+ line controller method doing validation, business logic, and response formatting
+# Repeat for next refactoring
+```
 
-**Solution:**
-1. Extract validation to Form Request or validator method
-2. Extract business logic to Action class
-3. Keep controller thin (3-5 lines)
+### Step 4: Verify No Regression
 
-### Scenario 2: Complex Component
+```bash
+# Run full test suite
+npm test
 
-**Problem:** React component with 200+ lines doing data fetching, state management, and rendering
+# Check type errors
+npx tsc --noEmit
 
-**Solution:**
-1. Extract data fetching to custom hook
-2. Extract child components for different sections
-3. Extract form logic to separate hook
-4. Component becomes 30-40 lines focused on layout
+# Verify lint
+npm run lint
+```
 
-### Scenario 3: God Service Class
+### Step 5: Performance Check
 
-**Problem:** Service class with 30+ public methods handling multiple unrelated operations
+```bash
+# Compare before/after if performance-critical
+npm run benchmark
+```
 
-**Solution:**
-1. Group related methods into separate service classes
-2. Service A: `UserCreation` operations
-3. Service B: `UserNotification` operations
-4. Service C: `UserPermissions` operations
-5. Update references to use appropriate service
+## Refactoring Checklist
 
-### Scenario 4: Conditional Logic
+Before refactoring:
+- [ ] Tests exist and pass
+- [ ] Understand current behavior
+- [ ] Know why refactoring is needed
+- [ ] Have time to complete refactoring
 
-**Problem:** Method with 5+ nested if/else levels
+During refactoring:
+- [ ] Make one change at a time
+- [ ] Run tests after each change
+- [ ] Keep commits small and focused
+- [ ] Don't add features during refactoring
 
-**Solution:**
-1. Extract guard clauses to top (early returns)
-2. Extract condition checking to named methods
-3. Extract branch logic to separate methods
-4. Result: Clear happy path with early exits
+After refactoring:
+- [ ] All tests pass
+- [ ] No type errors
+- [ ] Lint passes
+- [ ] Code review completed
+- [ ] Documentation updated if needed
 
-## Patterns to Follow
+## Integration Points
 
-### Action Pattern (Preferred for Business Logic)
+Complements:
+- **verification-loop**: For validation after refactoring
+- **tdd-workflow**: For test-first approach
+- **coding-standards-enforcer**: For style consistency
+- **testing-patterns**: For test design
 
-**Characteristics:**
-- Single `handle()` method with clear purpose
-- Dependencies injected via constructor
-- Reusable from commands, controllers, jobs, API requests
-- Easy to test
+## Refactoring Anti-Patterns
 
-**When to use:** Any complex business logic (user creation, payment processing, data transformation)
+❌ **Don't**:
+- Refactor without tests
+- Mix refactoring with feature work
+- Make large changes at once
+- Refactor code you don't understand
+- Skip verification steps
 
-### Hook Pattern (React/Vue)
-
-**Characteristics:**
-- Reusable logic encapsulated
-- Composed into components
-- Separate concerns (state, effects, validation)
-- Testable independently
-
-**When to use:** Reusable component logic (form handling, data fetching, permissions)
-
-### Service Pattern (Node.js/Backend)
-
-**Characteristics:**
-- Focused on specific domain
-- Clear public interface
-- Encapsulates related operations
-- Stateless or minimal state
-
-**When to use:** Domain-specific operations (UserService, EmailService, PaymentService)
-
-## Red Flags for Refactoring Need
-
-Extract code when you see:
-
-- **DRY Violation**: Same code appears 2+ times → Extract to reusable function
-- **Naming Confusion**: Can't describe what a method does in a sentence → Doing too much
-- **Test Difficulty**: Hard to test a method in isolation → Likely mixed concerns
-- **Multiple Reasons to Change**: Modification requests affect different parts of code → SRP violation
-- **Deep Nesting**: More than 3 levels of indentation → Extract inner logic
-- **Long Parameter Lists**: More than 4 parameters → Group into object/DTO
-- **Many Local Variables**: More than 5-6 variables → Likely multiple concerns
-- **Scroll Fatigue**: Method longer than screen height → Break into smaller methods
-
-## Advanced Patterns
-
-### Refactoring with Dependencies
-
-When extracting code with external dependencies:
-1. Identify which services/dependencies are needed
-2. Pass them as constructor parameters or method arguments
-3. Extracted code is testable with mocked dependencies
-4. Original code still works, now calling extracted code
-
-### Refactoring with State
-
-When extracting code that manages state:
-1. Move state and state-changing logic together
-2. Use appropriate state management (Context in React, local in Vue, closures in JS)
-3. Ensure clear ownership of state
-4. Extracted code has clear input/output
-
-### Refactoring with Side Effects
-
-When extracting code with side effects (DB writes, API calls, file I/O):
-1. Extract the effect operation to separate method
-2. Keep business logic pure when possible
-3. Side effects at boundaries (entry points)
-4. Easier to test pure logic separately
-
-## Additional Resources
-
-For language and framework-specific action patterns, see:
-- **`references/extraction-patterns.md`** - Detailed extraction techniques
-- **`references/smell-indicators.md`** - Code smell checklist
-- **`examples/`** - Working refactoring examples
-
-## Next Steps
-
-After understanding refactoring principles, use the `/scan-code` command to identify candidates in your codebase, or `/split-code <file>` to refactor specific files following these patterns.
+✅ **Do**:
+- Write tests first
+- Separate refactoring commits
+- Make incremental changes
+- Understand code before refactoring
+- Run tests frequently

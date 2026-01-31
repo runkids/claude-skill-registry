@@ -1,7 +1,7 @@
 {
   "name": "session-handoff",
-  "repo": "albertms22/agent-toolkit",
-  "path": "skills/session-handoff/SKILL.md",
-  "source": "github.com/albertms22/agent-toolkit",
-  "downloaded_at": "2026-01-30T04:14:51.001313Z"
+  "repo": "sskim91/dotfiles",
+  "path": ".claude/skills/session-handoff/SKILL.md",
+  "source": "github.com/sskim91/dotfiles",
+  "downloaded_at": "2026-01-31T03:19:52.610963Z"
 }

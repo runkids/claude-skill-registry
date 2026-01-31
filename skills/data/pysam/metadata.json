@@ -1,7 +1,7 @@
 {
   "name": "pysam",
-  "repo": "pur3v4d3r/pur3-pkb-codebase",
-  "path": ".claude/skills/__scientific-skills/pysam/SKILL.md",
-  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
-  "downloaded_at": "2026-01-30T04:48:22.756809Z"
+  "repo": "Victory-Hugo/S2-Agent-Skill",
+  "path": "skills/genomics/pysam/SKILL.md",
+  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
+  "downloaded_at": "2026-01-31T04:16:19.191172Z"
 }

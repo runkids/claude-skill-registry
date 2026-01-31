@@ -267,19 +267,6 @@ if (isLoading) {
 
 ---
 
-### 👤 User Avatars
-
-**ALWAYS use `AvatarUrl` helper** for user avatars - handles empty strings, Discord IDs, and fallback generation.
-
-```typescript
-import { AvatarUrl } from "~/components/user/avatar";
-<img src={AvatarUrl(user)} />
-```
-
-**[📖 Complete Guide: resources/user-avatar.md](resources/user-avatar.md)**
-
----
-
 ### 📚 Complete Examples
 
 **Full working examples:**
@@ -307,7 +294,6 @@ import { AvatarUrl } from "~/components/user/avatar";
 | Optimize performance | [performance.md](resources/performance.md) |
 | TypeScript types | [typescript-standards.md](resources/typescript-standards.md) |
 | Forms/Auth/DataGrid | [common-patterns.md](resources/common-patterns.md) |
-| Display user avatars | [user-avatar.md](resources/user-avatar.md) |
 | See full examples | [complete-examples.md](resources/complete-examples.md) |
 
 ---

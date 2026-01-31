@@ -1,7 +1,7 @@
 {
   "name": "project-setup",
-  "repo": "spaarke-dev/spaarke",
-  "path": ".claude/skills/project-setup/SKILL.md",
-  "source": "github.com/spaarke-dev/spaarke",
-  "downloaded_at": "2026-01-29T02:08:02.896266Z"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/project-setup/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-31T02:46:21.767604Z"
 }

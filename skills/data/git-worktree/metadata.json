@@ -1,7 +1,7 @@
 {
   "name": "git-worktree",
-  "repo": "alexanderop/workoutTracker",
-  "path": ".claude/skills/git-worktree/SKILL.md",
-  "source": "github.com/alexanderop/workoutTracker",
-  "downloaded_at": "2026-01-30T04:25:21.604115Z"
+  "repo": "manastalukdar/claude-devstudio",
+  "path": "skills/git-worktree/SKILL.md",
+  "source": "github.com/manastalukdar/claude-devstudio",
+  "downloaded_at": "2026-01-31T03:53:49.997487Z"
 }

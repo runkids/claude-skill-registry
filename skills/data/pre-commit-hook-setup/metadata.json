@@ -1,7 +1,7 @@
 {
   "name": "pre-commit-hook-setup",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/pre-commit-hook-setup/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-27T03:32:36.454279Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/01-devops-basics/pre-commit-hook-setup/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:40.319338Z"
 }

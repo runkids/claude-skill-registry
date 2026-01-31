@@ -1,9 +1,7 @@
 {
   "name": "plotly-chart-generator",
-  "description": "Plotly Chart Generator - Auto-activating skill for Visual Content.Triggers on: plotly chart generator, plotly chart generatorPart of the Visual Content skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/plotly-chart-generator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-31T03:32:44.344292Z"
 }

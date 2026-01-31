@@ -1,10 +1,21 @@
 ---
 name: sequential-thinking
-description: Use when complex problems require systematic step-by-step reasoning with ability to revise thoughts, branch into alternative approaches, or dynamically adjust scope. Ideal for multi-stage analysis, design planning, problem decomposition, or tasks with initially unclear scope.
-license: MIT
+description: Enables systematic step-by-step reasoning with revision and branching capabilities. Use when complex problems require multi-stage analysis, design planning, problem decomposition, or when scope is initially unclear. Triggers include "think through step by step", "break this down", "complex problem", or "sequential reasoning".
+allowed-tools: mcp__reasoning__sequentialthinking
 ---
 
 # Sequential Thinking
+
+## Trigger Phrases
+
+Activate when user says:
+
+- "think through this step by step", "break this down", "reason through"
+- "complex problem", "multi-step analysis", "decompose this"
+- "let me think about", "need to work through", "figure out"
+- "sequential reasoning", "structured thinking", "systematic analysis"
+- "consider alternatives", "branch the approach", "revise my thinking"
+- "unclear scope", "explore options", "iterative reasoning"
 
 Enables structured problem-solving through iterative reasoning with revision and branching capabilities.
 
@@ -19,6 +30,7 @@ Enables structured problem-solving through iterative reasoning with revision and
 ## When to Use
 
 Use `mcp__reasoning__sequentialthinking` when:
+
 - Problem requires multiple interconnected reasoning steps
 - Initial scope or approach is uncertain
 - Need to filter through complexity to find core issues
@@ -81,6 +93,7 @@ The MCP tool `mcp__reasoning__sequentialthinking` accepts these parameters:
 ## Advanced Features
 
 For revision patterns, branching strategies, and complex workflows, see:
+
 - [Advanced Usage](references/advanced.md) - Revision and branching patterns
 - [Examples](references/examples.md) - Real-world use cases
 

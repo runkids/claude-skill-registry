@@ -1,28 +1,26 @@
 ---
 name: Backend Queries
-description: Write secure, performant database queries using parameterized statements, proper indexing, eager loading, and transaction management to prevent SQL injection and N+1 query problems. Use this skill when writing database queries, constructing SQL statements, using ORM query builders, optimizing database performance, or working with repositories, services, or DAO files that interact with databases. Applies to SELECT, INSERT, UPDATE, DELETE operations, joins, aggregations, and any code that retrieves or manipulates data from databases.
+description: Write secure, performant, and optimized database queries using parameterized queries, eager loading, proper indexing, and transaction management. Use this skill when writing database queries in controllers, repositories, services, or model methods, when using query builders or ORM methods, when implementing filtering/sorting/pagination logic, when optimizing N+1 query problems with eager loading, when working with joins and complex queries, when implementing query caching, or when wrapping related operations in database transactions.
 ---
 
 # Backend Queries
 
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend queries.
+
 ## When to use this skill
 
-- When writing database queries in repository files like `repositories/`, `dao/`, `services/`, or `queries/`
-- When constructing SQL statements or using query builders in any backend service or controller
-- When using ORM methods to fetch data (SQLAlchemy, TypeORM, Prisma, Django ORM, Sequelize, etc.)
-- When implementing SELECT queries with WHERE clauses, JOINs, ORDER BY, or GROUP BY statements
-- When writing INSERT, UPDATE, or DELETE operations that modify database records
-- When preventing SQL injection by using parameterized queries or prepared statements
-- When optimizing queries to avoid N+1 problems through eager loading or `select_related`/`prefetch_related`
-- When selecting specific columns instead of using SELECT * for performance optimization
-- When wrapping multiple related database operations in transactions for data consistency
-- When adding database indexes to columns used in WHERE, JOIN, or ORDER BY clauses
-- When implementing query timeouts to prevent runaway queries from impacting performance
-- When caching results of expensive or frequently-run queries using Redis or similar
-
-# Backend Queries
-
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend queries.
+- When writing database queries in controllers, service classes, repositories, or model methods
+- When using query builder methods (where, select, join, orderBy, etc.)
+- When implementing eager loading to prevent N+1 query problems (with, load, etc.)
+- When optimizing queries by selecting only needed columns instead of using SELECT *
+- When implementing filtering, sorting, or pagination logic in queries
+- When writing complex queries with joins, subqueries, or aggregations
+- When wrapping multiple related database operations in transactions
+- When implementing query timeouts or performance optimization
+- When adding database indexes to improve query performance
+- When implementing query result caching strategies
+- When using raw queries or complex SQL (ensuring parameterization for security)
+- When debugging slow queries or performance issues
 
 ## Instructions
 

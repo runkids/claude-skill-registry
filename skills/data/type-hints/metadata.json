@@ -1,9 +1,7 @@
 {
   "name": "type-hints",
-  "description": "Python type hints, type checking, and static analysis with mypy",
-  "repo": "pluginagentmarketplace/custom-plugin-python",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "libertininick/chain-reaction",
+  "path": ".claude/skills/type-hints/SKILL.md",
+  "source": "github.com/libertininick/chain-reaction",
+  "downloaded_at": "2026-01-31T01:32:46.489864Z"
 }

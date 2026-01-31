@@ -1,189 +1,267 @@
 ---
 name: standards-python
-description: This skill provides Python coding standards and is automatically loaded for Python projects. It includes naming conventions, best practices, and recommended tooling.
-type: context
-applies_to: [python, fastapi, django, flask, pytest, pydantic, sqlalchemy, celery, poetry, asyncio, aiohttp, httpx]
+description: Apply Python tooling standards including uv package management, pytest testing, ruff/basedpyright code quality, one-line docstrings, and self-documenting code practices. Use this skill when working with Python backend code, managing dependencies, running tests, or ensuring code quality. Apply when installing packages, writing tests, formatting code, type checking, adding docstrings, organizing imports, or deciding whether to create new files vs. extending existing ones. Use for any Python development task requiring adherence to tooling standards and best practices.
 ---
 
-# Python Coding Standards
+# Python Standards
 
-## Core Principles
+**Core Rule:** Use uv for all package operations, pytest for testing, ruff for formatting/linting. Write self-documenting code with minimal comments.
 
-1. **Simplicity**: Simple, understandable code
-2. **Readability**: Readability over cleverness
-3. **Maintainability**: Code that's easy to maintain
-4. **Testability**: Code that's easy to test
-5. **DRY**: Don't Repeat Yourself - but don't overdo it
+## When to use this skill
 
-## General Rules
+- When installing or managing Python packages and dependencies
+- When writing or running unit tests, integration tests, or test suites
+- When formatting Python code or fixing linting issues
+- When adding type hints or running type checking
+- When writing function/method docstrings
+- When organizing imports in Python files
+- When deciding whether to create a new Python file or extend existing ones
+- When setting up code quality checks (linting, formatting, type checking)
+- When running coverage reports or analyzing test results
+- When ensuring code follows Python best practices and tooling standards
 
-- **Early Returns**: Use early returns to avoid nesting
-- **Descriptive Names**: Meaningful names for variables and functions
-- **Minimal Changes**: Only change relevant code parts
-- **No Over-Engineering**: No unnecessary complexity
-- **Minimal Comments**: Code should be self-explanatory. No redundant comments!
+This Skill provides Claude Code with specific guidance on how to adhere to Python tooling standards and best practices for backend development.
 
-## Naming Conventions
+## Package Management - uv Only
 
-| Element | Convention | Example |
-|---------|------------|---------|
-| Variables/Functions | snake_case | `get_user_by_id`, `is_active` |
-| Classes | PascalCase | `UserService`, `ApiClient` |
-| Constants | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
-| Private | Prefix with `_` | `_internal_method` |
-| Files/Modules | snake_case | `user_service.py` |
+**MANDATORY: Use `uv` for all Python package operations. Never use `pip` directly.**
 
-## Project Structure
+```bash
+# Installing packages
+uv pip install package-name
+uv pip install -r requirements.txt
 
-```
-myproject/
-├── src/
-│   ├── __init__.py
-│   ├── main.py              # Entry point
-│   ├── config.py            # Settings, env vars
-│   ├── models.py            # Domain models (dataclasses/Pydantic)
-│   ├── schemas.py           # Request/response DTOs
-│   ├── services/
-│   │   ├── __init__.py
-│   │   └── user_service.py  # Business logic
-│   └── repositories/
-│       ├── __init__.py
-│       └── user_repo.py     # Data access
-├── tests/
-│   ├── __init__.py
-│   ├── test_services.py
-│   └── test_repositories.py
-├── pyproject.toml
-└── README.md
+# Package information
+uv pip list
+uv pip show package-name
+
+# Running Python scripts/modules
+uv run python script.py
+uv run pytest
 ```
 
-## Code Style (PEP 8 + PEP 484)
+**Why uv:** Faster dependency resolution, better lock file management, project standard for consistency.
+
+**If you catch yourself typing `pip`:** Stop and use `uv pip` instead.
+
+## Testing with pytest
+
+**Run tests using `uv run pytest`:**
+
+```bash
+uv run pytest                                      # All tests
+uv run pytest -m unit                              # Unit tests only
+uv run pytest -m integration                       # Integration tests only
+uv run pytest tests/unit/test_module.py            # Specific file
+uv run pytest tests/unit/test_module.py::test_name # Specific test
+uv run pytest -v                                   # Verbose output
+uv run pytest -s                                   # Show print statements
+uv run pytest --cov=src --cov-report=term-missing  # Coverage report
+uv run pytest --cov-fail-under=80                  # Enforce 80% coverage
+```
+
+**Test markers:** Use `@pytest.mark.unit` and `@pytest.mark.integration` to categorize tests.
+
+## Code Quality Tools
+
+**Ruff (Linting & Formatting):**
+```bash
+ruff check .           # Check for issues
+ruff check . --fix     # Auto-fix issues
+ruff format .          # Format all code
+```
+
+**Type Checking:**
+```bash
+basedpyright src            # Type checker
+```
+
+**Run quality checks before marking work complete.** Use `getDiagnostics` tool to verify no errors.
+
+## Code Style
+
+### Docstrings
+
+**Use concise one-line docstrings for most functions:**
 
 ```python
-from dataclasses import dataclass
-
-@dataclass
-class User:
-    id: str
-    name: str
-    email: str
-    age: int | None = None  # Python 3.10+ union syntax
-
-def get_user_by_id(user_id: str) -> User | None:
-    if not user_id:
-        raise ValueError("user_id cannot be empty")
-    # implementation...
+def calculate_discount(price: float, rate: float) -> float:
+    """Calculate discounted price by applying rate."""
+    return price * (1 - rate)
 ```
 
-## Best Practices
+**Multi-line docstrings only for complex functions:**
 
 ```python
-# Type hints everywhere
-def process_items(items: list[str]) -> dict[str, int]:
-    return {item: len(item) for item in items}
+def process_payment(order_id: str, payment_method: str) -> PaymentResult:
+    """
+    Process payment for order using specified method.
 
-# Pydantic v2 for validation
-from pydantic import BaseModel, Field, field_validator, EmailStr
+    Validates payment method, charges customer, updates order status,
+    and sends confirmation email. Rolls back on any failure.
+    """
+    # Implementation
+```
 
-class UserCreate(BaseModel):
-    name: str = Field(..., min_length=2, max_length=50)
-    email: EmailStr
-    age: int | None = Field(None, ge=0, le=150)
+**Don't document obvious behavior:**
+```python
+# BAD - docstring adds no value
+def get_user_email(user_id: str) -> str:
+    """Get the email address for a user by their ID."""
 
-    @field_validator('name')
-    @classmethod
-    def name_must_be_alphanumeric(cls, v: str) -> str:
-        if not v.replace(' ', '').isalnum():
-            raise ValueError('Name must be alphanumeric')
-        return v.strip()
+# GOOD - name is self-explanatory
+def get_user_email(user_id: str) -> str:
+    return db.query(User).filter_by(id=user_id).first().email
+```
 
-# Context managers
-with open('file.txt', 'r') as f:
-    content = f.read()
+### Comments
 
-# Prefer pathlib over os.path
+**Write self-documenting code. Minimize inline comments.**
+
+Use clear names instead of comments:
+
+```python
+# BAD - comment explains unclear code
+# Check if user has permission
+if u.r == 'admin' or u.r == 'moderator':
+
+# GOOD - code explains itself
+if user.is_admin() or user.is_moderator():
+```
+
+**Use comments only for:**
+- Complex algorithms requiring explanation
+- Non-obvious business logic or domain rules
+- Workarounds for external library bugs (include issue link)
+- Performance optimizations that sacrifice clarity
+
+### Import Organization
+
+**Order:** Standard library → Third-party → Local application
+
+```python
+# Standard library
+import os
+from datetime import datetime
+
+# Third-party
+import pytest
+from sqlalchemy import Column, Integer
+
+# Local application
+from app.models import User
+from app.services import EmailService
+```
+
+**Ruff automatically organizes imports.** Run `ruff check . --fix` to sort.
+
+**Remove unused imports immediately.** Use `getDiagnostics` to identify them.
+
+## Type Hints
+
+**Add type hints to all function signatures:**
+
+```python
+# Required
+def process_order(order_id: str, user_id: int) -> Order:
+    pass
+
+# Not required for simple private methods
+def _format_price(amount):
+    return f"${amount:.2f}"
+```
+
+**Use modern type syntax (Python 3.10+):**
+```python
+# Good
+def get_users(ids: list[int]) -> list[User]:
+    pass
+
+# Avoid (old style)
+from typing import List
+def get_users(ids: List[int]) -> List[User]:
+    pass
+```
+
+## File Organization
+
+**Prefer editing existing files over creating new ones.**
+
+Before creating a new Python file, ask:
+1. Can this fit in an existing module?
+2. Is there a related file to extend?
+3. Does this truly need to be separate?
+
+**Benefits:** Reduces file sprawl, maintains coherent structure, easier navigation.
+
+**When to create new files:**
+- New model/entity with distinct responsibility
+- New service layer for separate domain
+- Test file for new module
+- Clear architectural boundary
+
+## Common Patterns
+
+**Avoid bare `except`:**
+```python
+# BAD
+try:
+    process()
+except:
+    pass
+
+# GOOD
+try:
+    process()
+except ValueError as e:
+    logger.error(f"Invalid value: {e}")
+    raise
+```
+
+**Use context managers for resources:**
+```python
+# GOOD
+with open(file_path) as f:
+    data = f.read()
+
+# GOOD
+with db.session() as session:
+    user = session.query(User).first()
+```
+
+**Prefer pathlib over os.path:**
+```python
+# GOOD
 from pathlib import Path
-config_path = Path(__file__).parent / 'config.yaml'
+config_path = Path(__file__).parent / "config.yaml"
+
+# Avoid
+import os
+config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
 ```
 
-## Async/Await
+## Verification Checklist
 
-```python
-# Async function with proper typing
-async def fetch_user(user_id: str) -> User | None:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(f"/users/{user_id}")
-        return User(**response.json()) if response.status_code == 200 else None
+Before marking Python work complete:
 
-# Don't block async functions
-async def process_data():
-    # BAD - blocks the event loop
-    time.sleep(1)
+- [ ] Used `uv` for all package operations (not `pip`)
+- [ ] All tests pass: `uv run pytest`
+- [ ] Code formatted: `ruff format .`
+- [ ] No linting issues: `ruff check .`
+- [ ] Type checking passes: `basedpyright src`
+- [ ] No unused imports (check with `getDiagnostics`)
+- [ ] Docstrings added to public functions
+- [ ] Type hints on function signatures
+- [ ] Coverage ≥ 80%: `uv run pytest --cov=src --cov-fail-under=80`
 
-    # GOOD - async sleep
-    await asyncio.sleep(1)
+## Quick Reference
 
-# Gather for concurrent operations
-async def fetch_all_users(user_ids: list[str]) -> list[User]:
-    tasks = [fetch_user(uid) for uid in user_ids]
-    return await asyncio.gather(*tasks)
-```
-
-## Exception Handling
-
-```python
-# Custom exceptions for domain errors
-class UserNotFoundError(Exception):
-    def __init__(self, user_id: str):
-        self.user_id = user_id
-        super().__init__(f"User not found: {user_id}")
-
-# Raise vs Return None
-def get_user_strict(user_id: str) -> User:
-    """Raises if not found - use when user MUST exist."""
-    user = repository.get(user_id)
-    if not user:
-        raise UserNotFoundError(user_id)
-    return user
-
-def get_user_optional(user_id: str) -> User | None:
-    """Returns None if not found - use when absence is expected."""
-    return repository.get(user_id)
-```
-
-## Comments - Less is More
-
-```python
-# BAD - redundant comment
-# Get the user from database
-user = repository.get_user(user_id)
-
-# GOOD - self-explanatory code, no comment needed
-user = repository.get_user(user_id)
-
-# GOOD - comment explains WHY (not obvious)
-# Rate limit: Azure API allows max 1000 requests/min
-await rate_limiter.acquire()
-```
-
-## Recommended Tooling
-
-| Tool | Purpose |
-|------|---------|
-| `uv` | Package manager (faster than pip/poetry) |
-| `ruff` | Linting (replaces flake8, isort, black) |
-| `mypy` or `pyright` | Type checking |
-| `pytest` | Testing with `pytest-cov`, `pytest-asyncio` |
-
-## Production Best Practices
-
-1. **Type hints everywhere** - Parameters, return types, variables where helpful
-2. **Pydantic for validation** - Don't validate manually, use Pydantic models
-3. **Async for I/O** - Use async/await for network, database, file operations
-4. **No blocking in async** - Never use `time.sleep()` or sync I/O in async functions
-5. **Structured logging** - Use `logging` module with JSON format, not print()
-6. **Environment variables** - Use `pydantic-settings` for config, never hardcode secrets
-7. **Dependency injection** - Pass dependencies explicitly, makes testing easier
-8. **Custom exceptions** - Domain-specific errors, not generic Exception
-9. **Connection pooling** - Reuse database/HTTP connections, don't create per request
-10. **Graceful shutdown** - Handle SIGTERM, close connections properly
+| Task                 | Command                       |
+| -------------------- | ----------------------------- |
+| Install package      | `uv pip install package-name` |
+| Run tests            | `uv run pytest`               |
+| Run with coverage    | `uv run pytest --cov=src`     |
+| Format code          | `ruff format .`               |
+| Fix linting          | `ruff check . --fix`          |
+| Type check (pyright) | `basedpyright src`            |
+| Run Python script    | `uv run python script.py`     |

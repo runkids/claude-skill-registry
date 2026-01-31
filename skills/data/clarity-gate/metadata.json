@@ -1,15 +1,7 @@
 {
   "name": "clarity-gate",
-  "description": "Pre-ingestion verification for epistemic quality in RAG systems. Use when reviewing documents before they enter knowledge bases, checking if claims could be misinterpreted as facts, or validating that",
-  "repo": "frmoretto/clarity-gate",
-  "category": "data",
-  "tags": [
-    "clarity",
-    "gate"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "clarity-gate",
-  "github_path": ".claude/skills/clarity-gate",
-  "github_branch": "main"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/clarity-gate/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-31T02:46:00.831509Z"
 }

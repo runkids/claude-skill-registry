@@ -1,37 +1,37 @@
 ---
 name: flutter-ui-design
-description: Modern UI design guidelines for Flutter apps. Achieve refined visuals based on Material Design 3.
+description: FlutterアプリのモダンUIデザインガイドライン。Material Design 3をベースに、洗練されたビジュアルを実現。
 ---
 
 # Flutter UI Design Guidelines
 
 ## Purpose
 
-This skill provides guidelines to make Flutter app UIs stand out from "typical defaults" and achieve professional, impressive designs.
+このスキルは、FlutterアプリのUIを「ありきたりなデフォルト」から脱却させ、プロフェッショナルで印象的なデザインを実現するためのガイドラインを提供します。
 
-## Typography
+## Typography（タイポグラフィ）
 
-### Patterns to Avoid
-- Using only default `Roboto`
-- Monotonous font weights (Regular/Bold only)
-- Uniform text sizes
+### 避けるべきパターン
+- デフォルトの`Roboto`のみの使用
+- 単調なフォントウェイト（Regular/Boldのみ）
+- 均一なテキストサイズ
 
-### Recommended Approach
+### 推奨アプローチ
 
 ```dart
-// Use modern fonts with Google Fonts
+// Google Fontsでモダンなフォントを使用
 import 'package:google_fonts/google_fonts.dart';
 
-// For titles: Distinctive display fonts
+// タイトル用: 個性的なディスプレイフォント
 GoogleFonts.poppins(fontWeight: FontWeight.w700)
 GoogleFonts.inter(fontWeight: FontWeight.w800)
 GoogleFonts.plusJakartaSans()
 
-// For body: Readable sans-serif
+// 本文用: 読みやすいサンセリフ
 GoogleFonts.inter()
 GoogleFonts.dmSans()
 
-// Size hierarchy with contrast in mind
+// コントラストを意識したサイズ階層
 headlineLarge: 32sp, weight: 800
 headlineMedium: 24sp, weight: 700
 titleLarge: 20sp, weight: 600
@@ -39,55 +39,55 @@ bodyLarge: 16sp, weight: 400
 labelSmall: 12sp, weight: 500
 ```
 
-### Font Weight Usage
-- Extreme contrast: Combine `w300` and `w800`
-- Bold for headings (w600-w800), regular for body (w400)
+### フォントウェイトの活用
+- 極端なコントラスト: `w300` と `w800` を組み合わせる
+- 見出しは太く（w600-w800）、本文は通常（w400）
 
-## Color & Theme
+## Color & Theme（カラー・テーマ）
 
-### Patterns to Avoid
-- Material Design default blue/purple
-- Subtle, uniform color palettes
-- Gray-only safe UIs
+### 避けるべきパターン
+- Material Design のデフォルト青/紫
+- 控えめで均等なカラーパレット
+- 灰色ばかりの無難なUI
 
-### Recommended Approach
+### 推奨アプローチ
 
 ```dart
-// Dark theme: Deep background + vivid accents
+// ダークテーマ: 深みのある背景 + 鮮やかなアクセント
 ColorScheme.dark(
-  surface: Color(0xFF0F0F14),        // Deep dark gray
+  surface: Color(0xFF0F0F14),        // 深いダークグレー
   surfaceContainerHighest: Color(0xFF1A1A23),
-  primary: Color(0xFF6366F1),         // Vivid indigo
-  secondary: Color(0xFF22D3EE),       // Cyan accent
-  tertiary: Color(0xFFF472B6),        // Pink accent
+  primary: Color(0xFF6366F1),         // 鮮やかなインディゴ
+  secondary: Color(0xFF22D3EE),       // シアンアクセント
+  tertiary: Color(0xFFF472B6),        // ピンクアクセント
 )
 
-// Light theme: Clean white + vivid accents
+// ライトテーマ: クリーンな白 + ビビッドなアクセント
 ColorScheme.light(
   surface: Color(0xFFFAFAFC),
   surfaceContainerHighest: Color(0xFFF1F5F9),
-  primary: Color(0xFF4F46E5),         // Indigo
-  secondary: Color(0xFF0EA5E9),       // Sky blue
-  tertiary: Color(0xFFEC4899),        // Pink
+  primary: Color(0xFF4F46E5),         // インディゴ
+  secondary: Color(0xFF0EA5E9),       // スカイブルー
+  tertiary: Color(0xFFEC4899),        // ピンク
 )
 ```
 
-### Color Usage Points
-- **Dominant Color**: Use one primary color boldly
-- **Sharp Accents**: Use secondary color sparingly as accent
-- **Semantic Colors**: Success=green, Error=red, Warning=yellow intuitively
+### カラー活用のポイント
+- **Dominant Color**: 1つのプライマリカラーを大胆に使用
+- **Sharp Accents**: セカンダリカラーはアクセントとして控えめに
+- **Semantic Colors**: 成功=緑、エラー=赤、警告=黄は直感的に
 
-## Elevation & Depth
+## Elevation & Depth（立体感）
 
-### Patterns to Avoid
-- Too flat designs
-- Uniform elevation
-- Overusing shadows
+### 避けるべきパターン
+- フラットすぎるデザイン
+- 均一なelevation
+- 影の乱用
 
-### Recommended Approach
+### 推奨アプローチ
 
 ```dart
-// Cards with subtle depth
+// カードに微妙な立体感
 Card(
   elevation: 0,
   shape: RoundedRectangleBorder(
@@ -97,7 +97,7 @@ Card(
   child: ...
 )
 
-// Soft shadow (low contrast)
+// ソフトシャドウ（コントラスト控えめ）
 BoxDecoration(
   borderRadius: BorderRadius.circular(16),
   boxShadow: [
@@ -109,7 +109,7 @@ BoxDecoration(
   ],
 )
 
-// Glassmorphism effect
+// グラスモーフィズム効果
 ClipRRect(
   borderRadius: BorderRadius.circular(16),
   child: BackdropFilter(
@@ -122,17 +122,17 @@ ClipRRect(
 )
 ```
 
-## Motion & Animation
+## Motion & Animation（アニメーション）
 
-### Patterns to Avoid
-- Rigid UI without animations
-- Excessive, scattered animations
-- Inconsistent timing
+### 避けるべきパターン
+- アニメーションなしの硬いUI
+- 過剰で散漫なアニメーション
+- 一貫性のないタイミング
 
-### Recommended Approach
+### 推奨アプローチ
 
 ```dart
-// Page transition: Smooth fade+slide
+// ページ遷移: スムーズなフェード+スライド
 PageRouteBuilder(
   transitionDuration: Duration(milliseconds: 300),
   pageBuilder: (_, __, ___) => DestinationPage(),
@@ -153,10 +153,10 @@ PageRouteBuilder(
   },
 )
 
-// List items: Staggered Animation
+// リスト項目: Staggered Animation
 AnimatedList + interval-based delays
 
-// Tap feedback: Subtle scale
+// タップフィードバック: 微細なスケール
 Transform.scale(
   scale: isPressed ? 0.98 : 1.0,
   child: AnimatedContainer(
@@ -166,23 +166,23 @@ Transform.scale(
 )
 ```
 
-### Timing Guidelines
-- **Short operations (tap)**: 100-150ms
-- **Screen transitions**: 250-350ms
-- **Complex animations**: 400-600ms
-- **Curve**: Base on `easeOutCubic`, `easeInOutCubic`
+### タイミングの指針
+- **短い操作（タップ）**: 100-150ms
+- **画面遷移**: 250-350ms
+- **複雑なアニメーション**: 400-600ms
+- **Curve**: `easeOutCubic`、`easeInOutCubic` を基本に
 
-## Layout & Spacing
+## Layout & Spacing（レイアウト・余白）
 
-### Patterns to Avoid
-- Cramped UI
-- Irregular padding
-- Insufficient spacing between elements
+### 避けるべきパターン
+- 詰まりすぎたUI
+- 不規則なパディング
+- 要素間の余白不足
 
-### Recommended Approach
+### 推奨アプローチ
 
 ```dart
-// 8px-based spacing system
+// 8px基準のスペーシングシステム
 const spacing = (
   xs: 4.0,
   sm: 8.0,
@@ -192,13 +192,13 @@ const spacing = (
   xxl: 48.0,
 );
 
-// Content area margins
+// コンテンツエリアの余白
 Padding(
   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
   child: ...
 )
 
-// Card padding larger than outer
+// カード内の余白は外より大きく
 Card(
   child: Padding(
     padding: EdgeInsets.all(20),
@@ -206,17 +206,17 @@ Card(
   ),
 )
 
-// Gaps between elements
-SizedBox(height: 16) // Between related elements
-SizedBox(height: 32) // Between sections
+// 要素間のギャップ
+SizedBox(height: 16) // 関連要素間
+SizedBox(height: 32) // セクション間
 ```
 
-## Components
+## Components（コンポーネント）
 
-### Buttons
+### ボタン
 
 ```dart
-// Primary button: Rounded corners + sufficient padding
+// プライマリボタン: 角丸 + 十分なパディング
 FilledButton(
   style: FilledButton.styleFrom(
     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -227,7 +227,7 @@ FilledButton(
   child: Text('Action'),
 )
 
-// Outline button
+// アウトラインボタン
 OutlinedButton(
   style: OutlinedButton.styleFrom(
     side: BorderSide(color: theme.colorScheme.outline, width: 1.5),
@@ -238,7 +238,7 @@ OutlinedButton(
 )
 ```
 
-### Input Fields
+### 入力フィールド
 
 ```dart
 TextField(
@@ -273,12 +273,12 @@ FloatingActionButton(
 )
 ```
 
-## Background
+## Background（背景）
 
-### Recommended Techniques
+### 推奨テクニック
 
 ```dart
-// Gradient background
+// グラデーション背景
 Container(
   decoration: BoxDecoration(
     gradient: LinearGradient(
@@ -292,7 +292,7 @@ Container(
   ),
 )
 
-// Subtle pattern (dots, grid)
+// サブトルなパターン（ドット、グリッド）
 CustomPaint(
   painter: DotPatternPainter(
     color: theme.colorScheme.outline.withOpacity(0.05),
@@ -303,11 +303,11 @@ CustomPaint(
 
 ## Checklist
 
-Checklist when implementing UI:
+UIを実装する際のチェックリスト:
 
-- [ ] Using fonts other than default
-- [ ] Color palette has accent colors
-- [ ] Appropriate margins/padding are set
-- [ ] Interactions have feedback (animations)
-- [ ] Component corner radii are unified (12-16px recommended)
-- [ ] Text hierarchy (size/weight) is clear
+- [ ] デフォルトフォント以外を使用しているか
+- [ ] カラーパレットにアクセントカラーがあるか
+- [ ] 適切な余白・パディングが設定されているか
+- [ ] インタラクションにフィードバック（アニメーション）があるか
+- [ ] コンポーネントの角丸が統一されているか（12-16px推奨）
+- [ ] テキストの階層（サイズ・ウェイト）が明確か

@@ -269,31 +269,14 @@ Snowflake data types map directly - no conversion needed.
 
 ## Related Skills
 
-- **dbt-migration**: For the complete migration workflow (discovery, planning, placeholder models,
+- $dbt-migration - For the complete migration workflow (discovery, planning, placeholder models,
   testing, deployment)
-- **dbt-modeling**: For CTE patterns and SQL structure guidance
-- **dbt-testing**: For implementing comprehensive dbt tests
-- **dbt-architecture**: For project organization and folder structure
-- **dbt-materializations**: For choosing materialization strategies (view, table, incremental,
+- $dbt-modeling - For CTE patterns and SQL structure guidance
+- $dbt-testing - For implementing comprehensive dbt tests
+- $dbt-architecture - For project organization and folder structure
+- $dbt-materializations - For choosing materialization strategies (view, table, incremental,
   snapshots)
-- **dbt-performance**: For clustering keys, warehouse sizing, and query optimization
-- **dbt-commands**: For running dbt commands and model selection syntax
-- **dbt-core**: For dbt installation, configuration, and package management
-- **snowflake-cli**: For executing SQL and managing Snowflake objects
-
----
-
-## Supported Source Database
-
-| Database      | Key Considerations                                                                                                                                                                              |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Snowflake** | Native syntax, focus on dbt patterns and best practices. Convert views to dbt views, tables to dbt tables/incremental models, stored procedures to dbt models with appropriate materialization. |
-
-## Translation References
-
-Since Snowflake is the target platform, no syntax translation is needed. The focus is on converting
-Snowflake objects to dbt best practices.
-
-### Reference Index
-
-- [Subqueries for dbt Conversion](translation-references/snowflake-subqueries.md)
+- $dbt-performance - For clustering keys, warehouse sizing, and query optimization
+- $dbt-commands - For running dbt commands and model selection syntax
+- $dbt-core - For dbt installation, configuration, and package management
+- $snowflake-cli - For executing SQL and managing Snowflake objects

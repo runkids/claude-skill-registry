@@ -1,7 +1,7 @@
 {
   "name": "address-github-comments",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/address-github-comments/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:28.734765Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/address-github-comments/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:04.101107Z"
 }

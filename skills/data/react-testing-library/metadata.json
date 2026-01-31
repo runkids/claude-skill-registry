@@ -1,7 +1,7 @@
 {
   "name": "react-testing-library",
-  "repo": "a5c-ai/babysitter",
-  "path": "plugins/babysitter/skills/babysit/process/specializations/web-development/skills/react-testing-library/SKILL.md",
-  "source": "github.com/a5c-ai/babysitter",
-  "downloaded_at": "2026-01-30T04:39:30.155355Z"
+  "repo": "pproenca/dot-skills",
+  "path": "skills/.experimental/react-testing-library/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-01-31T03:35:42.666212Z"
 }

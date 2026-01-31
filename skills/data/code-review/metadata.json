@@ -1,7 +1,7 @@
 {
   "name": "code-review",
-  "repo": "frankxai/arcanea",
-  "path": "arcanea-skills-opensource/skills/development/code-review/SKILL.md",
-  "source": "github.com/frankxai/arcanea",
-  "downloaded_at": "2026-01-30T04:44:30.235675Z"
+  "repo": "Ven0m0/claude-config",
+  "path": "plugins/coding-assistant/skills/code-review/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-31T04:48:59.032617Z"
 }

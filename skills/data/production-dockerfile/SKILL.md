@@ -1,171 +1,72 @@
 ---
 name: production-dockerfile
-description: Generate production-ready Dockerfiles with multi-stage builds, security best practices, and optimization. Use when containerizing Python applications for production deployment.
+description: Generate production-ready Dockerfiles with multi-stage builds, security best practices, and optimization. Use when containerizing Python applications for Kubernetes or Docker deployments.
+allowed-tools: Read, Write, Edit, Bash
 ---
 
 # Production Dockerfile Skill
 
 ## Persona
 
-Think like a DevOps engineer who optimizes container images for production Kubernetes deployments. You balance image size, build speed, security, and operational simplicity. You've containerized hundreds of Python services and know the common pitfalls.
+Think like a DevOps engineer who optimizes container images for production
+Kubernetes deployments. You balance image size, build speed, security, and
+operational simplicity. When tradeoffs exist:
+- Security trumps convenience
+- Runtime size trumps build speed
+- Operational clarity trumps clever optimization
 
 ## Analysis Questions
 
-Before generating a Dockerfile, analyze the project by asking:
+Before generating a Dockerfile, analyze the project:
 
-1. **Deployment Target**: Kubernetes cluster, Docker Compose, bare Docker, or serverless container (Cloud Run, Fargate)?
-
-2. **Base Image Strategy**: What constraints apply?
-   - Security requirements (must use approved base images?)
-   - Size requirements (bandwidth-constrained environment?)
-   - Compatibility requirements (native extensions that need glibc?)
-
-3. **Large Files**: Are there model files (>100MB) or data that should be volume-mounted rather than baked into the image?
-
-4. **Security Requirements**:
-   - Must run as non-root user?
-   - Read-only filesystem required?
-   - Specific UID/GID requirements?
-
-5. **Health Monitoring**: What endpoints indicate service health?
-   - Simple HTTP ping (/health)?
-   - Database connectivity check?
-   - Downstream service availability?
-
-6. **Build Context**: What files should be excluded?
-   - .git directory?
-   - Test files?
-   - Local environment files (.env)?
+1. **Deployment Target**: Kubernetes, Docker Compose, or bare Docker?
+2. **Base Image Strategy**: Security constraints? Required system libraries?
+3. **Dependency Installation**: Python (UV)? Node (npm ci)? Mixed?
+4. **Large Files**: Model files >100MB to volume-mount?
+5. **Security Requirements**: Non-root user? Read-only filesystem?
+6. **Health Monitoring**: Health endpoint? Startup time?
+7. **Build Context**: What should .dockerignore exclude?
 
 ## Principles
 
-Apply these non-negotiable principles to every Dockerfile:
+### Build Structure
+- **Multi-Stage Always**: Separate build and runtime stages
+- **Layer Order**: Dependency files first, then source
+- **Combine RUN**: Related operations in single RUN
 
-### P1: Multi-Stage Always
-Separate build dependencies from runtime. Build stage installs compilers, dev packages. Runtime stage contains only what's needed to run.
+### Package Management
+- **UV for Python**: 10-100x faster than pip
+- **Lock Files**: Pinned versions for reproducibility
 
-**Why**: Reduces image size from 500MB+ to under 200MB. Removes attack surface from build tools.
+### Base Images
+- **Alpine Default**: Start with alpine, fall back to slim
+- **Pin Versions**: Explicit tags, not :latest
 
-### P2: UV for Speed
-Use UV package manager instead of pip. UV is 10-100x faster for dependency installation.
+### Security
+- **Non-Root User**: Always create and switch to appuser
+- **No Secrets**: Environment injection at runtime only
+- **Minimal Packages**: Only runtime dependencies
 
-```dockerfile
-RUN pip install uv
-RUN uv pip install --system --no-cache -r requirements.txt
-```
+### Runtime
+- **Health Checks**: Every container needs HEALTHCHECK
+- **Environment Config**: All settings via ENV
 
-**Why**: Faster CI/CD builds. No cache pollution.
-
-### P3: Alpine Default
-Start with Alpine Linux base images. Fall back to slim only if native extensions fail.
-
-```dockerfile
-FROM python:3.12-alpine  # First choice
-FROM python:3.12-slim    # Fallback if alpine breaks
-```
-
-**Why**: Alpine images are 5-10x smaller. Most Python services work fine on Alpine.
-
-### P4: Health Checks Mandatory
-Every production container needs a HEALTHCHECK instruction.
-
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:8000/health || exit 1
-```
-
-**Why**: Kubernetes/Docker orchestrators need health signals for rolling deployments.
-
-### P5: Non-Root Default
-Create and switch to a non-root user for runtime.
-
-```dockerfile
-RUN adduser -D -u 1000 appuser
-USER appuser
-```
-
-**Why**: Container escape vulnerabilities are less severe without root.
-
-### P6: Environment Configuration
-All configuration via environment variables. Never hardcode URLs, credentials, or environment-specific values.
-
-```dockerfile
-ENV PYTHONUNBUFFERED=1
-# Database URL provided at runtime: -e DATABASE_URL=...
-```
-
-**Why**: Same image works in dev, staging, production.
-
-### P7: No Secrets in Image
-Never COPY .env files or credentials into the image. Use runtime environment variables or secret mounting.
-
-**Why**: Images are often pushed to registries. Secrets in images = secrets exposed.
+### Large Files
+- **Volume Mount**: Files >100MB via volumes, not COPY
 
 ## Output Format
 
-Generate Dockerfiles with this structure:
+When generating Dockerfiles, produce:
 
-```dockerfile
-# =============================================================================
-# Stage 1: Build
-# =============================================================================
-FROM python:3.12-alpine AS builder
+1. **Dockerfile** with comments explaining each decision
+2. **.dockerignore** excluding build artifacts and secrets
+3. **docker-compose.yaml** (if multi-service or volume mounts needed)
+4. **Size estimate** comparing to naive approach
 
-WORKDIR /app
+## Activation
 
-# Install build dependencies
-RUN apk add --no-cache gcc musl-dev  # Only if needed for native extensions
-RUN pip install uv
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN uv pip install --system --no-cache -r requirements.txt
-
-# =============================================================================
-# Stage 2: Runtime
-# =============================================================================
-FROM python:3.12-alpine
-
-# Create non-root user
-RUN adduser -D -u 1000 appuser
-
-WORKDIR /app
-
-# Copy dependencies from builder
-COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
-
-# Copy application code
-COPY --chown=appuser:appuser . .
-
-# Environment configuration
-ENV PYTHONUNBUFFERED=1
-
-# Switch to non-root user
-USER appuser
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:8000/health || exit 1
-
-# Expose port
-EXPOSE 8000
-
-# Start command
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-## Invocation Examples
-
-**When to use this skill**:
-- "Containerize this Python application"
-- "Create a Dockerfile for my FastAPI service"
-- "Help me optimize my Docker image"
-- "Make my container production-ready"
-
-**Example prompt**:
-```
-Use the production-dockerfile skill to containerize my FastAPI service.
-It connects to PostgreSQL and needs to run in Kubernetes.
-Here's my requirements.txt: [paste]
-```
+Use this skill when:
+- Containerizing a new Python service
+- Optimizing an existing Dockerfile
+- Reviewing containerization for security issues
+- Setting up Docker-based CI/CD pipelines

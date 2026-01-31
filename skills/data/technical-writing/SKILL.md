@@ -1,380 +1,178 @@
 ---
-name: arcanea-technical-writing
-description: Technical writing excellence - documentation, API references, tutorials, and guides that users actually understand. Clear, accurate, useful.
-version: 1.0.0
-author: Arcanea
-tags: [technical-writing, documentation, api-docs, tutorials, guides, industry]
-triggers:
-  - technical writing
-  - documentation
-  - api docs
-  - tutorial
-  - readme
-  - user guide
+name: technical-writing
+description: "Write clear, engaging technical content from real experience. Use when writing blog posts, documentation, tutorials, or technical articles."
+category: communication
+priority: medium
+tokenEstimate: 800
+agents: [qe-quality-analyzer, qe-api-contract-validator]
+implementation_status: optimized
+optimization_version: 1.0
+last_optimized: 2025-12-03
+dependencies: []
+quick_reference_card: true
+tags: [writing, documentation, communication, blogs, tutorials]
 ---
 
-# Technical Writing Mastery
+# Technical Writing
 
-> *"The best documentation is invisible. Users find what they need, understand it immediately, and get back to work."*
+<default_to_action>
+When writing technical content:
+1. LEAD with value (what will reader learn/gain?)
+2. SHOW, don't tell (specific examples, code, numbers)
+3. STRUCTURE for scanning (headers, bold, short paragraphs)
+4. CUT ruthlessly (every sentence must earn its place)
+5. BE honest about trade-offs
 
----
-
-## The Technical Writing Philosophy
-
-```
-DOCUMENTATION IS NOT:
-✗ Proof that you built something
-✗ A formality to check off
-✗ Something to write after shipping
-
-DOCUMENTATION IS:
-✓ Part of the product
-✓ User experience in text form
-✓ Force multiplier for adoption
-✓ Investment that pays dividends
-```
-
----
-
-## The Four Types of Documentation
-
-```
-╔═══════════════════════════════════════════════════════════════════╗
-║                    DOCUMENTATION TYPES                             ║
-║              (Each serves different needs)                         ║
-╠═══════════════════════════════════════════════════════════════════╣
-║                                                                    ║
-║   TUTORIALS      │ Learning-oriented    │ "Let me show you"       ║
-║   HOW-TO GUIDES  │ Problem-oriented     │ "How to do X"           ║
-║   REFERENCE      │ Information-oriented │ "Technical specs"        ║
-║   EXPLANATION    │ Understanding-oriented│ "Why it works"         ║
-║                                                                    ║
-╚═══════════════════════════════════════════════════════════════════╝
-```
-
-### Tutorials (Learning)
-
-```
-PURPOSE: Teach newcomers through doing
-STRUCTURE: Step-by-step journey
-OUTCOME: User completes something real
-
-CHARACTERISTICS:
-• Hand-holding is appropriate
-• Focus on accomplishment, not completeness
-• Explain the "why" as you go
-• End with something that works
-```
-
-### How-To Guides (Problem Solving)
-
-```
-PURPOSE: Help users accomplish specific tasks
-STRUCTURE: Step-by-step instructions
-OUTCOME: User solves their problem
-
-CHARACTERISTICS:
-• Assumes basic knowledge
-• Focused on single goal
-• Practical, not educational
-• Skips unnecessary context
-```
-
-### Reference (Information)
-
-```
-PURPOSE: Describe the machinery
-STRUCTURE: Systematic, complete
-OUTCOME: User finds technical details
-
-CHARACTERISTICS:
-• Consistent format
-• Complete and accurate
-• No tutorial content
-• Code examples for each item
-```
-
-### Explanation (Understanding)
-
-```
-PURPOSE: Clarify and illuminate
-STRUCTURE: Discursive, connecting
-OUTCOME: User understands deeply
-
-CHARACTERISTICS:
-• Discusses alternatives
-• Explains reasoning
-• Provides context
-• Answers "why?"
-```
-
----
-
-## Writing Principles
-
-### Clarity Over Cleverness
-
-```
-BAD:  "Leverage the paradigm-shifting capabilities..."
-GOOD: "Use X to do Y."
-
-BAD:  "The system utilizes..."
-GOOD: "The system uses..."
-
-BAD:  "It should be noted that..."
-GOOD: Just say the thing.
-```
-
-### Active Voice
-
-```
-PASSIVE: "The file is created by the system."
-ACTIVE:  "The system creates the file."
-
-PASSIVE: "The configuration should be updated."
-ACTIVE:  "Update the configuration."
-```
-
-### Present Tense
-
-```
-PAST:    "This function returned..."
-PRESENT: "This function returns..."
-
-FUTURE:  "This will create..."
-PRESENT: "This creates..."
-```
-
-### Direct Address
-
-```
-IMPERSONAL: "One might want to..."
-DIRECT:     "You might want to..."
-
-IMPERSONAL: "The user should..."
-DIRECT:     "You should..."
-```
-
----
-
-## Structure Patterns
-
-### The README Template
-
+**Blog Post Structure:**
 ```markdown
-# Project Name
+# Title (specific promise)
 
-One-sentence description of what this does.
+## Opening (2-3 paragraphs)
+- Hook: The problem or insight
+- Context: Why this matters
+- Promise: What they'll learn
 
-## Quick Start
+## Body (3-5 sections)
+- One clear idea per section
+- Support with examples/code/data
 
-The absolute minimum to get running.
-
-## Installation
-
-```bash
-npm install project-name
+## Closing
+- Key takeaway (1-2 sentences)
+- Action reader can take
 ```
 
-## Basic Usage
+**Before/After:**
+❌ "We implemented a comprehensive testing strategy..."
+✅ "We moved exploratory testing into sprint planning. QE now pairs with devs during story refinement."
+</default_to_action>
 
-```javascript
-import { thing } from 'project-name';
-thing.doSomething();
-```
+## Quick Reference Card
 
-## API Reference
+### Core Principles
 
-Link to full docs.
+| Principle | Bad | Good |
+|-----------|-----|------|
+| **Lead with value** | "In today's landscape..." | "Here's how we cut bugs 60%" |
+| **Show, don't tell** | "We improved testing" | "Bug detection: 12→47 per sprint" |
+| **Be specific** | "Performance improved" | "Response time: 2.3s→180ms" |
+| **Honest trade-offs** | "This approach is best" | "TDD slowed velocity 20%, reduced bugs 75%" |
 
-## Contributing
+### Words to Cut
 
-How to contribute.
+| Kill | Reason |
+|------|--------|
+| basically, actually, probably | Hedge words |
+| leverage, synergy, paradigm | Corporate speak |
+| very, really, quite | Unnecessary qualifiers |
+| it should be noted that | Just note it |
 
-## License
+---
 
-MIT (or whatever)
-```
+## Audience-Specific Writing
 
-### The API Reference Template
+### For Developers
+- Lead with code or concrete problem
+- Show implementation details
+- Discuss trade-offs and alternatives
+- Link to repos or examples
 
-```markdown
-## functionName(param1, param2)
+### For QA/QE
+- Start with testing challenge
+- Show strategy, not just tools
+- Include risk assessment
+- Provide adaptable heuristics
 
-Brief description of what it does.
+### For Leadership
+- Open with business impact
+- Use metrics that matter
+- Connect technical to outcomes
+- Keep technical details concise
 
-### Parameters
+---
 
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| param1 | string | Yes | What this is |
-| param2 | number | No | What this is |
+## Editing Checklist
 
-### Returns
+Before publishing:
+- [ ] Title promises something specific
+- [ ] Opening hooks in 30 seconds
+- [ ] Claims backed by examples
+- [ ] All unnecessary words cut
+- [ ] Code examples tested and correct
+- [ ] Takeaway crystal clear
+- [ ] Would send to respected colleague
 
-`Type` - Description of return value
+---
 
-### Example
+## Example Transformations
 
-```javascript
-const result = functionName('hello', 42);
-console.log(result); // Expected output
-```
+**Before:**
+"We decided to implement a more comprehensive testing strategy that would allow us to catch bugs earlier in the development lifecycle."
 
-### Errors
+**After:**
+"We moved exploratory testing into sprint planning. QE now pairs with devs during story refinement, identifying risks before code is written."
 
-| Error | When |
-|-------|------|
-| InvalidParam | When param1 is empty |
-```
+---
 
-### The Tutorial Template
+**Before:**
+"The benefits of this approach are numerous and include improved quality, faster feedback loops, and better team collaboration."
 
-```markdown
-# Tutorial: [What You'll Build]
+**After:**
+"Three outcomes: bugs found 2 days earlier on average, 30% fewer regression issues, and devs now ask QE for input during design."
 
-By the end of this tutorial, you will have [concrete outcome].
+---
 
-## Prerequisites
+## Agent Integration
 
-- What you need to know
-- What you need installed
+```typescript
+// Generate documentation from code
+const docs = await Task("Generate Docs", {
+  source: 'src/services/PaymentService.ts',
+  format: 'markdown',
+  includeExamples: true
+}, "qe-quality-analyzer");
 
-## Step 1: [First Action]
-
-Brief explanation of what we're doing and why.
-
-```code
-Actual code to run
-```
-
-You should see [expected result].
-
-## Step 2: [Next Action]
-
-[Continue pattern...]
-
-## What You've Learned
-
-- Point 1
-- Point 2
-
-## Next Steps
-
-Where to go from here.
+// Review documentation quality
+const review = await Task("Review Docs", {
+  files: ['README.md', 'docs/api.md'],
+  checkClarity: true,
+  checkCodeExamples: true
+}, "qe-quality-analyzer");
 ```
 
 ---
 
-## Common Mistakes
+## Agent Coordination Hints
 
-### Mistake: Assuming Knowledge
-
+### Memory Namespace
 ```
-BAD:
-"Configure the webhook endpoint."
-
-GOOD:
-"Configure the webhook endpoint. Webhooks are HTTP callbacks
-that notify your server when events occur. To set one up..."
+aqe/technical-writing/
+├── generated-docs/*   - Auto-generated documentation
+├── reviews/*          - Documentation review findings
+└── templates/*        - Reusable doc templates
 ```
 
-### Mistake: Missing Examples
-
-```
-BAD:
-"The format parameter accepts a string."
-
-GOOD:
-"The format parameter accepts a string.
-
-Example:
-```javascript
-const result = format('date', 'YYYY-MM-DD');
-// Returns: '2024-01-15'
-```"
-```
-
-### Mistake: Outdated Code
-
-```
-BAD:
-Code examples that don't work with current version.
-
-GOOD:
-Version-tagged examples that are tested in CI.
-```
-
-### Mistake: Wall of Text
-
-```
-BAD:
-Long paragraphs with no visual breaks.
-
-GOOD:
-• Short paragraphs
-• Bullet points
-• Code blocks
-• Headers for scanning
+### Fleet Coordination
+```typescript
+const docsFleet = await FleetManager.coordinate({
+  strategy: 'documentation',
+  agents: [
+    'qe-quality-analyzer',         // Generate and review
+    'qe-api-contract-validator'    // API doc accuracy
+  ],
+  topology: 'sequential'
+});
 ```
 
 ---
 
-## Maintenance
-
-### Keep Docs Current
-
-```
-□ Docs updated with every feature change
-□ Code examples tested automatically
-□ Broken link checks automated
-□ Version numbers accurate
-□ Deprecation notices added
-```
-
-### Gather Feedback
-
-```
-• Track which pages have high bounce rates
-• Monitor support questions (they reveal gaps)
-• Include "Was this helpful?" feedback
-• Watch for confusion patterns
-```
+## Related Skills
+- [bug-reporting-excellence](../bug-reporting-excellence/) - Technical bug writing
+- [code-review-quality](../code-review-quality/) - Review documentation
 
 ---
 
-## Quick Reference
+## Remember
 
-### Writing Checklist
+**You're not writing to impress.** You're writing to help people solve problems you've already solved. Be the colleague you wish you'd had.
 
-```
-□ Used active voice
-□ Used present tense
-□ Addressed reader directly ("you")
-□ Included working code examples
-□ Tested all code examples
-□ Added error handling examples
-□ Linked to related topics
-□ Formatted for scanning
-□ Reviewed for accuracy
-```
-
-### Tone Guidelines
-
-```
-BE:
-• Friendly but professional
-• Confident but not arrogant
-• Concise but complete
-• Helpful but not patronizing
-
-AVOID:
-• Jargon without explanation
-• Humor that might not translate
-• Assumptions about user knowledge
-• Passive-aggressive language
-```
-
----
-
-*"Documentation is a love letter to your future users. Write it with care."*
+**Write from experience.** Only write about what you've done in production. If exploring, say so.

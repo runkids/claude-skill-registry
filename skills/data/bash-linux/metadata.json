@@ -1,7 +1,7 @@
 {
   "name": "bash-linux",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/bash-linux/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:24.116559Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/bash-linux/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:00.762348Z"
 }

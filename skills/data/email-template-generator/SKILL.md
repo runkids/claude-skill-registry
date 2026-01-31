@@ -1,132 +1,72 @@
 ---
-name: email-template-generator
-description: Generate professional email templates for various business scenarios including sales outreach, customer support, internal communications, follow-ups, and apologies. Creates personalized, tone-appropriate templates with subject lines and formatting. Use when users need to write business emails, cold outreach, or professional communications.
+name: "email-template-generator"
+description: |
+  Generate email template generator operations. Auto-activating skill for Business Automation.
+  Triggers on: email template generator, email template generator
+  Part of the Business Automation skill category. Use when working with email template generator functionality. Trigger with phrases like "email template generator", "email generator", "email".
+allowed-tools: "Read, Write, Edit, Bash(cmd:*)"
+version: 1.0.0
+license: MIT
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
 # Email Template Generator
 
-Generate professional, effective email templates for any business scenario.
+## Overview
+
+This skill provides automated assistance for email template generator tasks within the Business Automation domain.
+
+## When to Use
+
+This skill activates automatically when you:
+- Mention "email template generator" in your request
+- Ask about email template generator patterns or best practices
+- Need help with business automation skills covering workflow automation, email processing, spreadsheet operations, and business process optimization.
 
 ## Instructions
 
-When a user requests an email template or needs help writing business emails:
+1. Provides step-by-step guidance for email template generator
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-1. **Identify Email Type**:
-   - Sales/Cold outreach
-   - Customer support response
-   - Follow-up email
-   - Apology/service recovery
-   - Internal team communication
-   - Meeting request
-   - Thank you note
-   - Rejection/decline
+## Examples
 
-2. **Gather Context**:
-   - What is the purpose of this email?
-   - Who is the recipient (role, relationship)?
-   - What action do you want them to take?
-   - What tone is appropriate (formal, casual, friendly, apologetic)?
-   - Any specific details or information to include?
+**Example: Basic Usage**
+Request: "Help me with email template generator"
+Result: Provides step-by-step guidance and generates appropriate configurations
 
-3. **Generate Template** with:
-   - **Subject Line**: Clear, compelling, action-oriented
-   - **Opening**: Personalized greeting and context
-   - **Body**: Main message broken into scannable paragraphs
-   - **Call-to-Action**: Clear next step
-   - **Closing**: Professional sign-off
-   - **Variables**: [PLACEHOLDERS] for personalization
 
-4. **Provide 3 Variations**:
-   - **Short version**: 3-4 sentences, mobile-friendly
-   - **Standard version**: 2-3 paragraphs, balanced
-   - **Detailed version**: Comprehensive with extra context
+## Prerequisites
 
-5. **Include Best Practices**:
-   - Subject line tips (A/B test suggestions)
-   - Personalization tokens to use
-   - Timing recommendations
-   - Follow-up cadence
-   - Common mistakes to avoid
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of business automation concepts
 
-6. **Format Output**:
-   ```
-   📧 EMAIL TEMPLATE: [Type]
 
-   🎯 PURPOSE: [Goal]
-   👤 AUDIENCE: [Recipient type]
+## Output
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VERSION 1: SHORT (Mobile-Friendly)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
 
-   Subject: [Subject line]
 
-   [Email content]
+## Error Handling
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VERSION 2: STANDARD (Recommended)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
 
-   Subject: [Subject line]
 
-   [Email content]
+## Resources
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VERSION 3: DETAILED (Comprehensive)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
 
-   Subject: [Subject line]
+## Related Skills
 
-   [Email content]
-
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   💡 OPTIMIZATION TIPS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   ✅ Subject Line:
-      • [Tip 1]
-      • [Tip 2]
-
-   ✅ Personalization:
-      • [Token 1]
-      • [Token 2]
-
-   ✅ Timing:
-      • Best send time: [Time]
-      • Follow-up: [Cadence]
-
-   ✅ A/B Testing:
-      • Test subject lines: [Option A] vs [Option B]
-
-   ⚠️ Common Mistakes:
-      • [Mistake 1]
-      • [Mistake 2]
-   ```
-
-7. **Special Scenarios**:
-   - **Cold outreach**: Focus on value proposition, social proof
-   - **Apology emails**: Acknowledge issue, take responsibility, offer solution
-   - **Follow-ups**: Reference previous conversation, add new value
-   - **Sales**: Problem → Solution → Proof → CTA structure
-
-## Example Triggers
-
-- "Write a cold email for B2B SaaS sales"
-- "Generate a customer apology email template"
-- "Create a meeting request email"
-- "Help me write a follow-up email after a sales call"
-- "Professional email to decline a proposal"
-
-## Output Quality
-
-Ensure all templates:
-- Have clear, actionable subject lines
-- Use conversational but professional tone
-- Include specific personalization opportunities
-- Have one clear call-to-action
-- Are mobile-friendly (short paragraphs, scannable)
-- Follow email best practices (under 200 words for cold outreach)
-- Avoid spam trigger words
-- Include unsubscribe for cold outreach
-
-Generate effective, conversion-optimized email templates that users can immediately customize and send.
+Part of the **Business Automation** skill category.
+Tags: automation, workflow, spreadsheets, email, business

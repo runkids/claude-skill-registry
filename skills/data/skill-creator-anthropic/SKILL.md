@@ -1,7 +1,10 @@
 ---
 name: skill-creator-anthropic
 description: Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends the model's capabilities with specialized knowledge, workflows, or tool integrations.
-license: Proprietary. See LICENSE.txt
+metadata:
+  author: Anthropic
+  license: Proprietary. See LICENSE.txt
+  version: 2025.12.01
 ---
 
 # Skill Creator

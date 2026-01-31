@@ -1,27 +1,24 @@
 ---
 name: Global Commenting
-description: Write self-documenting code that explains itself through clear structure and naming, adding only minimal, evergreen comments for complex logic sections. Use this skill when deciding whether code needs comments, removing outdated temporal comments about changes/fixes, or writing concise explanations. Applies to all code files when balancing code clarity with necessary documentation, ensuring comments remain relevant far into the future rather than describing temporary states.
+description: Write minimal, evergreen code comments that explain complex logic without documenting obvious behavior or temporary changes. Use this skill when adding comments to PHP files, TypeScript/JavaScript files, or any code files, when documenting complex algorithms or business logic, when adding PHPDoc blocks or JSDoc comments, when writing self-documenting code with clear naming, or when reviewing existing comments for relevance and necessity. Focus on keeping code self-explanatory through clear structure and naming rather than relying heavily on comments.
 ---
 
 # Global Commenting
 
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global commenting.
+
 ## When to use this skill
 
-- When deciding whether code needs comments or can be made self-explanatory through better naming
-- When writing comments for complex algorithms or business logic that isn't immediately obvious
-- When removing temporal comments like "fixed bug yesterday" or "TODO: refactor later"
-- When reviewing existing comments to ensure they're still accurate and evergreen
-- When explaining WHY code makes a particular decision rather than WHAT it does
-- When documenting large sections of code logic with concise, helpful summaries
-- When avoiding redundant comments that just restate what the code obviously does
-- When refactoring code to eliminate the need for explanatory comments through clarity
-- When adding comments to configuration files explaining non-obvious settings
-- When documenting workarounds for third-party library quirks or platform limitations
-- When ensuring comments will remain relevant months or years into the future
-
-# Global Commenting
-
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global commenting.
+- When adding comments to PHP, TypeScript, JavaScript, or any code files
+- When documenting complex business logic or algorithms that aren't immediately obvious
+- When writing PHPDoc blocks for PHP classes, methods, or functions
+- When adding JSDoc or TSDoc comments for TypeScript/JavaScript functions
+- When explaining the "why" behind non-obvious code decisions
+- When refactoring code to be more self-documenting and reduce comment necessity
+- When reviewing existing comments to ensure they're evergreen and still relevant
+- When removing outdated comments about temporary fixes or recent changes
+- When documenting complex array shapes or data structures in PHPDoc
+- When choosing between adding a comment vs. refactoring for clarity
 
 ## Instructions
 

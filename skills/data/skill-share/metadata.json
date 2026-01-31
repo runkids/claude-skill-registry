@@ -1,7 +1,7 @@
 {
   "name": "skill-share",
-  "repo": "pur3v4d3r/pur3-pkb-codebase",
-  "path": "__LOCAL-REPO/__skills/utilities/skill-share/SKILL.md",
-  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
-  "downloaded_at": "2026-01-30T04:48:24.728669Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills-templates/skill-share/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-31T04:29:20.280810Z"
 }

@@ -1,42 +1,156 @@
 ---
 name: graphql-schema-generator
-description: |
-  Graphql Schema Generator - Auto-activating skill for API Development.
-  Triggers on: graphql schema generator, graphql schema generator
-  Part of the API Development skill category.
-allowed-tools: Read, Write, Edit, Bash(curl:*), Grep
-version: 1.0.0
-license: MIT
-author: Jeremy Longshore <jeremy@intentsolutions.io>
+description: Generate GraphQL schemas, resolvers, and type definitions. Use when designing GraphQL APIs or documenting GraphQL schemas.
 ---
 
-# Graphql Schema Generator
+# GraphQL Schema Generator Skill
 
-## Purpose
+GraphQLスキーマを生成するスキルです。
 
-This skill provides automated assistance for graphql schema generator tasks within the API Development domain.
+## 概要
 
-## When to Use
+データモデルからGraphQLスキーマ、リゾルバーを自動生成します。
 
-This skill activates automatically when you:
-- Mention "graphql schema generator" in your request
-- Ask about graphql schema generator patterns or best practices
-- Need help with api development skills covering rest, graphql, openapi, authentication, and api design patterns.
+## 主な機能
 
-## Capabilities
+- **スキーマ定義**: Type、Query、Mutation
+- **リゾルバー生成**: 実装テンプレート
+- **ベストプラクティス**: ページネーション、エラーハンドリング
+- **ドキュメント**: 自動生成
 
-- Provides step-by-step guidance for graphql schema generator
-- Follows industry best practices and patterns
-- Generates production-ready code and configurations
-- Validates outputs against common standards
+## 生成例
 
-## Example Triggers
+### Schema
 
-- "Help me with graphql schema generator"
-- "Set up graphql schema generator"
-- "How do I implement graphql schema generator?"
+```graphql
+# Types
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+  createdAt: DateTime!
+}
 
-## Related Skills
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  author: User!
+  published: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
 
-Part of the **API Development** skill category.
-Tags: api, rest, graphql, openapi, swagger
+type Query {
+  user(id: ID!): User
+  users(first: Int = 10, after: String): UserConnection!
+  post(id: ID!): Post
+  posts(published: Boolean): [Post!]!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+  createPost(input: CreatePostInput!): Post!
+  publishPost(id: ID!): Post!
+}
+
+# Inputs
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+  authorId: ID!
+}
+
+# Pagination
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# Custom Scalars
+scalar DateTime
+```
+
+### Resolvers (JavaScript)
+
+```javascript
+const resolvers = {
+  Query: {
+    user: async (parent, { id }, { dataSources }) => {
+      return dataSources.userAPI.getUserById(id);
+    },
+    users: async (parent, { first, after }, { dataSources }) => {
+      return dataSources.userAPI.getUsers({ first, after });
+    },
+    post: async (parent, { id }, { dataSources }) => {
+      return dataSources.postAPI.getPostById(id);
+    },
+    posts: async (parent, { published }, { dataSources }) => {
+      return dataSources.postAPI.getPosts({ published });
+    }
+  },
+
+  Mutation: {
+    createUser: async (parent, { input }, { dataSources }) => {
+      return dataSources.userAPI.createUser(input);
+    },
+    updateUser: async (parent, { id, input }, { dataSources }) => {
+      return dataSources.userAPI.updateUser(id, input);
+    },
+    deleteUser: async (parent, { id }, { dataSources }) => {
+      return dataSources.userAPI.deleteUser(id);
+    },
+    createPost: async (parent, { input }, { dataSources, user }) => {
+      if (!user) throw new Error('Unauthorized');
+      return dataSources.postAPI.createPost(input);
+    },
+    publishPost: async (parent, { id }, { dataSources, user }) => {
+      if (!user) throw new Error('Unauthorized');
+      return dataSources.postAPI.publishPost(id);
+    }
+  },
+
+  User: {
+    posts: async (parent, args, { dataSources }) => {
+      return dataSources.postAPI.getPostsByAuthor(parent.id);
+    }
+  },
+
+  Post: {
+    author: async (parent, args, { dataSources }) => {
+      return dataSources.userAPI.getUserById(parent.authorId);
+    }
+  }
+};
+```
+
+## バージョン情報
+
+- スキルバージョン: 1.0.0

@@ -1,164 +1,93 @@
 ---
 name: git-workflow
-description: >
-  Git operations and pull request workflows. Create PRs, rebase branches,
-  resolve conflicts, merge to upstream. Use when ready to create PR or
-  when working with git branches and upstream.
+description: "Agent Skill: Git workflow best practices for teams and CI/CD. This skill should be used when establishing branching strategies, implementing Conventional Commits, creating or reviewing PRs, managing PR review threads, merging PRs with signed commits, handling merge conflicts, or integrating Git with CI/CD. By Netresearch."
 ---
 
-# Git Workflow
+# Git Workflow Skill
 
-## Committing Work
+Expert patterns for Git version control: branching, commits, collaboration, and CI/CD.
 
-```bash
-cd ~/Code/community-patterns
+## Expertise Areas
 
-git add patterns/$GITHUB_USER/pattern.tsx
-git commit -m "Add pattern: description"
-git push origin main
+- **Branching**: Git Flow, GitHub Flow, Trunk-based development
+- **Commits**: Conventional Commits, semantic versioning
+- **Collaboration**: PR workflows, code review, merge strategies, thread resolution
+- **CI/CD**: GitHub Actions, GitLab CI, branch protection
+
+## Reference Files
+
+Detailed documentation for each area:
+
+| Reference | When to Load |
+|-----------|--------------|
+| `references/branching-strategies.md` | Managing branches, choosing branching model |
+| `references/commit-conventions.md` | Writing commits, semantic versioning |
+| `references/pull-request-workflow.md` | Creating/reviewing PRs, thread resolution, merging |
+| `references/ci-cd-integration.md` | CI/CD automation, GitHub Actions |
+| `references/advanced-git.md` | Rebasing, cherry-picking, bisecting |
+| `references/github-releases.md` | Release management, immutable releases |
+
+### Explicit Content Triggers
+
+When creating pull requests, load `references/pull-request-workflow.md` for PR structure, size guidelines, and template patterns.
+
+When reviewing PRs or responding to review comments, load `references/pull-request-workflow.md` for review comment levels (blocking/suggestion/nit) and the code review checklist.
+
+When replying to PR review threads or resolving threads, load `references/pull-request-workflow.md` for the GraphQL API patterns for thread replies and resolution.
+
+When merging PRs, load `references/pull-request-workflow.md` for the merge requirements checklist (resolved threads, Copilot review, rebased branch, CI checks).
+
+When merging in repos requiring signed commits with rebase-only strategy, load `references/pull-request-workflow.md` for the local fast-forward merge workflow.
+
+When handling merge conflicts, load `references/pull-request-workflow.md` for conflict resolution strategies.
+
+When choosing a branching strategy, load `references/branching-strategies.md` for Git Flow, GitHub Flow, and Trunk-based patterns.
+
+When writing commit messages, load `references/commit-conventions.md` for Conventional Commits format and semantic versioning rules.
+
+When creating releases, load `references/github-releases.md` for immutable release warnings and recovery patterns.
+
+## Conventional Commits (Quick Reference)
+
+```
+<type>[scope]: <description>
 ```
 
-## Getting Updates (Already done in Step 1)
+**Types**: `feat` (MINOR), `fix` (PATCH), `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+
+**Breaking change**: Add `!` after type or `BREAKING CHANGE:` in footer.
+
+## Branch Naming
 
 ```bash
-git fetch upstream
-git pull --rebase upstream main
-git push origin main
+feature/TICKET-123-description
+fix/TICKET-456-bug-name
+release/1.2.0
+hotfix/1.2.1-security-patch
 ```
 
-## Sharing Work Upstream (Creating Pull Requests)
-
-**IMPORTANT: Wait for user to tell you to create a PR.** Don't push or create PRs automatically.
-
-**Before creating any PR, you MUST update from main and rebase your branch:**
-
-### Step 0: Update and Rebase Before Creating PR
-
-**Use cached repository type from workspace config:**
+## GitHub Flow (Default)
 
 ```bash
-# Read IS_FORK from .claude-workspace (set during Step 2)
-IS_FORK=$(grep "^is_fork=" .claude-workspace | cut -d= -f2)
-
-# Determine which remote to use
-if [ "$IS_FORK" = "true" ]; then
-  echo "Working on fork - will fetch from upstream"
-  MAIN_REMOTE="upstream"
-else
-  echo "Working on main repo - will fetch from origin"
-  MAIN_REMOTE="origin"
-fi
+git checkout main && git pull
+git checkout -b feature/my-feature
+# ... work ...
+git push -u origin HEAD
+gh pr create && gh pr merge --squash
 ```
 
-**Then fetch latest main and rebase your branch:**
+## Verification
 
 ```bash
-# Fetch latest main
-git fetch $MAIN_REMOTE
-
-# Rebase current branch on top of main
-git rebase $MAIN_REMOTE/main
-
-# If rebase succeeds, push (force-with-lease if on feature branch)
-if [ "$(git branch --show-current)" != "main" ]; then
-  git push origin $(git branch --show-current) --force-with-lease
-else
-  git push origin main
-fi
+./scripts/verify-git-workflow.sh /path/to/repository
 ```
 
-**If rebase has conflicts:**
-1. Show conflict files: `git status`
-2. Help resolve conflicts
-3. Continue: `git rebase --continue`
-4. Then push
+## GitHub Immutable Releases
 
-**Why this matters:**
-- Ensures your PR is based on the latest main
-- Avoids merge conflicts during PR review
-- Makes PR review easier
+**CRITICAL**: Deleted releases block tag names PERMANENTLY. Get releases right first time.
+
+See `references/github-releases.md` for prevention and recovery patterns.
 
 ---
 
-### If User Has Their Own Fork (Most Common)
-
-When user wants to contribute patterns from their fork to upstream:
-
-**Step 1: Ensure changes are committed and pushed to their fork**
-```bash
-cd ~/Code/community-patterns
-git status  # Verify all changes are committed
-git push origin main
-```
-
-**Step 2: Update and rebase (see Step 0 above)**
-
-**Step 3: Create pull request to upstream**
-```bash
-gh pr create \
-  --repo jkomoros/community-patterns \
-  --title "Add: pattern name" \
-  --body "$(cat <<'EOF'
-## Summary
-- Brief description of the pattern
-- Key features
-- Use cases
-
-## Testing
-- [x] Pattern compiles without errors
-- [x] Tested in browser at http://localhost:8000
-- [x] All features working as expected
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-EOF
-)"
-```
-
-### If Working Directly on jkomoros/community-patterns
-
-**CRITICAL: When working directly on the upstream repository, you MUST use branches and PRs. Direct pushes to main are NOT allowed.**
-
-**Step 1: Create feature branch**
-```bash
-cd ~/Code/community-patterns
-git checkout -b username/feature-name
-```
-
-**Step 2: Commit and push branch**
-```bash
-git add patterns/$GITHUB_USER/
-git commit -m "Add: pattern name"
-git push origin username/feature-name
-```
-
-**Step 3: Update and rebase (see Step 0 above)**
-
-**Step 4: Create pull request**
-```bash
-gh pr create \
-  --title "Add: pattern name" \
-  --body "$(cat <<'EOF'
-## Summary
-- Brief description
-
-## Testing
-- [x] Tested and working
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-EOF
-)"
-```
-
-**Step 5: Merge with rebase (when approved)**
-```bash
-gh pr merge PR_NUMBER --rebase --delete-branch
-```
-
-### Important Notes
-
-- **Always wait for user permission** before creating PRs
-- **All PRs are merged with `--rebase`** (NOT `--squash` or `--merge`)
-- This preserves individual commit history
-- Commit frequently locally, but only create PR when user asks
-- PRs will be reviewed before merging to upstream
-- After merge, everyone gets your patterns automatically on next update
+> **Contributing:** https://github.com/netresearch/git-workflow-skill

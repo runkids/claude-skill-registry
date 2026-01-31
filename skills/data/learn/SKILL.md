@@ -1,122 +1,127 @@
 ---
-name: learn
-description: Process inbox summaries and update system knowledge. Curates role "Right Now" sections, appends "Recent Context", updates central docs. Intelligent curation, not just appending.
-allowed-tools: Read, Edit, Bash, Write
+skill: learn
+description: Extract lessons from conversation and persist to project configuration
+trigger: |
+  Suggest this skill when the conversation reveals:
+  - Mistakes that had to be corrected
+  - Undocumented dependencies or workarounds
+  - Missing prerequisites discovered mid-task
+  - Repeated manual processes that could be automated
+  - Knowledge gaps about the codebase
 ---
 
-# Learn (System Learning)
+# Learn from Conversation
 
-Intelligently update roles and docs based on session summaries.
-
-## When to Activate
-
-- User says: "learn", "update roles"
-- After compressing sessions
-- When inbox has session summaries
-
-## Approach
-
-**OLD:** Append bullets to logs
-**NEW:** Intelligent curation
-
-**Role structure:**
-- What This Role Does (rarely changes)
-- **Right Now** ← CURATE (what's currently relevant)
-- **Recent Context** ← APPEND (timestamped, last 30 days)
-- How This Role Operates (rarely changes)
+Analyze the current conversation to extract lessons learned, mistakes made, or knowledge gaps discovered, then persist them to the project configuration.
 
 ## Process
 
-### 1. Read Inbox
+### 1. Analyze Conversation
 
-```bash
-ls inbox/session-summaries/
-cat inbox/session-summaries/*.md
-```
+Review the entire conversation for:
 
-### 2. Analyze Changes
+**Mistakes & Corrections:**
+- Commands that failed and had to be retried
+- Missing prerequisites discovered mid-task
+- Incorrect assumptions about the codebase
+- Configuration issues encountered
 
-**Extract from summaries:**
-- Decisions made
-- Tools/workflows built
-- Role activity
-- Context changes
+**Knowledge Gaps:**
+- Information Claude didn't know but should have
+- Patterns that weren't documented
+- Dependencies between systems not captured
+- Environment setup requirements
 
-**Categorize:**
-- **Right Now:** What's newly relevant for ongoing work
-- **Recent Context:** Timestamped decisions (auto-prune > 30 days)
+**Workarounds Discovered:**
+- Solutions to common problems
+- Non-obvious configuration requirements
+- Integration quirks between tools/libraries
 
-### 3. Create Branch
+**Process Improvements:**
+- Steps that should be automated
+- Checks that should happen earlier
+- Prerequisites that should be validated first
 
-```bash
-git checkout -b learning-$(date +%Y-%m-%d)
-```
+### 2. Categorize Learnings
 
-### 4. Update Roles
+For each learning, determine where it belongs:
 
-**For each affected role:**
+| Category | Destination | When to Use |
+|----------|-------------|-------------|
+| Project knowledge | CLAUDE.md | Facts about the codebase, patterns, conventions |
+| Prerequisites | CLAUDE.md | Things that must be true before actions |
+| Workflow automation | Skills | Multi-step processes Claude should suggest |
+| User-initiated flow | Commands | Explicit workflows users will request |
 
-#### A. Read Current Role
-```bash
-cat roles/[role-file].md
-```
+### 3. Present Findings
 
-#### B. Curate "Right Now"
-
-This is CURATION, not appending:
-1. Read existing "Right Now"
-2. Add newly relevant context
-3. Remove stale/no-longer-relevant items
-4. Keep tight (5-10 bullets max)
-
-#### C. Append "Recent Context"
-
-Add timestamped entry at top:
-```markdown
-## Recent Context (Last 30 Days)
-
-**YYYY-MM-DD:** [Summary]
-- Key point 1
-- Key point 2
-
-[...existing entries...]
-```
-
-Auto-prune if > 10 entries.
-
-#### D. Update "Last Updated"
-
-### 5. Commit and PR
-
-```bash
-git add roles/*.md
-git commit -m "System learning: [summary]"
-git push -u origin learning-$(date +%Y-%m-%d)
-gh pr create --title "System Learning $(date +%Y-%m-%d)" --body "..."
-git checkout main
-```
-
-### 6. Report
+Format findings as:
 
 ```
-System learning complete.
+## Lessons Learned
 
-Processed: [N] session summaries
-Roles updated: [list]
-Branch: learning-YYYY-MM-DD
-PR: #[number]
+### For CLAUDE.md
+1. **[Section]**: [What to add/update]
+   - Reason: [Why this was learned]
+   - Suggested text: [Actual content to add]
 
-Next: Review and merge PR.
+### For Skills
+1. **[Skill name]**: [What it would do]
+   - Trigger: [When Claude should suggest it]
+   - Reason: [Why this would help]
+
+### For Commands
+1. **[Command name]**: [What it would do]
+   - Reason: [Why users would want this]
 ```
 
-## Curation Guidelines
+### 4. Confirm and Apply
 
-**"Right Now" = what's relevant:**
-- Shapes how role operates TODAY
-- Would need to know this to do role's job
-- NOT just recent - could be weeks old but still relevant
+For each learning:
+1. Show the proposed change
+2. Ask for confirmation
+3. Apply the change if approved
 
-**"Recent Context" = what happened:**
-- Timestamped decisions
-- Links to details if needed
-- Auto-prune oldest when > 10 entries
+**For CLAUDE.md updates:**
+- Find the appropriate section
+- Add new content or update existing
+- Preserve existing structure and formatting
+
+**For new skills/commands:**
+- Create the file in the appropriate directory
+- Follow existing patterns for format
+- Update CLAUDE.md to document the new skill/command
+
+### 5. Summary
+
+After applying changes, show:
+- Files modified
+- New files created
+- Sections updated in CLAUDE.md
+
+## Examples of Learnable Patterns
+
+**Missing Prerequisites:**
+> "The tests failed because a required service wasn't running"
+→ Add to CLAUDE.md: "Before running tests, ensure [service] is running"
+
+**Undocumented Dependency:**
+> "Library X doesn't work with tool Y without configuration"
+→ Add to CLAUDE.md: Technical note about the workaround
+
+**Repeated Manual Process:**
+> "Every time I add a [file type], I have to create tests, run linting, run build..."
+→ Create skill that automates this workflow
+
+**Environment Issue:**
+> "The build kept failing because a required variable wasn't set"
+→ Add to CLAUDE.md: Required environment variables
+
+## Guidelines
+
+- **Be specific**: Include exact commands, file paths, and error messages
+- **Be actionable**: Write content that directly helps future Claude sessions
+- **Be minimal**: Only add what's truly useful, avoid over-documenting
+- **Preserve structure**: Fit new content into existing CLAUDE.md organization
+- **Avoid duplication**: Check if similar content already exists before adding
+- **Protect sensitive data**: Before persisting to docs/config, redact secrets, credentials, tokens, private URLs, API keys, passwords, and customer data. Generalize examples to avoid exposing sensitive information.

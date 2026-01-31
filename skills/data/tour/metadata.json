@@ -1,7 +1,7 @@
 {
   "name": "tour",
-  "repo": "carmandale/agent-config",
-  "path": "skills/cc3/tour/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:38.229419Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/tour/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-31T04:36:19.801863Z"
 }

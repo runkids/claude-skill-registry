@@ -1,7 +1,7 @@
 {
   "name": "file-todos",
-  "repo": "Microck/ordinary-claude-skills",
-  "path": "skills_all/file-todos/SKILL.md",
-  "source": "github.com/Microck/ordinary-claude-skills",
-  "downloaded_at": "2026-01-30T01:36:15.981722Z"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/plugins/compound-engineering/skills/file-todos/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:18.692583Z"
 }

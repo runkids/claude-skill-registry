@@ -1,7 +1,7 @@
 {
   "name": "changelog-automation",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/documentation-generation/skills/changelog-automation/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-30T04:16:14.874820Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/documentation/skills/changelog-automation/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-01-31T03:32:09.530579Z"
 }

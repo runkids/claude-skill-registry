@@ -1,13 +1,7 @@
 {
   "name": "journal",
-  "description": "Guide for using the AI's persistent journal database",
-  "repo": "maragudk/skills",
-  "category": "data",
-  "tags": [
-    "journal"
-  ],
-  "stars": 17,
-  "dir_name": "journal",
-  "github_path": "journal",
-  "github_branch": "main"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/skills/journal/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:20.256094Z"
 }

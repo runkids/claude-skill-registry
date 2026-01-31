@@ -4,6 +4,7 @@ description: "Guide to analyze multiple documents (PDF, DOCX) against user-defin
 metadata:
   author: Antoine Louis
   license: AGPL-3.0
+  version: 2026.01.14
 ---
 
 # Tabular Review

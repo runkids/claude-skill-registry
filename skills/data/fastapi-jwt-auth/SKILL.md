@@ -1,49 +1,52 @@
 ---
 name: fastapi-jwt-auth
-description: This skill should be used when implementing secure, reusable JWT verification dependency for FastAPI routes. It ensures strict user isolation and identity verification using Better Auth secrets.
+description: "Provides a complete solution for JWT-based authentication in FastAPI applications. Use this skill when a user wants to add secure token-based authentication to their FastAPI project. This skill handles JWT creation, decoding, signature and expiration verification, password hashing, and custom claims. It includes patterns for login endpoints, protected routes using dependencies, role-based access control decorators, token refresh mechanisms, and middleware-based validation."
 ---
 
-# FastAPI JWT Auth Middleware
+# FastAPI JWT Authentication
 
-This skill provides a secure, reusable JWT verification dependency for FastAPI routes.
+This skill provides a robust and reusable solution for implementing JWT (JSON Web Token) authentication in FastAPI applications. It includes a Python script with core authentication logic and a detailed guide with integration patterns.
 
-## Purpose
-Implementing a secure, reusable JWT verification dependency for FastAPI routes to ensure strict user isolation and identity verification.
+## Bundled Resources
 
-## Capabilities
-- Extracting `Authorization: Bearer <token>` from request headers.
-- Verifying token signature using the `BETTER_AUTH_SECRET` environment variable.
-- Decoding JWT payloads to extract authenticated `user_id` and `email`.
-- Performing path-level validation to ensure the authenticated `user_id` matches the `{user_id}` variable in the route path.
-- Standardized error handling with `HTTPException`:
-  - `401 Unauthorized`: Token missing, invalid signature, or expired.
-  - `403 Forbidden`: Authenticated user ID does not match the requested path resource.
-- Providing a `current_user` object injectable directly into route functions.
+This skill comes with the following pre-packaged resources:
 
-## Implementation Details
+- **`scripts/jwt_auth.py`**: A Python script containing all the core utility functions for handling JWTs. This includes:
+    - Password hashing and verification (`passlib`).
+    - Access and refresh token creation (`python-jose`).
+    - Token decoding and validation.
+    - A FastAPI dependency (`get_current_user`) for protecting endpoints.
 
-### Security Pattern
-Using `python-jose[cryptography]` or `PyJWT` to handle verification.
-```python
-from fastapi import Depends, HTTPException, status, Request
-from jose import jwt
+- **`references/fastapi_integration.md`**: A comprehensive guide with code examples and patterns for integrating the authentication logic into a FastAPI application.
 
-async def get_current_user(user_id: str, request: Request):
-    auth_header = request.headers.get("Authorization")
-    if not auth_header or not auth_header.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Invalid auth header")
+## Workflow
 
-    token = auth_header.split(" ")[1]
-    payload = jwt.decode(token, BETTER_AUTH_SECRET, algorithms=["HS256"])
-    token_user_id = payload.get("user_id")
+When a user asks to implement JWT authentication in FastAPI, follow this workflow:
 
-    if token_user_id != user_id:
-        raise HTTPException(status_code=403, detail="Not authorized for this resource")
+### 1. Understand the User's Requirements
 
-    return payload
-```
+First, clarify the specific needs of the user:
+- What custom claims should be in the token (e.g., `user_id`, `roles`, `email`)?
+- Do they need role-based access control (RBAC)?
+- Do they have an existing user model and database setup?
 
-## Best Practices
-- Loading `BETTER_AUTH_SECRET` only once at startup.
-- Always validating the `user_id` against the path to prevent ID enumeration/access bypass.
-- Using dependency injection to keep route logic clean and testable.
+### 2. Review the Core Logic (If Necessary)
+
+The core, reusable authentication logic is in `scripts/jwt_auth.py`. You should **not** need to modify this file in most cases. Familiarize yourself with the functions it provides:
+- `create_access_token()` and `create_refresh_token()`
+- `verify_password()` and `get_password_hash()`
+- `get_current_user()` (the main dependency for protected routes)
+
+### 3. Implement the Integration Patterns
+
+The primary guide for implementation is `references/fastapi_integration.md`. **Read this file carefully.** It contains all the necessary code patterns to add authentication to the user's application.
+
+Follow the steps outlined in the reference guide:
+1.  **Setup and Dependencies**: Instruct the user on installing the required packages.
+2.  **Pydantic Models**: Help the user create or update their Pydantic models for users and tokens.
+3.  **Login Endpoint**: Use the pattern from the guide to create a `/token` endpoint that issues access and refresh tokens.
+4.  **Protected Endpoints**: Use the `get_current_user` dependency to protect routes that require authentication.
+5.  **Role-Based Access**: If required, use the decorator pattern from the guide to implement role-based access control.
+6.  **Token Refresh**: Implement a `/refresh` endpoint so clients can get new access tokens.
+
+Your goal is to adapt the patterns from `references/fastapi_integration.md` to the user's existing codebase, providing them with a fully working authentication system.

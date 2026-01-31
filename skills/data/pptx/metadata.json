@@ -1,7 +1,7 @@
 {
   "name": "pptx",
-  "repo": "Blurjp/ImagePrepMCP",
-  "path": ".claude/skills/pptx/SKILL.md",
-  "source": "github.com/Blurjp/ImagePrepMCP",
-  "downloaded_at": "2026-01-30T04:45:26.737283Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/document-skills/pptx/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-31T04:47:13.847952Z"
 }

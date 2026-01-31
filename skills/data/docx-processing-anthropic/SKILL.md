@@ -4,6 +4,7 @@ description: "Toolkit for comprehensive document creation, editing, and analysis
 metadata:
   author: Anthropic
   license: Proprietary. See LICENSE.txt
+  version: 2025.12.01
 ---
 
 # DOCX creation, editing, and analysis

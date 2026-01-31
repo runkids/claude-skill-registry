@@ -1,7 +1,7 @@
 {
   "name": "ralph",
-  "repo": "carmandale/agent-config",
-  "path": "skills/tools/ralph/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:39.646390Z"
+  "repo": "vechain/inspector-app",
+  "path": ".claude/skills/ralph/SKILL.md",
+  "source": "github.com/vechain/inspector-app",
+  "downloaded_at": "2026-01-31T04:49:55.700200Z"
 }

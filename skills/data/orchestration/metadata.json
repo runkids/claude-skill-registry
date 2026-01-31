@@ -1,7 +1,7 @@
 {
   "name": "orchestration",
-  "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-  "path": "docs/claude/skills-templates/orchestration/agent-communication-skill.md",
-  "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-  "downloaded_at": "2026-01-30T03:22:15.148556Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills-templates/orchestration/distributed-state-sync-skill.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-31T04:29:14.805311Z"
 }

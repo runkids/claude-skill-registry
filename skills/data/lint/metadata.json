@@ -1,7 +1,7 @@
 {
   "name": "lint",
-  "repo": "ahtavarasmus/lightfriend-cloud",
-  "path": ".claude/skills/lint/SKILL.md",
-  "source": "github.com/ahtavarasmus/lightfriend-cloud",
-  "downloaded_at": "2026-01-30T01:33:44.133536Z"
+  "repo": "morgs32/skills",
+  "path": "skills/lint/SKILL.md",
+  "source": "github.com/morgs32/skills",
+  "downloaded_at": "2026-01-31T02:20:03.674649Z"
 }

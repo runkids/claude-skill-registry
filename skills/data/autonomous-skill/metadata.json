@@ -1,7 +1,7 @@
 {
   "name": "autonomous-skill",
-  "repo": "feiskyer/claude-code-settings",
-  "path": "plugins/autonomous-skill/skills/autonomous-skill/SKILL.md",
-  "source": "github.com/feiskyer/claude-code-settings",
-  "downloaded_at": "2026-01-30T04:28:26.773772Z"
+  "repo": "feiskyer/codex-settings",
+  "path": "skills/autonomous-skill/SKILL.md",
+  "source": "github.com/feiskyer/codex-settings",
+  "downloaded_at": "2026-01-31T03:23:01.195427Z"
 }

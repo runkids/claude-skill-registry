@@ -1,7 +1,7 @@
 {
   "name": "accessibility-review",
-  "repo": "Higashi-Kota/react-tailwindcss-sandbox",
-  "path": ".claude/skills/accessibility-review/skill.md",
-  "source": "github.com/Higashi-Kota/react-tailwindcss-sandbox",
-  "downloaded_at": "2026-01-30T01:54:21.176625Z"
+  "repo": "richtabor/agent-skills",
+  "path": "skills/accessibility-review/SKILL.md",
+  "source": "github.com/richtabor/agent-skills",
+  "downloaded_at": "2026-01-31T01:55:55.443946Z"
 }

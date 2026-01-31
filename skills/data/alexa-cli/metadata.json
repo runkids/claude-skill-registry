@@ -1,7 +1,7 @@
 {
   "name": "alexa-cli",
-  "repo": "moltbot/skills",
+  "repo": "openclaw/skills",
   "path": "skills/buddyh/alexa-cli/skill.md",
-  "source": "github.com/moltbot/skills",
-  "downloaded_at": "2026-01-30T03:36:11.394816Z"
+  "source": "github.com/openclaw/skills",
+  "downloaded_at": "2026-01-31T02:28:28.798543Z"
 }

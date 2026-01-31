@@ -4,6 +4,7 @@ description: "Toolkit for comprehensive Spreadsheet reading, creation, editing, 
 metadata:
   author: OpenAI
   license: Proprietary
+  version: 2025.12.12
 ---
 
 # Spreadsheet Skill (Create • Edit • Analyze • Visualize)

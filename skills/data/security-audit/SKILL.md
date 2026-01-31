@@ -1,49 +1,89 @@
 ---
-name: security-audit
-description: Review security of command execution, tool permissions, and API key handling. Use when user mentions "security review", "audit", "check security", "vulnerabilities", or before deploying to production.
-allowed-tools: Read, Grep, Glob
+name: Security Audit
+description: Identify and fix security vulnerabilities in code and infrastructure
+triggers:
+  - "security audit"
+  - "vulnerability scan"
+  - "security check"
+  - "pen test"
 ---
 
-# Security Audit
+# Security Audit Skill
 
-## Instructions
-1. **Command Execution Review** (`backend/main.py`):
-   - Check `run_terminal_command()` for shell injection vulnerabilities
-   - Verify timeout is enforced (should be 15 seconds)
-   - Look for dangerous command patterns
+Identify security vulnerabilities and implement fixes.
 
-2. **Tool Permission Review**:
-   - Verify Chat mode only allows: `read_file`, `web_search`
-   - Check Agent mode tool restrictions
-   - Look for permission bypass vulnerabilities
+## Check List
 
-3. **Secrets Management**:
-   - Ensure `.env` is in `.gitignore`
-   - Check no API keys are hardcoded
-   - Verify `python-dotenv` usage for environment variables
+### Code Security
+- [ ] No hardcoded credentials/API keys
+- [ ] Input validation on all user inputs
+- [ ] SQL injection prevention (parameterized queries)
+- [ ] XSS prevention (sanitize outputs)
+- [ ] CSRF tokens where needed
+- [ ] Rate limiting on APIs
+- [ ] Authentication on sensitive routes
+- [ ] Authorization checks (user permissions)
 
-4. **WebSocket Security**:
-   - Check for authentication on `/ws` endpoint
-   - Review message validation
-   - Look for injection points in user input
+### Database Security
+- [ ] RLS enabled on ALL tables
+- [ ] Service role key never exposed to client
+- [ ] Policies prevent data leaks
+- [ ] Encrypted connections (SSL/TLS)
 
-5. **Frontend Security**:
-   - Check for XSS in markdown rendering
-   - Review image upload handling (base64 encoding)
-   - Verify no sensitive data in client-side code
+### Environment Security
+- [ ] `.env.local` in `.gitignore`
+- [ ] Secrets in environment variables only
+- [ ] No secrets in logs
+- [ ] HTTPS in production
 
-6. Generate report with:
-   - Critical issues (immediate action required)
-   - Warnings (should fix before production)
-   - Recommendations (best practices)
+### Dependencies
+- [ ] Run `npm audit`
+- [ ] Update vulnerable packages
+- [ ] Review package permissions
 
-## Examples
-- "Run a security audit"
-- "Check for vulnerabilities"
-- "Review security before deploy"
+## Common Vulnerabilities
 
-## Guardrails
-- This is a READ-ONLY audit; do not modify files
-- Report findings without exploiting vulnerabilities
-- Recommend fixes but get user approval before implementing
-- Never log or expose discovered secrets
+### SQL Injection
+```typescript
+// BAD
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+
+// GOOD
+const { data } = await supabase
+  .from('users')
+  .select('*')
+  .eq('id', userId);
+```
+
+### XSS
+```typescript
+// BAD
+<div dangerouslySetInnerHTML={{__html: userInput}} />
+
+// GOOD
+<div>{userInput}</div>  // Auto-escaped by React
+```
+
+### Credential Leaks
+```typescript
+// BAD
+const apiKey = "sk-1234567890abcdef";
+
+// GOOD
+const apiKey = process.env.API_KEY;
+```
+
+## Quick Audit
+```bash
+"Run security audit:
+ 1. Search for hardcoded secrets (grep for 'sk-', 'api_key', etc.)
+ 2. Check .gitignore includes .env*
+ 3. Verify RLS on all tables
+ 4. Run npm audit
+ 5. Check CORS config
+ Output: temp/security/audit-{timestamp}.md"
+```
+
+---
+
+**Remember**: Security is not optional. Audit regularly!

@@ -1,243 +1,272 @@
 ---
-description: Imported skill state from langchain
 name: state
-signature: 42ae2e4632a0e8f384a8b978b4d9d69d7cdb98b069bb76d974c91c511388807c
-source: /a0/tmp/skills_research/langchain/libs/deepagents/deepagents/backends/state.py
+description: Create representation of current world state for a domain. Use when modeling system state, building world models, capturing entity relationships, or establishing baseline snapshots.
+argument-hint: "[scope] [schema] [timestamp]"
+disable-model-invocation: false
+user-invocable: true
+allowed-tools: Read, Grep
+context: fork
+agent: explore
+layer: MODEL
 ---
 
-"""StateBackend: Store files in LangGraph agent state (ephemeral)."""
+## Intent
 
-from typing import TYPE_CHECKING
+Create a structured representation of the current state of a domain, system, or entity. This is the foundation for world modeling, enabling tracking of entities, relationships, and properties over time.
 
-from deepagents.backends.protocol import (
-    BackendProtocol,
-    EditResult,
-    FileDownloadResponse,
-    FileInfo,
-    FileUploadResponse,
-    GrepMatch,
-    WriteResult,
-)
-from deepagents.backends.utils import (
-    _glob_search_files,
-    create_file_data,
-    file_data_to_string,
-    format_read_response,
-    grep_matches_from_files,
-    perform_string_replacement,
-    update_file_data,
-)
+**Success criteria:**
+- State captured in structured, queryable format
+- Entities and relationships clearly identified
+- Uncertainty and confidence explicitly represented
+- Evidence anchors for all state assertions
 
-if TYPE_CHECKING:
-    from langchain.tools import ToolRuntime
+**Compatible schemas:**
+- `schemas/output_schema.yaml`
+- `reference/world_state_schema.yaml`
 
+## Inputs
 
-class StateBackend(BackendProtocol):
-    """Backend that stores files in agent state (ephemeral).
+| Parameter | Required | Type | Description |
+|-----------|----------|------|-------------|
+| `scope` | Yes | string | What domain/system to model (e.g., "user authentication", "payment processing") |
+| `schema` | No | object | State schema defining expected structure |
+| `timestamp` | No | string | Point in time for state (default: now) |
+| `depth` | No | string | Modeling depth: surface, detailed, comprehensive |
 
-    Uses LangGraph's state management and checkpointing. Files persist within
-    a conversation thread but not across threads. State is automatically
-    checkpointed after each agent step.
+## Procedure
 
-    Special handling: Since LangGraph state must be updated via Command objects
-    (not direct mutation), operations return Command objects instead of None.
-    This is indicated by the uses_state=True flag.
-    """
+1) **Define scope boundaries**: Clarify what is included in the state model
+   - Identify system or domain boundaries
+   - Determine entity types to include
+   - Establish relationship types to capture
 
-    def __init__(self, runtime: "ToolRuntime"):
-        """Initialize StateBackend with runtime."""
-        self.runtime = runtime
+2) **Identify entities**: Enumerate entities within scope
+   - Extract entity references from sources
+   - Assign unique identifiers
+   - Capture entity properties/attributes
 
-    def ls_info(self, path: str) -> list[FileInfo]:
-        """List files and directories in the specified directory (non-recursive).
+3) **Map relationships**: Document connections between entities
+   - Identify relationship types (contains, depends_on, references)
+   - Note relationship directionality
+   - Capture relationship properties
 
-        Args:
-            path: Absolute path to directory.
+4) **Capture current values**: Record current state of each entity
+   - Document property values with evidence
+   - Note uncertainty where values are unclear
+   - Record observation timestamp
 
-        Returns:
-            List of FileInfo-like dicts for files and directories directly in the directory.
-            Directories have a trailing / in their path and is_dir=True.
-        """
-        files = self.runtime.state.get("files", {})
-        infos: list[FileInfo] = []
-        subdirs: set[str] = set()
+5) **Apply schema**: Structure state according to schema if provided
+   - Validate against schema constraints
+   - Note schema violations or extensions needed
+   - Ensure required fields are populated
 
-        # Normalize path to have trailing slash for proper prefix matching
-        normalized_path = path if path.endswith("/") else path + "/"
+6) **Ground state claims**: Attach evidence to all assertions
+   - Reference source files, commands, or observations
+   - Note confidence level for each assertion
 
-        for k, fd in files.items():
-            # Check if file is in the specified directory or a subdirectory
-            if not k.startswith(normalized_path):
-                continue
+## Output Contract
 
-            # Get the relative path after the directory
-            relative = k[len(normalized_path) :]
+Return a structured object:
 
-            # If relative path contains '/', it's in a subdirectory
-            if "/" in relative:
-                # Extract the immediate subdirectory name
-                subdir_name = relative.split("/")[0]
-                subdirs.add(normalized_path + subdir_name + "/")
-                continue
+```yaml
+state:
+  world_id: string  # Unique identifier for this state snapshot
+  scope: string  # Domain being modeled
+  timestamp: string  # When state was captured
+  entities:
+    - id: string  # Unique entity identifier
+      type: string  # Entity classification
+      properties: object  # Entity attributes
+      confidence: number  # Confidence in entity state
+  relationships:
+    - from: string  # Source entity ID
+      to: string  # Target entity ID
+      type: string  # Relationship type
+      properties: object  # Relationship attributes
+  meta:
+    version: string  # State schema version
+    completeness: number  # 0-1 estimate of coverage
+confidence: 0..1  # Overall state model confidence
+evidence_anchors: ["file:line", "observation:id"]
+assumptions: []
+```
 
-            # This is a file directly in the current directory
-            size = len("\n".join(fd.get("content", [])))
-            infos.append(
-                {
-                    "path": k,
-                    "is_dir": False,
-                    "size": int(size),
-                    "modified_at": fd.get("modified_at", ""),
-                }
-            )
+### Field Definitions
 
-        # Add directories to the results
-        for subdir in sorted(subdirs):
-            infos.append(
-                {
-                    "path": subdir,
-                    "is_dir": True,
-                    "size": 0,
-                    "modified_at": "",
-                }
-            )
+| Field | Type | Description |
+|-------|------|-------------|
+| `state.world_id` | string | Unique identifier for state snapshot |
+| `state.scope` | string | Domain or system being modeled |
+| `state.entities` | array | Identified entities with properties |
+| `state.relationships` | array | Connections between entities |
+| `state.meta.completeness` | number | Estimated model completeness |
+| `confidence` | number | Overall confidence in state accuracy |
 
-        infos.sort(key=lambda x: x.get("path", ""))
-        return infos
+## Examples
 
-    def read(
-        self,
-        file_path: str,
-        offset: int = 0,
-        limit: int = 2000,
-    ) -> str:
-        """Read file content with line numbers.
+### Example 1: Model Authentication System State
 
-        Args:
-            file_path: Absolute file path.
-            offset: Line offset to start reading from (0-indexed).
-            limit: Maximum number of lines to read.
+**Input:**
+```yaml
+scope: "user authentication system"
+depth: "detailed"
+```
 
-        Returns:
-            Formatted file content with line numbers, or error message.
-        """
-        files = self.runtime.state.get("files", {})
-        file_data = files.get(file_path)
+**Output:**
+```yaml
+state:
+  world_id: "auth-state-20240115-001"
+  scope: "user authentication system"
+  timestamp: "2024-01-15T10:30:00Z"
+  entities:
+    - id: "auth-service"
+      type: "service"
+      properties:
+        status: "running"
+        version: "2.3.1"
+        port: 8080
+      confidence: 0.95
+    - id: "user-db"
+      type: "database"
+      properties:
+        type: "PostgreSQL"
+        connection_pool: 20
+        active_connections: 12
+      confidence: 0.90
+    - id: "session-cache"
+      type: "cache"
+      properties:
+        type: "Redis"
+        memory_used: "256MB"
+        keys: 15420
+      confidence: 0.90
+  relationships:
+    - from: "auth-service"
+      to: "user-db"
+      type: "depends_on"
+      properties:
+        connection_type: "direct"
+        required: true
+    - from: "auth-service"
+      to: "session-cache"
+      type: "depends_on"
+      properties:
+        connection_type: "direct"
+        required: true
+  meta:
+    version: "1.0"
+    completeness: 0.85
+confidence: 0.88
+evidence_anchors:
+  - "config/services.yml:15-45"
+  - "command:docker ps"
+  - "command:redis-cli info"
+assumptions:
+  - "Service discovery reflects actual running state"
+  - "Configuration matches deployed state"
+```
 
-        if file_data is None:
-            return f"Error: File '{file_path}' not found"
+### Example 2: Model Code Module State
 
-        return format_read_response(file_data, offset, limit)
+**Input:**
+```yaml
+scope: "payment processing module"
+schema:
+  required_entities: ["class", "method", "dependency"]
+```
 
-    def write(
-        self,
-        file_path: str,
-        content: str,
-    ) -> WriteResult:
-        """Create a new file with content.
-        Returns WriteResult with files_update to update LangGraph state.
-        """
-        files = self.runtime.state.get("files", {})
+**Output:**
+```yaml
+state:
+  world_id: "payments-code-20240115"
+  scope: "payment processing module"
+  timestamp: "2024-01-15T11:00:00Z"
+  entities:
+    - id: "PaymentProcessor"
+      type: "class"
+      properties:
+        file: "src/services/payment_processor.rb"
+        lines: 145
+        methods: 8
+        complexity: 24
+      confidence: 0.95
+    - id: "process_payment"
+      type: "method"
+      properties:
+        class: "PaymentProcessor"
+        visibility: "public"
+        params: ["order", "payment_method"]
+        complexity: 12
+      confidence: 0.95
+    - id: "stripe-gem"
+      type: "dependency"
+      properties:
+        name: "stripe"
+        version: "8.0.0"
+        usage: ["PaymentProcessor"]
+      confidence: 0.90
+  relationships:
+    - from: "PaymentProcessor"
+      to: "stripe-gem"
+      type: "depends_on"
+      properties:
+        import_type: "require"
+    - from: "process_payment"
+      to: "PaymentProcessor"
+      type: "member_of"
+      properties:
+        visibility: "public"
+  meta:
+    version: "1.0"
+    completeness: 0.75
+confidence: 0.85
+evidence_anchors:
+  - "src/services/payment_processor.rb:1-145"
+  - "Gemfile:42"
+assumptions:
+  - "Static analysis reflects runtime behavior"
+  - "No dynamic method definitions"
+```
 
-        if file_path in files:
-            return WriteResult(error=f"Cannot write to {file_path} because it already exists. Read and then make an edit, or write to a new path.")
+## Verification
 
-        new_file_data = create_file_data(content)
-        return WriteResult(path=file_path, files_update={file_path: new_file_data})
+- [ ] State includes world_id and timestamp
+- [ ] All entities have unique IDs and types
+- [ ] Relationships reference valid entity IDs
+- [ ] Confidence scores present for entities
+- [ ] Evidence anchors support state assertions
 
-    def edit(
-        self,
-        file_path: str,
-        old_string: str,
-        new_string: str,
-        replace_all: bool = False,
-    ) -> EditResult:
-        """Edit a file by replacing string occurrences.
-        Returns EditResult with files_update and occurrences.
-        """
-        files = self.runtime.state.get("files", {})
-        file_data = files.get(file_path)
+**Verification tools:** Read (to verify file references)
 
-        if file_data is None:
-            return EditResult(error=f"Error: File '{file_path}' not found")
+## Safety Constraints
 
-        content = file_data_to_string(file_data)
-        result = perform_string_replacement(content, old_string, new_string, replace_all)
+- `mutation`: false
+- `requires_checkpoint`: false
+- `requires_approval`: false
+- `risk`: low
 
-        if isinstance(result, str):
-            return EditResult(error=result)
+**Capability-specific rules:**
+- Do not modify state while modeling it
+- Note when state may be stale or dynamic
+- Flag entities with low confidence
+- Do not invent entities without evidence
 
-        new_content, occurrences = result
-        new_file_data = update_file_data(file_data, new_content)
-        return EditResult(path=file_path, files_update={file_path: new_file_data}, occurrences=int(occurrences))
+## Composition Patterns
 
-    def grep_raw(
-        self,
-        pattern: str,
-        path: str = "/",
-        glob: str | None = None,
-    ) -> list[GrepMatch] | str:
-        files = self.runtime.state.get("files", {})
-        return grep_matches_from_files(files, pattern, path, glob)
+**Commonly follows:**
+- `observe` - Observations feed into state modeling
+- `retrieve` - Retrieved data informs state
+- `integrate` - Merged data forms state
 
-    def glob_info(self, pattern: str, path: str = "/") -> list[FileInfo]:
-        """Get FileInfo for files matching glob pattern."""
-        files = self.runtime.state.get("files", {})
-        result = _glob_search_files(files, pattern, path)
-        if result == "No files found":
-            return []
-        paths = result.split("\n")
-        infos: list[FileInfo] = []
-        for p in paths:
-            fd = files.get(p)
-            size = len("\n".join(fd.get("content", []))) if fd else 0
-            infos.append(
-                {
-                    "path": p,
-                    "is_dir": False,
-                    "size": int(size),
-                    "modified_at": fd.get("modified_at", "") if fd else "",
-                }
-            )
-        return infos
+**Commonly precedes:**
+- `transition` - State enables transition modeling
+- `compare` - States can be compared (diff)
+- `simulate` - State is starting point for simulation
 
-    def upload_files(self, files: list[tuple[str, bytes]]) -> list[FileUploadResponse]:
-        """Upload multiple files to state.
+**Anti-patterns:**
+- Never use state for predictions (use `predict`)
+- Avoid state for single-value measurement (use `measure`)
 
-        Args:
-            files: List of (path, content) tuples to upload
-
-        Returns:
-            List of FileUploadResponse objects, one per input file
-        """
-        raise NotImplementedError(
-            "StateBackend does not support upload_files yet. You can upload files "
-            "directly by passing them in invoke if you're storing files in the memory."
-        )
-
-    def download_files(self, paths: list[str]) -> list[FileDownloadResponse]:
-        """Download multiple files from state.
-
-        Args:
-            paths: List of file paths to download
-
-        Returns:
-            List of FileDownloadResponse objects, one per input path
-        """
-        state_files = self.runtime.state.get("files", {})
-        responses: list[FileDownloadResponse] = []
-
-        for path in paths:
-            file_data = state_files.get(path)
-
-            if file_data is None:
-                responses.append(FileDownloadResponse(path=path, content=None, error="file_not_found"))
-                continue
-
-            # Convert file data to bytes
-            content_str = file_data_to_string(file_data)
-            content_bytes = content_str.encode("utf-8")
-
-            responses.append(FileDownloadResponse(path=path, content=content_bytes, error=None))
-
-        return responses
+**Workflow references:**
+- See `reference/workflow_catalog.yaml#world_model_build` for state in world modeling
+- See `reference/workflow_catalog.yaml#digital_twin_sync_loop` for state in digital twins

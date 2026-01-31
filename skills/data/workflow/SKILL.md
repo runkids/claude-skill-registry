@@ -1,23 +1,24 @@
 ---
 name: workflow
-description: "Manages workflow transitions including handoffs between PM and implementation roles, and auto-fixes review comments. Use when user mentions handoffs, reporting to PM, handing off to implementation, completion reports, or auto-fix. Do not use for 2-Agent setup—use 2agent skill instead."
-allowed-tools: ["Read", "Write", "Edit", "Bash"]
+description: Standard workflow for implementing features with specs and planning documents. Use when starting a new feature, planning implementation, or working on any non-trivial task.
 ---
 
-# Workflow Skills
+# Standard Workflow
 
-PM-実装役間のハンドオフとレビュー指摘の自動修正を担当するスキル群です。
+1. First think through the problem, read the codebase for relevant files, and write a plan to specs/[timestamp] [feature-name].md where [timestamp] is the timestamp in YYYYMMDDThhmmss format and [feature-name] is the name of the feature.
+2. The plan should have a list of todo items that you can check off as you complete them
+3. Before you begin working, check in with me and I will verify the plan.
+4. Then, begin working on the todo items, marking them as complete as you go.
+5. Please every step of the way just give me a high level explanation of what changes you made
+6. Make every task and code change you do as simple as possible. We want to avoid making any massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
+7. Finally, add a review section to the .md file with a summary of the changes you made and any other relevant information.
 
-## 機能詳細
+# Spec Placement
 
-| 機能 | 詳細 |
-|------|------|
-| **レビュー指摘自動修正** | See [references/auto-fixing.md](references/auto-fixing.md) |
-| **PM→実装役ハンドオフ** | See [references/handoff-to-impl.md](references/handoff-to-impl.md) |
-| **実装役→PM完了報告** | See [references/handoff-to-pm.md](references/handoff-to-pm.md) |
+Specs always live at the root level of their scope (not inside `docs/`):
 
-## 実行手順
+- **`/specs/`** - Cross-cutting features, architecture decisions, general tooling
+- **`/apps/[app]/specs/`** - Features specific to one app only
+- **`/packages/[pkg]/specs/`** - Package-specific implementation details
 
-1. ユーザーのリクエストを分類
-2. 上記の「機能詳細」から適切な参照ファイルを読む
-3. その内容に従って実行
+When in doubt, use `/specs/`. Move to app/package-specific only if the spec truly belongs there.

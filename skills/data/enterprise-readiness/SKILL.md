@@ -16,6 +16,149 @@ description: "Assess and enhance software projects for enterprise-grade security
 - Writing ADRs, changelogs, or migration guides
 - Configuring Git hooks or CI pipelines
 
+---
+
+## MANDATORY Requirements
+
+**CRITICAL: The following are NOT optional. Every project MUST have ALL of these. Do not skip any.**
+
+### README Badges (MANDATORY)
+
+Every project README.md MUST display these badges at the top, in this order:
+
+```markdown
+<!-- Row 1: CI/Quality -->
+[![CI](https://github.com/ORG/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/ORG/REPO/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/ORG/REPO/graph/badge.svg)](https://codecov.io/gh/ORG/REPO)
+
+<!-- Row 2: Security (MANDATORY) -->
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/ORG/REPO/badge)](https://securityscorecards.dev/viewer/?uri=github.com/ORG/REPO)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/PROJECT_ID/badge)](https://www.bestpractices.dev/projects/PROJECT_ID)
+```
+
+| Badge | URL Pattern | MANDATORY |
+|-------|-------------|-----------|
+| CI Status | `github.com/ORG/REPO/actions/workflows/ci.yml/badge.svg` | **YES** |
+| Codecov | `codecov.io/gh/ORG/REPO/graph/badge.svg` | **YES** |
+| OpenSSF Scorecard | `api.securityscorecards.dev/projects/github.com/ORG/REPO/badge` | **YES** |
+| OpenSSF Best Practices | `www.bestpractices.dev/projects/PROJECT_ID/badge` | **YES** |
+
+### CI/CD Workflows (MANDATORY)
+
+Every GitHub project MUST have these workflows in `.github/workflows/`:
+
+| Workflow | File | Purpose | MANDATORY |
+|----------|------|---------|-----------|
+| CI | `ci.yml` | Build, test, lint | **YES** |
+| CodeQL | `codeql.yml` | Security scanning | **YES** |
+| Scorecard | `scorecard.yml` | OpenSSF Scorecard | **YES** |
+| Dependency Review | `dependency-review.yml` | PR CVE check | **YES** |
+
+### CI Must Include (MANDATORY)
+
+| Requirement | Implementation | MANDATORY |
+|-------------|----------------|-----------|
+| Coverage upload | `codecov/codecov-action` after tests | **YES** |
+| Security audit | `composer audit` / `npm audit` / `govulncheck` | **YES** |
+| SHA-pinned actions | All actions use full SHA with version comment | **YES** |
+
+### OpenSSF Registration (MANDATORY)
+
+1. **Register at bestpractices.dev**: https://www.bestpractices.dev/en/projects/new
+2. **Note the Project ID** assigned after registration
+3. **Add badge to README** with correct PROJECT_ID
+4. **Run Scorecard workflow** to generate initial score
+
+### Codecov Setup (MANDATORY)
+
+1. **Enable Codecov** for the repository at codecov.io
+2. **Collect coverage from ALL test suites** (not just unit tests):
+
+| Test Suite | Coverage Command | Output File | MANDATORY |
+|------------|------------------|-------------|-----------|
+| Unit | `phpunit -c UnitTests.xml --coverage-clover` | `.Build/coverage/unit.xml` | **YES** |
+| Integration | `phpunit -c IntegrationTests.xml --coverage-clover` | `.Build/coverage/integration.xml` | **YES** |
+| E2E | `phpunit -c E2ETests.xml --coverage-clover` | `.Build/coverage/e2e.xml` | **YES** |
+| Functional | `phpunit -c FunctionalTests.xml --coverage-clover` | `.Build/coverage/functional.xml` | **YES** |
+| JavaScript | `npm run test:coverage` | `coverage/lcov.info` | **YES** (if JS exists) |
+
+3. **Upload ALL coverage files** to Codecov:
+   ```yaml
+   - uses: codecov/codecov-action@SHA # vX.Y.Z
+     with:
+       token: ${{ secrets.CODECOV_TOKEN }}  # MANDATORY - see below
+       files: .Build/coverage/unit.xml,.Build/coverage/integration.xml,.Build/coverage/e2e.xml,coverage/lcov.info
+       fail_ci_if_error: false
+   ```
+
+### CODECOV_TOKEN (MANDATORY)
+
+**Never rely on tokenless uploads.** They fail for protected branches and are unreliable.
+
+| Requirement | Implementation | Why |
+|-------------|----------------|-----|
+| Token in secrets | Add `CODECOV_TOKEN` to repo or org secrets | Authentication |
+| Token in workflow | `token: ${{ secrets.CODECOV_TOKEN }}` | Required for protected branches |
+| Org-level secret | Preferred for consistency across repos | Single point of management |
+
+**Failure without token:**
+```
+Upload failed: {"message":"Token required because branch is protected"}
+```
+
+**Get token from:** https://app.codecov.io/gh/ORG/REPO/settings
+
+**Add as org secret (recommended):**
+```bash
+# Organization-level (covers all repos)
+gh secret set CODECOV_TOKEN --org netresearch --visibility all
+
+# Or repository-level
+gh secret set CODECOV_TOKEN --repo OWNER/REPO
+```
+
+### JavaScript Coverage (MANDATORY for projects with JS/TS)
+
+When a project contains JavaScript or TypeScript files:
+
+1. **vitest.config.js** MUST include lcov reporter for Codecov:
+   ```javascript
+   coverage: {
+       provider: 'v8',
+       reporter: ['text', 'json', 'html', 'lcov'],  // lcov REQUIRED for Codecov
+       reportsDirectory: 'coverage',
+   }
+   ```
+
+2. **CI workflow** MUST include JavaScript test job:
+   ```yaml
+   - uses: actions/setup-node@SHA # vX.Y.Z
+     with:
+       node-version: '22'
+   - run: npm install
+   - run: npm run test:coverage
+   ```
+
+3. **Codecov upload** MUST include `coverage/lcov.info`
+
+### Verification Checklist
+
+Before marking enterprise-readiness complete, verify ALL:
+
+- [ ] README has CI badge linking to workflow
+- [ ] README has Codecov badge (not "unknown")
+- [ ] README has OpenSSF Scorecard badge (correct URL with `api.securityscorecards.dev`)
+- [ ] README has OpenSSF Best Practices badge (correct PROJECT_ID, not placeholder)
+- [ ] `.github/workflows/ci.yml` exists and uploads coverage
+- [ ] `.github/workflows/codeql.yml` exists
+- [ ] `.github/workflows/scorecard.yml` exists
+- [ ] Codecov shows actual coverage percentage
+- [ ] Scorecard shows actual score
+
+**If any badge shows "unknown", "invalid", or placeholder ID - FIX IT. Do not proceed.**
+
+---
+
 ## Assessment Workflow
 
 1. **Discovery**: Identify platform (GitHub/GitLab), languages, existing CI/CD
@@ -139,7 +282,7 @@ When handling signed commits with rebase-only merge, load `references/ci-pattern
 Templates in `assets/templates/`:
 - `GOVERNANCE.md` - Project governance (Silver)
 - `ARCHITECTURE.md` - Technical docs (Silver)
-- `CODE_OF_CONDUCT.md` - Contributor Covenant
+- `CODE_OF_CONDUCT.md` - Contributor Covenant v3.0
 - `SECURITY_AUDIT.md` - Security audit (Gold)
 - `BADGE_EXCEPTIONS.md` - N/A justifications
 

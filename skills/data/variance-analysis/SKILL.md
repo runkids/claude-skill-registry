@@ -1,31 +1,68 @@
 ---
 name: variance-analysis
-description: Use to attribute forecast vs actual deltas and recommend remediation
-  actions.
+description: Compare actuals vs budget with narrative
+role_groups: [finance, leadership]
+jtbd: |
+  Variances happen every month but documenting them takes time. This prompts for 
+  key variances, helps you document explanations with context, links to supporting 
+  materials, and prepares a board-ready narrative so you're ready for leadership 
+  reviews.
+time_investment: "20-30 minutes per analysis"
 ---
 
-# Revenue Variance Analysis Skill
+## Purpose
 
-## When to Use
-- Preparing forecast reviews or board updates that require variance explanations.
-- Investigating misses/exceeds across segments, products, or channels.
-- Prioritizing remediation plays tied to specific variance drivers.
+Document budget variances with clear explanations and supporting context for leadership review.
 
-## Framework
-1. **Driver Taxonomy** – classify deltas into volume, conversion, price/mix, churn, expansion, currency.
-2. **Attribution Logic** – define formulas for each driver and maintain consistent baselines.
-3. **Root Cause Layer** – connect drivers to operational issues (pipeline quality, capacity, enablement, macro).
-4. **Action Mapping** – translate each root cause into specific plays with owners and expected impact.
-5. **Feedback Loop** – update forecasting assumptions once variance is understood.
+## Usage
 
-## Templates
-- Variance waterfall chart setup instructions.
-- Driver worksheet (metric → delta → driver → root cause → owner → due date).
-- Remediation tracker with status and forecast impact.
-
-## Tips
-- Keep a glossary so stakeholders interpret drivers consistently.
-- Combine quantitative attribution with qualitative context from GTM leaders.
-- Feed learnings back to `forecast-modeling` to tighten assumptions next cycle.
+- `/variance-analysis [period]` - Document variances for specific period
 
 ---
+
+## Steps
+
+1. **Prompt for variance data:**
+   - Budget category
+   - Budgeted amount
+   - Actual amount
+   - Variance ($and %)
+
+2. **For each material variance, ask:**
+   - What caused this variance?
+   - Is it timing or permanent?
+   - What corrective actions if needed?
+   - Supporting context
+
+3. **Search for supporting context:**
+   - Meeting notes mentioning the category
+   - Project files
+   - Relevant decisions made
+
+4. **Create variance analysis document** with:
+   - Executive summary
+   - Variance details by category
+   - Explanations with context
+   - Outlook for rest of period
+
+---
+
+## Output Format
+
+```markdown
+# Variance Analysis: [Period]
+
+## Executive Summary
+- Total variance: $[X] ([X]%)
+- Key drivers: [Top 2-3 factors]
+
+## Material Variances
+
+### [Category] - $[Variance]
+- **Budget:** $[Amount]
+- **Actual:** $[Amount]
+- **Variance:** $[Amount] ([X]%)
+- **Explanation:** [Reason]
+- **Type:** Timing / Permanent
+- **Outlook:** [Impact on rest of year]
+```

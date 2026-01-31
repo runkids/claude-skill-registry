@@ -1,7 +1,7 @@
 {
   "name": "code-quality",
-  "repo": "vm0-ai/vm0",
-  "path": ".claude/skills/code-quality/SKILL.md",
-  "source": "github.com/vm0-ai/vm0",
-  "downloaded_at": "2026-01-30T04:06:32.252173Z"
+  "repo": "acidsound/acidApps",
+  "path": "skills/code-quality/SKILL.md",
+  "source": "github.com/acidsound/acidApps",
+  "downloaded_at": "2026-01-31T04:34:12.954360Z"
 }

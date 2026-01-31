@@ -1,7 +1,7 @@
 {
   "name": "exploration",
-  "repo": "OCHA-DAP/ds-aa-moz-cyclones",
-  "path": "exploration/rsmc_skill.md",
-  "source": "github.com/OCHA-DAP/ds-aa-moz-cyclones",
-  "downloaded_at": "2026-01-30T03:38:12.689853Z"
+  "repo": "fusengine/agents",
+  "path": "plugins/ai-pilot/skills/exploration/SKILL.md",
+  "source": "github.com/fusengine/agents",
+  "downloaded_at": "2026-01-31T02:15:02.811495Z"
 }

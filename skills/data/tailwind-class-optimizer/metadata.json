@@ -1,9 +1,7 @@
 {
   "name": "tailwind-class-optimizer",
-  "description": "Tailwind Class Optimizer - Auto-activating skill for Frontend Development.Triggers on: tailwind class optimizer, tailwind class optimizerPart of the Frontend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/05-frontend-dev/tailwind-class-optimizer/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:45.544280Z"
 }

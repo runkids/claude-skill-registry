@@ -1,9 +1,7 @@
 {
   "name": "meeting-scheduler-helper",
-  "description": "Meeting Scheduler Helper - Auto-activating skill for Business Automation.Triggers on: meeting scheduler helper, meeting scheduler helperPart of the Business Automation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/19-business-automation/meeting-scheduler-helper/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:39.483256Z"
 }

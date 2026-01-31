@@ -1,7 +1,7 @@
 {
   "name": "track-management",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/track-management/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:06.646300Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/conductor/skills/track-management/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-31T03:28:00.102146Z"
 }

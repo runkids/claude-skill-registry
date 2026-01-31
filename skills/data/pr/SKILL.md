@@ -1,42 +1,35 @@
 ---
 name: pr
-description: Rules and checklist for preparing PRs, creating changesets, and releasing packages in the monorepo.
+description: Creates a pull request for the current branch.
+unsandboxed: true
 ---
 
-# PR Skill
+When asked to create a pull request, follow these steps:
 
-This skill instructs agents on PR preconditions, changeset usage, and reviewer expectations.
+1. Run `git status`. If any of the following conditions apply, stop and report the errors:
 
-## When to Use
+   - There are unstaged changes
+   - There are untracked files
+   - The current branch is the default branch (`main`)
 
-- When a user asks how to prepare a PR or what checks are required before merging
-- When guiding contributors to create changesets or update the changelog
+2. Check if this is a stacked PR:
 
-## What It Does
+   - Run `git merge-base main HEAD` to find the common ancestor with main
+   - Run `git log --oneline <merge-base>..HEAD` to see commits since diverging from main
+   - Check if any parent commits are on another feature branch (not main)
+   - If so, run `gh pr list --head <parent-branch>` to check if that branch has an open PR
+   - If a parent branch has an open PR, this is a **stacked PR**
 
-- Enforces the PR checklist: `format, lint, typecheck, tests`
-- Instructs on creating and using changesets for version bumps
-- Describes release/merge expectations and documentation updates
+3. Run `git log main..HEAD --oneline` to see the commit history.
 
-## Commands to Suggest
+4. Run `git diff` and/or `git show` as necessary to understand the changes.
 
-```bash
-pnpm format && pnpm lint:fix
-pnpm typecheck
-pnpm test
-pnpm changeset
-```
+5. Run `gh pr create` to create a pull request. The PR body should include:
 
-## Checklist
+   - A brief narrative description of the PR
+   - A summary of the changes (bullet points)
+   - A brief description of how the code is tested (narrative, not a checklist)
 
-- [ ] CI green (unit tests, linters, typechecks)
-- [ ] Documentation updated if public behavior changed
-- [ ] No secrets in the PR
-- [ ] Appropriate version bump via changeset
+   **If this is a stacked PR**, add `--draft` to create it as a draft PR.
 
-## Related Skills
-
-| Skill                                   | Use For                          |
-|-----------------------------------------|----------------------------------|
-| **[../changelog/SKILL.md](../changelog/SKILL.md)** | Update changelogs and changesets |
-
+6. Return the PR URL and any relevant information.

@@ -1,7 +1,16 @@
 ---
 name: obsidian-study-vault-builder
-description: Build mobile-compatible Obsidian study vaults from academic materials with checkpoint workflow and QA. Battle-tested on 800KB+ projects. Works across CS, medicine, business.
+description: Build comprehensive, mobile-compatible Obsidian study vaults from academic course materials with checkpoint-based workflow, error pattern recognition, and quality assurance. Battle-tested patterns from 828KB/37-file projects. Works across all subjects - CS, medicine, business, self-study.
+version: 2.1.0
+tags:
+  - obsidian
+  - education
+  - knowledge-management
+  - markdown
+  - study-materials
+  - academic
 ---
+
 # Obsidian Study Vault Builder
 
 > **Comprehensive patterns for building exam-ready study vaults in Obsidian**

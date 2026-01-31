@@ -16,6 +16,7 @@ Process audio with transcription, analysis, and understanding, plus generate nat
 ## When to Use This Skill
 
 Use this skill when you need to:
+
 - **Transcribe** audio files to text with timestamps
 - **Summarize** audio content and extract key points
 - **Analyze** speech, music, or environmental sounds
@@ -27,46 +28,24 @@ Use this skill when you need to:
 
 ### API Key Setup
 
-The skill supports both **Google AI Studio** and **Vertex AI** endpoints.
-
-#### Option 1: Google AI Studio (Default)
-
 The skill automatically detects your `GEMINI_API_KEY` in this order:
 
 1. **Process environment**: `export GEMINI_API_KEY="your-key"`
-2. **Project root**: `.env`
-3. **.claude directory**: `.claude/.env`
-4. **.claude/skills directory**: `.claude/skills/.env`
-5. **Skill directory**: `.claude/skills/gemini-audio/.env`
+2. **Skill directory**: `.claude/skills/gemini-audio/.env`
+3. **Project directory**: `./.env` (project root)
 
 **Get your API key**: Visit [Google AI Studio](https://aistudio.google.com/apikey)
 
 Create `.env` file with:
+
 ```bash
 GEMINI_API_KEY=your_api_key_here
-```
-
-#### Option 2: Vertex AI
-
-To use Vertex AI instead:
-
-```bash
-# Enable Vertex AI
-export GEMINI_USE_VERTEX=true
-export VERTEX_PROJECT_ID=your-gcp-project-id
-export VERTEX_LOCATION=us-central1  # Optional, defaults to us-central1
-```
-
-Or in `.env` file:
-```bash
-GEMINI_USE_VERTEX=true
-VERTEX_PROJECT_ID=your-gcp-project-id
-VERTEX_LOCATION=us-central1
 ```
 
 ### Python Setup
 
 Install required package:
+
 ```bash
 pip install google-genai
 ```
@@ -124,14 +103,14 @@ python .claude/skills/gemini-audio/scripts/generate-speech.py \
 
 ### Supported Formats
 
-| Format | MIME Type | Best Use |
-|--------|-----------|----------|
-| WAV | `audio/wav` | Uncompressed, highest quality |
-| MP3 | `audio/mp3` | Compressed, widely compatible |
-| AAC | `audio/aac` | Compressed, good quality |
-| FLAC | `audio/flac` | Lossless compression |
-| OGG Vorbis | `audio/ogg` | Open format |
-| AIFF | `audio/aiff` | Apple format |
+| Format     | MIME Type    | Best Use                      |
+| ---------- | ------------ | ----------------------------- |
+| WAV        | `audio/wav`  | Uncompressed, highest quality |
+| MP3        | `audio/mp3`  | Compressed, widely compatible |
+| AAC        | `audio/aac`  | Compressed, good quality      |
+| FLAC       | `audio/flac` | Lossless compression          |
+| OGG Vorbis | `audio/ogg`  | Open format                   |
+| AIFF       | `audio/aiff` | Apple format                  |
 
 ### Audio Specifications
 
@@ -156,10 +135,10 @@ python .claude/skills/gemini-audio/scripts/generate-speech.py \
 
 ### Available TTS Models
 
-| Model | Quality | Speed | Cost/1M tokens |
-|-------|---------|-------|----------------|
-| `gemini-2.5-flash-native-audio-preview-09-2025` | High | Fast | $10 |
-| `gemini-2.5-pro` TTS mode | Premium | Slower | $20 |
+| Model                                           | Quality | Speed  | Cost/1M tokens |
+| ----------------------------------------------- | ------- | ------ | -------------- |
+| `gemini-2.5-flash-native-audio-preview-09-2025` | High    | Fast   | $10            |
+| `gemini-2.5-pro` TTS mode                       | Premium | Slower | $20            |
 
 ### Controllable Voice Options
 
@@ -221,26 +200,31 @@ response = client.models.generate_content(
 ## Common Use Cases
 
 ### Transcription
+
 ```bash
 python scripts/transcribe.py meeting.mp3 --include-timestamps
 ```
 
 ### Summary with Key Points
+
 ```bash
 python scripts/analyze.py interview.wav "Extract main topics and key quotes"
 ```
 
 ### Speaker Identification
+
 ```bash
 python scripts/analyze.py discussion.mp3 "Identify speakers and extract dialogue"
 ```
 
 ### Segment Analysis
+
 ```bash
 python scripts/analyze.py podcast.mp3 "Summarize content from 10:30 to 15:45"
 ```
 
 ### Non-Speech Analysis
+
 ```bash
 python scripts/analyze.py ambient.wav "Identify all sounds: voices, music, ambient"
 ```
@@ -248,22 +232,26 @@ python scripts/analyze.py ambient.wav "Identify all sounds: voices, music, ambie
 ## Best Practices
 
 ### File Management
+
 - Use File API for files >20MB or repeated usage
 - Files auto-delete after 48 hours
 - Manage quota (20 GB project limit)
 
 ### Prompt Engineering
+
 - Be specific: "Transcribe from 02:30 to 03:29"
 - Use timestamps for segment analysis (MM:SS format)
 - Combine tasks: "Transcribe and summarize"
 - Provide context: "This is a medical interview"
 
 ### Cost Optimization
+
 - Use `gemini-2.5-flash` ($1/1M tokens) for most tasks
 - Upgrade to `gemini-2.5-pro` ($3/1M tokens) for complex analysis
 - Check token count: 1 min audio = 1,920 tokens
 
 ### Error Handling
+
 - Validate file format and size before upload
 - Implement exponential backoff for rate limits
 - Handle 48-hour file expiration
@@ -271,22 +259,26 @@ python scripts/analyze.py ambient.wav "Identify all sounds: voices, music, ambie
 ## Token Costs & Pricing
 
 **Audio Input** (32 tokens/second):
+
 - 1 minute = 1,920 tokens
 - 1 hour = 115,200 tokens
 - 9.5 hours = 1,094,400 tokens
 
 **Model Pricing**:
+
 - Gemini 2.5 Flash: $1.00/1M input, $0.10/1M output
 - Gemini 2.5 Pro: $3.00/1M input, $12.00/1M output
 - Gemini 1.5 Flash: $0.70/1M input, $0.175/1M output
 
 **TTS Pricing**:
+
 - Flash TTS: $10/1M tokens
 - Pro TTS: $20/1M tokens
 
 ## Reference Documentation
 
 For detailed information, see:
+
 - `references/api-reference.md` - Complete API specifications
 - `references/code-examples.md` - Comprehensive code examples
 - `references/tts-guide.md` - Text-to-speech implementation guide

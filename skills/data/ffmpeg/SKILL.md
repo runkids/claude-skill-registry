@@ -12,6 +12,7 @@ FFmpeg is a comprehensive open-source multimedia framework that handles video, a
 ## When to Use This Skill
 
 Use this skill when:
+
 - Converting media files between formats (MP4, MKV, WebM, AVI, etc.)
 - Encoding/decoding video with different codecs (H.264, H.265, VP9, AV1)
 - Processing audio files (AAC, MP3, FLAC, Opus)
@@ -46,22 +47,27 @@ Use this skill when:
 ### Modern Codecs
 
 **H.264 (libx264)**: Most widely supported, excellent compression/quality balance
+
 - Best for: Universal compatibility, streaming, web video
 - Quality range: CRF 17-28 (lower = better quality)
 
 **H.265/HEVC (libx265)**: 25-50% better compression than H.264
+
 - Best for: 4K video, file size reduction
 - Slower encoding, limited browser support
 
 **VP9**: Royalty-free, WebM format
+
 - Best for: YouTube, open-source projects
 - Good quality/compression, Chrome/Firefox support
 
 **AV1 (libaom-av1, libsvtav1)**: Next-generation codec, best compression
+
 - Best for: Future-proofing, ultimate quality/size ratio
 - Very slow encoding (improving with SVT-AV1)
 
 ### Legacy Codecs
+
 - MPEG-4 (Xvid/DivX)
 - MPEG-2
 - VP8
@@ -90,11 +96,13 @@ Use this skill when:
 ### Format Conversion
 
 Simple format conversion without re-encoding:
+
 ```bash
 ffmpeg -i input.mkv -c copy output.mp4
 ```
 
 Convert with specific codecs:
+
 ```bash
 ffmpeg -i input.avi -c:v libx264 -c:a aac output.mp4
 ```
@@ -115,6 +123,7 @@ ffmpeg -i input.mkv -c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus output.webm
 ```
 
 **CRF Scale:**
+
 - 0 = Lossless (huge file size)
 - 17-18 = Visually lossless
 - 20-23 = High quality (recommended)
@@ -123,6 +132,7 @@ ffmpeg -i input.mkv -c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus output.webm
 - 51 = Worst quality
 
 **Presets** (speed vs compression):
+
 - ultrafast, superfast, veryfast, faster, fast
 - medium (default)
 - slow, slower, veryslow (better compression)
@@ -143,16 +153,19 @@ ffmpeg -i input.mkv -c:v libx264 -b:v 2600k -pass 2 -c:a aac -b:a 128k output.mp
 ### Audio Extraction
 
 Extract audio without re-encoding:
+
 ```bash
 ffmpeg -i video.mp4 -vn -c:a copy audio.m4a
 ```
 
 Extract and convert to MP3:
+
 ```bash
 ffmpeg -i video.mp4 -vn -q:a 0 audio.mp3
 ```
 
 Extract with specific bitrate:
+
 ```bash
 ffmpeg -i video.mp4 -vn -c:a libmp3lame -b:a 192k audio.mp3
 ```
@@ -160,11 +173,13 @@ ffmpeg -i video.mp4 -vn -c:a libmp3lame -b:a 192k audio.mp3
 ### Video Scaling/Resizing
 
 Scale to specific dimensions:
+
 ```bash
 ffmpeg -i input.mp4 -vf scale=1280:720 output.mp4
 ```
 
 Scale maintaining aspect ratio:
+
 ```bash
 # Width 1280, height auto-calculated
 ffmpeg -i input.mp4 -vf scale=1280:-1 output.mp4
@@ -174,6 +189,7 @@ ffmpeg -i input.mp4 -vf scale=-1:720 output.mp4
 ```
 
 Scale to half resolution:
+
 ```bash
 ffmpeg -i input.mp4 -vf scale=iw/2:ih/2 output.mp4
 ```
@@ -181,16 +197,19 @@ ffmpeg -i input.mp4 -vf scale=iw/2:ih/2 output.mp4
 ### Trimming/Cutting Video
 
 Cut without re-encoding (fast but less precise):
+
 ```bash
 ffmpeg -i input.mp4 -ss 00:01:30 -to 00:03:00 -c copy output.mp4
 ```
 
 Cut with re-encoding (precise):
+
 ```bash
 ffmpeg -i input.mp4 -ss 00:01:30 -t 00:01:30 -c:v libx264 -c:a aac output.mp4
 ```
 
 Parameters:
+
 - `-ss`: Start time (HH:MM:SS or seconds)
 - `-to`: End time
 - `-t`: Duration (instead of end time)
@@ -200,6 +219,7 @@ Parameters:
 **Method 1: Concat demuxer (same codec/format)**
 
 Create `concat.txt`:
+
 ```
 file 'input1.mp4'
 file 'input2.mp4'
@@ -207,11 +227,13 @@ file 'input3.mp4'
 ```
 
 Run:
+
 ```bash
 ffmpeg -f concat -safe 0 -i concat.txt -c copy output.mp4
 ```
 
 **Method 2: Concat filter (different formats)**
+
 ```bash
 ffmpeg -i input1.mp4 -i input2.mp4 -i input3.mp4 \
   -filter_complex "[0:v][0:a][1:v][1:a][2:v][2:a]concat=n=3:v=1:a=1[v][a]" \
@@ -223,21 +245,25 @@ ffmpeg -i input1.mp4 -i input2.mp4 -i input3.mp4 \
 ### Video Filters
 
 **Multiple filters (chain with comma):**
+
 ```bash
 ffmpeg -i input.mp4 -vf "scale=1280:720,hqdn3d" output.mp4
 ```
 
 **Denoise:**
+
 ```bash
 ffmpeg -i input.mp4 -vf hqdn3d output.mp4
 ```
 
 **Deinterlace:**
+
 ```bash
 ffmpeg -i input.mp4 -vf yadif output.mp4
 ```
 
 **Crop:**
+
 ```bash
 # Crop to 1280x720 from top-left (0,0)
 ffmpeg -i input.mp4 -vf "crop=1280:720:0:0" output.mp4
@@ -247,6 +273,7 @@ ffmpeg -i input.mp4 -vf "cropdetect" output.mp4
 ```
 
 **Rotate:**
+
 ```bash
 # Rotate 90 degrees clockwise
 ffmpeg -i input.mp4 -vf "transpose=1" output.mp4
@@ -256,12 +283,14 @@ ffmpeg -i input.mp4 -vf "transpose=1,transpose=1" output.mp4
 ```
 
 **Watermark/Logo:**
+
 ```bash
 ffmpeg -i video.mp4 -i logo.png \
   -filter_complex "overlay=10:10" output.mp4
 ```
 
 **Speed adjustment:**
+
 ```bash
 # 2x speed
 ffmpeg -i input.mp4 -vf "setpts=0.5*PTS" -af "atempo=2.0" output.mp4
@@ -273,6 +302,7 @@ ffmpeg -i input.mp4 -vf "setpts=2.0*PTS" -af "atempo=0.5" output.mp4
 ### Audio Filters
 
 **Volume adjustment:**
+
 ```bash
 # Increase volume by 10dB
 ffmpeg -i input.mp4 -af "volume=10dB" output.mp4
@@ -282,17 +312,20 @@ ffmpeg -i input.mp4 -af "volume=0.5" output.mp4
 ```
 
 **Normalize audio:**
+
 ```bash
 ffmpeg -i input.mp4 -af loudnorm output.mp4
 ```
 
 **Crossfade between audio:**
+
 ```bash
 ffmpeg -i audio1.mp3 -i audio2.mp3 \
   -filter_complex "[0][1]acrossfade=d=5" output.mp3
 ```
 
 **Mix multiple audio tracks:**
+
 ```bash
 ffmpeg -i input1.mp3 -i input2.mp3 \
   -filter_complex "[0:a][1:a]amix=inputs=2:duration=longest" output.mp3
@@ -303,6 +336,7 @@ ffmpeg -i input1.mp3 -i input2.mp3 \
 ### RTMP Streaming (Twitch/YouTube)
 
 **Basic stream:**
+
 ```bash
 ffmpeg -re -i input.mp4 -c:v libx264 -preset veryfast \
   -maxrate 3000k -bufsize 6000k -pix_fmt yuv420p -g 50 \
@@ -311,6 +345,7 @@ ffmpeg -re -i input.mp4 -c:v libx264 -preset veryfast \
 ```
 
 **Screen capture + stream (Linux):**
+
 ```bash
 ffmpeg -f x11grab -s 1920x1080 -framerate 30 -i :0.0 \
   -f pulse -ac 2 -i default \
@@ -321,6 +356,7 @@ ffmpeg -f x11grab -s 1920x1080 -framerate 30 -i :0.0 \
 ```
 
 **Screen capture (Windows DirectShow):**
+
 ```bash
 ffmpeg -f dshow -i video="screen-capture-recorder":audio="Stereo Mix" \
   -c:v libx264 -preset ultrafast -tune zerolatency \
@@ -329,6 +365,7 @@ ffmpeg -f dshow -i video="screen-capture-recorder":audio="Stereo Mix" \
 ```
 
 **Important streaming parameters:**
+
 - `-re`: Read input at native frame rate (real-time)
 - `-tune zerolatency`: Optimize for low latency
 - `-g 50`: Keyframe every 50 frames (2 seconds @ 25fps)
@@ -338,6 +375,7 @@ ffmpeg -f dshow -i video="screen-capture-recorder":audio="Stereo Mix" \
 ### HLS Streaming
 
 Generate adaptive HLS stream:
+
 ```bash
 ffmpeg -i input.mp4 \
   -c:v libx264 -preset fast -crf 22 -g 48 -sc_threshold 0 \
@@ -348,6 +386,7 @@ ffmpeg -i input.mp4 \
 ```
 
 **Multi-bitrate HLS:**
+
 ```bash
 ffmpeg -i input.mp4 \
   -map 0:v -map 0:a -map 0:v -map 0:a \
@@ -362,11 +401,13 @@ ffmpeg -i input.mp4 \
 ### UDP/RTP Streaming
 
 **UDP stream:**
+
 ```bash
 ffmpeg -re -i input.mp4 -c copy -f mpegts udp://192.168.1.100:1234
 ```
 
 **RTP audio stream:**
+
 ```bash
 ffmpeg -re -i audio.mp3 -c:a libopus -f rtp rtp://192.168.1.100:5004
 ```
@@ -519,16 +560,19 @@ ffmpeg -i input.mp4 -vf fps=1/60,scale=320:-1 thumb_%03d.jpg
 ### Speed vs Quality Trade-offs
 
 **Fast encoding (real-time processing):**
+
 ```bash
 ffmpeg -i input.mp4 -c:v libx264 -preset ultrafast -crf 23 output.mp4
 ```
 
 **Balanced (default):**
+
 ```bash
 ffmpeg -i input.mp4 -c:v libx264 -preset medium -crf 22 output.mp4
 ```
 
 **High quality (archival):**
+
 ```bash
 ffmpeg -i input.mp4 -c:v libx264 -preset veryslow -crf 18 output.mp4
 ```
@@ -536,6 +580,7 @@ ffmpeg -i input.mp4 -c:v libx264 -preset veryslow -crf 18 output.mp4
 ### Multi-threading
 
 FFmpeg automatically uses multiple CPU cores. Override with:
+
 ```bash
 ffmpeg -threads 8 -i input.mp4 -c:v libx264 output.mp4
 ```
@@ -556,6 +601,7 @@ ffmpeg -threads 8 -i input.mp4 -c:v libx264 output.mp4
 ## Common Parameters Reference
 
 ### Video Parameters
+
 - `-c:v` or `-vcodec`: Video codec
 - `-b:v`: Video bitrate (e.g., `2M`, `2500k`)
 - `-crf`: Constant Rate Factor (0-51)
@@ -566,6 +612,7 @@ ffmpeg -threads 8 -i input.mp4 -c:v libx264 output.mp4
 - `-g`: GOP size (keyframe interval)
 
 ### Audio Parameters
+
 - `-c:a` or `-acodec`: Audio codec
 - `-b:a`: Audio bitrate (e.g., `128k`, `192k`)
 - `-ar`: Audio sample rate (e.g., `44100`, `48000`)
@@ -573,6 +620,7 @@ ffmpeg -threads 8 -i input.mp4 -c:v libx264 output.mp4
 - `-q:a`: Audio quality for VBR (0=best for MP3)
 
 ### General Parameters
+
 - `-i`: Input file
 - `-y`: Overwrite output without asking
 - `-n`: Never overwrite output
@@ -588,7 +636,9 @@ ffmpeg -threads 8 -i input.mp4 -c:v libx264 output.mp4
 ## Troubleshooting
 
 ### "Unknown encoder" errors
+
 Install codec libraries:
+
 ```bash
 # Ubuntu/Debian
 sudo apt-get install ffmpeg libx264-dev libx265-dev libvpx-dev
@@ -598,19 +648,23 @@ ffmpeg -encoders
 ```
 
 ### Output compatibility issues
+
 Use safe defaults for maximum compatibility:
+
 ```bash
 ffmpeg -i input.mkv -c:v libx264 -profile:v high -level 4.0 \
   -pix_fmt yuv420p -c:a aac -b:a 128k output.mp4
 ```
 
 ### Performance issues
+
 - Use hardware acceleration (`-hwaccel`)
 - Choose faster presets (`-preset fast`)
 - Reduce resolution with scale filter
 - Use multiple threads explicitly
 
 ### Quality issues
+
 - Lower CRF value (18-22 for high quality)
 - Use slower preset (`-preset slow`)
 - Use two-pass encoding for better bitrate distribution

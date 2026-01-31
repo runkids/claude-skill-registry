@@ -4,6 +4,7 @@ description: Guide to review incoming one-way (unilateral) commercial NDAs in a 
 metadata:
   author: Jamie Tso
   license: AGPL-3.0
+  version: 2025.12.30
 ---
 
 # NDA Review Playbook (Commercial, Jurisdiction-Agnostic)

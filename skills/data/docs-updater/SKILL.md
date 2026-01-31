@@ -1,393 +1,191 @@
 ---
 name: docs-updater
-description: Expert assistant for keeping documentation synchronized with code changes in the KR92 Bible Voice project. Use when updating API docs, maintaining architecture diagrams, syncing README, updating CLAUDE.MD, or generating documentation from code.
+description: Reviews completed feature work and updates documentation files (CLAUDE.md, README.md, docs/) as needed. Invoked after implementation is complete.
+context: fork
+agent: general-purpose
+allowed-tools:
+  - Glob
+  - Grep
+  - Read
+  - Edit
+  - Write
+  - Bash
+  - mcp__perplexity-ask__perplexity_ask
+  - mcp__task-trellis__get_issue
+  - mcp__task-trellis__list_issues
 ---
 
-# Docs Updater
+# Documentation Updater
 
-## Capabilities
-- Update API docs when schemas change
-- Maintain architecture diagrams
-- Sync README with actual features
-- Ensure CLAUDE.MD stays current
-- Generate documentation from code
+Review completed feature work and update documentation files as needed. This skill is invoked by the orchestration workflow after implementation is complete and before the feature is marked done.
 
-## Documentation Files
+## Goal
 
-| File | Purpose | Update When |
-|------|---------|-------------|
-| `CLAUDE.MD` | AI context doc | Major architecture changes |
-| `README.md` | Project overview | Feature changes, setup changes |
-| `Docs/01-PRD.md` | Product requirements | Vision or scope changes |
-| `Docs/02-DESIGN.md` | Architecture | System design changes |
-| `Docs/03-API.md` | API contracts | Database/RPC/Edge Function changes |
-| `Docs/04-DEV-WORKFLOW.md` | Dev process | Workflow or CI/CD changes |
-| `Docs/05-DEV.md` | Bible lookups | RPC function changes |
-| `Docs/06-AI-ARCHITECTURE.md` | AI system | AI feature or prompt changes |
-| `Docs/07-ADMIN-GUIDE.md` | Admin panel | Admin feature changes |
-| `Docs/08-WIDGET.md` | Widget docs | Widget API or features changes |
+Ensure documentation stays current with code changes by reviewing what was implemented and making targeted updates to relevant documentation files.
 
-## Usage Examples
+## Required Inputs
 
-### Example 1: Update API Docs After Schema Change
-**User:** "I added a new table 'user_study_plans'. Update the docs."
+- **Issue ID**: The Feature or Epic ID that was just implemented (e.g., "F-add-user-auth")
+- **Additional Context** (optional): Specific areas to focus on or notes from implementation
 
-**Assistant:**
+## Subagent Limitations
 
-Update `Docs/03-API.md`:
-```markdown
-### User Data Tables (public)
-| Table | Primary Key | Notes |
-|-------|-------------|-------|
-| `profiles` | `id` (UUID) | User profiles with preferences |
-| `bookmarks` | `id` (UUID) | User bookmarks (RLS enabled) |
-| `highlights` | `id` (UUID) | User highlights with color (RLS enabled) |
-| `user_study_plans` | `id` (UUID) | **NEW** User-created Bible study plans (RLS enabled) |
-| ... | ... | ... |
+This skill runs as a subagent and cannot ask questions directly. If critical information is missing or documentation changes require human judgment, include these concerns in the output summary for the orchestrator to address.
 
-### User Data
+## Documentation Files to Maintain
 
-**NEW** Study Plans:
-\`\`\`sql
--- Get user's study plans
-get_user_study_plans(p_user_id)
+- `CLAUDE.md` - Project instructions for Claude Code
+- `README.md` - Project readme
+- `docs/**` - Any files in the docs folder
 
--- Create study plan
-create_study_plan(p_title, p_description, p_duration_days)
+## Process
 
--- Add chapter to plan
-add_plan_chapter(p_plan_id, p_book_name, p_chapter_number, p_day_number)
-\`\`\`
+### 1. Gather Context on What Changed
+
+Understand the scope of changes made during the feature implementation:
+
+- **Get the issue**: Use `get_issue` to retrieve the feature/epic details including:
+  - Title and description (what was implemented)
+  - Child tasks and their modified files
+  - Implementation log entries
+- **Get git diff**: Use `git diff main...HEAD` (or appropriate base branch) to see all code changes
+- **List modified files**: Compile a complete list of files that were created or modified
+
+### 2. Analyze Documentation Impact
+
+Evaluate whether documentation updates are needed:
+
+- **Behavior changes**: Have any documented behaviors been modified?
+- **API changes**: Have any APIs, endpoints, or interfaces changed?
+- **Configuration changes**: Have any settings, options, or configurations changed?
+- **New features**: Are there new features that users need to know about?
+- **Removed features**: Has anything been deprecated or removed?
+- **Usage patterns**: Have any workflows or usage patterns changed?
+
+### 3. Identify Documentation Files to Update
+
+For each type of documentation, assess relevance:
+
+**CLAUDE.md** (Agent Steering Spec):
+
+CLAUDE.md should be a steering spec for agents, not a code index. Think "minimum instructions the agent always needs" and push everything else to linked docs.
+
+*Core Principles:*
+- Keep it short enough to fit comfortably in context (aim ≤150 lines)
+- Make every line actionable: commands, rules, gotchas; avoid prose that doesn't change behavior
+- Do not mirror the README or list files; link to existing docs instead
+- Mental model: "If this disappeared, what would cause the agent to start making bad choices?"
+
+*Recommended Structure:*
+1. **Project overview** (1-3 sentences) - What the app is, main tech stack, key constraints
+2. **How to run, build, and test** - Explicit commands in code blocks, including non-obvious flags
+3. **Conventions and boundaries** - Code style not enforced by tooling, folder layout, naming patterns, architectural rules. Include "Always / Ask first / Never" lists for risky operations (DB schema, auth, infra, secrets, CI)
+4. **Task workflow for agents** - Branching/commit style, PR expectations, whether to run tests/linters before proposing changes
+5. **Links to deeper docs** - Point to README, docs/, ADRs, or external URLs instead of duplicating content
+
+*What to Remove:*
+- Raw listings of files or directories beyond high-level structure
+- Generated agent output verbatim (summaries, long path lists from scans)
+- Obvious advice ("write clean code", "add comments when appropriate")
+
+*What to Keep (but compress):*
+- Very short "Project structure" section, only for key folders and special patterns
+- Non-obvious layering rules (e.g., "components may import hooks, but hooks must not import components")
+
+*What to Push Elsewhere:*
+- Detailed API docs, schema docs, ADRs, design notes → put in docs/ and link
+- Domain tutorials or user guides
+
+*Patterns That Work Well:*
+- Progressive disclosure: Root file is minimal; deeper topics live in separate files linked from the root
+- Clear precedence: For monorepos, use nested CLAUDE.md where "closest file wins" for local instructions
+- Explicit guardrails work better than vague cautions: "Ask before adding new runtime dependencies", "Never edit GitHub Actions workflows"
+
+**README.md**:
+- Installation or setup changes
+- New features or capabilities
+- Configuration options
+- Usage examples
+
+**docs/** (Living Specification):
+
+The `/docs` folder serves as the living specification and source of truth for the project. All developers and AI agents should turn to these docs when they need information about how the system is supposed to work.
+
+*Purpose:*
+- Documents the intended behavior, architecture, and design decisions of the system
+- Acts as the authoritative reference that code should conform to
+- Provides context that helps agents make correct decisions
+
+*What Belongs in docs/:*
+- API documentation and specifications
+- Architecture documentation and diagrams
+- Design decisions and ADRs (Architecture Decision Records)
+- User guides and tutorials
+- Reference materials and schema documentation
+- Domain-specific knowledge and business rules
+- Integration guides and protocols
+
+*Maintenance Guidelines:*
+- Keep docs synchronized with actual system behavior
+- When code changes conflict with docs, determine which is correct (sometimes the doc is the spec and code needs fixing; other times the doc is stale)
+- Prefer updating existing docs over creating new ones to avoid fragmentation
+- Use clear, consistent naming and organization
+- Link from CLAUDE.md to relevant docs rather than duplicating content
+- If information isn't in the docs and an agent needs it, that's a signal the docs may need updating (consult the user first)
+
+### 4. Make Documentation Updates
+
+For each file requiring updates:
+
+- **Read the existing documentation** to understand current content and style
+- **Make targeted edits** that integrate naturally with existing content
+- **Follow the existing style** (formatting, tone, level of detail)
+- **Keep updates focused** on what actually changed
+- **Avoid over-documenting** - only document what's necessary
+
+### 5. Generate Summary
+
+Compile the results of your documentation review.
+
+## Output Format
+
+Provide a summary of documentation updates in the following format:
+
+### When Files Were Updated
+
+```
+## Documentation Updates
+
+### Files Updated
+- `README.md`: [Brief description of what was updated]
+- `docs/api.md`: [Brief description of what was updated]
+- `CLAUDE.md`: [Brief description of what was updated]
+
+### Summary
+[2-3 sentence overview of documentation changes and why they were needed]
+
+### Notes for Review
+[Any areas of uncertainty or items that may need human review - omit if none]
 ```
 
-Update `Docs/02-DESIGN.md`:
-```markdown
-### User Data Tables (public)
-\`\`\`sql
-profiles(id, user_id, display_name, email, audio_enabled)
-bookmarks(id, user_id, verse_id, osis, chapter_id)
-highlights(id, user_id, verse_id, color, tags)
-user_study_plans(id, user_id, title, description, duration_days, created_at)  # NEW
-plan_chapters(id, plan_id, book_name, chapter_number, day_number, completed)  # NEW
-\`\`\`
+### When No Updates Needed
+
+```
+## Documentation Updates
+
+No documentation updates needed.
+
+### Analysis
+The changes made during this implementation do not affect any documented behaviors, APIs, configurations, or usage patterns.
+
+### Files Reviewed
+- [List of documentation files checked]
 ```
 
-Update `CLAUDE.MD`:
-```markdown
-### Database Schemas
+## Guidelines
 
-**public** - User data and application tables:
-- `profiles`, `user_roles`, `bookmarks`, `highlights`
-- `user_study_plans`, `plan_chapters` # NEW - Bible study planning
-- ...
-```
-
-### Example 2: Document New RPC Function
-**User:** "Created RPC function `search_user_content(query, user_id)`. Document it."
-
-**Assistant:**
-
-Add to `Docs/03-API.md`:
-```markdown
-### User Content Search
-
-**NEW** Search across user's bookmarks, highlights, and notes:
-\`\`\`sql
-search_user_content(p_query TEXT, p_user_id UUID DEFAULT auth.uid(), p_limit INT DEFAULT 50)
-→ [{
-  content_type TEXT,           -- 'bookmark', 'highlight', 'note'
-  verse_id UUID,
-  osis TEXT,
-  verse_text TEXT,
-  note_text TEXT,              -- NULL for bookmarks/highlights
-  highlight_color TEXT,        -- NULL for bookmarks/notes
-  created_at TIMESTAMPTZ,
-  rank REAL                    -- Full-text search rank
-}]
-\`\`\`
-
-**TypeScript:**
-\`\`\`typescript
-const { data } = await supabase.rpc('search_user_content', {
-  p_query: 'grace faith',
-  p_limit: 20
-});
-\`\`\`
-```
-
-Add to `Docs/05-DEV.md`:
-```markdown
-### search_user_content — Search User Content
-
-\`\`\`sql
-SELECT * FROM public.search_user_content(
-  p_query := 'grace',
-  p_user_id := auth.uid(),
-  p_limit := 50
-);
-\`\`\`
-
-**Returns:** Combined results from bookmarks, highlights, and notes with full-text search ranking.
-```
-
-### Example 3: Update Architecture Diagram
-**User:** "Added new Edge Function 'generate-study-plan'. Update architecture docs."
-
-**Assistant:**
-
-Update `Docs/02-DESIGN.md`:
-```markdown
-### Edge Functions
-
-Location: `supabase/functions/`
-
-| Function | Auth | Purpose |
-|----------|------|---------|
-| `ai-orchestrator` | JWT | Central AI routing with usage logging |
-| `translate-search-term` | Public | FI↔EN term translation for search |
-| `generate-study-plan` | JWT | **NEW** AI-powered study plan generation |
-| `generate-audio` | JWT | ElevenLabs TTS generation |
-| ... | ... | ... |
-```
-
-Update architecture diagram:
-```markdown
-## AI Integration Flow
-
-\`\`\`
-1. User requests study plan
-       │
-       ▼
-2. Frontend calls Edge Function
-       │
-       ▼
-3. Edge Function:
-   ├── Fetch feature config (vendor/model)
-   ├── Fetch prompt template from DB
-   ├── Render prompt with user preferences
-   ├── Call AI provider
-   ├── Parse structured study plan
-   ├── Save to database
-   ├── Log usage to ai_usage_logs
-   └── Return plan to user
-       │
-       ▼
-4. Frontend displays plan with chapters
-\`\`\`
-```
-
-### Example 4: Sync README with Features
-**User:** "Audio feature now supports playback speed control. Update README."
-
-**Assistant:**
-
-Update `README.md`:
-```markdown
-## Key Features
-
-- Multi-version Bible reader (KR92/STLK 2017, 1933/38, KJV with Strong's)
-- Full-text search and Strong's Concordance lookup
-- AI-powered search term translation (Finnish ↔ English)
-- AI summaries and contextual analysis
-- Topic explorer with cross-references
-- Audio Bible with ElevenLabs TTS **← Updated**
-  - **NEW:** Playback speed control (0.5x - 2.0x)
-  - **NEW:** Skip forward/backward 10 seconds
-  - Chapter-by-chapter playback with verse sync
-- User accounts with bookmarks and highlights
-...
-```
-
-### Example 5: Generate API Documentation from Code
-**User:** "Generate API documentation for the new Edge Function"
-
-**Assistant:**
-
-Create documentation from Edge Function code:
-```typescript
-// supabase/functions/generate-study-plan/index.ts
-
-/**
- * Generate Study Plan Edge Function
- *
- * Creates an AI-powered Bible study plan based on user preferences.
- *
- * @endpoint POST /functions/v1/generate-study-plan
- * @auth JWT required
- *
- * @request
- * {
- *   duration_days: number,      // Plan duration (7-90 days)
- *   focus_topic?: string,        // Optional topic focus
- *   books?: string[],           // Optional book preferences
- *   daily_chapters?: number     // Chapters per day (1-5)
- * }
- *
- * @response
- * {
- *   success: boolean,
- *   plan: {
- *     id: string,
- *     title: string,
- *     description: string,
- *     duration_days: number,
- *     chapters: [{
- *       day_number: number,
- *       book_name: string,
- *       chapter_number: number,
- *       reason: string            // AI-generated explanation
- *     }]
- *   },
- *   metadata: {
- *     model: string,
- *     latencyMs: number,
- *     tokens: number
- *   }
- * }
- *
- * @example
- * const { data } = await supabase.functions.invoke('generate-study-plan', {
- *   body: {
- *     duration_days: 30,
- *     focus_topic: 'grace',
- *     daily_chapters: 2
- *   }
- * });
- */
-```
-
-Generate markdown documentation:
-```markdown
-## Edge Function: generate-study-plan
-
-**Endpoint:** `POST /functions/v1/generate-study-plan`
-**Authentication:** JWT required
-**Purpose:** Generate AI-powered Bible study plans
-
-### Request Body
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `duration_days` | number | Yes | Plan duration (7-90 days) |
-| `focus_topic` | string | No | Optional topic focus |
-| `books` | string[] | No | Optional book preferences |
-| `daily_chapters` | number | No | Chapters per day (1-5, default: 2) |
-
-### Response
-
-\`\`\`json
-{
-  "success": true,
-  "plan": {
-    "id": "uuid",
-    "title": "30-Day Grace Study",
-    "description": "AI-generated study plan focusing on grace",
-    "duration_days": 30,
-    "chapters": [
-      {
-        "day_number": 1,
-        "book_name": "Romans",
-        "chapter_number": 3,
-        "reason": "Introduces foundational concepts of grace"
-      }
-    ]
-  },
-  "metadata": {
-    "model": "google/gemini-2.5-flash",
-    "latencyMs": 2341,
-    "tokens": 1523
-  }
-}
-\`\`\`
-
-### Usage Example
-
-\`\`\`typescript
-const { data, error } = await supabase.functions.invoke('generate-study-plan', {
-  body: {
-    duration_days: 30,
-    focus_topic: 'grace',
-    daily_chapters: 2
-  }
-});
-
-if (error) throw error;
-console.log('Generated plan:', data.plan);
-\`\`\`
-```
-
-## Documentation Checklist
-
-When making changes, update docs in this order:
-
-### 1. Code Changes
-- [ ] Write code
-- [ ] Add JSDoc/comments
-- [ ] Add TypeScript types
-
-### 2. API Documentation (if applicable)
-- [ ] Update `Docs/03-API.md` with new tables/functions
-- [ ] Add request/response examples
-- [ ] Document error cases
-
-### 3. Architecture Documentation (if applicable)
-- [ ] Update `Docs/02-DESIGN.md` with architectural changes
-- [ ] Update diagrams
-- [ ] Document new patterns
-
-### 4. Usage Documentation
-- [ ] Update relevant guide (`05-DEV.md`, `06-AI-ARCHITECTURE.md`, etc.)
-- [ ] Add usage examples
-- [ ] Update best practices
-
-### 5. User-Facing Documentation
-- [ ] Update `README.md` for feature changes
-- [ ] Update `Docs/07-ADMIN-GUIDE.md` for admin features
-- [ ] Update `Docs/08-WIDGET.md` for widget changes
-
-### 6. AI Context
-- [ ] Update `CLAUDE.MD` for major changes
-- [ ] Keep schema reference current
-- [ ] Update common patterns
-
-## Documentation Quality Standards
-
-### Good Documentation
-- ✅ Clear and concise
-- ✅ Includes examples
-- ✅ Explains the "why" not just "what"
-- ✅ Up-to-date with code
-- ✅ Covers error cases
-- ✅ Uses consistent formatting
-
-### Bad Documentation
-- ❌ Outdated information
-- ❌ No examples
-- ❌ Vague descriptions
-- ❌ Missing error handling
-- ❌ Inconsistent formatting
-- ❌ Missing type information
-
-## Automation Opportunities
-
-Create documentation generation scripts:
-```typescript
-// scripts/generate-api-docs.ts
-// Reads database schema and generates API documentation
-
-import { createClient } from '@supabase/supabase-js';
-
-async function generateTableDocs() {
-  const supabase = createClient(url, key);
-
-  const { data: tables } = await supabase
-    .from('information_schema.tables')
-    .select('table_name, table_schema');
-
-  // Generate markdown for each table
-  // ...
-}
-```
-
-## Related Documentation
-All documentation files are interconnected - changes often need updates across multiple files.
+- **Minimal changes**: Only update documentation that is directly affected by code changes
+- **Evidence-based**: Base updates on actual code changes, not assumptions
+- **Style consistency**: Match the existing documentation style and format
+- **No placeholders**: Do not add TODO comments or placeholder text
+- **Actionable output**: The summary should clearly communicate what was done

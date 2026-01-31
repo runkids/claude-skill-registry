@@ -1,7 +1,7 @@
 {
   "name": "search",
-  "repo": "zeyxx/CYNIC",
-  "path": ".claude/skills/search/SKILL.md",
-  "source": "github.com/zeyxx/CYNIC",
-  "downloaded_at": "2026-01-30T01:23:55.929652Z"
+  "repo": "ConaryLabs/Mira",
+  "path": "plugin/skills/search/SKILL.md",
+  "source": "github.com/ConaryLabs/Mira",
+  "downloaded_at": "2026-01-31T04:40:27.123441Z"
 }

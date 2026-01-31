@@ -4,6 +4,7 @@ description: Guide to analyze a current work session and propose improvements to
 metadata:
   author: Malik Taiar
   license: AGPL-3.0
+  version: 2026.01.07
 ---
 
 # Self-Improve Skill

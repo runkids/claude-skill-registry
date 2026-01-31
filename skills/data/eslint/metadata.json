@@ -1,9 +1,7 @@
 {
   "name": "eslint",
-  "description": "Comprehensive ESLint agent for JavaScript/TypeScript code quality. Use when setting up ESLint, configuring linting rules, analyzing code for issues, fixing violations, or integrating ESLint into devel",
-  "repo": "el-feo/ai-context",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "morgs32/skills",
+  "path": "skills/eslint/SKILL.md",
+  "source": "github.com/morgs32/skills",
+  "downloaded_at": "2026-01-31T02:20:03.828361Z"
 }

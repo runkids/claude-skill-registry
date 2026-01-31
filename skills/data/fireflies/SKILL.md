@@ -1,108 +1,85 @@
 ---
 name: fireflies
-description: AI meeting assistant for transcription and analysis.
-category: productivity
+# prettier-ignore
+description: "Use when finding meeting transcripts, searching Fireflies recordings, getting action items from calls, or answering 'what was discussed in the meeting' questions"
+version: 1.0.0
+category: research
+triggers:
+  - "fireflies"
+  - "meeting transcript"
+  - "meeting notes"
+  - "what was discussed"
+  - "action items"
+  - "zoom call"
+  - "teams meeting"
+  - "google meet"
 ---
-# Fireflies.ai Skill
 
-AI meeting assistant for transcription and analysis.
+<objective>
+Query Fireflies.ai meeting transcripts - recorded calls with AI-generated summaries, action items, and searchable conversation history. Transform "what happened in that meeting?" into structured, actionable insights.
+</objective>
 
-## Quick Install
+<when-to-use>
+Use when finding meeting content, extracting action items, searching professional discussions, getting context from recorded calls, or building understanding from past meetings.
 
+Clear triggers:
+- "What meetings did I have today/this week?"
+- "What was discussed in the [project] meeting?"
+- "What were the action items from yesterday's call?"
+- "Find meetings about [topic]"
+</when-to-use>
+
+<prerequisites>
+Set `FIREFLIES_API_KEY` environment variable. Get your key from [app.fireflies.ai](https://app.fireflies.ai) → Integrations → Fireflies API.
+</prerequisites>
+
+<commands>
 ```bash
-curl -sSL https://canifi.com/skills/fireflies/install.sh | bash
+# Recent transcripts (default: 5)
+fireflies recent
+fireflies recent 10
+
+# Today's meetings
+fireflies today
+
+# Specific date
+fireflies date 2026-01-28
+
+# Search by keyword
+fireflies search "product roadmap"
+fireflies search "budget discussion"
+
+# Full transcript by ID
+fireflies get abc123xyz
+
+# Your account info
+fireflies me
+```
+</commands>
+
+<response-format>
+**List view includes:**
+- id, title, duration, host, participants
+- AI-generated overview and action items
+
+**Full transcript includes:**
+- Complete sentences with speaker names and timestamps
+- Keywords, topics discussed, outline
+- Extracted action items
+</response-format>
+
+<api-notes>
+- Works with Zoom, Google Meet, Microsoft Teams
+- Speaker names from calendar invites
+- GraphQL API docs: [docs.fireflies.ai](https://docs.fireflies.ai)
+</api-notes>
+
+<llm-api-reference>
+If you need to look up API details beyond this skill's commands, use Context7:
+```
+resolve-library-id: fireflies → /websites/fireflies_ai
+query-docs: /websites/fireflies_ai with "GraphQL transcripts query"
 ```
 
-Or manually:
-```bash
-cp -r skills/fireflies ~/.canifi/skills/
-```
-
-## Setup
-
-Configure via [canifi-env](https://canifi.com/setup/scripts):
-
-```bash
-# First, ensure canifi-env is installed:
-# curl -sSL https://canifi.com/install.sh | bash
-
-canifi-env set FIREFLIES_API_KEY "your_api_key"
-```
-
-## Privacy & Authentication
-
-**Your credentials, your choice.** Canifi LifeOS respects your privacy.
-
-### Option 1: Manual Browser Login (Recommended)
-If you prefer not to share credentials with Claude Code:
-1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
-2. Login to the service manually in the Playwright-controlled Chrome window
-3. Claude will use your authenticated session without ever seeing your password
-
-### Option 2: Environment Variables
-If you're comfortable sharing credentials, you can store them locally:
-```bash
-canifi-env set SERVICE_EMAIL "your-email"
-canifi-env set SERVICE_PASSWORD "your-password"
-```
-
-**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
-
-## Capabilities
-
-1. **Auto-Join**: Join meetings automatically
-2. **Transcription**: Accurate meeting notes
-3. **AI Summary**: Key points extraction
-4. **Action Items**: Identify follow-ups
-5. **Integrations**: CRM and tool sync
-
-## Usage Examples
-
-### Get Transcript
-```
-User: "Show transcript of today's meeting"
-Assistant: Returns meeting transcript
-```
-
-### Extract Actions
-```
-User: "What are the action items?"
-Assistant: Lists follow-up tasks
-```
-
-### Search Meetings
-```
-User: "Find discussions about Q4 goals"
-Assistant: Searches across meetings
-```
-
-### Get Summary
-```
-User: "Summarize the standup"
-Assistant: Returns AI summary
-```
-
-## Authentication Flow
-
-1. API key authentication
-2. OAuth for calendar
-3. Meeting bot integration
-4. CRM connections
-
-## Error Handling
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Auth Failed | Invalid key | Check API key |
-| Bot Error | Join failed | Check permissions |
-| Transcription Error | Audio quality | Improve setup |
-| Limit Reached | Minutes exceeded | Upgrade |
-
-## Notes
-
-- Auto-join meetings
-- CRM integration
-- Topic tracking
-- Sound bites
-- API available
-- Browser extension
+Context7 has full GraphQL schema documentation with code examples in Python, JavaScript, and cURL.
+</llm-api-reference>

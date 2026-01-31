@@ -1,12 +1,7 @@
 {
   "name": "adherence-coach",
-  "description": "Identifies missed sessions or inconsistency and proposes plan reshuffles with motivational nudges.",
   "repo": "nadavyigal/Running-coach-",
-  "category": "development",
-  "tags": [
-    "adherence",
-    "coach"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".codex/skills/adherence-coach/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:40.613943Z"
 }

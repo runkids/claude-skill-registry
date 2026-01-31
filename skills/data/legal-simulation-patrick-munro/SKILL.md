@@ -4,6 +4,7 @@ description: "Framework for demonstrating AI capabilities in legal contexts. Pro
 metadata:
   author: Patrick Munro
   license: AGPL-3.0
+  version: 2026.01.12
 ---
 
 # Legal Persona Simulator

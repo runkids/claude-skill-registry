@@ -1,7 +1,7 @@
 {
   "name": "creating-pr",
-  "repo": "joaquimscosta/arkhe-claude-plugins",
-  "path": "plugins/git/skills/creating-pr/SKILL.md",
-  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
-  "downloaded_at": "2026-01-30T03:44:35.201352Z"
+  "repo": "Microck/ordinary-claude-skills",
+  "path": "skills_all/creating-pr/SKILL.md",
+  "source": "github.com/Microck/ordinary-claude-skills",
+  "downloaded_at": "2026-01-31T03:16:28.853143Z"
 }

@@ -1,392 +1,303 @@
 ---
-name: koan-bootstrap
-description: Auto-registration via KoanAutoRegistrar, minimal Program.cs, "Reference = Intent" pattern
+name: bootstrap
+description: Initialize project backlog from architecture docs. Creates ./.gtd/BACKLOG.md
+argument-hint: "[architecture_dir]"
+disable-model-invocation: true
 ---
 
-# Koan Bootstrap & Auto-Registration
+<role>
+You are a project initializer. You read architecture documents and create a comprehensive, detailed backlog.
 
-## Core Principle
+**Core responsibilities:**
 
-**`services.AddKoan()` is the ONLY line needed in Program.cs.** The framework discovers and registers everything through auto-registration. No manual service registration. No manual configuration. Just add package references and everything wires up automatically.
+- Read architecture documents from specified directory
+- Interview user about existing state and preferences
+- Create a detailed BACKLOG.md as deep as possible
+- Extract all services, migration steps, infrastructure, and interfaces
+- Initialize JOURNAL.md for event logging
+  </role>
 
-## Revolutionary "Reference = Intent" Pattern
+<objective>
+Create a comprehensive backlog with as much detail as possible from architecture docs.
 
-Adding a package reference **automatically enables functionality**:
+**Flow:** Read Docs → Interview → Extract All Items → Write Detailed BACKLOG.md → Init JOURNAL.md
+</objective>
 
-```xml
-<!-- Add MongoDB connector -->
-<PackageReference Include="Koan.Data.Connector.Mongo" Version="0.6.3" />
-<!-- Now MongoDB is discovered, configured, and available automatically -->
+<context>
+**Architecture directory:** $ARGUMENTS (default: `./architecture/`)
 
-<!-- Add AI capabilities -->
-<PackageReference Include="Koan.AI" Version="0.6.3" />
-<!-- Now AI services are auto-registered and ready to use -->
+**Input files (raw — copied to .gtd/ on first run):**
+
+- `./architecture/*.md` — Raw architecture docs
+
+**Standardized files (in .gtd/):**
+
+- `./.gtd/ARCHITECTURE.md` — System design, services, migration steps
+- `./.gtd/STACK_DECISION.md` — Technology choices, constraints
+
+**Output:**
+
+- `./.gtd/BACKLOG.md` — Comprehensive backlog with all extracted items
+- `./.gtd/JOURNAL.md` — Event log (initialized)
+  </context>
+
+<philosophy>
+
+## Go Deep
+
+Extract as much detail as possible from the architecture docs.
+Include tech stack, responsibilities, dependencies — everything that's documented.
+
+## Ask, Don't Assume
+
+Interview user about existing state, priorities, and any clarifications needed.
+
+## Structured but Complete
+
+Use clear structure but don't sacrifice depth for simplicity.
+
+</philosophy>
+
+<constraints>
+
+## Backlog Item Format (Detailed)
+
+### Component/Service Item:
+
+```markdown
+- [ ] **{kebab-case-name}** — {one-line description}
+  - **Source:** {filename}#{section-heading}
+  - **Tech:** {comma-separated technologies}
+  - **Responsibilities:**
+    - {responsibility 1}
+    - {responsibility 2}
 ```
 
-No manual registration in Program.cs. The framework handles everything.
+### Migration Item (Sequential):
 
-## Minimal Program.cs Template
-
-```csharp
-using Koan.Core;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// ONE LINE - framework handles all dependencies
-builder.Services.AddKoan();
-
-var app = builder.Build();
-
-// Middleware auto-configured by framework
-app.Run();
+```markdown
+1. [ ] **{kebab-case-name}** — {one-line description}
+   - **Source:** {filename}#{section-heading}
+   - **Depends:** none | {previous-step-name}
 ```
 
-**That's it.** 8 lines total. No manual service registration. No manual middleware configuration. The framework discovers:
-- Data adapters
-- AI providers
-- Authentication providers
-- Entity controllers
-- Background services
-- Message queues
-- Everything else
+### Rules:
 
-## When This Skill Applies
+- `name` MUST be kebab-case (e.g., `audio-gateway`, `serialize-audio-s3`)
+- `Tech` is comma-separated (e.g., `Rust, Tokio, Axum`)
+- `Responsibilities` uses sub-bullets, one per line
+- `Source` links to architecture doc and section for traceability
+- Migration items use numbered list to preserve order
 
-Invoke this skill when:
-- ✅ Setting up new projects
-- ✅ Debugging initialization issues
-- ✅ Adding framework modules
-- ✅ Troubleshooting boot failures
-- ✅ Creating application-specific services
-- ✅ Understanding assembly discovery
+</constraints>
 
-## KoanAutoRegistrar Pattern
+<process>
 
-### What It Is
+## 1. Validate Environment
 
-`KoanAutoRegistrar` is how you register **application-specific services** (not framework services - those auto-register). Create one per application/module.
-
-### When to Create One
-
-Create `KoanAutoRegistrar` when you have:
-- Application-specific business logic services
-- Custom background workers
-- Domain-specific infrastructure
-- Third-party service integrations
-
-### Template
-
-```csharp
-// File: /Initialization/KoanAutoRegistrar.cs
-using Koan.Core;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-
-namespace MyApp.Initialization;
-
-public sealed class KoanAutoRegistrar : IKoanAutoRegistrar
-{
-    public string ModuleName => "MyApp";
-
-    public string? ModuleVersion =>
-        typeof(KoanAutoRegistrar).Assembly.GetName().Version?.ToString();
-
-    public void Initialize(IServiceCollection services)
-    {
-        // Register application-specific services here
-        services.AddScoped<ITodoService, TodoService>();
-        services.AddScoped<IEmailService, EmailService>();
-        services.AddSingleton<ICacheService, RedisCacheService>();
-        services.AddHostedService<BackgroundCleanupWorker>();
-    }
-
-    public void Describe(BootReport report, IConfiguration cfg, IHostEnvironment env)
-    {
-        report.AddModule(ModuleName, ModuleVersion);
-        report.AddNote("Application services registered");
-        report.AddNote($"Environment: {env.EnvironmentName}");
-    }
-}
+```bash
+ARCH_DIR="${1:-./architecture}"
+if [ ! -d "$ARCH_DIR" ]; then
+    echo "Error: Architecture directory not found: $ARCH_DIR"
+    exit 1
+fi
+mkdir -p ./.gtd
 ```
 
-### Discovery Rules
+---
 
-The framework automatically discovers `IKoanAutoRegistrar` implementations:
+## 2. Setup Architecture Files
 
-1. **Assembly Scanning**: Scans all loaded assemblies at startup
-2. **Interface Detection**: Finds types implementing `IKoanAutoRegistrar`
-3. **Instantiation**: Creates instance and calls `Initialize()`
-4. **Boot Reporting**: Calls `Describe()` to populate boot report
+Check if standardized files exist in `.gtd/`:
 
-**You don't call it.** The framework finds and executes it automatically.
-
-## What NOT to Do
-
-### ❌ WRONG: Manual Service Registration in Program.cs
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-
-// ❌ DON'T DO THIS - breaks auto-registration pattern
-builder.Services.AddScoped<ITodoRepository, TodoRepository>();
-builder.Services.AddDbContext<MyDbContext>();
-builder.Services.AddScoped<ITodoService, TodoService>();
-
-builder.Services.AddKoan(); // Too late, order matters
+```bash
+if [ ! -f "./.gtd/ARCHITECTURE.md" ]; then
+    # Copy from source directory or prompt user
+    echo "No .gtd/ARCHITECTURE.md found."
+fi
+if [ ! -f "./.gtd/STACK_DECISION.md" ]; then
+    echo "No .gtd/STACK_DECISION.md found."
+fi
 ```
 
-**Why wrong?**
-- Breaks "Reference = Intent" pattern
-- Creates registration order dependencies
-- Duplicates framework auto-registration
-- Makes Program.cs grow uncontrollably
+**If source files exist in `./architecture/`:**
 
-### ✅ CORRECT: Use KoanAutoRegistrar
+- Copy relevant content to `.gtd/ARCHITECTURE.md` and `.gtd/STACK_DECISION.md`
 
-```csharp
-// Program.cs stays minimal
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddKoan();
-var app = builder.Build();
-app.Run();
+**If files already exist in `.gtd/`:**
 
-// Application services in KoanAutoRegistrar
-public sealed class KoanAutoRegistrar : IKoanAutoRegistrar
-{
-    public void Initialize(IServiceCollection services)
-    {
-        services.AddScoped<ITodoService, TodoService>();
-    }
-}
+- Read directly from `.gtd/ARCHITECTURE.md` and `.gtd/STACK_DECISION.md`
+
+---
+
+## 3. Read Architecture Documents
+
+Read the standardized files:
+
+- `./.gtd/ARCHITECTURE.md` — For services, migration steps, interfaces
+- `./.gtd/STACK_DECISION.md` — For technology constraints
+
+Extract everything:
+
+- Services/Components to build (with responsibilities, tech stack)
+- Migration steps required (with ordering)
+- Infrastructure dependencies
+- Shared interfaces/protocols
+
+---
+
+## 3. Interview Phase
+
+**Propose what you found and only ask about unclear items:**
+
+```text
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GTD ► BOOTSTRAP PROPOSAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+I've read your architecture docs. Here's what I'll create:
+
+**Migration Steps:** (in order)
+1. {step-1} — {description}
+2. {step-2} — {description}
+
+**Components:**
+- {component-1} — {description}
+- {component-2} — {description}
+
+**I'm assuming these already exist (will skip), please verify:**
+- Kafka, Redis, S3 (infrastructure)
+
+**I'm assuming the following ..., please verify:**
+- {assumption 1}
+- {assumption 2}
+
+**Unclear items (need your input):**
+- {unclear item, if any}
+
+─────────────────────────────────────────────────────
+Please review. (ok / adjust: ...)
 ```
 
-### ❌ WRONG: Multiple AddKoan() Calls
+**Wait for user confirmation before writing.**
 
-```csharp
-// ❌ DON'T DO THIS
-builder.Services.AddKoan();
-builder.Services.AddKoanData();    // Redundant
-builder.Services.AddKoanWeb();     // Redundant
-builder.Services.AddKoanAI();      // Redundant
+---
+
+## 4. Write BACKLOG.md
+
+Write to `./.gtd/BACKLOG.md`:
+
+```markdown
+# Project Backlog
+
+**Created:** {date}
+**Source:** {architecture_dir}
+
+## Legend
+
+- [ ] Not started
+- [~] In progress (being expanded or executed)
+- [x] Complete
+
+---
+
+## Migration
+
+(Sequential steps — MUST be executed in order before Components)
+
+1. [ ] **{step-name}** — {description}
+   - **Source:** {filename}#{section}
+   - **Depends:** none
+
+2. [ ] **{step-name}** — {description}
+   - **Source:** {filename}#{section}
+   - **Depends:** {previous-step-name}
+
+---
+
+## Interfaces
+
+(Shared contracts — should be done early)
+
+- [ ] **{protocol-name}** — {purpose}
+  - **Source:** {filename}#{section}
+  - **Tech:** {technology}
+
+---
+
+## Components
+
+(Services to build — can be parallelized after Migration complete)
+
+- [ ] **{service-name}** — {one-line description}
+  - **Source:** {filename}#{section}
+  - **Tech:** {technology1}, {technology2}
+  - **Responsibilities:**
+    - {responsibility 1}
+    - {responsibility 2}
+
+---
+
+## Infrastructure
+
+(Supporting systems — skip if already exists)
+
+- [ ] **{component-name}** — {purpose}
+  - **Source:** {filename}#{section}
+  - **Tech:** {technology}
+
+---
+
+## Completed
+
+(Items move here when done)
 ```
 
-**Why wrong?** `AddKoan()` already discovers and registers ALL Koan modules automatically.
+---
 
-### ✅ CORRECT: Single AddKoan()
+## 5. Initialize JOURNAL.md
 
-```csharp
-builder.Services.AddKoan(); // Discovers and registers everything
+Write to `./.gtd/JOURNAL.md`:
+
+```markdown
+# Project Journal
+
+**Created:** {date}
+
+| Date   | Event                                        | Item |
+| ------ | -------------------------------------------- | ---- |
+| {date} | Project bootstrapped from {architecture_dir} | —    |
 ```
 
-## Boot Report & Diagnostics
+---
 
-### Viewing Boot Report
+## 6. Display Summary
 
-```csharp
-// In Development environment
-if (KoanEnv.IsDevelopment)
-{
-    var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    KoanEnv.DumpSnapshot(logger);
-}
+```text
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GTD ► PROJECT BOOTSTRAPPED ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Backlog: ./.gtd/BACKLOG.md
+Journal: ./.gtd/JOURNAL.md
+
+| Section        | Items |
+|----------------|-------|
+| Migration      | {N}   |
+| Interfaces     | {N}   |
+| Components     | {N}   |
+| Infrastructure | {N}   |
+
+─────────────────────────────────────────────────────
+▶ Next Up
+/expand-backlog {first-item} — break it into executable pieces
+  OR
+/s:spec — if items are already detailed enough
+─────────────────────────────────────────────────────
 ```
 
-**Output shows:**
-```
-[INFO] Koan:discover postgresql: server=localhost;database=myapp... OK
-[INFO] Koan:modules data→postgresql
-[INFO] Koan:modules web→controllers
-[INFO] Koan:modules ai→openai
-[INFO] Koan:modules MyApp v1.0.0
-```
+</process>
 
-### Boot Report Structure
-
-```csharp
-public void Describe(BootReport report, IConfiguration cfg, IHostEnvironment env)
-{
-    // Add module to report
-    report.AddModule(ModuleName, ModuleVersion);
-
-    // Add informational notes
-    report.AddNote("Services registered: TodoService, EmailService");
-    report.AddNote($"Data source: {cfg["Koan:Data:Sources:Default:Adapter"]}");
-
-    // Add warnings if needed
-    if (!cfg.GetSection("Email:Smtp").Exists())
-    {
-        report.AddWarning("Email configuration missing - notifications disabled");
-    }
-}
-```
-
-## Environment Detection
-
-Use `KoanEnv` for environment-aware logic:
-
-```csharp
-public void Initialize(IServiceCollection services)
-{
-    // Development-only services
-    if (KoanEnv.IsDevelopment)
-    {
-        services.AddScoped<ISeedService, DevelopmentSeedService>();
-    }
-
-    // Production-only services
-    if (KoanEnv.IsProduction)
-    {
-        services.AddSingleton<IEmailService, SendGridEmailService>();
-    }
-
-    // Container-specific configuration
-    if (KoanEnv.InContainer)
-    {
-        services.AddSingleton<IHealthCheckService, ContainerHealthCheck>();
-    }
-
-    // Dangerous operations gated by flag
-    if (KoanEnv.AllowMagicInProduction)
-    {
-        services.AddScoped<IAdminService, AdminService>();
-    }
-}
-```
-
-## Configuration Reading
-
-Use framework configuration helpers:
-
-```csharp
-public void Initialize(IServiceCollection services)
-{
-    var sp = services.BuildServiceProvider();
-    var cfg = sp.GetRequiredService<IConfiguration>();
-
-    // Read with fallback chain: setting → env var → default
-    var apiKey = Configuration.Read(
-        cfg,
-        defaultValue: "dev-key",
-        "App:ApiKey",           // Config path
-        "APP_API_KEY"           // Environment variable
-    );
-
-    services.AddSingleton(new ExternalApiClient(apiKey));
-}
-```
-
-## Debugging Bootstrap Issues
-
-### Symptom: Service Not Found
-
-```
-System.InvalidOperationException: Unable to resolve service for type 'ITodoService'
-```
-
-**Cause:** `KoanAutoRegistrar` not discovered or not registering service
-
-**Solution:**
-1. Verify file exists at `/Initialization/KoanAutoRegistrar.cs`
-2. Verify class implements `IKoanAutoRegistrar`
-3. Verify class is `public` and not `internal`
-4. Check boot logs for module registration
-
-### Symptom: Provider Not Available
-
-```
-[ERROR] Koan:discover mongodb: connection failed
-[INFO] Koan:modules data→json (fallback)
-```
-
-**Cause:** Provider package referenced but connection failed
-
-**Solution:**
-1. Verify connection string in `appsettings.json`
-2. Check service is running (Docker, local install)
-3. Verify network connectivity
-4. Check boot report for detailed error
-
-### Symptom: Assembly Not Loaded
-
-```
-[WARNING] Koan:modules MyModule not discovered
-```
-
-**Cause:** Assembly not referenced or not loaded at startup
-
-**Solution:**
-1. Verify `<ProjectReference>` or `<PackageReference>` exists
-2. Check assembly is copied to output directory
-3. Add explicit assembly reference if needed:
-   ```csharp
-   var assembly = Assembly.Load("MyModule");
-   ```
-
-## Bundled Templates
-
-- `templates/Program.cs.template` - Minimal Program.cs
-- `templates/KoanAutoRegistrar.cs.template` - Complete registrar template
-- `templates/KoanAutoRegistrar-with-options.cs.template` - Registrar with configuration options
-- `templates/appsettings.json.template` - Koan configuration structure
-
-## Reference Documentation
-
-- **Full Guide:** `docs/guides/deep-dive/bootstrap-lifecycle.md`
-- **Troubleshooting:** `docs/guides/troubleshooting/bootstrap-failures.md`
-- **Auto-Provisioning:** `docs/guides/deep-dive/auto-provisioning-system.md`
-- **Sample:** `samples/S0.ConsoleJsonRepo/Program.cs` (Minimal 20-line bootstrap)
-- **Sample:** `samples/S1.Web/Program.cs` (Web bootstrap with lifecycle)
-
-## Advanced: Module Loading Order
-
-Modules load in this order:
-
-1. **Core** - Foundation services
-2. **Data** - Repository abstractions
-3. **Adapters** - Concrete providers (Mongo, Postgres, etc.)
-4. **Domain** - Entity registrations
-5. **Web** - Controllers, middleware
-6. **Application** - Your `KoanAutoRegistrar`
-
-Dependencies are resolved automatically. You never need to specify order manually.
-
-## Advanced: Conditional Registration
-
-```csharp
-public void Initialize(IServiceCollection services)
-{
-    var sp = services.BuildServiceProvider();
-    var cfg = sp.GetRequiredService<IConfiguration>();
-
-    // Feature flags
-    if (cfg.GetValue<bool>("Features:EmailNotifications"))
-    {
-        services.AddScoped<INotificationService, EmailNotificationService>();
-    }
-    else
-    {
-        services.AddScoped<INotificationService, NoOpNotificationService>();
-    }
-
-    // Provider-specific services
-    var dataProvider = cfg["Koan:Data:Sources:Default:Adapter"];
-    if (dataProvider == "mongodb")
-    {
-        services.AddSingleton<IMongoIndexManager, MongoIndexManager>();
-    }
-}
-```
-
-## Framework Compliance
-
-Bootstrap patterns are **mandatory** in Koan Framework:
-
-- ✅ Use `AddKoan()` for all framework registration
-- ✅ Use `KoanAutoRegistrar` for application services
-- ✅ Keep Program.cs minimal (under 20 lines)
-- ❌ Never manually register framework services
-- ❌ Never duplicate framework configuration
-- ❌ Never call `AddDbContext`, `AddControllers`, etc. manually
-
-The framework handles everything through auto-discovery.
+<forced_stop>
+STOP. The workflow is complete. Do NOT automatically run the next command. Wait for the user.
+</forced_stop>

@@ -1,128 +1,110 @@
-# TypeScript
-
-## Description
-
-TypeScript development with strict typing, advanced type utilities, and modern patterns.
-
-## When to Use
-
-- Working with TypeScript files (.ts, .tsx)
-- Building typed JavaScript applications
-- React/Next.js development
-- Node.js backend development
-
+---
+name: typescript
+description: >
+  TypeScript strict patterns and best practices.
+  Trigger: When implementing or refactoring TypeScript in .ts/.tsx (types, interfaces, generics, const maps, type guards, removing any, tightening unknown).
+license: Apache-2.0
+metadata:
+  author: prowler-cloud
+  version: "1.0"
+  scope: [root, ui]
+  auto_invoke: "Writing TypeScript types/interfaces"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
-## Core Patterns
-
-### Type Definitions
+## Const Types Pattern (REQUIRED)
 
 ```typescript
-// Interfaces for objects
+// ✅ ALWAYS: Create const object first, then extract type
+const STATUS = {
+  ACTIVE: "active",
+  INACTIVE: "inactive",
+  PENDING: "pending",
+} as const;
+
+type Status = (typeof STATUS)[keyof typeof STATUS];
+
+// ❌ NEVER: Direct union types
+type Status = "active" | "inactive" | "pending";
+```
+
+**Why?** Single source of truth, runtime values, autocomplete, easier refactoring.
+
+## Flat Interfaces (REQUIRED)
+
+```typescript
+// ✅ ALWAYS: One level depth, nested objects → dedicated interface
+interface UserAddress {
+  street: string;
+  city: string;
+}
+
 interface User {
   id: string;
-  email: string;
   name: string;
-  createdAt: Date;
+  address: UserAddress;  // Reference, not inline
 }
 
-// Types for unions and utilities
-type Status = 'pending' | 'active' | 'inactive';
-type UserWithStatus = User & { status: Status };
+interface Admin extends User {
+  permissions: string[];
+}
 
-// Generic types
-type ApiResponse<T> = {
-  data: T;
-  error?: string;
-  status: number;
-};
+// ❌ NEVER: Inline nested objects
+interface User {
+  address: { street: string; city: string };  // NO!
+}
 ```
 
-### Utility Types
+## Never Use `any`
 
 ```typescript
-// Partial - all properties optional
-type UserUpdate = Partial<User>;
+// ✅ Use unknown for truly unknown types
+function parse(input: unknown): User {
+  if (isUser(input)) return input;
+  throw new Error("Invalid input");
+}
 
-// Pick - select properties
-type UserPreview = Pick<User, 'id' | 'name'>;
+// ✅ Use generics for flexible types
+function first<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
 
-// Omit - exclude properties
-type UserWithoutId = Omit<User, 'id'>;
-
-// Record - dictionary type
-type UserMap = Record<string, User>;
+// ❌ NEVER
+function parse(input: any): any { }
 ```
 
-### Async Patterns
+## Utility Types
 
 ```typescript
-async function fetchUser(id: string): Promise<User> {
-  const response = await fetch(`/api/users/${id}`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch user: ${response.status}`);
-  }
-  return response.json();
-}
-
-// Error handling
-async function safeOperation<T>(
-  operation: () => Promise<T>
-): Promise<[T, null] | [null, Error]> {
-  try {
-    const result = await operation();
-    return [result, null];
-  } catch (error) {
-    return [null, error as Error];
-  }
-}
+Pick<User, "id" | "name">     // Select fields
+Omit<User, "id">              // Exclude fields
+Partial<User>                 // All optional
+Required<User>                // All required
+Readonly<User>                // All readonly
+Record<string, User>          // Object type
+Extract<Union, "a" | "b">     // Extract from union
+Exclude<Union, "a">           // Exclude from union
+NonNullable<T | null>         // Remove null/undefined
+ReturnType<typeof fn>         // Function return type
+Parameters<typeof fn>         // Function params tuple
 ```
 
-### Class Patterns
+## Type Guards
 
 ```typescript
-class UserService {
-  constructor(private readonly db: Database) {}
-
-  async findById(id: string): Promise<User | null> {
-    return this.db.users.findUnique({ where: { id } });
-  }
-
-  async create(data: UserCreate): Promise<User> {
-    return this.db.users.create({ data });
-  }
+function isUser(value: unknown): value is User {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    "name" in value
+  );
 }
 ```
 
-### Zod Validation
+## Import Types
 
 ```typescript
-import { z } from 'zod';
-
-const UserSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(1).max(100),
-  password: z.string().min(8),
-});
-
-type UserInput = z.infer<typeof UserSchema>;
-
-function validateUser(data: unknown): UserInput {
-  return UserSchema.parse(data);
-}
+import type { User } from "./types";
+import { createUser, type Config } from "./utils";
 ```
-
-## Best Practices
-
-1. Enable strict mode in tsconfig.json
-2. Avoid `any` - use `unknown` and type guards
-3. Use interfaces for object shapes, types for unions
-4. Prefer `const` assertions for literal types
-5. Use discriminated unions for state
-
-## Common Pitfalls
-
-- **Using `any`**: Defeats type safety
-- **Not handling null/undefined**: Use strict null checks
-- **Type assertions**: Prefer type guards
-- **Ignoring errors**: Handle all promise rejections

@@ -1,7 +1,7 @@
 {
   "name": "log-analyzer",
-  "repo": "AIDotNet/MoYuCode",
-  "path": "skills/tools/log-analyzer/SKILL.md",
-  "source": "github.com/AIDotNet/MoYuCode",
-  "downloaded_at": "2026-01-30T03:46:49.357147Z"
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/log-analyzer/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-31T04:02:57.154465Z"
 }

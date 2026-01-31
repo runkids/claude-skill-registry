@@ -1,7 +1,7 @@
 {
   "name": "docs-updater",
-  "repo": "Spectaculous-Code/raamattu-nyt",
-  "path": "Docs/claude-reports/docs-updater/SKILL.md",
-  "source": "github.com/Spectaculous-Code/raamattu-nyt",
-  "downloaded_at": "2026-01-30T03:18:26.469251Z"
+  "repo": "langadventurellc/claude-marketplace",
+  "path": "plugins/task-trellis/skills/docs-updater/SKILL.md",
+  "source": "github.com/langadventurellc/claude-marketplace",
+  "downloaded_at": "2026-01-31T04:03:38.439881Z"
 }

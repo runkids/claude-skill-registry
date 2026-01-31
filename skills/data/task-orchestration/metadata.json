@@ -1,7 +1,7 @@
 {
   "name": "task-orchestration",
-  "repo": "aspiers/ai-config",
-  "path": ".claude/skills/task-orchestration/SKILL.md",
-  "source": "github.com/aspiers/ai-config",
-  "downloaded_at": "2026-01-30T03:48:45.797408Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/task-orchestration/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-31T04:47:12.348240Z"
 }

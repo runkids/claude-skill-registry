@@ -1,179 +1,280 @@
 ---
 name: status
+description: Show current workflow progress at a glance.
 version: 1.1.0
-description: 工作流狀態查看器 - 顯示執行進度、任務列表、DAG 可視化
-triggers: [status, 狀態, 進度, progress]
-allowed-tools: [Read, Bash, Glob, Grep, TaskList, TaskGet]
+tags: [status, workflow, summary]
+owner: orchestration
+status: active
 ---
 
-# Multi-Agent Status v1.0.0
+# Status Skill
 
-> 即時查看工作流執行進度與統計
+Show current workflow progress at a glance.
 
-## 使用方式
+## Overview
 
-```bash
-/status                    # 顯示當前工作流狀態
-/status [workflow-id]      # 顯示特定工作流狀態
-/status --list             # 列出所有工作流歷史
-/status --dag              # 顯示任務依賴 DAG 圖
-```
+A simple status check showing:
+- Current phase
+- Task progress (completed/total)
+- Any blockers
+- Next recommended action
 
-**Flags**: `--list` | `--dag` | `--json` | `--html` | `-o <file>`
-
-## 輸出格式
-
-### 終端輸出（預設）
+## Usage
 
 ```
-╭──────────────────────────────────────────────────────────╮
-│  🎯 user-auth-feature                                    │
-│  狀態: 執行中 | 品質: 82/100                              │
-╰──────────────────────────────────────────────────────────╯
-
-進度: [████████████░░░░░░] 65%
-
-RESEARCH ✅ → PLAN ✅ → TASKS ✅ → IMPLEMENT 🔄 → REVIEW ⏳ → VERIFY ⏳
-                                    ↑
-                                 當前階段
-
-┌─────────────┬─────────────┬─────────────┬─────────────┐
-│ TDD 守護者  │ 安全審計員  │ 效能優化師  │ 維護性專家  │
-│     ✅      │     🔄      │     ⏳      │     ⏳      │
-└─────────────┴─────────────┴─────────────┴─────────────┘
-
-任務進度: 3/5 完成
-├── ✅ TEST-001: 登入功能測試
-├── ✅ T-F-001: 實作登入功能
-├── 🔄 T-F-002: 實作註冊功能
-└── ⏳ T-F-003: 實作密碼重設
-
-Memory: .claude/memory/implement/user-auth/
+/status
 ```
 
-### 其他格式
+## Prerequisites
 
-| 格式 | 說明 | 範例 |
-|------|------|------|
-| `--json` | 程式化處理 | `/status --json` |
-| `--markdown` | Markdown + Mermaid | `/status -o report.md` |
-| `--html` | 互動式 Dashboard | `/status --html -o dashboard.html` |
+- SurrealDB connection configured for the project namespace.
 
-## 執行方式
+## Purpose
 
-執行底層 CLI 工具：
+**Quick progress check** - See where you are and what's next.
 
-```bash
-python shared/tools/workflow-status.py {args}
-```
+This is the go-to command for:
+- Resuming work after a break
+- Checking progress mid-workflow
+- Deciding what to do next
 
-將輸出直接展示給用戶。
+## State Sources
 
-### 參數對應
+Check these sources:
+- `workflow_state` in SurrealDB - Overall workflow state
+- `phase_outputs` in SurrealDB - Task breakdown and validation/verification
 
-| Skill 參數 | CLI 參數 |
-|-----------|----------|
-| `/status` | `python workflow-status.py` |
-| `/status user-auth` | `python workflow-status.py --id user-auth` |
-| `/status --list` | `python workflow-status.py --list` |
-| `/status --dag` | `python workflow-status.py --dag` |
-| `/status --json` | `python workflow-status.py --json` |
-| `/status --html -o dash.html` | `python workflow-status.py --html -o dash.html` |
+## Status Display
 
-## 工作流歷史
-
-`/status --list` 顯示所有工作流歷史：
+### Minimal (No Workflow Started)
 
 ```
-╭──────────────────────────────────────────────────────────╮
-│  📋 工作流歷史                                           │
-╰──────────────────────────────────────────────────────────╯
+## Project Status
 
-最近 5 個工作流：
+No workflow started yet.
 
-│ ID                  │ 任務            │ 狀態    │ 品質  │ 日期       │
-├─────────────────────┼─────────────────┼─────────┼───────┼────────────┤
-│ user-auth-feature   │ 用戶認證功能    │ 🔄執行中│ 82    │ 2026-01-26 │
-│ api-refactor        │ API 重構        │ ✅完成  │ 91    │ 2026-01-25 │
-
-統計：
-  總計: 12 | 完成: 9 | 失敗: 2 | 執行中: 1
-  平均品質分數: 84.5
+Quick start:
+  /discover - Explore the project and create PRODUCT.md
+  /plan     - Create task breakdown (requires PRODUCT.md)
 ```
 
-## 任務 DAG 可視化
-
-`/status --dag` 生成 Mermaid 任務依賴圖：
-
-```mermaid
-graph TD
-    subgraph Wave1["Wave 1"]
-        TEST001["✅ TEST-001: 登入測試"]
-        TEST002["✅ TEST-002: 註冊測試"]
-    end
-
-    subgraph Wave2["Wave 2"]
-        TF001["✅ T-F-001: 登入功能"]
-        TF002["🔄 T-F-002: 註冊功能"]
-    end
-
-    subgraph Wave3["Wave 3"]
-        TF003["⏳ T-F-003: 密碼重設"]
-    end
-
-    TEST001 --> TF001
-    TEST002 --> TF002
-    TF001 --> TF003
-    TF002 --> TF003
-
-    style TEST001 fill:#4ade80
-    style TEST002 fill:#4ade80
-    style TF001 fill:#4ade80
-    style TF002 fill:#fbbf24
-    style TF003 fill:#9ca3af
-```
-
-## 狀態圖示
-
-| 圖示 | 狀態 | 說明 |
-|------|------|------|
-| ⏳ | pending | 等待執行 |
-| 🔄 | running | 執行中 |
-| ✅ | completed | 成功完成 |
-| ❌ | failed | 執行失敗 |
-| ⏭️ | skipped | 已跳過 |
-
-## 進度計算
-
-```yaml
-stage_weights:
-  RESEARCH: 0.15
-  PLAN: 0.15
-  TASKS: 0.10
-  IMPLEMENT: 0.35
-  REVIEW: 0.15
-  VERIFY: 0.10
-
-# 公式: progress = sum(weight * stage_completion)
-```
-
-## 輸出位置
-
-狀態資訊來源：
+### With Active Workflow
 
 ```
-.claude/memory/
-├── workflows/[id]/meta.yaml     # 完整工作流
-├── research/[id]/meta.yaml      # 研究階段
-├── plans/[id]/meta.yaml         # 計劃階段
-├── tasks/[id]/tasks.yaml        # 任務定義
-└── implement/[id]/meta.yaml     # 實作階段
+## Project Status
+
+### Current Phase: Implementation
+
+### Progress
+| Phase | Status |
+|-------|--------|
+| Discovery | completed |
+| Planning | completed |
+| Validation | skipped |
+| Implementation | in_progress (3/6 tasks) |
+| Verification | pending |
+| Completion | pending |
+
+### Task Progress
+
+Completed: 3/6 (50%)
+
+| Task | Title | Status |
+|------|-------|--------|
+| T1 | Create user model | completed |
+| T2 | Password hashing service | completed |
+| T3 | JWT token service | completed |
+| T4 | Login endpoint | in_progress |
+| T5 | Registration endpoint | pending |
+| T6 | Auth middleware | pending |
+
+### Next Action
+
+Continue with: /task T4
+
+Or: /status -v for detailed view
 ```
 
-## 相關模組
+### With Blockers
 
-| 模組 | 用途 |
-|------|------|
-| [workflow-status.py](../../shared/tools/workflow-status.py) | CLI 核心工具 |
-| [dag-validator.py](../../shared/tools/dag-validator.py) | DAG 驗證 + Mermaid |
-| [display.md](../../shared/progress/display.md) | 進度顯示規範 |
+```
+## Project Status
+
+### Current Phase: Implementation (BLOCKED)
+
+### Blocker
+Task T3 failed after 3 attempts:
+  Error: Cannot find module '@prisma/client'
+
+Suggested fix:
+  Run: npm install @prisma/client
+
+### Progress
+Completed: 2/6 tasks (33%)
+
+### Next Action
+Fix the blocker, then: /task T3
+```
+
+## Status Levels
+
+### Quick Status (default)
+Shows:
+- Current phase
+- Task progress bar
+- Next action
+
+### Detailed Status (`/status -v`)
+Shows:
+- Full phase breakdown
+- All task details
+- Recent feedback scores
+- Error history
+- File changes
+
+## Reading State
+
+```python
+# Pseudocode
+if not workflow_state_exists():
+    show "No workflow started"
+    return
+
+state = workflow_state_repo.get(project)
+plan = phase_outputs_repo.get_by_type(phase=1, output_type="plan")
+
+current_phase = state.get("current_phase", 0)
+phase_status = state.get("phase_status", {})
+tasks = state.get("tasks", [])  # task statuses tracked in state
+errors = state.get("errors", [])
+```
+
+## Phase Mapping
+
+| Phase | Name | Next Skill |
+|-------|------|------------|
+| 0 | Discovery | `/discover` |
+| 1 | Planning | `/plan` |
+| 2 | Validation | `/validate-plan` |
+| 3 | Implementation | `/task <id>` |
+| 4 | Verification | `/verify-code` |
+| 5 | Completion | (done) |
+
+## Task Status Summary
+
+Calculate and display:
+```
+Total: {total}
+Completed: {completed} ({percentage}%)
+In Progress: {in_progress}
+Pending: {pending}
+Blocked: {blocked}
+Failed: {failed}
+```
+
+## Next Action Logic
+
+Determine recommended action based on state:
+
+```python
+if no_workflow:
+    if exists("PRODUCT.md"):
+        suggest "/plan"
+    else:
+        suggest "/discover"
+elif phase == "implementation":
+    next_task = find_next_pending_task()
+    if next_task:
+        suggest f"/task {next_task.id}"
+    else:
+        suggest "/verify"
+elif phase == "blocked":
+    show blocker and fix suggestion
+else:
+    suggest next phase command
+```
+
+## Example Output: Fresh Project
+
+```
+User: /status
+
+Claude: ## Project Status
+
+No workflow started.
+
+Found:
+  - Documents/ folder with 3 files
+  - No PRODUCT.md
+
+Suggested: /discover to read documents and create PRODUCT.md
+```
+
+## Example Output: Mid-Workflow
+
+```
+User: /status
+
+Claude: ## Project Status
+
+### Current Phase: Implementation
+
+### Progress
+
+[====================----------] 50%
+
+Completed: 3/6 tasks
+
+| Task | Title | Status |
+|------|-------|--------|
+| T1 | User model | done |
+| T2 | Password service | done |
+| T3 | JWT service | done |
+| T4 | Login endpoint | pending |
+| T5 | Register endpoint | pending |
+| T6 | Auth middleware | pending |
+
+### Next
+
+Continue with: /task T4
+```
+
+## Example Output: Completed
+
+```
+User: /status
+
+Claude: ## Project Status
+
+### Workflow Complete!
+
+All 6 tasks implemented and verified.
+
+### Summary
+- Files created: 8
+- Files modified: 2
+- Tests: 24 passing
+- Review scores: Cursor 8.5, Gemini 8.0
+
+### Artifacts
+- phase_outputs: summary
+- logs: uat_document
+
+Ready to commit? The changes are in your working directory.
+```
+
+## Outputs
+
+- Quick or detailed status report for the current project.
+
+## Error Handling
+
+- If SurrealDB is unreachable, show a degraded report and warn about missing data.
+
+## Related Skills
+
+- `/discover` - Start discovery phase
+- `/plan` - Create task breakdown
+- `/task <id>` - Implement a task
+- `/verify` - Run code review
+- `/orchestrate` - Full automated workflow

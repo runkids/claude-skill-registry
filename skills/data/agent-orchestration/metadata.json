@@ -1,7 +1,7 @@
 {
   "name": "agent-orchestration",
-  "repo": "frankxai/arcanea",
-  "path": ".claude/skills/community/agent-orchestration/SKILL.md",
-  "source": "github.com/frankxai/arcanea",
-  "downloaded_at": "2026-01-30T04:44:27.565894Z"
+  "repo": "zerobias-org/module",
+  "path": ".claude/skills/agent-orchestration/SKILL.md",
+  "source": "github.com/zerobias-org/module",
+  "downloaded_at": "2026-01-31T04:45:42.584185Z"
 }

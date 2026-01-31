@@ -1,7 +1,7 @@
 {
   "name": "neon-vercel-postgres",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/neon-vercel-postgres/skills/neon-vercel-postgres/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-30T03:41:15.974382Z"
+  "repo": "dennislee928/Smart_Zone",
+  "path": ".claude/skills/neon-vercel-postgres/SKILL.md",
+  "source": "github.com/dennislee928/Smart_Zone",
+  "downloaded_at": "2026-01-31T04:46:45.310314Z"
 }

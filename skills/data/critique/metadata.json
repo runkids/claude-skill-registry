@@ -1,7 +1,7 @@
 {
   "name": "critique",
-  "repo": "phrazzld/claude-config",
+  "repo": "synaptiai/agent-capability-standard",
   "path": "skills/critique/SKILL.md",
-  "source": "github.com/phrazzld/claude-config",
-  "downloaded_at": "2026-01-30T04:28:47.634160Z"
+  "source": "github.com/synaptiai/agent-capability-standard",
+  "downloaded_at": "2026-01-31T04:20:33.836670Z"
 }

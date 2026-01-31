@@ -1,12 +1,7 @@
 {
   "name": "auto-commit",
-  "description": "Automatically commits changes using conventional commits format (feat:, fix:, docs:, chore:, refactor:, test:, style:). Use after completing bug fixes, feature implementations, or documentation update",
-  "repo": "James1218/claude-code-configurations",
-  "category": "documents",
-  "tags": [
-    "auto",
-    "commit"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Samaara-Das/Ecom-site",
+  "path": ".claude/skills/auto-commit/SKILL.md",
+  "source": "github.com/Samaara-Das/Ecom-site",
+  "downloaded_at": "2026-01-31T03:10:09.115650Z"
 }

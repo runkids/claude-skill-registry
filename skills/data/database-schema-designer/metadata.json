@@ -1,7 +1,7 @@
 {
   "name": "database-schema-designer",
-  "repo": "Eigo-Mt-Fuji/portfolio-2026",
-  "path": ".claude/skills/database-schema-designer/SKILL.md",
-  "source": "github.com/Eigo-Mt-Fuji/portfolio-2026",
-  "downloaded_at": "2026-01-30T04:30:52.273242Z"
+  "repo": "nahisaho/MUSUBI",
+  "path": "src/templates/agents/claude-code/skills/database-schema-designer/SKILL.md",
+  "source": "github.com/nahisaho/MUSUBI",
+  "downloaded_at": "2026-01-31T04:06:05.074157Z"
 }

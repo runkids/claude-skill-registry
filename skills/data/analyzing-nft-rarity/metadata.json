@@ -1,9 +1,7 @@
 {
   "name": "analyzing-nft-rarity",
-  "description": "Calculate NFT rarity scores and floor prices across collections and marketplaces.Use when analyzing NFT collections and rarity.Trigger with phrases like \"check NFT rarity\", \"analyze collection\", or \"c",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/crypto/nft-rarity-analyzer/skills/analyzing-nft-rarity/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:36.659212Z"
 }

@@ -1,49 +1,75 @@
 ---
 name: security-reviewer
-description: セキュリティ設計書および実装コードを専門的にレビューするセキュリティスペシャリスト
+description: Reviews code for security vulnerabilities. Use when security concerns are detected or before deploying critical changes.
+context: fork
 ---
 
-You are a security specialist (OWASP Top 10, CWE/SANS Top 25, penetration testing, ISO 27001, SOC 2).
+# Security Reviewer Skill
 
-> **共通ガイドライン**: `reviewer-common` skill を参照
+## When to Use
 
-## Review Focus (10 points total)
+- Security concerns detected during code review
+- API key or credential exposure suspected
+- Before deploying authentication/authorization changes
+- When handling user input or external data
 
-| 観点 | 配点 | チェック項目 |
-|------|------|-------------|
-| インジェクション対策 | 3点 | SQL/NoSQL/OSコマンド、入力検証 |
-| 認証・認可 | 3点 | 認証バイパス、権限チェック、セッション |
-| XSS/CSRF対策 | 2点 | 出力エスケープ、CSRFトークン、IDOR |
-| データ保護 | 2点 | ログ無害化、エラーメッセージ、暗号化 |
+## Procedure
 
-## Critical Checks (即時FAIL - PRブロック)
+1. Scan changed files for security patterns
+2. Check against security checklist (`.claude/rules/security.md`)
+3. Report findings with severity levels
+4. Suggest fixes for each issue
 
-- SQLインジェクション脆弱性
-- 認可チェックの欠落
-- ハードコードされた秘密情報
-- ログ内の機密データ
-- 状態変更エンドポイントでのCSRF保護欠落
+## Security Checklist
 
-## Review Targets
+### CRITICAL (Must Fix Before Merge)
+- [ ] Hardcoded secrets (API keys, passwords, tokens)
+- [ ] SQL injection vulnerabilities
+- [ ] XSS vulnerabilities (unescaped user input)
+- [ ] Authentication bypass risks
 
-| モード | 対象ファイル |
-|-------|-------------|
-| 設計 | 全設計書（Security by Design） |
-| 実装 | 全コード（特に認証、入力処理、DB操作） |
+### HIGH (Should Fix)
+- [ ] Missing input validation
+- [ ] Insecure dependencies (outdated packages)
+- [ ] Path traversal risks
+- [ ] CSRF vulnerabilities
 
-## Output Format（追加セクション）
+### MEDIUM (Recommended)
+- [ ] Missing rate limiting
+- [ ] Verbose error messages leaking info
+- [ ] Missing HTTPS enforcement
+- [ ] Weak password policies
+
+## Output Format
 
 ```markdown
-### 脆弱性サマリ
-Critical: N, High: N, Medium: N, Low: N
+## Security Review Results
 
-### 脆弱性（修正必須）
-1. [CRITICAL/HIGH/MEDIUM/LOW] [ファイル名] 行番号
-   - 脆弱性: 
-   - 攻撃シナリオ: 
-   - 修正案: 
+### Summary
+- Files scanned: N
+- Critical: N | High: N | Medium: N
+
+### Findings
+
+#### [CRITICAL] Hardcoded API Key
+- **File**: src/api/client.ts:42
+- **Issue**: API key exposed in source code
+- **Fix**: Move to environment variable
+
+#### [HIGH] Missing Input Validation
+- **File**: src/routes/user.ts:15
+- **Issue**: User input passed directly to query
+- **Fix**: Add Zod validation schema
+
+### Verdict
+❌ BLOCK / ⚠️ WARNING / ✅ PASS
 ```
 
-## Pass Criteria
+## Auto-trigger Conditions
 
-**9点以上 AND Critical/High脆弱性がゼロ**
+| Signal | Action |
+|--------|--------|
+| `*.env` file modified | Trigger review |
+| Auth-related files changed | Trigger review |
+| New dependency added | Check vulnerability |
+| API endpoint added | Validate input handling |

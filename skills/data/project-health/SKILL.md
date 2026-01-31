@@ -1,195 +1,210 @@
 ---
 name: project-health
-description: 프로젝트 상태 점검 및 건강 진단. 상태, 점검, health, check, inspect 키워드에 자동 활성화.
-allowed-tools: Read, Bash, Grep, Glob
+description: |
+  AI-agent readiness auditing for project documentation and workflows. Evaluates whether
+  future Claude Code sessions can understand docs, execute workflows literally, and resume
+  work effectively. Use when onboarding AI agents to a project or ensuring context continuity.
+
+  Includes three specialized agents: context-auditor (AI-readability), workflow-validator
+  (process executability), handoff-checker (session continuity). Use PROACTIVELY before
+  handing off projects to other AI sessions or team members.
 ---
 
-# Project Health Skill
+# Project Health: AI-Agent Readiness Auditing
 
-## SDD 점검 기준
+**Status**: Active
+**Updated**: 2026-01-30
+**Focus**: Ensuring documentation and workflows are executable by AI agents
 
-### 필수 디렉토리 구조
+## Overview
 
-```
-idea-on-action/
-├── spec/           # Stage 1: 명세
-│   ├── requirements.md
-│   ├── acceptance-criteria.md
-│   └── constraints.md
-├── plan/           # Stage 2: 계획
-│   ├── architecture.md
-│   ├── tech-stack.md
-│   └── implementation-strategy.md
-├── tasks/          # Stage 3: 작업
-│   ├── sprint-N.md
-│   └── backlog.md
-└── src/            # Stage 4: 구현
-```
+This skill evaluates project health from an **AI-agent perspective** - not just whether docs are well-written for humans, but whether future Claude Code sessions can:
 
----
+1. **Understand** the documentation without ambiguity
+2. **Execute** workflows by following instructions literally
+3. **Resume** work effectively with proper context handoff
 
-## 점검 명령어
+## When to Use
 
-### SDD 구조 확인
+- Before handing off a project to another AI session
+- When onboarding AI agents to contribute to a codebase
+- After major refactors to ensure docs are still AI-executable
+- When workflows fail because agents "didn't understand"
+- Periodic health checks for AI-maintained projects
 
-```bash
-ls -la spec/ plan/ tasks/ 2>/dev/null
-```
+## Agent Selection Guide
 
-### 빌드 점검
+| Situation | Use Agent | Why |
+|-----------|-----------|-----|
+| "Will another Claude session understand this?" | **context-auditor** | Checks for ambiguous references, implicit knowledge, incomplete examples |
+| "Will this workflow actually execute?" | **workflow-validator** | Verifies steps are discrete, ordered, and include verification |
+| "Can a new session pick up where I left off?" | **handoff-checker** | Validates SESSION.md, phase tracking, context preservation |
+| Full project health audit | All three | Comprehensive AI-readiness assessment |
 
-```bash
-npm run build 2>&1 | tail -5
-```
+## Key Principles
 
-### 린트 점검
+### 1. Literal Interpretation
 
-```bash
-npm run lint 2>&1 | grep -E "warning|error" | wc -l
-```
+AI agents follow instructions literally. Documentation that works for humans (who fill in gaps) may fail for agents.
 
-### 테스트 점검
+**Human-friendly** (ambiguous):
+> "Update the config file with your settings"
 
-```bash
-npm run test 2>&1 | tail -10
-```
+**AI-friendly** (explicit):
+> "Edit `wrangler.jsonc` and set `account_id` to your Cloudflare account ID (find it at dash.cloudflare.com → Overview → Account ID)"
 
-### 버전 동기화 확인
+### 2. Explicit Over Implicit
 
-```bash
-grep '"version"' package.json
-grep "현재 버전" CLAUDE.md
-grep "프로젝트 버전" docs/INDEX.md
-```
+Never assume the agent knows:
+- Which file you mean
+- What "obvious" next steps are
+- Environment state or prerequisites
+- What success looks like
 
-### 대용량 문서 확인
+### 3. Verification at Every Step
 
-```bash
-find docs/ -name "*.md" -exec wc -l {} + 2>/dev/null | sort -rn | head -10
-```
+Agents can't tell if something "feels right". Include verification:
+- Expected output after each command
+- How to check if a step succeeded
+- What to do if it failed
 
-### TypeScript 에러
+## Agents
 
-```bash
-npx tsc --noEmit 2>&1 | grep -c "error" || echo "0"
-```
+### context-auditor
 
-### 의존성 취약점
+**Purpose**: Evaluate AI-readability of documentation
 
-```bash
-npm audit 2>&1 | grep -E "vulnerabilities|found"
-```
+**Checks**:
+- Instructions use imperative verbs (actionable)
+- File paths are explicit (not "the config file")
+- Success criteria are measurable
+- No ambiguous references ("that thing", "as discussed")
+- Code examples are complete (not fragments)
+- Dependencies/prerequisites stated explicitly
+- Error handling documented
 
-### TODO/FIXME 수
+**Output**: AI-Readability Score (0-100) with specific issues
 
-```bash
-grep -r "TODO\|FIXME" src/ --include="*.ts" --include="*.tsx" | wc -l
-```
+### workflow-validator
 
----
+**Purpose**: Verify processes are executable when followed literally
 
-## 상태 분류 기준
+**Checks**:
+- Steps are discrete and ordered
+- Each step has clear input/output
+- No implicit knowledge required
+- Environment assumptions documented
+- Verification step after each action
+- Failure modes and recovery documented
+- No "obvious" steps omitted
 
-### 🔴 즉시 조치 (Critical)
+**Output**: Executability Score (0-100) with step-by-step analysis
 
-| 항목 | 조건 | 조치 |
-|------|------|------|
-| 빌드 실패 | exit code != 0 | debugger Agent 호출 |
-| 보안 취약점 | high/critical 존재 | npm audit fix |
-| 버전 불일치 | package.json ≠ CLAUDE.md | project-organizer Agent 호출 |
-| 필수 디렉토리 누락 | spec/plan/tasks 없음 | 디렉토리 생성 |
+### handoff-checker
 
-### 🟡 개선 권장 (Warning)
+**Purpose**: Ensure session continuity for multi-session work
 
-| 항목 | 조건 | 권장 조치 |
-|------|------|----------|
-| 린트 경고 | 10개 이상 | npm run lint --fix |
-| 테스트 실패 | 1개 이상 실패 | test-runner Agent 호출 |
-| 대용량 문서 | 1000줄 초과 | 분할/아카이브 |
-| TODO/FIXME | 20개 이상 | 정리 필요 |
+**Checks**:
+- SESSION.md or equivalent exists
+- Current phase/status clear
+- Next actions documented
+- Blockers/decisions needed listed
+- Context for future sessions preserved
+- Git checkpoint pattern in use
+- Architecture decisions documented with rationale
 
-### 🟢 양호 (Good)
+**Output**: Handoff Quality Score (0-100) with continuity gaps
 
-| 항목 | 조건 |
-|------|------|
-| 빌드 성공 | exit code = 0 |
-| 린트 경고 | 0개 |
-| 테스트 통과 | 전체 통과 |
-| 버전 동기화 | 모두 일치 |
+## Templates
 
----
+### AI-Readable Documentation Template
 
-## 병렬 조치 트리거
+See `templates/AI_READABLE_DOC.md` for a template that ensures AI-readability.
 
-즉시 조치 항목 발견 시 자동으로 병렬 Agent 호출:
+Key sections:
+- **Prerequisites** (explicit environment/state requirements)
+- **Steps** (numbered, discrete, with verification)
+- **Expected Output** (what success looks like)
+- **Troubleshooting** (common failures and fixes)
 
-```
-점검 결과 분석
-    │
-    ├── 빌드 실패 ──────→ debugger Agent
-    │
-    ├── 테스트 실패 ────→ test-runner Agent
-    │
-    ├── 버전 불일치 ────→ project-organizer Agent
-    │
-    └── 코드 품질 이슈 ──→ code-reviewer Agent
-```
+### Handoff Checklist
 
-### 병렬 호출 예시
+See `templates/HANDOFF_CHECKLIST.md` for ensuring clean session handoffs.
 
-```
-🔴 즉시 조치 필요:
-1. 빌드 실패 (TypeScript 에러)
-2. 테스트 3개 실패
+## Anti-Patterns
 
-→ [병렬 실행]
-  - debugger Agent: TypeScript 에러 분석
-  - test-runner Agent: 실패 테스트 분석
-
-→ [결과 종합]
-  - 수정 사항 통합
-  - 최종 상태 재점검
-```
-
----
-
-## 점검 워크플로우
-
-### 1. 전체 점검 실행
-
-```bash
-# 한 번에 실행
-echo "=== SDD 구조 ===" && ls -la spec/ plan/ tasks/ 2>/dev/null
-echo "=== 버전 동기화 ===" && grep '"version"' package.json && grep "현재 버전" CLAUDE.md
-echo "=== 빌드 ===" && npm run build 2>&1 | tail -3
-echo "=== 린트 ===" && npm run lint 2>&1 | tail -3
-```
-
-### 2. 상태 보고서 생성
-
-점검 결과를 테이블 형식으로 정리:
+### 1. "See Above" References
 
 ```markdown
-| 항목 | 상태 | 수치/비고 |
-|------|------|----------|
-| SDD 구조 | ✅ | spec, plan, tasks 존재 |
-| 빌드 | ✅ | 성공 |
-| 린트 | ⚠️ | 경고 5개 |
-| 테스트 | ✅ | 100% 통과 |
-| 버전 동기화 | ✅ | 2.39.0 |
+# Bad
+As mentioned above, configure the database.
+
+# Good
+Configure the database by running:
+`npx wrangler d1 create my-db`
 ```
 
-### 3. 조치 실행
+### 2. Implicit File Paths
 
-- 🔴 즉시 조치: 병렬 Agent 자동 호출
-- 🟡 개선 권장: 사용자 확인 후 조치
-- 🟢 양호: 보고만
+```markdown
+# Bad
+Update the config with your API key.
 
----
+# Good
+Add your API key to `.dev.vars`:
+```
+API_KEY=your-key-here
+```
+```
 
-## 주의사항
+### 3. Missing Verification
 
-1. **읽기 전용** - 이 Skill은 상태 점검만 수행
-2. **수정 필요 시** - project-organizer Agent 또는 해당 Agent 호출
-3. **KST 시간대** 기준으로 점검 일시 표기
-4. **모든 출력은 한글**로 작성
+```markdown
+# Bad
+Run the migration.
+
+# Good
+Run the migration:
+`npx wrangler d1 migrations apply my-db --local`
+
+Verify with:
+`npx wrangler d1 execute my-db --local --command "SELECT name FROM sqlite_master WHERE type='table'"`
+
+Expected output: Should show your table names.
+```
+
+### 4. Assumed Context
+
+```markdown
+# Bad
+Now deploy (you know the drill).
+
+# Good
+Deploy to production:
+`npx wrangler deploy`
+
+Verify deployment at: https://your-worker.your-subdomain.workers.dev
+```
+
+## Relationship to Other Tools
+
+| Tool | Focus | Audience |
+|------|-------|----------|
+| `project-docs-auditor` | Traditional doc quality (links, freshness, structure) | Human readers |
+| `project-health` skill | AI-agent readiness (executability, clarity, handoff) | Claude sessions |
+| `docs-workflow` skill | Creating/managing specific doc files | Both |
+
+## Quick Start
+
+1. **Full audit**: "Run all project-health agents on this repo"
+2. **Check one aspect**: "Use context-auditor to check AI-readability"
+3. **Before handoff**: "Use handoff-checker before I end this session"
+
+## Success Metrics
+
+A healthy project scores:
+- **Context Auditor**: 80+ (AI can understand without clarification)
+- **Workflow Validator**: 90+ (steps execute literally without failure)
+- **Handoff Checker**: 85+ (new session can resume immediately)
+
+Projects below these thresholds have documentation debt that will slow future AI sessions.

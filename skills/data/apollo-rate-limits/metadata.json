@@ -1,7 +1,7 @@
 {
   "name": "apollo-rate-limits",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/apollo-rate-limits/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-29T03:34:13.908040Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "plugins/saas-packs/apollo-pack/skills/apollo-rate-limits/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:32.874938Z"
 }

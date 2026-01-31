@@ -1,9 +1,7 @@
 {
   "name": "vercel-webhooks-events",
-  "description": "Implement Vercel webhook signature validation and event handling.Use when setting up webhook endpoints, implementing signature verification,or handling Vercel event notifications securely.Trigger with",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/saas-packs/vercel-pack/skills/vercel-webhooks-events/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:35.558754Z"
 }

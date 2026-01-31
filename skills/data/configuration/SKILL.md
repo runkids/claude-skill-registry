@@ -1,353 +1,340 @@
 ---
-name: configuration
-description: Reads config.json and prompts user for application parameters. Merges configuration with defaults for project generation.
+name: Configuration
+description: This skill should be used when the user asks about "Effect Config", "environment variables", "configuration management", "Config.string", "Config.number", "ConfigProvider", "Config.nested", "Config.withDefault", "Config.redacted", "sensitive values", "config validation", "loading config from JSON", "config schema", or needs to understand how Effect handles application configuration.
+version: 1.0.0
 ---
 
-# Configuration Management Skill
+# Configuration in Effect
 
-## Purpose
-Read and merge application configuration from `config.json` file with interactive prompts and default values.
+## Overview
 
-**IMPORTANT**: When prompting users interactively, ask questions **ONE AT A TIME** in a conversational manner. Wait for each answer before asking the next question.
+Effect provides type-safe configuration loading with:
 
-## When to Use
-Execute this skill at the beginning of the application generation process (Step 2 in AGENT_INSTRUCTIONS.md).
+- Automatic environment variable reading
+- Validation and type conversion
+- Default values and composition
+- Sensitive value handling
+- Multiple config sources (env, JSON, custom)
 
-## Input Parameters
-None - reads from project root
+## Basic Configuration Types
 
-## Configuration Sources Priority
-1. **config.json** (if exists in project root) - Highest priority
-2. **Interactive prompts** - For missing required fields
-3. **Default values** - For optional fields not provided
+```typescript
+import { Config, Effect } from "effect"
 
-## Instructions
+const host = Config.string("HOST")
 
-### Step 1: Check for config.json
-```javascript
-const configPath = path.join(process.cwd(), 'config.json');
-const configExists = fs.existsSync(configPath);
+const port = Config.number("PORT")
 
-if (configExists) {
-  console.log('✓ Found config.json - loading configuration...\n');
-} else {
-  console.log('ℹ  No config.json found - will use interactive prompts\n');
-}
+const debug = Config.boolean("DEBUG")
+
+const maxConnections = Config.integer("MAX_CONNECTIONS")
 ```
 
-### Step 2: Load and Validate Configuration
-```javascript
-let userConfig = {};
+## Using Config in Effects
 
-if (configExists) {
-  const configContent = fs.readFileSync(configPath, 'utf-8');
-  userConfig = JSON.parse(configContent);
-  
-  // Validate against schema
-  const schemaPath = '.github/agents/agents-context/app-starter/config.schema.json';
-  const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
-  
-  // Use a JSON schema validator (e.g., ajv)
-  const valid = validateSchema(userConfig, schema);
-  
-  if (!valid) {
-    console.error('❌ config.json validation failed');
-    console.error('   Please check your configuration against config.schema.json');
-    process.exit(1);
-  }
-  
-  console.log('✓ Configuration validated successfully\n');
-}
+```typescript
+const program = Effect.gen(function* () {
+  const host = yield* Config.string("DATABASE_HOST")
+  const port = yield* Config.number("DATABASE_PORT")
+
+  return { host, port }
+})
+
+// Runs and reads from environment
+await Effect.runPromise(program)
 ```
 
-### Step 3: Apply Default Values
-```javascript
-// Static defaults
-const defaults = {
-  node_version: "v22.16.0",
-  vue_version: "^3.5.13",
-  vite_version: "^6.3.5",
-  typescript_version: "^5.7.3",
-  test_framework: "jest",
-  state_management: "vuex",
-  enable_single_spa: true,
-  enable_datadog: true,
-  include_component_library: false,  // Default to no component library
-  component_library: "@royalaholddelhaize/pdl-spectrum-component-library-web",
-  component_library_version: "^1.0.3"
-};
+## Default Values
 
-// Merge with defaults (config.json values take priority)
-userConfig = { ...defaults, ...userConfig };
+```typescript
+const port = Config.number("PORT").pipe(
+  Config.withDefault(3000)
+)
+
+const debug = Config.boolean("DEBUG").pipe(
+  Config.withDefault(false)
+)
 ```
 
-### Step 4: Prompt for Missing Required Fields
+## Optional Configuration
 
-**Ask questions ONE AT A TIME in order. Wait for user response before asking next question.**
-
-```javascript
-const requiredFields = [
-  'application_name',
-  'project_scope',
-  'router_base_path',
-  'api_base_path',
-  'default_port',
-  'application_type',
-  'use_latest_versions'  // Added as required field
-];
-
-// Ask ONE question at a time
-for (const field of requiredFields) {
-  if (!userConfig[field]) {
-    // Show context and ask single question
-    console.log(`\n📝 Question ${requiredFields.indexOf(field) + 1}/${requiredFields.length}`);
-    userConfig[field] = await promptUser(field);
-    
-    // Confirm response before moving to next question
-    console.log(`✓ Got it: ${userConfig[field]}\n`);
-  } else {
-    console.log(`✓ Using ${field} from config: ${userConfig[field]}`);
-  }
-}
+```typescript
+const apiKey = Config.string("API_KEY").pipe(
+  Config.option
+)
+// Type: Effect<Option<string>>
 ```
 
-### Step 5: Conditional Prompts Based on Version Choice
+## Combining Configurations
 
-**If user chose NOT to use latest versions, ask about test framework and state management.**
+### Using Config.all
 
-```javascript
-// Only ask these if user chose stable versions (not latest)
-if (userConfig.use_latest_versions === false || userConfig.use_latest_versions === 'no') {
-  
-  // Prompt for test framework if not set
-  if (!userConfig.test_framework) {
-    console.log('\n🧪 Testing framework:');
-    userConfig.test_framework = await promptUser('test_framework', {
-      choices: ['jest', 'vitest'],
-      default: 'jest',
-      message: 'Which testing framework do you want to use?'
-    });
-    console.log(`✓ Will use ${userConfig.test_framework}\n`);
-  }
+```typescript
+const dbConfig = Config.all({
+  host: Config.string("DB_HOST"),
+  port: Config.number("DB_PORT"),
+  database: Config.string("DB_NAME"),
+  maxConnections: Config.number("DB_MAX_CONN").pipe(
+    Config.withDefault(10)
+  )
+})
 
-  // Prompt for state management if not set
-  if (!userConfig.state_management) {
-    console.log('\n📊 State management:');
-    userConfig.state_management = await promptUser('state_management', {
-      choices: ['vuex', 'pinia'],
-      default: 'vuex',
-      message: 'Which state management library do you want to use?'
-    });
-    console.log(`✓ Will use ${userConfig.state_management}\n`);
-  }
-  
-} else {
-  // User chose latest versions - use recommended defaults
-  console.log('\n✓ Using latest versions with recommended tools:');
-  userConfig.test_framework = 'vitest';  // Latest recommendation
-  userConfig.state_management = 'pinia';  // Latest recommendation
-  console.log('  • Testing: Vitest (latest)');
-  console.log('  • State Management: Pinia (latest)\n');
-}
+const program = Effect.gen(function* () {
+  const config = yield* dbConfig
+  // config: { host: string, port: number, database: string, maxConnections: number }
+})
 ```
 
-### Step 6: Prompt for Optional GitHub Token
+### Nested Configurations
 
-**Only ask for GitHub token if user wants component library.**
-
-```javascript
-// First, ask if they want a component library
-let needsComponentLibrary = false;
-
-if (userConfig.include_component_library === undefined) {
-  console.log('\n📦 Component library:');
-  needsComponentLibrary = await promptUser('include_component_library', {
-    type: 'confirm',
-    message: 'Do you want to include a component library?',
-    default: false,
-    hint: '(@RoyalAholdDelhaize/pdl-spectrum-component-library-web)'
-  });
-  userConfig.include_component_library = needsComponentLibrary;
-  console.log(`✓ ${needsComponentLibrary ? 'Will include component library' : 'No component library'}\n`);
-}
+```typescript
+const dbConfig = Config.nested("DB")(
+  Config.all({
+    host: Config.string("HOST"),      // Reads DB_HOST
+    port: Config.number("PORT"),      // Reads DB_PORT
+    name: Config.string("NAME")       // Reads DB_NAME
+  })
+)
 ```
 
-### Step 7: Derive Auto-Calculated Values
-```javascript
-// Derive main_component_name from application_name
-// Example: "omni-inventory-manager-web" → "OmniInventoryManagerWeb"
-userConfig.main_component_name = userConfig.application_name
-  .split('-')
-  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-  .join('');
+## Config with Schema Validation
 
-// application_id and service_name same as application_name
-userConfig.application_id = userConfig.application_name;
-userConfig.service_name = userConfig.application_name;
+Use Effect Schema for complex validation:
 
-// Determine if standalone or micro-frontend
-userConfig.is_standalone = userConfig.application_type === 'standalone';
-userConfig.is_microfrontend = userConfig.application_type === 'micro-frontend';
+```typescript
+import { Config, Schema } from "effect"
 
-// Map application_type to vite_build_format
-userConfig.vite_build_format = userConfig.is_microfrontend ? 'system' : 'es';
+const PortSchema = Schema.Number.pipe(
+  Schema.int(),
+  Schema.between(1, 65535)
+)
+
+const port = Config.number("PORT").pipe(
+  Config.mapOrFail((n) =>
+    Schema.decodeUnknownEither(PortSchema)(n).pipe(
+      Either.mapLeft((e) => ConfigError.InvalidData([], `Invalid port: ${n}`))
+    )
+  )
+)
 ```
 
-### Step 7: Display Configuration Summary
-```javascript
-console.log('\n' + '═'.repeat(60));
-console.log('  CONFIGURATION SUMMARY');
-console.log('═'.repeat(60));
-console.log(`Application:       ${userConfig.application_name}`);
-console.log(`Scope:             ${userConfig.project_scope}`);
-console.log(`Type:              ${userConfig.application_type}`);
-console.log(`Router Base:       ${userConfig.router_base_path}`);
-console.log(`API Base:          ${userConfig.api_base_path}`);
-console.log(`Port:              ${userConfig.default_port}`);
-console.log(`Test Framework:    ${userConfig.test_framework}`);
-console.log(`State Management:  ${userConfig.state_management}`);
-console.log(`Component Library: ${userConfig.component_library || 'None'}`);
-console.log('═'.repeat(60) + '\n');
+## Handling Sensitive Values
+
+### Config.redacted
+
+Prevents accidental logging of sensitive values:
+
+```typescript
+const apiKey = Config.redacted("API_KEY")
+// Type: Effect<Redacted<string>>
+
+const program = Effect.gen(function* () {
+  const key = yield* apiKey
+
+  // Safe to log - shows "<redacted>"
+  yield* Effect.log(`Key: ${key}`)
+
+  // Get actual value when needed
+  const actual = Redacted.value(key)
+})
 ```
 
-### Step 8: Offer to Save Configuration (Optional)
+### Secret Type
 
-```javascript
-// Only offer to save if user provided parameters via prompts
-if (!configExists || missingFields.length > 0) {
-  const shouldSave = await promptUser('saveConfig', {
-    message: 'Save this configuration to config.json for future use?',
-    type: 'confirm',
-    default: true
-  });
-  
-  if (shouldSave) {
-    // Prepare config object (exclude sensitive data)
-    const configToSave = {
-      application_name: userConfig.application_name,
-      project_scope: userConfig.project_scope,
-      router_base_path: userConfig.router_base_path,
-      api_base_path: userConfig.api_base_path,
-      default_port: userConfig.default_port,
-      application_type: userConfig.application_type,
-      test_framework: userConfig.test_framework,
-      state_management: userConfig.state_management,
-      node_version: userConfig.node_version,
-      vue_version: userConfig.vue_version,
-      vite_version: userConfig.vite_version,
-      typescript_version: userConfig.typescript_version,
-      enable_single_spa: userConfig.enable_single_spa,
-      enable_datadog: userConfig.enable_datadog,
-      component_library: userConfig.component_library,
-      component_library_version: userConfig.component_library_version
-    };
-    
-    // Write to config.json
-    fs.writeFileSync(
-      path.join(process.cwd(), 'config.json'),
-      JSON.stringify(configToSave, null, 2) + '\n'
-    );
-    
-    console.log('✓ Configuration saved to config.json');
-    console.log('⚠️  Note: GitHub token (if provided) was NOT saved for security');
-    console.log('   You can manually add it to config.json if needed (it will be gitignored)\n');
-    
-    // Add config.json to .gitignore if not already there
-    const gitignorePath = path.join(process.cwd(), '.gitignore');
-    if (fs.existsSync(gitignorePath)) {
-      const gitignoreContent = fs.readFileSync(gitignorePath, 'utf-8');
-      if (!gitignoreContent.includes('config.json')) {
-        fs.appendFileSync(gitignorePath, '\nconfig.json\n');
-        console.log('✓ Added config.json to .gitignore\n');
-      }
-    }
+```typescript
+const dbPassword = Config.secret("DB_PASSWORD")
+// Type: Effect<Secret.Secret>
+
+const program = Effect.gen(function* () {
+  const password = yield* dbPassword
+  const value = Secret.value(password) // Get actual string
+})
+```
+
+## Config Operators
+
+### Transforming Values
+
+```typescript
+const upperHost = Config.string("HOST").pipe(
+  Config.map((s) => s.toUpperCase())
+)
+
+const port = Config.string("PORT").pipe(
+  Config.mapOrFail((s) => {
+    const n = parseInt(s)
+    return isNaN(n)
+      ? Either.left(ConfigError.InvalidData([], "Not a number"))
+      : Either.right(n)
+  })
+)
+```
+
+### Fallback Values
+
+```typescript
+const host = Config.string("PRIMARY_HOST").pipe(
+  Config.orElse(() => Config.string("SECONDARY_HOST")),
+  Config.orElse(() => Config.succeed("localhost"))
+)
+```
+
+## Custom Config Providers
+
+### From Environment (Default)
+
+```typescript
+const program = Effect.gen(function* () {
+  const host = yield* Config.string("HOST")
+})
+```
+
+### From JSON/Object
+
+```typescript
+import { ConfigProvider, Layer } from "effect"
+
+const config = {
+  host: "localhost",
+  port: "3000",
+  database: {
+    host: "db.example.com",
+    port: "5432"
   }
 }
+
+const JsonConfigProvider = ConfigProvider.fromJson(config)
+
+const program = Effect.gen(function* () {
+  const host = yield* Config.string("host")
+  const dbHost = yield* Config.nested("database")(Config.string("host"))
+})
+
+const runnable = program.pipe(
+  Effect.provide(Layer.setConfigProvider(JsonConfigProvider))
+)
 ```
 
-## Output
-- `userConfig` object with all configuration values
-- Validation results
-- Summary display to user
-- Optional: `config.json` file saved in project root (if user confirms)
+### From Map
 
-## Validation Rules
-
-### Format Validation
-- **application_name**: Must be kebab-case (e.g., `my-app-web`)
-- **project_scope**: Must start with `@` (e.g., `@myorg`)
-- **router_base_path**: Must start with `/` (e.g., `/my-app`)
-- **api_base_path**: Must start with `/` (e.g., `/api`)
-- **default_port**: Must be integer 1024-65535
-- **application_type**: Must be `"standalone"` or `"micro-frontend"`
-- **test_framework**: Must be `"jest"` or `"vitest"`
-- **state_management**: Must be `"vuex"` or `"pinia"`
-
-### Business Logic Validation
-See `conditional-generation` skill for application type specific validations.
-
-## Configuration Methods
-
-### Method 1: Interactive Terminal Prompts (Default)
-Run the agent and answer the prompts interactively.
-
-**IMPORTANT**: Questions are asked **ONE AT A TIME** in a conversational flow:
-- Agent asks question 1, waits for answer
-- Agent confirms answer, asks question 2, waits for answer
-- Agent confirms answer, asks question 3, and so on...
-- Progress indicator shown (e.g., "Question 3/6")
-
-**Example Interactive Flow**:
-```
-Agent: 📝 Question 1/7
-       What is the name of your application? (in kebab-case)
-User:  my-inventory-app-web
-Agent: ✓ Got it: my-inventory-app-web
-
-Agent: 📝 Question 2/7
-       What is your NPM scope/organization? (e.g., @my-org)
-User:  @my-company
-Agent: ✓ Got it: @my-company
-
-Agent: 📝 Question 3/7
-       What base path should the router use?
-User:  /my-inventory-app
-Agent: ✓ Got it: /my-inventory-app
-
-... continues through question 7 ...
-
-Agent: 📝 Question 7/7
-       Do you want to use the latest package versions from npm?
-User:  yes
-Agent: ✓ Got it: yes
-
-       ✓ Using latest versions with recommended tools:
-         • Testing: Vitest (latest)
-         • State Management: Pinia (latest)
-
-Agent: 📦 Component library:
-       Do you want to include a component library?
-User:  no
-Agent: ✓ No component library
-       ℹ  Skipping GitHub token (no component library needed)
-
-... and so on
+```typescript
+const MapProvider = ConfigProvider.fromMap(
+  new Map([
+    ["HOST", "localhost"],
+    ["PORT", "3000"]
+  ])
+)
 ```
 
-### Method 2: Configuration File (config.json)
-Create a `config.json` file in the project root. The agent will read values and skip prompting.
+### Combining Providers
 
-### Method 3: Hybrid Approach
-Provide some values in `config.json` and the agent will only prompt for missing required values (ONE AT A TIME).
+```typescript
+const CombinedProvider = ConfigProvider.orElse(
+  ConfigProvider.fromEnv(),
+  () => ConfigProvider.fromJson(defaultConfig)
+)
+```
 
-## Related Skills
-- **conditional-generation**: Determines which files to generate based on config
-- **component-library**: Handles component library installation based on config
-- **package-json**: Uses config to generate package.json
+## Config in Layers
 
-## Files Referenced
+```typescript
+const AppConfigLive = Layer.effect(
+  AppConfig,
+  Effect.gen(function* () {
+    const host = yield* Config.string("HOST")
+    const port = yield* Config.number("PORT")
+    const debug = yield* Config.boolean("DEBUG").pipe(Config.withDefault(false))
 
-### config.json (project root)
-User's configuration file (optional). If exists, values are loaded from here.
+    return { host, port, debug }
+  })
+)
+```
 
-All configuration fields, validation rules, and defaults are documented in `examples.md`.
+## Testing Configuration
+
+### Mock Config Provider
+
+```typescript
+const TestConfigProvider = ConfigProvider.fromMap(
+  new Map([
+    ["HOST", "test-host"],
+    ["PORT", "9999"]
+  ])
+)
+
+const testProgram = program.pipe(
+  Effect.provide(Layer.setConfigProvider(TestConfigProvider))
+)
+```
+
+### Config.succeed for Hardcoded
+
+```typescript
+const testConfig = Config.succeed({
+  host: "localhost",
+  port: 3000
+})
+```
+
+## Error Handling
+
+Config failures produce `ConfigError`:
+
+```typescript
+const program = Effect.gen(function* () {
+  const host = yield* Config.string("REQUIRED_HOST")
+}).pipe(
+  Effect.catchTag("ConfigError", (error) =>
+    Effect.fail(new StartupError({ cause: error }))
+  )
+)
+```
+
+## Complete Example
+
+```typescript
+import { Config, Effect, Layer, Schema } from "effect"
+
+// Define config shape
+const AppConfig = Config.all({
+  server: Config.nested("SERVER")(
+    Config.all({
+      host: Config.string("HOST").pipe(Config.withDefault("0.0.0.0")),
+      port: Config.number("PORT").pipe(Config.withDefault(3000))
+    })
+  ),
+  database: Config.nested("DATABASE")(
+    Config.all({
+      url: Config.redacted("URL"),
+      maxConnections: Config.number("MAX_CONN").pipe(Config.withDefault(10))
+    })
+  ),
+  features: Config.all({
+    debug: Config.boolean("DEBUG").pipe(Config.withDefault(false)),
+    metrics: Config.boolean("METRICS_ENABLED").pipe(Config.withDefault(true))
+  })
+})
+
+// Use in application
+const program = Effect.gen(function* () {
+  const config = yield* AppConfig
+  yield* Effect.log(`Starting server on ${config.server.host}:${config.server.port}`)
+})
+```
+
+## Best Practices
+
+1. **Use Config.withDefault for optional values** - Avoid runtime errors
+2. **Use Config.redacted for secrets** - Prevents accidental logging
+3. **Use Config.nested for structure** - Organizes related config
+4. **Validate with Schema** - Catch invalid config early
+5. **Test with mock providers** - Deterministic tests
+
+## Additional Resources
+
+For comprehensive configuration documentation, consult `${CLAUDE_PLUGIN_ROOT}/references/llms-full.txt`.
+
+Search for these sections:
+- "Configuration" for full API reference
+- "ConfigProvider" for custom providers
+- "Handling Sensitive Values" for security

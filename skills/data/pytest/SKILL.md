@@ -1,328 +1,194 @@
 ---
 name: pytest
-description: Python testing framework for writing simple, scalable, and powerful tests
-when_to_use: When you need to write, run, or organize Python tests with fixtures, parametrization, or async testing
+description: >
+  Pytest testing patterns for Python.
+  Trigger: When writing or refactoring pytest tests (fixtures, mocking, parametrize, markers). For Prowler-specific API/SDK testing conventions, also use prowler-test-api or prowler-test-sdk.
+license: Apache-2.0
+metadata:
+  author: prowler-cloud
+  version: "1.0"
+  scope: [root, sdk, api]
+  auto_invoke: "Writing Python tests with pytest"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
-# Pytest Testing Framework
-
-Pytest is a mature Python testing framework that makes it easy to write small tests while scaling to support complex functional testing.
-
-## Quick Start
-
-### Basic Test Structure
+## Basic Test Structure
 
 ```python
-# test_example.py
-def test_addition():
-    assert 2 + 2 == 4
+import pytest
 
-def test_string_operations():
-    assert "hello".upper() == "HELLO"
-    assert "world" in "hello world"
+class TestUserService:
+    def test_create_user_success(self):
+        user = create_user(name="John", email="john@test.com")
+        assert user.name == "John"
+        assert user.email == "john@test.com"
+
+    def test_create_user_invalid_email_fails(self):
+        with pytest.raises(ValueError, match="Invalid email"):
+            create_user(name="John", email="invalid")
 ```
 
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with verbose output
-pytest -v
-
-# Run specific test file
-pytest test_example.py
-
-# Run specific test function
-pytest test_example.py::test_addition
-```
-
-## Common Patterns
-
-### Fixtures
-
-**Basic fixture definition:**
+## Fixtures
 
 ```python
 import pytest
 
 @pytest.fixture
-def sample_data():
-    return {"name": "Alice", "age": 30}
+def user():
+    """Create a test user."""
+    return User(name="Test User", email="test@example.com")
 
-def test_user_data(sample_data):
-    assert sample_data["name"] == "Alice"
-    assert sample_data["age"] == 30
-```
-
-**Fixture with setup and teardown:**
-
-```python
 @pytest.fixture
-def database_connection():
-    # Setup
-    conn = create_database_connection()
-    yield conn
-    # Teardown
-    conn.close()
+def authenticated_client(client, user):
+    """Client with authenticated user."""
+    client.force_login(user)
+    return client
 
-def test_database_query(database_connection):
-    result = database_connection.query("SELECT * FROM users")
-    assert len(result) > 0
+# Fixture with teardown
+@pytest.fixture
+def temp_file():
+    path = Path("/tmp/test_file.txt")
+    path.write_text("test content")
+    yield path  # Test runs here
+    path.unlink()  # Cleanup after test
+
+# Fixture scopes
+@pytest.fixture(scope="module")  # Once per module
+@pytest.fixture(scope="class")   # Once per class
+@pytest.fixture(scope="session") # Once per test session
 ```
 
-**Fixture scopes:**
+## conftest.py
 
 ```python
-@pytest.fixture(scope="function")  # Default - created per test
-def temp_file():
-    pass
+# tests/conftest.py - Shared fixtures
+import pytest
 
-@pytest.fixture(scope="module")    # Created once per module
-def module_resource():
-    pass
+@pytest.fixture
+def db_session():
+    session = create_session()
+    yield session
+    session.rollback()
 
-@pytest.fixture(scope="session")   # Created once per test session
-def session_resource():
-    pass
+@pytest.fixture
+def api_client():
+    return TestClient(app)
 ```
 
-### Parametrization
+## Mocking
 
-**Basic parametrization:**
+```python
+from unittest.mock import patch, MagicMock
+
+class TestPaymentService:
+    def test_process_payment_success(self):
+        with patch("services.payment.stripe_client") as mock_stripe:
+            mock_stripe.charge.return_value = {"id": "ch_123", "status": "succeeded"}
+
+            result = process_payment(amount=100)
+
+            assert result["status"] == "succeeded"
+            mock_stripe.charge.assert_called_once_with(amount=100)
+
+    def test_process_payment_failure(self):
+        with patch("services.payment.stripe_client") as mock_stripe:
+            mock_stripe.charge.side_effect = PaymentError("Card declined")
+
+            with pytest.raises(PaymentError):
+                process_payment(amount=100)
+
+# MagicMock for complex objects
+def test_with_mock_object():
+    mock_user = MagicMock()
+    mock_user.id = "user-123"
+    mock_user.name = "Test User"
+    mock_user.is_active = True
+
+    result = get_user_info(mock_user)
+    assert result["name"] == "Test User"
+```
+
+## Parametrize
 
 ```python
 @pytest.mark.parametrize("input,expected", [
-    ("3+5", 8),
-    ("2+4", 6),
-    ("6*9", 54),
+    ("hello", "HELLO"),
+    ("world", "WORLD"),
+    ("pytest", "PYTEST"),
 ])
-def test_eval(input, expected):
-    assert eval(input) == expected
+def test_uppercase(input, expected):
+    assert input.upper() == expected
+
+@pytest.mark.parametrize("email,is_valid", [
+    ("user@example.com", True),
+    ("invalid-email", False),
+    ("", False),
+    ("user@.com", False),
+])
+def test_email_validation(email, is_valid):
+    assert validate_email(email) == is_valid
 ```
 
-**Parametrized fixtures:**
+## Markers
 
 ```python
-@pytest.fixture(params=["mysql", "postgresql", "sqlite"])
-def database(request):
-    if request.param == "mysql":
-        return MySQLConnection()
-    elif request.param == "postgresql":
-        return PostgreSQLConnection()
-    else:
-        return SQLiteConnection()
+# pytest.ini or pyproject.toml
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks integration tests",
+]
 
-def test_database_operations(database):
-    # Test runs 3 times, once for each database type
-    result = database.execute("SELECT 1")
-    assert result == 1
+# Usage
+@pytest.mark.slow
+def test_large_data_processing():
+    ...
+
+@pytest.mark.integration
+def test_database_connection():
+    ...
+
+@pytest.mark.skip(reason="Not implemented yet")
+def test_future_feature():
+    ...
+
+@pytest.mark.skipif(sys.platform == "win32", reason="Unix only")
+def test_unix_specific():
+    ...
+
+# Run specific markers
+# pytest -m "not slow"
+# pytest -m "integration"
 ```
 
-**Stacking parametrization for combinatorial testing:**
-
-```python
-@pytest.mark.parametrize("x", [0, 1])
-@pytest.mark.parametrize("y", [2, 3])
-def test_combinations(x, y):
-    # Runs 4 times: (0,2), (0,3), (1,2), (1,3)
-    assert x + y > 1
-```
-
-### Async Testing
-
-**Basic async test:**
+## Async Tests
 
 ```python
 import pytest
 
 @pytest.mark.asyncio
 async def test_async_function():
-    result = await async_operation()
+    result = await async_fetch_data()
     assert result is not None
 ```
 
-**Async fixtures:**
-
-```python
-@pytest.fixture
-async def async_client():
-    client = AsyncClient()
-    await client.connect()
-    yield client
-    await client.disconnect()
-
-@pytest.mark.asyncio
-async def test_async_api(async_client):
-    response = await async_client.get("/api/data")
-    assert response.status_code == 200
-```
-
-### Test Organization
-
-**Using conftest.py for shared fixtures:**
-
-```python
-# conftest.py
-@pytest.fixture
-def authenticated_client():
-    client = create_test_client()
-    client.login("testuser", "password")
-    return client
-
-@pytest.fixture(scope="session")
-def test_database():
-    db = create_test_database()
-    yield db
-    db.cleanup()
-```
-
-**Test classes:**
-
-```python
-class TestUserAPI:
-    def test_create_user(self, authenticated_client):
-        response = authenticated_client.post("/users", json={"name": "John"})
-        assert response.status_code == 201
-
-    def test_get_user(self, authenticated_client):
-        user_id = create_test_user()
-        response = authenticated_client.get(f"/users/{user_id}")
-        assert response.status_code == 200
-```
-
-### Mocking and Patching
-
-**Using monkeypatch fixture:**
-
-```python
-def test_environment_variable(monkeypatch):
-    monkeypatch.setenv("API_KEY", "test-key")
-    assert get_api_key() == "test-key"
-
-def test_file_operations(monkeypatch, tmp_path):
-    test_file = tmp_path / "test.txt"
-    test_file.write_text("test content")
-
-    monkeypatch.setattr("module.FILE_PATH", str(test_file))
-    assert read_file_content() == "test content"
-```
-
-### Markers and Selection
-
-**Custom markers:**
-
-```python
-# pytest.ini
-[tool:pytest]
-markers =
-    slow: marks tests as slow
-    integration: marks tests as integration tests
-    unit: marks tests as unit tests
-
-# test_file.py
-@pytest.mark.slow
-def test_expensive_operation():
-    pass
-
-@pytest.mark.integration
-def test_database_integration():
-    pass
-```
-
-**Running tests by marker:**
+## Commands
 
 ```bash
-# Run only unit tests
-pytest -m unit
-
-# Skip slow tests
-pytest -m "not slow"
-
-# Run integration or unit tests
-pytest -m "integration or unit"
+pytest                          # Run all tests
+pytest -v                       # Verbose output
+pytest -x                       # Stop on first failure
+pytest -k "test_user"           # Filter by name
+pytest -m "not slow"            # Filter by marker
+pytest --cov=src                # With coverage
+pytest -n auto                  # Parallel (pytest-xdist)
+pytest --tb=short               # Short traceback
 ```
 
-## Practical Code Snippets
+## References
 
-### API Testing
+For general pytest documentation, see:
+- **Official Docs**: https://docs.pytest.org/en/stable/
 
-```python
-import pytest
-from fastapi.testclient import TestClient
-from myapp import app
-
-@pytest.fixture
-def client():
-    return TestClient(app)
-
-@pytest.fixture
-def test_user():
-    return {"username": "testuser", "email": "test@example.com"}
-
-def test_create_user(client, test_user):
-    response = client.post("/users/", json=test_user)
-    assert response.status_code == 201
-    assert response.json()["username"] == test_user["username"]
-
-def test_get_user(client, test_user):
-    # Create user first
-    create_response = client.post("/users/", json=test_user)
-    user_id = create_response.json()["id"]
-
-    # Get user
-    response = client.get(f"/users/{user_id}")
-    assert response.status_code == 200
-    assert response.json()["email"] == test_user["email"]
-```
-
-### Database Testing
-
-```python
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-@pytest.fixture(scope="function")
-def test_db():
-    engine = create_engine("sqlite:///:memory:")
-    Session = sessionmaker(bind=engine)
-    Base.metadata.create_all(engine)
-    session = Session()
-    yield session
-    session.close()
-
-def test_user_creation(test_db):
-    user = User(name="John", email="john@example.com")
-    test_db.add(user)
-    test_db.commit()
-
-    retrieved_user = test_db.query(User).filter_by(name="John").first()
-    assert retrieved_user.email == "john@example.com"
-```
-
-### Error Handling Testing
-
-```python
-def test_invalid_input_raises_error():
-    with pytest.raises(ValueError, match="Invalid input"):
-        process_input("invalid")
-
-def test_file_not_found():
-    with pytest.raises(FileNotFoundError):
-        read_nonexistent_file()
-
-def test_custom_exception():
-    with pytest.raises(CustomAPIError) as exc_info:
-        call_api_endpoint()
-    assert exc_info.value.status_code == 404
-    assert "not found" in str(exc_info.value)
-```
-
-## Requirements
-
-- Python 3.7+
-- pytest (`pip install pytest`)
-- For async testing: pytest-asyncio (`pip install pytest-asyncio`)
-- For API testing: web framework test client (e.g., `pip install httpx` for async HTTP tests)
+For Prowler SDK testing with provider-specific patterns (moto, MagicMock), see:
+- **Documentation**: [references/prowler-testing.md](references/prowler-testing.md)

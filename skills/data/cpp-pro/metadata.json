@@ -1,7 +1,7 @@
 {
   "name": "cpp-pro",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/cpp-pro/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:02.076789Z"
+  "repo": "Jeffallan/claude-skills",
+  "path": "skills/cpp-pro/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-31T03:51:13.663998Z"
 }

@@ -1,156 +1,379 @@
 ---
 name: ui-design-system
-description: Authoritative UI/UX Design System Guide based on EtroxTaran/Uiplatformguide
-version: 1.1.0
-tags: [ui, design-system, components]
-owner: design
-status: active
+description: UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer handoff tools. Use for creating design systems, maintaining visual consistency, and facilitating design-dev collaboration.
 ---
 
-# UI Design System Skill
+# UI Design System
 
-## Overview
+Generate design tokens, create color palettes, calculate typography scales, build component systems, and prepare developer handoff documentation.
 
-Use the local reference design system as the source of truth for UI components and patterns.
+---
 
-## Usage
+## Table of Contents
 
-```
-/ui-design-system
-```
+- [Trigger Terms](#trigger-terms)
+- [Workflows](#workflows)
+  - [Workflow 1: Generate Design Tokens](#workflow-1-generate-design-tokens)
+  - [Workflow 2: Create Component System](#workflow-2-create-component-system)
+  - [Workflow 3: Responsive Design](#workflow-3-responsive-design)
+  - [Workflow 4: Developer Handoff](#workflow-4-developer-handoff)
+- [Tool Reference](#tool-reference)
+- [Quick Reference Tables](#quick-reference-tables)
+- [Knowledge Base](#knowledge-base)
 
-This skill is the **authoritative UI guidance** for the Conductor project. It is backed by a **local reference repository** that must be present and up to date:
-`.claude/skills/ui-design-system/reference`
+---
 
-Primary sources:
-- Repo (source of truth): `https://github.com/EtroxTaran/Uiplatformguide`
-- Deployed guide (visual reference only): `https://booth-fit-99271772.figma.site/`
+## Trigger Terms
 
-The local `reference/` folder contains a full clone of the design system repo and is **the canonical source** for tokens, component APIs, and patterns.
+Use this skill when you need to:
 
-## 0. Policy (Non‑Negotiable)
+- "generate design tokens"
+- "create color palette"
+- "build typography scale"
+- "calculate spacing system"
+- "create design system"
+- "generate CSS variables"
+- "export SCSS tokens"
+- "set up component architecture"
+- "document component library"
+- "calculate responsive breakpoints"
+- "prepare developer handoff"
+- "convert brand color to palette"
+- "check WCAG contrast"
+- "build 8pt grid system"
 
-- **All UI work must use this skill first.**
-- **No UI change without checking the reference.**
-- **If the reference is missing or outdated, stop and sync it.**
-- **If a component/pattern doesn’t exist in the reference, request guidance before inventing.**
+---
 
-## 0.5 Quick Checklist (Use Every Time)
+## Workflows
 
-- [ ] Reference repo exists at `.claude/skills/ui-design-system/reference`
-- [ ] Reference repo is up to date (`git fetch` + `merge --ff-only`)
-- [ ] Component/pattern located in reference files
-- [ ] Tokens taken from `reference/src/styles/globals.css`
-- [ ] shadcn / Shadcraft component installed via CLI (if needed)
-- [ ] Data tables follow `reference/src/components/shared/DataTable.tsx`
+### Workflow 1: Generate Design Tokens
 
-## 1. Core Principles
+**Situation:** You have a brand color and need a complete design token system.
 
-- **Source of Truth**: The local `reference/` code is the final authority for design tokens, components, and patterns.
-- **No Guessing**: Do not invent UI. Always check the reference.
-- **Primitives First**: Prefer primitives in `reference/src/components/ui/` before building composites.
-- **Patterns Second**: For layouts and flows, use patterns in `reference/src/components/layout/` and `reference/src/components/design-system/`.
-- **Visual Parity**: The deployed guide is for visual comparison only; implementation must follow the repo.
+**Steps:**
 
-## 2. Reference Coverage Map (What to Use)
+1. **Identify brand color and style**
+   - Brand primary color (hex format)
+   - Style preference: `modern` | `classic` | `playful`
 
-### 🎨 Design Tokens & Theming
-**File**: `reference/src/styles/globals.css`
-- CSS variables (light/dark mode), typography, spacing, elevation, animation tokens.
-- Always use these variables for theming and custom styling.
+2. **Generate tokens using script**
+   ```bash
+   python scripts/design_token_generator.py "#0066CC" modern json
+   ```
 
-### 🧩 UI Primitives (Radix + shadcn)
-**Directory**: `reference/src/components/ui/*.tsx`
-- Button, Input, Select, Dialog, Sheet, Tooltip, Tabs, Table, etc.
-- Use the exact props/variants/classes from these files.
+3. **Review generated categories**
+   - Colors: primary, secondary, neutral, semantic, surface
+   - Typography: fontFamily, fontSize, fontWeight, lineHeight
+   - Spacing: 8pt grid-based scale (0-64)
+   - Borders: radius, width
+   - Shadows: none through 2xl
+   - Animation: duration, easing
+   - Breakpoints: xs through 2xl
 
-### 🧰 Shared UI Patterns
-**Directory**: `reference/src/components/shared/`
-- `LoadingState.tsx` (spinners, skeletons)
-- `AccessibleTooltip.tsx` (responsive tooltips)
-- `ResponsiveModal.tsx`, `DestructiveDialog.tsx`, `DataTable.tsx`
+4. **Export in target format**
+   ```bash
+   # CSS custom properties
+   python scripts/design_token_generator.py "#0066CC" modern css > design-tokens.css
 
-### 🧭 Layout & Navigation
-**Directory**: `reference/src/components/layout/`
-- `AppShell.tsx`, `GlobalTopNav.tsx`, `AppSwitcher.tsx`, `FinanceSideNav.tsx`
+   # SCSS variables
+   python scripts/design_token_generator.py "#0066CC" modern scss > _design-tokens.scss
 
-### 📚 Design System Guidance
-**Directory**: `reference/src/components/design-system/`
-- Foundation tokens, component templates, form patterns, overlays, dashboard patterns.
+   # JSON for Figma/tooling
+   python scripts/design_token_generator.py "#0066CC" modern json > design-tokens.json
+   ```
 
-### 📄 Example Screens / Flows
-**Directory**: `reference/src/components/`
-- `DashboardLayout.tsx`, `SettingsPage.tsx`, `LoginPage.tsx`, `OverviewDashboard.tsx`
+5. **Validate accessibility**
+   - Check color contrast meets WCAG AA (4.5:1 normal, 3:1 large text)
+   - Verify semantic colors have contrast colors defined
 
-### 🔧 Utilities & Hooks
-**Files**:
-- `reference/src/components/ui/utils.ts` (class helpers)
-- `reference/src/hooks/use-media-query.ts`, `use-view-preference.ts`
+---
 
-## 3. Shadcn + Shadcraft Usage (Required)
+### Workflow 2: Create Component System
 
-We use **shadcn/ui** and **Shadcraft** for components and blocks. Follow the official CLI workflow for installation and registry usage.
+**Situation:** You need to structure a component library using design tokens.
 
-**Initialize shadcn:**
+**Steps:**
+
+1. **Define component hierarchy**
+   - Atoms: Button, Input, Icon, Label, Badge
+   - Molecules: FormField, SearchBar, Card, ListItem
+   - Organisms: Header, Footer, DataTable, Modal
+   - Templates: DashboardLayout, AuthLayout
+
+2. **Map tokens to components**
+
+   | Component | Tokens Used |
+   |-----------|-------------|
+   | Button | colors, sizing, borders, shadows, typography |
+   | Input | colors, sizing, borders, spacing |
+   | Card | colors, borders, shadows, spacing |
+   | Modal | colors, shadows, spacing, z-index, animation |
+
+3. **Define variant patterns**
+
+   Size variants:
+   ```
+   sm: height 32px, paddingX 12px, fontSize 14px
+   md: height 40px, paddingX 16px, fontSize 16px
+   lg: height 48px, paddingX 20px, fontSize 18px
+   ```
+
+   Color variants:
+   ```
+   primary: background primary-500, text white
+   secondary: background neutral-100, text neutral-900
+   ghost: background transparent, text neutral-700
+   ```
+
+4. **Document component API**
+   - Props interface with types
+   - Variant options
+   - State handling (hover, active, focus, disabled)
+   - Accessibility requirements
+
+5. **Reference:** See `references/component-architecture.md`
+
+---
+
+### Workflow 3: Responsive Design
+
+**Situation:** You need breakpoints, fluid typography, or responsive spacing.
+
+**Steps:**
+
+1. **Define breakpoints**
+
+   | Name | Width | Target |
+   |------|-------|--------|
+   | xs | 0 | Small phones |
+   | sm | 480px | Large phones |
+   | md | 640px | Tablets |
+   | lg | 768px | Small laptops |
+   | xl | 1024px | Desktops |
+   | 2xl | 1280px | Large screens |
+
+2. **Calculate fluid typography**
+
+   Formula: `clamp(min, preferred, max)`
+
+   ```css
+   /* 16px to 24px between 320px and 1200px viewport */
+   font-size: clamp(1rem, 0.5rem + 2vw, 1.5rem);
+   ```
+
+   Pre-calculated scales:
+   ```css
+   --fluid-h1: clamp(2rem, 1rem + 3.6vw, 4rem);
+   --fluid-h2: clamp(1.75rem, 1rem + 2.3vw, 3rem);
+   --fluid-h3: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+   --fluid-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+   ```
+
+3. **Set up responsive spacing**
+
+   | Token | Mobile | Tablet | Desktop |
+   |-------|--------|--------|---------|
+   | --space-md | 12px | 16px | 16px |
+   | --space-lg | 16px | 24px | 32px |
+   | --space-xl | 24px | 32px | 48px |
+   | --space-section | 48px | 80px | 120px |
+
+4. **Reference:** See `references/responsive-calculations.md`
+
+---
+
+### Workflow 4: Developer Handoff
+
+**Situation:** You need to hand off design tokens to development team.
+
+**Steps:**
+
+1. **Export tokens in required formats**
+   ```bash
+   # For CSS projects
+   python scripts/design_token_generator.py "#0066CC" modern css
+
+   # For SCSS projects
+   python scripts/design_token_generator.py "#0066CC" modern scss
+
+   # For JavaScript/TypeScript
+   python scripts/design_token_generator.py "#0066CC" modern json
+   ```
+
+2. **Prepare framework integration**
+
+   **React + CSS Variables:**
+   ```tsx
+   import './design-tokens.css';
+
+   <button className="btn btn-primary">Click</button>
+   ```
+
+   **Tailwind Config:**
+   ```javascript
+   const tokens = require('./design-tokens.json');
+
+   module.exports = {
+     theme: {
+       colors: tokens.colors,
+       fontFamily: tokens.typography.fontFamily
+     }
+   };
+   ```
+
+   **styled-components:**
+   ```typescript
+   import tokens from './design-tokens.json';
+
+   const Button = styled.button`
+     background: ${tokens.colors.primary['500']};
+     padding: ${tokens.spacing['2']} ${tokens.spacing['4']};
+   `;
+   ```
+
+3. **Sync with Figma**
+   - Install Tokens Studio plugin
+   - Import design-tokens.json
+   - Tokens sync automatically with Figma styles
+
+4. **Handoff checklist**
+   - [ ] Token files added to project
+   - [ ] Build pipeline configured
+   - [ ] Theme/CSS variables imported
+   - [ ] Component library aligned
+   - [ ] Documentation generated
+
+5. **Reference:** See `references/developer-handoff.md`
+
+---
+
+## Tool Reference
+
+### design_token_generator.py
+
+Generates complete design token system from brand color.
+
+| Argument | Values | Default | Description |
+|----------|--------|---------|-------------|
+| brand_color | Hex color | #0066CC | Primary brand color |
+| style | modern, classic, playful | modern | Design style preset |
+| format | json, css, scss, summary | json | Output format |
+
+**Examples:**
+
 ```bash
-npx shadcn@latest init
+# Generate JSON tokens (default)
+python scripts/design_token_generator.py "#0066CC"
+
+# Classic style with CSS output
+python scripts/design_token_generator.py "#8B4513" classic css
+
+# Playful style summary view
+python scripts/design_token_generator.py "#FF6B6B" playful summary
 ```
 
-**Install components or blocks:**
-```bash
-npx shadcn@latest add <component-name>
-npx shadcn@latest add @shadcraft/<item-name>
-```
+**Output Categories:**
 
-For registry configuration, environment keys, and CLI usage details, follow:
-`https://shadcraft.com/docs/installation-via-shadcn-cli`
+| Category | Description | Key Values |
+|----------|-------------|------------|
+| colors | Color palettes | primary, secondary, neutral, semantic, surface |
+| typography | Font system | fontFamily, fontSize, fontWeight, lineHeight |
+| spacing | 8pt grid | 0-64 scale, semantic (xs-3xl) |
+| sizing | Component sizes | container, button, input, icon |
+| borders | Border values | radius (per style), width |
+| shadows | Shadow styles | none through 2xl, inner |
+| animation | Motion tokens | duration, easing, keyframes |
+| breakpoints | Responsive | xs, sm, md, lg, xl, 2xl |
+| z-index | Layer system | base through notification |
 
-## 4. Radix + shadcn Best Practices (Must Follow)
+---
 
-- Use Radix primitives through shadcn wrappers in `reference/src/components/ui/`.
-- Keep accessibility attributes and ARIA props as implemented in the reference.
-- Prefer composition over overrides; avoid custom wrappers unless a reference pattern exists.
-- Keep motion/transition tokens aligned with `globals.css`.
+## Quick Reference Tables
 
-## 5. TanStack Data Grid Guidance (Required)
+### Color Scale Generation
 
-When using data tables, follow the reference implementation:
-- `reference/src/components/shared/DataTable.tsx`
+| Step | Brightness | Saturation | Use Case |
+|------|------------|------------|----------|
+| 50 | 95% fixed | 30% | Subtle backgrounds |
+| 100 | 95% fixed | 38% | Light backgrounds |
+| 200 | 95% fixed | 46% | Hover states |
+| 300 | 95% fixed | 54% | Borders |
+| 400 | 95% fixed | 62% | Disabled states |
+| 500 | Original | 70% | Base/default color |
+| 600 | Original × 0.8 | 78% | Hover (dark) |
+| 700 | Original × 0.6 | 86% | Active states |
+| 800 | Original × 0.4 | 94% | Text |
+| 900 | Original × 0.2 | 100% | Headings |
 
-Use the exact table structure, column definitions, and UI wrappers found there. Only extend behavior if the reference shows a pattern for it.
+### Typography Scale (1.25x Ratio)
 
-## 6. Reference Sync (Mandatory)
+| Size | Value | Calculation |
+|------|-------|-------------|
+| xs | 10px | 16 ÷ 1.25² |
+| sm | 13px | 16 ÷ 1.25¹ |
+| base | 16px | Base |
+| lg | 20px | 16 × 1.25¹ |
+| xl | 25px | 16 × 1.25² |
+| 2xl | 31px | 16 × 1.25³ |
+| 3xl | 39px | 16 × 1.25⁴ |
+| 4xl | 49px | 16 × 1.25⁵ |
+| 5xl | 61px | 16 × 1.25⁶ |
 
-The local reference **must exist and be current** before implementing UI.
+### WCAG Contrast Requirements
 
-```bash
-git -C .claude/skills/ui-design-system/reference fetch --all --prune
-git -C .claude/skills/ui-design-system/reference checkout <default-branch>
-git -C .claude/skills/ui-design-system/reference merge --ff-only FETCH_HEAD
-```
+| Level | Normal Text | Large Text |
+|-------|-------------|------------|
+| AA | 4.5:1 | 3:1 |
+| AAA | 7:1 | 4.5:1 |
 
-If the repo is private, use SSH:
-```bash
-git -C .claude/skills/ui-design-system/reference remote set-url origin git@github.com:EtroxTaran/Uiplatformguide.git
-```
+Large text: ≥18pt regular or ≥14pt bold
 
-## 7. Usage Instructions for Agent
+### Style Presets
 
-When the user asks for UI work:
-1. **Locate** the closest matching primitive or pattern in the reference.
-2. **Read** the exact reference file(s).
-3. **Implement** by mirroring props, structure, and tokens.
-4. **Validate** any custom styling against `globals.css` tokens.
-5. **Document** the source file(s) you used in your response.
+| Aspect | Modern | Classic | Playful |
+|--------|--------|---------|---------|
+| Font Sans | Inter | Helvetica | Poppins |
+| Font Mono | Fira Code | Courier | Source Code Pro |
+| Radius Default | 8px | 4px | 16px |
+| Shadows | Layered, subtle | Single layer | Soft, pronounced |
 
-If a requested UI element is not found in the reference:
-- Stop and ask for guidance (or extend only after user approval).
-```
+---
 
-## Outputs
+## Knowledge Base
 
-- UI changes that match the reference design system tokens and component APIs.
+Detailed reference guides in `references/`:
 
-## Related Skills
+| File | Content |
+|------|---------|
+| `token-generation.md` | Color algorithms, HSV space, WCAG contrast, type scales |
+| `component-architecture.md` | Atomic design, naming conventions, props patterns |
+| `responsive-calculations.md` | Breakpoints, fluid typography, grid systems |
+| `developer-handoff.md` | Export formats, framework setup, Figma sync |
 
-- `/frontend-dev-guidelines` - React/TypeScript UI standards
+---
+
+## Validation Checklist
+
+### Token Generation
+- [ ] Brand color provided in hex format
+- [ ] Style matches project requirements
+- [ ] All token categories generated
+- [ ] Semantic colors include contrast values
+
+### Component System
+- [ ] All sizes implemented (sm, md, lg)
+- [ ] All variants implemented (primary, secondary, ghost)
+- [ ] All states working (hover, active, focus, disabled)
+- [ ] Uses only design tokens (no hardcoded values)
+
+### Accessibility
+- [ ] Color contrast meets WCAG AA
+- [ ] Focus indicators visible
+- [ ] Touch targets ≥ 44×44px
+- [ ] Semantic HTML elements used
+
+### Developer Handoff
+- [ ] Tokens exported in required format
+- [ ] Framework integration documented
+- [ ] Design tool synced
+- [ ] Component documentation complete

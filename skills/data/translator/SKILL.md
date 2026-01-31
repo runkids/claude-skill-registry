@@ -1,201 +1,248 @@
 ---
 name: translator
-description: LLM-native translation skill that uses the current session for zero-cost SpecWeave content translation. Use when translating CLI messages, templates, documentation, or living docs to other languages. Supports multilingual output and internationalization workflows.
-allowed-tools: Read, Write, Edit, Grep, Glob
+description: Translate code comments, documentation, and UI strings between multiple languages. Use when internationalizing applications or translating technical documentation.
 ---
 
 # Translator Skill
 
-I am a translation specialist for SpecWeave content. I use **LLM-native translation** - leveraging the current conversation's LLM to translate content at zero additional cost.
+技術文書やコードコメントを多言語翻訳するスキルです。
 
-## Translation Approaches Comparison
+## 概要
 
-SpecWeave offers **two approaches** to translation. Choose based on your workflow:
+プログラミング文脈を理解した高精度な翻訳を提供します。技術用語、変数名、コードブロックを適切に保持します。
 
-| Aspect | **In-Session** (This Skill) | **Automated Hooks** (Optional) |
-|--------|----------------------------|-------------------------------|
-| **Cost** | **$0 (FREE)** | ~$0.003/increment |
-| **Model** | **Any** (Claude, GPT-4, Gemini, DeepSeek, etc.) | Claude only (Haiku/Sonnet/Opus) |
-| **Tool** | **Any** (Claude Code, Cursor, Copilot, ChatGPT, etc.) | Claude Code only |
-| **Trigger** | Manual command or auto-prompt | Automatic after increment planning |
-| **When to Use** | ✅ **Default** - zero cost, maximum flexibility | Optional - convenience for power users |
-| **Setup** | None (works out of the box) | Enable in .specweave/config.json |
+## 主な機能
 
-### Choose Your Approach
+- **技術文書翻訳**: README、ドキュメント、API仕様
+- **コードコメント翻訳**: インラインコメント、JSDoc、Docstring
+- **UI/UX テキスト**: ボタン、ラベル、エラーメッセージ
+- **技術用語保持**: 専門用語は原語維持または注釈付き
+- **コードブロック保護**: コード部分は翻訳しない
+- **一貫性維持**: 用語集による統一翻訳
+- **多言語対応**: 50以上の言語
 
-**Use In-Session (This Skill)** if:
-- ✅ You want **zero cost**
-- ✅ You're using **any model** (GPT-4o-mini, Gemini Flash, etc.)
-- ✅ You're using **any tool** (Cursor, Copilot, ChatGPT, etc.)
-- ✅ You want control over when translation happens
+## サポート言語
 
-**Use Automated Hooks** if:
-- You're a Claude Code power user
-- You want hands-off automation
-- You're willing to pay ~$0.003/increment
-- You want specs auto-translated after creation
+- 日本語 ↔ 英語
+- 中国語（簡体字・繁体字）
+- 韓国語
+- スペイン語、フランス語、ドイツ語
+- その他50以上の言語
 
-**Note**: Both approaches produce identical quality. The primary difference is automation level and cost.
+## 使用方法
 
-## Core Capabilities
-
-### 1. **In-Session Translation** (Zero Cost!)
-- Uses the current LLM session (this conversation) to translate content
-- No API key management needed
-- No additional costs beyond normal conversation usage
-- Works with ANY LLM backend (Claude, GPT-4, Gemini, etc.)
-
-### 2. **Context-Aware Translation**
-- Preserves markdown formatting
-- Keeps code blocks unchanged
-- Maintains SpecWeave framework terms in English (e.g., "increment", "spec.md", "tasks.md")
-- Keeps technical terms in English when appropriate (e.g., "TypeScript", "npm", "git")
-
-### 3. **Content Type Handling**
-- **CLI Messages**: Short prompts, error messages, success messages
-- **Templates**: CLAUDE.md, AGENTS.md, README.md templates
-- **Documentation**: User guides, architecture docs
-- **Living Docs**: Strategic documents, ADRs, RFCs
-
-## Supported Languages
-
-- 🇬🇧 English (en) - Default
-- 🇷🇺 Russian (ru) - Русский
-- 🇪🇸 Spanish (es) - Español
-- 🇨🇳 Chinese (zh) - 中文
-- 🇩🇪 German (de) - Deutsch
-- 🇫🇷 French (fr) - Français
-- 🇯🇵 Japanese (ja) - 日本語
-- 🇰🇷 Korean (ko) - 한국어
-- 🇧🇷 Portuguese (pt) - Português
-
-## When I Activate
-
-I auto-activate when you mention:
-- "Translate to [language]"
-- "Convert to [language]"
-- "Multilingual support"
-- "i18n" or "internationalization"
-- Specific language names (Russian, Spanish, Chinese, etc.)
-- "Localization" or "locale"
-
-## How to Use Me
-
-### Simple Translation
+### 基本的な翻訳
 
 ```
-User: "Translate this error message to Russian: File not found"
-Me: "Файл не найден"
+以下のREADMEを日本語に翻訳：
+[英語のREADME]
+
+注意:
+- コードブロックは保持
+- 技術用語は適切に処理
 ```
 
-### Template Translation
+### コードコメント翻訳
 
 ```
-User: "Translate the CLAUDE.md template to Spanish"
-Me: *Reads template, translates while preserving structure, writes back*
+このファイルのコメントを英語に翻訳：
+[日本語コメント付きコード]
+
+要件:
+- コードは変更しない
+- コメントのみ翻訳
+- JSDoc形式を維持
 ```
 
-### Living Docs Translation
+### UI テキスト
 
 ```
-User: "Translate the PRD to German"
-Me: *Translates spec.md, preserves framework terms, maintains formatting*
+以下のUIテキストを5言語に翻訳：
+言語: 英語、日本語、中国語、韓国語、スペイン語
+
+元テキスト:
+- "Sign Up"
+- "Password must be at least 8 characters"
+- "Email already exists"
 ```
 
-## Translation Rules
+## 翻訳例
 
-### ✅ **Always Translate**:
-- User-facing messages
-- Documentation prose
-- Instructions and explanations
-- Success/error messages
+### README翻訳
 
-### ⏸️ **Keep in English**:
-- Framework terms: "increment", "spec.md", "plan.md", "tasks.md", "COMPLETION-SUMMARY.md"
-- SpecWeave commands: "/sw:inc", "/sw:do", "/sw:progress"
-- Technical terms: "TypeScript", "npm", "git", "API", "CLI"
-- File names and paths: `.specweave/`, `src/`, `CLAUDE.md`
-- Code blocks and examples
+**英語 → 日本語**:
 
-### 🔧 **Context-Dependent**:
-- Variable names in code (usually keep English)
-- Comments in code (translate if requested)
-- Technical acronyms (HTTP, JSON, REST - keep English)
-
-## Example Translations
-
-### CLI Message (English → Russian)
-
-**English**: "✅ Increment created successfully! Next: Run /sw:do to start implementation."
-
-**Russian**: "✅ Increment успешно создан! Далее: Запустите /sw:do для начала реализации."
-
-**Note**: "Increment" kept in English (framework term), "/sw:do" kept as-is (command)
-
-### Documentation (English → Spanish)
-
-**English**: 
 ```markdown
-## Increment Lifecycle
+# Project Name
 
-An increment is a complete feature with:
-- spec.md - WHAT and WHY
-- plan.md - HOW to implement
-- tasks.md - WORK to do
+A powerful tool for developers.
+
+## Installation
+
+```bash
+npm install project-name
 ```
 
-**Spanish**:
+## Features
+
+- Fast performance
+- Easy to use
+- Well documented
+```
+
+↓
+
 ```markdown
-## Ciclo de Vida del Increment
+# プロジェクト名
 
-Un increment es una funcionalidad completa con:
-- spec.md - QUÉ y POR QUÉ
-- plan.md - CÓMO implementar
-- tasks.md - TRABAJO a realizar
+開発者のための強力なツールです。
+
+## インストール
+
+```bash
+npm install project-name
 ```
 
-**Note**: "Increment", "spec.md", "plan.md", "tasks.md" kept in English (framework terms)
+## 機能
 
-## Quality Guidelines
+- 高速なパフォーマンス
+- 使いやすさ
+- 充実したドキュメント
+```
 
-1. **Accuracy**: Translate meaning, not just words
-2. **Natural**: Sound like a native speaker wrote it
-3. **Consistency**: Use same terms throughout
-4. **Context**: Understand SpecWeave concepts before translating
-5. **Formatting**: Preserve markdown, code blocks, links
+### コードコメント翻訳
 
-## Workflow
+**日本語 → 英語**:
 
-When you ask me to translate:
+```javascript
+/**
+ * ユーザーを作成する
+ * @param {string} email - メールアドレス
+ * @param {string} password - パスワード（8文字以上）
+ * @returns {User} 作成されたユーザー
+ * @throws {ValidationError} 入力値が不正な場合
+ */
+function createUser(email, password) {
+  // メールアドレスの形式をチェック
+  if (!isValidEmail(email)) {
+    throw new ValidationError('無効なメールアドレスです');
+  }
 
-1. **Detect Context**: What type of content is this?
-2. **Read Source**: If it's a file, I'll read it first
-3. **Apply Rules**: Follow translation rules above
-4. **Translate**: Use the current LLM session (this conversation)
-5. **Preserve Structure**: Maintain formatting, code blocks, etc.
-6. **Write Back**: If requested, save translated content
+  // パスワードの長さをチェック
+  if (password.length < 8) {
+    throw new ValidationError('パスワードは8文字以上必要です');
+  }
 
-## Limitations
+  // ユーザーをデータベースに保存
+  return db.users.create({ email, password });
+}
+```
 
-**What I DON'T Do**:
-- ❌ Use external translation APIs (everything is LLM-native)
-- ❌ Translate code itself (only comments/strings if requested)
-- ❌ Change framework structure or behavior
-- ❌ Translate incrementally (full content at once for consistency)
+↓
 
-**What I DO Best**:
-- ✅ Translate documentation and user-facing content
-- ✅ Maintain technical accuracy
-- ✅ Preserve SpecWeave conventions
-- ✅ Work with ANY LLM (Claude, GPT-4, Gemini, etc.)
+```javascript
+/**
+ * Create a user
+ * @param {string} email - Email address
+ * @param {string} password - Password (minimum 8 characters)
+ * @returns {User} Created user
+ * @throws {ValidationError} If input is invalid
+ */
+function createUser(email, password) {
+  // Check email format
+  if (!isValidEmail(email)) {
+    throw new ValidationError('Invalid email address');
+  }
 
-## Tips for Best Results
+  // Check password length
+  if (password.length < 8) {
+    throw new ValidationError('Password must be at least 8 characters');
+  }
 
-1. **Be Specific**: "Translate CLAUDE.md to Russian" > "Translate this"
-2. **Provide Context**: Mention if it's CLI, docs, or living docs
-3. **Request Preservation**: "Keep framework terms in English" (I do this by default)
-4. **Batch Translate**: Give me multiple files at once for consistency
+  // Save user to database
+  return db.users.create({ email, password });
+}
+```
+
+### UI テキスト多言語化
+
+```json
+{
+  "en": {
+    "signup": "Sign Up",
+    "login": "Log In",
+    "password_error": "Password must be at least 8 characters",
+    "email_exists": "Email already exists"
+  },
+  "ja": {
+    "signup": "サインアップ",
+    "login": "ログイン",
+    "password_error": "パスワードは8文字以上である必要があります",
+    "email_exists": "このメールアドレスは既に登録されています"
+  },
+  "zh": {
+    "signup": "注册",
+    "login": "登录",
+    "password_error": "密码必须至少8个字符",
+    "email_exists": "电子邮件已存在"
+  },
+  "ko": {
+    "signup": "가입하기",
+    "login": "로그인",
+    "password_error": "비밀번호는 최소 8자 이상이어야 합니다",
+    "email_exists": "이메일이 이미 존재합니다"
+  }
+}
+```
+
+## 技術用語の扱い
+
+### 保持する用語
+
+- API, HTTP, REST, GraphQL
+- JSON, XML, YAML
+- Git, GitHub, commit, pull request
+- Docker, Kubernetes
+- React, Vue, Angular
+
+### 翻訳する用語
+
+- function → 関数
+- variable → 変数
+- array → 配列
+- object → オブジェクト
+
+### 両方を併記
+
+```
+配列 (array)
+オブジェクト (object)
+非同期 (asynchronous)
+```
+
+## ベストプラクティス
+
+1. **コンテキスト提供**: 翻訳対象の用途を明記
+2. **用語集活用**: プロジェクト固有用語を統一
+3. **レビュー**: ネイティブスピーカーによる確認
+4. **段階的翻訳**: README → コメント → UI の順
+
+## バージョン情報
+
+- スキルバージョン: 1.0.0
+- 最終更新: 2025-01-22
 
 ---
 
-**Remember**: I'm using the current LLM session for translation, so there are **zero additional costs** beyond the normal conversation. This is the power of LLM-native multilingual support!
+**使用例**:
+
+```
+このREADMEを英語から日本語に翻訳：
+- コードブロックは保持
+- 技術用語は適切に処理（必要に応じて併記）
+- Markdown形式を維持
+
+[英語のREADME内容]
+```
+
+高品質な翻訳が生成されます！

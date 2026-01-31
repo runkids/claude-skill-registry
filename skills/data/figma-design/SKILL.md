@@ -1,187 +1,105 @@
 ---
 name: figma-design
-description: Use this skill when working with Figma designs to generate code. Converts Figma layouts, components, and styles into production-ready code. Triggers on keywords like "Figma", "design to code", "implement this design", or when referencing Figma file URLs.
+version: 1.1.0
+description: Extract design specifications from Figma designs using MCP server. Triggers on Figma URLs, design context extraction, or design-to-code workflows. Formerly also known as "figma-extract".
+infer: true
+allowed-tools: Read, mcp__figma__get_file, mcp__figma__get_file_nodes
 ---
 
-# Figma Design-to-Code
+# Figma Design Context Extraction
 
-This skill enables AI-powered code generation from Figma designs using the Figma MCP server.
+## Purpose
 
-## Problem Solved
+Extract design specifications from Figma designs using the Figma MCP server. Used during planning workflows to gather detailed design context for implementation.
 
-Traditional design-to-code workflow:
-- Manual inspection of Figma designs
-- Guessing spacing, colors, and typography
-- Multiple iterations to match design
-- Inconsistent implementation
+## Trigger
 
-With Figma MCP:
-- Direct access to design specifications
-- Exact colors, spacing, typography values
-- Component structure understanding
-- One-shot accurate implementation
+- Manually via `/figma-design` command
+- Automatically when reading PBI/design-spec files containing Figma URLs (via hook)
 
-## When to Use
+## Prerequisites
 
-- Implementing UI from Figma designs
-- Converting Figma components to React/Vue/etc.
-- Extracting design tokens (colors, spacing, typography)
-- Understanding component hierarchy
-- Ensuring pixel-perfect implementation
+1. **Figma MCP Server configured** - See `.mcp.README.md`
+2. **Valid Figma URLs** - Format: `https://figma.com/design/{file_key}/...?node-id={node_id}`
 
-## Available Tools
+## Workflow
 
-### 1. get_file
-Retrieves complete Figma file data including all pages, frames, and components.
+### Step 1: Identify Figma URLs
 
+Parse document content for Figma URLs:
 ```
-Input: Figma file key (from URL)
-Output: Complete design structure with properties
+https://figma.com/design/{file_key}/{name}?node-id={node_id}
 ```
 
-### 2. get_file_nodes
-Gets specific nodes from a Figma file by their IDs.
+**URL Format Notes:**
+- `node-id` in URL uses hyphen: `1-3`
+- API expects colon format: `1:3`
+- Convert: `nodeId.replace('-', ':')`
+
+### Step 2: Extract Node Data
 
 ```
-Input: File key + node IDs
-Output: Detailed node information
+# For specific node (preferred - token efficient)
+mcp__figma__get_file_nodes file_key="{file_key}" node_ids="{node_id}"
+
+# For full file (avoid unless necessary - high token usage)
+mcp__figma__get_file file_key="{file_key}"
 ```
 
-### 3. get_images
-Exports images from Figma nodes in various formats.
+### Step 3: Summarize Design Context
 
-```
-Input: File key + node IDs + format (png, jpg, svg, pdf)
-Output: Image URLs
-```
+| Property       | Source                                  |
+| -------------- | --------------------------------------- |
+| **Dimensions** | `absoluteBoundingBox.width/height`      |
+| **Layout**     | `layoutMode`, `itemSpacing`, `padding*` |
+| **Colors**     | `fills[].color` (r,g,b,a)               |
+| **Typography** | `style.fontFamily/fontSize/fontWeight`  |
+| **Children**   | `children[].name` (component structure) |
 
-### 4. get_components
-Lists all components in a file or team library.
+### Step 4: Token Budget Management
 
-```
-Input: File key or team ID
-Output: Component list with metadata
-```
+**Budget Targets:**
+- Single node: 500-2,000 tokens
+- Multiple nodes: <5,000 tokens total
+- Full file: AVOID (can exceed 50K tokens)
 
-### 5. get_styles
-Retrieves style definitions (colors, text, effects).
+**Optimization:** Always request specific nodes, extract only essential properties, summarize children.
 
-```
-Input: File key
-Output: Style definitions
-```
+## Output Format
 
-## Example Usage
+```markdown
+## Design Context: {Node Name}
 
-### Basic Design Implementation
+**Dimensions:** {width}x{height}px
+**Layout:** {layoutMode} | Spacing: {itemSpacing}px
+**Colors:** {fill colors as rgba}
+**Typography:** {fontFamily} {fontWeight} {fontSize}px
 
-```
-User: このFigmaデザインを実装して
-https://www.figma.com/file/ABC123/MyDesign
+### Component Structure
+- {child 1 name}
+- {child 2 name}
 
-AI: [Calls get_file with file key ABC123]
-    [Analyzes component structure]
-    [Extracts colors, spacing, typography]
-    [Generates React/CSS code]
-
-Output:
-- Component structure matching Figma layers
-- Exact CSS values from design
-- Responsive breakpoints if defined
+### Key Design Decisions
+- {extracted design pattern or decision}
 ```
 
-### Component Extraction
+## Error Handling
 
-```
-User: FigmaのButtonコンポーネントをReactで作って
+| Error              | Resolution                             |
+| ------------------ | -------------------------------------- |
+| `401 Unauthorized` | Check FIGMA_API_KEY in `.env.local`    |
+| `404 Not Found`    | Verify file_key and node_id            |
+| `403 Forbidden`    | Check file access permissions in Figma |
+| Node not found     | Try parent node or verify URL          |
 
-AI: [Calls get_components]
-    [Finds Button component]
-    [Gets variants and properties]
-    [Generates typed React component]
-```
+## Related
 
-### Design Token Export
+- `figma-extract` (deprecated, use this skill instead)
+- `design-spec` - Design specification creation
+- `ux-designer` - UI/UX design guidance
 
-```
-User: Figmaからデザイントークンを抽出して
+---
 
-AI: [Calls get_styles]
-    [Extracts color palette]
-    [Extracts typography scale]
-    [Generates CSS variables or Tailwind config]
-```
-
-## Required Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `FIGMA_API_KEY` | Figma Personal Access Token | Yes |
-
-## Setup
-
-### 1. Get Figma API Token
-
-1. Go to Figma account settings
-2. Navigate to "Personal access tokens"
-3. Generate new token with read access
-4. Copy the token
-
-### 2. Set Environment Variable
-
-```bash
-# Add to .env
-FIGMA_API_KEY=figd_xxxxxxxxxxxxxxxx
-```
-
-Or in shell:
-```bash
-export FIGMA_API_KEY="figd_xxxxxxxxxxxxxxxx"
-```
-
-## Best Practices
-
-1. **Provide Figma URL directly**
-   ```
-   ✅ "このデザインを実装して: https://www.figma.com/file/..."
-   ❌ "このデザインを実装して" (URLなし)
-   ```
-
-2. **Specify target framework**
-   ```
-   「React + Tailwindで実装して」
-   「Vue 3のComposition APIで」
-   ```
-
-3. **Request specific components**
-   ```
-   「HeaderとFooterだけ実装して」
-   「モバイル版のみ」
-   ```
-
-4. **Combine with Context7 for framework docs**
-   ```
-   「use context7 でTailwind v4を使ってこのFigmaを実装して」
-   ```
-
-## Integration with TAISUN
-
-Figma MCP is automatically available via MCP. The system will:
-1. Detect Figma URLs in prompts
-2. Extract file keys and node IDs
-3. Fetch design data
-4. Generate framework-specific code
-
-## Figma URL Structure
-
-```
-https://www.figma.com/file/{file_key}/{file_name}?node-id={node_id}
-                          ^^^^^^^^^^              ^^^^^^^^^^
-                          Required                Optional (specific frame)
-```
-
-## Sources
-
-- [Figma MCP Server Guide](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)
-- [figma-developer-mcp NPM](https://www.npmjs.com/package/figma-developer-mcp)
-- [Figma Developer Docs](https://developers.figma.com/docs/figma-mcp-server/)
+**IMPORTANT Task Planning Notes (MUST FOLLOW)**
+- Always plan and break work into many small todo tasks
+- Always add a final review todo task to verify work quality and identify fixes/enhancements

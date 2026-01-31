@@ -12,6 +12,7 @@ PostgreSQL psql (PostgreSQL interactive terminal) is the primary command-line cl
 ## When to Use This Skill
 
 Use this skill when:
+
 - Connecting to PostgreSQL databases from the command line
 - Executing SQL queries interactively
 - Writing SQL scripts for automation
@@ -29,17 +30,20 @@ Use this skill when:
 ## Core Concepts
 
 ### REPL Model
+
 - psql operates as an interactive REPL (Read-Eval-Print Loop)
 - Accepts SQL commands and meta-commands (backslash commands)
 - Maintains connection state across commands within a session
 - Supports command history and editing
 
 ### Command Types
+
 - **SQL Commands**: Standard SQL statements (SELECT, INSERT, UPDATE, DELETE, etc.)
 - **Meta-Commands**: psql-specific commands prefixed with backslash (e.g., `\dt`, `\d`)
 - **Backslash Commands**: Control query output, session variables, and psql behavior
 
 ### Connection Model
+
 - Single database connection per session
 - Can switch databases without reconnecting
 - Connection state includes current database, user, and search path
@@ -80,11 +84,13 @@ psql
 ### Connection String Formats
 
 **Standard URI format**:
+
 ```
 postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
 ```
 
 **Example**:
+
 ```
 postgresql://app_user:secretpass@db.example.com:5432/production_db?sslmode=require
 ```
@@ -92,6 +98,7 @@ postgresql://app_user:secretpass@db.example.com:5432/production_db?sslmode=requi
 ### Authentication Methods
 
 **Password file (.pgpass)**:
+
 ```
 # ~/.pgpass (chmod 600)
 hostname:port:database:username:password
@@ -100,6 +107,7 @@ localhost:5432:mydb:postgres:mypassword
 ```
 
 **Connection via SSH tunnel**:
+
 ```bash
 ssh -L 5432:localhost:5432 user@remote-host
 psql -U postgres -h localhost
@@ -480,8 +488,8 @@ UPDATE users SET active = false WHERE last_login < now() - interval '30 days';
 DELETE FROM users WHERE id = 999;
 
 -- RETURNING clause (see what was changed)
-UPDATE users SET status = 'active' 
-WHERE id = 1 
+UPDATE users SET status = 'active'
+WHERE id = 1
 RETURNING id, name, status;
 ```
 
@@ -539,14 +547,14 @@ SHOW transaction_isolation;
 -- Create full-text search vector
 ALTER TABLE documents ADD COLUMN search_vector tsvector;
 
-UPDATE documents SET search_vector = 
+UPDATE documents SET search_vector =
   to_tsvector('english', coalesce(title, '') || ' ' || coalesce(content, ''));
 
 -- Create index for fast search
 CREATE INDEX idx_documents_search ON documents USING GIN(search_vector);
 
 -- Search documents
-SELECT * FROM documents 
+SELECT * FROM documents
 WHERE search_vector @@ to_tsquery('english', 'database & tutorial');
 
 -- Ranking results by relevance
@@ -624,9 +632,9 @@ WITH RECURSIVE category_hierarchy AS (
   SELECT id, name, parent_id, 0 AS level
   FROM categories
   WHERE parent_id IS NULL
-  
+
   UNION ALL
-  
+
   SELECT c.id, c.name, c.parent_id, h.level + 1
   FROM categories c
   JOIN category_hierarchy h ON c.parent_id = h.id
@@ -734,8 +742,8 @@ done
 
 ```sql
 -- Server-side COPY (requires superuser for file operations)
-COPY users (id, name, email) 
-TO '/tmp/users.csv' 
+COPY users (id, name, email)
+TO '/tmp/users.csv'
 WITH (FORMAT CSV, HEADER TRUE, QUOTE '"', ESCAPE '\\');
 
 -- Import CSV
@@ -747,7 +755,7 @@ WITH (FORMAT CSV, HEADER TRUE, QUOTE '"', ESCAPE '\\');
 COPY users TO '/tmp/users.tsv' WITH (FORMAT TEXT, DELIMITER E'\t');
 
 -- With NULL handling
-COPY users TO '/tmp/users.csv' 
+COPY users TO '/tmp/users.csv'
 WITH (FORMAT CSV, NULL 'N/A', QUOTE '"');
 ```
 
@@ -811,7 +819,7 @@ EXPLAIN SELECT * FROM users WHERE id = 1;
 EXPLAIN ANALYZE SELECT * FROM users WHERE id = 1;
 
 -- Show more details
-EXPLAIN (ANALYZE, BUFFERS, VERBOSE) 
+EXPLAIN (ANALYZE, BUFFERS, VERBOSE)
   SELECT * FROM users WHERE active = true;
 
 -- JSON output for programmatic parsing
@@ -961,7 +969,7 @@ CREATE POLICY user_policy ON users
 ```bash
 # Set custom prompts
 psql -v PROMPT1='user@db> '
-psql -v PROMPT1='%/%R%# '   # database/role# 
+psql -v PROMPT1='%/%R%# '   # database/role#
 
 # In .psqlrc
 \set PROMPT1 '%n@%m:%>/%/ %R%# '
@@ -1105,20 +1113,20 @@ wait
 
 ```sql
 -- health_check.sql
-SELECT 
+SELECT
   'PostgreSQL Version' AS check_type,
   version() AS result
 UNION ALL
-SELECT 
+SELECT
   'Database Size',
   pg_size_pretty(pg_database_size(current_database()))
 UNION ALL
-SELECT 
+SELECT
   'Active Connections',
   count(*)::text
 FROM pg_stat_activity
 UNION ALL
-SELECT 
+SELECT
   'Cache Hit Ratio',
   ROUND(sum(heap_blks_hit)::numeric / (sum(heap_blks_hit) + sum(heap_blks_read)), 4)::text
 FROM pg_statio_user_tables;
@@ -1135,10 +1143,10 @@ DATABASES=$(psql -t -c "SELECT datname FROM pg_database WHERE datistemplate = fa
 for db in $DATABASES; do
   echo "Analyzing $db..."
   psql -d "$db" -c "ANALYZE;"
-  
+
   echo "Vacuuming $db..."
   psql -d "$db" -c "VACUUM;"
-  
+
   echo "Reindexing $db..."
   psql -d "$db" -c "REINDEX DATABASE \"$db\";"
 done
@@ -1252,18 +1260,18 @@ ERROR: syntax error
 
 ```sql
 -- Find slow queries
-SELECT * FROM pg_stat_statements 
-ORDER BY total_time DESC 
+SELECT * FROM pg_stat_statements
+ORDER BY total_time DESC
 LIMIT 10;
 
 -- Check for missing indexes
-SELECT schemaname, tablename, attname 
-FROM pg_stat_user_tables, pg_attribute 
+SELECT schemaname, tablename, attname
+FROM pg_stat_user_tables, pg_attribute
 WHERE pg_stat_user_tables.relid = pg_attribute.attrelid
 AND seq_scan > 0;
 
 -- Check cache efficiency
-SELECT 
+SELECT
   sum(heap_blks_read) as heap_read,
   sum(heap_blks_hit)  as heap_hit,
   sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) AS ratio

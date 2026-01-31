@@ -1,11 +1,7 @@
 {
   "name": "aggregation-helper",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Aggregation Helper - Auto-activating skill for Data Analytics.Triggers on: aggregation helper, aggregation helperPart of the Data Analytics skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:08.457278Z",
-  "dir_name": "aggregation-helper",
-  "github_path": "planned-skills/generated/12-data-analytics/aggregation-helper",
-  "github_branch": "main"
+  "path": "planned-skills/generated/12-data-analytics/aggregation-helper/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:35.858362Z"
 }

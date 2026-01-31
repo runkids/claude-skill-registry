@@ -1,141 +1,93 @@
 ---
 name: prompt-engineer
-description: Optimize system prompts for Claude Code agents using proven prompt engineering patterns. Use when users request prompt improvement, optimization, or refinement for agent workflows, tool instructions, or system behaviors.
-license: MIT
-metadata:
-version: 1.0.0
-model: claude-sonnet-4-5
+description: "Expert in designing effective prompts for LLM-powered applications. Masters prompt structure, context management, output formatting, and prompt evaluation. Use when: prompt engineering, system prompt, few-shot, chain of thought, prompt design."
+source: vibeship-spawner-skills (Apache 2.0)
 ---
 
-# Prompt Optimizer
+# Prompt Engineer
 
-Optimizes system prompts by applying research-backed prompt engineering patterns. Human-in-the-loop phases: understand, plan, propose changes, receive approval, then integrate.
+**Role**: LLM Prompt Architect
 
-## Purpose and Success Criteria
+I translate intent into instructions that LLMs actually follow. I know
+that prompts are programming - they need the same rigor as code. I iterate
+relentlessly because small changes have big effects. I evaluate systematically
+because intuition about prompt quality is often wrong.
 
-A well-optimized prompt achieves:
+## Capabilities
 
-1. **Behavioral clarity**: Agent knows exactly what to do in common cases and edge cases
-2. **Appropriate scope**: Complex tasks get decomposition; simple tasks don't trigger overthinking
-3. **Grounded changes**: Every modification traces to a specific pattern with documented impact
+- Prompt design and optimization
+- System prompt architecture
+- Context window management
+- Output format specification
+- Prompt testing and evaluation
+- Few-shot example design
 
-Optimization is complete when:
+## Requirements
 
-- Every change has explicit pattern attribution from the reference document
-- No section contradicts another section
-- The prompt matches its operating context (tool-use vs. conversational, token constraints)
-- Human has approved both section-level changes and full integration
+- LLM fundamentals
+- Understanding of tokenization
+- Basic programming
 
-## When to Use This Skill
+## Patterns
 
-Use when the user provides a prompt and wants it improved, refined, or reviewed for best practices.
+### Structured System Prompt
 
-Do NOT use for:
+Well-organized system prompt with clear sections
 
-- Writing prompts from scratch (different skill)
-- Prompts that are already working well and user just wants validation
-- Non-prompt content (documentation, code, etc.)
-
-## Required Resources
-
-Before ANY analysis, read the appropriate pattern reference(s):
-
-### Single-Turn Reference (Always Read)
-
-```text
-Read references/prompt-engineering-single-turn.md
+```javascript
+- Role: who the model is
+- Context: relevant background
+- Instructions: what to do
+- Constraints: what NOT to do
+- Output format: expected structure
+- Examples: demonstration of correct behavior
 ```
 
-Contains: Technique Selection Guide table, Quick Reference principles, domain-organized techniques with citations, Anti-Patterns section.
+### Few-Shot Examples
 
-### Multi-Turn Reference (Conditional)
+Include examples of desired behavior
 
-```text
-Read references/prompt-engineering-multi-turn.md
+```javascript
+- Show 2-5 diverse examples
+- Include edge cases in examples
+- Match example difficulty to expected inputs
+- Use consistent formatting across examples
+- Include negative examples when helpful
 ```
 
-**Read ONLY when the prompt involves:**
+### Chain-of-Thought
 
-- Multi-turn flows (iterative refinement, conversation chains)
-- Multi-agent / sub-agent orchestration
+Request step-by-step reasoning
 
-**Skip for:**
-
-- Static system prompts executed in a single LLM call
-- Tool instructions or one-shot prompts
-
-### Workflow Reference
-
-```text
-Read references/workflow.md
+```javascript
+- Ask model to think step by step
+- Provide reasoning structure
+- Request explicit intermediate steps
+- Parse reasoning separately from answer
+- Use for debugging model failures
 ```
 
-Contains: Detailed Phase 0-4 workflows, visual card template, completion checkpoint.
+## Anti-Patterns
 
-## Quick Process
+### ❌ Vague Instructions
 
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│ 1. READ THE REFERENCE(S)                                        │
-│    - Always: references/prompt-engineering-single-turn.md       │
-│    - If multi-turn/multi-agent: also read multi-turn reference  │
-├─────────────────────────────────────────────────────────────────┤
-│ 2. UNDERSTAND THE PROMPT (Phase 1)                              │
-│    - Operating context (single-shot? tool-use? constraints?)    │
-│    - Current state (working? unclear? missing?)                 │
-│    - Document specific problems with quoted prompt text         │
-├─────────────────────────────────────────────────────────────────┤
-│ 3. PLAN WITH VISUAL CARDS (Phase 2)                             │
-│    - Present each change as a visual card with:                 │
-│      SCOPE → PROBLEM → TECHNIQUE → BEFORE/AFTER                 │
-│    - Quote trigger conditions from reference                    │
-│    - ⚠️  WAIT FOR USER APPROVAL before proceeding               │
-├─────────────────────────────────────────────────────────────────┤
-│ 4. EXECUTE APPROVED CHANGES (Phase 3)                           │
-│    - Apply the BEFORE → AFTER transformations                   │
-├─────────────────────────────────────────────────────────────────┤
-│ 5. INTEGRATE AND VERIFY QUALITY (Phase 4)                       │
-│    - Check cross-section coherence                              │
-│    - Final anti-pattern check                                   │
-│    - Present complete optimized prompt                          │
-└─────────────────────────────────────────────────────────────────┘
-```
+### ❌ Kitchen Sink Prompt
 
-## Triage (Phase 0)
+### ❌ No Negative Instructions
 
-**Simple prompts** (use lightweight process):
+## ⚠️ Sharp Edges
 
-- Under 20 lines
-- Single clear purpose
-- No conditional logic
+| Issue | Severity | Solution |
+|-------|----------|----------|
+| Using imprecise language in prompts | high | Be explicit: |
+| Expecting specific format without specifying it | high | Specify format explicitly: |
+| Only saying what to do, not what to avoid | medium | Include explicit don'ts: |
+| Changing prompts without measuring impact | medium | Systematic evaluation: |
+| Including irrelevant context 'just in case' | medium | Curate context: |
+| Biased or unrepresentative examples | medium | Diverse examples: |
+| Using default temperature for all tasks | medium | Task-appropriate temperature: |
+| Not considering prompt injection in user input | high | Defend against injection: |
 
-**Complex prompts** (use full process):
+## Related Skills
 
-- Multiple sections serving different functions
-- Conditional behaviors or rule hierarchies
-- Tool orchestration or multi-step workflows
-
-## Core Quality Principles
-
-1. **Quote before deciding**: Every technique selection must quote the reference's trigger condition.
-2. **Open verification questions**: Ask "What behavior will this produce?" not "Is this correct?"
-3. **Approval happens once, upfront**: The visual card format in Phase 2 shows full impact.
-4. **Preserve what works**: Optimization means improving problems, not rewriting everything.
-
-## Completion Checkpoint
-
-Before presenting the final prompt, verify:
-
-- [ ] Phase 2 plan used visual card format with BEFORE/AFTER
-- [ ] Phase 2 plan quoted trigger conditions from reference
-- [ ] Phase 2 plan was approved by user before Phase 3
-- [ ] No technique applied without matching trigger condition
-- [ ] Stacking compatibility checked; no conflicts
-- [ ] Anti-patterns section consulted; none introduced
-- [ ] Emphasis markers used sparingly (≤3 highest-level)
-
-## References
-
-- [prompt-engineering-single-turn.md](references/prompt-engineering-single-turn.md) - Single-turn patterns
-- [prompt-engineering-multi-turn.md](references/prompt-engineering-multi-turn.md) - Multi-turn patterns
-- [workflow.md](references/workflow.md) - Detailed phase workflows and card template
+Works well with: `ai-agents-architect`, `rag-engineer`, `backend`, `product-manager`

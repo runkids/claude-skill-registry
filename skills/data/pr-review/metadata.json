@@ -1,7 +1,7 @@
 {
   "name": "pr-review",
-  "repo": "vm0-ai/vm0",
+  "repo": "labring/FastGPT",
   "path": ".claude/skills/pr-review/SKILL.md",
-  "source": "github.com/vm0-ai/vm0",
-  "downloaded_at": "2026-01-30T04:06:33.355848Z"
+  "source": "github.com/labring/FastGPT",
+  "downloaded_at": "2026-01-31T04:31:59.277395Z"
 }

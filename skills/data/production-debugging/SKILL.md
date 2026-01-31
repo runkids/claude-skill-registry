@@ -1,625 +1,299 @@
 ---
 name: production-debugging
-description: Connect to and debug the Orient production server on Oracle Cloud. Use this skill when asked to check production logs, restart containers, debug deployment issues, SSH into the server, view container status, troubleshoot 502 errors, rollback deployments, fix WhatsApp pairing issues, debug dashboard loading issues, or investigate why production is down. Covers SSH access, Docker container management, log analysis, Express 5 errors, SPA asset issues, and deployment troubleshooting.
+description: Debug production issues in Kubernetes clusters. Use this skill when investigating 500 errors, missing functionality, silent failures, or service integration issues. Covers systematic log analysis, tracing requests across microservices, and common bug patterns.
 ---
 
-# Production Server Debugging
+# Production Debugging
 
-Debug and manage the Orient production environment on Oracle Cloud.
+Systematic approach to debugging production issues in Kubernetes microservice environments.
 
-## Prerequisites
+## When to Use
 
-SSH access requires these environment variables (stored in `.env`):
+- Investigating HTTP 500 errors
+- Debugging missing functionality (feature works locally, fails in production)
+- Tracing requests across microservices
+- Finding silent failures (no error, but wrong behavior)
+- Service-to-service integration issues
 
-- `OCI_HOST` - Oracle Cloud server IP (default: `152.70.172.33`)
-- `OCI_USER` - SSH username (default: `opc`)
-- SSH key configured in `~/.ssh/id_rsa`
+## Debugging Methodology
 
-**Quick setup** (if not in .env):
-
-```bash
-export OCI_HOST=152.70.172.33
-export OCI_USER=opc
-```
-
-## SSH Connection
-
-### Connect to Production
+### Step 1: Reproduce and Identify Symptoms
 
 ```bash
-ssh -o StrictHostKeyChecking=no $OCI_USER@$OCI_HOST
+# What's the user seeing?
+# - HTTP 500 error on /workers page
+# - No reminder notifications
+# - Data saved but logs show errors
+
+# Document the symptom precisely before diving in
 ```
 
-### Run Remote Command
+### Step 2: Check Logs Systematically
 
 ```bash
-ssh -o StrictHostKeyChecking=no $OCI_USER@$OCI_HOST "command"
+# Start with the failing service
+kubectl logs deploy/<service-name> -n <namespace> --tail=100
+
+# Filter for errors
+kubectl logs deploy/<service-name> -n <namespace> --tail=200 | grep -i -E "(error|exception|fail|warn)"
+
+# Check specific container in multi-container pod
+kubectl logs deploy/<service-name> -n <namespace> -c <container-name> --tail=100
+
+# Common containers:
+# - main app container (e.g., "api", "web")
+# - daprd (Dapr sidecar)
+# - init containers (e.g., "wait-for-db")
 ```
 
-### Example: Check if containers are running
+### Step 3: Trace the Request Path
+
+For microservice issues, trace the full request path:
 
 ```bash
-ssh $OCI_USER@$OCI_HOST "docker ps --format 'table {{.Names}}\t{{.Status}}'"
+# 1. Frontend → API
+kubectl logs deploy/web-dashboard -n taskflow --tail=50
+
+# 2. API processing
+kubectl logs deploy/taskflow-api -n taskflow --tail=100 | grep -i "endpoint-name"
+
+# 3. API → External service (e.g., Dapr, SSO)
+kubectl logs deploy/taskflow-api -n taskflow -c daprd --tail=50
+
+# 4. Downstream service
+kubectl logs deploy/notification-service -n taskflow --tail=50
 ```
 
-## Server Directory Structure
+### Step 4: Analyze the Error
 
-```
-~/orient/
-├── docker/           # Compose files and configs
-│   ├── docker-compose.yml
-│   ├── docker-compose.v2.yml
-│   ├── docker-compose.prod.yml
-│   ├── docker-compose.r2.yml
-│   ├── nginx-ssl.conf
-│   └── deploy-server.sh
-├── data/             # Persistent data (volumes)
-├── logs/             # Application logs
-├── backups/          # Deployment backups
-└── .env              # Environment variables
-```
+Common patterns to look for:
 
-Working directory for Docker commands:
+| Error Pattern | Likely Cause |
+|---------------|--------------|
+| `AttributeError: 'X' has no attribute 'Y'` | Model/schema mismatch |
+| `404 Not Found` on internal call | Wrong endpoint URL |
+| `greenlet_spawn has not been called` | Async SQLAlchemy pattern issue |
+| `event_type: None` | Message format/unwrapping issue |
+| Times off by hours | Timezone handling bug |
+
+## Quick Commands
+
+### Check All Services Status
 
 ```bash
-cd ~/orient/docker
+kubectl get pods -n taskflow
+kubectl get pods -n taskflow -o wide  # With node info
 ```
 
-## Container Overview
-
-| Container             | Port       | Purpose                        |
-| --------------------- | ---------- | ------------------------------ |
-| orienter-nginx        | 80, 443    | Reverse proxy, SSL termination |
-| orienter-dashboard    | 4098       | Dashboard web app + API        |
-| orienter-bot-whatsapp | 4097       | WhatsApp bot + QR/pairing      |
-| orienter-opencode     | 4099, 8765 | AI agent API + OAuth callback  |
-| orienter-postgres     | 5432       | Database                       |
-
-## Container Logs
-
-### View Recent Logs
+### Check Service Logs
 
 ```bash
-# Core containers
-docker logs orienter-dashboard --tail 100
-docker logs orienter-bot-whatsapp --tail 100
-docker logs orienter-opencode --tail 100
-docker logs orienter-nginx --tail 50
+# Main app logs
+kubectl logs deploy/taskflow-api -n taskflow --tail=100
+
+# Dapr sidecar logs
+kubectl logs deploy/taskflow-api -n taskflow -c daprd --tail=100
+
+# Follow logs in real-time
+kubectl logs deploy/taskflow-api -n taskflow -f
+
+# Logs from specific time
+kubectl logs deploy/taskflow-api -n taskflow --since=5m
 ```
 
-### Follow Logs in Real-Time
+### Check Pod Events
 
 ```bash
-docker logs -f orienter-dashboard
+kubectl describe pod <pod-name> -n taskflow
+kubectl get events -n taskflow --sort-by='.lastTimestamp'
 ```
 
-### Logs Since Specific Time
+### Execute Commands in Pod
 
 ```bash
-docker logs orienter-dashboard --since 1h
-docker logs orienter-dashboard --since "2024-01-07T10:00:00"
+# Shell into pod
+kubectl exec -it deploy/taskflow-api -n taskflow -- /bin/sh
+
+# Run specific command
+kubectl exec deploy/taskflow-api -n taskflow -- env | grep DATABASE
 ```
 
-### Parse JSON Logs
+## Common Bug Patterns
 
-```bash
-docker logs orienter-dashboard --tail 50 2>&1 | jq -R 'fromjson? // .'
-```
+### 1. Model/Schema Mismatch
 
-### Search for Errors
-
-```bash
-docker logs orienter-dashboard 2>&1 | grep -i error | tail -20
-```
-
-## Quick Debugging Reference
-
-| Issue                        | Command                                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| Check all containers         | `docker ps -a`                                                                       |
-| Container crash loop         | `docker logs <container> --tail 100`                                                 |
-| View nginx errors            | `docker logs orienter-nginx --tail 50`                                               |
-| Check dashboard logs         | `docker logs orienter-dashboard --tail 100`                                          |
-| Check OpenCode logs          | `docker logs orienter-opencode --tail 100`                                           |
-| Restart dashboard            | `docker restart orienter-dashboard`                                                  |
-| Check database               | `docker exec orienter-postgres psql -U aibot -c "SELECT 1"`                          |
-| View env vars                | `cat ~/orient/.env`                                                                  |
-| Check container env vars     | `docker exec <container> env \| grep <VAR_NAME>`                                     |
-| Missing env var (crash loop) | Add to .env, then `docker compose --env-file ../.env -f compose.yml up -d <service>` |
-| Check GitHub Actions         | `gh run list --limit 5` (run locally)                                                |
-| WhatsApp pairing stuck       | `docker restart orienter-bot-whatsapp`                                               |
-| WhatsApp factory reset       | `rm -rf ~/orient/data/whatsapp-auth/* && docker restart orienter-bot-whatsapp`       |
-
-## Common Production Issues
-
-### 1. Dashboard Container Crash Loop
-
-**Symptoms**: Dashboard shows "Restarting" status, nginx returns 502
-
-**Check logs**:
-
-```bash
-ssh $OCI_USER@$OCI_HOST "docker logs orienter-dashboard --tail 100 2>&1"
-```
-
-**Common causes**:
-
-#### Express 5 / path-to-regexp Error
-
-**Error**: `TypeError: Missing parameter name at index 1: *`
-
-This happens when using bare `*` wildcards in Express 5 routes:
-
-```typescript
-// BROKEN
-app.get('*', (req, res) => { ... });
-
-// FIXED
-app.get('/{*splat}', (req, res) => { ... });
-```
-
-**Fix**: Update the SPA catch-all route in `packages/dashboard/src/server/index.ts`
-
-#### Database Connection Error
-
-**Error**: `ECONNREFUSED` or `connection refused`
-
-```bash
-# Check postgres is running
-docker ps | grep postgres
-
-# Check DATABASE_URL
-docker exec orienter-dashboard env | grep DATABASE_URL
-```
-
-### 2. Dashboard Assets Not Loading (text/html error)
-
-**Symptoms**: Browser console shows:
-
-```
-Failed to load module script: Expected a JavaScript-or-Wasm module script
-but the server responded with a MIME type of "text/html"
-```
-
-**Cause**: Nginx is incorrectly proxying asset requests
+**Symptom**: `AttributeError: 'Model' has no attribute 'field'`
 
 **Debug**:
+```bash
+# Find the error
+kubectl logs deploy/taskflow-api -n taskflow --tail=100 | grep -i "attribute"
+
+# Check the model definition
+grep -r "class Worker" apps/api/src/
+```
+
+**Fix**: Ensure code references match actual model fields.
+
+### 2. Wrong Endpoint URL
+
+**Symptom**: `404 Not Found` on internal service calls
+
+**Debug**:
+```bash
+# Check what URL is being called
+kubectl logs deploy/taskflow-api -n taskflow -c daprd --tail=100 | grep "404"
+
+# Check what endpoints exist
+kubectl exec deploy/taskflow-api -n taskflow -- curl localhost:8000/openapi.json | jq '.paths | keys'
+```
+
+**Fix**: Match the callback URL to what the service exposes.
+
+### 3. Timezone Bugs
+
+**Symptom**: Scheduled jobs fire at wrong times (hours off)
+
+**Debug**:
+```bash
+# Check when job was scheduled vs when it should fire
+kubectl logs deploy/taskflow-api -n taskflow | grep -i "scheduled"
+
+# Compare times
+# If local time 23:00 but scheduled for 23:00 UTC → timezone bug
+```
+
+**Fix**: Convert to UTC before storing/scheduling.
+
+### 4. Message Format Issues
+
+**Symptom**: Handler receives data but can't find expected fields
+
+**Debug**:
+```bash
+# Add logging to see raw message
+kubectl logs deploy/notification-service -n taskflow | grep -i "raw"
+
+# Check message structure
+# CloudEvent wraps payload in "data" field
+```
+
+**Fix**: Unwrap CloudEvent: `event = raw.get("data", raw)`
+
+### 5. Async SQLAlchemy Errors
+
+**Symptom**: `greenlet_spawn has not been called`
+
+**Debug**:
+```bash
+# Find the line that crashes
+kubectl logs deploy/notification-service -n taskflow | grep -A 20 "greenlet"
+```
+
+**Fix**: Add `await session.refresh(obj)` after commit before accessing attributes.
+
+## Debugging Dapr Specifically
+
+### Check Dapr Sidecar
 
 ```bash
-# Check what content-type is returned for JS files
-curl -sI "https://app.orient.bot/dashboard/assets/index-*.js" | grep content-type
+# Dapr scheduler connection
+kubectl logs deploy/taskflow-api -n taskflow -c daprd | grep -i "scheduler"
 
-# Expected: content-type: text/javascript; charset=utf-8
-# If: content-type: text/html -> nginx routing issue
+# Dapr API calls
+kubectl logs deploy/taskflow-api -n taskflow -c daprd | grep "HTTP API Called"
+
+# Dapr pub/sub
+kubectl logs deploy/taskflow-api -n taskflow -c daprd | grep -i "publish"
 ```
 
-### 3. 502 Bad Gateway
-
-**Check which service is down**:
+### Check Dapr Subscriptions
 
 ```bash
-docker ps --format "table {{.Names}}\t{{.Status}}"
+# What subscriptions are registered?
+kubectl exec deploy/notification-service -n taskflow -- curl localhost:8001/dapr/subscribe
 ```
 
-**Check nginx upstream**:
+### Test Dapr Pub/Sub
 
 ```bash
-docker logs orienter-nginx --tail 20 | grep -i "upstream\|502"
+# Publish test event from inside cluster
+kubectl exec deploy/taskflow-api -n taskflow -- curl -X POST \
+  http://localhost:3500/v1.0/publish/taskflow-pubsub/test-topic \
+  -H "Content-Type: application/json" \
+  -d '{"test": true}'
 ```
 
-**Common causes**:
+## Debugging Checklist
 
-- Dashboard not started (crash loop)
-- Wrong port in nginx config
-- Container name mismatch
+When investigating a production issue:
 
-### 4. WhatsApp Pairing Issues
+- [ ] Reproduce the issue (what exactly fails?)
+- [ ] Check pod status (`kubectl get pods`)
+- [ ] Check main app logs for errors
+- [ ] Check sidecar logs (daprd, etc.)
+- [ ] Trace request path across services
+- [ ] Identify error pattern (see table above)
+- [ ] Verify fix locally before deploying
+- [ ] Deploy and verify in production
 
-**Symptoms**:
+## CI/CD Integration
 
-- Dashboard shows "Connection Closed" when requesting pairing code
-- QR code stops refreshing
-- Logs show `QR refs attempts ended` error
-
-**Quick fix**:
+### Check Deployment Status
 
 ```bash
-ssh $OCI_USER@$OCI_HOST "docker restart orienter-bot-whatsapp"
-```
-
-**Full reset**:
-
-```bash
-ssh $OCI_USER@$OCI_HOST "rm -rf /home/opc/orient/data/whatsapp-auth/* && docker restart orienter-bot-whatsapp"
-```
-
-**Diagnosis**:
-
-```bash
-ssh $OCI_USER@$OCI_HOST "docker logs orienter-bot-whatsapp --tail 100 2>&1 | grep -i -E '(pair|code|connection|closed|error)'"
-```
-
-### 5. Missing Environment Variables (Crash Loop)
-
-**Symptoms**: Container in crash loop with "Restarting" status, logs show missing environment variable errors
-
-**Example error**:
-
-```
-Error: DASHBOARD_JWT_SECRET environment variable is required
-```
-
-**Common missing variables**:
-
-- `DASHBOARD_JWT_SECRET` (production) or `DASHBOARD_JWT_SECRET_STAGING` (staging)
-- `DATABASE_URL`
-- OAuth credentials (`GOOGLE_OAUTH_CLIENT_ID`, etc.)
-- API keys (Anthropic, OpenAI, etc.)
-
-**Quick checklist for staging environment**:
-
-```bash
-# Check if variable exists in .env
-ssh $OCI_USER@$OCI_HOST "grep DASHBOARD_JWT_SECRET_STAGING /home/opc/orient/.env"
-
-# Check what env vars the container actually has
-ssh $OCI_USER@$OCI_HOST "docker exec orienter-dashboard-staging env | grep DASHBOARD"
-```
-
-**Critical knowledge about environment variables**:
-
-1. **Staging uses \_STAGING suffix**: Staging containers expect environment variables with `_STAGING` suffix
-   - Production: `DASHBOARD_JWT_SECRET`
-   - Staging: `DASHBOARD_JWT_SECRET_STAGING`
-
-2. **docker restart does NOT reload .env**: Simply restarting a container won't pick up new environment variables
-
-   ```bash
-   # WRONG - Won't reload env vars
-   docker restart orienter-dashboard-staging
-
-   # CORRECT - Recreates container with new env vars
-   cd ~/orient/docker
-   docker compose --env-file ../.env -f docker-compose.v2.yml -f docker-compose.staging.yml up -d dashboard
-   ```
-
-3. **docker-compose needs --env-file flag**: When .env is in parent directory, must specify explicitly
-
-**Fix missing environment variables**:
-
-```bash
-# 1. Add missing variable to .env file
-ssh $OCI_USER@$OCI_HOST "echo 'DASHBOARD_JWT_SECRET_STAGING=\"your-secret-here\"' >> /home/opc/orient/.env"
-
-# 2. Recreate container with updated env (from docker directory)
-ssh $OCI_USER@$OCI_HOST "cd /home/opc/orient/docker && docker compose --env-file ../.env -f docker-compose.v2.yml -f docker-compose.staging.yml up -d dashboard"
-
-# 3. Verify container is healthy
-ssh $OCI_USER@$OCI_HOST "docker ps | grep dashboard"
-
-# 4. Check logs for successful startup
-ssh $OCI_USER@$OCI_HOST "docker logs orienter-dashboard-staging --tail 20"
-```
-
-### 7. SSH Command Not Found (Monitoring Failure)
-
-**Symptoms**: Monitoring page shows "Failed to load server metrics" with error logs showing:
-
-```
-/bin/sh: ssh: not found
-```
-
-**Cause**: The dashboard container doesn't have `openssh-client` installed. This is required for the monitoring service which SSHes into the production server to collect metrics.
-
-**Quick check**:
-
-```bash
-# Verify SSH is available in container
-docker exec orienter-dashboard which ssh
-# Expected: /usr/bin/ssh
-# If empty or "not found": SSH client missing
-```
-
-**Fix for Dockerfile**: The `packages/dashboard/Dockerfile` must include `openssh-client` in the alpine packages:
-
-```dockerfile
-# In the runner stage
-RUN apk add --no-cache curl bash openssh-client
-```
-
-**Workaround for staging** (build patched image locally):
-
-```bash
-# 1. Build a patched image with SSH support
-cd ~/orient
-docker build -t dashboard-staging-ssh -f packages/dashboard/Dockerfile .
-
-# 2. Update staging compose to use local image
-sed -i 's|image: ghcr.io/orient-code/orient/dashboard:staging|image: dashboard-staging-ssh|' docker/docker-compose.staging.yml
-
-# 3. Recreate container
-cd ~/orient/docker
-docker compose --env-file ../.env -f docker-compose.v2.yml -f docker-compose.staging.yml up -d dashboard
-```
-
-### 8. SSH Key Mounting for Containers
-
-**Problem**: Container needs SSH access to production server for monitoring, but SSH keys need proper permissions.
-
-**Docker Compose configuration**:
-
-```yaml
-# In docker-compose.v2.yml
-dashboard:
-  environment:
-    - SSH_KEY_PATH=/app/.ssh/id_rsa
-  volumes:
-    # Mount SSH key from docker/.ssh directory (NOT ~/.ssh which has permission issues)
-    - ./.ssh:/app/.ssh:ro
-```
-
-**Setup steps on server**:
-
-```bash
-# 1. Create docker/.ssh directory
-mkdir -p ~/orient/docker/.ssh
-
-# 2. Generate or copy SSH key (must be readable by container's non-root user)
-ssh-keygen -t rsa -f ~/orient/docker/.ssh/id_rsa -N ""
-
-# 3. Set readable permissions (container runs as uid 1001)
-chmod 644 ~/orient/docker/.ssh/id_rsa
-chmod 644 ~/orient/docker/.ssh/id_rsa.pub
-
-# 4. Add public key to authorized_keys for localhost access
-cat ~/orient/docker/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-
-# 5. Recreate container to pick up the mount
-cd ~/orient/docker
-docker compose --env-file ../.env -f docker-compose.v2.yml up -d dashboard
-```
-
-**Why `./.ssh` instead of `~/.ssh`?**
-
-- Tilde (`~`) doesn't expand in docker-compose volume paths
-- User's `~/.ssh` typically has strict permissions (600) that block container access
-- Container runs as non-root user (nodejs, uid 1001), needs readable permissions
-
-**Required environment variables** (in `.env`):
-
-```bash
-OCI_HOST=152.70.172.33   # or SSH_HOST
-OCI_USER=opc             # or SSH_USER
-# SSH_KEY_PATH is set in compose file: /app/.ssh/id_rsa
-```
-
-**Verify SSH works from container**:
-
-```bash
-docker exec orienter-dashboard ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 -i /app/.ssh/id_rsa opc@152.70.172.33 'echo SSH works'
-```
-
-### 9. Container Environment Variable Reload
-
-**Critical**: `docker restart` does NOT reload environment variables from `.env`. You must recreate the container.
-
-**Wrong approach** (env vars won't update):
-
-```bash
-# This won't pick up new .env values!
-docker restart orienter-dashboard
-```
-
-**Correct approach** (recreates container with fresh env):
-
-```bash
-cd ~/orient/docker
-docker compose --env-file ../.env -f docker-compose.v2.yml -f docker-compose.prod.yml up -d dashboard
-```
-
-**For staging containers**:
-
-```bash
-cd ~/orient/docker
-docker compose --env-file ../.env -f docker-compose.v2.yml -f docker-compose.staging.yml up -d dashboard
-```
-
-**Verify environment variables loaded**:
-
-```bash
-# Check specific variable
-docker exec orienter-dashboard env | grep SSH_KEY_PATH
-docker exec orienter-dashboard env | grep OCI_HOST
-
-# For staging
-docker exec orienter-dashboard-staging env | grep SSH_KEY_PATH
-```
-
-**Common mistake with staging**: Forgetting the `_STAGING` suffix for environment variables:
-
-- Production uses: `DASHBOARD_JWT_SECRET`
-- Staging uses: `DASHBOARD_JWT_SECRET_STAGING`
-
-### 6. Deployment Failure
-
-**Check recent GitHub Actions**:
-
-```bash
+# GitHub Actions
 gh run list --limit 5
+
+# Check specific run
 gh run view <run-id>
+
+# Watch deployment
+gh run watch
 ```
 
-**Check which images were built**:
+### Verify Deployment
 
 ```bash
-gh run view <run-id> | grep -E "Build.*Image"
+# Check pod restart count (should be 0 for healthy pods)
+kubectl get pods -n taskflow
+
+# Check pod age (recent = just deployed)
+kubectl get pods -n taskflow -o wide
+
+# Verify new code is running
+kubectl logs deploy/taskflow-api -n taskflow --tail=10 | head -5
 ```
 
-If builds show `0s` with `-` prefix, they were skipped (no changes detected).
+## Prevention
 
-**Force rebuild if needed**:
+### Add Logging at Key Points
 
-```bash
-gh workflow run deploy.yml -f force_build_all=true
+```python
+logger.info("[SERVICE] Received request: %s", request_summary)
+logger.info("[SERVICE] Processing: step=%s, data=%s", step, safe_data)
+logger.info("[SERVICE] Completed: result=%s", result_summary)
+logger.error("[SERVICE] Failed: error=%s, context=%s", error, context)
 ```
 
-## Container Management
+### Include Correlation IDs
 
-### List Running Containers
+```python
+import uuid
 
-```bash
-docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+@router.post("/tasks")
+async def create_task(request: Request):
+    correlation_id = request.headers.get("X-Correlation-ID", str(uuid.uuid4()))
+    logger.info("[%s] Creating task", correlation_id)
+    # ... processing ...
+    logger.info("[%s] Task created: %d", correlation_id, task.id)
 ```
 
-### Restart a Container
+### Test Error Paths
 
-```bash
-docker restart orienter-dashboard
-docker restart orienter-bot-whatsapp
-docker restart orienter-opencode
-docker restart orienter-nginx
+```python
+def test_handles_missing_field():
+    """Ensure graceful handling of missing data."""
+    response = client.post("/tasks", json={})  # Missing required field
+    assert response.status_code == 422  # Not 500!
 ```
-
-### Restart All Services
-
-```bash
-cd ~/orient/docker
-COMPOSE_FILES="-f docker-compose.v2.yml -f docker-compose.prod.yml -f docker-compose.r2.yml"
-docker compose ${COMPOSE_FILES} restart
-```
-
-### Execute Command in Container
-
-```bash
-docker exec -it orienter-dashboard sh
-docker exec -it orienter-opencode bash
-docker exec orienter-postgres psql -U aibot -d whatsapp_bot
-```
-
-### Check Container Files
-
-```bash
-# Check dashboard assets exist
-docker exec orienter-dashboard ls -la /app/packages/dashboard/public/assets/
-
-# Check nginx config
-docker exec orienter-nginx cat /etc/nginx/conf.d/default.conf
-```
-
-### View Container Resource Usage
-
-```bash
-docker stats --no-stream
-```
-
-### Inspect Container
-
-```bash
-docker inspect orienter-dashboard | jq '.[0].State'
-```
-
-## Health Checks
-
-### Verify All Services
-
-```bash
-# Nginx
-curl -sf https://app.orient.bot/health && echo "Nginx: OK" || echo "Nginx: FAIL"
-
-# Dashboard
-curl -sf https://app.orient.bot/dashboard/api/health && echo "Dashboard: OK" || echo "Dashboard: FAIL"
-
-# OpenCode
-curl -sf https://code.orient.bot/global/health && echo "OpenCode: OK" || echo "OpenCode: FAIL"
-```
-
-### Check Database
-
-```bash
-docker exec orienter-postgres pg_isready -U aibot -d whatsapp_bot
-```
-
-## Deployment Management
-
-### Check Deployment Script Options
-
-```bash
-~/orient/docker/deploy-server.sh --help
-```
-
-### Rollback to Previous Deployment
-
-```bash
-cd ~/orient/docker
-./deploy-server.sh rollback
-```
-
-### Manual Full Restart
-
-```bash
-cd ~/orient/docker
-COMPOSE_FILES="-f docker-compose.v2.yml -f docker-compose.prod.yml -f docker-compose.r2.yml"
-docker compose ${COMPOSE_FILES} down
-docker compose ${COMPOSE_FILES} up -d
-```
-
-### Check Disk Space
-
-```bash
-df -h /home
-docker system df
-```
-
-### Clean Up Docker Resources
-
-```bash
-docker system prune -f
-docker image prune -a -f --filter "until=168h"  # Remove images older than 7 days
-```
-
-## Error Pattern Reference
-
-| Error Message                               | Likely Cause                 | Solution                                                                    |
-| ------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------- |
-| `Missing parameter name at index 1: *`      | Express 5 bare wildcard      | Use `/{*splat}` instead of `*`                                              |
-| `Failed to load module script: text/html`   | Nginx proxy_pass wrong       | Fix nginx to strip path prefix                                              |
-| `Connection Closed` (WhatsApp)              | WebSocket died               | Restart bot-whatsapp container                                              |
-| `ECONNREFUSED postgres`                     | Database not ready           | Wait or restart postgres                                                    |
-| `502 Bad Gateway`                           | Upstream container down      | Check container status and logs                                             |
-| `container is unhealthy`                    | Health check failing         | Check container logs                                                        |
-| `DASHBOARD_JWT_SECRET variable is required` | Missing env var              | Add to .env, recreate with docker-compose                                   |
-| `environment variable is required`          | Missing env var in container | Check staging uses \_STAGING suffix, use docker-compose up -d (not restart) |
-| `/bin/sh: ssh: not found`                   | Missing openssh-client       | Add `openssh-client` to Dockerfile, rebuild image                           |
-| `SSH command failed` (monitoring)           | SSH key or config missing    | Mount SSH key to /app/.ssh, set OCI_HOST in .env                            |
-| `Permission denied (publickey)`             | SSH key permissions wrong    | chmod 644 on mounted key, ensure container can read it                      |
-
-## Session Data Locations
-
-```
-/home/opc/orient/data/
-├── whatsapp-auth/     # WhatsApp session files
-│   ├── creds.json     # Credentials
-│   └── .pairing-mode  # Pairing mode marker
-├── media/             # Uploaded media files
-├── oauth-tokens/      # OAuth tokens
-└── postgres/          # Database files (volume)
-```
-
-## Log Locations
-
-- Container logs: `docker logs <container>`
-- Nginx access: `docker exec orienter-nginx cat /var/log/nginx/access.log`
-- Application logs: `~/orient/logs/` (if configured)
-
-## Server Details
-
-- **Host**: 152.70.172.33
-- **User**: opc
-- **SSH Key**: `~/.ssh/id_rsa`
-- **Deploy Directory**: ~/orient
-- **Docker Directory**: ~/orient/docker
-- **Domains**:
-  - `app.orient.bot` - Dashboard
-  - `code.orient.bot` - OpenCode
-  - `staging.orient.bot` - Staging Dashboard
-  - `code-staging.orient.bot` - Staging OpenCode

@@ -1,9 +1,7 @@
 {
   "name": "sla-monitor-setup",
-  "description": "Sla Monitor Setup - Auto-activating skill for Enterprise Workflows.Triggers on: sla monitor setup, sla monitor setupPart of the Enterprise Workflows skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/20-enterprise-workflows/sla-monitor-setup/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:47.148522Z"
 }

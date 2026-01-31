@@ -1,26 +1,26 @@
 ---
 name: Backend Migrations
-description: Create and manage database schema changes through versioned migration files with proper rollback support, zero-downtime deployment considerations, and backwards compatibility. Use this skill when creating migration files, modifying database schemas, adding/removing tables or columns, creating indexes, or working in migration directories. Applies to files like migrations/, alembic/, db/migrate/, schema changes, or any database evolution task requiring versioned, reversible changes that maintain data integrity during deployments.
+description: Create reversible, focused database migrations with proper naming, version control practices, and zero-downtime deployment considerations. Use this skill when creating or editing migration files in database/migrations/, when writing schema changes (creating/modifying tables, columns, indexes, foreign keys), when implementing migration rollback methods, when managing database version control, when adding or modifying indexes on large tables, or when separating schema changes from data migrations for safer deployments.
 ---
 
 # Backend Migrations
 
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend migrations.
+
 ## When to use this skill
 
-- When creating migration files in directories like `migrations/`, `alembic/versions/`, `db/migrate/`, or `prisma/migrations/`
-- When modifying database schemas by adding, removing, or altering tables, columns, or constraints
-- When creating or dropping database indexes, especially on large tables requiring concurrent operations
-- When writing migration scripts with both upgrade (`up`) and rollback (`down`) methods
-- When planning zero-downtime deployments that require backwards-compatible schema changes
-- When separating schema migrations from data migrations for safer rollback capabilities
-- When implementing multi-step migrations for high-availability systems (add column, backfill, add constraint)
-- When naming migration files with descriptive timestamps like `20240115_add_user_email_index.py`
-- When working on database version control and ensuring migrations are committed to source control
-- When troubleshooting migration conflicts or planning migration strategies for production deployments
-
-# Backend Migrations
-
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend migrations.
+- When creating new migration files in `database/migrations/` directory
+- When editing existing migration files (with caution for deployed migrations)
+- When writing table creation or modification logic using Schema builder
+- When implementing migration rollback/down methods for reversibility
+- When adding or modifying database columns, indexes, or constraints
+- When creating or dropping foreign key relationships
+- When renaming tables or columns
+- When adding indexes to tables, especially large production tables
+- When separating schema changes from data migrations
+- When considering zero-downtime deployment strategies for migrations
+- When writing data migrations or seeders that modify existing records
+- When planning backwards-compatible database changes
 
 ## Instructions
 

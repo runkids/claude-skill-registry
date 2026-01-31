@@ -1,294 +1,92 @@
 ---
 name: quality-gate
-description: Automates quality checks (typecheck, lint, tests, build) and blocks commits that don't pass. Use before any commit to validate code quality.
-allowed-tools: Bash, Read, Grep
+description: Run quality gate checklists for development stages. Covers 4 stage gates (Idea>PBI, PBI>Dev, Dev>QA, QA>Release), compliance verification (architecture, security, accessibility, performance), audit trails, and quality metrics. Triggers on "quality gate", "qa gate", "pre-release", "checklist", "gate check", "compliance", "quality metrics", "QC review".
+infer: true
+allowed-tools: Read, Write, Grep, Glob, Bash, TodoWrite
 ---
 
-# Quality Gate - Quality Verification System
+# Quality Gate
 
-## Purpose
+Verify artifacts meet quality criteria at development stages.
 
-This skill automates quality checks:
+## When to Use
+- Before starting development (pre-dev)
+- Before QA handoff (pre-qa)
+- Before release (pre-release)
+- Compliance verification needed
+- Quality metrics tracking
 
-- **Typecheck** - TypeScript errors
-- **Lint** - Code patterns (ESLint)
-- **Build** - Build verification
-- **Tests** - Unit and E2E tests
-- **Blocks** commits that don't pass
+## ⚠️ MUST READ References
 
----
+**IMPORTANT: You MUST read these reference files for complete protocol. Do NOT skip.**
 
-## Commands
+- **⚠️ MUST READ** `references/quality-checklists.md` — stage gate details, pre-dev/pre-release checklists, compliance verification, audit trail format, metrics dashboard template, output naming conventions
 
-### 1. TypeScript Check
+## Quick Reference: Gate Types
 
-```bash
-bun run typecheck
-# or
-bunx tsc --noEmit
-```
+### Pre-Development
+- [ ] Problem statement clear
+- [ ] Acceptance criteria in GIVEN/WHEN/THEN
+- [ ] Out of scope defined
+- [ ] Dependencies identified
+- [ ] Design approved (if UI)
 
-### 2. ESLint Check
+### Pre-QA
+- [ ] Code review approved
+- [ ] Unit tests >80% coverage
+- [ ] No P1 linting errors
+- [ ] Documentation updated
 
-```bash
-bun run lint
-# or
-bunx eslint . --ext .ts,.tsx
-```
+### Pre-Release
+- [ ] All test cases executed
+- [ ] No open P1/P2 bugs
+- [ ] Regression suite passed
+- [ ] PO sign-off received
 
-### 3. Build Check
+## Workflow
+1. Identify gate type (from target arg or artifact type)
+2. Load appropriate checklist (see `references/quality-checklists.md`)
+3. Verify each criterion against artifact/code
+4. Check compliance areas: Architecture, Security, Accessibility, Performance
+5. Note pass/fail/conditional for each item
+6. Generate report with audit trail
+7. Save to `team-artifacts/qc-reports/`
 
-```bash
-bun run build
-```
-
-### 4. Unit Tests
-
-```bash
-bun run test
-# or
-bunx vitest run
-```
-
-### 5. E2E Tests
-
-```bash
-bun run test:e2e
-# or
-bunx playwright test
-```
-
-### 6. All Checks (RECOMMENDED)
-
-```bash
-bun run typecheck && bun run lint && bun run test && bun run test:e2e && bun run build
-```
-
----
-
-## Execution Flow
-
-```
-1. TYPECHECK → If fail: STOP and list errors
-        ↓
-2. LINT → If fail: STOP and list errors
-        ↓
-3. UNIT TESTS → If fail: STOP and list failures
-        ↓
-4. E2E TESTS → If fail: STOP and list failures
-        ↓
-5. BUILD → If fail: STOP and list errors
-        ↓
-RESULT: ✅ APPROVED or ❌ REJECTED
-```
-
----
-
-## Common TypeScript Errors
-
-### Type 'X' is not assignable to type 'Y'
-
-```typescript
-// ERROR
-const value: string = 123;
-
-// FIX
-const value: number = 123;
-```
-
-### Object is possibly 'undefined'
-
-```typescript
-// ERROR
-const name = user.name.toUpperCase();
-
-// FIX
-const name = user?.name?.toUpperCase() ?? '';
-```
-
-### Property 'X' does not exist on type 'Y'
-
-```typescript
-// ERROR
-const age = user.age; // age doesn't exist
-
-// FIX
-interface User {
-	name: string;
-	age?: number;
-}
-```
-
----
-
-## Common ESLint Errors
-
-### @typescript-eslint/no-explicit-any
-
-```typescript
-// ERROR
-function parse(data: any) {}
-
-// FIX
-function parse(data: unknown) {}
-```
-
-### @typescript-eslint/no-unused-vars
-
-```typescript
-// ERROR
-const unused = 'value';
-
-// FIX - remove or prefix with _
-const _unused = 'value';
-```
-
-### react-hooks/exhaustive-deps
-
-```typescript
-// ERROR
-useEffect(() => {
-	fetchData(userId);
-}, []); // missing userId
-
-// FIX
-useEffect(() => {
-	fetchData(userId);
-}, [userId]);
-```
-
----
-
-## Output Format
-
-### Approved
-
+## Report Template
 ```markdown
-## QUALITY GATE - APPROVED
+## Quality Gate: {Type}
 
-### Checks Executed
+**Target:** {artifact/PR}
+**Date:** {date}
 
-| Check      | Status        | Time  |
-| ---------- | ------------- | ----- |
-| TypeScript | ✅ Pass       | 3.2s  |
-| ESLint     | ✅ Pass       | 5.1s  |
-| Unit Tests | ✅ 42/42 Pass | 8.3s  |
-| E2E Tests  | ✅ 15/15 Pass | 45.2s |
-| Build      | ✅ Pass       | 32.1s |
+### Results
+| Criterion | Status         | Notes  |
+| --------- | -------------- | ------ |
+| {item}    | PASS/FAIL/WARN | {note} |
 
-**STATUS: APPROVED** - Ready to commit
+### Compliance
+| Area          | Status    |
+| ------------- | --------- |
+| Architecture  | PASS/FAIL |
+| Security      | PASS/FAIL |
+| Accessibility | PASS/FAIL |
+| Performance   | PASS/FAIL |
+
+### Gate Status: PASS / FAIL / CONDITIONAL
 ```
 
-### Rejected
+## Output
+- **Path:** `team-artifacts/qc-reports/{YYMMDD}-gate-{type}-{slug}.md`
+- **Status:** PASS | FAIL | CONDITIONAL
 
-```markdown
-## QUALITY GATE - REJECTED
-
-### Checks Executed
-
-| Check      | Status      |
-| ---------- | ----------- |
-| TypeScript | ❌ 3 errors |
-
-### TypeScript Errors
-
-#### Error 1: server/routers/example.ts:45
-```
-
-Type 'string | undefined' is not assignable to type 'string'.
-
-````
-
-**Suggested fix:**
-```typescript
-const name: string = input.name ?? "";
-````
-
-**STATUS: REJECTED** - Fix 3 errors before commit
-
-````
-
----
-
-## Quick Checks
-
-### Fast Check (typecheck + lint only)
+## Example
 ```bash
-bun run typecheck && bun run lint
-````
-
-### Full Check (everything)
-
-```bash
-bun run typecheck && bun run lint && bun run test && bun run test:e2e && bun run build
+/quality-gate pre-dev team-artifacts/pbis/260119-pbi-dark-mode-toggle.md
+/quality-gate pre-release PR#123
 ```
 
-### Modified Files Only
 
-```bash
-git diff --name-only | grep -E "\.(ts|tsx)$" | xargs bunx eslint
-```
+## IMPORTANT Task Planning Notes
 
----
-
-## Pre-Commit Checklist
-
-- [ ] `bun run typecheck` passes?
-- [ ] `bun run lint` passes?
-- [ ] `bun run test` passes?
-- [ ] `bun run test:e2e` passes?
-- [ ] `bun run build` passes?
-- [ ] No `any` in code?
-- [ ] No unused variables?
-- [ ] No debug console.log?
-
----
-
-## Scripts (package.json)
-
-```json
-{
-	"scripts": {
-		"typecheck": "tsc --noEmit",
-		"lint": "eslint . --ext .ts,.tsx",
-		"lint:fix": "eslint . --ext .ts,.tsx --fix",
-		"test": "vitest run",
-		"test:watch": "vitest",
-		"test:e2e": "playwright test",
-		"test:e2e:ui": "playwright test --ui",
-		"test:all": "bun run typecheck && bun run lint && bun run test && bun run test:e2e",
-		"build": "next build"
-	}
-}
-```
-
----
-
-## Critical Rules
-
-1. **NEVER commit with errors** - All checks must pass
-2. **RUN IN ORDER** - typecheck → lint → test → e2e → build
-3. **FIX IMMEDIATELY** - Errors cannot accumulate
-4. **DON'T USE --force** - Solve problems, don't ignore
-
----
-
-## Progressive Disclosure
-
-For automated quality checks:
-
-- **[scripts/check-all.sh](scripts/check-all.sh)** - Run all quality gates in sequence
-
-### Quick Command
-
-```bash
-# Run all quality gates
-bash .claude/skills/quality-gate/scripts/check-all.sh
-```
-
----
-
-## Version
-
-- **v2.1.0** - Added progressive disclosure with check-all script
-- **v2.0.0** - Generic template
+- Always plan and break many small todo tasks
+- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

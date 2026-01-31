@@ -1,9 +1,7 @@
 {
   "name": "single-or-array-pattern",
-  "description": "Pattern for functions that accept either a single item or an array. Use when creating CRUD operations, batch processing APIs, or factory functions that should flexibly handle one or many inputs.",
   "repo": "EpicenterHQ/epicenter",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/single-or-array-pattern/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-31T03:50:14.879965Z"
 }

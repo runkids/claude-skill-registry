@@ -1,7 +1,7 @@
 {
   "name": "github-multi-repo",
-  "repo": "proffesor-for-testing/agentic-qe",
+  "repo": "zellycloud/zyflow",
   "path": ".claude/skills/github-multi-repo/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-30T04:32:44.054985Z"
+  "source": "github.com/zellycloud/zyflow",
+  "downloaded_at": "2026-01-31T04:44:54.840509Z"
 }

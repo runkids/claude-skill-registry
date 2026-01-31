@@ -1,7 +1,7 @@
 {
   "name": "security",
-  "repo": "carmandale/agent-config",
-  "path": "skills/cc3/security/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-01-30T04:46:39.778961Z"
+  "repo": "ngxtm/devkit",
+  "path": "rules/nestjs/security/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-31T04:37:28.019436Z"
 }

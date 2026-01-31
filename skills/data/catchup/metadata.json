@@ -1,7 +1,7 @@
 {
   "name": "catchup",
-  "repo": "athola/claude-night-market",
-  "path": "plugins/imbue/skills/catchup/SKILL.md",
-  "source": "github.com/athola/claude-night-market",
-  "downloaded_at": "2026-01-30T04:03:28.820443Z"
+  "repo": "robzolkos/zolkos-agent-skills",
+  "path": "skills/catchup/SKILL.md",
+  "source": "github.com/robzolkos/zolkos-agent-skills",
+  "downloaded_at": "2026-01-31T04:13:17.861884Z"
 }

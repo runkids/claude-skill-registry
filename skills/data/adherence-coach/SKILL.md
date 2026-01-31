@@ -1,14 +1,13 @@
 ---
 name: adherence-coach
-description: Identifies missed training sessions and proposes plan reshuffles with motivational support. Use for weekly check-ins, when multiple sessions are skipped, or when user asks for help getting back on track.
+description: Identifies missed sessions or inconsistency and proposes plan reshuffles with motivational nudges.
 metadata:
   short-description: Weekly adherence check with reshuffle suggestions and supportive messaging.
 ---
 
-## When Claude should use this skill
-- Weekly digest (e.g., Sunday) or when multiple sessions are skipped
-- When the user asks for help getting back on track
-- When analyzing training consistency or adherence patterns
+## When Codex should use it
+- Weekly digest (e.g., Sunday) or when multiple sessions are skipped.
+- When the user asks for help getting back on track.
 
 ## Invocation guidance
 1. Provide `Plan`, completed vs. missed workouts, and user preferences (available days, constraints).

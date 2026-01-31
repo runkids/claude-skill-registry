@@ -1,9 +1,7 @@
 {
   "name": "qwen-roadmap-auditor-prototype",
-  "description": "Qwen Roadmap Auditor (Prototype)",
-  "repo": "Foundup/Foundups-Agent",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Foundup/Foundups-Agent"
+  "repo": "NovaAI-innovation/Infinite-Agency",
+  "path": ".qwen/skills/qwen-roadmap-auditor-prototype/SKILL.md",
+  "source": "github.com/NovaAI-innovation/Infinite-Agency",
+  "downloaded_at": "2026-01-31T02:55:33.820490Z"
 }

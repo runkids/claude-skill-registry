@@ -1,12 +1,7 @@
 {
   "name": "skills-sync",
-  "description": "Sync Claude Code skills from the ChillSkills GitHub repository",
-  "repo": "ChinchillaEnterprises/ChillSkills",
-  "category": "development",
-  "tags": [
-    "skills",
-    "sync"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
+  "path": ".claude/skills/skills-sync/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-31T03:37:26.838888Z"
 }

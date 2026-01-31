@@ -1,7 +1,7 @@
 {
   "name": "github-actions-starter",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/01-devops-basics/github-actions-starter/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-30T01:00:41.779128Z"
+  "repo": "NovaAI-innovation/Infinite-Agency",
+  "path": ".qwen/skills/github-actions-starter/SKILL.md",
+  "source": "github.com/NovaAI-innovation/Infinite-Agency",
+  "downloaded_at": "2026-01-31T02:55:34.308299Z"
 }

@@ -1,135 +1,261 @@
 ---
 name: pr-review
-description: Review a pull request and post findings as a PR comment
-context: fork
+description: 进行 Pull Request 代码审查,包括代码质量、安全性、性能、架构合理性等方面的全面评估。当用户要求审查 PR 或提到 "review pr"、"检查 PR" 等关键词时激活。
 ---
 
-You are a PR review specialist for the vm0 project. Your role is to review pull requests and post findings as comments.
+# PR Review 代码审查技能
 
-## Workflow
+> 全面审查 Pull Request 的代码质量、安全性、性能和架构设计,提供专业的改进建议
 
-### Step 1: Determine PR Number
-
-```bash
-if [ -n "$PR_ID" ]; then
-    PR_NUMBER="$PR_ID"
-else
-    CURRENT_BRANCH=$(git branch --show-current)
-    PR_NUMBER=$(gh pr list --head "$CURRENT_BRANCH" --json number --jq '.[0].number')
-
-    if [ -z "$PR_NUMBER" ]; then
-        echo "No PR found for current branch. Please specify a PR number."
-        exit 1
-    fi
-fi
-```
-
-### Step 2: Get PR Information
+## 快速开始
 
 ```bash
-gh pr view "$PR_NUMBER" --json title,body,author,url
+# 审查当前分支的 PR
+gh pr view
+
+# 审查指定 PR
+gh pr view 6324
+
+# 查看变更内容
+gh pr diff 6324
 ```
 
-Display PR metadata (title, author, URL).
+## 工具集成
 
-### Step 3: Call code-quality Skill for Analysis
-
-Invoke the `code-quality` skill to perform comprehensive code review:
-
-```typescript
-await Skill({
-  skill: "code-quality",
-  args: `review ${PR_NUMBER}`
-});
-```
-
-This will:
-- Analyze all PR commits against bad smell criteria
-- Generate detailed review files in `codereviews/YYYYMMDD/`
-- Check for testing anti-patterns, error handling issues, type safety, etc.
-
-### Step 4: Read Review Results
-
-After `code-quality` completes, read the generated files:
+### 使用 gh CLI 加速审查
 
 ```bash
-# Find today's review directory
-REVIEW_DIR="codereviews/$(date +%Y%m%d)"
+# 查看并审查 PR
+gh pr view <number> && gh pr diff <number>
 
-# Read the commit-list.md which contains the summary
-cat "$REVIEW_DIR/commit-list.md"
+# 添加审查评论
+gh pr review <number> --comment -b "我的审查意见"
+
+# 批准 PR
+gh pr review <number> --approve
+
+# 请求修改
+gh pr review <number> --request-changes
 ```
 
-Extract key findings:
-- Critical issues (P0)
-- High priority issues (P1)
-- Bad smell statistics
-- Action items
+### 本地测试 PR
 
-### Step 5: Generate PR Comment
+```bash
+# 检出 PR 分支到本地
+gh pr checkout <number>
 
-Structure the review findings as a PR comment:
+# 运行测试
+pnpm test
+
+# 运行 lint
+pnpm lint
+
+# 类型检查
+pnpm tsc --noEmit
+
+# 启动开发服务器验证
+pnpm dev
+```
+
+
+
+
+### 常见命令参考
+
+```bash
+# PR 信息查看
+gh pr view --json title,body,author,state,files,additions,deletions
+
+# PR diff 查看
+gh pr diff
+gh pr diff <number> > /tmp/pr.diff  # 保存到文件
+
+# PR commits 查看
+gh pr view --json commits --jq '.commits[].messageHeadline'
+
+# PR checks 状态
+gh pr checks
+
+# PR 评论
+gh pr comment <number> --body "评论内容"
+
+# PR 审查提交
+gh pr review <number> --approve
+gh pr review <number> --request-changes
+gh pr review <number> --comment -b "评论内容"
+
+# PR 操作
+gh pr merge <number> --squash  # Squash merge
+gh pr close <number>           # 关闭 PR
+```
+
+## 审查流程
+
+### 1. 信息收集阶段
+
+自动执行以下步骤:
+
+```bash
+# 1. 获取 PR 基本信息
+gh pr view --json title,body,author,state,headRefName,baseRefName,additions,deletions,files
+
+# 2. 获取 PR 变更 diff
+gh pr diff
+
+# 3. 获取 PR 的 commit 历史
+gh pr view --json commits
+
+# 4. 检查 CI/CD 状态
+gh pr checks
+```
+
+### 2. 多维度代码审查
+
+按照以下三个维度进行系统性审查:
+
+#### 维度 1: 代码质量标准 📐
+
+通用的代码质量标准,适用于所有项目:
+
+- **安全性**: 输入验证、权限检查、注入防护、敏感信息保护
+- **正确性**: 错误处理、边界条件、类型安全
+- **性能**: 算法复杂度、数据库优化、内存管理
+- **可测试性**: 测试覆盖、测试质量、Mock 使用
+
+📖 **详细指南**: [code-quality-standards.md](./code-quality-standards.md)
+
+#### 维度 2: FastGPT 风格规范 🎨
+
+FastGPT 项目特定的代码规范和约定:
+
+- **工作流节点开发**: 类型定义、节点枚举、执行逻辑、isEntry 管理
+- **API 路由开发**: 路由定义、权限验证、错误处理
+- **前端组件开发**: TypeScript + React、Chakra UI、状态管理
+- **数据库操作**: Model 定义、查询优化、索引设计
+- **包结构与依赖**: 依赖方向、导入规范、类型导出
+
+📖 **详细指南**: [fastgpt-style-guide.md](./fastgpt-style-guide.md)
+
+#### 维度 3: 常见问题检查清单 🔍
+
+快速识别和修复常见问题模式:
+
+- **TypeScript 问题**: any 类型滥用、类型定义不完整、不安全断言
+- **异步错误处理**: 未处理 Promise、错误信息丢失、静默失败
+- **React 性能**: 不必要的重渲染、渲染中创建对象、缺少 memoization
+- **工作流节点**: isEntry 未重置、交互历史未清理、白名单遗漏
+- **安全漏洞**: 注入攻击、XSS、文件上传漏洞
+
+📖 **详细清单**: [common-issues-checklist.md](./common-issues-checklist.md)
+
+### 3. 生成并提交审查报告
+
+PR 审查输出分为两个部分:
+1. **整体审查报告**: 提交为 PR 顶部的总体评论
+2. **行级代码评论**: 直接在代码行的位置添加具体评论
+
+#### 步骤 1: 分析代码并准备评论
+
+在审查过程中,需要为每个问题记录:
+- **文件路径**: 如 `packages/service/core/workflow/dispatch.ts`
+- **行号**: 如 `L142-L150`
+- **问题类型**: 🔴严重 / 🟡改进 / 🟢优化
+- **评论内容**: 具体的问题描述和建议
+
+
+#### 步骤 2: 添加行级代码评论
+
+GitHub CLI 支持在特定行添加评论。评论数据格式为 JSON:
+
+```bash
+# 1. 准备行级评论 JSON 文件
+cat > /tmp/line-comments.json << 'EOF'
+{
+  "body": "行级代码审查评论",
+  "event": "COMMENT",
+  "comments": [
+    {
+      "path": "packages/service/core/workflow/dispatch.ts",
+      "line": 142,
+      "body": "🔴 **严重问题**: 这里缺少错误处理,如果 runtimeNode 为 null 会导致运行时错误。\n\n**建议**:\n```typescript\nif (!runtimeNode) {\n  throw new Error(`Runtime node not found: ${nodeId}`);\n}\n```"
+    },
+    {
+      "path": "packages/service/core/workflow/dispatch.ts",
+      "line": 150,
+      "body": "🟡 **性能优化**: 建议将此正则表达式编译提取到函数外部,避免每次调用都重新编译。\n\n**建议**:\n```typescript\nconst NODE_ID_PATTERN = /^node_([a-f0-9]+)$/; // 在模块顶部定义\n```"
+    }
+  ]
+}
+EOF
+
+# 2. 提交整体审查报告和行级评论
+gh pr review <number> --body-file /tmp/pr-review.md --json > /tmp/review-result.json
+```
+
+#### 步骤 3: 生成整体审查报告
 
 ```markdown
-## Code Review: PR #<number>
+# PR Review: {PR Title}
 
-### Summary
-<Brief summary based on code-quality analysis>
+## 📊 变更概览
+- **PR 编号**: #{number}
+- **作者**: @author
+- **分支**: {baseRefName} ← {headRefName}
+- **变更统计**: +{additions} -{deletions} 行
+- **涉及文件**: {files.length} 个文件
 
-### Key Findings
+## ✅ 优点
+{列出做得好的地方}
 
-#### Critical Issues (P0)
-<List from code-quality review>
+## ⚠️ 问题汇总
 
-#### High Priority (P1)
-<List from code-quality review>
+### 🔴 严重问题 ({count} 个,必须修复)
+{简要列出每个严重问题,并在下方添加行级评论}
 
-### Bad Smell Analysis
-<Statistics from code-quality review>
+### 🟡 建议改进 ({count} 个)
+{简要列出每个建议}
 
-### Recommendations
-<Action items from code-quality review>
+### 🟢 可选优化 ({count} 个)
+{简要列出优化建议}
 
-### Verdict
-<LGTM / Changes Requested / Needs Discussion>
+## 🧪 测试建议
+{建议的测试方法}
 
----
-*Full review details: `codereviews/YYYYMMDD/`*
-```
+## 💬 总体评价
+- **代码质量**: ⭐⭐⭐⭐☆ (4/5)
+- **安全性**: ⭐⭐⭐⭐⭐ (5/5)
+- **性能**: ⭐⭐⭐⭐☆ (4/5)
+- **可维护性**: ⭐⭐⭐⭐☆ (4/5)
 
-### Step 6: Post Comment
-
-```bash
-gh pr comment "$PR_NUMBER" --body "$REVIEW_CONTENT"
-```
-
-Display confirmation with comment URL.
-
----
-
-## Output Format
-
-```
-PR Review Complete
-
-PR: #<number> - <title>
-Author: <author>
-URL: <url>
-
-Code quality analysis completed.
-Review files: codereviews/YYYYMMDD/
-
-Review posted as comment.
-Comment URL: <comment-url>
-```
+## 🚀 审查结论
+{建议: 通过/需修改/拒绝}
 
 ---
 
-## Best Practices
+## 📍 详细代码评论
+已在以下位置添加了具体的行级评论:
+{列出所有添加了行级评论的位置}
+```
 
-1. **Use code-quality for analysis** - Don't duplicate review logic
-2. **Summarize for PR comment** - Keep comment concise, reference files for details
-3. **Be constructive** - Focus on improvements, not criticism
-4. **Prioritize** - Distinguish between blockers and nice-to-haves
+#### 步骤 4: 提交整体审查报告
 
-Your goal is to leverage the comprehensive code-quality analysis and present it effectively as a PR comment.
+通过 GitHub CLI 提交整体审查报告到评论区。
+
+#### 审查命令快速参考:
+
+| 场景 | 命令 |
+|------|------|
+| 批准 PR | `gh pr review <number> --approve` |
+| 请求修改 | `gh pr review <number> --request-changes` |
+| 一般评论 | `gh pr review <number> --comment` |
+| 从文件提交 | `gh pr review <number> --body-file /tmp/review.md` |
+| 添加普通评论 | `gh pr comment <number> --body "内容"` |
+| 撤销审查 | `gh pr review <number> --dismiss` |
+
+
+## 参考文档
+
+### 核心审查文档
+- **维度 1**: [code-quality-standards.md](./code-quality-standards.md) - 通用代码质量标准
+- **维度 2**: [fastgpt-style-guide.md](./fastgpt-style-guide.md) - FastGPT 项目规范
+- **维度 3**: [common-issues-checklist.md](./common-issues-checklist.md) - 常见问题清单

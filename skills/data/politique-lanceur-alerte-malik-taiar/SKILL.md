@@ -4,6 +4,7 @@ description: Guide pour (a) évaluer la conformité d'un dispositif lanceur d'al
 metadata:
   author: Malik Taiar
   license: AGPL-3.0
+  version: 2025.12.31
 ---
 
 # Dispositifs Lanceur d'Alerte - Évaluation & Rédaction

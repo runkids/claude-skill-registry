@@ -1,12 +1,7 @@
 {
   "name": "dbt-core",
-  "description": "Managing dbt-core locally - installation, configuration, project setup, package management, troubleshooting, and development workflow. Use this skill for all aspects of local dbt-core development incl",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "development",
-  "tags": [
-    "dbt",
-    "core"
-  ],
-  "stars": 23,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dbt-core/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-31T03:37:26.147816Z"
 }

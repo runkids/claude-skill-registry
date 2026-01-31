@@ -12,6 +12,7 @@ ImageMagick is a comprehensive, free, open-source software suite for creating, e
 ## When to Use This Skill
 
 Use this skill when:
+
 - Converting images between formats (PNG, JPEG, WebP, GIF, etc.)
 - Resizing, cropping, or transforming images
 - Applying effects, filters, or adjustments to images
@@ -39,6 +40,7 @@ ImageMagick provides several command-line tools:
 ### Command Structure
 
 Basic syntax:
+
 ```bash
 magick [input-options] input-file [operations] [output-options] output-file
 ```
@@ -60,16 +62,19 @@ ImageMagick uses geometry strings for dimensions:
 ## Installation
 
 **macOS:**
+
 ```bash
 brew install imagemagick
 ```
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt-get install imagemagick
 ```
 
 **Verify installation:**
+
 ```bash
 magick -version
 # or
@@ -553,18 +558,21 @@ magick input.jpg \( watermark.png -alpha set -channel A \
 Common issues and solutions:
 
 **File not found:**
+
 ```bash
 # Check file exists
 [ -f input.jpg ] && magick input.jpg output.png || echo "File not found"
 ```
 
 **Invalid geometry:**
+
 ```bash
 # Validate dimensions first
 identify -format "%wx%h" input.jpg
 ```
 
 **Memory errors:**
+
 ```bash
 # Limit resources
 magick -limit memory 1GB -limit map 2GB input.jpg output.png
@@ -602,14 +610,17 @@ sudo nano /etc/ImageMagick-7/policy.xml
 ### Common Errors
 
 **"convert: not authorized"**
+
 - ImageMagick security policy blocking operation
 - Edit policy.xml to allow specific formats/operations
 
 **"convert: no decode delegate"**
+
 - Missing format support library
 - Install additional libraries (libjpeg, libpng, libwebp, etc.)
 
 **"convert: memory allocation failed"**
+
 - Image too large or insufficient memory
 - Use `-limit` flags or process in smaller chunks
 
@@ -623,36 +634,43 @@ sudo nano /etc/ImageMagick-7/policy.xml
 ## Command Reference Quick Guide
 
 **Format Conversion:**
+
 ```bash
 magick input.ext output.ext
 ```
 
 **Resize:**
+
 ```bash
 magick input.jpg -resize WIDTHxHEIGHT output.jpg
 ```
 
 **Crop:**
+
 ```bash
 magick input.jpg -crop WIDTHxHEIGHT+X+Y output.jpg
 ```
 
 **Thumbnail:**
+
 ```bash
 magick input.jpg -resize 100x100^ -gravity center -extent 100x100 thumb.jpg
 ```
 
 **Effects:**
+
 ```bash
 magick input.jpg -blur 0x8 output.jpg
 ```
 
 **Batch:**
+
 ```bash
 mogrify -resize 800x600 *.jpg
 ```
 
 **Info:**
+
 ```bash
 identify -verbose image.jpg
 ```

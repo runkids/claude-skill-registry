@@ -1,7 +1,7 @@
 {
   "name": "performance",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
-  "path": ".claude/skills/performance/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-30T03:18:08.057505Z"
+  "repo": "pluginagentmarketplace/custom-plugin-javascript",
+  "path": "skills/performance/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-javascript",
+  "downloaded_at": "2026-01-31T03:52:16.220886Z"
 }

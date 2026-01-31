@@ -1,7 +1,7 @@
 {
   "name": "update-docs",
-  "repo": "maxlogvn/AiCMR",
-  "path": ".claude/skills/update-docs/SKILL.md",
-  "source": "github.com/maxlogvn/AiCMR",
-  "downloaded_at": "2026-01-30T03:37:10.623710Z"
+  "repo": "NagasakaH/devcontainer",
+  "path": "skills/update-docs/SKILL.md",
+  "source": "github.com/NagasakaH/devcontainer",
+  "downloaded_at": "2026-01-31T03:47:14.796734Z"
 }

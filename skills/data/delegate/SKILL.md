@@ -1,137 +1,385 @@
 ---
 name: delegate
-description: |
-  Multi-AI orchestration primitive. Delegate to specialized AI tools, collect outputs, synthesize.
-  Use when: analysis, review, audit, investigation tasks need multiple expert perspectives.
-  Keywords: orchestrate, delegate, multi-ai, parallel, synthesis, consensus
+description: Split work across subagents with explicit contracts, interfaces, and merge strategies. Use when parallelizing tasks, distributing workload, or orchestrating multi-agent workflows.
+argument-hint: "[task] [agents] [contracts]"
+disable-model-invocation: false
+user-invocable: true
+allowed-tools: Read, Grep
+context: fork
+agent: explore
 ---
 
-# /delegate
+## Intent
 
-> You orchestrate. Specialists do the work.
+Delegate a complex task to one or more subagents by defining clear contracts, input/output interfaces, and strategies for merging results. Ensure coordinated execution with conflict resolution.
 
-Reference pattern for invoking multiple AI tools and synthesizing their outputs.
+**Success criteria:**
+- Task decomposed into delegatable subtasks
+- Each subtask has explicit contract (inputs, outputs, constraints)
+- Interface between tasks is well-defined
+- Merge strategy handles conflicts and failures
+- Dependencies between subtasks are clear
 
-## Your Role
+**Compatible schemas:**
+- `schemas/output_schema.yaml`
 
-You don't analyze/review/audit yourself. You:
-1. **Route** — Send work to appropriate specialists
-2. **Collect** — Gather their outputs
-3. **Curate** — Validate, filter, resolve conflicts
-4. **Synthesize** — Produce unified output
+## Inputs
 
-## Your Team
+| Parameter | Required | Type | Description |
+|-----------|----------|------|-------------|
+| `task` | Yes | string or object | The overall task to delegate |
+| `agents` | No | array | Available agents/workers for delegation |
+| `constraints` | No | object | Global constraints (timeout, resource limits) |
+| `merge_strategy` | No | string | How to combine results (first_wins, consensus, aggregate) |
+| `failure_policy` | No | string | What to do on subtask failure (abort, continue, retry) |
 
-### Agentic Tools (Can Take Action)
+## Procedure
 
-**Codex MCP** — Senior engineer, security specialist
-- Long-context understanding, reliable tool calling
-- Best at: refactors, migrations, debugging, security review
-- Invocation: `mcp__codex__spawn_agent({"prompt": "..."})`
-- Parallel: `mcp__codex__spawn_agents_parallel({"agents": [...]})`
+1) **Analyze task**: Understand the overall objective
+   - Identify the goal and success criteria
+   - Determine if task is parallelizable
+   - Identify shared state or resources
+   - Assess complexity and scope
 
-**Kimi MCP** — Visual/frontend specialist
-- Native multimodal (vision + text), agent swarm architecture
-- Best at: UI from designs, visual debugging, frontend patterns
-- Invocation: `mcp__moonbridge__spawn_agent({"prompt": "...", "thinking": true})`
-- Parallel: `mcp__moonbridge__spawn_agents_parallel({"agents": [...]})`
+2) **Decompose into subtasks**: Break into delegatable units
+   - Each subtask should be independently executable
+   - Minimize dependencies between subtasks
+   - Identify natural parallelization boundaries
+   - Use `decompose` capability patterns
 
-**Gemini CLI** — Researcher, deep reasoner
-- Web grounding, thinking_level control, agentic vision
-- Best at: current best practices, pattern validation, design research
-- Invocation: `gemini "..."` (bash)
+3) **Define contracts**: Specify expectations for each subtask
+   - Input: what data/context each subtask receives
+   - Output: what each subtask must produce
+   - Constraints: limits on time, resources, scope
+   - Verification: how to check subtask completion
 
-### Non-Agentic (Opinions Only)
+4) **Design interfaces**: Specify data flow between subtasks
+   - Format of inputs and outputs
+   - Required fields and optional extensions
+   - Error formats and status codes
+   - Handoff protocols
 
-**Thinktank CLI** — Expert council
-- Multiple models respond in parallel, synthesis mode
-- Best at: consensus, architecture validation, second opinions
-- Invocation: `thinktank instructions.md ./files --synthesis` (bash)
-- **Note**: Cannot take action. Use for validation, not investigation.
+5) **Plan merge strategy**: How to combine results
+   - Handle successful completions
+   - Resolve conflicts between subtask outputs
+   - Aggregate partial results
+   - Determine final output format
 
-### Internal Agents (Task tool)
+6) **Handle failures**: Define recovery behavior
+   - What happens if a subtask fails
+   - Retry policies and limits
+   - Fallback strategies
+   - Partial result handling
 
-Domain specialists for focused review:
-- `go-concurrency-reviewer`, `react-pitfalls`, `security-sentinel`
-- `data-integrity-guardian`, `architecture-guardian`, `config-auditor`
+7) **Establish coordination**: Define execution order
+   - Parallel vs sequential execution
+   - Dependency ordering
+   - Synchronization points
+   - Progress tracking
 
-## How to Delegate
+## Output Contract
 
-Apply `/llm-communication` principles — state goals, not steps:
+Return a structured object:
 
-### To Agentic Tools (Codex, Kimi, Gemini)
-
-Give them latitude to investigate:
-```
-"Investigate this stack trace. Find root cause. Propose fix with file:line."
-```
-
-NOT:
-```
-"Step 1: Read file X. Step 2: Check line Y. Step 3: ..."
-```
-
-### To Thinktank (Non-Agentic)
-
-Provide context, ask for judgment:
-```
-"Here's the code and proposed fix. Is this approach sound?
-What are we missing? Consensus and dissent."
-```
-
-### Parallel Execution
-
-Run independent reviews in parallel:
-- Multiple MCP calls in same message
-- Multiple Task tool calls in same message
-- Gemini + Thinktank can run concurrently (both bash)
-
-## Curation (Your Core Job)
-
-For each finding:
-
-**Validate**: Real issue or false positive? Applies to our context?
-**Filter**: Generic advice, style preferences contradicting conventions
-**Resolve Conflicts**: When tools disagree, explain tradeoff, make recommendation
-
-## Output Template
-
-```markdown
-## [Task]: [subject]
-
-### Action Plan
-
-#### Critical
-- [ ] `file:line` — Issue — Fix: [action] (Source: [tool])
-
-#### Important
-- [ ] `file:line` — Issue — Fix: [action] (Source: [tool])
-
-#### Suggestions
-- [ ] [improvement] (Source: [tool])
-
-### Synthesis
-
-**Agreements** — Multiple tools flagged:
-- [issue]
-
-**Conflicts** — Differing opinions:
-- [Tool A] vs [Tool B]: [your recommendation]
-
-**Research** — From Gemini:
-- [finding with citation]
+```yaml
+delegation:
+  task: string  # Original task description
+  delegated_to: array  # List of agents/subtasks
+  status: pending | running | completed | failed
+subtasks:
+  - id: string  # Subtask identifier
+    agent: string  # Assigned agent
+    contract:
+      inputs: object  # What subtask receives
+      outputs: object  # What subtask must produce
+      constraints: object  # Limits and requirements
+      verification: string  # How to verify completion
+    dependencies: array[string]  # Subtask IDs this depends on
+    status: pending | running | completed | failed
+    result: object | null  # Subtask output when complete
+interfaces:
+  - from: string  # Source subtask
+    to: string  # Destination subtask
+    format: object  # Data format specification
+    required_fields: array[string]
+merge_plan:
+  strategy: first_wins | consensus | aggregate | custom
+  conflict_resolution: string  # How to handle conflicts
+  final_output_format: object  # Expected merged result
+failure_handling:
+  policy: abort | continue | retry
+  max_retries: integer
+  fallback: string | null
+handoff_context:
+  - key: string  # Context key
+    value: object  # Shared context data
+confidence: 0..1
+evidence_anchors: ["task:analysis", "agent:capability"]
+assumptions: []
 ```
 
-## When to Use
+### Field Definitions
 
-- **Code review** — Multiple perspectives on changes
-- **Incident investigation** — Agentic tools investigate, Thinktank validates fix
-- **Architecture decisions** — Thinktank for consensus
-- **Audit/check tasks** — Parallel investigation across domains
+| Field | Type | Description |
+|-------|------|-------------|
+| `delegation` | object | Overall delegation summary |
+| `subtasks` | array | Individual subtask definitions with contracts |
+| `interfaces` | array | Data flow between subtasks |
+| `merge_plan` | object | Strategy for combining results |
+| `failure_handling` | object | Recovery policies |
+| `handoff_context` | array | Shared context for all subtasks |
+| `confidence` | number | 0.0-1.0 based on delegation clarity |
+| `evidence_anchors` | array | References supporting delegation design |
+| `assumptions` | array | Explicit assumptions about agents/capabilities |
 
-## Related
+## Examples
 
-- `/llm-communication` — Prompt writing principles
-- `/review-branch` — Example implementation
-- `/thinktank` — Multi-model synthesis
-- `/codex-coworker` — Codex delegation patterns
+### Example 1: Parallel Code Review
+
+**Input:**
+```yaml
+task: "Review pull request #123 for security, performance, and style"
+agents:
+  - id: "security-agent"
+    capabilities: ["security-analysis", "vulnerability-detection"]
+  - id: "perf-agent"
+    capabilities: ["performance-analysis", "profiling"]
+  - id: "style-agent"
+    capabilities: ["lint", "style-check"]
+constraints:
+  timeout: "10m"
+  max_issues_per_category: 20
+```
+
+**Output:**
+```yaml
+delegation:
+  task: "Review pull request #123"
+  delegated_to: ["security-agent", "perf-agent", "style-agent"]
+  status: pending
+subtasks:
+  - id: "security-review"
+    agent: "security-agent"
+    contract:
+      inputs:
+        pr_number: 123
+        files: ["src/**/*.ts"]
+        focus: "security"
+      outputs:
+        issues: "array of {severity, file, line, description}"
+        summary: "string"
+        passed: "boolean"
+      constraints:
+        timeout: "5m"
+        max_issues: 20
+      verification: "issues array is valid, severity in [low, medium, high, critical]"
+    dependencies: []
+    status: pending
+    result: null
+  - id: "perf-review"
+    agent: "perf-agent"
+    contract:
+      inputs:
+        pr_number: 123
+        files: ["src/**/*.ts"]
+        focus: "performance"
+      outputs:
+        issues: "array of {severity, file, line, description}"
+        metrics: "object with timing estimates"
+        passed: "boolean"
+      constraints:
+        timeout: "5m"
+        max_issues: 20
+      verification: "issues array is valid, metrics object present"
+    dependencies: []
+    status: pending
+    result: null
+  - id: "style-review"
+    agent: "style-agent"
+    contract:
+      inputs:
+        pr_number: 123
+        files: ["src/**/*.ts"]
+        focus: "style"
+      outputs:
+        issues: "array of {severity, file, line, description}"
+        passed: "boolean"
+      constraints:
+        timeout: "3m"
+        max_issues: 20
+      verification: "issues array is valid"
+    dependencies: []
+    status: pending
+    result: null
+interfaces:
+  - from: "all_subtasks"
+    to: "merge"
+    format:
+      issues: "array"
+      passed: "boolean"
+    required_fields: ["issues", "passed"]
+merge_plan:
+  strategy: aggregate
+  conflict_resolution: "Combine all issues, AND passed flags"
+  final_output_format:
+    all_issues: "array (combined)"
+    passed: "boolean (all must pass)"
+    summary: "string (generated)"
+failure_handling:
+  policy: continue
+  max_retries: 1
+  fallback: "Return partial results with failed subtask noted"
+handoff_context:
+  - key: "repository"
+    value: { "owner": "org", "repo": "project" }
+  - key: "base_branch"
+    value: "main"
+confidence: 0.9
+evidence_anchors:
+  - "task:pr-review-decomposition"
+  - "agent:security-agent:has-security-analysis"
+assumptions:
+  - "All agents have access to repository"
+  - "PR #123 exists and is accessible"
+```
+
+**Evidence pattern:** Task analysis informed decomposition, agent capabilities matched to subtasks.
+
+---
+
+### Example 2: Sequential Data Pipeline
+
+**Input:**
+```yaml
+task: "Process customer data: validate, enrich, and store"
+agents:
+  - id: "validator"
+  - id: "enricher"
+  - id: "persister"
+merge_strategy: "sequential"
+```
+
+**Output:**
+```yaml
+delegation:
+  task: "Process customer data pipeline"
+  delegated_to: ["validator", "enricher", "persister"]
+  status: pending
+subtasks:
+  - id: "validate-data"
+    agent: "validator"
+    contract:
+      inputs:
+        data: "raw customer records"
+      outputs:
+        valid_records: "array of validated records"
+        invalid_records: "array with error reasons"
+      constraints:
+        schema: "customer_v2"
+      verification: "All valid_records match schema"
+    dependencies: []
+    status: pending
+    result: null
+  - id: "enrich-data"
+    agent: "enricher"
+    contract:
+      inputs:
+        records: "${validate-data.valid_records}"
+      outputs:
+        enriched_records: "array with added fields"
+      constraints:
+        enrich_fields: ["company_size", "industry"]
+      verification: "All records have enrich_fields populated"
+    dependencies: ["validate-data"]
+    status: pending
+    result: null
+  - id: "store-data"
+    agent: "persister"
+    contract:
+      inputs:
+        records: "${enrich-data.enriched_records}"
+      outputs:
+        stored_count: "integer"
+        storage_location: "string"
+      constraints:
+        destination: "customer_db"
+      verification: "stored_count matches input count"
+    dependencies: ["enrich-data"]
+    status: pending
+    result: null
+interfaces:
+  - from: "validate-data"
+    to: "enrich-data"
+    format:
+      records: "array of customer objects"
+    required_fields: ["id", "name", "email"]
+  - from: "enrich-data"
+    to: "store-data"
+    format:
+      records: "array of enriched customer objects"
+    required_fields: ["id", "name", "email", "company_size", "industry"]
+merge_plan:
+  strategy: custom
+  conflict_resolution: "N/A - sequential pipeline"
+  final_output_format:
+    processed: "integer"
+    stored: "integer"
+    errors: "array"
+failure_handling:
+  policy: abort
+  max_retries: 0
+  fallback: null
+handoff_context:
+  - key: "batch_id"
+    value: "batch-2024-01-15"
+confidence: 0.85
+evidence_anchors:
+  - "task:pipeline-stages"
+assumptions:
+  - "Enrichment service is available"
+  - "Database has capacity for new records"
+```
+
+## Verification
+
+- [ ] All subtasks have complete contracts
+- [ ] Dependencies form a valid DAG
+- [ ] Interfaces are compatible between connected subtasks
+- [ ] Merge strategy handles all expected outputs
+- [ ] Failure handling is defined
+
+**Verification tools:** Read (for contract validation)
+
+## Safety Constraints
+
+- `mutation`: false
+- `requires_checkpoint`: false
+- `requires_approval`: false
+- `risk`: low
+
+**Capability-specific rules:**
+- Never delegate without explicit contracts
+- Ensure all subtasks have verification criteria
+- Define failure handling before delegation
+- Validate interface compatibility
+- Do not delegate tasks requiring approval without noting it
+
+## Composition Patterns
+
+**Commonly follows:**
+- `plan` - Delegation is often part of plan execution (REQUIRES plan)
+- `decompose` - Break task before delegating
+- `prioritize` - Order subtasks by importance
+
+**Commonly precedes:**
+- `synchronize` - Merge results from delegated subtasks
+- `verify` - Check all subtasks completed correctly
+- `audit` - Record delegation and outcomes
+
+**Anti-patterns:**
+- Never delegate without failure handling
+- Never delegate mutating tasks without noting safety requirements
+- Avoid circular dependencies between subtasks
+
+**Workflow references:**
+- See `reference/composition_patterns.md#enrichment-pipeline` for parallel delegation

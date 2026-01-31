@@ -1,10 +1,7 @@
 {
   "name": "anthropic-web-artifacts-builder",
-  "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/design/anthropic-web-artifacts-builder/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:15:27.575546Z"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/skills/anthropic-web-artifacts-builder/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:17.385464Z"
 }

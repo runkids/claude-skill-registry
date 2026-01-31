@@ -1,177 +1,60 @@
 ---
-name: claude-code-expert
-description: Expert on Claude Code CLI, skills, commands, hooks, plugins, MCP, settings, and workflows. Triggers on claude code, cli, skill, command, hook, plugin, mcp, slash command, settings
-allowed-tools: Read, Grep, Glob
-model: sonnet
+name: claude-code
+description: Activate when users ask about Claude Code installation, slash commands (/cook, /plan, /fix, /test, /docs, /design, /git), creating/managing Agent Skills, configuring MCP servers, setting up hooks/plugins, IDE integration (VS Code, JetBrains), CI/CD workflows, enterprise deployment (SSO, RBAC, sandboxing), troubleshooting authentication/performance issues, or advanced features (extended thinking, caching, checkpointing).
 ---
 
-# Claude Code Expert
+# Claude Code
 
-## Purpose
+Anthropic's agentic coding tool combining autonomous planning, execution, and validation with extensibility through skills, plugins, MCP servers, and hooks.
 
-Provide expert guidance on Claude Code CLI features, including skills, commands, hooks, plugins, MCP integration, and configuration based on official Claude Code documentation.
+## Core Concepts
 
-## When to Use
+**Subagents**: Specialized agents (planner, code-reviewer, tester, debugger, docs-manager, ui-ux-designer, database-admin)
 
-Auto-invoke when users mention:
-- **Claude Code** - CLI tool, features, usage
-- **Skills** - creating, using, configuring skills
-- **Commands** - slash commands, custom commands
-- **Hooks** - pre/post tool use hooks, validation
-- **Plugins** - MCP plugins, plugin system
-- **Configuration** - settings.json, CLAUDE.md, customization
-- **Features** - agents, memory, sandboxing, headless mode
+**Agent Skills**: Modular capabilities with SKILL.md + bundled resources (scripts, references, assets) loaded progressively
 
-## Knowledge Base
+**Slash Commands**: User-defined operations in `.claude/commands/` expanding to prompts
 
-Documentation is stored in Markdown format (multiple languages):
-- **Location:** `docs/`
-- **Index:** `docs/INDEX.md`
-- **Format:** `.md` files
-- **Note:** English docs have `_en` suffix, e.g., `docs_en_skills.md`
+**Hooks**: Event-driven shell commands (SessionStart, PreToolUse, PostToolUse, Stop, SubagentStop)
 
-## Process
+**MCP Servers**: Model Context Protocol integrations for external tools (GitHub, Jira, databases)
 
-When a user asks about Claude Code:
+**Plugins**: Packaged collections distributed via marketplace
 
-### 1. Identify Topic
-```
-Common topics:
-- Getting started / installation
-- Creating skills
-- Writing slash commands
-- Implementing hooks
-- Using MCP plugins
-- Configuration (settings.json, CLAUDE.md)
-- Agents and sub-agents
-- Memory and context management
-- Sandboxing and security
-- Headless/CI mode
-- IDE integration (VS Code, JetBrains)
-```
+## Reference Guide
 
-### 2. Search Documentation
+Load references as needed for specific topics:
 
-Use Grep to find relevant English docs:
-```bash
-# Search for specific topics (focus on English docs)
-Grep "skill" docs/ --output-mode files_with_matches --glob "*_en_*.md"
-Grep "hook|validation" docs/ --output-mode content -C 3 --glob "*_en_*.md"
-```
+| Topic | Reference File | Contents |
+|-------|----------------|----------|
+| Installation & setup | `references/getting-started.md` | Prerequisites, installation methods, authentication |
+| Slash commands | `references/slash-commands.md` | Full catalog: /cook, /plan, /fix, /test, /docs, /git, /design |
+| Workflow examples | `references/common-workflows.md` | Feature implementation, bug fixing, testing, git ops |
+| Creating skills | `references/agent-skills.md` | Skill structure, metadata, bundled resources |
+| MCP servers | `references/mcp-integration.md` | Configuration, common servers, authentication |
+| Hooks system | `references/hooks-comprehensive.md` | Event types, command/prompt hooks, tool matchers |
+| Plugins | `references/hooks-and-plugins.md` | Plugin structure, marketplace, installation |
+| Configuration | `references/configuration.md` | Settings hierarchy, model config, output styles |
+| Enterprise | `references/enterprise-features.md` | SSO, RBAC, sandboxing, audit logging, deployment |
+| IDE integration | `references/ide-integration.md` | VS Code extension, JetBrains plugin |
+| CI/CD | `references/cicd-integration.md` | GitHub Actions, GitLab workflows |
+| Advanced features | `references/advanced-features.md` | Extended thinking, caching, checkpointing |
+| Troubleshooting | `references/troubleshooting.md` | Auth failures, MCP issues, performance, debug mode |
+| API reference | `references/api-reference.md` | Admin, Messages, Files, Models, Skills APIs |
+| Best practices | `references/best-practices.md` | Project organization, security, performance, cost |
 
-Check the INDEX.md for navigation:
-```bash
-Read docs/INDEX.md
-```
+## Instructions
 
-### 3. Read Relevant Files
+When answering questions:
 
-Read the most relevant English documentation files:
-```bash
-# Prefer English (_en) versions
-Read docs/code_claude_com/docs_en_skills.md
-Read docs/code_claude_com/docs_en_slash-commands.md
-```
+1. Identify topic from user query
+2. Load relevant reference files (use table above)
+3. Provide specific guidance with examples
+4. For complex queries, load multiple references
 
-### 4. Provide Answer
-
-Structure your response:
-- **Direct answer** - solve the user's problem first
-- **File examples** - show skill.md, command.md structure
-- **Configuration** - show settings.json snippets
-- **Best practices** - mention Claude Code-specific patterns
-- **References** - cite specific docs (prefer English versions)
-- **File paths** - use proper `.claude/` directory structure
-
-## Example Workflows
-
-### Example 1: Creating a Skill
-```
-User: "How do I create a skill in Claude Code?"
-
-1. Search: Grep "skill" docs/ --glob "*_en_*.md"
-2. Read: docs_en_skills.md
-3. Answer:
-   - Explain skill.md frontmatter format
-   - Show directory structure
-   - Provide skill template
-   - Explain trigger keywords
-   - Mention allowed-tools
-```
-
-### Example 2: Writing Hooks
-```
-User: "How do I create a post-edit hook?"
-
-1. Search: Grep "hook|PostToolUse" docs/ --glob "*_en_*.md"
-2. Read: docs_en_hooks.md, docs_en_hooks-guide.md
-3. Answer:
-   - Explain hook types (PostToolUse, etc.)
-   - Show hook file structure
-   - Demonstrate settings.json configuration
-   - Provide validation example
-```
-
-### Example 3: MCP Integration
-```
-User: "How do I use MCP plugins with Claude Code?"
-
-1. Search: Grep "mcp|plugin" docs/ --glob "*_en_*.md"
-2. Read: docs_en_mcp.md, docs_en_plugins.md
-3. Answer:
-   - Explain MCP (Model Context Protocol)
-   - Show plugin installation
-   - Demonstrate configuration
-   - List available plugins
-```
-
-## Key Concepts to Reference
-
-**Core Components:**
-- Skills (auto-invoked knowledge domains)
-- Commands (slash commands, manual workflows)
-- Hooks (validation, automation)
-- Plugins (MCP extensions)
-- CLAUDE.md (project instructions)
-- settings.json (configuration)
-
-**Features:**
-- Agents and sub-agents
-- Memory system
-- Sandboxing (Docker, Podman)
-- Headless mode (CI/CD)
-- IDE integration (VS Code, JetBrains)
-- Third-party integrations
-
-**Directory Structure:**
-```
-.claude/
-├── skills/           # Auto-invoked skills
-├── commands/         # Slash commands
-├── hooks/            # Validation hooks
-├── docs/             # Documentation
-└── settings.json     # Configuration
-```
-
-**Configuration Files:**
-- `.claude/settings.json` - Claude Code settings
-- `CLAUDE.md` - Project-specific instructions
-- `skill.md` - Skill definition (with frontmatter)
-- `command-name.md` - Command workflow
-
-## Response Style
-
-- **Practical** - developers want working examples
-- **File-structure focused** - show exact file locations
-- **Configuration-clear** - precise JSON/YAML examples
-- **English-first** - reference `_en` docs when available
-- **Cite sources** - reference specific doc files
-
-## Follow-up Suggestions
-
-After answering, suggest:
-- Related Claude Code features
-- Configuration best practices
-- Testing and debugging approaches
-- Community resources
-- Advanced workflows
+**Documentation sources:**
+- Context7 llms.txt: `https://context7.com/websites/claude_en_claude-code/llms.txt?tokens=10000`
+- Topic search: `https://context7.com/websites/claude_en_claude-code/llms.txt?topic=<topic>&tokens=5000`
+- Official docs: https://docs.claude.com/en/docs/claude-code/
+- GitHub: https://github.com/anthropics/claude-code
+- Support: support.claude.com

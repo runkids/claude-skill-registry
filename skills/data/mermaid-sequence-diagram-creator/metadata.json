@@ -1,11 +1,7 @@
 {
   "name": "mermaid-sequence-diagram-creator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Mermaid Sequence Diagram Creator - Auto-activating skill for Visual Content.Triggers on: mermaid sequence diagram creator, mermaid sequence diagram creatorPart of the Visual Content skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:58.055855Z",
-  "dir_name": "mermaid-sequence-diagram-creator",
-  "github_path": "planned-skills/generated/18-visual-content/mermaid-sequence-diagram-creator",
-  "github_branch": "main"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/18-visual-content/mermaid-sequence-diagram-creator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:46.948635Z"
 }

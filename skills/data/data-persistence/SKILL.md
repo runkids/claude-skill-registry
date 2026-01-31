@@ -6,6 +6,22 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Data Persistence
 
+## Quick Reference Links
+
+**Official Documentation:**
+- [Data Stores](https://create.roblox.com/docs/cloud-services/data-stores) - Complete guide to persistent data storage
+- [Memory Stores](https://create.roblox.com/docs/cloud-services/memory-stores) - Temporary cross-server storage
+- [DataStoreService API](https://create.roblox.com/docs/reference/engine/classes/DataStoreService)
+- [GlobalDataStore API](https://create.roblox.com/docs/reference/engine/classes/GlobalDataStore)
+- [OrderedDataStore API](https://create.roblox.com/docs/reference/engine/classes/OrderedDataStore)
+- [MemoryStoreService API](https://create.roblox.com/docs/reference/engine/classes/MemoryStoreService)
+- [MemoryStoreSortedMap API](https://create.roblox.com/docs/reference/engine/classes/MemoryStoreSortedMap)
+
+**Wiki References:**
+- [Data Stores (Wiki)](https://roblox.fandom.com/wiki/Data_store)
+
+---
+
 When implementing data persistence, follow these patterns for reliable and secure data storage.
 
 ## DataStore Basics

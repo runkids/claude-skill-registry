@@ -1,7 +1,7 @@
 {
   "name": "expo-cicd-workflows",
-  "repo": "luthebao/expo-template",
-  "path": ".claude/skills/expo-cicd-workflows/SKILL.md",
-  "source": "github.com/luthebao/expo-template",
-  "downloaded_at": "2026-01-30T03:51:50.475850Z"
+  "repo": "jakubciszak/family-plan",
+  "path": ".claude/skills/external/expo-deployment/skills/expo-cicd-workflows/SKILL.md",
+  "source": "github.com/jakubciszak/family-plan",
+  "downloaded_at": "2026-01-31T04:03:50.956564Z"
 }

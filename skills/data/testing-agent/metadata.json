@@ -1,7 +1,7 @@
 {
   "name": "testing-agent",
-  "repo": "NeverSight/skills.sh_feed",
-  "path": "data/skills-md/adenhq/hive/testing-agent/SKILL.md",
-  "source": "github.com/NeverSight/skills.sh_feed",
-  "downloaded_at": "2026-01-30T01:11:06.936438Z"
+  "repo": "adenhq/hive",
+  "path": ".claude/skills/testing-agent/SKILL.md",
+  "source": "github.com/adenhq/hive",
+  "downloaded_at": "2026-01-31T04:50:53.435322Z"
 }

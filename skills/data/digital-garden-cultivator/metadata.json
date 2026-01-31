@@ -1,9 +1,7 @@
 {
   "name": "digital-garden-cultivator",
-  "description": "Design, manage, and evolve digital gardens as living knowledge bases withinmemory palaces.Triggers: digital garden, knowledge base, linking, note curation, content lifecycle,garden maintenance, bidire",
   "repo": "athola/claude-night-market",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/memory-palace/skills/digital-garden-cultivator/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-31T02:40:04.419819Z"
 }

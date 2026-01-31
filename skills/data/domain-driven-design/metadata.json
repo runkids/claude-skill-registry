@@ -1,7 +1,7 @@
 {
   "name": "domain-driven-design",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/architecture/domain-driven-design/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-30T04:17:19.850313Z"
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "path": "plugins/spring-boot/skills/domain-driven-design/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-31T01:24:18.382342Z"
 }

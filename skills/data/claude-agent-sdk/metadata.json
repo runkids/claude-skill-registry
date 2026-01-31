@@ -1,7 +1,7 @@
 {
   "name": "claude-agent-sdk",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/claude-agent-sdk/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-30T04:39:10.269776Z"
+  "repo": "Anveio/conveaux",
+  "path": ".claude/skills/claude-agent-sdk/SKILL.md",
+  "source": "github.com/Anveio/conveaux",
+  "downloaded_at": "2026-01-31T04:30:07.430910Z"
 }

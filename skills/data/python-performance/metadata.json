@@ -1,9 +1,7 @@
 {
   "name": "python-performance",
-  "description": "Profile and optimize Python code using cProfile, memory profilers, andperformance best practices.Triggers: profiling, optimization, cProfile, memory profiler, bottleneck,slow code, performance, benchm",
   "repo": "athola/claude-night-market",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/parseltongue/skills/python-performance/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-31T02:40:02.617349Z"
 }

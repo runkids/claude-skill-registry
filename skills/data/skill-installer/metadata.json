@@ -1,7 +1,7 @@
 {
   "name": "skill-installer",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/misc/codex-core/skill-installer/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:08:55.668257Z"
+  "repo": "rdfitted/Claude-Code-Setup",
+  "path": ".codex/skills/.system/skill-installer/SKILL.md",
+  "source": "github.com/rdfitted/Claude-Code-Setup",
+  "downloaded_at": "2026-01-31T04:01:42.690418Z"
 }

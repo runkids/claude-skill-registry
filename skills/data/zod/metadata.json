@@ -1,7 +1,7 @@
 {
   "name": "zod",
-  "repo": "mgd34msu/goodvibes-gemini",
-  "path": "skills/zod/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-gemini",
-  "downloaded_at": "2026-01-30T04:12:43.607894Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/zod/skills/zod/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-31T04:08:57.616051Z"
 }

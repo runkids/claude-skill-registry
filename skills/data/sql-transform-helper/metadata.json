@@ -1,11 +1,7 @@
 {
   "name": "sql-transform-helper",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Sql Transform Helper - Auto-activating skill for Data Pipelines.Triggers on: sql transform helper, sql transform helperPart of the Data Pipelines skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:04.795096Z",
-  "dir_name": "sql-transform-helper",
-  "github_path": "planned-skills/generated/11-data-pipelines/sql-transform-helper",
-  "github_branch": "main"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/11-data-pipelines/sql-transform-helper/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:39.168690Z"
 }

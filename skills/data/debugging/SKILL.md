@@ -1,141 +1,84 @@
 ---
 name: Debugging
-description: วิเคราะห์และแก้ไขบั๊กอย่างเป็นระบบ
+description: Systematic debugging framework ensuring root cause investigation before fixes. Includes four-phase debugging process, backward call stack tracing, multi-layer validation, and verification protocols. Use when encountering bugs, test failures, unexpected behavior, performance issues, or before claiming work complete. Prevents random fixes, masks over symptoms, and false completion claims.
+version: 3.0.0
+languages: all
 ---
 
-# Debugging Skill
+# Debugging
 
-## Overview
+Comprehensive debugging framework combining systematic investigation, root cause tracing, defense-in-depth validation, and verification protocols.
 
-Skill สำหรับวิเคราะห์ปัญหา หาสาเหตุ และแก้ไขบั๊กอย่างมีประสิทธิภาพ
+## Core Principle
 
-## Debugging Process
+**NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST**
 
-### Step 1: รวบรวมข้อมูล
+Random fixes waste time and create new bugs. Find the root cause, fix at source, validate at every layer, verify before claiming success.
 
-1. **อ่าน Error Message** - เข้าใจ error ที่เกิดขึ้น
-2. **ดู Stack Trace** - หา line และ file ที่เกิดปัญหา
-3. **ตรวจสอบ Logs** - หา pattern หรือ context เพิ่มเติม
-4. **ถาม Context** - สอบถามผู้ใช้ว่าเกิดอะไรขึ้นก่อนหน้า
+## When to Use
 
-### Step 2: วิเคราะห์ปัญหา
+**Always use for:** Test failures, bugs, unexpected behavior, performance issues, build failures, integration problems, before claiming work complete
 
-1. **Reproduce** - พยายามทำซ้ำปัญหา
-2. **Isolate** - แยกส่วนที่มีปัญหาออกมา
-3. **Hypothesis** - ตั้งสมมติฐานสาเหตุ
-4. **Verify** - ทดสอบสมมติฐาน
+**Especially when:** Under time pressure, "quick fix" seems obvious, tried multiple fixes, don't fully understand issue, about to claim success
 
-### Step 3: แก้ไข
+## The Four Techniques
 
-1. **Fix** - แก้ไขปัญหา
-2. **Test** - ทดสอบว่าแก้ได้จริง
-3. **Verify Side Effects** - ตรวจสอบผลกระทบอื่นๆ
-4. **Document** - บันทึกสิ่งที่แก้ไข
+### 1. Systematic Debugging (`references/systematic-debugging.md`)
 
----
+Four-phase framework ensuring proper investigation:
+- Phase 1: Root Cause Investigation (read errors, reproduce, check changes, gather evidence)
+- Phase 2: Pattern Analysis (find working examples, compare, identify differences)
+- Phase 3: Hypothesis and Testing (form theory, test minimally, verify)
+- Phase 4: Implementation (create test, fix once, verify)
 
-## Common Error Patterns
+**Key rule:** Complete each phase before proceeding. No fixes without Phase 1.
 
-### Frontend Errors
+**Load when:** Any bug/issue requiring investigation and fix
 
-#### React
+### 2. Root Cause Tracing (`references/root-cause-tracing.md`)
 
-| Error                               | สาเหตุที่พบบ่อย                          |
-| ----------------------------------- | ---------------------------------------- |
-| "Cannot read property of undefined" | ไม่ได้เช็ค null/undefined ก่อนใช้        |
-| "Too many re-renders"               | State update ใน render loop              |
-| "Invalid hook call"                 | Hook เรียกนอก component หรือ conditional |
-| "Key prop missing"                  | ไม่ใส่ key ใน list items                 |
+Trace bugs backward through call stack to find original trigger.
 
-#### Angular
+**Technique:** When error appears deep in execution, trace backward level-by-level until finding source where invalid data originated. Fix at source, not at symptom.
 
-| Error                                    | สาเหตุที่พบบ่อย                |
-| ---------------------------------------- | ------------------------------ |
-| "ExpressionChangedAfterItHasBeenChecked" | State change ใน lifecycle hook |
-| "NullInjectorError"                      | ไม่ได้ provide service         |
-| "Template parse errors"                  | Syntax ผิดใน template          |
+**Includes:** `scripts/find-polluter.sh` for bisecting test pollution
 
-#### Vue
+**Load when:** Error deep in call stack, unclear where invalid data originated
 
-| Error                                   | สาเหตุที่พบบ่อย                 |
-| --------------------------------------- | ------------------------------- |
-| "Property X was accessed during render" | Reactive property ไม่ถูก define |
-| "Maximum recursive updates exceeded"    | Watcher loop                    |
+### 3. Defense-in-Depth (`references/defense-in-depth.md`)
 
----
+Validate at every layer data passes through. Make bugs impossible.
 
-### Backend Errors
+**Four layers:** Entry validation → Business logic → Environment guards → Debug instrumentation
 
-#### Spring Boot
+**Load when:** After finding root cause, need to add comprehensive validation
 
-| Error                             | สาเหตุที่พบบ่อย               |
-| --------------------------------- | ----------------------------- |
-| "No qualifying bean"              | Bean ไม่ถูก inject            |
-| "LazyInitializationException"     | Entity access นอก transaction |
-| "ConstraintViolationException"    | Database constraint violation |
-| "HttpMessageNotReadableException" | JSON parse error              |
+### 4. Verification (`references/verification.md`)
 
-#### Node.js
+Run verification commands and confirm output before claiming success.
 
-| Error           | สาเหตุที่พบบ่อย           |
-| --------------- | ------------------------- |
-| "ECONNREFUSED"  | Service/Database ไม่พร้อม |
-| "CORS error"    | CORS ไม่ถูกตั้งค่า        |
-| "JWT malformed" | Token format ผิด          |
+**Iron law:** NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 
-#### Python
+Run the command. Read the output. Then claim the result.
 
-| Error             | สาเหตุที่พบบ่อย                 |
-| ----------------- | ------------------------------- |
-| "IntegrityError"  | Duplicate key หรือ FK violation |
-| "ValidationError" | Pydantic validation fail        |
-| "ImportError"     | Module ไม่ถูก install           |
+**Load when:** About to claim work complete, fixed, or passing
 
----
+## Quick Reference
 
-### Database Errors
+```
+Bug → systematic-debugging.md (Phase 1-4)
+  Error deep in stack? → root-cause-tracing.md (trace backward)
+  Found root cause? → defense-in-depth.md (add layers)
+  About to claim success? → verification.md (verify first)
+```
 
-| Error                   | สาเหตุที่พบบ่อย                      |
-| ----------------------- | ------------------------------------ |
-| "Connection refused"    | Database ไม่ running หรือ config ผิด |
-| "Duplicate key"         | Primary key หรือ unique constraint   |
-| "Foreign key violation" | Reference ไปยัง row ที่ไม่มี         |
-| "Deadlock"              | Transaction conflict                 |
+## Red Flags
 
----
+Stop and follow process if thinking:
+- "Quick fix for now, investigate later"
+- "Just try changing X and see if it works"
+- "It's probably X, let me fix that"
+- "Should work now" / "Seems fixed"
+- "Tests pass, we're done"
 
-## Debugging Tools
-
-### Browser DevTools
-
-- **Console** - ดู errors และ logs
-- **Network** - ตรวจสอบ API calls
-- **Sources** - Breakpoints และ step through
-- **React/Vue/Angular DevTools** - Component inspection
-
-### Backend Debugging
-
-- **Logging** - เพิ่ม log statements
-- **Debugger** - Attach debugger (VSCode, IntelliJ)
-- **Postman/Insomnia** - Test API endpoints
-- **Database clients** - ตรวจสอบ data
-
-### Performance Debugging
-
-- **Lighthouse** - Web performance
-- **Chrome Performance tab** - Runtime performance
-- **Memory profiler** - Memory leaks
-- **SQL EXPLAIN** - Query optimization
-
----
-
-## Debugging Checklist
-
-- [ ] อ่าน error message ให้ละเอียด
-- [ ] ดู full stack trace
-- [ ] ตรวจสอบ recent changes
-- [ ] ลอง reproduce ปัญหา
-- [ ] เพิ่ม logging ถ้าจำเป็น
-- [ ] ตรวจสอบ dependencies/versions
-- [ ] ค้นหา similar issues
-- [ ] ทดสอบ fix อย่างละเอียด
+**All mean:** Return to systematic process.

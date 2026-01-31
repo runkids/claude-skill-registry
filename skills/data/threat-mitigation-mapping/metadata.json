@@ -1,7 +1,7 @@
 {
   "name": "threat-mitigation-mapping",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/security-scanning/skills/threat-mitigation-mapping/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-30T04:16:13.697923Z"
+  "repo": "haxllo/repolens",
+  "path": ".gemini/skills/threat-mitigation-mapping/SKILL.md",
+  "source": "github.com/haxllo/repolens",
+  "downloaded_at": "2026-01-31T04:21:43.092758Z"
 }

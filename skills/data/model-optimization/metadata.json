@@ -1,14 +1,7 @@
 {
   "name": "model-optimization",
-  "description": "Quantization, pruning, AutoML, hyperparameter tuning, and performance optimization. Use for improving model performance, reducing size, or automated ML.",
-  "repo": "pluginagentmarketplace/custom-plugin-ai-data-scientist",
-  "category": "data",
-  "tags": [
-    "model",
-    "optimization"
-  ],
-  "stars": 0,
-  "dir_name": "model-optimization",
-  "github_path": "skills/model-optimization",
-  "github_branch": "main"
+  "repo": "AmnadTaowsoam/CerebraSkills",
+  "path": "05-ai-ml-core/model-optimization/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/CerebraSkills",
+  "downloaded_at": "2026-01-31T01:11:33.340994Z"
 }

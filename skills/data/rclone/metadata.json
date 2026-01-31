@@ -1,7 +1,7 @@
 {
   "name": "rclone",
-  "repo": "NeverSight/skills.sh_feed",
-  "path": "data/skills-md/8b-is/8b-is-mp/rclone/SKILL.md",
-  "source": "github.com/NeverSight/skills.sh_feed",
-  "downloaded_at": "2026-01-28T02:26:07.188404Z"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/plugins/compound-engineering/skills/rclone/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:17.858658Z"
 }

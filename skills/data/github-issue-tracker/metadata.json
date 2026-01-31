@@ -1,7 +1,7 @@
 {
   "name": "github-issue-tracker",
-  "repo": "vamseeachanta/workspace-hub",
-  "path": ".claude/skills/development/github/github-issue-tracker/SKILL.md",
-  "source": "github.com/vamseeachanta/workspace-hub",
-  "downloaded_at": "2026-01-30T04:11:47.675704Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-github/skills/github-issue-tracker/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-31T03:21:13.225362Z"
 }

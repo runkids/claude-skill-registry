@@ -1,7 +1,7 @@
 {
   "name": "worker-integration",
-  "repo": "EarthmanWeb/claude-flow-plugin",
-  "path": "v3/@claude-flow/cli/.claude/skills/worker-integration/skill.md",
-  "source": "github.com/EarthmanWeb/claude-flow-plugin",
-  "downloaded_at": "2026-01-30T03:05:44.613764Z"
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/skills/worker-integration/skill.md",
+  "source": "github.com/frankxai/agentic-creator-os",
+  "downloaded_at": "2026-01-31T03:15:24.160683Z"
 }

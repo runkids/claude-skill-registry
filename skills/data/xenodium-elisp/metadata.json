@@ -1,9 +1,7 @@
 {
   "name": "xenodium-elisp",
-  "description": "Xenodium's Emacs packages: chatgpt-shell, agent-shell, dwim-shell-command, and ACP integration for modern Emacs development.",
   "repo": "plurigrid/asi",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/plurigrid/asi"
+  "path": "ies/music-topos/.ruler/skills/xenodium-elisp/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-31T02:07:23.491607Z"
 }

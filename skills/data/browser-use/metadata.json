@@ -1,7 +1,7 @@
 {
   "name": "browser-use",
-  "repo": "RustyLindquist/EnhancedHR",
-  "path": ".claude/skills/browser-use/SKILL.md",
-  "source": "github.com/RustyLindquist/EnhancedHR",
-  "downloaded_at": "2026-01-30T04:45:17.312415Z"
+  "repo": "browser-use/browser-use",
+  "path": "skills/browser-use/SKILL.md",
+  "source": "github.com/browser-use/browser-use",
+  "downloaded_at": "2026-01-31T04:31:23.356637Z"
 }

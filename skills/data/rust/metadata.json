@@ -1,7 +1,7 @@
 {
   "name": "rust",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/languages/rust/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-30T04:17:18.417561Z"
+  "repo": "pproenca/dot-skills",
+  "path": "skills/.curated/rust/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-01-31T03:35:37.250203Z"
 }

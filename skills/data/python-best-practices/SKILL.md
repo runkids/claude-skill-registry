@@ -1,183 +1,270 @@
 ---
 name: python-best-practices
-description: Modern Python development patterns and best practices
-user-invocable: false
-allowed-tools: Read
+description: Provides Python patterns for type-first development with dataclasses, discriminated unions, NewType, and Protocol. Must use when reading or writing Python files.
 ---
 
 # Python Best Practices
 
-Modern Python development patterns for Python 3.10+ based on PEP 8, Google Python Style Guide, and current community standards.
+## Type-First Development
 
-## Purpose
+Types define the contract before implementation. Follow this workflow:
 
-- Establish consistent, readable Python code
-- Apply modern type hints effectively
-- Use appropriate patterns for data structures
-- Handle errors and resources properly
-- Write maintainable async code
+1. **Define data models** - dataclasses, Pydantic models, or TypedDict first
+2. **Define function signatures** - parameter and return type hints
+3. **Implement to satisfy types** - let the type checker guide completeness
+4. **Validate at boundaries** - runtime checks where data enters the system
 
-## When to Reference This Skill
+### Make Illegal States Unrepresentable
 
-Reference when:
-- Writing new Python code
-- Reviewing code for standards compliance
-- Choosing between data structure approaches
-- Implementing error handling or resource management
-- Working with async/await patterns
+Use Python's type system to prevent invalid states at type-check time.
 
-## Standards Documents
-
-| Document | Content |
-|----------|---------|
-| [python-core.md](standards/python-core.md) | Complete patterns reference |
-
-## Quick Reference
-
-### Modern Type Hints (Python 3.10+)
-
-```python
-# Use built-in generics (not typing.List, typing.Dict)
-def process(items: list[str], config: dict[str, int]) -> bool:
-    ...
-
-# Use union syntax with |
-def fetch(url: str) -> dict | None:
-    ...
-
-# Use collections.abc for abstract types in parameters
-from collections.abc import Mapping, Sequence, Iterable
-
-def transform(data: Mapping[str, int]) -> list[str]:
-    ...
-```
-
-### Data Structures
-
-| Use Case | Choice |
-|----------|--------|
-| Simple data container | `dataclass` |
-| Performance-critical, custom validation | `attrs` |
-| API boundaries, JSON serialization | `pydantic` |
-
+**Dataclasses for structured data:**
 ```python
 from dataclasses import dataclass
+from datetime import datetime
 
-@dataclass(slots=True, frozen=True)
-class Config:
-    host: str
-    port: int = 8080
+@dataclass(frozen=True)
+class User:
+    id: str
+    email: str
+    name: str
+    created_at: datetime
+
+@dataclass(frozen=True)
+class CreateUser:
+    email: str
+    name: str
+
+# Frozen dataclasses are immutable - no accidental mutation
 ```
 
-### Error Handling
-
+**Discriminated unions with Literal:**
 ```python
-# Specific exceptions, minimal try scope
-try:
-    result = parse_config(path)
-except FileNotFoundError:
-    result = default_config()
-except ValueError as e:
-    raise ConfigError(f"Invalid config: {e}") from e
+from dataclasses import dataclass
+from typing import Literal
 
-# Never bare except or catch Exception broadly
-# Bad: except:
-# Bad: except Exception:
+@dataclass
+class Idle:
+    status: Literal["idle"] = "idle"
+
+@dataclass
+class Loading:
+    status: Literal["loading"] = "loading"
+
+@dataclass
+class Success:
+    status: Literal["success"] = "success"
+    data: str
+
+@dataclass
+class Failure:
+    status: Literal["error"] = "error"
+    error: Exception
+
+RequestState = Idle | Loading | Success | Failure
+
+def handle_state(state: RequestState) -> None:
+    match state:
+        case Idle():
+            pass
+        case Loading():
+            show_spinner()
+        case Success(data=data):
+            render(data)
+        case Failure(error=err):
+            show_error(err)
 ```
 
-### Resource Management
-
+**NewType for domain primitives:**
 ```python
-# Always use context managers
-from pathlib import Path
+from typing import NewType
 
-# File operations
-content = Path("data.txt").read_text(encoding="utf-8")
-Path("output.txt").write_text(result, encoding="utf-8")
+UserId = NewType("UserId", str)
+OrderId = NewType("OrderId", str)
 
-# For handles that need cleanup
-with open(path, "r", encoding="utf-8") as f:
-    for line in f:
-        process(line)
+def get_user(user_id: UserId) -> User:
+    # Type checker prevents passing OrderId here
+    ...
+
+def create_user_id(raw: str) -> UserId:
+    return UserId(raw)
 ```
 
-### Path Handling
-
+**Enums for constrained values:**
 ```python
-from pathlib import Path
+from enum import Enum, auto
 
-# Use Path objects, not string concatenation
-config_path = Path("data") / "config" / "settings.json"
+class Role(Enum):
+    ADMIN = auto()
+    USER = auto()
+    GUEST = auto()
 
-# Cross-platform by default
-if config_path.exists():
-    data = config_path.read_text()
-
-# Extract components
-name = config_path.stem      # "settings"
-ext = config_path.suffix     # ".json"
-parent = config_path.parent  # Path("data/config")
+def check_permission(role: Role) -> bool:
+    match role:
+        case Role.ADMIN:
+            return True
+        case Role.USER:
+            return limited_check()
+        case Role.GUEST:
+            return False
+    # Type checker warns if case is missing
 ```
 
-### Async Patterns
-
+**Protocol for structural typing:**
 ```python
-import asyncio
+from typing import Protocol
 
-# Entry point
-async def main():
-    results = await asyncio.gather(
-        fetch_data("url1"),
-        fetch_data("url2"),
+class Readable(Protocol):
+    def read(self, n: int = -1) -> bytes: ...
+
+def process_input(source: Readable) -> bytes:
+    # Accepts any object with a read() method
+    return source.read()
+```
+
+**TypedDict for external data shapes:**
+```python
+from typing import TypedDict, Required, NotRequired
+
+class UserResponse(TypedDict):
+    id: Required[str]
+    email: Required[str]
+    name: Required[str]
+    avatar_url: NotRequired[str]
+
+def parse_user(data: dict) -> UserResponse:
+    # Runtime validation needed - TypedDict is structural
+    return UserResponse(
+        id=data["id"],
+        email=data["email"],
+        name=data["name"],
     )
-    return results
-
-asyncio.run(main())
-
-# Controlled concurrency with semaphore
-async def fetch_all(urls: list[str], limit: int = 10):
-    semaphore = asyncio.Semaphore(limit)
-
-    async def fetch_one(url: str):
-        async with semaphore:
-            return await fetch_data(url)
-
-    return await asyncio.gather(*[fetch_one(u) for u in urls])
 ```
 
-### Naming Conventions
+## Module Structure
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Module | `lower_with_under` | `user_service.py` |
-| Class | `CapWords` | `UserService` |
-| Function/Method | `lower_with_under` | `get_user()` |
-| Constant | `CAPS_WITH_UNDER` | `MAX_RETRIES` |
-| Internal | `_leading_under` | `_internal_helper()` |
+Prefer smaller, focused files: one class or closely related set of functions per module. Split when a file handles multiple concerns or exceeds ~300 lines. Use `__init__.py` to expose public API; keep implementation details in private modules (`_internal.py`). Colocate tests in `tests/` mirroring the source structure.
 
-### Docstrings (Google Style)
+## Functional Patterns
 
+- Use list/dict/set comprehensions and generator expressions over explicit loops.
+- Prefer `@dataclass(frozen=True)` for immutable data; avoid mutable default arguments.
+- Use `functools.partial` for partial application; compose small functions over large classes.
+- Avoid class-level mutable state; prefer pure functions that take inputs and return outputs.
+
+## Instructions
+
+- Raise descriptive exceptions for unsupported cases; every code path returns a value or raises. This makes failures debuggable and prevents silent corruption.
+- Propagate exceptions with context using `from err`; catching requires re-raising or returning a meaningful result. Swallowed exceptions hide root causes.
+- Handle edge cases explicitly: empty inputs, `None`, boundary values. Include `else` clauses in conditionals where appropriate.
+- Use context managers for I/O; prefer `pathlib` and explicit encodings. Resource leaks cause production issues.
+- Add or adjust unit tests when touching logic; prefer minimal repros that isolate the failure.
+
+## Examples
+
+Explicit failure for unimplemented logic:
 ```python
-def execute_command(args: str, timeout: int = 300) -> dict:
-    """Execute a build command with timeout.
-
-    Args:
-        args: Command arguments to execute.
-        timeout: Maximum execution time in seconds.
-
-    Returns:
-        Dictionary with status, exit_code, and output.
-
-    Raises:
-        TimeoutError: If command exceeds timeout.
-        ValueError: If args is empty.
-    """
+def build_widget(widget_type: str) -> Widget:
+    raise NotImplementedError(f"build_widget not implemented for type: {widget_type}")
 ```
 
-## Key Principles
+Propagate with context to preserve the original traceback:
+```python
+try:
+    data = json.loads(raw)
+except json.JSONDecodeError as err:
+    raise ValueError(f"invalid JSON payload: {err}") from err
+```
 
-1. **Readability counts** - Code is read more often than written
-2. **Explicit is better than implicit** - Clear intent over cleverness
-3. **Errors should never pass silently** - Handle or propagate explicitly
-4. **Flat is better than nested** - Limit nesting depth
-5. **Practicality beats purity** - Standards serve code, not vice versa
+Exhaustive match with explicit default:
+```python
+def process_status(status: str) -> str:
+    match status:
+        case "active":
+            return "processing"
+        case "inactive":
+            return "skipped"
+        case _:
+            raise ValueError(f"unhandled status: {status}")
+```
+
+Debug-level tracing with namespaced logger:
+```python
+import logging
+
+logger = logging.getLogger("myapp.widgets")
+
+def create_widget(name: str) -> Widget:
+    logger.debug("creating widget: %s", name)
+    widget = Widget(name=name)
+    logger.debug("created widget id=%s", widget.id)
+    return widget
+```
+
+## Configuration
+
+- Load config from environment variables at startup; validate required values before use. Missing config should fail immediately.
+- Define a config dataclass or Pydantic model as single source of truth; avoid `os.getenv` scattered throughout code.
+- Use sensible defaults for development; require explicit values for production secrets.
+
+### Examples
+
+Typed config with dataclass:
+```python
+import os
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Config:
+    port: int = 3000
+    database_url: str = ""
+    api_key: str = ""
+    env: str = "development"
+
+    @classmethod
+    def from_env(cls) -> "Config":
+        database_url = os.environ.get("DATABASE_URL", "")
+        if not database_url:
+            raise ValueError("DATABASE_URL is required")
+        return cls(
+            port=int(os.environ.get("PORT", "3000")),
+            database_url=database_url,
+            api_key=os.environ["API_KEY"],  # required, will raise if missing
+            env=os.environ.get("ENV", "development"),
+        )
+
+config = Config.from_env()
+```
+
+## Optional: ty
+
+For fast type checking, consider [ty](https://docs.astral.sh/ty/) from Astral (creators of ruff and uv). Written in Rust, it's significantly faster than mypy or pyright.
+
+**Installation and usage:**
+```bash
+# Run directly with uvx (no install needed)
+uvx ty check
+
+# Check specific files
+uvx ty check src/main.py
+
+# Install permanently
+uv tool install ty
+```
+
+**Key features:**
+- Automatic virtual environment detection (via `VIRTUAL_ENV` or `.venv`)
+- Project discovery from `pyproject.toml`
+- Fast incremental checking
+- Compatible with standard Python type hints
+
+**Configuration in `pyproject.toml`:**
+```toml
+[tool.ty]
+python-version = "3.12"
+```
+
+**When to use ty vs alternatives:**
+- `ty` - fastest, good for CI and large codebases (early stage, rapidly evolving)
+- `pyright` - most complete type inference, VS Code integration
+- `mypy` - mature, extensive plugin ecosystem

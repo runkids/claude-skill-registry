@@ -1,7 +1,7 @@
 {
   "name": "subagents-orchestration-guide",
-  "repo": "shinpr/ai-coding-project-boilerplate",
-  "path": ".claude/skills-ja/subagents-orchestration-guide/SKILL.md",
-  "source": "github.com/shinpr/ai-coding-project-boilerplate",
-  "downloaded_at": "2026-01-30T03:52:55.418763Z"
+  "repo": "shinpr/claude-code-workflows",
+  "path": "skills/subagents-orchestration-guide/SKILL.md",
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-01-31T01:33:40.405950Z"
 }

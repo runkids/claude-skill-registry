@@ -4,6 +4,7 @@ description: Guide pour la rédaction de politiques de confidentialité conforme
 metadata:
   author: Malik Taiar
   license: AGPL-3.0
+  version: 2025.12.24
 ---
 
 # Guide des Politiques de Confidentialité - RGPD

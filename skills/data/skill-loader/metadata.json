@@ -1,12 +1,7 @@
 {
   "name": "skill-loader",
-  "description": "Skill-Loader standards and best practices for Skill Loader. Includes implementation guidelines, common patterns, and testing strategies.",
-  "repo": "williamzujkowski/standards",
-  "category": "testing",
-  "tags": [
-    "skill",
-    "loader"
-  ],
-  "stars": 11,
-  "source": "local"
+  "repo": "plurigrid/asi",
+  "path": "skills/skill-loader/skill.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-31T02:07:21.515209Z"
 }

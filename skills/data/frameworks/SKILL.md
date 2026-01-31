@@ -1,59 +1,41 @@
 ---
 name: frameworks
-description: TypeScript with popular frameworks like NestJS, React, and Next.js
-sasmp_version: "1.3.0"
-bonded_agent: 02-typescript-backend
-bond_type: PRIMARY_BOND
+description: Approved frameworks and libraries for this codebase. Apply when selecting libraries, checking if a framework is approved, or fetching documentation for approved tools.
+user-invocable: false
 ---
 
-# TypeScript Frameworks Skill
+# Frameworks
 
-## Overview
-Use TypeScript effectively with popular frameworks including NestJS, React, Next.js, and other modern tools.
+Approved frameworks and libraries for this codebase with Context7 IDs for documentation lookup.
 
-## Topics Covered
+## Critical Rules
 
-### NestJS
-- Module structure
-- Decorators and metadata
-- Dependency injection types
-- Guards and interceptors
-- Custom decorators
+1. **Use ONLY approved frameworks** - NEVER introduce alternatives or substitutes
+2. **Fetch docs when uncertain** - Use Context7 MCP with the library ID directly
+3. **Use modern patterns** - Avoid deprecated methods; check latest docs if uncertain
 
-### React TypeScript
-- Component prop types
-- Event handler typing
-- Context with generics
-- Hooks typing
-- Ref typing patterns
+## Quick Reference
 
-### Next.js
-- Page component types
-- API route typing
-- getServerSideProps types
-- App Router types
-- Middleware typing
+| Framework | Purpose | Context7 ID | Docs |
+|-----------|---------|-------------|------|
+| LangChain | Agent architecture, LLM integrations | `/websites/langchain` | [docs](https://docs.langchain.com/oss/python/langchain/overview) |
+| LangGraph | Stateful agent orchestration | `/websites/langgraph` | [docs](https://docs.langchain.com/oss/python/langgraph/overview) |
+| FastMCP | MCP server implementations | `/jlowin/fastmcp` | [docs](https://gofastmcp.com/getting-started/welcome) |
+| Polars | DataFrame operations | `/pola-rs/polars` | [docs](https://docs.pola.rs/api/python/stable/reference/index.html) |
+| Pydantic | Data validation, settings | `/pydantic/pydantic` | [docs](https://docs.pydantic.dev/latest) |
+| diskcache | Disk-based caching | `/grantjenks/python-diskcache` | [docs](https://grantjenks.com/docs/diskcache/) |
+| loguru | Logging | `/delgan/loguru` | [docs](https://loguru.readthedocs.io/en/stable/) |
+| pytest | Testing | `/pytest-dev/pytest` | [docs](https://docs.pytest.org/en/stable/) |
+| pytest-check | Multiple failures per test | `/okken/pytest-check` | [docs](https://github.com/okken/pytest-check) |
+| ruff | Linter and formatter | `/astral-sh/ruff` | [docs](https://docs.astral.sh/ruff/) |
+| sqlglot | SQL parsing, transpiling, optimization | `/tobymao/sqlglot` | [docs](https://sqlglot.com/sqlglot.html) |
+| ty | Type checker | `/astral-sh/ty` | [docs](https://docs.astral.sh/ty/) |
+| uv | Package manager | `/astral-sh/uv` | [docs](https://docs.astral.sh/uv/) |
 
-### Express/Fastify
-- Request/Response typing
-- Middleware types
-- Route handler types
-- Error handling types
-- Validation with zod
+## Fetching Documentation
 
-### Type Integration
-- Prisma types
-- GraphQL code generation
-- API client generation
-- Database types
-- Schema-driven typing
+When uncertain about API details, use Context7 MCP directly with the library ID:
 
-## Prerequisites
-- TypeScript advanced types
-- Framework basics
-
-## Learning Outcomes
-- Type React components
-- Build type-safe APIs
-- Use framework decorators
-- Integrate database types
+```
+mcp__context7__query-docs(libraryId="/pydantic/pydantic", query="field validators")
+```

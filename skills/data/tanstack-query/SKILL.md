@@ -1,217 +1,477 @@
 ---
-name: TanStack Query v5
-description: Powerful data fetching and state management library for React applications with server state synchronization, caching, and background updates.
-when_to_use: When building React applications that fetch data from APIs, need caching strategies, optimistic updates, pagination, or complex server state management.
+name: tanstack-query
+description: TanStack Query v5 data fetching patterns including useSuspenseQuery, useQuery, mutations, cache management, and API service integration. Use when fetching data, managing server state, or working with TanStack Query hooks.
 ---
 
-# TanStack Query v5
+# TanStack Query Patterns
 
-## Quick start
+## Purpose
 
-```bash
-npm install @tanstack/react-query
-# or
-yarn add @tanstack/react-query
-# or
-pnpm add @tanstack/react-query
-```
+Modern data fetching with TanStack Query v5 (latest: 5.90.5, November 2025), emphasizing Suspense-based queries, cache-first strategies, and centralized API services.
 
-```tsx
-// providers.tsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+**Note**: v5 (released October 2023) has breaking changes from v4:
+- `isLoading` → `isPending` for status
+- `cacheTime` → `gcTime` (garbage collection time)
+- React 18.0+ required
+- Callbacks removed from useQuery (onError, onSuccess, onSettled)
+- `keepPreviousData` replaced with `placeholderData` function
 
-const queryClient = new QueryClient();
+## When to Use This Skill
 
-export function Providers({ children }: { children: React.ReactNode }) {
+- Fetching data with TanStack Query
+- Using useSuspenseQuery or useQuery
+- Managing mutations
+- Cache invalidation and updates
+- API service patterns
+
+---
+
+## Quick Start
+
+### Primary Pattern: useSuspenseQuery
+
+For **all new components**, use `useSuspenseQuery`:
+
+```typescript
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { postsApi } from '~/features/posts/api/postsApi';
+
+function PostList() {
+  const { data: posts } = useSuspenseQuery({
+    queryKey: ['posts'],
+    queryFn: postsApi.getAll,
+  });
+
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <div>
+      {posts.map(post => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </div>
   );
 }
 
-// Basic usage
-import { useQuery } from "@tanstack/react-query";
+// Wrap with Suspense
+<Suspense fallback={<PostsSkeleton />}>
+  <PostList />
+</Suspense>
+```
 
-function Users() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users"],
-    queryFn: () => fetch("/api/users").then((res) => res.json()),
+**Benefits:**
+- No `isLoading` checks needed
+- Integrates with Suspense boundaries
+- Cleaner component code
+- Consistent loading UX
+
+---
+
+## useSuspenseQuery Patterns
+
+### Basic Usage
+
+```typescript
+const { data } = useSuspenseQuery({
+  queryKey: ['user', userId],
+  queryFn: () => userApi.get(userId),
+});
+
+// data is never undefined - guaranteed by Suspense
+return <div>{data.name}</div>;
+```
+
+### With Parameters
+
+```typescript
+function UserPosts({ userId }: { userId: string }) {
+  const { data: posts } = useSuspenseQuery({
+    queryKey: ['users', userId, 'posts'],
+    queryFn: () => postsApi.getByUser(userId),
   });
 
-  if (isLoading) return "Loading...";
-  if (error) return "An error occurred";
-
-  return <div>{JSON.stringify(data)}</div>;
+  return <div>{posts.length} posts</div>;
 }
 ```
 
-## Common patterns
+### Dependent Queries
 
-### Data fetching with loading states
-
-```tsx
-function UserProfile({ userId }: { userId: string }) {
-  const {
-    data: user,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => fetchUser(userId),
-    enabled: !!userId,
+```typescript
+function PostDetails({ postId }: { postId: string }) {
+  // First query
+  const { data: post } = useSuspenseQuery({
+    queryKey: ['posts', postId],
+    queryFn: () => postsApi.get(postId),
   });
 
-  if (isLoading) return <Skeleton />;
-  if (error) return <ErrorMessage error={error} />;
-  if (!user) return null;
+  // Second query depends on first
+  const { data: author } = useSuspenseQuery({
+    queryKey: ['users', post.authorId],
+    queryFn: () => userApi.get(post.authorId),
+  });
 
-  return <UserCard user={user} />;
+  return <div>{author.name} wrote {post.title}</div>;
 }
 ```
 
-### Mutations with optimistic updates
+---
 
-```tsx
-function LikeButton({ postId }: { postId: string }) {
+## useQuery (Legacy Pattern)
+
+Use `useQuery` only when you need loading/error states in the component:
+
+```typescript
+import { useQuery } from '@tanstack/react-query';
+
+function Component() {
+  const { data, isPending, error } = useQuery({
+    queryKey: ['posts'],
+    queryFn: postsApi.getAll,
+  });
+
+  if (isPending) return <Spinner />;
+  if (error) return <Error error={error} />;
+
+  return <div>{data.map(...)}</div>;
+}
+```
+
+**When to use `useQuery` vs `useSuspenseQuery`:**
+- Use `useSuspenseQuery` by default (preferred)
+- Use `useQuery` only when you need component-level loading states
+- Most cases should use `useSuspenseQuery` + Suspense boundaries
+
+---
+
+## Mutations
+
+### Basic Mutation
+
+```typescript
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+function CreatePostButton() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => toggleLike(postId),
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["posts"] });
-      const previousPosts = queryClient.getQueryData(["posts"]);
-      queryClient.setQueryData(["posts"], (old: any[]) =>
-        old?.map((post) =>
-          post.id === postId ? { ...post, likes: post.likes + 1 } : post,
-        ),
-      );
-      return { previousPosts };
-    },
-    onError: (err, _, context) => {
-      queryClient.setQueryData(["posts"], context?.previousPosts);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    mutationFn: postsApi.create,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
 
+  const handleCreate = () => {
+    mutation.mutate({
+      title: 'New Post',
+      content: 'Content here',
+    });
+  };
+
   return (
-    <button onClick={() => mutation.mutate()}>
-      ❤️ {mutation.isPending ? "..." : "Like"}
+    <button onClick={handleCreate} disabled={mutation.isPending}>
+      {mutation.isPending ? 'Creating...' : 'Create Post'}
     </button>
   );
 }
 ```
 
-### Pagination
+### Optimistic Updates
 
-```tsx
-function PaginatedPosts() {
-  const [page, setPage] = useState(1);
+```typescript
+const mutation = useMutation({
+  mutationFn: postsApi.update,
+  onMutate: async (updatedPost) => {
+    // Cancel outgoing refetches
+    await queryClient.cancelQueries({ queryKey: ['posts', updatedPost.id] });
 
-  const { data, isLoading, isPlaceholderData } = useQuery({
-    queryKey: ["posts", page],
-    queryFn: () => fetchPosts(page),
-    placeholderData: keepPreviousData,
+    // Snapshot previous value
+    const previousPost = queryClient.getQueryData(['posts', updatedPost.id]);
+
+    // Optimistically update
+    queryClient.setQueryData(['posts', updatedPost.id], updatedPost);
+
+    // Return context with snapshot
+    return { previousPost };
+  },
+  onError: (err, updatedPost, context) => {
+    // Rollback on error
+    queryClient.setQueryData(
+      ['posts', updatedPost.id],
+      context.previousPost
+    );
+  },
+  onSettled: (data, error, variables) => {
+    // Refetch after mutation
+    queryClient.invalidateQueries({ queryKey: ['posts', variables.id] });
+  },
+});
+```
+
+---
+
+## Cache Management
+
+### Invalidation
+
+```typescript
+import { useQueryClient } from '@tanstack/react-query';
+
+const queryClient = useQueryClient();
+
+// Invalidate all posts queries
+queryClient.invalidateQueries({ queryKey: ['posts'] });
+
+// Invalidate specific post
+queryClient.invalidateQueries({ queryKey: ['posts', postId] });
+
+// Invalidate all queries
+queryClient.invalidateQueries();
+```
+
+### Manual Updates
+
+```typescript
+// Update cache directly
+queryClient.setQueryData(['posts', postId], newPost);
+
+// Update with function
+queryClient.setQueryData(['posts'], (oldPosts) => [
+  ...oldPosts,
+  newPost,
+]);
+```
+
+### Prefetching
+
+```typescript
+// Prefetch data
+await queryClient.prefetchQuery({
+  queryKey: ['posts', postId],
+  queryFn: () => postsApi.get(postId),
+});
+
+// In a component
+const prefetchPost = (postId: string) => {
+  queryClient.prefetchQuery({
+    queryKey: ['posts', postId],
+    queryFn: () => postsApi.get(postId),
+  });
+};
+
+<Link
+  to={`/posts/${post.id}`}
+  onMouseEnter={() => prefetchPost(post.id)}
+>
+  {post.title}
+</Link>
+```
+
+---
+
+## API Service Pattern
+
+### Centralized API Service
+
+```typescript
+// features/posts/api/postsApi.ts
+import { apiClient } from '@/lib/apiClient';
+import type { Post, CreatePostDto, UpdatePostDto } from '~/types/post';
+
+export const postsApi = {
+  getAll: async (): Promise<Post[]> => {
+    const response = await apiClient.get('/posts');
+    return response.data;
+  },
+
+  get: async (id: string): Promise<Post> => {
+    const response = await apiClient.get(`/posts/${id}`);
+    return response.data;
+  },
+
+  create: async (data: CreatePostDto): Promise<Post> => {
+    const response = await apiClient.post('/posts', data);
+    return response.data;
+  },
+
+  update: async (id: string, data: UpdatePostDto): Promise<Post> => {
+    const response = await apiClient.put(`/posts/${id}`, data);
+    return response.data;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await apiClient.delete(`/posts/${id}`);
+  },
+
+  getByUser: async (userId: string): Promise<Post[]> => {
+    const response = await apiClient.get(`/users/${userId}/posts`);
+    return response.data;
+  },
+};
+```
+
+### Usage in Components
+
+```typescript
+import { postsApi } from '~/features/posts/api/postsApi';
+
+// In query
+const { data } = useSuspenseQuery({
+  queryKey: ['posts'],
+  queryFn: postsApi.getAll,
+});
+
+// In mutation
+const mutation = useMutation({
+  mutationFn: postsApi.create,
+});
+```
+
+---
+
+## Query Keys
+
+### Key Structure
+
+```typescript
+// List queries
+['posts']                          // All posts
+['posts', { status: 'published' }] // Filtered posts
+
+// Detail queries
+['posts', postId]                  // Single post
+['posts', postId, 'comments']      // Post comments
+
+// Nested resources
+['users', userId, 'posts']         // User's posts
+['users', userId, 'posts', postId] // Specific user post
+```
+
+### Key Factories
+
+```typescript
+// features/posts/api/postKeys.ts
+export const postKeys = {
+  all: ['posts'] as const,
+  lists: () => [...postKeys.all, 'list'] as const,
+  list: (filters: string) => [...postKeys.lists(), { filters }] as const,
+  details: () => [...postKeys.all, 'detail'] as const,
+  detail: (id: string) => [...postKeys.details(), id] as const,
+  comments: (id: string) => [...postKeys.detail(id), 'comments'] as const,
+};
+
+// Usage
+const { data } = useSuspenseQuery({
+  queryKey: postKeys.detail(postId),
+  queryFn: () => postsApi.get(postId),
+});
+
+// Invalidate all post lists
+queryClient.invalidateQueries({ queryKey: postKeys.lists() });
+```
+
+---
+
+## Error Handling
+
+### With Error Boundaries
+
+```typescript
+import { ErrorBoundary } from 'react-error-boundary';
+
+<ErrorBoundary fallback={<ErrorFallback />}>
+  <Suspense fallback={<Loading />}>
+    <DataComponent />
+  </Suspense>
+</ErrorBoundary>
+
+// In component
+function DataComponent() {
+  const { data } = useSuspenseQuery({
+    queryKey: ['data'],
+    queryFn: fetchData,
+    // Errors automatically caught by ErrorBoundary
   });
 
-  return (
-    <div>
-      {data?.posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-      <button
-        onClick={() => setPage((p) => p - 1)}
-        disabled={page === 1 || isLoading}
-      >
-        Previous
-      </button>
-      <button
-        onClick={() => setPage((p) => p + 1)}
-        disabled={!data?.hasNextPage || isLoading}
-      >
-        Next
-      </button>
-    </div>
-  );
+  return <div>{data}</div>;
 }
 ```
 
-### Infinite scroll
+### Retry and Cache Configuration
 
-```tsx
-function InfinitePosts() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ["posts"],
-      queryFn: ({ pageParam = 0 }) => fetchPosts(pageParam),
-      getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
-    });
+```typescript
+const { data } = useQuery({
+  queryKey: ['posts'],
+  queryFn: postsApi.getAll,
+  retry: 3,              // Retry 3 times
+  retryDelay: 1000,      // Wait 1s between retries
+  gcTime: 5 * 60 * 1000, // Garbage collection time: 5 minutes (v5: was 'cacheTime')
+});
+```
 
-  return (
-    <div>
-      {data?.pages.map((page) =>
-        page.posts.map((post) => <Post key={post.id} post={post} />),
-      )}
-      <button
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        {isFetchingNextPage ? "Loading more..." : "Load more"}
-      </button>
-    </div>
-  );
+---
+
+## Best Practices
+
+### 1. Use Suspense by Default
+
+```typescript
+// ✅ Good: useSuspenseQuery + Suspense
+<Suspense fallback={<Skeleton />}>
+  <DataComponent />
+</Suspense>
+
+function DataComponent() {
+  const { data } = useSuspenseQuery({...});
+  return <div>{data}</div>;
+}
+
+// ❌ Avoid: useQuery with manual loading
+function DataComponent() {
+  const { data, isPending } = useQuery({...});
+  if (isPending) return <Spinner />;
+  return <div>{data}</div>;
 }
 ```
 
-### Dependent queries
+### 2. Consistent Query Keys
 
-```tsx
-function UserProfile({ userId }: { userId: string }) {
-  const { data: user } = useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => fetchUser(userId),
-  });
+```typescript
+// ✅ Good: Use key factories
+const { data } = useSuspenseQuery({
+  queryKey: postKeys.detail(id),
+  queryFn: () => postsApi.get(id),
+});
 
-  const { data: posts } = useQuery({
-    queryKey: ["posts", userId],
-    queryFn: () => fetchUserPosts(userId),
-    enabled: !!user?.id,
-  });
-
-  return (
-    <div>
-      <h1>{user?.name}</h1>
-      {posts?.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-    </div>
-  );
-}
+// ❌ Avoid: Inconsistent keys
+const { data } = useSuspenseQuery({
+  queryKey: ['post', id], // Different format
+  queryFn: () => postsApi.get(id),
+});
 ```
 
-## Requirements
+### 3. Centralized API Services
 
-### Installation
+```typescript
+// ✅ Good: API service
+const { data } = useSuspenseQuery({
+  queryKey: ['posts'],
+  queryFn: postsApi.getAll,
+});
 
-```bash
-# Core package
-npm install @tanstack/react-query
-
-# DevTools (recommended for development)
-npm install @tanstack/react-query-devtools
+// ❌ Avoid: Inline fetching
+const { data } = useSuspenseQuery({
+  queryKey: ['posts'],
+  queryFn: async () => {
+    const res = await fetch('/api/posts');
+    return res.json();
+  },
+});
 ```
 
-### Browser support
+---
 
-- Supports all modern browsers
-- IE11+ with appropriate polyfills
+## Additional Resources
 
-### React version compatibility
-
-- React 16.8+ (hooks required)
-- React 18+ preferred for concurrent features
-
-### TypeScript support
-
-- Built-in TypeScript definitions
-- Full type inference for queries and mutations
+For more patterns, see:
+- [data-fetching.md](resources/data-fetching.md) - Advanced patterns
+- [cache-strategies.md](resources/cache-strategies.md) - Cache management
+- [mutation-patterns.md](resources/mutation-patterns.md) - Complex mutations

@@ -1,512 +1,159 @@
 ---
-description: Chrome extension development patterns and conventions
+name: chrome-extension
+description: Chrome Extensions (Manifest V3) performance and code quality guidelines. Use when writing, reviewing, or refactoring Chrome extension code including service workers, content scripts, message passing, storage APIs, TypeScript patterns, and testing.
 ---
 
-# Chrome Extension Development
-
-## Architecture Overview
-
-Brief's Chrome extension provides AI chat directly in the browser using **Side Panel** architecture.
-
-**Key Components:**
-- **Manifest V3**: Modern Chrome extension format
-- **Side Panel**: Chrome's native side panel API (not content scripts)
-- **OAuth Authentication**: chrome.identity.launchWebAuthFlow with PKCE
-- **Shared Business Logic**: Imports from `@briefhq/chat-ui` package
-- **Context Awareness**: Tracks active tab URL for contextual assistance
-
-## Side Panel Architecture
-
-Brief uses Chrome's Side Panel API, **NOT content script injection**:
-
-```typescript
-// sidepanel.tsx - Main entry point
-export default function SidePanel() {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [contextUrl, setContextUrl] = useState<string | undefined>();
-
-  // Check auth on mount
-  useEffect(() => {
-    const token = await getValidAccessToken();
-    setAccessToken(token);
-  }, []);
-
-  // Track active tab URL
-  useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      setContextUrl(tabs[0]?.url);
-    });
-
-    chrome.tabs.onActivated.addListener(handleTabChange);
-    chrome.tabs.onUpdated.addListener(handleUrlChange);
-  }, []);
-
-  return <ChatInterface accessToken={accessToken} contextUrl={contextUrl} />;
-}
-```
-
-**Manifest Configuration:**
-```json
-{
-  "manifest_version": 3,
-  "permissions": ["sidePanel", "activeTab", "storage", "tabs", "identity"],
-  "side_panel": {
-    "default_path": "sidepanel.html"
-  },
-  "commands": {
-    "toggle-side-panel": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+B",
-        "mac": "Command+Shift+B"
-      }
-    }
-  }
-}
-```
-
-## Shared Code from @briefhq/chat-ui
-
-The extension reuses business logic from the `@briefhq/chat-ui` package (monorepo sibling):
-
-### Shared Hooks
-
-| Hook | Purpose |
-|------|---------|
-| `useChatTransport` | Manages streaming, messages, conversation state |
-| `useConversationHistory` | Load/save/delete conversations |
-| `usePresets` | Fetch and select chat presets |
-| `useContextStatus` | Track token usage in context window |
-| `useMessageFeedback` | Submit thumbs up/down to Helicone |
-| `useFileAttachments` | File selection, validation, removal |
-| `useMentions` | Document search and @-mention selection |
-
-### Shared UI Components
-
-| Component | Purpose |
-|-----------|---------|
-| `Conversation`, `ConversationContent` | Scroll container |
-| `Message`, `MessageContent` | Message bubbles |
-| `Response` | Markdown rendering |
-| `Tool`, `ToolHeader`, `ToolContent`, `ToolInput`, `ToolOutput` | Tool call display |
-| `Reasoning`, `ReasoningTrigger`, `ReasoningContent` | Extended thinking UI |
-| `Loader` | Loading indicator |
-
-### Import Pattern
-
-```typescript
-// ✅ GOOD - Import shared hooks and components from @briefhq/chat-ui
-import {
-  useChatTransport,
-  useConversationHistory,
-  usePresets,
-  Conversation,
-  Message,
-  Response,
-  Tool,
-  Loader,
-} from "@briefhq/chat-ui";
-
-// Extension-specific orchestration
-export function ChatInterface({ accessToken, contextUrl }: Props) {
-  const transport = useChatTransport({ defaultModel: "claude-sonnet-4-5" });
-  const history = useConversationHistory({ api, onConversationLoaded });
-  const presets = usePresets({ api });
-
-  // Extension-specific logic here
-  return (
-    <div>
-      <ChatHeader presets={presets} onSignOut={onSignOut} />
-      <Conversation>
-        {messages.map(msg => <Message key={msg.id} message={msg} />)}
-      </Conversation>
-      <ChatInputArea onSubmit={handleSubmit} />
-    </div>
-  );
-}
-```
-
-```typescript
-// ❌ BAD - Don't recreate what exists in @briefhq/chat-ui
-export function ChatInterface() {
-  // Don't reimplement shared business logic
-  const [messages, setMessages] = useState([]);
-  const [isStreaming, setIsStreaming] = useState(false);
-
-  // This should use useChatTransport instead
-  const handleSubmit = async (input: string) => {
-    // Streaming logic...
-  };
-}
-```
-
-## When to Create Extension-Specific Components
-
-Create components in `packages/chrome-extension/components/` ONLY when:
-
-1. **Chrome API Integration**: Component uses chrome.tabs, chrome.storage, chrome.identity
-2. **Extension-Specific UI**: Component is unique to side panel context (e.g., sign-in flow, header with sign-out)
-3. **Extension-Specific Configuration**: Wrapper needed for extension constraints
-
-**Example - Extension-specific header:**
-```typescript
-// components/chat/views/ChatHeader.tsx
-// Extension-specific because it has sign-out, model selector, history toggle
-export function ChatHeader({ presets, onSignOut }: Props) {
-  return (
-    <header className="flex items-center justify-between px-4 py-3 border-b">
-      <PresetSelector presets={presets} />
-      <ModelSelector models={AVAILABLE_MODELS} />
-      <button onClick={onSignOut}>Sign out</button>
-    </header>
-  );
-}
-```
-
-## OAuth Authentication
-
-Brief uses **chrome.identity API** with PKCE for OAuth 2.0:
-
-```typescript
-// lib/oauth.ts
-
-// Start OAuth flow
-export async function startOAuthFlow() {
-  // Generate PKCE challenge
-  const codeVerifier = generateCodeVerifier();
-  const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-  // Launch web auth flow
-  const redirectUrl = chrome.identity.getRedirectURL();
-  const authUrl = `${BRIEF_URL}/oauth/authorize?` +
-    `client_id=${CLIENT_ID}&` +
-    `redirect_uri=${redirectUrl}&` +
-    `response_type=code&` +
-    `code_challenge=${codeChallenge}&` +
-    `code_challenge_method=S256`;
-
-  const responseUrl = await chrome.identity.launchWebAuthFlow({
-    url: authUrl,
-    interactive: true,
-  });
-
-  // Exchange code for tokens
-  const code = extractCodeFromUrl(responseUrl);
-  const tokens = await exchangeCodeForTokens(code, codeVerifier);
-
-  // Store in chrome.storage.local
-  await chrome.storage.local.set({
-    access_token: tokens.access_token,
-    refresh_token: tokens.refresh_token,
-    expires_at: Date.now() + tokens.expires_in * 1000,
-  });
-
-  return tokens;
-}
-
-// Get valid token (auto-refresh if needed)
-export async function getValidAccessToken(): Promise<string | null> {
-  const { access_token, expires_at, refresh_token } =
-    await chrome.storage.local.get(["access_token", "expires_at", "refresh_token"]);
-
-  if (!access_token) return null;
-
-  // Check if token needs refresh
-  if (Date.now() >= expires_at - 60000) {
-    return await refreshAccessToken(refresh_token);
-  }
-
-  return access_token;
-}
-```
-
-## API Integration
-
-Extension calls Brief API with OAuth Bearer tokens:
-
-```typescript
-// hooks/use-extension-api.ts
-export function useExtensionApi(accessToken: string) {
-  return {
-    async chat(messages, options) {
-      const response = await fetch(`${BRIEF_URL}/api/v1/chat`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages,
-          model: options.model,
-          contextUrl: options.contextUrl, // Current tab URL
-        }),
-      });
-      return response.body; // Streaming response
-    },
-
-    async fetchConversations() {
-      const response = await fetch(`${BRIEF_URL}/api/v1/conversations`, {
-        headers: { "Authorization": `Bearer ${accessToken}` },
-      });
-      return response.json();
-    },
-
-    async searchDocuments(query: string) {
-      const response = await fetch(
-        `${BRIEF_URL}/api/v1/documents/search?q=${query}`,
-        {
-          headers: { "Authorization": `Bearer ${accessToken}` },
-        }
-      );
-      return response.json();
-    },
-  };
-}
-```
-
-## Component Organization
-
-```text
-packages/chrome-extension/
-├── sidepanel.tsx          # Main entry (auth + ChatInterface)
-├── background.ts          # Service worker (keyboard shortcuts)
-├── lib/
-│   ├── oauth.ts           # OAuth 2.0 with PKCE
-│   └── utils.ts           # Utility functions
-├── components/chat/
-│   ├── ChatInterface.tsx  # Main orchestrator (~400 LOC)
-│   ├── hooks/
-│   │   └── use-extension-api.ts  # Extension-specific API wrapper
-│   ├── views/             # Extension-specific UI
-│   │   ├── ChatHeader.tsx        # Header with sign-out
-│   │   ├── ChatHistoryView.tsx   # History sidebar
-│   │   ├── ChatEmptyState.tsx    # Empty state
-│   │   └── ChatInputArea.tsx     # Input with @-mentions
-│   ├── MentionExtension.tsx      # TipTap mention config
-│   ├── MentionList.tsx           # Mention dropdown
-│   ├── ContextRing.tsx           # Context indicator
-│   └── EnhancedFileContent.tsx   # File preview
-└── __tests__/             # Vitest unit tests
-```
-
-**Rule:** Extension components ONLY in `components/chat/`. Shared components come from `@briefhq/chat-ui`.
-
-## Development Workflow
-
-### Local Setup
-
-```bash
-cd packages/chrome-extension
-pnpm install
-
-# Create environment file
-cp .env.dev.example .env.dev
-
-# Start dev server (hot reload)
-pnpm run dev
-```
-
-### Load Extension in Chrome
-
-1. Open `chrome://extensions/`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
-4. Select `packages/chrome-extension/build/chrome-mv3-dev`
-
-### Build for Different Environments
-
-| Environment | Command | Target |
-|-------------|---------|--------|
-| Dev | `pnpm run build` | localhost:3000 |
-| Staging | `pnpm run build:staging` | staging.briefhq.ai |
-| QA | `pnpm run build:qa` | app.briefhq.ai (internal) |
-| Production | `pnpm run build:production` | app.briefhq.ai (public) |
-
-### Package for Distribution
-
-```bash
-# QA build (.crx for internal testing)
-pnpm run package:qa
-
-# Production build (for Chrome Web Store)
-pnpm run package:production
-```
-
-## Testing
-
-Brief extension uses Vitest for unit tests:
-
-```typescript
-import { describe, it, expect, vi } from "vitest";
-import { render, waitFor } from "@testing-library/react";
-import { ChatInterface } from "./ChatInterface";
-
-// Mock Chrome APIs
-vi.mock("chrome", () => ({
-  tabs: {
-    query: vi.fn(),
-    onActivated: { addListener: vi.fn(), removeListener: vi.fn() },
-    onUpdated: { addListener: vi.fn(), removeListener: vi.fn() },
-  },
-  storage: {
-    local: {
-      get: vi.fn(),
-      set: vi.fn(),
-    },
-  },
-}));
-
-describe("ChatInterface", () => {
-  it("renders chat UI when authenticated", () => {
-    const { getByRole } = render(
-      <ChatInterface accessToken="test-token" contextUrl="https://example.com" />
-    );
-
-    expect(getByRole("textbox")).toBeInTheDocument();
-  });
-
-  it("passes contextUrl to chat API", async () => {
-    const { getByRole, getByText } = render(
-      <ChatInterface
-        accessToken="test-token"
-        contextUrl="https://example.com/page"
-      />
-    );
-
-    const input = getByRole("textbox");
-    await userEvent.type(input, "Summarize this page");
-    await userEvent.click(getByText("Send"));
-
-    // Verify contextUrl passed to API
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.any(String),
-      expect.objectContaining({
-        body: expect.stringContaining("https://example.com/page"),
-      })
-    );
-  });
-});
-```
-
-### Run Tests
-
-```bash
-pnpm test                # Run all tests
-pnpm run test:watch      # Watch mode
-pnpm run test:coverage   # Coverage report
-```
-
-## Key Differences from Web App
-
-| Feature | Web App | Extension |
-|---------|---------|-----------|
-| **Architecture** | Next.js pages | Side Panel |
-| **Authentication** | Clerk session cookies | OAuth Bearer tokens |
-| **API URL** | Relative (`/api/...`) | Absolute (`https://app.briefhq.ai/api/...`) |
-| **Context** | Current page (server-side) | Active tab URL (chrome.tabs API) |
-| **Presets** | All presets | Excludes "onboarding" preset |
-| **Storage** | Supabase + Clerk | chrome.storage.local for tokens |
-
-## Common Patterns
-
-### Passing Context URL
-
-```typescript
-// ✅ GOOD - Use current tab URL for context
-export function ChatInterface({ contextUrl }: Props) {
-  const handleSubmit = async (input: string) => {
-    await api.chat(messages, {
-      contextUrl, // Current tab URL
-      model: selectedModel,
-    });
-  };
-}
-```
-
-### Model Selection
-
-```typescript
-// ✅ GOOD - Store model selection in state
-const [selectedModel, setSelectedModel] = useState<ModelId>("claude-sonnet-4-5");
-
-// Pass to useChatTransport
-const transport = useChatTransport({
-  defaultModel: selectedModel,
-});
-```
-
-### File Attachments
-
-```typescript
-// ✅ GOOD - Use useFileAttachments hook from @briefhq/chat-ui
-const fileAttachments = useFileAttachments({
-  maxFiles: 10,
-  maxSize: 32 * 1024 * 1024, // 32MB
-  allowedTypes: ["image/*", "application/pdf", "text/*"],
-});
-
-// In UI
-<ChatInputArea
-  files={fileAttachments.files}
-  onFilesSelected={fileAttachments.addFiles}
-  onFileRemove={fileAttachments.removeFile}
-/>
-```
-
-### Document @-Mentions
-
-```typescript
-// ✅ GOOD - Use useMentions hook from @briefhq/chat-ui
-const mentions = useMentions({
-  api,
-  onMentionSelected: (doc: MentionDocument) => {
-    // Append to input
-  },
-});
-
-// In TipTap editor
-<Editor
-  extensions={[
-    StarterKit,
-    Mention.configure({
-      suggestion: mentions.suggestionOptions,
-    }),
-  ]}
-/>
-```
-
-## Troubleshooting
-
-### OAuth Issues
-
-**Problem:** "Authentication failed" error
-- **Check:** Extension ID in OAuth client redirect URIs
-- **Fix:** Add `https://{extension-id}.chromiumapp.org/` to allowed redirect URIs
-
-**Problem:** Token expired
-- **Check:** Token refresh logic in `lib/oauth.ts`
-- **Fix:** Implement automatic refresh 60 seconds before expiry
-
-### API Issues
-
-**Problem:** CORS errors
-- **Check:** `host_permissions` in manifest.json
-- **Fix:** Add API domain to `host_permissions`
-
-### Build Issues
-
-**Problem:** Hot reload not working
-- **Check:** Plasmo dev server running
-- **Fix:** Run `pnpm run dev` and reload extension
-
-## Documentation References
-
-- Chrome Extension Architecture: `/docs/CHROME_EXTENSION_ARCHITECTURE.md`
-- Extension README: `/packages/chrome-extension/README.md`
-- Shared Chat UI: `/packages/chat-ui/`
-
-## Related Code
-
-- OAuth flow: `packages/chrome-extension/lib/oauth.ts`
-- Chat interface: `packages/chrome-extension/components/chat/ChatInterface.tsx`
-- Side panel entry: `packages/chrome-extension/sidepanel.tsx`
-- Extension API: `packages/chrome-extension/components/chat/hooks/use-extension-api.ts`
+# Chrome Extension Best Practices
+
+Comprehensive performance and code quality guide for Chrome Extensions (Manifest V3). Contains 67 rules across 12 categories, prioritized by impact to guide automated refactoring and code generation.
+
+## When to Apply
+
+Reference these guidelines when:
+- Writing new Chrome extension code
+- Migrating from Manifest V2 to Manifest V3
+- Optimizing service worker lifecycle and state management
+- Implementing content scripts for page interaction
+- Debugging performance issues in extensions
+
+## Rule Categories by Priority
+
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Service Worker Lifecycle | CRITICAL | `sw-` |
+| 2 | Content Script Optimization | CRITICAL | `content-` |
+| 3 | Message Passing Efficiency | HIGH | `msg-` |
+| 4 | Storage Operations | HIGH | `storage-` |
+| 5 | Network & Permissions | MEDIUM-HIGH | `net-` |
+| 6 | Memory Management | MEDIUM | `mem-` |
+| 7 | UI Performance | MEDIUM | `ui-` |
+| 8 | API Usage Patterns | LOW-MEDIUM | `api-` |
+| 9 | Code Style & Naming | MEDIUM | `style-` |
+| 10 | Component Patterns | MEDIUM | `comp-` |
+| 11 | Error Handling | HIGH | `err-` |
+| 12 | Testing Patterns | MEDIUM | `test-` |
+
+## Quick Reference
+
+### 1. Service Worker Lifecycle (CRITICAL)
+
+- [`sw-persist-state-storage`](references/sw-persist-state-storage.md) - Persist state with chrome.storage instead of global variables
+- [`sw-avoid-keepalive`](references/sw-avoid-keepalive.md) - Avoid artificial service worker keep-alive patterns
+- [`sw-use-alarms-api`](references/sw-use-alarms-api.md) - Use chrome.alarms instead of setTimeout/setInterval
+- [`sw-return-true-async`](references/sw-return-true-async.md) - Return true from message listeners for async responses
+- [`sw-register-listeners-toplevel`](references/sw-register-listeners-toplevel.md) - Register event listeners at top level
+- [`sw-use-offscreen-for-dom`](references/sw-use-offscreen-for-dom.md) - Use offscreen documents for DOM APIs
+
+### 2. Content Script Optimization (CRITICAL)
+
+- [`content-use-specific-matches`](references/content-use-specific-matches.md) - Use specific URL match patterns
+- [`content-use-document-idle`](references/content-use-document-idle.md) - Use document_idle for content script injection
+- [`content-programmatic-injection`](references/content-programmatic-injection.md) - Prefer programmatic injection over manifest declaration
+- [`content-minimize-script-size`](references/content-minimize-script-size.md) - Minimize content script bundle size
+- [`content-batch-dom-operations`](references/content-batch-dom-operations.md) - Batch DOM operations to minimize reflows
+- [`content-use-mutation-observer`](references/content-use-mutation-observer.md) - Use MutationObserver instead of polling
+
+### 3. Message Passing Efficiency (HIGH)
+
+- [`msg-use-ports-for-frequent`](references/msg-use-ports-for-frequent.md) - Use port connections for frequent message exchange
+- [`msg-minimize-payload-size`](references/msg-minimize-payload-size.md) - Minimize message payload size
+- [`msg-debounce-frequent-events`](references/msg-debounce-frequent-events.md) - Debounce high-frequency events before messaging
+- [`msg-check-lasterror`](references/msg-check-lasterror.md) - Always check chrome.runtime.lastError
+- [`msg-avoid-broadcast-to-all-tabs`](references/msg-avoid-broadcast-to-all-tabs.md) - Avoid broadcasting messages to all tabs
+
+### 4. Storage Operations (HIGH)
+
+- [`storage-batch-operations`](references/storage-batch-operations.md) - Batch storage operations instead of individual calls
+- [`storage-choose-correct-type`](references/storage-choose-correct-type.md) - Choose the correct storage type for your use case
+- [`storage-cache-frequently-accessed`](references/storage-cache-frequently-accessed.md) - Cache frequently accessed storage values
+- [`storage-use-session-for-temp`](references/storage-use-session-for-temp.md) - Use storage.session for temporary runtime data
+- [`storage-avoid-storing-large-blobs`](references/storage-avoid-storing-large-blobs.md) - Avoid storing large binary blobs
+
+### 5. Network & Permissions (MEDIUM-HIGH)
+
+- [`net-use-declarativenetrequest`](references/net-use-declarativenetrequest.md) - Use declarativeNetRequest instead of webRequest
+- [`net-request-minimal-permissions`](references/net-request-minimal-permissions.md) - Request minimal required permissions
+- [`net-use-activetab`](references/net-use-activetab.md) - Use activeTab permission instead of broad host permissions
+- [`net-limit-csp-modifications`](references/net-limit-csp-modifications.md) - Avoid modifying Content Security Policy headers
+
+### 6. Memory Management (MEDIUM)
+
+- [`mem-cleanup-event-listeners`](references/mem-cleanup-event-listeners.md) - Clean up event listeners when content script unloads
+- [`mem-avoid-detached-dom`](references/mem-avoid-detached-dom.md) - Avoid holding references to detached DOM nodes
+- [`mem-avoid-closure-leaks`](references/mem-avoid-closure-leaks.md) - Avoid accidental closure memory leaks
+- [`mem-clear-intervals-timeouts`](references/mem-clear-intervals-timeouts.md) - Clear intervals and timeouts on cleanup
+- [`mem-use-weak-collections`](references/mem-use-weak-collections.md) - Use WeakMap and WeakSet for DOM element references
+
+### 7. UI Performance (MEDIUM)
+
+- [`ui-minimize-popup-bundle`](references/ui-minimize-popup-bundle.md) - Minimize popup bundle size for fast startup
+- [`ui-render-with-cached-data`](references/ui-render-with-cached-data.md) - Render popup UI with cached data first
+- [`ui-batch-badge-updates`](references/ui-batch-badge-updates.md) - Batch badge updates to avoid flicker
+- [`ui-use-options-page-lazy`](references/ui-use-options-page-lazy.md) - Lazy load options page sections
+
+### 8. API Usage Patterns (LOW-MEDIUM)
+
+- [`api-use-promises-over-callbacks`](references/api-use-promises-over-callbacks.md) - Use promise-based API calls over callbacks
+- [`api-query-tabs-efficiently`](references/api-query-tabs-efficiently.md) - Query tabs with specific filters
+- [`api-avoid-redundant-api-calls`](references/api-avoid-redundant-api-calls.md) - Avoid redundant API calls in loops
+- [`api-use-alarms-minperiod`](references/api-use-alarms-minperiod.md) - Respect alarms API minimum period
+- [`api-handle-context-invalidated`](references/api-handle-context-invalidated.md) - Handle extension context invalidated errors
+- [`api-use-declarative-content`](references/api-use-declarative-content.md) - Use declarative content API for page actions
+
+### 9. Code Style & Naming (MEDIUM)
+
+- [`style-boolean-naming`](references/style-boolean-naming.md) - Use is/has/should prefixes for boolean variables
+- [`style-cache-naming`](references/style-cache-naming.md) - Use consistent cache variable naming
+- [`style-constants`](references/style-constants.md) - Define constants for magic values
+- [`style-directory-structure`](references/style-directory-structure.md) - Organize code by feature/layer
+- [`style-file-naming`](references/style-file-naming.md) - Use consistent file naming conventions
+- [`style-function-naming`](references/style-function-naming.md) - Use descriptive function names
+- [`style-import-type`](references/style-import-type.md) - Use type-only imports for types
+- [`style-index-entry-points`](references/style-index-entry-points.md) - Use index files for module entry points
+- [`style-message-enums`](references/style-message-enums.md) - Use enums for message types
+- [`style-type-naming`](references/style-type-naming.md) - Use PascalCase for types and interfaces
+
+### 10. Component Patterns (MEDIUM)
+
+- [`comp-adapter-interface`](references/comp-adapter-interface.md) - Use adapter pattern for browser APIs
+- [`comp-content-script-structure`](references/comp-content-script-structure.md) - Structure content scripts consistently
+- [`comp-css-class-patterns`](references/comp-css-class-patterns.md) - Use BEM or prefixed CSS classes
+- [`comp-manager-class`](references/comp-manager-class.md) - Use manager classes for complex state
+- [`comp-type-guards`](references/comp-type-guards.md) - Use type guards for runtime validation
+- [`comp-ui-components`](references/comp-ui-components.md) - Create reusable UI components
+
+### 11. Error Handling (HIGH)
+
+- [`err-context-invalidation`](references/err-context-invalidation.md) - Handle extension context invalidation
+- [`err-early-return`](references/err-early-return.md) - Use early returns for error handling
+- [`err-null-coalescing`](references/err-null-coalescing.md) - Use nullish coalescing for defaults
+- [`err-promise-barrier`](references/err-promise-barrier.md) - Use promise barriers for coordination
+- [`err-storage-operations`](references/err-storage-operations.md) - Handle storage operation failures
+- [`err-url-parsing`](references/err-url-parsing.md) - Safely parse URLs with try/catch
+- [`err-validation-pattern`](references/err-validation-pattern.md) - Validate inputs at boundaries
+
+### 12. Testing Patterns (MEDIUM)
+
+- [`test-browser-api-mocking`](references/test-browser-api-mocking.md) - Mock chrome APIs in tests
+- [`test-organization`](references/test-organization.md) - Organize tests by feature
+- [`test-validation-functions`](references/test-validation-functions.md) - Test validation functions thoroughly
+
+## How to Use
+
+Read individual reference files for detailed explanations and code examples:
+
+- [Section definitions](references/_sections.md) - Category structure and impact levels
+- [Rule template](assets/templates/_template.md) - Template for adding new rules
+
+## Full Compiled Document
+
+For a complete guide with all rules in a single document, see [AGENTS.md](AGENTS.md).
+
+## Reference Files
+
+| File | Description |
+|------|-------------|
+| [AGENTS.md](AGENTS.md) | Complete compiled guide with all rules |
+| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
+| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
+| [metadata.json](metadata.json) | Version and reference information |

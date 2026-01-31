@@ -1,7 +1,7 @@
 {
   "name": "error-recovery",
-  "repo": "claudeforge/orchestrator",
+  "repo": "hgeldenhuys/claude-code-sdk",
   "path": "skills/error-recovery/SKILL.md",
-  "source": "github.com/claudeforge/orchestrator",
-  "downloaded_at": "2026-01-30T03:35:12.785212Z"
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-31T02:46:22.037948Z"
 }

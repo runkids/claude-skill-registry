@@ -1,7 +1,7 @@
 {
   "name": "researcher-role-skill",
-  "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-  "path": "docs/claude/skills/researcher-role-skill/SKILL.md",
-  "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-  "downloaded_at": "2026-01-30T03:22:17.793540Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills/researcher-role-skill/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-31T04:29:20.219401Z"
 }

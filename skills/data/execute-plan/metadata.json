@@ -1,7 +1,7 @@
 {
   "name": "execute-plan",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/forge/execute-plan/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:08:54.544778Z"
+  "repo": "manastalukdar/claude-devstudio",
+  "path": "skills/execute-plan/SKILL.md",
+  "source": "github.com/manastalukdar/claude-devstudio",
+  "downloaded_at": "2026-01-31T03:53:55.210815Z"
 }

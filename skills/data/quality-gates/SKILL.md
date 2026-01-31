@@ -1,170 +1,524 @@
 ---
 name: quality-gates
-description: |
-  Apply quality gate standards for git hooks, testing, CI/CD, and automation using Lefthook, Vitest, GitHub Actions, and quality enforcement. Use when setting up quality infrastructure, configuring hooks, discussing automation, or reviewing quality practices.
+description: Type safety checks, test requirements, linting, code conventions, validation
 ---
 
-# /quality-gates
+# Quality Gates — CEI-001
 
-Ensure this project has complete quality infrastructure. Audit, fix, verify.
+## Pre-Commit Checklist
 
-## What This Does
-
-Examines the project's quality gates, identifies gaps, implements fixes, and verifies everything works. Every run does all of this—no partial modes.
-
-## Process
-
-### 1. Audit
-
-Spawn the `infrastructure-guardian` agent to do a comprehensive audit. It knows what to check.
-
-Also run this quick assessment:
-```bash
-[ -f "lefthook.yml" ] && echo "✓ Lefthook" || echo "✗ Lefthook"
-[ -f "vitest.config.ts" ] || [ -f "vitest.config.js" ] && echo "✓ Vitest" || echo "✗ Vitest"
-[ -f ".github/workflows/ci.yml" ] && echo "✓ CI workflow" || echo "✗ CI workflow"
-[ -f "commitlint.config.js" ] || [ -f "commitlint.config.cjs" ] && echo "✓ Commitlint" || echo "✗ Commitlint"
-grep -q "coverage" package.json && echo "✓ Coverage script" || echo "✗ Coverage script"
-```
-
-For test quality specifically, spawn `test-strategy-architect` if tests exist but quality is uncertain.
-
-### 2. Plan
-
-Based on audit findings, identify all gaps. Prioritize:
-
-**Must have (every project):**
-- Lefthook with pre-commit hooks (lint, format, typecheck on staged files)
-- Lefthook pre-push hooks (test, build)
-- Vitest configured with coverage
-- GitHub Actions CI (lint, typecheck, test, build on every PR)
-- Branch protection on main
-
-**Should have (production apps):**
-- Conventional commits via commitlint
-- Coverage reporting in PRs
-- E2E tests for critical flows
-- Security audit in CI
-
-### 3. Execute
-
-Fix every gap identified. Delegate implementation to Codex where appropriate.
-
-**Installing Lefthook:**
-```bash
-pnpm add -D lefthook
-pnpm lefthook install
-```
-Then create `lefthook.yml` per `references/lefthook-config.md`.
-
-**Installing Vitest:**
-```bash
-pnpm add -D vitest @vitest/coverage-v8
-```
-Then create config per `references/vitest-config.md`.
-
-**Creating CI workflow:**
-Create `.github/workflows/ci.yml` per `references/github-actions.md`.
-
-**Setting up commitlint:**
-```bash
-pnpm add -D @commitlint/cli @commitlint/config-conventional
-```
-Add commit-msg hook to lefthook.yml.
-
-**Branch protection:**
-Guide user through GitHub settings or use `gh api` if they want automation.
-
-### 4. Verify
-
-Prove it works. Don't just check files exist—actually run the gates.
+### Type Safety
+- [ ] **No `any` type** in TypeScript/Python
+- [ ] **All function parameters typed**
+- [ ] **All function returns typed**
+- [ ] **Strict tsconfig enabled** (all checks on)
+- [ ] **mypy passing** for Python
 
 ```bash
-# Test pre-commit hook
-echo "test" >> /tmp/test-file && git add /tmp/test-file
-pnpm lefthook run pre-commit
-
-# Test CI locally (if act installed)
-act -j quality-checks --dryrun
-
-# Test vitest runs
-pnpm test --run
-
-# Verify commitlint
-echo "bad commit message" | pnpm commitlint
-# Should fail
-
-echo "feat: valid message" | pnpm commitlint
-# Should pass
+# Run checks
+npx tsc --noEmit
+mypy app/ --ignore-missing-imports
 ```
 
-Report verification results. If anything fails, fix it before declaring done.
+### Testing (≥70% coverage)
+- [ ] **Unit tests written** for new functions
+- [ ] **Happy path tested**
+- [ ] **Edge cases covered**
+- [ ] **Error scenarios handled**
+- [ ] **Coverage ≥70%**
 
-## Tool Choices
+```bash
+# Backend
+pytest tests/ --cov=app --cov-fail-under=70
 
-**Lefthook over Husky.** Go binary, faster, parallel execution, simpler YAML config, combines Husky + lint-staged.
+# Frontend
+npm test -- --coverage --watchAll=false
+```
 
-**Vitest over Jest.** Faster, native ESM, built-in coverage with v8, great TypeScript support.
+### Code Quality
+- [ ] **No unused imports**
+- [ ] **No console.log() in production code**
+- [ ] **Linter passing** (ruff, eslint)
+- [ ] **Code formatted** (black, prettier)
 
-**vitest-coverage-report-action over Codecov.** Zero external service, shows coverage diff in PRs, links to uncovered lines.
+```bash
+# Backend
+ruff check app/
+black app/
+mypy app/
 
-These are strong recommendations, not mandates. If the project already has working alternatives, don't churn—improve what exists.
+# Frontend
+eslint src/
+prettier --write src/
+```
 
-## Coverage Philosophy
+### Conventions
+- [ ] **Route patterns** follow `/api/[resource]/[action]`
+- [ ] **File naming** consistent (PascalCase components, snake_case functions)
+- [ ] **Database** uses migrations (Alembic)
+- [ ] **Relationships** use back_populates
+- [ ] **Error messages** are helpful (not generic)
+- [ ] **API responses** use status codes correctly
 
-Coverage is a diagnostic tool, not a goal.
+### Documentation
+- [ ] **Docstrings present** on all public functions
+- [ ] **Example included** in docstrings
+- [ ] **Complex logic explained**
+- [ ] **Comments only for "why", not "what"**
 
-- 60% meaningful coverage beats 95% testing implementation details
-- Patch coverage: 80%+ for new code
-- Critical paths (payment, auth): 90%+
-- Overall: Track but don't block
+```python
+# Good docstring
+async def create_evaluation(eval_data: EvaluationCreate) -> Evaluation:
+    """
+    Create new evaluation session for user.
+    
+    Args:
+        eval_data: Evaluation creation data
+    
+    Returns:
+        Created evaluation with all fields
+    
+    Example:
+        >>> eval = await create_evaluation(
+        ...     EvaluationCreate(company_id="123", project_type="new")
+        ... )
+    """
+    ...
+```
 
-## Anti-Patterns
+## Test Requirements
 
-- **Husky** → Prefer Lefthook
-- **Arbitrary coverage targets** → Use coverage as diagnostic
-- **Testing implementation details** → Test behavior
-- **Heavy mocking** → Prefer integration tests
-- **Skipping hooks routinely** → Fix the root cause
-- **CI only on main** → Test every PR
+### Backend (pytest)
+```python
+# tests/test_evaluation_service.py
+import pytest
+from app.services.evaluation_service import EvaluationService
 
-## References
+@pytest.mark.asyncio
+async def test_create_evaluation():
+    """Test creating evaluation"""
+    # Arrange
+    service = EvaluationService(db)
+    data = EvaluationCreate(company_id="123")
+    
+    # Act
+    result = await service.create("user123", data)
+    
+    # Assert
+    assert result.id is not None
+    assert result.user_id == "user123"
+    assert result.status == "in_progress"
 
-Detailed configs in `references/`:
-- `lefthook-config.md` — Hook configurations
-- `github-actions.md` — CI workflows
-- `vitest-config.md` — Test configuration
-- `branch-protection.md` — GitHub settings
+@pytest.mark.asyncio
+async def test_create_evaluation_missing_user():
+    """Test error when user not found"""
+    # Arrange
+    service = EvaluationService(db)
+    
+    # Act & Assert
+    with pytest.raises(ValueError, match="User not found"):
+        await service.create("nonexistent", EvaluationCreate(...))
+```
 
-## Philosophy
+### Frontend (Jest)
+```typescript
+// src/__tests__/components/ChatWindow.test.tsx
+import { render, screen } from '@testing-library/react';
+import { ChatWindow } from '@/components/chat/ChatWindow';
 
-This codebase will outlive you. Every shortcut becomes someone else's burden. The patterns you establish will be copied. The corners you cut will be cut again.
+describe('ChatWindow', () => {
+  it('renders message input', () => {
+    render(<ChatWindow />);
+    const input = screen.getByPlaceholderText('Posez votre question...');
+    expect(input).toBeInTheDocument();
+  });
 
-Quality gates exist to fight entropy—to ensure the codebase stays better than you found it.
+  it('sends message on submit', async () => {
+    render(<ChatWindow />);
+    const input = screen.getByPlaceholderText('Posez votre question...');
+    const button = screen.getByText('Envoyer');
+    
+    // Type and submit
+    await userEvent.type(input, 'Test message');
+    await userEvent.click(button);
+    
+    // Assert
+    expect(chatService.sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({ content: 'Test message' })
+    );
+  });
+});
+```
 
-## What You Get
+## Common Issues & Fixes
 
-When complete:
-- Lefthook pre-commit: lint, format, typecheck (fast, staged files only)
-- Lefthook pre-push: test, build (comprehensive)
-- Vitest with coverage configured
-- GitHub Actions CI running on every PR
-- Branch protection requiring CI to pass
-- Commitlint enforcing conventional commits
-- Verified end-to-end
+| Issue | Fix | Prevention |
+|-------|-----|-----------|
+| `type: ignore` comments | Add proper types instead | Use strict mode |
+| No tests | Write test before fix | Require tests in PR |
+| Missing docstring | Add doc with example | Linter check |
+| Hardcoded values | Move to config/constants | Code review |
+| Circular imports | Reorganize imports | Linter check |
+| Unused variables | Remove them | noUnusedLocals: true |
+| Silent errors | Add explicit error handling | Type checking |
+| `any` type used | Replace with specific type | No any rule |
 
-User can:
-- Commit code and see hooks run automatically
-- Push and see tests run before push completes
-- Open a PR and see CI results
-- See coverage diff in PR comments
-- Trust that main is always green
+## Auto-fix Commands
 
-## Testing Standards Reference
+```bash
+# Format all code
+black app/
+prettier --write src/
 
-See `references/testing-standards.md` for detailed guidance on:
-- Vitest configuration
-- Coverage philosophy (test boundaries, not lines)
-- Unit vs integration vs E2E testing
-- Git hooks setup with simple-git-hooks
-- CI/CD with GitHub Actions
+# Fix linter issues
+ruff check --fix app/
+eslint --fix src/
+
+# Check compliance
+npm run type-check
+npm run lint
+npm test -- --coverage
+```
+
+## CI/CD Pipeline
+
+```yaml
+# .github/workflows/quality.yml
+name: Quality Gates
+on: [pull_request]
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npx tsc --noEmit
+      - run: pip install mypy
+      - run: mypy app/
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install && npm test -- --coverage --watchAll=false
+      - run: pip install pytest-cov && pytest --cov=app --cov-fail-under=70
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run lint
+      - run: pip install ruff && ruff check app/
+```
+
+---
+
+---
+name: project-workflow
+description: Workflows for new features, debugging, code review, migrations, RAG updates
+---
+
+# Project Workflows — CEI-001
+
+## Workflow 1: New Feature (Full-stack)
+
+### Input
+```
+Crée composant Chat pour le module d'évaluation
+```
+
+### Steps
+
+#### 1. Design (5 min)
+- [ ] Review requirements
+- [ ] Sketch component structure
+- [ ] Identify dependencies
+
+#### 2. Database (10 min - if needed)
+- [ ] Create model if needed
+- [ ] Create migration
+- [ ] Test migration locally
+
+#### 3. Backend (15 min)
+- [ ] Create/update endpoint
+- [ ] Add validation schemas
+- [ ] Add service methods
+- [ ] Write endpoint docstring
+
+#### 4. Frontend (15 min)
+- [ ] Create component file
+- [ ] Define prop interfaces
+- [ ] Implement component
+- [ ] Add custom hook if needed
+
+#### 5. Testing (10 min)
+- [ ] Write backend tests (pytest)
+- [ ] Write component tests (jest)
+- [ ] Run coverage check (≥70%)
+
+#### 6. Validation (5 min)
+```bash
+# Type check
+npm run type-check
+mypy app/
+
+# Lint
+npm run lint
+ruff check app/
+
+# Test
+npm test -- --coverage
+pytest --cov=app
+```
+
+#### 7. Documentation (5 min)
+- [ ] Add docstring with example
+- [ ] Update README if public API
+- [ ] Add component prop docs
+
+#### 8. Ready
+```
+Valide contre quality-gates
+```
+
+---
+
+## Workflow 2: Debug Error
+
+### Input
+```
+Debug: POST /api/chat/message retourne 500 avec "token limit exceeded"
+```
+
+### Steps
+
+#### 1. Identify Layer
+- Backend error? → Check `app/api/routes/` logs
+- Frontend error? → Check browser console
+- Database error? → Check `docker-compose logs postgres`
+- Weaviate error? → Check `docker-compose logs weaviate`
+
+#### 2. Find Root Cause
+```bash
+# Check logs
+docker-compose logs backend | grep error
+
+# Check recent changes
+git diff HEAD~1
+
+# Test endpoint locally
+curl -X POST http://localhost:8000/api/chat/message \
+  -H "Content-Type: application/json" \
+  -d '{"message": "test"}'
+
+# Check database state
+docker-compose exec postgres psql
+```
+
+#### 3. Propose Fix
+- Code change? Use fastapi-backend skill
+- Query issue? Use database-design skill
+- Frontend issue? Use react-frontend skill
+- Weaviate? Use rag-weaviate skill
+
+#### 4. Test Fix
+```bash
+# Unit test for fix
+pytest tests/test_chat_service.py::test_token_limit
+
+# Integration test
+curl -X POST http://localhost:8000/api/chat/message ...
+
+# Full test suite
+npm test -- --coverage
+pytest --cov=app
+```
+
+#### 5. Validate
+```bash
+# Type check
+npm run type-check
+mypy app/
+
+# Lint
+npm run lint
+
+# Coverage
+pytest --cov=app --cov-fail-under=70
+```
+
+---
+
+## Workflow 3: Code Review
+
+### Pre-PR Checklist
+- [ ] Type safety (`tsc --noEmit`, `mypy`)
+- [ ] Tests passing (≥70% coverage)
+- [ ] Lint clean (eslint, ruff)
+- [ ] No console.log in production
+- [ ] Docstrings present
+- [ ] Error messages helpful
+- [ ] No `any` type
+- [ ] No hardcoded values
+- [ ] Conventions followed
+
+### Review Checklist
+- [ ] **Functionality** — Does it work as intended?
+- [ ] **Performance** — Any N+1 queries? Unnecessary renders?
+- [ ] **Security** — Authentication? Authorization? Input validation?
+- [ ] **Maintainability** — Can others understand the code?
+- [ ] **Testing** — Is coverage adequate? Edge cases covered?
+- [ ] **Documentation** — Are docstrings clear?
+
+### Common Comments
+```
+❌ "Type hints missing"
+✅ "add: async def foo(bar: str) -> bool:"
+
+❌ "No error handling"
+✅ "add try/except with specific exception"
+
+❌ "No tests"
+✅ "add test_foo() with happy path + edge cases"
+
+❌ "Hardcoded value"
+✅ "move to config or constants"
+```
+
+---
+
+## Workflow 4: Database Migration
+
+### Input
+```
+Add column priority (int, nullable) to evaluations table
+```
+
+### Steps
+
+#### 1. Update Model
+```python
+# app/models/evaluation.py
+class Evaluation(Base):
+    # ... existing columns ...
+    priority = Column(Integer, nullable=True, index=True)
+```
+
+#### 2. Create Migration
+```bash
+alembic revision --autogenerate -m "Add priority to evaluations"
+```
+
+#### 3. Review Migration
+```python
+# alembic/versions/xxx_add_priority_to_evaluations.py
+def upgrade():
+    op.add_column('evaluations', sa.Column('priority', sa.Integer(), nullable=True))
+    op.create_index('ix_evaluations_priority', 'evaluations', ['priority'])
+
+def downgrade():
+    op.drop_index('ix_evaluations_priority', table_name='evaluations')
+    op.drop_column('evaluations', 'priority')
+```
+
+#### 4. Test Migration
+```bash
+# Apply
+alembic upgrade head
+
+# Verify
+docker-compose exec postgres psql -c "\\d evaluations"
+
+# Rollback
+alembic downgrade -1
+
+# Re-apply
+alembic upgrade head
+```
+
+#### 5. Update ORM Queries
+Update any service/route that uses evaluations to handle new column
+
+#### 6. Test Full Suite
+```bash
+pytest --cov=app --cov-fail-under=70
+npm test -- --coverage
+```
+
+---
+
+## Workflow 5: Add Document to RAG
+
+### Input
+```
+Upload Genius documentation PDF and index for RAG
+```
+
+### Steps
+
+#### 1. Upload via Admin UI
+- Go to `/admin/documents`
+- Click "Upload Document"
+- Select PDF file
+- Fill metadata (title, categories, tags)
+- Click "Upload"
+
+#### 2. Configure Pipeline
+- Select transformations:
+  - [ ] Anonymize
+  - [ ] Whitelabel
+  - [ ] Normalize
+  - [ ] Enrich Summary
+  - [ ] Generate Q&A
+  - [ ] Segment
+- Click "Start Pipeline"
+
+#### 3. Review & Approve
+- Admin reviews before/after
+- Edit if needed
+- Click "Approve"
+
+#### 4. Publish
+- Click "Publish to RAG"
+- Chunks are indexed in Weaviate
+
+#### 5. Test
+```bash
+# Verify in Weaviate
+curl http://localhost:8080/v1/objects
+
+# Test RAG search
+curl -X POST http://localhost:8000/api/chat/message \
+  -H "Content-Type: application/json" \
+  -d '{"conversation_id": "test", "content": "How to implement ERP?"}'
+
+# Should include document in sources
+```
+
+---
+
+## Quick Command Reference
+
+```bash
+# Development
+docker-compose up -d
+docker-compose logs -f backend
+
+# Migrations
+alembic revision --autogenerate -m "description"
+alembic upgrade head
+alembic downgrade -1
+
+# Testing
+pytest tests/ --cov=app --cov-fail-under=70
+npm test -- --coverage --watchAll=false
+
+# Code Quality
+black app/ && ruff check --fix app/
+prettier --write src/ && eslint --fix src/
+
+# Type Checking
+mypy app/ --ignore-missing-imports
+npm run type-check
+```

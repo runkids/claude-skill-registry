@@ -1,7 +1,7 @@
 {
   "name": "authentication-patterns",
-  "repo": "athola/claude-night-market",
-  "path": "plugins/leyline/skills/authentication-patterns/SKILL.md",
-  "source": "github.com/athola/claude-night-market",
-  "downloaded_at": "2026-01-30T04:03:30.758356Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/security/skills/authentication-patterns/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-31T04:13:13.090628Z"
 }

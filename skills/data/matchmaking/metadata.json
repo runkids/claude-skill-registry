@@ -1,13 +1,7 @@
 {
   "name": "matchmaking",
-  "description": "Skill-based matchmaking systems, ranking algorithms, and queue management for fair multiplayer matches",
-  "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
-  "category": "data",
-  "tags": [
-    "matchmaking"
-  ],
-  "stars": 1,
-  "dir_name": "matchmaking",
-  "github_path": "skills/matchmaking",
-  "github_branch": "main"
+  "repo": "AmnadTaowsoam/CerebraSkills",
+  "path": "38-gaming-features/matchmaking/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/CerebraSkills",
+  "downloaded_at": "2026-01-31T01:11:32.530726Z"
 }

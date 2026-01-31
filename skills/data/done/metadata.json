@@ -1,7 +1,7 @@
 {
   "name": "done",
-  "repo": "endlessblink/flow-state",
-  "path": ".claude/skills/done/SKILL.md",
-  "source": "github.com/endlessblink/flow-state",
-  "downloaded_at": "2026-01-30T02:33:59.813651Z"
+  "repo": "robzolkos/zolkos-agent-skills",
+  "path": "skills/done/SKILL.md",
+  "source": "github.com/robzolkos/zolkos-agent-skills",
+  "downloaded_at": "2026-01-31T04:13:17.599789Z"
 }

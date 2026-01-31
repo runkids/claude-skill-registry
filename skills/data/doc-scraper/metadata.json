@@ -1,7 +1,7 @@
 {
   "name": "doc-scraper",
-  "repo": "jmagly/ai-writing-guide",
-  "path": "agentic/code/addons/doc-intelligence/skills/doc-scraper/SKILL.md",
-  "source": "github.com/jmagly/ai-writing-guide",
-  "downloaded_at": "2026-01-27T02:20:18.500316Z"
+  "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
+  "path": ".claude/skills/doc-scraper/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-31T03:37:27.208008Z"
 }

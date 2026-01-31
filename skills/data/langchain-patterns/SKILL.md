@@ -1,447 +1,477 @@
 ---
-name: langchain-patterns
-description: LangChain implementation patterns with templates, scripts, and examples for RAG pipelines
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep
+name: LangChain Patterns
+description: Building LLM applications with LangChain - chains, agents, RAG, memory, and production patterns for AI-powered apps.
 ---
 
-# LangChain Patterns Skill
+# LangChain Patterns
 
-Comprehensive LangChain implementation patterns for building production-ready RAG (Retrieval-Augmented Generation) pipelines. This skill provides working scripts, templates, and examples for document loading, vector stores, retrieval chains, LangGraph workflows, and LangSmith observability.
+## Overview
 
-## Use When
+LangChain เป็น framework สำหรับ building applications powered by LLMs ช่วยจัดการ complexity ของ prompt chaining, memory, retrieval, agents, และ tool use ทำให้สร้าง AI applications ได้เร็วขึ้น
 
-- Building RAG applications with LangChain
-- Setting up vector stores and embeddings
-- Implementing conversational retrieval systems
-- Creating multi-step agent workflows with LangGraph
-- Integrating LangSmith for tracing and evaluation
-- Generating LangChain boilerplate code
-- Validating LangChain implementations
-- Need working examples of advanced retrieval patterns
+## Why This Matters
 
-## Core Capabilities
+- **Abstraction**: Unified interface สำหรับ LLM providers ต่างๆ
+- **Composability**: Chain components เข้าด้วยกันได้ง่าย
+- **RAG Ready**: Built-in retrieval และ vector store integrations
+- **Production**: LangSmith สำหรับ monitoring และ debugging
 
-### 1. Environment Setup
-- Install LangChain and dependencies
-- Configure vector store backends (FAISS, Chroma, Pinecone)
-- Set up API keys and environment variables
-- Validate installation and connectivity
+---
 
-### 2. RAG Chain Patterns
-- Document loaders (PDF, CSV, JSON, Web)
-- Text splitting strategies
-- Embedding models (OpenAI, HuggingFace, Cohere)
-- Vector store integration
-- Retrieval chains (basic, conversational, multi-query)
-- Self-querying retrievers
+## Core Concepts
 
-### 3. LangGraph Workflows
-- Stateful multi-actor applications
-- Graph-based agent orchestration
-- Conditional routing and loops
-- State management patterns
-- Human-in-the-loop workflows
+### 1. Basic Setup
 
-### 4. LangSmith Integration
-- Tracing and debugging
-- Evaluation datasets
-- Performance monitoring
-- Production observability
+```typescript
+// lib/langchain.ts
+import { ChatOpenAI } from '@langchain/openai';
+import { ChatAnthropic } from '@langchain/anthropic';
+import { StringOutputParser } from '@langchain/core/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
 
-## Directory Structure
+// Initialize models
+export const openai = new ChatOpenAI({
+  modelName: 'gpt-4-turbo-preview',
+  temperature: 0,
+  openAIApiKey: process.env.OPENAI_API_KEY,
+});
 
-```
-langchain-patterns/
-├── SKILL.md                          # This file
-├── scripts/
-│   ├── setup-langchain.sh            # Install dependencies
-│   ├── create-vectorstore.sh         # Vector store setup
-│   └── test-langchain.sh             # Validation tests
-├── templates/
-│   ├── rag-chain.py                  # Basic RAG chain template
-│   ├── langgraph-workflow.py         # LangGraph agent workflow
-│   └── langsmith-integration.py      # Observability template
-└── examples/
-    ├── conversational-retrieval.py   # Conversational RAG
-    ├── multi-query-retrieval.py      # Multi-query retrieval
-    └── self-querying-retrieval.py    # Self-querying retriever
+export const claude = new ChatAnthropic({
+  modelName: 'claude-3-opus-20240229',
+  temperature: 0,
+  anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+// Simple chain
+const prompt = ChatPromptTemplate.fromMessages([
+  ['system', 'You are a helpful assistant that translates {input_language} to {output_language}.'],
+  ['human', '{text}'],
+]);
+
+const chain = prompt.pipe(openai).pipe(new StringOutputParser());
+
+// Usage
+const result = await chain.invoke({
+  input_language: 'English',
+  output_language: 'Thai',
+  text: 'Hello, how are you?',
+});
 ```
 
-## Scripts
+### 2. Structured Output
 
-### setup-langchain.sh
+```typescript
+import { z } from 'zod';
+import { StructuredOutputParser } from 'langchain/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
 
-Installs LangChain and common dependencies for RAG applications.
+// Define schema
+const productSchema = z.object({
+  name: z.string().describe('Product name'),
+  description: z.string().describe('Product description'),
+  price: z.number().describe('Price in USD'),
+  category: z.enum(['electronics', 'clothing', 'food', 'other']),
+  tags: z.array(z.string()).describe('Product tags'),
+});
 
-**Usage:**
-```bash
-bash scripts/setup-langchain.sh [--all|--minimal|--vectorstore]
+const parser = StructuredOutputParser.fromZodSchema(productSchema);
+
+const prompt = ChatPromptTemplate.fromMessages([
+  ['system', `Extract product information from the text.
+{format_instructions}`],
+  ['human', '{text}'],
+]);
+
+const chain = prompt.pipe(openai).pipe(parser);
+
+const result = await chain.invoke({
+  text: 'New iPhone 15 Pro, amazing camera, $999, perfect for photography enthusiasts',
+  format_instructions: parser.getFormatInstructions(),
+});
+
+// result: { name: 'iPhone 15 Pro', description: '...', price: 999, category: 'electronics', tags: ['photography', 'camera'] }
 ```
 
-**Options:**
-- `--all`: Install full suite (LangChain, LangGraph, LangSmith, all vector stores)
-- `--minimal`: Core LangChain only
-- `--vectorstore <name>`: Install specific vector store (faiss, chroma, pinecone, qdrant)
+### 3. RAG (Retrieval-Augmented Generation)
 
-**Environment Variables:**
-- `OPENAI_API_KEY`: OpenAI API key
-- `ANTHROPIC_API_KEY`: Anthropic API key
-- `LANGSMITH_API_KEY`: LangSmith API key (optional)
+```typescript
+import { OpenAIEmbeddings } from '@langchain/openai';
+import { SupabaseVectorStore } from '@langchain/community/vectorstores/supabase';
+import { createClient } from '@supabase/supabase-js';
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
+import { createRetrievalChain } from 'langchain/chains/retrieval';
+import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 
-### create-vectorstore.sh
+// Setup vector store
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY!
+);
 
-Creates and populates a vector store from documents.
+const embeddings = new OpenAIEmbeddings({
+  openAIApiKey: process.env.OPENAI_API_KEY,
+});
 
-**Usage:**
-```bash
-bash scripts/create-vectorstore.sh <store_type> <documents_path> <output_path>
+const vectorStore = new SupabaseVectorStore(embeddings, {
+  client: supabase,
+  tableName: 'documents',
+  queryName: 'match_documents',
+});
+
+// Index documents
+async function indexDocuments(documents: string[]) {
+  const splitter = new RecursiveCharacterTextSplitter({
+    chunkSize: 1000,
+    chunkOverlap: 200,
+  });
+
+  const docs = await splitter.createDocuments(documents);
+  await vectorStore.addDocuments(docs);
+}
+
+// Create RAG chain
+const retriever = vectorStore.asRetriever({
+  k: 5,
+  searchType: 'similarity',
+});
+
+const qaPrompt = ChatPromptTemplate.fromMessages([
+  ['system', `Answer the question based on the following context:
+
+{context}
+
+If you don't know the answer, say "I don't have enough information to answer that."`],
+  ['human', '{input}'],
+]);
+
+const documentChain = await createStuffDocumentsChain({
+  llm: openai,
+  prompt: qaPrompt,
+});
+
+const ragChain = await createRetrievalChain({
+  combineDocsChain: documentChain,
+  retriever,
+});
+
+// Usage
+const response = await ragChain.invoke({
+  input: 'What is our refund policy?',
+});
+
+console.log(response.answer);
+console.log(response.context); // Source documents
 ```
 
-**Parameters:**
-- `store_type`: Vector store type (faiss, chroma, pinecone, qdrant)
-- `documents_path`: Path to documents directory or file
-- `output_path`: Where to save the vector store
+### 4. Conversational Memory
 
-**Environment Variables:**
-- `EMBEDDING_MODEL`: Embedding model to use (default: text-embedding-3-small)
-- `CHUNK_SIZE`: Text chunk size (default: 1000)
-- `CHUNK_OVERLAP`: Chunk overlap (default: 200)
+```typescript
+import { BufferMemory, ConversationSummaryMemory } from 'langchain/memory';
+import { ConversationChain } from 'langchain/chains';
+import { UpstashRedisChatMessageHistory } from '@langchain/community/stores/message/upstash_redis';
 
-### test-langchain.sh
+// Simple buffer memory
+const bufferMemory = new BufferMemory({
+  returnMessages: true,
+  memoryKey: 'history',
+});
 
-Validates LangChain installation and configuration.
+// Redis-backed memory (for production)
+const redisMemory = new BufferMemory({
+  chatHistory: new UpstashRedisChatMessageHistory({
+    sessionId: `user-${userId}-session-${sessionId}`,
+    config: {
+      url: process.env.UPSTASH_REDIS_URL!,
+      token: process.env.UPSTASH_REDIS_TOKEN!,
+    },
+  }),
+  returnMessages: true,
+  memoryKey: 'history',
+});
 
-**Usage:**
-```bash
-bash scripts/test-langchain.sh [--verbose]
+// Summary memory (for long conversations)
+const summaryMemory = new ConversationSummaryMemory({
+  llm: openai,
+  returnMessages: true,
+});
+
+// Conversation chain with memory
+const conversationChain = new ConversationChain({
+  llm: openai,
+  memory: redisMemory,
+  verbose: true,
+});
+
+// Multi-turn conversation
+await conversationChain.call({ input: 'My name is John' });
+await conversationChain.call({ input: 'What is my name?' }); // Remembers "John"
 ```
 
-**Tests:**
-- ✓ LangChain installation
-- ✓ API key configuration
-- ✓ Vector store connectivity
-- ✓ Embedding model access
-- ✓ LLM connectivity
-- ✓ LangSmith connection (if configured)
+### 5. Agents with Tools
 
-## Templates
+```typescript
+import { ChatOpenAI } from '@langchain/openai';
+import { createOpenAIFunctionsAgent, AgentExecutor } from 'langchain/agents';
+import { DynamicTool, DynamicStructuredTool } from '@langchain/core/tools';
+import { pull } from 'langchain/hub';
+import { z } from 'zod';
 
-### rag-chain.py
+// Define tools
+const searchTool = new DynamicTool({
+  name: 'search',
+  description: 'Search the web for current information',
+  func: async (query: string) => {
+    // Implement search logic
+    const results = await searchWeb(query);
+    return JSON.stringify(results);
+  },
+});
 
-Basic RAG chain template with document loading, vector store, and retrieval.
+const calculatorTool = new DynamicStructuredTool({
+  name: 'calculator',
+  description: 'Perform mathematical calculations',
+  schema: z.object({
+    expression: z.string().describe('Mathematical expression to evaluate'),
+  }),
+  func: async ({ expression }) => {
+    try {
+      const result = eval(expression); // Use a safe math parser in production
+      return `Result: ${result}`;
+    } catch (error) {
+      return `Error: Invalid expression`;
+    }
+  },
+});
 
-**Features:**
-- Document loading from multiple formats
-- Text splitting with configurable chunks
-- Vector store creation and persistence
-- Basic retrieval chain
-- Conversation memory (optional)
+const databaseTool = new DynamicStructuredTool({
+  name: 'query_database',
+  description: 'Query the product database',
+  schema: z.object({
+    query: z.string().describe('Search query for products'),
+    category: z.string().optional().describe('Filter by category'),
+    maxPrice: z.number().optional().describe('Maximum price filter'),
+  }),
+  func: async ({ query, category, maxPrice }) => {
+    const products = await prisma.product.findMany({
+      where: {
+        name: { contains: query, mode: 'insensitive' },
+        ...(category && { category }),
+        ...(maxPrice && { price: { lte: maxPrice } }),
+      },
+      take: 5,
+    });
+    return JSON.stringify(products);
+  },
+});
 
-**Usage:**
-```python
-from templates.rag_chain import RAGChain
+// Create agent
+const tools = [searchTool, calculatorTool, databaseTool];
+const prompt = await pull<ChatPromptTemplate>('hwchase17/openai-functions-agent');
 
-# Initialize RAG chain
-rag = RAGChain(
-    documents_path="./docs",
-    vectorstore_path="./vectorstore",
-    chunk_size=1000,
-    chunk_overlap=200
-)
+const agent = await createOpenAIFunctionsAgent({
+  llm: openai,
+  tools,
+  prompt,
+});
 
-# Load and index documents
-rag.load_documents()
+const agentExecutor = new AgentExecutor({
+  agent,
+  tools,
+  verbose: true,
+  maxIterations: 5,
+});
 
-# Query
-result = rag.query("What are the main features?")
-print(result)
+// Usage
+const result = await agentExecutor.invoke({
+  input: 'Find me a laptop under $1000 and calculate the price with 10% tax',
+});
 ```
 
-### langgraph-workflow.py
+### 6. Streaming
 
-LangGraph workflow template for multi-step agent orchestration.
+```typescript
+import { ChatOpenAI } from '@langchain/openai';
+import { StringOutputParser } from '@langchain/core/output_parsers';
 
-**Features:**
-- State management
-- Conditional routing
-- Tool integration
-- Error handling and retries
-- Human-in-the-loop approval
+const model = new ChatOpenAI({
+  modelName: 'gpt-4-turbo-preview',
+  streaming: true,
+});
 
-**Usage:**
-```python
-from templates.langgraph_workflow import create_workflow
+// Stream with callbacks
+const stream = await model.stream('Write a story about a robot');
 
-# Create workflow
-workflow = create_workflow(
-    llm=llm,
-    tools=tools,
-    checkpointer=MemorySaver()
-)
+for await (const chunk of stream) {
+  process.stdout.write(chunk.content);
+}
 
-# Execute
-result = workflow.invoke({
-    "messages": [HumanMessage(content="Analyze this document")]
-})
+// Stream in Next.js API route
+// app/api/chat/route.ts
+import { StreamingTextResponse, LangChainStream } from 'ai';
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  
+  const { stream, handlers } = LangChainStream();
+  
+  const chain = prompt.pipe(model).pipe(new StringOutputParser());
+  
+  chain.invoke(
+    { messages },
+    { callbacks: [handlers] }
+  );
+  
+  return new StreamingTextResponse(stream);
+}
 ```
 
-### langsmith-integration.py
+### 7. Document Loaders
 
-LangSmith integration template for tracing and evaluation.
+```typescript
+import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
+import { CSVLoader } from 'langchain/document_loaders/fs/csv';
+import { WebBaseLoader } from 'langchain/document_loaders/web/web_base';
+import { NotionAPILoader } from 'langchain/document_loaders/web/notionapi';
+import { GithubRepoLoader } from 'langchain/document_loaders/web/github';
 
-**Features:**
-- Automatic tracing
-- Custom run names and tags
-- Evaluation datasets
-- Feedback collection
-- Performance metrics
+// Load PDF
+const pdfLoader = new PDFLoader('path/to/document.pdf', {
+  splitPages: true,
+});
+const pdfDocs = await pdfLoader.load();
 
-**Usage:**
-```python
-from templates.langsmith_integration import LangSmithTracer
+// Load CSV
+const csvLoader = new CSVLoader('path/to/data.csv', {
+  column: 'text', // Column to use as page content
+});
+const csvDocs = await csvLoader.load();
 
-# Initialize tracer
-tracer = LangSmithTracer(
-    project_name="rag-pipeline",
-    tags=["production", "v1"]
-)
+// Load from web
+const webLoader = new WebBaseLoader('https://example.com/article');
+const webDocs = await webLoader.load();
 
-# Trace chain execution
-with tracer.trace("rag-query"):
-    result = chain.invoke({"query": "..."})
+// Load from Notion
+const notionLoader = new NotionAPILoader({
+  clientOptions: {
+    auth: process.env.NOTION_API_KEY,
+  },
+  id: 'page-or-database-id',
+  type: 'page',
+});
+const notionDocs = await notionLoader.load();
+
+// Load from GitHub repo
+const githubLoader = new GithubRepoLoader(
+  'https://github.com/username/repo',
+  {
+    branch: 'main',
+    recursive: true,
+    unknown: 'warn',
+    accessToken: process.env.GITHUB_TOKEN,
+  }
+);
+const repoDocs = await githubLoader.load();
 ```
 
-## Examples
+### 8. LangSmith Integration (Production Monitoring)
 
-### conversational-retrieval.py
+```typescript
+// Enable tracing
+process.env.LANGCHAIN_TRACING_V2 = 'true';
+process.env.LANGCHAIN_API_KEY = 'your-langsmith-api-key';
+process.env.LANGCHAIN_PROJECT = 'my-project';
 
-Complete conversational retrieval system with memory.
+// Or configure programmatically
+import { Client } from 'langsmith';
+import { LangChainTracer } from 'langchain/callbacks';
 
-**Features:**
-- Conversation history management
-- Context-aware retrieval
-- Follow-up question handling
-- Source citation
+const client = new Client({
+  apiKey: process.env.LANGSMITH_API_KEY,
+});
 
-**Run:**
-```bash
-python examples/conversational-retrieval.py --docs ./docs --query "Tell me about RAG"
+const tracer = new LangChainTracer({
+  projectName: 'my-project',
+  client,
+});
+
+// Use with any chain
+const result = await chain.invoke(
+  { input: 'Hello' },
+  { callbacks: [tracer] }
+);
+
+// Evaluate runs
+import { evaluate } from 'langsmith/evaluation';
+
+await evaluate(
+  (input) => chain.invoke(input),
+  {
+    data: 'my-dataset-name',
+    evaluators: [
+      // Custom evaluators
+      async ({ run, example }) => {
+        const score = calculateScore(run.outputs, example.outputs);
+        return { key: 'accuracy', score };
+      },
+    ],
+  }
+);
 ```
 
-### multi-query-retrieval.py
+## Quick Start
 
-Multi-query retrieval for better coverage.
+1. **Install packages:**
+   ```bash
+   npm install langchain @langchain/openai @langchain/community
+   ```
 
-**Features:**
-- Query expansion from single question
-- Parallel retrieval across queries
-- Result deduplication
-- Ranked fusion
+2. **Set environment variables:**
+   ```bash
+   OPENAI_API_KEY=sk-...
+   LANGCHAIN_TRACING_V2=true
+   LANGCHAIN_API_KEY=ls-...
+   ```
 
-**Run:**
-```bash
-python examples/multi-query-retrieval.py --docs ./docs --query "What is LangChain?"
-```
+3. **Create a simple chain:**
+   ```typescript
+   import { ChatOpenAI } from '@langchain/openai';
+   import { ChatPromptTemplate } from '@langchain/core/prompts';
+   
+   const chain = ChatPromptTemplate
+     .fromTemplate('Tell me a joke about {topic}')
+     .pipe(new ChatOpenAI())
+     .pipe(new StringOutputParser());
+   
+   const joke = await chain.invoke({ topic: 'programming' });
+   ```
 
-### self-querying-retrieval.py
+## Production Checklist
 
-Self-querying retriever with metadata filtering.
+- [ ] LangSmith tracing enabled
+- [ ] Error handling and retries configured
+- [ ] Rate limiting implemented
+- [ ] Caching layer for embeddings
+- [ ] Token usage monitoring
+- [ ] Fallback models configured
+- [ ] Input validation
+- [ ] Output validation/guardrails
 
-**Features:**
-- Natural language to structured query
-- Metadata filter generation
-- Semantic + metadata search
-- Filter validation
+## Anti-patterns
 
-**Run:**
-```bash
-python examples/self-querying-retrieval.py --docs ./docs --query "Recent papers about transformers"
-```
+1. **No streaming for long responses**: Always stream for better UX
+2. **Ignoring token limits**: Monitor and handle context length
+3. **No error handling**: LLM calls can fail - handle gracefully
+4. **Hardcoded prompts**: Use prompt templates and versioning
 
-## Common Patterns
+## Integration Points
 
-### Pattern 1: Basic RAG Pipeline
+- **Vector Stores**: Pinecone, Supabase, Chroma, Weaviate
+- **LLMs**: OpenAI, Anthropic, Google, Cohere, local models
+- **Memory**: Redis, PostgreSQL, in-memory
+- **Tools**: Custom APIs, databases, search engines
 
-```python
-from langchain_community.document_loaders import DirectoryLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain_openai import ChatOpenAI
-from langchain.chains import RetrievalQA
+## Further Reading
 
-# Load documents
-loader = DirectoryLoader("./docs", glob="**/*.pdf")
-documents = loader.load()
-
-# Split
-splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-chunks = splitter.split_documents(documents)
-
-# Embed and store
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-vectorstore = FAISS.from_documents(chunks, embeddings)
-
-# Create chain
-llm = ChatOpenAI(model="gpt-4", temperature=0)
-chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    retriever=vectorstore.as_retriever()
-)
-
-# Query
-result = chain.invoke({"query": "What is RAG?"})
-```
-
-### Pattern 2: Conversational RAG
-
-```python
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-
-memory = ConversationBufferMemory(
-    memory_key="chat_history",
-    return_messages=True
-)
-
-chain = ConversationalRetrievalChain.from_llm(
-    llm=llm,
-    retriever=vectorstore.as_retriever(),
-    memory=memory
-)
-
-# Chat
-result1 = chain({"question": "What is LangChain?"})
-result2 = chain({"question": "How do I use it?"})  # Uses context
-```
-
-### Pattern 3: LangGraph Agent
-
-```python
-from langgraph.graph import StateGraph, END
-from typing import TypedDict, Annotated
-
-class AgentState(TypedDict):
-    messages: Annotated[list, "messages"]
-    documents: list
-
-def retrieve(state):
-    docs = vectorstore.similarity_search(state["messages"][-1])
-    return {"documents": docs}
-
-def generate(state):
-    response = llm.invoke(state["messages"] + state["documents"])
-    return {"messages": state["messages"] + [response]}
-
-workflow = StateGraph(AgentState)
-workflow.add_node("retrieve", retrieve)
-workflow.add_node("generate", generate)
-workflow.set_entry_point("retrieve")
-workflow.add_edge("retrieve", "generate")
-workflow.add_edge("generate", END)
-
-app = workflow.compile()
-```
-
-## Vector Store Comparison
-
-| Store | Local | Cloud | Best For |
-|-------|-------|-------|----------|
-| FAISS | ✓ | ✗ | Development, single-machine |
-| Chroma | ✓ | ✓ | Local development, small datasets |
-| Pinecone | ✗ | ✓ | Production, large scale |
-| Qdrant | ✓ | ✓ | Hybrid, metadata filtering |
-
-## Troubleshooting
-
-### Import Errors
-
-```bash
-# Use langchain_community for loaders and stores
-from langchain_community.document_loaders import PDFLoader
-from langchain_community.vectorstores import FAISS
-
-# Use langchain_openai for OpenAI integrations
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-```
-
-### API Key Issues
-
-```bash
-export OPENAI_API_KEY="sk-..."
-export ANTHROPIC_API_KEY="sk-ant-..."
-export LANGSMITH_API_KEY="lsv2_pt_..."  # Optional
-```
-
-### Vector Store Persistence
-
-```python
-# Save
-vectorstore.save_local("./my_vectorstore")
-
-# Load
-vectorstore = FAISS.load_local(
-    "./my_vectorstore",
-    embeddings,
-    allow_dangerous_deserialization=True  # Only if you trust the source
-)
-```
-
-## Best Practices
-
-1. **Chunk Size**: Start with 1000 tokens, adjust based on domain
-2. **Overlap**: 10-20% of chunk size for context continuity
-3. **Embeddings**: Use OpenAI text-embedding-3-small for cost/performance balance
-4. **Retrieval**: Start with k=4 documents, increase if needed
-5. **Memory**: Use ConversationBufferWindowMemory for long conversations
-6. **Tracing**: Always enable LangSmith in production
-7. **Error Handling**: Wrap chains in try/except, log failures
-8. **Caching**: Cache embeddings and vector stores to reduce API calls
-
-## Resources
-
-- **LangChain Docs**: https://docs.langchain.com/oss/python/langchain/overview
-- **LangGraph Docs**: https://docs.langchain.com/oss/python/langgraph/
-- **LangSmith Docs**: https://docs.langchain.com/langsmith/home
-- **Cookbooks**: https://github.com/langchain-ai/langchain/tree/master/cookbook
-- **Templates**: https://github.com/langchain-ai/langchain/tree/master/templates
-
-## Implementation Workflow
-
-When using this skill:
-
-1. **Setup**: Run `setup-langchain.sh` to install dependencies
-2. **Configure**: Set API keys in environment
-3. **Choose Pattern**: Select template based on use case
-4. **Load Documents**: Use appropriate document loaders
-5. **Create Vector Store**: Run `create-vectorstore.sh` or use template
-6. **Build Chain**: Implement retrieval logic
-7. **Test**: Run `test-langchain.sh` to validate
-8. **Iterate**: Adjust chunk size, retrieval params based on results
-9. **Add Observability**: Integrate LangSmith for production
-10. **Deploy**: Monitor with LangSmith, optimize based on metrics
-
-## Advanced Features
-
-### Multi-Modal RAG
-- Image embeddings with CLIP
-- Audio transcription with Whisper
-- Video frame analysis
-
-### Hybrid Search
-- Combine semantic + keyword search
-- BM25 + vector similarity
-- Metadata filtering
-
-### Agent Tools
-- Web search integration
-- API calls within chains
-- Code execution tools
-
-### Production Optimization
-- Async operations for speed
-- Batch processing for scale
-- Caching strategies
-- Rate limiting
-
-This skill provides everything needed to build production-ready RAG applications with LangChain, from basic retrieval to advanced agent workflows with full observability.
+- [LangChain Documentation](https://js.langchain.com/docs)
+- [LangSmith](https://smith.langchain.com/)
+- [LangChain Templates](https://github.com/langchain-ai/langchain/tree/master/templates)

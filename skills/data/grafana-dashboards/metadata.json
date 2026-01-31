@@ -1,7 +1,7 @@
 {
   "name": "grafana-dashboards",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/observability-monitoring/skills/grafana-dashboards/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:43.155661Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/observability-monitoring/skills/grafana-dashboards/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-31T03:36:52.115243Z"
 }

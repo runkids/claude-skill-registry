@@ -1,9 +1,7 @@
 {
   "name": "variance-analysis",
-  "description": "Use to attribute forecast vs actual deltas and recommend remediation actions.",
-  "repo": "gtmagents/gtm-agents",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/skills/_available/finance/variance-analysis/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-01-31T03:28:18.261961Z"
 }

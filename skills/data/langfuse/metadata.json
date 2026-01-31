@@ -1,7 +1,7 @@
 {
   "name": "langfuse",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/langfuse/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-30T03:47:35.179597Z"
+  "repo": "avivsinai/langfuse-mcp",
+  "path": ".claude/skills/langfuse/SKILL.md",
+  "source": "github.com/avivsinai/langfuse-mcp",
+  "downloaded_at": "2026-01-31T04:39:45.344580Z"
 }

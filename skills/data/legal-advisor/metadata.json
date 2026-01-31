@@ -1,7 +1,7 @@
 {
   "name": "legal-advisor",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/legal-advisor/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-01-30T04:17:04.357053Z"
+  "repo": "lotosbin/claude-skills",
+  "path": ".claude/skills/legal-advisor/Skill.md",
+  "source": "github.com/lotosbin/claude-skills",
+  "downloaded_at": "2026-01-31T04:05:53.597640Z"
 }

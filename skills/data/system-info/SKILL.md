@@ -1,45 +1,21 @@
 ---
 name: system-info
-description: 获取系统信息，包括CPU、内存、磁盘、网络和进程详情。
+description: Get system information using executable scripts
+license: MIT
 metadata:
-  short-description: 系统信息
-source:
-  repository: https://github.com/giampaolo/psutil
-  license: BSD-3-Clause
+  version: "1.0.0"
+  author: agno
 ---
+# System Info Skill
 
-# System Info Tool
+This skill provides scripts to gather system information.
 
-## Description
-Get detailed system information including CPU, memory, disk usage, network stats, and running processes.
+## Available Scripts
 
-## Trigger
-- `/sysinfo` command
-- User needs system information
-- User wants to check resources
+- `get_system_info.py` - Returns basic system information (OS, Python version, current time)
+- `list_directory.py` - Lists files in a specified directory
 
 ## Usage
 
-```bash
-# Full system overview
-python scripts/system_info.py
-
-# CPU information
-python scripts/system_info.py --cpu
-
-# Memory usage
-python scripts/system_info.py --memory
-
-# Disk usage
-python scripts/system_info.py --disk
-
-# Running processes
-python scripts/system_info.py --processes --top 10
-```
-
-## Tags
-`system`, `cpu`, `memory`, `disk`, `monitor`
-
-## Compatibility
-- Codex: ✅
-- Claude Code: ✅
+1. Use `run_skill_script("system-info", "get_system_info.py")` to get system information
+2. Use `run_skill_script("system-info", "list_directory.py", args=["path"])` to list a directory

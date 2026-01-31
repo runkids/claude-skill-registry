@@ -1,7 +1,7 @@
 {
   "name": "granola-incident-runbook",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "plugins/saas-packs/granola-pack/skills/granola-incident-runbook/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-27T03:43:09.001623Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/saas-packs/granola-pack/skills/granola-incident-runbook/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:40.726953Z"
 }

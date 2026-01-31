@@ -1,7 +1,7 @@
 {
   "name": "examples",
-  "repo": "StefanMaksimek/dev-challenge-2026",
-  "path": ".claude/skills/skill-generate/examples/user-interview-skill.md",
-  "source": "github.com/StefanMaksimek/dev-challenge-2026",
-  "downloaded_at": "2026-01-30T03:33:52.291139Z"
+  "repo": "FradSer/dotclaude",
+  "path": "plugin-optimizer/examples/instruction-skill.md",
+  "source": "github.com/FradSer/dotclaude",
+  "downloaded_at": "2026-01-31T01:47:19.683297Z"
 }

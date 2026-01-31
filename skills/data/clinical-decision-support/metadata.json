@@ -1,7 +1,7 @@
 {
   "name": "clinical-decision-support",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/clinical-decision-support/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-30T04:13:52.987016Z"
+  "repo": "Victory-Hugo/S2-Agent-Skill",
+  "path": "skills/writing/clinical-decision-support/SKILL.md",
+  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
+  "downloaded_at": "2026-01-31T04:16:22.300914Z"
 }

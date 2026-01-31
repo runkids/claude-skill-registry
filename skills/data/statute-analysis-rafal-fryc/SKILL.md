@@ -4,6 +4,7 @@ description: Guide for reading, interpreting, and applying statutes, regulations
 metadata:
   author: Rafał Stanisław Fryc
   license: AGPL-3.0
+  version: 2026.01.14
 ---
 
 # Statutory Interpretation Guide

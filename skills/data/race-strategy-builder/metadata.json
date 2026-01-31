@@ -1,13 +1,7 @@
 {
   "name": "race-strategy-builder",
-  "description": "Generates pacing and fueling strategies for target races based on current fitness and course constraints.",
   "repo": "nadavyigal/Running-coach-",
-  "category": "development",
-  "tags": [
-    "race",
-    "strategy",
-    "builder"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/race-strategy-builder/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:40.826174Z"
 }

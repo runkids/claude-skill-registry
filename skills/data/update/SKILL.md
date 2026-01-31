@@ -1,142 +1,283 @@
 ---
-name: update-resume
-description: 원본 변경 후 전체 파일 동기화가 필요할 때
+name: update
+description: Use when updating your branch with upstream changes - fetches, merges, and intelligently resolves conflicts
 ---
 
-# 이력서/경력기술서 업데이트
+# Git Update
 
-## 개요
+## Overview
 
-`my_career_data.md` (Single Source of Truth)의 변경사항을 감지하고, 아래 파일들에 STAR+I 형식으로 동기화합니다.
+Update your current branch with changes from the upstream branch, intelligently resolving conflicts when they occur.
 
-## 대상 파일
+**Announce:** "Using git:update to sync your branch with upstream..."
 
-### 1. 핵심 Markdown 파일 (2개)
-1. `docs/career/resume.md` - 간결 이력서
-2. `docs/career/career_portfolio.md` - 상세 경력기술서
+**Philosophy:**
+- Merge (not rebase) to preserve history
+- Understand intent behind conflicting changes
+- Resolve autonomously, present for approval before committing
 
-### 2. 맞춤형 이력서 (formats/) (6개)
-3. `docs/career/formats/TEMPLATE.md` - 템플릿 기본
-4. `private/by-company/startup.md` - 스타트업용
-5. `private/by-company/enterprise.md` - 대기업용
-6. `docs/career/formats/by-domain/fintech.md` - 핀테크용
-7. `docs/career/formats/by-domain/commerce.md` - 커머스용
-8. `docs/career/formats/by-jd/backend_sample.md` - JD 샘플
+## When to Use
 
-### 3. 면접 스크립트 (1개)
-9. `docs/career/interview_script.md` - 면접 답변 스크립트
+- User says "update", "sync", "pull in latest", "merge main"
+- PR has conflicts that need resolving
+- Branch is behind upstream and needs updating
+- User wants to incorporate recent changes from main/master
 
-### 4. Resume HTML 템플릿 (4개)
-10. `templates/resume/default.html`
-11. `templates/resume/minimal.html`
-12. `templates/resume/modern.html`
-13. `templates/resume/corporate.html`
+## Workflow: Detect Upstream
 
-### 5. Career HTML 템플릿 (4개)
-14. `templates/career/default.html`
-15. `templates/career/minimal.html`
-16. `templates/career/modern.html`
-17. `templates/career/corporate.html`
-
-### 6. Work Logs
-18. `docs/career/work-logs/{company}/*.md` - 해당 프로젝트 작업 로그 업데이트
-19. `docs/career/work-logs/README.md` - 인덱스 업데이트
-
-## 실행 단계
-
-### Step 1: 변경사항 확인
-```bash
-git diff docs/career/my_career_data.md
-```
-- 변경된 프로젝트/섹션 식별
-- 변경 범위 결정
-
-### Step 2: 가이드 참조
-- `/write-guide` 스킬 참조 (STAR+I, 시니어 톤, 정량화)
-- STAR+I 형식 준수 확인
-
-### Step 3: 핵심 파일 업데이트
-- `resume.md`, `career_portfolio.md` 변경된 섹션만 정확히 반영
-- 변경되지 않은 부분은 절대 수정 금지
-
-### Step 4: formats/ 폴더 업데이트
-- 맞춤형 이력서 6개 파일 동기화
-- 각 파일의 특성(스타트업/대기업/핀테크/커머스)에 맞게 내용 반영
-
-### Step 5: interview_script.md 업데이트
-- 면접 스크립트의 해당 프로젝트 설명 동기화
-
-### Step 6: HTML 템플릿 업데이트
-- 8개 HTML 템플릿 구조 유지하며 내용만 교체
-
-### Step 7: work-logs 업데이트
-- 변경된 프로젝트의 work-logs 파일도 함께 업데이트
-- work-logs 파일이 없으면 새로 생성
-- README.md 인덱스 확인 및 업데이트
-
-### Step 8: 검증
-- STAR+I 형식 유지 확인
-- 정량적 성과(숫자) 포함 확인
-- 기술 선택 이유(Why) 포함 확인
-
-### Step 9: git add
-- 전체 대상 파일 staging
-- commit은 하지 않음 (사용자 요청 시에만)
+### Step 1: Try tracking branch
 
 ```bash
-# 핵심 파일
-git add docs/career/my_career_data.md
-git add docs/career/resume.md
-git add docs/career/career_portfolio.md
-
-# formats 폴더
-git add docs/career/formats/
-
-# 면접 스크립트
-git add docs/career/interview_script.md
-
-# HTML 템플릿
-git add templates/resume/*.html
-git add templates/career/*.html
-
-# work-logs
-git add docs/career/work-logs/
+git rev-parse --abbrev-ref @{upstream} 2>/dev/null
 ```
 
-## 주의사항
+If this succeeds, use the result (e.g., `origin/main`).
 
-- 변경된 프로젝트/섹션만 업데이트
-- 전체 내용 재작성 금지
-- 사용하지 않은 기술 추가 금지
-- "담당했습니다" 대신 "달성/개선했습니다" 표현 사용
+### Step 2: Fall back to PR base branch
 
-## 체크리스트
+If no tracking branch:
 
-### 변경 전 확인
-- [ ] `git diff docs/career/my_career_data.md` 실행
-- [ ] 변경된 프로젝트/섹션 확인
-- [ ] 기술 선택 이유(Why)가 포함되었는가?
+```bash
+gh pr view --json baseRefName -q '.baseRefName' 2>/dev/null
+```
 
-### 변경 적용
-- [ ] 핵심 파일 업데이트 (resume.md, career_portfolio.md)
-- [ ] formats/ 폴더 6개 파일 업데이트
-- [ ] interview_script.md 업데이트
-- [ ] HTML 템플릿 8개 파일 업데이트 (필요시)
-- [ ] work-logs 해당 프로젝트 파일 업데이트
-- [ ] work-logs/README.md 인덱스 업데이트 (필요시)
-- [ ] STAR+I 형식 그대로 반영 (Impact 포함)
-- [ ] **변경된 섹션만** 교체
+If this succeeds, use `origin/{result}`.
 
-### 검증
-- [ ] 변경된 프로젝트만 업데이트되었는가?
-- [ ] 전체 대상 파일 모두 업데이트되었는가?
-- [ ] STAR+I 형식이 유지되었는가?
-- [ ] 정량적 성과(숫자)가 포함되었는가?
-- [ ] 기술 선택 이유(Why)가 드러나는가?
-- [ ] 비즈니스 임팩트와 연결되는가?
-- [ ] 사용하지 않은 기술이 제거되었는가?
-- [ ] "담당했습니다" 대신 "달성/개선/설계했습니다" 표현 사용?
+### Step 3: Ask user if neither works
 
-### git 작업
-- [ ] git add 완료
-- [ ] git status로 staging 확인
+If both fail, use AskUserQuestion:
+
+```
+I couldn't detect an upstream branch for this branch.
+
+Which branch should I merge from?
+(A) main
+(B) master
+(C) Other - I'll specify
+```
+
+## Workflow: Fetch and Merge
+
+### Step 1: Fetch latest
+
+```bash
+git fetch origin
+```
+
+### Step 2: Check if update needed
+
+```bash
+git rev-list --count HEAD..{upstream}
+```
+
+If count is 0, report "Already up to date with {upstream}" and stop.
+
+### Step 3: Attempt merge
+
+```bash
+git merge {upstream} --no-edit
+```
+
+### Step 4: Branch on result
+
+| Exit Code | Meaning | Action |
+|-----------|---------|--------|
+| 0 | Clean merge | Push and report success |
+| 1 | Conflicts | Proceed to conflict resolution |
+
+**On clean merge:**
+
+```bash
+git push
+```
+
+Report:
+
+```markdown
+## Update Complete
+
+Merged `{upstream}` into `{current-branch}`
+{N} commits pulled in
+Pushed to origin
+```
+
+## Workflow: Conflict Resolution
+
+### Step 1: Inventory conflicts
+
+```bash
+git diff --name-only --diff-filter=U
+```
+
+### Step 2: For each conflicted file, gather context
+
+**Read the conflict:**
+
+```bash
+cat {file}  # Shows conflict markers
+```
+
+**Understand "ours" (your branch):**
+
+```bash
+git log --oneline -5 HEAD -- {file}
+git show HEAD:{file}  # Your version
+```
+
+**Understand "theirs" (upstream):**
+
+```bash
+git log --oneline -5 {upstream} -- {file}
+git show {upstream}:{file}  # Their version
+```
+
+**Get commit messages for context:**
+
+```bash
+# What your commits were doing
+git log --format="%s%n%b" HEAD...$(git merge-base HEAD {upstream}) -- {file}
+
+# What upstream commits were doing
+git log --format="%s%n%b" {upstream}...$(git merge-base HEAD {upstream}) -- {file}
+```
+
+### Step 3: Analyze each conflict
+
+For each conflict, determine the type:
+
+| Type | Description | Resolution Strategy |
+|------|-------------|---------------------|
+| **Independent** | Changes to different parts of file | Keep both changes |
+| **Overlapping** | Same area, different purposes | Blend changes thoughtfully |
+| **Contradictory** | Mutually exclusive changes | Present options to user |
+
+**Analysis approach:**
+
+1. Read both versions and the conflict markers
+2. Use commit messages to understand intent
+3. Identify what each side was trying to accomplish
+4. Determine if changes can coexist or need reconciliation
+
+### Step 4: Resolve conflicts
+
+**For independent changes:**
+- Identify which hunks belong to each side
+- Structure the file to include both changes appropriately
+
+**For overlapping changes:**
+- Understand the newer pattern/approach (usually upstream)
+- Apply your changes using the newer approach
+- Example: If upstream refactored a function, adapt your additions to the new structure
+
+**For contradictory changes:**
+- Do not auto-resolve
+- Present both options to user with context
+
+### Step 5: Present for approval
+
+After resolving, show summary:
+
+```markdown
+## Conflict Resolution Summary
+
+Merged `main` into `feature/my-branch`
+
+### {filename}
+
+**Your changes:** {1-2 sentence summary of what your commits did}
+**Upstream changes:** {1-2 sentence summary of what upstream commits did}
+**Resolution:** {1-2 sentence explanation of how resolved}
+
+```diff
+{Show key parts of the resolution}
+```
+
+---
+
+[Repeat for each file]
+
+---
+
+**Verification:**
+- [ ] No conflict markers remain
+- [ ] File parses correctly (if applicable)
+
+Does this resolution look correct?
+(A) Yes, commit and push
+(B) Let me review/adjust manually
+(C) Show me more context on a specific file
+```
+
+Use AskUserQuestion with these options.
+
+## Workflow: Verification & Completion
+
+### Step 1: Verify no conflict markers
+
+```bash
+grep -rn "^<<<<<<< \|^=======$\|^>>>>>>> " {resolved_files}
+```
+
+If any found, resolution is incomplete - fix before proceeding.
+
+### Step 2: Syntax verification (where practical)
+
+| File Type | Check |
+|-----------|-------|
+| `.json` | `python -m json.tool {file} > /dev/null` |
+| `.yaml`/`.yml` | `python -c "import yaml; yaml.safe_load(open('{file}'))"` |
+| `.ts`/`.tsx` | `npx tsc --noEmit {file}` (if tsconfig exists) |
+| `.py` | `python -m py_compile {file}` |
+
+### Step 3: Commit and push
+
+```bash
+git add {resolved_files}
+git commit -m "Merge {upstream} into {branch}
+
+Resolved conflicts in:
+$(for f in {resolved_files}; do echo "- $f"; done)"
+
+git push
+```
+
+### Step 4: Report completion
+
+```markdown
+## Update Complete
+
+Merged `{upstream}` into `{branch}`
+Resolved {N} conflict(s):
+- {file1}
+- {file2}
+
+Pushed to origin. PR should now be mergeable.
+```
+
+## Edge Cases
+
+| Situation | Handling |
+|-----------|----------|
+| **Binary file conflicts** | Flag for manual resolution: "Binary file {file} has conflicts - please resolve manually" |
+| **Submodule conflicts** | Flag with guidance: "Submodule {name} has conflicts. Usually: accept upstream version or update to specific commit" |
+| **Someone else's branch** | Check with `gh pr view --json author -q '.author.login'`. If not current user, warn: "This is @{author}'s branch. They should be aware of changes. Continue?" |
+| **Too complex to resolve** | Present what was understood, mark specific hunks as needing manual attention |
+| **Merge already in progress** | Detect with `git status` showing "You have unmerged paths". Offer to continue or abort. |
+
+## Quick Reference
+
+| Command | Purpose |
+|---------|---------|
+| `git rev-parse --abbrev-ref @{upstream}` | Get tracking branch |
+| `git merge --abort` | Cancel in-progress merge |
+| `git diff --name-only --diff-filter=U` | List conflicted files |
+| `git checkout --ours {file}` | Take your version entirely |
+| `git checkout --theirs {file}` | Take upstream version entirely |
+| `git show HEAD:{file}` | Your version of file |
+| `git show MERGE_HEAD:{file}` | Upstream version of file |
+
+## Related Skills
+
+- `git:commit` - Commit practices (used after resolution)
+- `git:pull-request` - Creating/updating PRs
+- `git:triage` - Overview of work state

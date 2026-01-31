@@ -1,7 +1,7 @@
 {
   "name": "diagram-generator",
-  "repo": "GBSOSS/ai-drawio",
-  "path": "skills/diagram-generator/SKILL.md",
-  "source": "github.com/GBSOSS/ai-drawio",
-  "downloaded_at": "2026-01-29T04:44:45.339446Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/diagram-generator/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-31T01:37:08.569323Z"
 }

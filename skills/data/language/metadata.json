@@ -1,9 +1,7 @@
 {
   "name": "language",
-  "description": "Research and use customer language across Product and Marketing. Sales Safari methodology for finding watering holes, extracting pain language, and creating \"OH YEAH!\" resonance.",
-  "repo": "majesticlabs-dev/majestic-marketplace",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/majesticlabs-dev/majestic-marketplace"
+  "repo": "ngxtm/devkit",
+  "path": "rules/dart/language/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-31T04:37:24.442511Z"
 }

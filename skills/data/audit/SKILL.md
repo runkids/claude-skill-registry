@@ -1,204 +1,310 @@
 ---
 name: audit
-description: |
-  Comprehensive project audit. Runs all workflow skill audits and produces a
-  consolidated report with GitHub issues for gaps.
-
-  Use when: starting on a new project, periodic health check, onboarding.
-disable-model-invocation: true
-argument-hint: "[focus: all | stripe | observability | quality | docs | llm | changelog]"
+description: Produce a comprehensive audit trail of actions, tools used, changes made, and decision rationale. Use when recording compliance evidence, tracking changes, or documenting decision lineage.
+argument-hint: "[scope] [time_window] [actor] [detail_level]"
+disable-model-invocation: false
+user-invocable: true
+allowed-tools: Read, Grep
+context: fork
+agent: explore
+hooks:
+  PostToolUse:
+    - matcher: "Read"
+      hooks:
+        - type: command
+          command: |
+            # Record audit data access for meta-audit
+            mkdir -p .audit 2>/dev/null || true
+            echo "[AUDIT-READ] $(date -u +%Y-%m-%dT%H:%M:%SZ) | File: {{tool_input.file_path}} | Accessed for audit" >> .audit/audit-meta.log
+    - matcher: "Grep"
+      hooks:
+        - type: command
+          command: |
+            # Record audit search operations
+            mkdir -p .audit 2>/dev/null || true
+            echo "[AUDIT-SEARCH] $(date -u +%Y-%m-%dT%H:%M:%SZ) | Pattern: {{tool_input.pattern}} | Searched for audit" >> .audit/audit-meta.log
 ---
 
-# /audit
+## Live Context
 
-Comprehensive project health check. Runs audit primitives from all major workflows and produces a consolidated report.
+Current audit context:
 
-## What This Does
+- Recent git commits: !`git log --oneline -10 2>/dev/null || echo "No git history"`
+- Git authors today: !`git log --since="midnight" --format="%an" 2>/dev/null | sort | uniq -c || echo "None"`
+- Uncommitted changes: !`git status --short 2>/dev/null || echo "Not a git repo"`
+- Recent file modifications: !`find . -type f -mtime -1 -not -path './.git/*' 2>/dev/null | wc -l | tr -d ' '` files in last 24h
+- Audit log exists: !`ls -la .audit/ 2>/dev/null | head -5 || echo "No .audit/ directory"`
+- Checkpoint log exists: !`ls -la .checkpoints/ 2>/dev/null | head -5 || echo "No .checkpoints/ directory"`
 
-Examines every major infrastructure area, identifies gaps, and creates GitHub issues for remediation. This is your entry point for understanding and improving any project.
+## Intent
 
-## Workflow Skills Audited
+Execute **audit** to create a structured record of actions taken, tools invoked, changes made, and the reasoning behind decisions. This provides accountability, enables investigation of issues, and supports compliance requirements.
 
-| Domain | Skill | What It Checks |
-|--------|-------|----------------|
-| Payments | `/stripe` | Checkout flows, webhooks, subscription UX, env parity |
-| Observability | `/observability` | Sentry, health checks, structured logging, alerts |
-| Quality Gates | `/quality-gates` | Lefthook, Vitest, CI/CD, branch protection |
-| Documentation | `/documentation` | README, architecture, .env.example, ADRs |
-| LLM Infrastructure | `/llm-infrastructure` | Model currency, prompt quality, evals, tracing |
-| Changelog | `/changelog` | semantic-release, commitlint, public page |
-| Virality | `/virality` | OG images, social sharing, referral loops |
+**Success criteria:**
+- Complete chronological record of relevant actions
+- Every action linked to actor, timestamp, and rationale
+- Changes documented with before/after state
+- Provenance chain for all outputs
 
-## Process
+**Compatible schemas:**
+- `schemas/output_schema.yaml`
 
-### 1. Detect Project Type
+## Inputs
 
-```bash
-# Stack detection
-[ -f "package.json" ] && echo "Node.js project"
-[ -f "next.config.js" ] || [ -f "next.config.ts" ] && echo "Next.js"
-[ -f "convex.json" ] && echo "Convex backend"
-grep -q "stripe" package.json 2>/dev/null && echo "Uses Stripe"
-grep -q "langfuse\|openai\|anthropic" package.json 2>/dev/null && echo "Uses LLM"
+| Parameter | Required | Type | Description |
+|-----------|----------|------|-------------|
+| `scope` | Yes | string\|array | What to audit: file paths, action types, or "session" for all |
+| `time_window` | No | object | Start/end timestamps to bound the audit |
+| `actor` | No | string | Filter by specific actor (agent, user, tool) |
+| `detail_level` | No | enum | summary, standard, verbose (default: standard) |
+| `include_diffs` | No | boolean | Whether to include actual change diffs (default: false) |
+
+## Procedure
+
+1) **Define audit scope**: Determine what to include in the audit
+   - Parse scope parameter to identify targets
+   - Apply time_window filter if provided
+   - Identify relevant log sources (git log, tool invocations, file changes)
+
+2) **Collect action records**: Gather all actions within scope
+   - Read git log for commits and their messages
+   - Review tool invocation history if available
+   - Identify file changes (created, modified, deleted)
+   - Record timestamps for each action
+
+3) **Extract decision rationale**: Document the "why" for each action
+   - Link actions to plans or goals that motivated them
+   - Capture assumptions stated before action
+   - Record any constraints that influenced decisions
+
+4) **Build provenance chain**: Track inputs to outputs
+   - For each output, identify its source inputs
+   - Document transformations applied
+   - List dependencies between artifacts
+
+5) **Ground claims**: Attach evidence for all audit entries
+   - Format: `file:line`, `tool:git:commit_hash`, `timestamp`
+   - Include actual command outputs where relevant
+
+6) **Format output**: Structure per audit contract
+
+## Output Contract
+
+Return a structured object:
+
+```yaml
+audit_record:
+  id: string  # Unique audit record ID
+  timestamp: string  # When audit was generated
+  actor: string  # Who/what performed audited actions
+  action_type: string  # Category of actions
+  targets: array[string]  # What was affected
+  outcome: success | failure | partial
+changes:
+  - type: string  # create, modify, delete, execute
+    before: string | null  # Previous state/value
+    after: string | null  # New state/value
+    location: string  # File path or identifier
+    timestamp: string  # When change occurred
+tool_usage:
+  - tool: string  # Tool name
+    invocation_count: integer
+    success_rate: number  # 0.0-1.0
+    commands: array[string]  # Actual commands if verbose
+decision_rationale: string  # Why these actions were taken
+provenance:
+  inputs: array[string]  # Source data/files
+  outputs: array[string]  # Produced artifacts
+  dependencies: array[string]  # External dependencies used
+confidence: number  # 0.0-1.0 (completeness of audit)
+evidence_anchors: ["tool:git:...", "file:..."]
+assumptions: []
 ```
 
-Determine which audits apply based on what exists.
+### Field Definitions
 
-### 2. Run Domain Audits
+| Field | Type | Description |
+|-------|------|-------------|
+| `audit_record.id` | string | Unique identifier for this audit |
+| `audit_record.actor` | string | Who performed the actions |
+| `audit_record.outcome` | enum | Overall result of audited actions |
+| `changes` | array | List of all changes with before/after |
+| `tool_usage` | array | Summary of tools invoked |
+| `decision_rationale` | string | Explanation of why actions were taken |
+| `provenance` | object | Input/output/dependency lineage |
+| `confidence` | number | 0.0-1.0 completeness of audit trail |
+| `evidence_anchors` | array | References to source evidence |
+| `assumptions` | array | What was assumed during audit collection |
 
-For each applicable domain, run the audit check from its skill:
+## Examples
 
-**Quality Gates (always applicable):**
-```bash
-[ -f "lefthook.yml" ] && echo "✓ Lefthook" || echo "✗ Lefthook"
-[ -f "vitest.config.ts" ] || [ -f "vitest.config.js" ] && echo "✓ Vitest" || echo "✗ Vitest"
-[ -f ".github/workflows/ci.yml" ] && echo "✓ CI workflow" || echo "✗ CI workflow"
+### Example 1: Audit Code Change Session
+
+**Input:**
+```yaml
+scope: "session"
+time_window:
+  start: "2024-01-15T14:00:00Z"
+  end: "2024-01-15T16:00:00Z"
+detail_level: standard
+include_diffs: false
 ```
 
-**Documentation (always applicable):**
-```bash
-[ -f "README.md" ] && echo "✓ README" || echo "✗ README"
-[ -f ".env.example" ] && echo "✓ .env.example" || echo "✗ .env.example"
-[ -f "ARCHITECTURE.md" ] || [ -d "docs" ] && echo "✓ Architecture docs" || echo "✗ Architecture docs"
+**Output:**
+```yaml
+audit_record:
+  id: "audit_20240115_160000_session"
+  timestamp: "2024-01-15T16:00:00Z"
+  actor: "claude-agent"
+  action_type: "code_modification"
+  targets:
+    - "src/api/handlers/user.py"
+    - "src/api/handlers/auth.py"
+    - "tests/test_handlers.py"
+  outcome: success
+changes:
+  - type: modify
+    before: "get_user() with inline SQL"
+    after: "get_user() with parameterized query"
+    location: "src/api/handlers/user.py:45-62"
+    timestamp: "2024-01-15T14:45:00Z"
+  - type: modify
+    before: "5 test cases"
+    after: "7 test cases (added SQL injection tests)"
+    location: "tests/test_handlers.py"
+    timestamp: "2024-01-15T15:15:00Z"
+tool_usage:
+  - tool: Read
+    invocation_count: 12
+    success_rate: 1.0
+  - tool: Edit
+    invocation_count: 4
+    success_rate: 1.0
+  - tool: Bash
+    invocation_count: 3
+    success_rate: 1.0
+    commands: ["pytest tests/", "git diff", "git commit"]
+decision_rationale: "Refactored to prevent SQL injection vulnerability identified in security audit. Added parameterized queries and corresponding test coverage."
+provenance:
+  inputs:
+    - "security_audit_report.md"
+    - "src/api/handlers/user.py (original)"
+  outputs:
+    - "src/api/handlers/user.py (modified)"
+    - "tests/test_handlers.py (modified)"
+  dependencies:
+    - "pytest>=7.0"
+    - "psycopg2"
+confidence: 0.95
+evidence_anchors:
+  - "tool:git:abc123def456"
+  - "tool:bash:pytest tests/ - 7 passed"
+  - "file:src/api/handlers/user.py:45"
+assumptions:
+  - "Git log accurately reflects all changes"
+  - "No manual edits outside of tracked session"
 ```
 
-**Observability (production apps):**
-```bash
-grep -r "@sentry" package.json 2>/dev/null && echo "✓ Sentry" || echo "✗ Sentry"
-[ -f "app/api/health/route.ts" ] || [ -f "src/app/api/health/route.ts" ] && echo "✓ Health endpoint" || echo "✗ Health endpoint"
+**Evidence pattern:** Git commit history, tool invocation logs, file diffs.
+
+---
+
+### Example 2: Audit Specific File Changes
+
+**Input:**
+```yaml
+scope: "config/production.yaml"
+detail_level: verbose
+include_diffs: true
 ```
 
-**Stripe (if payment code exists):**
-```bash
-if grep -q "stripe" package.json 2>/dev/null; then
-  grep -q "STRIPE_WEBHOOK_SECRET" .env* 2>/dev/null && echo "✓ Webhook secret" || echo "✗ Webhook secret"
-  grep -r "pending_webhooks" --include="*.ts" . 2>/dev/null && echo "✓ Webhook verification" || echo "⚠ No webhook verification found"
-fi
+**Output:**
+```yaml
+audit_record:
+  id: "audit_20240115_config"
+  timestamp: "2024-01-15T17:00:00Z"
+  actor: "claude-agent"
+  action_type: "configuration_change"
+  targets:
+    - "config/production.yaml"
+  outcome: failure
+changes:
+  - type: modify
+    before: |
+      database:
+        host: db.internal
+        port: 5432
+    after: |
+      database:
+        host: db.external
+        port: 5433
+    location: "config/production.yaml:12-15"
+    timestamp: "2024-01-15T15:30:00Z"
+  - type: rollback
+    before: "(modified config)"
+    after: "(original config)"
+    location: "config/production.yaml"
+    timestamp: "2024-01-15T16:00:00Z"
+tool_usage:
+  - tool: Edit
+    invocation_count: 2
+    success_rate: 0.5
+decision_rationale: "Attempted database migration to external host. Rollback triggered after connection test failed."
+provenance:
+  inputs:
+    - "migration_plan.md"
+    - "config/production.yaml (original)"
+  outputs:
+    - "config/production.yaml (restored to original)"
+  dependencies: []
+confidence: 1.0
+evidence_anchors:
+  - "file:.checkpoints/chk_20240115_150000_config/manifest.json"
+  - "tool:bash:rollback command output"
+assumptions: []
 ```
 
-**LLM Infrastructure (if LLM code exists):**
-```bash
-if grep -qE "openai|anthropic|langfuse" package.json 2>/dev/null; then
-  [ -f "promptfooconfig.yaml" ] && echo "✓ Promptfoo evals" || echo "✗ Promptfoo evals"
-  grep -q "LANGFUSE" .env* 2>/dev/null && echo "✓ Langfuse tracing" || echo "✗ Langfuse tracing"
-fi
-```
+## Verification
 
-**Changelog (if conventional commits desired):**
-```bash
-[ -f ".releaserc.js" ] || [ -f ".releaserc.json" ] && echo "✓ semantic-release" || echo "✗ semantic-release"
-[ -f "commitlint.config.js" ] && echo "✓ commitlint" || echo "✗ commitlint"
-```
+Apply the following verification patterns:
 
-**Virality (if user-facing app):**
-```bash
-grep -r "og:image\|twitter:image" --include="*.tsx" --include="*.ts" . 2>/dev/null | head -1 && echo "✓ OG images" || echo "✗ OG images"
-```
+- [ ] **Evidence Grounding**: All changes linked to evidence_anchors
+- [ ] **Contract Validation**: Output matches audit_record schema
+- [ ] **Completeness Check**: No gaps in timeline for specified time_window
+- [ ] **Provenance Valid**: All inputs and outputs are verifiable
 
-### 3. Compile Report
+**Verification tools:** Read (for log files), Grep (for searching history)
 
-Create a consolidated report showing:
+## Safety Constraints
 
-```markdown
-# Project Audit Report
+- `mutation`: false (audit is read-only observation)
+- `requires_checkpoint`: false
+- `requires_approval`: false
+- `risk`: medium
 
-Generated: [timestamp]
-Project: [name from package.json]
+**Capability-specific rules:**
+- Never modify audited artifacts during audit
+- Preserve original timestamps (do not alter history)
+- Include failed actions, not just successes
+- Redact sensitive information (credentials, PII) from audit output
+- Store audit records in append-only manner when persisting
 
-## Summary
+## Composition Patterns
 
-| Domain | Status | Gaps |
-|--------|--------|------|
-| Quality Gates | ⚠️ Partial | Missing Lefthook |
-| Documentation | ✓ Good | - |
-| Observability | ✗ Missing | Sentry, health check |
-| ... | ... | ... |
+**Commonly follows:**
+- `verify` - After verify PASS, audit the successful changes (CAVR pattern)
+- `act-plan` - Audit what was executed
+- `rollback` - Audit the rollback event itself
 
-## Detailed Findings
+**Commonly precedes:**
+- `summarize` - Summarize audit for stakeholder reporting
+- `persist` - Store audit record for compliance
 
-### Quality Gates
-- ✓ Vitest configured
-- ✗ Lefthook not installed (pre-commit hooks)
-- ✗ CI workflow missing
+**Anti-patterns:**
+- Never skip audit after act-plan (breaks accountability)
+- Never modify artifacts during audit (breaks integrity)
+- Never omit failed actions from audit trail
 
-### Observability
-- ✗ Sentry not configured
-- ✗ Health endpoint missing
-...
-```
-
-### 4. Create GitHub Issues
-
-For each gap, create a GitHub issue:
-
-```bash
-gh issue create \
-  --title "Setup: Add Lefthook for pre-commit hooks" \
-  --body "## From Audit
-
-Run \`/quality-gates\` to implement.
-
-## What's Missing
-- Lefthook configuration
-- Pre-commit hooks (lint, format, typecheck)
-- Pre-push hooks (test, build)
-
-## Reference
-See ~/.claude/skills/quality-gates/skill.md" \
-  --label "setup,quality"
-```
-
-Group related gaps into single issues where sensible.
-
-### 5. Prioritize
-
-Recommend execution order:
-
-1. **Critical** — Security, data integrity (Stripe webhooks, auth)
-2. **High** — Quality gates, CI/CD (prevents future problems)
-3. **Medium** — Observability, documentation (operational hygiene)
-4. **Low** — Virality, changelog (polish)
-
-## Arguments
-
-`$ARGUMENTS` can focus the audit:
-
-- `all` (default) — Run all applicable audits
-- `stripe` — Only Stripe integration
-- `observability` — Only error tracking and monitoring
-- `quality` — Only quality gates and CI/CD
-- `docs` — Only documentation
-- `llm` — Only LLM infrastructure
-- `changelog` — Only release automation
-
-## Output
-
-1. Markdown report printed to console
-2. GitHub issues created for each gap (with user confirmation)
-3. Recommended next steps (which `/skill` to run first)
-
-## Integration with Workflows
-
-After audit, remediate with the corresponding skill:
-
-| Gap Domain | Run This |
-|------------|----------|
-| Stripe | `/stripe` |
-| Observability | `/observability` |
-| Quality Gates | `/quality-gates` |
-| Documentation | `/documentation` |
-| LLM Infrastructure | `/llm-infrastructure` |
-| Changelog | `/changelog` |
-| Virality | `/virality` |
-
-Each skill follows Audit → Plan → Execute → Verify.
-
-## Philosophy
-
-This audit is Claude-native discoverability for your project infrastructure. It surfaces what's missing and connects you to the workflows that fix it.
-
-Run this when:
-- Starting on a new codebase
-- Periodic health checks (monthly)
-- Before major releases
-- Onboarding to understand project state
+**Workflow references:**
+- See `reference/composition_patterns.md#debug-code-change` for audit-after-verify
+- See `reference/composition_patterns.md#digital-twin-sync-loop` for audit in loops

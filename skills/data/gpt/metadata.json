@@ -1,7 +1,7 @@
 {
   "name": "gpt",
-  "repo": "moltbot/skills",
-  "path": "skills/0xterrybit/gpt/SKILL.md",
-  "source": "github.com/moltbot/skills",
-  "downloaded_at": "2026-01-30T03:36:17.598361Z"
+  "repo": "metrovoc/cc-skill-opencode",
+  "path": "skills/gpt/SKILL.md",
+  "source": "github.com/metrovoc/cc-skill-opencode",
+  "downloaded_at": "2026-01-31T04:15:32.325952Z"
 }

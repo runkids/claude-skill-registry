@@ -1,200 +1,130 @@
 ---
-name: dapr-security-scanner
-description: Scans DAPR projects for security issues including plain-text secrets, missing ACLs, insecure configurations, and security best practice violations. Automatically triggers on component file modifications.
+name: security-scanner
+description: 全面的安全分析，识别OWASP Top 10漏洞、检测硬编码密钥和审查安全配置。
+metadata:
+  short-description: 扫描代码安全漏洞
 ---
 
-# DAPR Security Scanner
+# Security Scanner Skill
 
-Proactively scan DAPR configurations for security vulnerabilities and best practice violations.
+## Description
+Perform security-focused code analysis to identify vulnerabilities and security issues.
 
-## When to Activate
+## Trigger
+- `/security` command
+- User requests security review
+- User asks about vulnerabilities
 
-This skill should be invoked:
-- When component YAML files are created or modified
-- When the user asks about security concerns
-- Before deployment to production
-- During code review of DAPR configurations
+## Prompt
 
-## Security Checks
+You are a security expert that identifies vulnerabilities and recommends fixes.
 
-### 1. Plain-Text Secrets Detection
+### SQL Injection Prevention
 
-Scan for hardcoded credentials in component files:
+```typescript
+// ❌ VULNERABLE: SQL Injection
+const query = `SELECT * FROM users WHERE email = '${email}'`;
 
-```yaml
-# BAD - Plain text secret
-- name: connectionString
-  value: "Server=myserver;Password=secret123"
+// ✅ SAFE: Parameterized query
+const query = 'SELECT * FROM users WHERE email = $1';
+const result = await db.query(query, [email]);
 
-# GOOD - Using secret reference
-- name: connectionString
-  secretKeyRef:
-    name: db-secrets
-    key: connectionString
+// ✅ SAFE: Using ORM
+const user = await prisma.user.findUnique({ where: { email } });
 ```
 
-**Check for:**
-- `password`, `secret`, `key`, `token`, `credential` in value fields
-- Connection strings with embedded passwords
-- API keys in plain text
-- Base64-encoded secrets (still exposed)
+### XSS Prevention
 
-### 2. Missing Secret Store References
+```typescript
+// ❌ VULNERABLE: XSS in React (rare but possible)
+<div dangerouslySetInnerHTML={{ __html: userInput }} />
 
-Verify sensitive fields use `secretKeyRef`:
+// ✅ SAFE: Sanitize HTML
+import DOMPurify from 'dompurify';
+<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userInput) }} />
 
-```yaml
-# Required for these field patterns:
-- *password*
-- *secret*
-- *key* (except keyName for crypto)
-- *token*
-- *credential*
-- connectionString
-- accessKey
-- apiKey
+// ✅ SAFE: Use text content (React auto-escapes)
+<div>{userInput}</div>
 ```
 
-### 3. Component Scope Validation
+### Authentication Security
 
-Check that sensitive components have scopes defined:
+```typescript
+// ❌ BAD: Weak password hashing
+const hash = crypto.createHash('md5').update(password).digest('hex');
 
-```yaml
-# Components requiring scopes:
-- secretstores.* - MUST have scopes
-- state.* with sensitive data - SHOULD have scopes
-- pubsub.* - SHOULD have scopes
-- bindings.* with write access - SHOULD have scopes
+// ✅ GOOD: Strong password hashing
+import bcrypt from 'bcrypt';
+const hash = await bcrypt.hash(password, 12);
+const isValid = await bcrypt.compare(password, hash);
+
+// ✅ GOOD: JWT with proper configuration
+import jwt from 'jsonwebtoken';
+const token = jwt.sign(
+  { userId: user.id },
+  process.env.JWT_SECRET!,
+  { expiresIn: '1h', algorithm: 'HS256' }
+);
 ```
 
-### 4. Managed Identity Recommendations
+### Secret Detection Patterns
 
-Flag connection string usage when managed identity is available:
+```typescript
+// ❌ DETECTED: Hardcoded secrets
+const API_KEY = 'sk-1234567890abcdef';
+const password = 'admin123';
+const awsSecret = 'AKIAIOSFODNN7EXAMPLE';
 
-```yaml
-# Azure components should prefer:
-- azureClientId (for managed identity)
-# Over:
-- connectionString
-- accountKey
+// ✅ SAFE: Environment variables
+const API_KEY = process.env.API_KEY;
+const password = process.env.DB_PASSWORD;
 ```
 
-### 5. ACL Configuration
+### Security Headers (Express)
 
-Verify access control is properly configured:
-- Check for `accessControl` in Configuration resources
-- Verify `defaultAction: deny` is set
-- Ensure service-specific policies exist
+```typescript
+import helmet from 'helmet';
 
-### 6. mTLS Configuration
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+  hsts: { maxAge: 31536000, includeSubDomains: true },
+  noSniff: true,
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+}));
 
-Check mutual TLS settings:
-```yaml
-spec:
-  mtls:
-    enabled: true  # Should be true for production
+// CORS configuration
+app.use(cors({
+  origin: ['https://myapp.com'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 ```
 
-### 7. Resiliency Policy Validation
+### Input Validation
 
-Verify resiliency policies exist for production:
-- Check for Resiliency resource
-- Verify circuit breakers for external services
-- Check retry policies have reasonable limits
+```typescript
+import { z } from 'zod';
 
-## Scanning Commands
+const CreateUserSchema = z.object({
+  email: z.string().email().max(255),
+  password: z.string().min(8).max(100),
+  name: z.string().min(1).max(100).regex(/^[a-zA-Z\s]+$/),
+});
 
-### Scan Single File
-```bash
-python scripts/security-scan.py path/to/component.yaml
+// Validate input
+const validated = CreateUserSchema.parse(req.body);
 ```
 
-### Scan All Components
-```bash
-python scripts/security-scan.py components/
-```
+## Tags
+`security`, `vulnerability`, `owasp`, `scanning`, `compliance`
 
-### Generate Report
-```bash
-python scripts/security-scan.py --report security-report.json
-```
-
-## Severity Levels
-
-| Severity | Description | Examples |
-|----------|-------------|----------|
-| CRITICAL | Immediate security risk | Plain-text passwords, exposed API keys |
-| HIGH | Significant vulnerability | Missing scopes on secret stores, no mTLS |
-| MEDIUM | Security improvement needed | No resiliency policies, missing ACLs |
-| LOW | Best practice recommendation | Using connection strings vs managed identity |
-
-## Report Format
-
-```json
-{
-  "scan_time": "2024-01-01T12:00:00Z",
-  "files_scanned": 5,
-  "issues": [
-    {
-      "severity": "CRITICAL",
-      "file": "components/statestore.yaml",
-      "line": 15,
-      "message": "Plain-text password detected in 'redisPassword'",
-      "recommendation": "Use secretKeyRef instead of value"
-    }
-  ],
-  "summary": {
-    "critical": 1,
-    "high": 0,
-    "medium": 2,
-    "low": 3
-  }
-}
-```
-
-## Auto-Fix Capabilities
-
-For common issues, suggest automatic fixes:
-
-### Convert Plain-Text to SecretKeyRef
-```yaml
-# Before
-- name: password
-  value: "mysecret"
-
-# After (suggested)
-- name: password
-  secretKeyRef:
-    name: app-secrets
-    key: password
-```
-
-### Add Missing Scopes
-```yaml
-# Before
-spec:
-  type: secretstores.azure.keyvault
-  ...
-
-# After (suggested)
-spec:
-  type: secretstores.azure.keyvault
-  ...
-scopes:
-  - app-id-1
-```
-
-## Integration with CI/CD
-
-The security scanner can be integrated into CI/CD pipelines:
-
-```yaml
-# GitHub Actions example
-- name: DAPR Security Scan
-  run: python scripts/security-scan.py components/ --fail-on critical
-```
-
-Exit codes:
-- 0: No issues or only LOW severity
-- 1: MEDIUM or higher issues found
-- 2: CRITICAL issues found
+## Compatibility
+- Codex: ✅
+- Claude Code: ✅

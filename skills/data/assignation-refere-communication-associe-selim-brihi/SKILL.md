@@ -4,6 +4,7 @@ description: Rédaction d'assignations en référé devant le tribunal de commer
 metadata:
   author: Sélim Brihi
   license: AGPL-3.0
+  version: 2026.01.23
 ---
 
 # Assignation en Référé - Communication de Documents Sociaux (Article L. 238-1)

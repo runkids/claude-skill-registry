@@ -1,7 +1,7 @@
 {
   "name": "claude-opus-4-5-migration",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/claude-code/claude-opus-4-5-migration/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:08:56.231472Z"
+  "repo": "akiojin/playfab-mcp-server",
+  "path": ".claude/skills/claude-opus-4-5-migration/SKILL.md",
+  "source": "github.com/akiojin/playfab-mcp-server",
+  "downloaded_at": "2026-01-31T03:51:11.267613Z"
 }

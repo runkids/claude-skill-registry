@@ -1,7 +1,7 @@
 {
   "name": "status",
-  "repo": "miles990/multi-agent-workflow",
-  "path": "skills/status/SKILL.md",
-  "source": "github.com/miles990/multi-agent-workflow",
-  "downloaded_at": "2026-01-30T04:40:14.084276Z"
+  "repo": "EtroxTaran/conductor",
+  "path": ".claude/skills/status/SKILL.md",
+  "source": "github.com/EtroxTaran/conductor",
+  "downloaded_at": "2026-01-31T04:41:34.683560Z"
 }

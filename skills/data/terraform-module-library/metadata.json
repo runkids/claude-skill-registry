@@ -1,7 +1,7 @@
 {
   "name": "terraform-module-library",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/cloud-infrastructure/skills/terraform-module-library/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:44.282114Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/cloud-infrastructure/skills/terraform-module-library/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-31T03:36:52.554879Z"
 }

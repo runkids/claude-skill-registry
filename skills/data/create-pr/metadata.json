@@ -1,7 +1,7 @@
 {
   "name": "create-pr",
-  "repo": "Herveff/n8nr",
+  "repo": "n8n-io/n8n",
   "path": ".claude/skills/create-pr/SKILL.md",
-  "source": "github.com/Herveff/n8nr",
-  "downloaded_at": "2026-01-30T03:47:26.370777Z"
+  "source": "github.com/n8n-io/n8n",
+  "downloaded_at": "2026-01-31T04:22:56.475776Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "clay-known-pitfalls",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/plugins/saas-packs/clay-pack/clay-known-pitfalls/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:09:00.537510Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "plugins/saas-packs/clay-pack/skills/clay-known-pitfalls/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-31T03:32:32.478437Z"
 }

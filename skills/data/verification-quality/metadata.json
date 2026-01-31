@@ -1,7 +1,7 @@
 {
   "name": "verification-quality",
-  "repo": "seanchatmangpt/ggen",
+  "repo": "zellycloud/zyflow",
   "path": ".claude/skills/verification-quality/SKILL.md",
-  "source": "github.com/seanchatmangpt/ggen",
-  "downloaded_at": "2026-01-30T03:30:41.432375Z"
+  "source": "github.com/zellycloud/zyflow",
+  "downloaded_at": "2026-01-31T04:44:52.012953Z"
 }

@@ -1,672 +1,470 @@
 ---
-name: Accessibility Patterns
-description: WCAG 2.2 Level AA compliance patterns for Flutter applications including Semantics widgets, screen reader support, keyboard navigation, and color contrast requirements
-version: 1.0.0
+name: accessibility-patterns
+description: Build inclusive web experiences following WCAG guidelines. Covers semantic HTML, ARIA, keyboard navigation, color contrast, and testing strategies. Triggers on accessibility, a11y, WCAG, screen readers, or inclusive design requests.
+license: MIT
 ---
 
-# Accessibility Patterns for Flutter
+# Accessibility Patterns
 
-Complete guide to building accessible Flutter applications that comply with WCAG 2.2 Level AA standards.
+Build for everyone from the start.
 
-## WCAG 2.2 Level AA Requirements
+## Core Principles (POUR)
 
-### Perceivable
-- **Text Alternatives**: Provide alt text for non-text content
-- **Contrast**: 4.5:1 for normal text, 3:1 for large text
-- **Resize Text**: Support 200% zoom
-- **Non-text Contrast**: 3:1 for UI components
+| Principle | Meaning | Example |
+|-----------|---------|---------|
+| **Perceivable** | Users can perceive content | Alt text, captions, contrast |
+| **Operable** | Users can interact | Keyboard access, enough time |
+| **Understandable** | Users can comprehend | Clear language, predictable |
+| **Robust** | Works with assistive tech | Valid HTML, ARIA |
 
-### Operable
-- **Keyboard Accessible**: All functionality via keyboard
-- **Focus Visible**: Clear focus indicators
-- **Target Size**: Minimum 44x44 logical pixels
-- **No Keyboard Trap**: Users can navigate away
+---
 
-### Understandable
-- **Language**: Declare content language
-- **Predictable**: Consistent navigation and identification
-- **Input Assistance**: Labels, error identification, suggestions
+## WCAG Levels
 
-### Robust
-- **Compatible**: Works with assistive technologies
-- **Status Messages**: Announce changes to screen readers
+| Level | Description | Target |
+|-------|-------------|--------|
+| A | Minimum | Must have |
+| AA | Standard | Industry standard, legal requirement |
+| AAA | Enhanced | Nice to have |
 
-## Semantic Widgets
+**Target Level AA** for most projects.
 
-### Basic Semantics
+---
 
-```dart
-// ❌ BAD - No semantic information
-IconButton(
-  icon: Icon(Icons.favorite),
-  onPressed: () => likePage(),
-)
+## Semantic HTML
 
-// ✅ GOOD - Semantic label provided
-Semantics(
-  label: 'Like this page',
-  hint: 'Double tap to like',
-  button: true,
-  enabled: true,
-  child: IconButton(
-    icon: Icon(Icons.favorite),
-    onPressed: () => likePage(),
-  ),
-)
+### Use the Right Element
 
-// ✅ GOOD - Using Tooltip provides semantic label
-Tooltip(
-  message: 'Like this page',
-  child: IconButton(
-    icon: Icon(Icons.favorite),
-    onPressed: () => likePage(),
-  ),
-)
+| Instead of | Use |
+|------------|-----|
+| `<div onclick>` | `<button>` |
+| `<span class="link">` | `<a href>` |
+| `<div class="header">` | `<header>` |
+| `<div class="nav">` | `<nav>` |
+| `<div class="main">` | `<main>` |
+| `<b>` for emphasis | `<strong>` |
+| `<i>` for emphasis | `<em>` |
+
+### Document Structure
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Descriptive Page Title</title>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  
+  <header>
+    <nav aria-label="Main">
+      <!-- navigation -->
+    </nav>
+  </header>
+  
+  <main id="main">
+    <h1>Page Title</h1>
+    <!-- Only one h1 per page -->
+    
+    <article>
+      <h2>Section</h2>
+      <h3>Subsection</h3>
+    </article>
+  </main>
+  
+  <aside aria-label="Related content">
+    <!-- sidebar -->
+  </aside>
+  
+  <footer>
+    <!-- footer content -->
+  </footer>
+</body>
+</html>
 ```
 
-### Semantic Properties
+### Heading Hierarchy
 
-```dart
-Semantics(
-  // Identification
-  label: 'Submit button',           // What it is
-  hint: 'Double tap to submit form', // How to use it
-  value: 'Form is incomplete',       // Current state
+```
+h1 - Page title (one per page)
+  h2 - Major sections
+    h3 - Subsections
+      h4 - Sub-subsections
 
-  // Role
-  button: true,
-  header: false,
-  image: false,
-  link: false,
-  textField: false,
-  slider: false,
-
-  // State
-  enabled: isFormValid,
-  checked: isChecked,
-  selected: isSelected,
-  toggled: isToggled,
-  expanded: isExpanded,
-  hidden: isHidden,
-
-  // Actions
-  onTap: () => submitForm(),
-  onLongPress: () => showOptions(),
-  onScrollUp: () => scrollUp(),
-  onScrollDown: () => scrollDown(),
-  onIncrease: () => increase(),
-  onDecrease: () => decrease(),
-
-  child: ElevatedButton(
-    onPressed: isFormValid ? submitForm : null,
-    child: Text('Submit'),
-  ),
-)
+Never skip levels (h1 → h3)
 ```
 
-### Merging Semantics
+---
 
-```dart
-// Combine multiple widgets into single semantic node
-MergeSemantics(
-  child: Row(
-    children: [
-      Icon(Icons.star, color: Colors.yellow),
-      SizedBox(width: 4),
-      Text('4.5'),
-      SizedBox(width: 4),
-      Text('(120 reviews)'),
-    ],
-  ),
-)
-// Screen reader announces: "4.5 star rating, 120 reviews"
+## Images & Media
 
-// Exclude decorative elements
-ExcludeSemantics(
-  child: Container(
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.grey),
-    ),
-    child: Text('Content'),
-  ),
-)
+### Alt Text
+
+```html
+<!-- Informative image -->
+<img src="chart.png" alt="Bar chart showing sales increased 40% in Q4">
+
+<!-- Decorative image -->
+<img src="decorative-border.png" alt="" role="presentation">
+
+<!-- Complex image -->
+<figure>
+  <img src="complex-diagram.png" alt="System architecture diagram">
+  <figcaption>
+    Detailed description of the system architecture...
+  </figcaption>
+</figure>
+
+<!-- Image as link -->
+<a href="/products">
+  <img src="product.jpg" alt="View our products">
+</a>
 ```
 
-## Screen Reader Support
+### Alt Text Guidelines
 
-### Text Fields with Labels
+| Image Type | Alt Text Strategy |
+|------------|-------------------|
+| Informative | Describe content and function |
+| Decorative | Empty alt="" |
+| Functional | Describe the action |
+| Complex | Brief alt + longer description |
+| Text in image | Include all text |
 
-```dart
-// ✅ GOOD - Implicit label from decoration
-TextField(
-  decoration: InputDecoration(
-    labelText: 'Email',
-    hintText: 'name@example.com',
-  ),
-)
+### Video & Audio
 
-// ✅ GOOD - Explicit semantic label
-Semantics(
-  label: 'Email address',
-  hint: 'Enter your email address',
-  textField: true,
-  child: TextField(
-    decoration: InputDecoration(
-      border: OutlineInputBorder(),
-    ),
-  ),
-)
+```html
+<!-- Video with captions -->
+<video controls>
+  <source src="video.mp4" type="video/mp4">
+  <track kind="captions" src="captions.vtt" srclang="en" label="English">
+  <track kind="descriptions" src="descriptions.vtt" srclang="en" label="Audio descriptions">
+</video>
 
-// ✅ GOOD - Form field with validation
-TextFormField(
-  decoration: InputDecoration(
-    labelText: 'Password',
-    helperText: 'Must be at least 8 characters',
-    errorText: hasError ? 'Password is too short' : null,
-  ),
-  obscureText: true,
-  validator: (value) {
-    if (value == null || value.length < 8) {
-      return 'Password must be at least 8 characters';
-    }
-    return null;
-  },
-)
+<!-- Audio with transcript -->
+<audio controls>
+  <source src="podcast.mp3" type="audio/mpeg">
+</audio>
+<a href="transcript.html">Read transcript</a>
 ```
 
-### Announce Status Changes
+---
 
-```dart
-class FormController extends GetxController {
-  final isSubmitting = false.obs;
-  final submitSuccess = false.obs;
+## Forms
 
-  Future<void> submitForm() async {
-    isSubmitting.value = true;
+### Labels
 
-    // Announce loading state
-    SemanticsService.announce(
-      'Submitting form',
-      TextDirection.ltr,
-    );
+```html
+<!-- Explicit label (preferred) -->
+<label for="email">Email address</label>
+<input type="email" id="email" name="email">
 
-    final result = await repository.submit();
+<!-- Implicit label -->
+<label>
+  Email address
+  <input type="email" name="email">
+</label>
 
-    result.fold(
-      (failure) {
-        SemanticsService.announce(
-          'Error: ${failure.message}',
-          TextDirection.ltr,
-        );
-      },
-      (success) {
-        submitSuccess.value = true;
-        SemanticsService.announce(
-          'Form submitted successfully',
-          TextDirection.ltr,
-        );
-      },
-    );
-
-    isSubmitting.value = false;
-  }
-}
+<!-- Required fields -->
+<label for="name">
+  Name <span aria-hidden="true">*</span>
+  <span class="sr-only">(required)</span>
+</label>
+<input type="text" id="name" required aria-required="true">
 ```
 
-### Live Regions
+### Error Handling
 
-```dart
-// Announce dynamic content changes
-Obx(() => Semantics(
-  liveRegion: true,
-  child: Text('${controller.itemCount} items in cart'),
-))
+```html
+<div role="alert" aria-live="polite">
+  <p>Please fix the following errors:</p>
+  <ul>
+    <li><a href="#email">Email is required</a></li>
+  </ul>
+</div>
+
+<label for="email">Email</label>
+<input 
+  type="email" 
+  id="email" 
+  aria-invalid="true"
+  aria-describedby="email-error"
+>
+<span id="email-error" class="error">Please enter a valid email address</span>
 ```
 
-## Touch Target Sizing
+### Form Groups
 
-### Minimum Size Requirements
-
-```dart
-// ❌ BAD - Touch target too small
-IconButton(
-  iconSize: 16,
-  icon: Icon(Icons.close),
-  onPressed: () => close(),
-)
-
-// ✅ GOOD - Minimum 44x44 logical pixels
-IconButton(
-  iconSize: 24,
-  padding: EdgeInsets.all(10), // Total: 24 + 20 = 44
-  icon: Icon(Icons.close),
-  onPressed: () => close(),
-)
-
-// ✅ GOOD - Wrap small widgets in larger touch target
-GestureDetector(
-  onTap: () => toggle(),
-  child: Container(
-    width: 44,
-    height: 44,
-    alignment: Alignment.center,
-    child: Icon(Icons.check, size: 16),
-  ),
-)
-
-// ✅ GOOD - Adequate spacing between targets
-Row(
-  spacing: 16, // Minimum 8px recommended
-  children: [
-    IconButton(icon: Icon(Icons.edit), onPressed: () => edit()),
-    IconButton(icon: Icon(Icons.delete), onPressed: () => delete()),
-  ],
-)
+```html
+<fieldset>
+  <legend>Shipping Address</legend>
+  
+  <label for="street">Street</label>
+  <input type="text" id="street">
+  
+  <label for="city">City</label>
+  <input type="text" id="city">
+</fieldset>
 ```
 
-## Color Contrast
-
-### Text Contrast Requirements
-
-```dart
-// ✅ GOOD - High contrast text
-Text(
-  'Normal text',
-  style: TextStyle(
-    color: Color(0xFF212121), // #212121 on white = 16.1:1 ✓
-    fontSize: 16,
-  ),
-)
-
-Text(
-  'Large text',
-  style: TextStyle(
-    color: Color(0xFF767676), // #767676 on white = 4.6:1 ✓
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  ),
-)
-
-// ❌ BAD - Insufficient contrast
-Text(
-  'Low contrast text',
-  style: TextStyle(
-    color: Color(0xFFCCCCCC), // #CCCCCC on white = 1.6:1 ✗
-  ),
-)
-```
-
-### UI Component Contrast
-
-```dart
-// ✅ GOOD - Focus indicators with sufficient contrast
-OutlinedButton(
-  style: OutlinedButton.styleFrom(
-    side: BorderSide(
-      color: Color(0xFF0066CC), // 3:1 contrast minimum
-      width: 2,
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
-  ),
-  onPressed: () {},
-  child: Text('Button'),
-)
-
-// ✅ GOOD - Form borders
-TextField(
-  decoration: InputDecoration(
-    border: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Color(0xFF757575), // 3:1 contrast
-      ),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Color(0xFF0066CC),
-        width: 2,
-      ),
-    ),
-  ),
-)
-```
-
-## Focus Management
-
-### Focus Visibility
-
-```dart
-// ✅ GOOD - Default focus ring
-ElevatedButton(
-  onPressed: () {},
-  child: Text('Button'),
-) // Flutter provides default focus indicator
-
-// ✅ GOOD - Custom focus indicator
-Focus(
-  child: Builder(
-    builder: (context) {
-      final isFocused = Focus.of(context).hasFocus;
-      return Container(
-        decoration: BoxDecoration(
-          border: isFocused
-              ? Border.all(color: Colors.blue, width: 3)
-              : null,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text('Button'),
-        ),
-      );
-    },
-  ),
-)
-```
-
-### Focus Order
-
-```dart
-// ✅ GOOD - Explicit focus order with FocusTraversalGroup
-FocusTraversalGroup(
-  policy: OrderedTraversalPolicy(),
-  child: Column(
-    children: [
-      FocusTraversalOrder(
-        order: NumericFocusOrder(1.0),
-        child: TextField(decoration: InputDecoration(labelText: 'First')),
-      ),
-      FocusTraversalOrder(
-        order: NumericFocusOrder(2.0),
-        child: TextField(decoration: InputDecoration(labelText: 'Second')),
-      ),
-      FocusTraversalOrder(
-        order: NumericFocusOrder(3.0),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text('Submit'),
-        ),
-      ),
-    ],
-  ),
-)
-```
-
-### Focus Trapping for Modals
-
-```dart
-class AccessibleDialog extends StatefulWidget {
-  @override
-  State<AccessibleDialog> createState() => _AccessibleDialogState();
-}
-
-class _AccessibleDialogState extends State<AccessibleDialog> {
-  final FocusScopeNode _focusScopeNode = FocusScopeNode();
-
-  @override
-  void initState() {
-    super.initState();
-    // Focus first element when dialog opens
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _focusScopeNode.requestFocus();
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusScopeNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FocusScope(
-      node: _focusScopeNode,
-      child: AlertDialog(
-        title: Text('Confirm Action'),
-        content: Text('Are you sure?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
-          ),
-          ElevatedButton(
-            autofocus: true, // Focus first action
-            onPressed: () {
-              // Perform action
-              Navigator.pop(context);
-            },
-            child: Text('Confirm'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-```
+---
 
 ## Keyboard Navigation
 
-### Standard Keyboard Shortcuts
-
-```dart
-class KeyboardNavigableWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Shortcuts(
-      shortcuts: {
-        LogicalKeySet(LogicalKeyboardKey.space): ActivateIntent(),
-        LogicalKeySet(LogicalKeyboardKey.enter): ActivateIntent(),
-        LogicalKeySet(LogicalKeyboardKey.escape): DismissIntent(),
-      },
-      child: Actions(
-        actions: {
-          ActivateIntent: CallbackAction<ActivateIntent>(
-            onInvoke: (intent) => onActivate(),
-          ),
-          DismissIntent: CallbackAction<DismissIntent>(
-            onInvoke: (intent) => onDismiss(),
-          ),
-        },
-        child: Focus(
-          autofocus: true,
-          child: YourWidget(),
-        ),
-      ),
-    );
-  }
-}
-```
-
-## Accessibility Testing
-
-### Semantic Debugger
-
-```dart
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      showSemanticsDebugger: true, // Enable semantic tree overlay
-      home: HomePage(),
-    );
-  }
-}
-```
-
-### Automated Accessibility Tests
-
-```dart
-testWidgets('Button has semantic label', (tester) async {
-  await tester.pumpWidget(
-    MaterialApp(
-      home: Scaffold(
-        body: Semantics(
-          label: 'Submit form',
-          button: true,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text('Submit'),
-          ),
-        ),
-      ),
-    ),
-  );
-
-  // Verify semantic label
-  expect(
-    tester.getSemantics(find.byType(ElevatedButton)),
-    matchesSemantics(
-      label: 'Submit form',
-      isButton: true,
-    ),
-  );
-});
-
-testWidgets('Touch target meets minimum size', (tester) async {
-  await tester.pumpWidget(
-    MaterialApp(
-      home: IconButton(
-        icon: Icon(Icons.close),
-        onPressed: () {},
-      ),
-    ),
-  );
-
-  final size = tester.getSize(find.byType(IconButton));
-  expect(size.width, greaterThanOrEqualTo(44));
-  expect(size.height, greaterThanOrEqualTo(44));
-});
-```
-
-## Best Practices Checklist
-
-### Semantics
-- [ ] All interactive widgets have semantic labels
-- [ ] Decorative images are excluded from semantics
-- [ ] Complex widgets use `MergeSemantics`
-- [ ] Status changes are announced to screen readers
-- [ ] Form errors are announced
-
-### Touch Targets
-- [ ] All interactive elements ≥ 44x44 logical pixels
-- [ ] Adequate spacing between touch targets (≥ 8px)
-- [ ] Small icons wrapped in larger touch areas
-
-### Color and Contrast
-- [ ] Text contrast ≥ 4.5:1 (normal), ≥ 3:1 (large)
-- [ ] UI component contrast ≥ 3:1
-- [ ] Don't rely on color alone for information
-- [ ] Test with color blindness simulators
-
 ### Focus Management
-- [ ] Clear focus indicators on all interactive elements
-- [ ] Logical focus order (top to bottom, left to right)
-- [ ] No keyboard traps
-- [ ] Modals trap focus within dialog
-- [ ] First element auto-focused when appropriate
 
-### Keyboard Navigation
-- [ ] All functionality accessible via keyboard
-- [ ] Standard shortcuts (Enter, Space, Escape)
-- [ ] Arrow keys for directional navigation
-- [ ] Tab order matches visual order
-
-### Testing
-- [ ] Test with screen readers (TalkBack, VoiceOver)
-- [ ] Test with semantic debugger enabled
-- [ ] Write automated accessibility tests
-- [ ] Test with keyboard only
-- [ ] Test at 200% zoom
-
-## Platform-Specific Considerations
-
-### Android TalkBack
-
-```dart
-// Announce changes
-SemanticsService.announce(
-  'Item added to cart',
-  TextDirection.ltr,
-  assertiveness: Assertiveness.polite,
-);
-```
-
-### iOS VoiceOver
-
-```dart
-// Same API works on iOS
-SemanticsService.announce(
-  'Item added to cart',
-  TextDirection.ltr,
-);
-```
-
-## Common Accessibility Anti-Patterns
-
-### Anti-Pattern 1: Missing Semantic Labels
-
-```dart
-// ❌ BAD
-IconButton(
-  icon: Icon(Icons.favorite),
-  onPressed: () => like(),
-)
-
-// ✅ GOOD
-Tooltip(
-  message: 'Like',
-  child: IconButton(
-    icon: Icon(Icons.favorite),
-    onPressed: () => like(),
-  ),
-)
-```
-
-### Anti-Pattern 2: Insufficient Touch Targets
-
-```dart
-// ❌ BAD - 24x24 too small
-Icon(Icons.close, size: 24)
-
-// ✅ GOOD - Wrapped in 44x44 button
-IconButton(
-  icon: Icon(Icons.close),
-  onPressed: () => close(),
-)
-```
-
-### Anti-Pattern 3: Poor Color Contrast
-
-```dart
-// ❌ BAD - Gray on white (2:1)
-Text('Low contrast', style: TextStyle(color: Color(0xFFAAAAAA)))
-
-// ✅ GOOD - Dark gray on white (7:1)
-Text('Good contrast', style: TextStyle(color: Color(0xFF555555)))
-```
-
-### Anti-Pattern 4: Not Announcing Changes
-
-```dart
-// ❌ BAD - Silent update
-void addToCart(Product product) {
-  cart.add(product);
-  cartCount.value++;
+```css
+/* Never remove focus outline without replacement */
+:focus {
+  outline: 2px solid #005fcc;
+  outline-offset: 2px;
 }
 
-// ✅ GOOD - Announce update
-void addToCart(Product product) {
-  cart.add(product);
-  cartCount.value++;
-  SemanticsService.announce(
-    '${product.name} added to cart',
-    TextDirection.ltr,
-  );
+/* Custom focus style */
+:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+/* Hide outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
 }
 ```
+
+### Tab Order
+
+```html
+<!-- Natural tab order follows DOM order -->
+<!-- Use tabindex only when necessary -->
+
+<button>First</button>
+<button>Second</button>
+<button>Third</button>
+
+<!-- tabindex="0" - adds to tab order -->
+<div tabindex="0" role="button">Custom interactive element</div>
+
+<!-- tabindex="-1" - focusable via JS, not tab -->
+<div tabindex="-1" id="modal">Modal content</div>
+
+<!-- Never use tabindex > 0 -->
+```
+
+### Skip Links
+
+```html
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<style>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px;
+  background: #000;
+  color: #fff;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+</style>
+```
+
+### Keyboard Patterns
+
+| Component | Keys |
+|-----------|------|
+| Buttons | Enter, Space |
+| Links | Enter |
+| Menus | Arrows, Enter, Escape |
+| Tabs | Arrows, Tab |
+| Modals | Tab (trapped), Escape to close |
+
+---
+
+## ARIA
+
+### When to Use ARIA
+
+1. First, use semantic HTML
+2. Then, add ARIA if needed
+3. "No ARIA is better than bad ARIA"
+
+### Common ARIA Patterns
+
+```html
+<!-- Live regions (for dynamic content) -->
+<div aria-live="polite">Content updates will be announced</div>
+<div aria-live="assertive">Urgent updates interrupt</div>
+
+<!-- Expanded/collapsed -->
+<button aria-expanded="false" aria-controls="menu">Menu</button>
+<ul id="menu" hidden>...</ul>
+
+<!-- Current page -->
+<nav>
+  <a href="/" aria-current="page">Home</a>
+  <a href="/about">About</a>
+</nav>
+
+<!-- Busy state -->
+<div aria-busy="true">Loading...</div>
+
+<!-- Hidden from AT -->
+<span aria-hidden="true">👍</span>
+
+<!-- Labels -->
+<button aria-label="Close">×</button>
+<nav aria-label="Main navigation">...</nav>
+<section aria-labelledby="section-heading">
+  <h2 id="section-heading">Section Title</h2>
+</section>
+```
+
+### ARIA Roles
+
+```html
+<!-- Landmarks -->
+<div role="banner">Header</div>
+<div role="navigation">Nav</div>
+<div role="main">Main</div>
+<div role="complementary">Sidebar</div>
+<div role="contentinfo">Footer</div>
+
+<!-- Widgets -->
+<div role="button">Custom button</div>
+<div role="dialog" aria-modal="true">Modal</div>
+<div role="tablist">Tabs</div>
+<div role="alert">Error message</div>
+```
+
+---
+
+## Color & Contrast
+
+### Contrast Requirements
+
+| Text Size | Level AA | Level AAA |
+|-----------|----------|-----------|
+| Normal text (<18px) | 4.5:1 | 7:1 |
+| Large text (≥18px bold, ≥24px) | 3:1 | 4.5:1 |
+| UI components | 3:1 | - |
+
+### Color Independence
+
+```html
+<!-- Don't rely on color alone -->
+
+<!-- Bad -->
+<span style="color: red">Error</span>
+
+<!-- Good -->
+<span style="color: red">
+  ⚠️ Error: <span class="error-text">Please enter a valid email</span>
+</span>
+```
+
+### Testing Tools
+
+- WebAIM Contrast Checker
+- Chrome DevTools color picker
+- Stark (Figma plugin)
+- axe DevTools
+
+---
+
+## Testing
+
+### Automated Testing
+
+```javascript
+// Using jest-axe
+import { axe, toHaveNoViolations } from 'jest-axe';
+
+expect.extend(toHaveNoViolations);
+
+it('should have no accessibility violations', async () => {
+  const { container } = render(<MyComponent />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+### Manual Testing Checklist
+
+- [ ] Navigate entire page with keyboard only
+- [ ] Test with screen reader (VoiceOver, NVDA)
+- [ ] Check color contrast
+- [ ] Zoom to 200% - still usable?
+- [ ] Disable CSS - still understandable?
+- [ ] Check all images have alt text
+- [ ] Verify form labels and errors
+- [ ] Test focus visibility
+- [ ] Check heading structure
+
+### Screen Reader Testing
+
+| OS | Screen Reader | Browser |
+|----|---------------|---------|
+| macOS | VoiceOver | Safari |
+| Windows | NVDA | Firefox |
+| Windows | JAWS | Chrome |
+| Mobile | TalkBack | Chrome |
+| iOS | VoiceOver | Safari |
+
+---
+
+## Common Patterns
+
+### Modal Dialog
+
+```html
+<div 
+  role="dialog" 
+  aria-modal="true" 
+  aria-labelledby="dialog-title"
+  aria-describedby="dialog-desc"
+>
+  <h2 id="dialog-title">Confirm Action</h2>
+  <p id="dialog-desc">Are you sure you want to proceed?</p>
+  
+  <button>Cancel</button>
+  <button>Confirm</button>
+</div>
+```
+
+Focus management:
+1. Move focus to modal on open
+2. Trap focus inside modal
+3. Return focus to trigger on close
+
+### Tabs
+
+```html
+<div role="tablist" aria-label="Settings">
+  <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">
+    General
+  </button>
+  <button role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">
+    Security
+  </button>
+</div>
+
+<div role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+  General settings content
+</div>
+<div role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+  Security settings content
+</div>
+```
+
+---
+
+## References
+
+- `references/wcag-checklist.md` - Full WCAG 2.1 checklist
+- `references/aria-patterns.md` - Common ARIA patterns
+- `references/testing-tools.md` - Testing tool setup

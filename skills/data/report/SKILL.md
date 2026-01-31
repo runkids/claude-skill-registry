@@ -1,159 +1,109 @@
 ---
 name: report
-description: プラグインに関する要望、改善提案、バグ報告を作成する。「バグを報告」「要望を送りたい」「改善提案」「Issue を報告」「フィードバック」「機能リクエスト」「不具合報告」「プラグインの要望」「改善してほしい」「バグがある」「問題を報告」などで起動。
-allowed-tools: [Read, Bash, Glob, Grep]
+description: Create structured reports for technical findings, test results, and analysis.
+argument-hint: "<topic>"
 ---
 
-# Plugin Report
+# Report Skill
 
-プラグインに関する要望、改善提案、バグ報告を shiiman/claude-code-plugins リポジトリに Issue として投稿します。
+Create technical reports with Discord-friendly summaries for sharing findings.
 
-## オプション
+## Arguments
 
-| オプション | 説明                     |
-|------------|--------------------------|
-| `--help`   | このスキルのヘルプを表示 |
+- `<topic>`: Brief description of what the report covers (e.g., "CREATE2 collision resolution")
 
-## Claude への指示
+## Output
 
-**`--help` が指定された場合**: このファイルの内容を要約して表示し、終了。
+Reports are saved to `reports/YYMMDD_SLUG.md` where:
+- `YYMMDD` is the current date (e.g., 260130 for 2026-01-30)
+- `SLUG` is a brief descriptive name in SCREAMING_SNAKE_CASE
 
-### 実行手順
+## Report Structure
 
-1. Issue の種類を確認
+Every report has two parts:
 
-ユーザーに Issue の種類を選択してもらう:
+### 1. Discord Summary (top of file)
 
-| 種類                   | ラベル        | 説明                       |
-|------------------------|---------------|----------------------------|
-| 要望 (Feature Request) | `enhancement` | 新しい機能の追加リクエスト |
-| 改善 (Improvement)     | `improvement` | 既存機能の改善提案         |
-| バグ (Bug)             | `bug`         | 不具合の報告               |
+Wrapped in HTML comment markers for easy copy-paste. Must follow these rules:
 
-質問例:
-「どの種類の Issue を作成しますか？
-1. 要望（新機能の追加）
-2. 改善（既存機能の改善）
-3. バグ（不具合の報告）」
+**Character Limit:** Maximum 1900 characters (buffer under Discord's 2000 limit)
 
-2. Issue のタイトルを確認
+**Formatting Rules:**
+- NO TABLES - Discord doesn't render markdown tables
+- Use code blocks for tabular data instead
+- Use `**bold**` for emphasis
+- Use `### Headings` for sections
+- Wrap URLs in angle brackets: `<https://example.com>`
 
-「Issue のタイトルを入力してください（簡潔に）」
+**Required Sections:**
+1. Title with key metric
+2. Metadata line (client, suite, counts)
+3. Brief summary (1-2 sentences)
+4. Key findings in code block format
+5. Analysis (root cause in 2-3 sentences)
+6. Impact assessment
+7. Next steps (numbered list)
+8. Link to full report
 
-3. Issue の詳細を確認
-
-**要望/改善の場合**:
-- 概要: 何を実現したいか / 何を改善したいか
-- 背景: なぜこの機能/改善が必要か
-- 期待動作: どのような動作を期待するか
-
-**バグの場合**:
-- 概要: どのような問題が発生したか
-- 再現手順: どうすれば再現できるか
-- 期待動作: 本来どうあるべきか
-- 実際の動作: 現在どうなっているか
-- 環境情報: OS、Claude Code バージョン等（可能であれば）
-
-4. 確認と送信
-
-Issue 内容をプレビュー表示してユーザーに確認を求める。承認後、以下のコマンドで Issue を作成:
-
-```bash
-gh issue create \
-  --repo shiiman/claude-code-plugins \
-  --title "{title}" \
-  --body "{body}" \
-  --label "{label}"
-```
-
-5. 結果報告
-
-作成した Issue の URL を表示:
-
-```
-✅ Issue を作成しました
-
-#{number}: {title}
-URL: https://github.com/shiiman/claude-code-plugins/issues/{number}
-
-ご報告ありがとうございます！
-```
-
-### Issue 本文テンプレート
-
-#### 要望 (Feature Request)
+**Template:**
 
 ```markdown
-## 概要
+<!-- DISCORD SUMMARY (paste everything between the markers) -->
+## [Title]: [Key Metric]
 
-{概要}
+**[Context]:** [value] | **[Metric]:** [numbers]
 
-## 背景
+[1-2 sentence summary]
 
-{背景}
+### [Section Name]
 
-## 期待動作
-
-{期待動作}
-
----
-📝 この Issue は `shiiman-plugin:report` スキルで作成されました
+```
+[Data in code block - NOT a table]
 ```
 
-#### 改善 (Improvement)
+### Analysis
 
-```markdown
-## 概要
+**Root cause:** [Brief explanation]
 
-{概要}
+### Impact
 
-## 背景
+**[Severity] for [context]** - [Practical implications]
 
-{背景}
+### Next Steps
+1. [Action item]
+2. [Action item]
 
-## 改善案
-
-{期待動作/改善案}
-
----
-📝 この Issue は `shiiman-plugin:report` スキルで作成されました
+**Full report:** <[URL]>
+<!-- END DISCORD SUMMARY -->
 ```
 
-#### バグ (Bug)
+### 2. Full Report (below the summary)
 
-```markdown
-## 概要
+After a horizontal rule (`---`), include the detailed report:
 
-{概要}
+**Required Sections:**
+1. Title and metadata (date, test suite, client version)
+2. Executive summary
+3. Context (why this report exists)
+4. Detailed findings (tables, logs, specifics)
+5. Root cause analysis
+6. Impact assessment
+7. Recommendations (short/medium/long-term)
+8. References (links to specs, repos)
+9. Appendix (log locations, raw data)
 
-## 再現手順
+**Formatting:**
+- Tables are fine in full report (GitHub renders them)
+- Include code blocks for log excerpts
+- Link to specific files with `file:line` notation
+- Reference external specs with full URLs
 
-1. {手順1}
-2. {手順2}
-3. ...
+## Workflow
 
-## 期待動作
-
-{期待動作}
-
-## 実際の動作
-
-{実際の動作}
-
-## 環境情報
-
-- OS: {OS}
-- Claude Code バージョン: {バージョン}
-
----
-📝 この Issue は `shiiman-plugin:report` スキルで作成されました
-```
-
-### 重要な注意事項
-
-- ✅ 報告先は `shiiman/claude-code-plugins` に固定
-- ✅ ラベルは種類に応じて自動設定（enhancement / improvement / bug）
-- ✅ 送信前に必ずユーザーに内容確認を求める
-- ✅ 作成後は Issue URL を表示
-- ❌ 個人情報や機密情報を含めない
-- ❌ ユーザーの同意なしに Issue を作成しない
+1. Gather all relevant data (logs, test results, metrics)
+2. Analyze root cause and impact
+3. Draft Discord summary first (ensures conciseness)
+4. Verify Discord summary is under 1900 characters
+5. Write full report with complete details
+6. Save to `reports/YYMMDD_SLUG.md`
+7. Output the Discord summary for easy copy-paste

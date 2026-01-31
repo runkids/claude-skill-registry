@@ -2,6 +2,7 @@
 name: slash-commands
 description: Create and use Claude Code slash commands - quick prompts, bash execution, file references
 allowed-tools: [Read, Write, Bash]
+user-invocable: false
 ---
 
 # Slash Commands Reference

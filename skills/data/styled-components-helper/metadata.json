@@ -1,9 +1,7 @@
 {
   "name": "styled-components-helper",
-  "description": "Styled Components Helper - Auto-activating skill for Frontend Development.Triggers on: styled components helper, styled components helperPart of the Frontend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/05-frontend-dev/styled-components-helper/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:45.122514Z"
 }

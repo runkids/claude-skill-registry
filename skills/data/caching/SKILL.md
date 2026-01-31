@@ -1,95 +1,66 @@
 ---
-name: caching
-description: Enforces project caching conventions when implementing cache layers using React cache(), Next.js unstable_cache, Upstash Redis, and Cloudinary. This skill ensures consistent patterns for cache keys, tags, TTL configuration, cache invalidation, and domain-specific CacheService helpers.
+name: Next.js Caching Architecture
+description: The 4 layers of caching (Memoization, Data Cache, Full Route, Router Cache).
+metadata:
+  labels: [nextjs, caching, isr, revalidation]
+  triggers:
+    files: ['**/page.tsx', '**/layout.tsx', '**/action.ts']
+    keywords: [unstable_cache, revalidateTag, Router Cache, Data Cache]
 ---
 
-# Caching Skill
+# Caching Architecture
 
-## Purpose
+## **Priority: P1 (HIGH)**
 
-This skill enforces the project caching conventions automatically during cache implementation. It ensures consistent patterns across the 4-layer caching strategy:
+Next.js has 4 distinct caching layers. Understanding them prevents stale data bugs.
 
-1. **React `cache()`** - Same-request deduplication (e.g., `getCurrentClerkUserId`, `getOptionalUserId`)
-2. **Next.js `unstable_cache()`** - Cross-request caching with tag-based invalidation (primary)
-3. **Upstash Redis** - High-traffic public data, distributed locks, rate limiting, view tracking
-4. **Cloudinary** - Image transformation and CDN-level caching
+## The 4 Layers
 
-## Activation
+| Layer                      | Where  | Duration       | Purpose                                              | Control            |
+| :------------------------- | :----- | :------------- | :--------------------------------------------------- | :----------------- |
+| **1. Request Memoization** | Server | Per Request    | Deduplicate same `fetch()` calls in one render pass. | `AbortController`  |
+| **2. Data Cache**          | Server | Persistent     | Store data across user requests.                     | `revalidateTag`    |
+| **3. Full Route Cache**    | Server | Persistent     | Store HTML/RSC payload. (Static Rendering).          | `revalidatePath`   |
+| **4. Router Cache**        | Client | Session (< 5m) | Navigating back/forward without server hit.          | `router.refresh()` |
 
-This skill activates when:
+## 1. Request Memoization
 
-- Working with `CacheService` domain-specific helpers (`.bobbleheads`, `.collections`, `.users`, `.search`, `.redisSearch`, `.analytics`, `.featured`)
-- Implementing cached data fetching in facades
-- Setting up cache invalidation after mutations using `CacheRevalidationService`
-- Working with Redis operations via `RedisOperations` class
-- Using `REDIS_KEYS` for view tracking, locks, or rate limiting
-- Configuring cache tags and TTL values
-- Using `CACHE_KEYS`, `CACHE_CONFIG`, `REDIS_TTL`, or `CacheTagGenerators`
-- Implementing request-level deduplication with React `cache()`
+- **Behavior**: Calling `getUser(1)` in `layout`, `page`, and `component` only triggers 1 network call.
+- **Key**: Matches URL and Options exactly.
+- **Non-Fetch**: For DB calls/Prisma, use React `cache()` manually.
 
-## Workflow
+  ```tsx
+  import { cache } from 'react';
+  const getItem = cache(async (id) => db.item.findUnique({ id }));
+  ```
 
-1. Detect caching work (imports from `CacheService`, `CacheRevalidationService`, `CACHE_KEYS`, or `CacheTagGenerators`)
-2. Load `references/Caching-Conventions.md`
-3. Generate/modify code following all conventions
-4. Scan for violations of caching patterns
-5. Auto-fix all violations (no permission needed)
-6. Report fixes applied
+## 2. Data Cache (The "Server Persistence")
 
-## Key Patterns
+- **Default**: `fetch` tracks cache indefinitely (`force-cache`).
+- **Scaling**:
+  - **Vercel**: Shared globally via KV/Blob.
+  - **Self-Hosted**: Stored in filesystem (Pod ephemeral storage). **Critical**: Must configure a shared `cacheHandler` (Redis) for multi-pod Kubernetes setups, otherwise pods have desynchronized caches.
+- **Granular Control**: Use `unstable_cache` for DB queries caching.
 
-### CacheService Domain Helpers
+  ```tsx
+  import { unstable_cache } from 'next/cache';
+  const getCachedUser = unstable_cache(
+    async (id) => db.user.find(id),
+    ['users-key'],
+    { tags: ['users'], revalidate: 60 },
+  );
+  ```
 
-- Use `CacheService.bobbleheads.{method}()` for bobblehead caching
-- Use `CacheService.collections.{method}()` for collection caching
-- Use `CacheService.users.{method}()` for user caching
-- Use `CacheService.search.{method}()` for search caching (Next.js unstable_cache)
-- Use `CacheService.redisSearch.{method}()` for high-traffic public search (Redis)
-- Use `CacheService.analytics.{method}()` for analytics caching
-- Use `CacheService.featured.{method}()` for featured content caching
+## 3. Router Cache (The "Client Stale")
 
-### Cache Invalidation
+- **Problem**: User updates a listing, navigates back, and sees old data.
+- **Cause**: Client-side Router Cache holds payload for 30s (dynamic) or 5m (static).
+- **Fix**: Call `router.refresh()` in a Client Component or `revalidatePath()` in a Server Action (which automatically invalidates Router Cache).
 
-- Use `CacheRevalidationService.{domain}.on{Operation}()` for coordinated invalidation
-- Use `CacheService.invalidateByTag()` for direct tag-based invalidation
-- Always invalidate cache after mutations in server actions
-- Check `RevalidationResult.isSuccess` and log failures to Sentry as warnings
+## Strategies
 
-### Constants and Utilities
-
-- Use `CACHE_KEYS.{DOMAIN}.{METHOD}()` for cache key generation
-- Use `CacheTagGenerators.{domain}.{method}()` for tag generation
-- Use `CACHE_CONFIG.TTL.{LEVEL}` for TTL values:
-  - `REALTIME` (30s), `SHORT` (5 min), `MEDIUM` (30 min), `LONG` (1 hr)
-  - `EXTENDED` (4 hr), `PUBLIC_SEARCH` (10 min), `DAILY` (24 hr), `WEEKLY` (7 days)
-- Use `REDIS_KEYS.{NAMESPACE}.{METHOD}()` for Redis-specific keys (VIEW_TRACKING, LOCKS, RATE_LIMIT)
-- Use `REDIS_TTL.{CATEGORY}` for Redis-specific TTL values
-- Use `createHashFromObject()` for generating option hashes in cache keys
-
-## Usage Pattern Reference
-
-| Use Case         | CacheService Helper                         | Invalidation Service                                |
-| ---------------- | ------------------------------------------- | --------------------------------------------------- |
-| Bobblehead by ID | `CacheService.bobbleheads.byId()`           | `CacheRevalidationService.bobbleheads.onUpdate()`   |
-| Collection list  | `CacheService.collections.byUser()`         | `CacheRevalidationService.collections.onCreate()`   |
-| User profile     | `CacheService.users.profile()`              | `CacheRevalidationService.users.onProfileUpdate()`  |
-| Public search    | `CacheService.redisSearch.publicDropdown()` | `CacheService.search.invalidatePublic()`            |
-| Analytics        | `CacheService.analytics.viewCounts()`       | `CacheRevalidationService.analytics.onViewRecord()` |
-| Social (likes)   | Tag-based via `CacheTagGenerators`          | `CacheRevalidationService.social.onLikeChange()`    |
-| View tracking    | `REDIS_KEYS.VIEW_TRACKING.*` + Redis ops    | TTL-based expiry (no explicit invalidation)         |
-
-## Caching Layer Selection Guide
-
-| Use Case                               | Recommended Layer | Rationale                                                            |
-| -------------------------------------- | ----------------- | -------------------------------------------------------------------- |
-| Same-request deduplication             | React `cache()`   | Prevents redundant calls within single render (implemented for auth) |
-| Entity data (bobbleheads, collections) | `unstable_cache`  | Tag-based invalidation, automatic revalidation                       |
-| High-traffic public search             | Redis             | Distributed, fast, handles scale                                     |
-| View tracking deduplication            | Redis             | Distributed, TTL-based expiry                                        |
-| Rate limiting                          | Redis             | Distributed counters, automatic TTL expiry                           |
-| Distributed locks                      | Redis             | Prevents concurrent updates                                          |
-| Image transformations                  | Cloudinary        | CDN-level caching, on-the-fly transforms                             |
-
-## References
-
-- `references/Caching-Conventions.md` - Complete caching conventions
+- **Opt-Out (Real-Time)**:
+  - Data: `fetch(..., { cache: 'no-store' })`
+  - Route: `export const dynamic = 'force-dynamic'`
+- **On-Demand (CMS/Admin)**:
+  - Use `revalidateTag('collection')` for surgical updates. Better than `revalidatePath` (which nukes the whole URL).

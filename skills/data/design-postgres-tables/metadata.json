@@ -1,7 +1,7 @@
 {
   "name": "design-postgres-tables",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/postgres-mcp/design-postgres-tables/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:08:56.088680Z"
+  "repo": "timescale/pg-aiguide",
+  "path": "skills/design-postgres-tables/SKILL.md",
+  "source": "github.com/timescale/pg-aiguide",
+  "downloaded_at": "2026-01-31T03:56:19.384818Z"
 }

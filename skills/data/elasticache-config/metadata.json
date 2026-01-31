@@ -1,9 +1,7 @@
 {
   "name": "elasticache-config",
-  "description": "Elasticache Config - Auto-activating skill for AWS Skills.Triggers on: elasticache config, elasticache configPart of the AWS Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/elasticache-config/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-31T03:32:42.575215Z"
 }

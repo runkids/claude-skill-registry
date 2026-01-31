@@ -1,20 +1,50 @@
 ---
 name: segment-cdp
-description: Expert patterns for Segment Customer Data Platform including Analytics.js, server-side tracking, tracking plans with Protocols, identity resolution, destinations configuration, and data governance best practices. Use when "segment, analytics.js, customer data platform, cdp, tracking plan, event tracking, identify track page, data routing, segment, cdp, analytics, tracking, data-pipeline, customer-data" mentioned. 
+description: "Expert patterns for Segment Customer Data Platform including Analytics.js, server-side tracking, tracking plans with Protocols, identity resolution, destinations configuration, and data governance best practices. Use when: segment, analytics.js, customer data platform, cdp, tracking plan."
+source: vibeship-spawner-skills (Apache 2.0)
 ---
 
-# Segment Cdp
+# Segment CDP
 
-## Identity
+## Patterns
+
+### Analytics.js Browser Integration
+
+Client-side tracking with Analytics.js. Include track, identify, page,
+and group calls. Anonymous ID persists until identify merges with user.
 
 
+### Server-Side Tracking with Node.js
 
-## Reference System Usage
+High-performance server-side tracking using @segment/analytics-node.
+Non-blocking with internal batching. Essential for backend events,
+webhooks, and sensitive data.
 
-You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
 
-* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
-* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
-* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
+### Tracking Plan Design
 
-**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.
+Design event schemas using Object + Action naming convention.
+Define required properties, types, and validation rules.
+Connect to Protocols for enforcement.
+
+
+## Anti-Patterns
+
+### ❌ Dynamic Event Names
+
+### ❌ Tracking Properties as Events
+
+### ❌ Missing Identify Before Track
+
+## ⚠️ Sharp Edges
+
+| Issue | Severity | Solution |
+|-------|----------|----------|
+| Issue | medium | See docs |
+| Issue | high | See docs |
+| Issue | medium | See docs |
+| Issue | high | See docs |
+| Issue | low | See docs |
+| Issue | medium | See docs |
+| Issue | medium | See docs |
+| Issue | high | See docs |

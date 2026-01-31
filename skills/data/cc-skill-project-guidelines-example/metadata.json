@@ -1,7 +1,7 @@
 {
   "name": "cc-skill-project-guidelines-example",
-  "repo": "chrissargent48/weekly_report",
-  "path": ".claude/skills/external-skills/skills/cc-skill-project-guidelines-example/SKILL.md",
-  "source": "github.com/chrissargent48/weekly_report",
-  "downloaded_at": "2026-01-30T04:29:44.370473Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/cc-skill-project-guidelines-example/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-31T04:46:02.606010Z"
 }

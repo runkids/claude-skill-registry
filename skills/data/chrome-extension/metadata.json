@@ -1,7 +1,7 @@
 {
   "name": "chrome-extension",
-  "repo": "brief-hq/brief-wiggum",
-  "path": ".claude/skills/chrome-extension/SKILL.md",
-  "source": "github.com/brief-hq/brief-wiggum",
-  "downloaded_at": "2026-01-29T04:42:14.901668Z"
+  "repo": "pproenca/dot-skills",
+  "path": "skills/.experimental/chrome-extension/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-01-31T03:35:41.993580Z"
 }

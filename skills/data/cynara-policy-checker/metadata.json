@@ -1,9 +1,7 @@
 {
   "name": "cynara-policy-checker",
-  "description": "Queries Cynara database and validates runtime privilege policies. Coordinates access control decisions across system services.",
   "repo": "plurigrid/asi",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/plurigrid/asi"
+  "path": "skills/cynara-policy-checker/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-31T02:07:22.635144Z"
 }

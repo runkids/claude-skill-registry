@@ -1,156 +1,125 @@
 ---
 name: wordpress-plugin-core
-description: WordPress plugin development with hooks, security, REST API, custom post types. Use for plugin creation, $wpdb queries, Settings API, or encountering SQL injection, XSS, CSRF, nonce errors.
+description: |
+  Build secure WordPress plugins with hooks, database interactions, Settings API, custom post types, and REST API. Covers Simple, OOP, and PSR-4 architecture patterns plus the Security Trinity. Includes WordPress 6.7-6.9 breaking changes.
 
-  Keywords: wordpress plugin development, wordpress security, wordpress hooks, wordpress filters, wordpress database, wpdb prepare, sanitize_text_field, esc_html, wp_nonce, custom post type, register_post_type, settings api, rest api, admin-ajax, wordpress sql injection, wordpress xss, wordpress csrf, plugin header, activation hook, deactivation hook, wordpress coding standards, wordpress plugin architecture
-license: MIT
+  Use when creating plugins or troubleshooting SQL injection, XSS, CSRF, REST API vulnerabilities, wpdb::prepare errors, nonce edge cases, or WordPress 6.8+ bcrypt migration.
+user-invocable: true
 ---
 
 # WordPress Plugin Development (Core)
 
-**Status**: Production Ready
-**Last Updated**: 2025-11-27
-**Dependencies**: None (WordPress 5.9+, PHP 7.4+)
-**Latest Versions**: WordPress 6.7+, PHP 8.0+ recommended
+**Last Updated**: 2026-01-21
+**Latest Versions**: WordPress 6.9+ (Dec 2, 2025), PHP 8.0+ recommended, PHP 8.5 compatible
+**Dependencies**: None (WordPress 5.9+, PHP 7.4+ minimum)
 
 ---
 
-## Quick Start (10 Minutes)
+## Quick Start
 
-### 1. Choose Plugin Structure
+**Architecture Patterns**: Simple (functions only, <5 functions) | OOP (medium plugins) | PSR-4 (modern/large, recommended 2025+)
 
-Three architecture patterns available (see `references/plugin-architectures.md` for detailed examples):
-- **Simple** (functions only) - Small plugins <5 functions
-- **OOP** - Medium plugins with related functionality
-- **PSR-4** (Namespaced + Composer) - Modern standard (2025), most maintainable
-
-### 2. Create Plugin Header
-
-Every plugin MUST have a header comment in the main file:
-
+**Plugin Header** (only Plugin Name required):
 ```php
 <?php
 /**
- * Plugin Name:       My Awesome Plugin
- * Description:       Brief description.
- * Version:           1.0.0
+ * Plugin Name: My Plugin
+ * Version: 1.0.0
  * Requires at least: 5.9
- * Requires PHP:      7.4
- * Text Domain:       my-plugin
+ * Requires PHP: 7.4
+ * Text Domain: my-plugin
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ```
 
-**CRITICAL**: Plugin Name is required, Text Domain must match plugin slug exactly.
-
-### 3. Security Foundation (5 Essentials)
-
+**Security Foundation** (5 essentials before writing functionality):
 ```php
-// 1. Unique Prefix (4-5 chars)
+// 1. Unique Prefix
+define( 'MYPL_VERSION', '1.0.0' );
 function mypl_init() { /* code */ }
 add_action( 'init', 'mypl_init' );
 
-// 2. ABSPATH Check (every file)
+// 2. ABSPATH Check (every PHP file)
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// 3. Nonces for Forms
+// 3. Nonces
 wp_nonce_field( 'mypl_action', 'mypl_nonce' );
+wp_verify_nonce( $_POST['mypl_nonce'], 'mypl_action' );
 
 // 4. Sanitize Input, Escape Output
 $clean = sanitize_text_field( $_POST['input'] );
 echo esc_html( $output );
 
 // 5. Prepared Statements
+global $wpdb;
 $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}table WHERE id = %d", $id ) );
 ```
 
 ---
 
-## The 5-Step Security Foundation
+## Security Foundation (Detailed)
 
-### Step 1: Use Unique Prefix for Everything
-
-**Rules**: 4-5 chars minimum, apply to functions, classes, constants, options, transients, meta keys. Avoid `wp_`, `__`, `_`.
+### Unique Prefix (4-5 chars minimum)
+Apply to: functions, classes, constants, options, transients, meta keys. Avoid: `wp_`, `__`, `_`.
 
 ```php
-// GOOD
-function mypl_init() {}
-class MyPL_Settings {}
-add_option( 'mypl_option', 'value' );
-
-// BAD - Will conflict
-function init() {}
-class Settings {}
+function mypl_function() {}  // ✅
+class MyPL_Class {}          // ✅
+function init() {}           // ❌ Will conflict
 ```
 
-### Step 2: Check Capabilities, Not Admin Status
-
+### Capabilities Check (Not is_admin())
 ```php
-// WRONG
-if ( is_admin() ) { /* SECURITY HOLE */ }
+// ❌ WRONG - Security hole
+if ( is_admin() ) { /* delete data */ }
 
-// CORRECT
-if ( current_user_can( 'manage_options' ) ) { /* Secure */ }
+// ✅ CORRECT
+if ( current_user_can( 'manage_options' ) ) { /* delete data */ }
 ```
 
-**Common Capabilities**: `manage_options` (Admin), `edit_posts` (Editor), `publish_posts` (Author)
+Common: `manage_options` (Admin), `edit_posts` (Editor/Author), `read` (Subscriber)
 
-### Step 3: The Security Trinity
-
-**Input → Processing → Output** (Sanitize → Validate → Escape):
-
+### Security Trinity (Input → Processing → Output)
 ```php
-// SANITIZATION (Input)
+// Sanitize INPUT
 $name = sanitize_text_field( $_POST['name'] );
 $email = sanitize_email( $_POST['email'] );
-$url = esc_url_raw( $_POST['url'] );
-$html = wp_kses_post( $_POST['content'] );
+$html = wp_kses_post( $_POST['content'] );  // Allow safe HTML
+$ids = array_map( 'absint', $_POST['ids'] );
 
-// VALIDATION (Logic)
-if ( ! is_email( $email ) ) wp_die( 'Invalid email' );
+// Validate LOGIC
+if ( ! is_email( $email ) ) wp_die( 'Invalid' );
 
-// ESCAPING (Output)
+// Escape OUTPUT
 echo esc_html( $name );
-echo '<a href="' . esc_url( $url ) . '">' . esc_html( $text ) . '</a>';
+echo '<a href="' . esc_url( $url ) . '">';
+echo '<div class="' . esc_attr( $class ) . '">';
 ```
 
-**Rule**: Sanitize INPUT, escape OUTPUT. Never trust user data.
-
-### Step 4: Nonces (CSRF Protection)
-
-One-time tokens proving requests came from your site.
-
+### Nonces (CSRF Protection)
 ```php
 // Form
-<form method="post">
-    <?php wp_nonce_field( 'mypl_action', 'mypl_nonce' ); ?>
-    <input type="text" name="data" />
-</form>
-
-// Verify
-if ( ! wp_verify_nonce( $_POST['mypl_nonce'], 'mypl_action' ) ) wp_die( 'Security check failed' );
+<?php wp_nonce_field( 'mypl_action', 'mypl_nonce' ); ?>
+if ( ! wp_verify_nonce( $_POST['mypl_nonce'], 'mypl_action' ) ) wp_die( 'Failed' );
 
 // AJAX
 check_ajax_referer( 'mypl-ajax-nonce', 'nonce' );
+wp_localize_script( 'mypl-script', 'mypl_ajax_object', array(
+    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+    'nonce'   => wp_create_nonce( 'mypl-ajax-nonce' ),
+) );
 ```
 
-### Step 5: Prepared Statements for Database
-
-**CRITICAL**: Always use `$wpdb->prepare()` for user input.
-
+### Prepared Statements
 ```php
-// WRONG - SQL Injection
-$wpdb->get_results( "SELECT * FROM {$wpdb->prefix}table WHERE id = {$_GET['id']}" );
+// ❌ SQL Injection
+$wpdb->get_results( "SELECT * FROM table WHERE id = {$_GET['id']}" );
 
-// CORRECT
+// ✅ Prepared (%s=String, %d=Integer, %f=Float)
 $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}table WHERE id = %d", $_GET['id'] ) );
-```
 
-**Placeholders**: `%s` (String), `%d` (Integer), `%f` (Float)
-
-**LIKE Queries**: Use `$wpdb->esc_like()` before adding wildcards:
-```php
+// LIKE Queries
 $search = '%' . $wpdb->esc_like( $term ) . '%';
 $wpdb->get_results( $wpdb->prepare( "... WHERE title LIKE %s", $search ) );
 ```
@@ -189,7 +158,7 @@ $wpdb->get_results( $wpdb->prepare( "... WHERE title LIKE %s", $search ) );
 
 ## Known Issues Prevention
 
-This skill prevents **20** documented issues:
+This skill prevents **29** documented issues:
 
 ### Issue #1: SQL Injection
 **Error**: Database compromised via unescaped user input
@@ -271,89 +240,772 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ```
 
-### Additional Issues (#6-20)
+### Issue #6: Prefix Collision
+**Error**: Functions/classes conflict with other plugins
+**Source**: WordPress Coding Standards
+**Why It Happens**: Generic names without unique prefix
+**Prevention**: Use 4-5 character prefix on ALL global code
 
-**For comprehensive error coverage beyond the Top 5**, load `references/error-catalog.md` which includes:
-- **Functionality**: Prefix collision, rewrite rules not flushed, deprecated functions, text domain mismatch, plugin dependencies, autosave triggers
-- **Performance**: Scripts loaded everywhere, transients not cleaned, admin-ajax.php performance
-- **Security**: Missing sanitization on save, incorrect LIKE queries, using extract(), missing REST API permission callbacks, uninstall hook issues
-- **Data Integrity**: Data deleted on deactivation
+```php
+// CAUSES CONFLICTS
+function init() {}
+class Settings {}
+add_option( 'api_key', $value );
 
-Each issue includes: error description, source, why it happens, prevention code, impact severity, and frequency.
+// SAFE
+function mypl_init() {}
+class MyPL_Settings {}
+add_option( 'mypl_api_key', $value );
+```
+
+### Issue #7: Rewrite Rules Not Flushed (and Performance)
+**Error**: Custom post types return 404 errors, or database overload from repeated flushing
+**Source**: [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/), [Permalink Manager Pro](https://permalinkmanager.pro/blog/flush-rewrite-rules/)
+**Why It Happens**: Forgot to flush rewrite rules after registering CPT, OR calling flush on every page load
+**Prevention**: Flush ONLY on activation/deactivation, NEVER on every page load
+
+```php
+// ✅ CORRECT - Only flush on activation
+function mypl_activate() {
+    mypl_register_cpt();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'mypl_activate' );
+
+function mypl_deactivate() {
+    flush_rewrite_rules();
+}
+register_deactivation_hook( __FILE__, 'mypl_deactivate' );
+
+// ❌ WRONG - Causes database overload on EVERY page load
+add_action( 'init', 'mypl_register_cpt' );
+add_action( 'init', 'flush_rewrite_rules' );  // BAD! Performance killer!
+
+// ❌ WRONG - In functions.php
+function mypl_register_cpt() {
+    register_post_type( 'book', ... );
+    flush_rewrite_rules();  // BAD! Runs every time
+}
+```
+
+**User-Facing Fix**: If CPT shows 404, manually flush by going to Settings → Permalinks → Save Changes.
+
+### Issue #8: Transients Not Cleaned
+**Error**: Database accumulates expired transients
+**Source**: WordPress Transients API Documentation
+**Why It Happens**: No cleanup on uninstall
+**Prevention**: Delete transients in uninstall.php
+
+```php
+// uninstall.php
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+    exit;
+}
+
+global $wpdb;
+$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_mypl_%'" );
+$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_mypl_%'" );
+```
+
+### Issue #9: Scripts Loaded Everywhere
+**Error**: Performance degraded by unnecessary asset loading
+**Source**: WordPress Performance Best Practices
+**Why It Happens**: Enqueuing scripts/styles without conditional checks
+**Prevention**: Only load assets where needed
+
+```php
+// BAD - Loads on every page
+add_action( 'wp_enqueue_scripts', function() {
+    wp_enqueue_script( 'mypl-script', $url );
+} );
+
+// GOOD - Only loads on specific page
+add_action( 'wp_enqueue_scripts', function() {
+    if ( is_page( 'my-page' ) ) {
+        wp_enqueue_script( 'mypl-script', $url, array( 'jquery' ), '1.0', true );
+    }
+} );
+```
+
+### Issue #10: Missing Sanitization on Save
+**Error**: Malicious data stored in database
+**Source**: WordPress Data Validation
+**Why It Happens**: Saving $_POST data without sanitization
+**Prevention**: Always sanitize before saving
+
+```php
+// VULNERABLE
+update_option( 'mypl_setting', $_POST['value'] );
+
+// SECURE
+update_option( 'mypl_setting', sanitize_text_field( $_POST['value'] ) );
+```
+
+### Issue #11: Incorrect LIKE Queries
+**Error**: SQL syntax errors or injection vulnerabilities
+**Source**: WordPress $wpdb Documentation
+**Why It Happens**: LIKE wildcards not escaped properly
+**Prevention**: Use `$wpdb->esc_like()`
+
+```php
+// WRONG
+$search = '%' . $term . '%';
+
+// CORRECT
+$search = '%' . $wpdb->esc_like( $term ) . '%';
+$results = $wpdb->get_results( $wpdb->prepare( "... WHERE title LIKE %s", $search ) );
+```
+
+### Issue #12: Using extract()
+**Error**: Variable collision and security vulnerabilities
+**Source**: WordPress Coding Standards
+**Why It Happens**: extract() creates variables from array keys
+**Prevention**: Never use extract(), access array elements directly
+
+```php
+// DANGEROUS
+extract( $_POST );
+// Now $any_array_key becomes a variable
+
+// SAFE
+$name = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+```
+
+### Issue #13: Missing Permission Callback in REST API
+**Error**: Endpoints accessible to everyone, allowing unauthorized access or privilege escalation
+**Source**: [WordPress REST API Handbook](https://developer.wordpress.org/rest-api/), [Patchstack CVE Database](https://patchstack.com/articles/critical-suretriggers-plugin-vulnerability-exploited-within-4-hours/)
+**Why It Happens**: No `permission_callback` specified, or missing `show_in_index => false` for sensitive endpoints
+**Prevention**: Always add permission_callback AND hide sensitive endpoints from REST index
+
+**Real 2025-2026 Vulnerabilities**:
+- **All in One SEO (3M+ sites)**: Missing permission check allowed contributor-level users to view global AI access token
+- **AI Engine Plugin (CVE-2025-11749, CVSS 9.8 Critical)**: Failed to set `show_in_index => false`, exposed bearer token in /wp-json/ index, full admin privileges granted to unauthenticated attackers
+- **SureTriggers**: Insufficient authorization checks exploited within 4 hours of disclosure
+- **Worker for Elementor (CVE-2025-66144)**: Subscriber-level privileges could invoke restricted features
+
+```php
+// ❌ VULNERABLE - Missing permission_callback (WordPress 5.5+ requires it!)
+register_rest_route( 'myplugin/v1', '/data', array(
+    'methods'  => 'GET',
+    'callback' => 'my_callback',
+) );
+
+// ✅ SECURE - Basic protection
+register_rest_route( 'myplugin/v1', '/data', array(
+    'methods'             => 'GET',
+    'callback'            => 'my_callback',
+    'permission_callback' => function() {
+        return current_user_can( 'edit_posts' );
+    },
+) );
+
+// ✅ SECURE - Hide sensitive endpoints from REST index
+register_rest_route( 'myplugin/v1', '/admin', array(
+    'methods'             => 'POST',
+    'callback'            => 'my_admin_callback',
+    'permission_callback' => function() {
+        return current_user_can( 'manage_options' );
+    },
+    'show_in_index'       => false,  // Don't expose in /wp-json/
+) );
+```
+
+**2025-2026 Statistics**: 64,782 total vulnerabilities tracked, 333 new in one week, 236 remained unpatched. REST API auth issues represent significant percentage.
+
+### Issue #14: Uninstall Hook Registered Repeatedly
+**Error**: Option written on every page load
+**Source**: WordPress Plugin Handbook
+**Why It Happens**: register_uninstall_hook() called in main flow
+**Prevention**: Use uninstall.php file instead
+
+```php
+// BAD - Runs on every page load
+register_uninstall_hook( __FILE__, 'mypl_uninstall' );
+
+// GOOD - Use uninstall.php file (preferred method)
+// Create uninstall.php in plugin root
+```
+
+### Issue #15: Data Deleted on Deactivation
+**Error**: Users lose data when temporarily disabling plugin
+**Source**: WordPress Plugin Development Best Practices
+**Why It Happens**: Confusion about deactivation vs uninstall
+**Prevention**: Only delete data in uninstall.php, never on deactivation
+
+```php
+// WRONG - Deletes user data on deactivation
+register_deactivation_hook( __FILE__, function() {
+    delete_option( 'mypl_user_settings' );
+} );
+
+// CORRECT - Only clear temporary data on deactivation
+register_deactivation_hook( __FILE__, function() {
+    delete_transient( 'mypl_cache' );
+} );
+
+// CORRECT - Delete all data in uninstall.php
+```
+
+### Issue #16: Using Deprecated Functions
+**Error**: Plugin breaks on WordPress updates
+**Source**: WordPress Deprecated Functions List
+**Why It Happens**: Using functions removed in newer WordPress versions
+**Prevention**: Enable WP_DEBUG during development
+
+```php
+// In wp-config.php (development only)
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+```
+
+### Issue #17: Text Domain Mismatch
+**Error**: Translations don't load
+**Source**: WordPress Internationalization
+**Why It Happens**: Text domain doesn't match plugin slug
+**Prevention**: Use exact plugin slug everywhere
+
+```php
+// Plugin header
+// Text Domain: my-plugin
+
+// In code - MUST MATCH EXACTLY
+__( 'Text', 'my-plugin' );
+_e( 'Text', 'my-plugin' );
+```
+
+### Issue #18: Missing Plugin Dependencies
+**Error**: Fatal error when required plugin is inactive
+**Source**: WordPress Plugin Dependencies
+**Why It Happens**: No check for required plugins
+**Prevention**: Check for dependencies on plugins_loaded
+
+```php
+add_action( 'plugins_loaded', function() {
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        add_action( 'admin_notices', function() {
+            echo '<div class="error"><p>My Plugin requires WooCommerce.</p></div>';
+        } );
+        return;
+    }
+    // Initialize plugin
+} );
+```
+
+### Issue #19: Autosave Triggering Meta Save
+**Error**: Meta saved multiple times, performance issues
+**Source**: WordPress Post Meta
+**Why It Happens**: No autosave check in save_post hook
+**Prevention**: Check for DOING_AUTOSAVE constant
+
+```php
+add_action( 'save_post', function( $post_id ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+
+    // Safe to save meta
+} );
+```
+
+### Issue #20: admin-ajax.php Performance
+**Error**: Slow AJAX responses
+**Source**: https://deliciousbrains.com/comparing-wordpress-rest-api-performance-admin-ajax-php/
+**Why It Happens**: admin-ajax.php loads entire WordPress core
+**Prevention**: Use REST API for new projects (10x faster)
+
+```php
+// OLD: admin-ajax.php (still works but slower)
+add_action( 'wp_ajax_mypl_action', 'mypl_ajax_handler' );
+
+// NEW: REST API (10x faster, recommended)
+add_action( 'rest_api_init', function() {
+    register_rest_route( 'myplugin/v1', '/endpoint', array(
+        'methods'             => 'POST',
+        'callback'            => 'mypl_rest_handler',
+        'permission_callback' => function() {
+            return current_user_can( 'edit_posts' );
+        },
+    ) );
+} );
+```
+
+### Issue #21: Missing show_in_rest for Block Editor
+**Error**: Custom post types show classic editor instead of Gutenberg block editor
+**Source**: [WordPress VIP Documentation](https://docs.wpvip.com/wordpress-on-vip/block-editor/), [GitHub Issue #7595](https://github.com/WordPress/gutenberg/issues/7595)
+**Why It Happens**: Forgot to set `show_in_rest => true` when registering custom post type
+**Prevention**: Always include show_in_rest for CPTs that need block editor
+
+```php
+// ❌ WRONG - Block editor won't work
+register_post_type( 'book', array(
+    'public' => true,
+    'supports' => array('editor'),
+    // Missing show_in_rest!
+) );
+
+// ✅ CORRECT
+register_post_type( 'book', array(
+    'public' => true,
+    'show_in_rest' => true,  // Required for block editor
+    'supports' => array('editor'),
+) );
+```
+
+**Critical Rule**: Only post types registered with `'show_in_rest' => true` are compatible with the block editor. The block editor is dependent on the WordPress REST API. For post types that are incompatible with the block editor—or have `show_in_rest => false`—the classic editor will load instead.
+
+### Issue #22: wpdb::prepare() Table Name Escaping
+**Error**: SQL syntax error from quoted table names, or hardcoded prefix breaks on different installations
+**Source**: [WordPress Coding Standards Issue #2442](https://github.com/WordPress/WordPress-Coding-Standards/issues/2442)
+**Why It Happens**: Using table names as placeholders adds quotes around the table name
+**Prevention**: Table names must NOT be in prepare() placeholders
+
+```php
+// ❌ WRONG - Adds quotes around table name
+$table = $wpdb->prefix . 'my_table';
+$wpdb->get_results( $wpdb->prepare(
+    "SELECT * FROM %s WHERE id = %d",
+    $table, $id
+) );
+// Result: SELECT * FROM 'wp_my_table' WHERE id = 1
+// FAILS - table name is quoted
+
+// ❌ WRONG - Hardcoded prefix
+$wpdb->get_results( $wpdb->prepare(
+    "SELECT * FROM wp_my_table WHERE id = %d",
+    $id
+) );
+// FAILS if user changed table prefix
+
+// ✅ CORRECT - Table name NOT in prepare()
+$table = $wpdb->prefix . 'my_table';
+$wpdb->get_results( $wpdb->prepare(
+    "SELECT * FROM {$table} WHERE id = %d",
+    $id
+) );
+
+// ✅ CORRECT - Using wpdb->prefix for built-in tables
+$wpdb->get_results( $wpdb->prepare(
+    "SELECT * FROM {$wpdb->posts} WHERE ID = %d",
+    $id
+) );
+```
+
+### Issue #23: Nonce Verification Edge Cases
+**Error**: Confusing user experience from nonce failures, or false sense of security
+**Source**: [MalCare: wp_verify_nonce()](https://www.malcare.com/blog/wp_verify_nonce/), [Pressidium: Understanding Nonces](https://pressidium.com/blog/nonces-in-wordpress-all-you-need-to-know/)
+**Why It Happens**: Misunderstanding nonce behavior and limitations
+**Prevention**: Understand nonce edge cases and always combine with capability checks
+
+**Edge Cases**:
+
+1. **Time-Based Return Values**:
+```php
+$result = wp_verify_nonce( $nonce, 'action' );
+// Returns 1: Valid, generated 0-12 hours ago
+// Returns 2: Valid, generated 12-24 hours ago
+// Returns false: Invalid or expired
+```
+
+2. **Nonce Reusability**: WordPress doesn't track if a nonce has been used. They can be used multiple times within the 12-24 hour window.
+
+3. **Session Invalidation**: A nonce is only valid when tied to a valid session. If a user logs out, all their nonces become invalid, causing confusing UX if they had a form open.
+
+4. **Caching Problems**: Cache issues can cause mismatches when caching plugins serve an older nonce.
+
+5. **NOT a Substitute for Authorization**:
+```php
+// ❌ INSUFFICIENT - Only checks origin, not permission
+if ( wp_verify_nonce( $_POST['nonce'], 'delete_user' ) ) {
+    delete_user( $_POST['user_id'] );
+}
+
+// ✅ CORRECT - Combine with capability check
+if ( wp_verify_nonce( $_POST['nonce'], 'delete_user' ) &&
+     current_user_can( 'delete_users' ) ) {
+    delete_user( absint( $_POST['user_id'] ) );
+}
+```
+
+**Key Principle (2025)**: Nonces should never be relied on for authentication or authorization. Always assume nonces can be compromised. Protect your functions using current_user_can().
+
+### Issue #24: Hook Priority and Argument Count
+**Error**: Hook callback doesn't receive expected arguments, or runs in wrong order
+**Source**: [Kinsta: WordPress Hooks Bootcamp](https://kinsta.com/blog/wordpress-hooks/)
+**Why It Happens**: Default is only 1 argument, priority defaults to 10
+**Prevention**: Specify argument count and priority explicitly when needed
+
+```php
+// ❌ WRONG - Only receives $post_id
+add_action( 'save_post', 'my_save_function' );
+function my_save_function( $post_id, $post, $update ) {
+    // $post and $update are NULL!
+}
+
+// ✅ CORRECT - Specify argument count
+add_action( 'save_post', 'my_save_function', 10, 3 );
+function my_save_function( $post_id, $post, $update ) {
+    // Now all 3 arguments are available
+}
+
+// Priority matters (lower number = runs earlier)
+add_action( 'init', 'first_function', 5 );   // Runs first
+add_action( 'init', 'second_function', 10 );  // Default priority
+add_action( 'init', 'third_function', 15 );   // Runs last
+```
+
+**Best Practices**:
+- Always prefix custom hook names to avoid collisions: `do_action( 'mypl_data_processed' )` not `do_action( 'data_processed' )`
+- Filters must RETURN modified data, not echo it
+- Hook placement affects backwards compatibility - choose carefully
+
+### Issue #25: Custom Post Type URL Conflicts
+**Error**: Individual CPT posts return 404 errors despite permalinks flushed
+**Source**: [Permalink Manager Pro: URL Conflicts](https://permalinkmanager.pro/blog/wordpress-url-conflicts/)
+**Why It Happens**: CPT slug matches a page slug, creating URL conflict
+**Prevention**: Use different slug for CPT or rename the page
+
+```php
+// ❌ CONFLICT - Page and CPT use same slug
+// Page URL: example.com/portfolio/
+register_post_type( 'portfolio', array(
+    'rewrite' => array( 'slug' => 'portfolio' ),
+) );
+// Individual posts 404: example.com/portfolio/my-project/
+
+// ✅ SOLUTION 1 - Use different slug for CPT
+register_post_type( 'portfolio', array(
+    'rewrite' => array( 'slug' => 'projects' ),
+) );
+// Posts: example.com/projects/my-project/
+// Page: example.com/portfolio/
+
+// ✅ SOLUTION 2 - Use hierarchical slug
+register_post_type( 'portfolio', array(
+    'rewrite' => array( 'slug' => 'work/portfolio' ),
+) );
+// Posts: example.com/work/portfolio/my-project/
+
+// ✅ SOLUTION 3 - Rename the page slug
+// Change page from /portfolio/ to /our-portfolio/
+```
+
+### Issue #26: WordPress 6.8 bcrypt Password Hashing Migration
+**Error**: Custom password hash handling breaks after WordPress 6.8 upgrade
+**Source**: [WordPress Core Make](https://make.wordpress.org/core/2025/02/17/wordpress-6-8-will-use-bcrypt-for-password-hashing/), [GitHub Issue #21022](https://core.trac.wordpress.org/ticket/21022)
+**Why It Happens**: WordPress 6.8+ switched from phpass to bcrypt password hashing
+**Prevention**: Use WordPress password functions, don't handle hashes directly
+
+**What Changed** (WordPress 6.8, April 2025):
+- Default password hashing algorithm changed from phpass to bcrypt
+- New hash prefix: `$wp$2y$` (SHA-384 pre-hashed bcrypt)
+- Existing passwords automatically rehashed on next login
+- Popular bcrypt plugins (roots/wp-password-bcrypt) now redundant
+
+```php
+// ✅ SAFE - These functions continue to work without changes
+wp_hash_password( $password );
+wp_check_password( $password, $hash );
+
+// ⚠️ NEEDS UPDATE - Direct phpass hash handling
+if ( strpos( $hash, '$P$' ) === 0 ) {
+    // Custom phpass logic - needs update for bcrypt
+}
+
+// ✅ NEW - Detect hash type
+if ( strpos( $hash, '$wp$2y$' ) === 0 ) {
+    // bcrypt hash (WordPress 6.8+)
+} elseif ( strpos( $hash, '$P$' ) === 0 ) {
+    // phpass hash (WordPress <6.8)
+}
+```
+
+**Action Required**:
+- Review plugins that directly handle password hashes
+- Remove bcrypt plugins when upgrading to 6.8+
+- No action needed for standard wp_hash_password/wp_check_password usage
+
+### Issue #27: WordPress 6.9 WP_Dependencies Deprecation
+**Error**: "Deprecated: Function WP_Dependencies->add_data() was called with an argument that is deprecated"
+**Source**: [WordPress 6.9 Documentation](https://wordpress.org/documentation/wordpress-version/version-6-9/), [WordPress Support Forum](https://wordpress.org/support/topic/after-automatic-updating-to-6-9-deprecated-function-wp_dependencies/)
+**Why It Happens**: WordPress 6.9 (Dec 2, 2025) deprecated WP_Dependencies object methods
+**Prevention**: Test plugins with WP_DEBUG enabled on WordPress 6.9, replace deprecated methods
+
+**Affected Plugins** (confirmed):
+- WooCommerce (fixed in 10.4.2)
+- Yoast SEO (fixed in 26.6)
+- Elementor (requires 3.24+)
+
+**Breaking Changes**: WordPress 6.9 removed or modified several deprecated functions that older themes and plugins relied on, breaking custom menu walkers, classic widgets, media modals, and customizer features.
+
+**Action Required**:
+- Test plugins with WP_DEBUG enabled on WordPress 6.9
+- Replace deprecated WP_Dependencies methods
+- Check for deprecation notices in debug.log
+- While top 1,000 plugins patched within hours, unmaintained plugins often lag behind
+
+### Issue #28: Translation Loading Changes in WordPress 6.7
+**Error**: Translations don't load or debug notices appear
+**Source**: [WooCommerce Developer Blog](https://developer.woocommerce.com/2024/11/11/developer-advisory-translation-loading-changes-in-wordpress-6-7/), [WordPress 6.7 Field Guide](https://make.wordpress.org/core/2024/10/23/wordpress-6-7-field-guide/)
+**Why It Happens**: WordPress 6.7+ changed when/how translations load
+**Prevention**: Load translations after 'init' priority 10, ensure text domain matches plugin slug
+
+```php
+// ❌ WRONG - Loading too early
+add_action( 'init', 'load_plugin_textdomain' );
+
+// ✅ CORRECT - Load after 'init' priority 10
+add_action( 'init', 'load_plugin_textdomain', 11 );
+
+// Ensure text domain matches plugin slug EXACTLY
+// Plugin header: Text Domain: my-plugin
+__( 'Text', 'my-plugin' );  // Must match exactly
+```
+
+**Action Required**:
+- Review when load_plugin_textdomain() is called
+- Ensure text domain matches plugin slug exactly
+- Test with WP_DEBUG enabled
+
+### Issue #29: wpdb::prepare() Missing Placeholders Error
+**Error**: "The query argument of wpdb::prepare() must have a placeholder"
+**Source**: [WordPress $wpdb Documentation](https://developer.wordpress.org/reference/classes/wpdb/), [SitePoint: Working with Databases](https://www.sitepoint.com/working-with-databases-in-wordpress/)
+**Why It Happens**: Using prepare() without any placeholders
+**Prevention**: Don't use prepare() if no dynamic data
+
+```php
+// ❌ WRONG
+$wpdb->prepare( "SELECT * FROM {$wpdb->posts}" );
+// Error: The query argument of wpdb::prepare() must have a placeholder
+
+// ✅ CORRECT - Don't use prepare() if no dynamic data
+$wpdb->get_results( "SELECT * FROM {$wpdb->posts}" );
+
+// ✅ CORRECT - Use prepare() for dynamic data
+$wpdb->get_results( $wpdb->prepare(
+    "SELECT * FROM {$wpdb->posts} WHERE ID = %d",
+    $post_id
+) );
+```
+
+**Additional wpdb::prepare() Mistakes**:
+
+1. **Percentage Sign Handling**:
+```php
+// ❌ WRONG
+$wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE post_title LIKE '%test%'" );
+
+// ✅ CORRECT
+$search = '%' . $wpdb->esc_like( $term ) . '%';
+$wpdb->get_results( $wpdb->prepare(
+    "SELECT * FROM {$wpdb->posts} WHERE post_title LIKE %s",
+    $search
+) );
+```
+
+2. **Mixing Argument Formats**:
+```php
+// ❌ WRONG - Can't mix individual args and array
+$wpdb->prepare( "... WHERE id = %d AND name = %s", $id, array( $name ) );
+
+// ✅ CORRECT - Pick one format
+$wpdb->prepare( "... WHERE id = %d AND name = %s", $id, $name );
+// OR
+$wpdb->prepare( "... WHERE id = %d AND name = %s", array( $id, $name ) );
+```
 
 ---
 
 ## Plugin Architecture Patterns
 
-Choose the right architecture for your plugin size and complexity:
+### Simple (Functions Only)
+Small plugins (<5 functions):
+```php
+function mypl_init() { /* code */ }
+add_action( 'init', 'mypl_init' );
+```
 
-### Decision Guide
+### OOP (Singleton)
+Medium plugins:
+```php
+class MyPL_Plugin {
+    private static $instance = null;
+    public static function get_instance() {
+        if ( null === self::$instance ) self::$instance = new self();
+        return self::$instance;
+    }
+    private function __construct() {
+        add_action( 'init', array( $this, 'init' ) );
+    }
+}
+MyPL_Plugin::get_instance();
+```
 
-**Simple (Functions Only)**
-- **When**: Small plugins (<5 functions), single feature
-- **Pros**: Easy to start, minimal boilerplate
-- **Cons**: Doesn't scale, hard to organize beyond ~5 functions
-- **Example**: Simple shortcode plugin, basic widget
+### PSR-4 (Modern, Recommended 2025+)
+Large/team plugins:
+```
+my-plugin/
+├── my-plugin.php
+├── composer.json → "psr-4": { "MyPlugin\\": "src/" }
+└── src/Admin.php
 
-**OOP (Singleton Pattern)**
-- **When**: Medium plugins (5-20 functions), related functionality
-- **Pros**: Better organization, encapsulation, testable
-- **Cons**: More boilerplate than simple, not using modern PHP features
-- **Example**: Custom post type plugin, admin settings page
-
-**PSR-4 (Namespaced + Composer)**
-- **When**: Large/modern plugins, team development, 2025+ standard
-- **Pros**: Modern PHP, namespaces, autoloading, best practices
-- **Cons**: Requires Composer, more initial setup
-- **Example**: E-commerce extension, multi-feature plugin
-
-### Complete Examples
-
-For full implementation examples with directory structure, activation hooks, and code patterns, load `references/plugin-architectures.md`.
-
----
-
-## Common Implementation Patterns
-
-This skill provides production-ready patterns for 8 common WordPress plugin features:
-
-1. **Custom Post Types** - Register CPTs with Gutenberg support, flush rewrite rules
-2. **Custom Taxonomies** - Hierarchical (categories) or flat (tags) taxonomies
-3. **Meta Boxes** - Save custom fields with proper security (nonces, capabilities, autosave checks)
-4. **Settings API** - WordPress-native settings pages with sanitization
-5. **REST API Endpoints** - Modern API endpoints with permission callbacks and validation
-6. **AJAX Handlers** - Legacy admin-ajax.php pattern (use REST API for new projects)
-7. **Custom Database Tables** - Create tables with dbDelta, versioning
-8. **Transients for Caching** - Cache expensive operations, clear on updates
-
-**For complete implementation code**, load `references/common-patterns.md` when implementing any of these features. Each pattern includes:
-- Full working code examples
-- Security requirements checklist
-- Common mistakes to avoid
-- Best practices and performance tips
+// my-plugin.php
+require_once __DIR__ . '/vendor/autoload.php';
+use MyPlugin\Admin;
+new Admin();
+```
 
 ---
 
+## Common Patterns
+
+**Custom Post Types** (CRITICAL: Flush rewrite rules on activation, show_in_rest for block editor):
+```php
+// show_in_rest => true REQUIRED for Gutenberg block editor
+register_post_type( 'book', array(
+    'public' => true,
+    'show_in_rest' => true,  // Without this, block editor won't work!
+    'supports' => array( 'editor', 'title' ),
+) );
+register_activation_hook( __FILE__, function() {
+    mypl_register_cpt();
+    flush_rewrite_rules();  // NEVER call on every page load
+} );
+```
+
+**Custom Taxonomies**:
+```php
+register_taxonomy( 'genre', 'book', array( 'hierarchical' => true, 'show_in_rest' => true ) );
+```
+
+**Meta Boxes**:
+```php
+add_meta_box( 'book_details', 'Book Details', 'mypl_meta_box_html', 'book' );
+// Save: Check nonce, DOING_AUTOSAVE, current_user_can('edit_post')
+update_post_meta( $post_id, '_book_isbn', sanitize_text_field( $_POST['book_isbn'] ) );
+```
+
+**Settings API**:
+```php
+register_setting( 'mypl_options', 'mypl_api_key', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+add_settings_section( 'mypl_section', 'API Settings', 'callback', 'my-plugin' );
+add_settings_field( 'mypl_api_key', 'API Key', 'field_callback', 'my-plugin', 'mypl_section' );
+```
+
+**REST API** (10x faster than admin-ajax.php):
+```php
+register_rest_route( 'myplugin/v1', '/data', array(
+    'methods'             => 'POST',
+    'callback'            => 'mypl_rest_callback',
+    'permission_callback' => fn() => current_user_can( 'edit_posts' ),
+) );
+```
+
+**AJAX** (Legacy, use REST API for new projects):
+```php
+add_action( 'wp_ajax_mypl_action', 'mypl_ajax_handler' );
+check_ajax_referer( 'mypl-ajax-nonce', 'nonce' );
+wp_send_json_success( array( 'message' => 'Success' ) );
+```
+
+**Custom Tables**:
+```php
+global $wpdb;
+$sql = "CREATE TABLE {$wpdb->prefix}mypl_data (id bigint AUTO_INCREMENT PRIMARY KEY, ...)";
+require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+dbDelta( $sql );
+```
+
+**Transients** (Caching):
+```php
+$data = get_transient( 'mypl_data' );
+if ( false === $data ) {
+    $data = expensive_operation();
+    set_transient( 'mypl_data', $data, 12 * HOUR_IN_SECONDS );
+}
+```
+
+---
+
+## Bundled Resources
+
+**Templates**: `plugin-simple/`, `plugin-oop/`, `plugin-psr4/`, `examples/meta-box.php`, `examples/settings-page.php`, `examples/custom-post-type.php`, `examples/rest-endpoint.php`, `examples/ajax-handler.php`
+
+**Scripts**: `scaffold-plugin.sh`, `check-security.sh`, `validate-headers.sh`
+
+**References**: `security-checklist.md`, `hooks-reference.md`, `sanitization-guide.md`, `wpdb-patterns.md`, `common-errors.md`
+
+---
+
+## Advanced Topics
+
+**i18n** (Internationalization):
+```php
+load_plugin_textdomain( 'my-plugin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+__( 'Text', 'my-plugin' );  // Return translated
+_e( 'Text', 'my-plugin' );  // Echo translated
+esc_html__( 'Text', 'my-plugin' );  // Translate + escape
+```
+
+**WP-CLI**:
+```php
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+    WP_CLI::add_command( 'mypl', 'MyPL_CLI_Command' );
+}
+```
+
+**Cron Events**:
+```php
+register_activation_hook( __FILE__, fn() => wp_schedule_event( time(), 'daily', 'mypl_daily_task' ) );
+register_deactivation_hook( __FILE__, fn() => wp_clear_scheduled_hook( 'mypl_daily_task' ) );
+add_action( 'mypl_daily_task', 'mypl_do_daily_task' );
+```
+
+**Plugin Dependencies**:
+```php
+if ( ! class_exists( 'WooCommerce' ) ) {
+    deactivate_plugins( plugin_basename( __FILE__ ) );
+    add_action( 'admin_notices', fn() => echo '<div class="error"><p>Requires WooCommerce</p></div>' );
+}
+```
 
 ---
 
 ## Distribution & Auto-Updates
 
-Plugins hosted outside WordPress.org can provide automatic updates using **Plugin Update Checker** by YahnisElsts (recommended).
+**GitHub Auto-Updates** (Plugin Update Checker by YahnisElsts):
+```php
+// 1. Install: git submodule add https://github.com/YahnisElsts/plugin-update-checker.git
+// 2. Add to main plugin file
+require plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-**Quick Solutions:**
-- **Public Repos**: Plugin Update Checker (GitHub/GitLab/BitBucket)
-- **Private Plugins**: Plugin Update Checker + authentication token
-- **Commercial Plugins**: Freemius or Custom Update Server
-- **No Coding**: Git Updater plugin
+$updateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/yourusername/your-plugin/',
+    __FILE__,
+    'your-plugin-slug'
+);
+$updateChecker->getVcsApi()->enableReleaseAssets();  // Use GitHub Releases
 
-**For complete implementation**, load `references/github-auto-updates.md` which includes:
-- Plugin Update Checker setup (5 minutes)
-- GitHub Releases workflow
-- Private repository authentication
-- Security best practices (checksums, tokens, rate limiting)
-- Alternative solutions comparison
-- ZIP structure requirements
+// Private repos: Define token in wp-config.php
+if ( defined( 'YOUR_PLUGIN_GITHUB_TOKEN' ) ) {
+    $updateChecker->setAuthentication( YOUR_PLUGIN_GITHUB_TOKEN );
+}
+```
+
+**Deployment**:
+```bash
+git tag 1.0.1 && git push origin main && git push origin 1.0.1
+# Create GitHub Release with ZIP (exclude .git, tests)
+```
+
+**Alternatives**: Git Updater (no coding), Custom Update Server (full control), Freemius (commercial)
+
+**Security**: Use HTTPS, never hardcode tokens, validate licenses, rate limit update checks
+
+**CRITICAL**: ZIP must contain plugin folder: `plugin.zip/my-plugin/my-plugin.php`
+
+**Resources**: See `references/github-auto-updates.md`, `examples/github-updater.php`
 
 ---
 
@@ -386,91 +1038,17 @@ Plugins hosted outside WordPress.org can provide automatic updates using **Plugi
 
 ## Troubleshooting
 
-**Fatal Errors**: Enable `WP_DEBUG`, check `wp-content/debug.log`, verify prefixed names
+**Fatal Error**: Enable WP_DEBUG, check wp-content/debug.log, verify prefixed names, check dependencies
 
-**404 on CPTs**: Flush rewrite rules (add `flush_rewrite_rules();` temporarily in wp-admin)
+**404 on CPT**: Flush rewrite rules via Settings → Permalinks → Save
 
-**Nonce Failures**: Check matching names, correct action, 24-hour expiration
+**Nonce Fails**: Check nonce name/action match, verify not expired (24h default)
 
-**AJAX Returns 0/-1**: Verify action name matches `wp_ajax_{action}`, nonce sent/verified, handler hooked
+**AJAX Returns 0/-1**: Verify action name matches `wp_ajax_{action}`, check nonce sent/verified
 
-**HTML Stripped**: Use `wp_kses_post()` instead of `sanitize_text_field()`
+**HTML Stripped**: Use `wp_kses_post()` not `sanitize_text_field()` for safe HTML
 
-**DB Queries Fail**: Always use `$wpdb->prepare()`, include `$wpdb->prefix`, verify syntax
-
----
-
-## When to Load References
-
-This skill uses **progressive disclosure** - main file contains essentials, reference files have detailed implementation. Load references based on your current task:
-
-### `references/common-patterns.md` (465 lines)
-**Load when**: Implementing specific WordPress features
-**Contains**:
-- Custom Post Types (registration, Gutenberg support, rewrite rules)
-- Custom Taxonomies (hierarchical vs flat, REST API)
-- Meta Boxes (security requirements, save hooks, autosave checks)
-- Settings API (register_setting, sections, fields hierarchy)
-- REST API Endpoints (permission callbacks, validation, responses)
-- AJAX Handlers (nonce verification, wp_ajax hooks, JavaScript integration)
-- Custom Database Tables (dbDelta, character encoding, versioning)
-- Transients for Caching (cache patterns, invalidation, expiration)
-
-### `references/plugin-architectures.md` (220 lines)
-**Load when**: Choosing plugin structure or migrating between patterns
-**Contains**:
-- Simple Pattern (functions only, <5 functions)
-- OOP Pattern (singleton, encapsulation, medium plugins)
-- PSR-4 Pattern (namespaces, Composer autoloading, modern standard)
-- Decision tree for pattern selection
-- Complete directory structures with all files
-- Activation/deactivation hook examples
-- Migration paths between patterns
-
-### `references/error-catalog.md` (Issues #6-20, 573 lines)
-**Load when**: Debugging issues beyond Top 5 security vulnerabilities
-**Contains**:
-- Functionality issues (prefix collision, rewrite rules, deprecated functions, text domains, dependencies, autosave)
-- Performance issues (scripts everywhere, transients cleanup, admin-ajax.php alternatives)
-- Security issues (sanitization, extract(), REST permissions, uninstall hooks)
-- Data integrity issues (deactivation vs uninstall)
-**Each issue includes**: Error description, source/reference, why it happens, prevention code, impact severity, frequency
-
-### `references/advanced-topics.md` (150 lines)
-**Load when**: Implementing i18n, WP-CLI, cron jobs, or dependency checking
-**Contains**:
-- Internationalization (i18n) - load_plugin_textdomain(), translation workflow, .pot/.po/.mo files
-- WP-CLI Commands - custom command creation, progress bars, output functions
-- Scheduled Events (Cron) - wp_schedule_event(), custom schedules, activation hooks
-- Plugin Dependencies Check - version requirements, soft dependencies, user-friendly error messages
-
-### `references/security-checklist.md` (527 lines)
-**Load when**: Performing security audit or reviewing code for vulnerabilities
-**Contains**:
-- Complete security audit checklist
-- OWASP Top 10 for WordPress
-- Code examples for each vulnerability type
-- Testing procedures and tools
-- Security plugin recommendations
-
-### `references/github-auto-updates.md` (1,224 lines)
-**Load when**: Setting up auto-updates for plugins hosted outside WordPress.org
-**Contains**:
-- Plugin Update Checker (recommended) - 5-minute setup
-- GitHub Releases workflow and automation
-- Private repository authentication (tokens, wp-config.php)
-- Alternative solutions (Git Updater, Custom Server, Freemius)
-- Security best practices (checksums, signing, rate limiting)
-- ZIP structure requirements and common mistakes
-- Deployment automation examples
-
-### `references/common-hooks.md` (234 lines)
-**Load when**: Working with WordPress hooks and need hook reference
-**Contains**:
-- Action hooks reference (init, admin_menu, save_post, etc.)
-- Filter hooks reference (the_content, post_type_args, etc.)
-- Hook priority and execution order
-- Common hook combinations and patterns
+**Query Fails**: Use `$wpdb->prepare()`, check `$wpdb->prefix`, verify syntax
 
 ---
 
@@ -500,8 +1078,12 @@ Use this checklist to verify your plugin:
 
 **Questions? Issues?**
 
-1. Check `references/error-catalog.md` for additional issues #6-20
+1. Check `references/common-errors.md` for extended troubleshooting
 2. Verify all steps in the security foundation
 3. Check official docs: https://developer.wordpress.org/plugins/
 4. Enable WP_DEBUG and check debug.log
 5. Use Query Monitor plugin to debug hooks and queries
+
+---
+
+**Last verified**: 2026-01-21 | **Skill version**: 2.0.0 | **Changes**: Added 9 new issues from WordPress 6.7-6.9 research (bcrypt migration, WP_Dependencies deprecation, translation loading, REST API CVEs 2025-2026, wpdb::prepare() edge cases, nonce limitations, hook gotchas, CPT URL conflicts). Updated from 20 to 29 documented errors prevented. Error count: 20 → 29. Version: 1.x → 2.0.0 (major version due to significant WordPress version-specific content additions).

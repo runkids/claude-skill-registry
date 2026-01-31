@@ -1,7 +1,7 @@
 {
   "name": "risk-metrics-calculation",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/quantitative-trading/skills/risk-metrics-calculation/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-30T04:16:14.811898Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/quantitative-trading/skills/risk-metrics-calculation/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-01-31T03:32:11.590216Z"
 }

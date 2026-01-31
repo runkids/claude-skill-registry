@@ -1,9 +1,7 @@
 {
   "name": "mkdocs-config-generator",
-  "description": "Mkdocs Config Generator - Auto-activating skill for Technical Documentation.Triggers on: mkdocs config generator, mkdocs config generatorPart of the Technical Documentation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/17-technical-docs/mkdocs-config-generator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:47.600993Z"
 }

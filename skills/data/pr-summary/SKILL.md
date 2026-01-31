@@ -1,134 +1,53 @@
 ---
 name: pr-summary
-description: Generate a PR summary and write to workflows/ pr_summary.md
-allowed-tools: Read, Grep, Glob, Write, Bash
+description: Summarize current pull request with diff, comments, and changed files. Use when reviewing PRs or before merging.
+argument-hint: "[pr-number]"
+context: fork
+agent: fuse-ai-pilot:explore-codebase
+disable-model-invocation: true
+user-invocable: true
 ---
 
-# Create PR Summary
+# PR Summary Skill
 
-Generate a comprehensive pull request summary based on branch changes.
+Summarize the current pull request.
 
-## Instructions
+## Pull Request Context
 
-1. **Gather Context**
-   - Get current branch name
-   - Find workflow folder for this branch
-   - Read analysis.md and plan.md if they exist
-   - Get associated issue number from branch name or commits
+- **PR diff:** !`gh pr diff`
+- **PR comments:** !`gh pr view --comments`
+- **Changed files:** !`gh pr diff --name-only`
+- **PR status:** !`gh pr status`
 
-2. **Analyze Changes**
-   ```bash
-   # All commits on this branch
-   git log main...HEAD --oneline
+## Task
 
-   # Full diff
-   git diff main...HEAD --stat
+Analyze this pull request and provide:
 
-   # Changed files
-   git diff main...HEAD --name-only
-   ```
+1. **Overview** - What does this PR do?
+2. **Key Changes** - Main files and modifications
+3. **Potential Risks** - Breaking changes, security concerns
+4. **Review Recommendations** - What to check carefully
 
-3. **Categorize Changes**
-   - New features added
-   - Bugs fixed
-   - Tests added/modified
-   - Documentation updates
-   - Refactoring
+## Output Format
 
-4. **Generate Summary**
+```markdown
+## PR Summary: [Title]
 
-   Write to `workflows/<folder>/pr_summary.md`:
+### Overview
+[1-2 sentences]
 
-   ```markdown
-   # PR: <title>
+### Key Changes
+- [file]: [change description]
+- ...
 
-   ## Summary
-   <1-3 bullet points describing the key changes>
+### Risks
+- [risk if any]
 
-   ## Related Issues
-   - Resolves #<number>
-   - Relates to #<number>
+### Recommendations
+- [what to verify]
+```
 
-   ## Changes
+## Debug
 
-   ### Features
-   - <New feature 1>
-   - <New feature 2>
-
-   ### Bug Fixes
-   - <Fix 1>
-
-   ### Code Changes
-   | File | Change Type | Description |
-   |------|-------------|-------------|
-   | `path/to/file.go` | Modified | <brief description> |
-   | `path/to/new.go` | Added | <brief description> |
-
-   ### Tests
-   - Added `TestXxx` - <what it tests>
-   - Added `TestYyy` - <what it tests>
-
-   ### Documentation
-   - Updated `docs/xxx.md` - <what changed>
-
-   ## Implementation Notes
-   <Any important technical details reviewers should know>
-
-   ## Test Plan
-   Verification steps for reviewers:
-
-   - [ ] Clone branch and build: `go build ./...`
-   - [ ] Run tests: `go test ./...`
-   - [ ] <Manual verification step 1>
-   - [ ] <Manual verification step 2>
-
-   ## Screenshots
-   <If applicable - command output examples>
-
-   ## Breaking Changes
-   <None, or list breaking changes with migration steps>
-
-   ## Checklist
-   - [x] Code follows project guidelines
-   - [x] Tests added for new functionality
-   - [x] Documentation updated
-   - [x] All tests pass
-   - [x] No breaking changes (or documented above)
-   ```
-
-5. **Create PR Command**
-
-   Also output the `gh pr create` command:
-
-   ```bash
-   gh pr create --title "<title>" --body "$(cat <<'EOF'
-   ## Summary
-   <summary bullets>
-
-   ## Test Plan
-   <test steps>
-
-   ---
-   Generated with Claude Code
-   EOF
-   )"
-   ```
-
-6. **Report Completion**
-   - Show path to pr_summary.md
-   - Show the PR creation command
-   - Remind to push branch first if not already pushed
-
-## PR Title Guidelines
-
-- Use imperative mood: "Add feature" not "Added feature"
-- Be specific but concise
-- Include issue number if applicable: "Add squash merge support (#42)"
-
-## Body Best Practices
-
-- Lead with the most important information
-- Keep summary bullets scannable
-- Include enough context for reviewers
-- Make test plan actionable
-- Note any deployment considerations
+- Session: ${CLAUDE_SESSION_ID}
+- Timestamp: !`date +%Y-%m-%d_%H:%M:%S`

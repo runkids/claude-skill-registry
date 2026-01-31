@@ -1,18 +1,18 @@
 ---
-name: cloud-logging-sink-setup
+name: "cloud-logging-sink-setup"
 description: |
-  Cloud Logging Sink Setup - Auto-activating skill for GCP Skills.
+  Configure cloud logging sink setup operations. Auto-activating skill for GCP Skills.
   Triggers on: cloud logging sink setup, cloud logging sink setup
-  Part of the GCP Skills skill category.
-allowed-tools: Read, Write, Edit, Bash(gcloud:*)
+  Part of the GCP Skills skill category. Use when working with cloud logging sink setup functionality. Trigger with phrases like "cloud logging sink setup", "cloud setup", "cloud".
+allowed-tools: "Read, Write, Edit, Bash(gcloud:*)"
 version: 1.0.0
 license: MIT
-author: Jeremy Longshore <jeremy@intentsolutions.io>
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
 # Cloud Logging Sink Setup
 
-## Purpose
+## Overview
 
 This skill provides automated assistance for cloud logging sink setup tasks within the GCP Skills domain.
 
@@ -23,18 +23,48 @@ This skill activates automatically when you:
 - Ask about cloud logging sink setup patterns or best practices
 - Need help with google cloud platform skills covering compute, storage, bigquery, vertex ai, and gcp-specific services.
 
-## Capabilities
+## Instructions
 
-- Provides step-by-step guidance for cloud logging sink setup
-- Follows industry best practices and patterns
-- Generates production-ready code and configurations
-- Validates outputs against common standards
+1. Provides step-by-step guidance for cloud logging sink setup
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-## Example Triggers
+## Examples
 
-- "Help me with cloud logging sink setup"
-- "Set up cloud logging sink setup"
-- "How do I implement cloud logging sink setup?"
+**Example: Basic Usage**
+Request: "Help me with cloud logging sink setup"
+Result: Provides step-by-step guidance and generates appropriate configurations
+
+
+## Prerequisites
+
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of gcp skills concepts
+
+
+## Output
+
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
+
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
+
+
+## Resources
+
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
 
 ## Related Skills
 

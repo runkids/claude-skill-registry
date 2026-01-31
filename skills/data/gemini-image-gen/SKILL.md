@@ -16,6 +16,7 @@ Generate high-quality images using Google's Gemini 2.5 Flash Image model with te
 ## When to Use This Skill
 
 Use this skill when you need to:
+
 - Generate images from text descriptions
 - Edit existing images by adding/removing elements or changing styles
 - Combine multiple source images into new compositions
@@ -26,46 +27,24 @@ Use this skill when you need to:
 
 ### API Key Setup
 
-The skill supports both **Google AI Studio** and **Vertex AI** endpoints.
-
-#### Option 1: Google AI Studio (Default)
-
 The skill automatically detects your `GEMINI_API_KEY` in this order:
 
 1. **Process environment**: `export GEMINI_API_KEY="your-key"`
-2. **Project root**: `.env`
-3. **.claude directory**: `.claude/.env`
-4. **.claude/skills directory**: `.claude/skills/.env`
-5. **Skill directory**: `.claude/skills/gemini-image-gen/.env`
+2. **Skill directory**: `.claude/skills/gemini-image-gen/.env`
+3. **Project directory**: `./.env` (project root)
 
 **Get your API key**: Visit [Google AI Studio](https://aistudio.google.com/apikey)
 
 Create `.env` file with:
+
 ```bash
 GEMINI_API_KEY=your_api_key_here
-```
-
-#### Option 2: Vertex AI
-
-To use Vertex AI instead:
-
-```bash
-# Enable Vertex AI
-export GEMINI_USE_VERTEX=true
-export VERTEX_PROJECT_ID=your-gcp-project-id
-export VERTEX_LOCATION=us-central1  # Optional, defaults to us-central1
-```
-
-Or in `.env` file:
-```bash
-GEMINI_USE_VERTEX=true
-VERTEX_PROJECT_ID=your-gcp-project-id
-VERTEX_LOCATION=us-central1
 ```
 
 ### Python Setup
 
 Install required package:
+
 ```bash
 pip install google-genai
 ```
@@ -120,13 +99,13 @@ python .claude/skills/gemini-image-gen/scripts/generate.py \
 
 ### Aspect Ratios
 
-| Ratio | Resolution | Use Case | Token Cost |
-|-------|-----------|----------|------------|
-| 1:1 | 1024×1024 | Social media, avatars | 1290 |
-| 16:9 | 1344×768 | Landscapes, banners | 1290 |
-| 9:16 | 768×1344 | Mobile, portraits | 1290 |
-| 4:3 | 1152×896 | Traditional media | 1290 |
-| 3:4 | 896×1152 | Vertical posters | 1290 |
+| Ratio | Resolution | Use Case              | Token Cost |
+| ----- | ---------- | --------------------- | ---------- |
+| 1:1   | 1024×1024  | Social media, avatars | 1290       |
+| 16:9  | 1344×768   | Landscapes, banners   | 1290       |
+| 9:16  | 768×1344   | Mobile, portraits     | 1290       |
+| 4:3   | 1152×896   | Traditional media     | 1290       |
+| 3:4   | 896×1152   | Vertical posters      | 1290       |
 
 ### Response Modalities
 
@@ -172,6 +151,7 @@ response = client.models.generate_content(
 ## Prompt Engineering Tips
 
 **Structure effective prompts** with three elements:
+
 1. **Subject**: What to generate ("a robot")
 2. **Context**: Environmental setting ("in a futuristic city")
 3. **Style**: Artistic treatment ("cyberpunk style, neon lighting")
@@ -179,10 +159,12 @@ response = client.models.generate_content(
 **Example**: "A robot in a futuristic city, cyberpunk style with neon lighting and rain-slicked streets"
 
 **Quality modifiers**:
+
 - Add terms like "4K", "HDR", "high-quality", "professional photography"
 - Specify camera settings: "35mm lens", "shallow depth of field", "golden hour lighting"
 
 **Text in images**:
+
 - Limit to 25 characters maximum
 - Use up to 3 distinct phrases
 - Specify font styles: "bold sans-serif title" or "handwritten script"
@@ -221,6 +203,7 @@ The helper script automatically saves to this location with timestamped filename
 ## Model Specifications
 
 **Model**: `gemini-2.5-flash-image`
+
 - **Input tokens**: Up to 65,536
 - **Output tokens**: Up to 32,768
 - **Supported inputs**: Text and images
@@ -241,6 +224,7 @@ The helper script automatically saves to this location with timestamped filename
 Common issues and solutions:
 
 **API key not found**:
+
 ```bash
 # Check environment variables
 echo $GEMINI_API_KEY
@@ -252,11 +236,13 @@ cat .env
 ```
 
 **Safety filter blocking**:
+
 - Review `response.prompt_feedback.block_reason`
 - Adjust safety settings if appropriate for your use case
 - Modify prompt to avoid triggering filters
 
 **Token limit exceeded**:
+
 - Reduce prompt length
 - Use fewer input images
 - Simplify image editing instructions
@@ -264,6 +250,7 @@ cat .env
 ## Reference Documentation
 
 For detailed information, see:
+
 - `references/api-reference.md` - Complete API specifications
 - `references/prompting-guide.md` - Advanced prompt engineering
 - `references/safety-settings.md` - Safety configuration details

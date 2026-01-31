@@ -1,29 +1,26 @@
 ---
 name: Global Conventions
-description: Follow truth-first development with focused feature work, accurate spec maintenance, clean version control, environment-based configuration, and infrastructure-as-code deployments. Use this skill when managing requirements, working in branches, handling configuration, reviewing code, maintaining documentation, or deploying with Ansible. Applies to all development activities requiring honest communication, systematic processes, dependency management, and radical transparency in documentation and decision logs.
+description: Follow consistent project structure, version control practices, environment configuration, code review processes, and development conventions across the entire application. Use this skill when organizing project files and directories, when writing commit messages or creating pull requests, when managing environment variables and configuration, when participating in code reviews, when defining testing requirements, when using feature flags, when maintaining changelogs, when documenting setup instructions, or when establishing consistent development practices across the team.
 ---
 
 # Global Conventions
 
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global conventions.
+
 ## When to use this skill
 
-- When updating specification documents like `requirements.md`, `spec.md`, or `tasks.md` to reflect reality
-- When creating branches, writing commit messages, or preparing code for review
-- When managing configuration through environment variables or secrets management systems
-- When adding, evaluating, or removing project dependencies with documented justification
-- When conducting code reviews focusing on correctness, test coverage, and maintainability
-- When maintaining changelogs, release notes, or architectural decision records (ADRs)
-- When writing or updating README files that enumerate limitations, trade-offs, and known technical debt
-- When creating or running Ansible playbooks for deployments instead of manual shell commands
-- When instrumenting code with metrics, logs, and alerts to surface regressions quickly
-- When working on one feature at a time without parallelizing implementation without approval
-- When communicating system status, risks, or failures without sugar-coating or unverified claims
-- When ensuring environment variables and secrets never touch source control
-- When practicing fail-loud operations with proper observability and monitoring
-
-# Global Conventions
-
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global conventions.
+- When organizing or restructuring project files and directories
+- When writing commit messages, creating branches, or making pull requests
+- When managing environment variables and configuration files
+- When documenting features in README files or architecture documentation
+- When participating in code reviews as reviewer or author
+- When defining or following testing requirements before merging
+- When implementing feature flags for incomplete or experimental features
+- When maintaining changelog or release notes
+- When managing project dependencies and documenting why they're used
+- When setting up or updating contribution guidelines
+- When ensuring consistent practices across the development team
+- When making decisions about long-lived branches vs. feature flags
 
 ## Instructions
 

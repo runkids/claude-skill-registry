@@ -4,7 +4,7 @@ description: Guide for creating effective skills. Use when users want to create 
 metadata:
   author: OpenAI
   license: AGPL-3.0
-  short-description: Create or update a skill
+  version: 2025.12.18
 ---
 
 # Skill Creator

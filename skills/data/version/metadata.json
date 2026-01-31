@@ -1,9 +1,7 @@
 {
   "name": "version",
-  "description": "Imported skill _version from langchain",
-  "repo": "bitwikiorg/skills.md",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/bitwikiorg/skills.md"
+  "repo": "HemSoft/hs-conductor",
+  "path": ".claude/skills/version/SKILL.md",
+  "source": "github.com/HemSoft/hs-conductor",
+  "downloaded_at": "2026-01-31T03:01:58.153850Z"
 }

@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 770,
-  "updated_at": "2026-01-30T04:53:29.802457Z",
+  "count": 763,
+  "updated_at": "2026-01-31T04:52:27.061917Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -3978,18 +3978,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cookie-security-analyzer",
-      "description": "Cookie Security Analyzer - Auto-activating skill for Security Fundamentals.Triggers on: cookie security analyzer, cookie security analyzerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/cookie-security-analyzer",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "crack-7z-hash",
       "description": "This skill provides guidance for cracking 7z archive password hashes. It should be used when tasked with recovering passwords from 7z encrypted archives, extracting and cracking 7z hashes, or working ",
       "repo": "letta-ai/skills",
@@ -5263,18 +5251,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "hipaa-audit-helper",
-      "description": "Hipaa Audit Helper - Auto-activating skill for Security Advanced.Triggers on: hipaa audit helper, hipaa audit helperPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/hipaa-audit-helper",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "hono-authentication",
       "description": "Use this skill whenever the user wants to design, implement, or refactor authentication and authorization in a Hono + TypeScript backend, including JWT, sessions/cookies, middleware, guards-like patte",
       "repo": "AgentiveCity/SkillFactory",
@@ -5407,18 +5383,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/03-security-fundamentals/input-validation-checker",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "input-validation-checker",
-      "description": "Input Validation Checker - Auto-activating skill for Security Fundamentals.Triggers on: input validation checker, input validation checkerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/input-validation-checker",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5581,18 +5545,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/04-security-advanced/iso27001-gap-analyzer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "iso27001-gap-analyzer",
-      "description": "Iso27001 Gap Analyzer - Auto-activating skill for Security Advanced.Triggers on: iso27001 gap analyzer, iso27001 gap analyzerPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/iso27001-gap-analyzer",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8676,18 +8628,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "siem-rule-generator",
-      "description": "Siem Rule Generator - Auto-activating skill for Security Advanced.Triggers on: siem rule generator, siem rule generatorPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/siem-rule-generator",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "sinatra-security",
       "description": "Security best practices for Sinatra applications including input validation, CSRF protection, and authentication patterns. Use when hardening applications or conducting security reviews.",
       "repo": "geoffjay/claude-plugins",
@@ -8981,18 +8921,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/supabase-pack/skills/supabase-security-basics",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "supabase-security-basics",
-      "description": "Apply Supabase security best practices for secrets and access control.Use when securing API keys, implementing least privilege access,or auditing Supabase security configuration.Trigger with phrases l",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/supabase-security-basics",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9993,18 +9921,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/xss-vulnerability-scanner/skills/scanning-for-xss-vulnerabilities",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "xss-vulnerability-scanner",
-      "description": "Xss Vulnerability Scanner - Auto-activating skill for Security Fundamentals.Triggers on: xss vulnerability scanner, xss vulnerability scannerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/xss-vulnerability-scanner",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

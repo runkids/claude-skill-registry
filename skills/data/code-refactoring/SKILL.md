@@ -1,392 +1,125 @@
 ---
 name: code-refactoring
-description: Guide for refactoring duplicate code in the Orient. Use when extracting shared logic, consolidating services, or improving code organization. Covers tool-calling extraction, database unification, and monorepo migration patterns.
+description: Guides systematic code refactoring to improve code quality, maintainability, and design. Identifies code smells, applies refactoring patterns, ensures test coverage, and follows safe refactoring practices. Produces cleaner, more maintainable code while preserving functionality. Use when improving code quality, eliminating technical debt, preparing for feature additions, addressing code smells, or when users mention refactoring, code cleanup, improving design, reducing complexity, or modernizing legacy code.
 ---
 
-# Code Refactoring Patterns
+# Code Refactoring
 
 ## Overview
 
-This skill provides patterns and checklists for refactoring code in the Orient monorepo. Use this when:
-
-- Extracting shared logic from duplicate implementations
-- Migrating services between `src/` and `packages/`
-- Unifying database access patterns
-- Consolidating tool definitions
-
-## Pattern 1: Service Extraction
-
-**When to use**: Two or more services share identical logic (>50 lines or complex logic).
-
-### Checklist
-
-1. **Identify Shared Code**
-   - Find duplicate implementations in the codebase
-   - Document the differences (usually import paths and configuration)
-   - Verify the logic is semantically identical
-
-2. **Design the Shared Interface**
-
-   ```typescript
-   // Define configuration options
-   export interface ServiceConfig {
-     option1?: string;
-     option2?: number;
-   }
-
-   // Define the executor/adapter pattern
-   export type ServiceExecutor = (input: Input, context?: Context) => Promise<Result>;
-   ```
-
-3. **Create the Shared Service**
-   - Place in `src/services/` or appropriate package
-   - Make all platform-specific parts configurable
-   - Add comprehensive JSDoc comments
-
-4. **Update Consumers**
-   - Import from the new shared service
-   - Pass platform-specific configuration
-   - Remove duplicate inline implementations
-
-5. **Write Tests**
-   - Unit tests for the shared service
-   - Integration tests for each consumer
-   - Before/after comparison tests if needed
-
-### Example: Tool-Calling Service
-
-The `toolCallingService.ts` extracts the common tool-calling loop from `AgentService` and `WhatsAppAgentService`:
-
-```typescript
-// Shared service with configurable behavior
-export async function executeToolLoop(
-  anthropic: Anthropic,
-  messages: MessageParam[],
-  tools: Tool[],
-  executor: ToolExecutor, // Platform-specific
-  config: ToolCallingConfig,
-  context?: unknown // Platform-specific context
-): Promise<ToolCallingResult>;
-```
-
-Consumers pass their own tool executor while benefiting from shared guardrails.
-
-## Pattern 2: Package Migration
-
-**When to use**: Moving code from `src/` to `packages/` for better modularity.
+This skill guides systematic code refactoring to improve code quality, maintainability, and design while preserving functionality. Follow the safe refactoring workflow with comprehensive test coverage and incremental changes.
 
-### Checklist
-
-1. **Create Package Structure**
-
-   ```
-   packages/[package-name]/
-   ├── package.json
-   ├── tsconfig.json
-   ├── vitest.config.ts
-   ├── README.md
-   ├── src/
-   │   ├── index.ts
-   │   └── [implementation files]
-   └── __tests__/
-   ```
-
-2. **Define Package Dependencies**
-   - Use `"@orient/core": "workspace:*"` for internal deps
-   - Keep dependencies minimal
-   - Avoid circular dependencies
-
-3. **Update tsconfig.json Path Mappings**
-
-   ```json
-   {
-     "compilerOptions": {
-       "paths": {
-         "@orient/[package]": ["./packages/[package]/src/index.ts"]
-       }
-     }
-   }
-   ```
-
-4. **Incremental Migration**
-   - Start with types-only export if the migration is complex
-   - Add deprecation notices to old files
-   - Update consumers one at a time
-   - Run tests after each consumer update
+## Refactoring Workflow
 
-5. **Verify Package Builds**
-   ```bash
-   pnpm --filter @orient/[package] build
-   pnpm --filter @orient/[package] test
-   ```
+## Step 1: Analyze Code and Identify Issues
 
-### Example: @orient/database-services
+Examine the codebase to identify code smells and quality issues:
 
-```typescript
-// packages/database-services/src/index.ts
-export { MessageDatabase, StoredMessage, StoredGroup } from './messageDatabase.js';
-export { SlackDatabase } from './slackDatabase.js';
-export { SchedulerDatabase } from './schedulerDatabase.js';
-export { WebhookDatabase } from './webhookDatabase.js';
-export * from './types/index.js';
-```
+- Long methods (>20-30 lines) or large classes (>300-500 lines)
+- Duplicated code blocks or similar logic in multiple places
+- Unclear or misleading names for variables, methods, or classes
+- Complex conditional logic or deeply nested structures
+- Poor separation of concerns or tight coupling between components
 
-## Pattern 3: Database Access Unification
+**For detailed code smell catalog**: See [code-smells.md](references/code-smells.md)
 
-**When to use**: Multiple database access patterns coexist (raw SQL, BaseDatabase, Drizzle).
+### Step 2: Verify Test Coverage
 
-### Checklist
+Before refactoring ANY code:
 
-1. **Audit Current Usage**
+1. Check existing test coverage for the code to be refactored
+2. If tests are missing or inadequate, write tests FIRST
+3. Run all tests to establish baseline (all should pass)
+4. Never proceed without adequate test coverage
 
-   ```bash
-   grep -r "BaseDatabase" src/
-   grep -r "getDatabase" src/
-   grep -r "executeRawSql" src/
-   ```
+**For test coverage strategies**: See [testing-strategies.md](references/testing-strategies.md)
 
-2. **Create Comparison Tests**
-   - Write tests that verify old and new implementations produce same results
-   - Include edge cases and error scenarios
+### Step 3: Choose Refactoring Technique
 
-3. **Create Drizzle Helpers**
+Select the appropriate refactoring pattern based on the issue:
 
-   ```typescript
-   // In @orient/database
-   export async function executeRaw<T>(sql: string, params?: unknown[]): Promise<T[]>;
-   export async function executeRawOne<T>(sql: string, params?: unknown[]): Promise<T | null>;
-   ```
+- **Extract Method/Function**: Break down long methods into smaller, focused ones
+- **Extract Class**: Split large classes with multiple responsibilities
+- **Rename**: Improve clarity with better names
+- **Move Method/Field**: Relocate functionality to more appropriate classes
+- **Replace Conditional with Polymorphism**: Simplify complex conditionals
+- **Introduce Parameter Object**: Group related parameters
+- **Inline Method/Variable**: Remove unnecessary indirection
 
-4. **Migrate Services One at a Time**
-   - Start with services that already use Drizzle partially
-   - Update imports to use @orient/database
-   - Run comparison tests after each migration
+**For complete pattern catalog**: See [refactoring-patterns.md](references/refactoring-patterns.md)
 
-5. **Deprecate Old Patterns**
-   - Add `@deprecated` JSDoc to old implementations
-   - Set timeline for removal
+### Step 4: Apply Refactoring Incrementally
 
-## Pattern 4: Tool Definition Consolidation
+Make ONE small change at a time:
 
-**When to use**: Same tools defined in multiple places.
+1. Apply a single refactoring technique
+2. Run all tests immediately after the change
+3. If tests pass, commit the change
+4. If tests fail, revert and try a different approach
+5. Repeat for each refactoring needed
 
-### Checklist
+**Critical Rules:**
 
-1. **Create Tool Definitions Directory**
+- Never change behavior while refactoring
+- Never refactor and add features simultaneously
+- Use IDE automated refactoring tools when available
+- Keep each refactoring commit small and focused
 
-   ```
-   src/tools/definitions/
-   ├── index.ts
-   ├── jira.ts
-   └── whatsapp.ts
-   ```
+**For detailed process guidance**: See [refactoring-process.md](references/refactoring-process.md)
 
-2. **Extract Common Definitions**
+### Step 5: Verify and Document
 
-   ```typescript
-   // src/tools/definitions/jira.ts
-   export const JIRA_TOOL_DEFINITIONS: Anthropic.Tool[] = [
-     { name: 'get_all_issues', ... },
-     // ...
-   ];
-   ```
+After completing refactorings:
 
-3. **Create Platform-Specific Getters**
+1. Run full test suite to ensure all tests pass
+2. Check that code quality metrics improved
+3. Review code to confirm readability enhanced
+4. Document significant architectural changes if needed
+5. Create clear commit messages describing refactorings
 
-   ```typescript
-   export function getSlackJiraTools(): Anthropic.Tool[] {
-     return [...JIRA_TOOL_DEFINITIONS];
-   }
+## Common Refactoring Scenarios
 
-   export function getWhatsAppJiraTools(): Anthropic.Tool[] {
-     return [...JIRA_TOOL_DEFINITIONS, ...EXTENDED_TOOLS];
-   }
-   ```
+**Scenario-specific guidance** is available for:
 
-4. **Update Consumers**
-   - Import from definitions instead of defining inline
-   - Test that all tools are still available
+- Legacy code modernization
+- Preparing code for new features
+- Performance optimization through refactoring
+- Reducing technical debt systematically
+- Extracting reusable components
 
-## Common Pitfalls
+See [common-refactoring-scenarios.md](references/common-refactoring-scenarios.md) for detailed examples and approaches.
 
-### 1. Breaking Import Paths
+## Best Practices and Quality Guidelines
 
-- Always update tsconfig.json path mappings
-- Use `.js` extensions for ESM compatibility
-- Build dependent packages before consumers
+Follow established principles for high-quality refactoring:
 
-### 2. Missing Type Exports
+- Apply SOLID principles (Single Responsibility, Open/Closed, etc.)
+- Reduce coupling between components
+- Increase cohesion within components
+- Eliminate duplication (DRY principle)
+- Maintain consistent coding standards
 
-- Export types explicitly: `export type { TypeName }`
-- Re-export from index.ts for convenience
+**For comprehensive best practices**: See [refactoring-best-practices.md](references/refactoring-best-practices.md)
 
-### 3. Circular Dependencies
+## Tools and Automation
 
-- Keep packages loosely coupled
-- Use dependency injection patterns
-- Types can often break circular deps
+Modern IDEs and tools can automate many refactorings safely:
 
-### 4. Test Coverage Gaps
+- IDE refactoring features (IntelliJ, VS Code, Visual Studio)
+- Static analysis tools for code smell detection
+- Test coverage tools
+- Automated code formatting and linting
 
-- Write tests BEFORE refactoring
-- Use comparison tests for migrations
-- Run tests after each incremental change
+**For tool recommendations and usage**: See [tools-and-automation.md](references/tools-and-automation.md)
 
-## Pattern 5: Import Path Migration
+## Output Format
 
-**When to use**: Migrating imports from old paths to new package exports, or consolidating scattered imports.
+When presenting refactoring recommendations:
 
-### Pre-Migration Audit
+1. Identify the code smell or quality issue
+2. Explain why it's problematic
+3. Propose specific refactoring approach
+4. Show before/after code examples
+5. List tests to verify behavior preservation
 
-Before changing any imports, audit the current state:
-
-```bash
-# Find all imports of a specific module
-grep -r "from '.*oldModule'" packages/ src/ --include="*.ts"
-
-# Count imports by pattern
-grep -r "from '@orient/old" packages/ --include="*.ts" | wc -l
-
-# Find files importing from dist (should be zero)
-grep -r "from '.*dist/" packages/ src/ --include="*.ts"
-```
-
-### Migration Checklist
-
-1. **Build the target package first**
-
-   ```bash
-   pnpm --filter @orient/new-package build
-   ls packages/new-package/dist/  # Verify dist exists
-   ```
-
-2. **Add workspace dependency to consumer's package.json**
-
-   ```json
-   {
-     "dependencies": {
-       "@orient/new-package": "workspace:*"
-     }
-   }
-   ```
-
-3. **Update imports one file at a time**
-
-   ```typescript
-   // Before
-   import { Service } from '../../old/path/service.js';
-
-   // After
-   import { Service } from '@orient/new-package';
-   ```
-
-4. **Verify after each file**
-
-   ```bash
-   pnpm --filter @orient/consumer-package build
-   pnpm --filter @orient/consumer-package test
-   ```
-
-5. **Check for runtime issues**
-   - Build passes but runtime fails = missing export or ESM/CJS issue
-   - See `esm-cjs-interop` and `package-exports` skills for solutions
-
-### Import Path Decision Tree
-
-| Scenario                          | Import From                   |
-| --------------------------------- | ----------------------------- |
-| Same package, same directory      | `./file.js`                   |
-| Same package, different directory | `../other/file.js`            |
-| Different package (production)    | `@orient/package`             |
-| Different package (dev, no build) | Path alias resolves to source |
-| Legacy src/ code                  | `../../services/file.js`      |
-
-### Avoiding Dist Imports
-
-**Never** import directly from another package's dist:
-
-```typescript
-// ❌ Wrong - brittle, breaks on rebuild
-import { X } from '../../../packages/core/dist/index.js';
-import { X } from '@orient/core/dist/something.js';
-
-// ✅ Correct - uses package exports
-import { X } from '@orient/core';
-```
-
-Add this test to prevent regressions:
-
-```typescript
-// tests/no-dist-imports.test.ts
-import { describe, it, expect } from 'vitest';
-import { execSync } from 'child_process';
-
-describe('Import hygiene', () => {
-  it('should not import from dist directories', () => {
-    const result = execSync("grep -r \"from '.*dist/\" packages/ src/ --include='*.ts' || true", {
-      encoding: 'utf-8',
-    });
-    expect(result.trim()).toBe('');
-  });
-});
-```
-
-### Bulk Migration Script
-
-For large migrations, use a script:
-
-```bash
-#!/bin/bash
-# migrate-imports.sh
-
-OLD_IMPORT="from '../../old/service"
-NEW_IMPORT="from '@orient/new-package"
-
-find packages/ src/ -name "*.ts" -exec \
-  sed -i '' "s|${OLD_IMPORT}|${NEW_IMPORT}|g" {} \;
-
-echo "Updated files:"
-git diff --name-only
-```
-
-### Post-Migration Verification
-
-```bash
-# Full rebuild
-pnpm turbo build --force
-
-# Run all tests
-pnpm test
-
-# Type check
-pnpm turbo typecheck
-
-# Check for leftover old imports
-grep -r "old/import/path" packages/ src/ --include="*.ts"
-```
-
-## Package Dependency Graph
-
-```
-@orient/core (foundation)
-    ├── @orient/database (Drizzle ORM)
-    ├── @orient/database-services (MessageDB, SlackDB, etc.)
-    ├── @orient/integrations (JIRA, Google)
-    ├── @orient/mcp-tools (tool implementations)
-    ├── @orient/bot-whatsapp
-    ├── @orient/bot-slack
-    ├── @orient/api-gateway
-    └── @orient/dashboard
-```
-
-## Migration Status Tracking
-
-Use this template to track migration progress:
-
-```markdown
-| Component          | Status   | Package                   | Notes                           |
-| ------------------ | -------- | ------------------------- | ------------------------------- |
-| jiraService        | partial  | @orient/integrations      | Types exported, service pending |
-| messageDatabase    | complete | @orient/database-services |                                 |
-| toolCallingService | complete | src/services/             | Shared between agents           |
-```
+**For detailed output templates**: See [output-format.md](references/output-format.md)

@@ -1,7 +1,7 @@
 {
   "name": "employment-contract-templates",
-  "repo": "GaoZimeng0425/nemo-cli",
-  "path": ".claude/skills/employment-contract-templates/SKILL.md",
-  "source": "github.com/GaoZimeng0425/nemo-cli",
-  "downloaded_at": "2026-01-30T03:20:25.704783Z"
+  "repo": "drgaciw/academic-compliance-hub-glm",
+  "path": "agents/plugins/hr-legal-compliance/skills/employment-contract-templates/SKILL.md",
+  "source": "github.com/drgaciw/academic-compliance-hub-glm",
+  "downloaded_at": "2026-01-31T03:20:48.808217Z"
 }

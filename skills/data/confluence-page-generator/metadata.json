@@ -1,7 +1,7 @@
 {
   "name": "confluence-page-generator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/20-enterprise-workflows/confluence-page-generator/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-30T01:00:47.423260Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/20-enterprise-workflows/confluence-page-generator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:43.676679Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "route-builder",
-  "description": "Generates route specifications (distance, elevation, constraints) compatible with the app’s mapping layer.",
   "repo": "nadavyigal/Running-coach-",
-  "category": "development",
-  "tags": [
-    "route",
-    "builder"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/route-builder/SKILL.md",
+  "source": "github.com/nadavyigal/Running-coach-",
+  "downloaded_at": "2026-01-31T02:15:39.397887Z"
 }

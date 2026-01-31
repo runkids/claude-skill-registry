@@ -1,7 +1,7 @@
 {
   "name": "yaml-master",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/yaml-master/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:24.185565Z"
+  "repo": "NovaAI-innovation/Infinite-Agency",
+  "path": ".qwen/skills/yaml-master/SKILL.md",
+  "source": "github.com/NovaAI-innovation/Infinite-Agency",
+  "downloaded_at": "2026-01-31T02:55:32.028795Z"
 }

@@ -1,7 +1,7 @@
 {
   "category": "testing",
-  "count": 4037,
-  "updated_at": "2026-01-30T04:53:29.357231Z",
+  "count": 4025,
+  "updated_at": "2026-01-31T04:52:26.576298Z",
   "skills": [
     {
       "name": "frontend-testing-langgenius-dify",
@@ -4700,21 +4700,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "dbt-artifacts",
-      "description": "Monitor dbt execution using the dbt Artifacts package. Use this skill when you need to track test and model execution history, analyze run patterns over time, monitor data quality metrics, or enable p",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-artifacts",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "dbt",
-        "artifacts"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "dbt-projects-snowflake-setup",
       "description": "Step-by-step setup guide for dbt Projects on Snowflake including prerequisites, external access integration, Git API integration, event table configuration, and automated scheduling. Use this skill wh",
       "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
@@ -4729,23 +4714,6 @@
       ],
       "stars": 23,
       "install": "sfc-gh-dflippo/snowflake-dbt-demo/.claude/skills/dbt-projects-snowflake-setup",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dbt-projects-snowflake-setup",
-      "description": "Step-by-step setup guide for dbt Projects on Snowflake including prerequisites, external access integration, Git API integration, event table configuration, and automated scheduling. Use this skill wh",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-projects-snowflake-setup",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "dbt",
-        "projects",
-        "snowflake",
-        "setup"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -4807,21 +4775,6 @@
       ],
       "stars": 23,
       "install": "sfc-gh-dflippo/snowflake-dbt-demo/.claude/skills/streamlit-development",
-      "source": "local"
-    },
-    {
-      "name": "streamlit-development",
-      "description": "Developing, testing, and deploying Streamlit data applications on Snowflake. Use this skill when you're building interactive data apps, setting up local development environments, testing with pytest o",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/streamlit-development",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "streamlit",
-        "development"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo",
       "source": "local"
     },
     {
@@ -6222,21 +6175,6 @@
       ],
       "stars": 11,
       "install": "williamzujkowski/standards/skills/skill-loader",
-      "source": "local"
-    },
-    {
-      "name": "skill-loader",
-      "description": "Skill-Loader standards and best practices for Skill Loader. Includes implementation guidelines, common patterns, and testing strategies.",
-      "repo": "williamzujkowski/standards",
-      "path": "data/skill-loader",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "skill",
-        "loader"
-      ],
-      "stars": 11,
-      "install": "williamzujkowski/standards",
       "source": "local"
     },
     {
@@ -11313,21 +11251,6 @@
       ],
       "stars": 2,
       "install": "Bbeierle12/Skill-MCP-Claude/skills/r3f-fundamentals",
-      "source": "local"
-    },
-    {
-      "name": "r3f-fundamentals",
-      "description": "React Three Fiber core setup, Canvas configuration, scene hierarchy, camera systems, lighting, render loop, and React integration patterns. Use when setting up a new R3F project, configuring the Canva",
-      "repo": "Bbeierle12/Skill-MCP-Claude",
-      "path": "data/r3f-fundamentals",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "r3f",
-        "fundamentals"
-      ],
-      "stars": 2,
-      "install": "Bbeierle12/Skill-MCP-Claude",
       "source": "local"
     },
     {
@@ -17820,18 +17743,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "api-response-cacher",
-      "description": "Api Response Cacher - Auto-activating skill for API Integration.Triggers on: api response cacher, api response cacherPart of the API Integration skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/api-response-cacher",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "api-test-design",
       "description": "Strategies for designing comprehensive API tests including contract testing, integration testing, and performance testing",
       "repo": "cyperx84/claude-code-plugin-examples",
@@ -21831,18 +21742,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/connection-pool-analyzer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "connection-pool-analyzer",
-      "description": "Connection Pool Analyzer - Auto-activating skill for Performance Testing.Triggers on: connection pool analyzer, connection pool analyzerPart of the Performance Testing skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/connection-pool-analyzer",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -36568,18 +36467,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "optimizing-defi-yields",
-      "description": "Find and compare DeFi yield opportunities across protocols with APY calculations.Use when finding optimal DeFi yield opportunities.Trigger with phrases like \"find yield\", \"optimize returns\", or \"compa",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/optimizing-defi-yields",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "orchestrate-spec",
       "description": "Auto-detects next pending Smart Orchestrator component, spawns 2-3 research agents, generates evidence-backed specs, validates, and offers optional implementation with automatic progress tracking.",
       "repo": "usorama/rad-engineer-v2",
@@ -37226,18 +37113,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/percentile-analyzer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "percentile-analyzer",
-      "description": "Percentile Analyzer - Auto-activating skill for Performance Testing.Triggers on: percentile analyzer, percentile analyzerPart of the Performance Testing skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/percentile-analyzer",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -42869,18 +42744,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "sentry-common-errors",
-      "description": "Troubleshoot common Sentry integration issues and fixes.Use when encountering Sentry errors, missing events,or configuration problems.Trigger with phrases like \"sentry not working\", \"sentry errors mis",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/sentry-common-errors",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "sentry-deploy-integration",
       "description": "Track deployments and releases in Sentry.Use when configuring deployment tracking, release health,or connecting deployments to error data.Trigger with phrases like \"sentry deploy tracking\", \"sentry re",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -45616,18 +45479,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/supabase-pack/skills/supabase-hello-world",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "supabase-hello-world",
-      "description": "Create a minimal working Supabase example.Use when starting a new Supabase integration, testing your setup,or learning basic Supabase API patterns.Trigger with phrases like \"supabase hello world\", \"su",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/supabase-hello-world",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -52784,18 +52635,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/webhook-retry-handler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "webhook-retry-handler",
-      "description": "Webhook Retry Handler - Auto-activating skill for API Integration.Triggers on: webhook retry handler, webhook retry handlerPart of the API Integration skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/webhook-retry-handler",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

@@ -1,584 +1,581 @@
 ---
 name: trpc
-description: Builds type-safe APIs with tRPC including routers, procedures, context, and client integration. Use when creating end-to-end type-safe APIs, building full-stack TypeScript applications, or replacing REST/GraphQL with simpler patterns.
+description: Expert guidance for tRPC v11 type-safe APIs, procedures, middleware, error handling, and TanStack Query integration. Use when user says "trpc", "/trpc", "create procedure", "add endpoint", "api route", "mutation", "query", "middleware", or asks about type-safe APIs, routers, or server/client setup.
 ---
 
-# tRPC
+# tRPC Skill
 
-End-to-end typesafe APIs without code generation or runtime overhead.
+Expert guidance for tRPC v11 with type-safe APIs, procedures, middleware patterns, and TanStack React Query integration.
 
-## Quick Start
+## Quick Reference
 
-**Install:**
-```bash
-npm install @trpc/server @trpc/client @trpc/react-query @tanstack/react-query zod
-```
+### Project Structure
 
-**Project structure:**
 ```
 src/
-  server/
-    trpc.ts           # tRPC instance
-    routers/
-      _app.ts         # Root router
-      posts.ts        # Posts router
-  app/
-    api/trpc/[trpc]/
-      route.ts        # API handler (Next.js)
-  trpc/
-    client.ts         # Client setup
-    Provider.tsx      # React provider
+├── trpc/
+│   ├── trpc.ts          # tRPC initialization (t.router, t.procedure)
+│   ├── context.ts       # Request context type
+│   ├── router.ts        # Root router (merges all sub-routers)
+│   ├── users.ts         # User procedures
+│   └── posts.ts         # Post procedures
+├── lib/
+│   └── trpc-client.ts   # React client setup
+└── server.ts            # tRPC adapter integration
 ```
 
 ## Server Setup
 
-### Initialize tRPC
+### Initialize tRPC (Once Per App)
 
 ```typescript
-// server/trpc.ts
-import { initTRPC, TRPCError } from '@trpc/server';
-import superjson from 'superjson';
-import { ZodError } from 'zod';
-import type { Context } from './context';
+// src/trpc/trpc.ts
+import { initTRPC, TRPCError } from "@trpc/server"
+import type { Context } from "./context"
 
-const t = initTRPC.context<Context>().create({
-  transformer: superjson,
-  errorFormatter({ shape, error }) {
-    return {
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
-    };
-  },
-});
+const t = initTRPC.context<Context>().create()
 
-export const router = t.router;
-export const publicProcedure = t.procedure;
-export const middleware = t.middleware;
+export const router = t.router
+export const procedure = t.procedure
+export const publicProcedure = t.procedure
 ```
 
-### Context
+### Define Context
 
 ```typescript
-// server/context.ts
-import type { inferAsyncReturnType } from '@trpc/server';
-import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
-import { prisma } from '@/lib/prisma';
-import { getSession } from '@/lib/auth';
-
-export async function createContext(opts: FetchCreateContextFnOptions) {
-  const session = await getSession(opts.req);
-
-  return {
-    prisma,
-    session,
-    user: session?.user ?? null,
-  };
+// src/trpc/context.ts
+export interface Context {
+  user?: { id: string; role: "user" | "admin" }
+  db: DatabaseClient
 }
 
-export type Context = inferAsyncReturnType<typeof createContext>;
-```
-
-### Protected Procedure
-
-```typescript
-// server/trpc.ts
-const isAuthed = middleware(({ ctx, next }) => {
-  if (!ctx.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+export function createContext({ req }: { req: Request }): Context {
+  const token = req.headers.get("authorization")
+  return {
+    user: token ? verifyToken(token) : undefined,
+    db: getDbClient(),
   }
-  return next({
-    ctx: {
-      user: ctx.user, // Now non-nullable
-    },
-  });
-});
-
-export const protectedProcedure = t.procedure.use(isAuthed);
-```
-
-## Routers
-
-### Basic Router
-
-```typescript
-// server/routers/posts.ts
-import { z } from 'zod';
-import { router, publicProcedure, protectedProcedure } from '../trpc';
-
-export const postsRouter = router({
-  // Query - GET operations
-  list: publicProcedure.query(async ({ ctx }) => {
-    return ctx.prisma.post.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
-  }),
-
-  // Query with input
-  byId: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      return ctx.prisma.post.findUnique({
-        where: { id: input.id },
-      });
-    }),
-
-  // Mutation - POST/PUT/DELETE operations
-  create: protectedProcedure
-    .input(
-      z.object({
-        title: z.string().min(1).max(100),
-        content: z.string().min(1),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.post.create({
-        data: {
-          ...input,
-          authorId: ctx.user.id,
-        },
-      });
-    }),
-
-  // Mutation with validation
-  update: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        title: z.string().min(1).max(100).optional(),
-        content: z.string().min(1).optional(),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { id, ...data } = input;
-      return ctx.prisma.post.update({
-        where: { id },
-        data,
-      });
-    }),
-
-  delete: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.post.delete({
-        where: { id: input.id },
-      });
-    }),
-});
+}
 ```
 
 ### Root Router
 
 ```typescript
-// server/routers/_app.ts
-import { router } from '../trpc';
-import { postsRouter } from './posts';
-import { usersRouter } from './users';
+// src/trpc/router.ts
+import { router } from "./trpc"
+import { usersRouter } from "./users"
+import { postsRouter } from "./posts"
 
 export const appRouter = router({
-  posts: postsRouter,
   users: usersRouter,
-});
+  posts: postsRouter,
+})
 
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter
 ```
 
-### API Handler (Next.js)
+## Procedures
+
+### Query (Read Data)
 
 ```typescript
-// app/api/trpc/[trpc]/route.ts
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { appRouter } from '@/server/routers/_app';
-import { createContext } from '@/server/context';
+import { z } from "zod"
+import { router, publicProcedure } from "./trpc"
 
-const handler = (req: Request) =>
-  fetchRequestHandler({
-    endpoint: '/api/trpc',
-    req,
-    router: appRouter,
-    createContext,
-  });
+export const usersRouter = router({
+  // Simple query
+  list: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.users.findMany()
+  }),
 
-export { handler as GET, handler as POST };
+  // Query with input
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.db.users.findUnique({ where: { id: input.id } })
+      if (!user) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "User not found" })
+      }
+      return user
+    }),
+})
 ```
 
-## Client Setup
-
-### React Query Client
+### Mutation (Write Data)
 
 ```typescript
-// trpc/client.ts
-import { createTRPCReact } from '@trpc/react-query';
-import type { AppRouter } from '@/server/routers/_app';
+export const postsRouter = router({
+  create: publicProcedure
+    .input(z.object({
+      title: z.string().min(1).max(100),
+      content: z.string(),
+      published: z.boolean().default(false),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.posts.create({ data: input })
+    }),
 
-export const trpc = createTRPCReact<AppRouter>();
+  update: publicProcedure
+    .input(z.object({
+      id: z.string(),
+      title: z.string().optional(),
+      content: z.string().optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...data } = input
+      return ctx.db.posts.update({ where: { id }, data })
+    }),
+
+  delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.posts.delete({ where: { id: input.id } })
+      return { success: true }
+    }),
+})
 ```
 
-### Provider
+### Subscription (Real-time with SSE)
 
-```tsx
-// trpc/Provider.tsx
-'use client';
+```typescript
+import { observable } from "@trpc/server/observable"
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { httpBatchLink } from '@trpc/client';
-import { useState } from 'react';
-import superjson from 'superjson';
-import { trpc } from './client';
+export const eventsRouter = router({
+  onUpdate: publicProcedure
+    .input(z.object({ channelId: z.string() }))
+    .subscription(({ input }) => {
+      return observable<{ message: string }>((emit) => {
+        const handler = (data: { message: string }) => {
+          emit.next(data)
+        }
 
-function getBaseUrl() {
-  if (typeof window !== 'undefined') return '';
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return 'http://localhost:3000';
+        eventEmitter.on(input.channelId, handler)
+
+        return () => {
+          eventEmitter.off(input.channelId, handler)
+        }
+      })
+    }),
+})
+```
+
+## Middleware
+
+### Base Procedure Pattern (Recommended)
+
+```typescript
+// src/trpc/trpc.ts
+import { initTRPC, TRPCError } from "@trpc/server"
+
+const t = initTRPC.context<Context>().create()
+
+// 1. Public procedure with logging
+const loggedProcedure = t.procedure.use(async ({ path, type, next }) => {
+  const start = Date.now()
+  const result = await next()
+  console.log(`${type} ${path} - ${Date.now() - start}ms`)
+  return result
+})
+
+// 2. Authenticated procedure (extends logged)
+export const authedProcedure = loggedProcedure.use(async ({ ctx, next }) => {
+  if (!ctx.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" })
+  }
+  return next({
+    ctx: { ...ctx, user: ctx.user }, // user is now non-null
+  })
+})
+
+// 3. Admin procedure (extends authed)
+export const adminProcedure = authedProcedure.use(async ({ ctx, next }) => {
+  if (ctx.user.role !== "admin") {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" })
+  }
+  return next({ ctx })
+})
+
+export const router = t.router
+export const publicProcedure = loggedProcedure
+```
+
+### Using Protected Procedures
+
+```typescript
+import { router, authedProcedure, adminProcedure } from "./trpc"
+
+export const adminRouter = router({
+  // Requires authentication
+  getProfile: authedProcedure.query(({ ctx }) => {
+    return ctx.db.users.findUnique({ where: { id: ctx.user.id } })
+  }),
+
+  // Requires admin role
+  deleteUser: adminProcedure
+    .input(z.object({ userId: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.db.users.delete({ where: { id: input.userId } })
+    }),
+})
+```
+
+### Context Extension with Middleware
+
+```typescript
+// Add organization context
+const withOrganization = t.middleware(async ({ ctx, input, next }) => {
+  const orgId = (input as { organizationId?: string })?.organizationId
+  if (!orgId) {
+    throw new TRPCError({ code: "BAD_REQUEST", message: "organizationId required" })
+  }
+
+  const org = await ctx.db.organizations.findUnique({ where: { id: orgId } })
+  if (!org) {
+    throw new TRPCError({ code: "NOT_FOUND", message: "Organization not found" })
+  }
+
+  return next({
+    ctx: { ...ctx, organization: org },
+  })
+})
+
+export const orgProcedure = authedProcedure.use(withOrganization)
+```
+
+## Error Handling
+
+### TRPCError Codes
+
+| Code | HTTP Status | Use Case |
+|------|-------------|----------|
+| `BAD_REQUEST` | 400 | Invalid input |
+| `UNAUTHORIZED` | 401 | Not logged in |
+| `FORBIDDEN` | 403 | Insufficient permissions |
+| `NOT_FOUND` | 404 | Resource doesn't exist |
+| `CONFLICT` | 409 | Resource conflict |
+| `PRECONDITION_FAILED` | 412 | Condition not met |
+| `TOO_MANY_REQUESTS` | 429 | Rate limited |
+| `INTERNAL_SERVER_ERROR` | 500 | Server error |
+
+### Throwing Errors
+
+```typescript
+import { TRPCError } from "@trpc/server"
+
+// Basic error
+throw new TRPCError({
+  code: "NOT_FOUND",
+  message: "Post not found",
+})
+
+// With cause (preserves stack trace)
+try {
+  await riskyOperation()
+} catch (err) {
+  throw new TRPCError({
+    code: "INTERNAL_SERVER_ERROR",
+    message: "Operation failed",
+    cause: err,
+  })
 }
+```
 
-export function TRPCProvider({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      links: [
-        httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc`,
-          transformer: superjson,
-        }),
-      ],
+### Global Error Handler
+
+```typescript
+// In server setup
+const handler = createHTTPHandler({
+  router: appRouter,
+  createContext,
+  onError: ({ error, type, path, input, ctx }) => {
+    console.error(`tRPC Error: ${type} ${path}`, {
+      code: error.code,
+      message: error.message,
+      input,
+      userId: ctx?.user?.id,
     })
-  );
 
+    // Report to error tracking
+    if (error.code === "INTERNAL_SERVER_ERROR") {
+      reportError(error)
+    }
+  },
+})
+```
+
+## React Client Setup
+
+### v11 New Pattern (Recommended)
+
+```typescript
+// src/lib/trpc-client.ts
+import { createTRPCContext } from "@trpc/tanstack-react-query"
+import { httpBatchLink } from "@trpc/client"
+import type { AppRouter } from "@/trpc/router"
+
+export const { TRPCProvider, useTRPC, useTRPCClient } = createTRPCContext<AppRouter>()
+
+export function createTRPCClient() {
+  return {
+    links: [
+      httpBatchLink({
+        url: "/api/trpc",
+        headers: () => ({
+          authorization: getAuthToken(),
+        }),
+      }),
+    ],
+  }
+}
+```
+
+### Provider Setup
+
+```tsx
+// src/main.tsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { TRPCProvider, createTRPCClient } from "@/lib/trpc-client"
+
+const queryClient = new QueryClient()
+const trpcClient = createTRPCClient()
+
+function App() {
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <TRPCProvider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        {children}
+        <Router />
       </QueryClientProvider>
-    </trpc.Provider>
-  );
+    </TRPCProvider>
+  )
 }
 ```
 
-## Using tRPC in Components
+### Classic Pattern (Still Supported)
 
-### Queries
+```typescript
+// src/lib/trpc-client.ts
+import { createTRPCReact } from "@trpc/react-query"
+import { httpBatchLink } from "@trpc/client"
+import type { AppRouter } from "@/trpc/router"
 
-```tsx
-'use client';
+export const trpc = createTRPCReact<AppRouter>()
 
-import { trpc } from '@/trpc/client';
-
-function PostList() {
-  const { data: posts, isLoading, error } = trpc.posts.list.useQuery();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return (
-    <ul>
-      {posts?.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
-  );
-}
-
-// With input
-function Post({ id }: { id: string }) {
-  const { data: post } = trpc.posts.byId.useQuery({ id });
-  return <h1>{post?.title}</h1>;
-}
-
-// With options
-function RecentPosts() {
-  const { data } = trpc.posts.list.useQuery(undefined, {
-    staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
-  });
-  // ...
+export function createTRPCClient() {
+  return trpc.createClient({
+    links: [
+      httpBatchLink({
+        url: "/api/trpc",
+      }),
+    ],
+  })
 }
 ```
 
-### Mutations
+## React Usage
+
+### v11 New Pattern
 
 ```tsx
-'use client';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useTRPC } from "@/lib/trpc-client"
 
-import { trpc } from '@/trpc/client';
+function UserProfile({ userId }: { userId: string }) {
+  const trpc = useTRPC()
+  const queryClient = useQueryClient()
 
-function CreatePostForm() {
-  const utils = trpc.useUtils();
+  // Query
+  const { data: user, isLoading } = useQuery(
+    trpc.users.getById.queryOptions({ id: userId })
+  )
 
-  const mutation = trpc.posts.create.useMutation({
+  // Mutation with cache invalidation
+  const updateUser = useMutation({
+    ...trpc.users.update.mutationOptions(),
     onSuccess: () => {
-      utils.posts.list.invalidate();
+      queryClient.invalidateQueries({ queryKey: trpc.users.getById.queryKey({ id: userId }) })
     },
-  });
+  })
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    mutation.mutate({
-      title: formData.get('title') as string,
-      content: formData.get('content') as string,
-    });
-  };
+  if (isLoading) return <div>Loading...</div>
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="title" required />
-      <textarea name="content" required />
-      <button disabled={mutation.isPending}>
-        {mutation.isPending ? 'Creating...' : 'Create'}
+    <div>
+      <h1>{user?.name}</h1>
+      <button onClick={() => updateUser.mutate({ id: userId, name: "New Name" })}>
+        Update
       </button>
-      {mutation.error && <p>{mutation.error.message}</p>}
-    </form>
-  );
+    </div>
+  )
+}
+```
+
+### Classic Pattern
+
+```tsx
+import { trpc } from "@/lib/trpc-client"
+
+function UserProfile({ userId }: { userId: string }) {
+  const utils = trpc.useUtils()
+
+  // Query
+  const { data: user, isLoading } = trpc.users.getById.useQuery({ id: userId })
+
+  // Mutation
+  const updateUser = trpc.users.update.useMutation({
+    onSuccess: () => {
+      utils.users.getById.invalidate({ id: userId })
+    },
+  })
+
+  if (isLoading) return <div>Loading...</div>
+
+  return (
+    <div>
+      <h1>{user?.name}</h1>
+      <button onClick={() => updateUser.mutate({ id: userId, name: "New Name" })}>
+        Update
+      </button>
+    </div>
+  )
 }
 ```
 
 ### Optimistic Updates
 
 ```tsx
-function TodoItem({ todo }: { todo: Todo }) {
-  const utils = trpc.useUtils();
+const updatePost = useMutation({
+  ...trpc.posts.update.mutationOptions(),
+  onMutate: async (newData) => {
+    await queryClient.cancelQueries({ queryKey: trpc.posts.getById.queryKey({ id: newData.id }) })
 
-  const toggleMutation = trpc.todos.toggle.useMutation({
-    onMutate: async ({ id, completed }) => {
-      await utils.todos.list.cancel();
+    const previous = queryClient.getQueryData(trpc.posts.getById.queryKey({ id: newData.id }))
 
-      const previousTodos = utils.todos.list.getData();
+    queryClient.setQueryData(
+      trpc.posts.getById.queryKey({ id: newData.id }),
+      (old) => ({ ...old, ...newData })
+    )
 
-      utils.todos.list.setData(undefined, (old) =>
-        old?.map((t) => (t.id === id ? { ...t, completed } : t))
-      );
-
-      return { previousTodos };
-    },
-    onError: (err, variables, context) => {
-      utils.todos.list.setData(undefined, context?.previousTodos);
-    },
-    onSettled: () => {
-      utils.todos.list.invalidate();
-    },
-  });
-
-  return (
-    <input
-      type="checkbox"
-      checked={todo.completed}
-      onChange={(e) =>
-        toggleMutation.mutate({ id: todo.id, completed: e.target.checked })
-      }
-    />
-  );
-}
+    return { previous }
+  },
+  onError: (err, newData, context) => {
+    queryClient.setQueryData(
+      trpc.posts.getById.queryKey({ id: newData.id }),
+      context?.previous
+    )
+  },
+})
 ```
 
-### Infinite Queries
+## Input Validation with Zod
 
-```tsx
-function InfinitePosts() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    trpc.posts.infinite.useInfiniteQuery(
-      { limit: 10 },
-      {
-        getNextPageParam: (lastPage) => lastPage.nextCursor,
-      }
-    );
+### Common Patterns
 
-  return (
-    <div>
-      {data?.pages.map((page) =>
-        page.posts.map((post) => <PostCard key={post.id} post={post} />)
-      )}
+```typescript
+import { z } from "zod"
 
-      <button
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        {isFetchingNextPage ? 'Loading...' : 'Load More'}
-      </button>
-    </div>
-  );
-}
+// Pagination
+const paginationInput = z.object({
+  page: z.number().int().min(1).default(1),
+  limit: z.number().int().min(1).max(100).default(20),
+})
 
-// Router procedure
-infinitePosts: publicProcedure
-  .input(
-    z.object({
-      limit: z.number().min(1).max(100).default(10),
-      cursor: z.string().optional(),
-    })
-  )
+// Filters
+const filterInput = z.object({
+  search: z.string().optional(),
+  status: z.enum(["active", "inactive", "all"]).default("all"),
+  sortBy: z.enum(["createdAt", "name", "updatedAt"]).default("createdAt"),
+  sortOrder: z.enum(["asc", "desc"]).default("desc"),
+})
+
+// Combined
+export const listUsersInput = paginationInput.merge(filterInput)
+
+// Usage
+list: publicProcedure
+  .input(listUsersInput)
   .query(async ({ ctx, input }) => {
-    const posts = await ctx.prisma.post.findMany({
-      take: input.limit + 1,
-      cursor: input.cursor ? { id: input.cursor } : undefined,
-      orderBy: { createdAt: 'desc' },
-    });
-
-    let nextCursor: string | undefined;
-    if (posts.length > input.limit) {
-      const nextItem = posts.pop();
-      nextCursor = nextItem?.id;
-    }
-
-    return { posts, nextCursor };
+    const { page, limit, search, status, sortBy, sortOrder } = input
+    // ...
   }),
 ```
 
-## Server-Side Calls
-
-### Server Components (Next.js)
+### Complex Validation
 
 ```typescript
-// lib/trpc-server.ts
-import { appRouter } from '@/server/routers/_app';
-import { createContext } from '@/server/context';
-
-export const serverClient = appRouter.createCaller(await createContext());
-
-// Usage in Server Component
-async function PostsPage() {
-  const posts = await serverClient.posts.list();
-
-  return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-### Server Actions
-
-```typescript
-// app/actions.ts
-'use server';
-
-import { serverClient } from '@/lib/trpc-server';
-
-export async function createPost(formData: FormData) {
-  const result = await serverClient.posts.create({
-    title: formData.get('title') as string,
-    content: formData.get('content') as string,
-  });
-
-  return result;
-}
-```
-
-## Error Handling
-
-### Throwing Errors
-
-```typescript
-import { TRPCError } from '@trpc/server';
-
-delete: protectedProcedure
-  .input(z.object({ id: z.string() }))
-  .mutation(async ({ ctx, input }) => {
-    const post = await ctx.prisma.post.findUnique({
-      where: { id: input.id },
-    });
-
-    if (!post) {
-      throw new TRPCError({
-        code: 'NOT_FOUND',
-        message: 'Post not found',
-      });
-    }
-
-    if (post.authorId !== ctx.user.id) {
-      throw new TRPCError({
-        code: 'FORBIDDEN',
-        message: 'You can only delete your own posts',
-      });
-    }
-
-    return ctx.prisma.post.delete({ where: { id: input.id } });
+const createUserInput = z.object({
+  email: z.string().email(),
+  password: z.string().min(8).regex(/[A-Z]/, "Must contain uppercase"),
+  profile: z.object({
+    name: z.string().min(1).max(100),
+    bio: z.string().max(500).optional(),
+    avatar: z.string().url().optional(),
   }),
+  preferences: z.record(z.string(), z.unknown()).optional(),
+})
 ```
 
-### Error Codes
+## Advanced Patterns
 
-| Code | HTTP Status | Description |
-|------|-------------|-------------|
-| PARSE_ERROR | 400 | Invalid JSON |
-| BAD_REQUEST | 400 | Invalid input |
-| UNAUTHORIZED | 401 | Not authenticated |
-| FORBIDDEN | 403 | Not authorized |
-| NOT_FOUND | 404 | Resource not found |
-| CONFLICT | 409 | Resource conflict |
-| TOO_MANY_REQUESTS | 429 | Rate limit exceeded |
-| INTERNAL_SERVER_ERROR | 500 | Server error |
-
-## Middleware
-
-### Logging Middleware
+### Batch Requests
 
 ```typescript
-const loggerMiddleware = middleware(async ({ path, type, next }) => {
-  const start = Date.now();
-  const result = await next();
-  const duration = Date.now() - start;
-
-  console.log(`[${type}] ${path} - ${duration}ms`);
-
-  return result;
-});
-
-export const loggedProcedure = t.procedure.use(loggerMiddleware);
+// Client automatically batches requests made in same tick
+const [users, posts, settings] = await Promise.all([
+  trpc.users.list.query(),
+  trpc.posts.list.query(),
+  trpc.settings.get.query(),
+])
+// → Single HTTP request with all 3 procedures
 ```
 
-### Rate Limiting
+### File Uploads (v11)
 
 ```typescript
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+// Server
+upload: publicProcedure
+  .input(z.object({
+    file: z.instanceof(File),
+    metadata: z.object({ name: z.string() }),
+  }))
+  .mutation(async ({ input }) => {
+    const buffer = await input.file.arrayBuffer()
+    // Process file...
+  }),
 
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(10, '10 s'),
-});
-
-const rateLimitMiddleware = middleware(async ({ ctx, next }) => {
-  const identifier = ctx.user?.id ?? 'anonymous';
-  const { success } = await ratelimit.limit(identifier);
-
-  if (!success) {
-    throw new TRPCError({ code: 'TOO_MANY_REQUESTS' });
-  }
-
-  return next();
-});
-
-export const rateLimitedProcedure = t.procedure.use(rateLimitMiddleware);
+// Client - use FormData link
+import { unstable_formDataLink } from "@trpc/client"
 ```
 
-## Best Practices
+### Type Inference
 
-1. **Organize routers by feature** - One router per domain
-2. **Use input validation** - Always validate with Zod
-3. **Create procedure variants** - publicProcedure, protectedProcedure
-4. **Leverage useUtils** - For cache manipulation
-5. **Handle errors properly** - Use TRPCError with codes
+```typescript
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
+import type { AppRouter } from "@/trpc/router"
 
-## Common Mistakes
+type RouterInputs = inferRouterInputs<AppRouter>
+type RouterOutputs = inferRouterOutputs<AppRouter>
 
-| Mistake | Fix |
-|---------|-----|
-| Not typing context | Create typed context properly |
-| Missing transformer | Add superjson for Date, Map, Set |
-| Inline mutations | Use useMutation for all mutations |
-| Not invalidating cache | Call utils.x.invalidate() |
-| Over-fetching | Use select in queries |
+// Usage
+type CreateUserInput = RouterInputs["users"]["create"]
+type User = RouterOutputs["users"]["getById"]
+```
 
-## Reference Files
+## Gotchas and Tips
 
-- [references/patterns.md](references/patterns.md) - Advanced patterns
-- [references/testing.md](references/testing.md) - Testing tRPC
-- [references/deployment.md](references/deployment.md) - Production setup
+1. **Export type only**: Use `export type { AppRouter }` to prevent server code in client bundles
+2. **Initialize once**: Call `initTRPC` once per app, not per router file
+3. **Base procedures**: Create 2-3 reusable base procedures (public, authed, admin)
+4. **Context flows through**: Middleware can narrow context types for downstream procedures
+5. **Zod schemas**: Define input schemas at the top of files for reusability
+6. **Error codes matter**: Use appropriate codes for proper HTTP status mapping
+7. **Batch by default**: `httpBatchLink` batches requests automatically
+8. **TypeScript 5.7+**: Required for v11, enable strict mode
+
+## Migration from v10 to v11
+
+| v10 | v11 |
+|-----|-----|
+| `trpc.users.getById.useQuery()` | `useQuery(trpc.users.getById.queryOptions())` |
+| `trpc.users.create.useMutation()` | `useMutation(trpc.users.create.mutationOptions())` |
+| `utils.users.invalidate()` | `queryClient.invalidateQueries({ queryKey: trpc.users.queryKey() })` |
+| WebSocket subscriptions | SSE subscriptions (recommended) |

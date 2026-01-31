@@ -1,7 +1,7 @@
 {
   "name": "helm-charts",
-  "repo": "TheBushidoCollective/han",
-  "path": "jutsu/jutsu-helm/skills/helm-charts/SKILL.md",
-  "source": "github.com/TheBushidoCollective/han",
-  "downloaded_at": "2026-01-30T03:33:55.471841Z"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": "docs/taskflow-vault/skills/engineering/helm-charts/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-31T03:23:59.245067Z"
 }

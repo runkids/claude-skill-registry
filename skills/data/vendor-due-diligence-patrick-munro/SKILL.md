@@ -4,6 +4,7 @@ description: "Framework for assessing IT service providers, technology vendors, 
 metadata:
   author: Patrick Munro
   license: AGPL-3.0
+  version: 2026.01.12
 ---
 
 # Vendor Due Diligence Framework

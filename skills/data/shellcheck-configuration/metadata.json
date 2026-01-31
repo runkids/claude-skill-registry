@@ -1,7 +1,7 @@
 {
   "name": "shellcheck-configuration",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/shell-scripting/skills/shellcheck-configuration/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:41.519453Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/shell-scripting/skills/shellcheck-configuration/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-31T03:36:51.469213Z"
 }

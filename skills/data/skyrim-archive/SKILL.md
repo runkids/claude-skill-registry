@@ -1,6 +1,6 @@
 ---
 name: skyrim-archive
-description: Read, extract, and create BSA/BA2 archives. Use when the user wants to package mod assets, extract files from existing mods, or inspect archive contents.
+description: Read, extract, create, and edit BSA/BA2 archives. Use when the user wants to package mod assets, extract files from existing mods, inspect archive contents, or modify archives (add/remove/replace files).
 ---
 
 # Skyrim Archive Module
@@ -76,6 +76,107 @@ dotnet run --project src/SpookysAutomod.Cli -- archive create "<directory>" --ou
 
 **Requires:** BSArch tool installed
 
+### Add Files to Archive
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive add-files "<archive>" --files <file1> <file2> ... [options]
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--files` | Required | Files to add to the archive |
+| `--base-dir` | Auto-detect | Base directory for calculating relative paths |
+| `--preserve-compression` | true | Keep original compression settings |
+
+**Requires:** BSArch tool installed
+**Note:** Automatically detects common parent directory to preserve folder structure
+
+### Remove Files from Archive
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive remove-files "<archive>" --filter "<pattern>" [options]
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--filter` | Required | Filter pattern (e.g., `*.esp`, `scripts/*`) |
+| `--preserve-compression` | true | Keep original compression settings |
+
+**Requires:** BSArch tool installed
+
+### Replace Files in Archive
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive replace-files "<archive>" --source "<directory>" [options]
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--source` | Required | Directory with replacement files |
+| `--filter` | - | Filter pattern for files to replace |
+| `--preserve-compression` | true | Keep original compression settings |
+
+**Requires:** BSArch tool installed
+
+### Update Single File
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive update-file "<archive>" --file "<target>" --source "<file>" [options]
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--file` | Required | Target file path in archive (e.g., `scripts/MyScript.pex`) |
+| `--source` | Required | Source file to update with |
+| `--preserve-compression` | true | Keep original compression settings |
+
+**Requires:** BSArch tool installed
+**Note:** Convenience wrapper for single file updates
+
+### Extract Single File
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive extract-file "<archive>" --file "<target>" --output "<path>"
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--file` | Required | File path in archive to extract |
+| `--output` | Required | Output file path |
+
+**Requires:** BSArch tool installed
+**Note:** Faster than full extraction for single file access
+
+### Merge Archives
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive merge <archive1> <archive2> ... --output "<file>" [options]
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--output` | Required | Output merged archive path |
+| `--compress` | true | Compress merged archive |
+
+**Requires:** BSArch tool installed
+**Note:** Later archives overwrite earlier ones on conflict
+
+### Validate Archive
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive validate "<archive>"
+```
+
+**Requires:** BSArch tool installed (for info/list commands only)
+**Note:** Checks if archive is readable and reports issues/warnings
+
+### Optimize Archive
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive optimize "<archive>" [options]
+```
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--output` | Original | Output path (defaults to overwriting original) |
+| `--compress` | true | Enable compression |
+
+**Requires:** BSArch tool installed
+**Note:** Repacks archive with compression, reports size savings
+
+### Compare Archives
+```bash
+dotnet run --project src/SpookysAutomod.Cli -- archive diff "<archive1>" "<archive2>"
+```
+
+**Requires:** BSArch tool installed (for list commands only)
+**Note:** Shows added, removed, and modified files between versions
+
 ## Common Workflows
 
 ### Inspect Existing Mod Archive
@@ -127,6 +228,99 @@ dotnet run --project src/SpookysAutomod.Cli -- archive create "./MyModData" --ou
 
 # 4. Create LE-compatible archive
 dotnet run --project src/SpookysAutomod.Cli -- archive create "./MyModData" --output "MyMod.bsa" --game le
+```
+
+### Archive Editing Workflows
+
+#### Add New Files to Existing Archive
+```bash
+# Add new mesh and texture to existing mod archive
+dotnet run --project src/SpookysAutomod.Cli -- archive add-files "MyMod.bsa" \
+  --files "meshes/mymod/newweapon.nif" "textures/mymod/newweapon.dds"
+
+# Archive is updated with new files while preserving existing content
+```
+
+#### Remove Deprecated Files from Archive
+```bash
+# Remove all ESP files (if mod was converted to ESL)
+dotnet run --project src/SpookysAutomod.Cli -- archive remove-files "MyMod.bsa" --filter "*.esp"
+
+# Remove old scripts folder
+dotnet run --project src/SpookysAutomod.Cli -- archive remove-files "MyMod.bsa" --filter "scripts/old/*"
+
+# Remove specific file
+dotnet run --project src/SpookysAutomod.Cli -- archive remove-files "MyMod.bsa" --filter "deprecated.txt"
+```
+
+#### Update Scripts in Archive
+```bash
+# Recompiled scripts and need to update them in archive
+# 1. Compile updated scripts
+dotnet run --project src/SpookysAutomod.Cli -- papyrus compile "./Source" --output "./CompiledScripts"
+
+# 2. Replace scripts in archive
+dotnet run --project src/SpookysAutomod.Cli -- archive replace-files "MyMod.bsa" \
+  --source "./CompiledScripts" \
+  --filter "*.pex"
+
+# Only files that exist in archive are replaced
+```
+
+#### Patch Mod Archive
+```bash
+# Create patch with updated assets
+# 1. Extract files you want to update
+dotnet run --project src/SpookysAutomod.Cli -- archive extract "OriginalMod.bsa" \
+  --output "./Patch" \
+  --filter "textures/armor/*"
+
+# 2. Modify the extracted textures (use external tools)
+
+# 3. Replace textures in archive
+dotnet run --project src/SpookysAutomod.Cli -- archive replace-files "OriginalMod.bsa" \
+  --source "./Patch" \
+  --filter "textures/armor/*"
+```
+
+#### Quick Single File Operations
+```bash
+# Update just one script after recompiling
+dotnet run --project src/SpookysAutomod.Cli -- archive update-file "MyMod.bsa" \
+  --file "scripts/MainScript.pex" \
+  --source "./MainScript.pex"
+
+# Extract just one file for inspection
+dotnet run --project src/SpookysAutomod.Cli -- archive extract-file "MyMod.bsa" \
+  --file "scripts/MainScript.pex" \
+  --output "./MainScript.pex"
+```
+
+#### Merge Multiple Mod Archives
+```bash
+# Combine base mod + patches into single archive
+dotnet run --project src/SpookysAutomod.Cli -- archive merge \
+  "MyMod-Base.bsa" \
+  "MyMod-Patch1.bsa" \
+  "MyMod-Patch2.bsa" \
+  --output "MyMod-Complete.bsa"
+
+# Later archives overwrite earlier ones on conflict
+```
+
+#### Archive Maintenance
+```bash
+# Check archive integrity before distribution
+dotnet run --project src/SpookysAutomod.Cli -- archive validate "MyMod.bsa"
+
+# Optimize old archive with compression
+dotnet run --project src/SpookysAutomod.Cli -- archive optimize "OldMod.bsa" \
+  --output "OldMod-Optimized.bsa"
+
+# Compare two versions to see what changed
+dotnet run --project src/SpookysAutomod.Cli -- archive diff \
+  "MyMod-v1.bsa" \
+  "MyMod-v2.bsa"
 ```
 
 ### Troubleshooting Workflow
@@ -234,11 +428,13 @@ dotnet run --project src/SpookysAutomod.Cli -- archive status
 
 ## Important Notes
 
-1. **BSArch required** for create/extract - info/list work without it
+1. **BSArch required** for create/extract/edit - info/list work without it
 2. **Match archive to game** - SSE and LE use different formats
 3. **Directory structure matters** - Must mirror Data folder
 4. **Compression trade-off** - Smaller files but slower loading
-5. **Use `--json` flag** for machine-readable output when scripting
+5. **Archive editing** - add-files, remove-files, and replace-files use extract-modify-repack workflow (may take time for large archives)
+6. **Preserve compression** - By default, editing operations preserve the original archive compression settings
+7. **Use `--json` flag** for machine-readable output when scripting
 
 ## JSON Output
 

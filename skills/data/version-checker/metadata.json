@@ -1,7 +1,7 @@
 {
   "name": "version-checker",
-  "repo": "arbgjr/satra",
+  "repo": "matteocervelli/llms",
   "path": ".claude/skills/version-checker/SKILL.md",
-  "source": "github.com/arbgjr/satra",
-  "downloaded_at": "2026-01-30T04:12:57.764928Z"
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-31T02:10:24.837123Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "imagen",
-  "description": "Generate images using Google Gemini's image generation capabilities.Use this skill when the user needs to create, generate, or produce imagesfor any purpose including UI mockups, icons, illustrations,",
-  "repo": "sanjay3290/ai-skills",
-  "category": "design",
-  "tags": [
-    "imagen"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/imagen/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-31T02:45:57.685864Z"
 }

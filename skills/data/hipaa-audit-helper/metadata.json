@@ -1,9 +1,7 @@
 {
   "name": "hipaa-audit-helper",
-  "description": "Hipaa Audit Helper - Auto-activating skill for Security Advanced.Triggers on: hipaa audit helper, hipaa audit helperPart of the Security Advanced skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/04-security-advanced/hipaa-audit-helper/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:41.949945Z"
 }

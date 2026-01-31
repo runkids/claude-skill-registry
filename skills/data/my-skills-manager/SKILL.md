@@ -1,26 +1,30 @@
 ---
 name: my-skills-manager
-description: Manages personal skills by adding new skills to the my-skills directory or updating existing skills based on user context. Use when user requests to add skills to "マイスキル" (my skills) or update existing personal skills.
+description: Add, remove, modify skills to my-skills-collection repository or sync the repository. Install all the skills to AI agent's skills directory after operations.
 ---
 
-# My Skills Manager
+## Instructions
 
-## Functionality
+This skill allows you to manage your personal skills repository. You can sync the repository to ensure it is up-to-date, or you can add, modify, or remove skills as needed.
 
-### Adding Skills
-When user says "マイスキルに追加" (add to my skills):
-1. Create a new directory with an appropriate name in the same directory
-2. Create a SKILL.md file following the Agent Skills specification
+After performing any operations, remember to **install all the skills** to your AI agent's skills directory as needed.
 
-### Updating Skills
-When user says "マイスキルを更新" (update my skills):
-1. Analyze context to identify which skill needs updating
-2. If the target skill is unclear, present options 1, 2, 3 to the user
-3. Wait for user selection before proceeding with the update
+## Repository Location
 
-## Implementation Notes
-- Always follow the Agent Skills specification format with proper frontmatter
-- Use English for skill content body
-- Include required frontmatter fields: name, description
-- Consider optional fields like metadata, compatibility when relevant
-- Keep skill descriptions clear and actionable for AI agents
+The skills repository is located at: `~/.my-skills-collection`
+
+## Repository Structure
+
+Refer to `<repo-root>/INSTALLATION.md` for the structure of the skills repository and how to install skills for different AI agents.
+
+## Commands
+
+- add-skills: Add new skills to the skills repository. See [add-skills reference](reference/add-skills.md) for detailed steps.
+- remove-skills: Remove existing skills from the skills repository. See [remove-skills reference](reference/remove-skills.md) for detailed steps.
+- sync-repo: Sync the skills repository to ensure it is up-to-date with the remote repository. See [sync-skills reference](reference/sync-skills.md) for detailed steps.
+
+## Post-Operation Reminder
+
+After performing any operations, remember to **install all the skills** to your AI agent's skills directory as needed.
+
+Installation and setup instructions for linking skills can be found in `<repo-root>/INSTALLATION.md`.

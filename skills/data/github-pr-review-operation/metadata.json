@@ -1,7 +1,7 @@
 {
   "name": "github-pr-review-operation",
-  "repo": "sushichan044/dotfiles",
-  "path": ".agent/skills/github-pr-review-operation/SKILL.md",
-  "source": "github.com/sushichan044/dotfiles",
-  "downloaded_at": "2026-01-30T02:56:21.151936Z"
+  "repo": "staticWagomU/dotfiles",
+  "path": "config/claude/skills/github-pr-review-operation/SKILL.md",
+  "source": "github.com/staticWagomU/dotfiles",
+  "downloaded_at": "2026-01-31T03:45:04.246910Z"
 }

@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3191,
-  "updated_at": "2026-01-30T04:53:29.317588Z",
+  "count": 3180,
+  "updated_at": "2026-01-31T04:52:26.534794Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -2830,21 +2830,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "dbt-materializations",
-      "description": "Choosing and implementing dbt materializations (ephemeral, view, table, incremental, snapshots, Python models). Use this skill when deciding on materialization strategy, implementing incremental model",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-materializations",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "dbt",
-        "materializations"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "schemachange",
       "description": "Deploying and managing Snowflake database objects using version control with schemachange. Use this skill when you need to manage database migrations for objects not handled by dbt, implement CI/CD pi",
       "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
@@ -2856,20 +2841,6 @@
       ],
       "stars": 23,
       "install": "sfc-gh-dflippo/snowflake-dbt-demo/.claude/skills/schemachange",
-      "source": "local"
-    },
-    {
-      "name": "schemachange",
-      "description": "Deploying and managing Snowflake database objects using version control with schemachange. Use this skill when you need to manage database migrations for objects not handled by dbt, implement CI/CD pi",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/schemachange",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "schemachange"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo",
       "source": "local"
     },
     {
@@ -17430,18 +17401,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cost-optimization-analyzer",
-      "description": "Cost Optimization Analyzer - Auto-activating skill for AWS Skills.Triggers on: cost optimization analyzer, cost optimization analyzerPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/cost-optimization-analyzer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cost-optimized-llm",
       "description": "Implement cost-optimized LLM routing with NO OpenAI. Use tiered model selection (DeepSeek, Haiku, Sonnet) to achieve 70-90% cost savings. Triggers on \"LLM costs\", \"model selection\", \"cost optimization",
       "repo": "ScientiaCapital/scientia-superpowers",
@@ -21528,18 +21487,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "elasticache-config",
-      "description": "Elasticache Config - Auto-activating skill for AWS Skills.Triggers on: elasticache config, elasticache configPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/elasticache-config",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "elasticity-lab",
       "description": "Use to run pricing elasticity experiments with consistent assumptions and guardrails.",
       "repo": "gtmagents/gtm-agents",
@@ -24708,18 +24655,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "gpu-resource-optimizer",
-      "description": "Gpu Resource Optimizer - Auto-activating skill for ML Deployment.Triggers on: gpu resource optimizer, gpu resource optimizerPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/gpu-resource-optimizer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "grammar-cheatsheet",
       "description": "Expert in creating visual grammar cheatsheets for Kabardian language with morphological breakdowns and corpus examples. Generates cheatsheets with ASCII-tree morpheme visualization (like verb_translat",
       "repo": "panagoa/kbd_translate",
@@ -27516,18 +27451,6 @@
       "tags": [],
       "stars": 0,
       "install": "athola/claude-night-market/plugins/memory-palace/skills/knowledge-intake",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "knowledge-intake",
-      "description": "Process external resources into actionable knowledge with evaluation, storage, and application decisions.Triggers: knowledge intake, article evaluation, paper review, external resourceUse when: user s",
-      "repo": "athola/claude-night-market",
-      "path": "data/knowledge-intake",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "athola/claude-night-market",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31163,18 +31086,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "onnx-converter",
-      "description": "Onnx Converter - Auto-activating skill for ML Deployment.Triggers on: onnx converter, onnx converterPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/onnx-converter",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "open-closed-principle",
       "description": "オープン・クローズド原則（OCP）の専門スキル。拡張に対して開き、修正に対して閉じた設計を提供します。Anchors:• 『Clean Architecture』（Robert C. Martin） / 適用: SOLID原則 / 目的: 保守性向上• 『アジャイルソフトウェア開発の奥義』（Robert C. Martin） / 適用: 設計パターン / 目的: 拡張性確保Trigger:OCP適",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -32086,18 +31997,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pci-dss-validator",
-      "description": "Pci Dss Validator - Auto-activating skill for Security Advanced.Triggers on: pci dss validator, pci dss validatorPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/pci-dss-validator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -35529,18 +35428,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "s3-bucket-policy-generator",
-      "description": "S3 Bucket Policy Generator - Auto-activating skill for AWS Skills.Triggers on: s3 bucket policy generator, s3 bucket policy generatorPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/s3-bucket-policy-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "s3-lifecycle-config",
       "description": "S3 Lifecycle Config - Auto-activating skill for AWS Skills.Triggers on: s3 lifecycle config, s3 lifecycle configPart of the AWS Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -37561,18 +37448,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/13-aws-skills/step-functions-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "step-functions-workflow",
-      "description": "Step Functions Workflow - Auto-activating skill for AWS Skills.Triggers on: step functions workflow, step functions workflowPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/step-functions-workflow",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -40641,18 +40516,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/14-gcp-skills/vertex-ai-endpoint-config",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vertex-ai-endpoint-config",
-      "description": "Vertex Ai Endpoint Config - Auto-activating skill for GCP Skills.Triggers on: vertex ai endpoint config, vertex ai endpoint configPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vertex-ai-endpoint-config",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

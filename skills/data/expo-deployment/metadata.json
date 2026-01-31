@@ -1,7 +1,7 @@
 {
   "name": "expo-deployment",
-  "repo": "luthebao/expo-template",
-  "path": ".claude/skills/expo-deployment/SKILL.md",
-  "source": "github.com/luthebao/expo-template",
-  "downloaded_at": "2026-01-30T03:51:50.674986Z"
+  "repo": "jakubciszak/family-plan",
+  "path": ".claude/skills/external/expo-deployment/skills/expo-deployment/SKILL.md",
+  "source": "github.com/jakubciszak/family-plan",
+  "downloaded_at": "2026-01-31T04:03:50.687905Z"
 }

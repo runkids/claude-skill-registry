@@ -1,7 +1,7 @@
 {
   "name": "discovery",
-  "repo": "Git-Fg/meta-plugin-manager",
-  "path": ".claude/skills/discovery/SKILL.md",
-  "source": "github.com/Git-Fg/meta-plugin-manager",
-  "downloaded_at": "2026-01-30T03:40:40.637311Z"
+  "repo": "robzolkos/zolkos-agent-skills",
+  "path": "skills/discovery/SKILL.md",
+  "source": "github.com/robzolkos/zolkos-agent-skills",
+  "downloaded_at": "2026-01-31T04:13:17.991254Z"
 }

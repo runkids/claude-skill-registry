@@ -1,7 +1,7 @@
 {
   "name": "swift-build",
-  "repo": "fusengine/agents",
-  "path": "plugins/swift-apple-expert/skills/swift-build/SKILL.md",
-  "source": "github.com/fusengine/agents",
-  "downloaded_at": "2026-01-30T02:04:35.411622Z"
+  "repo": "miyakawa2449/KiroBookmark",
+  "path": ".claude/skills/swift-build/SKILL.md",
+  "source": "github.com/miyakawa2449/KiroBookmark",
+  "downloaded_at": "2026-01-31T03:09:12.096107Z"
 }

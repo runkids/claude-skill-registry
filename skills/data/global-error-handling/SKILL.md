@@ -1,29 +1,26 @@
 ---
 name: Global Error Handling
-description: Implement loud failures with specific exception types, actionable error messages, centralized boundary handling, and graceful degradation with telemetry. Use this skill when writing try/catch blocks, error handlers, exception classes, logging statements, retry logic, or resource cleanup code. Applies to all error scenarios requiring context preservation for debugging, proper resource hygiene, and post-mortem-ready error capture across the entire application stack.
+description: Implement user-friendly error handling with specific exception types, centralized error handling, graceful degradation, and proper resource cleanup. Use this skill when implementing error handling in controllers, services, or API endpoints, when creating custom exception classes, when writing try-catch blocks, when handling external service failures, when implementing retry strategies, when displaying error messages to users, when cleaning up resources in finally blocks, or when implementing fail-fast validation and error detection.
 ---
 
 # Global Error Handling
 
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global error handling.
+
 ## When to use this skill
 
-- When writing try/catch/finally blocks or error handling code in any language or framework
-- When defining custom exception classes to differentiate user errors, system failures, and timeouts
-- When creating error messages for users (plain language) or operators (structured logs with context)
-- When implementing centralized error translation at module or API boundaries
-- When adding error logging with correlation IDs, stack traces, request IDs, or payload fingerprints
-- When implementing graceful degradation with fallback behavior and telemetry alerts
-- When writing retry logic with bounded attempts, jitter, and idempotency checks
-- When ensuring resources (connections, files, locks) are released in both success and failure paths
-- When capturing enough error context for post-mortems without reproducing crashes
-- When letting errors bubble up through layers until meaningful context can be added
-- When avoiding silent error swallowing that hides bugs from operators
-- When instrumenting error paths to make degraded states visible through monitoring
-- When implementing error boundaries in React or similar error containment patterns
-
-# Global Error Handling
-
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global error handling.
+- When implementing error handling in controllers, services, or API endpoints
+- When creating custom exception classes for specific error scenarios
+- When writing try-catch blocks for error handling
+- When providing user-friendly error messages without exposing technical details
+- When implementing fail-fast validation and precondition checks
+- When handling errors at appropriate boundaries (controllers, API layers)
+- When implementing graceful degradation for non-critical service failures
+- When creating retry strategies with exponential backoff for external services
+- When cleaning up resources (file handles, database connections) in finally blocks
+- When centralizing error handling rather than scattering try-catch everywhere
+- When handling transient vs. permanent failures differently
+- When logging errors appropriately while protecting sensitive information
 
 ## Instructions
 

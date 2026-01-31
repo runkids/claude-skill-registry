@@ -1,7 +1,7 @@
 {
   "name": "council",
-  "repo": "KvFxKaido/SENTINEL",
-  "path": ".claude/skills/council/SKILL.md",
-  "source": "github.com/KvFxKaido/SENTINEL",
-  "downloaded_at": "2026-01-30T02:52:59.568301Z"
+  "repo": "davidgasquez/dotfiles",
+  "path": "agents/disabled-skills/council/SKILL.md",
+  "source": "github.com/davidgasquez/dotfiles",
+  "downloaded_at": "2026-01-31T01:37:14.275180Z"
 }

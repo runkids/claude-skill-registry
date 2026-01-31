@@ -1,7 +1,7 @@
 {
   "name": "postgresql",
-  "repo": "HermeticOrmus/Alqvimia-Contador",
-  "path": "plugins/database-design/skills/postgresql/SKILL.md",
-  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
-  "downloaded_at": "2026-01-30T04:47:38.201254Z"
+  "repo": "avvale/aurora-back",
+  "path": ".claude/skills/postgresql/SKILL.md",
+  "source": "github.com/avvale/aurora-back",
+  "downloaded_at": "2026-01-31T04:35:17.753470Z"
 }

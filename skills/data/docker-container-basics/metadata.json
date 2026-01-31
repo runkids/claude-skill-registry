@@ -1,9 +1,7 @@
 {
   "name": "docker-container-basics",
-  "description": "Docker Container Basics - Auto-activating skill for DevOps Basics.Triggers on: docker container basics, docker container basicsPart of the DevOps Basics skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/01-devops-basics/docker-container-basics/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:44.898215Z"
 }

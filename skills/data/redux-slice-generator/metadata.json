@@ -1,9 +1,7 @@
 {
   "name": "redux-slice-generator",
-  "description": "Redux Slice Generator - Auto-activating skill for Frontend Development.Triggers on: redux slice generator, redux slice generatorPart of the Frontend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/05-frontend-dev/redux-slice-generator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:38.101567Z"
 }

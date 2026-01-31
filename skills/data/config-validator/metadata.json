@@ -1,7 +1,7 @@
 {
   "name": "config-validator",
-  "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "path": "plugins/dapr/skills/config-validator/SKILL.md",
-  "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "downloaded_at": "2026-01-30T03:57:11.874333Z"
+  "repo": "TobiasWooldridge/WaveCap-SDR",
+  "path": ".claude/skills/config-validator/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap-SDR",
+  "downloaded_at": "2026-01-31T04:26:47.329214Z"
 }

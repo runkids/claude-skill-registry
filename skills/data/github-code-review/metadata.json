@@ -1,7 +1,7 @@
 {
   "name": "github-code-review",
-  "repo": "seanchatmangpt/ggen",
+  "repo": "zellycloud/zyflow",
   "path": ".claude/skills/github-code-review/SKILL.md",
-  "source": "github.com/seanchatmangpt/ggen",
-  "downloaded_at": "2026-01-30T03:30:41.792974Z"
+  "source": "github.com/zellycloud/zyflow",
+  "downloaded_at": "2026-01-31T04:44:55.571141Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "vscode-ext-commands",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/github-copilot/vscode-ext-commands/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-30T04:08:55.871856Z"
+  "repo": "github/awesome-copilot",
+  "path": "skills/vscode-ext-commands/SKILL.md",
+  "source": "github.com/github/awesome-copilot",
+  "downloaded_at": "2026-01-31T03:29:02.629690Z"
 }

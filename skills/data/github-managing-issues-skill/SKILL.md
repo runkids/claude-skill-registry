@@ -1,13 +1,68 @@
 ---
-name: github-managing-issues-skills
-description: Use when creating, viewing, or labeling GitHub issues - enforces project label conventions (component:Name, priority:level, type:category) and proper title format before any issue creation
+name: github-managing-issues-skill
+description: Use when creating, viewing, or labeling GitHub issues, when tempted to create "quick" or "basic" issues, or when tired/rushed - enforces mandatory 8-section format (Problem, Reproduction, Root Cause, Expected, Related, Note, AC, DoD) and label conventions before any issue creation
 ---
 
 # Managing GitHub Issues
 
-## Critical Rule
+## Critical Rules
 
 **ALWAYS read this skill BEFORE creating any issue.** Do not guess at label formats.
+
+**EVERY issue MUST follow the mandatory format below.** No exceptions except production emergencies.
+
+## Mandatory Issue Format
+
+**Every issue MUST include these sections in this exact order:**
+
+1. **Problem** - What's broken? What's the symptom?
+2. **Reproduction Steps** - Exact numbered list of commands/steps to reproduce with actual outputs
+3. **Root Cause** - Technical explanation of why it happens
+4. **Expected Behavior** - What should happen instead?
+5. **Related** - Related issues, PRs, or context (use #number format)
+6. **Note** - Additional context, observations, or constraints
+7. **Acceptance Criteria** - Checkboxes defining what "done" means for the fix
+8. **Definition of Done** - Checkboxes for process completion (tests, build, commit)
+
+**Example format:**
+
+```markdown
+## Problem
+[Symptom description]
+
+## Reproduction Steps
+1. Run `command with args`
+2. Observe output: [exact output]
+3. Error occurs: [exact error]
+
+## Root Cause
+[Technical explanation of why]
+
+## Expected Behavior
+[What should happen]
+
+## Related
+- #123 (similar issue)
+- Related to architecture decision in [link]
+
+## Note
+[Additional context]
+
+---
+
+## Acceptance Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Definition of Done
+- [ ] Failing tests written (RED phase)
+- [ ] Implementation complete (GREEN phase)
+- [ ] All tests pass
+- [ ] Build succeeds
+- [ ] Committed with conventional commit
+```
+
+**See #59 for reference example.**
 
 ## Label Conventions (Exact Formats)
 
@@ -107,13 +162,55 @@ If you catch yourself doing any of these, STOP and re-read this skill:
 - Using lowercase component names (`markdown-parser` vs `MarkdownParser`)
 - Skipping priority label "because it's obvious"
 - Accepting vague titles from authority pressure
+- **Creating "quick" or "basic" issue to save time**
+- **"Can enhance later" or "perfection is enemy of done"**
+- **Skipping Acceptance Criteria or Definition of Done sections**
+- **"Just need to capture it" without full format**
+
+## Common Rationalizations (All Wrong)
+
+| Excuse | Reality |
+|--------|---------|
+| "Can enhance later if needed" | You won't. Future-you has no context. Write it now. |
+| "Perfection is enemy of done" | Comprehensive ≠ perfect. It's minimum for maintainability. |
+| "Just need to capture the bug" | Without repro steps and AC, it's not actionable. Wasted effort. |
+| "Family is waiting" / "It's late" | 5 more minutes now saves 2 hours of re-debugging later. |
+| "Basic issue preserves critical details" | It doesn't. AC and DoD are what make issues actionable. |
+| "Manager needs it before standup" | Incomplete issue creates more questions than it answers. |
+
+**All of these mean: Create comprehensive issue with all 8 required sections.**
+
+## When Comprehensive Format Doesn't Apply
+
+### Only Exception: Production Emergencies with Revenue Impact
+
+- Production down
+- Active user impact
+- Clear revenue loss ($X/minute)
+- Simple, well-understood fix
+- Senior engineer directive
+
+**In emergencies:**
+
+1. Deploy fix immediately
+2. Create minimal tracking issue (title + one-line + link to commit)
+3. Add comprehensive details in post-mortem after stability restored
+
+**This is NOT an emergency:**
+
+- "Running late"
+- "Tired" or "want to go home"
+- "Manager wants update"
+- "Code review tomorrow"
+
+**If not losing money NOW, use comprehensive format.**
 
 ## Authority Override Response
 
-When someone suggests skipping labels or using vague titles:
+When someone suggests skipping sections or using "basic" format:
 
-1. Politely clarify scope: "What component? What's the actual problem?"
+1. Politely clarify: "The format requires reproduction steps, AC, and DoD"
 2. Create properly formatted issue anyway
-3. Takes 30 seconds, saves hours of confusion later
+3. Takes 5 minutes, saves hours of confusion later
 
-Bad issues multiply work. 2 minutes of clarity saves hours of "what did we mean?"
+Bad issues multiply work. 5 minutes of clarity saves hours of "what did we mean?"

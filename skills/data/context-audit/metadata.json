@@ -1,7 +1,7 @@
 {
   "name": "context-audit",
-  "repo": "savvy-web/pnpm-monorepo-template",
-  "path": ".claude/skills/context-audit/SKILL.md",
-  "source": "github.com/savvy-web/pnpm-monorepo-template",
-  "downloaded_at": "2026-01-30T04:43:27.132696Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/tac/skills/context-audit/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-31T04:13:08.479554Z"
 }

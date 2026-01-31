@@ -1,51 +1,84 @@
 ---
 name: commit
-description: Create git commits with user approval and no Claude attribution
+description: Commit workflow for ai-standards repo. Formats all markdown files and previews changes before committing.
 ---
 
-# Commit Changes
+# Commit Workflow
 
-You are tasked with creating git commits for the changes made during this session.
+Standard commit workflow for the ai-standards repository.
 
-## Process:
+## Before Every Commit
 
-1. **Think about what changed:**
-   - Review the conversation history and understand what was accomplished
-   - Run `git status` to see current changes
-   - Run `git diff` to understand the modifications
-   - Consider whether changes should be one commit or multiple logical commits
+### 1. Run Markdown Formatter
 
-2. **Plan your commit(s):**
-   - Identify which files belong together
-   - Draft clear, descriptive commit messages
-   - Use imperative mood in commit messages
-   - Focus on why the changes were made, not just what
+Format project markdown files using mdformat (excludes opensrc/ which contains external source):
 
-3. **Present your plan to the user:**
-   - List the files you plan to add for each commit
-   - Show the commit message(s) you'll use
-   - Ask: "I plan to create [N] commit(s) with these changes. Shall I proceed?"
+```bash
+nix develop -c mdformat skills/ .claude/ agents/ templates/ *.md
+```
 
-4. **Execute upon confirmation:**
-   - Use `git add` with specific files (never use `-A` or `.`)
-   - Create commits with your planned messages
-   - Show the result with `git log --oneline -n [number]`
+### 2. Preview Changes
 
-5. **Generate reasoning (after each commit):**
-   - Run: `bash .claude/scripts/generate-reasoning.sh <commit-hash> "<commit-message>"`
-   - This captures what was tried during development (build failures, fixes)
-   - The reasoning file helps future sessions understand past decisions
-   - Stored in `.git/claude/commits/<hash>/reasoning.md`
+Show files involved and diff preview:
 
-## Important:
-- **NEVER add co-author information or Claude attribution**
-- Commits should be authored solely by the user
-- Do not include any "Generated with Claude" messages
-- Do not add "Co-Authored-By" lines
-- Write commit messages as if the user wrote them
+```bash
+git status
+git diff --stat
+git diff
+```
 
-## Remember:
-- You have the full context of what was done in this session
-- Group related changes together
-- Keep commits focused and atomic when possible
-- The user trusts your judgment - they asked you to commit
+### 3. Analyze and Group Changes
+
+Review the changes and determine:
+
+- **Single commit**: All changes are related to one feature/fix
+- **Multiple commits**: Changes are unrelated and should be separate
+
+Examples:
+
+- Docs update + new skill → 2 commits
+- Rename agent + update references → 1 commit
+- Bug fix + unrelated refactor → 2 commits
+
+### 4. Stage and Commit
+
+For single commit:
+
+```bash
+git add -A
+git commit -m "commit message"
+```
+
+For multiple commits, stage selectively:
+
+```bash
+git add <related-files>
+git commit -m "first commit message"
+
+git add <other-files>
+git commit -m "second commit message"
+```
+
+## Commit Message Guidelines
+
+- Start with uppercase, imperative mood
+- Reference skill/agent names in brackets when applicable: `[powersync] Add sync pattern docs`
+- If AI made the changes, include co-author:
+  ```
+  Co-Authored-By: Claude <noreply@anthropic.com>
+  ```
+
+## Output Format
+
+Always show proposed commits with their files:
+
+```
+**Commit 1:** `commit message here`
+- file1.md
+- file2.ts
+
+**Commit 2:** `another commit message`
+- file3.md
+```
+
+Then wait for user approval before executing.

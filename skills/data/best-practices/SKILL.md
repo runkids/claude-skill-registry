@@ -1,105 +1,583 @@
 ---
 name: best-practices
-description: This skill should be used when the user asks to "refactor", "refactor the whole project", "simplify code", "clean up code", "apply best practices", "improve readability", "reduce duplication", "standardize patterns", "improve performance", "optimize Next.js performance", "make code more maintainable", "follow coding standards", "optimize code quality", or requests behavior-preserving refactoring with best-practice guidance.
-user-invocable: false
-version: 1.2.0
+description: Apply modern web development best practices for security, compatibility, and code quality. Use when asked to "apply best practices", "security audit", "modernize code", "code quality review", or "check for vulnerabilities".
+license: MIT
+metadata:
+  author: web-quality-skills
+  version: "1.0"
 ---
 
-# Best Practices
+# Best practices
 
-## Scope
+Modern web development standards based on Lighthouse best practices audits. Covers security, browser compatibility, and code quality patterns.
 
-Support both:
+## Security
 
-- **Targeted refactoring**: recently modified code in the current session, or specific files/directories provided by the user
-- **Project-wide refactoring**: entire repository when explicitly requested
+### HTTPS everywhere
 
-## Agent Invocation
+**Enforce HTTPS:**
+```html
+<!-- ❌ Mixed content -->
+<img src="http://example.com/image.jpg">
+<script src="http://cdn.example.com/script.js"></script>
 
-Launch the `code-simplifier` agent for execution. Pass the target scope and any constraints. If already running inside `code-simplifier`, skip launching and proceed with the workflow.
+<!-- ✅ HTTPS only -->
+<img src="https://example.com/image.jpg">
+<script src="https://cdn.example.com/script.js"></script>
 
-## Language References
+<!-- ✅ Protocol-relative (will use page's protocol) -->
+<img src="//example.com/image.jpg">
+```
 
-Based on file extension, load the appropriate reference:
+**HSTS Header:**
+```
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
 
-- `.ts`, `.tsx`, `.js`, `.jsx` → See `references/typescript.md`
-- `.py` → See `references/python.md`
-- `.go` → See `references/go.md`
-- `.swift` → See `references/swift.md`
+### Content Security Policy (CSP)
 
-For universal principles applicable to all languages, see `references/universal.md`.
+```html
+<!-- Basic CSP via meta tag -->
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' https://trusted-cdn.com; 
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data: https:;
+               connect-src 'self' https://api.example.com;">
 
-## Next.js Best Practices References
+<!-- Better: HTTP header -->
+```
 
-Use the Next.js reference set when the target includes Next.js code (typically `.tsx`, `.jsx`, Next.js app/pages routes, Server Components, Client Components).
+**CSP Header (recommended):**
+```
+Content-Security-Policy: 
+  default-src 'self';
+  script-src 'self' 'nonce-abc123' https://trusted.com;
+  style-src 'self' 'nonce-abc123';
+  img-src 'self' data: https:;
+  connect-src 'self' https://api.example.com;
+  frame-ancestors 'self';
+  base-uri 'self';
+  form-action 'self';
+```
 
-Reference directory:
+**Using nonces for inline scripts:**
+```html
+<script nonce="abc123">
+  // This inline script is allowed
+</script>
+```
 
-- `references/nextjs/`
+### Security headers
 
-Recommended entry points:
+```
+# Prevent clickjacking
+X-Frame-Options: DENY
 
-1. Read `references/nextjs/INDEX.md` for complete pattern index organized by impact level and category.
-2. Read `references/nextjs/_sections.md` to understand priorities and categories.
-3. Read the specific rule file(s) that match the pattern observed (for example, `async-defer-await.md`, `bundle-dynamic-imports.md`).
+# Prevent MIME type sniffing
+X-Content-Type-Options: nosniff
 
-## Rule Application Guidance
+# Enable XSS filter (legacy browsers)
+X-XSS-Protection: 1; mode=block
 
-- Prefer **CRITICAL** rules first when there is evidence of user-facing impact (waterfalls, bundle size, hydration issues).
-- Keep changes minimal and targeted; optimize only when the pattern is present in the code.
-- Preserve behavior and public interfaces; do not change externally visible semantics during a refactor.
+# Control referrer information
+Referrer-Policy: strict-origin-when-cross-origin
 
-## Framework and Language Detection
+# Permissions policy (formerly Feature-Policy)
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+```
 
-Before applying refactoring rules, detect the project's frameworks and languages:
+### No vulnerable libraries
 
-1. **Framework Detection**:
-   - Check for Next.js: Look for `next.config.js`, `next.config.ts`, or `"next"` in package.json dependencies
-   - Check for React: Look for `"react"` in package.json dependencies
-   - Check for Vite: Look for `vite.config.js`, `vite.config.ts`
-   - Check for other frameworks as needed
+```bash
+# Check for vulnerabilities
+npm audit
+yarn audit
 
-2. **Language Detection**:
-   - Scan file extensions: `.ts`, `.tsx` (TypeScript), `.js`, `.jsx` (JavaScript)
-   - `.py` (Python), `.go` (Go), `.swift` (Swift)
+# Auto-fix when possible
+npm audit fix
 
-3. **Rule Category Selection**:
-   - Based on detected frameworks and user configuration, determine which rule categories to apply:
-     - **Next.js projects only**: async, bundle, server, client, rerender, rendering, js, advanced
-     - **React (non-Next.js) projects**: client, rerender, rendering, js
-     - **All projects**: Universal principles, language-specific rules
+# Check specific package
+npm ls lodash
+```
 
-**IMPORTANT**: Only apply Next.js-specific rules if Next.js is actually detected. For Tauri + React + Vite projects or other React setups without Next.js, only apply React-specific and universal rules.
+**Keep dependencies updated:**
+```json
+// package.json
+{
+  "scripts": {
+    "audit": "npm audit --audit-level=moderate",
+    "update": "npm update && npm audit fix"
+  }
+}
+```
 
-## Rule Application Strategy
+**Known vulnerable patterns to avoid:**
+```javascript
+// ❌ Prototype pollution vulnerable patterns
+Object.assign(target, userInput);
+_.merge(target, userInput);
 
-Apply rules based on framework detection and project characteristics:
+// ✅ Safer alternatives
+const safeData = JSON.parse(JSON.stringify(userInput));
+```
 
-- **Next.js-specific rules**: Only applied if Next.js is detected
-- **Language-specific rules**: Applied based on detected file types
-- **Universal rules**: Applied to all projects
+### Input sanitization
 
-Framework detection determines which rule categories are applicable.
+```javascript
+// ❌ XSS vulnerable
+element.innerHTML = userInput;
+document.write(userInput);
 
-## Code Quality Standards
+// ✅ Safe text content
+element.textContent = userInput;
 
-Apply these standards during all refactoring operations:
+// ✅ If HTML needed, sanitize
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(userInput);
+```
 
-- **Comments**: Only add comments explaining complex business logic or non-obvious decisions; remove comments that restate code or conflict with file style
-- **Error Handling**: Add try-catch only where errors can be handled/recovered; remove defensive checks in trusted internal paths (validate only at boundaries: user input, external APIs)
-- **Type Safety**: Never use `any` to bypass type issues; use proper types, `unknown` with type guards, or refactor the root cause
-- **Style Consistency**: Match existing code style in file and project; check CLAUDE.md for conventions
-- **Aggressive cleanup**: Remove unused imports, variables, functions, and type definitions completely
-- **No backwards-compatibility hacks**: Delete unused `_vars`, remove re-exports of deleted code, remove `// removed` comments
-- **Proper renaming**: Rename poorly named variables/functions to descriptive names instead of marking them unused
-- **Delete dead code**: If code is unreachable or unused, delete it completely rather than commenting it out
+### Secure cookies
 
-## Workflow
+```javascript
+// ❌ Insecure cookie
+document.cookie = "session=abc123";
 
-1. **Identify**: Determine target scope (specified files/directories, session modifications, or entire project)
-2. **Detect**: Identify frameworks (Next.js, React, Vite, etc.) and languages in the codebase
-3. **Load References**: Load language references for the target files, plus framework-specific references when applicable
-4. **Filter Rules**: Only apply rules for detected frameworks (e.g., skip Next.js rules if Next.js not present)
-5. **Analyze**: Review code for complexity, redundancy, and best-practice violations that matter for the target scope
-6. **Execute**: Apply behavior-preserving refinements following the loaded references and Code Quality Standards
-7. **Validate**: Ensure tests pass (or suggest the most relevant tests to run) and the code is cleaner
+// ✅ Secure cookie (server-side)
+Set-Cookie: session=abc123; Secure; HttpOnly; SameSite=Strict; Path=/
+```
+
+---
+
+## Browser compatibility
+
+### Doctype declaration
+
+```html
+<!-- ❌ Missing or invalid doctype -->
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<!-- ✅ HTML5 doctype -->
+<!DOCTYPE html>
+<html lang="en">
+```
+
+### Character encoding
+
+```html
+<!-- ❌ Missing or late charset -->
+<html>
+<head>
+  <title>Page</title>
+  <meta charset="UTF-8">
+</head>
+
+<!-- ✅ Charset as first element in head -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Page</title>
+</head>
+```
+
+### Viewport meta tag
+
+```html
+<!-- ❌ Missing viewport -->
+<head>
+  <title>Page</title>
+</head>
+
+<!-- ✅ Responsive viewport -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page</title>
+</head>
+```
+
+### Feature detection
+
+```javascript
+// ❌ Browser detection (brittle)
+if (navigator.userAgent.includes('Chrome')) {
+  // Chrome-specific code
+}
+
+// ✅ Feature detection
+if ('IntersectionObserver' in window) {
+  // Use IntersectionObserver
+} else {
+  // Fallback
+}
+
+// ✅ Using @supports in CSS
+@supports (display: grid) {
+  .container {
+    display: grid;
+  }
+}
+
+@supports not (display: grid) {
+  .container {
+    display: flex;
+  }
+}
+```
+
+### Polyfills (when needed)
+
+```html
+<!-- Load polyfills conditionally -->
+<script>
+  if (!('fetch' in window)) {
+    document.write('<script src="/polyfills/fetch.js"><\/script>');
+  }
+</script>
+
+<!-- Or use polyfill.io -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=fetch,IntersectionObserver"></script>
+```
+
+---
+
+## Deprecated APIs
+
+### Avoid these
+
+```javascript
+// ❌ document.write (blocks parsing)
+document.write('<script src="..."></script>');
+
+// ✅ Dynamic script loading
+const script = document.createElement('script');
+script.src = '...';
+document.head.appendChild(script);
+
+// ❌ Synchronous XHR (blocks main thread)
+const xhr = new XMLHttpRequest();
+xhr.open('GET', url, false); // false = synchronous
+
+// ✅ Async fetch
+const response = await fetch(url);
+
+// ❌ Application Cache (deprecated)
+<html manifest="cache.manifest">
+
+// ✅ Service Workers
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+```
+
+### Event listener passive
+
+```javascript
+// ❌ Non-passive touch/wheel (may block scrolling)
+element.addEventListener('touchstart', handler);
+element.addEventListener('wheel', handler);
+
+// ✅ Passive listeners (allows smooth scrolling)
+element.addEventListener('touchstart', handler, { passive: true });
+element.addEventListener('wheel', handler, { passive: true });
+
+// ✅ If you need preventDefault, be explicit
+element.addEventListener('touchstart', handler, { passive: false });
+```
+
+---
+
+## Console & errors
+
+### No console errors
+
+```javascript
+// ❌ Errors in production
+console.log('Debug info'); // Remove in production
+throw new Error('Unhandled'); // Catch all errors
+
+// ✅ Proper error handling
+try {
+  riskyOperation();
+} catch (error) {
+  // Log to error tracking service
+  errorTracker.captureException(error);
+  // Show user-friendly message
+  showErrorMessage('Something went wrong. Please try again.');
+}
+```
+
+### Error boundaries (React)
+
+```jsx
+class ErrorBoundary extends React.Component {
+  state = { hasError: false };
+  
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+  
+  componentDidCatch(error, info) {
+    errorTracker.captureException(error, { extra: info });
+  }
+  
+  render() {
+    if (this.state.hasError) {
+      return <FallbackUI />;
+    }
+    return this.props.children;
+  }
+}
+
+// Usage
+<ErrorBoundary>
+  <App />
+</ErrorBoundary>
+```
+
+### Global error handler
+
+```javascript
+// Catch unhandled errors
+window.addEventListener('error', (event) => {
+  errorTracker.captureException(event.error);
+});
+
+// Catch unhandled promise rejections
+window.addEventListener('unhandledrejection', (event) => {
+  errorTracker.captureException(event.reason);
+});
+```
+
+---
+
+## Source maps
+
+### Production configuration
+
+```javascript
+// ❌ Source maps exposed in production
+// webpack.config.js
+module.exports = {
+  devtool: 'source-map', // Exposes source code
+};
+
+// ✅ Hidden source maps (uploaded to error tracker)
+module.exports = {
+  devtool: 'hidden-source-map',
+};
+
+// ✅ Or no source maps in production
+module.exports = {
+  devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
+};
+```
+
+---
+
+## Performance best practices
+
+### Avoid blocking patterns
+
+```javascript
+// ❌ Blocking script
+<script src="heavy-library.js"></script>
+
+// ✅ Deferred script
+<script defer src="heavy-library.js"></script>
+
+// ❌ Blocking CSS import
+@import url('other-styles.css');
+
+// ✅ Link tags (parallel loading)
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="other-styles.css">
+```
+
+### Efficient event handlers
+
+```javascript
+// ❌ Handler on every element
+items.forEach(item => {
+  item.addEventListener('click', handleClick);
+});
+
+// ✅ Event delegation
+container.addEventListener('click', (e) => {
+  if (e.target.matches('.item')) {
+    handleClick(e);
+  }
+});
+```
+
+### Memory management
+
+```javascript
+// ❌ Memory leak (never removed)
+const handler = () => { /* ... */ };
+window.addEventListener('resize', handler);
+
+// ✅ Cleanup when done
+const handler = () => { /* ... */ };
+window.addEventListener('resize', handler);
+
+// Later, when component unmounts:
+window.removeEventListener('resize', handler);
+
+// ✅ Using AbortController
+const controller = new AbortController();
+window.addEventListener('resize', handler, { signal: controller.signal });
+
+// Cleanup:
+controller.abort();
+```
+
+---
+
+## Code quality
+
+### Valid HTML
+
+```html
+<!-- ❌ Invalid HTML -->
+<div id="header">
+<div id="header"> <!-- Duplicate ID -->
+
+<ul>
+  <div>Item</div> <!-- Invalid child -->
+</ul>
+
+<a href="/"><button>Click</button></a> <!-- Invalid nesting -->
+
+<!-- ✅ Valid HTML -->
+<header id="site-header">
+</header>
+
+<ul>
+  <li>Item</li>
+</ul>
+
+<a href="/" class="button">Click</a>
+```
+
+### Semantic HTML
+
+```html
+<!-- ❌ Non-semantic -->
+<div class="header">
+  <div class="nav">
+    <div class="nav-item">Home</div>
+  </div>
+</div>
+<div class="main">
+  <div class="article">
+    <div class="title">Headline</div>
+  </div>
+</div>
+
+<!-- ✅ Semantic HTML5 -->
+<header>
+  <nav>
+    <a href="/">Home</a>
+  </nav>
+</header>
+<main>
+  <article>
+    <h1>Headline</h1>
+  </article>
+</main>
+```
+
+### Image aspect ratios
+
+```html
+<!-- ❌ Distorted images -->
+<img src="photo.jpg" width="300" height="100">
+<!-- If actual ratio is 4:3, this squishes the image -->
+
+<!-- ✅ Preserve aspect ratio -->
+<img src="photo.jpg" width="300" height="225">
+<!-- Actual 4:3 dimensions -->
+
+<!-- ✅ CSS object-fit for flexibility -->
+<img src="photo.jpg" style="width: 300px; height: 200px; object-fit: cover;">
+```
+
+---
+
+## Permissions & privacy
+
+### Request permissions properly
+
+```javascript
+// ❌ Request on page load (bad UX, often denied)
+navigator.geolocation.getCurrentPosition(success, error);
+
+// ✅ Request in context, after user action
+findNearbyButton.addEventListener('click', async () => {
+  // Explain why you need it
+  if (await showPermissionExplanation()) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+});
+```
+
+### Permissions policy
+
+```html
+<!-- Restrict powerful features -->
+<meta http-equiv="Permissions-Policy" 
+      content="geolocation=(), camera=(), microphone=()">
+
+<!-- Or allow for specific origins -->
+<meta http-equiv="Permissions-Policy" 
+      content="geolocation=(self 'https://maps.example.com')">
+```
+
+---
+
+## Audit checklist
+
+### Security (critical)
+- [ ] HTTPS enabled, no mixed content
+- [ ] No vulnerable dependencies (`npm audit`)
+- [ ] CSP headers configured
+- [ ] Security headers present
+- [ ] No exposed source maps
+
+### Compatibility
+- [ ] Valid HTML5 doctype
+- [ ] Charset declared first in head
+- [ ] Viewport meta tag present
+- [ ] No deprecated APIs used
+- [ ] Passive event listeners for scroll/touch
+
+### Code quality
+- [ ] No console errors
+- [ ] Valid HTML (no duplicate IDs)
+- [ ] Semantic HTML elements used
+- [ ] Proper error handling
+- [ ] Memory cleanup in components
+
+### UX
+- [ ] No intrusive interstitials
+- [ ] Permission requests in context
+- [ ] Clear error messages
+- [ ] Appropriate image aspect ratios
+
+## Tools
+
+| Tool | Purpose |
+|------|---------|
+| `npm audit` | Dependency vulnerabilities |
+| [SecurityHeaders.com](https://securityheaders.com) | Header analysis |
+| [W3C Validator](https://validator.w3.org) | HTML validation |
+| Lighthouse | Best practices audit |
+| [Observatory](https://observatory.mozilla.org) | Security scan |
+
+## References
+
+- [MDN Web Security](https://developer.mozilla.org/en-US/docs/Web/Security)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [Web Quality Audit](../web-quality-audit/SKILL.md)

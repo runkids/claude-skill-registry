@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: Use when design is complete and you need detailed implementation tasks for engineers with zero codebase context - creates comprehensive implementation plans with exact file paths, complete code examples, and verification steps assuming engineer has minimal domain knowledge
+description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
 # Writing Plans
@@ -15,12 +15,13 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `plans/active/{plan-name}/implementation/`
+
+Create multiple focused files that cross-reference each other (e.g., `phase-1.md`, `phase-2.md`, `setup.md`).
 
 ## Bite-Sized Task Granularity
 
 **Each step is one action (2-5 minutes):**
-
 - "Write the failing test" - step
 - "Run it to make sure it fails" - step
 - "Implement the minimal code to make the test pass" - step
@@ -29,12 +30,12 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 ## Plan Document Header
 
-**Every plan MUST start with this header:**
+**Every plan file MUST start with this header:**
 
 ```markdown
-# [Feature Name] Implementation Plan
+# [Phase/Component Name] Implementation
 
-> **For Claude:** REQUIRED SUB-SKILL: Use executing-plans to implement this plan task-by-task.
+> **For Claude:** REQUIRED SUB-SKILL: Use gremlins:executing-plans to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -42,12 +43,14 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Tech Stack:** [Key technologies/libraries]
 
+**Related:** [Links to other plan files: ../design/overview.md, ./phase-2.md, etc.]
+
 ---
 ```
 
 ## Task Structure
 
-````markdown
+```markdown
 ### Task N: [Component Name]
 
 **Files:**
@@ -61,7 +64,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 def test_specific_behavior():
     result = function(input)
     assert result == expected
-````
+```
 
 **Step 2: Run test to verify it fails**
 
@@ -86,21 +89,20 @@ Expected: PASS
 git add tests/path/test.py src/path/file.py
 git commit -m "feat: add specific feature"
 ```
-
 ```
 
 ## Remember
 - Exact file paths always
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
-- Reference relevant skills with @ syntax
+- Reference relevant skills with gremlins: prefix
 - DRY, YAGNI, TDD, frequent commits
 
 ## Execution Handoff
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `plans/active/{plan-name}/implementation/`. Two execution options:**
 
 **1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
 
@@ -109,11 +111,10 @@ After saving the plan, offer execution choice:
 **Which approach?"**
 
 **If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use subagent-driven-development
+- **REQUIRED SUB-SKILL:** Use gremlins:subagent-driven-development
 - Stay in this session
 - Fresh subagent per task + code review
 
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses executing-plans
-```
+- **REQUIRED SUB-SKILL:** New session uses gremlins:executing-plans

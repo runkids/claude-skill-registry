@@ -1,9 +1,7 @@
 {
   "name": "claude-reflection",
-  "description": "Self-improvement and learning skill that helps Claude learn from user interactions, corrections, and preferences",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/vamseeachanta/workspace-hub"
+  "path": "_archive/skills/workspace-hub/claude-reflection/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-31T03:09:36.616278Z"
 }

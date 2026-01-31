@@ -1,333 +1,139 @@
 ---
-name: Skill Authoring
-description: Guidelines for writing effective AI agent skills
-version: 1.0.0
-triggers:
-  - write a skill
-  - create skill
-  - author skill
-  - skill template
-  - how to write skills
-tags:
-  - meta
-  - authoring
-  - skills
-  - writing
-difficulty: intermediate
-estimatedTime: 20
-relatedSkills: []
+name: skill-authoring
+description: Design and development best practices for Claude Code skills, MCP tools, and AI agent capabilities. Use when creating skills, writing SKILL.md files, designing tool descriptions, or optimizing triggers. Triggers on "create a skill", "skill template", "write skill instructions", SKILL.md, metadata.json, progressive disclosure, trigger optimization, MCP tool design, or skill testing. Does NOT cover specific frameworks or languages (use dedicated skills).
 ---
 
-# Skill Authoring Guide
+# AI Agent Skills Best Practices
 
-You are authoring a skill for AI coding agents. A well-written skill provides clear, actionable guidance that agents can follow consistently.
+Design and development guide for AI agent skills, including Claude Code skills and MCP tools. Contains 46 rules across 8 categories, prioritized by impact to guide skill creation, review, and optimization.
 
-## Core Principle
+## When to Apply
 
-**A skill should be the description that triggers it, NOT a summary of the workflow.**
+- Creating new Claude Code skills or MCP tools
+- Writing or reviewing SKILL.md metadata and descriptions
+- Optimizing skill trigger reliability
+- Structuring content for progressive disclosure
+- Testing skill activation and behavior
+- Designing tool interfaces for agent workflows
 
-The trigger/description tells the agent WHEN to use the skill. The content tells the agent HOW to execute it.
+## Core Principles
 
-## Skill Anatomy
+**1. Descriptions drive activation.** Claude selects skills based on description matching against user intent. Include specific capabilities, trigger keywords, and negative cases. A skill with a vague description activates inconsistently or never.
 
-### SKILL.md Structure
+**2. Front-load critical instructions.** Claude may truncate long content. Place non-negotiable rules in the first 100 lines. Bury important constraints at the end and they get ignored.
 
-```markdown
+**3. Progressive disclosure saves tokens.** Load detailed content only when needed. A 2000-line skill wastes context on every activation. Structure as: SKILL.md (overview) → references/ (details) → scripts/ (execution).
+
+**4. Test activation, not just execution.** A skill that works perfectly but never triggers provides zero value. Test with real user phrases, synonyms, and edge cases before deployment.
+
+**5. One skill per domain.** Overlapping skills create activation conflicts. Split by clear boundaries (language, framework, workflow stage) with distinct trigger keywords.
+
+## Rule Categories
+
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Skill Metadata Design | CRITICAL | `meta-` |
+| 2 | Description Engineering | CRITICAL | `desc-` |
+| 3 | Content Structure | HIGH | `struct-` |
+| 4 | Trigger Optimization | HIGH | `trigger-` |
+| 5 | Progressive Disclosure | MEDIUM-HIGH | `prog-` |
+| 6 | MCP Tool Design | MEDIUM | `mcp-` |
+| 7 | Testing and Validation | MEDIUM | `test-` |
+| 8 | Maintenance and Distribution | LOW-MEDIUM | `maint-` |
+
+## Quick Reference
+
+### 1. Skill Metadata Design (CRITICAL)
+
+- `meta-name-format` - Use lowercase hyphenated skill names
+- `meta-name-hyphen-boundaries` - Never start or end names with hyphens
+- `meta-name-no-consecutive-hyphens` - Avoid consecutive hyphens in names
+- `meta-name-uniqueness` - Ensure skill names are globally unique
+- `meta-required-frontmatter` - Include all required frontmatter fields
+- `meta-allowed-frontmatter-fields` - Use only allowed frontmatter fields
+- `meta-frontmatter-yaml-syntax` - Use valid YAML frontmatter syntax
+- `meta-name-length` - Keep skill names under 64 characters
+- `meta-directory-match` - Match skill name to directory name
+
+### 2. Description Engineering (CRITICAL)
+
+- `desc-specific-capabilities` - Name specific capabilities in description
+- `desc-trigger-keywords` - Include user trigger keywords in description
+- `desc-third-person-voice` - Write descriptions in third person
+- `desc-length-optimization` - Optimize description length for discovery
+- `desc-avoid-vague-terms` - Avoid vague terms in descriptions
+- `desc-differentiate-similar-skills` - Differentiate similar skills with distinct triggers
+- `desc-include-negative-cases` - Include negative cases for precision
+
+### 3. Content Structure (HIGH)
+
+- `struct-header-hierarchy` - Use consistent header hierarchy
+- `struct-instructions-first` - Put critical instructions early in content
+- `struct-imperative-instructions` - Write instructions in imperative mood
+- `struct-code-blocks-with-language` - Specify language in code blocks
+- `struct-line-limit` - Keep SKILL.md under 500 lines
+- `struct-single-responsibility` - One skill per domain
+
+### 4. Trigger Optimization (HIGH)
+
+- `trigger-slash-command-aliases` - Include slash command aliases in description
+- `trigger-file-type-patterns` - Include file type patterns in description
+- `trigger-workflow-stages` - Reference workflow stages in description
+- `trigger-error-patterns` - Include error patterns in debugging skills
+- `trigger-synonym-coverage` - Cover synonyms and alternate phrasings
+
+### 5. Progressive Disclosure (MEDIUM-HIGH)
+
+- `prog-three-level-disclosure` - Implement three-level progressive disclosure
+- `prog-one-level-deep-links` - Limit reference links to one level deep
+- `prog-scripts-execute-not-read` - Execute scripts instead of reading code
+- `prog-lazy-load-examples` - Lazy load examples and reference material
+- `prog-mutual-exclusion` - Separate mutually exclusive contexts
+
+### 6. MCP Tool Design (MEDIUM)
+
+- `mcp-tool-naming` - Use clear action-object tool names
+- `mcp-parameter-descriptions` - Document all tool parameters
+- `mcp-error-messages` - Return actionable error messages
+- `mcp-tool-scope` - Design single-purpose tools
+- `mcp-allowed-tools` - Use allowed-tools for safety constraints
+- `mcp-idempotent-operations` - Design idempotent tool operations
+
+### 7. Testing and Validation (MEDIUM)
+
+- `test-trigger-phrases` - Test skill activation with real user phrases
+- `test-edge-cases` - Test skills with edge case inputs
+- `test-negative-scenarios` - Test that skills do NOT trigger on unrelated requests
+- `test-instruction-clarity` - Test instructions with fresh context
+
+### 8. Maintenance and Distribution (LOW-MEDIUM)
+
+- `maint-semantic-versioning` - Use semantic versioning for skill releases
+- `maint-changelog` - Maintain a changelog for skill updates
+- `maint-plugin-packaging` - Package skills as plugins for distribution
+- `maint-audit-security` - Audit skills before installing from external sources
+
+## Creating Rules
+
+Copy [assets/templates/_template.md](assets/templates/_template.md) and follow the frontmatter schema:
+
+```yaml
 ---
-name: [Human-readable name]
-description: [What this skill does - for triggers]
-version: [Semantic version]
-triggers:
-  - [keyword 1]
-  - [keyword 2]
-tags:
-  - [tag 1]
-  - [tag 2]
-difficulty: [beginner|intermediate|advanced]
-estimatedTime: [minutes]
-relatedSkills:
-  - [pack/skill-name]
+title: Rule Title Here
+impact: CRITICAL|HIGH|MEDIUM-HIGH|MEDIUM|LOW-MEDIUM|LOW
+impactDescription: Quantified impact (e.g., "2-10x improvement")
+tags: prefix, technique, related-concepts
 ---
-
-# [Skill Title]
-
-[Introduction paragraph explaining the skill's purpose]
-
-## Core Principle
-
-**[Single most important rule in bold]**
-
-[Brief explanation of why this principle matters]
-
-## [Main Content Sections]
-
-[Detailed guidance organized into logical sections]
-
-## [Decision Points / When to Use]
-
-[Help the agent know when to apply this skill]
-
-## [Verification / Checklist]
-
-[How to verify the skill was applied correctly]
 ```
 
-### Frontmatter Fields
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| name | Yes | Human-readable skill name |
-| description | Yes | Brief description (triggers) |
-| version | Yes | Semantic version (1.0.0) |
-| triggers | Recommended | Keywords that activate skill |
-| tags | Recommended | Categorization tags |
-| difficulty | Optional | beginner/intermediate/advanced |
-| estimatedTime | Optional | Minutes to apply |
-| relatedSkills | Optional | Related skill IDs |
-
-## Writing Effective Triggers
-
-Triggers should be phrases users naturally type:
-
-**Good triggers:**
-- "write tests first"
-- "tdd"
-- "test driven development"
-- "failing test before code"
-
-**Bad triggers:**
-- "testing methodology" (too vague)
-- "red-green-refactor-cycle-for-test-driven-development" (too specific)
-- "skill-123" (not natural language)
-
-### Trigger Guidelines
-
-1. **Natural language** - How would a human ask for this?
-2. **Multiple variations** - Different ways to say the same thing
-3. **Specific enough** - Don't trigger on too many queries
-4. **Common terms** - Use terms people actually use
-
-## Writing Skill Content
-
-### Voice and Tone
-
-Use **second person, present tense, active voice**:
-
-- "You are implementing TDD"
-- "Write the test first"
-- "Verify the output"
-
-Avoid:
-- "The developer should..." (passive)
-- "One might consider..." (vague)
-- "It is recommended that..." (wordy)
-
-### Structure Guidelines
-
-1. **Start with context** - What is the agent doing and why
-2. **State the core principle** - Most important rule upfront
-3. **Provide process** - Step-by-step guidance
-4. **Include examples** - Concrete illustrations
-5. **Add checklists** - Verification criteria
-6. **End with integration** - How this connects to other skills
-
-### Directive Language
-
-Use clear, unambiguous directives:
-
-**Strong directives:**
-- "You MUST..."
-- "ALWAYS..."
-- "NEVER..."
-- "Do NOT..."
-
-**Softer guidance:**
-- "Prefer..."
-- "Consider..."
-- "When possible..."
-
-Use strong directives for critical rules, softer guidance for recommendations.
-
-## Content Patterns
-
-### Decision Trees
-
-When the agent needs to choose paths:
-
-```markdown
-## Decision: [What to Decide]
-
-If [condition A]:
-→ [Action for A]
-
-If [condition B]:
-→ [Action for B]
-
-If uncertain:
-→ [Default action]
-```
-
-### Process Steps
-
-For sequential workflows:
-
-```markdown
-### Step 1: [Action]
-
-[Detailed explanation]
-
-**Verification:** [How to know step is complete]
-
-### Step 2: [Action]
-...
-```
-
-### Tables for Comparisons
-
-```markdown
-| Situation | Action | Rationale |
-|-----------|--------|-----------|
-| [Case 1] | [Do X] | [Why] |
-| [Case 2] | [Do Y] | [Why] |
-```
-
-### Code Examples
-
-Show, don't just tell:
-
-```typescript
-// BAD - Shows what NOT to do
-const result = doTheThing(badInput);
-
-// GOOD - Shows correct approach
-const validated = validate(input);
-const result = doTheThing(validated);
-```
-
-### Checklists
-
-For verification:
-
-```markdown
-## Verification Checklist
-
-Before marking complete:
-
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-- [ ] [Criterion 3]
-```
-
-## Anti-Patterns to Avoid
-
-### The Encyclopedia
-
-**Problem:** Too much information, agent gets lost
-**Fix:** Focus on actionable guidance, link to details
-
-### The Vague Guide
-
-**Problem:** "Consider best practices" (What practices?)
-**Fix:** Be specific: "Use Arrange-Act-Assert pattern"
-
-### The Constraint-Free Skill
-
-**Problem:** No clear rules, agent improvises
-**Fix:** Include explicit constraints and rules
-
-### The Monologue
-
-**Problem:** Wall of text with no structure
-**Fix:** Use headers, lists, tables, code blocks
-
-### The Outdated Skill
-
-**Problem:** References deprecated patterns/tools
-**Fix:** Version skills, include validity dates
-
-## Skill Testing
-
-Before publishing, verify:
-
-1. **Trigger test** - Does it activate on expected phrases?
-2. **Completeness test** - Can agent follow without external info?
-3. **Clarity test** - Is every instruction unambiguous?
-4. **Contradiction test** - No conflicting guidance?
-5. **Edge case test** - Handles unusual situations?
-
-### Manual Verification
-
-```
-Test Query: "[trigger phrase]"
-Expected: Skill activates and provides relevant guidance
-Actual: [Record what happened]
-```
-
-## Pack Organization
-
-Skills should be organized into methodology packs:
-
-```
-packs/
-├── testing/
-│   ├── pack.json
-│   ├── red-green-refactor/
-│   │   └── SKILL.md
-│   └── test-patterns/
-│       └── SKILL.md
-├── debugging/
-│   ├── pack.json
-│   └── ...
-```
-
-### Pack Manifest
-
-```json
-{
-  "name": "testing",
-  "version": "1.0.0",
-  "description": "Testing methodology skills",
-  "skills": ["red-green-refactor", "test-patterns"],
-  "tags": ["testing", "tdd", "quality"],
-  "compatibility": ["all"]
-}
-```
-
-## Skill Maintenance
-
-### Version Updates
-
-When to increment version:
-- **Patch (1.0.x):** Typos, clarifications, minor fixes
-- **Minor (1.x.0):** New sections, examples, capabilities
-- **Major (x.0.0):** Breaking changes, fundamental rewrites
-
-### Deprecation
-
-If skill becomes obsolete:
-
-```markdown
----
-deprecated: true
-deprecatedReason: "Superseded by skill-v2"
-deprecatedSince: "2024-01-15"
----
-
-> **DEPRECATED:** This skill is deprecated. Use [skill-v2] instead.
-
-[Original content for reference]
-```
-
-## Quality Checklist
-
-Before publishing:
-
-- [ ] Frontmatter is complete and valid
-- [ ] Triggers are natural and specific
-- [ ] Core principle is clear and prominent
-- [ ] Content is structured with headers
-- [ ] Examples are included
-- [ ] Verification checklist exists
-- [ ] Related skills are linked
-- [ ] No spelling/grammar errors
-- [ ] Tested with target agents
+Reference files use the pattern: `references/{prefix}-{slug}.md`
+
+## References
+
+- [skills-ref specification](https://github.com/agentskills/agentskills/tree/main/skills-ref)
+- [Anthropic Engineering: Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+- [Claude Code Skills Documentation](https://code.claude.com/docs/en/skills)
+- [Anthropic Skills Repository](https://github.com/anthropics/skills)
+- [MCP Best Practices](https://modelcontextprotocol.info/docs/best-practices/)
+- [Prompt Engineering Guide: LLM Agents](https://www.promptingguide.ai/research/llm-agents)
+- [Claude Skills Deep Dive](https://leehanchung.github.io/blogs/2025/10/26/claude-skills-deep-dive/)

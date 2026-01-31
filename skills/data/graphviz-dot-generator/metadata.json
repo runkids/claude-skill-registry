@@ -1,9 +1,7 @@
 {
   "name": "graphviz-dot-generator",
-  "description": "Graphviz Dot Generator - Auto-activating skill for Visual Content.Triggers on: graphviz dot generator, graphviz dot generatorPart of the Visual Content skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/18-visual-content/graphviz-dot-generator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-01-31T04:41:44.351989Z"
 }
