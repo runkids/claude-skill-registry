@@ -1,8 +1,8 @@
 {
   "category": "productivity",
   "code": "pro",
-  "count": 1546,
-  "updated_at": "2026-01-30T04:55:07.664674Z",
+  "count": 1539,
+  "updated_at": "2026-01-31T04:54:07.560223Z",
   "skills": [
     {
       "name": "commit-helper",
@@ -1970,21 +1970,6 @@
       "name": "dbt-architecture",
       "description": "dbt project structure using medallion architecture (bronze/silver/gold layers). Use this skill when planning project organization, establishing folder structure, defining naming conventions, implement",
       "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-architecture",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "dbt",
-        "architecture"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo/data/dbt-architecture",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dbt-architecture",
-      "description": "dbt project structure using medallion architecture (bronze/silver/gold layers). Use this skill when planning project organization, establishing folder structure, defining naming conventions, implement",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
       "path": ".claude/skills/dbt-architecture",
       "branch": "main",
       "category": "productivity",
@@ -2000,21 +1985,6 @@
       "name": "task-master",
       "description": "AI-powered task management for structured, specification-driven development. Use this skill when you need to manage complex projects with PRDs, break down tasks into subtasks, track dependencies, and",
       "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/task-master",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "master"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo/data/task-master",
-      "source": "local"
-    },
-    {
-      "name": "task-master",
-      "description": "AI-powered task management for structured, specification-driven development. Use this skill when you need to manage complex projects with PRDs, break down tasks into subtasks, track dependencies, and",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
       "path": ".claude/skills/task-master",
       "branch": "main",
       "category": "productivity",
@@ -2024,22 +1994,6 @@
       ],
       "stars": 23,
       "install": "sfc-gh-dflippo/snowflake-dbt-demo/.claude/skills/task-master",
-      "source": "local"
-    },
-    {
-      "name": "task-master-install",
-      "description": "Install and initialize task-master for AI-powered task management and specification-driven development. Use this skill when users ask you to parse a new PRD, when starting a new project that needs str",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/task-master-install",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "master",
-        "install"
-      ],
-      "stars": 23,
-      "install": "sfc-gh-dflippo/snowflake-dbt-demo/data/task-master-install",
       "source": "local"
     },
     {
@@ -14522,18 +14476,6 @@
       "name": "kpi-dashboard-template",
       "description": "Kpi Dashboard Template - Auto-activating skill for Enterprise Workflows.Triggers on: kpi dashboard template, kpi dashboard templatePart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/kpi-dashboard-template",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/kpi-dashboard-template",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kpi-dashboard-template",
-      "description": "Kpi Dashboard Template - Auto-activating skill for Enterprise Workflows.Triggers on: kpi dashboard template, kpi dashboard templatePart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/20-enterprise-workflows/kpi-dashboard-template",
       "branch": "main",
       "category": "productivity",
@@ -15139,18 +15081,6 @@
       "stars": 0,
       "install": "cesaregarza/SplatNLP/.claude/skills/mechinterp-labeler",
       "source": "local"
-    },
-    {
-      "name": "meeting-scheduler-helper",
-      "description": "Meeting Scheduler Helper - Auto-activating skill for Business Automation.Triggers on: meeting scheduler helper, meeting scheduler helperPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/meeting-scheduler-helper",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/meeting-scheduler-helper",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "meeting-scheduler-helper",
@@ -17941,18 +17871,6 @@
       "name": "risk-assessment-creator",
       "description": "Risk Assessment Creator - Auto-activating skill for Enterprise Workflows.Triggers on: risk assessment creator, risk assessment creatorPart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/risk-assessment-creator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/risk-assessment-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "risk-assessment-creator",
-      "description": "Risk Assessment Creator - Auto-activating skill for Enterprise Workflows.Triggers on: risk assessment creator, risk assessment creatorPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/20-enterprise-workflows/risk-assessment-creator",
       "branch": "main",
       "category": "productivity",
@@ -18805,18 +18723,6 @@
       "tags": [],
       "stars": 0,
       "install": "midhunmonachan/skills/skills/skills-improve",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sla-monitor-setup",
-      "description": "Sla Monitor Setup - Auto-activating skill for Enterprise Workflows.Triggers on: sla monitor setup, sla monitor setupPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/sla-monitor-setup",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/sla-monitor-setup",
       "source": "SkillsMP + GitHub Raw"
     },
     {

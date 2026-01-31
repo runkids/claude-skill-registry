@@ -1,8 +1,8 @@
 {
   "category": "marketing",
   "code": "mkt",
-  "count": 459,
-  "updated_at": "2026-01-30T04:55:07.084859Z",
+  "count": 457,
+  "updated_at": "2026-01-31T04:54:06.918147Z",
   "skills": [
     {
       "name": "social-media",
@@ -3558,18 +3558,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "graphviz-dot-generator",
-      "description": "Graphviz Dot Generator - Auto-activating skill for Visual Content.Triggers on: graphviz dot generator, graphviz dot generatorPart of the Visual Content skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/graphviz-dot-generator",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/graphviz-dot-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "grey-haven-creative-writing",
       "description": "Professional writing assistance for blogs, research articles, fiction, essays, and marketing copy. Use when users want to write, edit, or improve any form of written content. Triggers: 'write a blog',",
       "repo": "greyhaven-ai/claude-code-config",
@@ -4864,18 +4852,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/plotly-chart-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "plotly-chart-generator",
-      "description": "Plotly Chart Generator - Auto-activating skill for Visual Content.Triggers on: plotly chart generator, plotly chart generatorPart of the Visual Content skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/plotly-chart-generator",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/plotly-chart-generator",
       "source": "SkillsMP + GitHub Raw"
     },
     {

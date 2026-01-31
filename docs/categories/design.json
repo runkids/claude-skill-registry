@@ -1,8 +1,8 @@
 {
   "category": "design",
   "code": "des",
-  "count": 5576,
-  "updated_at": "2026-01-30T04:55:06.083736Z",
+  "count": 5565,
+  "updated_at": "2026-01-31T04:54:05.795492Z",
   "skills": [
     {
       "name": "add-uint-support",
@@ -10366,21 +10366,6 @@
       "name": "r3f-materials",
       "description": "Three.js materials in R3F, built-in materials (Standard, Physical, Basic, etc.), ShaderMaterial with custom GLSL, uniforms binding and animation, and material properties. Use when choosing materials,",
       "repo": "Bbeierle12/Skill-MCP-Claude",
-      "path": "data/r3f-materials",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "r3f",
-        "materials"
-      ],
-      "stars": 2,
-      "install": "Bbeierle12/Skill-MCP-Claude/data/r3f-materials",
-      "source": "local"
-    },
-    {
-      "name": "r3f-materials",
-      "description": "Three.js materials in R3F, built-in materials (Standard, Physical, Basic, etc.), ShaderMaterial with custom GLSL, uniforms binding and animation, and material properties. Use when choosing materials,",
-      "repo": "Bbeierle12/Skill-MCP-Claude",
       "path": "skills/r3f-materials",
       "branch": "main",
       "category": "design",
@@ -12888,20 +12873,6 @@
       ],
       "stars": 1,
       "install": "damienCronw/hs-req-facilitator-skill/design/hs-req-facilitator-skill",
-      "source": "local"
-    },
-    {
-      "name": "imagen",
-      "description": "Generate images using Google Gemini's image generation capabilities.Use this skill when the user needs to create, generate, or produce imagesfor any purpose including UI mockups, icons, illustrations,",
-      "repo": "sanjay3290/ai-skills",
-      "path": "data/imagen",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "imagen"
-      ],
-      "stars": 1,
-      "install": "sanjay3290/ai-skills/data/imagen",
       "source": "local"
     },
     {
@@ -18476,18 +18447,6 @@
       "tags": [],
       "stars": 0,
       "install": "lyq-lin/YCode.CLI/YCode.CLI/skills/ant-design-knowledge-base",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "anthropic-brand-guidelines",
-      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting",
-      "repo": "Jst-Well-Dan/Skill-Box",
-      "path": "data/anthropic-brand-guidelines",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Jst-Well-Dan/Skill-Box/data/anthropic-brand-guidelines",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26979,18 +26938,6 @@
       "name": "css-module-generator",
       "description": "Css Module Generator - Auto-activating skill for Frontend Development.Triggers on: css module generator, css module generatorPart of the Frontend Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/css-module-generator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/css-module-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "css-module-generator",
-      "description": "Css Module Generator - Auto-activating skill for Frontend Development.Triggers on: css module generator, css module generatorPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/05-frontend-dev/css-module-generator",
       "branch": "main",
       "category": "design",
@@ -31448,18 +31395,6 @@
       "name": "dynamodb-table-designer",
       "description": "Dynamodb Table Designer - Auto-activating skill for AWS Skills.Triggers on: dynamodb table designer, dynamodb table designerPart of the AWS Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/dynamodb-table-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/dynamodb-table-designer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "dynamodb-table-designer",
-      "description": "Dynamodb Table Designer - Auto-activating skill for AWS Skills.Triggers on: dynamodb table designer, dynamodb table designerPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/13-aws-skills/dynamodb-table-designer",
       "branch": "main",
       "category": "design",
@@ -32608,18 +32543,6 @@
       "tags": [],
       "stars": 0,
       "install": "trilwu/secskills/design/escalating-linux-privileges",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "escalation-governance",
-      "description": "Guide to deciding whether to escalate from a lower model (haiku/sonnet) toa higher model (sonnet/opus).Triggers: model escalation, haiku to sonnet, sonnet to opus, reasoning depth,task complexity, mod",
-      "repo": "athola/claude-night-market",
-      "path": "data/escalation-governance",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "athola/claude-night-market/data/escalation-governance",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -35349,18 +35272,6 @@
       "tags": [],
       "stars": 0,
       "install": "axivo/claude/plugins/framework/skills/framework-methodology",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frameworks",
-      "description": "TypeScript with popular frameworks like NestJS, React, and Next.js",
-      "repo": "pluginagentmarketplace/custom-plugin-typescript",
-      "path": "data/frameworks",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "pluginagentmarketplace/custom-plugin-typescript/data/frameworks",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -56758,18 +56669,6 @@
       "name": "redux-slice-generator",
       "description": "Redux Slice Generator - Auto-activating skill for Frontend Development.Triggers on: redux slice generator, redux slice generatorPart of the Frontend Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/redux-slice-generator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/redux-slice-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "redux-slice-generator",
-      "description": "Redux Slice Generator - Auto-activating skill for Frontend Development.Triggers on: redux slice generator, redux slice generatorPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/05-frontend-dev/redux-slice-generator",
       "branch": "main",
       "category": "design",
@@ -62991,18 +62890,6 @@
       "name": "styled-components-helper",
       "description": "Styled Components Helper - Auto-activating skill for Frontend Development.Triggers on: styled components helper, styled components helperPart of the Frontend Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/styled-components-helper",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/styled-components-helper",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "styled-components-helper",
-      "description": "Styled Components Helper - Auto-activating skill for Frontend Development.Triggers on: styled components helper, styled components helperPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/05-frontend-dev/styled-components-helper",
       "branch": "main",
       "category": "design",
@@ -64539,18 +64426,6 @@
       "stars": 0,
       "install": "tirtza-weinfeld/hippocampx/.claude/skills/tailwind-4",
       "source": "local"
-    },
-    {
-      "name": "tailwind-class-optimizer",
-      "description": "Tailwind Class Optimizer - Auto-activating skill for Frontend Development.Triggers on: tailwind class optimizer, tailwind class optimizerPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/tailwind-class-optimizer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/tailwind-class-optimizer",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "tailwind-class-optimizer",
@@ -71909,18 +71784,6 @@
       "tags": [],
       "stars": 0,
       "install": "odysseus0/nix-config/users/tengjizhang/claude/skills/wechat-export",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "weekly-reflection",
-      "description": "Conduct comprehensive weekly reflections by integrating time tracking (Timing app), habit tracking (Streaks), task completion (Todoist), email activity (Gmail), and notes (Obsidian) to analyze alignme",
-      "repo": "fdhidalgo/claude-config",
-      "path": "data/weekly-reflection",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "fdhidalgo/claude-config/data/weekly-reflection",
       "source": "SkillsMP + GitHub Raw"
     },
     {
