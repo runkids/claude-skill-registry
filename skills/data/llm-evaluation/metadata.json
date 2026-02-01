@@ -1,7 +1,7 @@
 {
   "name": "llm-evaluation",
-  "repo": "haxllo/repolens",
-  "path": ".github/skills/llm-evaluation/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:45.634454Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/llm-application-dev/skills/llm-evaluation/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:49.541735Z"
 }

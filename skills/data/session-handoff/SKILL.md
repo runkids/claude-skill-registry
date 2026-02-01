@@ -1,136 +1,58 @@
 ---
 name: session-handoff
-description: Generate comprehensive session summary for handoff to new LLM session. 새 세션 인계를 위한 상세 요약 생성. Use when ending session and need to handoff context.
+description: Use this checklist at the end of a working session before context is lost.
 ---
 
-# Session Handoff - 대화 세션 인계 요약본 생성
+# Session Handoff Skill
 
-## 목표
-현재 대화 세션의 모든 내용을 누락 없이 극도로 상세하게 요약하여, 새로운 LLM 세션에서 완벽하게 맥락을 이어받을 수 있도록 합니다.
+Use this checklist at the end of a working session before context is lost.
 
-## 실행 단계
+## When to Use
 
-### 1단계: 상세 요약 생성
+- Before ending a session (user says "wrap up", "handoff", "done for now")
+- Before context compaction warnings
+- After completing a major piece of work
 
-다음 구조에 따라 **극도로 상세한** 요약본을 생성하세요:
+## Handoff Checklist
 
-#### I. 대화의 근본적인 목표 및 초기 설정
-1. **최초 발제 또는 문제 정의**: 대화가 시작된 근본적인 이유, 사용자의 최초 질문/문제/목표
-2. **초기 가정 및 제약 조건**: 명시적/암묵적으로 설정된 가정, 제약 조건, 논의 범위
-3. **기대 결과**: 사용자가 얻고자 했던 궁극적 결과물
+### 1. Write Decisions to Files
 
-#### II. 상세한 대화 전개 과정
-4. **주요 질문 및 답변의 흐름**:
-   - 핵심 질문들과 순서/주제별 연관성
-   - 각 질문에 대한 LLM 답변의 핵심 내용, 논거, 예시
-   - 중요한 분기점이나 방향 전환과 그 이유
-5. **사용자 제공 정보 및 피드백**:
-   - 제공된 구체적 정보, 데이터, 예시, 경험, 선호도, 수정 요청
-   - LLM 답변에 대한 피드백 (긍정/부정/추가 질문)
-6. **탐색된 아이디어, 대안, 및 해결책**:
-   - 제시된 다양한 아이디어, 접근법, 대안 전략
-   - 채택/기각된 아이디어와 그 이유
-   - 시도했으나 실패한 부분, 추가 탐색 필요 사항
-7. **주요 논쟁 또는 이견**: 의견 차이가 있었던 쟁점과 각자의 주장
+- [ ] Any important decisions made in conversation? Write them to relevant files.
+- [ ] Any brainstormed content not yet saved? Add to appropriate location.
+- [ ] User corrections or clarifications? Update affected files.
 
-#### III. 공유된 중요 정보 및 배경 맥락
-8. **핵심 개념 정의**: 정의/설명된 중요 용어, 개념, 약어
-9. **참고 자료**: 언급된 외부 링크, 문서, 이론, 인물
-10. **특수한 맥락 또는 뉘앙스**: 대화 분위기, 사용자 어조, 강조점, 맥락적 뉘앙스
+### 2. Update Progress Tracking
 
-#### IV. 시도한 접근법과 결과 (CRITICAL)
-11. **시도한 것들 (What I Tried)**:
-    - 구체적인 접근법, 명령어, 코드 변경 사항
-    - 각 시도의 목적과 의도
-12. **성공한 것들 (What Worked)**:
-    - 효과가 있었던 해결책과 그 이유
-    - 재사용 가능한 패턴이나 코드
-    - 검증된 가정들
-13. **실패한 것들 (What Didn't Work)**:
-    - 시도했으나 실패한 접근법
-    - 실패 원인 분석 (에러 메시지, 로그 포함)
-    - 피해야 할 함정들
-    - 시간 낭비가 된 시도들
+- [ ] Update PROGRESS.md (or equivalent) with current state
+- [ ] Mark completed items as done
+- [ ] Add new items discovered during session
+- [ ] Check for outdated notes and fix them
 
-#### V. 도달한 중간 결론, 합의, 또는 잠정적 성과
-14. **명시적 합의 사항**: 동의/합의된 사항들
-15. **잠정적 결론 또는 성과물**: 도출된 결론, 생성된 초안, 정리된 아이디어
-16. **해결된 문제 vs. 미해결 문제**: 명확한 구분
+### 3. Add Handoff Notes (if applicable)
 
-#### VI. 대화 중단 시점의 정확한 상태
-17. **마지막 상호작용 내용**: 중단 직전 마지막 질문/요청 또는 답변
-18. **현재 진행 중이던 작업**: 처리 중이던 정보, 진행 중이던 분석
-19. **미해결 질문 또는 과제**: 답변 필요/해결 필요한 사항 리스트
+If work continues in another session:
+- [ ] Recommended task order for next agent
+- [ ] Key files to read for onboarding
+- [ ] Any conventions established this session
+- [ ] Warnings about pitfalls or known issues
 
-#### VII. 남은 계획 및 다음 단계 (CRITICAL)
-20. **즉시 실행 가능한 다음 작업**:
-    - 다음 에이전트가 바로 시작할 수 있는 구체적인 작업
-    - 우선순위가 가장 높은 항목
-21. **남은 계획 (Rest of the Plan)**:
-    - 완료해야 할 작업 목록 (체크리스트 형태)
-    - 각 작업의 예상 복잡도
-    - 의존성 관계 (순서가 중요한 경우)
-22. **권장 접근법**: 다음 에이전트가 취해야 할 접근 방식에 대한 제안
-23. **주의사항 및 피해야 할 것들**: 이미 실패한 접근법, 알려진 버그, 함정
+### 4. Commit and Push
 
-#### VIII. 핵심 개념, 용어, 및 반복된 패턴
-24. **주요 키워드 목록**: 핵심 키워드 10개 이상
-25. **자주 사용된 용어 해설**: 반복 등장한 중요 용어/개념 해설
-26. **대화 패턴**: 반복된 질문 방식, 답변 패턴, 논의 구조
+- [ ] Stage all changes: `git add -A`
+- [ ] Write clear commit message summarizing session work
+- [ ] Push to branch: `git push -u origin <branch>`
+- [ ] Confirm push succeeded
 
-#### IX. 빠른 시작 가이드 (Quick Start for Next Agent)
-27. **한 문단 요약**: 전체 상황을 30초 안에 파악할 수 있는 요약
-28. **핵심 파일 목록**: 반드시 확인해야 할 파일들과 그 이유
-29. **첫 번째 명령어**: 다음 에이전트가 즉시 실행할 명령어나 작업
+### 5. Verify Nothing Lost
 
-### 2단계: 파일 저장 및 Clipboard 복사
+- [ ] Re-read final PROGRESS.md or handoff section
+- [ ] Does it capture everything the next agent needs to know?
+- [ ] Would you understand the context if you read only the files?
 
-요약 완료 후:
+## Common Mistakes to Avoid
 
-1. **파일 저장**: Write tool을 사용하여 현재 작업 디렉토리에 저장
-   - 파일명 형식: `session-handoff-$(date +%Y%m%d-%H%M%S).md`
-   - 예시: `session-handoff-20251117-143022.md`
-   - Bash tool로 먼저 `date +%Y%m%d-%H%M%S` 실행하여 현재 timestamp 얻기
-2. **Clipboard 복사**: 다음 명령어로 clipboard에 복사
-   ```bash
-   cat session-handoff-*.md | pbcopy
-   ```
-   또는 저장된 파일의 정확한 경로를 사용
-
-### 3단계: 사용자 안내
-
-완료 후 다음 정보 제공:
-- 저장된 파일 경로
-- "Clipboard에 복사되었습니다"라는 확인 메시지
-- 새 세션에서 사용 방법 안내
-
-## 핵심 원칙
-
-### 자립성 (Self-Sufficiency)
-- **이 파일만으로 충분해야 함**: 다음 에이전트가 이 파일 하나만 읽고 바로 작업을 이어받아 완료할 수 있어야 함
-- **맥락 독립성**: 이전 대화 기록 없이도 완전한 이해가 가능해야 함
-- **실행 가능성**: 추상적 설명이 아닌 구체적이고 실행 가능한 정보 제공
-
-### 상세성 및 길이
-- **정보 누락 절대 금지**: 사소한 내용도 전체 맥락 이해에 필요하면 포함
-- **최대한 길게**: 장황하더라도 정확성과 완전성 우선
-- **구체적 내용 포함**: "답변했다"가 아니라 "어떤 답변을 했는지" 포함
-- **코드 스니펫 포함**: 중요한 코드 변경사항은 실제 코드로 포함
-
-### 가독성
-- 적절한 단락 나누기
-- 글머리 기호, 번호 매기기 활용
-- 섹션별 명확한 구분
-
-### 객관성
-- 주관적 해석보다 사실 관계 전달
-- 대화 내용의 객관적 재구성
-
-### 언어
-- 한국어로 작성
-
-## 실행
-
-위 지침에 따라 **지금 즉시** 극도로 상세하고 포괄적인 대화 요약본을 생성하고, 파일 저장 및 clipboard 복사를 완료하세요.
-
-이 요약본은 새로운 대화의 성공적인 시작을 위한 유일한 기반이 될 것입니다.
+- Leaving important context only in conversation
+- Forgetting to update progress percentages
+- Not specifying recommended task order when it matters
+- Outdated notes that contradict current state
+- Uncommitted work

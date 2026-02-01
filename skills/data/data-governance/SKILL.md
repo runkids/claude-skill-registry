@@ -1,31 +1,98 @@
 ---
 name: data-governance
-description: Use when defining data contracts, consent policies, and monitoring for
-  automation programs.
+description: Data lineage, cataloging, access control, and compliance.
 ---
 
-# Automation Data Governance Skill
+# Data Governance
 
-## When to Use
-- Launching new journeys requiring cross-system data sharing.
-- Auditing consent/suppression logic across email/SMS/in-app.
-- Investigating data quality incidents impacting automation.
+## Data Lineage
 
-## Framework
-1. **Data Contracts** – document required fields/events, owners, freshness SLAs, fallback behavior.
-2. **Consent & Compliance** – track opt-in types, regional consent, TTL, audit trails.
-3. **Identity Resolution** – ensure consistent IDs across product, CRM, MAP, CDP.
-4. **Monitoring** – dashboards/alerts for data latency, schema changes, null spikes.
-5. **Change Management** – versioning, rollback, and communication paths.
+Track data flow from source to consumption:
 
-## Templates
-- Data requirements matrix (journey → fields/events → source → owner → SLA).
-- Consent policy doc (channel, region, legal basis, suppression rules).
-- Incident log + RCA template.
+```
+Source Systems → Raw Layer → Staging → Marts → Reports
+     │              │           │        │        │
+     └──────────────┴───────────┴────────┴────────┘
+                    Lineage Graph
+```
 
-## Tips
-- Set automated kill switches when critical fields are stale or missing.
-- Collaborate with security/legal on retention + privacy impact assessments.
-- Align governance cadences with quarterly automation retros.
+### dbt Lineage
 
----
+```bash
+dbt docs generate
+dbt docs serve
+# View DAG at http://localhost:8080
+```
+
+### OpenLineage
+
+```python
+from openlineage.client import OpenLineageClient
+
+client = OpenLineageClient(url="http://marquez:5000")
+
+# Emit lineage events
+client.emit(run_event)
+```
+
+## Data Catalog
+
+### Metadata to Track
+
+| Category | Examples |
+|----------|----------|
+| **Technical** | Schema, types, partitions |
+| **Business** | Description, owner, SLA |
+| **Operational** | Freshness, quality scores |
+| **Access** | PII classification, roles |
+
+### dbt Documentation
+
+```yaml
+models:
+  - name: dim_customer
+    description: "Customer master data"
+    meta:
+      owner: "data-team"
+      pii: true
+      freshness_sla: "24h"
+    columns:
+      - name: email
+        description: "Customer email"
+        meta:
+          pii: true
+          masking: "hash"
+```
+
+## Access Control
+
+### Column-Level Security
+
+```sql
+-- Snowflake
+CREATE MASKING POLICY email_mask AS (val STRING)
+RETURNS STRING ->
+  CASE
+    WHEN CURRENT_ROLE() IN ('ADMIN') THEN val
+    ELSE '***@***.com'
+  END;
+
+ALTER TABLE customers MODIFY COLUMN email
+SET MASKING POLICY email_mask;
+```
+
+### Row-Level Security
+
+```sql
+-- Snowflake
+CREATE ROW ACCESS POLICY region_policy AS (region VARCHAR)
+RETURNS BOOLEAN ->
+  region = CURRENT_ROLE();
+```
+
+## Compliance
+
+- **GDPR** - Right to deletion, data export
+- **CCPA** - Consumer data rights
+- **SOC2** - Access logging, encryption
+- **HIPAA** - PHI protection

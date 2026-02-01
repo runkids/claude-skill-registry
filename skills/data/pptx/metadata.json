@@ -1,7 +1,7 @@
 {
   "name": "pptx",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/document-skills/pptx/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:13.847952Z"
+  "repo": "rysweet/amplihack",
+  "path": ".claude/skills/pptx/SKILL.md",
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-02-01T05:04:49.651262Z"
 }

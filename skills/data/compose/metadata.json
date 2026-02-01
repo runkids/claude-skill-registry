@@ -1,7 +1,7 @@
 {
   "name": "compose",
-  "repo": "miethe/MeatyMusic",
-  "path": ".claude/skills/workflow/compose/SKILL.md",
-  "source": "github.com/miethe/MeatyMusic",
-  "downloaded_at": "2026-01-30T04:29:27.114962Z"
+  "repo": "HoangNguyen0403/agent-skills-standard",
+  "path": "skills/android/compose/SKILL.md",
+  "source": "github.com/HoangNguyen0403/agent-skills-standard",
+  "downloaded_at": "2026-02-01T01:53:43.091165Z"
 }

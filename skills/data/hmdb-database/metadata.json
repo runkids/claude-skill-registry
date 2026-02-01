@@ -1,7 +1,7 @@
 {
   "name": "hmdb-database",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/hmdb-database/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-31T04:03:43.047836Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/hmdb-database/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:38.585082Z"
 }

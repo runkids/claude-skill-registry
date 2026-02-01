@@ -1,7 +1,7 @@
 {
   "name": "langchain-architecture",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/langchain-architecture/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-31T03:49:23.278063Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/llm-application-dev/skills/langchain-architecture/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:52.593539Z"
 }

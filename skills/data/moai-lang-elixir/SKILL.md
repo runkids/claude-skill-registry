@@ -1,31 +1,20 @@
 ---
-name: moai-lang-elixir
-description: >
-  Elixir 1.17+ development specialist covering Phoenix 1.7, LiveView, Ecto,
-  and OTP patterns. Use when developing real-time applications, distributed
-  systems, or Phoenix projects.
-license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob Bash mcp__context7__resolve-library-id mcp__context7__get-library-docs
+name: "moai-lang-elixir"
+description: "Elixir 1.17+ development specialist covering Phoenix 1.7, LiveView, Ecto, and OTP patterns. Use when developing real-time applications, distributed systems, or Phoenix projects."
+version: 1.1.0
+category: "language"
+modularized: true
 user-invocable: false
-metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, elixir, phoenix, liveview, ecto, otp, genserver"
-
-# MoAI Extension: Progressive Disclosure
-progressive_disclosure:
-  enabled: true
-  level1_tokens: 100
-  level2_tokens: 5000
-
-# MoAI Extension: Triggers
-triggers:
-  keywords: ["Elixir", "Phoenix", "LiveView", "Ecto", "OTP", "GenServer", ".ex", ".exs", "mix.exs"]
-  languages: ["elixir"]
+tags: ["language", "elixir", "phoenix", "liveview", "ecto", "otp", "genserver"]
+updated: 2026-01-11
+status: "active"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
 ## Quick Reference (30 seconds)
@@ -116,7 +105,7 @@ See:
 
 - `moai-domain-backend` - REST API and microservices architecture
 - `moai-domain-database` - SQL patterns and query optimization
-- `moai-workflow-testing` - DDD and testing strategies
+- `moai-workflow-testing` - TDD and testing strategies
 - `moai-essentials-debug` - AI-powered debugging
 - `moai-platform-deploy` - Deployment and infrastructure
 

@@ -1,7 +1,7 @@
 {
   "name": "deployment-pipeline-design",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/deployment-pipeline-design/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-31T03:49:28.775235Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:52.478801Z"
 }

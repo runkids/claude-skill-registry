@@ -1,6 +1,6 @@
 ---
 name: research-grants
-description: "撰写具有竞争力的科研项目申请书，适用于 NSF、NIH、DOE 和 DARPA。支持各机构特定格式、评审标准、预算编制、广泛影响（broader impacts）、研究意义陈述、创新性论述，以及符合提交规范的合规性要求。"
+description: "Write competitive research proposals for NSF, NIH, DOE, and DARPA. Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, and compliance with submission requirements."
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 
@@ -894,9 +894,6 @@ This skill works effectively with:
 - **Scientific Writing**: For clear, compelling prose
 - **Literature Review**: For comprehensive background sections
 - **Peer Review**: For self-assessment before submission
-- **Venue Templates**: For publication-related writing style guidance
-
-**Publication Context:** When grant work leads to publications, consult the **venue-templates** skill for venue-specific writing styles (`nature_science_style.md`, `ml_conference_style.md`, etc.) and reviewer expectations to tailor manuscripts for target journals or conferences.
 - **Research Lookup**: For finding relevant citations and prior work
 - **Data Visualization**: For creating effective figures
 

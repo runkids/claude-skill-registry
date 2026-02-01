@@ -1,7 +1,7 @@
 {
   "name": "cdk-stack-generator",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/cdk-stack-generator/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:25.919266Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "planned-skills/generated/13-aws-skills/cdk-stack-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:14.044467Z"
 }

@@ -1,27 +1,16 @@
 ---
-name: moai-streaming-ui
-version: 4.0.0
+name: "moai-streaming-ui"
+version: "1.0.0"
 created: 2025-11-05
-updated: '2025-11-18'
+updated: 2025-11-05
 status: stable
-description: Enhanced streaming UI system with progress indicators, status displays,
-  and interactive feedback mechanisms. Use when running long-running operations, displaying
-  progress, providing user feedback, or when visual indicators enhance user experience
-  during complex workflows.
-keywords:
-- streaming-ui
-- progress-indicators
-- user-feedback
-- interactive-display
-- status-updates
-- visual-feedback
-allowed-tools:
-- Bash
-- Read
-- Write
-stability: stable
+description: Enhanced streaming UI system with progress indicators, status displays, and interactive feedback mechanisms. Use when running long-running operations, displaying progress, providing user feedback, or when visual indicators enhance user experience during complex workflows.
+keywords: [streaming-ui, progress-indicators, user-feedback, interactive-display, status-updates, visual-feedback]
+allowed-tools: 
+  - Bash
+  - Read
+  - Write
 ---
-
 
 # Enhanced Streaming UI System
 

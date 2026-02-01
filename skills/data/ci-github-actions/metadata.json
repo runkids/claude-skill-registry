@@ -1,7 +1,7 @@
 {
   "name": "ci-github-actions",
-  "repo": "leaderiop/hex-di",
+  "repo": "CoderMariusz/MonoPilot",
   "path": ".claude/skills/ci-github-actions/SKILL.md",
-  "source": "github.com/leaderiop/hex-di",
-  "downloaded_at": "2026-01-31T04:17:20.258424Z"
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-02-01T04:30:58.642011Z"
 }

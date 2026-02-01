@@ -1,856 +1,821 @@
 ---
 name: component-development
-description: Create and modify React components following project patterns. Use when building UI components, forms, layouts, navigation, or implementing React hooks. Includes DaisyUI, Tailwind CSS, and lucide-react icons.
+description: Patterns and best practices for developing React 19 components with Shadcn UI, Radix primitives, and Tailwind CSS 4 in Next.js 16. Covers accessibility, composition, variants, and server/client component patterns. Use when creating, modifying, or debugging UI components.
 ---
 
-# Component Development
+# Component Development Skill
 
-## Overview
-This skill helps you create and modify React components following the project's established patterns and conventions. The project uses React 19, TypeScript, DaisyUI, Tailwind CSS, and lucide-react icons.
+Comprehensive guide for building accessible, composable React 19 components using Shadcn UI, Radix primitives, and Tailwind CSS 4 in The Simpsons API project.
 
-## Project Structure
+## When to Use This Skill
 
-### Component Organization
+Use this skill when the user requests:
+
+✅ **Primary Use Cases**
+
+- "Create a component"
+- "Build a UI element"
+- "Add Shadcn component"
+- "Make this accessible"
+- "Add dark mode support"
+- "Create reusable component"
+
+✅ **Secondary Use Cases**
+
+- "Fix component styling"
+- "Add component variants"
+- "Make responsive component"
+- "Compose components together"
+- "Debug rendering issues"
+- "Add animations/transitions"
+
+❌ **Do NOT use when**
+
+- Server-only data fetching (use repositories)
+- Server actions (use server-actions-patterns skill)
+- Global styles (use globals.css directly)
+- Configuration changes (use project docs)
+
+## Project Context
+
+### Component Structure
+
 ```
-src/
-├── app/
-│   └── admin/
-│       ├── components/          # Reusable admin components
-│       │   ├── inputs/          # Form input components
-│       │   ├── skeleton/        # Loading skeletons
-│       │   ├── left-menu.tsx    # Navigation menu
-│       │   ├── top-bar.tsx      # Top navigation bar
-│       │   ├── menu-item.tsx    # Menu item component
-│       │   └── my-breadcrumbs.tsx # Breadcrumb navigation
-│       ├── blogs/               # Blog-related pages
-│       ├── categories/          # Category-related pages
-│       ├── layout.tsx           # Admin layout wrapper
-│       ├── layoutContext.tsx    # Layout context
-│       └── layoutMain.tsx       # Main layout component
-├── auth/                        # Auth components
-│   ├── AuthContext.tsx          # Auth context provider
-│   └── ProtectedRoute.tsx       # Route protection
-└── domains/                     # Domain models/types
+app/_components/           # App-specific components
+├── CharacterImage.tsx
+├── CommentSection.tsx
+├── CreateCollectionForm.tsx
+├── DeleteDiaryEntryButton.tsx
+├── DiaryForm.tsx
+├── EpisodeTracker.tsx
+├── FollowButton.tsx
+├── IntroSection.tsx
+├── RecentlyViewedList.tsx
+├── RecentlyViewedTracker.tsx
+├── SimpsonsHeader.tsx
+├── SyncButton.tsx
+└── TriviaSection.tsx
+
+components/ui/             # Shadcn UI primitives
+├── avatar.tsx
+├── badge.tsx
+├── button.tsx
+├── card.tsx
+├── input.tsx
+├── label.tsx
+├── select.tsx
+└── textarea.tsx
 ```
 
-## Technology Stack
+### Tech Stack
 
-### Core
-- **React**: 19.1.x (latest)
-- **TypeScript**: 5.9.x
-- **React Router**: 7.9.x for routing
+- **React**: 19 (with use client, useOptimistic, useActionState)
+- **Styling**: Tailwind CSS 4 (`@import "tailwindcss"` syntax)
+- **UI Library**: Shadcn UI (installed via `pnpm dlx shadcn@latest add`)
+- **Primitives**: Radix UI (via Shadcn)
+- **Icons**: Lucide React (recommended)
 
-### UI Framework
-- **DaisyUI**: 5.0.x - Component library
-- **Tailwind CSS**: 4.0.x - Utility-first CSS
-- **lucide-react**: 0.476.x - Icon library
+---
 
-### Form Components
-- **Quill**: 2.0.x - Rich text editor
-- Custom form components in `src/app/admin/components/inputs/`
+## Core Patterns
 
-## Component Patterns
+### Pattern 1: Server Component (Default)
 
-### Functional Components with TypeScript
-```typescript
-import { useState } from 'react';
-import type { ComponentProps } from 'react';
+```tsx
+// app/_components/CharacterCard.tsx
+// No "use client" = Server Component by default
 
-interface MyComponentProps {
-  title: string;
-  onSubmit: (data: FormData) => void;
-  optional?: string;
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { DBCharacter } from "@/app/_lib/db-types";
+
+interface CharacterCardProps {
+  character: DBCharacter;
 }
 
-export default function MyComponent({
-  title,
-  onSubmit,
-  optional
-}: MyComponentProps) {
-  const [state, setState] = useState('');
-
+export function CharacterCard({ character }: CharacterCardProps) {
   return (
-    <div className="container">
-      <h1>{title}</h1>
-      {/* Component JSX */}
-    </div>
+    <Card className="hover:shadow-lg transition-shadow">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          {character.name}
+          {character.is_main && (
+            <Badge variant="secondary">Main</Badge>
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">{character.occupation}</p>
+        {character.catchphrase && (
+          <p className="mt-2 italic">"{character.catchphrase}"</p>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 ```
 
-### Named Exports for Utilities
-```typescript
-// For utility functions and constants
-export function helperFunction() { }
-export const CONSTANT_VALUE = 'value';
+### Pattern 2: Client Component with Interactivity
 
-// Default export for main component
-export default function MainComponent() { }
-```
-
-## DaisyUI Components
-
-### Common DaisyUI Classes
-
-#### Buttons
 ```tsx
-<button className="btn btn-primary">Primary</button>
-<button className="btn btn-secondary">Secondary</button>
-<button className="btn btn-accent">Accent</button>
-<button className="btn btn-ghost">Ghost</button>
-<button className="btn btn-link">Link</button>
-```
+// app/_components/FollowButton.tsx
+"use client";
 
-#### Forms
-```tsx
-<label className="form-control w-full">
-  <div className="label">
-    <span className="label-text">Label</span>
-  </div>
-  <input
-    type="text"
-    className="input input-bordered w-full"
-    placeholder="Type here"
-  />
-</label>
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
+import { Heart, HeartOff, Loader2 } from "lucide-react";
+import { toggleFollow } from "@/app/_actions/social";
 
-<select className="select select-bordered w-full">
-  <option disabled selected>Pick one</option>
-  <option>Option 1</option>
-</select>
+interface FollowButtonProps {
+  characterId: number;
+  initialFollowing: boolean;
+  className?: string;
+}
 
-<textarea
-  className="textarea textarea-bordered w-full"
-  placeholder="Enter text"
-></textarea>
-```
+export function FollowButton({
+  characterId,
+  initialFollowing,
+  className,
+}: FollowButtonProps) {
+  const [isFollowing, setIsFollowing] = useState(initialFollowing);
+  const [isPending, startTransition] = useTransition();
 
-#### Cards
-```tsx
-<div className="card bg-base-100 shadow-xl">
-  <div className="card-body">
-    <h2 className="card-title">Card Title</h2>
-    <p>Card content goes here</p>
-    <div className="card-actions justify-end">
-      <button className="btn btn-primary">Action</button>
-    </div>
-  </div>
-</div>
-```
+  async function handleClick() {
+    startTransition(async () => {
+      // Optimistic update
+      setIsFollowing(!isFollowing);
 
-#### Navigation
-```tsx
-<div className="navbar bg-base-100">
-  <div className="navbar-start">
-    <a className="btn btn-ghost text-xl">Brand</a>
-  </div>
-  <div className="navbar-center">
-    {/* Menu items */}
-  </div>
-  <div className="navbar-end">
-    <button className="btn">Button</button>
-  </div>
-</div>
-```
+      const result = await toggleFollow(characterId);
 
-#### Tables
-```tsx
-<div className="overflow-x-auto">
-  <table className="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Company</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Littel, Schaden and Vandervort</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-```
-
-#### Loading States
-```tsx
-<span className="loading loading-spinner loading-xs"></span>
-<span className="loading loading-spinner loading-sm"></span>
-<span className="loading loading-spinner loading-md"></span>
-<span className="loading loading-spinner loading-lg"></span>
-```
-
-## Tailwind CSS Utilities
-
-### Layout
-```tsx
-// Flexbox
-<div className="flex flex-col gap-4">
-<div className="flex items-center justify-between">
-
-// Grid
-<div className="grid grid-cols-3 gap-4">
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-
-// Spacing
-<div className="p-4 m-4">        // padding, margin
-<div className="px-4 py-2">      // horizontal, vertical padding
-<div className="space-y-4">      // gap between children
-```
-
-### Responsive Design
-```tsx
-// Mobile-first approach
-<div className="w-full md:w-1/2 lg:w-1/3">
-<div className="text-sm md:text-base lg:text-lg">
-<div className="hidden md:block">  // Hide on mobile
-```
-
-## Icons with lucide-react
-
-### Available Icons
-```tsx
-import {
-  Info, ImagePlus, Tag, BookOpen, Save, FileText,
-  Home, Settings, Users, LogOut, Menu, X,
-  Edit, Trash, Plus, Check, AlertCircle
-} from 'lucide-react';
-
-// Usage
-<Save className="w-4 h-4" />
-<Edit className="w-5 h-5 text-blue-500" />
-<Trash className="w-6 h-6 hover:text-red-500" />
-```
-
-### Icon Sizes
-- `w-4 h-4` - Small (16px)
-- `w-5 h-5` - Medium (20px)
-- `w-6 h-6` - Large (24px)
-- `w-8 h-8` - Extra Large (32px)
-
-## React Hooks
-
-### useState
-```typescript
-const [count, setCount] = useState(0);
-const [user, setUser] = useState<User | null>(null);
-```
-
-### useEffect
-```typescript
-useEffect(() => {
-  // Effect logic
-  return () => {
-    // Cleanup
-  };
-}, [dependencies]);
-```
-
-### Custom Hooks
-```typescript
-function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+      if (!result.success) {
+        // Revert on error
+        setIsFollowing(isFollowing);
+        console.error(result.error);
+      }
+    });
   }
-  return context;
-}
-```
-
-### useNavigate (React Router)
-```typescript
-import { useNavigate } from 'react-router-dom';
-
-function MyComponent() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/admin/blogs');
-  };
-}
-```
-
-## Form Handling
-
-### Controlled Inputs
-```typescript
-const [value, setValue] = useState('');
-
-<input
-  type="text"
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
-  className="input input-bordered"
-/>
-```
-
-### Form Submission
-```typescript
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-    // Submit logic
-  } catch (error) {
-    console.error('Submit error:', error);
-  }
-};
-
-<form onSubmit={handleSubmit}>
-  {/* Form fields */}
-  <button type="submit" className="btn btn-primary">
-    Submit
-  </button>
-</form>
-```
-
-## Loading States
-
-### Conditional Rendering
-```typescript
-if (loading) {
-  return <LoadingSkeleton />;
-}
-
-if (error) {
-  return <ErrorMessage error={error} />;
-}
-
-return <Content data={data} />;
-```
-
-### Skeleton Components
-Use skeletons from `src/app/admin/components/skeleton/`:
-```typescript
-import TableSkeleton from '../components/skeleton/table-skeleton';
-
-{loading ? <TableSkeleton /> : <DataTable data={data} />}
-```
-
-## Context Providers
-
-### Creating Context
-```typescript
-import { createContext, useContext, useState } from 'react';
-
-interface MyContextType {
-  value: string;
-  setValue: (value: string) => void;
-}
-
-const MyContext = createContext<MyContextType | undefined>(undefined);
-
-export function MyProvider({ children }: { children: React.ReactNode }) {
-  const [value, setValue] = useState('');
 
   return (
-    <MyContext.Provider value={{ value, setValue }}>
-      {children}
-    </MyContext.Provider>
+    <Button
+      variant={isFollowing ? "destructive" : "default"}
+      size="sm"
+      onClick={handleClick}
+      disabled={isPending}
+      className={className}
+      aria-label={isFollowing ? "Unfollow character" : "Follow character"}
+    >
+      {isPending ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : isFollowing ? (
+        <>
+          <HeartOff className="h-4 w-4 mr-2" />
+          Unfollow
+        </>
+      ) : (
+        <>
+          <Heart className="h-4 w-4 mr-2" />
+          Follow
+        </>
+      )}
+    </Button>
   );
 }
+```
 
-export function useMyContext() {
-  const context = useContext(MyContext);
-  if (!context) {
-    throw new Error('useMyContext must be used within MyProvider');
+### Pattern 3: Component with Variants (CVA)
+
+```tsx
+// components/ui/status-badge.tsx
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const statusBadgeVariants = cva(
+  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors",
+  {
+    variants: {
+      status: {
+        success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100",
+        warning: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100",
+        error: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100",
+        info: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
+        neutral: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100",
+      },
+      size: {
+        sm: "text-xs px-2 py-0.5",
+        md: "text-sm px-2.5 py-0.5",
+        lg: "text-base px-3 py-1",
+      },
+    },
+    defaultVariants: {
+      status: "neutral",
+      size: "md",
+    },
   }
-  return context;
-}
-```
+);
 
-## Routing
-
-### Route Configuration
-```typescript
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/admin" element={<AdminLayout />}>
-      <Route path="blogs" element={<BlogList />} />
-      <Route path="blogs/create" element={<BlogCreate />} />
-      <Route path="blogs/edit/:id" element={<BlogEdit />} />
-    </Route>
-  </Routes>
-</BrowserRouter>
-```
-
-### Protected Routes
-```typescript
-<ProtectedRoute>
-  <AdminDashboard />
-</ProtectedRoute>
-```
-
-## TypeScript Best Practices
-
-### Props Types
-```typescript
-// Interface for props
-interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  variant?: 'primary' | 'secondary';
-  disabled?: boolean;
-}
-
-// Or use type
-type ButtonProps = {
-  label: string;
-  onClick: () => void;
-}
-```
-
-### Event Types
-```typescript
-const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => { };
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { };
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { };
-```
-
-### Children Props
-```typescript
-interface LayoutProps {
+interface StatusBadgeProps
+  extends React.HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof statusBadgeVariants> {
   children: React.ReactNode;
 }
-```
 
-## Common Patterns
-
-### List Rendering
-```typescript
-{items.map((item) => (
-  <div key={item.id}>
-    {item.name}
-  </div>
-))}
-```
-
-### Conditional Classes
-```typescript
-<button
-  className={`btn ${isActive ? 'btn-primary' : 'btn-ghost'}`}
->
-  Button
-</button>
-
-// Or use template literals
-className={`btn ${loading ? 'loading' : ''}`}
-```
-
-### Error Boundaries
-```typescript
-try {
-  // Risky operation
-} catch (error) {
-  console.error('Error:', error);
-  // Show error to user
-}
-```
-
-## Best Practices
-
-1. **Use TypeScript types** for all props and state
-2. **Destructure props** in function parameters
-3. **Use meaningful variable names**
-4. **Keep components small and focused**
-5. **Extract reusable logic** into custom hooks
-6. **Use DaisyUI classes** instead of custom CSS
-7. **Follow Tailwind conventions** for styling
-8. **Add loading states** for async operations
-9. **Handle errors gracefully**
-10. **Use path aliases** (`@/`) for imports
-
-## Component Checklist
-
-When creating a new component:
-
-- [ ] Define TypeScript interface for props
-- [ ] Use functional component syntax
-- [ ] Add proper imports (React, icons, utilities)
-- [ ] Implement loading states if fetching data
-- [ ] Add error handling
-- [ ] Use DaisyUI components where possible
-- [ ] Apply responsive Tailwind classes
-- [ ] Export component as default
-- [ ] Add JSDoc comments for complex components
-- [ ] Test component in browser
-
-## Example Component
-
-```typescript
-import { useState, useEffect } from 'react';
-import { Save, AlertCircle } from 'lucide-react';
-import { useAuth } from '@/auth/AuthContext';
-import { getApiUrl, authenticatedFetch } from '@/config/api.config';
-
-interface BlogFormProps {
-  id?: string;
-  onSuccess?: () => void;
+export function StatusBadge({
+  status,
+  size,
+  className,
+  children,
+  ...props
+}: StatusBadgeProps) {
+  return (
+    <span
+      className={cn(statusBadgeVariants({ status, size }), className)}
+      {...props}
+    >
+      {children}
+    </span>
+  );
 }
 
-export default function BlogForm({ id, onSuccess }: BlogFormProps) {
-  const { token } = useAuth();
-  const [title, setTitle] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+// Usage:
+// <StatusBadge status="success">Active</StatusBadge>
+// <StatusBadge status="error" size="lg">Failed</StatusBadge>
+```
 
-  useEffect(() => {
-    if (id) {
-      fetchBlog();
-    }
-  }, [id]);
+### Pattern 4: Compound Component Pattern
 
-  const fetchBlog = async () => {
-    setLoading(true);
-    try {
-      const response = await authenticatedFetch(
-        getApiUrl(`/posts/${id}`),
-        token
-      );
-      if (response.ok) {
-        const { data } = await response.json();
-        setTitle(data.title);
-      }
-    } catch (err) {
-      setError('Failed to load blog');
-    } finally {
-      setLoading(false);
-    }
-  };
+```tsx
+// components/ui/character-profile.tsx
+"use client";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+import { createContext, useContext } from "react";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
-    try {
-      const response = await authenticatedFetch(
-        getApiUrl('/posts'),
-        token,
-        {
-          method: 'POST',
-          body: JSON.stringify({ title }),
-        }
-      );
+// Context for compound components
+const CharacterProfileContext = createContext<{
+  name: string;
+  imageUrl?: string;
+} | null>(null);
 
-      if (response.ok) {
-        onSuccess?.();
-      } else {
-        setError('Failed to save blog');
-      }
-    } catch (err) {
-      setError('Network error');
-    } finally {
-      setLoading(false);
-    }
-  };
+function useCharacterProfile() {
+  const context = useContext(CharacterProfileContext);
+  if (!context) {
+    throw new Error("CharacterProfile components must be used within CharacterProfile");
+  }
+  return context;
+}
 
-  if (loading && id) {
-    return (
-      <div className="flex justify-center p-8">
-        <span className="loading loading-spinner loading-lg"></span>
+// Root component
+interface CharacterProfileProps {
+  name: string;
+  imageUrl?: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+function CharacterProfile({ name, imageUrl, children, className }: CharacterProfileProps) {
+  return (
+    <CharacterProfileContext.Provider value={{ name, imageUrl }}>
+      <div className={cn("flex items-start gap-4", className)}>
+        {children}
       </div>
-    );
+    </CharacterProfileContext.Provider>
+  );
+}
+
+// Sub-components
+function ProfileAvatar({ className }: { className?: string }) {
+  const { name, imageUrl } = useCharacterProfile();
+  return (
+    <Avatar className={cn("h-12 w-12", className)}>
+      {imageUrl && <AvatarImage src={imageUrl} alt={name} />}
+      <AvatarFallback>{name.slice(0, 2).toUpperCase()}</AvatarFallback>
+    </Avatar>
+  );
+}
+
+function ProfileName({ className }: { className?: string }) {
+  const { name } = useCharacterProfile();
+  return <h3 className={cn("font-semibold text-lg", className)}>{name}</h3>;
+}
+
+function ProfileContent({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className={cn("flex-1", className)}>{children}</div>;
+}
+
+// Attach sub-components
+CharacterProfile.Avatar = ProfileAvatar;
+CharacterProfile.Name = ProfileName;
+CharacterProfile.Content = ProfileContent;
+
+export { CharacterProfile };
+
+// Usage:
+// <CharacterProfile name="Homer Simpson" imageUrl="/homer.jpg">
+//   <CharacterProfile.Avatar />
+//   <CharacterProfile.Content>
+//     <CharacterProfile.Name />
+//     <p>Safety Inspector at Springfield Nuclear Power Plant</p>
+//   </CharacterProfile.Content>
+// </CharacterProfile>
+```
+
+### Pattern 5: Polymorphic Component (as prop)
+
+```tsx
+// components/ui/box.tsx
+import { cn } from "@/lib/utils";
+import { type ElementType, type ComponentPropsWithoutRef } from "react";
+
+type BoxProps<T extends ElementType = "div"> = {
+  as?: T;
+  className?: string;
+  children?: React.ReactNode;
+} & Omit<ComponentPropsWithoutRef<T>, "as" | "className" | "children">;
+
+export function Box<T extends ElementType = "div">({
+  as,
+  className,
+  children,
+  ...props
+}: BoxProps<T>) {
+  const Component = as || "div";
+  return (
+    <Component className={cn(className)} {...props}>
+      {children}
+    </Component>
+  );
+}
+
+// Usage:
+// <Box>Default div</Box>
+// <Box as="section" className="my-section">Section element</Box>
+// <Box as="article">Article element</Box>
+// <Box as="a" href="/link">Link element</Box>
+```
+
+---
+
+## Shadcn UI Integration
+
+### Installing New Components
+
+```bash
+# Add single component
+pnpm dlx shadcn@latest add button
+
+# Add multiple components
+pnpm dlx shadcn@latest add card badge avatar
+
+# List available components
+pnpm dlx shadcn@latest add
+```
+
+### Customizing Shadcn Components
+
+```tsx
+// Extend the button with Simpsons theme
+// components/ui/simpsons-button.tsx
+import { Button, type ButtonProps } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+interface SimpsonsButtonProps extends ButtonProps {
+  character?: "homer" | "bart" | "lisa" | "marge";
+}
+
+const characterColors = {
+  homer: "bg-amber-500 hover:bg-amber-600 text-white",
+  bart: "bg-orange-500 hover:bg-orange-600 text-white",
+  lisa: "bg-red-500 hover:bg-red-600 text-white",
+  marge: "bg-blue-500 hover:bg-blue-600 text-white",
+};
+
+export function SimpsonsButton({
+  character,
+  className,
+  variant,
+  ...props
+}: SimpsonsButtonProps) {
+  return (
+    <Button
+      className={cn(
+        character && characterColors[character],
+        className
+      )}
+      variant={character ? undefined : variant}
+      {...props}
+    />
+  );
+}
+```
+
+### Using Radix Primitives Directly
+
+```tsx
+// When you need more control than Shadcn provides
+import * as Dialog from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
+
+export function CustomDialog({
+  trigger,
+  title,
+  children,
+}: {
+  trigger: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-lg p-6 shadow-lg w-full max-w-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
+          <Dialog.Title className="text-lg font-semibold">{title}</Dialog.Title>
+          {children}
+          <Dialog.Close className="absolute top-4 right-4">
+            <span className="sr-only">Close</span>
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+```
+
+---
+
+## Accessibility Patterns
+
+### Keyboard Navigation
+
+```tsx
+// Ensure all interactive elements are keyboard accessible
+"use client";
+
+import { useRef, KeyboardEvent } from "react";
+
+export function KeyboardNavigableList({ items }: { items: string[] }) {
+  const listRef = useRef<HTMLUListElement>(null);
+
+  function handleKeyDown(e: KeyboardEvent, index: number) {
+    const list = listRef.current;
+    if (!list) return;
+
+    const items = list.querySelectorAll('[role="listitem"]');
+    let nextIndex = index;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        nextIndex = (index + 1) % items.length;
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        nextIndex = (index - 1 + items.length) % items.length;
+        break;
+      case "Home":
+        e.preventDefault();
+        nextIndex = 0;
+        break;
+      case "End":
+        e.preventDefault();
+        nextIndex = items.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    (items[nextIndex] as HTMLElement).focus();
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {error && (
-        <div className="alert alert-error">
-          <AlertCircle className="w-5 h-5" />
-          <span>{error}</span>
-        </div>
-      )}
-
-      <label className="form-control w-full">
-        <div className="label">
-          <span className="label-text">Blog Title</span>
-        </div>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="input input-bordered w-full"
-          placeholder="Enter title"
-          required
-        />
-      </label>
-
-      <button
-        type="submit"
-        className={`btn btn-primary ${loading ? 'loading' : ''}`}
-        disabled={loading}
-      >
-        {!loading && <Save className="w-4 h-4" />}
-        {loading ? 'Saving...' : 'Save Blog'}
-      </button>
-    </form>
+    <ul ref={listRef} role="list" className="space-y-2">
+      {items.map((item, index) => (
+        <li
+          key={item}
+          role="listitem"
+          tabIndex={0}
+          className="p-2 rounded hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring"
+          onKeyDown={(e) => handleKeyDown(e, index)}
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 ```
 
-This example demonstrates:
-- TypeScript props interface
-- State management with useState
-- Data fetching with useEffect
-- Form handling
-- Loading states
-- Error handling
-- DaisyUI components
-- Tailwind CSS classes
-- lucide-react icons
-- Authentication integration
+### ARIA Labels and Live Regions
 
-## Form Handling with react-hook-form + zod
+```tsx
+"use client";
 
-The project uses react-hook-form for form state management and zod for schema validation.
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
-### Setup
-```typescript
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-
-// Define schema
-const formSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(200),
-  email: z.string().email('Invalid email'),
-  published: z.boolean().default(false),
-  tags: z.array(z.string()).default([]),
-});
-
-type FormData = z.infer<typeof formSchema>;
-```
-
-### Basic Form Component
-```typescript
-export default function MyForm() {
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: '',
-      email: '',
-      published: false,
-      tags: [],
-    },
-  });
-
-  const onSubmit = async (data: FormData) => {
-    try {
-      // Submit logic
-      toast.success('Saved successfully');
-    } catch (error) {
-      toast.error('Failed to save');
-    }
-  };
+export function AccessibleCounter() {
+  const [count, setCount] = useState(0);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* Simple input with register */}
-      <input
-        {...register('title')}
-        className={`input input-bordered ${errors.title ? 'input-error' : ''}`}
-      />
-      {errors.title && (
-        <span className="text-error">{errors.title.message}</span>
-      )}
+    <div className="flex items-center gap-4">
+      <Button
+        onClick={() => setCount((c) => c - 1)}
+        aria-label="Decrease count"
+      >
+        -
+      </Button>
 
-      {/* Complex input with Controller */}
-      <Controller
-        name="published"
-        control={control}
-        render={({ field }) => (
-          <input
-            type="checkbox"
-            checked={field.value}
-            onChange={field.onChange}
-          />
-        )}
-      />
+      {/* Live region announces changes to screen readers */}
+      <span
+        aria-live="polite"
+        aria-atomic="true"
+        className="text-2xl font-bold min-w-[3ch] text-center"
+      >
+        {count}
+      </span>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Saving...' : 'Save'}
-      </button>
-    </form>
+      <Button
+        onClick={() => setCount((c) => c + 1)}
+        aria-label="Increase count"
+      >
+        +
+      </Button>
+    </div>
   );
 }
 ```
 
-### useFieldArray for Dynamic Lists
-```typescript
-import { useFieldArray } from 'react-hook-form';
+### Focus Management
 
-const { fields, append, remove } = useFieldArray({
-  control,
-  name: 'translations',
-});
+```tsx
+"use client";
 
-// Render dynamic fields
-{fields.map((field, index) => (
-  <div key={field.id}>
-    <input {...register(`translations.${index}.value`)} />
-    <button onClick={() => remove(index)}>Remove</button>
-  </div>
-))}
-<button onClick={() => append({ value: '' })}>Add</button>
-```
+import { useEffect, useRef } from "react";
 
-### Zod Schema Patterns
-```typescript
-// Location: src/schemas/
+export function AutoFocusInput({ shouldFocus }: { shouldFocus: boolean }) {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-// Basic string validation
-title: z.string().min(1, 'Required').max(200, 'Too long')
+  useEffect(() => {
+    if (shouldFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [shouldFocus]);
 
-// Enum validation
-categoryType: z.nativeEnum(CategoryTypeEnum)
-
-// Optional with default
-published: z.boolean().default(false)
-
-// Array validation
-tags: z.array(z.string()).default([])
-
-// Nested object
-translation: z.object({
-  id: z.string().optional(),
-  languageCode: z.string().min(2),
-  displayName: z.string().min(1),
-})
-```
-
-## Toast Notifications with Sonner
-
-The project uses sonner for toast notifications.
-
-### Basic Usage
-```typescript
-import { toast } from 'sonner';
-
-// Success
-toast.success('Operation completed successfully');
-
-// Error
-toast.error('Something went wrong');
-
-// Info
-toast.info('Here is some information');
-
-// Warning
-toast.warning('Please check your input');
-```
-
-### With Options
-```typescript
-toast.success('Saved!', {
-  duration: 5000,           // 5 seconds
-  description: 'Your changes have been saved',
-});
-
-toast.error('Failed to save', {
-  duration: Infinity,       // Won't auto-dismiss
-  action: {
-    label: 'Retry',
-    onClick: () => handleRetry(),
-  },
-});
-```
-
-### Promise Toast
-```typescript
-toast.promise(saveData(), {
-  loading: 'Saving...',
-  success: 'Data saved successfully',
-  error: 'Failed to save data',
-});
-```
-
-### Custom Toast
-```typescript
-toast.custom((t) => (
-  <div className="bg-base-100 p-4 rounded-lg shadow-lg">
-    <h3>Custom Toast</h3>
-    <button onClick={() => toast.dismiss(t)}>Close</button>
-  </div>
-));
-```
-
-## DaisyUI v5 CSS Variables
-
-DaisyUI v5 uses new CSS variable naming. Use these when writing custom CSS:
-
-### Color Variables
-```css
-/* Old DaisyUI v4 */
-oklch(var(--p))           /* Primary */
-oklch(var(--b1))          /* Base 100 */
-oklch(var(--bc))          /* Base content */
-
-/* New DaisyUI v5 */
-var(--color-primary)      /* Primary */
-var(--color-base-100)     /* Base 100 */
-var(--color-base-content) /* Base content */
-```
-
-### Available Color Variables
-```css
-/* Base colors */
---color-base-100
---color-base-200
---color-base-300
---color-base-content
-
-/* Semantic colors */
---color-primary
---color-primary-content
---color-secondary
---color-secondary-content
---color-accent
---color-accent-content
---color-neutral
---color-neutral-content
-
-/* State colors */
---color-info
---color-success
---color-warning
---color-error
-```
-
-### Using with Opacity (color-mix)
-```css
-/* 20% opacity primary color */
-background-color: color-mix(in oklch, var(--color-primary) 20%, transparent);
-
-/* 50% opacity base content */
-color: color-mix(in oklch, var(--color-base-content) 50%, transparent);
-```
-
-### Theme Configuration
-```css
-/* In App.css */
-@plugin 'daisyui' {
-  themes: emerald --default, dark;
+  return (
+    <input
+      ref={inputRef}
+      type="text"
+      className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+      aria-describedby="input-help"
+    />
+  );
 }
 ```
 
-```typescript
-/* In rsbuild.config.ts */
-html: {
-  htmlAttrs: {
-    'data-theme': 'emerald',
-  },
-},
+---
+
+## Dark Mode Support
+
+### Using CSS Variables (Tailwind CSS 4)
+
+```tsx
+// Component automatically adapts to dark mode via CSS variables
+export function ThemedCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-background text-foreground border border-border rounded-lg p-4 shadow-sm">
+      {children}
+    </div>
+  );
+}
+
+// bg-background = var(--background) 
+// text-foreground = var(--foreground)
+// These switch automatically with .dark class on html
 ```
+
+### Manual Dark Mode Variants
+
+```tsx
+export function DarkModeExample() {
+  return (
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg p-6 transition-colors">
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+        Title
+      </h2>
+      <p className="text-gray-600 dark:text-gray-400 mt-2">
+        This adapts to dark mode automatically.
+      </p>
+      <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+        Divider also adapts
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+## Animation Patterns
+
+### Tailwind Animations
+
+```tsx
+// Entrance animation
+<div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+  Content appears with animation
+</div>
+
+// Exit animation
+<div className="animate-out fade-out slide-out-to-top-4 duration-300">
+  Content exits with animation
+</div>
+
+// Spin animation
+<Loader2 className="h-4 w-4 animate-spin" />
+
+// Pulse animation
+<div className="animate-pulse bg-gray-200 rounded h-4 w-full" />
+
+// Bounce animation
+<span className="animate-bounce inline-block">👋</span>
+```
+
+### CSS Transitions
+
+```tsx
+export function HoverCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="group relative p-4 rounded-lg border transition-all duration-200 hover:shadow-lg hover:border-primary hover:-translate-y-1">
+      {children}
+      {/* Hidden content that appears on hover */}
+      <div className="absolute inset-x-0 -bottom-2 opacity-0 group-hover:opacity-100 group-hover:bottom-0 transition-all duration-200">
+        <span className="text-xs text-muted-foreground">Click for more</span>
+      </div>
+    </div>
+  );
+}
+```
+
+### Framer Motion Integration
+
+```tsx
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+
+export function AnimatedList({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2">
+      <AnimatePresence>
+        {items.map((item, index) => (
+          <motion.li
+            key={item}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ delay: index * 0.1 }}
+            className="p-3 bg-card rounded border"
+          >
+            {item}
+          </motion.li>
+        ))}
+      </AnimatePresence>
+    </ul>
+  );
+}
+```
+
+---
+
+## Responsive Design
+
+### Mobile-First Approach
+
+```tsx
+export function ResponsiveGrid({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {children}
+    </div>
+  );
+}
+```
+
+### Container Queries (Tailwind CSS 4)
+
+```tsx
+export function ContainerQueryCard() {
+  return (
+    <div className="@container">
+      <div className="flex flex-col @md:flex-row gap-4 p-4">
+        <img
+          src="/image.jpg"
+          alt=""
+          className="w-full @md:w-1/3 rounded"
+        />
+        <div className="@md:flex-1">
+          <h2 className="text-lg @lg:text-xl font-bold">Title</h2>
+          <p className="text-sm @lg:text-base">Content adapts to container</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Breakpoint Reference
+
+| Prefix | Min Width | Typical Use |
+|--------|-----------|-------------|
+| `sm:` | 640px | Large phones |
+| `md:` | 768px | Tablets |
+| `lg:` | 1024px | Laptops |
+| `xl:` | 1280px | Desktops |
+| `2xl:` | 1536px | Large screens |
+
+---
+
+## Common Mistakes
+
+### ❌ Wrong: Using hooks in Server Component
+
+```tsx
+// This will error
+import { useState } from "react";
+
+export function ServerComponent() {
+  const [state, setState] = useState(false); // ERROR
+  return <div>{state}</div>;
+}
+```
+
+### ✅ Correct: Add "use client" or move to client component
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+export function ClientComponent() {
+  const [state, setState] = useState(false);
+  return <div>{state}</div>;
+}
+```
+
+### ❌ Wrong: Passing functions to client components
+
+```tsx
+// page.tsx (Server Component)
+export default function Page() {
+  function handleClick() { // Server function
+    console.log("clicked");
+  }
+  return <ClientButton onClick={handleClick} />; // ERROR
+}
+```
+
+### ✅ Correct: Use server actions or client-side handlers
+
+```tsx
+// Option 1: Server Action
+"use server";
+export async function handleClick() {
+  console.log("clicked on server");
+}
+
+// Option 2: Define handler in client component
+"use client";
+export function ClientButton() {
+  function handleClick() {
+    console.log("clicked on client");
+  }
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+---
+
+## Related Skills
+
+- [server-actions-patterns](../server-actions-patterns/SKILL.md) - Form handling with actions
+- [webapp-testing](../webapp-testing/SKILL.md) - Testing components
+- [performance-optimization](../performance-optimization/SKILL.md) - Component performance
+
+---
+
+## References
+
+- [Shadcn UI Documentation](https://ui.shadcn.com/)
+- [Radix UI Primitives](https://www.radix-ui.com/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [React 19 Documentation](https://react.dev/)
+- [Next.js App Router](https://nextjs.org/docs/app)
+
+---
+
+**Last Updated:** January 14, 2026  
+**Maintained By:** Development Team  
+**Status:** ✅ Production Ready

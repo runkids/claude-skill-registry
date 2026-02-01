@@ -1,206 +1,296 @@
 ---
 name: youtube
-description: Handle YouTube links and transcripts. Use when the user (1) pastes a YouTube URL that needs cleaning to short form, (2) requests transcript fetching from YouTube videos, or (3) works with YouTube video content. Automatically cleans URLs to https://youtu.be/VIDEO_ID format and saves transcripts directly to Database/Bookmarks to avoid polluting chat context.
+description: Search YouTube videos, get channel info, fetch video details and transcripts using YouTube Data API v3 via MCP server or yt-dlp fallback.
+metadata: {"clawdbot":{"emoji":"📹","requires":{"bins":["yt-dlp"],"npm":["zubeid-youtube-mcp-server"]},"primaryEnv":"YOUTUBE_API_KEY"}}
 ---
 
-# YouTube
+# YouTube Research & Transcription
 
-## Overview
+Search YouTube, get video/channel info, and fetch transcripts using YouTube Data API v3.
 
-This skill handles YouTube links and transcript operations. It automatically cleans YouTube URLs to canonical short form and fetches transcripts using the MCP YouTube transcript tool, saving them directly to the Bookmarks database to avoid filling up chat context.
+## Features
 
-## Core Capabilities
+- 📹 Video details (title, description, stats, publish date)
+- 📝 Transcripts with timestamps
+- 📺 Channel info and recent videos
+- 🔍 Search within YouTube
+- 🎬 Playlist info
 
-### 1. URL Cleaning
+## Setup
 
-When YouTube URLs are encountered (pasted, mentioned, or used), automatically clean them:
+### 1. Install dependencies
 
-**Always convert to short form:** `https://youtu.be/<id>`
-
-**Remove all:**
-- Query parameters (e.g., `?v=`, `?si=`, `&feature=`, etc.)
-- Tracking identifiers
-- Playlist parameters
-- Timestamp parameters
-
-**Supported input formats:**
-- `https://www.youtube.com/watch?v=VIDEO_ID` (any query params)
-- `https://youtube.com/watch?v=VIDEO_ID`
-- `https://youtu.be/VIDEO_ID` (any query params)
-- `https://m.youtube.com/watch?v=VIDEO_ID`
-- `https://www.youtube.com/embed/VIDEO_ID`
-
-**Use the utility script:**
-
-```python
-from scripts.youtube_utils import clean_youtube_url, extract_video_id
-
-# Clean any YouTube URL
-clean_url = clean_youtube_url(dirty_url)
-# Result: "https://youtu.be/eIoohUmYpGI"
-
-# Or just extract the ID
-video_id = extract_video_id(dirty_url)
-# Result: "eIoohUmYpGI"
+**MCP Server (primary method):**
+```bash
+npm install -g zubeid-youtube-mcp-server
 ```
 
-### 2. Transcript Fetching and Saving to Bookmarks
+**Fallback tool (if MCP fails):**
+```bash
+# yt-dlp for transcript extraction
+pip install yt-dlp
+```
 
-**Key principle:** Save transcripts directly to `Database/Bookmarks` to avoid polluting chat context with full transcript content. This allows handling multiple video links without context overflow.
+### 2. Get YouTube API Key
 
-**Output location:** `Database/Bookmarks/youtube-{video_id}.md`
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
+2. Create/select a project (e.g., "YouTube Research")
+3. Enable the API:
+   - Menu → "APIs & Services" → "Library"
+   - Search: "YouTube Data API v3"
+   - Click "Enable"
+4. Create credentials:
+   - "APIs & Services" → "Credentials"
+   - "Create Credentials" → "API Key"
+   - Copy the key
+5. Optional - Restrict:
+   - Click the created key
+   - "API restrictions" → Select only "YouTube Data API v3"
+   - Save
 
-**Caching:** The Database/Bookmarks directory acts as a cache. If a video already has a bookmark file with a valid transcript (not empty/failed), it won't be re-fetched unless forced.
+### 3. Configure API Key
 
-**Workflow:**
+**Option A: Clawdbot config** (recommended)
+Add to `~/.clawdbot/clawdbot.json`:
+```json
+{
+  "skills": {
+    "entries": {
+      "youtube": {
+        "apiKey": "AIzaSy..."
+      }
+    }
+  }
+}
+```
 
-1. **Clean the URL** using `clean_youtube_url(url)` to get canonical short form
-2. **Check if bookmark exists** - if valid transcript exists, skip fetching
-3. **Fetch transcript** using `mcp__youtube-transcript__get_transcript` MCP tool (only if not cached)
-4. **Save directly to Bookmarks** using the `save_transcript.py` script
-5. **Return only success message** with `cached` flag (not the full transcript)
+**Option B: Environment variable**
+```bash
+export YOUTUBE_API_KEY="AIzaSy..."
+```
 
-**Simplified workflow for Claude:**
+### 4. Setup MCP Server
 
-When a user provides a YouTube URL, use the `process_youtube_url.py` script which handles everything:
+The skill will use `mcporter` to call the YouTube MCP server:
 
 ```bash
-echo '{"url": "URL", "lang": "en", "force": false}' | \
-  python3 .claude/skills/youtube/scripts/process_youtube_url.py
+# Build from source (if installed package has issues)
+cd /tmp
+git clone https://github.com/ZubeidHendricks/youtube-mcp-server
+cd youtube-mcp-server
+npm install
+npm run build
 ```
 
-This single command:
-1. Checks if transcript is already cached in Bookmarks
-2. If cached, returns immediately with `cached: true`
-3. If not cached, fetches transcript directly using youtube-transcript-api (Python library)
-4. Saves to Database/Bookmarks with proper formatting
-5. Returns success status without showing full transcript content
+## Usage
 
-**Output:**
-```json
-{
-  "success": true,
-  "video_id": "abc123",
-  "filepath": "Database/Bookmarks/youtube-abc123.md",
-  "url": "https://youtu.be/abc123",
-  "title": "Video Title",
-  "cached": false
-}
+### Search Videos
+
+```bash
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  search_videos query="ClawdBot AI" maxResults:5
 ```
 
-**Benefits:**
-- No MCP tool needed - fetches transcripts directly
-- NO context pollution - transcript never appears in chat
-- Automatic caching - same video won't be fetched twice
-- Single command - no multi-step workflow needed
+Returns video IDs, titles, descriptions, channel info.
 
-**Important:**
-- **Check cache first** to avoid redundant API calls
-- DO NOT return the full transcript text in chat
-- Only inform the user that the transcript was saved/cached
-- Use the `cached` flag in output to inform user if existing bookmark was used
-- This prevents context pollution when handling multiple videos
-- Users can read the transcript from the bookmark file later
-- Failed/empty transcripts are NOT cached and will be retried on next request
+### Get Channel Info
 
-### 3. Language Support
-
-The MCP transcript tool supports multiple languages via the `lang` parameter:
-- Default: `"en"` (English)
-- Other examples: `"ko"` (Korean), `"es"` (Spanish), `"fr"` (French), etc.
-
-Always use `"en"` unless the user specifically requests a different language.
-
-## Resources
-
-### scripts/process_youtube_url.py
-
-**Primary entry point** - Use this script for all YouTube transcript operations.
-
-Handles the complete workflow: cache checking → fetching → saving.
-
-**Input (stdin JSON):**
-```json
-{
-  "url": "https://youtube.com/watch?v=...",
-  "lang": "en",  // Optional, defaults to "en"
-  "force": false  // Optional, force re-fetch even if cached
-}
+```bash
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  channels_info channelId="UCSHZKyawb77ixDdsGog4iWA"
 ```
 
-**Output (stdout JSON):**
-```json
-{
-  "success": true,
-  "video_id": "abc123",
-  "filepath": "Database/Bookmarks/youtube-abc123.md",
-  "url": "https://youtu.be/abc123",
-  "title": "Video Title",
-  "cached": false
-}
+### List Recent Videos from Channel
+
+```bash
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  channels_listVideos channelId="UCSHZKyawb77ixDdsGog4iWA" maxResults:5
 ```
 
-### scripts/fetch_transcript.py
+### Get Video Details
 
-Fetches YouTube transcripts using the `youtube-transcript-api` Python library.
-
-Called internally by `process_youtube_url.py`. Uses YouTube's internal API to retrieve transcripts with language fallback support (requested lang → English → first available).
-
-### scripts/save_transcript.py
-
-Saves transcript data to Bookmarks database with proper formatting.
-
-**Purpose:** Write transcript content directly to `Database/Bookmarks/youtube-{video_id}.md` to avoid polluting chat context.
-
-**Input (stdin JSON):**
-```json
-{
-  "url": "https://youtube.com/watch?v=...",
-  "title": "Video Title",
-  "transcript": [{"text": "...", "start": 0.0, "duration": 1.5}, ...],
-  "force": false  // Optional: force re-fetch even if cached
-}
+```bash
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  videos_details videoId="Z-FRe5AKmCU"
 ```
 
-**Output (stdout JSON):**
-```json
-{
-  "success": true,
-  "video_id": "abc123",
-  "filepath": "Database/Bookmarks/youtube-abc123.md",
-  "url": "https://youtu.be/abc123",
-  "title": "Video Title",
-  "cached": false  // True if existing valid transcript was found
-}
+### Get Transcript (Primary)
+
+```bash
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  transcripts_getTranscript videoId="Z-FRe5AKmCU"
 ```
 
-**Key features:**
-- **Checks cache first** - if bookmark exists with valid transcript, returns immediately
-- Only re-fetches if bookmark doesn't exist, has empty/failed transcript, or `force: true`
-- Concatenates transcript segments into continuous text
-- Creates properly formatted bookmark markdown with frontmatter
-- Automatically creates `Database/Bookmarks` directory if needed
-- Returns only metadata (not full transcript) to avoid context pollution
-- `cached` flag indicates whether existing bookmark was used
+### Get Transcript (Fallback with yt-dlp)
 
-### scripts/youtube_utils.py
+If MCP transcript fails (empty or unavailable), use `yt-dlp`:
 
-Python utility module providing URL manipulation functions:
+```bash
+yt-dlp --skip-download --write-auto-sub --sub-lang en --sub-format vtt \
+  --output "/tmp/%(id)s.%(ext)s" \
+  "https://youtube.com/watch?v=Z-FRe5AKmCU"
+```
 
-**URL utilities:**
-- `extract_video_id(url)`: Extract video ID from any YouTube URL format
-- `clean_youtube_url(url)`: Convert any URL to clean `https://youtu.be/<id>` form
+Then read the `.vtt` file from `/tmp/`.
 
-The script is self-contained and can be executed directly for testing URL cleaning functionality.
+**Or get transcript directly:**
+```bash
+yt-dlp --skip-download --write-auto-sub --sub-lang en --print "%(subtitles)s" \
+  "https://youtube.com/watch?v=VIDEO_ID" 2>&1 | grep -A1000 "WEBVTT"
+```
 
-## Best Practices
+## Common Workflows
 
-1. **Always clean URLs** when YouTube links are pasted or referenced to canonical short form
-2. **Check cache first** before fetching transcripts to avoid redundant API calls
-3. **Save transcripts to Bookmarks** using `save_transcript.py` to avoid context pollution
-4. **DO NOT output full transcript** in chat - only inform user of saved/cached location
-5. **Use English by default** for transcripts unless user specifies otherwise
-6. **Handle multiple videos efficiently** - the Bookmarks approach allows processing many videos without context overflow
-7. **Inform user clearly** whether transcript was fetched or loaded from cache
-8. **Retry failed transcripts** - empty/failed transcripts are not cached and will be retried
-9. **Use `force: true`** only when user explicitly wants to re-fetch existing transcripts
+### 1. Find Latest Episode from a Podcast
+
+**Example: Lex Fridman Podcast**
+
+```bash
+# Get channel ID (Lex Fridman: UCSHZKyawb77ixDdsGog4iWA)
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  channels_listVideos channelId="UCSHZKyawb77ixDdsGog4iWA" maxResults:1
+```
+
+Returns most recent video with title, ID, publish date.
+
+### 2. Get Transcript for Research
+
+```bash
+# Step 1: Get video ID from search or channel listing
+# Step 2: Try MCP transcript first
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  transcripts_getTranscript videoId="VIDEO_ID"
+
+# Step 3: If empty, fallback to yt-dlp
+yt-dlp --skip-download --write-auto-sub --sub-lang en \
+  --output "/tmp/%(id)s.%(ext)s" \
+  "https://youtube.com/watch?v=VIDEO_ID"
+
+cat /tmp/VIDEO_ID.en.vtt
+```
+
+### 3. Search for Topics
+
+```bash
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  search_videos query="Laravel AI productivity 2025" maxResults:10
+```
+
+Filter results for relevant channels or dates.
+
+## Channel IDs Reference
+
+Keep frequently used channels here for quick access:
+
+- **Lex Fridman Podcast:** `UCSHZKyawb77ixDdsGog4iWA`
+- **Indie Hackers:** (add when needed)
+- **Laravel:** (add when needed)
+
+To find a channel ID:
+1. Go to channel page
+2. View page source
+3. Search for `"channelId":` or `"externalId"`
+
+Or use search and extract from results.
+
+## API Quota Limits
+
+YouTube Data API v3 has daily quotas:
+- Default: 10,000 units/day
+- Search: 100 units per call
+- Video details: 1 unit per call
+- Transcript: 0 units (uses separate mechanism)
+
+**Tip:** Use transcript lookups liberally (no quota cost), be conservative with search.
+
+## Troubleshooting
+
+### MCP Server Not Working
+
+**Symptom:** `Connection closed` or `YOUTUBE_API_KEY environment variable is required`
+
+**Fix:** Build from source:
+```bash
+cd /tmp
+git clone https://github.com/ZubeidHendricks/youtube-mcp-server
+cd youtube-mcp-server
+npm install
+npm run build
+
+# Test
+YOUTUBE_API_KEY="your_key" node dist/cli.js
+```
+
+### Empty Transcripts
+
+**Symptom:** Transcript returned but content is empty
+
+**Cause:** Video may not have captions, or MCP can't access them
+
+**Fix:** Use yt-dlp fallback (see above)
+
+### yt-dlp Not Found
+
+```bash
+pip install --user yt-dlp
+# or
+pipx install yt-dlp
+```
+
+## Security Note
+
+The YouTube API key is safe to use with this MCP server:
+- ✅ Key only used to authenticate with official YouTube Data API
+- ✅ No third-party servers involved
+- ✅ All network calls go to `googleapis.com`
+- ✅ Code reviewed (no data exfiltration)
+
+However:
+- 🔒 Keep the key in Clawdbot config (not in code/scripts)
+- 🔒 Restrict API key to YouTube Data API v3 only (in Google Cloud Console)
+- 🔒 Don't commit the key to git repositories
+
+## Examples
+
+### Research Podcast for LinkedIn Post Ideas
+
+```bash
+# 1. Find latest Lex Fridman episode
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  channels_listVideos channelId="UCSHZKyawb77ixDdsGog4iWA" maxResults:1
+
+# 2. Get video details
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  videos_details videoId="Z-FRe5AKmCU"
+
+# 3. Get transcript
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  transcripts_getTranscript videoId="Z-FRe5AKmCU"
+
+# If transcript empty, use yt-dlp
+yt-dlp --skip-download --write-auto-sub --sub-lang en \
+  --output "/tmp/%(id)s.%(ext)s" \
+  "https://youtube.com/watch?v=Z-FRe5AKmCU"
+
+# 4. Analyze transcript for interesting topics
+# (read /tmp/Z-FRe5AKmCU.en.vtt and extract key themes)
+```
+
+### Find Videos About a Trending Topic
+
+```bash
+# Search for recent videos
+mcporter call --stdio "node /tmp/youtube-mcp-server/dist/cli.js" \
+  search_videos query="ClawdBot security concerns" maxResults:10
+
+# Pick relevant ones, get transcripts
+# Analyze sentiment and technical claims
+```
+
+## Notes
+
+- MCP server path: `/tmp/youtube-mcp-server/dist/cli.js`
+- Always pass API key via environment: `YOUTUBE_API_KEY="key" node ...`
+- Or set globally in shell/Clawdbot config
+- Transcripts may be auto-generated (check accuracy for quotes)
+- yt-dlp can also download audio if you need it (`--extract-audio --audio-format mp3`)

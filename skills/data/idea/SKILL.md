@@ -1,191 +1,108 @@
 ---
 name: idea
-description: Capture and structure product ideas as backlog artifacts. Use when capturing new ideas, feature requests, or concepts for future refinement. Triggers on keywords like "capture idea", "new idea", "feature idea", "add to backlog", "quick idea".
-infer: true
-allowed-tools: Read, Write, Grep, Glob, TodoWrite, AskUserQuestion
+description: Transform raw ideas into validated MVP definitions. Use when someone has an idea they want to flesh out, validate, and turn into something buildable. Guides through problem discovery, customer identification, and MVP scoping.
 ---
 
-# Idea Capture
+# Idea to MVP
 
-Capture raw ideas as structured artifacts for backlog consideration.
+I help you transform raw ideas into validated, buildable MVPs. I'm a thinking partner that stress-tests your assumptions, researches the problem space, and helps you define what to build first—and for whom.
 
-## When to Use
-- User has new feature concept
-- Stakeholder request needs documentation
-- Quick capture without full refinement
+## What I Do
 
-## Pre-Workflow
+1. **Capture and expand** your initial idea into testable hypotheses
+2. **Research the problem space** to validate the problem exists
+3. **Define your customer** using earlyvangelist criteria (who's in enough pain to buy early?)
+4. **Test solution fit** between your idea and the validated problem
+5. **Scope your MVP** with features mapped to problems solved
+6. **Generate customer development tasks** so you can validate before building
 
-### Activate Skills
+## Philosophy
 
-- Activate `product-owner` skill for idea capture best practices
+**Ideas are hypotheses, not facts.** Every assumption needs testing. Going backwards isn't failure—it's learning.
+
+**Build for the few, not the many.** Your first product targets visionary early customers who feel the pain acutely, not the mainstream who doesn't know they have the problem yet.
+
+**Earlyvangelists are your lifeblood.** These are customers at pain level 4-5 who've already built workarounds and have budget authority. They'll co-develop with you.
+
+## How to Use
+
+Run `/idea` with your idea:
+
+```
+/idea I want to build a tool that helps developers write better commit messages
+```
+
+Or just run `/idea` and I'll ask you about your idea.
 
 ## Workflow
 
-### 0. Detect Module (Dynamic Discovery)
+I guide you through five phases:
 
-Dynamic module discovery from YAML frontmatter:
+### Phase 1: Idea Intake
+Capture your raw idea and expand it into structured hypotheses about the problem, customer, and solution.
 
-1. **Glob**: Find all module documentation
-   ```
-   docs/business-features/*/README.md
-   ```
+See [workflows/idea-intake.md](workflows/idea-intake.md)
 
-2. **Parse Frontmatter**: For each README, extract YAML between `---` markers
-   - Extract: `module`, `keywords`, `aliases`, `features`, `domain_path`
+### Phase 2: Problem Discovery
+Research whether the problem actually exists, how painful it is, and what workarounds people use today.
 
-3. **Match Keywords**: Compare user input (title/problem) against:
-   - `aliases` (exact match - highest priority)
-   - `keywords` (partial match)
-   - `features` (partial match for sub-features)
-   - Score = count of matching terms
+See [workflows/problem-discovery.md](workflows/problem-discovery.md)
 
-4. **Select Module**:
-   - If single match: Confirm "Is this related to {Module}?"
-   - If multiple matches: Show matches with scores, ask user to select
-   - If no match: List all discovered modules, ask selection or "new" for new module
+### Phase 3: Customer Discovery
+Define who has this problem using earlyvangelist criteria and identify your market type.
 
-**Note**: Modules are self-describing via frontmatter. New modules auto-discovered when following template.
+See [workflows/customer-discovery.md](workflows/customer-discovery.md)
 
-### 1. Load Business Context
+### Phase 4: Solution Fit
+Test whether your proposed solution actually solves the validated problem.
 
-- **⚠️ MUST READ:** `docs/business-features/{Module}/INDEX.md` (feature table)
-- **⚠️ MUST READ:** `docs/business-features/{Module}/README.md` (Overview + Business Requirements sections only, ~2000 token budget)
-- Note: "Loaded context from {Module} business documentation"
-- If module docs missing: Note absence and continue without context
+See [workflows/solution-fit.md](workflows/solution-fit.md)
 
-### 1.5. Show Existing Features
+### Phase 5: MVP Definition
+Define the minimum feature set, map features to problems, and generate customer development tasks.
 
-- Display feature table from INDEX.md
-- Ask: "Does this idea relate to or extend any existing feature?"
-- Note related FR-XX IDs if applicable
+See [workflows/mvp-definition.md](workflows/mvp-definition.md)
 
-### 2. Inspect Related Entities
+## Outputs
 
-Use `domain_path` from module frontmatter for targeted entity search:
+I generate concrete artifacts in your project directory:
 
-1. **Get Domain Path**:
-   - If module matched: Use frontmatter `domain_path` (e.g., `src/PlatformExampleApp/PlatformExampleApp.TextSnippet.Domain`)
-   - If no module: Skip entity inspection or use broad search
+- `idea-brief.md` - Your captured idea with stated hypotheses
+- `customer-profile.md` - Target customer definition with earlyvangelist criteria
+- `mvp-spec.md` - MVP features mapped to problems solved
+- `custdev-tasks.md` - Customer development research tasks
 
-2. **Entity Search**:
-   ```
-   {domain_path}/Entities/*.cs
-   ```
+## References
 
-3. **Extract**: Entity class names (classes extending `RootEntity<`), key properties, relationships
-4. **Show**: "Related entities found: {EntityName} with properties: [{list}]"
-5. **If no match**: "No existing entities match - this may be a new domain concept"
+- [Earlyvangelist Pain Scale](references/earlyvangelist-scale.md) - The 5-level scale for customer pain
+- [Market Types](references/market-types.md) - Existing, New, or Resegmented markets
+- [Hypothesis Templates](references/hypothesis-templates.md) - How to state testable assumptions
 
-### 3. Gather Information
+## Templates
 
-- If no title provided, ask: "What's the idea in one sentence?"
-- Ask: "What problem does this solve?"
-- Ask: "Who benefits from this?"
-- Ask: "Any initial scope thoughts?"
+Output templates for generated artifacts:
 
-### 4. Generate Artifact
+- [Idea Brief](templates/idea-brief.md) - Captured idea with stated hypotheses
+- [Customer Profile](templates/customer-profile.md) - Target customer definition
+- [MVP Spec](templates/mvp-spec.md) - MVP features mapped to problems
+- [CustDev Tasks](templates/custdev-tasks.md) - Customer development research tasks
 
-- Create idea file using template from `team-artifacts/templates/idea-template.md`
-- Generate ID: `IDEA-{YYMMDD}-{NNN}` (sequential)
-- Set status: `draft`
-- Add frontmatter:
-  - `related_module: "{Module or N/A}"`
-  - `related_entities: [{list of entity names}]`
-  - `related_features: [{FR-XX IDs if applicable}]`
+## When We're Done
 
-### 5. Save Artifact
+Once your MVP is defined, I'll offer to run `/planning-setup` to transition into build planning. That's where you'll slice work and plan implementation.
 
-- Path: `team-artifacts/ideas/{YYMMDD}-{role}-idea-{slug}.md`
-- Role: Infer from context or ask
-- Add to Related section: Link to `docs/business-features/{Module}/`
+---
 
-### 6. Quick Validation (MANDATORY)
+## Entry Point
 
-After saving, conduct brief validation interview to confirm understanding before handoff.
+When the user invokes this skill:
 
-#### Question Selection (pick 2-3 most relevant)
+1. Check if they provided an idea in their message
+2. If yes, start with Phase 1 (Idea Intake) using their input
+3. If no, ask them to describe their idea
 
-| Category            | Question                                                      |
-| ------------------- | ------------------------------------------------------------- |
-| **Problem Clarity** | "Is the problem statement clear? What's the root cause?"      |
-| **Value**           | "Who benefits most? What's the business impact if NOT built?" |
-| **Scope**           | "Is this one feature or multiple? Should it be split?"        |
-| **Timing**          | "Is this urgent or can it wait? Any deadline drivers?"        |
-| **Alternatives**    | "Any existing solutions or workarounds today?"                |
+Use `AskUserQuestion` throughout to gather input and make decisions collaboratively.
 
-#### Validation Process
+Use subagents (Explore type) for research tasks in Phase 2 to search the web, analyze competitors, and validate the problem space.
 
-1. Select 2-3 questions based on idea complexity
-2. Use `AskUserQuestion` with concrete options
-3. Update idea artifact with clarifications
-4. Skip validation only for trivial/obvious ideas
-
-#### Validation Output
-
-Update the `## Quick Validation` section in the idea artifact:
-
-```markdown
-## Quick Validation
-
-**Validated:** {date}
-
-- **Problem clarity:** {Confirmed/Clarified: notes}
-- **Value confirmed:** {Yes/Needs discussion}
-- **Scope check:** {Single feature/Needs splitting}
-```
-
-### 7. Suggest Next Step
-
-- Output: "Idea captured and validated! To refine into a PBI, run: `/refine {filename}`"
-
-## Output Format
-
-Use template from `team-artifacts/templates/idea-template.md`
-
-Add these fields to frontmatter:
-```yaml
-related_module: "{Module name or N/A}"
-related_entities: []
-related_features: []
-```
-
-Add to Related section:
-```markdown
-## Related
-- **Module Docs**: [docs/business-features/{Module}/](docs/business-features/{Module}/)
-- **Related Features**: {FR-XX IDs from INDEX.md}
-- **Related Entities**: {Entity names from codebase}
-```
-
-## Module Discovery
-
-Modules are discovered dynamically from `docs/business-features/*/README.md` frontmatter.
-
-See `docs/templates/detailed-feature-docs-template.md` for frontmatter schema.
-
-## Example
-
-```bash
-/idea "Advanced search filters for snippets"
-```
-
-### Example Flow
-
-1. Detects "snippet" + "search" -> TextSnippet module
-2. Loads TextSnippet INDEX.md, README.md
-3. Shows existing Search Snippets feature (FR-TS-003)
-4. Finds TextSnippetEntity with SnippetText, FullText, Tags properties
-5. Gathers user input
-6. Creates: `team-artifacts/ideas/260119-po-idea-advanced-search-filters.md`
-7. **Validates**: Asks 2-3 quick questions about problem clarity, value, scope
-8. Updates idea with validation summary
-
-## Related
-- **Role Skill:** `product-owner`
-- **Next Step:** `/refine`
-
-## IMPORTANT Task Planning Notes
-
-- Always plan and break many small todo tasks
-- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed
+Progress through phases sequentially, generating output files at each stage. The user can always go back—that's learning, not failure.

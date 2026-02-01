@@ -1,440 +1,368 @@
 ---
 name: audit-logging
-description: Implement comprehensive audit logging for all admin actions, capturing user ID, action type, entity changes, IP address, and user agent. Use when tracking system activities or adding audit trails.
-allowed-tools: Read, Write, Edit, Bash, Glob
+description: Comprehensive audit logging for compliance and security. Track user actions, data changes, and system events with tamper-proof storage.
+license: MIT
+compatibility: TypeScript/JavaScript, Python
+metadata:
+  category: security
+  time: 4h
+  source: drift-masterguide
 ---
 
-You implement audit logging for all administrative actions in the QA Team Portal.
+# Audit Logging
 
-## Requirements from PROJECT_PLAN.md
+Track every important action for compliance and debugging.
 
-- Log all create, update, delete operations
-- Capture user ID, timestamp, IP, user agent
-- Display audit trail in admin panel
-- Export logs to CSV
-- Retention policy: 1 year minimum
+## When to Use This Skill
 
-## Implementation
+- SOC 2 / HIPAA compliance
+- Financial transaction tracking
+- User action history
+- Security incident investigation
+- Data change tracking
 
-### 1. Audit Log Model
+## Architecture
 
-**Location:** `backend/app/models/audit_log.py`
-
-```python
-from sqlalchemy import Column, String, JSON, ForeignKey, Text
-from sqlalchemy.dialects.postgresql import UUID
-import uuid
-from app.db.base_class import Base
-
-class AuditLog(Base):
-    __tablename__ = "audit_logs"
-
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    action = Column(String(50), nullable=False)  # create, update, delete, login
-    entity_type = Column(String(50), nullable=False)  # team_member, tool, etc.
-    entity_id = Column(UUID(as_uuid=True), nullable=True)
-    old_values = Column(JSON, nullable=True)  # Before update/delete
-    new_values = Column(JSON, nullable=True)  # After create/update
-    ip_address = Column(String(45), nullable=True)  # IPv6 support
-    user_agent = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+```
+┌─────────────────────────────────────────────────────┐
+│                  Application                         │
+│                                                     │
+│  auditLog.record({                                  │
+│    action: "user.login",                            │
+│    actor: userId,                                   │
+│    resource: "session",                             │
+│    details: { ip, userAgent }                       │
+│  })                                                 │
+└─────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────┐
+│              Audit Log Service                       │
+│                                                     │
+│  - Enrich with context                              │
+│  - Validate schema                                  │
+│  - Queue for async write                            │
+└─────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────┐
+│              Storage (Append-Only)                   │
+│                                                     │
+│  - PostgreSQL (with triggers)                       │
+│  - S3 (immutable objects)                           │
+│  - CloudWatch Logs                                  │
+└─────────────────────────────────────────────────────┘
 ```
 
-### 2. Audit Service
+## TypeScript Implementation
 
-**Location:** `backend/app/services/audit_service.py`
-
-```python
-from fastapi import Request
-from sqlalchemy.orm import Session
-from app.models.audit_log import AuditLog
-from app.models.user import User
-
-class AuditService:
-    """Service for logging admin activities."""
-
-    @staticmethod
-    async def log_action(
-        db: Session,
-        user: User,
-        action: str,
-        entity_type: str,
-        entity_id: str = None,
-        old_values: dict = None,
-        new_values: dict = None,
-        request: Request = None
-    ):
-        """
-        Log an audit event.
-
-        Args:
-            db: Database session
-            user: Current user
-            action: Action type (create, update, delete, login)
-            entity_type: Type of entity (team_member, tool, etc.)
-            entity_id: ID of entity
-            old_values: Values before change
-            new_values: Values after change
-            request: FastAPI request object
-        """
-        ip_address = None
-        user_agent = None
-
-        if request:
-            # Get real IP (behind proxy)
-            ip_address = request.headers.get(
-                "X-Forwarded-For",
-                request.client.host
-            ).split(',')[0].strip()
-
-            user_agent = request.headers.get("User-Agent")
-
-        audit_log = AuditLog(
-            user_id=user.id,
-            action=action,
-            entity_type=entity_type,
-            entity_id=entity_id,
-            old_values=old_values,
-            new_values=new_values,
-            ip_address=ip_address,
-            user_agent=user_agent
-        )
-
-        db.add(audit_log)
-        db.commit()
-
-        return audit_log
-```
-
-### 3. Audit Middleware
-
-**Location:** `backend/app/middleware/audit_middleware.py`
-
-```python
-from starlette.middleware.base import BaseHTTPMiddleware
-from fastapi import Request
-from app.services.audit_service import AuditService
-
-class AuditMiddleware(BaseHTTPMiddleware):
-    """Middleware to automatically log admin actions."""
-
-    async def dispatch(self, request: Request, call_next):
-        response = await call_next(request)
-
-        # Only log successful admin operations
-        if (
-            response.status_code < 400 and
-            request.url.path.startswith("/api/v1/admin/") and
-            request.method in ["POST", "PUT", "PATCH", "DELETE"]
-        ):
-            # Audit logging handled in endpoints
-            # This middleware can be used for additional logging
-            pass
-
-        return response
-```
-
-### 4. Usage in Endpoints
-
-**Location:** `backend/app/api/v1/endpoints/team_members.py`
-
-```python
-from app.services.audit_service import AuditService
-
-@router.post("/admin/team-members")
-async def create_team_member(
-    data: TeamMemberCreate,
-    request: Request,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_lead_or_admin)
-):
-    """Create team member with audit logging."""
-    # Create team member
-    team_member = await crud.team_member.create(db, obj_in=data)
-
-    # Log action
-    await AuditService.log_action(
-        db=db,
-        user=current_user,
-        action="create",
-        entity_type="team_member",
-        entity_id=str(team_member.id),
-        new_values=data.dict(),
-        request=request
-    )
-
-    return team_member
-
-@router.put("/admin/team-members/{id}")
-async def update_team_member(
-    id: UUID,
-    data: TeamMemberUpdate,
-    request: Request,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_lead_or_admin)
-):
-    """Update team member with audit logging."""
-    # Get old values
-    old_member = await crud.team_member.get(db, id=id)
-    old_values = TeamMemberResponse.from_orm(old_member).dict()
-
-    # Update team member
-    updated_member = await crud.team_member.update(
-        db,
-        db_obj=old_member,
-        obj_in=data
-    )
-
-    # Log action
-    await AuditService.log_action(
-        db=db,
-        user=current_user,
-        action="update",
-        entity_type="team_member",
-        entity_id=str(id),
-        old_values=old_values,
-        new_values=data.dict(exclude_unset=True),
-        request=request
-    )
-
-    return updated_member
-
-@router.delete("/admin/team-members/{id}")
-async def delete_team_member(
-    id: UUID,
-    request: Request,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin)
-):
-    """Delete team member with audit logging."""
-    # Get old values before deletion
-    team_member = await crud.team_member.get(db, id=id)
-    old_values = TeamMemberResponse.from_orm(team_member).dict()
-
-    # Delete
-    await crud.team_member.remove(db, id=id)
-
-    # Log action
-    await AuditService.log_action(
-        db=db,
-        user=current_user,
-        action="delete",
-        entity_type="team_member",
-        entity_id=str(id),
-        old_values=old_values,
-        request=request
-    )
-
-    return {"message": "Deleted successfully"}
-```
-
-### 5. Audit Log API
-
-**Location:** `backend/app/api/v1/endpoints/audit_logs.py`
-
-```python
-@router.get("/admin/audit-logs")
-async def get_audit_logs(
-    skip: int = 0,
-    limit: int = 100,
-    action: str = None,
-    entity_type: str = None,
-    user_id: UUID = None,
-    start_date: datetime = None,
-    end_date: datetime = None,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_lead_or_admin)
-):
-    """Get audit logs with filters."""
-    query = db.query(AuditLog)
-
-    if action:
-        query = query.filter(AuditLog.action == action)
-    if entity_type:
-        query = query.filter(AuditLog.entity_type == entity_type)
-    if user_id:
-        query = query.filter(AuditLog.user_id == user_id)
-    if start_date:
-        query = query.filter(AuditLog.created_at >= start_date)
-    if end_date:
-        query = query.filter(AuditLog.created_at <= end_date)
-
-    logs = query.order_by(AuditLog.created_at.desc()).offset(skip).limit(limit).all()
-
-    return logs
-
-@router.get("/admin/audit-logs/export")
-async def export_audit_logs_csv(
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin)
-):
-    """Export audit logs to CSV."""
-    import csv
-    from io import StringIO
-
-    logs = db.query(AuditLog).order_by(AuditLog.created_at.desc()).all()
-
-    output = StringIO()
-    writer = csv.writer(output)
-
-    # Header
-    writer.writerow([
-        'Timestamp', 'User', 'Action', 'Entity Type',
-        'Entity ID', 'IP Address', 'User Agent'
-    ])
-
-    # Data
-    for log in logs:
-        writer.writerow([
-            log.created_at.isoformat(),
-            log.user_id,
-            log.action,
-            log.entity_type,
-            log.entity_id or '',
-            log.ip_address or '',
-            log.user_agent or ''
-        ])
-
-    return Response(
-        content=output.getvalue(),
-        media_type="text/csv",
-        headers={"Content-Disposition": "attachment; filename=audit_logs.csv"}
-    )
-```
-
-### 6. Frontend Audit Log Viewer
-
-**Location:** `frontend/src/components/admin/audit/AuditLogs.tsx`
+### Audit Log Service
 
 ```typescript
-export const AuditLogs = () => {
-  const [logs, setLogs] = useState([])
-  const [filters, setFilters] = useState({
-    action: '',
-    entity_type: '',
-    start_date: '',
-    end_date: ''
-  })
+// audit-log.ts
+import { v4 as uuid } from 'uuid';
 
-  useEffect(() => {
-    fetchLogs()
-  }, [filters])
+interface AuditEvent {
+  action: string;           // e.g., "user.login", "order.create"
+  actor: {
+    id: string;
+    type: 'user' | 'system' | 'api_key';
+    email?: string;
+  };
+  resource: {
+    type: string;           // e.g., "user", "order", "payment"
+    id?: string;
+  };
+  details?: Record<string, unknown>;
+  outcome: 'success' | 'failure';
+  reason?: string;          // For failures
+}
 
-  const fetchLogs = async () => {
-    const response = await api.get('/admin/audit-logs', { params: filters })
-    setLogs(response.data)
+interface AuditRecord extends AuditEvent {
+  id: string;
+  timestamp: Date;
+  requestId?: string;
+  ip?: string;
+  userAgent?: string;
+  organizationId?: string;
+}
+
+class AuditLogService {
+  private context: AsyncLocalStorage<{ requestId?: string; ip?: string; userAgent?: string }>;
+
+  constructor() {
+    this.context = new AsyncLocalStorage();
   }
 
-  const exportCSV = () => {
-    window.open('/api/v1/admin/audit-logs/export', '_blank')
+  // Set request context (call from middleware)
+  setContext(ctx: { requestId?: string; ip?: string; userAgent?: string }) {
+    return this.context.run(ctx, () => {});
   }
 
-  return (
-    <div>
-      <div className="flex justify-between mb-4">
-        <h1>Audit Logs</h1>
-        <Button onClick={exportCSV}>Export CSV</Button>
-      </div>
+  async record(event: AuditEvent): Promise<void> {
+    const ctx = this.context.getStore() || {};
 
-      {/* Filters */}
-      <div className="grid grid-cols-4 gap-4 mb-4">
-        <Select value={filters.action} onValueChange={...}>
-          <option value="">All Actions</option>
-          <option value="create">Create</option>
-          <option value="update">Update</option>
-          <option value="delete">Delete</option>
-        </Select>
+    const record: AuditRecord = {
+      id: uuid(),
+      timestamp: new Date(),
+      ...event,
+      requestId: ctx.requestId,
+      ip: ctx.ip,
+      userAgent: ctx.userAgent,
+    };
 
-        {/* More filters */}
-      </div>
+    // Write to database (append-only table)
+    await db.auditLogs.create({ data: record });
 
-      {/* Table */}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Timestamp</TableHead>
-            <TableHead>User</TableHead>
-            <TableHead>Action</TableHead>
-            <TableHead>Entity</TableHead>
-            <TableHead>IP Address</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {logs.map(log => (
-            <TableRow key={log.id}>
-              <TableCell>{formatDate(log.created_at)}</TableCell>
-              <TableCell>{log.user_email}</TableCell>
-              <TableCell>
-                <Badge variant={getActionVariant(log.action)}>
-                  {log.action}
-                </Badge>
-              </TableCell>
-              <TableCell>{log.entity_type}</TableCell>
-              <TableCell>{log.ip_address}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  )
+    // Also send to external logging (CloudWatch, DataDog, etc.)
+    if (process.env.AUDIT_LOG_STREAM) {
+      await this.sendToCloudWatch(record);
+    }
+  }
+
+  // Convenience methods
+  async logLogin(userId: string, success: boolean, details?: Record<string, unknown>) {
+    await this.record({
+      action: 'user.login',
+      actor: { id: userId, type: 'user' },
+      resource: { type: 'session' },
+      outcome: success ? 'success' : 'failure',
+      details,
+    });
+  }
+
+  async logDataAccess(actorId: string, resourceType: string, resourceId: string) {
+    await this.record({
+      action: `${resourceType}.read`,
+      actor: { id: actorId, type: 'user' },
+      resource: { type: resourceType, id: resourceId },
+      outcome: 'success',
+    });
+  }
+
+  async logDataChange(
+    actorId: string,
+    resourceType: string,
+    resourceId: string,
+    action: 'create' | 'update' | 'delete',
+    changes?: { before?: unknown; after?: unknown }
+  ) {
+    await this.record({
+      action: `${resourceType}.${action}`,
+      actor: { id: actorId, type: 'user' },
+      resource: { type: resourceType, id: resourceId },
+      outcome: 'success',
+      details: changes,
+    });
+  }
+
+  private async sendToCloudWatch(record: AuditRecord) {
+    const cloudwatch = new CloudWatchLogsClient({});
+    await cloudwatch.send(new PutLogEventsCommand({
+      logGroupName: process.env.AUDIT_LOG_GROUP!,
+      logStreamName: process.env.AUDIT_LOG_STREAM!,
+      logEvents: [{
+        timestamp: record.timestamp.getTime(),
+        message: JSON.stringify(record),
+      }],
+    }));
+  }
+}
+
+export const auditLog = new AuditLogService();
+```
+
+### Express Middleware
+
+```typescript
+// audit-middleware.ts
+import { Request, Response, NextFunction } from 'express';
+import { auditLog } from './audit-log';
+import { v4 as uuid } from 'uuid';
+
+export function auditMiddleware(req: Request, res: Response, next: NextFunction) {
+  const requestId = req.headers['x-request-id'] as string || uuid();
+  const ip = req.ip || req.headers['x-forwarded-for'] as string;
+  const userAgent = req.headers['user-agent'];
+
+  // Set context for all audit logs in this request
+  auditLog.setContext({ requestId, ip, userAgent });
+
+  // Add request ID to response headers
+  res.setHeader('x-request-id', requestId);
+
+  next();
 }
 ```
 
-## Cleanup Policy
+### Database Schema
 
-**Location:** `backend/scripts/cleanup_audit_logs.py`
+```sql
+-- Append-only audit log table
+CREATE TABLE audit_logs (
+  id UUID PRIMARY KEY,
+  timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  action VARCHAR(100) NOT NULL,
+  actor_id VARCHAR(255) NOT NULL,
+  actor_type VARCHAR(50) NOT NULL,
+  actor_email VARCHAR(255),
+  resource_type VARCHAR(100) NOT NULL,
+  resource_id VARCHAR(255),
+  outcome VARCHAR(20) NOT NULL,
+  reason TEXT,
+  details JSONB,
+  request_id VARCHAR(255),
+  ip INET,
+  user_agent TEXT,
+  organization_id UUID
+);
 
-```python
-# Run this as a cron job to enforce retention policy
-from datetime import datetime, timedelta
-from app.db.session import SessionLocal
-from app.models.audit_log import AuditLog
+-- Indexes for common queries
+CREATE INDEX idx_audit_timestamp ON audit_logs(timestamp DESC);
+CREATE INDEX idx_audit_actor ON audit_logs(actor_id, timestamp DESC);
+CREATE INDEX idx_audit_resource ON audit_logs(resource_type, resource_id, timestamp DESC);
+CREATE INDEX idx_audit_action ON audit_logs(action, timestamp DESC);
+CREATE INDEX idx_audit_org ON audit_logs(organization_id, timestamp DESC);
 
-def cleanup_old_logs(days: int = 365):
-    """Delete audit logs older than specified days."""
-    db = SessionLocal()
-    cutoff_date = datetime.utcnow() - timedelta(days=days)
+-- Prevent updates/deletes (append-only)
+CREATE OR REPLACE FUNCTION prevent_audit_modification()
+RETURNS TRIGGER AS $$
+BEGIN
+  RAISE EXCEPTION 'Audit logs cannot be modified or deleted';
+END;
+$$ LANGUAGE plpgsql;
 
-    deleted = db.query(AuditLog).filter(
-        AuditLog.created_at < cutoff_date
-    ).delete()
-
-    db.commit()
-    print(f"Deleted {deleted} old audit logs")
-
-if __name__ == "__main__":
-    cleanup_old_logs(365)  # 1 year retention
+CREATE TRIGGER audit_immutable
+BEFORE UPDATE OR DELETE ON audit_logs
+FOR EACH ROW EXECUTE FUNCTION prevent_audit_modification();
 ```
 
-## Testing
+## Python Implementation
 
 ```python
-def test_audit_log_created_on_create(client, admin_token, db):
-    response = client.post(
-        "/api/v1/admin/team-members",
-        json={"name": "Test", "role": "QA Engineer"},
-        headers={"Authorization": f"Bearer {admin_token}"}
-    )
+# audit_log.py
+from dataclasses import dataclass, asdict
+from datetime import datetime
+from typing import Optional, Literal
+from contextvars import ContextVar
+import uuid
+import json
 
-    assert response.status_code == 201
+request_context: ContextVar[dict] = ContextVar("request_context", default={})
 
-    # Check audit log created
-    audit_log = db.query(AuditLog).filter(
-        AuditLog.action == "create",
-        AuditLog.entity_type == "team_member"
-    ).first()
+@dataclass
+class AuditEvent:
+    action: str
+    actor_id: str
+    actor_type: Literal["user", "system", "api_key"]
+    resource_type: str
+    outcome: Literal["success", "failure"]
+    resource_id: Optional[str] = None
+    details: Optional[dict] = None
+    reason: Optional[str] = None
 
-    assert audit_log is not None
-    assert audit_log.new_values["name"] == "Test"
+class AuditLogService:
+    async def record(self, event: AuditEvent) -> None:
+        ctx = request_context.get()
+        
+        record = {
+            "id": str(uuid.uuid4()),
+            "timestamp": datetime.utcnow().isoformat(),
+            **asdict(event),
+            "request_id": ctx.get("request_id"),
+            "ip": ctx.get("ip"),
+            "user_agent": ctx.get("user_agent"),
+        }
+        
+        # Write to database
+        await db.execute(
+            """INSERT INTO audit_logs 
+               (id, timestamp, action, actor_id, actor_type, resource_type, 
+                resource_id, outcome, details, request_id, ip, user_agent)
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)""",
+            record["id"], record["timestamp"], record["action"],
+            record["actor_id"], record["actor_type"], record["resource_type"],
+            record["resource_id"], record["outcome"], json.dumps(record["details"]),
+            record["request_id"], record["ip"], record["user_agent"]
+        )
+
+    async def log_login(self, user_id: str, success: bool, details: dict = None):
+        await self.record(AuditEvent(
+            action="user.login",
+            actor_id=user_id,
+            actor_type="user",
+            resource_type="session",
+            outcome="success" if success else "failure",
+            details=details,
+        ))
+
+audit_log = AuditLogService()
 ```
 
-## Report
+### FastAPI Middleware
 
-✅ Audit logging implemented
-✅ All CRUD operations logged
-✅ IP address and user agent captured
-✅ Audit log viewer created
-✅ CSV export functional
-✅ Retention policy defined (1 year)
-✅ Tests passing
+```python
+# audit_middleware.py
+from fastapi import Request
+from starlette.middleware.base import BaseHTTPMiddleware
+import uuid
+
+class AuditMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        request_id = request.headers.get("x-request-id", str(uuid.uuid4()))
+        ip = request.client.host if request.client else None
+        user_agent = request.headers.get("user-agent")
+
+        token = request_context.set({
+            "request_id": request_id,
+            "ip": ip,
+            "user_agent": user_agent,
+        })
+
+        response = await call_next(request)
+        response.headers["x-request-id"] = request_id
+
+        request_context.reset(token)
+        return response
+```
+
+## Query Examples
+
+```sql
+-- User's recent activity
+SELECT * FROM audit_logs 
+WHERE actor_id = 'user-123' 
+ORDER BY timestamp DESC 
+LIMIT 50;
+
+-- All changes to a specific resource
+SELECT * FROM audit_logs 
+WHERE resource_type = 'order' AND resource_id = 'order-456'
+ORDER BY timestamp;
+
+-- Failed login attempts in last hour
+SELECT * FROM audit_logs 
+WHERE action = 'user.login' 
+  AND outcome = 'failure'
+  AND timestamp > NOW() - INTERVAL '1 hour';
+
+-- Data exports (for compliance)
+SELECT * FROM audit_logs 
+WHERE action LIKE '%.export%'
+  AND timestamp BETWEEN '2024-01-01' AND '2024-12-31';
+```
+
+## Best Practices
+
+1. **Never delete audit logs** - Use append-only tables
+2. **Include enough context** - IP, user agent, request ID
+3. **Log both success and failure** - Failures are often more important
+4. **Use structured actions** - `resource.verb` format
+5. **Separate from application logs** - Different retention, access
+
+## Compliance Notes
+
+- **SOC 2**: Requires logging of access to sensitive data
+- **HIPAA**: Must log all PHI access
+- **GDPR**: Log data exports and deletions
+- **PCI DSS**: Log all access to cardholder data

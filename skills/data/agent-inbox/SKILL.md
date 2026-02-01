@@ -1,345 +1,797 @@
 ---
-name: Agent Inbox
-description: Check and process messages from autonomous AILANG agents. Use when starting a session, after agent handoffs, or when checking for completion notifications.
+name: agent-inbox
+description: >
+  File-based inter-agent messaging with headless dispatch. Check inbox, send bugs/requests to other projects,
+  automatically spawn headless agents to fix bugs, and track progress via task-monitor.
+allowed-tools: Bash, Read
+triggers:
+  - check your inbox
+  - check inbox
+  - check messages
+  - any messages
+  - any pending messages
+  - check for messages
+  - agent sent you
+  - sent you an issue
+  - sent you a bug
+  - address the bug
+  - fix the issue from
+  - message from agent
+  - inter-agent message
+  - send message to
+  - send bug to
+  - notify the agent
+  - tell the other agent
+  - cross-project message
+  - pending issues
+  - pending bugs
+  - dispatch bug fix
+  - headless agent
+  - spawn agent
+metadata:
+  short-description: Inter-agent messaging with headless dispatch and task-monitor integration
 ---
 
-# Agent Inbox
+# Agent Inbox Skill
 
-**Check for messages from autonomous agents at session start and process completion notifications.**
+File-based inter-agent message system with **headless dispatch** and **task-monitor integration**. When bugs are reported, the system can automatically spawn a headless agent (Claude, Codex) with the specified model to fix the issue, tracking progress in real-time.
+
+## Key Features (v2)
+
+- **Headless Dispatch**: Auto-spawn agents when bugs are reported
+- **Model Selection**: Choose `sonnet`, `opus-4.5`, `codex-5.2`, or `codex-5.2-high`
+- **Task-Monitor Integration**: Live progress tracking (0% → 25% → 50% → 75% → 100%)
+- **Verification Gates**: Run test commands before auto-ack
+- **Exchange Threading**: Reply to messages, view full threads
+- **Auto-Ack**: Automatic acknowledgment when fixes are verified
+- **AI Triage**: Automatic severity classification and model recommendation
+- **Auto-Routing**: Detect target project from file paths in error messages
+- **Webhooks**: POST notifications on status changes
+- **Triage Logging**: Audit trail for all classification decisions
+
+## When to Use
+
+- Agent A finds a bug in project B's code
+- Agent needs to request help from another project's agent
+- Passing information between project workspaces
+- Any cross-project agent communication
+- **Automated bug-fix workflows with headless agents**
+
+## Proactive Checking (Important!)
+
+**Agents should check inbox automatically when:**
+
+- Starting a new session
+- User mentions another agent or project by name
+- User says "check your inbox" or similar
+- Switching projects or context
+- Before starting major work (in case blockers exist)
+
+**If you're an AI agent reading this:** Run `.agents/skills/agent-inbox/agent-inbox check` proactively when the user mentions inter-project communication. Don't wait to be explicitly told.
+
+## Running the Skill (No Global Install Needed)
+
+The repo already includes a wrapper script (`.agents/skills/agent-inbox/agent-inbox`). Run it directly or invoke the Python entrypoint—no global install or PATH hacks required.
+
+```bash
+# Preferred: run the bundled wrapper
+.agents/skills/agent-inbox/agent-inbox check
+
+# Alternate: call Python explicitly
+python .agents/skills/agent-inbox/inbox.py check
+```
+
+If you want convenience aliases, you can add the skill folder to `PATH`, but it’s optional and not assumed anywhere in this doc.
+
+## Setup (One-Time)
+
+Register your projects so agent-inbox knows where they are:
+
+```bash
+# Register projects (use direct path if agent-inbox not on PATH)
+.agents/skills/agent-inbox/agent-inbox register memory /home/user/workspace/memory
+.agents/skills/agent-inbox/agent-inbox register scillm /home/user/workspace/litellm
+
+# List registered projects
+.agents/skills/agent-inbox/agent-inbox projects
+
+# Check which project current directory maps to
+.agents/skills/agent-inbox/agent-inbox whoami
+
+# Unregister if needed
+.agents/skills/agent-inbox/agent-inbox unregister old-project
+```
 
 ## Quick Start
 
-**Most common usage:**
 ```bash
-# List all messages
-ailang messages list
+# Send a bug report with model specification (spawns headless Opus agent)
+python inbox.py send --to scillm --type bug --model opus-4.5 "
+File: scillm/extras/providers.py:328
+Error: UnboundLocalError on 'options'
+Fix: Rename local variable to avoid shadowing
+"
 
-# Show only unread messages
-ailang messages list --unread
+# Send bug with verification command (auto-ack only if test passes)
+python inbox.py send --to scillm --type bug --model codex-5.2-high \
+  --test "pytest tests/test_providers.py -x" \
+  "Race condition in provider initialization"
 
-# Read full message content
-ailang messages read MSG_ID
+# Check for pending messages (anytime)
+python inbox.py check
 
-# Acknowledge (mark as read)
-ailang messages ack MSG_ID
-ailang messages ack --all
+# List all pending messages
+python inbox.py list
 
-# Send a message
-ailang messages send user "Your message" --title "Title" --from "agent-name"
+# Read a specific message
+python inbox.py read scillm_abc123
 
-# Send bug/feature to GitHub (for cross-instance visibility)
-ailang messages send user "Bug report" --type bug --github
+# Acknowledge when fixed
+python inbox.py ack scillm_abc123 --note "Fixed: renamed to merged_options"
 ```
 
-**Expected output (at session start):**
-```
-📬 AGENT INBOX: 2 unread message(s) from autonomous agents
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Headless Dispatch (v2)
 
-ID: msg_20251210_143021_abc123
-From: sprint-executor
-Title: Sprint M-S1 complete
-Time: 2025-12-10T14:30:21Z
+### Model Selection
 
-ID: msg_20251210_143055_def456
-From: stapledon
-Title: Parser Bug
-Time: 2025-12-10T14:30:55Z
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+When sending bugs, specify which AI model should handle the fix:
 
-## When to Use This Skill
-
-**Invoke this skill when:**
-- **Session starts** - First action in every Claude Code session (required by CLAUDE.md)
-- **After handoffs** - When you've sent work to autonomous agents
-- **Periodic checks** - User asks "any updates from agents?"
-- **Debugging** - To see agent communication history
-
-## Storage Backend
-
-All messages stored in SQLite database:
-- **Location**: `~/.ailang/state/collaboration.db`
-- **Accessible via**: CLI (`ailang messages`) and Collaboration Hub dashboard
-- **Message statuses**: `unread`, `read`, `archived`, `deleted`
-
-## Available Commands
-
-### List Messages
+| Model | Command | Use Case |
+|-------|---------|----------|
+| `sonnet` | `claude --model sonnet` | Simple fixes, typos |
+| `opus-4.5` | `claude --model opus` | Complex analysis, architecture |
+| `codex-5.2` | `codex --model gpt-5.2-codex` | Standard bug fixes |
+| `codex-5.2-high` | `codex --model gpt-5.2-codex --reasoning high` | Deep reasoning, race conditions |
 
 ```bash
-ailang messages list                    # All messages
-ailang messages list --unread           # Only unread
-ailang messages list --inbox user       # Filter by inbox
-ailang messages list --from agent-name  # Filter by sender
-ailang messages list --json             # JSON output
-ailang messages list --limit 50         # Limit results
+# Use Opus for complex architectural bug
+python inbox.py send --to scillm --type bug --model opus-4.5 "Complex race condition..."
+
+# Use Codex with high reasoning for tricky logic bug
+python inbox.py send --to scillm --type bug --model codex-5.2-high "Off-by-one in pagination..."
 ```
 
-### Read Full Message
+### Dispatch Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--model MODEL` | AI model for headless agent | `sonnet` |
+| `--timeout MINUTES` | Max time for agent to work | `30` |
+| `--test COMMAND` | Verification command before auto-ack | None |
+| `--no-dispatch` | Disable auto-spawn (manual only) | False |
+| `--register-path PATH` | Auto-register target project | None |
+| `--context-file FILE` | Attach file as context (repeatable) | None |
+
+### Context Files
+
+Attach relevant files (stack traces, error logs, code snippets) to help the agent:
 
 ```bash
-ailang messages read MSG_ID             # Full content, marks as read
-ailang messages read MSG_ID --peek      # View without marking read
-ailang messages read MSG_ID --json      # JSON output
+# Attach a single context file
+python inbox.py send --to scillm --type bug --model opus-4.5 \
+  --context-file /tmp/error.log \
+  "Server crash on startup"
+
+# Attach multiple context files
+python inbox.py send --to scillm --type bug --model opus-4.5 \
+  --context-file src/server.py \
+  --context-file /tmp/traceback.txt \
+  "Race condition in server initialization"
 ```
 
-### Acknowledge Messages
+### Memory Recall Pre-Hook
+
+The dispatcher automatically queries `/memory` before spawning agents to find:
+- **Similar bugs** that were fixed before
+- **Lessons learned** from past solutions
+- **Relevant context** from the knowledge base
+
+This context is injected into the agent's prompt:
+
+```
+## Prior Solutions from Memory
+
+The following relevant lessons and solutions were found:
+
+**Problem**: Undefined variable in initialization
+**Solution**: Import the module at top of file
+**Lesson**: Always check imports when seeing undefined variable errors
+```
+
+The agent reviews prior solutions first, avoiding reinventing the wheel.
+
+## AI Triage (v2)
+
+When sending bugs or requests, the system automatically performs AI-powered triage:
+
+### Severity Classification
+
+The AI analyzes the message and assigns severity based on:
+
+| Severity | Priority | Indicators | Model |
+|----------|----------|------------|-------|
+| `critical` | critical | crash, data loss, security, production down | `opus-4.5` |
+| `high` | high | error, exception, failure, broken, regression | `opus-4.5` |
+| `medium` | normal | bug, issue, incorrect, unexpected | `sonnet` |
+| `low` | low | typo, cosmetic, enhancement, minor | `sonnet` |
 
 ```bash
-ailang messages ack MSG_ID              # Mark specific message as read
-ailang messages ack --all               # Mark all as read
-ailang messages ack --all --inbox user  # Mark all in inbox as read
+# Triage automatically adjusts priority and model
+python inbox.py send --to scillm --type bug "Critical crash in production"
+#   AI Triage: priority adjusted to 'critical'
+#   AI Triage: model set to 'opus-4.5'
 ```
 
-### Un-acknowledge (Mark Unread)
+### Auto-Routing
+
+The system extracts file paths from error messages and matches them against registered projects:
 
 ```bash
-ailang messages unack MSG_ID            # Move back to unread
+# File path in error suggests target project
+python inbox.py send --to unknown-project --type bug "
+Error in File /home/user/workspace/scillm/providers.py:328
+TypeError: cannot access local variable 'options'
+"
+#   AI Triage: suggested project 'scillm' (using 'unknown-project')
 ```
 
-### Send Messages
+### Triage CLI
+
+Manual triage operations:
 
 ```bash
-# Basic send (local only - for coordination)
-ailang messages send INBOX "message" --title "Title" --from "agent"
+# Classify a message
+python inbox.py triage classify --message "Critical crash in auth module" --no-llm
+# Severity: critical
+# Priority: critical
+# Model: opus-4.5
+# Reasoning: Matched indicators: ['crash']
 
-# With GitHub sync (for bugs/features - cross-instance visibility)
-ailang messages send INBOX "message" --type bug --github
-ailang messages send INBOX "message" --type feature --github
-ailang messages send INBOX "message" --github --repo owner/repo
+# Auto-route based on file paths
+python inbox.py triage route --message "Error in /home/user/workspace/memory/search.py:45"
+# Suggested project: memory
+
+# View triage log for a message
+python inbox.py triage log --msg-id scillm_abc123
 ```
 
-### Import from GitHub
+### Controlling Triage
 
 ```bash
-ailang messages import-github                    # Import from default repo
-ailang messages import-github --repo owner/repo  # Specific repo
-ailang messages import-github --labels bug,help  # Filter by labels
-ailang messages import-github --dry-run          # Preview without importing
+# Skip AI triage for this message
+python inbox.py send --to scillm --type bug --no-triage "Simple typo fix"
+
+# Force user's priority over AI suggestion
+python inbox.py send --to scillm --type bug --priority normal --priority-override "Crash that isn't urgent"
 ```
 
-## Workflow
+## Webhooks (v2)
 
-### 1. Session Start Check (REQUIRED)
-
-**SessionStart hook runs automatically and shows unread messages.**
-
-**If messages exist:**
-- Read and summarize each message to user
-- Identify message type (completion, error, handoff)
-- Ask user if they want action taken
-- Acknowledge after handling: `ailang messages ack --all`
-
-### 2. Process Completion Notifications
-
-**When agent reports completion:**
-```bash
-# 1. Read the full message
-ailang messages read MSG_ID
-
-# 2. Review results mentioned in payload
-ls -la eval_results/baselines/v0.4.2/
-
-# 3. Report to user
-echo "Sprint complete! Results at: eval_results/baselines/v0.4.2/"
-
-# 4. Acknowledge after processing
-ailang messages ack MSG_ID
-```
-
-### 3. Handle Error Reports
-
-**When agent reports errors:**
-```bash
-# 1. Read the full error details
-ailang messages read MSG_ID
-
-# 2. Check logs if mentioned
-cat .ailang/state/logs/sprint-executor.log
-
-# 3. Diagnose and report to user
-echo "Agent encountered error: Tests failing at milestone 3/5"
-
-# 4. Either fix manually or send corrective instructions
-```
-
-### 4. Respond to Agent or User
+Register webhooks to receive POST notifications on status changes:
 
 ```bash
-# Send response to an agent
-ailang messages send sprint-executor "Approved, proceed" \
-  --title "Approval" --from "user"
+# Register a webhook
+python inbox.py triage webhook-add --url "https://example.com/webhook" \
+  --events "message_sent,status_changed,message_acked"
 
-# Send notification to user inbox
-ailang messages send user "Issue resolved" \
-  --title "Status update" --from "claude-code"
+# Filter to specific project
+python inbox.py triage webhook-add --url "https://example.com/scillm-hook" \
+  --events "status_changed" --project scillm
+
+# List webhooks
+python inbox.py triage webhook-list
+
+# Remove webhook
+python inbox.py triage webhook-remove --url "https://example.com/webhook"
 ```
 
-## GitHub Integration (Bi-directional)
+### Webhook Events
 
-### Message Types and Routing
+| Event | Trigger |
+|-------|---------|
+| `message_sent` | New bug/request sent |
+| `status_changed` | Status updated (pending → dispatched → done) |
+| `message_acked` | Message acknowledged |
 
-| Type | Purpose | Goes to GitHub? |
-|------|---------|-----------------|
-| `bug` | Bug report | Yes (with `--github`) |
-| `feature` | Feature request | Yes (with `--github`) |
-| `general` | Coordination | No (local only) |
-
-**Routing guidance:**
-- **Bugs and features** → Use `--github` for visibility across all AILANG instances
-- **Coordination messages** → Local only, for agent-to-agent communication
-- **Instructions from humans** → Create GitHub issues, they'll be imported automatically
-
-### Sending to GitHub (Agent → GitHub)
-
-```bash
-# Bug reports and feature requests go to GitHub for visibility
-ailang messages send user "Parser crash" --type bug --github
-ailang messages send user "Need async support" --type feature --github
-```
-
-### Importing from GitHub (GitHub → Local)
-
-```bash
-# Runs automatically on session start (if auto_import: true in config)
-ailang messages import-github
-
-# Or manually with filters
-ailang messages import-github --labels help-wanted
-```
-
-### Human Instructions via GitHub
-
-You can write instructions as GitHub issues and have agents pick them up:
-
-1. Create issue on GitHub with `ailang-message` label
-2. Next session, `import-github` runs automatically
-3. Issue appears in agent's inbox as a message
-4. Agent reads and acts on the instructions
-
-### Configuration
-
-Create `~/.ailang/config.yaml`:
-
-```yaml
-github:
-  expected_user: YourGitHubUsername   # REQUIRED: Must match gh auth status
-  default_repo: sunholo-data/ailang   # Default repo for issues
-  create_labels:
-    - ailang-message
-  watch_labels:
-    - ailang-message
-  auto_import: true                   # Auto-import on session start
-```
-
-**Prerequisites:**
-1. Install GitHub CLI: `brew install gh`
-2. Authenticate: `gh auth login`
-3. Check account: `gh auth status`
-4. Switch if needed: `gh auth switch --user USERNAME`
-
-**Auto-label creation:** Labels are automatically created if they don't exist:
-- `from:agent-name` (purple) - who sent the message
-- `bug` (red), `feature` (cyan), `general` (light blue)
-- `ailang-message` (blue) - identifies AILANG messages
-
-## Correlation IDs
-
-**Messages support correlation IDs for tracking handoff chains:**
+### Webhook Payload
 
 ```json
 {
-  "message_id": "msg_20251210_103045_abc123",
-  "correlation_id": "sprint_M-S1",
-  "from_agent": "sprint-executor",
-  "to_inbox": "user",
-  "title": "Sprint complete",
-  "payload": "All milestones complete"
-}
-```
-
-**Benefits:**
-- Track entire workflow: design-doc → sprint-plan → execution
-- Filter messages by workflow
-- Debug multi-agent interactions
-- Resume work from where you left off
-
-**For complete specification**, see [`resources/message_format.md`](resources/message_format.md)
-
-## Message Types (Payloads)
-
-### Completion Notification
-```json
-{
-  "type": "sprint_complete",
-  "correlation_id": "sprint_M-S1",
-  "payload": {
-    "sprint_id": "M-S1",
-    "milestones_complete": 5,
-    "result": "All tests passing"
+  "event": "status_changed",
+  "timestamp": "2026-01-30T18:00:00Z",
+  "data": {
+    "msg_id": "scillm_abc123",
+    "old_status": "pending",
+    "new_status": "in_progress",
+    "to": "scillm",
+    "from": "extractor",
+    "type": "bug",
+    "note": "Agent working on fix"
   }
 }
 ```
 
-### Error Report
-```json
-{
-  "type": "error",
-  "correlation_id": "sprint_M-S1",
-  "payload": {
-    "error": "Tests failing: 5 benchmarks broken",
-    "details": ".ailang/state/logs/sprint-executor.log"
-  }
-}
+## Triage Logging (v2)
+
+All triage decisions are logged for audit trail:
+
+```
+~/.agent-inbox/
+└── triage_logs/
+    ├── scillm_abc123_triage.json    # Individual triage log
+    └── triage_20260130.jsonl         # Daily aggregate log
 ```
 
-### Handoff Instruction
-```json
-{
-  "type": "plan_ready",
-  "correlation_id": "sprint_M-S1",
-  "payload": {
-    "sprint_id": "M-S1",
-    "plan_path": "design_docs/planned/M-S1-plan.md"
-  }
-}
-```
-
-## Resources
-
-### Message Format Reference
-See [`resources/message_format.md`](resources/message_format.md) for complete message format specification.
-
-### Troubleshooting Guide
-See [`resources/troubleshooting.md`](resources/troubleshooting.md) for common issues and solutions.
-
-## CLI Command Reference
-
-| Command | Purpose |
-|---------|---------|
-| `ailang messages list` | View all messages |
-| `ailang messages list --unread` | View only unread |
-| `ailang messages read MSG_ID` | View full message |
-| `ailang messages ack MSG_ID` | Mark as read |
-| `ailang messages ack --all` | Mark all as read |
-| `ailang messages unack MSG_ID` | Mark as unread |
-| `ailang messages send INBOX "msg"` | Send message |
-| `ailang messages reply MSG_ID "text"` | Reply to GitHub issue thread |
-| `ailang messages import-github` | Import from GitHub |
-| `ailang messages watch` | Watch for new messages |
-| `ailang messages cleanup` | Remove old messages |
-
-**Aliases:** `msg` is an alias for `messages`
 ```bash
-ailang msg list        # Same as: ailang messages list
+# View triage log for a message
+python inbox.py triage log --msg-id scillm_abc123 --json
+{
+  "msg_id": "scillm_abc123",
+  "timestamp": "2026-01-30T18:00:00Z",
+  "classification": {
+    "severity": "critical",
+    "priority": "critical",
+    "reasoning": "Matched indicators: ['crash', 'security']"
+  },
+  "routing": {
+    "target_project": "scillm",
+    "method": "auto"
+  }
+}
 ```
 
-## Notes
+### Verification Gate
 
-- **Required by CLAUDE.md**: Session start check is mandatory
-- **SQLite backend**: All messages in `~/.ailang/state/collaboration.db`
-- **Hook integration**: SessionStart hook auto-imports GitHub issues and shows unread
-- **Auto-marking**: Messages marked as read when using `ailang messages read`
-- **Message lifecycle**: Unread → Read → Archived (optional)
-- **GitHub sync**: Optional, for bugs/features that need cross-instance visibility
+Use `--test` to require verification before auto-acknowledgment:
+
+```bash
+# Only ack if tests pass
+python inbox.py send --to scillm --type bug --model opus-4.5 \
+  --test "pytest tests/ -x" \
+  "Bug in authentication flow"
+
+# Status progression:
+# pending → dispatched → in_progress → needs_verification (if test fails) → done
+```
+
+## Exchange Threading (v2)
+
+Messages can form threaded exchanges:
+
+```bash
+# Send initial bug
+python inbox.py send --to scillm --type bug --model sonnet "Bug report..."
+# → Message ID: scillm_abc123
+
+# Reply to message (auto-threads)
+python inbox.py reply scillm_abc123 "I've started investigating..."
+# → Thread: scillm_abc123
+
+# View full thread
+python inbox.py thread scillm_abc123
+# === Thread: scillm_abc123 (2 messages) ===
+# [scillm_abc123] extractor → scillm (bug)
+#   ↳ [scillm_def456] scillm → extractor (info)
+```
+
+## Task-Monitor Integration (v2)
+
+All bug-fix tasks are automatically tracked in task-monitor:
+
+```bash
+# Start task-monitor TUI (in separate terminal)
+python .pi/skills/task-monitor/monitor.py
+
+# Send bug - automatically registers task
+python inbox.py send --to scillm --type bug --model opus-4.5 "Bug..."
+# [task-monitor] Registered task: bug-fix-scillm_abc123
+
+# View progress in TUI:
+# ┌─────────────────────────────────────────────────────────────┐
+# │  bug-fix-scillm_abc123        [=========>    ] 50%         │
+# │  [opus-4.5] Bug fix from extractor                         │
+# │  Status: in_progress                                        │
+# └─────────────────────────────────────────────────────────────┘
+```
+
+### Status Progression
+
+| Status | Progress | Description |
+|--------|----------|-------------|
+| `pending` | 0% | Message received, not yet dispatched |
+| `dispatched` | 25% | Headless agent spawned |
+| `in_progress` | 50% | Agent actively working |
+| `needs_verification` | 75% | Fix attempted, test failed |
+| `done` | 100% | Fix verified and auto-acked |
+
+## Dispatcher Daemon (v2)
+
+The dispatcher watches the inbox and auto-spawns agents:
+
+```bash
+# Start dispatcher daemon (background)
+python dispatcher.py start
+
+# Start in foreground (for debugging)
+python dispatcher.py start --foreground
+
+# Check dispatcher status
+python dispatcher.py status
+# Dispatcher: RUNNING (PID 12345)
+# Pending messages: 5
+# Ready to dispatch: 2
+
+# Stop dispatcher
+python dispatcher.py stop
+
+# List supported models
+python dispatcher.py models
+```
+
+## CLI Commands (Wrapper ≙ `python inbox.py`)
+
+### `register` - Register a project (one-time setup)
+
+```bash
+.agents/skills/agent-inbox/agent-inbox register <name> <path>
+
+# Examples:
+.agents/skills/agent-inbox/agent-inbox register memory /home/user/workspace/memory
+.agents/skills/agent-inbox/agent-inbox register scillm /home/user/workspace/litellm
+```
+
+### `unregister` - Remove a project
+
+```bash
+.agents/skills/agent-inbox/agent-inbox unregister <name>
+```
+
+### `projects` - List registered projects
+
+```bash
+.agents/skills/agent-inbox/agent-inbox projects
+.agents/skills/agent-inbox/agent-inbox projects --json
+```
+
+### `whoami` - Show detected project for current directory
+
+```bash
+.agents/skills/agent-inbox/agent-inbox whoami
+```
+
+### `send` - Send a message to another project
+
+```bash
+python inbox.py send --to PROJECT --type TYPE --priority PRIORITY "message"
+
+# Types: bug, request, info, question
+# Priority: low, normal, high, critical
+
+# v2 Options:
+# --model {sonnet,opus-4.5,codex-5.2,codex-5.2-high}  AI model for headless agent
+# --timeout MINUTES                                   Agent timeout (default: 30)
+# --test COMMAND                                      Verification command
+# --no-dispatch                                       Disable auto-spawn
+# --reply-to MSG_ID                                   Reply to existing message
+# --register-path PATH                                Auto-register target project
+# --dry-run                                           Show message JSON without sending
+
+# Examples:
+python inbox.py send --to memory --type request "Please add 'proved_only' parameter to search()"
+python inbox.py send --to scillm --type bug --model opus-4.5 --priority critical "Server crashes on startup"
+
+# With verification command
+python inbox.py send --to scillm --type bug --model codex-5.2-high \
+  --test "pytest tests/ -x" \
+  "Race condition in worker pool"
+
+# Auto-register project path when sending
+python inbox.py send --to new-project --type bug --register-path /path/to/project "Bug..."
+
+# Read message from stdin (useful for multi-line)
+cat error.log | python inbox.py send --to scillm --type bug --model sonnet
+```
+
+### `list` - List messages
+
+```bash
+.agents/skills/agent-inbox/agent-inbox list                      # All pending
+.agents/skills/agent-inbox/agent-inbox list --project scillm     # For specific project
+.agents/skills/agent-inbox/agent-inbox list --status done        # Completed messages
+.agents/skills/agent-inbox/agent-inbox list --json               # JSON output
+```
+
+### `read` - Read a specific message
+
+```bash
+.agents/skills/agent-inbox/agent-inbox read MSG_ID
+.agents/skills/agent-inbox/agent-inbox read MSG_ID --json
+```
+
+### `ack` - Acknowledge/complete a message
+
+```bash
+.agents/skills/agent-inbox/agent-inbox ack MSG_ID
+.agents/skills/agent-inbox/agent-inbox ack MSG_ID --note "Fixed in commit abc123"
+```
+
+### `check` - Check inbox (for hooks)
+
+```bash
+python inbox.py check                     # Check current project
+python inbox.py check --project scillm    # Check specific project
+python inbox.py check --all               # Check all registered projects
+python inbox.py check --quiet             # Just return count (exit code 1 if messages)
+```
+
+### `update-status` - Update message status (v2)
+
+```bash
+python inbox.py update-status MSG_ID STATUS [--note NOTE]
+
+# Status values: pending, dispatched, in_progress, needs_verification, done
+# Examples:
+python inbox.py update-status scillm_abc123 in_progress --note "Agent working"
+python inbox.py update-status scillm_abc123 done --note "Fixed in commit xyz"
+```
+
+### `reply` - Reply to a message (v2)
+
+```bash
+python inbox.py reply MSG_ID "Reply message"
+
+# Auto-sets thread_id and parent_id
+# Reply goes TO the original sender
+
+# Example:
+python inbox.py reply scillm_abc123 "I've started investigating this bug"
+python inbox.py reply scillm_abc123 --type info --model sonnet "Here's what I found..."
+```
+
+### `thread` - View message thread (v2)
+
+```bash
+python inbox.py thread THREAD_ID
+python inbox.py thread THREAD_ID --json
+
+# Shows all messages in chronological order with relationships
+```
+
+## Integration with Claude Code Hooks
+
+Add to your project's `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "on_session_start": [
+      ".agents/skills/agent-inbox/agent-inbox check --project $(basename $PWD) || true"
+    ]
+  }
+}
+```
+
+Or add to your shell profile to check on every new terminal:
+
+```bash
+# ~/.bashrc or ~/.zshrc
+alias claude-start='.agents/skills/agent-inbox/agent-inbox check --project $(basename $PWD); claude'
+```
+
+## Message Format
+
+Messages are stored as JSON in `~/.agent-inbox/`:
+
+```
+~/.agent-inbox/
+├── pending/           # Unprocessed messages
+│   └── scillm_abc123.json
+├── done/              # Acknowledged messages
+│   └── memory_def456.json
+├── logs/              # Dispatch logs (v2)
+│   └── scillm_abc123_20260130_123456.log
+├── task_states/       # Task-monitor state files (v2)
+│   └── bug-fix-scillm_abc123.json
+├── triage_logs/       # AI triage decision logs (v2)
+│   ├── scillm_abc123_triage.json
+│   └── triage_20260130.jsonl
+├── webhooks.json      # Registered webhooks (v2)
+└── projects.json      # Project registry
+```
+
+### Message Schema (v2)
+
+```json
+{
+  "id": "scillm_abc123",
+  "to": "scillm",
+  "from": "extractor",
+  "type": "bug",
+  "priority": "critical",
+  "priority_source": "ai_triage",
+  "status": "in_progress",
+  "created_at": "2026-01-11T20:30:00Z",
+  "message": "File: providers.py:328\nError: UnboundLocalError...",
+
+  // v2 dispatch config (if model specified)
+  "dispatch": {
+    "model": "opus-4.5",
+    "auto_spawn": true,
+    "timeout_minutes": 30,
+    "test_command": "pytest tests/ -x"
+  },
+
+  // v2 AI triage (auto-added for bugs/requests)
+  "triage": {
+    "severity": "critical",
+    "reasoning": "Matched indicators: ['crash', 'security']",
+    "complexity": "moderate",
+    "affected_area": "authentication"
+  },
+  "triage_suggested_project": "scillm",
+
+  // v2 threading (if part of exchange)
+  "thread_id": "scillm_abc123",
+  "parent_id": null,
+
+  // v2 status tracking
+  "status_updated_at": "2026-01-11T20:35:00Z",
+  "status_notes": [
+    {"status": "dispatched", "note": "PID: 12345", "at": "..."},
+    {"status": "in_progress", "note": "Agent working", "at": "..."}
+  ]
+}
+```
+
+### Task State File (v2)
+
+```json
+{
+  "completed": 2,
+  "total": 4,
+  "status": "in_progress",
+  "description": "[opus-4.5] Bug fix from extractor",
+  "current_item": "Working on providers.py",
+  "stats": {
+    "inbox_msg_id": "scillm_abc123",
+    "from_project": "extractor",
+    "to_project": "scillm",
+    "model": "opus-4.5",
+    "priority": "high"
+  },
+  "last_updated": "2026-01-11T20:35:00Z"
+}
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `AGENT_INBOX_DIR` | Inbox directory location | `~/.agent-inbox` |
+| `TASK_MONITOR_API_URL` | Task-monitor HTTP API URL | `http://localhost:8765` |
+| `CLAUDE_PROJECT` | Current project name (for `from` field) | auto-detected |
+
+## Workflow Examples
+
+### Manual Workflow (v1)
+
+**Agent A (extractor project) finds bug:**
+
+```bash
+python inbox.py send --to scillm --type bug --priority high "
+Bug in scillm/extras/providers.py:328
+Error: UnboundLocalError: cannot access local variable 'options'
+Suggested fix: Rename to merged_options
+"
+```
+
+**User switches to scillm project, Agent B fixes and acknowledges:**
+
+```bash
+python inbox.py ack scillm_a1b2c3d4 --note "Fixed: renamed to merged_options"
+```
+
+### Automated Workflow with Headless Dispatch (v2)
+
+**Step 1: Agent A sends bug with model specification**
+
+```bash
+# From extractor project
+python inbox.py send --to scillm --type bug --model opus-4.5 \
+  --test "pytest tests/test_providers.py -x" "
+Race condition in provider initialization.
+Error: Worker threads occasionally read stale config.
+Stack trace: [...]
+"
+# Output:
+# [task-monitor] Registered task: bug-fix-scillm_abc123
+# Message sent: scillm_abc123
+#   From: extractor -> To: scillm
+#   Model: opus-4.5 (auto_spawn=True)
+```
+
+**Step 2: Dispatcher daemon picks up the message**
+
+```bash
+# Dispatcher running in background detects new message
+# [dispatcher] Found 1 message(s) ready for dispatch
+# [dispatcher] Spawning agent for scillm_abc123 with model opus-4.5
+# [dispatcher] Started process 12345
+```
+
+**Step 3: Task-monitor shows real-time progress**
+
+```
+┌───────────────────────────────────────────────────────────┐
+│  bug-fix-scillm_abc123      [=========>      ] 50%        │
+│  [opus-4.5] Bug fix from extractor                        │
+│  Status: in_progress | Working on providers.py            │
+└───────────────────────────────────────────────────────────┘
+```
+
+**Step 4: Verification runs before auto-ack**
+
+```bash
+# [dispatcher] Running verification: pytest tests/test_providers.py -x
+# [dispatcher] Verification PASSED for scillm_abc123
+# [dispatcher] Fix completed and acked for scillm_abc123
+```
+
+**Step 5: Message auto-acked, moved to done/**
+
+```bash
+python inbox.py list --status done
+# ✅ scillm_abc123: ack_note="Fix verified. Test: pytest tests/..."
+```
+
+### Threaded Exchange Example
+
+```bash
+# Agent A reports bug
+python inbox.py send --to scillm --type bug --model sonnet "Bug in X"
+# → scillm_abc123
+
+# Agent B asks for clarification (threading)
+python inbox.py reply scillm_abc123 "Can you provide the stack trace?"
+# → extractor_def456 (thread: scillm_abc123)
+
+# Agent A provides more info
+python inbox.py reply extractor_def456 "Stack trace: [...]"
+# → scillm_ghi789 (thread: scillm_abc123)
+
+# View full exchange
+python inbox.py thread scillm_abc123
+# === Thread: scillm_abc123 (3 messages) ===
+# [scillm_abc123] extractor → scillm (bug)
+#   ↳ [extractor_def456] scillm → extractor (question)
+#     ↳ [scillm_ghi789] extractor → scillm (info)
+```
+
+## Python API
+
+```python
+from inbox import (
+    register_project, unregister_project, list_projects,
+    send, list_messages, read_message, ack_message, check_inbox
+)
+
+# Setup (one-time)
+register_project("memory", "/home/user/workspace/memory")
+register_project("scillm", "/home/user/workspace/litellm")
+list_projects()  # {"memory": "/home/...", "scillm": "/home/..."}
+
+# Send
+send("scillm", "Bug report...", msg_type="bug", priority="high")
+
+# List
+messages = list_messages(project="scillm")
+
+# Read
+msg = read_message("scillm_abc123")
+
+# Ack
+ack_message("scillm_abc123", note="Fixed")
+
+# Check (returns count)
+count = check_inbox(project="scillm", quiet=True)
+```

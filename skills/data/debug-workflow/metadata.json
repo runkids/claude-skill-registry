@@ -1,7 +1,7 @@
 {
   "name": "debug-workflow",
-  "repo": "synaptiai/agent-capability-standard",
-  "path": "skills/debug-workflow/SKILL.md",
-  "source": "github.com/synaptiai/agent-capability-standard",
-  "downloaded_at": "2026-01-31T04:20:32.343678Z"
+  "repo": "bash0C7/picotorokko",
+  "path": ".claude/skills/debug-workflow/SKILL.md",
+  "source": "github.com/bash0C7/picotorokko",
+  "downloaded_at": "2026-02-01T02:32:03.294370Z"
 }

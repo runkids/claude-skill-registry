@@ -1,7 +1,7 @@
 {
   "name": "helm-chart-scaffolding",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/plugins/kubernetes-operations/skills/helm-chart-scaffolding/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-01-31T03:36:52.306748Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/kubernetes-operations/skills/helm-chart-scaffolding/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:53.821043Z"
 }

@@ -1,227 +1,319 @@
 ---
-name: cli-reference
-description: Claude Code CLI commands, flags, headless mode, and automation patterns
-allowed-tools: [Read]
+name: clickup-cli-reference
+description: Complete command reference for the ClickUp Framework CLI (cum) with all shortcuts, options, examples, and usage patterns
+tags: [clickup, cli, reference, commands]
 ---
 
-# CLI Reference
+# ClickUp Framework CLI Reference
 
-Complete reference for Claude Code command-line interface.
+Quick reference for the ClickUp Framework CLI (`cum` / `clickup`)
 
-## When to Use
+## Installation
 
-- "What CLI flags are available?"
-- "How do I use headless mode?"
-- "Claude in automation/CI/CD"
-- "Output format options"
-- "System prompt via CLI"
-- "How do I spawn agents properly?"
-
-## Core Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `claude` | Start interactive REPL | `claude` |
-| `claude "query"` | REPL with initial prompt | `claude "explain this project"` |
-| `claude -p "query"` | Headless mode (SDK) | `claude -p "explain function"` |
-| `cat file \| claude -p` | Process piped content | `cat logs.txt \| claude -p "explain"` |
-| `claude -c` | Continue most recent | `claude -c` |
-| `claude -c -p "query"` | Continue via SDK | `claude -c -p "check types"` |
-| `claude -r "id" "query"` | Resume session | `claude -r "auth" "finish PR"` |
-| `claude update` | Update version | `claude update` |
-| `claude mcp` | Configure MCP servers | See MCP docs |
-
-## Session Control
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--continue, -c` | Load most recent conversation | `claude --continue` |
-| `--resume, -r` | Resume session by ID/name | `claude --resume auth-refactor` |
-| `--session-id` | Use specific UUID | `claude --session-id "550e8400-..."` |
-| `--fork-session` | Create new session on resume | `claude --resume abc --fork-session` |
-
-## Headless Mode (Critical for Agents)
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--print, -p` | Non-interactive, exit after | `claude -p "query"` |
-| `--output-format` | `text`, `json`, `stream-json` | `claude -p --output-format json` |
-| `--max-turns` | Limit agentic turns | `claude -p --max-turns 100 "query"` |
-| `--verbose` | Full turn-by-turn output | `claude --verbose` |
-| `--dangerously-skip-permissions` | Skip permission prompts | `claude -p --dangerously-skip-permissions` |
-| `--include-partial-messages` | Include streaming events | `claude -p --output-format stream-json --include-partial-messages` |
-| `--input-format` | Input format (text/stream-json) | `claude -p --input-format stream-json` |
-
-## Tool Control
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--allowedTools` | Auto-approve these tools | `"Bash(git log:*)" "Read"` |
-| `--disallowedTools` | Block these tools | `"Bash(rm:*)" "Edit"` |
-| `--tools` | Only allow these tools | `--tools "Bash,Edit,Read"` |
-
-## Subagent Definition (--agents flag)
-
-Define custom subagents inline via JSON:
-
+### Install from GitHub (Latest)
 ```bash
-claude --agents '{
-  "code-reviewer": {
-    "description": "Expert code reviewer. Use proactively after code changes.",
-    "prompt": "You are a senior code reviewer. Focus on code quality and security.",
-    "tools": ["Read", "Grep", "Glob", "Bash"],
-    "model": "sonnet"
-  },
-  "debugger": {
-    "description": "Debugging specialist for errors and test failures.",
-    "prompt": "You are an expert debugger. Analyze errors and provide fixes."
-  }
-}'
+pip install --upgrade --force-reinstall git+https://github.com/SOELexicon/clickup_framework.git
 ```
 
-### Agent Fields
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `description` | Yes | When to invoke this agent |
-| `prompt` | Yes | System prompt for behavior |
-| `tools` | No | Allowed tools (inherits all if omitted) |
-| `model` | No | `sonnet`, `haiku`, or `claude-opus-4-5-20251101` |
-
-### Key Insight
-When Lead uses Task tool, it auto-spawns from these definitions. No manual spawn needed.
-
-## System Prompt Customization
-
-| Flag | Behavior | Modes |
-|------|----------|-------|
-| `--system-prompt` | **Replace** entire prompt | Interactive + Print |
-| `--system-prompt-file` | **Replace** from file | Print only |
-| `--append-system-prompt` | **Append** to default (recommended) | Interactive + Print |
-
-**Use `--append-system-prompt`** for most cases - preserves Claude Code capabilities.
-
-## Model Selection
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--model` | Set model for session | `--model claude-sonnet-4-5` |
-| `--fallback-model` | Fallback if default overloaded | `--fallback-model sonnet` |
-
-Aliases: `sonnet`, `opus`, `haiku`
-
-## MCP Configuration
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--mcp-config` | Load MCP servers from JSON | `--mcp-config ./mcp.json` |
-| `--strict-mcp-config` | Only use these MCP servers | `--strict-mcp-config --mcp-config ./mcp.json` |
-
-## Advanced Flags
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--add-dir` | Add working directories | `--add-dir ../apps ../lib` |
-| `--agent` | Specify agent for session | `--agent my-custom-agent` |
-| `--permission-mode` | Start in permission mode | `--permission-mode plan` |
-| `--permission-prompt-tool` | MCP tool for permissions | `--permission-prompt-tool mcp_auth` |
-| `--plugin-dir` | Load plugins from directory | `--plugin-dir ./my-plugins` |
-| `--settings` | Load settings from file/JSON | `--settings ./settings.json` |
-| `--setting-sources` | Which settings to load | `--setting-sources user,project` |
-| `--betas` | Beta API headers | `--betas interleaved-thinking` |
-| `--debug` | Enable debug mode | `--debug "api,hooks"` |
-| `--ide` | Auto-connect to IDE | `--ide` |
-| `--chrome` | Enable Chrome integration | `--chrome` |
-| `--no-chrome` | Disable Chrome for session | `--no-chrome` |
-| `--enable-lsp-logging` | Verbose LSP debugging | `--enable-lsp-logging` |
-| `--version, -v` | Output version | `claude -v` |
-
-## Output Formats
-
-### JSON (for parsing)
+### Verify Installation
 ```bash
-claude -p "query" --output-format json
-# {"result": "...", "session_id": "...", "usage": {...}}
+cum --version
+# or
+clickup --version
 ```
 
-### Streaming (for real-time monitoring)
+### Required: API Token Setup
 ```bash
-claude -p "query" --output-format stream-json
-# Newline-delimited JSON events
+export CLICKUP_API_TOKEN="your_token_here"
+# Or add to ~/.bashrc or ~/.zshrc for persistence
 ```
 
-### Structured Output (schema validation)
+## Command Invocation
+
+**In Development Environment (working in the repo):**
 ```bash
-claude -p "Extract data" \
-  --output-format json \
-  --json-schema '{"type":"object","properties":{...}}'
+python -m clickup_framework.cli <command> [args]
 ```
 
-## Headless Agent Pattern (CRITICAL)
-
-Proper headless agent spawn:
-
+**In Installed Environment:**
 ```bash
-claude -p "$TASK_PROMPT" \
-  --session-id "$UUID" \
-  --dangerously-skip-permissions \
-  --max-turns 100 \
-  --output-format stream-json \
-  --agents '{...}' \
-  --append-system-prompt "Context: ..."
+cum <command> [args]
+# or
+clickup <command> [args]
 ```
 
-**Missing any of these causes hangs:**
-- `--session-id` - Track the session
-- `--dangerously-skip-permissions` - Headless requires this
-- `--max-turns` - Prevents infinite loops
+**How to determine which to use:**
+1. First check if `cum` command is available with: `which cum` or `command -v cum`
+2. If NOT available (returns empty/error), use: `python -m clickup_framework.cli`
+3. If available, use: `cum`
 
-## Common Patterns
+## Quick Reference: All Short Codes
 
-### CI/CD Automation
+**View:** `h` `ls` `l` `c` `f` `fil` `d` `st` `a`
+**Context:** `set` `show` `clear`
+**Tasks:** `tc` `tu` `td` `ta` `tua` `tss` `tsp` `tst` `tad` `trd` `tal` `trl`
+**Comments:** `ca` `cl` `cu` `cd`
+**Docs:** `dl` `dg` `dc` `du` `de` `di` `pl` `pc` `pu`
+
+## View Commands
+
+| Command | Short Codes | Usage | Description |
+|---------|-------------|-------|-------------|
+| `hierarchy` | `h` `list` `ls` `l` | `cum h <list_id\|--all>` | Hierarchical parent-child tree view |
+| `clist` / `container` | `c` | `cum c <list_id>` | Container hierarchy (Space→Folder→List) |
+| `flat` | `f` | `cum f <list_id>` | Flat list view |
+| `filter` | `fil` | `cum fil <list_id> [--status\|--priority\|--tags\|--assignee]` | Filtered task view |
+| `detail` | `d` | `cum d <task_id> [list_id]` | Detailed single task view |
+| `stats` | `st` | `cum st <list_id>` | Task statistics & distribution |
+| `assigned` | `a` | `cum a [--user-id UID] [--team-id TID]` | Your assigned tasks, sorted by difficulty |
+| `demo` | | `cum demo [--mode MODE]` | Demo mode (no API token required) |
+
+## Context Management
+
+| Command | Short Codes | Usage | Description |
+|---------|-------------|-------|-------------|
+| `set_current` | `set` | `cum set <type> <id>` | Set current workspace/list/task/assignee |
+| `show_current` | `show` | `cum show` | Display current context |
+| `clear_current` | `clear` | `cum clear [type]` | Clear context (all or specific type) |
+| `ansi` | | `cum ansi <enable\|disable\|status>` | Configure color output |
+
+**Context Types**: `workspace`, `space`, `folder`, `list`, `task`, `assignee`
+
+## Task Management
+
+| Command | Short Codes | Usage | Description |
+|---------|-------------|-------|-------------|
+| `task_create` | `tc` | `cum tc "name" --list <list_id> [options]` | Create new task (name FIRST!) |
+| `task_update` | `tu` | `cum tu <task_id> [options]` | Update task properties |
+| `task_delete` | `td` | `cum td <task_id> [--force]` | Delete task |
+| `task_assign` | `ta` | `cum ta <task_id> <user_id> [...]` | Assign users to task |
+| `task_unassign` | `tua` | `cum tua <task_id> <user_id> [...]` | Remove assignees |
+| `task_set_status` | `tss` | `cum tss <task_id> [...] <status>` | Change task status (validates subtasks) |
+| `task_set_priority` | `tsp` | `cum tsp <task_id> <priority>` | Set priority (1-4 or name) |
+| `task_set_tags` | `tst` | `cum tst <task_id> <--add\|--remove\|--set> <tags...>` | Manage task tags |
+| `task_add_dependency` | `tad` | `cum tad <task_id> --waiting-on\|--blocking <task_id>` | Add dependency |
+| `task_remove_dependency` | `trd` | `cum trd <task_id> --waiting-on\|--blocking <task_id>` | Remove dependency |
+| `task_add_link` | `tal` | `cum tal <task_id> <linked_task_id>` | Link tasks |
+| `task_remove_link` | `trl` | `cum trl <task_id> <linked_task_id>` | Unlink tasks |
+
+### Task Create Options
+
+**IMPORTANT**: Task name comes FIRST as a positional argument!
+
 ```bash
-claude -p "Run tests and fix failures" \
-  --dangerously-skip-permissions \
-  --max-turns 50 \
-  --output-format json | jq '.result'
+cum tc "Task Name" --list <list_id> [options]
+cum tc "Task Name" --parent <parent_id> [options]  # For subtasks
+
+Options:
+--list LIST_ID              # List to create task in (or "current")
+--parent TASK_ID           # Create as subtask (no --list needed if parent provided)
+--description TEXT          # Task description (text)
+--description-file PATH     # Task description (from file)
+--status STATUS            # Initial status
+--priority {1|2|3|4|urgent|high|normal|low}
+--tags TAG [...]           # Tags to add
+--assignees USER_ID [...]  # Assign users (defaults to context assignee)
 ```
 
-### Piped Input
+**Note**: `--description` and `--description-file` are mutually exclusive.
+
+### Task Update Options
+
 ```bash
-cat error.log | claude -p "Find root cause"
-gh pr diff | claude -p "Review for security"
+--name TEXT                # Update name
+--description TEXT         # Update description (text)
+--description-file PATH    # Update description (from file)
+--status STATUS           # Update status
+--priority PRIORITY       # Update priority
 ```
 
-### Multi-turn Session
+**Note**: `--description` and `--description-file` are mutually exclusive.
+
+## Comment Management
+
+| Command | Short Codes | Usage | Description |
+|---------|-------------|-------|-------------|
+| `comment_add` | `ca` | `cum ca <task_id> "text" \| --comment-file FILE` | Add comment |
+| `comment_list` | `cl` | `cum cl <task_id>` | List task comments |
+| `comment_update` | `cu` | `cum cu <comment_id> "text" \| --comment-file FILE` | Update comment |
+| `comment_delete` | `cd` | `cum cd <comment_id>` | Delete comment |
+
+### Comment Options
+
 ```bash
-id=$(claude -p "Start task" --output-format json | jq -r '.session_id')
-claude -p "Continue" --resume "$id"
+# Add/Update comments with text or file
+comment_text               # Direct text input
+--comment-file PATH        # Read comment text from file
 ```
 
-### Stream Monitoring
+**Note**: Comment text and `--comment-file` are mutually exclusive.
+
+## Docs & Pages
+
+| Command | Short Codes | Usage | Description |
+|---------|-------------|-------|-------------|
+| `dlist` | `dl` `doc_list` | `cum dl <workspace_id>` | List all docs |
+| `doc_get` | `dg` | `cum dg <workspace_id> <doc_id>` | Show doc details |
+| `doc_create` | `dc` | `cum dc <workspace_id> "name" [--pages "name:content" ...]` | Create doc |
+| `doc_update` | `du` | `cum du <workspace_id> <doc_id> [options]` | Update doc |
+| `doc_export` | `de` | `cum de <workspace_id> [--doc-id ID] --output-dir ./out` | Export to markdown |
+| `doc_import` | `di` | `cum di <workspace_id> ./input_dir [--nested]` | Import markdown files |
+| `page_list` | `pl` | `cum pl <workspace_id> <doc_id>` | List pages in doc |
+| `page_create` | `pc` | `cum pc <workspace_id> <doc_id> --name "name" [--content "..."]` | Create page |
+| `page_update` | `pu` | `cum pu <workspace_id> <doc_id> <page_id> [--name\|--content]` | Update page |
+
+## Global Format Options
+
+| Option | Description |
+|--------|-------------|
+| `--preset {minimal\|summary\|detailed\|full}` | Quick format preset |
+| `--colorize` / `--no-colorize` | Force colors on/off |
+| `--show-ids` | Display task IDs |
+| `--show-tags` | Display tags (default: on) |
+| `--show-descriptions` | Display descriptions |
+| `--show-dates` | Display date fields |
+| `--show-comments N` | Show N most recent comments per task (default: 5, set to 0 to hide) |
+| `--include-completed` | Include completed tasks |
+| `--no-emoji` | Hide emoji icons |
+
+## Presets
+
+| Preset | Shows | Hides |
+|--------|-------|-------|
+| `minimal` | IDs, status, priority | Tags, descriptions, dates, emojis, comments |
+| `summary` | Status, priority, tags | IDs, descriptions, dates, comments |
+| `detailed` | Status, priority, tags, descriptions, dates | IDs, comments |
+| `full` | Everything + 5 recent comments | Nothing |
+
+## Priority Values
+
+| Value | Alias |
+|-------|-------|
+| `1` | `urgent` |
+| `2` | `high` |
+| `3` | `normal` |
+| `4` | `low` |
+
+## Status Codes (3-Letter)
+
+Tasks display with color-coded 3-letter status codes:
+
+- `[CLS]` Closed/Complete
+- `[OPN]` Open
+- `[PRG]` In Progress
+- `[REV]` In Review
+- `[BLK]` Blocked
+- `[TDO]` To Do
+- Custom statuses use first 3 letters
+
+## Special Keywords
+
+- `current` - Use currently set resource from context
+- Works with: task_id, list_id, workspace_id, etc.
+
+## Common Workflows
+
 ```bash
-claude -p "Long task" \
-  --output-format stream-json \
-  --include-partial-messages | while read -r line; do
-    echo "$line" | jq '.type'
-done
+# Set up context (using short codes!)
+cum set workspace 90151898946
+cum set list 901517404278
+cum set assignee 68483025
+
+# Quick task view
+cum h current                                    # Hierarchy view
+cum a                                            # Your assigned tasks
+cum st current                                   # Task statistics
+
+# Create and manage tasks (using short codes!)
+cum tc "New feature" --list current              # Auto-assigned to default assignee
+cum tc "Feature" --list current --description-file spec.md  # With description from file
+cum tc "Subtask" --parent <parent_id>            # Create subtask
+cum tu current --description-file updated_spec.md    # Update from file
+cum tss current "in progress"                    # Set status
+cum tst current --add bug critical               # Add tags
+cum td <task_id>                                 # Delete task
+
+# Add comments (using short codes!)
+cum ca current "Initial thoughts"                # Add comment directly
+cum ca current --comment-file notes.txt          # Comment from file
+cum cl current                                   # List comments
+
+# Filter tasks
+cum fil current --status "in progress"
+cum fil current --priority urgent --view-mode flat
+
+# Work with docs (using short codes!)
+cum dl 90151898946                               # List docs
+cum dc 90151898946 "API Docs"                    # Create doc
+cum pc 90151898946 <doc_id> --name "Overview"    # Add page
+cum de 90151898946 --output-dir ./docs           # Export all docs
 ```
 
-## Keyboard Shortcuts (Interactive)
+## Configuration
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+C` | Cancel current |
-| `Ctrl+D` | Exit |
-| `Ctrl+R` | Reverse search history |
-| `Esc Esc` | Rewind changes |
-| `Shift+Tab` | Toggle permission mode |
+Settings stored in `~/.clickup_context.json`:
+- Current workspace/list/task/assignee
+- ANSI color preference
+- Last updated timestamp
 
-## Quick Commands
+## Tips
 
-| Prefix | Action |
-|--------|--------|
-| `/` | Slash command |
-| `!` | Bash mode |
-| `#` | Add to memory |
-| `@` | File mention |
+- **Use short codes everywhere!** `cum tc` instead of `cum task_create`, `cum h` instead of `cum hierarchy`
+- Set context once with `cum set`, use `current` everywhere
+- Default assignee auto-assigns new tasks
+- `assigned` (`cum a`) command sorts by dependency difficulty
+- `demo` mode works without API token for testing
+- Use `--description-file` and `--comment-file` for longer content
+- Tab complete works with both full commands and short codes
+- Most commands support `--help` for details
+
+## Tab Completion
+
+Enable tab completion for bash/zsh (if argcomplete installed):
+```bash
+eval "$(register-python-argcomplete cum)"
+```
+
+## Troubleshooting
+
+### Command not found: cum
+```bash
+# Reinstall the package
+pip install --upgrade --force-reinstall git+https://github.com/SOELexicon/clickup_framework.git
+
+# Or use the module directly
+python -m clickup_framework.cli --help
+```
+
+### API Token Issues
+```bash
+# Check if token is set
+echo $CLICKUP_API_TOKEN
+
+# Set it permanently in ~/.bashrc or ~/.zshrc
+echo 'export CLICKUP_API_TOKEN="your_token_here"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Permission Errors
+```bash
+# Use virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate
+pip install git+https://github.com/SOELexicon/clickup_framework.git
+```
+
+## Getting Help
+
+```bash
+# General help
+cum --help
+
+# Command-specific help
+cum <command> --help
+
+# Examples
+cum tc --help
+cum h --help
+cum tss --help
+```

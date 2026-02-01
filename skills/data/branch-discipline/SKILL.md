@@ -1,229 +1,269 @@
 ---
 name: branch-discipline
-description: Use before any code changes - hard gate ensuring work never happens on main branch, with proper feature branch creation from correct base
+description: "Enforce one branch per issue, small focused commits, and clean git history. Use with /branch command."
 ---
 
 # Branch Discipline
 
-## Overview
+Principles for clean git history: one issue per branch, small commits, clear scope.
 
-Never work on main. Create feature branches for all work.
+## Core Principles
 
-**Core principle:** The main branch is sacred. All work happens in feature branches.
+### 1. One Branch = One Issue
 
-**This is a HARD GATE.** Do not proceed with code changes if on main.
-
-## The Gate
+Every branch addresses exactly ONE issue, feature, or bug fix.
 
 ```
-┌─────────────────────────────────────┐
-│         CODE CHANGE NEEDED          │
-└─────────────────┬───────────────────┘
-                  │
-                  ▼
-        ┌─────────────────┐
-        │ Current branch? │
-        └────────┬────────┘
-                 │
-       ┌─────────┴─────────┐
-       │                   │
-     main              feature/*
-       │                   │
-       ▼                   ▼
-  ┌─────────┐         ┌─────────┐
-  │  STOP   │         │ PROCEED │
-  │ Create  │         │  with   │
-  │ branch  │         │  work   │
-  └─────────┘         └─────────┘
+✓ feature/123-fix-login-validation
+✓ feature/456-add-user-export
+✗ feature/misc-fixes              # Too vague
+✗ feature/login-and-export        # Two issues
 ```
 
-## Check Current Branch
+### 2. Small, Logical Commits
+
+Each commit is a single logical change that could be reverted independently.
+
+```
+✓ "fix(#123): validate email format"
+✓ "fix(#123): add error message for invalid email"
+✓ "test(#123): add email validation tests"
+
+✗ "fix stuff"
+✗ "WIP"
+✗ "fix login, add export, refactor auth"
+```
+
+### 3. Scope Discipline
+
+If you find another issue while working:
+1. **STOP** - don't fix it in this branch
+2. **NOTE** - add to issue tracker or notes
+3. **BRANCH** - create a separate branch later
+
+```
+Working on #123 (login validation)
+Found #789 (password reset bug)
+
+✗ Fix both in same branch
+✓ Note #789, continue with #123, branch for #789 later
+```
+
+### 4. Worktrees for Parallel Work
+
+Use git worktrees when you need to:
+- Work on multiple issues simultaneously
+- Context switch without stashing
+- Run parallel agent tasks
 
 ```bash
-# Show current branch
-git branch --show-current
+# Main repo stays on main
+/project/              # main branch
 
-# If output is "main" or "master" → STOP
-# If output is feature/* or fix/* → PROCEED
+# Each issue gets its own worktree
+/project-123/          # feature/123 branch
+/project-456/          # feature/456 branch
 ```
 
-## Branch Naming Convention
+## Workflow
 
-### Format
-
-```
-[type]/issue-[number]-[short-description]
-```
-
-### Types
-
-| Type | Use For |
-|------|---------|
-| `feature` | New functionality |
-| `fix` | Bug fixes |
-| `chore` | Maintenance, dependencies |
-| `docs` | Documentation only |
-| `refactor` | Code restructuring |
-| `test` | Test additions/fixes |
-
-### Examples
+### Starting Work
 
 ```
-feature/issue-123-user-authentication
-fix/issue-456-login-redirect-loop
-chore/issue-789-update-dependencies
-docs/issue-101-api-documentation
-refactor/issue-202-extract-validation
-test/issue-303-add-integration-tests
+/branch [issue-id] [description]      # Create branch + checklist
+/branch [issue-id] [description] -w   # + worktree for parallel work
 ```
 
-## Creating a Feature Branch
+**Then immediately:**
+```
+/mentor review requirements for #[id]: [description]
+```
 
-### From Main (Default)
+This catches unclear requirements and flawed approaches BEFORE you write code.
+Record findings in the checklist.
 
+### During Work
+
+1. **Before each commit**, ask:
+   - Is this change related to the issue?
+   - Is this the smallest logical unit?
+   - Does the commit message reference the issue?
+
+2. **Incorporate mentor advice** from initial review
+
+3. **Check progress:**
+   ```
+   /branch-status
+   ```
+
+4. **Found unrelated issue?**
+   - Add to notes, don't fix now
+   - Create separate branch later
+
+### Before PR
+
+```
+/mentor review my implementation for #[id]
+```
+
+This catches blind spots and edge cases before team review.
+Record findings in the checklist.
+
+### Completing Work
+
+```
+/branch-done    # Verify checklist, create PR
+```
+
+## Commit Message Format
+
+```
+type(#issue): description
+
+[optional body]
+```
+
+**Types:**
+- `feat` - new feature
+- `fix` - bug fix
+- `refactor` - code restructure
+- `test` - add/update tests
+- `docs` - documentation
+- `chore` - maintenance
+
+**Examples:**
+```
+feat(#123): add email validation to login form
+fix(#456): prevent duplicate user exports
+refactor(#789): extract auth logic to service
+test(#123): add unit tests for email validator
+```
+
+## Parallel Agent Work
+
+When using multiple agents simultaneously:
+
+### Setup
 ```bash
-# Ensure main is up to date
-git checkout main
-git pull origin main
-
-# Create and checkout new branch
-git checkout -b feature/issue-[NUMBER]-[description]
-
-# Push branch to remote (establishes tracking)
-git push -u origin feature/issue-[NUMBER]-[description]
+# Create worktrees for each agent/issue
+git worktree add ../project-123 -b feature/123-task-a
+git worktree add ../project-456 -b feature/456-task-b
+git worktree add ../project-789 -b feature/789-task-c
 ```
 
-### From Existing Feature Branch
+### Assign Work
+- Agent 1 → `../project-123/` → Issue #123
+- Agent 2 → `../project-456/` → Issue #456
+- Agent 3 → `../project-789/` → Issue #789
 
-When building on in-progress work:
+### Benefits
+- No branch switching conflicts
+- Independent commit histories
+- Can merge in any order
+- Easy to abandon failed experiments
 
+### Cleanup
 ```bash
-# Checkout the base branch
-git checkout feature/issue-100-base-feature
-
-# Ensure it's up to date
-git pull origin feature/issue-100-base-feature
-
-# Create new branch from it
-git checkout -b feature/issue-101-dependent-feature
+# After merging
+git worktree remove ../project-123
+git branch -d feature/123-task-a
 ```
 
-**Document the dependency** in the issue.
+## Anti-Patterns
 
-## Branch Lifecycle
-
+### Big Bang Commits
 ```
-Create → Work → Push → PR → Merge → Delete
+✗ "implement user management"  # 50 files, 2000 lines
 ```
-
-### After Merge
-
-```bash
-# Switch to main
-git checkout main
-
-# Pull the merge
-git pull origin main
-
-# Delete local branch
-git branch -d feature/issue-123-completed-feature
-
-# Delete remote branch (usually done via PR UI)
-git push origin --delete feature/issue-123-completed-feature
+Break into:
+```
+✓ "feat(#100): add user model"
+✓ "feat(#100): add user repository"
+✓ "feat(#100): add user service"
+✓ "feat(#100): add user controller"
+✓ "test(#100): add user management tests"
 ```
 
-## Handling Stale Branches
-
-If main has moved ahead:
-
-```bash
-# Option 1: Rebase (preferred for clean history)
-git checkout feature/issue-123-my-feature
-git fetch origin
-git rebase origin/main
-
-# Option 2: Merge (if conflicts are complex)
-git checkout feature/issue-123-my-feature
-git fetch origin
-git merge origin/main
+### Scope Creep
+```
+✗ Branch for #123 contains fixes for #456 and #789
+```
+Keep branches focused:
+```
+✓ feature/123-login-fix     → only #123 changes
+✓ feature/456-export-bug    → only #456 changes
+✓ feature/789-auth-refactor → only #789 changes
 ```
 
-## Protected Branches
-
-Main should be protected. Never:
-
-- Push directly to main
-- Force push to main
-- Delete main
-
-If you accidentally commit to main:
-
-```bash
-# If not yet pushed - move commits to new branch
-git branch feature/issue-123-accidental-main
-git reset --hard origin/main
-
-# If already pushed - DO NOT force push
-# Instead, revert and recreate in proper branch
+### WIP Commits
+```
+✗ "WIP"
+✗ "fix"
+✗ "stuff"
+```
+Write meaningful messages:
+```
+✓ "fix(#123): handle null email input"
 ```
 
-## Multiple Issues, Same Branch?
+## Checklist Template
 
-**Generally NO.** Each issue gets its own branch.
+Each branch should have a checklist (created by `/branch`):
 
-**Exception:** Tightly coupled sub-issues from `issue-decomposition` MAY share a branch if:
-- They are sequential dependencies
-- They will be merged together
-- They are part of the same PR
+```markdown
+# Issue #[ID]: [Description]
 
-Document this in the issues if doing so.
-
-## Verification
-
-Before making any code change:
-
-```bash
-# Check current branch
-BRANCH=$(git branch --show-current)
-
-# Verify not on main
-if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-    echo "ERROR: On protected branch. Create feature branch first."
-    exit 1
-fi
-
-# Verify branch follows naming convention
-if ! echo "$BRANCH" | grep -qE '^(feature|fix|chore|docs|refactor|test)/issue-[0-9]+-'; then
-    echo "WARNING: Branch name doesn't follow convention"
-fi
-```
-
-## Common Mistakes
-
-| Mistake | Prevention |
-|---------|------------|
-| Committing to main | Check branch before every commit |
-| Pushing to main | Branch protection rules |
-| Wrong base branch | Verify before creating branch |
-| Outdated branch | Rebase/merge before PR |
-| Branch name typos | Use consistent naming |
+## Scope
+- What this branch WILL do
+- What this branch will NOT do
 
 ## Checklist
 
-Before writing any code:
+### Before Starting
+- [ ] Requirements understood
+- [ ] Mentor review: `/mentor review requirements for #[ID]`
 
-- [ ] Current branch is NOT main
-- [ ] Branch name follows convention
-- [ ] Branch is from correct base
-- [ ] Branch is pushed to remote
-- [ ] Issue number is in branch name
+### During Work
+- [ ] Changes limited to scope
+- [ ] Mentor advice incorporated
+- [ ] Tests added
+
+### Before PR
+- [ ] Mentor review: `/mentor review implementation for #[ID]`
+- [ ] Tests passing
+- [ ] Commits logical (max 3-5)
+
+## Mentor Reviews
+
+### Initial (before starting)
+**Findings:** [mentor feedback]
+**Action:** [what you changed]
+
+### Final (before PR)
+**Findings:** [mentor feedback]
+**Action:** [what you changed]
+
+## Commits
+| Hash | Message |
+|------|---------|
+
+## Out-of-Scope Issues Found
+- #XXX: [description] - branch later
+```
+
+## Commands Reference
+
+| Command | Purpose |
+|---------|---------|
+| `/branch [id] [desc]` | Create focused branch + checklist |
+| `/branch [id] [desc] -w` | + create worktree |
+| `/branch-status` | Check progress on current branch |
+| `/branch-done` | Complete branch, create PR |
+| `/branch-list` | List all active branches/worktrees |
 
 ## Integration
 
-This skill is called by:
-- `issue-driven-development` - Step 6
-
-This skill enables:
-- Clean separation of work
-- Easy PR creation
-- Safe experimentation
+Works with:
+- `git-workflow` skill - general git practices
+- `git-worktrees` skill - worktree details
+- `code-review` skill - before merging

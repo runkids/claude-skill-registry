@@ -1,7 +1,7 @@
 {
   "name": "audit",
-  "repo": "synaptiai/agent-capability-standard",
-  "path": "skills/audit/SKILL.md",
-  "source": "github.com/synaptiai/agent-capability-standard",
-  "downloaded_at": "2026-01-31T04:20:33.982422Z"
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
+  "path": ".claude/skills/audit/SKILL.md",
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-02-01T03:59:35.955684Z"
 }

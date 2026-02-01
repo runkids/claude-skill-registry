@@ -1,7 +1,7 @@
 {
   "name": "router",
-  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "path": ".github/agents/app-starter/agents-context/skills/router/SKILL.md",
-  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "downloaded_at": "2026-01-31T02:45:02.068878Z"
+  "repo": "dengineproblem/agents-monorepo",
+  "path": "moltbot-workspace-router/skills/router/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-02-01T03:41:54.563249Z"
 }

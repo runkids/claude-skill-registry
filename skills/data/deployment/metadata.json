@@ -1,7 +1,7 @@
 {
   "name": "deployment",
-  "repo": "acidsound/acidApps",
-  "path": "skills/deployment/SKILL.md",
-  "source": "github.com/acidsound/acidApps",
-  "downloaded_at": "2026-01-31T04:34:12.876782Z"
+  "repo": "jkomoros/community-patterns",
+  "path": ".claude/skills/deployment/SKILL.md",
+  "source": "github.com/jkomoros/community-patterns",
+  "downloaded_at": "2026-02-01T04:45:29.130931Z"
 }

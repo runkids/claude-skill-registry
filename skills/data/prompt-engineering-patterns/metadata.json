@@ -1,7 +1,7 @@
 {
   "name": "prompt-engineering-patterns",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/prompt-engineering-patterns/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:43.831683Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/llm-application-dev/skills/prompt-engineering-patterns/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-01T04:43:48.613133Z"
 }

@@ -1,125 +1,115 @@
 ---
 name: code-refactoring
-description: Guides systematic code refactoring to improve code quality, maintainability, and design. Identifies code smells, applies refactoring patterns, ensures test coverage, and follows safe refactoring practices. Produces cleaner, more maintainable code while preserving functionality. Use when improving code quality, eliminating technical debt, preparing for feature additions, addressing code smells, or when users mention refactoring, code cleanup, improving design, reducing complexity, or modernizing legacy code.
+description: Expert refactoring orchestrator for large-scale code changes with change tracking. Use when (1) renaming/moving files or directories, (2) restructuring database schemas, (3) refactoring APIs or Edge Functions, (4) splitting/merging components, (5) querying what changed in a system ("what critical changes were made to subscription system?"). Maintains changelog for docs-updater sync.
 ---
 
-# Code Refactoring
+# Code Refactoring Wizard
 
-## Overview
+Orchestrate large-scale refactoring with change tracking. Uses `code-wizard` for discovery.
 
-This skill guides systematic code refactoring to improve code quality, maintainability, and design while preserving functionality. Follow the safe refactoring workflow with comprehensive test coverage and incremental changes.
+## Context Files
 
-## Refactoring Workflow
+For structure and conventions, read from `Docs/context/`:
+- `Docs/context/conventions.md` - Architecture rules, refactor guidelines
+- `Docs/context/repo-structure.md` - Where to place files
+- `Docs/context/packages-map.md` - Package boundaries
 
-## Step 1: Analyze Code and Identify Issues
+## Changelog Location
 
-Examine the codebase to identify code smells and quality issues:
+**All significant changes logged to:** `Docs/ai/CHANGELOG.md`
 
-- Long methods (>20-30 lines) or large classes (>300-500 lines)
-- Duplicated code blocks or similar logic in multiple places
-- Unclear or misleading names for variables, methods, or classes
-- Complex conditional logic or deeply nested structures
-- Poor separation of concerns or tight coupling between components
+This file is monitored by `docs-updater` skill for documentation sync.
 
-**For detailed code smell catalog**: See [code-smells.md](references/code-smells.md)
+## Change Categories
 
-### Step 2: Verify Test Coverage
+| Category | Tag | Example |
+|----------|-----|---------|
+| Schema | `[SCHEMA]` | New table, column rename, migration |
+| Structure | `[STRUCTURE]` | File/folder move, directory reorganization |
+| API | `[API]` | RPC signature change, Edge Function update |
+| Breaking | `[BREAKING]` | Removed feature, renamed export |
+| Component | `[COMPONENT]` | React component split/merge |
+| Dependency | `[DEPS]` | Package upgrade, new import |
 
-Before refactoring ANY code:
+## Workflow
 
-1. Check existing test coverage for the code to be refactored
-2. If tests are missing or inadequate, write tests FIRST
-3. Run all tests to establish baseline (all should pass)
-4. Never proceed without adequate test coverage
+### 1. Discover (use code-wizard)
 
-**For test coverage strategies**: See [testing-strategies.md](references/testing-strategies.md)
+```
+/code-wizard "find all usages of ai_plan_quotas table"
+/code-wizard "where is subscription logic implemented"
+```
 
-### Step 3: Choose Refactoring Technique
+### 2. Plan
 
-Select the appropriate refactoring pattern based on the issue:
+- Current state → Target state
+- Migration path
+- Rollback strategy
+- Affected files list
 
-- **Extract Method/Function**: Break down long methods into smaller, focused ones
-- **Extract Class**: Split large classes with multiple responsibilities
-- **Rename**: Improve clarity with better names
-- **Move Method/Field**: Relocate functionality to more appropriate classes
-- **Replace Conditional with Polymorphism**: Simplify complex conditionals
-- **Introduce Parameter Object**: Group related parameters
-- **Inline Method/Variable**: Remove unnecessary indirection
+### 3. Execute
 
-**For complete pattern catalog**: See [refactoring-patterns.md](references/refactoring-patterns.md)
+Order: Database → Backend → Frontend → Tests
 
-### Step 4: Apply Refactoring Incrementally
+### 4. Log to CHANGELOG.md
 
-Make ONE small change at a time:
+```markdown
+## 2026-01-08 - Subscription System Refactor
 
-1. Apply a single refactoring technique
-2. Run all tests immediately after the change
-3. If tests pass, commit the change
-4. If tests fail, revert and try a different approach
-5. Repeat for each refactoring needed
+### [SCHEMA] Replace per-feature quotas with token pools
 
-**Critical Rules:**
+**Before:**
+- `ai_plan_quotas` table (40+ rows)
+- Per-feature token limits
 
-- Never change behavior while refactoring
-- Never refactor and add features simultaneously
-- Use IDE automated refactoring tools when available
-- Keep each refactoring commit small and focused
+**After:**
+- `subscription_plans` table
+- `token_pools` table
+- `ai_operations` table
 
-**For detailed process guidance**: See [refactoring-process.md](references/refactoring-process.md)
+**Impact:**
+- Files: 15 | Migration: Yes | Breaking: Yes
 
-### Step 5: Verify and Document
+**Related:** #20260108_token_pool_system
+```
 
-After completing refactorings:
+### 5. Sync Docs
 
-1. Run full test suite to ensure all tests pass
-2. Check that code quality metrics improved
-3. Review code to confirm readability enhanced
-4. Document significant architectural changes if needed
-5. Create clear commit messages describing refactorings
+```
+/docs-updater "sync changelog to API docs"
+```
 
-## Common Refactoring Scenarios
+## Query Changes
 
-**Scenario-specific guidance** is available for:
+To answer "what changed in X system":
 
-- Legacy code modernization
-- Preparing code for new features
-- Performance optimization through refactoring
-- Reducing technical debt systematically
-- Extracting reusable components
+1. Read `Docs/ai/CHANGELOG.md`
+2. Filter by date/category/system
+3. Summarize
 
-See [common-refactoring-scenarios.md](references/common-refactoring-scenarios.md) for detailed examples and approaches.
+Example response:
+```
+## Subscription System Changes (Jan 2026)
 
-## Best Practices and Quality Guidelines
+1. [SCHEMA] Token pool migration (Jan 8)
+   - Replaced ai_plan_quotas → unified token system
+   - 15 files, breaking
 
-Follow established principles for high-quality refactoring:
+2. [API] New check_token_balance RPC (Jan 8)
+   - User token balance endpoint
+   - Non-breaking
+```
 
-- Apply SOLID principles (Single Responsibility, Open/Closed, etc.)
-- Reduce coupling between components
-- Increase cohesion within components
-- Eliminate duplication (DRY principle)
-- Maintain consistent coding standards
+## Related Skills
 
-**For comprehensive best practices**: See [refactoring-best-practices.md](references/refactoring-best-practices.md)
+| Skill | Use For |
+|-------|---------|
+| `code-wizard` | Find code before refactoring |
+| `docs-updater` | Sync docs after changelog |
+| `supabase-migration-writer` | Database migrations |
+| `admin-panel-builder` | Admin page refactoring |
 
-## Tools and Automation
+## References
 
-Modern IDEs and tools can automate many refactorings safely:
-
-- IDE refactoring features (IntelliJ, VS Code, Visual Studio)
-- Static analysis tools for code smell detection
-- Test coverage tools
-- Automated code formatting and linting
-
-**For tool recommendations and usage**: See [tools-and-automation.md](references/tools-and-automation.md)
-
-## Output Format
-
-When presenting refactoring recommendations:
-
-1. Identify the code smell or quality issue
-2. Explain why it's problematic
-3. Propose specific refactoring approach
-4. Show before/after code examples
-5. List tests to verify behavior preservation
-
-**For detailed output templates**: See [output-format.md](references/output-format.md)
+- **Refactoring patterns**: See [references/patterns.md](references/patterns.md)
+- **Changelog examples**: See [references/changelog-examples.md](references/changelog-examples.md)

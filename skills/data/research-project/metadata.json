@@ -1,9 +1,7 @@
 {
   "name": "research-project",
-  "description": "This skill should be used when initializing a new bioinformatics research project, checking project status, updating project phase, or getting research best practices guidance. Triggered by requests l",
-  "repo": "dakesan/bioinformatics-research-plugins",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Meme-Lords/granhackaria-run1",
+  "path": ".agents/skills/gsd/commands/research-project/SKILL.md",
+  "source": "github.com/Meme-Lords/granhackaria-run1",
+  "downloaded_at": "2026-02-01T02:21:02.615955Z"
 }

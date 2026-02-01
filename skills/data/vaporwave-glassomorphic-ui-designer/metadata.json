@@ -1,13 +1,7 @@
 {
   "name": "vaporwave-glassomorphic-ui-designer",
-  "description": "Expert in creating modern, aesthetic UI designs blending vaporwave nostalgia with glassomorphic elegance for photo/memory applications. Masters SwiftUI Material effects, neon pastel color palettes, fr",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "vaporwave",
-    "glassomorphic",
-    "designer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/vaporwave-glassomorphic-ui-designer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-02-01T02:38:58.078119Z"
 }

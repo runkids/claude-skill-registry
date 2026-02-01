@@ -1,7 +1,7 @@
 {
   "name": "test-strategy",
-  "repo": "turbobeest/cursor-dev-system",
-  "path": "skills/test-strategy/SKILL.md",
-  "source": "github.com/turbobeest/cursor-dev-system",
-  "downloaded_at": "2026-01-31T04:51:02.559140Z"
+  "repo": "turbobeest/squawk",
+  "path": ".claude/skills/test-strategy/SKILL.md",
+  "source": "github.com/turbobeest/squawk",
+  "downloaded_at": "2026-02-01T04:54:15.123766Z"
 }

@@ -1,159 +1,202 @@
 ---
 name: positioning-angles
-description: Discovers differentiated market positioning using 8 proven frameworks. This skill should be used when launching a new product or service, entering competitive markets, refreshing stale positioning, or when current messaging sounds like every other competitor.
+description: Find your unique market positioning using 8 proven frameworks. Use when developing marketing strategy, creating differentiation, or clarifying why customers should choose you over competitors.
 ---
 
-# Positioning Angles
+# Positioning Angles Skill
 
-This skill identifies unique, defensible market positions that make a brand memorable and different - not just another option in a crowded category.
+## Overview
 
-## Objective
+Positioning is not about being better. It's about being different in a way that matters to your audience. One angle will outperform others 3-10x. Test, don't guess.
 
-Find the positioning angle that gives the brand unfair advantage: a market position competitors can't or won't copy, that resonates deeply with the target audience.
+**Keywords**: positioning, differentiation, market positioning, unique value proposition, competitive advantage, messaging strategy, brand positioning
 
-**The Core Principle**: Effective positioning requires saying something a reasonable person could disagree with. If everyone in the category claims it, it's not a position - it's a table stake.
+## The 4-Step Positioning Process
 
-## Intake Questions
+### Step 1: Match Your Market Stage
 
-Before exploring positioning frameworks, gather context:
+Your positioning approach must match where your market is. Using the wrong approach wastes your message.
 
-1. **Product/service**: What exactly does the brand offer? Core features and capabilities?
-2. **Current positioning**: How is it currently described? What's the elevator pitch today?
-3. **Target audience**: Who is the ideal customer? Be specific (demographics, psychographics, behaviors).
-4. **Competitors**: Who are the top 3-5 alternatives? How do they position themselves?
-5. **Unique strengths**: What does this brand do better than anyone else? What's unfair advantage?
-6. **Customer feedback**: What do happy customers say? What words do they use?
-7. **Origin story**: Why was this created? What problem was the founder solving?
+| Stage | Market Reality | Your Approach | Template |
+|-------|---------------|---------------|----------|
+| **NEW** | Market doesn't know the solution exists | Simple promise | "Now you can [X]" |
+| **GROWING** | Market knows solutions exist, wants results | Bigger claim | "[X] in [specific time]" |
+| **CROWDED** | Many competitors, market is confused | Show mechanism | "The [method] that works" |
+| **JADED** | Market has been burned, skeptical | Prove it | "[Data/proof] that shows" |
+| **MATURE** | Market knows all options, seeks identity | Sell identity | "For [people who are X]" |
 
-## The 8 Positioning Frameworks
+**How to identify your stage:**
+- **NEW**: You have to explain what the category is
+- **GROWING**: Competitors exist but aren't saturating ads/content
+- **CROWDED**: Multiple well-known players, active advertising
+- **JADED**: Common complaints about the category ("all [X] are scams")
+- **MATURE**: Market has clear leaders, buyers identify with brands
 
-### 1. Challenger Brand
-**Best for**: Established markets with dominant players
+### Step 2: Find Your Mechanism
 
-Position against the market leader by attacking their weakness or reframing the category.
+Your mechanism is what you do that competitors skip. It's the "how" behind your results.
 
-**Template**: "Unlike [leader] who [their approach], we [your different approach] because [reason it matters]."
+**The key question**: What do you do differently that actually creates results?
 
-**Example**: "Unlike big banks that treat you like a number, we know your name and your goals."
+**Naming your mechanism**:
+- Give it a name: "The [X] Method" or "The [X] System"
+- NOT "our approach" or "our process" — those are generic
+- The name should hint at what makes it work
 
-### 2. Category Creation
-**Best for**: Truly novel products, new approaches to old problems
+**Examples**:
+- Generic: "Our coaching methodology"
+- Named: "The 5-4-3-2-1 Accountability System"
+- Generic: "Our hiring process"
+- Named: "The Reverse Interview Method"
 
-Create and own a new category rather than competing in an existing one.
+**Finding your mechanism**:
+1. List every step in your process
+2. Circle what competitors skip or do differently
+3. That's your mechanism — name it
 
-**Template**: "We're not a [existing category]. We're the first [new category] that [key differentiator]."
+### Step 3: Pick Your Angle
 
-**Example**: "We're not a CRM. We're a Revenue Intelligence Platform that predicts your deals."
+Choose ONE primary angle. Each has a specific psychological trigger.
 
-### 3. Niche Domination
-**Best for**: Broad markets with underserved segments
+#### CONTRARIAN
+Challenge what everyone believes. Works when conventional wisdom is failing people.
 
-Own a specific vertical, use case, or customer segment completely.
+**Template**: "Everything you know about [X] is wrong"
 
-**Template**: "The only [product type] built specifically for [niche segment]."
+**Examples**:
+- "Everything you know about dieting is wrong"
+- "Forget everything you learned about cold email"
+- "The productivity advice that's actually hurting you"
 
-**Example**: "The only accounting software built specifically for freelance photographers."
+**Best for**: Markets where common approaches aren't working
 
-### 4. Value Proposition Canvas
-**Best for**: Customer-centric positioning, product-market fit
+---
 
-Map customer jobs, pains, and gains to product features, pain relievers, and gain creators.
+#### TRANSFORMATION
+Show the journey from pain to gain. Works when the emotional gap is large.
 
-**Structure**:
-- **Customer Jobs**: What are they trying to accomplish?
-- **Pains**: What frustrates them about current solutions?
-- **Gains**: What would make their life better?
-- **Pain Relievers**: How do you eliminate their frustrations?
-- **Gain Creators**: How do you deliver desired outcomes?
+**Template**: "From [painful state] to [desired state]"
 
-### 5. Competitive Positioning Matrix
-**Best for**: Crowded markets, clear differentiation
+**Examples**:
+- "From broke freelancer to $20K/month agency owner"
+- "From inbox chaos to zero unread in 30 days"
+- "From dreading Mondays to building your dream business"
 
-Plot competitors on two axes that matter to customers, then own an unoccupied quadrant.
+**Best for**: Offers with clear before/after states
 
-**Process**:
-1. List what customers care about most
-2. Select two dimensions competitors vary on
-3. Plot all competitors on the 2x2 matrix
-4. Identify the empty or underserved quadrant
-5. Position there if you can authentically deliver
+---
 
-**Example Axes**: Price/Quality, Simple/Powerful, Traditional/Modern, Fast/Thorough
+#### ENEMY
+Give them something to fight against. Works when there's a clear villain.
 
-### 6. Geoffrey Moore's Positioning Template
-**Best for**: B2B products, technical products, investor pitches
+**Template**: "Stop letting [X] steal your [Y]"
 
-The classic fill-in-the-blank framework:
+**Examples**:
+- "Stop letting algorithms steal your reach"
+- "Stop letting meetings steal your deep work"
+- "Stop letting big agencies steal your budget"
 
-**Template**:
-"For [target customer]
-who [statement of need or opportunity],
-[product name] is a [product category]
-that [key benefit/reason to buy].
-Unlike [primary competitive alternative],
-our product [primary differentiation]."
+**Best for**: Markets with frustration toward a specific problem/entity
 
-### 7. Blue Ocean Strategy
-**Best for**: Commoditized markets, breakthrough positioning
+---
 
-Find uncontested market space by eliminating, reducing, raising, or creating factors.
+#### SPEED
+Promise results fast without the usual sacrifice. Works when people are impatient.
 
-**Four Actions Framework**:
-- **Eliminate**: What factors can you eliminate that the industry takes for granted?
-- **Reduce**: What factors can you reduce well below industry standard?
-- **Raise**: What factors can you raise well above industry standard?
-- **Create**: What factors can you create that the industry has never offered?
+**Template**: "[Outcome] in [time] without [sacrifice]"
 
-### 8. Jobs-to-be-Done
-**Best for**: Outcome-focused positioning, crossing category boundaries
+**Examples**:
+- "6-pack abs in 90 days without giving up carbs"
+- "Launch your course in 2 weeks without tech headaches"
+- "Fluent Spanish in 3 months without grammar drills"
 
-Position around the outcome customers hire your product to achieve, not features.
+**Best for**: Offers that genuinely deliver faster results
 
-**Template**: "When [situation], I want to [motivation], so I can [outcome]."
+---
 
-**Positioning statement**: "We help [customer] [achieve outcome] when [trigger situation]."
+#### SPECIFICITY
+Narrow down to exact person and exact outcome. Works in crowded markets.
 
-**Example**: "We help busy professionals feel put-together when they have 10 minutes to dress."
+**Template**: "For [exact person] who wants [exact thing]"
 
-## Framework Selection Guide
+**Examples**:
+- "For SaaS founders who want to hit $10K MRR"
+- "For busy moms who want to lose 20 lbs before summer"
+- "For developers who want to become tech leads in 2024"
 
-| Situation | Recommended Framework |
-|-----------|----------------------|
-| Market has dominant leader | Challenger Brand |
-| Truly new/novel product | Category Creation |
-| Big market, specific audience | Niche Domination |
-| Need product-market fit | Value Proposition Canvas |
-| Many similar competitors | Competitive Positioning Matrix |
-| B2B or complex product | Geoffrey Moore Template |
-| Commoditized market | Blue Ocean Strategy |
-| Feature parity with competitors | Jobs-to-be-Done |
+**Best for**: Crowded markets where you can own a niche
 
-## Validation Criteria
+### Step 4: Test Your Angle
 
-Test positioning against these criteria:
+Before committing, run your positioning through this checklist:
 
-- [ ] **Distinctive**: No competitor could claim the same thing
-- [ ] **Relevant**: Target audience cares about this difference
-- [ ] **Credible**: Brand can deliver on the promise authentically
-- [ ] **Sustainable**: Not easily copied by competitors
-- [ ] **Memorable**: Can be expressed in a single sentence
-- [ ] **Motivating**: Gives audience a reason to choose you
+| Test | Question | Bad Example | Good Example |
+|------|----------|-------------|--------------|
+| **Specific?** | Does it include concrete details? | "Get better results" | "Lose 20 lbs in 6 weeks" |
+| **Differentiated?** | Can a competitor claim the same thing? | "Quality marketing services" | "The Reverse Funnel Method for coaches" |
+| **Believable?** | Does your mechanism/proof support it? | "Become a millionaire overnight" | "Add $5K/month with 3 LinkedIn posts per week" |
 
-## Output Format
+**All three boxes must be checked.** If any fails:
+- Not specific → Add numbers, timeframes, or details
+- Not differentiated → Lean harder into your mechanism
+- Not believable → Reduce the claim or add proof
 
-When developing positioning, produce:
+## Putting It Together
 
-1. **Context Summary**: Market landscape and competitive set
-2. **Framework Analysis**: Deep dive using 2-3 most relevant frameworks
-3. **Positioning Options**: 3-5 potential angles with pros/cons
-4. **Recommended Position**: The winning angle with rationale
-5. **Positioning Statement**: One-paragraph articulation
-6. **Proof Points**: Evidence that supports the position
+**Formula**: [Market Stage Approach] + [Your Mechanism] + [Your Angle]
 
-## Cross-References
+**Example walkthrough**:
+1. **Market Stage**: Crowded (many course platforms exist) → Show mechanism
+2. **Mechanism**: "The Micro-Launch Method" (launching with just 10 people)
+3. **Angle**: Speed → "Launch your course in 2 weeks without building an audience first"
 
-- Positioning informs messaging in `direct-response-copy`
-- Use positioning to frame `lead-magnet` offers
-- `brand-voice` should align with and support the chosen position
-- Positioning angles guide topic selection in `keyword-research`
-- `orchestrator` routes here first for new product launches
+**Final positioning**: "The Micro-Launch Method: Launch your course in 2 weeks without building an audience first"
+
+## Quick Reference Card
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     POSITIONING ANGLES                          │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. MATCH YOUR MARKET STAGE                                      │
+│                                                                 │
+│    NEW      → Simple promise    "Now you can [X]"               │
+│    GROWING  → Bigger claim      "[X] in [specific time]"        │
+│    CROWDED  → Show mechanism    "The [method] that works"       │
+│    JADED    → Prove it          "[Data/proof] that shows"       │
+│    MATURE   → Sell identity     "For [people who are X]"        │
+│                                                                 │
+│ 2. FIND YOUR MECHANISM                                          │
+│                                                                 │
+│    What do you do that competitors skip?                        │
+│    Name it: "The [X] Method" – not "our approach"               │
+│                                                                 │
+│ 3. PICK YOUR ANGLE                                              │
+│                                                                 │
+│    CONTRARIAN     "Everything you know about [X] is wrong"      │
+│    TRANSFORMATION "From [painful state] to [desired state]"     │
+│    ENEMY          "Stop letting [X] steal your [Y]"             │
+│    SPEED          "[Outcome] in [time] without [sacrifice]"     │
+│    SPECIFICITY    "For [exact person] who wants [exact thing]"  │
+│                                                                 │
+│ 4. TEST IT                                                      │
+│                                                                 │
+│    □ Specific? (not "better results" – "20 lbs in 6 weeks")     │
+│    □ Differentiated? (competitor can't claim the same)          │
+│    □ Believable? (mechanism/proof supports it)                  │
+│                                                                 │
+│    One angle will outperform others 3-10x. Test, don't guess.   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Integration with Other Skills
+
+Positioning Angles works with:
+- **Brand Voice** — Your voice delivers your positioning
+- **Keyword Research** — Your positioning guides what to write about
+- **Direct Response Copy** — Your positioning makes copy compelling
+- **Lead Magnet** — Your positioning shapes your offer
+
+## Next Steps
+
+Once you've found your positioning angle, move to **Keyword Research** to identify what content to create around your positioning.

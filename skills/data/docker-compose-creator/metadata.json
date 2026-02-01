@@ -1,9 +1,7 @@
 {
   "name": "docker-compose-creator",
-  "description": "Docker Compose Creator - Auto-activating skill for DevOps Basics.Triggers on: docker compose creator, docker compose creatorPart of the DevOps Basics skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/01-devops-basics/docker-compose-creator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-01T01:33:39.729867Z"
 }

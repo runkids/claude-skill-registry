@@ -1,7 +1,7 @@
 {
   "name": "data-storytelling",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/data-storytelling/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:44.731761Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/business-analytics/skills/data-storytelling/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:49.807921Z"
 }

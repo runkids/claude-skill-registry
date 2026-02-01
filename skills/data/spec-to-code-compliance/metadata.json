@@ -1,7 +1,7 @@
 {
   "name": "spec-to-code-compliance",
-  "repo": "Blurjp/ImagePrepMCP",
-  "path": ".claude/skills/trailofbits-spec-to-code-compliance/skills/spec-to-code-compliance/SKILL.md",
-  "source": "github.com/Blurjp/ImagePrepMCP",
-  "downloaded_at": "2026-01-31T03:14:28.489961Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/spec-to-code-compliance/skills/spec-to-code-compliance/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:27.023181Z"
 }

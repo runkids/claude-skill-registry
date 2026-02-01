@@ -1,30 +1,21 @@
 ---
-name: moai-context7-integration
-version: 4.0.0
+name: "moai-context7-integration"
+version: "4.0.0"
 created: 2025-11-12
-updated: '2025-11-18'
+updated: 2025-11-12
 status: stable
 tier: specialization
-description: Enhanced context7 integration with AI-powered features
-allowed-tools: Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id,
-  mcp__context7__get-library-docs
-primary-agent: mcp-context7-integrator
-secondary-agents:
-- alfred
-keywords:
-- context7
-- integration
-- api
-- frontend
-- security
+description: "Enhanced context7 integration with AI-powered features"
+allowed-tools: "Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
+primary-agent: "mcp-context7-integrator"
+secondary-agents: [alfred]
+keywords: [context7, integration, api, frontend, security]
 tags: []
-orchestration: null
+orchestration: 
 can_resume: true
-typical_chain_position: middle
+typical_chain_position: "middle"
 depends_on: []
-stability: stable
 ---
-
 
 # moai-context7-integration
 
@@ -1650,7 +1641,7 @@ context7_references:
 
 ## 📈 Version History
 
-** .0** (2025-11-12)
+**v4.0.0** (2025-11-12)
 - ✨ Context7 MCP integration
 - ✨ Progressive Disclosure structure
 - ✨ 10+ code examples
@@ -1663,6 +1654,6 @@ context7_references:
 
 ---
 
-**Generated with**: MoAI-ADK Skill Factory    
+**Generated with**: MoAI-ADK Skill Factory v4.0  
 **Last Updated**: 2025-11-12  
 **Maintained by**: Primary Agent (mcp-context7-integrator)

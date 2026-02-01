@@ -1,36 +1,21 @@
 ---
-name: moai-project-template-optimizer
-version: 4.0.0
+name: "moai-project-template-optimizer"
+version: "4.0.0"
 created: 2025-11-12
-updated: '2025-11-18'
+updated: 2025-11-12
 status: stable
 tier: specialization
-description: Handle template comparison and optimization workflows including backup
-  detection, smart merging, and update completion reporting. Enhanced with Context7
-  MCP for up-to-date documentation.
-allowed-tools: Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id,
-  mcp__context7__get-library-docs
-primary-agent: alfred
+description: "Handle template comparison and optimization workflows including backup detection, smart merging, and update completion reporting. Enhanced with Context7 MCP for up-to-date documentation."
+allowed-tools: "Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
+primary-agent: "alfred"
 secondary-agents: []
-keywords:
-- project
-- template
-- optimizer
-- test
-tags:
-- project
-- template
-- optimization
-- backup
-- merge
-- comparison
-orchestration: null
+keywords: [project, template, optimizer, test]
+tags: [project, template, optimization, backup, merge, comparison]
+orchestration: 
 can_resume: true
-typical_chain_position: middle
+typical_chain_position: "middle"
 depends_on: []
-stability: stable
 ---
-
 
 # moai-project-template-optimizer
 
@@ -154,7 +139,7 @@ Skills             | Content analysis        | Template defaults
 ```
 Template Indicators          | User Content Indicators
 ---------------------------- | -------------------------
-"Nora-LiveKit"          | Specific project names
+"my-awesome-project"          | Specific project names
 "en" | Actual language codes
 "src/moai_adk/templates/"  | Custom file paths
 Template placeholders       | Real configuration values
@@ -415,7 +400,7 @@ Start
 
 ## 📈 Version History
 
-** .0** (2025-11-12)
+**v4.0.0** (2025-11-12)
 - ✨ Context7 MCP integration
 - ✨ Progressive Disclosure structure
 - ✨ 10+ code examples
@@ -428,6 +413,6 @@ Start
 
 ---
 
-**Generated with**: MoAI-ADK Skill Factory    
+**Generated with**: MoAI-ADK Skill Factory v4.0  
 **Last Updated**: 2025-11-12  
 **Maintained by**: Primary Agent (alfred)

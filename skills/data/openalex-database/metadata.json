@@ -1,7 +1,7 @@
 {
   "name": "openalex-database",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/openalex-database/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-30T03:01:25.470927Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/openalex-database/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:41.128682Z"
 }

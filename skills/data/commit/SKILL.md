@@ -1,84 +1,50 @@
 ---
 name: commit
-description: Commit workflow for ai-standards repo. Formats all markdown files and previews changes before committing.
+description: Generates commit messages and creates commits. Use when writing commit messages, committing changes, or reviewing staged changes.
 ---
 
-# Commit Workflow
+# Commit Messages
 
-Standard commit workflow for the ai-standards repository.
+Use [Conventional Commits](https://www.conventionalcommits.org/) format.
 
-## Before Every Commit
+## Format
 
-### 1. Run Markdown Formatter
+```text
+<type>(<scope>): <description>
 
-Format project markdown files using mdformat (excludes opensrc/ which contains external source):
-
-```bash
-nix develop -c mdformat skills/ .claude/ agents/ templates/ *.md
+[optional body]
 ```
 
-### 2. Preview Changes
+## Types
 
-Show files involved and diff preview:
+- `feat`: User-facing features or behavior changes (must change production code)
+- `fix`: Bug fixes (must change production code)
+- `docs`: Documentation only
+- `style`: Code style/formatting (no logic changes)
+- `refactor`: Code restructuring without behavior change
+- `test`: Adding or updating tests
+- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
 
-```bash
-git status
-git diff --stat
-git diff
+## Scopes
+
+Optional. Use when it adds clarity. Examples: `cloudfront`, `s3`, `ci`.
+
+## Breaking Changes
+
+Use `!` suffix: `feat!: remove deprecated resource`
+
+## Examples
+
+```text
+feat(cloudfront): add immutable cache headers
+fix: correct CloudFront Function ARN attribute
+chore: add husky pre-commit hooks
+docs: update architecture documentation
 ```
 
-### 3. Analyze and Group Changes
+## Instructions
 
-Review the changes and determine:
-
-- **Single commit**: All changes are related to one feature/fix
-- **Multiple commits**: Changes are unrelated and should be separate
-
-Examples:
-
-- Docs update + new skill → 2 commits
-- Rename agent + update references → 1 commit
-- Bug fix + unrelated refactor → 2 commits
-
-### 4. Stage and Commit
-
-For single commit:
-
-```bash
-git add -A
-git commit -m "commit message"
-```
-
-For multiple commits, stage selectively:
-
-```bash
-git add <related-files>
-git commit -m "first commit message"
-
-git add <other-files>
-git commit -m "second commit message"
-```
-
-## Commit Message Guidelines
-
-- Start with uppercase, imperative mood
-- Reference skill/agent names in brackets when applicable: `[powersync] Add sync pattern docs`
-- If AI made the changes, include co-author:
-  ```
-  Co-Authored-By: Claude <noreply@anthropic.com>
-  ```
-
-## Output Format
-
-Always show proposed commits with their files:
-
-```
-**Commit 1:** `commit message here`
-- file1.md
-- file2.ts
-
-**Commit 2:** `another commit message`
-- file3.md
-```
-
-Then wait for user approval before executing.
+1. Run `git diff --staged` to see staged changes
+2. Analyze the changes and determine the appropriate type
+3. Write a concise description (under 72 characters)
+4. Add body only if the "why" isn't obvious from the description

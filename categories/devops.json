@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3180,
-  "updated_at": "2026-01-31T04:52:26.534794Z",
+  "count": 3167,
+  "updated_at": "2026-02-01T05:09:23.565165Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -15109,18 +15109,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cicd-audit-optimizer",
-      "description": "Comprehensive CI/CD and automation audit skill. Catalogs all pipelines, assesses operational health, identifies gaps, and provides prioritized recommendations for optimization. Includes error catalogi",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/cicd-audit-optimizer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cicd-automation",
       "description": "Set up GitHub Actions workflows for CI/CD with automated testing, linting, and deployment for Python/UV projects. Use when creating CI pipelines, automating tests, or setting up deployment workflows.",
       "repo": "AutumnsGrove/GroveEngine",
@@ -22282,18 +22270,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "filings-edgar-ingest",
-      "description": "Ingest SEC EDGAR filings (10-K, 10-Q, 8-K) via official API with source tracking and pgvector storage",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/filings-edgar-ingest",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "filmmaker",
       "description": "Use when creating cinematic sequences, narrative animations, or when applying animation principles to video storytelling and visual narrative.",
       "repo": "dylantarre/animation-principles",
@@ -25619,18 +25595,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "iac-executor",
-      "description": "Use this skill ONLY after a plan has been APPROVED by both the `iac-security-auditor` skill and the human user. This skill safely applies a confirmed terraform plan.",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/iac-executor",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "iac-planner",
       "description": "Use this skill to take a user's infrastructure request (e.g., \"deploy a new web server\") and create a complete Terraform (HCL) file and a corresponding execution plan. This skill ONLY plans; it NEVER ",
       "repo": "jgtolentino/insightpulse-odoo",
@@ -25643,18 +25607,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "iac-planner",
-      "description": "Use this skill to take a user's infrastructure request (e.g., \"deploy a new web server\") and create a complete Terraform (HCL) file and a corresponding execution plan. This skill ONLY plans; it NEVER ",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/iac-planner",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "iac-security-auditor",
       "description": "Use this skill AFTER a terraform plan has been generated. This skill audits a terraform plan file for security vulnerabilities (using tfsec/checkov) and company compliance policies. It either APPROVES",
       "repo": "jgtolentino/insightpulse-odoo",
@@ -25664,18 +25616,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/iac-security-auditor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "iac-security-auditor",
-      "description": "Use this skill AFTER a terraform plan has been generated. This skill audits a terraform plan file for security vulnerabilities (using tfsec/checkov) and company compliance policies. It either APPROVES",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/iac-security-auditor",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25748,18 +25688,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/13-aws-skills/iam-role-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "iam-role-generator",
-      "description": "Iam Role Generator - Auto-activating skill for AWS Skills.Triggers on: iam role generator, iam role generatorPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/iam-role-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -29738,18 +29666,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "model-registry-manager",
-      "description": "Model Registry Manager - Auto-activating skill for ML Deployment.Triggers on: model registry manager, model registry managerPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/model-registry-manager",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "model-versioning-manager",
       "description": "Model Versioning Manager - Auto-activating skill for ML Deployment.Triggers on: model versioning manager, model versioning managerPart of the ML Deployment skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -29988,18 +29904,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/multi-agency-orchestrator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "multi-agency-orchestrator",
-      "description": "Coordinate operations across RIM, CKVC, BOM, JPAL, JLI, JAP, LAS, RMQB agencies",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/multi-agency-orchestrator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30975,18 +30879,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "odoo-agile-scrum-devops",
-      "description": "Comprehensive Agile Scrum framework for Odoo ERP development with Finance Shared Service Center workflows, OCA community standards, CI/CD automation, BIR compliance, and multi-agency task management. ",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/odoo-agile-scrum-devops",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "odoo-finance-automation",
       "description": "Automate Finance Shared Service Center operations in Odoo 19 - month-end closing, journal entries, bank reconciliation, trial balance, and multi-agency consolidation. Handles RIM, CKVC, BOM, JPAL, JLI",
       "repo": "jgtolentino/insightpulse-odoo",
@@ -30996,18 +30888,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/odoo-finance-automation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "odoo-finance-automation",
-      "description": "Automate Finance Shared Service Center operations in Odoo 19 - month-end closing, journal entries, bank reconciliation, trial balance, and multi-agency consolidation. Handles RIM, CKVC, BOM, JPAL, JLI",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/odoo-finance-automation",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -32664,18 +32544,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "policy-qa",
-      "description": "Answer policy questions with strict citations. Refuses to answer without sources.",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/policy-qa",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "polyphonic-synth",
       "description": "Create MIDI-controllable polyphonic synthesizers for Bice-Box. Provides templates with voice management, envelope generation, MIDI control setup, and oscillator/filter patterns for multi-voice synths.",
       "repo": "dskill/bice-box-effects",
@@ -33260,18 +33128,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/procurement-sourcing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "procurement-sourcing",
-      "description": "SAP Ariba alternative - PR, PO, RFQ, vendor management, three-way match",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/procurement-sourcing",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -34642,18 +34498,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-release/skills/release-strategy-advisor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "release-strategy-advisor",
-      "description": "Expert in analyzing and recommending release strategies for software projects. Detects existing release patterns in brownfield projects (git tags, CI/CD workflows, changelogs, version files). Suggests",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/release-strategy-advisor",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
       "source": "SkillsMP + GitHub Raw"
     },
     {

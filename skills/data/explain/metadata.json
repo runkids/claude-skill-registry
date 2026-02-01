@@ -1,7 +1,7 @@
 {
   "name": "explain",
-  "repo": "synaptiai/agent-capability-standard",
-  "path": "skills/explain/SKILL.md",
-  "source": "github.com/synaptiai/agent-capability-standard",
-  "downloaded_at": "2026-01-31T04:20:34.511532Z"
+  "repo": "pwittchen/varun.surf",
+  "path": ".claude/skills/explain/SKILL.md",
+  "source": "github.com/pwittchen/varun.surf",
+  "downloaded_at": "2026-02-01T04:41:27.876132Z"
 }

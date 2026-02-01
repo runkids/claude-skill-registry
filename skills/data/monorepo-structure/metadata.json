@@ -1,7 +1,7 @@
 {
   "name": "monorepo-structure",
-  "repo": "zerobias-org/module",
-  "path": ".claude/skills/monorepo-structure/SKILL.md",
-  "source": "github.com/zerobias-org/module",
-  "downloaded_at": "2026-01-31T04:45:42.160568Z"
+  "repo": "dadbodgeoff/drift",
+  "path": "skills/monorepo-structure/SKILL.md",
+  "source": "github.com/dadbodgeoff/drift",
+  "downloaded_at": "2026-02-01T04:57:01.836981Z"
 }

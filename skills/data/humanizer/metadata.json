@@ -1,7 +1,7 @@
 {
   "name": "humanizer",
-  "repo": "evanfang0054/cc-system-creator-scripts",
-  "path": "skills/humanizer/SKILL.md",
-  "source": "github.com/evanfang0054/cc-system-creator-scripts",
-  "downloaded_at": "2026-01-31T03:56:26.863452Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/productivity/humanizer/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:37.753017Z"
 }

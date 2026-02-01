@@ -1,27 +1,29 @@
 ---
 name: Global Tech Stack
-description: Understand and adhere to the project's technology stack including Laravel, PHP, React, PostgreSQL, Pest, Tailwind CSS, and all configured tools and services. Use this skill when making architectural decisions, when choosing libraries or packages, when configuring development tools, when setting up testing frameworks, when implementing authentication, when integrating third-party services, when configuring CI/CD pipelines, when setting up local development environments, or when ensuring consistency with the established tech stack across all parts of the application.
+description: Maintain approved technology stack including TypeScript/Python languages, React/Tailwind frontend, Node.js/FastAPI backend, PostgreSQL/Redis persistence, and Ansible infrastructure automation with enforced quality gates. Use this skill when selecting technologies, adding dependencies, configuring tooling, or ensuring infrastructure-as-code practices. Applies to package.json, requirements.txt, CI/CD pipelines, Ansible playbooks, linters, formatters, testing frameworks, and all technology choices requiring documented approval and migration strategies.
 ---
 
 # Global Tech Stack
 
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global tech stack.
-
 ## When to use this skill
 
-- When making architectural decisions or choosing approaches for new features
-- When selecting or evaluating third-party packages or libraries
-- When configuring development tools and environments
-- When setting up Laravel, PHP, or React project configurations
-- When implementing database-related functionality with PostgreSQL and Eloquent
-- When writing tests using Pest framework
-- When using Laravel-specific tools (Pint, Herd, Telescope, DebugBar, Wayfinder, Fortify)
-- When integrating third-party services (Resend for email, Sentry for errors, etc.)
-- When configuring CI/CD with GitHub Actions
-- When setting up local development with Laravel Herd
-- When implementing caching with Redis
-- When ensuring consistency with established frameworks and patterns
-- When documenting technical decisions or dependencies
+- When choosing programming languages (TypeScript for Node/Frontend, Python for automation/data tooling)
+- When selecting frontend frameworks or libraries (React, Next.js, Tailwind CSS, component libraries)
+- When setting up backend frameworks (Node.js with NestJS/Express, Python with FastAPI)
+- When choosing databases or persistence layers (PostgreSQL, Redis, S3-compatible storage)
+- When configuring testing tools (Jest, Vitest, pytest) and code coverage thresholds
+- When setting up quality gates (ESLint, Prettier, Ruff, Black) that run in CI and locally
+- When creating or modifying infrastructure code in Ansible playbooks under `infra/ansible/`
+- When defining CI/CD workflows in GitHub Actions or similar pipeline configurations
+- When adding observability with OpenTelemetry, Prometheus/Grafana, or Sentry error tracking
+- When managing secrets through 1Password Connect, AWS SSM Parameter Store, or environment-specific stores
+- When documenting technology decisions in ADRs or `tech-stack.md` with upgrade strategies
+- When evaluating new libraries or tools that require written approval and migration plans
+- When ensuring all infrastructure changes flow through Ansible instead of manual SSH commands
+
+# Global Tech Stack
+
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global tech stack.
 
 ## Instructions
 

@@ -1,7 +1,7 @@
 {
   "name": "analyze-performance",
-  "repo": "qmu/workaholic",
-  "path": "plugins/core/skills/analyze-performance/SKILL.md",
-  "source": "github.com/qmu/workaholic",
-  "downloaded_at": "2026-01-31T03:22:00.466415Z"
+  "repo": "Hopin-inc/civicship-api",
+  "path": ".claude/skills/analyze-performance/SKILL.md",
+  "source": "github.com/Hopin-inc/civicship-api",
+  "downloaded_at": "2026-02-01T01:11:29.595511Z"
 }

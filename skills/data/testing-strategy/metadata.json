@@ -1,7 +1,7 @@
 {
   "name": "testing-strategy",
-  "repo": "shinpr/agentic-code",
-  "path": ".agents/skills/testing-strategy/SKILL.md",
-  "source": "github.com/shinpr/agentic-code",
-  "downloaded_at": "2026-01-31T04:25:51.117270Z"
+  "repo": "jr2804/prompts",
+  "path": "skills/python/testing-strategy/SKILL.md",
+  "source": "github.com/jr2804/prompts",
+  "downloaded_at": "2026-02-01T04:20:42.794369Z"
 }

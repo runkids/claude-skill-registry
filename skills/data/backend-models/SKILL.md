@@ -1,26 +1,27 @@
 ---
 name: Backend Models
-description: Define and configure database models with proper naming, relationships, timestamps, data types, constraints, and validation. Use this skill when creating or editing model files in app/Models/, Eloquent model classes, model relationships (hasMany, belongsTo, etc.), database table structures, model attributes and casts, model factories, or seeders. Use when working on model validation logic, database constraints, foreign key relationships, indexes, scopes, accessors, mutators, or any ORM-related model configuration.
+description: Define database models and ORM classes with proper data types, relationships, constraints, and validation logic following framework conventions. Use this skill when working with model definitions, schema classes, entity files, or database table representations in files like models.py, entities.ts, schema.prisma, or models/. Applies when defining table structures, relationships (one-to-many, many-to-many), validation rules, timestamps, indexes, foreign keys, and data integrity constraints at the database level.
 ---
 
 # Backend Models
 
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend models.
-
 ## When to use this skill
 
-- When creating or editing model files in `app/Models/` or similar model directories
-- When defining Eloquent model classes and their properties
-- When configuring model relationships (hasMany, belongsTo, belongsToMany, hasOne, morphTo, etc.)
-- When setting up model casts, fillable properties, or hidden attributes
-- When implementing model validation rules or business logic
-- When configuring database timestamps (created_at, updated_at) on models
-- When defining model scopes (query scopes, local scopes, global scopes)
-- When creating model factories for testing or seeding
-- When writing database seeders that use models
-- When implementing model accessors or mutators for attribute transformation
-- When setting up soft deletes or other model traits
-- When configuring model events or observers
+- When creating or modifying model files like `models.py`, `models.ts`, `entities.ts`, `models/User.js`, or `schema.prisma`
+- When working in model directories such as `models/`, `entities/`, `orm/`, or `database/`
+- When defining database table structures with columns, data types, and constraints
+- When establishing relationships between models (one-to-many, many-to-many, belongs-to, has-many)
+- When adding timestamps (`created_at`, `updated_at`) to models for auditing purposes
+- When implementing model-level validation rules before database operations
+- When creating or modifying foreign key relationships and cascade behaviors
+- When defining database constraints like NOT NULL, UNIQUE, CHECK constraints, or default values
+- When choosing appropriate data types (INTEGER, VARCHAR, TEXT, TIMESTAMP, ENUM, etc.) for columns
+- When adding indexes to foreign keys or frequently queried fields for performance optimization
+- When working with ORM classes in Django, SQLAlchemy, TypeORM, Prisma, Sequelize, or similar frameworks
+
+# Backend Models
+
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend models.
 
 ## Instructions
 

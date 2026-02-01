@@ -1,139 +1,63 @@
 ---
 name: issue
-description: Create GitHub Issues with consistent formatting for autonomous implementation
+description: Create and update GitHub issues. Triggers on "create issue", "file issue", "open issue", "new issue", "report bug", "request feature", "track this", "create epic", "create theme", "update issue", "check off", "mark complete", "close issue", "verify issue", "verify #", "ralph-loop", "scan issues", "scan criteria", "view issue", "view #". Infers type, labels, and milestone from conversation context.
+allowed-tools: Bash(gh:*), AskUserQuestion, Grep, Read, Edit, Write, TodoWrite
+user-invocable: true
+argument-hint: view <number> [--comments] | verify <number> [--all] [--dry-run] | ralph-loop <number> [--max-iterations <n>] | scan [--milestone <name>] [--fix]
+context: fork
 ---
 
-# /issue - Issue Creation Skill
+# Issue Skill
 
-Create GitHub Issues with consistent formatting and sufficient technical detail for autonomous implementation.
+Create, update, and manage GitHub issues following ZeroAE conventions. Infer as much as possible from context; only ask when ambiguous.
 
-## Language Requirement
+## Modes
 
-**IMPORTANT**: All GitHub Issues MUST be written in **English**.
+| Mode | Trigger | Purpose |
+|------|---------|---------|
+| **View** | "view issue", "view #123", `/issue view <number>` | Display issue summary |
+| **Create** | "create issue", "file issue", "new issue", "report bug", "request feature" | Create new issue |
+| **Update** | "update issue", "add to issue", "update #123" | Modify existing issue |
+| **Progress** | "check off", "mark complete", "done with", "finished" | Check checkboxes based on work done |
+| **Verify** | `/issue verify <number> [--all] [--dry-run]` | Validate unchecked criteria, prompt to check off |
+| **Ralph Loop** | `/issue ralph-loop <number> [--max-iterations <n>]` | Iteratively work until all criteria pass |
+| **Scan** | `/issue scan [--milestone <name>] [--fix]` | Flag subjective acceptance criteria |
 
-- Issue title: English
-- Issue body: English
-- Labels: English
-- Comments: English
+## Mode Detection
 
-## Steps
+1. **If `view` keyword** (`/issue view 135`, `view #135`) → **View mode**
+2. **If `ralph-loop` keyword** (`/issue ralph-loop 133`) → **Ralph Loop mode**
+3. **If `scan` keyword** (`/issue scan`, `/issue scan --milestone v0.5.0`) → **Scan mode**
+4. **If `verify` keyword** (`/issue verify 150`) → **Verify mode**
+5. **If update phrases** ("update issue", "add to #123") → **Update mode**
+6. **If progress phrases** ("check off", "mark complete") → **Progress mode**
+7. **Otherwise** → **Create mode**
 
-### 1. Gather Information
+## Supported Issue Types
 
-Before creating an Issue, gather the following information from the user:
+GitHub supports 5 issue types. The title emoji can be any gitmoji:
 
-- **Type**: Feature, Bug, Documentation, Refactor, or other
-- **Summary**: Brief description of the task
-- **Context**: Why is this needed?
-- **Technical Details**: Implementation hints if available
+| GitHub Type | Canonical Emoji | Alternative Emojis | Use For |
+|-------------|-----------------|-------------------|---------|
+| Bug | 🐛 | 🔒 (security) | Defects, unexpected behavior |
+| Feature | ✨ | ⚡ (perf), 💥 (breaking) | New functionality, enhancements |
+| Task | 📋 | 📝 (docs), ✅ (test) | Documentation, testing, specific work items |
+| Chore | 🔧 | ♻️ (refactor), ⬆️ (deps), 👷 (ci), 🔥 (remove) | Maintenance: refactor, deps, ci, cleanup |
+| Epic | 🎯 | - | Major feature spanning multiple issues |
+| Theme | 🎨 | - | Strategic initiative spanning epics |
 
-### 2. Determine Issue Template
+See [conventions.md](conventions.md) for full gitmoji-to-type mapping.
 
-Based on the type, use the appropriate structure:
+> **Note:** For release preparation, use `/pr release <version>` to create a Release Prep PR.
 
-#### Feature Request
+## Reference Files
 
-```markdown
-## Summary
-[Brief description of the feature]
-
-## Problem
-[What problem does this solve?]
-
-## Proposed Solution
-[How should this be implemented?]
-
-## Technical Implementation
-[Technical details for autonomous implementation]
-- Files to modify:
-- New files to create:
-- Dependencies:
-- Architecture considerations:
-
-## Acceptance Criteria
-- [ ] [Specific, testable criterion]
-- [ ] [Another criterion]
-- [ ] Tests added
-- [ ] Documentation updated (if applicable)
-```
-
-#### Bug Report
-
-```markdown
-## Summary
-[Brief description of the bug]
-
-## Current Behavior
-[What happens now?]
-
-## Expected Behavior
-[What should happen?]
-
-## Steps to Reproduce
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-## Technical Details
-- Environment: [OS, Rust version, etc.]
-- Error messages:
-- Related files:
-
-## Proposed Fix
-[Technical approach to fix]
-
-## Acceptance Criteria
-- [ ] Bug is fixed
-- [ ] Tests added to prevent regression
-- [ ] No new warnings from clippy
-```
-
-### 3. Validate Completeness
-
-Before creating the Issue, verify:
-
-- [ ] Title is concise and descriptive (in English)
-- [ ] Technical detail is sufficient for autonomous implementation
-- [ ] Acceptance criteria are specific and testable
-- [ ] Labels are appropriate (bug, enhancement, documentation, etc.)
-- [ ] Related Issues/PRs are referenced if applicable
-
-### 4. Create the Issue
-
-Use the `gh` CLI to create the Issue:
-
-```bash
-gh issue create --title "TITLE" --body "BODY" --label "LABEL"
-```
-
-### 5. Confirm Creation
-
-After creating, output:
-
-- Issue URL
-- Issue number
-- Summary of what was created
-
-## Labels Reference
-
-Common labels for this project:
-
-- `bug` - Bug fixes
-- `enhancement` - New features or improvements
-- `documentation` - Documentation updates
-- `refactor` - Code refactoring
-- `security` - Security-related issues
-- `performance` - Performance improvements
-- `testing` - Test additions or improvements
-
-## Example Usage
-
-User: "バグ報告したい。cargo run で --no-network オプションが効かない"
-
-Claude executes /issue skill:
-
-1. Gathers details about the bug
-2. Creates English Issue with proper template
-3. Adds `bug` label
-4. Creates Issue using `gh issue create`
-5. Reports Issue URL to user
+- [view.md](view.md) - View issue mode
+- [create.md](create.md) - Create issue mode
+- [update.md](update.md) - Update issue mode
+- [progress.md](progress.md) - Progress tracking mode
+- [verify.md](verify.md) - Acceptance criteria verification mode
+- [ralph-loop.md](ralph-loop.md) - Ralph Loop mode (iterative issue resolution)
+- [scan.md](scan.md) - Scan mode (flag subjective acceptance criteria)
+- [templates.md](templates.md) - Issue body templates for each type
+- [conventions.md](conventions.md) - Label taxonomy, title formatting, milestone rules

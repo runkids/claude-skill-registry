@@ -1,12 +1,7 @@
 {
   "name": "agent-capabilities",
-  "description": "Comprehensive documentation of Claude's capabilities for visual regression testing, CI/CD integration, and quality assurance automation. Use when setting up testing infrastructure, implementing visual",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "testing",
-  "tags": [
-    "agent",
-    "capabilities"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agent-capabilities/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:02.648241Z"
 }

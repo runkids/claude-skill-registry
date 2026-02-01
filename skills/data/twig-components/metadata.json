@@ -1,9 +1,7 @@
 {
   "name": "twig-components",
-  "description": "Use when symfony twig components",
   "repo": "MakFly/superpowers-symfony",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/MakFly/superpowers-symfony"
+  "path": "skills/twig-components/SKILL.md",
+  "source": "github.com/MakFly/superpowers-symfony",
+  "downloaded_at": "2026-02-01T02:58:41.719790Z"
 }

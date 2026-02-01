@@ -1,7 +1,7 @@
 {
   "name": "semgrep-rule-creator",
-  "repo": "jakubciszak/family-plan",
-  "path": ".claude/skills/external/semgrep-rule-creator/skills/semgrep-rule-creator/SKILL.md",
-  "source": "github.com/jakubciszak/family-plan",
-  "downloaded_at": "2026-01-31T04:03:51.242488Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/semgrep-rule-creator/skills/semgrep-rule-creator/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:27.829142Z"
 }

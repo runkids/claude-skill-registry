@@ -1,6 +1,6 @@
 ---
 name: completion-check
-description: "Completion Check: Verify Infrastructure Is Wired"
+description: Completion Check: Verify Infrastructure Is Wired
 user-invocable: false
 ---
 
@@ -24,23 +24,23 @@ Infrastructure is not done when the code is written - it's done when it's wired 
 2. **Check hooks are registered**, not just implemented:
    ```bash
    # Hook exists?
-   ls -la .claude/hooks/my-hook.sh
+   ls -la .maestro/hooks/my-hook.sh
 
    # Hook registered in settings?
-   grep "my-hook" .claude/settings.json
+   grep "my-hook" .maestro/settings.json
    ```
 
 3. **Verify database connections** - Ensure infrastructure uses the right backend:
    ```bash
    # Check connection strings
-   grep -r "postgresql://" src/
-   grep -r "sqlite:" src/  # Should NOT find if PostgreSQL expected
+   grep -r "sqlite:///" src/
+   grep -r "duckdb" src/
    ```
 
 4. **Test end-to-end** - Run the feature and verify infrastructure is invoked:
    ```bash
    # Add debug logging
-   echo "DEBUG: DAG spawn invoked" >> /tmp/debug.log
+   echo "DEBUG: UnifiedStorageBackend initialized" >> /tmp/debug.log
 
    # Trigger feature
    uv run python -m my_feature
@@ -69,7 +69,7 @@ Infrastructure is not done when the code is written - it's done when it's wired 
 Before declaring infrastructure complete:
 
 - [ ] Traced execution path from entry point to infrastructure
-- [ ] Verified hooks are registered in .claude/settings.json
+- [ ] Verified hooks are registered in .maestro/settings.json
 - [ ] Confirmed correct database/backend in use
 - [ ] Ran end-to-end test showing infrastructure invoked
 - [ ] Searched for dead code or parallel implementations

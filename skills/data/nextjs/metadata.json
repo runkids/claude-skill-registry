@@ -1,7 +1,7 @@
 {
   "name": "nextjs",
-  "repo": "Squirrelfishcityhall150/claude-code-kit",
-  "path": "cli/kits/nextjs/skills/nextjs/SKILL.md",
-  "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
-  "downloaded_at": "2026-01-31T04:49:50.881524Z"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/nextjs/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-02-01T05:00:38.487825Z"
 }

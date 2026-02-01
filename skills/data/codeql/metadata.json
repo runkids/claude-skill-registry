@@ -1,7 +1,7 @@
 {
   "name": "codeql",
-  "repo": "jakubciszak/family-plan",
-  "path": ".claude/skills/external/static-analysis/skills/codeql/SKILL.md",
-  "source": "github.com/jakubciszak/family-plan",
-  "downloaded_at": "2026-01-31T04:03:51.169357Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/testing-handbook-skills/skills/codeql/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:26.841977Z"
 }

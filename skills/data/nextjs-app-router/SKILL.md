@@ -1,327 +1,147 @@
 ---
 name: nextjs-app-router
-description: Next.js 15 App Router patterns. Server/Client components, Server Actions, data fetching, caching, layouts, routing. Use when implementing Next.js features.
-allowed-tools: Read, Write, Edit, Grep, Glob
+description: Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
+version: 1.1.0
+tokens: ~950
+confidence: high
+sources:
+  - https://nextjs.org/docs/app/building-your-application/routing
+  - https://nextjs.org/docs/app/building-your-application/data-fetching
+  - https://nextjs.org/docs/messages/sync-dynamic-apis
+last_validated: 2025-12-10
+next_review: 2025-12-24
+tags: [nextjs, routing, frontend, ssr]
+nextjs_version: "13-16 (App Router)"
 ---
 
-# Next.js App Router - Modern Patterns
+## When to Use
 
-## Purpose
+Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
 
-Expert guidance for Next.js 15 App Router:
+## Patterns
 
-- **Server Components** - Default rendering strategy
-- **Client Components** - Interactive UI patterns
-- **Server Actions** - Form mutations & data updates
-- **Data Fetching** - Caching & revalidation strategies
-- **Routing** - Layouts, loading, error boundaries
+### Pattern 1: Route Structure
+```
+app/
+├── layout.tsx          # Root layout (required)
+├── page.tsx            # Home page (/)
+├── loading.tsx         # Loading UI
+├── error.tsx           # Error boundary
+├── dashboard/
+│   ├── layout.tsx      # Nested layout
+│   ├── page.tsx        # /dashboard
+│   └── [id]/
+│       └── page.tsx    # /dashboard/:id
+└── api/
+    └── users/
+        └── route.ts    # API route /api/users
+```
+Source: https://nextjs.org/docs/app/building-your-application/routing
 
----
+### Pattern 2: Server Component (Default)
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/data-fetching
+// app/posts/page.tsx - Server Component (no 'use client')
+async function PostsPage() {
+  const posts = await db.posts.findMany(); // Direct DB access
 
-## Critical Rules
-
-### 1. Server Components (Default)
-
-> Components are Server Components by default. Only add `'use client'` when needed.
-
-```tsx
-// Server Component (default) - can access DB directly
-async function UserProfile({ userId }: { userId: string }) {
-	const user = await db.user.findUnique({ where: { id: userId } });
-	return <div>{user.name}</div>;
+  return (
+    <ul>
+      {posts.map(post => <li key={post.id}>{post.title}</li>)}
+    </ul>
+  );
 }
+export default PostsPage;
 ```
 
-### 2. Client Components (Interactive Only)
-
-> Only use `'use client'` for interactivity (hooks, events, browser APIs).
-
-```tsx
-'use client';
+### Pattern 3: Client Component
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/rendering/client-components
+'use client'; // Mark as client component
 
 import { useState } from 'react';
 
 export function Counter() {
-	const [count, setCount] = useState(0);
-	return <button onClick={() => setCount(count + 1)}>{count}</button>;
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
 }
 ```
 
-### 3. Server Actions (Mutations)
+### Pattern 4: Dynamic Routes with Params
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+// app/posts/[id]/page.tsx
+// Note: In Next.js 15+, params is a Promise and must be awaited.
+// Earlier versions used synchronous access (deprecated pattern).
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
-> Use Server Actions for form submissions and data mutations.
-
-```tsx
-// app/actions.ts
-'use server';
-
-import { z } from 'zod';
-import { revalidatePath } from 'next/cache';
-
-const createUserSchema = z.object({
-	name: z.string().min(2),
-	email: z.string().email(),
-});
-
-export async function createUser(formData: FormData) {
-	const data = createUserSchema.parse({
-		name: formData.get('name'),
-		email: formData.get('email'),
-	});
-
-	await db.user.create({ data });
-	revalidatePath('/users');
+export default async function PostPage({ params }: Props) {
+  const { id } = await params;
+  const post = await getPost(id);
+  return <article>{post.content}</article>;
 }
 ```
 
----
+### Pattern 5: Search Params (Query Strings)
+```typescript
+// Source: https://nextjs.org/docs/messages/sync-dynamic-apis
+// app/shop/page.tsx
+// Note: In Next.js 15+, searchParams is a Promise and must be awaited.
+interface Props {
+  searchParams: Promise<{ sort?: string; page?: string }>;
+}
 
-## File Structure
-
-```
-app/
-├── layout.tsx           # Root layout (required)
-├── page.tsx            # Home page
-├── loading.tsx         # Loading UI
-├── error.tsx           # Error boundary
-├── not-found.tsx       # 404 page
-├── (auth)/             # Route group (no URL segment)
-│   ├── login/page.tsx
-│   └── register/page.tsx
-├── dashboard/
-│   ├── layout.tsx      # Nested layout
-│   ├── page.tsx
-│   └── [id]/           # Dynamic route
-│       └── page.tsx
-└── api/
-    └── trpc/[trpc]/route.ts
-```
-
----
-
-## Data Fetching Patterns
-
-### Static Data (Default)
-
-```tsx
-// Cached at build time
-async function getProducts() {
-	const res = await fetch('https://api.example.com/products');
-	return res.json();
+export default async function ShopPage({ searchParams }: Props) {
+  const { sort, page } = await searchParams;
+  const products = await getProducts({ sort, page: Number(page) || 1 });
+  return <ProductList products={products} />;
 }
 ```
 
-### Dynamic Data
-
-```tsx
-// Always fresh
-async function getUser(id: string) {
-	const res = await fetch(`https://api.example.com/users/${id}`, {
-		cache: 'no-store',
-	});
-	return res.json();
-}
-```
-
-### Revalidate on Interval
-
-```tsx
-// Revalidate every 60 seconds
-async function getPosts() {
-	const res = await fetch('https://api.example.com/posts', {
-		next: { revalidate: 60 },
-	});
-	return res.json();
-}
-```
-
-### On-Demand Revalidation
-
-```tsx
-'use server';
-
-import { revalidatePath, revalidateTag } from 'next/cache';
-
-export async function updatePost(id: string) {
-  await db.post.update({ where: { id }, data: { ... } });
-
-  revalidatePath('/posts');           // Revalidate path
-  revalidateTag('posts');             // Revalidate tag
-}
-```
-
----
-
-## Loading & Error States
-
-### Loading UI
-
-```tsx
-// app/dashboard/loading.tsx
-export default function Loading() {
-	return <DashboardSkeleton />;
-}
-```
-
-### Error Boundary
-
-```tsx
-// app/dashboard/error.tsx
-'use client';
-
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
-	return (
-		<div>
-			<h2>Something went wrong!</h2>
-			<button onClick={() => reset()}>Try again</button>
-		</div>
-	);
-}
-```
-
----
-
-## Metadata & SEO
-
-### Static Metadata
-
-```tsx
-// app/page.tsx
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-	title: 'Home | MyApp',
-	description: 'Welcome to MyApp',
-};
-```
-
-### Dynamic Metadata
-
-```tsx
-// app/products/[id]/page.tsx
-import type { Metadata } from 'next';
-
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-	const product = await getProduct(params.id);
-	return {
-		title: product.name,
-		description: product.description,
-	};
-}
-```
-
----
-
-## Route Handlers (API)
-
-```tsx
+### Pattern 6: API Route Handler
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
 // app/api/users/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
-	const users = await db.user.findMany();
-	return NextResponse.json(users);
+export async function GET(request: NextRequest) {
+  const users = await db.users.findMany();
+  return NextResponse.json(users);
 }
 
-export async function POST(request: Request) {
-	const body = await request.json();
-	const user = await db.user.create({ data: body });
-	return NextResponse.json(user, { status: 201 });
-}
-```
-
----
-
-## Middleware
-
-```tsx
-// middleware.ts (root)
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-	// Check auth
-	const token = request.cookies.get('token');
-
-	if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
-		return NextResponse.redirect(new URL('/login', request.url));
-	}
-
-	return NextResponse.next();
-}
-
-export const config = {
-	matcher: ['/dashboard/:path*'],
-};
-```
-
----
-
-## Common Patterns
-
-### Parallel Data Fetching
-
-```tsx
-async function Dashboard() {
-	// Fetch in parallel
-	const [user, posts, notifications] = await Promise.all([
-		getUser(),
-		getPosts(),
-		getNotifications(),
-	]);
-
-	return (
-		<div>
-			<UserCard user={user} />
-			<PostList posts={posts} />
-			<NotificationBell count={notifications.length} />
-		</div>
-	);
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  const user = await db.users.create({ data: body });
+  return NextResponse.json(user, { status: 201 });
 }
 ```
 
-### Streaming with Suspense
-
-```tsx
-import { Suspense } from 'react';
-
-export default function Page() {
-	return (
-		<div>
-			<h1>Dashboard</h1>
-			<Suspense fallback={<UserSkeleton />}>
-				<UserProfile />
-			</Suspense>
-			<Suspense fallback={<PostsSkeleton />}>
-				<RecentPosts />
-			</Suspense>
-		</div>
-	);
+### Pattern 7: Metadata for SEO
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
+// app/posts/[id]/page.tsx
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  const post = await getPost(id);
+  return { title: post.title, description: post.excerpt };
 }
 ```
 
----
+## Anti-Patterns
 
-## Agent Integration
+- **'use client' everywhere** - Default to server, add client only when needed
+- **Fetching in client components** - Fetch in server components, pass as props
+- **Direct DB in client** - Use API routes or server actions
+- **Missing loading.tsx** - Always add for async pages
+- **Accessing params/searchParams without await** - Next.js 15+ requires async access
 
-This skill is used by:
+## Verification Checklist
 
-- **nextjs-expert** subagent
-- **orchestrator** for routing Next.js tasks
-- **ui-mobile/tablet/desktop** for platform-specific pages
-
----
-
-## FORBIDDEN
-
-1. **'use client' without reason** - Default is server
-2. **useEffect for data fetching** - Use async components
-3. **getServerSideProps/getStaticProps** - App Router uses async components
-4. **API routes for internal data** - Use Server Components directly
-5. **Client-side auth checks only** - Use middleware
-
----
-
-## Version
-
-- **v1.0.0** - Initial implementation based on Next.js 15 patterns
+- [ ] Server components for data fetching (no 'use client')
+- [ ] Client components only for interactivity
+- [ ] Dynamic routes use params correctly (awaited in Next.js 15+)
+- [ ] searchParams awaited for query string access
+- [ ] loading.tsx exists for async pages
+- [ ] Metadata defined for SEO

@@ -1,87 +1,257 @@
 ---
-name: NestJS Security
-description: Authentication, RBAC, and Hardening standards.
-metadata:
-  labels: [nestjs, security, auth, jwt]
-  triggers:
-    files: ['**/*.guard.ts', '**/*.strategy.ts', '**/auth/**']
-    keywords: [Passport, JWT, AuthGuard, CSRF, Helmet]
+name: security
+description: Security auditing for code vulnerabilities (OWASP Top 10, XSS, SQL injection) and dependency scanning (pnpm audit, Snyk). Use when handling user input, adding authentication, before deployments, or resolving CVEs.
+allowed-tools: Read, Edit, Bash, Grep, Glob
 ---
 
-# NestJS Security Standards
+# Security Skill
 
-## Authentication
+## Dependency Scanning
 
-- **Strategies**: Use `@nestjs/passport` with `passport-jwt`.
-- **JWT Hardening**:
-  - **Algorithm**: Enforce `algorithms: ['RS256']` (preferred) or `['HS256']`. **Reject `none`**.
-  - **Claims**: Validate `iss` (Issuer) and `aud` (Audience).
-  - **Secrets**: High entropy (> 256-bit) for HS256.
-- **State**: Stateless. Short access tokens (15m), Long httponly refresh tokens (7d).
-- **MFA**: Require 2FA for sensitive access (admin panels).
+### pnpm audit
 
-## Authorization (RBAC)
+```bash
+# Run audit
+pnpm audit
 
-- **Strategy**: **Deny by default**.
-  - **Implementation**: Bind `AuthGuard` globally (APP_GUARD).
-  - **Bypass**: Create a `@Public()` decorator and allow access if present in the Guard.
-- **Metadata**: Use `Reflector.createDecorator<string[]>()`.
-- **Guards**: Use `Reflector` to merge Method/Class roles (`getAllAndOverride`).
+# Only high/critical
+pnpm audit --audit-level=high
 
-## Cryptography & Hashing
+# Auto-fix
+pnpm audit --fix
 
-- **Hashing**:
-  - **Algorithm**: Use **Argon2id** (`argon2`) instead of Bcrypt (vulnerable to GPU/FPGA cracking).
-  - **Implementation**: `await argon2.hash(password)`.
-- **Encryption** (At Rest):
-  - **Algorithm**: Use **AES-256-GCM** (Authenticated Encryption).
-  - **Keys**: Never hardcode. Rotate keys using a KMS (Key Management Service).
-  - **Native**: Use Node.js `crypto.createCipheriv`.
+# JSON report
+pnpm audit --json > audit.json
+```
 
-## CSRF (Cross-Site Request Forgery)
+### Fix Vulnerabilities
 
-- **Context**: Mandatory if using **Cookie-based sessions** or **Cookie-based JWTs**.
-- **Mitigation**:
-  - **Synchronizer Token**: Use `csurf` via `@nest-middlewares/csurf` or similar wrapper.
-  - **State**: Token must be cryptographically strong and verified on every state-changing request (POST/PUT/DELETE).
-- **Note**: If using strictly `Authorization: Bearer` headers (localStorage), CSRF is less critical but `SameSite: Strict` cookies are still recommended for defense-in-depth.
+**Direct dependencies:** Update version in `pnpm-workspace.yaml` catalog
 
-## Hardening
+**Transitive dependencies:**
+```bash
+# Find dependency chain
+pnpm why vulnerable-package
 
-1. **Helmet**: Mandatory. `app.use(helmet())`.
-   - **HSTS**: Enable `Strict-Transport-Security` with `preload`.
-   - **CSP**: Configure Content Security Policy specifically if serving any UI.
-2. **Permissions-Policy**: Restrict browser permissions via `helmet.permissionsPolicy()`.
-3. **CORS**: Explicit origins only. No `*`.
-4. **Throttling**:
-   - **Distributed**: Do not use in-memory rate limiting in production. Use `@nestjs/throttler` with **Redis storage** (`throttler-storage-redis`) to sync limits across instances.
+# Use overrides as last resort
+# package.json
+{
+  "pnpm": {
+    "overrides": {
+      "vulnerable-package": "^3.1.0"
+    }
+  }
+}
+```
 
-## Audit Logging
+### Snyk
 
-- **Requirement**: Track critical mutations (Who, What, When).
-- **Pattern**: Implement an `AuditInterceptor` that logs `POST/PUT/DELETE` actions to a secure, immutable log store (separate from app logs).
+```bash
+snyk auth          # Authenticate
+snyk test          # Test for vulnerabilities
+snyk monitor       # Monitor for new vulnerabilities
+snyk fix           # Auto-fix
+```
 
-## Secrets & Config
+## OWASP Top 10 Checks
 
-- **CI/CD**: Run `npm audit` or `pnpm audit --prod` in pipelines.
-- **Runtime**: Avoid `.env` files in production runtime. Inject secrets via environment variables from a vault (AWS Secret Manager / HashiCorp Vault) into the container environment.
+### 1. Broken Access Control
 
-## Data Sanitization
+```typescript
+// ❌ No authorization
+export async function deletePost(postId: string) {
+  await db.delete(posts).where(eq(posts.id, postId));
+}
 
-- **Transform**: Use `ClassSerializerInterceptor` + `@Exclude()` globally or per-controller to strip sensitive fields (passwords) from responses.
-- **Validation**: `ValidationPipe({ whitelist: true })` prevents mass assignment attacks by stripping unknown properties from payloads.
+// ✅ With authorization
+export async function deletePost(postId: string, userId: string) {
+  const post = await db.query.posts.findFirst({ where: eq(posts.id, postId) });
+  if (post.authorId !== userId) throw new Error("Unauthorized");
+  await db.delete(posts).where(eq(posts.id, postId));
+}
+```
 
-## Improper Assets Management
+### 2. Injection Prevention
 
-- **Shadow APIs**: Audit routes regularly.
-- **Deprecation**: Disable Swagger/OpenAPI endpoints (`/api`, `/docs`) in **production**.
+```typescript
+// ❌ SQL Injection
+const query = `SELECT * FROM users WHERE id = ${userId}`;
 
-## Server-Side Request Forgery (SSRF)
+// ✅ Parameterized query (Drizzle ORM)
+const user = await db.query.users.findFirst({ where: eq(users.id, userId) });
+```
 
-- **Validation**: Validate/Allowlist domains for **all** outgoing HTTP requests (`HttpService`).
-- **Network**: Restrict egress traffic (e.g., block AWS metadata `169.254.169.254`) via infrastructure/firewall.
+### 3. XSS Prevention
 
-## Injection Prevention
+React escapes content by default. When rendering HTML:
+- Sanitize with `sanitize-html` library before rendering
+- Never render untrusted content directly
 
-- **SQLi**: Prefer ORM/ODM methods. **Avoid raw queries** (`query()`) with string concatenation. Use parameterized queries if raw SQL is strictly necessary.
-- **XSS**: Input validation is not enough. Sanitize HTML input (e.g., `dompurify`) before storage or output.
+### 4. Rate Limiting
+
+```typescript
+import { Ratelimit } from "@upstash/ratelimit";
+import { redis } from "@sgcarstrends/utils";
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "15 m"),
+});
+
+export async function login(email: string, password: string, ip: string) {
+  const { success } = await ratelimit.limit(ip);
+  if (!success) throw new Error("Too many login attempts");
+  return verifyCredentials(email, password);
+}
+```
+
+### 5. Password Security
+
+```typescript
+import bcrypt from "bcrypt";
+
+// ✅ Hash passwords
+const hashedPassword = await bcrypt.hash(password, 10);
+
+// ✅ Strong password validation
+const passwordSchema = z.string()
+  .min(12)
+  .regex(/[A-Z]/, "Must contain uppercase")
+  .regex(/[a-z]/, "Must contain lowercase")
+  .regex(/[0-9]/, "Must contain number")
+  .regex(/[^A-Za-z0-9]/, "Must contain special character");
+```
+
+### 6. SSRF Prevention
+
+```typescript
+// ❌ SSRF vulnerability
+export async function fetchUrl(url: string) {
+  return await fetch(url);
+}
+
+// ✅ Whitelist approach
+const ALLOWED_DOMAINS = ["api.example.com", "data.gov.sg"];
+
+export async function fetchUrl(url: string) {
+  const parsedUrl = new URL(url);
+  if (!ALLOWED_DOMAINS.includes(parsedUrl.hostname)) {
+    throw new Error("Domain not allowed");
+  }
+  return await fetch(url);
+}
+```
+
+## Input Validation
+
+```typescript
+import { z } from "zod";
+
+const userInputSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email(),
+  age: z.number().int().min(0).max(150),
+});
+
+export async function createUser(data: unknown) {
+  const validated = userInputSchema.parse(data);
+  // Now safe to use
+}
+```
+
+## CORS Configuration
+
+```typescript
+// ❌ Too permissive
+app.use(cors({ origin: "*" }));
+
+// ✅ Whitelist specific origins
+app.use(cors({
+  origin: [
+    "https://sgcarstrends.com",
+    "https://staging.sgcarstrends.com",
+    process.env.NODE_ENV === "development" ? "http://localhost:3001" : "",
+  ].filter(Boolean),
+  credentials: true,
+}));
+```
+
+## Security Headers
+
+```typescript
+// next.config.js
+const securityHeaders = [
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-XSS-Protection", value: "1; mode=block" },
+  { key: "Referrer-Policy", value: "origin-when-cross-origin" },
+];
+
+module.exports = {
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
+};
+```
+
+## Environment Variables
+
+```typescript
+// ❌ Hardcoded secret
+const apiKey = "sk_live_EXAMPLE_NOT_REAL";
+
+// ✅ From environment with validation
+import { z } from "zod";
+
+const envSchema = z.object({
+  API_KEY: z.string().min(1),
+  DATABASE_URL: z.string().url(),
+});
+
+const env = envSchema.parse(process.env);
+```
+
+## CI Integration
+
+```yaml
+# .github/workflows/security.yml
+name: Security Audit
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * 1'  # Weekly
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - run: pnpm install
+      - run: pnpm audit --audit-level=high
+```
+
+## Security Checklist
+
+- [ ] All user input validated (Zod schemas)
+- [ ] SQL injection prevented (using ORM)
+- [ ] XSS prevented (React escaping, sanitization)
+- [ ] Authentication implemented correctly
+- [ ] Authorization checks in place
+- [ ] Passwords hashed (bcrypt/argon2)
+- [ ] Rate limiting configured
+- [ ] Security headers set
+- [ ] CORS configured properly
+- [ ] HTTPS enforced
+- [ ] Dependencies audited (pnpm audit)
+- [ ] Secrets in environment variables
+- [ ] Error messages don't leak info
+
+## References
+
+- OWASP Top 10: https://owasp.org/www-project-top-ten
+- pnpm Audit: https://pnpm.io/cli/audit
+- Snyk: https://snyk.io

@@ -1,70 +1,60 @@
 ---
-name: hooks
-description: Hook Development Rules
-user-invocable: false
+name: React Hooks
+description: Best practices for React Hooks usage and custom hook creation.
+metadata:
+  labels: [react, hooks, custom-hooks, useeffect]
+  triggers:
+    files: ['**/*.tsx', '**/*.jsx']
+    keywords: [useEffect, useCallback, useMemo, useRef, custom hook]
 ---
 
-# Hook Development Rules
+# React Hooks
 
-When working with files in `.claude/hooks/`:
+## **Priority: P1 (OPERATIONAL)**
 
-## Pattern
-Shell wrapper (.sh) → TypeScript (.ts) via `npx tsx`
+Effective usage of React Hooks.
 
-## Shell Wrapper Template
-```bash
-#!/bin/bash
-set -e
-cd "$CLAUDE_PROJECT_DIR/.claude/hooks"
-cat | npx tsx <handler>.ts
-```
+## Implementation Guidelines
 
-## TypeScript Handler Pattern
-```typescript
-interface HookInput {
-  // Event-specific fields
+- **Rules**: Top-level only. Only in React functions.
+- **`useEffect`**: Sync with external systems ONLY. Cleanup required.
+- **`useRef`**: Mutable state without re-renders (DOM, timers, tracking).
+- **`useMemo`/`Callback`**: Measure first. Use for stable refs or heavy computation.
+- **Dependencies**: Exhaustive deps always. Fix logic, don't disable linter.
+- **Custom Hooks**: Extract shared logic. Prefix `use*`.
+- **Refs as Escape Hatch**: Access imperative APIs (focus, scroll).
+- **Stability**: Use `useLatest` pattern (ref) for event handlers to avoid dependency changes.
+- **Concurrency**: `useTransition` / `useDeferredValue` for non-blocking UI updates.
+- **Initialization**: Lazy state `useState(() => expensive())`.
+
+## Anti-Patterns
+
+- **No Effects for Data Flow**: Derive state in render.
+- **No Missing Deps**: Causes stale closures.
+- **No Complex Effects**: Split into multiple simple effects.
+- **No Oversubscription**: Check `why-did-you-render`.
+
+## Code
+
+```tsx
+// Custom Hook
+function useWindowSize() {
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const onResize = () =>
+      setSize({ w: window.innerWidth, h: window.innerHeight });
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []); // Empty = mount only
+
+  return size;
 }
 
-async function main() {
-  const input: HookInput = JSON.parse(await readStdin());
-
-  // Process input
-
-  const output = {
-    result: 'continue',  // or 'block'
-    message: 'Optional system reminder'
-  };
-
-  console.log(JSON.stringify(output));
-}
+// Lazy Init
+const [state, setState] = useState(() => computeExpensiveValue());
 ```
 
-## Hook Events
-- **PreToolUse** - Before tool execution (can block)
-- **PostToolUse** - After tool execution
-- **UserPromptSubmit** - Before processing user prompt
-- **PreCompact** - Before context compaction
-- **SessionStart** - On session start/resume/compact
-- **Stop** - When agent finishes
+## Reference & Examples
 
-## Testing
-Test hooks manually:
-```bash
-echo '{"type": "resume"}' | .claude/hooks/session-start-continuity.sh
-```
-
-## Registration
-Add hooks to `.claude/settings.json`:
-```json
-{
-  "hooks": {
-    "EventName": [{
-      "matcher": ["pattern"],  // Optional
-      "hooks": [{
-        "type": "command",
-        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/hook.sh"
-      }]
-    }]
-  }
-}
-```
+See [references/REFERENCE.md](references/REFERENCE.md).

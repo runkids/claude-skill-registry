@@ -1,7 +1,7 @@
 {
   "name": "api-authentication",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/api-authentication/skills/api-authentication/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-31T04:08:58.181618Z"
+  "repo": "CoderMariusz/MonoPilot",
+  "path": ".claude/skills/api-authentication/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-02-01T04:30:57.086904Z"
 }

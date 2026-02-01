@@ -1,7 +1,7 @@
 {
   "name": "wireshark-analysis",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/wireshark-analysis/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:05.750900Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/security/wireshark-analysis/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:39.956961Z"
 }

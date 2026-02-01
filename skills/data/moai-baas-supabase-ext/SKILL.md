@@ -1,37 +1,24 @@
 ---
-name: moai-baas-supabase-ext
-version: 4.0.0
+name: "moai-baas-supabase-ext"
+version: "4.0.0"
 created: 2025-11-11
-updated: '2025-11-18'
+updated: 2025-11-13
 status: stable
-description: Enterprise Supabase PostgreSQL Platform with AI-powered open-source BaaS
-  architecture, Context7 integration, and intelligent PostgreSQL orchestration for
-  scalable modern applications
-keywords:
-- supabase
-- postgresql
-- open-source
-- realtime
-- row-level-security
-- edge-functions
-- context7-integration
-- ai-orchestration
-- production-deployment
-allowed-tools:
-- Read
-- Bash
-- Write
-- Edit
-- Glob
-- Grep
-- WebFetch
-- mcp__context7__resolve-library-id
-- mcp__context7__get-library-docs
-stability: stable
+description: Enterprise Supabase PostgreSQL Platform with AI-powered open-source BaaS architecture, Context7 integration, and intelligent PostgreSQL orchestration for scalable modern applications
+keywords: ['supabase', 'postgresql', 'open-source', 'realtime', 'row-level-security', 'edge-functions', 'context7-integration', 'ai-orchestration', 'production-deployment']
+allowed-tools: 
+  - Read
+  - Bash
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
-
-# Enterprise Supabase PostgreSQL Platform Expert 
+# Enterprise Supabase PostgreSQL Platform Expert v4.0.0
 
 ## Skill Metadata
 
@@ -49,7 +36,7 @@ stability: stable
 
 Enterprise Supabase PostgreSQL Platform expert with AI-powered open-source BaaS architecture, Context7 integration, and intelligent PostgreSQL orchestration for scalable modern applications.
 
-**Revolutionary  capabilities**:
+**Revolutionary v4.0.0 capabilities**:
 - 🤖 **AI-Powered Supabase Architecture** using Context7 MCP for latest PostgreSQL documentation
 - 📊 **Intelligent Real-time Orchestration** with automated subscription optimization
 - 🚀 **Advanced PostgreSQL Optimization** with AI-driven query tuning and indexing
@@ -455,7 +442,7 @@ class FirebaseToSupabaseMigrator:
 
 ## Changelog
 
-- ** .0** (2025-11-13): Complete Enterprise   rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Supabase platform updates, and advanced PostgreSQL optimization
+- **v4.0.0** (2025-11-13): Complete Enterprise v4.0 rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Supabase platform updates, and advanced PostgreSQL optimization
 - **v2.0.0** (2025-11-11): Complete metadata structure, RLS patterns, Edge Functions
 - **v1.0.0** (2025-11-11): Initial Supabase PostgreSQL platform
 
@@ -479,4 +466,4 @@ class FirebaseToSupabaseMigrator:
 
 ---
 
-**End of Enterprise Supabase PostgreSQL Platform Expert **
+**End of Enterprise Supabase PostgreSQL Platform Expert v4.0.0**

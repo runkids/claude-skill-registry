@@ -1,7 +1,7 @@
 {
   "name": "helm",
-  "repo": "kettleofketchup/dotfiles",
+  "repo": "Lobbi-Docs/claude",
   "path": ".claude/skills/helm/SKILL.md",
-  "source": "github.com/kettleofketchup/dotfiles",
-  "downloaded_at": "2026-01-31T04:33:12.218255Z"
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-02-01T04:01:58.343988Z"
 }

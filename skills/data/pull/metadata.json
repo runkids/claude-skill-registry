@@ -1,7 +1,7 @@
 {
   "name": "pull",
-  "repo": "sasamuku/dotfiles",
-  "path": ".claude/skills/pull/SKILL.md",
-  "source": "github.com/sasamuku/dotfiles",
-  "downloaded_at": "2026-01-31T03:56:42.506212Z"
+  "repo": "Castrozan/.dotfiles",
+  "path": "agents/skills/pull/SKILL.md",
+  "source": "github.com/Castrozan/.dotfiles",
+  "downloaded_at": "2026-02-01T04:26:45.549801Z"
 }

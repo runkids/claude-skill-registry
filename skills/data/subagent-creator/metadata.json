@@ -1,7 +1,7 @@
 {
   "name": "subagent-creator",
-  "repo": "evanfang0054/cc-system-creator-scripts",
-  "path": ".claude/skills/subagent-creator/SKILL.md",
-  "source": "github.com/evanfang0054/cc-system-creator-scripts",
-  "downloaded_at": "2026-01-31T03:56:27.940996Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/subagent-creator/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-02-01T05:04:25.877568Z"
 }

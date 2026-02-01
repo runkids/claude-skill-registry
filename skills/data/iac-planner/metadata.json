@@ -1,9 +1,7 @@
 {
   "name": "iac-planner",
-  "description": "Use this skill to take a user's infrastructure request (e.g., \"deploy a new web server\") and create a complete Terraform (HCL) file and a corresponding execution plan. This skill ONLY plans; it NEVER ",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/iac-planner/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:59.403249Z"
 }

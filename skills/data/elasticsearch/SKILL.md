@@ -1,22 +1,63 @@
 ---
 name: elasticsearch
-description: Provides comprehensive guidance for Elasticsearch including indexing, searching, aggregations, mappings, and cluster management. Use when the user asks about Elasticsearch, needs to implement search functionality, work with Elasticsearch queries, or manage Elasticsearch clusters.
-license: Complete terms in LICENSE.txt
+description: Elasticsearch search and analytics engine operations including CRUD, aggregations, mappings, and reindexing.
 ---
 
-## When to use this skill
+# Elasticsearch — CRUD Operations
 
-Use this skill whenever the user wants to:
-- [待完善：根据具体工具添加使用场景]
+**Create Index**
+```bash
+curl -X PUT "localhost:9200/index_name"
+```
 
-## How to use this skill
+**Add Document**
+```bash
+curl -X POST "localhost:9200/index_name/_doc" -H 'Content-Type: application/json' -d'
+{
+  "field": "value"
+}'
+```
 
-[待完善：根据具体工具添加使用指南]
+**Search**
+```bash
+curl -X GET "localhost:9200/index_name/_search?q=field:value"
+```
 
-## Best Practices
+**Delete Index**
+```bash
+curl -X DELETE "localhost:9200/index_name"
+```
 
-[待完善：根据具体工具添加最佳实践]
+## Elasticsearch — Advanced Usage
 
-## Keywords
+**Aggregations**
+```bash
+curl -X GET "localhost:9200/sales/_search" -H 'Content-Type: application/json' -d'
+{
+  "aggs": {
+    "avg_price": { "avg": { "field": "price" } }
+  }
+}'
+```
 
-[待完善：根据具体工具添加关键词]
+**Mappings**
+```bash
+curl -X PUT "localhost:9200/my_index" -H 'Content-Type: application/json' -d'
+{
+  "mappings": {
+    "properties": {
+      "date": { "type": "date" },
+      "text": { "type": "text", "analyzer": "english" }
+    }
+  }
+}'
+```
+
+**Reindex API**
+```bash
+curl -X POST "localhost:9200/_reindex" -H 'Content-Type: application/json' -d'
+{
+  "source": { "index": "old_index" },
+  "dest": { "index": "new_index" }
+}'
+```

@@ -1,7 +1,7 @@
 {
   "name": "rust-ecosystem",
-  "repo": "motoki317/dotfiles",
-  "path": ".claude/skills/rust-ecosystem/SKILL.md",
-  "source": "github.com/motoki317/dotfiles",
-  "downloaded_at": "2026-01-31T03:09:25.228959Z"
+  "repo": "huiali/rust-skills",
+  "path": "skills/rust-ecosystem/SKILL.md",
+  "source": "github.com/huiali/rust-skills",
+  "downloaded_at": "2026-02-01T04:05:34.960148Z"
 }

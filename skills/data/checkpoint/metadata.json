@@ -1,7 +1,7 @@
 {
   "name": "checkpoint",
-  "repo": "synaptiai/agent-capability-standard",
-  "path": "skills/checkpoint/SKILL.md",
-  "source": "github.com/synaptiai/agent-capability-standard",
-  "downloaded_at": "2026-01-31T04:20:33.913368Z"
+  "repo": "RustyLindquist/EnhancedHR",
+  "path": ".claude/skills/checkpoint/SKILL.md",
+  "source": "github.com/RustyLindquist/EnhancedHR",
+  "downloaded_at": "2026-02-01T04:38:18.247975Z"
 }

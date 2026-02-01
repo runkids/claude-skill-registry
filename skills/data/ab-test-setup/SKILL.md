@@ -1,92 +1,508 @@
 ---
 name: ab-test-setup
-description: "规划、设计或实施 A/B 测试或实验时使用。触发词：A/B test、split test、experiment、test this change、variant copy、multivariate test、hypothesis。追踪实施见 analytics-tracking。"
-license: MIT
+description: When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions "A/B test," "split test," "experiment," "test this change," "variant copy," "multivariate test," or "hypothesis." For tracking implementation, see analytics-tracking.
 ---
 
-# A/B 测试设置
+# A/B Test Setup
 
-设计产生统计有效、可执行结果的测试。
+You are an expert in experimentation and A/B testing. Your goal is to help design tests that produce statistically valid, actionable results.
 
-## 前置了解
+## Initial Assessment
 
-测试上下文（试图改进什么、考虑什么变更、为何想测试这个）；当前状态（基线转化率、当前流量、任何历史测试数据）；约束（技术实施复杂度、时间线要求、可用工具）。
+Before designing a test, understand:
 
-## 原则
+1. **Test Context**
+   - What are you trying to improve?
+   - What change are you considering?
+   - What made you want to test this?
 
-- **从假设开始**：非仅「看看会发生什么」，具体结果预测，基于推理或数据。  
-- **一次测试一件事**：每测试单变量，否则不知道什么有效，MVT 留到后面。  
-- **统计严谨**：预先确定样本量，不偷看并提前停止，承诺方法论。  
-- **度量重要的**：与业务价值相关的主指标、用于上下文的次指标、防止伤害的护栏指标。
+2. **Current State**
+   - Baseline conversion rate?
+   - Current traffic volume?
+   - Any historical test data?
 
-## 假设框架
+3. **Constraints**
+   - Technical implementation complexity?
+   - Timeline requirements?
+   - Tools available?
 
-结构：因为 [观察/数据]，我们相信 [变更] 会对 [受众] 导致 [预期结果]。当 [指标] 时我们知道这是真的。  
-**好假设包括**：观察（什么促成了这个想法）、变更（具体修改）、效果（预期结果与方向）、受众（适用于谁）、指标（如何度量成功）。
+---
 
-## 测试类型
+## Core Principles
 
-**A/B 测试（分割测试）**：两个版本：对照（A）vs 变体（B），版本间单一变更，最常见、最易分析。  
-**A/B/n 测试**：多个变体（A vs B vs C...），需更多流量，适合测试多个选项。  
-**多变量测试（MVT）**：组合中的多个变更，测试变更间交互，需显著更多流量，复杂分析。  
-**分割 URL 测试**：变体不同 URL，适合主要页面变更，有时更易实施。
+### 1. Start with a Hypothesis
+- Not just "let's see what happens"
+- Specific prediction of outcome
+- Based on reasoning or data
 
-## 样本量计算
+### 2. Test One Thing
+- Single variable per test
+- Otherwise you don't know what worked
+- Save MVT for later
 
-**需要输入**：基线转化率、最小可检测效应（MDE）、统计显著性水平（通常 95%）、统计功效（通常 80%）。  
-**快速参考**：基线 1% 时，10% 提升需 150k/变体，20% 需 39k，50% 需 6k；基线 5% 时，10% 需 27k，20% 需 7k，50% 需 1.2k。  
-**测试时长**：时长 = (每变体所需样本量 × 变体数) / (测试页每日流量 × 转化率)。最小：1-2 个业务周期（通常 1-2 周），最大：避免运行太久（新颖效应、外部因素）。
+### 3. Statistical Rigor
+- Pre-determine sample size
+- Don't peek and stop early
+- Commit to the methodology
 
-## 指标选择
+### 4. Measure What Matters
+- Primary metric tied to business value
+- Secondary metrics for context
+- Guardrail metrics to prevent harm
 
-**主指标**：单一最重要指标，直接与假设相关，用于判断测试。  
-**次指标**：支持主指标解释、解释变更如何/为何有效、帮助理解用户行为。  
-**护栏指标**：不应变差的事项（收入、留存、满意度），如显著负面则停止测试。  
-**按测试类型的指标示例**：首页 CTA 测试（主=CTA 点击率，次=点击时间/滚动深度，护栏=跳出率/下游转化）；定价页测试（主=计划选择率，次=页面停留时间/计划分布，护栏=支持工单/退款率）；注册流程测试（主=注册完成率，次=字段级完成/完成时间，护栏=用户激活率）。
+---
 
-## 设计变体
+## Hypothesis Framework
 
-**对照（A）**：当前体验，不变，测试期间不修改。  
-**变体（B+）**：单一、有意义的变更、足够大胆以产生差异、忠于假设。  
-**可变化内容**：标题/文案（信息角度、价值主张、具体性水平、语调/声音）、视觉设计（布局结构、颜色与对比、图片选择、视觉层级）、CTA（按钮文案、大小/突出度、位置、CTA 数量）、内容（包含的信息、信息顺序、内容量、社会证明类型）。
+### Structure
 
-## 流量分配
+```
+Because [observation/data],
+we believe [change]
+will cause [expected outcome]
+for [audience].
+We'll know this is true when [metrics].
+```
 
-**标准分割**：A/B 测试 50/50，多个变体等分。  
-**保守推出**：初始 90/10 或 80/20，限制坏变体风险，达到显著性需更长时间。  
-**逐步增加**：从小开始，随时间增加，适合技术风险缓解，大多数工具支持。  
-**考虑**：一致性（用户返回时看到相同变体）、细分大小（确保细分足够大）、时间（天/周：平衡曝光）。
+### Examples
 
-## 实施方法
+**Weak hypothesis:**
+"Changing the button color might increase clicks."
 
-**客户端测试**：工具如 PostHog、Optimizely、VWO、自定义；JavaScript 在加载后修改页面，快速实施，可能闪烁；适合营销页、文案/视觉变更、快速迭代。  
-**服务端测试**：工具如 PostHog、LaunchDarkly、Split、自定义；变体在页面渲染前确定，无闪烁，需开发工作；适合产品功能、复杂变更、性能敏感页面。  
-**功能标志**：二进制开/关（非真正 A/B），适合推出，可通过百分比分割转为 A/B。
+**Strong hypothesis:**
+"Because users report difficulty finding the CTA (per heatmaps and feedback), we believe making the button larger and using contrasting color will increase CTA clicks by 15%+ for new visitors. We'll measure click-through rate from page view to signup start."
 
-## 运行测试
+### Good Hypotheses Include
 
-**启动前清单**：假设已记录、主指标已定义、样本量已计算、测试时长已估算、变体已正确实施、追踪已验证、所有变体 QA 已完成、利益相关者已通知。  
-**测试期间**：监控技术问题、检查细分质量、记录任何外部因素；不要：偷看结果并提前停止、修改变体、从新来源添加流量、因为「知道」答案而提前结束。  
-**偷看问题**：在达到样本量前查看结果并在看到显著性时停止导致：假阳性、膨胀效应大小、错误决策。解决方案：预先承诺样本量并坚持、如必须偷看使用序贯测试、信任流程。
+- **Observation**: What prompted this idea
+- **Change**: Specific modification
+- **Effect**: Expected outcome and direction
+- **Audience**: Who this applies to
+- **Metric**: How you'll measure success
 
-## 分析结果
+---
 
-**统计显著性**：95% 置信度 = p 值 < 0.05，意味着<5% 结果是随机的，非保证—仅阈值。  
-**实际显著性**：统计 ≠ 实际，效应大小对业务是否有意义？是否值得实施成本？是否可持续？  
-**查看内容**：1) 是否达到样本量？2) 是否统计显著？3) 效应大小是否有意义？4) 次指标是否一致？5) 是否有护栏担忧？6) 是否有细分差异？  
-**解释结果**：显著获胜者→实施变体；显著失败者→保留对照，学习原因；无显著差异→需更多流量或更大胆测试；混合信号→深入挖掘，可能细分。
+## Test Types
 
-## 文档与学习
+### A/B Test (Split Test)
+- Two versions: Control (A) vs. Variant (B)
+- Single change between versions
+- Most common, easiest to analyze
 
-**测试文档**：测试名称、ID、日期、所有者、假设、变体（对照与变体描述+截图）、结果（样本量、主指标、次指标、细分洞察）、决策（获胜者/失败者/不确定）、行动（正在做什么）、学习（学到了什么、下一步测试什么）。  
-**建立学习库**：所有测试的中央位置、可按页面/元素/结果搜索、防止重新运行失败测试、建立机构知识。
+### A/B/n Test
+- Multiple variants (A vs. B vs. C...)
+- Requires more traffic
+- Good for testing several options
 
-## 常见错误
+### Multivariate Test (MVT)
+- Multiple changes in combinations
+- Tests interactions between changes
+- Requires significantly more traffic
+- Complex analysis
 
-**测试设计**：测试变更太小（不可检测）、测试太多（无法隔离）、无清晰假设、错误受众。  
-**执行**：提前停止、测试期间修改、不检查实施、流量分配不均。  
-**分析**：忽略置信区间、挑选细分、过度解释不确定结果、不考虑实际显著性。
+### Split URL Test
+- Different URLs for variants
+- Good for major page changes
+- Easier implementation sometimes
 
-## 相关技能
+---
 
-page-cro、analytics-tracking、copywriting。
+## Sample Size Calculation
+
+### Inputs Needed
+
+1. **Baseline conversion rate**: Your current rate
+2. **Minimum detectable effect (MDE)**: Smallest change worth detecting
+3. **Statistical significance level**: Usually 95%
+4. **Statistical power**: Usually 80%
+
+### Quick Reference
+
+| Baseline Rate | 10% Lift | 20% Lift | 50% Lift |
+|---------------|----------|----------|----------|
+| 1% | 150k/variant | 39k/variant | 6k/variant |
+| 3% | 47k/variant | 12k/variant | 2k/variant |
+| 5% | 27k/variant | 7k/variant | 1.2k/variant |
+| 10% | 12k/variant | 3k/variant | 550/variant |
+
+### Formula Resources
+- Evan Miller's calculator: https://www.evanmiller.org/ab-testing/sample-size.html
+- Optimizely's calculator: https://www.optimizely.com/sample-size-calculator/
+
+### Test Duration
+
+```
+Duration = Sample size needed per variant × Number of variants
+           ───────────────────────────────────────────────────
+           Daily traffic to test page × Conversion rate
+```
+
+Minimum: 1-2 business cycles (usually 1-2 weeks)
+Maximum: Avoid running too long (novelty effects, external factors)
+
+---
+
+## Metrics Selection
+
+### Primary Metric
+- Single metric that matters most
+- Directly tied to hypothesis
+- What you'll use to call the test
+
+### Secondary Metrics
+- Support primary metric interpretation
+- Explain why/how the change worked
+- Help understand user behavior
+
+### Guardrail Metrics
+- Things that shouldn't get worse
+- Revenue, retention, satisfaction
+- Stop test if significantly negative
+
+### Metric Examples by Test Type
+
+**Homepage CTA test:**
+- Primary: CTA click-through rate
+- Secondary: Time to click, scroll depth
+- Guardrail: Bounce rate, downstream conversion
+
+**Pricing page test:**
+- Primary: Plan selection rate
+- Secondary: Time on page, plan distribution
+- Guardrail: Support tickets, refund rate
+
+**Signup flow test:**
+- Primary: Signup completion rate
+- Secondary: Field-level completion, time to complete
+- Guardrail: User activation rate (post-signup quality)
+
+---
+
+## Designing Variants
+
+### Control (A)
+- Current experience, unchanged
+- Don't modify during test
+
+### Variant (B+)
+
+**Best practices:**
+- Single, meaningful change
+- Bold enough to make a difference
+- True to the hypothesis
+
+**What to vary:**
+
+Headlines/Copy:
+- Message angle
+- Value proposition
+- Specificity level
+- Tone/voice
+
+Visual Design:
+- Layout structure
+- Color and contrast
+- Image selection
+- Visual hierarchy
+
+CTA:
+- Button copy
+- Size/prominence
+- Placement
+- Number of CTAs
+
+Content:
+- Information included
+- Order of information
+- Amount of content
+- Social proof type
+
+### Documenting Variants
+
+```
+Control (A):
+- Screenshot
+- Description of current state
+
+Variant (B):
+- Screenshot or mockup
+- Specific changes made
+- Hypothesis for why this will win
+```
+
+---
+
+## Traffic Allocation
+
+### Standard Split
+- 50/50 for A/B test
+- Equal split for multiple variants
+
+### Conservative Rollout
+- 90/10 or 80/20 initially
+- Limits risk of bad variant
+- Longer to reach significance
+
+### Ramping
+- Start small, increase over time
+- Good for technical risk mitigation
+- Most tools support this
+
+### Considerations
+- Consistency: Users see same variant on return
+- Segment sizes: Ensure segments are large enough
+- Time of day/week: Balanced exposure
+
+---
+
+## Implementation Approaches
+
+### Client-Side Testing
+
+**Tools**: PostHog, Optimizely, VWO, custom
+
+**How it works**:
+- JavaScript modifies page after load
+- Quick to implement
+- Can cause flicker
+
+**Best for**:
+- Marketing pages
+- Copy/visual changes
+- Quick iteration
+
+### Server-Side Testing
+
+**Tools**: PostHog, LaunchDarkly, Split, custom
+
+**How it works**:
+- Variant determined before page renders
+- No flicker
+- Requires development work
+
+**Best for**:
+- Product features
+- Complex changes
+- Performance-sensitive pages
+
+### Feature Flags
+
+- Binary on/off (not true A/B)
+- Good for rollouts
+- Can convert to A/B with percentage split
+
+---
+
+## Running the Test
+
+### Pre-Launch Checklist
+
+- [ ] Hypothesis documented
+- [ ] Primary metric defined
+- [ ] Sample size calculated
+- [ ] Test duration estimated
+- [ ] Variants implemented correctly
+- [ ] Tracking verified
+- [ ] QA completed on all variants
+- [ ] Stakeholders informed
+
+### During the Test
+
+**DO:**
+- Monitor for technical issues
+- Check segment quality
+- Document any external factors
+
+**DON'T:**
+- Peek at results and stop early
+- Make changes to variants
+- Add traffic from new sources
+- End early because you "know" the answer
+
+### Peeking Problem
+
+Looking at results before reaching sample size and stopping when you see significance leads to:
+- False positives
+- Inflated effect sizes
+- Wrong decisions
+
+**Solutions:**
+- Pre-commit to sample size and stick to it
+- Use sequential testing if you must peek
+- Trust the process
+
+---
+
+## Analyzing Results
+
+### Statistical Significance
+
+- 95% confidence = p-value < 0.05
+- Means: <5% chance result is random
+- Not a guarantee—just a threshold
+
+### Practical Significance
+
+Statistical ≠ Practical
+
+- Is the effect size meaningful for business?
+- Is it worth the implementation cost?
+- Is it sustainable over time?
+
+### What to Look At
+
+1. **Did you reach sample size?**
+   - If not, result is preliminary
+
+2. **Is it statistically significant?**
+   - Check confidence intervals
+   - Check p-value
+
+3. **Is the effect size meaningful?**
+   - Compare to your MDE
+   - Project business impact
+
+4. **Are secondary metrics consistent?**
+   - Do they support the primary?
+   - Any unexpected effects?
+
+5. **Any guardrail concerns?**
+   - Did anything get worse?
+   - Long-term risks?
+
+6. **Segment differences?**
+   - Mobile vs. desktop?
+   - New vs. returning?
+   - Traffic source?
+
+### Interpreting Results
+
+| Result | Conclusion |
+|--------|------------|
+| Significant winner | Implement variant |
+| Significant loser | Keep control, learn why |
+| No significant difference | Need more traffic or bolder test |
+| Mixed signals | Dig deeper, maybe segment |
+
+---
+
+## Documenting and Learning
+
+### Test Documentation
+
+```
+Test Name: [Name]
+Test ID: [ID in testing tool]
+Dates: [Start] - [End]
+Owner: [Name]
+
+Hypothesis:
+[Full hypothesis statement]
+
+Variants:
+- Control: [Description + screenshot]
+- Variant: [Description + screenshot]
+
+Results:
+- Sample size: [achieved vs. target]
+- Primary metric: [control] vs. [variant] ([% change], [confidence])
+- Secondary metrics: [summary]
+- Segment insights: [notable differences]
+
+Decision: [Winner/Loser/Inconclusive]
+Action: [What we're doing]
+
+Learnings:
+[What we learned, what to test next]
+```
+
+### Building a Learning Repository
+
+- Central location for all tests
+- Searchable by page, element, outcome
+- Prevents re-running failed tests
+- Builds institutional knowledge
+
+---
+
+## Output Format
+
+### Test Plan Document
+
+```
+# A/B Test: [Name]
+
+## Hypothesis
+[Full hypothesis using framework]
+
+## Test Design
+- Type: A/B / A/B/n / MVT
+- Duration: X weeks
+- Sample size: X per variant
+- Traffic allocation: 50/50
+
+## Variants
+[Control and variant descriptions with visuals]
+
+## Metrics
+- Primary: [metric and definition]
+- Secondary: [list]
+- Guardrails: [list]
+
+## Implementation
+- Method: Client-side / Server-side
+- Tool: [Tool name]
+- Dev requirements: [If any]
+
+## Analysis Plan
+- Success criteria: [What constitutes a win]
+- Segment analysis: [Planned segments]
+```
+
+### Results Summary
+When test is complete
+
+### Recommendations
+Next steps based on results
+
+---
+
+## Common Mistakes
+
+### Test Design
+- Testing too small a change (undetectable)
+- Testing too many things (can't isolate)
+- No clear hypothesis
+- Wrong audience
+
+### Execution
+- Stopping early
+- Changing things mid-test
+- Not checking implementation
+- Uneven traffic allocation
+
+### Analysis
+- Ignoring confidence intervals
+- Cherry-picking segments
+- Over-interpreting inconclusive results
+- Not considering practical significance
+
+---
+
+## Questions to Ask
+
+If you need more context:
+1. What's your current conversion rate?
+2. How much traffic does this page get?
+3. What change are you considering and why?
+4. What's the smallest improvement worth detecting?
+5. What tools do you have for testing?
+6. Have you tested this area before?
+
+---
+
+## Related Skills
+
+- **lp-optimizer**: For generating test ideas based on CRO principles
+- **analytics-tracking**: For setting up test measurement
+- **copywriting**: For creating variant copy

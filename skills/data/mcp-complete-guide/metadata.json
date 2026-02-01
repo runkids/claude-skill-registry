@@ -1,9 +1,7 @@
 {
   "name": "mcp-complete-guide",
-  "description": "Complete 11-phase guide for building production-ready MCP (Model Context Protocol) servers with semantic layer integration. Covers foundation to deployment, including agent-centric design, tool develo",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/mcp-complete-guide/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:01.611708Z"
 }

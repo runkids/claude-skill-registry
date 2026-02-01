@@ -1,7 +1,7 @@
 {
   "name": "standards-python",
-  "repo": "maxritter/claude-codepro",
-  "path": ".claude/ccp/skills/standards-python/SKILL.md",
-  "source": "github.com/maxritter/claude-codepro",
-  "downloaded_at": "2026-01-31T04:09:17.188278Z"
+  "repo": "b33eep/claude-code-setup",
+  "path": "skills/standards-python/SKILL.md",
+  "source": "github.com/b33eep/claude-code-setup",
+  "downloaded_at": "2026-02-01T02:15:34.510426Z"
 }

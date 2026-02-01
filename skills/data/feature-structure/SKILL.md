@@ -1,57 +1,138 @@
 ---
-name: feature-structure
-description: Architecture patterns for organizing feature modules in the codebase. Use when creating new files, brand new features or pages.
+name: Feature Structure
+description: How to organize features in LivestockAI
 ---
 
+# Feature Structure
 
-### Tech Stack
+Each major feature in LivestockAI has its own directory in `app/features/`.
 
-React 18 · Next.js 15 · TypeScript · Wagmi · TanStack Query · Biome
-
-### Feature Structure
+## Directory Layout
 
 ```
-src/features/{feature-name}/
-├── {feature-name}-view.tsx    # Main orchestrator
-├── components/                 # Feature-specific components
-│   ├── filters/
-│   ├── table/
-│   └── {component}.tsx
-├── hooks/                     # Feature-specific hooks (optional)
-└── utils/                     # Feature-specific utilities (optional)
+app/features/batches/
+├── server.ts        # Server functions (createServerFn)
+├── service.ts       # Pure business logic
+├── repository.ts    # Database operations
+├── types.ts         # TypeScript interfaces
+├── constants.ts     # Feature constants
+└── index.ts         # Public exports
 ```
 
+## File Purposes
 
-## Architecture
+### server.ts
 
-### Project Structure
-```
-/app                    # Next.js App Router pages
-  /markets             # Market listing
-  /market/[chainId]/[marketId]  # Market detail
-  /positions/[account] # User positions
-  /autovault           # Vault listing + detail
-  /rewards             # Rewards dashboard
-  /history/[account]   # Transaction history
-  /settings            # User settings
-  /admin/stats         # Admin stats
-  /api/balances        # Only API route (token balances)
+Server functions that handle auth, validation, and orchestration:
 
-/src
-  /data-sources        # Data fetching layer
-    /morpho-api/       # Morpho API fetchers (14 files)
-    /subgraph/         # Subgraph fallback fetchers
-  /hooks               # 53 custom hooks
-    /queries/          # React Query hooks (13+)
-  /stores              # Zustand stores (16 total)
-  /features            # Feature modules (markets, positions, autovault, swap, rewards)
-  /constants           # Static data (oracle cache, chain configs)
-  /utils               # Utilities (types, networks, RPC, etc.)
+```typescript
+export const createBatchFn = createServerFn({ method: 'POST' })
+  .inputValidator(schema)
+  .handler(async ({ data }) => {
+    const session = await requireAuth()
+    const error = validateBatchData(data)
+    if (error) throw new AppError('VALIDATION_ERROR')
+    return insertBatch(db, data)
+  })
 ```
 
-### File Naming
+### service.ts
 
-- Stores: `src/stores/use{Feature}{State}.ts`
-- Queries: `src/hooks/queries/use{Entity}Query.ts`
-- Derived hooks: `src/hooks/use{Processed|Filtered}{Entity}.ts`
-- Features: `src/features/{name}/{name}-view.tsx`
+Pure business logic functions (no side effects):
+
+```typescript
+export function calculateFCR(
+  feedKg: number,
+  weightGain: number,
+): number | null {
+  if (feedKg <= 0 || weightGain <= 0) return null
+  return Math.round((feedKg / weightGain) * 100) / 100
+}
+
+export function validateBatchData(data: CreateBatchData): string | null {
+  if (data.initialQuantity <= 0) return 'Quantity must be positive'
+  return null
+}
+```
+
+### repository.ts
+
+Database operations only:
+
+```typescript
+export async function insertBatch(
+  db: Kysely<Database>,
+  data: BatchInsert,
+): Promise<string> {
+  const result = await db
+    .insertInto('batches')
+    .values(data)
+    .returning('id')
+    .executeTakeFirstOrThrow()
+  return result.id
+}
+```
+
+### types.ts
+
+TypeScript interfaces:
+
+```typescript
+export interface CreateBatchData {
+  farmId: string
+  species: string
+  initialQuantity: number
+  costPerUnit: number
+}
+
+export interface BatchStats {
+  mortality: { rate: number; total: number }
+  feed: { totalKg: number; fcr: number | null }
+  sales: { totalRevenue: number }
+}
+```
+
+### index.ts
+
+Public exports:
+
+```typescript
+export { createBatchFn, getBatchesFn } from './server'
+export { calculateFCR, validateBatchData } from './service'
+export type { CreateBatchData, BatchStats } from './types'
+```
+
+## Component Organization
+
+UI components go in `app/components/`:
+
+```
+app/components/
+├── ui/              # Base components (shadcn/ui)
+├── dialogs/         # Create/edit modal dialogs
+├── layout/          # Layout components
+└── batches/         # Feature-specific components
+    ├── batch-columns.tsx
+    ├── batch-filters.tsx
+    └── batches-skeleton.tsx
+```
+
+## Route Organization
+
+Routes go in `app/routes/`:
+
+```
+app/routes/
+├── _auth/           # Protected routes
+│   ├── batches/
+│   │   ├── index.tsx
+│   │   └── $batchId.tsx
+│   └── dashboard.tsx
+└── index.tsx        # Public landing
+```
+
+## Related Skills
+
+- `three-layer-architecture` - Layer responsibilities
+- `tanstack-router` - Route organization
+- `tanstack-start` - Server function patterns

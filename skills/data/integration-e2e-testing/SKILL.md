@@ -1,65 +1,87 @@
 ---
 name: integration-e2e-testing
-description: "Designs integration and E2E tests with mock boundaries. Use when: writing E2E tests, integration tests, or reviewing test quality."
+description: Integration and E2E test design principles, ROI calculation, test skeleton specification, and review criteria. Use when designing integration tests, E2E tests, or reviewing test quality.
 ---
 
-# Integration Test & E2E Test Design/Implementation Rules
+# Integration and E2E Testing Principles
 
-## Test Types and Limits
+## Test Type Definition and Limits
 
-| Type | Purpose | Limit |
-|------|---------|-------|
-| Integration Test | Component interaction verification | 3 per feature |
-| E2E Test | Critical user journey verification | 1-2 per feature |
+| Test Type | Purpose | Scope | Limit per Feature | Implementation Timing |
+|-----------|---------|-------|-------------------|----------------------|
+| Integration | Verify component interactions | Partial system integration | MAX 3 | Created alongside implementation |
+| E2E | Verify critical user journeys | Full system | MAX 1-2 | Executed in final phase only |
 
 ## Behavior-First Principle
 
-### Observability Check (All YES = Include)
+### Include (High ROI)
+- Business logic correctness (calculations, state transitions, data transformations)
+- Data integrity and persistence behavior
+- User-visible functionality completeness
+- Error handling behavior (what user sees/experiences)
 
-| Check | Question | If NO |
-|-------|----------|-------|
-| Observable | Can user observe the result? | Exclude |
-| System Context | Does it require integration of multiple components? | Exclude |
-| Automatable | Can it run stably in CI environment? | Exclude |
+### Exclude (Low ROI in CI/CD)
+- External service real connections → Use contract/interface verification
+- Performance metrics → Non-deterministic, defer to load testing
+- Implementation details → Focus on observable behavior
+- UI layout specifics → Focus on information availability
 
-### Include/Exclude Criteria
+**Principle**: Test = User-observable behavior verifiable in isolated CI environment
 
-**Include**: Business logic accuracy, data integrity, user-visible features, error handling
-**Exclude**: External live connections, performance metrics, implementation details, UI layout
+## ROI Calculation
 
-## Skeleton Specification
+```
+ROI Score = (Business Value × User Frequency + Legal Requirement × 10 + Defect Detection)
+            / (Creation Cost + Execution Cost + Maintenance Cost)
+```
 
-### Required Comment Format
+### Cost Table
 
-Each test skeleton MUST include:
-- **AC**: Original acceptance criteria text
-- **ROI**: Calculated score with Business Value and Frequency
-- **Behavior**: Trigger → Process → Observable Result format
-- **Metadata**: @category, @dependency, @complexity annotations
+| Test Type | Create | Execute | Maintain | Total |
+|-----------|--------|---------|----------|-------|
+| Unit | 1 | 1 | 1 | 3 |
+| Integration | 3 | 5 | 3 | 11 |
+| E2E | 10 | 20 | 8 | 38 |
 
-## Implementation Rules
+## Test Skeleton Specification
 
-### Behavior Verification
+### Required Comment Patterns
 
-| Step Type | Verification Target |
-|-----------|---------------------|
-| Trigger | Reproduce in test setup (Arrange) |
-| Process | Intermediate state or function call |
-| Observable Result | Final output value (return value, error message, log output) |
+Each test MUST include the following annotations:
 
-**Pass Criteria**: Test passes if "observable result" is verified as return value or mock call argument
+```
+// AC: [Original acceptance criteria text]
+// Behavior: [Trigger] → [Process] → [Observable Result]
+// @category: core-functionality | integration | edge-case | e2e
+// @dependency: none | [component names] | full-system
+// @complexity: low | medium | high
+// ROI: [score]
+```
 
-### Integration Test Mock Boundaries
+### Verification Items (Optional)
 
-| Judgment Criteria | Mock | Actual |
-|-------------------|------|--------|
-| Part of test target? | No → Can mock | Yes → Actual required |
-| External network communication? | Yes → Mock required | No → Actual recommended |
+When verification points need explicit enumeration:
+```
+// Verification items:
+// - [Item 1]
+// - [Item 2]
+```
 
-### E2E Test Execution Conditions
+## EARS Format Mapping
 
-- Execute only after all components are implemented
-- Do not use mocks (full system integration required)
+| EARS Keyword | Test Type | Generation Approach |
+|--------------|-----------|---------------------|
+| **When** | Event-driven | Trigger event → verify outcome |
+| **While** | State condition | Setup state → verify behavior |
+| **If-then** | Branch coverage | Both condition paths verified |
+| (none) | Basic functionality | Direct invocation → verify result |
+
+## Test File Naming Convention
+
+- Integration tests: `*.int.test.*` or `*.integration.test.*`
+- E2E tests: `*.e2e.test.*`
+
+The test runner or framework in the project determines the appropriate file extension.
 
 ## Review Criteria
 
@@ -67,8 +89,8 @@ Each test skeleton MUST include:
 
 | Check | Failure Condition |
 |-------|-------------------|
-| Behavior Verification | No assertion for "observable result" |
-| Verification Item Coverage | Listed verification items not included in assertions |
+| Behavior Verification | No assertion for "observable result" in skeleton |
+| Verification Item Coverage | Listed items not all covered by assertions |
 | Mock Boundary | Internal components mocked in integration test |
 
 ### Implementation Quality
@@ -76,6 +98,20 @@ Each test skeleton MUST include:
 | Check | Failure Condition |
 |-------|-------------------|
 | AAA Structure | Arrange/Act/Assert separation unclear |
-| Independence | State sharing between tests, execution order dependency |
-| Reproducibility | Depends on date/random, results vary |
-| Readability | Test name and verification content don't match |
+| Independence | State sharing between tests, order dependency |
+| Reproducibility | Date/random dependency, varying results |
+| Readability | Test name doesn't match verification content |
+
+## Quality Standards
+
+### Required
+- Each test verifies one behavior
+- Clear AAA (Arrange-Act-Assert) structure
+- No test interdependencies
+- Deterministic execution
+
+### Prohibited
+- Testing implementation details
+- Multiple behaviors per test
+- Shared mutable state
+- Time-dependent assertions without mocking

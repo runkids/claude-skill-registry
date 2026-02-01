@@ -1,7 +1,7 @@
 ---
 name: tzurot-testing
 description: Vitest testing patterns for Tzurot v3. Use when writing tests, debugging test failures, or mocking dependencies. Covers mock factories, fake timers, and promise rejection handling.
-lastUpdated: '2026-01-26'
+lastUpdated: '2026-01-30'
 ---
 
 # Tzurot v3 Testing Patterns
@@ -132,19 +132,19 @@ function createMockRedis() {
 
 ## Test File Naming
 
-| Type        | Pattern               | Location              |
-| ----------- | --------------------- | --------------------- |
-| Unit        | `*.test.ts`           | Next to source        |
-| Component   | `*.component.test.ts` | Next to source        |
-| Integration | `*.test.ts`           | `tests/integration/`  |
-| Contract    | `*.contract.test.ts`  | `common-types/types/` |
+| Type        | Pattern            | Location              | Infrastructure |
+| ----------- | ------------------ | --------------------- | -------------- |
+| Unit        | `*.test.ts`        | Next to source        | Fully mocked   |
+| Integration | `*.int.test.ts`    | Next to source        | PGLite         |
+| Schema      | `*.schema.test.ts` | `common-types/types/` | Zod only       |
+| E2E         | `*.e2e.test.ts`    | `tests/e2e/`          | Real services  |
 
 ## Registry Integrity Tests (Commands)
 
 Tests that validate command routing works correctly:
 
 ```typescript
-// In CommandHandler.component.test.ts
+// In CommandHandler.int.test.ts
 describe('registry integrity', () => {
   it('should have all componentPrefixes registered', () => {
     const prefixToCommand = (handler as any).prefixToCommand as Map<string, unknown>;
@@ -200,12 +200,12 @@ describe('command structure snapshots', () => {
 
 ## When to Add Tests
 
-| Change              | Unit | Contract     | Integration                    |
+| Change              | Unit | Schema       | Integration                    |
 | ------------------- | ---- | ------------ | ------------------------------ |
 | New API endpoint    | ✅   | ✅ Required  | ✅ If DB/multi-service         |
 | New `*.service.ts`  | ✅   | If shared    | ✅ For complex DB operations   |
 | New utility/helper  | ✅   | No           | No                             |
-| Bug fix             | ✅   | If contract  | If multi-component interaction |
+| Bug fix             | ✅   | If schema    | If multi-component interaction |
 | New dashboard/modal | ✅   | If API types | No (UI logic, mock sessions)   |
 | **New tooling**     | ✅   | No           | No                             |
 
@@ -231,17 +231,17 @@ describe('command structure snapshots', () => {
 - UI/Discord interaction handlers (mock the session/API instead)
 - Simple CRUD operations
 
-**Future Enhancement**: Service-pairing ratchet where every `*.service.ts` requires `*.integration.test.ts`
+**Future Enhancement**: Service-pairing ratchet where every `*.service.ts` requires `*.int.test.ts`
 
-## Contract Tests
+## Schema Tests
 
-Contract tests verify API boundaries between services. Located in `common-types/types/`.
+Schema tests verify API schemas validate correctly. Located in `common-types/types/`.
 
 ```typescript
-// *.contract.test.ts - Verify schema compatibility
+// *.schema.test.ts - Verify schema validation
 import { PersonaResponseSchema } from './schemas.js';
 
-describe('PersonaResponse contract', () => {
+describe('PersonaResponse schema', () => {
   it('should parse valid API response', () => {
     const response = { id: 'uuid', name: 'Test', preferredName: null };
     expect(() => PersonaResponseSchema.parse(response)).not.toThrow();
@@ -256,45 +256,52 @@ describe('PersonaResponse contract', () => {
 
 **When to write**: New API endpoints, schema changes, cross-service communication.
 
-**Purpose**: Catch breaking changes before they hit production. If bot-client expects `{ name: string }` but api-gateway returns `{ displayName: string }`, contract tests fail.
+**Purpose**: Catch breaking changes before they hit production. If bot-client expects `{ name: string }` but api-gateway returns `{ displayName: string }`, schema tests fail.
 
 ## Integration Tests
 
-Integration tests verify multiple components working together. Located in `tests/integration/`.
+Integration tests verify components with real database (PGLite). Co-located next to source files with `.int.test.ts` suffix.
 
 ```typescript
-// Test actual service interactions (with mocked externals)
-describe('AI generation flow', () => {
-  it('should process job through full pipeline', async () => {
-    // Setup: Create test job data
-    const jobData = createTestGenerationJob();
+// UserService.int.test.ts - Test with real database
+describe('UserService', () => {
+  let pglite: PGlite;
+  let prisma: PrismaClient;
 
-    // Act: Process through actual handlers (mocking only AI/Discord)
-    const result = await processGenerationJob(jobData);
+  beforeAll(async () => {
+    pglite = new PGlite({ extensions: { vector } });
+    await pglite.exec(loadPGliteSchema());
+    prisma = new PrismaClient({ adapter: new PrismaPGlite(pglite) });
+  });
 
-    // Assert: Verify end-to-end behavior
-    expect(result.response).toBeDefined();
-    expect(mockDiscordWebhook).toHaveBeenCalled();
+  it('should create user with default persona', async () => {
+    const service = new UserService(prisma);
+    const userId = await service.getOrCreateUser('123', 'testuser');
+    expect(userId).toBeDefined();
   });
 });
 ```
 
-**When to write**: Complex workflows, cross-service operations, database interactions.
+**When to write**: Database operations, complex queries, service-level behavior.
 
 **Key difference**:
 
-- **Unit tests**: Mock all dependencies, test one function
-- **Integration tests**: Use real components (except external APIs like Discord, OpenRouter)
+- **Unit tests** (`*.test.ts`): Mock all dependencies, test one function
+- **Integration tests** (`*.int.test.ts`): Use PGLite, test database interactions
 
 ### PGLite for Local Integration Tests
 
 ```bash
 # Run integration tests (no DATABASE_URL needed)
-pnpm test:integration
+pnpm test:int
 
 # Regenerate schema after Prisma migrations
 ./scripts/testing/regenerate-pglite-schema.sh
 ```
+
+**⚠️ ALWAYS use `loadPGliteSchema()` - NEVER create tables manually!**
+
+Manual table creation (via `$executeRawUnsafe('CREATE TABLE...')`) breaks when migrations add new columns. The shared schema file stays in sync with Prisma migrations.
 
 **📚 See**: `docs/reference/testing/PGLITE_SETUP.md` for full setup, environment detection, and test patterns.
 
@@ -302,33 +309,36 @@ pnpm test:integration
 
 Before marking a feature complete:
 
-- [ ] New service files have `.component.test.ts`
-- [ ] New API schemas have `.contract.test.ts` (if crossing service boundary)
+- [ ] New service files have `.int.test.ts`
+- [ ] New API schemas have `.schema.test.ts` (if crossing service boundary)
 - [ ] Complex DB operations have integration test coverage
 - [ ] Coverage doesn't drop (Codecov enforces 80% threshold)
 - [ ] Run `pnpm ops test:audit` to verify no new test gaps
 
 ## Test Coverage Audits (Ratchet System)
 
-The project uses ratchets to prevent new untested code:
+The project uses a unified ratchet audit to prevent new untested code:
 
 ```bash
-# Run both audits (CI does this automatically)
+# Run unified audit (CI does this automatically)
 pnpm ops test:audit
 
-# Contract coverage only
-pnpm ops test:audit-contracts
-
-# Service integration coverage only
-pnpm ops test:audit-services
+# Filter by category
+pnpm ops test:audit --category=services   # Service tests only
+pnpm ops test:audit --category=contracts  # Contract tests only
 
 # Update baseline (after closing gaps)
-pnpm ops test:audit-contracts --update
-pnpm ops test:audit-services --update
+pnpm ops test:audit --update
+pnpm ops test:audit --category=services --update  # Update only services
 
 # Strict mode (fails on ANY gap, not just new ones)
 pnpm ops test:audit --strict
+
+# Verbose output (show all covered items)
+pnpm ops test:audit --verbose
 ```
+
+**Unified Baseline**: `test-coverage-baseline.json` (project root)
 
 **📚 See**: `docs/reference/testing/COVERAGE_AUDIT_SYSTEM.md` for detailed audit workflows, chip-away process, and priority order.
 
@@ -368,11 +378,10 @@ pnpm --filter @tzurot/api-gateway test:coverage     # Specific service
 
 ## References
 
-- Full testing guide: `docs/guides/TESTING.md`
+- Full testing guide: `docs/reference/guides/TESTING.md`
 - Mock factories: `services/*/src/test/mocks/`
 - Global philosophy: `~/.claude/CLAUDE.md#universal-testing-philosophy`
-- PGLite setup: `tests/integration/setup.ts`
-- Test audit commands: `pnpm ops test:audit-*`
+- PGLite setup: `packages/test-utils/` (`loadPGliteSchema` from `@tzurot/test-utils`)
+- Test audit command: `pnpm ops test:audit`
 - Schema regeneration: `./scripts/testing/regenerate-pglite-schema.sh`
-- Contract baseline: `contract-coverage-baseline.json`
-- Service baseline: `service-integration-baseline.json`
+- Unified baseline: `test-coverage-baseline.json`

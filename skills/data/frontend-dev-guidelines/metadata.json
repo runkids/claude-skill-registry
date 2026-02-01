@@ -1,7 +1,7 @@
 {
   "name": "frontend-dev-guidelines",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/frontend-dev-guidelines/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:03.890137Z"
+  "repo": "NmBoyd/claude_setup",
+  "path": ".claude/skills/frontend-dev-guidelines/SKILL.md",
+  "source": "github.com/NmBoyd/claude_setup",
+  "downloaded_at": "2026-02-01T05:04:45.930914Z"
 }

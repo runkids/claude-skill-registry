@@ -1,7 +1,7 @@
 {
   "name": "rust-patterns",
-  "repo": "phrazzld/claude-config",
-  "path": "skills/rust-patterns/SKILL.md",
-  "source": "github.com/phrazzld/claude-config",
-  "downloaded_at": "2026-01-30T04:28:37.660071Z"
+  "repo": "pmcfadin/cqlite",
+  "path": ".claude/skills/rust-patterns/SKILL.md",
+  "source": "github.com/pmcfadin/cqlite",
+  "downloaded_at": "2026-02-01T01:36:39.266757Z"
 }

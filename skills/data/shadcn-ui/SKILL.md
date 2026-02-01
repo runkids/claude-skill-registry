@@ -16,7 +16,6 @@ https://ui.shadcn.com/llms.txt
 ## When to Use This Skill
 
 Use this skill when:
-
 - Building user interfaces with React-based frameworks (Next.js, Vite, Remix, Astro, etc.)
 - Adding pre-built, accessible UI components to applications
 - Implementing design systems with Tailwind CSS
@@ -38,7 +37,6 @@ Use this skill when:
 ### Architecture
 
 shadcn/ui follows a unique distribution model:
-
 1. **CLI Tool**: Installs and manages components via `npx shadcn@latest`
 2. **Component Registry**: Central repository of components
 3. **Local Components**: Components live in your `components/ui/` directory
@@ -63,7 +61,6 @@ npx shadcn@latest init
 ```
 
 The CLI will prompt for:
-
 - Framework preference (Next.js, Vite, etc.)
 - TypeScript or JavaScript
 - Component installation location
@@ -74,13 +71,11 @@ The CLI will prompt for:
 **Manual Setup:**
 
 1. Install dependencies:
-
 ```bash
 npm install tailwindcss-animate class-variance-authority clsx tailwind-merge lucide-react
 ```
 
 2. Create `components.json`:
-
 ```json
 {
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -101,43 +96,40 @@ npm install tailwindcss-animate class-variance-authority clsx tailwind-merge luc
 ```
 
 3. Configure Tailwind:
-
 ```ts
 // tailwind.config.ts
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {},
   },
   plugins: [require("tailwindcss-animate")],
-};
+}
 
-export default config;
+export default config
 ```
 
 4. Create utility file:
-
 ```ts
 // lib/utils.ts
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 ```
 
 ### Adding Components
 
 **Via CLI:**
-
 ```bash
 # Add single component
 npx shadcn@latest add button
@@ -150,7 +142,6 @@ npx shadcn@latest add --all
 ```
 
 **What happens when you add a component:**
-
 1. Component files are copied to `components/ui/`
 2. Dependencies are automatically installed
 3. Component is ready to import and use
@@ -160,7 +151,6 @@ npx shadcn@latest add --all
 ### Form & Input Components
 
 **Button:**
-
 ```tsx
 import { Button } from "@/components/ui/button"
 
@@ -173,23 +163,21 @@ import { Button } from "@/components/ui/button"
 ```
 
 **Input:**
-
 ```tsx
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 <div>
   <Label htmlFor="email">Email</Label>
   <Input id="email" type="email" placeholder="you@example.com" />
-</div>;
+</div>
 ```
 
 **Form (with validation):**
-
 ```tsx
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 import {
   Form,
   FormControl,
@@ -198,14 +186,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   email: z.string().email(),
-});
+})
 
 function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -214,10 +202,10 @@ function ProfileForm() {
       username: "",
       email: "",
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log(values)
   }
 
   return (
@@ -242,12 +230,11 @@ function ProfileForm() {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  );
+  )
 }
 ```
 
 **Select:**
-
 ```tsx
 import {
   Select,
@@ -255,7 +242,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/ui/select"
 
 <Select>
   <SelectTrigger className="w-[180px]">
@@ -266,23 +253,21 @@ import {
     <SelectItem value="dark">Dark</SelectItem>
     <SelectItem value="system">System</SelectItem>
   </SelectContent>
-</Select>;
+</Select>
 ```
 
 **Checkbox:**
-
 ```tsx
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
 
 <div className="flex items-center space-x-2">
   <Checkbox id="terms" />
   <Label htmlFor="terms">Accept terms and conditions</Label>
-</div>;
+</div>
 ```
 
 **Date Picker:**
-
 ```tsx
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -308,7 +293,6 @@ const [date, setDate] = useState<Date>()
 ### Layout & Navigation
 
 **Card:**
-
 ```tsx
 import {
   Card,
@@ -317,7 +301,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card"
 
 <Card>
   <CardHeader>
@@ -330,13 +314,12 @@ import {
   <CardFooter>
     <p>Card Footer</p>
   </CardFooter>
-</Card>;
+</Card>
 ```
 
 **Tabs:**
-
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 <Tabs defaultValue="account">
   <TabsList>
@@ -345,18 +328,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
   </TabsList>
   <TabsContent value="account">Account settings</TabsContent>
   <TabsContent value="password">Password settings</TabsContent>
-</Tabs>;
+</Tabs>
 ```
 
 **Accordion:**
-
 ```tsx
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/ui/accordion"
 
 <Accordion type="single" collapsible>
   <AccordionItem value="item-1">
@@ -365,11 +347,10 @@ import {
       Yes. It adheres to the WAI-ARIA design pattern.
     </AccordionContent>
   </AccordionItem>
-</Accordion>;
+</Accordion>
 ```
 
 **Navigation Menu:**
-
 ```tsx
 import {
   NavigationMenu,
@@ -378,7 +359,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from "@/components/ui/navigation-menu"
 
 <NavigationMenu>
   <NavigationMenuList>
@@ -389,13 +370,12 @@ import {
       </NavigationMenuContent>
     </NavigationMenuItem>
   </NavigationMenuList>
-</NavigationMenu>;
+</NavigationMenu>
 ```
 
 ### Overlays & Dialogs
 
 **Dialog:**
-
 ```tsx
 import {
   Dialog,
@@ -404,7 +384,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 
 <Dialog>
   <DialogTrigger asChild>
@@ -413,14 +393,15 @@ import {
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Are you sure?</DialogTitle>
-      <DialogDescription>This action cannot be undone.</DialogDescription>
+      <DialogDescription>
+        This action cannot be undone.
+      </DialogDescription>
     </DialogHeader>
   </DialogContent>
-</Dialog>;
+</Dialog>
 ```
 
 **Drawer:**
-
 ```tsx
 import {
   Drawer,
@@ -431,7 +412,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from "@/components/ui/drawer"
 
 <Drawer>
   <DrawerTrigger>Open</DrawerTrigger>
@@ -445,26 +426,24 @@ import {
       <DrawerClose>Cancel</DrawerClose>
     </DrawerFooter>
   </DrawerContent>
-</Drawer>;
+</Drawer>
 ```
 
 **Popover:**
-
 ```tsx
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover"
 
 <Popover>
   <PopoverTrigger>Open</PopoverTrigger>
   <PopoverContent>Place content here.</PopoverContent>
-</Popover>;
+</Popover>
 ```
 
 **Toast:**
-
 ```tsx
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
@@ -484,7 +463,6 @@ const { toast } = useToast()
 ```
 
 **Command:**
-
 ```tsx
 import {
   Command,
@@ -494,7 +472,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 
 <Command>
   <CommandInput placeholder="Type a command or search..." />
@@ -506,13 +484,12 @@ import {
       <CommandItem>Calculator</CommandItem>
     </CommandGroup>
   </CommandList>
-</Command>;
+</Command>
 ```
 
 ### Feedback & Status
 
 **Alert:**
-
 ```tsx
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
@@ -532,17 +509,15 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 ```
 
 **Progress:**
-
 ```tsx
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/components/ui/progress"
 
-<Progress value={33} />;
+<Progress value={33} />
 ```
 
 **Skeleton:**
-
 ```tsx
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 <div className="flex items-center space-x-4">
   <Skeleton className="h-12 w-12 rounded-full" />
@@ -550,13 +525,12 @@ import { Skeleton } from "@/components/ui/skeleton";
     <Skeleton className="h-4 w-[250px]" />
     <Skeleton className="h-4 w-[200px]" />
   </div>
-</div>;
+</div>
 ```
 
 ### Display Components
 
 **Table:**
-
 ```tsx
 import {
   Table,
@@ -566,7 +540,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/table"
 
 <Table>
   <TableCaption>A list of your recent invoices.</TableCaption>
@@ -584,28 +558,25 @@ import {
       <TableCell>$250.00</TableCell>
     </TableRow>
   </TableBody>
-</Table>;
+</Table>
 ```
 
 **Data Table (with sorting/filtering):**
-
 ```bash
 npx shadcn@latest add data-table
 ```
 
 **Avatar:**
-
 ```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 <Avatar>
   <AvatarImage src="https://github.com/shadcn.png" />
   <AvatarFallback>CN</AvatarFallback>
-</Avatar>;
+</Avatar>
 ```
 
 **Badge:**
-
 ```tsx
 import { Badge } from "@/components/ui/badge"
 
@@ -622,33 +593,30 @@ import { Badge } from "@/components/ui/badge"
 **Next.js (App Router):**
 
 1. Install next-themes:
-
 ```bash
 npm install next-themes
 ```
 
 2. Create theme provider:
-
 ```tsx
 // components/theme-provider.tsx
-"use client";
+"use client"
 
-import * as React from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
 
 export function ThemeProvider({
   children,
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
 ```
 
 3. Wrap app with provider:
-
 ```tsx
 // app/layout.tsx
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider"
 
 export default function RootLayout({ children }) {
   return (
@@ -664,19 +632,18 @@ export default function RootLayout({ children }) {
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
 ```
 
 4. Add theme toggle:
-
 ```tsx
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme } = useTheme()
 
   return (
     <Button
@@ -688,7 +655,7 @@ export function ThemeToggle() {
       <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </Button>
-  );
+  )
 }
 ```
 
@@ -749,7 +716,7 @@ export default {
       },
     },
   },
-};
+}
 ```
 
 ### Component Customization
@@ -782,8 +749,8 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
-);
+  }
+)
 ```
 
 ## Advanced Patterns
@@ -792,34 +759,34 @@ const buttonVariants = cva(
 
 ```tsx
 // app/actions.ts
-"use server";
+"use server"
 
-import { z } from "zod";
+import { z } from "zod"
 
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-});
+})
 
 export async function createUser(formData: FormData) {
   const validatedFields = schema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
-  });
+  })
 
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-    };
+    }
   }
 
   // Create user
 }
 
 // app/signup/page.tsx
-import { createUser } from "@/app/actions";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { createUser } from "@/app/actions"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function SignupPage() {
   return (
@@ -828,7 +795,7 @@ export default function SignupPage() {
       <Input name="password" type="password" />
       <Button type="submit">Sign up</Button>
     </form>
-  );
+  )
 }
 ```
 
@@ -836,15 +803,9 @@ export default function SignupPage() {
 
 ```tsx
 // lib/form-utils.ts
-import { UseFormReturn } from "react-hook-form";
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { UseFormReturn } from "react-hook-form"
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 
 export function TextFormField({
   form,
@@ -853,11 +814,11 @@ export function TextFormField({
   placeholder,
   type = "text",
 }: {
-  form: UseFormReturn<any>;
-  name: string;
-  label: string;
-  placeholder?: string;
-  type?: string;
+  form: UseFormReturn<any>
+  name: string
+  label: string
+  placeholder?: string
+  type?: string
 }) {
   return (
     <FormField
@@ -873,33 +834,33 @@ export function TextFormField({
         </FormItem>
       )}
     />
-  );
+  )
 }
 ```
 
 ### Responsive Component Composition
 
 ```tsx
-import { useMediaQuery } from "@/hooks/use-media-query";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { useMediaQuery } from "@/hooks/use-media-query"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Drawer, DrawerContent } from "@/components/ui/drawer"
 
 export function ResponsiveDialog({ children, ...props }) {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)")
 
   if (isDesktop) {
     return (
       <Dialog {...props}>
         <DialogContent>{children}</DialogContent>
       </Dialog>
-    );
+    )
   }
 
   return (
     <Drawer {...props}>
       <DrawerContent>{children}</DrawerContent>
     </Drawer>
-  );
+  )
 }
 ```
 
@@ -919,28 +880,23 @@ export function ResponsiveDialog({ children, ...props }) {
 ## Framework-Specific Setup
 
 ### Next.js
-
 - Support for App Router and Pages Router
 - Server Components compatibility
 - Server Actions integration
 
 ### Vite
-
 - Fast development with HMR
 - Easy setup with TypeScript
 
 ### Remix
-
 - Route-based architecture
 - Progressive enhancement
 
 ### Astro
-
 - Static site generation
 - Islands architecture
 
 ### Laravel (Inertia.js)
-
 - Backend integration with Laravel
 - React frontend with Inertia
 
@@ -949,7 +905,7 @@ export function ResponsiveDialog({ children, ...props }) {
 ### Loading States
 
 ```tsx
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export function UserCardSkeleton() {
   return (
@@ -960,11 +916,11 @@ export function UserCardSkeleton() {
         <Skeleton className="h-4 w-[200px]" />
       </div>
     </div>
-  );
+  )
 }
 
 export function UserCard({ user }: { user?: User }) {
-  if (!user) return <UserCardSkeleton />;
+  if (!user) return <UserCardSkeleton />
 
   return (
     <div className="flex items-center space-x-4">
@@ -977,15 +933,15 @@ export function UserCard({ user }: { user?: User }) {
         <p className="text-sm text-muted-foreground">{user.email}</p>
       </div>
     </div>
-  );
+  )
 }
 ```
 
 ### Error Handling
 
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react"
 
 export function ErrorAlert({ error }: { error: Error }) {
   return (
@@ -994,7 +950,7 @@ export function ErrorAlert({ error }: { error: Error }) {
       <AlertTitle>Error</AlertTitle>
       <AlertDescription>{error.message}</AlertDescription>
     </Alert>
-  );
+  )
 }
 ```
 
@@ -1011,7 +967,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog"
 
 export function DeleteConfirmation({ onConfirm }: { onConfirm: () => void }) {
   return (
@@ -1033,7 +989,7 @@ export function DeleteConfirmation({ onConfirm }: { onConfirm: () => void }) {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
+  )
 }
 ```
 

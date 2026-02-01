@@ -1,7 +1,7 @@
 {
   "name": "testing-skills-with-subagents",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/testing-skills-with-subagents/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:16.012629Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/meta/testing-skills-with-subagents/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-02-01T05:03:21.315524Z"
 }

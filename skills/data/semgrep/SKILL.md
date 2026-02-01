@@ -1,337 +1,601 @@
 ---
 name: semgrep
-description: Run Semgrep static analysis for fast security scanning and pattern matching. Use when asked to scan code with Semgrep, write custom YAML rules, find vulnerabilities quickly, use taint mode, or set up Semgrep in CI/CD pipelines.
-allowed-tools:
-  - Bash
-  - Read
-  - Glob
-  - Grep
+type: tool
+description: >
+  Semgrep is a fast static analysis tool for finding bugs and enforcing code standards.
+  Use when scanning code for security issues or integrating into CI/CD pipelines.
 ---
 
-# Semgrep Static Analysis
+# Semgrep
 
-## When to Use Semgrep
+Semgrep is a highly efficient static analysis tool for finding low-complexity bugs and locating specific code patterns. Because of its ease of use, no need to build the code, multiple built-in rules, and convenient creation of custom rules, it is usually the first tool to run on an audited codebase. Furthermore, Semgrep's integration into the CI/CD pipeline makes it a good choice for ensuring code quality.
 
-**Ideal scenarios:**
-- Quick security scans (minutes, not hours)
-- Pattern-based bug detection
-- Enforcing coding standards and best practices
-- Finding known vulnerability patterns
-- Single-file analysis without complex data flow
-- First-pass analysis before deeper tools
+**Key benefits:**
+- Prevents re-entry of known bugs and security vulnerabilities
+- Enables large-scale code refactoring, such as upgrading deprecated APIs
+- Easily added to CI/CD pipelines
+- Custom Semgrep rules mimic the semantics of actual code
+- Allows for secure scanning without sharing code with third parties
+- Scanning usually takes minutes (not hours/days)
+- Easy to use and accessible for both developers and security professionals
 
-**Consider CodeQL instead when:**
-- Need interprocedural taint tracking across files
-- Complex data flow analysis required
-- Analyzing custom proprietary frameworks
+## When to Use
 
-## When NOT to Use
+**Use Semgrep when:**
+- Looking for bugs with easy-to-identify patterns
+- Analyzing single files (intraprocedural analysis)
+- Detecting systemic bugs (multiple instances across codebase)
+- Enforcing secure defaults and code standards
+- Performing rapid initial security assessment
+- Scanning code without building it first
 
-Do NOT use this skill for:
-- Complex interprocedural data flow analysis (use CodeQL instead)
-- Binary analysis or compiled code without source
-- Custom deep semantic analysis requiring AST/CFG traversal
-- When you need to track taint across many function boundaries
+**Consider alternatives when:**
+- Multiple files are required for analysis → Consider Semgrep Pro Engine or CodeQL
+- Complex flow analysis is needed → Consider CodeQL
+- Advanced taint tracking across files → Consider CodeQL or Semgrep Pro
+- Custom in-house framework analysis → May need specialized tooling
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Scan with auto-detection | `semgrep --config auto` |
+| Scan with specific ruleset | `semgrep --config="p/trailofbits"` |
+| Scan with custom rules | `semgrep -f /path/to/rules` |
+| Output to SARIF format | `semgrep -c p/default --sarif --output scan.sarif` |
+| Test custom rules | `semgrep --test` |
+| Disable metrics | `semgrep --metrics=off --config=auto` |
+| Filter by severity | `semgrep --config=auto --severity ERROR` |
+| Show dataflow traces | `semgrep --dataflow-traces -f rule.yml` |
 
 ## Installation
 
+### Prerequisites
+
+- Python 3.7 or later (for pip installation)
+- macOS, Linux, or Windows
+- Homebrew (optional, for macOS/Linux)
+
+### Install Steps
+
+**Via Python Package Installer:**
+
 ```bash
-# pip
 python3 -m pip install semgrep
+```
 
-# Homebrew
+**Via Homebrew (macOS/Linux):**
+
+```bash
 brew install semgrep
+```
 
-# Docker
-docker run --rm -v "${PWD}:/src" returntocorp/semgrep semgrep --config auto /src
+**Via Docker:**
 
-# Update
-pip install --upgrade semgrep
+```bash
+docker pull returntocorp/semgrep
+```
+
+### Keeping Semgrep Updated
+
+```bash
+# Check current version
+semgrep --version
+
+# Update via pip
+python3 -m pip install --upgrade semgrep
+
+# Update via Homebrew
+brew upgrade semgrep
+```
+
+### Verification
+
+```bash
+semgrep --version
 ```
 
 ## Core Workflow
 
-### 1. Quick Scan
+### Step 1: Initial Scan
+
+Start with an auto-configuration scan to evaluate Semgrep's effectiveness:
 
 ```bash
-semgrep --config auto .                    # Auto-detect rules
-semgrep --config auto --metrics=off .      # Disable telemetry for proprietary code
+semgrep --config auto
 ```
 
-### 2. Use Rulesets
+**Important:** Auto mode submits metrics online. To disable:
 
 ```bash
-semgrep --config p/<RULESET> .             # Single ruleset
-semgrep --config p/security-audit --config p/trailofbits .  # Multiple
+export SEMGREP_SEND_METRICS=off
+# OR
+semgrep --metrics=off --config auto
 ```
 
-| Ruleset | Description |
-|---------|-------------|
-| `p/default` | General security and code quality |
-| `p/security-audit` | Comprehensive security rules |
-| `p/owasp-top-ten` | OWASP Top 10 vulnerabilities |
-| `p/cwe-top-25` | CWE Top 25 vulnerabilities |
-| `p/r2c-security-audit` | r2c security audit rules |
-| `p/trailofbits` | Trail of Bits security rules |
-| `p/python` | Python-specific |
-| `p/javascript` | JavaScript-specific |
-| `p/golang` | Go-specific |
+### Step 2: Select Targeted Rulesets
 
-### 3. Output Formats
+Use the [Semgrep Registry](https://semgrep.dev/explore) to select rulesets:
 
 ```bash
-semgrep --config p/security-audit --sarif -o results.sarif .   # SARIF
-semgrep --config p/security-audit --json -o results.json .     # JSON
-semgrep --config p/security-audit --dataflow-traces .          # Show data flow
+# Security-focused rulesets
+semgrep --config="p/trailofbits"
+semgrep --config="p/cwe-top-25"
+semgrep --config="p/owasp-top-ten"
+
+# Language-specific
+semgrep --config="p/javascript"
+
+# Multiple rulesets
+semgrep --config="p/trailofbits" --config="p/r2c-security-audit"
 ```
 
-### 4. Scan Specific Paths
+### Step 3: Review and Triage Results
+
+Filter results by severity:
 
 ```bash
-semgrep --config p/python app.py           # Single file
-semgrep --config p/javascript src/         # Directory
-semgrep --config auto --include='**/test/**' .  # Include tests (excluded by default)
+semgrep --config=auto --severity ERROR
 ```
 
-## Writing Custom Rules
+Use output formats for easier analysis:
 
-### Basic Structure
+```bash
+# SARIF for VS Code SARIF Explorer
+semgrep -c p/default --sarif --output scan.sarif
+
+# JSON for automation
+semgrep -c p/default --json --output scan.json
+```
+
+### Step 4: Configure Ignored Files
+
+Create `.semgrepignore` file to exclude paths:
+
+```
+# Ignore specific files/directories
+path/to/ignore/file.ext
+path_to_ignore/
+
+# Ignore by extension
+*.ext
+
+# Include .gitignore patterns
+:include .gitignore
+```
+
+**Note:** By default, Semgrep skips `/tests`, `/test`, and `/vendors` folders.
+
+## How to Customize
+
+### Writing Custom Rules
+
+Semgrep rules are YAML files with pattern-matching syntax. Basic structure:
 
 ```yaml
 rules:
-  - id: hardcoded-password
-    languages: [python]
-    message: "Hardcoded password detected: $PASSWORD"
-    severity: ERROR
-    pattern: password = "$PASSWORD"
+  - id: rule-id
+    languages: [go]
+    message: Some message
+    severity: ERROR # INFO / WARNING / ERROR
+    pattern: test(...)
 ```
 
-### Pattern Syntax
+### Running Custom Rules
 
-| Syntax | Description | Example |
-|--------|-------------|---------|
-| `...` | Match anything | `func(...)` |
-| `$VAR` | Capture metavariable | `$FUNC($INPUT)` |
-| `<... ...>` | Deep expression match | `<... user_input ...>` |
+```bash
+# Single file
+semgrep --config custom_rule.yaml
 
-### Pattern Operators
+# Directory of rules
+semgrep --config path/to/rules/
+```
 
-| Operator | Description |
-|----------|-------------|
-| `pattern` | Match exact pattern |
-| `patterns` | All must match (AND) |
-| `pattern-either` | Any matches (OR) |
-| `pattern-not` | Exclude matches |
-| `pattern-inside` | Match only inside context |
-| `pattern-not-inside` | Match only outside context |
-| `pattern-regex` | Regex matching |
-| `metavariable-regex` | Regex on captured value |
-| `metavariable-comparison` | Compare values |
+### Key Syntax Reference
 
-### Combining Patterns
+| Syntax/Operator | Description | Example |
+|-----------------|-------------|---------|
+| `...` | Match zero or more arguments/statements | `func(..., arg=value, ...)` |
+| `$X`, `$VAR` | Metavariable (captures and tracks values) | `$FUNC($INPUT)` |
+| `<... ...>` | Deep expression operator (nested matching) | `if <... user.is_admin() ...>:` |
+| `pattern-inside` | Match only within context | Pattern inside a loop |
+| `pattern-not` | Exclude specific patterns | Negative matching |
+| `pattern-either` | Logical OR (any pattern matches) | Multiple alternatives |
+| `patterns` | Logical AND (all patterns match) | Combined conditions |
+| `metavariable-pattern` | Nested metavariable constraints | Constrain captured values |
+| `metavariable-comparison` | Compare metavariable values | `$X > 1337` |
+
+### Example: Detecting Insecure Request Verification
+
+```yaml
+rules:
+  - id: requests-verify-false
+    languages: [python]
+    message: requests.get with verify=False disables SSL verification
+    severity: WARNING
+    pattern: requests.get(..., verify=False, ...)
+```
+
+### Example: Taint Mode for SQL Injection
 
 ```yaml
 rules:
   - id: sql-injection
-    languages: [python]
-    message: "Potential SQL injection"
-    severity: ERROR
-    patterns:
-      - pattern-either:
-          - pattern: cursor.execute($QUERY)
-          - pattern: db.execute($QUERY)
-      - pattern-not:
-          - pattern: cursor.execute("...", (...))
-      - metavariable-regex:
-          metavariable: $QUERY
-          regex: .*\+.*|.*\.format\(.*|.*%.*
-```
-
-### Taint Mode (Data Flow)
-
-Simple pattern matching finds obvious cases:
-
-```python
-# Pattern `os.system($CMD)` catches this:
-os.system(user_input)  # Found
-```
-
-But misses indirect flows:
-
-```python
-# Same pattern misses this:
-cmd = user_input
-processed = cmd.strip()
-os.system(processed)  # Missed - no direct match
-```
-
-Taint mode tracks data through assignments and transformations:
-- **Source**: Where untrusted data enters (`user_input`)
-- **Propagators**: How it flows (`cmd = ...`, `processed = ...`)
-- **Sanitizers**: What makes it safe (`shlex.quote()`)
-- **Sink**: Where it becomes dangerous (`os.system()`)
-
-```yaml
-rules:
-  - id: command-injection
-    languages: [python]
-    message: "User input flows to command execution"
-    severity: ERROR
     mode: taint
     pattern-sources:
       - pattern: request.args.get(...)
-      - pattern: request.form[...]
-      - pattern: request.json
-    pattern-sinks:
-      - pattern: os.system($SINK)
-      - pattern: subprocess.call($SINK, shell=True)
-      - pattern: subprocess.run($SINK, shell=True, ...)
-    pattern-sanitizers:
-      - pattern: shlex.quote(...)
-      - pattern: int(...)
-```
-
-### Full Rule with Metadata
-
-```yaml
-rules:
-  - id: flask-sql-injection
-    languages: [python]
-    message: "SQL injection: user input flows to query without parameterization"
-    severity: ERROR
-    metadata:
-      cwe: "CWE-89: SQL Injection"
-      owasp: "A03:2021 - Injection"
-      confidence: HIGH
-    mode: taint
-    pattern-sources:
-      - pattern: request.args.get(...)
-      - pattern: request.form[...]
-      - pattern: request.json
     pattern-sinks:
       - pattern: cursor.execute($QUERY)
-      - pattern: db.execute($QUERY)
     pattern-sanitizers:
       - pattern: int(...)
-    fix: cursor.execute($QUERY, (params,))
+    message: Potential SQL injection with unsanitized user input
+    languages: [python]
+    severity: ERROR
 ```
 
-## Testing Rules
+### Testing Custom Rules
 
-### Test File Format
+Create test files with annotations:
 
 ```python
-# test_rule.py
-def test_vulnerable():
-    user_input = request.args.get("id")
-    # ruleid: flask-sql-injection
-    cursor.execute("SELECT * FROM users WHERE id = " + user_input)
+# ruleid: requests-verify-false
+requests.get(url, verify=False)
 
-def test_safe():
-    user_input = request.args.get("id")
-    # ok: flask-sql-injection
-    cursor.execute("SELECT * FROM users WHERE id = ?", (user_input,))
+# ok: requests-verify-false
+requests.get(url, verify=True)
 ```
+
+Run tests:
 
 ```bash
-semgrep --test rules/
+semgrep --test ./path/to/rules/
 ```
 
-## CI/CD Integration (GitHub Actions)
+For autofix testing, create `.fixed` files (e.g., `test.py` → `test.fixed.py`):
 
-```yaml
-name: Semgrep
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-  schedule:
-    - cron: '0 0 1 * *'  # Monthly
-
-jobs:
-  semgrep:
-    runs-on: ubuntu-latest
-    container:
-      image: returntocorp/semgrep
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required for diff-aware scanning
-
-      - name: Run Semgrep
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            semgrep ci --baseline-commit ${{ github.event.pull_request.base.sha }}
-          else
-            semgrep ci
-          fi
-        env:
-          SEMGREP_RULES: >-
-            p/security-audit
-            p/owasp-top-ten
-            p/trailofbits
+```bash
+semgrep --test
+# Output: 1/1: ✓ All tests passed
+#         1/1: ✓ All fix tests passed
 ```
 
 ## Configuration
 
-### .semgrepignore
+### Configuration File
+
+Semgrep doesn't require a central config file. Configuration is done via:
+- Command-line flags
+- Environment variables
+- `.semgrepignore` for path exclusions
+
+### Ignore Patterns
+
+Create `.semgrepignore` in repository root:
 
 ```
-tests/fixtures/
-**/testdata/
-generated/
+# Ignore directories
+tests/
 vendor/
 node_modules/
+
+# Ignore file types
+*.min.js
+*.generated.go
+
+# Include .gitignore patterns
+:include .gitignore
 ```
 
-### Suppress False Positives
+### Suppressing False Positives
+
+Add inline comments to suppress specific findings:
 
 ```python
-password = get_from_vault()  # nosemgrep: hardcoded-password
-dangerous_but_safe()  # nosemgrep
+# nosemgrep: rule-id
+risky_function()
 ```
 
-## Performance
+**Best practices:**
+- Specify the exact rule ID (not generic `# nosemgrep`)
+- Explain why the rule is disabled
+- Report false positives to improve rules
 
-```bash
-semgrep --config rules/ --time .    # Check rule performance
-ulimit -n 4096                       # Increase file descriptors for large codebases
-```
+### Metadata in Custom Rules
 
-### Path Filtering in Rules
+Include metadata for better context:
 
 ```yaml
 rules:
-  - id: my-rule
-    paths:
-      include: [src/]
-      exclude: [src/generated/]
+  - id: example-rule
+    metadata:
+      cwe: "CWE-89"
+      confidence: HIGH
+      likelihood: MEDIUM
+      impact: HIGH
+      subcategory: vuln
+    # ... rest of rule
 ```
 
-## Third-Party Rules
+## Advanced Usage
+
+### Tips and Tricks
+
+| Tip | Why It Helps |
+|-----|--------------|
+| Use `--time` flag | Identifies slow rules and files for optimization |
+| Limit ellipsis usage | Reduces false positives and improves performance |
+| Use `pattern-inside` for context | Creates clearer, more focused findings |
+| Enable autocomplete | Speeds up command-line workflow |
+| Use `focus-metavariable` | Highlights specific code locations in output |
+
+### Scanning Non-Standard Extensions
+
+Force language interpretation for unusual file extensions:
+
+```bash
+semgrep --config=/path/to/config --lang python --scan-unknown-extensions /path/to/file.xyz
+```
+
+### Dataflow Tracing
+
+Use `--dataflow-traces` to understand how values flow to findings:
+
+```bash
+semgrep --dataflow-traces -f taint_rule.yml test.py
+```
+
+Example output:
+
+```
+Taint comes from:
+  test.py
+    2┆ data = get_user_input()
+
+This is how taint reaches the sink:
+  test.py
+    3┆ return output(data)
+```
+
+### Polyglot File Scanning
+
+Scan embedded languages (e.g., JavaScript in HTML):
+
+```yaml
+rules:
+  - id: eval-in-html
+    languages: [html]
+    message: eval in JavaScript
+    patterns:
+      - pattern: <script ...>$Y</script>
+      - metavariable-pattern:
+          metavariable: $Y
+          language: javascript
+          patterns:
+            - pattern: eval(...)
+    severity: WARNING
+```
+
+### Constant Propagation
+
+Match instances where metavariables hold specific values:
+
+```yaml
+rules:
+  - id: high-value-check
+    languages: [python]
+    message: $X is higher than 1337
+    patterns:
+      - pattern: function($X)
+      - metavariable-comparison:
+          metavariable: $X
+          comparison: $X > 1337
+    severity: WARNING
+```
+
+### Autofix Feature
+
+Add automatic fixes to rules:
+
+```yaml
+rules:
+  - id: ioutil-readdir-deprecated
+    languages: [golang]
+    message: ioutil.ReadDir is deprecated. Use os.ReadDir instead.
+    severity: WARNING
+    pattern: ioutil.ReadDir($X)
+    fix: os.ReadDir($X)
+```
+
+Preview fixes without applying:
+
+```bash
+semgrep -f rule.yaml --dryrun --autofix
+```
+
+Apply fixes:
+
+```bash
+semgrep -f rule.yaml --autofix
+```
+
+### Performance Optimization
+
+Analyze performance:
+
+```bash
+semgrep --config=auto --time
+```
+
+Optimize rules:
+1. Use `paths` to narrow file scope
+2. Minimize ellipsis usage
+3. Use `pattern-inside` to establish context first
+4. Remove unnecessary metavariables
+
+### Managing Third-Party Rules
+
+Use [semgrep-rules-manager](https://github.com/iosifache/semgrep-rules-manager/) to collect third-party rules:
 
 ```bash
 pip install semgrep-rules-manager
-semgrep-rules-manager --dir ~/semgrep-rules download
-semgrep -f ~/semgrep-rules .
+mkdir -p $HOME/custom-semgrep-rules
+semgrep-rules-manager --dir $HOME/custom-semgrep-rules download
+semgrep -f $HOME/custom-semgrep-rules
 ```
 
-## Rationalizations to Reject
+## CI/CD Integration
 
-| Shortcut | Why It's Wrong |
-|----------|----------------|
-| "Semgrep found nothing, code is clean" | Semgrep is pattern-based; it can't track complex data flow across functions |
-| "I wrote a rule, so we're covered" | Rules need testing with `semgrep --test`; false negatives are silent |
-| "Taint mode catches injection" | Only if you defined all sources, sinks, AND sanitizers correctly |
-| "Pro rules are comprehensive" | Pro rules are good but not exhaustive; supplement with custom rules for your codebase |
-| "Too many findings = noisy tool" | High finding count often means real problems; tune rules, don't disable them |
+### GitHub Actions
+
+#### Recommended Approach
+
+1. Full scan on main branch with broad rulesets (scheduled)
+2. Diff-aware scanning for pull requests with focused rules
+3. Block PRs with unresolved findings (once mature)
+
+#### Example Workflow
+
+```yaml
+name: Semgrep
+on:
+  pull_request: {}
+  push:
+    branches: ["master", "main"]
+  schedule:
+    - cron: '0 0 1 * *' # Monthly
+
+jobs:
+  semgrep-schedule:
+    if: ((github.event_name == 'schedule' || github.event_name == 'push' || github.event.pull_request.merged == true)
+        && github.actor != 'dependabot[bot]')
+    name: Semgrep default scan
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+      - run: semgrep ci
+        env:
+          SEMGREP_RULES: p/default
+
+  semgrep-pr:
+    if: (github.event_name == 'pull_request' && github.actor != 'dependabot[bot]')
+    name: Semgrep PR scan
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep ci
+        env:
+          SEMGREP_RULES: >
+            p/cwe-top-25
+            p/owasp-top-ten
+            p/r2c-security-audit
+            p/trailofbits
+```
+
+#### Adding Custom Rules in CI
+
+**Rules in same repository:**
+
+```yaml
+env:
+  SEMGREP_RULES: p/default custom-semgrep-rules-dir/
+```
+
+**Rules in private repository:**
+
+```yaml
+env:
+  SEMGREP_PRIVATE_RULES_REPO: semgrep-private-rules
+steps:
+  - name: Checkout main repository
+    uses: actions/checkout@v4
+  - name: Checkout private custom Semgrep rules
+    uses: actions/checkout@v4
+    with:
+      repository: ${{ github.repository_owner }}/${{ env.SEMGREP_PRIVATE_RULES_REPO }}
+      token: ${{ secrets.SEMGREP_RULES_TOKEN }}
+      path: ${{ env.SEMGREP_PRIVATE_RULES_REPO }}
+  - run: semgrep ci
+    env:
+      SEMGREP_RULES: ${{ env.SEMGREP_PRIVATE_RULES_REPO }}
+```
+
+### Testing Rules in CI
+
+```yaml
+name: Test Semgrep rules
+
+on: [push, pull_request]
+
+jobs:
+  semgrep-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: python -m pip install -r requirements.txt
+      - run: semgrep --test --test-ignore-todo ./path/to/rules/
+```
+
+## Common Mistakes
+
+| Mistake | Why It's Wrong | Correct Approach |
+|---------|----------------|------------------|
+| Using `--config auto` on private code | Sends metadata to Semgrep servers | Use `--metrics=off` or specific rulesets |
+| Forgetting `.semgrepignore` | Scans excluded directories like `/vendor` | Create `.semgrepignore` file |
+| Not testing rules with false positives | Rules generate noise | Add `# ok:` test cases |
+| Using generic `# nosemgrep` | Makes code review harder | Use `# nosemgrep: rule-id` with explanation |
+| Overusing ellipsis `...` | Degrades performance and accuracy | Use specific patterns when possible |
+| Not including metadata in rules | Makes triage difficult | Add CWE, confidence, impact fields |
+
+## Limitations
+
+- **Single-file analysis:** Cannot track data flow across files without Semgrep Pro Engine
+- **No build required:** Cannot analyze compiled code or resolve dynamic dependencies
+- **Pattern-based:** May miss vulnerabilities requiring deep semantic understanding
+- **Limited taint tracking:** Complex taint analysis is still evolving
+- **Custom frameworks:** In-house proprietary frameworks may not be well-supported
+
+## Related Skills
+
+| Skill | When to Use Together |
+|-------|---------------------|
+| **codeql** | For cross-file taint tracking and complex data flow analysis |
+| **sarif-parsing** | For processing Semgrep SARIF output in pipelines |
 
 ## Resources
 
-- Registry: https://semgrep.dev/explore
-- Playground: https://semgrep.dev/playground
-- Docs: https://semgrep.dev/docs/
-- Trail of Bits Rules: https://github.com/trailofbits/semgrep-rules
-- Blog: https://semgrep.dev/blog/
+### Key External Resources
+
+**[Trail of Bits public Semgrep rules](https://github.com/trailofbits/semgrep-rules)**
+Community-contributed Semgrep rules for security audits, with contribution guidelines and quality standards.
+
+**[Semgrep Registry](https://semgrep.dev/explore)**
+Official registry of Semgrep rules, searchable by language, framework, and security category.
+
+**[Semgrep Playground](https://semgrep.dev/playground/new)**
+Interactive online tool for writing and testing Semgrep rules. Use "simple mode" for easy pattern combination.
+
+**[Learn Semgrep Syntax](https://semgrep.dev/learn)**
+Comprehensive guide on Semgrep rule-writing fundamentals.
+
+**[Trail of Bits Blog: How to introduce Semgrep to your organization](https://blog.trailofbits.com/2024/01/12/how-to-introduce-semgrep-to-your-organization/)**
+Seven-step plan for organizational adoption of Semgrep, including pilot testing, evangelization, and CI/CD integration.
+
+**[Trail of Bits Blog: Discovering goroutine leaks with Semgrep](https://blog.trailofbits.com/2021/11/08/discovering-goroutine-leaks-with-semgrep/)**
+Real-world example of writing custom rules to detect Go-specific issues.
+
+### Video Resources
+
+- [Introduction to Semgrep - Trail of Bits Webinar](https://www.youtube.com/watch?v=yKQlTbVlf0Q)
+- [Detect complex code patterns using semantic grep](https://www.youtube.com/watch?v=IFRp2Y3cqOw)
+- [Semgrep part 1 - Embrace Secure Defaults, Block Anti-patterns and more](https://www.youtube.com/watch?v=EIjoqwT53E4)
+- [Semgrep Weekly Wednesday Office Hours: Modifying Rules to Reduce False Positives](https://www.youtube.com/watch?v=VSL44ZZ7EvY)
+- [Raining CVEs On WordPress Plugins With Semgrep | Nullcon Goa 2022](https://www.youtube.com/watch?v=RvKLn2ofMAo)

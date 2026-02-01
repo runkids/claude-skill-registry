@@ -1,103 +1,46 @@
 ---
 name: release-notes
-description: Generate professional release notes from git commits between two refs with automated categorization. Use when creating release notes from git history.
-allowed-tools: Bash, Read, Write, Glob, Grep
+description: Draft release notes and changelog entries from git history or merged PRs between two refs (tags/SHAs/branches), including breaking changes, migrations, and upgrade steps. Use when the user asks for release notes, changelog updates, or a GitHub Release draft.
 ---
 
-# Release Notes Generation
+# Release notes
 
-Generate professional release notes from git commits with automated categorization.
+## Goal
+Produce accurate, scannable release notes (Markdown) for a specific release range.
 
-## Invocation
+## Inputs to ask for (if missing)
+- Release version + date (or "unreleased").
+- Range to summarize: `from_ref..to_ref` (tags/SHAs/branches). If unknown, ask: "last release tag?" and "target branch/tag?"
+- Target audience: end users, developers, internal ops, or all.
+- What to include/exclude: internal refactors, dependency bumps, infra-only changes.
 
-```
-/release-notes [base] [head] [--version vX.Y.Z] [--output path]
-```
+## Workflow (checklist)
+1) Determine the release range
+   - Prefer tags: pick the previous tag and the new tag/HEAD.
+   - If no tags: use the last release branch point or a date-based window.
+   - Commands to gather candidates:
+     - `git tag --sort=-creatordate | Select-Object -First 20`
+     - `git log --first-parent --oneline <from_ref>..<to_ref>`
+     - If GitHub CLI is available: list merged PRs for the range and use titles for grouping.
+2) Collect and categorize changes
+   - Start from merge commits (first-parent) to avoid noise.
+   - Categorize into: Highlights, Breaking changes, Features, Fixes, Performance, Security, Deprecations, Docs, Dependencies, Infra/ops.
+   - Flag anything requiring action: config changes, env vars, DB migrations, API contract changes.
+3) Identify breaking changes and upgrade steps
+   - Look for: renamed/removed endpoints, changed request/response fields, changed config keys, Java/Kotlin/Node version bumps, DB schema changes.
+   - Add explicit "Upgrade" and "Rollback" notes when impact is non-trivial.
+4) Write release notes using the template
+   - Use short bullets, active voice, and user-facing wording.
+   - Prefer "what changed" + "why it matters" over implementation details.
+   - Include PR/issue references only if they are stable in your repo hosting.
+   - Use `references/release-notes-template.md` to keep structure consistent.
+5) Sanity check for omissions and accuracy
+   - Diff the range: `git diff --stat <from_ref>..<to_ref>`
+   - Scan for config/migrations: `rg -n \"ENV|config|migration|Flyway|Liquibase\" -S`
+   - Ensure breaking changes are called out and have upgrade steps.
 
-**Examples:**
-```bash
-/release-notes v1.0.0 HEAD --version v1.1.0
-/release-notes main feature/new-auth --version v2.0.0-beta
-```
+## Deliverable
+Provide:
+- Release notes Markdown (ready to paste into a GitHub Release / changelog).
+- A short "Risk/notes" section listing any required migrations, config changes, or rollback concerns.
 
-## Workflow
-
-### Step 1: Parse Commits
-
-```bash
-node .claude/skills/release-notes/lib/parse-commits.cjs <base> <head> [--with-files]
-```
-
-Output: JSON with `hash`, `type`, `scope`, `description`, `breaking`, `author`, `date`, `files`
-
-### Step 2: Categorize Commits
-
-```bash
-node .claude/skills/release-notes/lib/parse-commits.cjs <base> <head> | \
-node .claude/skills/release-notes/lib/categorize-commits.cjs
-```
-
-| Type                                    | Category     | User-Facing           |
-| --------------------------------------- | ------------ | --------------------- |
-| `feat`                                  | features     | Yes                   |
-| `fix`                                   | fixes        | Yes                   |
-| `perf`                                  | improvements | Yes                   |
-| `docs`                                  | docs         | Yes (unless internal) |
-| `refactor`                              | improvements | Technical only        |
-| `test`, `ci`, `build`, `chore`, `style` | internal     | No                    |
-
-Excluded: `chore(deps):`, `chore(config):`, `[skip changelog]`, `[ci skip]`
-
-### Step 3: Render Markdown
-
-```bash
-node .claude/skills/release-notes/lib/parse-commits.cjs <base> <head> | \
-node .claude/skills/release-notes/lib/categorize-commits.cjs | \
-node .claude/skills/release-notes/lib/render-template.cjs --version v1.1.0 --output docs/release-notes/250111-v1.1.0.md
-```
-
-## Complete Pipeline
-
-```bash
-node .claude/skills/release-notes/lib/parse-commits.cjs v1.0.0 HEAD | \
-node .claude/skills/release-notes/lib/categorize-commits.cjs | \
-node .claude/skills/release-notes/lib/render-template.cjs --version v1.1.0 --output docs/release-notes/250111-v1.1.0.md
-```
-
-## Output Structure
-
-```markdown
-# Release Notes: v1.1.0
-**Date:** 2025-01-11 | **Version:** v1.1.0 | **Status:** Draft
-
-## Summary
-## What's New
-## Improvements
-## Bug Fixes
-## Breaking Changes
-## Technical Details (collapsed)
-## Contributors
-```
-
-## Human Review Gate
-
-Generated notes are **Draft** status. Review -> Enhance -> Approve -> Publish.
-
-## Advanced Features
-
-See [references/release-pipeline.md](references/release-pipeline.md) for:
-- Service boundary detection, breaking change analysis
-- PR metadata extraction, contributor statistics
-- Version bumping, quality validation, LLM transforms
-- Full enhanced pipeline, configuration, troubleshooting
-
-## Integration
-
-- **`/commit`** - Commit generated notes
-- **`/changelog-update`** - Update CHANGELOG.md with new release
-
-
-## IMPORTANT Task Planning Notes
-
-- Always plan and break many small todo tasks
-- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

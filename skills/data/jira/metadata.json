@@ -1,7 +1,7 @@
 {
   "name": "jira",
-  "repo": "otahontas/jira-cli-skill",
-  "path": "skills/jira/SKILL.md",
-  "source": "github.com/otahontas/jira-cli-skill",
-  "downloaded_at": "2026-01-31T04:14:21.585516Z"
+  "repo": "TonyCasey/lisa",
+  "path": "src/project/.lisa/skills/jira/SKILL.md",
+  "source": "github.com/TonyCasey/lisa",
+  "downloaded_at": "2026-02-01T04:56:23.603787Z"
 }

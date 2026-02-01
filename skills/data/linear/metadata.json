@@ -1,7 +1,7 @@
 {
   "name": "linear",
-  "repo": "tbroadley/dotfiles",
-  "path": "claude/skills/linear/SKILL.md",
-  "source": "github.com/tbroadley/dotfiles",
-  "downloaded_at": "2026-01-31T03:52:07.908247Z"
+  "repo": "joa23/linear-cli",
+  "path": "internal/skills/linear/SKILL.md",
+  "source": "github.com/joa23/linear-cli",
+  "downloaded_at": "2026-02-01T04:39:10.532075Z"
 }

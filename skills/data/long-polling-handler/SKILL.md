@@ -1,18 +1,18 @@
 ---
-name: long-polling-handler
+name: "long-polling-handler"
 description: |
-  Long Polling Handler - Auto-activating skill for API Integration.
+  Manage long polling handler operations. Auto-activating skill for API Integration.
   Triggers on: long polling handler, long polling handler
-  Part of the API Integration skill category.
-allowed-tools: Read, Write, Edit, Bash, Grep
+  Part of the API Integration skill category. Use when working with long polling handler functionality. Trigger with phrases like "long polling handler", "long handler", "long".
+allowed-tools: "Read, Write, Edit, Bash(cmd:*), Grep"
 version: 1.0.0
 license: MIT
-author: Jeremy Longshore <jeremy@intentsolutions.io>
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
 # Long Polling Handler
 
-## Purpose
+## Overview
 
 This skill provides automated assistance for long polling handler tasks within the API Integration domain.
 
@@ -23,18 +23,48 @@ This skill activates automatically when you:
 - Ask about long polling handler patterns or best practices
 - Need help with api integration skills covering third-party apis, webhooks, sdk generation, and integration patterns.
 
-## Capabilities
+## Instructions
 
-- Provides step-by-step guidance for long polling handler
-- Follows industry best practices and patterns
-- Generates production-ready code and configurations
-- Validates outputs against common standards
+1. Provides step-by-step guidance for long polling handler
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-## Example Triggers
+## Examples
 
-- "Help me with long polling handler"
-- "Set up long polling handler"
-- "How do I implement long polling handler?"
+**Example: Basic Usage**
+Request: "Help me with long polling handler"
+Result: Provides step-by-step guidance and generates appropriate configurations
+
+
+## Prerequisites
+
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of api integration concepts
+
+
+## Output
+
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
+
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
+
+
+## Resources
+
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
 
 ## Related Skills
 

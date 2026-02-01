@@ -1,223 +1,225 @@
 ---
 name: email-sequences
-description: Creates automated email sequences for every stage of the customer journey including welcome, nurture, conversion, and launch flows. This skill should be used when building automated email flows, launching products, improving email-driven conversions, or onboarding new customers.
+description: Create automated email sequences that build trust and drive conversions. Use when setting up welcome sequences, nurture campaigns, sales sequences, or launch campaigns.
 ---
 
-# Email Sequences
+# Email Sequences Skill
 
-This skill creates automated email sequences that move subscribers through the customer journey - from stranger to subscriber to customer to advocate.
+## Overview
 
-## Objective
+Email Sequences are automated emails sent over time with a specific purpose. This skill teaches you to create sequences that convert.
 
-Build email sequences that deliver the right message at the right time, nurturing relationships and driving conversions without manual effort.
+**Keywords**: email sequences, email automation, email marketing, welcome sequence, nurture sequence, sales sequence, launch sequence
 
-## Intake Questions
+## Core Methodology
 
-Before creating email sequences, gather context:
+There are 4 main types of email sequences:
 
-1. **Entry point**: How do people join this sequence? (Lead magnet, purchase, signup)
-2. **Desired outcome**: What should they do after the sequence? (Buy, book, engage)
-3. **Product/Offer**: What are you eventually selling or promoting?
-4. **Timeline**: Over what period should the sequence run?
-5. **Audience knowledge**: How familiar are they with you/your solution?
-6. **Objections**: What prevents people from taking the desired action?
-7. **Existing sequences**: What automation already exists?
+1. **Welcome Sequence** — Sent immediately after subscription (3-5 emails over 7 days)
+2. **Nurture Sequence** — Sent regularly to engaged subscribers (ongoing)
+3. **Conversion Sequence** — Sent when you have a specific offer (5-7 emails over 2 weeks)
+4. **Launch Sequence** — Sent when launching something new (7-10 emails over 3 weeks)
 
-## The 6 Sequence Types
+Each email in a sequence should stand alone AND work together as a journey.
 
-### 1. Welcome Sequence
-**Trigger**: New subscriber (lead magnet, newsletter signup)
-**Goal**: Build relationship, set expectations, introduce brand
-**Length**: 3-7 emails over 1-2 weeks
+## Sequence 1: Welcome Sequence
 
-**Email structure**:
-1. **Email 1 (Immediate)**: Deliver promised content + set expectations
-2. **Email 2 (Day 1-2)**: Share your story/origin
-3. **Email 3 (Day 3-4)**: Deliver unexpected value (bonus content)
-4. **Email 4 (Day 5-7)**: Social proof + best content
-5. **Email 5 (Day 7-10)**: Soft intro to paid offer (optional)
+**Purpose**: Set expectations, build trust, deliver on lead magnet promise
 
-**Key principles**:
-- Deliver on lead magnet promise immediately
-- Set email frequency expectations
-- Show personality and build connection
-- Don't hard sell too early
+**Timing**: Days 1, 2, 4, 6, 7
 
-### 2. Nurture Sequence
-**Trigger**: After welcome sequence ends
-**Goal**: Stay top of mind, continue providing value
-**Length**: Ongoing, 1-4 emails per week
+**Email 1 (Day 1)**: Welcome + Lead Magnet Delivery
+- Welcome them warmly
+- Deliver the lead magnet
+- Set expectations for future emails
 
-**Content rotation**:
-- Educational content
-- Case studies and examples
-- Behind-the-scenes
-- Curated resources
-- Occasional promotional content (20% max)
+**Email 2 (Day 2)**: Value + Story
+- Share a story or insight
+- Provide actionable value
+- Build connection
 
-**Key principles**:
-- Maintain consistent schedule
-- 80/20 rule: 80% value, 20% promotional
-- Segment based on engagement
-- Re-engage inactive subscribers
+**Email 3 (Day 4)**: Social Proof + Case Study
+- Share a customer success story
+- Show proof your approach works
+- Build credibility
 
-### 3. Conversion Sequence
-**Trigger**: Interest signal (page visit, link click, webinar signup)
-**Goal**: Convert interest to purchase
-**Length**: 4-7 emails over 5-10 days
+**Email 4 (Day 6)**: Soft Offer
+- Introduce your main offer
+- Explain the benefit
+- No pressure
 
-**Email structure**:
-1. **Email 1**: Acknowledge interest, expand on benefits
-2. **Email 2**: Handle main objection #1
-3. **Email 3**: Case study/success story
-4. **Email 4**: Handle main objection #2
-5. **Email 5**: FAQ compilation
-6. **Email 6**: Urgency/scarcity (if real)
-7. **Email 7**: Last chance + final push
+**Email 5 (Day 7)**: Engagement Check
+- Ask for feedback
+- Invite replies
+- Build relationship
 
-**Key principles**:
-- One email, one focus
-- Address objections directly
-- Use social proof strategically
-- Create urgency without being sleazy
+## Sequence 2: Nurture Sequence
 
-### 4. Launch Sequence
-**Trigger**: Product launch or promotion period
-**Goal**: Maximize sales during limited window
-**Length**: 7-14 emails over launch period
+**Purpose**: Provide value, stay top-of-mind, build relationship
 
-**Three phases**:
+**Timing**: One email per week (ongoing)
 
-**Pre-Launch (3-5 emails)**:
+**Pattern**: Alternate between value-focused and soft-offer emails
+
+**Week 1**: Story + Lesson  
+**Week 2**: Framework or Tool  
+**Week 3**: Case Study or Social Proof  
+**Week 4**: Soft Offer  
+**Week 5**: Question or Engagement  
+**Week 6**: Repeat
+
+## Sequence 3: Conversion Sequence
+
+**Purpose**: Persuade someone to buy your offer
+
+**Timing**: Days 1, 3, 5, 7, 10, 12, 14
+
+**Email 1 (Day 1)**: Problem + Curiosity
+- Identify the problem
+- Create curiosity about the solution
+
+**Email 2 (Day 3)**: Mechanism/Insight
+- Explain your unique approach
+- Show why common approaches don't work
+
+**Email 3 (Day 5)**: Your Solution
+- Present your offer
+- Explain specific benefits
+- Include CTA
+
+**Email 4 (Day 7)**: Social Proof
+- Share customer testimonials
+- Show proof it works
+
+**Email 5 (Day 10)**: Objection Handling
+- Address common concerns
+- Answer frequently asked questions
+
+**Email 6 (Day 12)**: Urgency/Scarcity
+- Create urgency without being pushy
+- Limited spots, deadline, price increase
+
+**Email 7 (Day 14)**: Final Call
+- Last chance messaging
+- Strong CTA
+- Clear deadline
+
+## Sequence 4: Launch Sequence
+
+**Purpose**: Create buzz and drive sales for a new offer
+
+**Timing**: Days 1, 3, 5, 7, 10, 14, 17
+
+**Email 1 (Day 1)**: Announcement + Curiosity
+- Announce something new is coming
 - Build anticipation
-- Warm up to the offer
-- Share relevant content
-- Hint at what's coming
 
-**Launch Week (4-7 emails)**:
-1. Doors open + full details
-2. Deep dive on specific benefit
-3. Case study/proof
-4. FAQ + objection handling
-5. Bonuses (if applicable)
-6. Urgency: limited time/spots
-7. Final hours + cart close
+**Email 2 (Day 3)**: Problem + Mechanism
+- Explain why you created this
+- Show your unique approach
 
-**Post-Launch (2-3 emails)**:
-- Thank buyers, onboard them
-- Waitlist for non-buyers
-- Reset expectations
+**Email 3 (Day 5)**: Full Reveal + Benefits
+- Reveal the offer
+- List specific benefits
+- Early pricing
 
-### 5. Onboarding Sequence
-**Trigger**: New purchase/signup
-**Goal**: Help customers succeed and reduce churn
-**Length**: 5-10 emails over first 30 days
+**Email 4 (Day 7)**: Social Proof
+- Share early customer feedback
+- Build credibility
 
-**Email structure**:
-1. **Email 1 (Immediate)**: Welcome + quick start guide
-2. **Email 2 (Day 1)**: First milestone to complete
-3. **Email 3 (Day 3)**: Common mistake to avoid
-4. **Email 4 (Day 5)**: Success story inspiration
-5. **Email 5 (Day 7)**: Check-in + support offer
-6. **Emails 6-10**: Progressive feature introduction
+**Email 5 (Day 10)**: Objection Handling
+- Address common concerns
 
-**Key principles**:
-- Focus on one action per email
-- Celebrate early wins
-- Anticipate confusion points
-- Make support easy to access
+**Email 6 (Day 14)**: Urgency
+- Limited spots or time remaining
+- Price increasing soon
 
-### 6. Re-engagement Sequence
-**Trigger**: Inactive subscriber (30-90 days no opens)
-**Goal**: Win back or clean list
-**Length**: 3-5 emails over 1-2 weeks
+**Email 7 (Day 17)**: Final Call
+- Last chance
+- Strong CTA
 
-**Email structure**:
-1. **Email 1**: "We miss you" + best content
-2. **Email 2**: "What's changed" + new value
-3. **Email 3**: Incentive or exclusive offer
-4. **Email 4**: "Last chance before we part ways"
-5. **Email 5**: Goodbye + unsubscribe
-
-**Key principles**:
-- Acknowledge the gap honestly
-- Lead with value, not guilt
-- Give a real reason to re-engage
-- Clean list if no response
-
-## Email Structure Template
-
-Each email should follow this structure:
+## Email Components
 
 ### Subject Line
-- See newsletter skill for formulas
-- Test curiosity vs. clarity
+
+Your subject line determines if they open.
+
+**Formulas**:
+- Curiosity: "The one thing [type] gets wrong about [topic]"
+- Specificity: "How I [result] in [timeframe]"
+- Benefit: "[Benefit] without [drawback]"
+- Question: "Are you [situation]?"
+- Urgency: "[Deadline] to [action]"
 
 ### Preview Text
-- First 40-90 characters
-- Complement (don't repeat) subject line
 
-### Opening Hook (First 1-3 lines)
-- Pattern interrupt
-- Story hook
-- Surprising statement
-- Direct question
+The first 40-50 characters of your email. Make it count.
+
+### Opening
+
+Start with their name and something personal.
+
+**Formula**: "[Name] + [Personal observation]"
+
+### Hook
+
+First few sentences must make them want to keep reading.
+
+**Types**:
+- Story: "Last Tuesday, I was..."
+- Question: "Are you struggling with...?"
+- Curiosity: "I discovered something this week..."
 
 ### Body
-- One main idea
-- Conversational tone
-- Short paragraphs (1-3 sentences)
-- Use "you" more than "I"
 
-### Call to Action
-- Single, clear CTA
-- Benefit-focused button text
-- Link multiple times if needed
+Provide value or make your case.
 
-### P.S.
-- Second CTA or curiosity hook
-- High readership area - use it
+**For Value**: Share a lesson, story, framework, or answer
 
-## Timing & Spacing Guidelines
+**For Sales**: Explain problem, show your solution, address objections
 
-| Sequence Type | Spacing | Best Send Times |
-|---------------|---------|-----------------|
-| Welcome | Days 0, 1, 3, 5, 7 | Immediate + morning |
-| Nurture | 2-3x per week | Tue/Wed/Thu morning |
-| Conversion | Daily during push | 10am or 7pm |
-| Launch | Daily + urgency stacks | 10am + 5pm on close |
-| Onboarding | Days 0, 1, 3, 5, 7, 14, 21, 30 | Matches product usage |
-| Re-engagement | Days 0, 3, 7, 10, 14 | Morning, mid-week |
+### Call-to-Action
 
-## Personalization Triggers
+End with a clear, specific action.
 
-Advanced automation based on behavior:
+**Formulas**:
+- Simple: "Click here to [action]"
+- Benefit: "Get [benefit] now"
+- Curiosity: "See how this works"
+- Low-friction: "Reply and let me know"
 
-| Trigger | Action |
-|---------|--------|
-| Opened 5+ emails | Move to engaged segment |
-| Clicked pricing page | Start conversion sequence |
-| Abandoned cart | Cart recovery sequence |
-| Purchased | Onboarding sequence |
-| No opens in 30 days | Re-engagement sequence |
-| Clicked specific topic | Topic-specific content |
+### Signature
 
-## Output Format
+End with your name and a personal touch.
 
-When creating email sequences, deliver:
+**Formula**: "[Name] + [P.S. with relevant insight]"
 
-1. **Sequence Map**: Visual flow showing triggers and emails
-2. **Email Briefs**: For each email - goal, subject options, key points
-3. **Full Email Copy**: Complete copy for each email in sequence
-4. **Timing Schedule**: When each email sends
-5. **Success Metrics**: What to track (opens, clicks, conversions)
-6. **Segmentation Recommendations**: How to split audiences
+## How to Use This Skill
 
-## Cross-References
+1. **Choose Your Sequence Type** — Welcome, nurture, conversion, or launch?
+2. **Map Out Your Sequence** — Create a simple outline
+3. **Write Your Emails** — Use the formulas and structures above
+4. **Set Up Automation** — Configure timing in your email platform
+5. **Test** — Send test emails to yourself
+6. **Launch** — Activate the sequence
+7. **Monitor** — Track open rates, click rates, conversions
 
-- Apply `brand-voice` for consistent tone across all emails
-- Use `lead-magnet` to inform welcome sequence delivery
-- `direct-response-copy` techniques apply to conversion emails
-- `newsletter` handles broadcast vs. automated (this skill)
-- Launch sequences may promote offers from `lead-magnet`
-- `orchestrator` routes here for email marketing projects
+## Integration with Other Skills
+
+Email Sequences works with:
+- **Brand Voice** — Your voice makes emails personal
+- **Direct Response Copy** — Your copy structure applies to emails
+- **Lead Magnet** — Your welcome sequence delivers on the promise
+- **Newsletter** — Your newsletter feeds your nurture sequence
+
+## Common Pitfalls
+
+**Too Salesy** — People unsubscribe from all-sales sequences.  
+**Too Long** — Keep emails to 100-200 words.  
+**No Clear CTA** — Make it obvious what you want them to do.  
+**Ignoring Objections** — Address the main thing stopping them.  
+**Wrong Timing** — Space emails so they don't feel overwhelming.
+
+## Next Steps
+
+Once you've created your email sequences, move to Skill 09: Content Atomizer to repurpose your content across platforms.

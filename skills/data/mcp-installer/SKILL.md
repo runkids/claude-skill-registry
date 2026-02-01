@@ -1,211 +1,96 @@
 ---
 name: mcp-installer
-description: |-
-  Find, install, and configure MCP servers. Use proactively for MCP discovery, OAuth setup, env vars, stdio vs SSE transport, or troubleshooting MCP connections.
-  
-  Examples:
-  - user: "Add the filesystem MCP server" → read server file, add to mcpServers in opencode.json, verify transport type
-  - user: "How do I use MCP with GitHub?" → check catalog, install @modelcontextprotocol/server-github, configure OAuth token
-  - user: "MCP not connecting" → check transport type (stdio/SSE), verify args/command, check env vars are passed
-  - user: "What MCPs are available?" → run list_mcps.py, show catalog with auth types and install commands
+description: 从GitHub搜索并自动安装配置MCP(Model Context Protocol)服务器工具到Claude配置文件。当用户需要安装MCP工具时触发此技能。工作流程：搜索GitHub上的MCP项目 -> 提取npx配置 -> 添加到~/.claude.json -> 处理API密钥（如有）。
 ---
 
-# MCP Installer
+# MCP工具安装助手
 
-Find, install, and configure MCP servers for OpenCode.
+你是一个MCP工具安装助手，帮助用户从GitHub搜索并安装MCP服务器配置。
 
-<workflow>
+## 工作流程
 
-## 1. Search for MCP Server
+### 1. 搜索阶段
 
-**Check local catalog first** (quick check for already-documented MCPs):
-```bash
-python3 ~/.config/opencode/skill/mcp-installer/scripts/list_mcps.py
-```
+1. 询问用户需要什么类型的MCP工具
+2. 使用GitHub搜索功能查找相关项目
+3. 搜索关键词格式：`mcp server` + 用户关键词，或者 `mcp-` + 关键词
+4. 优先寻找官方ModelContextProtocol组织下的项目
+5. 查找项目的README或文档，确认正确的npx安装命令
 
-**If not found locally, search online:**
-- `websearch("MCP server for [capability]")`
-- `webfetch("https://github.com/modelcontextprotocol/servers")`
-- Check npm: `@modelcontextprotocol/server-*`
-- Check the MCP spec repo: https://github.com/modelcontextprotocol
+### 2. 配置提取
 
-## 2. Read MCP Details
+从项目文档中提取标准的npx配置格式：
 
-For relevant matches, read the full MCP file:
-
-```
-references/mcps/<name>.md
-```
-
-Contains installation config, setup, features, and links.
-
-## 3. Configure
-
-Add the MCP config to user's `opencode.json`.
-
-## 4. Document New MCPs
-
-If you discovered a new MCP server online, you MUST document it for future reference in `references/mcps/<name>.md` using the template below.
-
-## 5. Setup (if needed)
-
-- OAuth: Run `opencode mcp auth <server-name>`
-- API keys: Set environment variables
-- Other: Follow MCP-specific setup steps
-
-</workflow>
-
-<question_tool>
-
-**Batching:** Use the `question` tool for 2+ related questions. Single questions → plain text.
-
-**Syntax:** `header` ≤12 chars, `label` 1-5 words, add "(Recommended)" to default.
-
-When to ask: Multiple MCPs match the need, or setup requires OAuth/API keys.
-
-</question_tool>
-
-<configuration>
-
-## Local MCP
-
-```jsonc
+**标准格式：**
+```json
 {
-  "mcp": {
-    "name": {
-      "type": "local",
-      "command": ["npx", "-y", "@package/name"]
+  "mcpServers": {
+    "工具名": {
+      "command": "npx",
+      "args": ["-y", "包名@latest"]
     }
   }
 }
 ```
 
-## Remote MCP
-
-```jsonc
+**带环境变量的格式：**
+```json
 {
-  "mcp": {
-    "name": {
-      "type": "remote",
-      "url": "https://example.com/mcp"
+  "mcpServers": {
+    "工具名": {
+      "command": "npx",
+      "args": ["-y", "包名@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY_HERE"
+      }
     }
   }
 }
 ```
 
-## MCP Tool Management
+### 3. 配置安装
 
-MCPs expose tools. Control via the `permission` section using the tool name (usually the MCP name):
+1. 读取用户现有的`~/.claude.json`配置文件
+2. 检查是否已存在同名MCP服务器配置
+3. 将新配置添加到mcpServers字段中
+4. 保持JSON格式正确，确保不破坏现有配置
+5. 如果配置文件不存在，创建新文件
 
-**Global/Agent Permission:**
-```jsonc
-{
-  "permission": {
-    "my-mcp": "deny",          // Disable all tools for this MCP
-    "my-mcp*": "deny"          // Wildcard support
-  }
-}
+### 4. 密钥处理
+
+- 如果MCP工具需要API密钥，明确告知用户
+- 在配置中预留环境变量字段
+- 用`YOUR_API_KEY_HERE`等占位符标注
+- 提供获取密钥的指导链接或说明
+
+### 5. 完成确认
+
+配置完成后输出：
+
+```
+✅ MCP工具安装完成！
+
+工具名称：[工具名]
+项目地址：[GitHub URL]
+配置位置：~/.claude.json
+
+需要配置的密钥（如有）：
+- [密钥名称]: [获取说明]
+
+请重启Claude Code以加载新配置。
 ```
 
-**Pattern-based control:**
-```jsonc
-{
-  "permission": {
-    "my-mcp": {
-      "safe_tool": "allow",
-      "risky_tool": "ask",
-      "*": "deny"
-    }
-  }
-}
-```
+## 注意事项
 
-## Legacy Configuration
+- Windows用户配置文件位于：`%USERPROFILE%\.claude.json`
+- macOS/Linux用户配置文件位于：`~/.claude.json`
+- 处理JSON解析错误时，给出清晰的错误提示
+- 如果GitHub搜索无结果，建议调整搜索关键词
+- 对于复杂的配置（非简单npx），建议用户手动配置并提供指导
 
-Agents may occasionally work on legacy projects using outdated configuration fields (e.g., `tools:`). You MUST correct these to the modern `permission:` system when encountered.
+## 可用工具
 
-## OAuth
-
-Remote MCPs with OAuth auto-authenticate:
-
-```bash
-opencode mcp auth <server-name>
-```
-
-Check status: `opencode mcp list`
-
-</configuration>
-
-<reference_files>
-
-| You need... | Read this file |
-|-------------|----------------|
-| All config options (local, remote, oauth, env vars) | `references/configuration.md` |
-| Common MCP server examples | `references/examples.md` |
-| Troubleshooting issues | `references/troubleshooting.md` |
-
-**Note:** The local catalog (`list_mcps.py`) is a cache of discovered MCPs, not a complete list. SHOULD always search online if you don't find a match locally.
-
-</reference_files>
-
-<documenting_new_mcps>
-
-When discovering new MCP servers, you MUST document them:
-
-**Location:** `references/mcps/<name>.md`
-
-**Template:**
-```markdown
----
-name: mcp-name
-url: https://github.com/org/repo
-type: local|remote
-auth: oauth|api-key|none
-description: One-line description
-tags: [tag1, tag2]
----
-# Display Name
-
-Brief description.
-
-## Installation
-
-\`\`\`jsonc
-{
-  "mcp": {
-    "name": {
-      "type": "remote",
-      "url": "https://example.com/mcp"
-    }
-  }
-}
-\`\`\`
-
-## Setup
-
-Steps for auth, env vars, etc.
-
-## Features
-
-- Feature 1
-- Feature 2
-
-## Links
-
-- [GitHub](url)
-```
-
-Then run: `python3 scripts/list_mcps.py` to verify.
-
-## Frontmatter Fields
-
-| Field | Required | Purpose |
-|-------|----------|---------|
-| `name` | Yes | MCP identifier (key in config) |
-| `url` | No | Source URL |
-| `type` | Yes | `local` or `remote` |
-| `auth` | Yes | `oauth`, `api-key`, or `none` |
-| `description` | Yes | One-liner for catalog |
-| `tags` | No | Array of category tags |
-
-</documenting_new_mcps>
+- GitHub搜索：`mcp__github__search_repositories`
+- GitHub获取文件内容：`mcp__github__get_file_contents`
+- 读取配置文件：Read工具
+- 写入配置文件：Write工具

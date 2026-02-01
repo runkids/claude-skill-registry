@@ -1,7 +1,7 @@
 {
   "name": "vitest",
-  "repo": "mcclowes/omg",
-  "path": ".claude/skills/vitest/SKILL.md",
-  "source": "github.com/mcclowes/omg",
-  "downloaded_at": "2026-01-31T04:28:00.384534Z"
+  "repo": "itechmeat/llm-code",
+  "path": "skills/vitest/SKILL.md",
+  "source": "github.com/itechmeat/llm-code",
+  "downloaded_at": "2026-02-01T04:11:17.261583Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "playwright-local",
-  "repo": "dennislee928/Smart_Zone",
-  "path": ".claude/skills/playwright-local/SKILL.md",
-  "source": "github.com/dennislee928/Smart_Zone",
-  "downloaded_at": "2026-01-31T04:46:50.194261Z"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/playwright-local/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-02-01T05:00:37.470271Z"
 }

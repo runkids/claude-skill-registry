@@ -1,7 +1,7 @@
 {
   "name": "treatment-plans",
-  "repo": "Victory-Hugo/S2-Agent-Skill",
-  "path": "skills/writing/treatment-plans/SKILL.md",
-  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
-  "downloaded_at": "2026-01-31T04:16:19.925353Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/treatment-plans/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:39.394949Z"
 }

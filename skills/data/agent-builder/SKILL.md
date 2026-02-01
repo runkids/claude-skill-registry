@@ -1,129 +1,188 @@
 ---
-name: agent-builder
-description: |
-  Design and build AI agents for any domain. Use when users:
-  (1) ask to "create an agent", "build an assistant", or "design an AI system"
-  (2) want to understand agent architecture, agentic patterns, or autonomous AI
-  (3) need help with capabilities, subagents, planning, or skill mechanisms
-  (4) ask about Claude Code, Cursor, or similar agent internals
-  (5) want to build agents for business, research, creative, or operational tasks
-  Keywords: agent, assistant, autonomous, workflow, tool use, multi-step, orchestration
+name: "Agent Creating"
+description: "Used to create a new agent. Used when a user wants to create a new agent"
 ---
 
-# Agent Builder
+# Create Skill
 
-Build AI agents for any domain - customer service, research, operations, creative work, or specialized business processes.
+## Instructions
+Invoked when the user requests to create a new agent or subagent
 
-## The Core Philosophy
 
-> **The model already knows how to be an agent. Your job is to get out of the way.**
+# Create Skill
 
-An agent is not complex engineering. It's a simple loop that invites the model to act:
+## Instructions
 
+When requested to create a new skill, follow these steps:
+1. Create a new file in `.claude/agents` with the agent name `xyz.md` (ex: "stripe-implementor" or "code-reviewer")
+2. Take the requested input given to you to turn into a re-usable agent.
+3. Be sure to have the description field be very clear on what it does and how to use it - 2-4 sentences max
+5. Make sure it has a clear persona and goal
+6. Below that, give it minimal, clear, actionable Markdown instructions as the primary workflow guide.
+7. Be sure it knows the `docs/convexGuidelines.md`
+
+## Examples
+
+code-reviewer.md
+---
+name: code-reviewer
+description: Expert code review specialist. Proactively reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.
+tools: Read, Grep, Glob, Bash
+model: inherit
+---
+
+You are a senior code reviewer ensuring high standards of code quality and security.
+
+When invoked:
+1. Run git diff to see recent changes
+2. Focus on modified files
+3. Begin review immediately
+
+Review checklist:
+- Code is simple and readable
+- Functions and variables are well-named
+- No duplicated code
+- Proper error handling
+- No exposed secrets or API keys
+- Input validation implemented
+- Good test coverage
+- Performance considerations addressed
+
+Provide feedback organized by priority:
+- Critical issues (must fix)
+- Warnings (should fix)
+- Suggestions (consider improving)
+
+Include specific examples of how to fix issues.
+
+
+
+
+## Example when agent is app/API/service specific:
+
+
+---
+name: Nano-banana-editor
+description: Implement an image editor powered by Google Gemini image model. Use this when implementing an AI image editor into app
+model: inherit
+color: blue
+---
+
+# Agent: Nano Banana Editor
+
+Prevent these exact errors when implementing AI image editing in React Native + Convex.
+
+## Error Prevention Checklist
+
+### 1. TypeScript Return Types
+**WILL ERROR:** `TS7022: 'editImageWithGemini' implicitly has type 'any'`
+```typescript
+// ❌ This breaks
+export const editImageWithGemini = action({
+  args: { userId: v.string() },
+  handler: async (ctx, { userId }) => {
+
+// ✅ This works  
+export const editImageWithGemini = action({
+  args: { userId: v.string() },
+  handler: async (ctx, { userId }): Promise<{ success: boolean; versionId?: any }> => {
 ```
-LOOP:
-  Model sees: context + available capabilities
-  Model decides: act or respond
-  If act: execute capability, add result, continue
-  If respond: return to user
+
+### 2. Gemini Model Names
+**WILL ERROR:** `[404 Not Found] models/gemini-2.5-flash-image is not found`
+```typescript
+// ❌ This breaks
+model: 'gemini-2.5-flash-image'
+
+// ✅ This works
+model: 'gemini-2.5-flash-image-preview'
 ```
 
-**That's it.** The magic isn't in the code - it's in the model. Your code just provides the opportunity.
+### 3. Buffer in Convex Environment
+**WILL ERROR:** `ReferenceError: Buffer is not defined`
+```typescript
+// ❌ This breaks
+const base64 = Buffer.from(arrayBuffer).toString('base64');
+const imageBuffer = Buffer.from(base64Data, 'base64');
 
-## The Three Elements
+// ✅ This works - chunked conversion
+const uint8Array = new Uint8Array(arrayBuffer);
+let binaryString = '';
+const chunkSize = 8192;
+for (let i = 0; i < uint8Array.length; i += chunkSize) {
+  const chunk = uint8Array.slice(i, i + chunkSize);
+  binaryString += String.fromCharCode.apply(null, Array.from(chunk));
+}
+const base64 = btoa(binaryString);
 
-### 1. Capabilities (What can it DO?)
+// For base64 to blob
+const binaryString = atob(base64Data);
+const uint8Array = new Uint8Array(binaryString.length);
+for (let i = 0; i < binaryString.length; i++) {
+  uint8Array[i] = binaryString.charCodeAt(i);
+}
+const blob = new Blob([uint8Array], { type: 'image/jpeg' });
+```
 
-Atomic actions the agent can perform: search, read, create, send, query, modify.
+### 4. Large Array Spread Operator
+**WILL ERROR:** `RangeError: Maximum call stack size exceeded`
+```typescript
+// ❌ This breaks with large images
+const base64 = btoa(String.fromCharCode(...uint8Array));
 
-**Design principle**: Start with 3-5 capabilities. Add more only when the agent consistently fails because a capability is missing.
+// ✅ This works - use chunked processing from #3 above
+```
 
-### 2. Knowledge (What does it KNOW?)
+### 5. Data URL Fetching
+**WILL ERROR:** `Unsupported URL scheme -- http and https are supported (scheme was data)`
+```typescript
+// ❌ This breaks
+const response = await fetch(sourceImageUrl); // fails if data: URL
 
-Domain expertise injected on-demand: policies, workflows, best practices, schemas.
+// ✅ This works
+if (sourceImageUrl.startsWith('data:')) {
+  const base64Match = sourceImageUrl.match(/^data:image\/[^;]+;base64,(.+)$/);
+  if (!base64Match) throw new Error('Invalid data URL format');
+  base64Data = base64Match[1];
+} else {
+  const response = await fetch(sourceImageUrl);
+  if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+  // ... convert to base64 using chunked method
+}
+```
 
-**Design principle**: Make knowledge available, not mandatory. Load it when relevant, not upfront.
+### 6. Database Size Limits
+**WILL ERROR:** `Value is too large (1.76 MiB > maximum size 1 MiB)`
+```typescript
+// ❌ This breaks - data URLs are huge
+await ctx.db.insert("projects", {
+  originalImageUrl: asset.uri, // data: URL = several MB
+});
 
-### 3. Context (What has happened?)
+// Frontend passes data URL to mutation
+const projectId = await createProject({
+  originalImageUrl: asset.uri, // BREAKS!
+});
 
-The conversation history - the thread connecting actions into coherent behavior.
+// ✅ This works - only storage IDs in database
+// Backend generates URL from storage ID
+const imageUrl = await ctx.storage.getUrl(originalImageId);
+await ctx.db.insert("projects", {
+  originalImageId: storageId, // small ID
+  originalImageUrl: imageUrl, // generated URL
+});
 
-**Design principle**: Context is precious. Isolate noisy subtasks. Truncate verbose outputs. Protect clarity.
+// Frontend only passes storage ID
+const projectId = await createProject({
+  originalImageId: storageId, // WORKS!
+});
+```
 
-## Agent Design Thinking
+## Implementation Rules
 
-Before building, understand:
-
-- **Purpose**: What should this agent accomplish?
-- **Domain**: What world does it operate in? (customer service, research, operations, creative...)
-- **Capabilities**: What 3-5 actions are essential?
-- **Knowledge**: What expertise does it need access to?
-- **Trust**: What decisions can you delegate to the model?
-
-**CRITICAL**: Trust the model. Don't over-engineer. Don't pre-specify workflows. Give it capabilities and let it reason.
-
-## Progressive Complexity
-
-Start simple. Add complexity only when real usage reveals the need:
-
-| Level | What to add | When to add it |
-|-------|-------------|----------------|
-| Basic | 3-5 capabilities | Always start here |
-| Planning | Progress tracking | Multi-step tasks lose coherence |
-| Subagents | Isolated child agents | Exploration pollutes context |
-| Skills | On-demand knowledge | Domain expertise needed |
-
-**Most agents never need to go beyond Level 2.**
-
-## Domain Examples
-
-**Business**: CRM queries, email, calendar, approvals
-**Research**: Database search, document analysis, citations
-**Operations**: Monitoring, tickets, notifications, escalation
-**Creative**: Asset generation, editing, collaboration, review
-
-The pattern is universal. Only the capabilities change.
-
-## Key Principles
-
-1. **The model IS the agent** - Code just runs the loop
-2. **Capabilities enable** - What it CAN do
-3. **Knowledge informs** - What it KNOWS how to do
-4. **Constraints focus** - Limits create clarity
-5. **Trust liberates** - Let the model reason
-6. **Iteration reveals** - Start minimal, evolve from usage
-
-## Anti-Patterns
-
-| Pattern | Problem | Solution |
-|---------|---------|----------|
-| Over-engineering | Complexity before need | Start simple |
-| Too many capabilities | Model confusion | 3-5 to start |
-| Rigid workflows | Can't adapt | Let model decide |
-| Front-loaded knowledge | Context bloat | Load on-demand |
-| Micromanagement | Undercuts intelligence | Trust the model |
-
-## Resources
-
-**Philosophy & Theory**:
-- `references/agent-philosophy.md` - Deep dive into why agents work
-
-**Implementation**:
-- `references/minimal-agent.py` - Complete working agent (~80 lines)
-- `references/tool-templates.py` - Capability definitions
-- `references/subagent-pattern.py` - Context isolation
-
-**Scaffolding**:
-- `scripts/init_agent.py` - Generate new agent projects
-
-## The Agent Mindset
-
-**From**: "How do I make the system do X?"
-**To**: "How do I enable the model to do X?"
-
-**From**: "What's the workflow for this task?"
-**To**: "What capabilities would help accomplish this?"
-
-The best agent code is almost boring. Simple loops. Clear capabilities. Clean context. The magic isn't in the code.
-
-**Give the model capabilities and knowledge. Trust it to figure out the rest.**
+1. **ALWAYS** add `: Promise<Type>` to all Convex action handlers
+2. **ALWAYS** use `gemini-2.5-flash-image-preview` (with -preview suffix)
+3. **NEVER** use `Buffer` - use chunked `btoa`/`atob` with 8KB chunks
+4. **NEVER** use spread operator on large arrays - use chunked processing
+5. **ALWAYS** check `imageUrl.startsWith('data:')` before fetch
+6. **NEVER** store data URLs in database - upload to storage first, pass only storage IDs

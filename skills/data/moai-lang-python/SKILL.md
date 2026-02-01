@@ -1,29 +1,21 @@
 ---
-name: moai-lang-python
-description: >
-  Python 3.13+ development specialist covering FastAPI, Django, async patterns, data science, testing with pytest, and modern Python features. Use when developing Python APIs, web applications, data pipelines, or writing tests.
-license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob Bash mcp__context7__resolve-library-id mcp__context7__get-library-docs
+name: "moai-lang-python"
+description: "Python 3.13+ development specialist covering FastAPI, Django, async patterns, data science, testing with pytest, and modern Python features. Use when developing Python APIs, web applications, data pipelines, or writing tests."
+version: 1.1.0
+category: "language"
+modularized: false
 user-invocable: false
-metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "language, python, fastapi, django, pytest, async, data-science"
-
-# MoAI Extension: Progressive Disclosure
-progressive_disclosure:
-  enabled: true
-  level1_tokens: 100
-  level2_tokens: 5000
-
-# MoAI Extension: Triggers
-triggers:
-  keywords: ["Python", "Django", "FastAPI", "Flask", "asyncio", "pytest", "pyproject.toml", "requirements.txt", ".py"]
-  languages: ["python"]
+tags:
+  ["language", "python", "fastapi", "django", "pytest", "async", "data-science"]
+updated: 2026-01-11
+status: "active"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
 ## Quick Reference (30 seconds)
@@ -207,7 +199,7 @@ See:
 
 - moai-domain-backend for REST API and microservices architecture
 - moai-domain-database for SQL patterns and ORM optimization
-- moai-workflow-testing for DDD and testing strategies
+- moai-workflow-testing for TDD and testing strategies
 - moai-essentials-debug for AI-powered debugging
 - moai-foundation-quality for TRUST 5 quality principles
 

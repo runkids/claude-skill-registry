@@ -1,7 +1,7 @@
 {
   "name": "paper-2-web",
-  "repo": "Victory-Hugo/S2-Agent-Skill",
-  "path": "skills/writing/paper-2-web/SKILL.md",
-  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
-  "downloaded_at": "2026-01-31T04:16:23.743811Z"
+  "repo": "overtimepog/AgentTheo",
+  "path": ".claude/skills/scientific-skills/paper-2-web/SKILL.md",
+  "source": "github.com/overtimepog/AgentTheo",
+  "downloaded_at": "2026-02-01T04:15:24.844437Z"
 }

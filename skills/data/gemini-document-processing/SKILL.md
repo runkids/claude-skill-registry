@@ -19,7 +19,6 @@ Process and analyze PDF documents using Google Gemini's native vision capabiliti
 ## When to Use This Skill
 
 Use this skill when you need to:
-
 - Extract structured data from PDF documents (invoices, resumes, forms)
 - Summarize long documents or reports
 - Answer questions about PDF content
@@ -33,7 +32,6 @@ Use this skill when you need to:
 ### 1. API Key Configuration
 
 The skill checks for `GEMINI_API_KEY` in this priority order:
-
 1. Process environment variable
 2. `.env` file in skill directory (`.claude/skills/gemini-document-processing/.env`)
 3. `.env` file in project root
@@ -41,20 +39,17 @@ The skill checks for `GEMINI_API_KEY` in this priority order:
 **Get your API key:** https://aistudio.google.com/apikey
 
 **Option A: Environment Variable (Recommended)**
-
 ```bash
 export GEMINI_API_KEY="your-api-key-here"
 ```
 
 **Option B: Skill Directory**
-
 ```bash
 cd .claude/skills/gemini-document-processing
 echo "GEMINI_API_KEY=your-api-key-here" > .env
 ```
 
 **Option C: Project Root**
-
 ```bash
 echo "GEMINI_API_KEY=your-api-key-here" > .env
 ```
@@ -207,7 +202,6 @@ python scripts/process-document.py --file document.pdf --prompt "Question 1" --p
 ## References
 
 For comprehensive documentation, see:
-
 - `references/gemini-document-processing-report.md` - Complete API reference
 - `references/quick-reference.md` - Quick lookup guide
 - `references/code-examples.md` - Additional code patterns
@@ -215,19 +209,16 @@ For comprehensive documentation, see:
 ## Troubleshooting
 
 **API Key Not Found:**
-
 ```bash
 # Check API key is set
 ./scripts/check-api-key.sh
 ```
 
 **File Too Large:**
-
 - Use File API for files > 20MB
 - Add `--use-file-api` flag to the script
 
 **Vision Not Working:**
-
 - Ensure file is PDF format
 - Other formats (TXT, HTML) don't support vision processing
 

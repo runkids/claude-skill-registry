@@ -1,7 +1,7 @@
 {
   "name": "go",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/languages/go/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-31T01:03:12.192771Z"
+  "repo": "Taoidle/plan-cascade",
+  "path": "builtin-skills/go/SKILL.md",
+  "source": "github.com/Taoidle/plan-cascade",
+  "downloaded_at": "2026-02-01T04:33:11.749036Z"
 }

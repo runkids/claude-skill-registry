@@ -1,9 +1,7 @@
 {
   "name": "testability",
-  "description": "Refactoring patterns for hard-to-test code",
-  "repo": "mgreenly/ikigai",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "libertininick/chain-reaction",
+  "path": ".claude/skills/testability/SKILL.md",
+  "source": "github.com/libertininick/chain-reaction",
+  "downloaded_at": "2026-02-01T01:23:04.253754Z"
 }

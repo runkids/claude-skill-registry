@@ -1,7 +1,7 @@
 {
   "name": "supabase",
-  "repo": "liamtran96/msm-car-booking",
-  "path": ".claude/skills/supabase/skill.md",
-  "source": "github.com/liamtran96/msm-car-booking",
-  "downloaded_at": "2026-01-31T02:59:40.427380Z"
+  "repo": "paxtone-io/openkodo",
+  "path": "plugins/kodo-supabase/skills/supabase/SKILL.md",
+  "source": "github.com/paxtone-io/openkodo",
+  "downloaded_at": "2026-02-01T03:59:29.999327Z"
 }

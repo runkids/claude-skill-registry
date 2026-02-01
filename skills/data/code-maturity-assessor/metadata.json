@@ -1,7 +1,7 @@
 {
   "name": "code-maturity-assessor",
-  "repo": "Blurjp/ImagePrepMCP",
-  "path": ".claude/skills/trailofbits-building-secure-contracts/skills/development-guidelines/code-maturity-assessor/SKILL.md",
-  "source": "github.com/Blurjp/ImagePrepMCP",
-  "downloaded_at": "2026-01-31T03:14:29.341670Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/building-secure-contracts/skills/code-maturity-assessor/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:26.205861Z"
 }

@@ -1,159 +1,143 @@
 ---
 name: setup
-description: >
-  First-time setup for protein design tools. Use this skill when:
-  (1) User is new and hasn't run any tools yet,
-  (2) Commands fail with "file not found" or "modal: command not found",
-  (3) Modal authentication errors occur,
-  (4) User asks how to get started or set up the environment,
-  (5) biomodals directory is missing or tools aren't working.
-license: MIT
-category: utilities
-tags: [setup, onboarding, installation]
+description: Standards for setting up requirements and specification documentation in new CUI projects with proper directory structure and initial documents
+user-invocable: false
+allowed-tools: Read
 ---
 
-# Setup Guide
+# Project Setup Standards for Requirements Documentation
 
-Help users get their environment ready to run protein design tools.
+Standards for establishing requirements and specification documentation structure in new CUI projects, including directory layout, initial document creation, and prefix selection.
 
-## Quick checklist
+## What This Skill Provides
 
-Run through this checklist when a user encounters setup issues:
+This skill provides comprehensive standards for:
 
-| Step | Check | Fix |
-|------|-------|-----|
-| 1. Modal CLI | `modal --version` | `pip install modal` |
-| 2. Modal auth | `modal token show` | `modal setup` |
-| 3. biomodals | `ls biomodals/modal_*.py` | `git clone https://github.com/hgbrian/biomodals` |
-| 4. Test | `cd biomodals && modal run modal_boltzgen.py --help` | See troubleshooting |
+- **Directory Structure**: Standard layout for requirements documentation
+- **Prefix Selection**: Choosing appropriate requirement prefixes for projects
+- **Document Templates**: Ready-to-use templates for initial documentation
+- **Setup Workflow**: Step-by-step process for establishing documentation
+- **Quality Verification**: Checklist for validating setup completeness
+- **Lifecycle Integration**: Integrating documentation throughout project phases
 
-## Diagnosing issues
+## When to Use This Skill
 
-### Error: "modal: command not found"
+Use this skill when:
 
-**Cause**: Modal CLI not installed.
+- Starting a new CUI project that needs requirements documentation
+- Setting up documentation structure before implementation
+- Standardizing documentation across multiple projects
+- Onboarding teams to CUI documentation practices
+- Establishing traceability from project inception
 
-**Fix**:
-```bash
-pip install modal
+## Workflow
+
+### Step 1: Understand Documentation Principles
+
+Load core principles and directory structure:
+
+```
+Read: standards/directory-structure.md
+Read: standards/lifecycle-integration.md
 ```
 
-Then restart the terminal or run `hash -r`.
+These standards provide:
+- Required directory layout and file organization
+- Documentation-first approach principles
+- Minimal vs. complete setup guidance
+- Integration with project lifecycle phases
 
-### Error: "Permission denied" or "Unauthorized"
+### Step 2: Select Requirement Prefix
 
-**Cause**: Modal not authenticated.
+Load prefix selection guidance:
 
-**Fix**:
-```bash
-modal setup
+```
+Read: standards/prefix-selection.md
 ```
 
-This opens a browser. Click "Authorize" to complete authentication.
+This standard provides:
+- Recommended prefixes by domain
+- Custom prefix guidelines
+- Hierarchical prefix patterns
+- Cross-domain project guidance
 
-### Error: "No such file or directory: modal_boltzgen.py"
+### Step 3: Create Initial Documents
 
-**Cause**: biomodals repository not cloned or not in correct directory.
+Load document templates:
 
-**Fix**:
-```bash
-git clone https://github.com/hgbrian/biomodals
-cd biomodals
+```
+Read: standards/document-templates.md
 ```
 
-### Error: "uvx: command not found"
+This standard provides templates for:
+- Requirements.adoc
+- Specification.adoc
+- Individual specification files
+- LogMessages.adoc
 
-**Cause**: `uvx` is an optional wrapper from the `uv` package. It's not required.
+### Step 4: Follow Setup Workflow
 
-**Fix**: Run modal directly (recommended):
-```bash
-modal run modal_boltzgen.py --help
+Load workflow guidance:
+
+```
+Read: standards/setup-workflow.md
 ```
 
-Or install uv if you prefer using uvx:
-```bash
-pip install uv
+This standard provides:
+- Step-by-step setup process
+- Common setup issues and solutions
+- Cross-reference verification steps
+
+### Step 5: Verify Quality
+
+Load quality checklist:
+
+```
+Read: standards/quality-checklist.md
 ```
 
-## Full setup steps
+This standard provides:
+- Documentation structure verification
+- Content quality checks
+- Traceability validation
 
-### Step 1: Install Modal CLI
+## Integration with Other Skills
 
-```bash
-pip install modal
-```
+This skill works with other pm-requirements bundle skills:
 
-Verify: `modal --version`
+**After Setup** → `pm-requirements:requirements-authoring`
+- Use after initial setup to create comprehensive requirements
+- Provides detailed authoring standards for requirements content
 
-### Step 2: Authenticate Modal
+**After Setup** → `pm-requirements:planning`
+- Create planning documents for implementation tracking
+- Provides task organization and status tracking
 
-```bash
-modal setup
-```
+**During Implementation** → `pm-requirements:traceability`
+- Link requirements to implementation code
+- Maintain bi-directional traceability
 
-This opens a browser. Click "Authorize".
+## Quick Reference
 
-Verify: `modal token show`
+**Typical Setup Sequence**:
+1. Create directory structure (`mkdir -p doc/specification`)
+2. Select requirement prefix (see prefix-selection.md)
+3. Create Requirements.adoc from template
+4. Create Specification.adoc from template
+5. Create individual specification documents
+6. Verify with quality checklist
 
-### Step 3: Clone biomodals
+**Minimum Files Required**:
+- `doc/Requirements.adoc`
+- `doc/Specification.adoc`
 
-```bash
-git clone https://github.com/hgbrian/biomodals
-cd biomodals
-```
+**Complete Setup Includes**:
+- Requirements.adoc, Specification.adoc
+- Individual specification documents in `doc/specification/`
+- LogMessages.adoc (if logging required)
 
-Verify: `ls modal_*.py` should show files like `modal_boltzgen.py`
+## Related Documentation
 
-### Step 4: Test the Setup
-
-```bash
-cd biomodals
-modal run modal_boltzgen.py --help
-```
-
-Expected: Usage instructions appear showing `--input-yaml`, `--protocol`, `--num-designs` options.
-
-## Common workflows after setup
-
-Once setup is complete, users can:
-
-```bash
-cd biomodals
-
-# Design binders with BoltzGen (requires YAML config)
-modal run modal_boltzgen.py --input-yaml binder.yaml --protocol protein-anything --num-designs 50
-
-# Generate backbones with RFdiffusion
-modal run modal_rfdiffusion.py --pdb target.pdb --contigs "A1-150/0 70-100" --num-designs 100
-
-# Validate with Chai
-modal run modal_chai1.py --input-faa designs.fasta
-```
-
-## GPU selection
-
-Set GPU with environment variable:
-
-```bash
-GPU=A10G modal run modal_rfdiffusion.py --pdb target.pdb --contigs "A1-100/0 50-80" --num-designs 10
-GPU=L40S modal run modal_boltzgen.py --input-yaml config.yaml --num-designs 50
-GPU=A100 modal run modal_chai1.py --input-faa complex.fasta
-```
-
-| GPU | VRAM | Best For |
-|-----|------|----------|
-| T4 | 16GB | ProteinMPNN, ESM |
-| A10G | 24GB | RFdiffusion, Chai |
-| L40S | 48GB | BoltzGen, BindCraft |
-| A100 | 40-80GB | Large complexes |
-
-## Modal free tier
-
-Modal offers $30/month in free credits - enough for:
-- ~500 BoltzGen designs
-- ~2000 RFdiffusion backbones
-- ~1000 Chai predictions
-
----
-
-**Full documentation**: See [Installation Guide](../../docs/installation.md)
+- **CUI Documentation Standards**: General AsciiDoc formatting and structure
+- **Logging Standards**: LogMessages.adoc content requirements
+- **Git Standards**: Committing documentation files

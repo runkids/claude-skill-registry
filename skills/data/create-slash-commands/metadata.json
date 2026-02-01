@@ -1,7 +1,7 @@
 {
   "name": "create-slash-commands",
-  "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
-  "path": ".claude/skills/create-slash-commands/SKILL.md",
-  "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor",
-  "downloaded_at": "2026-01-31T02:38:45.675946Z"
+  "repo": "cedricfressin/claude-config",
+  "path": "skills/create-slash-commands/SKILL.md",
+  "source": "github.com/cedricfressin/claude-config",
+  "downloaded_at": "2026-02-01T03:23:56.088769Z"
 }

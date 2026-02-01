@@ -1,7 +1,7 @@
 {
   "name": "s3",
-  "repo": "yugasun/skills",
+  "repo": "itsmostafa/aws-agent-skills",
   "path": "skills/s3/SKILL.md",
-  "source": "github.com/yugasun/skills",
-  "downloaded_at": "2026-01-31T04:26:52.139775Z"
+  "source": "github.com/itsmostafa/aws-agent-skills",
+  "downloaded_at": "2026-02-01T04:06:47.145358Z"
 }

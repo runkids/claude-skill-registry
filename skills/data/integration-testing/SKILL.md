@@ -1,689 +1,476 @@
 ---
 name: integration-testing
-description: Integration test patterns using real API calls with credentials from .env
+description: Design and implement integration tests that verify component interactions, API endpoints, database operations, and external service communication. Use for integration test, API test, end-to-end component testing, and service layer validation.
 ---
 
-# Integration Test Patterns
+# Integration Testing
 
-Integration tests verify real API interactions with live credentials. They test authentication, network communication, and API behavior.
+## Overview
 
-## 🚨 CRITICAL RULES (Immediate Failure)
+Integration testing validates that different components, modules, or services work correctly together. Unlike unit tests that isolate single functions, integration tests verify the interactions between multiple parts of your system including databases, APIs, external services, and infrastructure.
 
-### 1. Test Data Configuration - NEVER Hardcode Values
+## When to Use
 
-**🚨 CRITICAL: ALL integration test values MUST be in .env, NEVER hardcoded**
+- Testing API endpoints with real database connections
+- Verifying service-to-service communication
+- Validating data flow across multiple layers
+- Testing repository/DAO layer with actual databases
+- Checking authentication and authorization flows
+- Verifying message queue consumers and producers
+- Testing third-party service integrations
 
-When user provides test values (IDs, names, etc.), they MUST go in `.env`:
+## Instructions
 
-```bash
-# ✅ CORRECT - Test values in .env
-SERVICE_API_KEY=your-api-key
-SERVICE_TEST_USER_ID=12345
-SERVICE_TEST_ORGANIZATION_ID=1067
-SERVICE_TEST_RESOURCE_NAME=test-resource
+### 1. **API Integration Testing**
 
-# ❌ WRONG - Hardcoding in test files
-const userId = '12345';  // NO!
-const orgId = '1067';    // NO!
-```
+#### Express/Node.js with Jest and Supertest
+```javascript
+// test/api/users.integration.test.js
+const request = require('supertest');
+const app = require('../../src/app');
+const { setupTestDB, teardownTestDB } = require('../helpers/db');
 
-**RULE**:
-1. User gives you test values → Add to `.env` immediately
-2. Export from `test/integration/Common.ts`
-3. Import and use in integration tests
-4. NEVER hardcode any test data values
-
-**Example**:
-
-```typescript
-// .env
-AVIGILON_ALTA_ACCESS_TEST_ORGANIZATION_ID=1067
-
-// test/integration/Common.ts
-export const AVIGILON_ALTA_ACCESS_TEST_ORGANIZATION_ID =
-  process.env.AVIGILON_ALTA_ACCESS_TEST_ORGANIZATION_ID || '';
-
-// test/integration/OrganizationProducerTest.ts
-import { AVIGILON_ALTA_ACCESS_TEST_ORGANIZATION_ID } from './Common';
-
-it('should retrieve organization', async () => {
-  const organizationId = AVIGILON_ALTA_ACCESS_TEST_ORGANIZATION_ID;  // ✅ From .env
-  // NOT: const organizationId = '1067';  // ❌ Hardcoded
-
-  const org = await api.get(organizationId);
-  expect(org.id).to.equal(organizationId);
-});
-```
-
-**WHY**:
-- Test values are configuration, not code
-- Different developers may need different test IDs
-- Makes tests portable across environments
-- Easy to update without touching code
-- Consistent with credential management
-
-### 2. Credential Loading for Integration Tests
-
-**🚨 CRITICAL: Automatic credential loading with dotenv**
-
-Integration tests need credentials and test values from `.env` file. Configure automatic loading:
-
-**Step 0: Create .env file after scaffolding**
-
-**IMMEDIATELY after running module scaffolding**, create a `.env` file in the module root with credentials from the user's initial request:
-
-```bash
-# Example: User said "credentials are in .env: SERVICE_EMAIL and SERVICE_PASSWORD"
-# Create module/.env with:
-SERVICE_EMAIL=user@example.com
-SERVICE_PASSWORD=their-password
-SERVICE_API_KEY=their-api-key
-```
-
-**Important**: Extract credentials from wherever user specified in their request:
-- Module root `.env`
-- Repository root `.env`
-- `.connectionProfile.json`
-- User message directly
-- System environment
-
-**Step 1: Install dotenv**
-```bash
-npm install --save-dev dotenv
-```
-
-**Step 2: Configure .mocharc.json**
-```json
-{
-  "extension": ["ts"],
-  "require": ["ts-node/register", "dotenv/config"]
-}
-```
-
-**Step 3: Load dotenv explicitly in test/integration/Common.ts**
-```typescript
-// test/integration/Common.ts - ONLY file allowed to access process.env
-import { config } from 'dotenv';
-
-// Load .env file explicitly to ensure credentials are available
-config();
-
-export const SERVICE_API_KEY = process.env.SERVICE_API_KEY || '';
-export const SERVICE_BASE_URL = process.env.SERVICE_BASE_URL || 'https://api.example.com';
-
-export function hasCredentials(): boolean {
-  return !!SERVICE_API_KEY;
-}
-```
-
-**Why explicit config()?**
-- .mocharc.json `"require": ["dotenv/config"]` loads dotenv, BUT
-- Environment variables in Common.ts are evaluated at module load time
-- Explicit `config()` ensures .env is loaded BEFORE env vars are accessed
-- This guarantees integration tests can detect credentials properly
-
-**Step 4: Use in integration tests**
-```typescript
-import { hasCredentials, SERVICE_API_KEY } from './Common';
-
-describe('Service Integration Tests', function () {
-  before(function () {
-    if (!hasCredentials()) {
-      this.skip(); // Skip entire suite if no credentials
-    }
+describe('User API Integration Tests', () => {
+  beforeAll(async () => {
+    await setupTestDB();
   });
 
-  it('should connect with real API', async function () {
-    // Test with real credentials
-  });
-});
-```
-
-**Benefits**:
-- ✅ Credentials automatically loaded from `.env`
-- ✅ No manual process.env access in test files
-- ✅ Graceful skipping when credentials unavailable
-- ✅ Consistent credential management across all modules
-
-**Document in USERGUIDE.md**:
-```markdown
-### Setting Up Credentials for Testing
-
-Create a `.env` file in the module root:
-
-\`\`\`bash
-SERVICE_API_KEY=your-api-key
-SERVICE_SECRET=your-secret
-\`\`\`
-
-The test suite automatically loads credentials using `dotenv`.
-```
-
-### 3. Debug Logging is MANDATORY
-
-**🚨 CRITICAL: All integration tests MUST include debug logging**
-
-```typescript
-import { getLogger, hasCredentials } from './Common';
-
-const logger = getLogger('{Resource}ProducerTest');
-
-describe('{Resource} Producer Integration', function () {
-  before(function () {
-    if (!hasCredentials()) {
-      this.skip();
-    }
+  afterAll(async () => {
+    await teardownTestDB();
   });
 
-  it('should perform operation with real API', async function () {
-    const connector = newService();
-
-    logger.debug('connector.connect(email, password)');
-    await connector.connect({ email, password });
-    logger.debug('→', JSON.stringify(connectionState, null, 2));
-
-    const api = connector.getResourceApi();
-
-    logger.debug('api.getResource(id)');
-    const result = await api.getResource('123');
-    logger.debug('→', JSON.stringify(result, null, 2));
-
-    expect(result).to.have.property('id');
-  });
-});
-```
-
-**Debug Logging Requirements**:
-- ✅ Import getLogger from `./Common` (not from @zerobias-org/logger directly)
-- ✅ Create logger with test file name: `const logger = getLogger('{Resource}ProducerTest')`
-- ✅ Log operation call BEFORE execution: `logger.debug('api.methodName(param1, param2)')`
-- ✅ Log result AFTER execution: `logger.debug('→', JSON.stringify(result, null, 2))`
-- ✅ Use arrow `→` to indicate result
-- ✅ Always use `JSON.stringify(result, null, 2)` for consistent formatting
-
-**Why debug logging?**
-- Visible when log level set to debug via `LOG_LEVEL=debug npm run test:integration`
-- Shows exact operation calls with parameters
-- Shows complete API responses for debugging
-- Helps diagnose integration issues without re-running tests
-
-## 🟡 STANDARD RULES
-
-### Test File Naming Convention
-
-**MANDATORY naming pattern for integration test files:**
-
-```
-test/integration/{Resource}ProducerTest.ts # Producer integration tests
-test/integration/ConnectionTest.ts         # Connection integration tests
-```
-
-**Examples**:
-- ✅ `test/integration/AccessProducerTest.ts` - integration test
-- ✅ `test/integration/UserProducerTest.ts` - integration test
-- ✅ `test/integration/ConnectionTest.ts` - integration test
-
-**Rationale**:
-- Consistent naming makes test files easy to find
-- Integration tests use SAME names as unit tests - folder location distinguishes them
-- No need for `IntegrationTest` suffix since `test/integration/` folder makes it clear
-
-### Connection Testing - Integration Tests
-
-**EVERY module MUST have connection integration tests: `test/integration/ConnectionTest.ts`**
-
-Tests with real API and credentials.
-
-```typescript
-// test/integration/ConnectionTest.ts
-import { expect } from 'chai';
-import { LoggerEngine } from '@zerobias-org/logger';
-import { Email } from '@zerobias-org/types-core-js';
-import { newService } from '../../src';
-import { SERVICE_EMAIL, SERVICE_PASSWORD, hasCredentials } from './Common';
-
-const logger = LoggerEngine.root().get('ConnectionTest');
-
-describe('Connection Integration Tests', function () {
-  this.timeout(30000);
-
-  before(function () {
-    if (!hasCredentials()) {
-      this.skip();
-    }
+  beforeEach(async () => {
+    await clearUsers();
   });
 
-  describe('connect', () => {
-    it('should successfully connect to real API', async () => {
-      const connector = newService();
+  describe('POST /api/users', () => {
+    it('should create a new user with valid data', async () => {
+      const userData = {
+        email: 'test@example.com',
+        name: 'Test User',
+        password: 'SecurePass123!'
+      };
 
-      logger.debug('connector.connect(email, password)');
-      const connectionState = await connector.connect({
-        email: new Email(SERVICE_EMAIL),
-        password: SERVICE_PASSWORD,
+      const response = await request(app)
+        .post('/api/users')
+        .send(userData)
+        .expect(201);
+
+      expect(response.body).toMatchObject({
+        id: expect.any(String),
+        email: userData.email,
+        name: userData.name
       });
-      logger.debug('→', JSON.stringify(connectionState, null, 2));
+      expect(response.body.password).toBeUndefined();
 
-      expect(connectionState).to.have.property('accessToken');
+      // Verify in database
+      const user = await User.findById(response.body.id);
+      expect(user).toBeTruthy();
+      expect(user.email).toBe(userData.email);
     });
 
-    it('should fail with invalid credentials', async () => {
-      const connector = newService();
+    it('should reject duplicate email addresses', async () => {
+      const userData = { email: 'test@example.com', name: 'Test', password: 'pass' };
 
-      logger.debug('connector.connect(invalid credentials)');
-      try {
-        await connector.connect({
-          email: new Email('invalid@example.com'),
-          password: 'wrongpassword',
-        });
-        expect.fail('Should have thrown an error');
-      } catch (error: any) {
-        logger.debug('→ error', JSON.stringify({ name: error.name }, null, 2));
-        expect(error).to.exist;
-      }
+      await request(app).post('/api/users').send(userData).expect(201);
+
+      const response = await request(app)
+        .post('/api/users')
+        .send(userData)
+        .expect(409);
+
+      expect(response.body.error).toMatch(/email.*exists/i);
     });
   });
 
-  describe('isConnected', () => {
-    it('should return true when connected', async () => {
-      const connector = newService();
+  describe('GET /api/users/:id', () => {
+    it('should retrieve user with associated orders', async () => {
+      const user = await createTestUser();
+      await createTestOrder({ userId: user.id, total: 99.99 });
 
-      await connector.connect({
-        email: new Email(SERVICE_EMAIL),
-        password: SERVICE_PASSWORD,
+      const response = await request(app)
+        .get(`/api/users/${user.id}`)
+        .set('Authorization', `Bearer ${user.token}`)
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        id: user.id,
+        orders: expect.arrayContaining([
+          expect.objectContaining({ total: 99.99 })
+        ])
       });
-
-      logger.debug('connector.isConnected()');
-      const isConnected = await connector.isConnected();
-      logger.debug('→', JSON.stringify({ isConnected }, null, 2));
-
-      expect(isConnected).to.be.true;
-    });
-
-    it('should return false when not connected', async () => {
-      const connector = newService();
-
-      logger.debug('connector.isConnected() - without connection');
-      const isConnected = await connector.isConnected();
-      logger.debug('→', JSON.stringify({ isConnected }, null, 2));
-
-      expect(isConnected).to.be.false;
-    });
-  });
-
-  describe('disconnect', () => {
-    it('should successfully disconnect from API', async () => {
-      const connector = newService();
-
-      await connector.connect({
-        email: new Email(SERVICE_EMAIL),
-        password: SERVICE_PASSWORD,
-      });
-
-      logger.debug('connector.disconnect()');
-      await connector.disconnect();
-      logger.debug('→ disconnect completed');
     });
   });
 });
 ```
 
-**Benefits**:
-- ✅ Tests real API authentication and connection
-- ✅ Verifies credentials work correctly
-- ✅ Catches network and API-specific issues
-- ✅ Debug logging shows actual API responses
+#### FastAPI/Python with pytest
+```python
+# tests/integration/test_user_api.py
+import pytest
+from httpx import AsyncClient
+from sqlalchemy.ext.asyncio import AsyncSession
 
-### Connected Instance Helpers - Integration Test Common.ts
+from app.main import app
+from app.models import User
+from tests.conftest import test_db
 
-**CRITICAL: Integration test Common.ts provides real credentials with connection caching**
+@pytest.mark.asyncio
+class TestUserAPI:
+    async def test_create_user_integration(
+        self,
+        client: AsyncClient,
+        db: AsyncSession
+    ):
+        """Test user creation with database persistence."""
+        user_data = {
+            "email": "test@example.com",
+            "name": "Test User",
+            "password": "SecurePass123!"
+        }
 
-```typescript
-// test/integration/Common.ts
-import { config } from 'dotenv';
-import { Email } from '@zerobias-org/types-core-js';
-import { LoggerEngine } from '@zerobias-org/logger';
-import { newService } from '../../src';
-import type { ServiceConnector } from '../../src';
+        response = await client.post("/api/users", json=user_data)
 
-// Load .env file explicitly to ensure credentials are available
-config();
+        assert response.status_code == 201
+        data = response.json()
+        assert data["email"] == user_data["email"]
+        assert "password" not in data
 
-export const SERVICE_EMAIL = process.env.SERVICE_EMAIL || '';
-export const SERVICE_PASSWORD = process.env.SERVICE_PASSWORD || '';
+        # Verify in database
+        result = await db.execute(
+            select(User).where(User.email == user_data["email"])
+        )
+        user = result.scalar_one()
+        assert user is not None
+        assert user.name == user_data["name"]
 
-// Test data values - export any test IDs, names, or other values from .env
-export const SERVICE_TEST_USER_ID = process.env.SERVICE_TEST_USER_ID || '';
-export const SERVICE_TEST_ORGANIZATION_ID = process.env.SERVICE_TEST_ORGANIZATION_ID || '';
+    async def test_user_with_relationships(
+        self,
+        client: AsyncClient,
+        db: AsyncSession
+    ):
+        """Test retrieving user with related data."""
+        # Setup: Create user with orders
+        user = await create_test_user(db)
+        await create_test_order(db, user_id=user.id, total=99.99)
 
-/**
- * Get a logger with configurable level from LOG_LEVEL env var.
- * Usage: LOG_LEVEL=debug npm run test:integration
- */
-export function getLogger(name: string) {
-  return LoggerEngine.root().get(name);
+        # Test: Fetch user with orders
+        response = await client.get(
+            f"/api/users/{user.id}",
+            headers={"Authorization": f"Bearer {user.token}"}
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["id"] == user.id
+        assert len(data["orders"]) == 1
+        assert data["orders"][0]["total"] == 99.99
+```
+
+### 2. **Database Integration Testing**
+
+#### Spring Boot with JUnit
+```java
+// src/test/java/com/example/integration/UserRepositoryIntegrationTest.java
+@SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(locations = "classpath:application-test.properties")
+class UserRepositoryIntegrationTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @BeforeEach
+    void setUp() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
+    @Test
+    @Transactional
+    void testSaveUserWithOrders() {
+        // Given
+        User user = new User();
+        user.setEmail("test@example.com");
+        user.setName("Test User");
+
+        Order order1 = new Order();
+        order1.setTotal(new BigDecimal("99.99"));
+        order1.setUser(user);
+
+        Order order2 = new Order();
+        order2.setTotal(new BigDecimal("49.99"));
+        order2.setUser(user);
+
+        user.setOrders(Arrays.asList(order1, order2));
+
+        // When
+        User savedUser = userRepository.save(user);
+        entityManager.flush();
+        entityManager.clear();
+
+        // Then
+        User foundUser = userRepository.findById(savedUser.getId())
+            .orElseThrow();
+
+        assertThat(foundUser.getEmail()).isEqualTo("test@example.com");
+        assertThat(foundUser.getOrders()).hasSize(2);
+        assertThat(foundUser.getOrders())
+            .extracting(Order::getTotal)
+            .containsExactlyInAnyOrder(
+                new BigDecimal("99.99"),
+                new BigDecimal("49.99")
+            );
+    }
+
+    @Test
+    void testCustomQueryWithJoins() {
+        // Given
+        User user = createTestUser("test@example.com");
+        createTestOrder(user, new BigDecimal("150.00"));
+
+        // When
+        List<User> highValueUsers = userRepository
+            .findUsersWithOrdersAbove(new BigDecimal("100.00"));
+
+        // Then
+        assertThat(highValueUsers).hasSize(1);
+        assertThat(highValueUsers.get(0).getEmail())
+            .isEqualTo("test@example.com");
+    }
 }
+```
 
-if (process.env.LOG_LEVEL) {
-  switch (process.env.LOG_LEVEL) {
-    case 'trace': {
-      getLogger().setLevel(LogLevel.TRACE);
-      break;
-    }
-    case 'debug': {
-      getLogger().setLevel(LogLevel.DEBUG);
-      break;
-    }
-    case 'verbose': {
-      getLogger().setLevel(LogLevel.VERBOSE);
-      break;
-    }
-    case 'info': {
-      getLogger().setLevel(LogLevel.INFO);
-      break;
-    }
-    case 'warn': {
-      getLogger().setLevel(LogLevel.WARN);
-      break;
-    }
-    case 'error': {
-      getLogger().setLevel(LogLevel.ERROR);
-      break;
-    }
-    case 'crit': {
-      getLogger().setLevel(LogLevel.CRIT);
-      break;
-    }
-    default: {
-      getLogger().setLevel(LogLevel.INFO);
-      break;
-    }
-  }
-}
+### 3. **External Service Integration**
 
-export function hasCredentials(): boolean {
-  return !!SERVICE_EMAIL && !!SERVICE_PASSWORD;
-}
+#### Testing with Test Containers
+```javascript
+// test/integration/payment-service.test.js
+const { GenericContainer } = require('testcontainers');
+const PaymentService = require('../../src/services/payment');
 
-// Cached connector instance - connect once, reuse many times
-let cachedConnector: ServiceConnector | null = null;
+describe('Payment Service Integration', () => {
+  let container;
+  let paymentService;
 
-/**
- * Get a connected instance for integration testing.
- * Connects once on first call, then returns cached instance on subsequent calls.
- * This avoids repeated authentication overhead across multiple tests.
- * Uses real credentials from .env file.
- * Makes real API calls.
- */
-export async function getConnectedInstance(): Promise<ServiceConnector> {
-  if (cachedConnector) {
-    return cachedConnector;
-  }
+  beforeAll(async () => {
+    // Start PostgreSQL container
+    container = await new GenericContainer('postgres:14')
+      .withEnvironment({
+        POSTGRES_DB: 'test',
+        POSTGRES_USER: 'test',
+        POSTGRES_PASSWORD: 'test'
+      })
+      .withExposedPorts(5432)
+      .start();
 
-  const connector = newService();
+    const connectionString = `postgresql://test:test@${container.getHost()}:${container.getMappedPort(5432)}/test`;
+    paymentService = new PaymentService(connectionString);
+    await paymentService.initialize();
+  }, 60000);
 
-  await connector.connect({
-    email: new Email(SERVICE_EMAIL),
-    password: SERVICE_PASSWORD,
+  afterAll(async () => {
+    await paymentService.close();
+    await container.stop();
   });
 
-  cachedConnector = connector;
-  return connector;
-}
-```
+  test('should process payment and update database', async () => {
+    const payment = {
+      orderId: 'order-123',
+      amount: 99.99,
+      currency: 'USD',
+      paymentMethod: 'credit_card'
+    };
 
-**Key Points**:
-- ✅ Uses dotenv to load real credentials
-- ✅ Exports credential constants
-- ✅ Exports getLogger() helper that respects LOG_LEVEL env var
-- ✅ Has hasCredentials() check
-- ✅ **Connection caching**: Connects once on first call, returns cached instance on subsequent calls
-- ✅ **Performance**: Avoids repeated authentication overhead across multiple integration tests
-- ✅ Makes real API calls
-- ✅ Requires .env file to run
-- ✅ Run with `LOG_LEVEL=debug npm run test:integration` to see debug logs
+    const result = await paymentService.processPayment(payment);
 
-**Usage in integration tests**:
-```typescript
-// test/integration/ServiceProducerTest.ts
-import { expect } from 'chai';
-import { getConnectedInstance, hasCredentials, getLogger } from './Common';
+    expect(result.status).toBe('completed');
+    expect(result.transactionId).toBeDefined();
 
-const logger = getLogger('ServiceProducerTest');
-
-describe('Service Integration', function () {
-  before(function () {
-    if (!hasCredentials()) {
-      this.skip(); // Skip if no credentials
-    }
-  });
-
-  it('should retrieve access token info from real API', async () => {
-    logger.debug('getConnectedInstance()');
-    const connector = await getConnectedInstance();
-
-    const api = connector.getAccessApi();
-
-    logger.debug('api.getToken()');
-    const tokenInfo = await api.getToken();
-    logger.debug('→', JSON.stringify(tokenInfo, null, 2));
-
-    expect(tokenInfo.token).to.exist;
-  });
-});
-```
-
-### Environment Variable Usage
-
-**CRITICAL: ONLY integration tests use environment variables**
-
-- **ONLY ALLOWED IN**: `test/integration/Common.ts`
-- **NEVER in**: Test files or unit tests
-- **Test files**: Import from Common.ts, NEVER access process.env directly
-
-```typescript
-// ✅ CORRECT: test/integration/Common.ts ONLY
-import { config } from 'dotenv';
-
-config();
-
-export const TEST_API_KEY = process.env.TEST_API_KEY || '';
-export const TEST_BASE_URL = process.env.TEST_BASE_URL || 'https://api.example.com';
-
-export function hasCredentials(): boolean {
-  return !!TEST_API_KEY;
-}
-
-// ✅ CORRECT: Integration test files
-import { TEST_API_KEY, hasCredentials } from './Common';
-
-// ❌ WRONG: Direct access in test files
-const apiKey = process.env.TEST_API_KEY;
-```
-
-### File Organization
-
-**Integration test structure:**
-```
-test/
-├── integration/
-│   ├── Common.ts                    # Real credentials from .env + getConnectedInstance
-│   ├── ConnectionTest.ts            # Real API calls, requires .env
-│   └── {Resource}ProducerTest.ts    # Real API calls, requires .env
-└── .env                             # Credentials (not committed)
-```
-
-**Key points**:
-- ✅ `test/integration/Common.ts` loads real credentials from .env
-- ✅ Has hasCredentials() check
-- ✅ Import from `./Common` (same folder)
-- ✅ Integration tests skip if no credentials via hasCredentials() check
-
-### Integration Test Pattern
-
-**Standard integration test structure with debug logging:**
-
-```typescript
-import { getLogger, hasCredentials } from './Common';
-
-const logger = getLogger('{Resource}ProducerTest');
-
-describe('{Resource} Producer Integration', function () {
-  // Set timeout for real API calls
-  this.timeout(30000);
-
-  before(function () {
-    // Skip entire suite if no credentials
-    if (!hasCredentials()) {
-      this.skip(); // This is OK - skips whole suite
-    }
-  });
-
-  it('should perform operation with real API', async function () {
-    const connector = newService();
-
-    logger.debug('connector.connect(email, password)');
-    await connector.connect({ email, password });
-    logger.debug('→', JSON.stringify(connectionState, null, 2));
-
-    const api = connector.getResourceApi();
-
-    logger.debug('api.getResource(id)');
-    const result = await api.getResource('123');
-    logger.debug('→', JSON.stringify(result, null, 2));
-
-    expect(result).to.have.property('id');
+    // Verify in database
+    const stored = await paymentService.getPayment(result.id);
+    expect(stored.orderId).toBe('order-123');
+    expect(stored.status).toBe('completed');
   });
 });
 ```
 
-**Key elements**:
-- ✅ Import getLogger from ./Common
-- ✅ Set timeout for real API calls
-- ✅ Skip suite if no credentials (in before() hook)
-- ✅ Debug logging BEFORE and AFTER each operation
-- ✅ Use arrow `→` to indicate result
-- ✅ JSON.stringify for consistent formatting
+### 4. **Message Queue Integration**
 
-**Note**: Using `this.skip()` in `before()` hook is ALLOWED - it gracefully skips the entire suite when credentials missing.
+```python
+# tests/integration/test_message_queue.py
+import pytest
+from unittest.mock import patch
+import json
+
+from app.queue import MessageQueue
+from app.workers import OrderProcessor
+
+@pytest.mark.integration
+class TestMessageQueueIntegration:
+    @pytest.fixture
+    async def queue(self):
+        """Create test message queue."""
+        queue = MessageQueue(url=TEST_RABBITMQ_URL)
+        await queue.connect()
+        yield queue
+        await queue.close()
+
+    async def test_publish_and_consume_message(self, queue):
+        """Test full message lifecycle."""
+        received_messages = []
+
+        async def message_handler(message):
+            received_messages.append(message)
+
+        # Subscribe to queue
+        await queue.subscribe('orders', message_handler)
+
+        # Publish message
+        order_data = {
+            'order_id': '123',
+            'customer': 'test@example.com',
+            'total': 99.99
+        }
+        await queue.publish('orders', order_data)
+
+        # Wait for message processing
+        await asyncio.sleep(0.5)
+
+        assert len(received_messages) == 1
+        assert received_messages[0]['order_id'] == '123'
+
+    async def test_order_processing_workflow(self, queue, db):
+        """Test complete order processing through queue."""
+        processor = OrderProcessor(queue, db)
+        await processor.start()
+
+        # Publish order
+        order = await create_test_order(db, status='pending')
+        await queue.publish('orders.new', {'order_id': order.id})
+
+        # Wait for processing
+        await asyncio.sleep(1)
+
+        # Verify order was processed
+        await db.refresh(order)
+        assert order.status == 'processing'
+        assert order.processed_at is not None
+```
+
+## Testing Patterns
 
 ### Test Data Management
 
-**Use real API responses:**
+```python
+# conftest.py - Shared fixtures
+import pytest
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
-```typescript
-it('should retrieve organization', async () => {
-  logger.debug('api.getOrganization(id)');
-  const org = await api.getOrganization(TEST_ORGANIZATION_ID);
-  logger.debug('→', JSON.stringify(org, null, 2));
+@pytest.fixture(scope="session")
+async def engine():
+    """Create test database engine."""
+    engine = create_async_engine(TEST_DATABASE_URL)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield engine
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+    await engine.dispose()
 
-  // Verify real API response structure
-  expect(org).to.have.property('id');
-  expect(org).to.have.property('name');
-  expect(org.id).to.be.instanceof(UUID);
-});
+@pytest.fixture
+async def db(engine):
+    """Create database session for each test."""
+    async with AsyncSession(engine) as session:
+        yield session
+        await session.rollback()
+
+@pytest.fixture
+async def client(db):
+    """Create test HTTP client."""
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        yield client
 ```
 
-**Rules**:
-- ✅ Use real API responses
-- ✅ Load test IDs from .env via Common.ts
-- ✅ Debug logging shows actual API responses
-- ✅ Verify response structure and types
+## Best Practices
 
-### Credential Discovery
+### ✅ DO
+- Use real databases in integration tests (in-memory or containers)
+- Test actual HTTP requests, not mocked responses
+- Verify database state after operations
+- Test transaction boundaries and rollbacks
+- Include authentication/authorization in tests
+- Test error scenarios and edge cases
+- Use test containers for isolated environments
+- Clean up data between tests
 
-**Where to find credentials (in order):**
+### ❌ DON'T
+- Mock database connections in integration tests
+- Skip testing error paths
+- Leave test data in databases
+- Use production databases for testing
+- Ignore transaction management
+- Test only happy paths
+- Share state between tests
+- Hardcode URLs or credentials
 
-1. Check `.env` file first
-2. Check `.connectionProfile.json` second
-3. Ask user if not found
-4. Skip integration tests gracefully if no credentials
+## Tools
 
-```typescript
-// test/integration/Common.ts
-export function hasCredentials(): boolean {
-  return !!SERVICE_EMAIL && !!SERVICE_PASSWORD;
+- **Node.js**: Supertest, Jest, Testcontainers
+- **Python**: pytest, httpx, pytest-asyncio, Testcontainers
+- **Java**: Spring Test, TestContainers, RestAssured
+- **Database**: Testcontainers, in-memory DBs (H2, SQLite)
+- **Mocking Services**: WireMock, MockServer, Localstack
+
+## Common Patterns
+
+```javascript
+// Test helper for database setup
+class TestDatabase {
+  static async setup() {
+    await db.migrate.latest();
+  }
+
+  static async teardown() {
+    await db.destroy();
+  }
+
+  static async clear() {
+    const tables = ['orders', 'users', 'products'];
+    for (const table of tables) {
+      await db(table).truncate();
+    }
+  }
 }
 
-// Integration tests
-before(function () {
-  if (!hasCredentials()) {
-    this.skip(); // Graceful skip
+// Factory pattern for test data
+class TestDataFactory {
+  static async createUser(overrides = {}) {
+    const defaults = {
+      email: `user-${Date.now()}@test.com`,
+      name: 'Test User',
+      role: 'customer'
+    };
+    return await User.create({ ...defaults, ...overrides });
   }
-});
+
+  static async createOrder(userId, overrides = {}) {
+    const defaults = {
+      userId,
+      status: 'pending',
+      total: 99.99
+    };
+    return await Order.create({ ...defaults, ...overrides });
+  }
+}
 ```
 
-## 🟢 GUIDELINES
+## Examples
 
-### Common Failure Diagnoses
-
-**When integration tests fail:**
-
-1. **Wrong API requests**: Log request/response, fix mapping
-   - Check debug logs with `LOG_LEVEL=debug npm run test:integration`
-   - Compare actual vs expected request format
-   - Verify endpoint URLs and HTTP methods
-
-2. **Mapping issues**: Compare API response vs mapped output
-   - Look at debug logs showing raw API response
-   - Check mapper implementation
-   - Verify type conversions
-
-3. **Auth failures**: Verify credentials and method
-   - Check .env file has correct credentials
-   - Verify authentication flow in ConnectionTest
-   - Check if API key/token is expired
-
-4. **Type mismatches**: Check generated types vs implementation
-   - Verify OpenAPI spec matches reality
-   - Check type generation ran successfully
-   - Compare API response structure to TypeScript types
-
-### Final Validation Cycle
-
-**Run full test suite including integration tests:**
-
-```bash
-npm run clean
-npm run build
-npm run test
-npm run test:integration  # If credentials available
-```
-
-**SUCCESS CRITERIA**:
-- Zero test failures
-- Zero skipped tests (except integration without creds)
-- Build exits with code 0
-
-## Validation
-
-**Validate integration test patterns:**
-
-```bash
-# Check integration tests exist
-ls -lh test/integration/ConnectionTest.ts
-ls -lh test/integration/*ProducerTest.ts
-
-# Check integration Common.ts loads dotenv
-grep -i "dotenv" test/integration/Common.ts && echo "✅ PASS" || echo "❌ FAIL: Should use dotenv"
-
-# Check integration tests have debug logging
-grep -r "getLogger" test/integration/*Test.ts | wc -l
-
-# Check hasCredentials() is used
-grep -r "hasCredentials()" test/integration/*Test.ts | wc -l
-
-# Check .env file exists
-ls -lh .env
-
-# Run integration tests (requires .env)
-LOG_LEVEL=debug npm run test:integration
-```
-
-**Expected results:**
-- ✅ Integration tests exist for Connection and all Producers
-- ✅ test/integration/Common.ts uses dotenv
-- ✅ All integration tests have debug logging
-- ✅ All integration tests check hasCredentials()
-- ✅ .env file exists with credentials
-- ✅ Integration tests pass with real API
+See also: test-data-generation, mocking-stubbing, continuous-testing skills for related testing patterns.

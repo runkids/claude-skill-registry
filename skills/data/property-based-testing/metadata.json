@@ -1,7 +1,7 @@
 {
   "name": "property-based-testing",
-  "repo": "jakubciszak/family-plan",
-  "path": ".claude/skills/external/property-based-testing/skills/property-based-testing/SKILL.md",
-  "source": "github.com/jakubciszak/family-plan",
-  "downloaded_at": "2026-01-31T04:03:50.753252Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/property-based-testing/skills/property-based-testing/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:27.198448Z"
 }

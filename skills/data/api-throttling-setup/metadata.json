@@ -1,9 +1,7 @@
 {
   "name": "api-throttling-setup",
-  "description": "Api Throttling Setup - Auto-activating skill for API Development.Triggers on: api throttling setup, api throttling setupPart of the API Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/15-api-development/api-throttling-setup/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-01T01:33:39.400529Z"
 }

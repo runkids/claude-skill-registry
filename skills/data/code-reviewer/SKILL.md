@@ -1,177 +1,194 @@
 ---
 name: code-reviewer
-description: Code review automation for TypeScript, JavaScript, Python, Go, Swift, Kotlin. Analyzes PRs for complexity and risk, checks code quality for SOLID violations and code smells, generates review reports. Use when reviewing pull requests, analyzing code quality, identifying issues, generating review checklists.
+description: Comprehensive code review checking quality, security, and best practices. Triggers: CR, review, 審查, 檢查, check, 看一下, PR, code review, 品質, inspect, 檢視, 看看, 幫看, lint, quality check, 品質檢查, pull request, merge request, MR, diff, 程式碼審查.
+version: 2.2.0
+category: quality
+compatibility:
+  - claude-code
+  - github-copilot
+  - vscode
+  - codex-cli
+dependencies:
+  - ddd-architect
+  - code-refactor
+allowed-tools:
+  - read_file
+  - grep_search
+  - semantic_search
+  - get_errors
+  - list_code_usages
+  - run_in_terminal
 ---
 
-# Code Reviewer
+# 程式碼審查技能
 
-Automated code review tools for analyzing pull requests, detecting code quality issues, and generating review reports.
+## 描述
 
----
+對程式碼進行全面審查，檢查品質、安全性、效能和最佳實踐。
 
-## Table of Contents
+## 觸發條件
 
-- [Tools](#tools)
-  - [PR Analyzer](#pr-analyzer)
-  - [Code Quality Checker](#code-quality-checker)
-  - [Review Report Generator](#review-report-generator)
-- [Reference Guides](#reference-guides)
-- [Languages Supported](#languages-supported)
+- 「review 這段程式碼」「CR」「審查」
+- 「檢查程式碼」「看一下」「幫看」
+- 「code review」「PR review」
 
 ---
 
-## Tools
+## 🔧 操作步驟
 
-### PR Analyzer
+### Step 1: 確定審查範圍
 
-Analyzes git diff between branches to assess review complexity and identify risks.
+詢問或推斷審查目標：
+- 特定檔案：`read_file("path/to/file.py")`
+- 整個目錄：`grep_search` 取得概覽
+- 特定功能：`semantic_search("功能名稱")`
+- 最近變更：`get_changed_files()`
 
-```bash
-# Analyze current branch against main
-python scripts/pr_analyzer.py /path/to/repo
+### Step 2: 執行靜態分析（Python 專案）
 
-# Compare specific branches
-python scripts/pr_analyzer.py . --base main --head feature-branch
+```powershell
+# Ruff - 快速 linter (取代 flake8 + isort + pyupgrade)
+uv run ruff check src/ --output-format=concise
 
-# JSON output for integration
-python scripts/pr_analyzer.py /path/to/repo --json
+# Mypy - 型別檢查
+uv run mypy src/ --ignore-missing-imports
+
+# Bandit - 安全性檢查
+uv run bandit -r src/ -ll
+
+# Vulture - 死碼偵測
+uv run vulture src/ --min-confidence 80
 ```
 
-**What it detects:**
-- Hardcoded secrets (passwords, API keys, tokens)
-- SQL injection patterns (string concatenation in queries)
-- Debug statements (debugger, console.log)
-- ESLint rule disabling
-- TypeScript `any` types
-- TODO/FIXME comments
+### Step 3: 審查程式碼品質
 
-**Output includes:**
-- Complexity score (1-10)
-- Risk categorization (critical, high, medium, low)
-- File prioritization for review order
-- Commit message validation
+| 檢查項目 | 標準 | 工具輔助 |
+| -------- | ---- | -------- |
+| 命名清晰度 | 名稱應描述用途 | 人工審查 |
+| 函數長度 | < 50 行 | grep_search |
+| 類別大小 | < 300 行 | grep_search |
+| 複雜度 | McCabe < 10 | ruff --select=C901 |
+| DRY 原則 | 無重複程式碼 | semantic_search |
+| SOLID 原則 | 單一職責等 | 人工審查 |
+
+### Step 4: 審查安全性
+
+| 風險類型 | 檢查方式 | 嚴重程度 |
+| -------- | -------- | -------- |
+| SQL 注入 | 搜尋 raw SQL | 🔴 Critical |
+| XSS | 搜尋未轉義輸出 | 🔴 Critical |
+| 硬編碼密碼 | grep "password\|secret\|key" | 🔴 Critical |
+| 路徑遍歷 | 搜尋未驗證路徑 | 🟠 High |
+| 日誌洩漏 | 搜尋敏感資料輸出 | 🟡 Medium |
+
+### Step 5: 審查效能
+
+| 問題類型 | 偵測方式 |
+| -------- | -------- |
+| N+1 查詢 | 搜尋迴圈內的 DB 呼叫 |
+| 無謂迴圈 | 審查巢狀迴圈 |
+| 記憶體洩漏 | 檢查資源釋放 |
+| 阻塞操作 | 審查 I/O 操作 |
+
+### Step 6: 審查 DDD 架構
+
+參考 `ddd-architect` 規則：
+- Domain 層是否有外部依賴？
+- Repository Interface 是否在 Domain 層？
+- Application 層是否過度膨脹？
+
+### Step 7: 產生審查報告
 
 ---
 
-### Code Quality Checker
+## 📊 審查報告格式
 
-Analyzes source code for structural issues, code smells, and SOLID violations.
+```markdown
+# 程式碼審查報告
 
-```bash
-# Analyze a directory
-python scripts/code_quality_checker.py /path/to/code
+📁 審查範圍：`src/domain/`, `src/application/`
+📅 日期：2026-01-15
+👤 審查者：AI Assistant
 
-# Analyze specific language
-python scripts/code_quality_checker.py . --language python
+---
 
-# JSON output
-python scripts/code_quality_checker.py /path/to/code --json
+## 📈 總覽
+
+| 指標 | 分數 | 說明 |
+| ---- | ---- | ---- |
+| 品質 | 8/10 | 命名清晰，部分函數過長 |
+| 安全 | 9/10 | 無明顯漏洞 |
+| 效能 | 7/10 | 存在 N+1 查詢風險 |
+| 架構 | 8/10 | 符合 DDD，但有小違規 |
+
+---
+
+## ✅ 優點
+
+1. **清晰的領域模型**：User entity 封裝良好
+2. **完整的錯誤處理**：使用自定義例外
+3. **良好的測試覆蓋**：核心邏輯有單元測試
+
+---
+
+## ⚠️ 問題發現
+
+### 🔴 Critical (必須修復)
+
+#### 1. SQL 注入風險
+- **位置**：[user_repository.py](src/infrastructure/repositories/user_repository.py#L45)
+- **問題**：使用字串拼接建立 SQL
+- **建議**：使用參數化查詢
+
+```python
+# ❌ 現有
+query = f"SELECT * FROM users WHERE name = '{name}'"
+
+# ✅ 建議
+query = "SELECT * FROM users WHERE name = ?"
+cursor.execute(query, (name,))
 ```
 
-**What it detects:**
-- Long functions (>50 lines)
-- Large files (>500 lines)
-- God classes (>20 methods)
-- Deep nesting (>4 levels)
-- Too many parameters (>5)
-- High cyclomatic complexity
-- Missing error handling
-- Unused imports
-- Magic numbers
+### 🟠 High (應該修復)
 
-**Thresholds:**
+#### 2. 函數過長
+- **位置**：[auth_service.py](src/application/services/auth_service.py#L20-L85)
+- **問題**：`authenticate()` 函數 65 行
+- **建議**：拆分為多個私有方法
 
-| Issue | Threshold |
-|-------|-----------|
-| Long function | >50 lines |
-| Large file | >500 lines |
-| God class | >20 methods |
-| Too many params | >5 |
-| Deep nesting | >4 levels |
-| High complexity | >10 branches |
+### 🟡 Medium (建議改進)
+
+#### 3. 缺少型別標註
+- **位置**：多處
+- **建議**：為公開 API 新增型別標註
 
 ---
 
-### Review Report Generator
+## 📋 改進清單
 
-Combines PR analysis and code quality findings into structured review reports.
-
-```bash
-# Generate report for current repo
-python scripts/review_report_generator.py /path/to/repo
-
-# Markdown output
-python scripts/review_report_generator.py . --format markdown --output review.md
-
-# Use pre-computed analyses
-python scripts/review_report_generator.py . \
-  --pr-analysis pr_results.json \
-  --quality-analysis quality_results.json
+- [ ] 修復 SQL 注入問題 (Critical)
+- [ ] 重構 authenticate() 函數 (High)
+- [ ] 新增型別標註 (Medium)
+- [ ] 補充單元測試 (Low)
 ```
 
-**Report includes:**
-- Review verdict (approve, request changes, block)
-- Score (0-100)
-- Prioritized action items
-- Issue summary by severity
-- Suggested review order
+---
 
-**Verdicts:**
+## 🔄 與其他 Skills 整合
 
-| Score | Verdict |
-|-------|---------|
-| 90+ with no high issues | Approve |
-| 75+ with ≤2 high issues | Approve with suggestions |
-| 50-74 | Request changes |
-| <50 or critical issues | Block |
+| Skill | 整合方式 |
+| ----- | -------- |
+| `code-refactor` | 發現問題後調用進行重構 |
+| `security-reviewer` | 深入安全審查時調用 |
+| `test-generator` | 發現測試不足時調用 |
+| `ddd-architect` | 架構違規時參考 |
 
 ---
 
-## Reference Guides
+## ⚠️ 注意事項
 
-### Code Review Checklist
-`references/code_review_checklist.md`
-
-Systematic checklists covering:
-- Pre-review checks (build, tests, PR hygiene)
-- Correctness (logic, data handling, error handling)
-- Security (input validation, injection prevention)
-- Performance (efficiency, caching, scalability)
-- Maintainability (code quality, naming, structure)
-- Testing (coverage, quality, mocking)
-- Language-specific checks
-
-### Coding Standards
-`references/coding_standards.md`
-
-Language-specific standards for:
-- TypeScript (type annotations, null safety, async/await)
-- JavaScript (declarations, patterns, modules)
-- Python (type hints, exceptions, class design)
-- Go (error handling, structs, concurrency)
-- Swift (optionals, protocols, errors)
-- Kotlin (null safety, data classes, coroutines)
-
-### Common Antipatterns
-`references/common_antipatterns.md`
-
-Antipattern catalog with examples and fixes:
-- Structural (god class, long method, deep nesting)
-- Logic (boolean blindness, stringly typed code)
-- Security (SQL injection, hardcoded credentials)
-- Performance (N+1 queries, unbounded collections)
-- Testing (duplication, testing implementation)
-- Async (floating promises, callback hell)
-
----
-
-## Languages Supported
-
-| Language | Extensions |
-|----------|------------|
-| Python | `.py` |
-| TypeScript | `.ts`, `.tsx` |
-| JavaScript | `.js`, `.jsx`, `.mjs` |
-| Go | `.go` |
-| Swift | `.swift` |
-| Kotlin | `.kt`, `.kts` |
+1. **避免過度批評**：指出問題同時肯定優點
+2. **提供具體建議**：不只說「這裡有問題」，要說「建議這樣改」
+3. **標註嚴重程度**：區分 Critical/High/Medium/Low
+4. **考慮上下文**：原型專案和生產專案標準不同
+5. **可操作性**：每個問題應有明確的修復方向

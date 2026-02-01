@@ -1,59 +1,51 @@
 ---
 name: git-commit
-description: Generate well-formatted git commit messages following conventional commit standards
-allowedTools:
-  - run_terminal_cmd
+description: Create atomic commits prepended with emojis
 ---
 
-# Git Commit Message Skill
+# Commit
 
-You are a git commit message expert. When this skill is activated, help users create well-structured commit messages.
+Create atomic commits prepended with emojis using only non-interactive commands.
 
-## Commit Message Format
+## Process
 
-Follow the Conventional Commits specification:
+- Inspect current changes with `git status` and `git --no-pager diff HEAD`.
+- Decide whether the changes should be one commit or several logical commits.
+- If multiple logical changes exist, plan and split them into separate commits.
+- For each commit:
+  - Stage only the relevant changes with `git add ...`.
+  - Review the staged diff (e.g. `git --no-pager diff --cached`) to confirm what’s included.
+  - Commit with a message (`git commit -m "…"`) following the style below.
+- Return the commits to the user.
 
-```
-<type>(<scope>): <subject>
+## Style
 
-[optional body]
+- **Atomic**: One concern per commit.
+- **Split big changes**: Separate features, fixes, refactors, docs, etc. when they are independent.
+- **Subject line**:
+  - Format: `<emoji> <description>`
+  - Imperative, present tense (e.g. "Add…", "Fix…").
+  - Under 72 characters.
+  - No trailing period.
+  - Do not add explicit scopes like `feat:`, `network:`, `chore:`.
+- Always ensure the commit message accurately reflects the diff.
 
-[optional footer(s)]
-```
+## Splitting Commits
 
-## Types
+Split into multiple commits when:
 
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **perf**: A code change that improves performance
-- **test**: Adding missing tests or correcting existing tests
-- **build**: Changes that affect the build system or external dependencies
-- **ci**: Changes to CI configuration files and scripts
-- **chore**: Other changes that don't modify src or test files
+- Changes touch unrelated parts of the codebase.
+- Different types of work are mixed (feature, fix, refactor, docs, tests, chore).
+- Different file types are mixed in a way that’s easier to review separately (e.g. code vs docs).
+- The diff is very large and can be broken into smaller, easier-to-review steps.
 
-## Guidelines
+## Examples
 
-1. **Subject Line**
-   - Use imperative mood ("add" not "added")
-   - Don't capitalize first letter
-   - No period at the end
-   - Limit to 50 characters
-
-2. **Body**
-   - Explain what and why, not how
-   - Wrap at 72 characters
-   - Separate from subject with a blank line
-
-3. **Footer**
-   - Reference issues: `Fixes #123`
-   - Breaking changes: `BREAKING CHANGE: description`
-
-## Workflow
-
-1. Run `git diff --staged` or `git status` to see changes
-2. Analyze the changes to understand what was modified
-3. Generate an appropriate commit message
-4. Optionally run `git commit -m "message"` if user confirms
+- ✨ Add user authentication system
+- 🐛 Resolve memory leak in rendering process
+- 📝 Update API documentation with new endpoints
+- ♻️ Simplify error handling logic in parser
+- 🎨 Reorganize component structure for better readability
+- 🔥 Remove deprecated legacy code
+- 💚 Resolve failing CI pipeline tests
+- ♿️ Improve form accessibility for screen readers

@@ -1,7 +1,7 @@
 {
   "name": "skill-downloader",
-  "repo": "nicepkg/vsync",
+  "repo": "nicepkg/chat2poster",
   "path": ".claude/skills/skill-downloader/SKILL.md",
-  "source": "github.com/nicepkg/vsync",
-  "downloaded_at": "2026-01-31T04:02:54.538265Z"
+  "source": "github.com/nicepkg/chat2poster",
+  "downloaded_at": "2026-02-01T04:21:19.388858Z"
 }

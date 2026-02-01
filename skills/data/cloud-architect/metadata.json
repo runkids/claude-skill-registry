@@ -1,7 +1,7 @@
 {
   "name": "cloud-architect",
-  "repo": "nahisaho/MUSUBI",
-  "path": "src/templates/agents/claude-code/skills/cloud-architect/SKILL.md",
-  "source": "github.com/nahisaho/MUSUBI",
-  "downloaded_at": "2026-01-31T04:06:04.640494Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/cloud-architect/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:27.492887Z"
 }

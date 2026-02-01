@@ -142,4 +142,7 @@ export const myFunction = Effect.fn('myFunction')(
 
 If there is no OTHER yield* in the generator function scope, then use `yield* Effect.void`
 
+## ManagedRuntime
+
+See: https://effect.website/docs/runtime/
 

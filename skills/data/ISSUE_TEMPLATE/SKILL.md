@@ -1,61 +1,50 @@
 ---
-name: New Skill Proposal
-about: Propose a new skill to be created
-title: '[NEW SKILL] '
-labels: 'enhancement, new-skill'
+name: Suggest a Skill
+about: Suggest a new skill to be added to the list
+title: '[SKILL] '
+labels: 'new-skill'
 assignees: ''
 ---
 
-## Skill Name
-<!-- What should this skill be called? -->
-`theone-[name]`
+## Skill Information
 
-## Purpose
-<!-- What problem does this skill solve? -->
+**Skill Name:**
 
-## When to Trigger
-<!-- When should this skill activate automatically? -->
+**Repository URL (if exists):**
 
-## Key Patterns to Cover
-<!-- What patterns/practices should this skill enforce? -->
+**Category:**
+- [ ] 🧪 Testing & Quality
+- [ ] 🐛 Debugging & Troubleshooting
+- [ ] 🤝 Collaboration & Workflow
+- [ ] ⚙️ Development & Architecture
+- [ ] 🔒 Security & Performance
+- [ ] 📚 Documentation & Automation
+- [ ] 🎯 Meta Skills
 
-1. Pattern 1
-2. Pattern 2
-3. Pattern 3
+## Description
 
-## Examples
-<!-- Provide example scenarios -->
+Provide a clear, concise description (max 150 characters):
 
-### Example 1: [Scenario Name]
-**Before (Bad):**
-```csharp
-// Common mistake
-```
 
-**After (Good):**
-```csharp
-// Correct pattern
-```
 
-## Justification
-<!-- Why do we need this skill? -->
-- [ ] Common mistakes in code reviews
-- [ ] New technology/framework adoption
-- [ ] Company standard not documented
-- [ ] Complex pattern needs guidance
-- [ ] Other: _______________
+## Use Case
 
-## Impact
-<!-- How many engineers will benefit? -->
-- Affected engineers: ___
-- Frequency of use: Daily / Weekly / Monthly
-- Current pain level: Low / Medium / High
+When and why would developers use this skill?
 
-## Related Resources
-<!-- Links to documentation, discussions, or examples -->
--
--
 
-## Volunteers
-<!-- Tag engineers who might contribute -->
-@
+
+## Skill Status
+
+- [ ] Skill already exists (provide link)
+- [ ] Skill doesn't exist yet (community-needed)
+- [ ] I'm willing to build this skill
+
+## Additional Context
+
+Add any other context, examples, or screenshots:
+
+
+
+---
+
+**Suggested by:** @[your-github-username]

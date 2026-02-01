@@ -1,7 +1,7 @@
 {
   "name": "model-deployment",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/model-deployment/skills/model-deployment/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-31T04:09:00.966207Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/model-deployment/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-02-01T03:28:55.687208Z"
 }

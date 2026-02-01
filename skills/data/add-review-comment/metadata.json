@@ -1,7 +1,7 @@
 {
   "name": "add-review-comment",
-  "repo": "mlflow/mlflow",
+  "repo": "mlflow/dev",
   "path": ".claude/skills/add-review-comment/SKILL.md",
-  "source": "github.com/mlflow/mlflow",
-  "downloaded_at": "2026-01-31T03:14:18.757371Z"
+  "source": "github.com/mlflow/dev",
+  "downloaded_at": "2026-02-01T04:20:19.083653Z"
 }

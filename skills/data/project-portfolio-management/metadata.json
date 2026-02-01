@@ -1,11 +1,7 @@
 {
   "name": "project-portfolio-management",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "data",
-  "description": "PPM system for resource allocation, budget tracking, and portfolio analytics",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:11.737980Z",
-  "dir_name": "project-portfolio-management",
-  "github_path": "docs/claude-code-skills/community/project-portfolio-management",
-  "github_branch": "main"
+  "path": "docs/claude-code-skills/community/project-portfolio-management/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:58.805123Z"
 }

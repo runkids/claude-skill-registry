@@ -1,7 +1,7 @@
 {
   "name": "workflow-orchestration-patterns",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/workflow-orchestration-patterns/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:44.233423Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/backend-development/skills/workflow-orchestration-patterns/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-01T04:43:48.554549Z"
 }

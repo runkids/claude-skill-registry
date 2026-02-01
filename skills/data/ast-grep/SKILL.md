@@ -1,484 +1,180 @@
 ---
 name: ast-grep
-description: >
-  Structural code search and refactoring using AST patterns. Use when searching for code
-  patterns (not text), finding deprecated patterns, or systematic refactoring. Supports
-  Nextflow, JavaScript, Python, and more.
-license: MIT
-metadata:
-  version: "1.0.0"
-  author: "Edmund Miller"
+description: ast-grep rule writing and usage best practices. This skill should be used when writing, reviewing, or debugging ast-grep rules for code search, linting, and transformation. Triggers on tasks involving YAML rules, pattern syntax, meta variables, constraints, or code rewriting.
 ---
 
-# ast-grep Skill
+# ast-grep Community Best Practices
 
-ast-grep is a structural code search and rewriting tool. Use it when you need to find or modify code based on its AST structure rather than text patterns.
+Comprehensive best practices guide for ast-grep rule writing and usage, maintained by the ast-grep community. Contains 46 rules across 8 categories, prioritized by impact to guide automated rule generation and code transformation.
 
-## When to Use ast-grep
+## When to Apply
 
-**Use ast-grep when:**
+Reference these guidelines when:
+- Writing new ast-grep rules for linting or search
+- Debugging patterns that don't match expected code
+- Optimizing rule performance for large codebases
+- Setting up ast-grep projects with proper organization
+- Reviewing ast-grep rules for correctness and maintainability
 
-- Searching for code patterns (function calls, imports, specific constructs)
-- Refactoring code systematically
-- Finding deprecated patterns or anti-patterns
-- The pattern involves code structure, not just text
+## General Workflow
 
-**Use grep/ripgrep when:**
+Follow this workflow when creating ast-grep rules for code search:
 
-- Searching for literal strings, comments, or documentation
-- Simple text matching is sufficient
+### Step 1: Understand the Query
+
+Clarify what you want to find:
+- Target programming language
+- Edge cases to handle
+- What to include vs exclude
+
+### Step 2: Create Example Code
+
+Write a sample code snippet representing the desired match pattern.
+
+### Step 3: Write the ast-grep Rule
+
+Choose the right approach:
+- Use `pattern` for simple structures
+- Use `kind` with `has`/`inside` for complex structures
+- Combine with `all`, `any`, or `not` for compound queries
+- **Always use `stopBy: end` for relational rules** (`inside`, `has`) to ensure complete search
+
+### Step 4: Test the Rule
+
+```bash
+# Inspect AST structure
+ast-grep run --pattern '[code]' --lang [language] --debug-query=ast
+
+# Test inline rule
+echo "[code]" | ast-grep scan --inline-rules "[rule]" --stdin
+
+# Test from file
+ast-grep scan --rule [file.yml] [path]
+```
+
+### Step 5: Search the Codebase
+
+Deploy the validated rule:
+```bash
+# Search with pattern (simple matches)
+ast-grep run --pattern '[pattern]' --lang [language] [path]
+
+# Search with rule file (complex queries)
+ast-grep scan --rule [file.yml] [path]
+
+# Apply fixes interactively
+ast-grep scan --rule [file.yml] --interactive [path]
+```
+
+### Quick Tips
+
+1. **Always use `stopBy: end`** - Ensures complete subtree traversal for relational rules
+2. **Start simple, add complexity** - Begin with patterns, progress to kinds, then relational rules
+3. **Debug with AST inspection** - Use `--debug-query=ast` to verify structure matching
+4. **Escape in inline rules** - Use `\$VAR` or single quotes for shell commands
+5. **Test in playground first** - Use https://ast-grep.github.io/playground.html for rapid iteration
+
+## Rule Categories by Priority
+
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Pattern Correctness | CRITICAL | `pattern-` |
+| 2 | Meta Variable Usage | CRITICAL | `meta-` |
+| 3 | Rule Composition | HIGH | `compose-` |
+| 4 | Constraint Design | HIGH | `const-` |
+| 5 | Rewrite Correctness | MEDIUM-HIGH | `rewrite-` |
+| 6 | Project Organization | MEDIUM | `org-` |
+| 7 | Performance Optimization | MEDIUM | `perf-` |
+| 8 | Testing & Debugging | LOW-MEDIUM | `test-` |
 
 ## Quick Reference
 
-| Task               | Command                                        |
-| ------------------ | ---------------------------------------------- |
-| Find pattern       | `ast-grep run --pattern 'PATTERN' --lang LANG` |
-| Scan with rule     | `ast-grep scan --rule file.yaml`               |
-| Debug AST          | `--debug-query=ast`                            |
-| Test pattern match | `--debug-query=pattern`                        |
-| Use inline rule    | `--inline-rules 'YAML'`                        |
-| Nextflow patterns  | Use `_VAR` instead of `$VAR`                   |
-
-## Quick Start
-
-### Simple Pattern Search
-
-```bash
-# Find all console.log calls
-ast-grep run --pattern 'console.log($$$ARGS)' --lang js
-
-# Find Channel.from() calls in Nextflow
-ast-grep run --pattern 'Channel.from(___)' --lang nextflow
-```
-
-### Using Rules for Complex Patterns
-
-```bash
-# Scan with a rule file
-ast-grep scan --rule path/to/rule.yaml
-
-# Quick inline rule test
-ast-grep scan --inline-rules '
-id: test-rule
-language: javascript
-rule:
-  pattern: console.log($$$ARGS)
-'
-```
-
-### Debugging Patterns
-
-```bash
-# See AST structure of code
-ast-grep run --pattern '$$$' --debug-query=ast path/to/file.js
-
-# See how pattern matches
-ast-grep run --pattern 'your_pattern' --debug-query=pattern path/to/file.js
-```
-
-## Core Concepts
-
-### Metavariables
-
-| Syntax     | Matches                           | Example                                 |
-| ---------- | --------------------------------- | --------------------------------------- |
-| `$VAR`     | Single named node                 | `console.$METHOD` matches `console.log` |
-| `$$VAR`    | Single node (including anonymous) | `$$OP` matches operators                |
-| `$$$VAR`   | Zero or more nodes                | `func($$$ARGS)` matches any args        |
-| `_` prefix | Non-capturing (Nextflow)          | `_VAR` instead of `$VAR`                |
-
-**Note:** In Nextflow, use `_` instead of `$` for metavariables (configured via `expandoChar` in sgconfig.yml).
-
-### Rule Structure
-
-```yaml
-id: rule-name
-language: javascript # or nextflow, python, etc.
-severity: warning # error, warning, hint, off
-message: "Human-readable message"
-note: |
-  Additional context and fix suggestions
-rule:
-  pattern: code_pattern_here
-```
-
-## Workflow for Writing Rules
-
-1. **Understand the query** - What code pattern are you looking for?
-2. **Create example code** - Write a small file with the pattern
-3. **Inspect the AST** - Use `--debug-query=ast` to see structure
-4. **Write initial pattern** - Start simple, use metavariables
-5. **Test and refine** - Use `--debug-query=pattern` to debug matches
-6. **Add constraints** - Use relational rules (`inside`, `has`) as needed
-
-## Common Patterns
-
-### Match function with specific content
-
-```yaml
-rule:
-  all:
-    - pattern: function $NAME($$$PARAMS) { $$$ }
-    - has:
-        pattern: console.log($$$)
-        stopBy: end
-```
-
-### Match code inside a context
-
-```yaml
-rule:
-  all:
-    - pattern: await $PROMISE
-    - inside:
-        kind: try_statement
-        stopBy: end
-```
-
-### Match missing pattern (lint for absence)
-
-```yaml
-rule:
-  all:
-    - pattern: function $NAME($$$) { $$$ }
-    - not:
-        has:
-          pattern: return $$$
-          stopBy: end
-```
-
-## Key Principles
-
-1. **Always use `stopBy: end`** for relational rules (`inside`, `has`, `precedes`, `follows`) to search the full subtree
-2. **Start simple** - Get a basic pattern working before adding complexity
-3. **Escape `$` in shell** - Use `\$VAR` or single quotes when running from bash
-4. **Use `all` for order** - When metavariables depend on each other, `all` processes rules in order
-
-## Integration Notes
-
-### OpenCode Tools
-
-This repository includes **nf-ast-grep MCP tools** for Nextflow-specific searches:
-
-- `nf-ast-grep_find_processes` - Find all process definitions
-- `nf-ast-grep_find_workflows` - Find workflow definitions
-- `nf-ast-grep_find_channels` - Find channel factory operations
-- `nf-ast-grep_find_deprecated` - Find deprecated patterns
-- `nf-ast-grep_lint` - Run lint rules on Nextflow code
-- `nf-ast-grep_search` - Search with custom patterns
-
-Use these tools for Nextflow work instead of raw ast-grep commands when available.
-
-### Shell Execution
-
-When running ast-grep from bash:
-
-- **Single quotes** preserve `$` metavariables: `ast-grep run --pattern 'console.$METHOD'`
-- **Escape in double quotes**: `ast-grep run --pattern "console.\$METHOD"`
-- For complex patterns, use `--inline-rules` with a heredoc or rule files
-
-### When to Delegate
-
-- **Large searches**: Use explore agents for searching across large codebases
-- **Simple patterns**: Run ast-grep directly for quick one-off searches
-- **Rule development**: Use iterative bash commands with `--debug-query`
-
-## Error Handling
-
-### "Pattern not matching expected code"
-
-**Cause**: Pattern syntax doesn't match AST structure.
-
-**Solution**:
-
-1. Inspect actual AST: `ast-grep run --pattern '$$$' --debug-query=ast file.ext`
-2. Check node kinds match what you expect
-3. Simplify pattern and add constraints incrementally
-
-### "ast-grep: command not found"
-
-**Cause**: ast-grep not installed or not in PATH.
-
-**Solution**:
-
-```bash
-# Install via cargo
-cargo install ast-grep
-
-# Or via npm
-npm install -g @ast-grep/cli
-
-# Or via nix
-nix shell nixpkgs#ast-grep
-```
-
-### "Language not supported"
-
-**Cause**: Trying to use an unsupported or unconfigured language.
-
-**Solution**:
-
-- Check supported languages: `ast-grep --help`
-- For custom languages (like Nextflow), ensure `sgconfig.yml` is present with `customLanguages` configured
-- See [Nextflow Reference](references/nextflow.md) for custom language setup
-
-### "Missing stopBy in relational rule"
-
-**Cause**: Relational rules (`inside`, `has`, `precedes`, `follows`) default to `stopBy: neighbor` which only checks immediate children.
-
-**Solution**: Always add `stopBy: end` to search the full subtree:
-
-```yaml
-rule:
-  has:
-    pattern: target_pattern
-    stopBy: end # Don't forget this!
-```
-
-### "Metavariable not captured"
-
-**Cause**: Using `_` prefix makes metavariables non-capturing, or metavariable used before it's defined.
-
-**Solution**:
-
-- Use `$VAR` (or `_VAR` in Nextflow) for capturing
-- In `all` blocks, define metavariables before using them (rules process in order)
-
-### Shell escaping issues
-
-**Cause**: `$` in patterns gets interpreted as shell variable.
-
-**Solution**:
-
-```bash
-# Use single quotes (preferred)
-ast-grep run --pattern 'console.$METHOD'
-
-# Or escape in double quotes
-ast-grep run --pattern "console.\$METHOD"
-
-# Or use rule files to avoid shell entirely
-ast-grep scan --rule my-rule.yaml
-```
-
-### "Rule file not found" or YAML errors
-
-**Cause**: Invalid YAML syntax or wrong file path.
-
-**Solution**:
-
-1. Validate YAML syntax (check indentation, colons, quotes)
-2. Use absolute paths or run from correct directory
-3. Test with `--inline-rules` first before creating rule file
-
-## Examples
-
-### Example 1: Finding and Fixing Deprecated Nextflow Patterns
-
-**User request**: "Find all uses of the deprecated Channel.from() in our Nextflow pipeline"
-
-**Workflow**:
-
-```bash
-# Step 1: Quick search to see scope of problem
-ast-grep run --pattern 'Channel.from(___)' --lang nextflow
-
-# Step 2: If many results, use the lint tool for structured output
-# (uses existing deprecated-channel-from.yaml rule)
-```
-
-**Rule used** (`deprecated-channel-from.yaml`):
-
-```yaml
-id: deprecated-channel-from
-language: nextflow
-severity: warning
-message: "Channel.from() is deprecated in DSL2"
-note: |
-  Use Channel.of() for simple values or Channel.fromList() for lists.
-
-  Before: Channel.from(1, 2, 3)
-  After:  Channel.of(1, 2, 3)
-rule:
-  pattern: Channel.from(___)
-```
-
-**Result**: Found 3 instances in `main.nf`, updated to use `Channel.of()`.
-
----
-
-### Example 2: Refactoring Console Logging Across a Codebase
-
-**User request**: "Replace all console.log calls with our custom logger"
-
-**Workflow**:
-
-```bash
-# Step 1: Find all console.log calls
-ast-grep run --pattern 'console.log($$$ARGS)' --lang js
-
-# Step 2: Create a rewrite rule
-cat > /tmp/replace-console.yaml << 'EOF'
-id: replace-console-log
-language: javascript
-rule:
-  pattern: console.log($$$ARGS)
-fix: logger.info($$$ARGS)
-EOF
-
-# Step 3: Preview changes
-ast-grep scan --rule /tmp/replace-console.yaml
-
-# Step 4: Apply changes (with --update-all)
-ast-grep scan --rule /tmp/replace-console.yaml --update-all
-```
-
-**Key insight**: The `fix` field in rules enables automatic refactoring, not just finding.
-
----
-
-### Example 3: Creating a Custom Linting Rule from Scratch
-
-**User request**: "Create a rule that warns when async functions don't have error handling"
-
-**Workflow**:
-
-```bash
-# Step 1: Create example code to understand the AST
-cat > /tmp/example.js << 'EOF'
-async function good() {
-  try {
-    await fetch('/api');
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-async function bad() {
-  await fetch('/api');  // No try-catch!
-}
-EOF
-
-# Step 2: Inspect AST structure
-ast-grep run --pattern '$$$' --debug-query=ast /tmp/example.js
-
-# Step 3: Write initial pattern for async functions with await
-ast-grep run --pattern 'async function $NAME($$$) { $$$ }' /tmp/example.js
-
-# Step 4: Add constraint: must have await but no try statement
-cat > /tmp/async-error-handling.yaml << 'EOF'
-id: async-needs-error-handling
-language: javascript
-severity: warning
-message: "Async function '$NAME' has await but no try-catch"
-note: |
-  Async functions with await should have error handling.
-  Wrap await calls in try-catch blocks.
-rule:
-  all:
-    - pattern: async function $NAME($$$PARAMS) { $$$BODY }
-    - has:
-        pattern: await $$$
-        stopBy: end
-    - not:
-        has:
-          kind: try_statement
-          stopBy: end
-EOF
-
-# Step 5: Test the rule
-ast-grep scan --rule /tmp/async-error-handling.yaml /tmp/example.js
-```
-
-**Result**: Rule correctly flags `bad()` but not `good()`.
-
----
-
-### Example 4: Finding Implicit Closure Parameters in Nextflow
-
-**User request**: "Find closures that use implicit 'it' parameter - we want explicit parameters for readability"
-
-**Workflow**:
-
-```bash
-# Use the existing rule via nf-ast-grep tools
-# Or run directly:
-ast-grep scan --rule config/opencode/skills/ast-grep/rules/implicit-it-closure.yaml
-```
-
-**Rule explanation** (`implicit-it-closure.yaml`):
-
-```yaml
-id: implicit-it-closure
-language: nextflow
-severity: hint
-message: "Consider using explicit closure parameter instead of implicit 'it'"
-rule:
-  all:
-    - kind: closure
-    - has:
-        pattern: it
-        stopBy: end
-    - not:
-        has:
-          kind: closure_parameter
-          stopBy: end
-```
-
-This uses `kind` matching (AST node type) combined with `has`/`not has` to find closures that reference `it` but don't declare a parameter.
-
----
-
-### Example 5: Multi-Pattern Search with Dependencies
-
-**User request**: "Find all React components that use useState but don't have a useEffect cleanup"
-
-**Workflow**:
-
-```bash
-cat > /tmp/missing-cleanup.yaml << 'EOF'
-id: missing-useeffect-cleanup
-language: typescript
-severity: warning
-message: "Component uses useState but may be missing useEffect cleanup"
-rule:
-  all:
-    - kind: function_declaration
-    - has:
-        pattern: useState($$$)
-        stopBy: end
-    - has:
-        pattern: useEffect($$$)
-        stopBy: end
-    - not:
-        has:
-          pattern: |
-            useEffect(() => {
-              $$$SETUP
-              return $$$CLEANUP
-            }, $$$DEPS)
-          stopBy: end
-EOF
-
-ast-grep scan --rule /tmp/missing-cleanup.yaml src/
-```
-
-**Key insight**: Complex patterns can combine multiple `has` and `not has` clauses to express sophisticated constraints.
-
-## References
-
-For detailed syntax and advanced features, see:
-
-- [Rule Reference](references/rule-reference.md) - Complete rule syntax documentation
-- [Nextflow Reference](references/nextflow.md) - Nextflow-specific patterns and examples
-
----
-
-## Progressive Disclosure
-
-This skill document provides a practical introduction to ast-grep. For deeper understanding:
-
-1. **Start here** - Quick reference and common patterns cover 80% of use cases
-2. **Rule Reference** - When you need advanced rule syntax (relational rules, transformations)
-3. **Nextflow Reference** - For Nextflow-specific work (custom language config, real examples)
-4. **ast-grep docs** - For edge cases: https://ast-grep.github.io/
+### 1. Pattern Correctness (CRITICAL)
+
+- [`pattern-valid-syntax`](references/pattern-valid-syntax.md) - Use valid parseable code as patterns
+- [`pattern-language-aware`](references/pattern-language-aware.md) - Account for language-specific syntax differences
+- [`pattern-context-selector`](references/pattern-context-selector.md) - Use context and selector for code fragments
+- [`pattern-avoid-comments-strings`](references/pattern-avoid-comments-strings.md) - Avoid matching inside comments and strings
+- [`pattern-strictness-levels`](references/pattern-strictness-levels.md) - Configure pattern strictness appropriately
+- [`pattern-kind-vs-pattern`](references/pattern-kind-vs-pattern.md) - Choose kind or pattern based on specificity needs
+- [`pattern-debug-ast`](references/pattern-debug-ast.md) - Use debug query to inspect AST structure
+- [`pattern-nthchild-matching`](references/pattern-nthchild-matching.md) - Use nthChild for index-based positional matching
+- [`pattern-range-matching`](references/pattern-range-matching.md) - Use range for character position matching
+
+### 2. Meta Variable Usage (CRITICAL)
+
+- [`meta-naming-convention`](references/meta-naming-convention.md) - Follow meta variable naming conventions
+- [`meta-single-node`](references/meta-single-node.md) - Match single AST nodes with meta variables
+- [`meta-reuse-binding`](references/meta-reuse-binding.md) - Reuse meta variables to enforce equality
+- [`meta-underscore-noncapture`](references/meta-underscore-noncapture.md) - Use underscore prefix for non-capturing matches
+- [`meta-named-vs-unnamed`](references/meta-named-vs-unnamed.md) - Use double dollar for unnamed node matching
+- [`meta-multi-match-lazy`](references/meta-multi-match-lazy.md) - Understand multi-match variables are lazy
+
+### 3. Rule Composition (HIGH)
+
+- [`compose-all-for-and-logic`](references/compose-all-for-and-logic.md) - Use all for AND logic between rules
+- [`compose-any-for-or-logic`](references/compose-any-for-or-logic.md) - Use any for OR logic between rules
+- [`compose-not-for-exclusion`](references/compose-not-for-exclusion.md) - Use not for exclusion patterns
+- [`compose-inside-for-context`](references/compose-inside-for-context.md) - Use inside for contextual matching
+- [`compose-has-for-children`](references/compose-has-for-children.md) - Use has for child node requirements
+- [`compose-matches-for-reuse`](references/compose-matches-for-reuse.md) - Use matches for rule reusability
+- [`compose-precedes-follows`](references/compose-precedes-follows.md) - Use precedes and follows for sequential positioning
+- [`compose-field-targeting`](references/compose-field-targeting.md) - Use field to target specific sub-nodes
+
+### 4. Constraint Design (HIGH)
+
+- [`const-kind-filter`](references/const-kind-filter.md) - Use kind constraints to filter meta variables
+- [`const-regex-filter`](references/const-regex-filter.md) - Use regex constraints for text patterns
+- [`const-not-inside-not`](references/const-not-inside-not.md) - Avoid constraints inside not rules
+- [`const-pattern-constraint`](references/const-pattern-constraint.md) - Use pattern constraints for structural filtering
+- [`const-post-match-timing`](references/const-post-match-timing.md) - Understand constraints apply after matching
+
+### 5. Rewrite Correctness (MEDIUM-HIGH)
+
+- [`rewrite-preserve-semantics`](references/rewrite-preserve-semantics.md) - Preserve program semantics in rewrites
+- [`rewrite-meta-variable-reference`](references/rewrite-meta-variable-reference.md) - Reference all necessary meta variables in fix
+- [`rewrite-transform-operations`](references/rewrite-transform-operations.md) - Use transform for complex rewrites
+- [`rewrite-test-before-deploy`](references/rewrite-test-before-deploy.md) - Test rewrites on representative code
+- [`rewrite-syntax-validity`](references/rewrite-syntax-validity.md) - Ensure fix templates produce valid syntax
+
+### 6. Project Organization (MEDIUM)
+
+- [`org-project-structure`](references/org-project-structure.md) - Use standard project directory structure
+- [`org-unique-rule-ids`](references/org-unique-rule-ids.md) - Use unique descriptive rule IDs
+- [`org-severity-levels`](references/org-severity-levels.md) - Assign appropriate severity levels
+- [`org-file-filtering`](references/org-file-filtering.md) - Use file filtering for targeted rules
+- [`org-message-clarity`](references/org-message-clarity.md) - Write clear actionable messages
+
+### 7. Performance Optimization (MEDIUM)
+
+- [`perf-specific-patterns`](references/perf-specific-patterns.md) - Use specific patterns over generic ones
+- [`perf-stopby-boundaries`](references/perf-stopby-boundaries.md) - Use stopBy to limit search depth
+- [`perf-thread-parallelism`](references/perf-thread-parallelism.md) - Leverage parallel scanning with threads
+- [`perf-avoid-regex-heavy`](references/perf-avoid-regex-heavy.md) - Avoid heavy regex in hot paths
+
+### 8. Testing & Debugging (LOW-MEDIUM)
+
+- [`test-valid-invalid-cases`](references/test-valid-invalid-cases.md) - Write both valid and invalid test cases
+- [`test-snapshot-updates`](references/test-snapshot-updates.md) - Use snapshot testing for fix verification
+- [`test-playground-first`](references/test-playground-first.md) - Test patterns in playground first
+- [`test-edge-cases`](references/test-edge-cases.md) - Test edge cases and boundary conditions
+
+## How to Use
+
+Read individual reference files for detailed explanations and code examples:
+
+- [Section definitions](references/_sections.md) - Category structure and impact levels
+- [Rule template](assets/templates/_template.md) - Template for adding new rules
+
+## Full Compiled Document
+
+- [AGENTS.md](AGENTS.md) - Complete compiled guide with all rules
+
+## Reference Files
+
+| File | Description |
+|------|-------------|
+| [AGENTS.md](AGENTS.md) | Complete compiled guide with all rules |
+| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
+| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
+| [metadata.json](metadata.json) | Version and reference information |

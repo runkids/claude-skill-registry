@@ -10,7 +10,6 @@ Stage all changes, create a conventional commit, and push to the remote branch.
 ## When to Use
 
 Automatically activate when the user:
-
 - Explicitly asks to push changes ("push this", "commit and push")
 - Mentions saving work to remote ("save to github", "push to remote")
 - Completes a feature and wants to share it
@@ -25,7 +24,6 @@ bash skills/git-pushing/scripts/smart_commit.sh
 ```
 
 With custom message:
-
 ```bash
 bash skills/git-pushing/scripts/smart_commit.sh "feat: add feature"
 ```

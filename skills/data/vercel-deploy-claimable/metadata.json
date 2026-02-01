@@ -1,7 +1,7 @@
 {
   "name": "vercel-deploy-claimable",
-  "repo": "dandedotdev/dotfiles",
+  "repo": "oimiragieo/agent-studio",
   "path": ".claude/skills/vercel-deploy-claimable/SKILL.md",
-  "source": "github.com/dandedotdev/dotfiles",
-  "downloaded_at": "2026-01-31T03:34:20.822818Z"
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-02-01T02:18:52.575638Z"
 }

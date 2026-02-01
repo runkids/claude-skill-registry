@@ -1,9 +1,7 @@
 {
   "name": "iac-executor",
-  "description": "Use this skill ONLY after a plan has been APPROVED by both the `iac-security-auditor` skill and the human user. This skill safely applies a confirmed terraform plan.",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/iac-executor/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:01.531542Z"
 }

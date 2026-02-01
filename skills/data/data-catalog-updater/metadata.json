@@ -1,7 +1,7 @@
 {
   "name": "data-catalog-updater",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/data-catalog-updater/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-31T03:32:42.881163Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "planned-skills/generated/11-data-pipelines/data-catalog-updater/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:16.936970Z"
 }

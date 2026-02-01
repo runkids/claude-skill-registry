@@ -1,7 +1,7 @@
 {
   "name": "go-expert",
-  "repo": "personamanagmentlayer/pcl",
-  "path": "stdlib/languages/go-expert/SKILL.md",
-  "source": "github.com/personamanagmentlayer/pcl",
-  "downloaded_at": "2026-01-31T04:01:56.530820Z"
+  "repo": "traylinx/switchAILocal",
+  "path": "plugins/cortex-router/skills/go-expert/SKILL.md",
+  "source": "github.com/traylinx/switchAILocal",
+  "downloaded_at": "2026-02-01T04:36:04.438391Z"
 }

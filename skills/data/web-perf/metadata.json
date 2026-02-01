@@ -1,9 +1,7 @@
 {
   "name": "web-perf",
-  "description": "Analyzes web performance using Chrome DevTools MCP. Measures Core Web Vitals (FCP, LCP, TBT, CLS, Speed Index), identifies render-blocking resources, network dependency chains, layout shifts, caching ",
-  "repo": "elithrar/dotfiles",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "cloudflare/skills",
+  "path": "skills/web-perf/SKILL.md",
+  "source": "github.com/cloudflare/skills",
+  "downloaded_at": "2026-02-01T03:42:33.232886Z"
 }

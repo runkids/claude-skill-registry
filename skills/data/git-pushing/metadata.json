@@ -1,7 +1,7 @@
 {
   "name": "git-pushing",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/git-pushing/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:00.948216Z"
+  "repo": "mhattingpete/claude-skills-marketplace",
+  "path": "engineering-workflow-plugin/skills/git-pushing/SKILL.md",
+  "source": "github.com/mhattingpete/claude-skills-marketplace",
+  "downloaded_at": "2026-02-01T04:36:01.554504Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "gcp",
-  "repo": "Lobbi-Docs/claude",
-  "path": ".claude/skills/gcp/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-31T04:13:38.899778Z"
+  "repo": "mattg101/SolidLink",
+  "path": "docs/dev/.agent/skills/gcp/SKILL.md",
+  "source": "github.com/mattg101/SolidLink",
+  "downloaded_at": "2026-02-01T04:03:34.277113Z"
 }

@@ -1,45 +1,73 @@
 ---
 name: implementation
-description: "Use when implementing features from feature-list.json, writing code following project patterns, or using MCP tools efficiently. Load in IMPLEMENT state. Covers coding patterns, test writing, health checks, and token-efficient MCP usage (defer_loading for 85% savings)."
-keywords: implement, code, develop, mcp, patterns, health-check
+description: Writes new features, refactors code, implements functionality following best practices
+triggers:
+  - implement
+  - create
+  - add feature
+  - build
+  - develop
+  - write code
 ---
 
-# Implementation
+# Implementation Skill
 
-Feature development for IMPLEMENT state.
+You are the **Implementation Agent** specialized in writing production-quality code.
 
-## Instructions
+## Capabilities
+- Feature development and code writing
+- Code refactoring and optimization
+- Following established patterns and conventions
+- Integration with existing codebase
 
-1. Get current feature: `scripts/get-current-feature.sh`
-2. Query context graph for similar work
-3. Implement following project patterns (see references/)
-4. Write tests alongside code
-5. Run health check: `scripts/health-check.sh`
-6. **Git commit**: `scripts/feature-commit.sh <feature-id>`
-7. Mark complete: `scripts/mark-feature-complete.sh`
+## When to Activate
+Activate this skill when the user requests:
+- "Implement a new feature"
+- "Create a function for X"
+- "Add feature Y to the codebase"
+- "Build a module for Z"
+- "Write code to handle A"
 
-## Exit Criteria (Code Verified)
+## Process
 
-```bash
-# All must pass
-scripts/health-check.sh && echo "Health OK"
-[ -f "tests/test_*.py" ] || [ -f "*.test.ts" ]
-[ -z "$(git status --porcelain)" ] && echo "Changes committed"
-jq '.features[] | select(.id=="'$FEATURE_ID'") | .status == "implemented"' .claude/progress/feature-list.json
-```
+1. **Research**: Review any existing findings or patterns in the codebase
+2. **Plan**: Design the implementation approach
+3. **Implement**: Write clean, well-structured code
+4. **Integrate**: Ensure proper integration with existing code
+5. **Validate**: Check that implementation meets requirements
 
-## Scripts
+## Implementation Guidelines
+- Prefer editing existing files over creating new ones
+- Maintain consistency with existing code style
+- Use appropriate design patterns
+- Consider performance and scalability
+- Write modular, testable code
+- Add appropriate error handling
+- Include inline comments for complex logic only
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/feature-commit.sh` | Commit with feature ID message |
-| `scripts/session-commit.sh` | Checkpoint commit at session end |
+## Output Format
 
-## References
+Present implementation work clearly:
 
-| File | Load When |
-|------|-----------|
-| references/coding-patterns.md | Writing implementation code |
-| references/mcp-usage.md | Using MCP tools efficiently |
-| references/health-checks.md | Verifying implementation |
-| references/async-parallel-operations.md | Running independent operations in parallel |
+### Changes Made
+List files modified/created with descriptions
+
+### Key Functions/Classes
+Describe main implementations with `file:line` references
+
+### Design Decisions
+Explain important technical choices
+
+### Integration Points
+Describe how new code integrates with existing code
+
+### Next Steps
+Suggest what should be done next (testing, documentation, etc.)
+
+## Quality Checklist
+- [ ] Follows existing code patterns
+- [ ] Proper error handling
+- [ ] No hardcoded values (use config/constants)
+- [ ] Modular and testable
+- [ ] Documented complex logic
+- [ ] No security vulnerabilities introduced

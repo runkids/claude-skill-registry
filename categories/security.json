@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 763,
-  "updated_at": "2026-01-31T04:52:27.061917Z",
+  "count": 756,
+  "updated_at": "2026-02-01T05:09:24.072724Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -1043,22 +1043,6 @@
       "source": "local"
     },
     {
-      "name": "codex-code-review",
-      "description": "Perform comprehensive code reviews using OpenAI Codex CLI. This skill should be used when users request code reviews, want to analyze diffs/PRs, need security audits, performance analysis, or want aut",
-      "repo": "tyrchen/claude-skills",
-      "path": "data/codex-code-review",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "codex",
-        "code",
-        "review"
-      ],
-      "stars": 11,
-      "install": "tyrchen/claude-skills",
-      "source": "local"
-    },
-    {
       "name": "cursor-agent",
       "description": "A comprehensive skill for using the Cursor CLI agent for various software engineering tasks (updated for 2026 features, includes tmux automation guide).",
       "repo": "clawdbot/skills",
@@ -1737,20 +1721,6 @@
       ],
       "stars": 3,
       "install": "martinholovsky/claude-skills-generator/skills/websocket",
-      "source": "local"
-    },
-    {
-      "name": "websocket",
-      "description": "Real-time bidirectional communication with security focus on CSWSH prevention, authentication, and message validation",
-      "repo": "martinholovsky/claude-skills-generator",
-      "path": "data/websocket",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "websocket"
-      ],
-      "stars": 3,
-      "install": "martinholovsky/claude-skills-generator",
       "source": "local"
     },
     {
@@ -2895,18 +2865,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "audit-skill",
-      "description": "Comprehensive audit capabilities for security, code quality, module structure, compliance, and performance analysis. Use this skill when performing security audits, code reviews, vulnerability assessm",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/audit-skill",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "auditing-access-control",
       "description": "Audit access control implementations for security vulnerabilities and misconfigurations. Use when reviewing authentication and authorization. Trigger with 'audit access control', 'check permissions', ",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -3221,20 +3179,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "authentication",
-      "description": "Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.",
-      "repo": "markus41/lobbi-design-system",
-      "path": "data/authentication",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "authentication"
-      ],
-      "stars": 0,
-      "install": "markus41/lobbi-design-system",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "authentication-authorization",
       "description": "ログイン、セッション、JWT、OAuth、アクセス制御を実装する際に使用。",
       "repo": "TakumiOkayasu/dotfile-work",
@@ -3520,18 +3464,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/bir-tax-filing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bir-tax-filing",
-      "description": "Automate Philippine BIR (Bureau of Internal Revenue) tax form generation and filing. Handles 1601-C (withholding tax), 2550Q (quarterly VAT), 1702-RT/EX (annual income tax), and ATP (Authorization to ",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/bir-tax-filing",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5362,18 +5294,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "input-validation",
-      "description": "Input-Validation standards for input validation in Security environments.",
-      "repo": "williamzujkowski/standards",
-      "path": "data/input-validation",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "williamzujkowski/standards",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "input-validation-checker",
       "description": "Input Validation Checker - Auto-activating skill for Security Fundamentals.Triggers on: input validation checker, input validation checkerPart of the Security Fundamentals skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -5926,18 +5846,6 @@
       "tags": [],
       "stars": 0,
       "install": "IgorWarzocha/Opencode-Workflows/agents/opencode-configurator/skill/mcp-installer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mcp-installer",
-      "description": "Find, install, and configure Model Context Protocol (MCP) servers for OpenCode. Use when user asks about finding MCP servers, installing them, configuring OAuth, or troubleshooting MCP issues.",
-      "repo": "IgorWarzocha/Opencode-Workflows",
-      "path": "data/mcp-installer",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "IgorWarzocha/Opencode-Workflows",
       "source": "SkillsMP + GitHub Raw"
     },
     {

@@ -1,7 +1,7 @@
 {
   "name": "agent-md-refactor",
-  "repo": "Ven0m0/claude-config",
-  "path": "claude/skills/agent-md-refactor/SKILL.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-01-31T04:48:57.524567Z"
+  "repo": "maxlogvn/AiCMR",
+  "path": ".claude/skills/agent-md-refactor/SKILL.md",
+  "source": "github.com/maxlogvn/AiCMR",
+  "downloaded_at": "2026-02-01T04:25:00.975931Z"
 }

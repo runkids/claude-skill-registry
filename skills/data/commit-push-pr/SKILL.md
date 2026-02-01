@@ -1,336 +1,160 @@
 ---
 name: commit-push-pr
-description: Commit changes, push to GitHub, and open a PR. Includes quality checks (security, patterns, simplification). Use --quick to skip checks.
-allowed-tools: Bash, Read, Write, Edit, Grep, Glob, AskUserQuestion
+description: Git 커밋, Push, PR 생성 워크플로우를 표준화하는 스킬
+allowed-tools:
+  - Bash
+  - Read
+  - Grep
 ---
 
-# Commit, Push & PR Skill
+# Commit Push PR Skill
 
-Automates the git workflow of committing changes, pushing to GitHub, and opening a PR with intelligent handling of edge cases.
+이 스킬은 ForkLore 프로젝트의 Git 워크플로우를 표준화합니다.
 
-## Required Reading
+## 워크플로우
 
-Before executing, internalize the git workflow standards:
-@.claude/rules/git_workflow.md
-
-Key rules:
-- Use Conventional Commits format: `type(scope): description`
-- **NEVER attribute Claude** in commits or PRs (no co-author, no mentions)
-- **NEVER skip pre-commit hooks** (no `--no-verify`)
-
----
-
-## Execution Workflow
-
-### Step 1: Assess Git State
-
-Run these commands to understand the current state:
+### 1. 커밋 전 준비
 
 ```bash
-# Detect the default branch (main, master, etc.)
-DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
-# Fallback if symbolic-ref fails (e.g., shallow clone or missing HEAD)
-if [ -z "$DEFAULT_BRANCH" ]; then
-  DEFAULT_BRANCH=$(git remote show origin 2>/dev/null | grep 'HEAD branch' | awk '{print $NF}')
-fi
-# Final fallback to 'main' if detection fails
-DEFAULT_BRANCH=${DEFAULT_BRANCH:-main}
+# 변경사항 확인
+git status --short
+git diff --stat
 
-# Get current branch
-BRANCH=$(git branch --show-current)
-
-# Check for uncommitted changes
-git status --porcelain
-
-# Check for unpushed commits (if branch has upstream)
-git log origin/$DEFAULT_BRANCH..HEAD --oneline 2>/dev/null || echo "No upstream or no commits ahead"
-
-# Check if branch has upstream tracking
-git rev-parse --abbrev-ref @{upstream} 2>/dev/null || echo "No upstream"
+# 린트 및 테스트 실행
+cd backend && poetry run ruff check apps/ && poetry run pytest -x
+cd frontend && pnpm lint && pnpm test -- --run
 ```
 
-Determine the state:
-- `HAS_CHANGES`: Are there uncommitted changes (staged, unstaged, or untracked)?
-- `HAS_UNPUSHED`: Are there commits ahead of origin/$DEFAULT_BRANCH?
-- `ON_DEFAULT_BRANCH`: Is current branch the default branch ($DEFAULT_BRANCH)?
-- `HAS_UPSTREAM`: Does the branch track a remote?
+### 2. 커밋 메시지 규칙
 
-### Step 2: Handle "Nothing to Do" Case
+**형식**: `type(scope): message`
 
-If `!HAS_CHANGES && !HAS_UNPUSHED`:
-```
-Inform user: "No changes to commit and no unpushed commits. Nothing to do."
-Exit gracefully.
-```
+| Type | 설명 |
+|------|------|
+| `feat` | 새로운 기능 |
+| `fix` | 버그 수정 |
+| `refactor` | 코드 리팩토링 (기능 변경 없음) |
+| `docs` | 문서 변경 |
+| `test` | 테스트 추가/수정 |
+| `chore` | 빌드, 설정 등 기타 변경 |
 
-### Step 3: Handle "No Changes But Unpushed Commits" Case
-
-If `!HAS_CHANGES && HAS_UNPUSHED`:
-
-1. Check if PR already exists:
+**예시**:
 ```bash
-gh pr list --head "$(git branch --show-current)" --json number,url,title
+git commit -m "feat(novels): add chapter reordering API"
+git commit -m "fix(auth): resolve token refresh race condition"
+git commit -m "refactor(contents): extract text processing to service"
+git commit -m "docs(api): update endpoint documentation"
+git commit -m "test(novels): add integration tests for branching"
 ```
 
-2. If PR exists:
-   - Offer to push updates to the existing PR
-   - Report the PR URL
+### 3. 브랜치 명명 규칙
 
-3. If no PR:
-   - Offer to push and create a new PR
-   - Proceed to Step 7
-
-### Step 4: Branch Management (if HAS_CHANGES)
-
-**If on default branch ($DEFAULT_BRANCH):**
-
-1. Inform user that changes need to go on a feature branch
-2. Stage changes first to analyze them:
-```bash
-git add -A
-git diff --staged --stat
-```
-
-3. Generate a conventional commit message based on the changes (see Step 5)
-
-4. Derive branch name from commit message:
-   - `feat(cli): add project list` → `feat-cli-add-project-list`
-   - `fix: resolve memory leak` → `fix-resolve-memory-leak`
-   - Rules: lowercase, replace spaces/special chars with hyphens, max 50 chars
-
-5. Create and checkout the new branch:
-```bash
-git checkout -b <branch-name>
-```
-
-**If already on feature branch:**
-- Continue with the existing branch
-- Check if PR exists for context
-
-### Step 5: Stage Changes and Generate Commit Message
-
-1. Stage all changes:
-```bash
-git add -A
-```
-
-2. Analyze the staged changes:
-```bash
-git diff --staged --stat
-git diff --staged
-```
-
-3. Generate a conventional commit message based on:
-   - Files changed (infer scope from directory)
-   - Nature of changes (feat/fix/refactor/docs/test/chore)
-   - Summarize the "why" not just the "what"
-
-4. Present the commit message to the user. Example format:
-```
-Proposed commit message:
-
-  feat(cli): add project listing command
-
-  Adds a new 'lf project list' command that displays all projects
-  in the current workspace with their status.
-
-Do you want to use this message, modify it, or provide your own?
-```
-
-### Step 5.5: Quality Check
-
-**Skip if**: `--quick` flag was passed.
-
-Run quality checks on staged changes before committing.
-
-#### 1. Auto-fix trivial issues (no prompt needed)
-
-Search for and remove debug statements:
+**형식**: `type/#issue-description`
 
 ```bash
-# Find files with debug statements
-git diff --staged --name-only | xargs grep -l -E "(console\.(log|debug|info)|debugger|print\()" 2>/dev/null
+# 예시
+feat/#123-novel-branching
+fix/#456-auth-token-refresh
+refactor/#789-service-extraction
+docs/#101-api-documentation
 ```
 
-For each file found:
-- Remove `console.log(...)`, `console.debug(...)`, `console.info(...)` statements
-- Remove `debugger;` statements
-- Remove `print(...)` statements (Python)
-- Re-stage the file after fixes
-
-Report: "Auto-fixed: Removed N debug statements from M files"
-
-#### 2. Check for issues requiring attention
-
-Scan staged diff for:
-
-| Issue | Severity | Action |
-|-------|----------|--------|
-| Hardcoded secrets (API keys, passwords) | BLOCK | Cannot auto-fix - user must remove |
-| Command injection (`shell=True`, `os.system`) | BLOCK | Cannot auto-fix - user must refactor |
-| Empty catch/except blocks | PROPOSE | Suggest adding error logging |
-| Duplicate code patterns | PROPOSE | Suggest extraction |
-| Unused imports | PROPOSE | Suggest removal |
-| TODO/FIXME comments | WARN | Note but allow proceed |
-
-#### 3. Handle blocking issues
-
-If BLOCK issues found:
-- List each issue with file:line reference
-- Stop the workflow
-- User must fix manually and re-run
-
-#### 4. Handle proposable fixes
-
-For each PROPOSE issue:
-- Show: file, line, problem, suggested fix
-- Ask: "Apply this fix? (y/n/all/skip)"
-- If approved: apply edit, re-stage
-- If skipped: continue without fix
-
-#### 5. Handle warnings
-
-For WARN issues:
-- Display summary
-- Continue without blocking
-
----
-
-### Step 6: Create the Commit
-
-Create the commit with the approved message:
+### 4. Push
 
 ```bash
-git commit -m "$(cat <<'EOF'
-type(scope): short description
+# 새 브랜치 첫 push
+git push -u origin feat/#123-feature-name
 
-Optional longer description explaining the change.
-EOF
-)"
-```
-
-**Important:**
-- Use HEREDOC for multi-line messages
-- Never add co-author or Claude attribution
-- Let pre-commit hooks run (never use `--no-verify`)
-
-**If commit fails due to pre-commit hook:**
-- Report the failure to the user
-- Show the hook output
-- Do NOT retry with `--no-verify`
-- Ask user how to proceed (fix issues or abort)
-
-### Step 7: Push to Remote
-
-1. Check if branch has upstream:
-```bash
-git rev-parse --abbrev-ref @{upstream} 2>/dev/null
-```
-
-2. If no upstream, push with `-u`:
-```bash
-git push -u origin $(git branch --show-current)
-```
-
-3. If has upstream, regular push:
-```bash
+# 이후 push
 git push
 ```
 
-**If push fails due to conflicts:**
-- Inform user about the conflict
-- Suggest: `git pull --rebase origin $DEFAULT_BRANCH` or `git merge origin/$DEFAULT_BRANCH`
-- Do NOT force push
-
-### Step 8: Create or Report PR
-
-1. Check if PR already exists:
-```bash
-gh pr list --head "$(git branch --show-current)" --json number,url,title
-```
-
-2. **If PR exists:**
-   - Report: "Changes pushed to existing PR: <URL>"
-   - Show PR title and number
-
-3. **If no PR exists:**
-   - Generate PR title from commit message (first line)
-   - Generate PR body with summary of changes
-   - Create PR:
+### 5. PR 생성
 
 ```bash
-gh pr create --title "type(scope): description" --body "$(cat <<'EOF'
+gh pr create --title "feat(scope): 설명 (#이슈번호)" --body "$(cat <<'EOF'
 ## Summary
-
-- Brief description of changes
+- 변경사항 1
+- 변경사항 2
 
 ## Changes
+- 파일 1: 설명
+- 파일 2: 설명
 
-- List of key changes made
+## Test
+- [ ] 단위 테스트 통과
+- [ ] 통합 테스트 통과
+- [ ] 수동 테스트 완료
 
-## Test Plan
-
-- How to verify these changes work
+Closes #이슈번호
 EOF
-)"
+)" --base develop
 ```
 
-4. Report the new PR URL to the user
+### 6. PR 머지
 
----
+```bash
+# Squash 머지 (권장)
+gh pr merge {PR_NUMBER} --squash --delete-branch
 
-## Branch Name Generation
-
-Convert commit message to valid branch name:
-
-| Input | Output |
-|-------|--------|
-| `feat(cli): add project list command` | `feat-cli-add-project-list-command` |
-| `fix: resolve memory leak in cache` | `fix-resolve-memory-leak-in-cache` |
-| `refactor(server): simplify auth flow` | `refactor-server-simplify-auth-flow` |
-
-Algorithm:
-1. Take the commit message (first line only)
-2. Lowercase everything
-3. Remove the colon after type/scope
-4. Replace `(` and `)` with `-`
-5. Replace spaces and special characters with `-`
-6. Collapse multiple hyphens to single hyphen
-7. Trim to max 50 characters at word boundary
-8. Remove trailing hyphens
-
----
-
-## Error Handling
-
-| Error | Action |
-|-------|--------|
-| Pre-commit hook fails | Show output, ask user to fix, do NOT bypass |
-| Push rejected (conflicts) | Suggest rebase/merge, do NOT force push |
-| PR creation fails | Show error, suggest manual creation |
-| Not a git repo | Inform user, exit |
-| gh CLI not installed | Inform user how to install |
-| Not authenticated to GitHub | Suggest `gh auth login` |
-
----
-
-## Output Format
-
-On success, report:
-```
-Committed: feat(cli): add project list command
-Branch: feat-cli-add-project-list-command
-Pushed to: origin/feat-cli-add-project-list-command
-PR: https://github.com/owner/repo/pull/123
+# 일반 머지
+gh pr merge {PR_NUMBER} --merge --delete-branch
 ```
 
----
+## 전체 워크플로우 예시
 
-## Notes for the Agent
+```bash
+# 1. develop에서 새 브랜치 생성
+git checkout develop
+git pull origin develop
+git checkout -b feat/#204-mcp-skills-hooks
 
-1. **Never mention Claude** - No co-author lines, no "generated by Claude" in PR descriptions
-2. **Respect hooks** - Pre-commit hooks exist for a reason, never skip them
-3. **Be informative** - Tell the user what's happening at each step
-4. **Handle errors gracefully** - Don't leave the repo in a broken state
-5. **Ask when uncertain** - If the commit message isn't clear, ask the user
-6. **Keep it simple** - One commit per invocation, clear linear workflow
+# 2. 작업 수행
+# ... 코드 작성 ...
+
+# 3. 변경사항 확인 및 테스트
+git status --short
+cd backend && poetry run pytest -x
+cd frontend && pnpm test -- --run
+
+# 4. 커밋
+git add .
+git commit -m "feat(claude): add MCP, Skills, Hooks configuration
+
+- Add .mcp.json for PostgreSQL and Playwright
+- Add 5 skills for development workflow
+- Add 4 hooks for code quality enforcement
+
+Closes #204"
+
+# 5. Push
+git push -u origin feat/#204-mcp-skills-hooks
+
+# 6. PR 생성
+gh pr create --title "feat(claude): MCP, Skills, Hooks 설정 (#204)" \
+  --body "## Summary
+- MCP 서버 설정 (PostgreSQL, Playwright)
+- Skills 5개 생성 (TDD, PR Review, API, Frontend, Git)
+- Hooks 4개 설정 (Lint, Test, Bash)
+
+Closes #204" --base develop
+
+# 7. PR 머지
+gh pr merge --squash --delete-branch
+```
+
+## 금지 사항
+
+| 명령어 | 사유 |
+|--------|------|
+| `git push -f` (main/develop) | 히스토리 손상 |
+| `git commit --amend` (push 후) | 협업 충돌 |
+| `git reset --hard` (공유 브랜치) | 다른 작업자 영향 |
+
+## 체크리스트
+
+- [ ] 브랜치가 이슈 번호를 포함하는가?
+- [ ] 커밋 메시지가 규칙을 따르는가?
+- [ ] 테스트가 통과하는가?
+- [ ] PR이 `Closes #이슈번호`를 포함하는가?
+- [ ] base 브랜치가 `develop`인가?

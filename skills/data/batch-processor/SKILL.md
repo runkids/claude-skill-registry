@@ -1,157 +1,138 @@
 ---
 name: batch-processor
-description: Process multiple videos in batch mode for efficiency. Supports batch download from YouTube URLs, batch autocut for multiple videos, and batch export to multiple platforms. Generates consolidated reports with all clips.
-allowed-tools: Bash(ffmpeg:*) Bash(yt-dlp:*) Bash(python:*)
-compatibility: Requires all trimer-clip dependencies
-metadata:
-  version: "1.0"
+description: Parallel processing for validated assets. Input array of 3-5 assets → simultaneous IDF extraction, package generation, file operations. Replaces serial workflow with parallel execution.
 ---
 
-# Batch Processor
+# Batch-Processor Skill
 
-This skill enables batch processing of multiple videos for maximum efficiency.
+## Purpose
 
-## When to Use
+Process multiple validated assets simultaneously. Input: array of 3-5 asset paths. Output: complete packages in parallel. Eliminates sequential bottleneck.
 
-- Processing multiple YouTube videos at once
-- Batch converting podcast episodes to shorts
-- Repurposing entire video libraries
-- Creating content at scale
-- Processing seasonal content (holiday, event videos)
-
-## Available Scripts
-
-### `scripts/batch_process.py`
-
-Process multiple videos in batch.
-
-**Usage:**
-```bash
-python skills/batch-processor/scripts/batch_process.py --input <json_file> [options]
-```
-
-**Input JSON Format:**
-```json
-[
-  {
-    "source": "https://youtube.com/watch?v=VIDEO1",
-    "source_type": "youtube",
-    "num_clips": 5,
-    "platform": "tiktok"
-  },
-  {
-    "source": "./videos/video2.mp4",
-    "source_type": "file",
-    "num_clips": 3,
-    "platform": "shorts"
-  }
-]
-```
-
-**Options:**
-- `--input`: JSON file with video list
-- `--output-dir`: Output directory (default: `./batch_output/`)
-- `--parallel`: Number of parallel processes (default: 1)
-- `--transcription-model`: Transcription model (auto, whisper, gemini)
-
-**Example:**
-```bash
-python skills/batch-processor/scripts/batch_process.py --input videos.json --parallel 2
-```
-
-### `scripts/batch_from_urls.py`
-
-Download and process multiple YouTube URLs.
-
-**Usage:**
-```bash
-python skills/batch-processor/scripts/batch_from_urls.py --urls <file> [options]
-```
-
-**URLs File Format:**
-```
-https://youtube.com/watch?v=VIDEO1
-https://youtube.com/watch?v=VIDEO2
-https://youtube.com/watch?v=VIDEO3
-```
-
-**Options:**
-- `--urls`: File with YouTube URLs (one per line)
-- `--num-clips`: Clips per video (default: 5)
-- `--platform`: Target platform (default: tiktok)
-- All other autocut options
-
-**Example:**
-```bash
-python skills/batch-processor/scripts/batch_from_urls.py --urls urls.txt --num-clips 5 --platform shorts
-```
-
-## Output
-
-### Directory Structure
-```
-batch_output/
-  2024-01-30/
-    video1/
-      video1_tiktok_001.mp4
-      video1_tiktok_002.mp4
-      report.json
-    video2/
-      video2_shorts_001.mp4
-      video2_shorts_002.mp4
-      report.json
-    batch_report.json
-```
-
-### Batch Report
+## Input
 
 ```json
 {
-  "batch_id": "batch_20240130_120000",
-  "total_videos": 10,
-  "successful": 8,
-  "failed": 2,
-  "total_clips": 40,
-  "output_dir": "./batch_output/2024-01-30/",
-  "processing_time": 1800.5,
-  "results": [
+  "batch_id": "batch-theatrical-specimens",
+  "assets": [
     {
-      "source": "https://youtube.com/watch?v=...",
-      "status": "success",
-      "clips": 5,
-      "output_dir": "batch_output/2024-01-30/video1/"
+      "asset_id": "ASSET-3",
+      "path": "/downloads/asset-3-validated.png",
+      "score": 92,
+      "specs": {...}
     },
     {
-      "source": "https://youtube.com/watch?v=...",
-      "status": "failed",
-      "error": "Transcription failed"
+      "asset_id": "ASSET-4",
+      "path": "/downloads/asset-4-validated.png",
+      "score": 94,
+      "specs": {...}
+    },
+    {
+      "asset_id": "ASSET-6",
+      "path": "/downloads/asset-6-validated.png",
+      "score": 91,
+      "specs": {...}
     }
   ]
 }
 ```
 
-## Performance
+## Parallel Operations
 
-- **Sequential processing**: 1 video at a time
-- **Parallel processing**: 2-4 videos simultaneously (based on CPU cores)
-- **Estimated time**: (video duration × 2) per video
+**1. IDF Extraction (Flash-Sidekick)**
+```python
+# Parallel calls
+results = await Promise.all([
+    flash_sidekick.generate_idf(asset_3_png),
+    flash_sidekick.generate_idf(asset_4_png),
+    flash_sidekick.generate_idf(asset_6_png)
+])
+# Returns in 5-8 seconds vs 15-20 serial
+```
 
-## Error Handling
+**2. Package Generation**
+Template-based parallel creation:
+- context.md × 3 assets
+- tokens.json × 3 assets  
+- usage.md × 3 assets
 
-- **Individual failures**: Continues with next video
-- **Partial success**: Reports successful vs failed
-- **Retry logic**: Retries failed videos once
-- **Progress tracking**: Shows progress during processing
+**3. Directory Creation**
+```bash
+mkdir -p /assets/ASSET-{3,4,6}-*/
+```
 
-## Tips
+**4. File Copy Operations**
+Parallel cp commands:
+```bash
+cp asset-3.png /frontend/public/assets/patterns/ &
+cp asset-4.png /frontend/public/assets/specimens/ &
+cp asset-6.png /frontend/public/assets/specimens/ &
+wait
+```
 
-- Use parallel processing for large batches
-- Process overnight for big libraries
-- Check batch report for failed videos
-- Retry failed videos individually
-- Monitor disk space for large batches
+**5. Single Consolidated Commit**
+```bash
+git add /assets/ASSET-{3,4,6}-* /frontend/public/assets/*
+git commit -m "feat(assets): Add batch theatrical specimens - Assets 3,4,6"
+```
 
-## References
+## Workflow
 
-- Parallel processing in Python
-- Batch workflow optimization
+1. Receive array of validated assets
+2. Spawn parallel IDF extraction (Flash-Sidekick)
+3. Generate packages using templates
+4. Execute batch file operations
+5. Single git commit
+6. Report completion metrics
+
+## Integration
+
+**Flash-Sidekick:**
+- `batch_file_analysis` for parallel IDF extraction
+- Returns aggregated results JSON
+
+**Asset-Packager:**
+- Batch mode trigger
+- Receives array instead of single asset
+
+**Codex CLI:**
+- Executes batch file operations
+- Handles git operations
+
+## Efficiency Gain
+
+**Sequential (3 assets):**
+- IDF extraction: 15 min (5 min each)
+- Packaging: 45 min (15 min each)
+- Total: 60 min
+
+**Parallel (3 assets):**
+- IDF extraction: 5 min (parallel)
+- Packaging: 10 min (template-based)
+- Total: 15 min
+
+**Savings:** 75% time reduction for batches
+
+## Constraints
+
+- Max 5 assets per batch (API rate limits)
+- All assets must be validated ≥90
+- Requires sufficient system memory
+
+## Usage
+
+```python
+batch_result = batch_processor.run(
+    batch_id="theatrical-specimens",
+    assets=[asset_3, asset_4, asset_6]
+)
+
+# Output:
+# Processed: 3 assets in 15 min
+# Created: 9 files across 3 directories
+# Committed: 1 consolidated commit
+```
+
+---
+
+*Parallel processing eliminates sequential bottleneck. 3 assets in 15 min vs 60 min serial.*

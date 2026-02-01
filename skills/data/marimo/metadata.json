@@ -1,9 +1,7 @@
 {
   "name": "marimo",
-  "description": "This skill should be used when the user asks to \"use marimo\", \"create a marimo notebook\", \"debug a marimo notebook\", \"inspect cells\", \"understand reactive execution\", \"fix marimo errors\", \"convert fro",
-  "repo": "edwinhu/workflows",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/edwinhu/workflows"
+  "repo": "nibzard/skills-marketplace",
+  "path": "skills/marimo/skills/marimo/SKILL.md",
+  "source": "github.com/nibzard/skills-marketplace",
+  "downloaded_at": "2026-02-01T04:06:38.369128Z"
 }

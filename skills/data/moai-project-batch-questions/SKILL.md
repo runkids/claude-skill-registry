@@ -1,32 +1,17 @@
 ---
-name: moai-project-batch-questions
-version: 4.0.0
+name: "moai-project-batch-questions"
+version: "1.0.0"
 created: 2025-11-05
-updated: '2025-11-18'
+updated: 2025-11-05
 status: stable
-description: Standardize AskUserQuestion patterns and provide reusable question templates
-  for batch optimization
-keywords:
-- batch
-- questions
-- templates
-- optimization
-- ux
-- interaction
+description: Standardize AskUserQuestion patterns and provide reusable question templates for batch optimization
+keywords: ['batch', 'questions', 'templates', 'optimization', 'ux', 'interaction']
 freedom: medium
 type: project
-tags:
-- project
-- questions
-- batch
-- templates
-- ux
-- optimization
-allowed-tools:
-- AskUserQuestion
-stability: stable
+tags: [project, questions, batch, templates, ux, optimization]
+allowed-tools: 
+  - AskUserQuestion
 ---
-
 
 # Project Batch Questions - Skill Guide
 

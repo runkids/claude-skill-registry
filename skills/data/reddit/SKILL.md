@@ -1,75 +1,103 @@
 ---
 name: reddit
-description: Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.
-triggers:
-  - "reddit"
-  - "subreddit"
-  - "r/"
+description: Browse, search, post, and moderate Reddit. Read-only works without auth; posting/moderation requires OAuth setup.
+metadata: {"clawdbot":{"emoji":"📣","requires":{"bins":["node"]}}}
 ---
 
-# Reddit Skill
+# Reddit
 
-Get posts, comments, subreddit info, and user profiles from Reddit via the public JSON API.
+Browse, search, post to, and moderate subreddits. Read-only actions work without auth; posting/moderation requires OAuth setup.
 
-## Prerequisites
+## Setup (for posting/moderation)
 
-**No API key required!** Reddit's public JSON API works without authentication.
+1. Go to https://www.reddit.com/prefs/apps
+2. Click "create another app..."
+3. Select "script" type
+4. Set redirect URI to `http://localhost:8080`
+5. Note your client ID (under app name) and client secret
+6. Set environment variables:
+   ```bash
+   export REDDIT_CLIENT_ID="your_client_id"
+   export REDDIT_CLIENT_SECRET="your_client_secret"
+   export REDDIT_USERNAME="your_username"
+   export REDDIT_PASSWORD="your_password"
+   ```
 
-**Quick Check**:
+## Read Posts (no auth required)
+
 ```bash
-cd <skill_directory>
-python3 scripts/get_posts.py python --limit 3
+# Hot posts from a subreddit
+node {baseDir}/scripts/reddit.mjs posts wallstreetbets
+
+# New posts
+node {baseDir}/scripts/reddit.mjs posts wallstreetbets --sort new
+
+# Top posts (day/week/month/year/all)
+node {baseDir}/scripts/reddit.mjs posts wallstreetbets --sort top --time week
+
+# Limit results
+node {baseDir}/scripts/reddit.mjs posts wallstreetbets --limit 5
 ```
 
-## Commands
+## Search Posts
 
-All commands run from the skill directory.
-
-### Subreddit Posts
 ```bash
-python3 scripts/get_posts.py python --limit 20           # Hot posts (default)
-python3 scripts/get_posts.py python --sort new --limit 20
-python3 scripts/get_posts.py python --sort top --time week
-python3 scripts/get_posts.py python --sort top --time all --limit 10
+# Search within a subreddit
+node {baseDir}/scripts/reddit.mjs search wallstreetbets "YOLO"
+
+# Search all of Reddit
+node {baseDir}/scripts/reddit.mjs search all "stock picks"
 ```
 
-### Search Posts
+## Get Comments on a Post
+
 ```bash
-python3 scripts/search_posts.py "AI agent" --limit 20
-python3 scripts/search_posts.py "MCP server" --subreddit ClaudeAI --limit 10
-python3 scripts/search_posts.py "async python" --sort top --time year
+# By post ID or full URL
+node {baseDir}/scripts/reddit.mjs comments POST_ID
+node {baseDir}/scripts/reddit.mjs comments "https://reddit.com/r/subreddit/comments/abc123/..."
 ```
 
-### Subreddit Info
+## Submit a Post (requires auth)
+
 ```bash
-python3 scripts/get_subreddit.py python
-python3 scripts/get_subreddit.py ClaudeAI
+# Text post
+node {baseDir}/scripts/reddit.mjs submit yoursubreddit --title "Weekly Discussion" --text "What's on your mind?"
+
+# Link post
+node {baseDir}/scripts/reddit.mjs submit yoursubreddit --title "Great article" --url "https://example.com/article"
 ```
 
-### Post & Comments
+## Reply to a Post/Comment (requires auth)
+
 ```bash
-python3 scripts/get_post.py abc123                       # Get post by ID
-python3 scripts/get_post.py abc123 --comments 50         # With more comments
+node {baseDir}/scripts/reddit.mjs reply THING_ID "Your reply text here"
 ```
 
-### User Profile
+## Moderation (requires auth + mod permissions)
+
 ```bash
-python3 scripts/get_user.py spez
-python3 scripts/get_user.py spez --posts 10              # Include recent posts
+# Remove a post/comment
+node {baseDir}/scripts/reddit.mjs mod remove THING_ID
+
+# Approve a post/comment
+node {baseDir}/scripts/reddit.mjs mod approve THING_ID
+
+# Sticky a post
+node {baseDir}/scripts/reddit.mjs mod sticky POST_ID
+
+# Unsticky
+node {baseDir}/scripts/reddit.mjs mod unsticky POST_ID
+
+# Lock comments
+node {baseDir}/scripts/reddit.mjs mod lock POST_ID
+
+# View modqueue
+node {baseDir}/scripts/reddit.mjs mod queue yoursubreddit
 ```
 
-## Sort Options
+## Notes
 
-| Sort | Description | Time Options |
-|------|-------------|--------------|
-| `hot` | Trending posts (default) | - |
-| `new` | Latest posts | - |
-| `top` | Highest voted | hour, day, week, month, year, all |
-| `rising` | Gaining traction | - |
-| `controversial` | Mixed votes | hour, day, week, month, year, all |
-
-## API Info
-- **Method**: Public JSON API (no auth needed)
-- **Trick**: Append `.json` to any Reddit URL
-- **Rate Limit**: 100 requests/minute
-- **Docs**: https://www.reddit.com/dev/api
+- Read actions use Reddit's public JSON API (no auth needed)
+- Post/mod actions require OAuth - run `login` command once to authorize
+- Token stored at `~/.reddit-token.json` (auto-refreshes)
+- Rate limits: ~60 requests/minute for OAuth, ~10/minute for unauthenticated

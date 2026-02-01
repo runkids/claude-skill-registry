@@ -1,7 +1,7 @@
 {
   "name": "gcp-cloud-run",
-  "repo": "AxelMrak/ai",
-  "path": "skills/gcp-cloud-run/SKILL.md",
-  "source": "github.com/AxelMrak/ai",
-  "downloaded_at": "2026-01-31T03:05:02.068545Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/gcp-cloud-run/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:26.296694Z"
 }

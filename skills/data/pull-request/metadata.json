@@ -1,7 +1,7 @@
 {
   "name": "pull-request",
-  "repo": "vm0-ai/vm0",
-  "path": ".claude/skills/pull-request/SKILL.md",
-  "source": "github.com/vm0-ai/vm0",
-  "downloaded_at": "2026-01-31T04:30:12.177598Z"
+  "repo": "technicalpickles/pickled-claude-plugins",
+  "path": "plugins/git/skills/pull-request/SKILL.md",
+  "source": "github.com/technicalpickles/pickled-claude-plugins",
+  "downloaded_at": "2026-02-01T03:16:37.595611Z"
 }

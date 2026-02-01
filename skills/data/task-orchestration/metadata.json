@@ -1,7 +1,7 @@
 {
   "name": "task-orchestration",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/task-orchestration/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:12.348240Z"
+  "repo": "utzcoz/skill-task-orchestration",
+  "path": ".github/skills/task-orchestration/SKILL.md",
+  "source": "github.com/utzcoz/skill-task-orchestration",
+  "downloaded_at": "2026-02-01T03:38:33.340753Z"
 }

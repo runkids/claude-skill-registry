@@ -1,174 +1,216 @@
 ---
 name: mermaid-diagrams
-description: |
-  Generate Mermaid diagrams in markdown. Triggers on: diagrams, charts, visualizations, flowcharts,
-  sequence diagrams, architecture diagrams, ER diagrams, state machines, Gantt charts, mindmaps,
-  C4, class diagrams, git graphs.
-
-  Use when: user asks for visual representations of code, systems, processes, data structures,
-  database schemas, workflows, or API flows. Proactively suggest diagrams when explaining
-  complex systems.
+description: Comprehensive guide for creating software diagrams using Mermaid syntax. Use when users need to create, visualize, or document software through diagrams including class diagrams (domain modeling, object-oriented design), sequence diagrams (application flows, API interactions, code execution), flowcharts (processes, algorithms, user journeys), entity relationship diagrams (database schemas), C4 architecture diagrams (system context, containers, components), state diagrams, git graphs, pie charts, gantt charts, or any other diagram type. Triggers include requests to "diagram", "visualize", "model", "map out", "show the flow", or when explaining system architecture, database design, code structure, or user/application flows.
 ---
 
-# Mermaid Diagrams
+# Mermaid Diagramming
 
-Generate diagrams in markdown that render in GitHub, GitLab, VS Code, Obsidian, Notion.
+Create professional software diagrams using Mermaid's text-based syntax. Mermaid renders diagrams from simple text definitions, making diagrams version-controllable, easy to update, and maintainable alongside code.
 
-## Quick Start
+## Core Syntax Structure
 
-````markdown
-```mermaid
-flowchart LR
-    A[Start] --> B{Decision}
-    B -->|Yes| C[Action]
-    B -->|No| D[End]
-```
-````
-
-## Quick Decision Tree
-
-```
-What to visualize?
-├─ Process, algorithm, decision flow    → flowchart
-├─ API calls, service interactions      → sequenceDiagram
-├─ Database tables, relationships       → erDiagram
-├─ OOP, type hierarchy, domain model    → classDiagram
-├─ State machine, lifecycle             → stateDiagram-v2
-├─ System architecture, services        → flowchart + subgraphs (or C4Context)
-├─ Project timeline, sprints            → gantt
-├─ User experience, pain points         → journey
-├─ Git branches                         → gitGraph
-├─ Data distribution                    → pie
-└─ Priority matrix                      → quadrantChart
-```
-
-## Diagram Types
-
-| Type | Declaration | Best For |
-|------|-------------|----------|
-| **Flowchart** | `flowchart LR/TB` | Processes, decisions, data flow |
-| **Sequence** | `sequenceDiagram` | API flows, service calls |
-| **ER** | `erDiagram` | Database schemas |
-| **Class** | `classDiagram` | Types, domain models |
-| **State** | `stateDiagram-v2` | State machines |
-| **Gantt** | `gantt` | Project timelines |
-| **Journey** | `journey` | User experience |
-| **C4** | `C4Context` | System architecture |
-| **Git** | `gitGraph` | Branch visualization |
-
-## Common Patterns
-
-### System Architecture
+All Mermaid diagrams follow this pattern:
 
 ```mermaid
-flowchart LR
-    subgraph Client
-        Browser & Mobile
-    end
-    subgraph Services
-        API --> Auth & Core
-    end
-    subgraph Data
-        DB[(PostgreSQL)]
-    end
-    Client --> API
-    Core --> DB
+diagramType
+  definition content
 ```
 
-### API Request Flow
+**Key principles:**
+- First line declares diagram type (e.g., `classDiagram`, `sequenceDiagram`, `flowchart`)
+- Use `%%` for comments
+- Line breaks and indentation improve readability but aren't required
+- Unknown words break diagrams; parameters fail silently
 
+## Diagram Type Selection Guide
+
+**Choose the right diagram type:**
+
+1. **Class Diagrams** - Domain modeling, OOP design, entity relationships
+   - Domain-driven design documentation
+   - Object-oriented class structures
+   - Entity relationships and dependencies
+
+2. **Sequence Diagrams** - Temporal interactions, message flows
+   - API request/response flows
+   - User authentication flows
+   - System component interactions
+   - Method call sequences
+
+3. **Flowcharts** - Processes, algorithms, decision trees
+   - User journeys and workflows
+   - Business processes
+   - Algorithm logic
+   - Deployment pipelines
+
+4. **Entity Relationship Diagrams (ERD)** - Database schemas
+   - Table relationships
+   - Data modeling
+   - Schema design
+
+5. **C4 Diagrams** - Software architecture at multiple levels
+   - System Context (systems and users)
+   - Container (applications, databases, services)
+   - Component (internal structure)
+   - Code (class/interface level)
+
+6. **State Diagrams** - State machines, lifecycle states
+7. **Git Graphs** - Version control branching strategies
+8. **Gantt Charts** - Project timelines, scheduling
+9. **Pie/Bar Charts** - Data visualization
+
+## Quick Start Examples
+
+### Class Diagram (Domain Model)
+```mermaid
+classDiagram
+    Title -- Genre
+    Title *-- Season
+    Title *-- Review
+    User --> Review : creates
+    
+    class Title {
+        +string name
+        +int releaseYear
+        +play()
+    }
+    
+    class Genre {
+        +string name
+        +getTopTitles()
+    }
+```
+
+### Sequence Diagram (API Flow)
 ```mermaid
 sequenceDiagram
-    autonumber
-    Client->>+API: POST /orders
-    API->>Auth: Validate
-    Auth-->>API: OK
-    API->>+DB: Insert
-    DB-->>-API: ID
-    API-->>-Client: 201 Created
+    participant User
+    participant API
+    participant Database
+    
+    User->>API: POST /login
+    API->>Database: Query credentials
+    Database-->>API: Return user data
+    alt Valid credentials
+        API-->>User: 200 OK + JWT token
+    else Invalid credentials
+        API-->>User: 401 Unauthorized
+    end
 ```
 
-### Database Schema
+### Flowchart (User Journey)
+```mermaid
+flowchart TD
+    Start([User visits site]) --> Auth{Authenticated?}
+    Auth -->|No| Login[Show login page]
+    Auth -->|Yes| Dashboard[Show dashboard]
+    Login --> Creds[Enter credentials]
+    Creds --> Validate{Valid?}
+    Validate -->|Yes| Dashboard
+    Validate -->|No| Error[Show error]
+    Error --> Login
+```
 
+### ERD (Database Schema)
 ```mermaid
 erDiagram
     USER ||--o{ ORDER : places
     ORDER ||--|{ LINE_ITEM : contains
-    USER { uuid id PK; string email UK }
-    ORDER { uuid id PK; uuid user_id FK }
+    PRODUCT ||--o{ LINE_ITEM : includes
+    
+    USER {
+        int id PK
+        string email UK
+        string name
+        datetime created_at
+    }
+    
+    ORDER {
+        int id PK
+        int user_id FK
+        decimal total
+        datetime created_at
+    }
 ```
 
-### State Machine
+## Detailed References
 
-```mermaid
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Submitted : submit()
-    Submitted --> Approved : approve()
-    Submitted --> Rejected : reject()
-    Approved --> [*]
-```
+For in-depth guidance on specific diagram types, see:
 
-## Syntax Quick Reference
-
-### Flowchart Nodes
-
-```
-[Rectangle]  (Rounded)  {Diamond}  [(Database)]  [[Subroutine]]
-((Circle))   >Asymmetric]   {{Hexagon}}
-```
-
-### Flowchart Edges
-
-```
-A --> B       # Arrow
-A --- B       # Line
-A -.-> B      # Dotted arrow
-A ==> B       # Thick arrow
-A -->|text| B # Labeled
-```
-
-### Sequence Arrows
-
-```
-->>   # Solid arrow (request)
--->>  # Dotted arrow (response)
--x    # X end (async)
--)    # Open arrow
-```
-
-### ER Cardinality
-
-```
-||--||   # One to one
-||--o{   # One to many
-}o--o{   # Many to many
-```
+- **[references/class-diagrams.md](references/class-diagrams.md)** - Domain modeling, relationships (association, composition, aggregation, inheritance), multiplicity, methods/properties
+- **[references/sequence-diagrams.md](references/sequence-diagrams.md)** - Actors, participants, messages (sync/async), activations, loops, alt/opt/par blocks, notes
+- **[references/flowcharts.md](references/flowcharts.md)** - Node shapes, connections, decision logic, subgraphs, styling
+- **[references/erd-diagrams.md](references/erd-diagrams.md)** - Entities, relationships, cardinality, keys, attributes
+- **[references/c4-diagrams.md](references/c4-diagrams.md)** - System context, container, component diagrams, boundaries
+- **[references/advanced-features.md](references/advanced-features.md)** - Themes, styling, configuration, layout options
 
 ## Best Practices
 
-1. **Choose the right type** — Use decision tree above
-2. **Keep focused** — One concept per diagram
-3. **Use meaningful labels** — Not just A, B, C
-4. **Direction matters** — `LR` for flows, `TB` for hierarchies
-5. **Group with subgraphs** — Organize related nodes
+1. **Start Simple** - Begin with core entities/components, add details incrementally
+2. **Use Meaningful Names** - Clear labels make diagrams self-documenting
+3. **Comment Extensively** - Use `%%` comments to explain complex relationships
+4. **Keep Focused** - One diagram per concept; split large diagrams into multiple focused views
+5. **Version Control** - Store `.mmd` files alongside code for easy updates
+6. **Add Context** - Include titles and notes to explain diagram purpose
+7. **Iterate** - Refine diagrams as understanding evolves
 
-## Reference Documentation
+## Configuration and Theming
 
-| File | Purpose |
-|------|---------|
-| [references/FLOWCHARTS.md](references/FLOWCHARTS.md) | Nodes, edges, subgraphs, styling |
-| [references/SEQUENCE.md](references/SEQUENCE.md) | Participants, messages, activation |
-| [references/CLASS-ER.md](references/CLASS-ER.md) | Classes, ER diagrams, relationships |
-| [references/STATE-JOURNEY.md](references/STATE-JOURNEY.md) | States, user journeys |
-| [references/DATA-CHARTS.md](references/DATA-CHARTS.md) | Gantt, Pie, Timeline, Quadrant |
-| [references/ARCHITECTURE.md](references/ARCHITECTURE.md) | C4, Block, Kanban |
-| [references/CHEATSHEET.md](references/CHEATSHEET.md) | All syntax quick reference |
+Configure diagrams using frontmatter:
 
-## Resources
+```mermaid
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#ff6b6b"
+---
+flowchart LR
+    A --> B
+```
 
-- **Official Documentation**: https://mermaid.js.org
-- **Live Editor**: https://mermaid.live
-- **GitHub Repository**: https://github.com/mermaid-js/mermaid
-- **GitHub Markdown Support**: https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams
-- **GitLab Markdown Support**: https://docs.gitlab.com/ee/user/markdown.html#diagrams-and-flowcharts
+**Available themes:** default, forest, dark, neutral, base
+
+**Layout options:**
+- `layout: dagre` (default) - Classic balanced layout
+- `layout: elk` - Advanced layout for complex diagrams (requires integration)
+
+**Look options:**
+- `look: classic` - Traditional Mermaid style
+- `look: handDrawn` - Sketch-like appearance
+
+## Exporting and Rendering
+
+**Native support in:**
+- GitHub/GitLab - Automatically renders in Markdown
+- VS Code - With Markdown Mermaid extension
+- Notion, Obsidian, Confluence - Built-in support
+
+**Export options:**
+- [Mermaid Live Editor](https://mermaid.live) - Online editor with PNG/SVG export
+- Mermaid CLI - `npm install -g @mermaid-js/mermaid-cli` then `mmdc -i input.mmd -o output.png`
+- Docker - `docker run --rm -v $(pwd):/data minlag/mermaid-cli -i /data/input.mmd -o /data/output.png`
+
+## Common Pitfalls
+
+- **Breaking characters** - Avoid `{}` in comments, use proper escape sequences for special characters
+- **Syntax errors** - Misspellings break diagrams; validate syntax in Mermaid Live
+- **Overcomplexity** - Split complex diagrams into multiple focused views
+- **Missing relationships** - Document all important connections between entities
+
+## When to Create Diagrams
+
+**Always diagram when:**
+- Starting new projects or features
+- Documenting complex systems
+- Explaining architecture decisions
+- Designing database schemas
+- Planning refactoring efforts
+- Onboarding new team members
+
+**Use diagrams to:**
+- Align stakeholders on technical decisions
+- Document domain models collaboratively
+- Visualize data flows and system interactions
+- Plan before coding
+- Create living documentation that evolves with code

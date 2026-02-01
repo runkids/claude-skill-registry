@@ -1,79 +1,79 @@
 ---
 name: vite
-description: Guidance for Vite using the official Guide, Config Reference, and Plugins pages. Use when the user needs Vite setup, configuration, or plugin selection details.
-license: Complete terms in LICENSE.txt
+description: "Vite next-gen frontend tooling: dev server, HMR, build, config, plugins, Environment API, Rolldown. Keywords: vite.config, bundler."
+version: "7.3.1"
+release_date: "2026-01-07"
 ---
 
-## When to use this skill
+# Vite
 
-Use this skill whenever the user wants to:
-- Follow Vite Guide topics from getting started to performance
-- Configure Vite using the official config reference
-- Select or understand Vite plugins from the official plugins page
-- Use Vite CLI, HMR API, or JavaScript API
-- Handle SSR, backend integration, or deployment scenarios in Vite
+## When to use
 
-## How to use this skill
+- User asks how to set up or run a Vite project.
+- User needs Vite configuration guidance (`vite.config.*`).
+- User needs plugin authoring, HMR, or JS API usage.
+- User needs environment variables or modes behavior.
 
-1. **Identify the topic** from the user request.
-2. **Open the matching guide example** file in `examples/guide/`.
-3. **If configuration is needed**, open the matching file in `examples/config/`.
-4. **If plugin selection is needed**, open `examples/plugins.md`.
-5. **Follow official docs verbatim** and keep output consistent with the referenced page.
+## Quick navigation
 
-### Guide mapping (one-to-one with https://cn.vitejs.dev/guide/)
+- Getting started: references/getting-started.md
+- Philosophy and rationale: references/philosophy.md, references/why-vite.md
+- Features: references/features.md
+- CLI: references/cli.md
+- Plugins (usage): references/using-plugins.md
+- Plugin API: references/api-plugin.md
+- HMR API: references/api-hmr.md
+- JavaScript API: references/api-javascript.md
+- Config reference: references/config.md
+- Dependency optimization: references/dep-pre-bundling.md
+- Assets: references/assets.md
+- Build: references/build.md
+- Static deploy: references/static-deploy.md
+- Env & modes: references/env-and-mode.md
+- SSR: references/ssr.md
+- Backend integration: references/backend-integration.md
+- Troubleshooting: references/troubleshooting.md
+- Performance: references/performance.md
+- Rolldown: references/rolldown.md
+- Migration: references/migration.md
+- Breaking changes: references/breaking-changes.md
+- Environment API: references/api-environment.md
+- Environment instances: references/api-environment-instances.md
+- Env plugins: references/api-environment-plugins.md
+- Env frameworks: references/api-environment-frameworks.md
+- Env runtimes: references/api-environment-runtimes.md
 
-**Introduction**
-- `examples/guide/getting-started.md` → https://cn.vitejs.dev/guide/
-- `examples/guide/philosophy.md` → https://cn.vitejs.dev/guide/philosophy.html
-- `examples/guide/why-vite.md` → https://cn.vitejs.dev/guide/why.html
+## Core rules
 
-**Guide**
-- `examples/guide/features.md` → https://cn.vitejs.dev/guide/features.html
-- `examples/guide/cli.md` → https://cn.vitejs.dev/guide/cli.html
-- `examples/guide/using-plugins.md` → https://cn.vitejs.dev/guide/using-plugins.html
-- `examples/guide/dep-pre-bundling.md` → https://cn.vitejs.dev/guide/dep-pre-bundling.html
-- `examples/guide/assets.md` → https://cn.vitejs.dev/guide/assets.html
-- `examples/guide/build.md` → https://cn.vitejs.dev/guide/build.html
-- `examples/guide/static-deploy.md` → https://cn.vitejs.dev/guide/static-deploy.html
-- `examples/guide/env-and-mode.md` → https://cn.vitejs.dev/guide/env-and-mode.html
-- `examples/guide/ssr.md` → https://cn.vitejs.dev/guide/ssr.html
-- `examples/guide/backend-integration.md` → https://cn.vitejs.dev/guide/backend-integration.html
-- `examples/guide/troubleshooting.md` → https://cn.vitejs.dev/guide/troubleshooting.html
-- `examples/guide/performance.md` → https://cn.vitejs.dev/guide/performance.html
-- `examples/guide/migration.md` → https://cn.vitejs.dev/guide/migration.html
+- Prefer minimal configuration; extend only as needed.
+- Keep `index.html` as a first-class entry point when using Vite defaults.
+- Treat dev server settings and build settings separately.
+- Document mode-dependent behavior for env variables and `define`.
+- Use `future` config to opt-in to deprecation warnings before migration.
 
-**APIs**
-- `examples/guide/api-plugin.md` → https://cn.vitejs.dev/guide/api-plugin.html
-- `examples/guide/api-hmr.md` → https://cn.vitejs.dev/guide/api-hmr.html
-- `examples/guide/api-javascript.md` → https://cn.vitejs.dev/guide/api-javascript.html
+## Recipes
 
-**Environment API**
-- `examples/guide/api-environment.md` → https://cn.vitejs.dev/guide/api-environment.html
-- `examples/guide/api-environment-instances.md` → https://cn.vitejs.dev/guide/api-environment-instances.html
-- `examples/guide/api-environment-plugins.md` → https://cn.vitejs.dev/guide/api-environment-plugins.html
-- `examples/guide/api-environment-frameworks.md` → https://cn.vitejs.dev/guide/api-environment-frameworks.html
-- `examples/guide/api-environment-runtimes.md` → https://cn.vitejs.dev/guide/api-environment-runtimes.html
+- Scaffold a project with `npm create vite@latest`.
+- Configure aliases, server options, and build outputs in `vite.config.*`.
+- Load `.env` values into config with `loadEnv` when config needs them.
+- Add plugins with `plugins: []` and define `apply` or `enforce` when needed.
+- Use HMR APIs for fine-grained updates when plugin or framework needs it.
+- Use `optimizeDeps.include/exclude` when deps aren't discovered on startup.
+- Use `build.rollupOptions.input` for multi-page apps.
+- Enable deprecation warnings: `future: { removeSsrLoadModule: 'warn' }`.
+- Use `hotUpdate` hook instead of `handleHotUpdate` for environment-aware HMR.
+- Use `this.environment` instead of `options.ssr` in plugin hooks.
 
-### Config mapping (one-to-one with https://cn.vitejs.dev/config/)
+## Prohibitions
 
-- `examples/config/configuring-vite.md` → https://cn.vitejs.dev/config/
-- `examples/config/shared-options.md` → https://cn.vitejs.dev/config/shared-options.html
-- `examples/config/server-options.md` → https://cn.vitejs.dev/config/server-options.html
-- `examples/config/build-options.md` → https://cn.vitejs.dev/config/build-options.html
-- `examples/config/preview-options.md` → https://cn.vitejs.dev/config/preview-options.html
-- `examples/config/dep-optimization-options.md` → https://cn.vitejs.dev/config/dep-optimization-options.html
-- `examples/config/ssr-options.md` → https://cn.vitejs.dev/config/ssr-options.html
-- `examples/config/worker-options.md` → https://cn.vitejs.dev/config/worker-options.html
+- Do not copy large verbatim chunks from vendor docs.
+- Do not assume framework-specific behavior without verifying.
 
-### Plugins mapping (one-to-one with https://cn.vitejs.dev/plugins/)
+## Links
 
-- `examples/plugins.md` → https://cn.vitejs.dev/plugins/
-
-## Resources
-- Guide: https://cn.vitejs.dev/guide/
-- Config: https://cn.vitejs.dev/config/
-- Plugins: https://cn.vitejs.dev/plugins/
-
-## Keywords
-Vite, build tool, dev server, HMR, config, plugins, SSR, CLI, dependency pre-bundling, assets
+- https://vite.dev/guide/
+- https://vite.dev/config/
+- https://vite.dev/guide/api-plugin
+- https://vite.dev/guide/api-hmr
+- https://vite.dev/guide/api-javascript
+- https://vite.dev/guide/api-environment

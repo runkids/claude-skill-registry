@@ -1,278 +1,223 @@
 ---
-description: Build Blazor components, pages, and layouts following the MudBlazor design system
+name: frontend-dev
+description: 前端开发规范，包含 Vue 3 编码规范、UI 风格约束、TypeScript 规范等
+version: v3.0
+paths:
+  - "**/*.vue"
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "**/*.ts"
+  - "**/*.js"
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/*.less"
+  - "**/package.json"
+  - "**/vite.config.*"
 ---
 
-# Frontend Development Skill
+# 前端开发规范
 
-## Overview
+> 参考来源: Vue 官方风格指南、Element Plus 最佳实践
 
-This skill guides frontend development for the PLG Lead Qualification Tool, ensuring all Blazor components, pages, and layouts adhere to the established MudBlazor design system and project conventions.
+---
 
-## When to Use
+## UI 风格约束
 
-Invoke this skill when:
+### 严格禁止（常见 AI 风格）
 
-- Creating new Blazor components
-- Building pages or layouts
-- Implementing UI features
-- Working with MudBlazor components
-- Adding loading states, empty states, or error handling UI
+- ❌ 蓝紫色霓虹渐变、发光描边、玻璃拟态
+- ❌ 大面积渐变、过多装饰性几何图形
+- ❌ 赛博风、暗黑科技风、AI 风格 UI
+- ❌ UI 文案中使用 emoji
 
-## Core References
+### 后台系统（默认风格）
 
-**CRITICAL:** Before writing any frontend code, read:
+| 要素 | 要求 |
+|------|------|
+| 主题 | 使用组件库默认主题 |
+| 配色 | 黑白灰为主 + 1 个主色点缀 |
+| 动效 | 克制，仅保留必要交互反馈 |
 
-| Document                | Purpose                                                         |
-| ----------------------- | --------------------------------------------------------------- |
-| `docs/design-system.md` | MudTheme colors, component patterns, accessibility requirements |
-| `docs/screens.md`       | UI wireframes and component composition                         |
+---
 
-## Workflow
+## 技术栈
 
-### Step 1: Understand the Context
+| 层级 | Vue（首选） | React（备选） |
+|------|------------|--------------|
+| 框架 | Vue 3 + TypeScript | React 18 + TypeScript |
+| 构建 | Vite | Vite |
+| 路由 | Vue Router 4 | React Router 6 |
+| 状态 | Pinia | Zustand |
+| UI 库 | Element Plus | Ant Design |
 
-1. Read `docs/design-system.md` for theme and patterns
-2. Read `docs/screens.md` for the specific screen wireframe
-3. Check existing components in `Components/` for similar patterns
+---
 
-### Step 2: Plan the Component
+## Vue 编码规范
 
-Before writing code, confirm:
+### 组件基础
 
-- [ ] Component location (Components/, Pages/, Shared/)
-- [ ] Parameter design
-- [ ] Which MudBlazor components to use
-- [ ] Loading, empty, and error states needed
-- [ ] Color usage for qualification status
+```vue
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import type { User } from '@/types'
 
-### Step 3: Implementation Checklist
+// Props & Emits
+const props = defineProps<{ userId: number }>()
+const emit = defineEmits<{ (e: 'update', value: string): void }>()
 
-Apply these rules from the design system:
+// 响应式状态
+const loading = ref(false)
+const user = ref<User | null>(null)
 
-#### Colors (MudBlazor)
+// 计算属性
+const displayName = computed(() => user.value?.name ?? '未知用户')
 
-- Use MudBlazor semantic colors: `Color.Primary`, `Color.Success`, `Color.Warning`, `Color.Error`
-- NEVER hardcode hex colors in components
-- Status colors per qualification:
-  - STRONG: `Color.Success` (green)
-  - MODERATE: `Color.Warning` (amber)
-  - WEAK/DISQUALIFIED: `Color.Error` (red)
-  - Processing: `Color.Info` (blue)
+// 生命周期
+onMounted(async () => { await fetchUser() })
 
-#### Typography
+// 方法
+async function fetchUser() {
+  loading.value = true
+  try {
+    user.value = await api.getUser(props.userId)
+  } finally {
+    loading.value = false
+  }
+}
+</script>
 
-- Use `Typo.*` enum for consistent text styling
-- Primary text: `Typo.body1`
-- Secondary text: `Typo.body2` with `Color.Secondary`
-- Headers: `Typo.h4` through `Typo.h6`
-- Captions/labels: `Typo.caption`
+<template>
+  <div class="user-card">
+    <h3>{{ displayName }}</h3>
+  </div>
+</template>
 
-#### Spacing (MudBlazor Classes)
-
-- Use MudBlazor spacing classes: `pa-4`, `ma-2`, `mb-4`, etc.
-- Page padding: `pa-6`
-- Card padding: `pa-4`
-- Component spacing: `Class="mb-4"`
-
-#### MudBlazor Components
-
-- **Cards**: `<MudPaper Elevation="0" Class="border rounded-lg">`
-- **Tables**: `<MudDataGrid>` with `Dense="true"` and `Hover="true"`
-- **Buttons**: `<MudButton Variant="Variant.Filled" Color="Color.Primary">`
-- **Chips**: `<MudChip Color="@color" Size="Size.Small" Variant="Variant.Filled">`
-- **Icons**: `<MudIcon Icon="@Icons.Material.Filled.Name">`
-- **Loading**: `<MudProgressLinear Indeterminate="true">`
-
-#### States
-
-- Loading: `MudProgressLinear` with `Indeterminate="true"`
-- Empty: Centered `MudIcon` + `MudText` + optional `MudButton`
-- Error: `MudAlert` with `Severity.Error`
-
-#### Icons
-
-- Use Material Icons via `@Icons.Material.Filled.*` or `@Icons.Material.Outlined.*`
-- Common icons:
-  - Dashboard: `Icons.Material.Filled.Dashboard`
-  - People: `Icons.Material.Filled.People`
-  - Sync: `Icons.Material.Filled.Sync`
-  - Check: `Icons.Material.Filled.CheckCircle`
-  - Warning: `Icons.Material.Filled.Warning`
-
-### Step 4: File Structure
-
-```
-Components/           # Reusable components
-├── StatCard.razor
-├── QualificationChip.razor
-├── HotLeadsTable.razor
-└── ScoreCard.razor
-
-Pages/                # Page components
-├── Index.razor       # Dashboard
-├── Leads.razor       # Leads list
-├── LeadDetail.razor  # Lead detail
-└── SyncStatus.razor  # Sync monitoring
-
-Shared/               # Layout components
-└── MainLayout.razor
+<style scoped>
+.user-card { padding: 16px; }
+</style>
 ```
 
-Component file pattern:
+### 命名约定
 
-```razor
-@* StatCard.razor *@
+| 类型 | 约定 | 示例 |
+|------|------|------|
+| 组件文件 | PascalCase.vue | `UserCard.vue` |
+| Composables | useXxx.ts | `useAuth.ts` |
+| Store | useXxxStore.ts | `useUserStore.ts` |
 
-<MudPaper Elevation="0" Class="pa-4 border rounded-lg">
-    <MudStack Spacing="1">
-        <MudText Typo="Typo.caption" Class="text-secondary">@Title</MudText>
-        <MudText Typo="Typo.h4" Class="font-weight-bold" Color="@TextColor">@Value</MudText>
-    </MudStack>
-</MudPaper>
+---
 
-@code {
-    [Parameter]
-    public string Title { get; set; } = "";
+## 状态管理（Pinia）
 
-    [Parameter]
-    public string Value { get; set; } = "";
+```typescript
+// stores/user.ts
+export const useUserStore = defineStore('user', () => {
+  const user = ref<User | null>(null)
+  const token = ref<string>('')
 
-    [Parameter]
-    public Color TextColor { get; set; } = Color.Default;
+  const isLoggedIn = computed(() => !!token.value)
+
+  async function login(username: string, password: string) {
+    const res = await api.login(username, password)
+    token.value = res.token
+    user.value = res.user
+  }
+
+  return { user, token, isLoggedIn, login }
+})
+```
+
+---
+
+## 交互状态处理
+
+**必须处理的状态**: loading、empty、error、disabled、submitting
+
+```vue
+<template>
+  <el-skeleton v-if="loading" :rows="5" animated />
+  <el-result v-else-if="error" icon="error" :title="error">
+    <template #extra>
+      <el-button @click="fetchData">重试</el-button>
+    </template>
+  </el-result>
+  <el-empty v-else-if="list.length === 0" description="暂无数据" />
+  <template v-else>
+    <!-- 正常内容 -->
+  </template>
+</template>
+```
+
+---
+
+## TypeScript 规范
+
+```typescript
+// types/user.ts
+export interface User {
+  id: number
+  username: string
+  role: 'admin' | 'user'
+}
+
+export interface ApiResponse<T = unknown> {
+  code: number
+  message: string
+  data: T
 }
 ```
 
-### Step 5: Verification
+---
 
-Before marking complete:
+## 性能优化
 
-- [ ] Uses MudBlazor semantic colors (no hardcoded hex)
-- [ ] Loading states implemented for async operations
-- [ ] Empty states for lists/collections
-- [ ] Error states handle failures gracefully
-- [ ] Qualification colors correct (green/amber/red)
-- [ ] Mobile responsive (MudBlazor handles most of this)
+| 场景 | 方案 |
+|------|------|
+| 大列表 | 虚拟滚动 |
+| 路由 | 懒加载 `() => import()` |
+| 计算 | 使用 `computed` 缓存 |
+| 大数据 | 使用 `shallowRef` |
 
-## Quick Reference: Common Patterns
+```typescript
+// 路由懒加载
+const routes = [
+  { path: '/dashboard', component: () => import('@/views/Dashboard.vue') }
+]
 
-### Stat Card
-
-```razor
-<MudPaper Elevation="0" Class="pa-4 border rounded-lg">
-    <MudStack Spacing="1">
-        <MudText Typo="Typo.caption" Class="text-secondary">@Title</MudText>
-        <MudText Typo="Typo.h4" Class="font-weight-bold">@Value</MudText>
-    </MudStack>
-</MudPaper>
+// 请求防抖
+import { useDebounceFn } from '@vueuse/core'
+const debouncedSearch = useDebounceFn((keyword) => api.search(keyword), 300)
 ```
 
-### Qualification Chip
+---
 
-```razor
-<MudChip Color="@GetQualificationColor(qualification)"
-         Size="Size.Small"
-         Variant="Variant.Filled">
-    @qualification
-</MudChip>
+## 目录结构
 
-@code {
-    private Color GetQualificationColor(string qualification) => qualification switch
-    {
-        "STRONG" => Color.Success,
-        "MODERATE" => Color.Warning,
-        "WEAK" => Color.Error,
-        "DISQUALIFIED" => Color.Error,
-        _ => Color.Default
-    };
-}
+```
+src/
+├── api/                 # API 请求
+├── components/          # 通用组件
+├── composables/         # 组合式函数
+├── router/              # 路由配置
+├── stores/              # Pinia stores
+├── types/               # TypeScript 类型
+├── utils/               # 工具函数
+├── views/               # 页面组件
+├── App.vue
+└── main.ts
 ```
 
-### Loading State
+---
 
-```razor
-@if (_loading)
-{
-    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="mb-4" />
-}
-else if (_error != null)
-{
-    <MudAlert Severity="Severity.Error" Class="mb-4">@_error</MudAlert>
-}
-else
-{
-    @* Content here *@
-}
-```
+## 详细参考
 
-### Empty State
+完整规范见 `references/frontend-style.md`，包含：
+- 完整 UI 风格约束
+- Vue 3 编码规范详解
+- Pinia 状态管理
+- API 请求封装
+- 性能优化详解
 
-```razor
-<MudPaper Elevation="0" Class="pa-8 text-center border rounded-lg">
-    <MudIcon Icon="@Icons.Material.Filled.Inbox"
-             Size="Size.Large"
-             Color="Color.Secondary"
-             Class="mb-4" />
-    <MudText Typo="Typo.h6" Class="mb-2">No leads found</MudText>
-    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">
-        Leads will appear here once contacts are synced and evaluated.
-    </MudText>
-</MudPaper>
-```
+---
 
-### Data Grid with Row Click
-
-```razor
-<MudDataGrid Items="@_leads"
-             Dense="true"
-             Hover="true"
-             RowClick="@OnRowClick"
-             T="LeadViewModel">
-    <Columns>
-        <PropertyColumn Property="x => x.Name" Title="Name" />
-        <PropertyColumn Property="x => x.Company" Title="Company" />
-        <TemplateColumn Title="Status">
-            <CellTemplate>
-                <QualificationChip Qualification="@context.Item.Qualification" />
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-</MudDataGrid>
-
-@code {
-    private void OnRowClick(DataGridRowClickEventArgs<LeadViewModel> args)
-    {
-        NavigationManager.NavigateTo($"/leads/{args.Item.Id}");
-    }
-}
-```
-
-### Score Card (Lead Detail)
-
-```razor
-<MudPaper Elevation="0" Class="pa-6 text-center border rounded-lg">
-    <MudText Typo="Typo.h2" Color="@GetScoreColor(score)" Class="font-weight-bold">
-        @score
-    </MudText>
-    <MudText Typo="Typo.caption" Color="Color.Secondary">
-        AI Qualification Score
-    </MudText>
-</MudPaper>
-
-@code {
-    private Color GetScoreColor(int score) => score switch
-    {
-        >= 80 => Color.Success,
-        >= 50 => Color.Warning,
-        _ => Color.Error
-    };
-}
-```
-
-## Do NOT
-
-- Hardcode hex colors (use MudBlazor Color enum)
-- Skip loading/error/empty states
-- Use custom CSS when MudBlazor provides the same functionality
-- Forget to inject NavigationManager for routing
-- Use synchronous data fetching in OnInitialized (use OnInitializedAsync)
-- Create components without parameters for reusability
+> 📋 本回复遵循：`frontend-dev` - [具体章节]

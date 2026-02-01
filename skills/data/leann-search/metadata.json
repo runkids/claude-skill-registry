@@ -1,7 +1,7 @@
 {
   "name": "leann-search",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/archive/leann-search/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-31T04:36:23.720207Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/leann-search/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-02-01T03:15:12.125639Z"
 }

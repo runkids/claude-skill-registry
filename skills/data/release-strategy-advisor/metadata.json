@@ -1,9 +1,7 @@
 {
   "name": "release-strategy-advisor",
-  "description": "Expert in analyzing and recommending release strategies for software projects. Detects existing release patterns in brownfield projects (git tags, CI/CD workflows, changelogs, version files). Suggests",
   "repo": "anton-abyzov/specweave",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-release/skills/release-strategy-advisor/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-02-01T01:48:17.518255Z"
 }

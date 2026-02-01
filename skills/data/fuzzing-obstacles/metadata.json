@@ -1,7 +1,7 @@
 {
   "name": "fuzzing-obstacles",
-  "repo": "Blurjp/ImagePrepMCP",
-  "path": ".claude/skills/trailofbits-testing-handbook-skills/skills/fuzzing-obstacles/SKILL.md",
-  "source": "github.com/Blurjp/ImagePrepMCP",
-  "downloaded_at": "2026-01-31T03:14:28.290145Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/testing-handbook-skills/skills/fuzzing-obstacles/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:26.959526Z"
 }

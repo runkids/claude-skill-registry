@@ -1,243 +1,258 @@
 ---
 name: just
-description: Bootstrap repos with just command runner. Use when setting up new projects, creating justfiles, or adding task automation. Provides ./dev bootstrap script that installs just, modular justfile structure in just/ directory, and recipe conventions.
+description: Just command runner for saving and running project-specific commands
 ---
 
-# Just Command Runner
+# Just Command Runner Skill
 
-Task automation using [just](https://github.com/casey/just) with a standardized project structure.
+Comprehensive assistance with Just, a handy command runner for saving and running project-specific commands. Just uses a `justfile` with `make`-inspired syntax but designed as a general-purpose task executor rather than a build system.
 
-## Project Structure
+## When to Use This Skill
 
-```
-project/
-├── dev                 # Bootstrap script (installs just, runs `just dev`)
-├── justfile            # Root: settings, imports, and modules
-└── just/
-    ├── dev.just        # Development recipes (imported, no namespace)
-    ├── go.just         # Go module (go::build, go::test)
-    ├── docker.just     # Docker module (docker::build, docker::push)
-    └── lua.just        # Lua module (lua::install, lua::check)
-```
-
-## Bootstrapping a New Repo
-
-1. Copy `assets/dev` to project root, make executable: `chmod +x dev`
-2. Copy `assets/just/` directory to project root
-3. Create root `justfile` with imports and modules
-4. Edit `just/dev.just` with project-specific setup commands
-5. Add additional `.just` modules as needed
+This skill should be triggered when:
+- Creating or managing `justfile` recipes
+- Setting up project task automation
+- Replacing Make or shell scripts with Just
+- Working with cross-platform command execution
+- Organizing project-specific commands
+- Implementing task dependencies and workflows
 
 ## Quick Reference
 
-### Root Justfile (Recommended Pattern)
+### Common Patterns
 
-**Put everything in root justfile** for tab completion to work:
-
+**Basic Recipe**:
 ```just
-# justfile (root)
-set quiet
-set dotenv-load
+recipe-name:
+  echo 'This is a recipe!'
 
-# Imports: merged into root namespace
-import 'just/dev.just'
-
-# Modules: namespaced with :: syntax (specify path)
-mod go 'just/go.just'           # go::build, go::test
-mod docker 'just/docker.just'   # docker::build, docker::push
-mod lua 'just/lua.just'         # lua::install, lua::check
-
-default:
-    just --list
+# Silent recipe (@ suppresses echo)
+silent-recipe:
+  @echo 'This runs quietly'
 ```
 
-### Module Example
-
+**Recipe with Parameters**:
 ```just
-# just/go.just - called as go::build, go::test, etc.
-VERSION := `git describe --tags --always 2>/dev/null || echo "dev"`
-BIN_DIR := env_var("PWD") / "bin"
+build target='all':
+  @echo 'Building {{target}}…'
 
-# Build the application
-[group('go')]
-build tool:
-    @mkdir -p {{BIN_DIR}}
-    go build -o {{BIN_DIR}}/{{tool}} .
-
-# Run tests
-[group('go')]
-test tool:
-    go test -race -cover ./...
-
-# Run linter
-[group('go')]
-lint:
-    golangci-lint run
+# Variadic parameters
+test *files:
+  pytest {{files}}
 ```
 
-### Import vs Module
-
-| Feature | `import 'just/file.just'` | `mod name 'just/name.just'` |
-|---------|---------------------------|----------------------------|
-| Namespace | Merged into parent | Separate (`name::*`) |
-| Calling | `just recipe` | `just name::recipe` |
-| Working dir | Parent justfile's dir | Module's directory |
-| Best for | dev.just only | All other modules |
-
-**Rule of thumb:** Use `import` only for `dev.just`. Use `mod` for everything else.
-
-### Module Working Directory
-
-**Critical:** Module recipes run from the module's directory, not the invoking justfile's directory. This breaks commands like `git submodule status` when the module is in a subdirectory.
-
-**Solution:** Add `[no-cd]` to recipes that need to run from the invocation directory:
-
-```just
-# just/git.just - Module for git operations
-# Without [no-cd], git commands would run from just/ directory
-
-[no-cd]
-status:
-    git submodule status
-
-[no-cd]
-update:
-    git submodule update --remote --merge
-```
-
-**When to use `[no-cd]`:**
-- Git operations (submodules, status, diff)
-- Any command that operates on the project root
-- Commands that expect to find files relative to where `just` was invoked
-
-**Alternative:** Use `{{invocation_directory()}}` for specific paths:
+**Recipe with Dependencies**:
 ```just
 build:
-    go build -o {{invocation_directory()}}/bin/app .
+  cc main.c -o main
+
+test: build
+  ./test --all
 ```
 
-### Common Dev Module (Imported)
-
+**Shebang Recipes** (multi-language support):
 ```just
-# just/dev.just - Imported (no namespace) for common recipes
+python:
+  #!/usr/bin/env python3
+  print('Hello from Python!')
 
-# Bootstrap the development environment
-dev:
-    echo "Installing dependencies..."
-    # npm install / pip install -r requirements.txt / cargo build
-    echo "Done!"
-
-# Clean build artifacts
-clean:
-    rm -rf dist/ build/ target/
+node:
+  #!/usr/bin/env node
+  console.log('Hello from Node!');
 ```
 
-### Tool Module Example
-
+**Variables and Expressions**:
 ```just
-# just/lua.just - Called as lua::install, lua::check, etc.
-lua_version := env("LUA_VERSION", "5.4.6")
-prefix := env("PREFIX", "/usr/local")
+compiler := 'gcc'
+flags := '-Wall -O2'
 
-# Install complete lua environment
-[group('lua')]
-default: check install
-    echo "Lua environment setup complete"
-
-# Check current installation status
-[group('lua')]
-check:
-    command -v lua >/dev/null 2>&1 || echo "lua not found"
-
-# Install all components
-[group('lua')]
-install: install-deps install-lua install-luarocks
-    echo "Lua installation complete"
-
-# Clean build artifacts
-[group('lua')]
-clean:
-    rm -rf /tmp/lua-build/*
+build:
+  {{compiler}} {{flags}} main.c -o main
 ```
 
-### Listing Recipes
+### Common Commands
 
+- `just` — Run default recipe
+- `just RECIPE` — Run specific recipe
+- `just --list` — List all recipes
+- `just --show RECIPE` — Display recipe definition
+- `just --choose` — Interactive recipe selector (requires fzf)
+- `just --fmt` — Format justfile
+- `just --dump` — Output formatted justfile
+
+### Example Code Patterns
+
+**Example 1** (basic justfile):
+```just
+# Default recipe runs when you type 'just'
+[default]
+build:
+  cargo build --release
+
+# Recipe with confirmation prompt
+[confirm]
+deploy:
+  kubectl apply -f deployment.yaml
+
+# Platform-specific recipes
+[linux]
+install:
+  apt-get install my-package
+
+[macos]
+install:
+  brew install my-package
+```
+
+**Example 2** (with variables and .env):
+```just
+# Load .env file
+set dotenv-load
+
+# Variables
+app_name := env('APP_NAME', 'myapp')
+version := `git describe --tags`
+
+# Recipe using variables
+build:
+  docker build -t {{app_name}}:{{version}} .
+
+# Conditional logic
+deploy environment='staging':
+  #!/usr/bin/env bash
+  if [ "{{environment}}" = "production" ]; then
+    echo "Deploying to production..."
+  else
+    echo "Deploying to staging..."
+  fi
+```
+
+**Example 3** (modules and imports):
+```just
+# Import external justfile
+import 'tasks/docker.just'
+
+# Use module system
+mod database 'tasks/db.just'
+
+# Call module recipe
+migrate: database::migrate
+```
+
+## Reference Files
+
+This skill includes comprehensive documentation in `references/`:
+
+- **just-full-reference.md** - Complete Just documentation covering all features
+- **index.md** - Quick reference guide
+
+Use `view` to read specific reference files when detailed information is needed.
+
+## Working with This Skill
+
+### For Beginners
+Start with the basic recipe patterns above. A simple `justfile` with a few recipes is all you need to get started. Just provides helpful error messages that point to specific issues in your justfile.
+
+### For Specific Features
+- **Task Automation**: Create recipes for common project tasks
+- **Cross-Platform**: Use platform-specific attributes `[linux]`, `[macos]`, `[windows]`
+- **Dependencies**: Chain recipes with dependency syntax `recipe: dep1 dep2`
+- **Multi-Language**: Use shebang recipes for Python, Node, Ruby, etc.
+- **Environment**: Load `.env` files with `set dotenv-load`
+
+### For Code Examples
+The quick reference section contains common patterns. For complete syntax and advanced features, consult the reference files.
+
+## Key Features
+
+### Core Strengths
+- **Simpler than Make**: No `.PHONY` declarations needed
+- **Cross-platform**: Linux, macOS, Windows, BSD support
+- **Clear errors**: Specific error messages with source context
+- **Static validation**: Unknown recipes and circular dependencies caught early
+- **Auto .env loading**: Environment variables from `.env` files
+- **Subdirectory execution**: Run from any subdirectory containing justfile
+
+### Advanced Capabilities
+- **50+ built-in functions**: Path manipulation, string operations, hashing, system info
+- **Multi-language support**: Python, Node.js, Perl, Ruby, Nushell, and more
+- **Module system**: Organize complex projects with submodules
+- **Imports**: Include external justfiles
+- **Interactive chooser**: Select recipes with `--choose` (uses fzf)
+- **Recipe attributes**: `[default]`, `[private]`, `[confirm]`, platform-specific
+
+## Installation
+
+**Cargo** (Rust):
 ```bash
-just --list                    # Shows modules collapsed
-just --list --list-submodules  # Shows all module recipes expanded
-just lua::                     # Tab-complete shows lua recipes
+cargo install just
 ```
 
-## Shell Completions Setup
-
-When setting up just for a user, check if shell completions are configured and set them up if missing.
-
-### Detection
-
-Check if `_just` completion function exists:
-
+**Homebrew** (macOS/Linux):
 ```bash
-# For zsh
-type _just &>/dev/null
-
-# For bash
-type _just &>/dev/null || complete -p just &>/dev/null
+brew install just
 ```
 
-### Setup Steps
-
-If completions don't exist:
-
-1. **Create completions directory** (respects XDG):
-   ```bash
-   JUST_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/just"
-   mkdir -p "$JUST_CONFIG_DIR"
-   ```
-
-2. **Generate completions file**:
-   ```bash
-   # For zsh
-   just --completions zsh > "$JUST_CONFIG_DIR/completions.zsh"
-
-   # For bash
-   just --completions bash > "$JUST_CONFIG_DIR/completions.bash"
-   ```
-
-3. **Add sourcing to shell rc** (if not already present):
-
-   For **zsh** (`~/.zshrc`):
-   ```bash
-   # just completions
-   if command -v just &>/dev/null; then
-       [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/just/completions.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/just/completions.zsh"
-   fi
-   ```
-
-   For **bash** (`~/.bashrc`):
-   ```bash
-   # just completions
-   if command -v just &>/dev/null; then
-       [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/just/completions.bash" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/just/completions.bash"
-   fi
-   ```
-
-### Verification
-
-After adding, verify with:
+**Pre-built binaries**:
 ```bash
-source ~/.zshrc  # or ~/.bashrc
-type _just  # should show completion function
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
 ```
 
-## References
+**Package managers**: Available via apt, pacman, dnf, chocolatey, scoop, and 15+ others
 
-Detailed syntax and patterns in `references/`:
+## Configuration
 
-| File | Contents |
-|------|----------|
-| `modules.md` | Module system (`mod`), namespacing with `::`, import vs mod |
-| `settings.md` | All justfile settings (`set quiet`, `set dotenv-load`, etc.) |
-| `recipes.md` | Recipe syntax, parameters, dependencies, shebang recipes |
-| `attributes.md` | Recipe attributes (`[group]`, `[confirm]`, `[private]`, etc.) |
-| `functions.md` | Built-in functions (`env()`, `os()`, `join()`, etc.) |
-| `syntax.md` | Variables, strings, conditionals, imports |
+**Shell Settings**:
+```just
+# Set default shell (Unix-like)
+set shell := ["bash", "-uc"]
+
+# Windows PowerShell
+set windows-shell := ["powershell.exe", "-Command"]
+```
+
+**Common Settings**:
+```just
+set dotenv-load          # Auto-load .env files
+set export               # Export all variables as environment vars
+set positional-arguments # Pass args as positional ($1, $2, etc.)
+```
+
+## Resources
+
+### references/
+Organized documentation extracted from official Just documentation and README:
+- Complete syntax reference
+- All built-in functions
+- Recipe attributes and features
+- Examples and patterns
+
+### scripts/
+Add helper scripts here for common Just automation tasks.
+
+### assets/
+Add example justfiles or templates here.
+
+## Editor Support
+
+Syntax highlighting available for:
+- Vim/Neovim (built-in since version 9.1.1042/0.11)
+- VS Code (community extension)
+- Emacs (`just-mode`)
+- JetBrains IDEs
+- Helix (built-in since 23.05)
+- Zed, Sublime Text, Kakoune, Micro
+
+## Notes
+
+- Just version 1.0+ guarantees backwards compatibility
+- Unstable features require `--unstable` flag or `set unstable`
+- Official documentation: https://just.systems/man/en/
+- Examples: https://github.com/casey/just/tree/master/examples
+
+## Updating
+
+To refresh this skill with updated documentation:
+1. Visit https://github.com/casey/just
+2. Check for new features in the README and changelog
+3. Update reference files with new content

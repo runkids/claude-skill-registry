@@ -1,7 +1,7 @@
 {
   "name": "PAI",
-  "repo": "rafaelcalleja/claude-market-place",
-  "path": "plugins/personal-ai-infrastructure/skills/PAI/SKILL.md",
-  "source": "github.com/rafaelcalleja/claude-market-place",
-  "downloaded_at": "2026-01-27T01:01:24.005625Z"
+  "repo": "danielmiessler/Personal_AI_Infrastructure",
+  "path": "Releases/v2.5/.claude/skills/PAI/SKILL.md",
+  "source": "github.com/danielmiessler/Personal_AI_Infrastructure",
+  "downloaded_at": "2026-02-01T01:15:09.353338Z"
 }

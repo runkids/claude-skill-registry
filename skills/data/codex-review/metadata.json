@@ -1,7 +1,7 @@
 {
   "name": "codex-review",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/codex-review/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:04.800000Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/codex-review/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:25.377693Z"
 }

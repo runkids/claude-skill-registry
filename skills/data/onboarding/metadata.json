@@ -1,7 +1,7 @@
 {
   "name": "onboarding",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/melodic-software/skills/onboarding/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-31T04:13:10.366926Z"
+  "repo": "hirokazu-kobayashi-koba-hiro/idp-server",
+  "path": ".claude/skills/onboarding/skill.md",
+  "source": "github.com/hirokazu-kobayashi-koba-hiro/idp-server",
+  "downloaded_at": "2026-02-01T04:48:41.805108Z"
 }

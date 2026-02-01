@@ -1,7 +1,7 @@
 {
   "name": "popup-cro",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/popup-cro/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:02.668629Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/business-marketing/popup-cro/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:40.787986Z"
 }

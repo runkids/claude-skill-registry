@@ -1,7 +1,7 @@
 {
   "name": "dart-build",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/dart-build/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-29T04:03:56.043489Z"
+  "repo": "dartsim/dart",
+  "path": ".claude/skills/dart-build/SKILL.md",
+  "source": "github.com/dartsim/dart",
+  "downloaded_at": "2026-02-01T01:34:27.935143Z"
 }

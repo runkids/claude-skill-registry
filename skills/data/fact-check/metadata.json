@@ -1,7 +1,7 @@
 {
   "name": "fact-check",
-  "repo": "motoki317/dotfiles",
-  "path": ".claude/skills/fact-check/SKILL.md",
-  "source": "github.com/motoki317/dotfiles",
-  "downloaded_at": "2026-01-31T03:09:24.580959Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/fact-check/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-01T03:21:46.878009Z"
 }

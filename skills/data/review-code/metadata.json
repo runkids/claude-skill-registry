@@ -1,7 +1,7 @@
 {
   "name": "review-code",
-  "repo": "eleva-labs/agentic-coding-templates",
-  "path": ".claude/skills/backend/review-code/SKILL.md",
-  "source": "github.com/eleva-labs/agentic-coding-templates",
-  "downloaded_at": "2026-01-31T02:57:32.274812Z"
+  "repo": "grahama1970/agent-skills",
+  "path": "skills/review-code/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-02-01T04:28:50.376896Z"
 }

@@ -1,264 +1,160 @@
 ---
 name: nextjs-i18n
-description: Next.js 16 i18n modular SOLID - proxy.ts, modules/cores/i18n/, [lang] segment, await params. Use when implementing translations in Next.js App Router.
-user-invocable: false
+description: Next.js 16 internationalization with next-intl or DIY. Use when implementing i18n, translations, localization, multilingual, language switch, locale routing, or formatters.
+versions:
+  next-intl: 4.0
+  nextjs: 16
+user-invocable: true
+references: references/installation.md, references/pages-router.md, references/routing-setup.md, references/routing-config.md, references/translations.md, references/formatting.md, references/navigation.md, references/server-components.md, references/client-components.md, references/middleware-proxy.md, references/error-files.md, references/configuration.md, references/plugin.md, references/extraction.md, references/messages-validation.md, references/typescript.md, references/testing.md, references/integrations.md, references/seo.md, references/core-library.md, references/runtime-requirements.md, references/diy-dictionaries.md, references/diy-locale-detection.md
+related-skills: nextjs-16, solid-nextjs
 ---
 
-# Next.js 16 Internationalization (SOLID)
+# Next.js 16 Internationalization
 
-## Modular Architecture
+Complete i18n solution with next-intl or DIY dictionary approach.
 
-```text
-src/
-├── app/[lang]/
-│   ├── layout.tsx           # Imports from modules/cores/i18n
-│   └── page.tsx
-│
-├── modules/cores/i18n/       # i18n module in cores
-│   ├── src/
-│   │   ├── interfaces/
-│   │   │   └── i18n.interface.ts
-│   │   ├── services/
-│   │   │   ├── dictionary.service.ts
-│   │   │   └── locale.service.ts
-│   │   └── config/
-│   │       └── locales.ts
-│   └── dictionaries/
-│       ├── en.json
-│       └── fr.json
-│
-└── proxy.ts                  # Root level (Next.js requirement)
-```
+## Agent Workflow (MANDATORY)
+
+Before ANY implementation, launch in parallel:
+
+1. **fuse-ai-pilot:explore-codebase** - Analyze existing i18n setup and message files
+2. **fuse-ai-pilot:research-expert** - Verify latest next-intl docs via Context7/Exa
+3. **mcp__context7__query-docs** - Check locale config and patterns
+
+After implementation, run **fuse-ai-pilot:sniper** for validation.
 
 ---
 
-## Config (modules/cores/i18n/src/config/locales.ts)
+## Overview
 
-```typescript
-/** Supported locales configuration. */
-export const locales = ['en', 'fr', 'de'] as const
+### When to Use
 
-/** Default locale. */
-export const defaultLocale = 'en'
+- Building multilingual Next.js 16 applications
+- Need locale-based routing with `[locale]` dynamic segment
+- Implementing language switcher and URL localization
+- Formatting dates, numbers, currencies, and relative times per locale
+- SEO optimization with hreflang tags and localized metadata
+- Supporting right-to-left (RTL) languages
 
-/** Locale type. */
-export type Locale = (typeof locales)[number]
-```
+### Why next-intl
 
----
-
-## Interfaces (modules/cores/i18n/src/interfaces/i18n.interface.ts)
-
-```typescript
-import type { Locale } from '../config/locales'
-
-/** Dictionary structure. */
-export interface Dictionary {
-  home: {
-    title: string
-    description: string
-  }
-  nav: {
-    home: string
-    about: string
-  }
-}
-
-/** Page props with lang param. */
-export interface LangPageProps {
-  params: Promise<{ lang: Locale }>
-}
-
-/** Layout props with lang param. */
-export interface LangLayoutProps {
-  children: React.ReactNode
-  params: Promise<{ lang: Locale }>
-}
-```
+| Feature | Benefit |
+|---------|---------|
+| App Router native | Full Server Components support |
+| Type-safe messages | TypeScript autocompletion for keys |
+| ICU MessageFormat | Pluralization, gender, select expressions |
+| Async message loading | Load translations on-demand per locale |
+| proxy.ts compatible | Works with Next.js 16 proxy pattern |
+| Rich formatting | Dates, numbers, lists, relative time |
 
 ---
 
-## Services (modules/cores/i18n/src/services/)
+## Two Approaches
 
-### dictionary.service.ts
+### 1. next-intl (Recommended)
 
-```typescript
-import 'server-only'
-import type { Locale } from '../config/locales'
-import type { Dictionary } from '../interfaces/i18n.interface'
+Full-featured library with routing, formatting, and type safety. Best for production applications needing comprehensive i18n support.
 
-const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
-  en: () => import('../../dictionaries/en.json').then((m) => m.default),
-  fr: () => import('../../dictionaries/fr.json').then((m) => m.default),
-  de: () => import('../../dictionaries/de.json').then((m) => m.default),
-}
+### 2. DIY Dictionary
 
-/**
- * Get dictionary for locale.
- *
- * @param locale - Target locale
- * @returns Translated dictionary
- */
-export async function getDictionary(locale: Locale): Promise<Dictionary> {
-  return dictionaries[locale]()
-}
-```
-
-### locale.service.ts
-
-```typescript
-import { match } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
-import { locales, defaultLocale, type Locale } from '../config/locales'
-
-/**
- * Detect locale from Accept-Language header.
- *
- * @param acceptLanguage - Header value
- * @returns Matched locale
- */
-export function getLocaleFromHeader(acceptLanguage: string): Locale {
-  const headers = { 'accept-language': acceptLanguage }
-  const languages = new Negotiator({ headers }).languages()
-  return match(languages, locales, defaultLocale) as Locale
-}
-
-/**
- * Check if pathname has locale prefix.
- *
- * @param pathname - URL pathname
- * @returns True if locale present
- */
-export function hasLocalePrefix(pathname: string): boolean {
-  return locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  )
-}
-```
+Lightweight approach using dynamic imports for simple translation needs. Good for projects wanting minimal dependencies.
 
 ---
 
-## Proxy (proxy.ts)
+## SOLID Architecture
 
-> Next.js 16: `middleware.ts` deprecated → `proxy.ts`
+### Module Structure
 
-```typescript
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { locales, defaultLocale } from '@/modules/cores/i18n/src/config/locales'
-import {
-  getLocaleFromHeader,
-  hasLocalePrefix,
-} from '@/modules/cores/i18n/src/services/locale.service'
+All i18n code organized in `modules/cores/i18n/`:
 
-/**
- * Locale detection and redirect proxy.
- */
-export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl
+- **config/** - Routing configuration, locale definitions
+- **interfaces/** - TypeScript types for messages and locales
+- **services/** - Request handlers, message loaders
+- **messages/** - JSON translation files per locale
 
-  if (hasLocalePrefix(pathname)) return
+### File Locations
 
-  const acceptLanguage = request.headers.get('accept-language') ?? ''
-  const locale = getLocaleFromHeader(acceptLanguage)
-
-  request.nextUrl.pathname = `/${locale}${pathname}`
-  return NextResponse.redirect(request.nextUrl)
-}
-
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)'],
-}
-```
+- `src/modules/cores/i18n/src/config/routing.ts` - Locale routing config
+- `src/modules/cores/i18n/messages/en.json` - English translations
+- `src/modules/cores/i18n/messages/fr.json` - French translations
+- `proxy.ts` - Locale detection and redirect logic
 
 ---
 
-## Layout (app/[lang]/layout.tsx)
+## Routing Patterns
 
-```typescript
-import { locales } from '@/modules/cores/i18n/src/config/locales'
-import type { LangLayoutProps } from '@/modules/cores/i18n/src/interfaces/i18n.interface'
+### Locale Segment
 
-/** Generate static params for all locales. */
-export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }))
-}
+All routes prefixed with `[locale]` dynamic segment:
 
-/**
- * Language layout wrapper.
- */
-export default async function LangLayout({ children, params }: LangLayoutProps) {
-  const { lang } = await params
+- `/en/about` → English about page
+- `/fr/about` → French about page
+- `/` → Redirects to default locale
 
-  return (
-    <html lang={lang}>
-      <body>{children}</body>
-    </html>
-  )
-}
-```
+### Navigation Components
+
+Use localized navigation from next-intl for automatic locale handling:
+
+- **Link** - Locale-aware anchor links
+- **redirect** - Server-side locale redirect
+- **usePathname** - Current path without locale
+- **useRouter** - Programmatic navigation
 
 ---
 
-## Page (app/[lang]/page.tsx)
+## Reference Guide
 
-```typescript
-import { getDictionary } from '@/modules/cores/i18n/src/services/dictionary.service'
-import type { LangPageProps } from '@/modules/cores/i18n/src/interfaces/i18n.interface'
-
-/**
- * Home page with translations.
- */
-export default async function HomePage({ params }: LangPageProps) {
-  const { lang } = await params
-  const dict = await getDictionary(lang)
-
-  return (
-    <main>
-      <h1>{dict.home.title}</h1>
-      <p>{dict.home.description}</p>
-    </main>
-  )
-}
-```
+| Need | Reference |
+|------|-----------|
+| Initial setup | [installation.md](references/installation.md), [routing-setup.md](references/routing-setup.md) |
+| Route config | [routing-config.md](references/routing-config.md), [middleware-proxy.md](references/middleware-proxy.md) |
+| Translations | [translations.md](references/translations.md), [messages-validation.md](references/messages-validation.md) |
+| Formatting | [formatting.md](references/formatting.md) |
+| Components | [server-components.md](references/server-components.md), [client-components.md](references/client-components.md) |
+| Navigation | [navigation.md](references/navigation.md) |
+| TypeScript | [typescript.md](references/typescript.md) |
+| SEO | [seo.md](references/seo.md) |
+| Testing | [testing.md](references/testing.md) |
+| DIY approach | [diy-dictionaries.md](references/diy-dictionaries.md), [diy-locale-detection.md](references/diy-locale-detection.md) |
 
 ---
 
-## Dictionaries (modules/cores/i18n/dictionaries/)
+## Message Formatting
 
-### en.json
+### ICU MessageFormat
 
-```json
-{
-  "home": {
-    "title": "Welcome",
-    "description": "This is the home page"
-  },
-  "nav": {
-    "home": "Home",
-    "about": "About"
-  }
-}
-```
+- **Pluralization** - `{count, plural, one {# item} other {# items}}`
+- **Select** - `{gender, select, male {He} female {She} other {They}}`
+- **Rich text** - Support for bold, italic, links in messages
 
----
+### Formatters
 
-## Dependencies
-
-```bash
-bun add @formatjs/intl-localematcher negotiator
-bun add -D @types/negotiator
-```
+- **formatDate** - Locale-aware date formatting
+- **formatNumber** - Currency, percentages, decimals
+- **formatList** - Conjunction/disjunction lists
+- **formatRelativeTime** - "2 hours ago", "in 3 days"
 
 ---
 
 ## Best Practices
 
-1. **Module in `modules/cores/i18n/`** - Shared across app
-2. **Interfaces separated** - `src/interfaces/i18n.interface.ts`
-3. **Services for logic** - `dictionary.service.ts`, `locale.service.ts`
-4. **Config centralized** - `config/locales.ts`
-5. **`proxy.ts`** - NOT middleware (Next.js 16)
-6. **`await params`** - Promise-based params
-7. **JSDoc on exports** - All public functions documented
-8. **`server-only`** - Dictionaries stay on server
+1. **Type-safe keys** - Use TypeScript for message key autocompletion
+2. **Namespace messages** - Organize by feature/page for maintainability
+3. **Server-first** - Load translations on server, avoid client bundles
+4. **SEO hreflang** - Add alternate links for all locales
+5. **RTL support** - Use `dir` attribute for right-to-left languages
+6. **Fallback locale** - Configure default for missing translations
+
+---
+
+## Error Handling
+
+### Special Files
+
+Localized error and loading states require specific handling:
+
+- `[locale]/error.tsx` - Localized error boundary
+- `[locale]/not-found.tsx` - Localized 404 page
+- `global-error.tsx` - Root error fallback
+
+See [error-files.md](references/error-files.md) for complete patterns.

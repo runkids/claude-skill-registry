@@ -1,7 +1,7 @@
 {
   "name": "architecture-patterns",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/architecture-patterns/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:41.811324Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/backend-development/skills/architecture-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:52.020824Z"
 }

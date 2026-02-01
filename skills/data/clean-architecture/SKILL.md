@@ -1,440 +1,205 @@
 ---
-name: clean-architecture
-description: Clean Architecture and SOLID principles implementation including dependency injection, layer separation, domain-driven design, hexagonal architecture, and code quality patterns
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
-  - Task
-dependencies: []
-triggers:
-  - clean architecture
-  - solid principles
-  - dependency injection
-  - clean code
-  - hexagonal architecture
-  - domain driven design
-  - ddd
-  - layer architecture
-  - onion architecture
-  - code quality
-  - refactoring
-  - design patterns
-  - inversion of control
-  - ioc
+name: golang-clean-architecture
+description: Clean Architecture audit for Go services. Use when reviewing layered architecture, dependency rules, or gRPC/usecase/repository patterns. Ensures proper separation of concerns and dependency inversion.
+license: MIT
+metadata:
+  author: saifoelloh
+  version: "2.0.0"
+  parent_skill: golang-best-practices
+  sources:
+    - "Clean Architecture (Robert C. Martin)"
+    - "Learning Go: An Idiomatic Approach (Jon Bodner)"
+  last_updated: "2026-01-22"
 ---
 
-# Clean Architecture Skill
+# Golang Clean Architecture
 
-Comprehensive guide for implementing Clean Architecture, SOLID principles, and maintainable code structures.
+Audit Go services for Clean Architecture compliance. Ensures proper layering, dependency rules, and separation of concerns in gRPC → Usecase → Repository → Domain architectures.
 
-## When to Use This Skill
+## When to Apply
 
-- Designing new service architecture
-- Refactoring legacy code to clean architecture
-- Implementing dependency injection
-- Defining domain boundaries and layer separation
-- Applying SOLID principles
-- Reviewing architectural decisions
-
----
+Use this skill when:
+- Auditing service architecture
+- Reviewing new features for layer violations
+- Refactoring toward Clean Architecture
+- Code review for dependency rules
+- Planning service structure
+- Migrating to layered architecture
+- Ensuring testability through dependency injection
 
 ## Architecture Layers
 
-### The Dependency Rule
-
-**Dependencies point inward.** Inner layers must not know about outer layers.
-
 ```
-┌─────────────────────────────────────────────────┐
-│  External Layer (Web, CLI, GraphQL)             │
-│  ┌───────────────────────────────────────────┐  │
-│  │ Infrastructure (Repos, Adapters, ORM)     │  │
-│  │ ┌───────────────────────────────────────┐ │  │
-│  │ │ Application (Use Cases, Services)     │ │  │
-│  │ │ ┌───────────────────────────────────┐ │ │  │
-│  │ │ │ Domain (Entities, VOs, Services)  │ │ │  │
-│  │ │ └───────────────────────────────────┘ │ │  │
-│  │ └───────────────────────────────────────┘ │  │
-│  └───────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────┘
-        Dependencies point INWARD
+┌─────────────────────────────────────┐
+│  Delivery (gRPC/HTTP/GraphQL)       │ ← Thin, no business logic
+├─────────────────────────────────────┤
+│  Usecase (Business Logic)           │ ← Orchestration
+├─────────────────────────────────────┤
+│  Repository (Data Access)           │ ← CRUD only
+├─────────────────────────────────────┤
+│  Domain (Entities/Interfaces)       │ ← Pure business logic
+└─────────────────────────────────────┘
 ```
 
-### 1. Domain Layer
+**Dependency Rule**: Dependencies point INWARD only (toward domain).
 
-Business rules isolated from technical concerns:
-- **Entities**: Objects with identity, business logic
-- **Value Objects**: Immutable objects without identity
-- **Domain Services**: Stateless operations on domain objects
-- **Repository Interfaces**: Data access contracts
+## Rules Covered (9 total)
 
-```typescript
-// Entity with behavior
-export class User {
-  constructor(
-    public readonly id: UserId,
-    private passwordHash: PasswordHash
-  ) {}
+### High-Impact Patterns (4)
 
-  changePassword(newPassword: Password, hasher: PasswordHasher): void {
-    this.passwordHash = hasher.hash(newPassword);
-  }
-}
+- `high-business-logic-handler` - Keep delivery layer thin
+- `high-business-logic-repository` - No business logic in data layer
+- `high-constructor-creates-deps` - Inject dependencies, don't create
+- `high-transaction-in-repository` - Transactions belong in usecase
 
-// Value Object - immutable, validated
-export class Email {
-  private constructor(private readonly value: string) {}
+### Architecture Rules (5)
 
-  static create(email: string): Email {
-    if (!this.isValid(email)) throw new InvalidEmailError(email);
-    return new Email(email.toLowerCase());
-  }
+- `arch-domain-import-infra` - Domain must not import infrastructure
+- `arch-concrete-dependency` - Depend on interfaces, not concrete types
+- `arch-repository-business-logic` - Repositories do CRUD only
+- `arch-usecase-orchestration` - Usecases orchestrate, entities decide
+- `arch-interface-segregation` - Small, consumer-defined interfaces
 
-  private static isValid(email: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+## Common Violations
 
-  equals(other: Email): boolean {
-    return this.value === other.value;
-  }
-}
+### ❌ Business Logic in Handler
 
-// Repository interface - defines contract
-export interface UserRepository {
-  findById(id: UserId): Promise<User | null>;
-  save(user: User): Promise<void>;
-}
-```
-
-### 2. Application Layer
-
-Orchestrates domain objects for use cases:
-- **Use Cases**: Single responsibility operations
-- **DTOs**: Data transfer at boundaries
-- **Ports**: Interfaces for external dependencies
-
-```typescript
-export class CreateUserUseCase {
-  constructor(
-    private readonly userRepository: UserRepository,
-    private readonly passwordHasher: PasswordHasher
-  ) {}
-
-  async execute(input: CreateUserInput): Promise<CreateUserOutput> {
-    const existing = await this.userRepository.findByEmail(
-      Email.create(input.email)
-    );
-    if (existing) throw new EmailAlreadyExistsError();
-
-    const user = new User(
-      UserId.generate(),
-      Email.create(input.email),
-      this.passwordHasher.hash(input.password),
-      new Date()
-    );
-
-    await this.userRepository.save(user);
-    return user.toDTO();
-  }
-}
-```
-
-### 3. Infrastructure Layer
-
-Implements interfaces from inner layers:
-- **Repository Implementations**: Database access
-- **External Adapters**: Third-party integrations
-- **ORM/Query Builders**: Data persistence
-
-```typescript
-export class PostgreSQLUserRepository implements UserRepository {
-  constructor(private readonly db: Database) {}
-
-  async findById(id: UserId): Promise<User | null> {
-    const row = await this.db.query('SELECT * FROM users WHERE id = $1', [id.toString()]);
-    return row ? this.toDomain(row) : null;
-  }
-
-  async save(user: User): Promise<void> {
-    await this.db.query(
-      `INSERT INTO users (id, email, password_hash) VALUES ($1, $2, $3) ON CONFLICT (id) DO UPDATE SET email = $2`,
-      [user.id.toString(), user.email.toString(), user.passwordHash]
-    );
-  }
-
-  private toDomain(row: UserRow): User {
-    return new User(UserId.fromString(row.id), PasswordHash.fromString(row.password_hash));
-  }
-}
-```
-
-### 4. Presentation Layer
-
-Entry points to the application:
-- **Controllers**: HTTP handlers
-- **Resolvers**: GraphQL endpoints
-- **CLI Commands**: Command-line interfaces
-
-```typescript
-export class UserController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
-
-  async create(req: Request, res: Response): Promise<void> {
-    try {
-      const result = await this.createUserUseCase.execute(req.body);
-      res.status(201).json(result);
-    } catch (error) {
-      if (error instanceof EmailAlreadyExistsError) {
-        res.status(409).json({ error: error.message });
-      }
+```go
+// gRPC handler doing calculations
+func (h *Handler) CreateOrder(ctx context.Context, req *pb.Request) (*pb.Response, error) {
+    total := req.Price * req.Quantity // BAD: calculation in handler
+    discount := total * 0.1           // BAD: business rules in delivery layer
+    
+    order := &domain.Order{
+        Total: total - discount,
     }
-  }
+    return h.orderRepo.Save(ctx, order)
 }
 ```
 
----
+### ✅ Business Logic in Usecase
 
-## Project Structure
+```go
+// Handler delegates to usecase
+func (h *Handler) CreateOrder(ctx context.Context, req *pb.Request) (*pb.Response, error) {
+    order, err := h.orderUsecase.Create(ctx, req.Price, req.Quantity)
+    if err != nil {
+        return nil, err
+    }
+    return &pb.Response{OrderId: order.ID}, nil
+}
 
-```
-src/
-├── domain/
-│   ├── entities/          (User, Order)
-│   ├── value-objects/     (Email, Money, UserId)
-│   ├── services/          (PricingService)
-│   ├── repositories/      (Interfaces only)
-│   └── errors/
-├── application/
-│   ├── use-cases/         (CreateUser, UpdateOrder)
-│   ├── services/          (NotificationService)
-│   ├── ports/             (EmailPort, PaymentPort)
-│   └── dto/
-├── infrastructure/
-│   ├── repositories/      (PostgreSQL, MongoDB implementations)
-│   ├── adapters/          (SendGrid, Stripe)
-│   ├── orm/
-│   └── config/
-├── presentation/
-│   ├── http/              (Controllers, Routes, Middleware)
-│   ├── graphql/           (Resolvers)
-│   └── cli/               (Commands)
-├── shared/                (Utilities, Kernel helpers)
-└── container/             (Dependency Injection setup)
-```
-
----
-
-## Dependency Injection
-
-```typescript
-// src/container/container.ts
-import { Container } from 'inversify';
-
-const container = new Container();
-
-// Bind implementations to interfaces
-container.bind<UserRepository>(TYPES.UserRepository)
-  .to(PostgreSQLUserRepository)
-  .inSingletonScope();
-
-container.bind<CreateUserUseCase>(TYPES.CreateUserUseCase)
-  .to(CreateUserUseCase)
-  .inTransientScope();
-
-container.bind<UserController>(TYPES.UserController)
-  .to(UserController)
-  .inTransientScope();
-
-export { container };
-```
-
----
-
-## SOLID Principles
-
-### Single Responsibility
-Each layer has one reason to change:
-- Domain: Business rules
-- Application: Use case coordination
-- Infrastructure: Technical implementations
-- Presentation: User interface
-
-### Open/Closed
-Add features by creating new use cases, not modifying existing:
-```typescript
-export class UpdateUserUseCase { /* ... */ }
-```
-
-### Liskov Substitution
-Repository implementations are fully interchangeable:
-```typescript
-const repo: UserRepository = new PostgreSQLUserRepository(db);
-const repo: UserRepository = new MongoUserRepository(client);
-// Both satisfy the contract
-```
-
-### Interface Segregation
-Use focused interfaces, not fat ones:
-```typescript
-// Good: Segregated
-interface UserCreator { create(data): User; }
-interface UserDeleter { delete(id): void; }
-
-// Bad: Fat interface
-interface UserService {
-  create(): User;
-  update(): User;
-  delete(): void;
-  sendEmail(): void;
-  generateReport(): Report;
+// Usecase contains business logic
+func (u *OrderUsecase) Create(ctx context.Context, price, quantity int) (*domain.Order, error) {
+    total := price * quantity      // GOOD: calculation in usecase
+    discount := total * 0.1        // GOOD: business rules in usecase
+    
+    order := &domain.Order{
+        Total: total - discount,
+    }
+    return u.orderRepo.Save(ctx, order)
 }
 ```
 
-### Dependency Inversion
-Depend on abstractions, not implementations:
-```typescript
-// Application defines the port
-export interface EmailPort {
-  send(to: string, subject: string, body: string): Promise<void>;
-}
+### ❌ Repository with Business Logic
 
-// Infrastructure implements
-export class SendGridAdapter implements EmailPort {
-  async send(to: string, subject: string, body: string): Promise<void> {
-    await this.sendgrid.send({ to, subject, text: body });
-  }
-}
-
-// Use cases depend on port
-export class CreateUserUseCase {
-  constructor(private readonly emailPort: EmailPort) {}
+```go
+// Repository doing validation and business rules
+func (r *OrderRepo) Save(ctx context.Context, order *domain.Order) error {
+    if order.Total < 0 {                    // BAD: validation in repository
+        return errors.New("invalid total")
+    }
+    if order.Total > 1000000 {              // BAD: business rule in repository
+        order.Status = "needs_approval"     // BAD: state change in repository
+    }
+    return r.db.Create(order)
 }
 ```
 
----
+### ✅ Repository Does CRUD Only
 
-## Testing
-
-```typescript
-// Unit: Domain logic without infrastructure
-describe('User', () => {
-  it('should change password', () => {
-    const hasher = new BCryptHasher();
-    const user = new User(UserId.generate(), hasher.hash('oldpass'));
-    user.changePassword(Password.create('newpass'), hasher);
-    expect(user.validatePassword(Password.create('newpass'), hasher)).toBe(true);
-  });
-});
-
-// Integration: Infrastructure with real DB
-describe('PostgreSQLUserRepository', () => {
-  it('should save and retrieve user', async () => {
-    const repo = new PostgreSQLUserRepository(testDb);
-    const user = createTestUser();
-    await repo.save(user);
-    const retrieved = await repo.findById(user.id);
-    expect(retrieved).not.toBeNull();
-  });
-});
-
-// E2E: Full stack via HTTP
-describe('User API', () => {
-  it('should create user via POST', async () => {
-    const response = await request(app).post('/api/users').send({
-      email: 'test@example.com',
-      password: 'secure123'
-    });
-    expect(response.status).toBe(201);
-  });
-});
-```
-
----
-
-## Anti-Patterns
-
-### Domain Logic in Controllers
-```typescript
-// Bad: Business logic in controller
-async create(req, res) {
-  if (await this.db.query('SELECT * FROM users WHERE email = $1', [req.body.email])) {
-    return res.status(409).json({ error: 'Email exists' });
-  }
+```go
+// Repository only handles data persistence
+func (r *OrderRepo) Save(ctx context.Context, order *domain.Order) error {
+    return r.db.Create(order) // GOOD: simple CRUD
 }
 
-// Good: Delegate to use case
-async create(req, res) {
-  const result = await this.createUserUseCase.execute(req.body);
-  res.status(201).json(result);
+// Validation happens in usecase or domain entity
+func (u *OrderUsecase) Create(ctx context.Context, price, quantity int) (*domain.Order, error) {
+    order := domain.NewOrder(price, quantity) // Entity validates itself
+    if err := order.Validate(); err != nil {    // GOOD: validation in domain
+        return nil, err
+    }
+    if order.NeedsApproval() {                  // GOOD: business rule in domain
+        order.Status = "needs_approval"
+    }
+    return u.orderRepo.Save(ctx, order)
 }
 ```
 
-### Infrastructure in Domain
-```typescript
-// Bad: Infrastructure leak in entity
-class User {
-  async save() {
-    await prisma.user.create({ data: this });
-  }
-}
+## Trigger Phrases
 
-// Good: Repository handles persistence
-class User { /* pure domain */ }
-class UserRepository {
-  async save(user: User) { await prisma.user.create(...); }
-}
+This skill activates when you say:
+- "Audit architecture"
+- "Check layer dependencies"
+- "Review Clean Architecture"
+- "Verify separation of concerns"
+- "Check dependency rules"
+- "Review usecase/repository pattern"
+- "Check for layer violations"
+- "Audit service structure"
+
+## How to Use
+
+### For Architecture Audit
+
+1. Identify all layers in the codebase
+2. Check dependency directions (must point inward)
+3. Verify each layer's responsibilities
+4. Flag violations with specific rule references
+
+### For Code Review
+
+1. Identify which layer the code belongs to
+2. Check against layer-specific rules
+3. Verify dependencies are injected, not created
+4. Ensure interfaces are defined by consumers
+
+## Output Format
+
+```
+## Architecture Violations: X
+
+### [Rule Name] (File: path/to/file.go)
+**Layer**: Delivery / Usecase / Repository / Domain
+**Issue**: Brief description of violation
+**Impact**: Tight coupling / Untestable / Wrong responsibility
+**Fix**: Suggested correction
+**Example**:
+```go
+// Corrected code
 ```
 
-### Anemic Domain Model
-```typescript
-// Bad: Entity is just data
-class User {
-  id: string;
-  password: string;
-}
-class UserService {
-  changePassword(user: User, pwd: string) {
-    user.password = hash(pwd);  // Logic outside entity
-  }
-}
+## Related Skills
 
-// Good: Rich domain model
-class User {
-  changePassword(newPassword: Password, hasher: PasswordHasher): void {
-    if (!newPassword.isStrong()) throw new WeakPasswordError();
-    this.passwordHash = hasher.hash(newPassword);
-  }
-}
-```
+- [golang-design-patterns](../design-patterns/SKILL.md) - For refactoring large usecases
+- [golang-idiomatic-go](../idiomatic-go/SKILL.md) - For interface design patterns
+- [golang-error-handling](../error-handling/SKILL.md) - For context propagation across layers
 
----
+## Philosophy
 
-## Migration Path (Legacy → Clean Architecture)
+Based on Uncle Bob's Clean Architecture:
 
-1. **Identify Boundaries**: Find domain concepts
-2. **Extract Entities**: Create domain objects with behavior
-3. **Define Interfaces**: Create repository/port interfaces
-4. **Implement Adapters**: Wrap existing data access
-5. **Create Use Cases**: Extract business logic
-6. **Refactor Controllers**: Delegate to use cases
-7. **Add DI Container**: Wire dependencies
-8. **Write Tests**: Cover each layer
+- **Independence** - Business rules don't depend on frameworks, UI, or databases
+- **Testability** - Business logic can be tested without external dependencies
+- **Flexibility** - Easy to swap implementations (e.g., change database)
+- **Maintainability** - Clear boundaries make changes localized
 
----
+**Key Principle**: The inner circles know nothing about the outer circles.
 
-## Quick Checklist
+## Notes
 
-- [ ] Domain is infrastructure-free
-- [ ] All dependencies point inward
-- [ ] Use cases are thin orchestrators
-- [ ] Repository interfaces in domain
-- [ ] Implementations in infrastructure
-- [ ] Controllers delegate to use cases
-- [ ] DTOs at layer boundaries
-- [ ] Comprehensive test coverage (unit, integration, e2e)
-- [ ] DI container wires all dependencies
-- [ ] No anemic domain models
+- Rules enforce separation of concerns in Go services
+- Particularly focused on gRPC/usecase/repository pattern
+- Emphasizes dependency injection for testability
+- All examples follow Clean Architecture principles

@@ -1,12 +1,7 @@
 {
   "name": "component-variants",
-  "description": "Creates light and dark mode component variants with consistent color token mapping. Use when building dual-theme components, creating light/dark UI pairs, or implementing theme-aware designs.",
-  "repo": "ainergiz/design-inspirations",
-  "category": "design",
-  "tags": [
-    "component",
-    "variants"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "fusengine/agents",
+  "path": "plugins/design-expert/skills/component-variants/SKILL.md",
+  "source": "github.com/fusengine/agents",
+  "downloaded_at": "2026-02-01T03:18:47.595409Z"
 }

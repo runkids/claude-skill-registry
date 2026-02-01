@@ -1,12 +1,12 @@
 ---
 name: braintrust-tracing
-description: Braintrust tracing for Claude Code - hook architecture, sub-agent correlation, debugging
+description: Braintrust tracing for Maestro - hook architecture, sub-agent correlation, debugging
 user-invocable: false
 ---
 
-# Braintrust Tracing for Claude Code
+# Braintrust Tracing for Maestro
 
-Comprehensive guide to tracing Claude Code sessions in Braintrust, including sub-agent correlation.
+Comprehensive guide to tracing Maestro sessions in Braintrust, including sub-agent correlation.
 
 ## Architecture Overview
 
@@ -98,7 +98,7 @@ But SessionStart only receives session metadata, not the modified prompt. The in
 - `totalTokens`, `totalToolUseCount` - metrics
 - `content` - full agent response/summary
 - `tool_input.prompt` - original task prompt
-- `tool_input.subagent_type` - agent type (e.g., "oracle")
+- `tool_input.subagent_type` - agent type (e.g., "planner")
 
 **SubagentStop hook receives the sub-agent's `session_id`:**
 - This equals the sub-agent's orphaned trace `root_span_id`
@@ -126,7 +126,7 @@ This would link: `Task.agentId` + `Task.child_session_id` -> orphaned trace `roo
 ### Per-Session State Files
 
 ```
-~/.claude/state/braintrust_sessions/
+~/.maestro/state/braintrust_sessions/
   {session_id}.json       # Per-session state
 ```
 
@@ -146,8 +146,8 @@ Each session file contains:
 
 ### Global State
 ```
-~/.claude/state/braintrust_global.json   # Cached project_id
-~/.claude/state/braintrust_hook.log      # Debug log
+~/.maestro/state/braintrust_global.json   # Cached project_id
+~/.maestro/state/braintrust_hook.log      # Debug log
 ```
 
 ## Debugging Commands
@@ -155,10 +155,10 @@ Each session file contains:
 ### Check if Tracing is Active
 ```bash
 # View hook logs in real-time
-tail -f ~/.claude/state/braintrust_hook.log
+tail -f ~/.maestro/state/braintrust_hook.log
 
 # Check if session has state
-cat ~/.claude/state/braintrust_sessions/*.json | jq -s '.'
+cat ~/.maestro/state/braintrust_sessions/*.json | jq -s '.'
 
 # Verify environment
 echo "TRACE_TO_BRAINTRUST=$TRACE_TO_BRAINTRUST"
@@ -187,19 +187,19 @@ export BRAINTRUST_CC_DEBUG=true
 
 # Test hooks manually
 echo '{"session_id":"test-123","type":"resume"}' | \
-  bash "$CLAUDE_PROJECT_DIR/.claude/plugins/braintrust-tracing/hooks/session_start.sh"
+  bash .maestro/plugins/braintrust-tracing/hooks/session_start.sh
 
 # Test PreToolUse (Task injection)
 echo '{"session_id":"test-123","tool_name":"Task","tool_input":{"prompt":"test"}}' | \
-  bash "$CLAUDE_PROJECT_DIR/.claude/plugins/braintrust-tracing/hooks/pre_tool_use.sh"
+  bash .maestro/plugins/braintrust-tracing/hooks/pre_tool_use.sh
 ```
 
 ### Troubleshooting Checklist
 
 1. **No traces appearing:**
-   - Check `TRACE_TO_BRAINTRUST=true` in `.claude/settings.local.json`
+   - Check `TRACE_TO_BRAINTRUST=true` in `.maestro/settings.local.json`
    - Verify API key: `echo $BRAINTRUST_API_KEY`
-   - Check logs: `tail -20 ~/.claude/state/braintrust_hook.log`
+   - Check logs: `tail -20 ~/.maestro/state/braintrust_hook.log`
 
 2. **Sub-agents not linking:**
    - This is expected - sub-agents create orphaned traces
@@ -212,23 +212,23 @@ echo '{"session_id":"test-123","tool_name":"Task","tool_input":{"prompt":"test"}
    - Look for "Failed to create" errors in log
 
 4. **State corruption:**
-   - Remove session state: `rm ~/.claude/state/braintrust_sessions/*.json`
-   - Clear global cache: `rm ~/.claude/state/braintrust_global.json`
+   - Remove session state: `rm ~/.maestro/state/braintrust_sessions/*.json`
+   - Clear global cache: `rm ~/.maestro/state/braintrust_global.json`
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `.claude/plugins/braintrust-tracing/hooks/common.sh` | Shared utilities, API, state management |
-| `.claude/plugins/braintrust-tracing/hooks/session_start.sh` | Creates root span, handles sub-agent context |
-| `.claude/plugins/braintrust-tracing/hooks/user_prompt_submit.sh` | Creates Turn spans per user message |
-| `.claude/plugins/braintrust-tracing/hooks/pre_tool_use.sh` | Injects trace context into Task prompts |
-| `.claude/plugins/braintrust-tracing/hooks/post_tool_use.sh` | Creates tool spans, captures agent/skill metadata |
-| `.claude/plugins/braintrust-tracing/hooks/stop_hook.sh` | Creates LLM spans, finalizes Turns |
-| `.claude/plugins/braintrust-tracing/hooks/session_end.sh` | Finalizes session, triggers learning extraction |
+| `.maestro/plugins/braintrust-tracing/hooks/common.sh` | Shared utilities, API, state management |
+| `.maestro/plugins/braintrust-tracing/hooks/session_start.sh` | Creates root span, handles sub-agent context |
+| `.maestro/plugins/braintrust-tracing/hooks/user_prompt_submit.sh` | Creates Turn spans per user message |
+| `.maestro/plugins/braintrust-tracing/hooks/pre_tool_use.sh` | Injects trace context into Task prompts |
+| `.maestro/plugins/braintrust-tracing/hooks/post_tool_use.sh` | Creates tool spans, captures agent/skill metadata |
+| `.maestro/plugins/braintrust-tracing/hooks/stop_hook.sh` | Creates LLM spans, finalizes Turns |
+| `.maestro/plugins/braintrust-tracing/hooks/session_end.sh` | Finalizes session, triggers learning extraction |
 | `scripts/braintrust_analyze.py` | Query and analyze traced sessions |
-| `~/.claude/state/braintrust_sessions/` | Per-session state files |
-| `~/.claude/state/braintrust_hook.log` | Debug log |
+| `~/.maestro/state/braintrust_sessions/` | Per-session state files |
+| `~/.maestro/state/braintrust_hook.log` | Debug log |
 
 ## Environment Variables
 
@@ -236,7 +236,7 @@ echo '{"session_id":"test-123","tool_name":"Task","tool_input":{"prompt":"test"}
 |----------|----------|---------|-------------|
 | `TRACE_TO_BRAINTRUST` | Yes | - | Set to `"true"` to enable |
 | `BRAINTRUST_API_KEY` | Yes | - | API key for Braintrust |
-| `BRAINTRUST_CC_PROJECT` | No | `claude-code` | Project name |
+| `BRAINTRUST_CC_PROJECT` | No | `maestro` | Project name |
 | `BRAINTRUST_CC_DEBUG` | No | `false` | Verbose logging |
 | `BRAINTRUST_API_URL` | No | `https://api.braintrust.dev` | API endpoint |
 
@@ -309,7 +309,7 @@ Parent session Task spans contain:
 - `totalTokens`, `totalToolUseCount` - aggregated metrics
 - `content` - full agent response/summary
 - `tool_input.prompt` - original task prompt
-- `tool_input.subagent_type` - agent type (e.g., "oracle")
+- `tool_input.subagent_type` - agent type (e.g., "planner")
 - Start/end timestamps
 
 Sub-agent sessions contain:

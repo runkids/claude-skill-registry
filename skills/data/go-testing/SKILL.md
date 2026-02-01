@@ -1,85 +1,244 @@
 ---
-name: writing-go-tests
-description: Applies current Go testing best practices. Use when writing or modifying Go test files or advising on Go testing strategies.
+name: go-testing
+description: Write and run Go tests using the built-in testing package with table-driven tests, subtests, and mocking via interfaces. Use when writing Go tests or setting up test infrastructure.
 ---
 
-# Go Testing Best Practices
+# Go Testing Skill
 
-This skill provides actionable testing guidelines. For detailed implementation patterns, code examples, rationale, and production system references, consult `go-testing-best-practices.md`.
+## When to Activate
 
-## When Working with Go Tests
+Activate this skill when:
+- Writing Go unit tests
+- Creating table-driven tests
+- Working with test helpers and fixtures
+- Mocking dependencies via interfaces
+- Running benchmarks or fuzz tests
 
-**Always apply these current best practices:**
+## Quick Commands
 
-### 1. Test Organisation
-- Place test files alongside source code using `*_test.go` naming
-- Use internal tests (same package) for unit testing unexported functions
-- Use external tests (`package foo_test`) for integration testing and examples
-- Split test files by functionality when they exceed 500-800 lines (e.g., `handler_auth_test.go`, `handler_validation_test.go`)
+```bash
+# Run all tests
+go test ./...
 
-### 2. Table-Driven Testing
-- **Prefer map-based tables over slice-based** for automatic unique test names
-- Use descriptive test case names that appear in failure output
-- See detailed guide for complete pattern and examples
+# Verbose output
+go test -v ./...
 
-### 3. Concurrent Testing
-- **Use `testing/synctest` for deterministic concurrent testing** (Go 1.24+)
-- This eliminates flaky time-based tests and runs in microseconds instead of seconds
-- For traditional parallel tests, always call `t.Parallel()` first in test functions
+# Run specific test
+go test -run TestUserCreate
 
-### 4. Assertions and Comparisons
-- Use `cmp.Diff()` from `google/go-cmp` for complex comparisons
-- Standard library is sufficient for simple tests
-- Testify is the dominant third-party framework when richer assertions are needed
+# With coverage
+go test -cover ./...
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out
 
-### 5. Mocking and Test Doubles
-- **Favour integration testing with real dependencies** over heavy mocking
-- Use Testcontainers for database/service integration tests
-- When mocking is necessary, prefer simple function-based test doubles over code generation
-- Use interface-based design ("accept interfaces, return structs")
+# Run benchmarks
+go test -bench=. ./...
 
-### 6. Coverage Targets
-- Aim for **70-80% coverage as a practical target**
-- Focus on meaningful tests over percentage metrics
-- Use `go test -cover` and `go tool cover -html` for analysis
+# Race detector
+go test -race ./...
+```
 
-### 7. Test Fixtures
-- Use `testdata` directory for test fixtures (automatically ignored by Go toolchain)
-- Implement golden file testing for validating complex output
-- Use functional builder patterns for complex test data
+## Basic Test Structure
 
-### 8. Helpers and Cleanup
-- **Always mark helper functions with `t.Helper()`** for accurate error reporting
-- Use `t.Cleanup()` for resource cleanup (superior to defer in tests)
+```go
+// math_test.go
+package math
 
-### 9. Benchmarking (Go 1.24+)
-- **Use `B.Loop()` method** as the preferred pattern (prevents compiler optimisations)
-- Combine with `benchstat` for statistical analysis
-- Use `-benchmem` for memory profiling
+import "testing"
 
-### 10. Naming Conventions
-- Test functions: `Test*`, `Benchmark*`, `Fuzz*`, `Example*` (capital letter after prefix)
-- Use `got` and `want` for actual vs expected values
-- Use descriptive test case names in table-driven tests
+func TestAdd(t *testing.T) {
+    result := Add(2, 3)
+    expected := 5
 
-## Integration vs Unit Testing
+    if result != expected {
+        t.Errorf("Add(2, 3) = %d; want %d", result, expected)
+    }
+}
+```
 
-- **Separate tests by environment variable** (preferred over build tags)
-- See detailed guide for implementation pattern
+## Table-Driven Tests (Idiomatic Go)
 
-## Additional Reference Material
+```go
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive numbers", 2, 3, 5},
+        {"negative numbers", -1, -1, -2},
+        {"mixed signs", -1, 5, 4},
+        {"zeros", 0, 0, 0},
+    }
 
-**Load `go-testing-best-practices.md` when you need:**
-- Complete code examples for table-driven tests, mocking patterns, golden files, helpers, or benchmarks
-- Detailed explanation of testing/synctest concurrent testing patterns
-- Rationale behind why specific patterns are preferred over alternatives
-- Production system examples and statistics (Kubernetes, Docker, Uber, Netflix, ByteDance)
-- Context on testing framework choices (Testify, GoMock, Testcontainers)
-- Comprehensive coverage strategies and tooling details
-- Integration testing patterns with containerisation
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := Add(tt.a, tt.b)
+            if result != tt.expected {
+                t.Errorf("Add(%d, %d) = %d; want %d",
+                    tt.a, tt.b, result, tt.expected)
+            }
+        })
+    }
+}
+```
 
-**The detailed guide contains full context, examples with explanations, and production-proven patterns. This SKILL.md provides the actionable rules to apply.**
+## Subtests and Parallel Execution
 
-## Key Principle
+```go
+func TestAPIEndpoints(t *testing.T) {
+    tests := []struct {
+        name     string
+        endpoint string
+        status   int
+    }{
+        {"health", "/health", 200},
+        {"users", "/api/users", 200},
+    }
 
-**Focus on meaningful tests that validate behaviour rather than implementation.** Pragmatic excellence over theoretical perfection.
+    for _, tt := range tests {
+        tt := tt // capture range variable
+        t.Run(tt.name, func(t *testing.T) {
+            t.Parallel() // run in parallel
+            // test logic
+        })
+    }
+}
+```
+
+## Test Helpers
+
+```go
+func assertEqual(t *testing.T, got, want int) {
+    t.Helper() // marks as helper for line numbers
+    if got != want {
+        t.Errorf("got %d; want %d", got, want)
+    }
+}
+
+func assertNoError(t *testing.T, err error) {
+    t.Helper()
+    if err != nil {
+        t.Fatalf("unexpected error: %v", err)
+    }
+}
+```
+
+## Setup and Teardown
+
+```go
+func TestDatabase(t *testing.T) {
+    // Setup
+    db := setupTestDB(t)
+
+    // Teardown (runs after test)
+    t.Cleanup(func() {
+        db.Close()
+    })
+
+    // Test code
+    user, err := db.CreateUser("test@example.com")
+    assertNoError(t, err)
+}
+```
+
+## Mocking with Interfaces
+
+```go
+// Define interface for dependencies
+type UserRepository interface {
+    FindByID(id string) (*User, error)
+    Save(user *User) error
+}
+
+// Mock implementation
+type MockUserRepo struct {
+    FindByIDFunc func(id string) (*User, error)
+}
+
+func (m *MockUserRepo) FindByID(id string) (*User, error) {
+    return m.FindByIDFunc(id)
+}
+
+// Test with mock
+func TestUserService_GetUser(t *testing.T) {
+    mock := &MockUserRepo{
+        FindByIDFunc: func(id string) (*User, error) {
+            return &User{ID: "123", Email: "test@example.com"}, nil
+        },
+    }
+
+    service := &UserService{repo: mock}
+    user, err := service.GetUser("123")
+
+    assertNoError(t, err)
+    assertEqual(t, user.ID, "123")
+}
+```
+
+## HTTP Handler Testing
+
+```go
+import (
+    "net/http"
+    "net/http/httptest"
+    "testing"
+)
+
+func TestHealthHandler(t *testing.T) {
+    req := httptest.NewRequest("GET", "/health", nil)
+    rr := httptest.NewRecorder()
+
+    handler := http.HandlerFunc(HealthHandler)
+    handler.ServeHTTP(rr, req)
+
+    if rr.Code != http.StatusOK {
+        t.Errorf("status = %d; want %d", rr.Code, http.StatusOK)
+    }
+}
+```
+
+## Benchmarks
+
+```go
+func BenchmarkAdd(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Add(2, 3)
+    }
+}
+
+// Run: go test -bench=. -benchmem
+```
+
+## Directory Structure
+
+```
+project/
+├── internal/
+│   ├── user/
+│   │   ├── user.go
+│   │   └── user_test.go
+│   └── api/
+│       ├── handler.go
+│       └── handler_test.go
+└── test/
+    └── integration/
+        └── api_test.go
+```
+
+## Test Function Signatures
+
+```go
+func TestXxx(t *testing.T)      // Regular test
+func BenchmarkXxx(b *testing.B) // Benchmark
+func ExampleXxx()               // Example (docs)
+func FuzzXxx(f *testing.F)      // Fuzz test
+```
+
+## Related Resources
+
+See `AgentUsage/testing_go.md` for complete documentation including:
+- Fuzz testing patterns
+- Build tags for test types
+- TestMain for package-level setup
+- Coverage in CI

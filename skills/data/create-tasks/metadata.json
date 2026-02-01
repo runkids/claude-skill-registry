@@ -1,9 +1,7 @@
 {
   "name": "create-tasks",
-  "description": "Creates well-formed tasks following a template that engineers can implement. Use when creating tasks, defining work items, creating tasks from PRD, breaking down features, or converting requirements i",
-  "repo": "audunstrand/status-app",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/audunstrand/status-app"
+  "repo": "sequenzia/claude-alchemy",
+  "path": "claude-tools/sdd-tools/skills/create-tasks/SKILL.md",
+  "source": "github.com/sequenzia/claude-alchemy",
+  "downloaded_at": "2026-02-01T01:39:53.870783Z"
 }

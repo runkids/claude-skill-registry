@@ -1,7 +1,7 @@
 {
   "name": "CORE",
-  "repo": "robdtaylor/personal-ai-infrastructure",
-  "path": "skills/CORE/SKILL.md",
-  "source": "github.com/robdtaylor/personal-ai-infrastructure",
-  "downloaded_at": "2026-01-31T01:49:29.616111Z"
+  "repo": "danielmiessler/Personal_AI_Infrastructure",
+  "path": "Packs/pai-core-install/src/skills/CORE/SKILL.md",
+  "source": "github.com/danielmiessler/Personal_AI_Infrastructure",
+  "downloaded_at": "2026-02-01T01:15:12.062636Z"
 }

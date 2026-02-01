@@ -1,7 +1,7 @@
 {
   "name": "test-detector",
-  "repo": "FortiumPartners/ensemble",
-  "path": "packages/core/skills/test-detector/SKILL.md",
-  "source": "github.com/FortiumPartners/ensemble",
-  "downloaded_at": "2026-01-31T03:54:14.915964Z"
+  "repo": "FortiumPartners/ai-mesh",
+  "path": "skills/test-detector/SKILL.md",
+  "source": "github.com/FortiumPartners/ai-mesh",
+  "downloaded_at": "2026-02-01T04:41:19.007097Z"
 }

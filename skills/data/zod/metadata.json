@@ -1,7 +1,7 @@
 {
   "name": "zod",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/zod/skills/zod/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-31T04:08:57.616051Z"
+  "repo": "pproenca/dot-skills",
+  "path": "skills/.curated/zod/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-02-01T04:04:56.308048Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "e2e-testing",
-  "repo": "Intellifill/IntelliFill",
-  "path": ".claude/skills/e2e-testing/SKILL.md",
-  "source": "github.com/Intellifill/IntelliFill",
-  "downloaded_at": "2026-01-31T04:30:56.477856Z"
+  "repo": "hirokazu-kobayashi-koba-hiro/idp-server",
+  "path": ".claude/skills/e2e-testing/skill.md",
+  "source": "github.com/hirokazu-kobayashi-koba-hiro/idp-server",
+  "downloaded_at": "2026-02-01T04:48:41.870513Z"
 }

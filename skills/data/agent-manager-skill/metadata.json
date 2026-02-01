@@ -1,7 +1,7 @@
 {
   "name": "agent-manager-skill",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/agent-manager-skill/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:03.485908Z"
+  "repo": "vuongng2212/TalentFlow-AI",
+  "path": ".claude/skills/agent-manager-skill/SKILL.md",
+  "source": "github.com/vuongng2212/TalentFlow-AI",
+  "downloaded_at": "2026-02-01T04:15:31.366450Z"
 }

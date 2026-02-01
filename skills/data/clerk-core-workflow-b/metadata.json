@@ -1,9 +1,7 @@
 {
   "name": "clerk-core-workflow-b",
-  "description": "Implement session management and middleware with Clerk.\nUse when managing user sessions, configuring route protection,\nor implementing token refresh logic.\nTrigger with phrases like \"clerk session\", \"",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+  "path": "plugins/saas-packs/clerk-pack/skills/clerk-core-workflow-b/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:13.612277Z"
 }

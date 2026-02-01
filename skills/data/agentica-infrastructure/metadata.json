@@ -1,7 +1,7 @@
 {
   "name": "agentica-infrastructure",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/agentica-infrastructure/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-31T04:36:24.299327Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/agentica-infrastructure/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-02-01T03:15:15.229702Z"
 }

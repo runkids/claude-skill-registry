@@ -1,7 +1,7 @@
 {
   "name": "describe_pr",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/describe_pr/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-31T04:36:20.855597Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/meta/describe_pr/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-02-01T03:15:19.942447Z"
 }

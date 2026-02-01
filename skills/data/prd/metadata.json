@@ -1,7 +1,7 @@
 {
   "name": "prd",
-  "repo": "vechain/inspector-app",
-  "path": ".claude/skills/prd/SKILL.md",
-  "source": "github.com/vechain/inspector-app",
-  "downloaded_at": "2026-01-31T04:49:55.580063Z"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/prd/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-02-01T05:04:57.869201Z"
 }

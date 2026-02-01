@@ -1,299 +1,543 @@
 ---
-name: Frontend Development
-description: พัฒนา Frontend ด้วย Angular, React, Vue, Next.js อย่างมืออาชีพ
+name: frontend-agent
+description: Handles frontend/UX/route work for Unite-Hub. Fixes UI bugs, implements React components, updates layouts, ensures responsive design, and maintains shadcn/ui consistency.
 ---
 
-# Frontend Development Skill
+# Frontend Agent Skill
 
 ## Overview
 
-Skill สำหรับพัฒนา Frontend applications ครอบคลุม 4 frameworks หลัก พร้อม best practices
+The Frontend Agent is responsible for all UI/UX work in the Unite-Hub Next.js application:
+1. **React 19 / Next.js 16 development** with App Router
+2. **shadcn/ui component implementation** and customization
+3. **Tailwind CSS styling** and responsive design
+4. **Route creation and breadcrumb setup**
+5. **Client-side state management** (React Context, hooks)
+6. **Accessibility and performance optimization**
 
----
+## How to Use This Agent
 
-## Angular
+### Trigger
 
-### Project Structure
+User says: "Fix dashboard layout", "Add new contact page", "Update navigation", "Create modal component"
 
+### What the Agent Does
+
+#### 1. Understand the Request
+
+**Questions to Ask**:
+- Which page/component needs work?
+- What's the desired behavior?
+- Are there design references (screenshots, wireframes)?
+- What's the priority (P0/P1/P2)?
+
+#### 2. Analyze Current Implementation
+
+**Step A: Locate Files**
+```bash
+# Find the component or page
+find src/app -name "*.tsx" | grep -i "contacts"
+find src/components -name "*.tsx" | grep -i "hotleads"
 ```
-src/
-├── app/
-│   ├── core/              # Singleton services, guards, interceptors
-│   │   ├── services/
-│   │   ├── guards/
-│   │   └── interceptors/
-│   ├── shared/            # Shared components, pipes, directives
-│   │   ├── components/
-│   │   ├── pipes/
-│   │   └── directives/
-│   ├── features/          # Feature modules
-│   │   ├── auth/
-│   │   ├── dashboard/
-│   │   └── users/
-│   └── app.component.ts
-├── assets/
-└── environments/
-```
 
-### Best Practices
-
-1. **Standalone Components** - ใช้ standalone components (Angular 15+)
-2. **Signals** - ใช้ Signals สำหรับ reactivity (Angular 16+)
-3. **Smart vs Dumb Components** - แยก container และ presentational
-4. **OnPush Change Detection** - ใช้เพื่อ performance
-5. **Lazy Loading** - Load modules ตามต้องการ
-
-### Common Patterns
-
+**Step B: Read Current Code**
 ```typescript
-// Standalone Component with Signals (Angular 17+)
-import { toSignal } from "@angular/core/rxjs-interop";
-
-@Component({
-  selector: "app-user-list",
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    @for (user of users(); track user.id) {
-      <div>{{ user.name }}</div>
-    }
-  `,
-})
-export class UserListComponent {
-  private userService = inject(UserService);
-
-  // ใช้ toSignal() แทน effect() + subscribe
-  users = toSignal(this.userService.getUsers(), { initialValue: [] });
-}
+// Use text_editor tool
+text_editor.view("src/app/dashboard/contacts/page.tsx")
 ```
 
----
+**Step C: Identify Dependencies**
+- What shadcn/ui components are used?
+- What contexts are consumed (AuthContext, etc.)?
+- What API routes are called?
+- What database queries are made?
 
-## React
+#### 3. Implement Changes
 
-### Project Structure
+**Step A: Component Updates**
 
-```
-src/
-├── components/          # Shared/reusable components
-│   ├── ui/              # Basic UI components
-│   └── layout/          # Layout components
-├── features/            # Feature-based modules
-│   ├── auth/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   └── api.ts
-│   └── users/
-├── hooks/               # Shared custom hooks
-├── lib/                 # Utilities, helpers
-├── services/            # API services
-└── stores/              # State management (Zustand/Redux)
-```
+For existing components:
+```typescript
+// src/components/HotLeadsPanel.tsx
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
 
-### Best Practices
+export function HotLeadsPanel({ workspaceId }: { workspaceId: string }) {
+  const { currentOrganization } = useAuth();
 
-1. **Functional Components** - ใช้ functional components เสมอ
-2. **Custom Hooks** - Extract logic ออกเป็น hooks
-3. **React Query/SWR** - สำหรับ data fetching
-4. **Zustand/Jotai** - สำหรับ simple state management
-5. **Error Boundaries** - Handle errors gracefully
-
-### Common Patterns
-
-```tsx
-// Custom Hook Pattern
-function useUsers() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  // Fetch hot leads
+  const [leads, setLeads] = useState([]);
 
   useEffect(() => {
-    fetchUsers()
-      .then(setUsers)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, []);
-
-  return { users, loading, error };
-}
-
-// React Query Pattern
-function useUsers() {
-  return useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
-    staleTime: 5 * 60 * 1000,
-  });
-}
-```
-
----
-
-## Vue 3
-
-### Project Structure
-
-```
-src/
-├── components/          # Shared components
-│   ├── ui/
-│   └── layout/
-├── composables/         # Composition API functions
-├── views/               # Page components
-├── stores/              # Pinia stores
-├── services/            # API services
-├── router/
-└── assets/
-```
-
-### Best Practices
-
-1. **Composition API** - ใช้ `<script setup>` syntax
-2. **Pinia** - สำหรับ state management
-3. **Composables** - Extract reusable logic
-4. **defineProps/defineEmits** - Type-safe props and events
-5. **Suspense** - สำหรับ async components
-
-### Common Patterns
-
-```vue
-<script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useUserStore } from "@/stores/user";
-
-// Props & Emits
-const props = defineProps<{
-  userId: number;
-}>();
-
-const emit = defineEmits<{
-  (e: "select", user: User): void;
-}>();
-
-// Composables
-const userStore = useUserStore();
-
-// Reactive State
-const searchQuery = ref("");
-
-// Computed
-const filteredUsers = computed(() =>
-  userStore.users.filter((u) => u.name.includes(searchQuery.value)),
-);
-
-// Lifecycle
-onMounted(() => {
-  userStore.fetchUsers();
-});
-</script>
-```
-
----
-
-## Next.js (App Router)
-
-### Project Structure
-
-```
-src/
-├── app/                   # App Router
-│   ├── (auth)/            # Route groups
-│   │   ├── login/
-│   │   └── register/
-│   ├── dashboard/
-│   │   ├── page.tsx
-│   │   ├── layout.tsx
-│   │   └── loading.tsx
-│   ├── api/               # API Routes
-│   │   └── users/
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/
-│   ├── ui/
-│   └── features/
-├── lib/                   # Utilities
-└── services/              # API services
-```
-
-### Best Practices
-
-1. **Server Components** - Default, ใช้สำหรับ data fetching
-2. **Client Components** - เฉพาะเมื่อต้องการ interactivity
-3. **Route Groups** - จัดกลุ่ม routes
-4. **Parallel Routes** - Render multiple pages
-5. **Server Actions** - สำหรับ form submissions
-
-### Common Patterns
-
-```tsx
-// Server Component (default)
-async function UsersPage() {
-  const users = await fetchUsers(); // Server-side
+    async function fetchLeads() {
+      const res = await fetch("/api/agents/contact-intelligence", {
+        method: "POST",
+        body: JSON.stringify({ action: "get_hot_leads", workspaceId }),
+      });
+      const data = await res.json();
+      setLeads(data.leads || []);
+    }
+    if (workspaceId) fetchLeads();
+  }, [workspaceId]);
 
   return (
-    <div>
-      <UserList users={users} />
-      <AddUserButton /> {/* Client Component */}
+    <Card>
+      {/* UI implementation */}
+    </Card>
+  );
+}
+```
+
+**Step B: Route Creation**
+
+For new pages:
+```typescript
+// src/app/dashboard/new-page/page.tsx
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "New Page | Unite Hub",
+  description: "Description of new page"
+};
+
+export default async function NewPage() {
+  return (
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold">New Page</h1>
+      {/* Content */}
     </div>
   );
 }
+```
 
-// Client Component
-("use client");
+**Step C: shadcn/ui Components**
 
-function AddUserButton() {
-  const [open, setOpen] = useState(false);
+Install new components if needed:
+```bash
+npx shadcn@latest add dialog
+npx shadcn@latest add dropdown-menu
+npx shadcn@latest add toast
+```
 
-  return <button onClick={() => setOpen(true)}>Add User</button>;
+Use components following shadcn patterns:
+```typescript
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open Dialog</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Title</DialogTitle>
+      <DialogDescription>Description</DialogDescription>
+    </DialogHeader>
+    {/* Content */}
+  </DialogContent>
+</Dialog>
+```
+
+#### 4. Add Workspace Filtering (CRITICAL for V1)
+
+**All database queries MUST filter by workspace**:
+
+```typescript
+// ❌ BAD - Shows data from all workspaces
+const { data: contacts } = await supabase
+  .from("contacts")
+  .select("*");
+
+// ✅ GOOD - Only shows data from user's workspace
+const { data: contacts } = await supabase
+  .from("contacts")
+  .select("*")
+  .eq("workspace_id", workspaceId);
+```
+
+**Required for these tables**:
+- `contacts` - `.eq("workspace_id", workspaceId)`
+- `campaigns` - `.eq("workspace_id", workspaceId)`
+- `drip_campaigns` - `.eq("workspace_id", workspaceId)`
+- `emails` - `.eq("workspace_id", workspaceId)`
+- `generatedContent` - `.eq("workspace_id", workspaceId)`
+
+#### 5. Handle Loading and Error States
+
+**Loading State**:
+```typescript
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+  async function fetchData() {
+    try {
+      setIsLoading(true);
+      const data = await fetch("...");
+      setData(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  fetchData();
+}, []);
+
+if (isLoading) return <Spinner />;
+if (error) return <ErrorBanner message={error} />;
+return <DataDisplay data={data} />;
+```
+
+#### 6. Responsive Design
+
+**Tailwind Breakpoints**:
+```typescript
+<div className="
+  grid grid-cols-1        // Mobile: 1 column
+  md:grid-cols-2          // Tablet: 2 columns
+  lg:grid-cols-3          // Desktop: 3 columns
+  gap-4
+">
+  {/* Cards */}
+</div>
+```
+
+**Mobile-First Approach**:
+- Start with mobile layout (default classes)
+- Add `md:` classes for tablet
+- Add `lg:` and `xl:` for desktop
+
+#### 7. Test Changes
+
+**Step A: Visual Testing**
+```bash
+# Start dev server
+npm run dev
+
+# Navigate to page in browser
+# Test on mobile viewport (DevTools)
+# Test dark theme
+```
+
+**Step B: Accessibility**
+```typescript
+// Check for:
+// - Proper ARIA labels
+// - Keyboard navigation
+// - Focus states
+// - Screen reader support
+
+<button aria-label="Close dialog">×</button>
+<input aria-describedby="email-help" />
+<div role="alert" aria-live="polite">{error}</div>
+```
+
+**Step C: Performance**
+```typescript
+// Use React.memo for expensive components
+import { memo } from "react";
+
+export const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
+  return <div>{/* Render */}</div>;
+});
+
+// Use dynamic imports for heavy components
+import dynamic from "next/dynamic";
+
+const HeavyChart = dynamic(() => import("@/components/HeavyChart"), {
+  loading: () => <Spinner />,
+  ssr: false
+});
+```
+
+## Common Tasks
+
+### Task 1: Fix Missing Workspace Filter
+
+**Example**: Dashboard Overview page showing all contacts
+
+**Steps**:
+1. Read `src/app/dashboard/overview/page.tsx`
+2. Find all Supabase queries
+3. Add `.eq("workspace_id", workspaceId)` to each
+4. Add null check for workspaceId before querying
+5. Test with multiple workspaces
+
+**Code**:
+```typescript
+// Before
+const { data: contacts } = await supabase.from("contacts").select("*");
+
+// After
+if (!workspaceId) {
+  return <div>No workspace selected</div>;
 }
 
-// Server Action
-async function createUser(formData: FormData) {
-  "use server";
+const { data: contacts, error } = await supabase
+  .from("contacts")
+  .select("*")
+  .eq("workspace_id", workspaceId);
 
-  const name = formData.get("name");
-  await db.users.create({ name });
-  revalidatePath("/users");
+if (error) {
+  console.error("Error fetching contacts:", error);
+  return <ErrorBanner />;
 }
 ```
 
+### Task 2: Create New Dashboard Page
+
+**Example**: Add "Analytics" page to dashboard
+
+**Steps**:
+1. Create `src/app/dashboard/analytics/page.tsx`
+2. Add to navigation in `src/app/dashboard/layout.tsx`
+3. Implement page content with shadcn/ui components
+4. Add breadcrumbs
+5. Test navigation
+
+**Code**:
+```typescript
+// src/app/dashboard/analytics/page.tsx
+import { Metadata } from "next";
+import { Card } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Analytics | Unite Hub",
+};
+
+export default async function AnalyticsPage() {
+  return (
+    <div className="container mx-auto py-8 space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold">Analytics</h1>
+        <p className="text-muted-foreground">Track your campaign performance</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card>
+          {/* Stat card 1 */}
+        </Card>
+        <Card>
+          {/* Stat card 2 */}
+        </Card>
+        <Card>
+          {/* Stat card 3 */}
+        </Card>
+      </div>
+    </div>
+  );
+}
+```
+
+```typescript
+// src/app/dashboard/layout.tsx - Add to navigation
+const navigation = [
+  { name: "Dashboard", href: "/dashboard/overview", icon: HomeIcon },
+  { name: "Contacts", href: "/dashboard/contacts", icon: UsersIcon },
+  { name: "Campaigns", href: "/dashboard/campaigns", icon: MailIcon },
+  { name: "Analytics", href: "/dashboard/analytics", icon: ChartIcon }, // NEW
+];
+```
+
+### Task 3: Implement Button Functionality
+
+**Example**: Hot Leads panel "Send Email" button
+
+**Steps**:
+1. Read `src/components/HotLeadsPanel.tsx`
+2. Find button location
+3. Implement onClick handler
+4. Call appropriate API endpoint
+5. Show success/error toast
+
+**Code**:
+```typescript
+import { useToast } from "@/components/ui/use-toast";
+
+function HotLeadsPanel() {
+  const { toast } = useToast();
+
+  async function handleSendEmail(contactId: string) {
+    try {
+      const res = await fetch("/api/emails/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contactId, templateType: "followup" }),
+      });
+
+      if (!res.ok) throw new Error("Failed to send email");
+
+      toast({
+        title: "Email sent",
+        description: "Your email has been queued for sending.",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    }
+  }
+
+  return (
+    <Button onClick={() => handleSendEmail(contact.id)}>
+      Send Email
+    </Button>
+  );
+}
+```
+
+## Styling Guidelines
+
+### Tailwind CSS Best Practices
+
+**Use Utility Classes**:
+```typescript
+// ✅ Good
+<div className="flex items-center justify-between p-4 bg-background border rounded-lg">
+
+// ❌ Bad (custom CSS)
+<div style={{ display: "flex", padding: "16px" }}>
+```
+
+**Use CSS Variables from Theme**:
+```typescript
+// Defined in globals.css
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --primary: 222.2 47.4% 11.2%;
+  }
+}
+
+// Use in components
+<div className="bg-background text-foreground">
+<div className="bg-card text-card-foreground">
+<div className="bg-primary text-primary-foreground">
+```
+
+**Responsive Design**:
+```typescript
+<div className="
+  text-sm md:text-base lg:text-lg
+  p-2 md:p-4 lg:p-6
+  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+">
+```
+
+## Component Library Reference
+
+### shadcn/ui Components Available
+
+- `accordion` - Collapsible content panels
+- `alert-dialog` - Modal confirmation dialogs
+- `avatar` - User profile images
+- `badge` - Status badges
+- `button` - Interactive buttons
+- `card` - Content containers
+- `checkbox` - Form checkboxes
+- `dialog` - Modal dialogs
+- `dropdown-menu` - Dropdown menus
+- `input` - Text inputs
+- `label` - Form labels
+- `popover` - Floating content
+- `progress` - Progress indicators
+- `radio-group` - Radio buttons
+- `select` - Select dropdowns
+- `switch` - Toggle switches
+- `tabs` - Tabbed interfaces
+- `toast` - Notification toasts
+- `tooltip` - Hover tooltips
+
+**Install new components**:
+```bash
+npx shadcn@latest add [component-name]
+```
+
+## Error Handling Patterns
+
+### API Errors
+
+```typescript
+try {
+  const res = await fetch("/api/...");
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || "Something went wrong");
+  }
+
+  return data;
+} catch (error) {
+  console.error("API Error:", error);
+  toast({
+    variant: "destructive",
+    title: "Error",
+    description: error.message,
+  });
+  return null;
+}
+```
+
+### Supabase Errors
+
+```typescript
+const { data, error } = await supabase.from("contacts").select("*");
+
+if (error) {
+  console.error("Supabase error:", error);
+  return <ErrorBanner message="Failed to load contacts" />;
+}
+
+if (!data || data.length === 0) {
+  return <EmptyState message="No contacts found" />;
+}
+
+return <ContactsList contacts={data} />;
+```
+
+## Version 1 Constraints
+
+**What We Fix for V1**:
+- ✅ Workspace filtering on ALL pages
+- ✅ Hot Leads button functionality
+- ✅ Contact detail page navigation
+- ✅ Dashboard stat cards
+- ✅ Loading and error states
+- ✅ Responsive design fixes
+
+**What We Do NOT Build for V1**:
+- ❌ Advanced animations
+- ❌ Custom theme builder
+- ❌ Drag-and-drop interfaces
+- ❌ Real-time collaboration UI
+- ❌ Mobile app
+
+## Key Points
+
+- **Always filter by workspace** - Data isolation is critical
+- **Use shadcn/ui components** - Don't reinvent the wheel
+- **Follow Tailwind conventions** - Utility-first approach
+- **Handle loading/error states** - Never show blank screens
+- **Test responsive design** - Mobile, tablet, desktop
+- **Maintain accessibility** - ARIA labels, keyboard navigation
+
 ---
 
-## Shared Best Practices
+## Integration with Other Agents
 
-### CSS/Styling
-
-1. **CSS Modules** หรือ **Tailwind CSS**
-2. **CSS Variables** สำหรับ theming
-3. **Mobile-first** responsive design
-4. **Consistent spacing** (8px grid system)
-
-### Performance
-
-1. **Lazy loading** components และ routes
-2. **Image optimization** (next/image, @angular/common)
-3. **Code splitting**
-4. **Memoization** (useMemo, React.memo, computed)
-
-### Accessibility
-
-1. **Semantic HTML**
-2. **ARIA labels**
-3. **Keyboard navigation**
-4. **Color contrast**
-5. **Focus management**
-
----
-
-## Frontend Checklist
-
-- [ ] ใช้ TypeScript
-- [ ] Folder structure ที่เหมาะสม
-- [ ] Component composition ที่ดี
-- [ ] State management ที่เหมาะสม
-- [ ] Error handling
-- [ ] Loading states
-- [ ] Responsive design
-- [ ] Accessibility
-- [ ] Performance optimization
-- [ ] Testing coverage
+The Frontend Agent works with:
+- **Backend Agent** - Consumes API endpoints
+- **Docs Agent** - Updates component documentation
+- **Orchestrator** - Receives UI fix requests

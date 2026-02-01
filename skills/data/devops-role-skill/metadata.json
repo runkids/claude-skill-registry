@@ -1,7 +1,7 @@
 {
   "name": "devops-role-skill",
-  "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-  "path": "docs/claude/skills/devops-role-skill/SKILL.md",
-  "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-  "downloaded_at": "2026-01-31T02:35:54.423130Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills/devops-role-skill/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-02-01T04:26:08.152660Z"
 }

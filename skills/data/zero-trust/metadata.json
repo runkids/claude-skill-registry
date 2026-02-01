@@ -1,7 +1,7 @@
 {
   "name": "zero-trust",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/security/skills/zero-trust/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-31T04:13:08.555290Z"
+  "repo": "littlebearapps/cloudflare-engineer",
+  "path": "skills/zero-trust/SKILL.md",
+  "source": "github.com/littlebearapps/cloudflare-engineer",
+  "downloaded_at": "2026-02-01T04:51:02.560575Z"
 }

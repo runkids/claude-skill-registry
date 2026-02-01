@@ -1,7 +1,7 @@
 {
   "name": "billing-automation",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/plugins/payment-processing/skills/billing-automation/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-01-31T03:36:50.601837Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/payment-processing/skills/billing-automation/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:50.253959Z"
 }

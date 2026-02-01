@@ -1,154 +1,210 @@
 ---
-name: Rust Core
-description: Rust language fundamentals, ownership, error handling, and project patterns.
+name: Go Core
+description: Go language fundamentals, concurrency, error handling, and project patterns.
 metadata:
-  labels: [rust, core, language]
+  labels: [golang, core, language]
   triggers:
-    files: ['Cargo.toml', '**/*.rs']
-    keywords: [fn, impl, struct, enum, Result, Option]
+    files: ['go.mod', '**/*.go']
+    keywords: [func, package, import, goroutine, chan]
 ---
 
-# Rust Core Standards
+# Go Core Standards
 
-## Ownership & Borrowing
+## Goroutines & Channels
 
-1. **Ownership Rules**:
-   - Each value has exactly one owner
-   - Value dropped when owner goes out of scope
-   - **Do**: Move or clone explicitly when needed
-   - **Don't**: Fight the borrow checker with unsafe
+```go
+// Spawn goroutine
+go func() {
+    result := process(data)
+    resultChan <- result
+}()
 
-2. **Borrowing**:
-   - Immutable: `&T` - multiple allowed
-   - Mutable: `&mut T` - only one, no immutable refs
-   - **Rule**: References must not outlive data
+// Unbuffered channel (synchronous)
+ch := make(chan int)
 
-## Error Handling
+// Buffered channel
+ch := make(chan int, 100)
 
-```rust
-// Use Result for recoverable errors
-fn parse_config(path: &str) -> Result<Config, ConfigError> {
-    let content = std::fs::read_to_string(path)?;
-    toml::from_str(&content).map_err(ConfigError::Parse)
-}
+// Send and receive
+ch <- value      // Send
+value := <-ch    // Receive
 
-// Use Option for optional values
-fn find_user(id: u64) -> Option<User> { /* ... */ }
-
-// Custom error types
-#[derive(Debug, thiserror::Error)]
-enum AppError {
-    #[error("database error: {0}")]
-    Database(#[from] sqlx::Error),
-    #[error("not found: {0}")]
-    NotFound(String),
+// Select for multiplexing
+select {
+case msg := <-msgChan:
+    handle(msg)
+case <-time.After(5 * time.Second):
+    return errors.New("timeout")
+case <-ctx.Done():
+    return ctx.Err()
 }
 ```
 
 **Patterns**:
-- `?` operator for propagation
-- `thiserror` for library errors
-- `anyhow` for application errors
-- **Never**: `unwrap()` in production code (use `expect` with context)
+- Worker pools with buffered channels
+- Fan-out/fan-in for parallel processing
+- Done channel for cancellation
 
-## Async/Await
+## Error Handling
 
-- **Runtime**: Tokio for production
-- **Rule**: Async functions return `Future`, need executor
-
-```rust
-#[tokio::main]
-async fn main() {
-    let result = fetch_data().await;
+```go
+// Return errors, don't panic
+func fetchUser(id int) (*User, error) {
+    user, err := db.FindUser(id)
+    if err != nil {
+        return nil, fmt.Errorf("fetch user %d: %w", id, err)
+    }
+    return user, nil
 }
 
-async fn fetch_data() -> Result<Data, Error> {
-    let response = reqwest::get("https://api.example.com").await?;
-    response.json().await.map_err(Into::into)
+// Error wrapping (Go 1.13+)
+if errors.Is(err, sql.ErrNoRows) {
+    return nil, ErrNotFound
 }
+
+// Type assertion for custom errors
+var apiErr *APIError
+if errors.As(err, &apiErr) {
+    log.Printf("API error: %d", apiErr.Code)
+}
+
+// Sentinel errors
+var ErrNotFound = errors.New("not found")
 ```
 
-**Concurrency Patterns**:
-- `tokio::spawn` for background tasks
-- `tokio::select!` for racing futures
-- `tokio::sync::Mutex` for shared async state
-- **Warning**: `std::sync::Mutex` blocks; use `tokio::sync` in async
+**Rules**:
+- Always check errors immediately
+- Wrap with context: `fmt.Errorf("operation: %w", err)`
+- Use `errors.Is` and `errors.As` for comparison
+- **Never**: `panic` for recoverable errors
 
-## Traits & Generics
+## Interfaces
 
-```rust
-// Define trait bounds
-fn process<T: Serialize + Debug>(item: T) -> String { /* ... */ }
-
-// Impl blocks
-impl<T: Clone> Container<T> {
-    fn duplicate(&self) -> Self { /* ... */ }
+```go
+// Small interfaces
+type Reader interface {
+    Read(p []byte) (n int, err error)
 }
 
-// Associated types for clarity
-trait Iterator {
-    type Item;
-    fn next(&mut self) -> Option<Self::Item>;
+type Writer interface {
+    Write(p []byte) (n int, err error)
+}
+
+// Composition
+type ReadWriter interface {
+    Reader
+    Writer
+}
+
+// Accept interfaces, return structs
+func ProcessData(r Reader) (*Result, error) {
+    data, err := io.ReadAll(r)
+    // ...
+    return &Result{}, nil
 }
 ```
 
 **Best Practices**:
-- Prefer `impl Trait` for return types
-- Use `where` clauses for complex bounds
-- `#[derive]` for common traits: `Debug, Clone, PartialEq`
+- Define interfaces where used, not where implemented
+- Keep interfaces small (1-3 methods)
+- Use `interface{}` sparingly; prefer generics (Go 1.18+)
+
+## Context
+
+```go
+// Pass context as first parameter
+func fetchData(ctx context.Context, id int) (*Data, error) {
+    // Respect cancellation
+    select {
+    case <-ctx.Done():
+        return nil, ctx.Err()
+    default:
+    }
+
+    // Use context with HTTP requests
+    req, _ := http.NewRequestWithContext(ctx, "GET", url, nil)
+    return client.Do(req)
+}
+
+// Add timeout
+ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+defer cancel()
+
+// Add values (use sparingly)
+ctx = context.WithValue(ctx, requestIDKey, reqID)
+```
+
+**Rules**:
+- Never store context in structs
+- Always call cancel function (use defer)
+- Use for cancellation, deadlines, request-scoped values only
 
 ## Project Structure
 
 ```
-my-project/
-├── Cargo.toml
-├── src/
-│   ├── main.rs          # Entry point
-│   ├── lib.rs           # Library root (optional)
-│   ├── config.rs        # Configuration
-│   ├── error.rs         # Error types
-│   ├── handlers/        # Request handlers
-│   │   └── mod.rs
-│   └── models/          # Data structures
-│       └── mod.rs
-└── tests/
-    └── integration.rs   # Integration tests
+project/
+├── cmd/
+│   └── myapp/
+│       └── main.go       # Entry point
+├── internal/             # Private packages
+│   ├── handler/
+│   ├── service/
+│   └── repository/
+├── pkg/                  # Public packages
+├── api/                  # API definitions (proto, OpenAPI)
+├── configs/
+├── go.mod
+└── go.sum
 ```
 
 **Conventions**:
-- `mod.rs` for module roots
-- `pub` only what's needed
-- Re-export with `pub use` at module root
+- `internal/` prevents external imports
+- `cmd/` for multiple entry points
+- Flat structure for small projects
 
 ## Testing
 
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_parse() {
-        let result = parse("valid");
-        assert_eq!(result, Ok(Expected));
+```go
+// Table-driven tests
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive", 1, 2, 3},
+        {"negative", -1, -1, -2},
+        {"zero", 0, 0, 0},
     }
 
-    #[tokio::test]
-    async fn test_async_fn() {
-        let data = fetch().await;
-        assert!(data.is_ok());
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := Add(tt.a, tt.b)
+            if result != tt.expected {
+                t.Errorf("Add(%d, %d) = %d; want %d", tt.a, tt.b, result, tt.expected)
+            }
+        })
+    }
+}
+
+// Parallel tests
+func TestParallel(t *testing.T) {
+    t.Parallel()
+    // ...
+}
+
+// Benchmarks
+func BenchmarkProcess(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Process(data)
     }
 }
 ```
 
-- Unit tests in same file with `#[cfg(test)]`
-- Integration tests in `tests/` directory
-- Use `mockall` for mocking traits
+## Performance
 
-## Security
-
-1. **Input Validation**: Validate all external input before processing
-2. **SQL Injection**: Use parameterized queries (sqlx, diesel)
-3. **Dependencies**: Run `cargo audit` regularly
-4. **Unsafe**: Minimize `unsafe` blocks, document invariants
-5. **Secrets**: Use `secrecy` crate for sensitive data in memory
+1. **Preallocate slices**: `make([]T, 0, expectedLen)`
+2. **Avoid allocations**: Reuse buffers, use `sync.Pool`
+3. **Profile first**: `go tool pprof` before optimizing
+4. **Escape analysis**: `go build -gcflags='-m'` to check heap escapes
+5. **String building**: Use `strings.Builder` not `+` concatenation

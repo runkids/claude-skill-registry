@@ -1,7 +1,7 @@
 {
   "name": "gamma-local-dev-loop",
-  "repo": "Brmbobo/Web2podcast",
-  "path": ".claude/agents/enterprise-frontend-design/agents/saas-packs/gamma-pack/skills/gamma-local-dev-loop/SKILL.md",
-  "source": "github.com/Brmbobo/Web2podcast",
-  "downloaded_at": "2026-01-31T04:41:38.527066Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "plugins/saas-packs/gamma-pack/skills/gamma-local-dev-loop/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:12.798063Z"
 }

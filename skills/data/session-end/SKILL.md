@@ -1,293 +1,234 @@
 ---
 name: session-end
-description: Generate comprehensive summary and archive session to appropriate project directory
-disable-model-invocation: true
+description: Mandatory session close-out with IG audit, AAR, HISTORIAN, and RELEASE_MANAGER. Enforces clean session handoff.
+model_tier: sonnet
+parallel_hints:
+  can_parallel_with: []
+  must_serialize_with: [startup, startupO]
+  preferred_batch_size: 1
+context_hints:
+  max_file_context: 60
+  compression_level: 1
+  requires_git_context: true
+  requires_db_context: false
+escalation_triggers:
+  - pattern: "uncommitted.*changes"
+    reason: "Uncommitted work needs human decision on how to handle"
+  - pattern: "failing.*tests"
+    reason: "Test failures need human review before session close"
 ---
 
-# Procedure for Ending and Archiving a Development Session
+# Session End Skill
 
-This procedure archives the work from the current session into a permanent, detailed log for future reference.
+> **Purpose:** Clean session close-out with governance checks
+> **Trigger:** `/session-end` or `/bye` or `/done`
+> **Enforcement:** Controlled by `.claude/Governance/config.json`
 
-## Token Optimization
+## Checklist (Required)
 
-This skill optimizes summary generation through Bash-based analysis and template structures:
+### 1. Stack Health
+- [ ] Run `./scripts/stack-health.sh` - all services GREEN
+- [ ] Run `./scripts/stack-health.sh --full` - lint/typecheck clean
 
-### 1. Bash-Based Session Analysis (1,500 token savings)
+### 2. Work State
+- [ ] All changes committed or stashed
+- [ ] No failing tests introduced
+- [ ] Linters pass (ruff, eslint)
 
-**Pattern:** Use git commands and file metadata instead of reading files
+### 4. Documentation
+- [ ] CHANGELOG updated if features added
+- [ ] TODOs resolved or documented in HUMAN_TODO.md
 
-```bash
-# Bash-based analysis (400 tokens)
-SESSION_FILE=$(cat .claude/sessions/.current-session)
-START_TIME=$(head -1 "$SESSION_FILE" | grep -oP '\d{4}-\d{2}-\d{2} \d{2}:\d{2}')
-END_TIME=$(date '+%Y-%m-%d %H:%M')
+### 5. Mandatory Governance Agents (ALWAYS INVOKED)
 
-# Git summary
-FILES_CHANGED=$(git diff --name-status HEAD@{1 hour ago} | wc -l)
-COMMITS=$(git log --since="$START_TIME" --oneline | wc -l)
-GIT_STATUS=$(git status --porcelain)
+Regardless of governance_enabled setting, these agents are ALWAYS invoked at session end:
 
-# File changes breakdown
-ADDED=$(echo "$GIT_STATUS" | grep '^A' | wc -l)
-MODIFIED=$(echo "$GIT_STATUS" | grep '^M' | wc -l)
-DELETED=$(echo "$GIT_STATUS" | grep '^D' | wc -l)
+| Agent | Purpose | Cannot Skip |
+|-------|---------|-------------|
+| DELEGATION_AUDITOR (IG) | Audit spawn counts, chain violations, bypasses | ✓ |
+| COORD_AAR | After-action review, lessons learned | ✓ |
+| HISTORIAN | Session record for continuity | ✓ |
+| RELEASE_MANAGER | Version status, release readiness | ✓ |
+
+**Note:** Use `/session-end --force` only in true emergencies. Skipping these agents loses institutional memory.
+
+**DELEGATION_AUDITOR (IG):**
+- Spawn count for session
+- Chain-of-command violations
+- Bypass justifications
+
+**COORD_AAR (After Action Review):**
+- What went well
+- What could improve
+- Patterns discovered
+- Lessons learned
+
+**HISTORIAN:**
+- Major features completed
+- Architectural decisions
+- Notable incidents
+- Session continuity
+
+**RELEASE_MANAGER:**
+- Current version status
+- Uncommitted changes check
+- Release readiness assessment
+- Next release steps
+
+### 4. Knowledge Preservation (G-Staff Integration)
+
+**Invoke G4_CONTEXT_MANAGER (RAG/Vector Updates):**
+- Index new session artifacts for retrieval
+- Update embeddings for modified documentation
+- Ensure next session has full context access
+
+**Invoke KNOWLEDGE_CURATOR (via COORD_OPS):**
+- Extract cross-session patterns
+- Update PATTERNS.md, DECISIONS.md
+- Create session handoff documentation
+
+**Invoke G4_LIBRARIAN (optional):**
+- Archive session transcripts
+- Catalog new skills/agents created
+- Update knowledge graph relationships
+
+## Quick Exit (Emergency)
+
+```
+/session-end --force
+```
+Skips all checks. Logs bypass.
+
+## Output Format
+
+```
+================================================================================
+                           SESSION END REPORT
+================================================================================
+
+## Stack Health
+[output of ./scripts/stack-health.sh --full]
+
+## Work Summary
+- Commits: [count]
+- Files Modified: [count]
+- Tests Added/Modified: [count]
+
+## Git Status
+[output of git status]
+
+## IG Report (DELEGATION_AUDITOR)
+- Total Spawns: [count]
+- Chain-of-Command Violations: [count]
+- Bypasses: [list with justifications]
+
+## After Action Review (AAR)
+### What Went Well
+- [item]
+
+### What Could Improve
+- [item]
+
+### Patterns Discovered
+- [item]
+
+### Lessons Learned
+- [item]
+
+## HISTORIAN Entry
+[Summary for session history]
+
+## Release Status (RELEASE_MANAGER)
+- Current Version: [version]
+- Uncommitted Changes: [yes/no]
+- Release Readiness: [ready/blocked/needs-review]
+- Next Steps: [recommendations]
+
+## Knowledge Preservation (G-Staff)
+- G4_CONTEXT_MANAGER: [documents indexed for RAG]
+- KNOWLEDGE_CURATOR: [patterns extracted, handoff created]
+- G4_LIBRARIAN: [artifacts cataloged] (if invoked)
+
+## Recommendations for Next Session
+- [item]
+
+================================================================================
+                              SESSION CLOSED
+================================================================================
 ```
 
-**Savings:**
-- Bash commands: ~400 tokens (metadata only)
-- File reading approach: ~1,900 tokens (read all changed files)
-- **1,500 token savings (79%)**
+## Execution Steps
 
-### 2. Early Exit for No Active Session (95% savings)
+1. **Stack Health Check**
+   ```bash
+   ./scripts/stack-health.sh --full
+   ```
+   - Must be GREEN to proceed
+   - YELLOW acceptable with justification
+   - RED blocks session end (fix issues first)
 
-**Pattern:** Detect missing session immediately
+2. **Check Git State**
+   ```bash
+   git status
+   git diff --stat
+   ```
 
-```bash
-# Quick check (60 tokens)
-if [ ! -f ".claude/sessions/.current-session" ] || [ ! -s ".claude/sessions/.current-session" ]; then
-    echo "⚠️  No active session to end"
-    echo "   Start one with /session-start"
-    exit 0  # 60 tokens total
-fi
+4. **Run Linters** (if not already done by stack-health)
+   ```bash
+   cd backend && ruff check . --fix
+   cd frontend && npm run lint:fix
+   ```
 
-# Otherwise: Full session end workflow (800+ tokens)
-```
+5. **Verify Tests**
+   ```bash
+   cd backend && pytest --tb=no -q
+   cd frontend && npm test -- --passWithNoTests
+   ```
 
-**Savings:**
-- No session: ~60 tokens (early exit)
-- Full workflow: ~800+ tokens
-- **740+ token savings (92%)** when no active session
+6. **Check Governance Config**
+   ```bash
+   cat .claude/Governance/config.json
+   ```
 
-### 3. Template-Based Summary Structure (800 token savings)
+7. **Generate IG Report** (DELEGATION_AUDITOR)
+   - Review session for agent spawns
+   - Check for chain-of-command violations
+   - Document any bypasses
 
-**Pattern:** Use template with placeholder variables instead of LLM-generated narrative
+8. **Conduct AAR** (COORD_AAR)
+   - Reflect on session outcomes
+   - Identify improvements
+   - Capture patterns and lessons
 
-```bash
-# Template-based summary (300 tokens)
-cat >> "$SESSION_FILE" <<EOF
+9. **Update HISTORIAN**
+   - Write to `.claude/History/sessions/`
+   - Include major decisions and outcomes
 
-## Session Summary
+10. **Release Status Check** (RELEASE_MANAGER)
+    - Check version status
+    - Verify no blocking issues
+    - Document release readiness
 
-**Duration**: $START_TIME to $END_TIME
-**Branch**: $(git branch --show-current)
+11. **Knowledge Preservation** (G-Staff)
+    - Spawn G4_CONTEXT_MANAGER for RAG/vector updates
+    - Spawn KNOWLEDGE_CURATOR for pattern synthesis
+    - Optionally spawn G4_LIBRARIAN for archival
 
-### Changes
-- Files changed: $FILES_CHANGED
-- Commits: $COMMITS
-- Added: $ADDED, Modified: $MODIFIED, Deleted: $DELETED
+12. **Final Handoff**
+   - Summarize state for next session
+   - Note any pending work
+   - Verify RAG index updated
 
-### File List
-$(git diff --name-status HEAD@{1 hour ago})
+## Integration with Other Skills
 
-### Commit History
-$(git log --since="$START_TIME" --oneline)
+- **startup/startupO**: Session-end complements startup for session lifecycle
+- **code-review**: Can be invoked before session-end for final review
+- **pre-pr-checklist**: Session-end incorporates similar checks
 
-### Final Status
-$(git status --short)
-EOF
-```
+## Aliases
 
-**Savings:**
-- Template-based: ~300 tokens (variable substitution)
-- LLM-generated narrative: ~1,100 tokens (comprehensive summary with analysis)
-- **800 token savings (73%)**
-
-### 4. Incremental TODO Status (Optional)
-
-**Pattern:** Read TODO cache if available, skip comprehensive analysis if not
-
-```bash
-# Optional TODO status (150 tokens if cached, 0 if not)
-if [ -f ".claude/cache/todos/summary.json" ]; then
-    TODO_SUMMARY=$(jq -r '{completed, in_progress, pending}' .claude/cache/todos/summary.json)
-    cat >> "$SESSION_FILE" <<EOF
-
-### TODO Progress
-$TODO_SUMMARY
-EOF
-fi
-
-# Don't scan codebase for TODOs (would be 800+ tokens)
-```
-
-**Token Usage:**
-- Cached TODO status: ~150 tokens
-- Scan codebase: ~800+ tokens
-- **Skip if unavailable: 0 tokens** (graceful degradation)
-
-### 5. Session Categorization Caching (200 token savings)
-
-**Pattern:** Cache directory structure to avoid repeated analysis
-
-```bash
-# Cache file: .claude/sessions/.structure-cache.json
-# Format: {"directories": ["feature-a", "feature-b", ...]}
-# TTL: Session-based (until structure changes)
-
-if [ -f ".claude/sessions/.structure-cache.json" ]; then
-    DIRS=$(jq -r '.directories[]' .claude/sessions/.structure-cache.json)
-else
-    DIRS=$(ls -1 .claude/sessions/)
-    echo "{\"directories\": $(echo "$DIRS" | jq -R . | jq -s .)}" > .claude/sessions/.structure-cache.json
-fi
-```
-
-**Savings:**
-- Cached structure: ~100 tokens
-- Fresh analysis: ~300 tokens (directory listing + analysis)
-- **200 token savings (67%)** for subsequent session ends
-
-### 6. Smart File Archival (No File Splitting)
-
-**Pattern:** Simple move operation instead of complex splitting logic
-
-```bash
-# Simple archival (100 tokens)
-TARGET_DIR=".claude/sessions/general"  # Default category
-
-# Move session file
-mv "$SESSION_FILE" "$TARGET_DIR/"
-[ -f "$TARGET_DIR/.gitkeep" ] && rm "$TARGET_DIR/.gitkeep"
-
-# Clear current session
-> .claude/sessions/.current-session
-```
-
-**Token Usage:**
-- Simple move: ~100 tokens
-- Complex splitting logic: ~500+ tokens (analyze, split, categorize)
-- Default to simple approach - **80% savings**
-
-### 7. Real-World Token Usage Distribution
-
-**Typical Scenarios:**
-
-1. **Standard Session End (600-900 tokens)**
-   - Session validation: 60 tokens
-   - Bash-based analysis: 400 tokens
-   - Template summary: 300 tokens
-   - TODO status (cached): 150 tokens
-   - File archival: 100 tokens
-   - **Total: ~1,010 tokens**
-
-2. **Minimal Session End (500-700 tokens)**
-   - Session validation: 60 tokens
-   - Bash-based analysis: 400 tokens
-   - Template summary: 300 tokens
-   - Simple archival: 100 tokens
-   - **Total: ~860 tokens** (no TODO status)
-
-3. **No Active Session - Early Exit (50-80 tokens)**
-   - Session check: 60 tokens
-   - **Total: ~60 tokens**
-
-4. **Long Session with Updates (700-1,000 tokens)**
-   - Session validation: 60 tokens
-   - Bash-based analysis: 400 tokens
-   - Read session updates: 200 tokens (previous updates)
-   - Template summary: 300 tokens
-   - Archival: 100 tokens
-   - **Total: ~1,060 tokens**
-
-**Expected Token Savings:**
-- **Average 60% reduction** from baseline (1,500 → 600 tokens)
-- **92% reduction** when no active session
-- **Aggregate savings: 700-900 tokens** per session end
-
-### Optimization Summary
-
-| Strategy | Savings | When Applied |
-|----------|---------|--------------|
-| Bash-based session analysis | 1,500 tokens (79%) | Always |
-| Early exit for no session | 740 tokens (92%) | No active session |
-| Template-based summary | 800 tokens (73%) | Always (vs LLM narrative) |
-| Incremental TODO status | 650 tokens (81%) | When cache unavailable |
-| Session categorization caching | 200 tokens (67%) | Subsequent ends |
-| Smart file archival | 400 tokens (80%) | Simple move vs splitting |
-
-**Key Insight:** Session ending benefits significantly from Bash-based analysis and template structures, avoiding expensive file reads and LLM-generated narratives. The combination of git commands, cached TODO status, and simple archival provides 60-70% token reduction while maintaining comprehensive session documentation.
-
-## Phase 1: Verify the Active Session
-
-1. I will check for an active session by reading the `.claude/sessions/.current-session` file.
-2. If the file is empty or doesn't exist, I will inform the user that there is no active session to end and stop the process.
-
-## Phase 2: Generate the Session Summary
-
-1. Let me analyze what we accomplished by:
-   - Reviewing files created/modified during our session
-   - Checking git changes and commit history
-   - Summarizing completed work and pending items
-2. I will append comprehensive information to the end of the active session file. The information will be structured and detailed enough for another developer to understand the session's context and outcomes. It will include:
-   - Session summary and accomplishments
-   - Files modified and their purposes
-   - Decisions made and rationale
-   - Pending work and next steps
-   - Any important context for future sessions
-3. Expanding on the above point, the comprehensive information must include:
-   - Session Metadata:
-     - Session duration
-     - Session Start and End timestamps
-   - Version Control Summary (Git):
-     - Total files added, modified, or deleted with their purposes.
-     - A list of all changed files with their status (e.g., `A`, `M`, `D`)
-     - Number of commits made during the session
-     - Final `git status` output
-   - Task Management Summary (To-Do):
-     - Totals for completed vs. remaining tasks
-     - A list of all completed tasks
-     - A list of all incomplete tasks and their current status
-   - Development Narrative:
-     - Session summary
-     - All accomplishments
-     - Key architectural decisions made
-     - Features and fixes implemented
-     - Problems encountered and their implemented solutions
-     - Known issues requiring attention
-     - Important context for other developers. Lessons learned and tips for future developers
-   - Project Impact:
-     - Breaking changes or other important findings
-     - Any blockers or dependencies identified
-     - Dependencies added or removed
-     - Configuration changes made
-     - Technical debt considerations
-     - Deployment steps taken (if any)
-     - Work that was planned but not completed
-     - Recommended next steps
-
-## Phase 3: File the Session Log
-
-This phase determines the correct location for the session file based on its content.
-
-1. Ensure Directory Structure Exists: Check for sub-directories inside `.claude/sessions`.
-   - If no directories exist, create them by running the `sessions-init.md` command.
-
-2. Analyze and Categorize the Session: Review the session summary to determine which feature or product area it relates to. Compare this against the existing sub-directory names.
-
-3. Handle Filing Scenarios:
-    - A) Simple Match: If the session clearly maps to one sub-directory, proceed to Phase 4.
-    - B) No Match: If the session content does not match any existing directory:
-        1. The project structure may have changed. Re-run the `sessions-init.md` command to update the directories.
-        2. Attempt to categorize the session again against the updated directories.
-        3. If there is still no match, halt the process. Inform the user that a suitable directory could not be found and that manual action is required.
-    - C) Multiple Matches: If the session covers more than one feature area:
-        1. Split the session file into multiple files.
-        2. Use the naming convention: `[original_timestamp]-[feature_name].md`.
-        3. Each new file should contain the relevant parts of the summary for that specific feature.
-
-## Phase 4: Finalize and Clean Up
-
-1. Archive the File(s): Move the session file (or the newly split files) into the appropriate sub-directory (or directories) identified in Phase 3.
-2. Clean Up Directory: If the destination directory contained a `.gitkeep` file, delete it, as the directory is no longer empty.
-3. End the Session: Clear the contents of the `.claude/sessions/.current-session` file. Do not delete the file itself.
-4. Notify the User: Confirm that the session has been successfully documented and archived. Print the final location(s) of the session file(s).
-
-**Important**: I will NEVER:\
-
-- Add "Co-authored-by" or any Claude signatures
-- Include "Generated with Claude Code" or similar messages
-- Modify git config or user credentials
-- Add any AI/assistant attribution to the commit
-- Use emojis in commits, PRs, or git-related content
-
-I'll preserve this summary in your custom memory system, ensuring continuity for future sessions and seamless handoffs to other developers.
+- `/session-end` - Full protocol
+- `/bye` - Alias for `/session-end`
+- `/done` - Alias for `/session-end`
+- `/session-end --force` - Emergency exit, skips checks
+- `/session-end --quick` - Minimal checks, no AAR

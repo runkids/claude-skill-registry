@@ -4,7 +4,7 @@ phase: 5
 prerequisites: []
 outputs: 
   - .taskmaster/tasks/tasks.json
-  - .signals/phase5-start.json
+  - .signals/phase1-start.json
 description: |
   Generates production-grade TaskMaster tasks.json from Product Requirements Documents (PRD).
   Activates via codeword [ACTIVATE:PRD_TO_TASKS_V1] injected by hooks when PRD is detected.
@@ -26,7 +26,7 @@ This skill activates when the hook system injects the codeword:
 This occurs when:
 - User mentions "PRD", "generate tasks", or "parse requirements"
 - PRD.md or requirements.md exists in context
-- Phase 0 is complete and user wants to start development
+- Phase 2 is complete and user wants to start development
 
 ## Worktree Isolation Requirements
 
@@ -34,7 +34,7 @@ This occurs when:
 
 ```bash
 # Before skill activation:
-./lib/worktree-manager.sh create 1 1
+./lib/worktree-manager.sh create 5 1
 cd ./worktrees/phase-5-task-1
 
 # Validate isolation:
@@ -50,7 +50,7 @@ cd ./worktrees/phase-5-task-1
 
 ## Execution Steps (MANDATORY)
 
-**CRITICAL:** This skill generates MASTER TASKS ONLY (no subtasks). DO NOT call `task-master parse-prd` or generate subtasks. Subtasks will be added later by task-master expand.
+**CRITICAL:** This skill generates MASTER TASKS ONLY (no subtasks). DO NOT call `task-master parse-prd` or generate subtasks. Subtasks will be added later by task-master expand in Phase 5.
 
 **Goal:** Create granular master tasks (as many as needed for the project) to keep LLM context small during development.
 
@@ -216,7 +216,7 @@ Authentication Feature → 6 Master Tasks:
 LLM Configuration Feature → 6 Master Tasks:
   Task 11: "Implement Hierarchical LLM Orchestrator"
   Task 12: "Implement Device-Specific LLM Strategy Selection"
-  Task 13: "Implement Phase 5 Operational Configuration Generation"
+  Task 13: "Implement Phase 1 Operational Configuration Generation"
   Task 14: "Implement Phase 2 STIG Compliance Layer"
   Task 15: "Implement Prompt Injection Prevention System"
   Task 16: "Implement Requirements Checklist Engine"
@@ -298,7 +298,7 @@ Construct tasks.json matching task-master's native parse-prd output format:
 }
 ```
 
-**CRITICAL - Native Task-Master Schema (Phase 5 - Master Tasks Only):**
+**CRITICAL - Native Task-Master Schema (Phase 1 - Master Tasks Only):**
 - **Required**: `id` (integer), `title` (string), `description` (string), `status` (string)
 - **Optional**: `priority` (high/medium/low), `dependencies` (array of IDs)
 - **Omit these fields**: `subtasks`, `details`, `testStrategy` (added later by task-master expand)
@@ -521,7 +521,7 @@ echo $prd_content  # Then try to use
 }
 ```
 
-**WHY:** Phase 5 generates master tasks only. Subtasks added later in Phase 2/3 by `task-master expand`.
+**WHY:** Phase 1 generates master tasks only. Subtasks added later in Phase 2/3 by `task-master expand`.
 
 ### ❌ Mistake #5: Too few or too coarse tasks
 
@@ -782,7 +782,7 @@ Integration tasks are SEPARATE master tasks (not subtasks of a parent). They sho
 }
 ```
 
-**Field Requirements (Phase 5 - Master Tasks Only):**
+**Field Requirements (Phase 1 - Master Tasks Only):**
 - **Required:** `id` (number), `title` (string), `description` (string), `status` (string)
 - **Optional:** `priority` (high/medium/low), `dependencies` (array of task IDs)
 - **Omit:** `subtasks`, `details`, `testStrategy` (added later by task-master expand)
@@ -827,7 +827,7 @@ task-master expand --id=5 --research  # For complex tasks
 }
 ```
 
-**Note:** This shows the task AFTER Phase 2 `task-master expand` has been run. The PRD-to-Tasks skill in Phase 5 would have generated this task with `"subtasks": []`.
+**Note:** This shows the task AFTER Phase 2 `task-master expand` has been run. The PRD-to-Tasks skill in Phase 1 would have generated this task with `"subtasks": []`.
 
 ## OpenSpec Mapping Strategy
 
@@ -876,7 +876,7 @@ ELSE IF requirements are independent:
 }
 ```
 
-**Note:** Phase 5 master tasks omit `subtasks`, `details`, and `testStrategy` fields. These are added later in Phase 2/3 by `task-master expand`.
+**Note:** Phase 1 master tasks omit `subtasks`, `details`, and `testStrategy` fields. These are added later in Phase 2/3 by `task-master expand`.
 
 **After Generation, Provide:**
 
@@ -1042,7 +1042,7 @@ Based on coupling analysis:
 ```
 
 **Note:**
-- Phase 5 master tasks omit `subtasks`, `details`, and `testStrategy` fields
+- Phase 1 master tasks omit `subtasks`, `details`, and `testStrategy` fields
 - These fields are added in Phase 2/3 by `task-master expand`
 - Full example shows only first 5 tasks for brevity - actual output would have 25-70 tasks
 

@@ -1,101 +1,165 @@
 ---
-name: codex
-description: Use when the user asks to run Codex CLI (codex exec, codex resume) or references OpenAI Codex for code analysis, refactoring, or automated editing
-license: MIT
-compatibility: Requires Codex CLI installed
-metadata:
-  author: ethanolivertroy
-  version: "1.0.0"
-allowed-tools: Bash(codex:*) AskUserQuestion
+name: codex-integration
+description: This skill provides guidance on using OpenAI's Codex CLI for detail-oriented code analysis. Use when the user explicitly invokes "/codex", asks to "use codex", "run codex", "have codex review", or when Claude determines that Codex's sharp-eyed analysis would complement its work on code review, bug hunting, or planning tasks.
+allowed-tools: Bash
 ---
 
-# Codex Skill Guide
+# Codex Integration
 
-This skill enables the use of Codex CLI for code analysis, refactoring, and automated editing tasks.
+OpenAI's Codex CLI is a complementary tool for detail-oriented code analysis. Codex excels at thorough, meticulous review work - think of it as a "sharp-eyed second opinion" for code.
 
-## When to Use This Skill
+## When to Use Codex
 
-Use this skill when the user:
-- Asks to run Codex CLI commands (`codex exec`, `codex resume`)
-- References OpenAI Codex for code analysis
-- Needs automated code refactoring
-- Wants AI-powered code editing
+**Ideal use cases:**
+- Deep code review for security vulnerabilities or correctness issues
+- Thorough bug hunting in complex code paths
+- Detailed implementation planning with attention to edge cases
+- Getting a second perspective on critical code
+- Exploratory analysis requiring meticulous attention
 
-## Running a Task
+**Not ideal for:**
+- Simple, straightforward tasks Claude handles well alone
+- Interactive debugging sessions (Codex exec is non-interactive)
+- Tasks where speed matters more than depth
+- Trivial code changes or obvious fixes
 
-1. Ask the user (via `AskUserQuestion`) which model to run (`gpt-5.2-codex` or `gpt-5.2`) AND which reasoning effort to use (`xhigh`, `high`, `medium`, or `low`) in a **single prompt with two questions**.
-2. Select the sandbox mode required for the task; default to `--sandbox read-only` unless edits or network access are necessary.
-3. Assemble the command with the appropriate options:
-   - `-m, --model <MODEL>`
-   - `--config model_reasoning_effort="<xhigh|high|medium|low>"`
-   - `--sandbox <read-only|workspace-write|danger-full-access>`
-   - `--full-auto`
-   - `-C, --cd <DIR>`
-   - `--skip-git-repo-check`
-4. Always use --skip-git-repo-check.
-5. When continuing a previous session:
-   - Use `codex exec --skip-git-repo-check resume --last` via stdin
-   - Don't use any configuration flags unless explicitly requested by the user (e.g., if they specify the model or reasoning effort when requesting to resume)
-   - Resume syntax: `echo "your prompt here" | codex exec --skip-git-repo-check resume --last 2>/dev/null`
-   - All flags must be inserted between `exec` and `resume`
-6. **IMPORTANT**: By default, append `2>/dev/null` to all `codex exec` commands to suppress thinking tokens (stderr). Only show stderr if the user explicitly requests to see thinking tokens or if debugging is needed.
-7. Run the command, capture stdout/stderr (filtered as appropriate), and summarize the outcome for the user.
-8. **After Codex completes**, inform the user: "You can resume this Codex session at any time by saying 'codex resume' or asking me to continue with additional analysis or changes."
+## Invocation Methods
 
-### Quick Reference
+### Method 1: Explicit /codex Command
 
-| Use case | Sandbox mode | Key flags |
-| --- | --- | --- |
-| Read-only review or analysis | `read-only` | `--sandbox read-only 2>/dev/null` |
-| Apply local edits | `workspace-write` | `--sandbox workspace-write --full-auto 2>/dev/null` |
-| Permit network or broad access | `danger-full-access` | `--sandbox danger-full-access --full-auto 2>/dev/null` |
-| Resume recent session | Inherited from original | `echo "prompt" \\| codex exec --skip-git-repo-check resume --last 2>/dev/null` |
-| Run from another directory | Match task needs | `-C <DIR>` plus other flags `2>/dev/null` |
+Users invoke directly with optional flags:
 
-## Following Up
+```
+/codex review the authentication middleware for security issues
+/codex --model gpt-5.2 analyze this algorithm
+/codex --sandbox workspace-write generate tests for this module
+```
 
-- After every `codex` command, immediately use `AskUserQuestion` to confirm next steps, collect clarifications, or decide whether to resume with `codex exec resume --last`.
-- When resuming, pipe the new prompt via stdin: `echo "new prompt" | codex exec resume --last 2>/dev/null`. The resumed session automatically uses the same model, reasoning effort, and sandbox mode from the original session.
-- Restate the chosen model, reasoning effort, and sandbox mode when proposing follow-up actions.
+**Available flags:**
+| Flag | Values | Default |
+|------|--------|---------|
+| `--model` | any model name | gpt-5.2-codex |
+| `--sandbox` | read-only, workspace-write, danger-full-access | read-only |
+
+### Method 2: Spawning codex-agent
+
+When Claude determines Codex would add value, spawn the `codex-agent` subagent:
+
+```
+"Let me have Codex take a detailed look at this code for potential bugs..."
+[Spawn codex-agent with task description]
+[Synthesize Codex's findings with own analysis]
+```
+
+The agent always uses safe defaults (gpt-5.2-codex, read-only sandbox).
+
+## CLI Reference
+
+Core command pattern for non-interactive execution (use inline prompt, not piped stdin):
+
+```bash
+codex exec \
+  --model gpt-5.2-codex \
+  --sandbox read-only \
+  "<prompt>" \
+  2>&1
+```
+
+**Key flags:**
+- `--model, -m` - Model to use (gpt-5.2-codex recommended for code tasks)
+- `--sandbox, -s` - Execution permissions (read-only safest)
+- `2>&1` - Capture all output
+
+**Note:** Interactive slash commands like `/review` only work in Codex's interactive mode, not via `codex exec`.
 
 ## Error Handling
 
-- Stop and report failures whenever `codex --version` or a `codex exec` command exits non-zero; request direction before retrying.
-- Before you use high-impact flags (`--full-auto`, `--sandbox danger-full-access`, `--skip-git-repo-check`) ask the user for permission using AskUserQuestion unless it was already given.
-- When output includes warnings or partial results, summarize them and ask how to adjust using `AskUserQuestion`.
+### Codex Not Installed
 
-## Examples
+If `codex` command not found, show:
 
-### Read-only Analysis
-```bash
-codex exec --skip-git-repo-check \
-  -m gpt-5.2-codex \
-  --config model_reasoning_effort="high" \
-  --sandbox read-only \
-  "Analyze the code structure and identify potential improvements" \
-  2>/dev/null
+```
+Codex CLI is not installed.
+
+To install:
+  brew install codex
+
+Then authenticate:
+  codex login
+
+For more info: https://developers.openai.com/codex/cli
 ```
 
-### Apply Edits
-```bash
-codex exec --skip-git-repo-check \
-  -m gpt-5.2 \
-  --config model_reasoning_effort="medium" \
-  --sandbox workspace-write \
-  --full-auto \
-  "Refactor the authentication module to use async/await" \
-  2>/dev/null
+### Common Issues
+
+- **API key issues**: User needs to run `codex login` to authenticate
+- **Timeout**: Complex tasks may take time. Be patient or try a simpler task description.
+- **Sandbox errors**: If Codex needs to write files, user must specify `--sandbox workspace-write`
+
+## Best Practices
+
+1. **Start with defaults** - gpt-5.2-codex works well for most tasks
+2. **Keep read-only sandbox** - Unless task explicitly requires file modifications
+3. **Be specific in prompts** - Tell Codex exactly what to look for
+4. **Synthesize results** - When using codex-agent, combine Codex's findings with Claude's analysis
+
+## Prompting Best Practices
+
+GPT-5.2-codex responds best to explicit, scoped prompts with concrete constraints.
+
+### Core Principles
+
+1. **Scope discipline** - Be explicit about boundaries
+   - DO: "Review ONLY the auth flow. Do NOT suggest unrelated improvements."
+   - DON'T: "Review this code" (too open-ended)
+
+2. **Bias toward action** - Request concrete output
+   - DO: "List specific bugs found with file:line references"
+   - DON'T: "Tell me what you think about this code"
+
+3. **No preambles** - Skip status updates
+   - Add to prompts: "Skip preambles. Lead with findings."
+
+4. **Structured output** - Request specific formats
+   - "Format: `file.ts:line` - issue description"
+
+### Task-Specific Prompt Templates
+
+#### Security Review
+```
+Review <file/module> for security vulnerabilities.
+Focus ONLY on: auth, injection, data exposure, access control.
+Do NOT suggest style changes or refactoring.
+Format each finding as: `file:line` - severity - issue
+Skip preambles.
 ```
 
-### Resume Session
-```bash
-echo "Now add error handling to the refactored code" | \
-  codex exec --skip-git-repo-check resume --last 2>/dev/null
+#### Bug Hunting
+```
+Find bugs in <file/module>.
+Look for: edge cases, off-by-one, null handling, race conditions.
+ONLY report actual bugs, not style issues.
+Format: `file:line` - bug description - suggested fix
+Skip preambles. Lead with findings.
 ```
 
-## Notes
+#### Implementation Planning
+```
+Create implementation plan for: <feature>.
+Constraints: <existing patterns to follow>.
+Output structure:
+1. Overview
+2. Files to modify (with line ranges)
+3. Implementation steps
+4. Edge cases to handle
+Do NOT include code samples unless critical. Skip preambles.
+```
 
-- Thinking tokens are suppressed by default using `2>/dev/null`
-- Always use `--skip-git-repo-check` to avoid repository validation issues
-- The `--full-auto` flag allows Codex to make changes without confirmation
-- Resume sessions inherit settings from the original session
+#### Code Review
+```
+Review <file> for correctness and reliability.
+Focus ONLY on: logic errors, missing error handling, incorrect assumptions.
+Ignore: style, naming, formatting.
+Format: `file:line` - issue - recommendation
+Skip preambles.
+```

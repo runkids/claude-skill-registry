@@ -1,7 +1,7 @@
 {
   "name": "interaction-design",
-  "repo": "haxllo/repolens",
-  "path": ".gemini/skills/interaction-design/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:40.871227Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/ui-design/skills/interaction-design/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:48.840665Z"
 }

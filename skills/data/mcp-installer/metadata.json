@@ -1,9 +1,7 @@
 {
   "name": "mcp-installer",
-  "description": "Find, install, and configure Model Context Protocol (MCP) servers for OpenCode. Use when user asks about finding MCP servers, installing them, configuring OAuth, or troubleshooting MCP issues.",
-  "repo": "IgorWarzocha/Opencode-Workflows",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "aAAaqwq/cc-skills",
+  "path": "mcp-installer/SKILL.md",
+  "source": "github.com/aAAaqwq/cc-skills",
+  "downloaded_at": "2026-02-01T02:38:33.003270Z"
 }

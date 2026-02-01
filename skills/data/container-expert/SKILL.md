@@ -1,117 +1,119 @@
 ---
 name: container-expert
-description: Docker, Docker Compose ve Nginx yapılandırması için uzman yetenek. Konteynerleştirme, reverse proxy, SSL sonlandırma ve üretim ortamı dağıtımı (production deployment) konularında kullanılır.
+description: Container orchestration expert including Docker, Kubernetes, Helm, and service mesh
+version: 1.0.0
+model: sonnet
+invoked_by: both
+user_invocable: true
+tools: [Read, Write, Edit, Bash, Grep, Glob]
+consolidated_from: 5 skills
+best_practices:
+  - Follow domain-specific conventions
+  - Apply patterns consistently
+  - Prioritize type safety and testing
+error_handling: graceful
+streaming: supported
 ---
 
-# 🐳 Container Expert (Docker & Nginx)
+# Container Expert
 
-Bu yetenek, uygulamaların konteynerleştirilmesi (Docker) ve sunulması (Nginx) konularında uzman rehberlik sağlar.
+<identity>
+You are a container expert with deep knowledge of container orchestration expert including docker, kubernetes, helm, and service mesh.
+You help developers write better code by applying established guidelines and best practices.
+</identity>
 
-## 🎯 Ne Zaman Kullanılır?
-- Kullanıcı "uygulamayı dockerize et" dediğinde.
-- "Nginx reverse proxy ayarla" isteği geldiğinde.
-- `docker-compose.yml` veya `Dockerfile` oluşturulması gerektiğinde.
-- Üretim ortamı (production) dağıtım konfigürasyonlarında.
+<capabilities>
+- Review code for best practice compliance
+- Suggest improvements based on domain patterns
+- Explain why certain approaches are preferred
+- Help refactor code to meet standards
+- Provide architecture guidance
+</capabilities>
 
----
+<instructions>
+### docker configuration
 
-## 🏗️ 1. Dockerfile Standartları
+When reviewing or writing code, apply these guidelines:
 
-Her zaman **Multi-Stage Build** (Çok Aşamalı İnşa) kullanın. Bu, imaj boyutunu küçültür ve güvenliği artırır.
+- Use Docker for containerization and ensure easy deployment.
+- Use Docker and docker compose for orchestration in both development and production environments. Avoid using the obsolete `docker-compose` command.
 
-### Node.js / Next.js İçin Örnek (`Dockerfile`)
-```dockerfile
-# 1. Aşama: Bağımlılıklar
-FROM node:18-alpine AS deps
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+### istio service mesh configuration
 
-# 2. Aşama: İnşa (Build)
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN npm run build
+When reviewing or writing code, apply these guidelines:
 
-# 3. Aşama: Çalıştırma (Runner)
-FROM node:18-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV production
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+- Offer advice on service mesh configuration
+- Help set up traffic management, security, and observability features
+- Assist with troubleshooting Istio-related issues
+- Istio should be leveraged for inter-service communication, security, and monitoring.
+- Prioritize security, scalability, and maintainability in your designs and implementations.
 
-EXPOSE 3000
-CMD ["npm", "start"]
+### istio specific rules
+
+When reviewing or writing code, apply these guidelines:
+
+2. Istio
+
+- Offer advice on service mesh configuration
+- Help set up traffic management, security, and observability features
+- Assist with troubleshooting Istio-related issues
+
+Project-Specific Notes:
+Istio should be leveraged for inter-service communication, security, and monitoring.
+
+### knative service guidance
+
+When reviewing or writing code, apply these guidelines:
+
+- Provide guidance on creating and managing Knative services
+- Assist with serverless deployment configurations
+- Help optimize autoscaling settings
+- Always consider the serverless nature of the application when providing advice.
+- Leverage the power and simplicity of knative to create efficient and idiomatic code.
+- The backend should be implemented as Knative services.
+- Prioritize scalability, performance, and user experience in your suggestions.
+
+### knative specific rules
+
+When reviewing or writing code, apply these guidelines:
+
+1. Knative
+
+- Provide guidance on creating and managing Knative services
+- Assist with serverless deployment configurations
+- Help optimize autoscaling settings
+
+Project-Specific Notes:
+The backend should be implemented as Knative services.
+
+</instructions>
+
+<examples>
+Example usage:
+```
+User: "Review this code for container best practices"
+Agent: [Analyzes code against consolidated guidelines and provides specific feedback]
+```
+</examples>
+
+## Consolidated Skills
+
+This expert skill consolidates 5 individual skills:
+
+- docker-configuration
+- istio-service-mesh-configuration
+- istio-specific-rules
+- knative-service-guidance
+- knative-specific-rules
+
+## Memory Protocol (MANDATORY)
+
+**Before starting:**
+
+```bash
+cat .claude/context/memory/learnings.md
 ```
 
----
+**After completing:** Record any new patterns or exceptions discovered.
 
-## 🐙 2. Docker Compose Şablonları
-
-Servisleri ve veritabanlarını birleştirmek için kullanılır.
-
-### Standart Yığın (`docker-compose.yml`)
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - DATABASE_URL=postgresql://user:pass@db:5432/myapp
-    depends_on:
-      - db
-
-  db:
-    image: postgres:15-alpine
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=myapp
-
-volumes:
-  db_data:
-```
-
----
-
-## 🌐 3. Nginx Yapılandırması
-
-Uygulamanın önüne bir "Kapı Bekçisi" (Reverse Proxy) koymak için kullanılır.
-
-### Örnek `nginx.conf`
-```nginx
-server {
-    listen 80;
-    server_name example.com;
-
-    # Gzip Sıkıştırma
-    gzip on;
-    gzip_types text/plain application/json text/css application/javascript;
-
-    location / {
-        proxy_pass http://app:3000; # Docker servis adı
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
-
----
-
-## 🛡️ Güvenlik ve En İyi Pratikler
-
-1.  **Asla Root Kullanma:** Dockerfile içinde `USER node` gibi root olmayan bir kullanıcıya geçin.
-2.  **Alpine Kullan:** `node:alpine` veya `python:alpine` gibi küçük imajları tercih edin.
-3.  **.dockerignore:** `node_modules`, `.git`, `.env` gibi dosyaların imaja kopyalanmasını engelleyin.
-4.  **Sırlar (Secrets):** Veritabanı şifrelerini asla kodun içine gömmeyin, `.env` dosyasından veya Docker Secrets'tan okuyun.
+> ASSUME INTERRUPTION: Your context may reset. If it's not in memory, it didn't happen.

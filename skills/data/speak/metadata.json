@@ -1,7 +1,7 @@
 {
   "name": "speak",
-  "repo": "rdfitted/Claude-Code-Setup",
-  "path": ".codex/skills/speak/SKILL.md",
-  "source": "github.com/rdfitted/Claude-Code-Setup",
-  "downloaded_at": "2026-01-31T04:01:39.551742Z"
+  "repo": "EmZod/speak",
+  "path": "SKILL.md",
+  "source": "github.com/EmZod/speak",
+  "downloaded_at": "2026-02-01T04:33:17.169034Z"
 }

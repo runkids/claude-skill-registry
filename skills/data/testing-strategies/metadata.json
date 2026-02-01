@@ -1,7 +1,7 @@
 {
   "name": "testing-strategies",
-  "repo": "frankxai/arcanea",
-  "path": ".claude/skills/community/testing-strategies/SKILL.md",
-  "source": "github.com/frankxai/arcanea",
-  "downloaded_at": "2026-01-31T02:36:39.630914Z"
+  "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "path": "skills/testing-strategies/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-02-01T04:25:55.703263Z"
 }

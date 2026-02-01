@@ -1,7 +1,7 @@
 {
   "name": "test-fixing",
-  "repo": "mhattingpete/claude-skills-marketplace",
-  "path": "engineering-workflow-plugin/skills/test-fixing/SKILL.md",
-  "source": "github.com/mhattingpete/claude-skills-marketplace",
-  "downloaded_at": "2026-01-31T02:12:22.418599Z"
+  "repo": "hueyjeong/ForkLore",
+  "path": ".claude/skills/test-fixing/SKILL.md",
+  "source": "github.com/hueyjeong/ForkLore",
+  "downloaded_at": "2026-02-01T04:57:20.400847Z"
 }

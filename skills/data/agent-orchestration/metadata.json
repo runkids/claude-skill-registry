@@ -1,7 +1,7 @@
 {
   "name": "agent-orchestration",
-  "repo": "zerobias-org/module",
-  "path": ".claude/skills/agent-orchestration/SKILL.md",
-  "source": "github.com/zerobias-org/module",
-  "downloaded_at": "2026-01-31T04:45:42.584185Z"
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/jamie-bitflight-claude-skills/agent-orchestration/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-02-01T04:43:30.818750Z"
 }

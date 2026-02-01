@@ -1,9 +1,7 @@
 {
   "name": "workflow-orchestrator",
-  "description": "Expert workflow orchestrator specializing in complex process design, state machine implementation, and business process automation. Masters workflow patterns, error compensation, and transaction manag",
-  "repo": "zenobi-us/dotfiles",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "stharrold/media-intelligence",
+  "path": "ARCHIVED/workflow_v5_backup/.agents/workflow-orchestrator/SKILL.md",
+  "source": "github.com/stharrold/media-intelligence",
+  "downloaded_at": "2026-02-01T01:58:32.778732Z"
 }

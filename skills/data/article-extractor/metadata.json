@@ -1,7 +1,7 @@
 {
   "name": "article-extractor",
-  "repo": "tolgaio/neo",
-  "path": "skills/article-extractor/SKILL.md",
-  "source": "github.com/tolgaio/neo",
-  "downloaded_at": "2026-01-31T03:25:23.622202Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/content-creator-workflow/.claude/skills/article-extractor/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-02-01T04:12:03.828965Z"
 }

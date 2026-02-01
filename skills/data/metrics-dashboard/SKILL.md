@@ -1,258 +1,147 @@
 ---
 name: metrics-dashboard
-description: |
-  KPI and metrics dashboard workflow covering metric definition, data sourcing,
-  visualization design, and anomaly detection. Delivers actionable dashboards.
-
-trigger: |
-  - Defining KPIs and metrics
-  - Designing executive dashboards
-  - Implementing performance tracking
-  - Setting up anomaly detection
-
-skip_when: |
-  - Detailed financial analysis → use financial-analysis
-  - Building models → use financial-modeling
-  - Preparing reports → use financial-reporting
-
-related:
-  similar: [financial-reporting, financial-analysis]
-  uses: [metrics-analyst]
+description: Tracks pipeline velocity, success rates, and cycle times. Use to view performance metrics, identify bottlenecks, and generate reports.
 ---
 
-# Metrics Dashboard Workflow
+# Metrics Dashboard
 
-This skill provides a structured workflow for designing KPI dashboards using the `metrics-analyst` agent.
+Aggregates pipeline run data to track velocity, success rates, and identify improvement areas.
 
-## Workflow Overview
+## Data Sources
 
-The metrics dashboard workflow follows 5 phases:
+- `runs/*/status.json` - Phase timestamps, success/failure
+- `runs/*/ticket.json` - Ticket metadata
+- Git history - Commit and PR data
+- Notion - Ticket status transitions
 
-| Phase | Name | Description |
-|-------|------|-------------|
-| 1 | Requirements | Define dashboard objectives and audience |
-| 2 | KPI Design | Define metrics and methodology |
-| 3 | Data Architecture | Map data sources and calculations |
-| 4 | Visualization | Design visual presentation |
-| 5 | Implementation | Build and validate |
+## Workflow
 
----
+### 1. Collect Run Data
 
-## Phase 1: Requirements
-
-**MANDATORY: Define dashboard objectives before building**
-
-### Questions to Answer
-
-| Question | Purpose |
-|----------|---------|
-| What decisions will this support? | Ensures relevance |
-| Who is the primary audience? | Tailors complexity |
-| What frequency of update? | Sets refresh requirements |
-| What level of drill-down? | Scopes depth |
-| What benchmark comparisons? | Defines targets |
-
-### Dashboard Types
-
-| Type | Audience | Focus |
-|------|----------|-------|
-| Executive | C-Suite | High-level, strategic |
-| Operational | Managers | Detailed, actionable |
-| Departmental | Department heads | Function-specific |
-| Board | Directors | Governance, strategic |
-
-### Blocker Check
-
-**If ANY of these are unclear, STOP and ask:**
-- Dashboard purpose
-- Primary audience
-- Key decisions supported
-- Update frequency required
-
----
-
-## Phase 2: KPI Design
-
-**MANDATORY: Define all metrics with methodology**
-
-### KPI Definition Standard
-
-| Element | Requirement |
-|---------|-------------|
-| Name | Clear, concise name |
-| Definition | Precise description |
-| Formula | Exact calculation |
-| Unit | Measurement unit |
-| Target | Performance target |
-| Owner | Accountable person |
-| Frequency | Update cadence |
-
-### KPI Categories
-
-| Category | Example KPIs |
-|----------|-------------|
-| Financial | Revenue, margin, EBITDA, cash flow |
-| Operational | Throughput, cycle time, utilization |
-| Customer | Retention, NPS, LTV, CAC |
-| Growth | ARR growth, customer growth, expansion |
-
-### KPI Selection Principles
-
-| Principle | Description |
-|-----------|-------------|
-| Relevance | Supports specific decisions |
-| Measurable | Can be quantified objectively |
-| Actionable | Drives specific actions |
-| Timely | Available when needed |
-| Owned | Clear accountability |
-
----
-
-## Phase 3: Data Architecture
-
-**MANDATORY: Document data lineage completely**
-
-### Data Source Mapping
-
-| Element | Documentation |
-|---------|---------------|
-| Source system | Where data originates |
-| Extraction method | How data is obtained |
-| Transformation | Any calculations or adjustments |
-| Refresh frequency | How often updated |
-| Data quality | Validation checks |
-
-### Data Quality Requirements
-
-| Check | Validation |
-|-------|------------|
-| Completeness | All required data present |
-| Accuracy | Data matches source |
-| Timeliness | Data is current |
-| Consistency | Data consistent across sources |
-
----
-
-## Phase 4: Agent Dispatch
-
-**Dispatch to specialist with full context**
-
-### Agent Dispatch
-
-```
-Task tool:
-  subagent_type: "ring:metrics-analyst"
-  model: "opus"
-  prompt: |
-    Design metrics dashboard per these specifications:
-
-    **Purpose**: [from Phase 1]
-    **Audience**: [from Phase 1]
-    **Update Frequency**: [from Phase 1]
-
-    **KPIs Required**:
-    [From Phase 2 - list with definitions]
-
-    **Data Sources**:
-    [From Phase 3 - source mapping]
-
-    **Required Output**:
-    - KPI definitions with formulas
-    - Data source documentation
-    - Calculation methodology
-    - Visualization specifications
-    - Anomaly thresholds
-    - Implementation guide
+```bash
+find runs/ -name "status.json" -type f | while read f; do
+  jq -c '{
+    id: .ticketId,
+    status: .status,
+    started: .intakeAt,
+    completed: .completedAt,
+    phases: .phaseTimestamps
+  }' "$f"
+done > /tmp/runs-data.jsonl
 ```
 
-### Required Output Elements
+### 2. Calculate Metrics
 
-| Element | Requirement |
-|---------|-------------|
-| Metrics Summary | Dashboard overview |
-| KPI Definitions | Complete definitions |
-| Data Sources | Source documentation |
-| Calculation Methodology | Formula details |
-| Dashboard Design | Visual specifications |
-| Anomaly Analysis | Threshold definitions |
-| Recommendations | Enhancement suggestions |
+**Cycle Time:**
 
----
+```bash
+jq -s '
+  map(select(.completed != null)) |
+  map(.cycleTime = ((.completed | fromdate) - (.started | fromdate)) / 3600) |
+  {
+    avgCycleTimeHours: (map(.cycleTime) | add / length),
+    minCycleTimeHours: (map(.cycleTime) | min),
+    maxCycleTimeHours: (map(.cycleTime) | max)
+  }
+' /tmp/runs-data.jsonl
+```
 
-## Phase 5: Implementation
+**Success Rate:**
 
-**MANDATORY: Validate before deployment**
+```bash
+jq -s '{
+  total: length,
+  completed: (map(select(.status == "done")) | length),
+  failed: (map(select(.status == "failed")) | length),
+  inProgress: (map(select(.status | test("^(implementing|review|pr-created)$"))) | length)
+} | .successRate = (.completed / .total * 100)' /tmp/runs-data.jsonl
+```
 
-### Implementation Checklist
+**Phase Duration:**
 
-| Check | Validation |
-|-------|------------|
-| Data feeds working | All sources connected |
-| Calculations verified | Outputs match expected |
-| Visuals rendering | Display correctly |
-| Refresh working | Updates as expected |
-| Access controlled | Right users have access |
+```bash
+jq -s '
+  map(.phases) | flatten | group_by(.phase) |
+  map({phase: .[0].phase, avgMinutes: (map(.durationSeconds) | add / length / 60)})
+' /tmp/runs-data.jsonl
+```
 
-### Validation Tests
+### 3. Generate Dashboard
 
-| Test | Description |
-|------|-------------|
-| Data reconciliation | Dashboard ties to source |
-| Historical comparison | Trends make sense |
-| Edge cases | Handles nulls, zeros |
-| Performance | Loads in acceptable time |
+```markdown
+# Pipeline Metrics Dashboard
 
----
+**Period:** Last 30 days | **Generated:** {timestamp}
 
-## Pressure Resistance
+## Summary
 
-See [shared-patterns/pressure-resistance.md](../shared-patterns/pressure-resistance.md) for universal pressures.
+| Metric            | Value   | Trend      |
+| ----------------- | ------- | ---------- |
+| Tickets Completed | 12      | ↑ +3       |
+| Success Rate      | 83%     | ↑ +5%      |
+| Avg Cycle Time    | 2.5 hrs | ↓ -0.5 hrs |
 
-### Dashboard-Specific Pressures
+## Cycle Time Breakdown
 
-| Pressure Type | Request | Agent Response |
-|---------------|---------|----------------|
-| "Just show the numbers" | "Numbers without methodology cannot be trusted. I'll include documentation." |
-| "Pick the most important KPIs" | "KPI selection requires business input. Which decisions should these support?" |
-| "Skip the data quality checks" | "Unreliable data undermines dashboard value. I'll validate all sources." |
-| "Copy the existing dashboard" | "Each dashboard needs fresh design. I'll validate requirements." |
+Intake ████ 5 min | Research ████████ 15 min | Planning ██████ 10 min
+Implement █████████████ 25 min | Quality ████ 8 min | Review ██████ 12 min
 
----
+## Success by Type
 
-## Anti-Rationalization Table
+| Type     | Count | Success | Avg Time |
+| -------- | ----- | ------- | -------- |
+| Bug Fix  | 5     | 100%    | 1.2 hrs  |
+| Feature  | 4     | 75%     | 3.5 hrs  |
+| Refactor | 3     | 67%     | 2.8 hrs  |
 
-See [shared-patterns/anti-rationalization.md](../shared-patterns/anti-rationalization.md) for universal anti-rationalizations.
+## Failure Analysis
 
-### Dashboard-Specific Anti-Rationalizations
+| Failure Point    | Count | %   |
+| ---------------- | ----- | --- |
+| Quality gates    | 2     | 40% |
+| CI failures      | 1     | 20% |
+| Review rejection | 1     | 20% |
 
-| Rationalization | Why It's WRONG | Required Action |
-|-----------------|----------------|-----------------|
-| "Everyone knows what revenue means" | Definitions vary | **DEFINE specifically** |
-| "Data source is obvious" | Lineage needs documentation | **DOCUMENT source** |
-| "Calculation is standard" | Standard still needs documentation | **SHOW formula** |
-| "Refresh frequency doesn't matter" | Stale data causes bad decisions | **SPECIFY frequency** |
+## Recommendations
 
----
+1. **Reduce implementation time** - Consider more parallel subagents
+2. **Improve quality gates** - 40% of failures at this stage
+```
 
-## Execution Report
+### 4. Save Dashboard
 
-Upon completion, report:
+```bash
+echo "$DASHBOARD" > "$RUN_DIR/../metrics-$(date +%Y-%m-%d).md"
 
-| Metric | Value |
-|--------|-------|
-| Duration | Xm Ys |
-| KPIs Defined | N |
-| Data Sources Mapped | N |
-| Visualizations Designed | N |
-| Anomaly Thresholds | N |
-| Result | COMPLETE/PARTIAL |
+cat > runs/metrics-summary.json << EOF
+{"generatedAt": "$(date -Iseconds)", "period": "30d", "totalRuns": $TOTAL, "successRate": $SUCCESS_RATE, "avgCycleTimeHours": $AVG_CYCLE}
+EOF
 
-### Quality Indicators
+# Append to history
+jq -c '{date: now | strftime("%Y-%m-%d"), metrics: .}' runs/metrics-summary.json >> runs/metrics-history.jsonl
+```
 
-| Indicator | Status |
-|-----------|--------|
-| All KPIs defined | YES/NO |
-| All sources documented | YES/NO |
-| All calculations shown | YES/NO |
-| Data validated | YES/NO |
-| Refresh tested | YES/NO |
+## Custom Queries
+
+```bash
+# Tickets by assignee
+jq -s 'group_by(.assignee) | map({assignee: .[0].assignee, count: length})' /tmp/runs-data.jsonl
+
+# Slowest tickets
+jq -s 'sort_by(.cycleTime) | reverse | .[0:5]' /tmp/runs-data.jsonl
+
+# Failed at phase
+jq -s 'map(select(.status == "failed")) | group_by(.failedAtPhase)' /tmp/runs-data.jsonl
+```
+
+## Notion Integration (Optional)
+
+Prompt user before syncing metrics to Notion.
+
+## Output Artifacts
+
+| File                  | Location | Description             |
+| --------------------- | -------- | ----------------------- |
+| metrics-{date}.md     | `runs/`  | Point-in-time dashboard |
+| metrics-summary.json  | `runs/`  | Latest metrics JSON     |
+| metrics-history.jsonl | `runs/`  | Historical trends       |

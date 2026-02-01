@@ -1,131 +1,180 @@
 ---
 name: component-variants
-description: Creates light and dark mode component variants with consistent color token mapping. Use when building dual-theme components, creating light/dark UI pairs, or implementing theme-aware designs.
+description: Component variant system with Glass, Outline, and Flat styles. Use when creating multi-style components, variant props, or style switching.
+allowed-tools: Read, Write, Edit, Glob, Grep
+user-invocable: true
 ---
 
-# Component Variants Pattern
+# Component Variants
 
-Create matching light and dark variants of UI components using a systematic color token approach.
+Three-style system inspired by DesignCode UI: Glass, Outline, Flat.
 
-## Pattern Overview
+## Agent Workflow (MANDATORY)
 
-1. Create paired components: `ComponentLight` and `ComponentDark`
-2. Mirror the structure exactly between variants
-3. Map colors systematically using the token table below
-4. Export a unified component that renders both or accepts a `variant` prop
+Before implementation:
+1. **fuse-ai-pilot:explore-codebase** - Check existing variant patterns
+2. **fuse-ai-pilot:research-expert** - cva/class-variance-authority docs
 
-## Color Token Mapping
+After: Run **fuse-ai-pilot:sniper** for validation.
 
-### Basic Tokens
+## The Three Styles
 
-| Semantic Use | Light Mode | Dark Mode |
-|-------------|------------|-----------|
-| Card background | `bg-[#f8f8f8]` | `bg-zinc-800` |
-| Card border | `border-zinc-200/80` | `border-zinc-700/80` |
-| Content area | `bg-white` | `bg-zinc-900` |
-| Primary text | `text-zinc-900` | `text-zinc-100` |
-| Secondary text | `text-zinc-600` | `text-zinc-400` |
-| Muted text | `text-zinc-500` | `text-zinc-500` |
-| Icon color | `text-zinc-400` | `text-zinc-500` |
-| Tag background | `bg-zinc-100` | `bg-zinc-800 border border-zinc-700` |
-| Tag text | `text-zinc-600` | `text-zinc-400` |
-| Accent background | `bg-green-50` | `bg-green-900/50` |
-| Accent text | `text-green-700` | `text-green-400` |
-| Shadow | `shadow-zinc-200/50` | `shadow-black/30` |
-| Hover background | `hover:bg-zinc-100/50` | `hover:bg-zinc-700/30` |
+| Style | Characteristics | Use Case |
+|-------|-----------------|----------|
+| **Glass** | Blur + transparency + glow | Premium, modern, hero |
+| **Outline** | Border only, no fill | Secondary actions |
+| **Flat** | Solid color, no effects | Dense UI, fallback |
 
-### Gradient & Nested Card Tokens
-
-| Semantic Use | Light Mode | Dark Mode |
-|-------------|------------|-----------|
-| Outer card gradient | `bg-gradient-to-b from-[#e8e8ea] to-[#dcdce0]` | `bg-gradient-to-b from-zinc-700 to-zinc-800` |
-| Outer card border | `border-white/60` | `border-zinc-600/40` |
-| Outer card shadow | `shadow-xl shadow-zinc-400/30` | `shadow-xl shadow-black/50` |
-| Inner media border | `border-white/40` | `border-zinc-600/30` |
-
-### Badge Tokens
-
-| Semantic Use | Light Mode | Dark Mode |
-|-------------|------------|-----------|
-| Success badge bg | `bg-[#d4f5d4]` | `bg-emerald-900/40` |
-| Success badge text | `text-zinc-700` | `text-emerald-400` |
-
-### Separator Tokens
-
-| Semantic Use | Light Mode | Dark Mode |
-|-------------|------------|-----------|
-| Dot separator | `text-zinc-300` | `text-zinc-600` |
-| Border separator | `border-zinc-300` | `border-zinc-700` |
-
-## Implementation Template
+## Implementation with CVA
 
 ```tsx
-// 1. Create the Light variant
-function ComponentLight() {
+import { cva, type VariantProps } from "class-variance-authority";
+
+const cardVariants = cva(
+  "rounded-2xl p-6 transition-all duration-200", // base
+  {
+    variants: {
+      variant: {
+        glass: [
+          "bg-white/80 backdrop-blur-xl",
+          "border border-white/20",
+          "shadow-xl shadow-black/5",
+        ],
+        outline: [
+          "bg-transparent",
+          "border-2 border-primary/30",
+          "hover:border-primary/50",
+        ],
+        flat: [
+          "bg-surface",
+          "border border-border",
+        ],
+      },
+      size: {
+        sm: "p-4 rounded-xl",
+        default: "p-6 rounded-2xl",
+        lg: "p-8 rounded-3xl",
+      },
+    },
+    defaultVariants: {
+      variant: "glass",
+      size: "default",
+    },
+  }
+);
+
+interface CardProps extends VariantProps<typeof cardVariants> {
+  children: React.ReactNode;
+}
+
+export function Card({ variant, size, children }: CardProps) {
   return (
-    <div className="bg-[#f8f8f8] rounded-xl border border-zinc-200/80 shadow-lg shadow-zinc-200/50">
-      <div className="bg-white px-4 py-4">
-        <span className="text-zinc-900">Primary content</span>
-        <span className="text-zinc-500">Secondary content</span>
-      </div>
-    </div>
-  );
-}
-
-// 2. Create the Dark variant (mirror structure, swap tokens)
-function ComponentDark() {
-  return (
-    <div className="bg-zinc-800 rounded-xl border border-zinc-700/80 shadow-lg shadow-black/30">
-      <div className="bg-zinc-900 px-4 py-4">
-        <span className="text-zinc-100">Primary content</span>
-        <span className="text-zinc-500">Secondary content</span>
-      </div>
-    </div>
-  );
-}
-
-// 3. Export unified component
-export function Component({ variant = "light" }: { variant?: "light" | "dark" }) {
-  return variant === "dark" ? <ComponentDark /> : <ComponentLight />;
-}
-```
-
-## Helper Components Pattern
-
-When components have repeated sub-elements, create paired helpers:
-
-```tsx
-interface InfoRowProps {
-  icon: React.ReactNode;
-  label: string;
-  value: React.ReactNode;
-}
-
-function InfoRowLight({ icon, label, value }: InfoRowProps) {
-  return (
-    <div className="flex items-center gap-3 py-1">
-      <span className="text-zinc-400">{icon}</span>
-      <span className="text-zinc-500 text-sm w-32">{label}</span>
-      <div className="flex-1">{value}</div>
-    </div>
-  );
-}
-
-function InfoRowDark({ icon, label, value }: InfoRowProps) {
-  return (
-    <div className="flex items-center gap-3 py-1">
-      <span className="text-zinc-500">{icon}</span>
-      <span className="text-zinc-500 text-sm w-32">{label}</span>
-      <div className="flex-1">{value}</div>
-    </div>
+    <motion.div
+      className={cardVariants({ variant, size })}
+      whileHover={{ y: -4 }}
+    >
+      {children}
+    </motion.div>
   );
 }
 ```
 
-## Checklist
+## Button Variants
 
-- [ ] Light and dark variants have identical structure
-- [ ] All color classes mapped according to token table
-- [ ] Text contrast meets accessibility guidelines
-- [ ] Shadows appropriate for each theme
-- [ ] Hover/focus states defined for both themes
+```tsx
+const buttonVariants = cva(
+  "inline-flex items-center justify-center font-medium transition-all",
+  {
+    variants: {
+      variant: {
+        glass: [
+          "bg-white/20 backdrop-blur-md",
+          "border border-white/30",
+          "text-foreground",
+          "hover:bg-white/30",
+        ],
+        outline: [
+          "bg-transparent",
+          "border-2 border-primary",
+          "text-primary",
+          "hover:bg-primary/10",
+        ],
+        flat: [
+          "bg-primary",
+          "text-primary-foreground",
+          "hover:bg-primary/90",
+        ],
+      },
+    },
+  }
+);
+```
+
+## Automatic Style Detection
+
+```tsx
+function usePreferredVariant() {
+  // Detect background type for auto-variant
+  const [variant, setVariant] = useState<"glass" | "outline" | "flat">("glass");
+
+  useEffect(() => {
+    // Glass works best on gradient/image backgrounds
+    // Flat works best on solid backgrounds
+    const bgType = detectBackgroundType();
+    setVariant(bgType === "gradient" ? "glass" : "flat");
+  }, []);
+
+  return variant;
+}
+```
+
+## Dark Mode Variants
+
+```tsx
+const glassVariant = {
+  light: "bg-white/80 backdrop-blur-xl border-white/20",
+  dark: "bg-black/40 backdrop-blur-xl border-white/10",
+};
+
+// Usage with Tailwind
+className="bg-white/80 dark:bg-black/40 backdrop-blur-xl
+           border-white/20 dark:border-white/10"
+```
+
+## Style Switching UI
+
+```tsx
+function StyleSwitcher({ value, onChange }) {
+  return (
+    <div className="flex gap-1 p-1 bg-muted rounded-lg">
+      {["glass", "outline", "flat"].map((style) => (
+        <button
+          key={style}
+          onClick={() => onChange(style)}
+          className={cn(
+            "px-3 py-1 rounded-md text-sm capitalize",
+            value === style && "bg-background shadow-sm"
+          )}
+        >
+          {style}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+## Validation
+
+```
+[ ] All 3 variants defined (glass, outline, flat)
+[ ] CVA or similar variant system used
+[ ] Dark mode handled per variant
+[ ] Default variant specified
+[ ] Hover states per variant
+```
+
+## References
+
+- `../../references/design-patterns.md` - Component patterns
+- `../../skills/glassmorphism-advanced/SKILL.md` - Glass details

@@ -1,212 +1,279 @@
 ---
 name: performance
-description: JavaScript performance optimization and Web Vitals improvement techniques.
-sasmp_version: "1.3.0"
-bonded_agent: 08-javascript-testing-quality
-bond_type: PRIMARY_BOND
-
-# Production-Grade Configuration
-skill_type: reference
-response_format: code_first
-max_tokens: 1500
-
-parameter_validation:
-  required: [topic]
-  optional: [metric_type]
-
-retry_logic:
-  on_ambiguity: ask_clarification
-  fallback: show_common_optimizations
-
-observability:
-  entry_log: "Performance skill activated"
-  exit_log: "Performance reference provided"
+description: Optimize application performance - bundle size, API response times, database queries, React rendering, and Lambda cold starts. Use when investigating slow pages, profiling, load testing, or before production deployments.
+allowed-tools: Read, Edit, Bash, Grep, Glob
 ---
 
-# JavaScript Performance Skill
+# Performance Skill
 
-## Quick Reference Card
+## Performance Targets
 
-### Core Web Vitals
+**Frontend (Web Vitals):** LCP < 2.5s, FID < 100ms, CLS < 0.1, FCP < 1.8s, TTFB < 600ms
+**Backend:** Response time < 500ms (p95), cold start < 2s, error rate < 1%
+**Database:** Query time < 100ms, cache hit rate > 80%
 
-| Metric | Target | Measures |
-|--------|--------|----------|
-| LCP | < 2.5s | Largest content paint |
-| INP | < 200ms | Interaction responsiveness |
-| CLS | < 0.1 | Visual stability |
+## Measure Performance
 
-### Debounce & Throttle
-```javascript
-// Debounce - delay until pause
-function debounce(fn, delay) {
-  let timeoutId;
-  return (...args) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), delay);
-  };
-}
+```bash
+# Lighthouse audit
+npx lighthouse https://sgcarstrends.com --view
 
-// Throttle - limit frequency
-function throttle(fn, interval) {
-  let lastCall = 0;
-  return (...args) => {
-    const now = Date.now();
-    if (now - lastCall >= interval) {
-      lastCall = now;
-      fn(...args);
-    }
-  };
-}
+# Bundle analysis
+cd apps/web && ANALYZE=true pnpm build
 
-// Usage
-window.addEventListener('scroll', throttle(handleScroll, 100));
-input.addEventListener('input', debounce(search, 300));
+# Load test with k6
+k6 run --vus 100 --duration 5m load-test.js
 ```
 
-### DOM Performance
-```javascript
-// Batch DOM reads/writes
-const heights = elements.map(el => el.offsetHeight); // Read all
-elements.forEach((el, i) => el.style.height = heights[i] + 'px'); // Write all
+## Bundle Size Optimization
 
-// Use DocumentFragment
-const fragment = document.createDocumentFragment();
-items.forEach(item => {
-  const li = document.createElement('li');
-  li.textContent = item;
-  fragment.appendChild(li);
+### Dynamic Imports
+
+```typescript
+// ❌ Static import (loads immediately)
+import { HeavyComponent } from "./heavy-component";
+
+// ✅ Dynamic import (lazy load)
+import dynamic from "next/dynamic";
+const HeavyComponent = dynamic(() => import("./heavy-component"), {
+  loading: () => <div>Loading...</div>,
+  ssr: false,
 });
-list.appendChild(fragment);
+```
 
-// Use requestAnimationFrame
-function animate() {
-  // Update DOM
-  requestAnimationFrame(animate);
+### Tree Shaking
+
+```typescript
+// ❌ Imports entire library
+import _ from "lodash";
+
+// ✅ Import only what you need
+import uniq from "lodash/uniq";
+```
+
+## React Performance
+
+### Prevent Re-renders
+
+```typescript
+// useMemo for expensive calculations
+const processed = useMemo(() => expensiveOperation(data), [data]);
+
+// useCallback for stable function references
+const handleClick = useCallback(() => doSomething(), []);
+
+// React.memo for pure components
+const Child = React.memo(function Child({ name }) {
+  return <div>{name}</div>;
+});
+```
+
+### Virtualize Long Lists
+
+```typescript
+import { FixedSizeList } from "react-window";
+
+<FixedSizeList height={600} itemCount={items.length} itemSize={100} width="100%">
+  {({ index, style }) => <Item style={style} data={items[index]} />}
+</FixedSizeList>
+```
+
+## Database Query Optimization
+
+### Add Indexes
+
+```typescript
+// packages/database/src/schema/cars.ts
+export const cars = pgTable("cars", {
+  make: text("make").notNull(),
+  month: text("month").notNull(),
+}, (table) => ({
+  makeIdx: index("cars_make_idx").on(table.make),
+}));
+```
+
+### Avoid N+1 Queries
+
+```typescript
+// ❌ N+1 queries
+for (const post of posts) {
+  post.author = await db.query.users.findFirst({ where: eq(users.id, post.authorId) });
 }
-requestAnimationFrame(animate);
+
+// ✅ Single query with relation
+const posts = await db.query.posts.findMany({ with: { author: true } });
 ```
 
-### Code Splitting
-```javascript
-// Dynamic import
-const module = await import('./heavy-module.js');
+### Select Only Needed Columns
 
-// React lazy
-const HeavyComponent = React.lazy(() => import('./Heavy'));
+```typescript
+// ❌ Selects all columns
+const users = await db.query.users.findMany();
 
-<Suspense fallback={<Spinner />}>
-  <HeavyComponent />
-</Suspense>
+// ✅ Select specific columns
+const users = await db.select({ id: users.id, name: users.name }).from(users);
 ```
 
-### Memory Optimization
-```javascript
-// WeakMap for metadata (auto cleanup)
-const metadata = new WeakMap();
-metadata.set(element, { clicks: 0 });
+### Use Pagination
 
-// Remove event listeners
-const controller = new AbortController();
-el.addEventListener('click', handler, { signal: controller.signal });
-controller.abort(); // Cleanup
-
-// Clear references
-let heavyData = loadData();
-// When done:
-heavyData = null;
+```typescript
+const cars = await db.query.cars.findMany({
+  limit: 20,
+  offset: (page - 1) * 20,
+});
 ```
 
-### Web Workers
-```javascript
-// main.js
-const worker = new Worker('worker.js');
-worker.postMessage({ data: largeArray });
-worker.onmessage = (e) => console.log('Result:', e.data);
+## Caching
 
-// worker.js
-self.onmessage = (e) => {
-  const result = processData(e.data);
-  self.postMessage(result);
-};
+### Redis Caching
+
+```typescript
+import { redis } from "@sgcarstrends/utils";
+
+export async function getCarsWithCache(make: string) {
+  const cacheKey = `cars:${make}`;
+  const cached = await redis.get(cacheKey);
+  if (cached) return JSON.parse(cached as string);
+
+  const cars = await db.query.cars.findMany({ where: eq(cars.make, make) });
+  await redis.set(cacheKey, JSON.stringify(cars), { ex: 3600 });
+  return cars;
+}
+```
+
+### Next.js Caching
+
+```typescript
+// Revalidate every hour
+export const revalidate = 3600;
+
+// Or use fetch with caching
+const data = await fetch(url, { next: { revalidate: 3600 } });
+```
+
+## Image Optimization
+
+```typescript
+import Image from "next/image";
+
+// ✅ Optimized image with priority for above-fold
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  fill
+  sizes="(max-width: 768px) 100vw, 50vw"
+  priority
+/>
+```
+
+## Lambda Optimization
+
+```typescript
+// infra/api.ts - SST Function construct
+{
+  handler: "apps/api/src/index.handler",
+  runtime: "nodejs20.x",
+  architecture: "arm64",  // Graviton2 for better performance
+  memory: 1024,           // More memory = faster CPU
+  nodejs: {
+    esbuild: { minify: true, bundle: true },
+  },
+}
 ```
 
 ## Profiling
 
-### Performance API
-```javascript
-// Mark and measure
-performance.mark('start');
-doWork();
-performance.mark('end');
-performance.measure('work', 'start', 'end');
+### Performance Middleware
 
-const [measure] = performance.getEntriesByName('work');
-console.log('Duration:', measure.duration);
+```typescript
+// apps/api/src/middleware/performance.ts
+export const performanceMiddleware = async (c: Context, next: Next) => {
+  const start = performance.now();
+  await next();
+  const duration = performance.now() - start;
 
-// Resource timing
-const resources = performance.getEntriesByType('resource');
-resources.forEach(r => {
-  console.log(r.name, r.duration);
-});
+  c.header("X-Response-Time", `${Math.round(duration)}ms`);
+
+  if (duration > 1000) {
+    log.warn("Slow request", { path: c.req.path, duration: Math.round(duration) });
+  }
+};
 ```
 
-### Console Timing
-```javascript
-console.time('operation');
-await doSomething();
-console.timeEnd('operation');
-```
+### Query Profiling
 
-## Troubleshooting
+```typescript
+const start = performance.now();
+const result = await db.query.cars.findMany();
+const duration = performance.now() - start;
 
-### Common Issues
-
-| Problem | Symptom | Fix |
-|---------|---------|-----|
-| Jank | Stuttering scroll | Use throttle, optimize DOM |
-| Memory leak | Growing memory | Clear refs, remove listeners |
-| Long task | UI freeze | Split work, use workers |
-| Large bundle | Slow load | Code split, tree shake |
-
-### Debug Checklist
-```javascript
-// 1. Profile in DevTools Performance panel
-// 2. Check for long tasks (> 50ms)
-// 3. Analyze bundle with webpack-bundle-analyzer
-// 4. Run Lighthouse audit
-// 5. Monitor with web-vitals library
-```
-
-## Production Patterns
-
-### Lazy Loading Images
-```javascript
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.src = entry.target.dataset.src;
-      observer.unobserve(entry.target);
-    }
-  });
-});
-
-document.querySelectorAll('img[data-src]').forEach(img => {
-  observer.observe(img);
-});
-```
-
-### Virtual Scrolling
-```javascript
-// Only render visible items
-function renderVisibleItems(scrollTop, containerHeight) {
-  const startIndex = Math.floor(scrollTop / itemHeight);
-  const endIndex = startIndex + Math.ceil(containerHeight / itemHeight);
-  return items.slice(startIndex, endIndex);
+if (duration > 100) {
+  console.warn(`Slow query: ${duration}ms`);
 }
 ```
 
-## Related
+### CloudWatch Metrics
 
-- **Agent 08**: Testing & Quality (detailed learning)
-- **Skill: debugging**: Performance debugging
-- **Skill: ecosystem**: Build optimization
+```bash
+# Get Lambda duration metrics
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/Lambda \
+  --metric-name Duration \
+  --dimensions Name=FunctionName,Value=sgcarstrends-api-prod \
+  --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%S) \
+  --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
+  --period 300 \
+  --statistics Average,Maximum
+```
+
+## Load Testing
+
+```javascript
+// load-test.js (k6)
+import http from "k6/http";
+import { check } from "k6";
+
+export const options = {
+  stages: [
+    { duration: "2m", target: 100 },
+    { duration: "5m", target: 100 },
+    { duration: "2m", target: 0 },
+  ],
+  thresholds: {
+    http_req_duration: ["p(95)<500"],
+    http_req_failed: ["rate<0.01"],
+  },
+};
+
+export default function() {
+  const res = http.get("https://api.sgcarstrends.com/api/v1/cars/makes");
+  check(res, { "status 200": (r) => r.status === 200 });
+}
+```
+
+## Performance Checklist
+
+- [ ] Bundle size < 200KB (initial load)
+- [ ] LCP < 2.5s, FID < 100ms, CLS < 0.1
+- [ ] API responses < 500ms
+- [ ] Database queries < 100ms
+- [ ] Images optimized (WebP/AVIF)
+- [ ] Code splitting implemented
+- [ ] Caching strategy in place
+- [ ] Long lists virtualized
+- [ ] Compression enabled
+
+## Quick Wins
+
+1. **Compression**: Enable gzip/brotli (60-80% size reduction)
+2. **Image Optimization**: Use Next.js Image component
+3. **Caching**: Cache expensive operations in Redis
+4. **Indexes**: Add indexes to frequently queried columns
+5. **Code Splitting**: Lazy load heavy components
+6. **Memoization**: Use useMemo/useCallback for expensive operations
+
+## References
+
+- Web Vitals: https://web.dev/vitals
+- Next.js Performance: https://nextjs.org/docs/app/building-your-application/optimizing
+- k6 Load Testing: https://k6.io/docs

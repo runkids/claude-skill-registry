@@ -1,269 +1,326 @@
 ---
-name: gemini-api-rate-limiting
-description: Best practices for handling Gemini API rate limits, implementing sequential queues, and preventing 429 RESOURCE_EXHAUSTED errors in WescoBar
+name: rate-limiting
+description: Implement subscription-tier aware API rate limiting with sliding window algorithm. Use when building SaaS APIs that need per-user or per-tier rate limits with Redis or in-memory storage.
+license: MIT
+compatibility: TypeScript/JavaScript, Python
+metadata:
+  category: api
+  time: 4h
+  source: drift-masterguide
 ---
 
-# Gemini API Rate Limiting
+# Rate Limiting
 
-## Purpose
+Protect your API with subscription-tier aware rate limiting.
 
-Provide proven patterns and best practices for handling Google Gemini API rate limits in the WescoBar Universe Storyteller application, preventing `429 RESOURCE_EXHAUSTED` errors.
+## When to Use This Skill
 
-## When to Use
+- Building a SaaS API with different subscription tiers
+- Protecting endpoints from abuse
+- Implementing fair usage policies
+- Adding rate limits to existing APIs
 
-- Implementing any feature that calls Gemini API
-- Debugging 429 rate limit errors
-- Designing image generation workflows
-- Planning bulk API operations
-- Optimizing API usage patterns
+## Core Concepts
 
-## Problem Statement
+### Sliding Window Algorithm
 
-Making many simultaneous Gemini API calls (e.g., generating portraits for all core characters on startup) results in:
-- `429 RESOURCE_EXHAUSTED` errors
-- Stuck UI with perpetual loading spinners
-- Poor user experience
-- Wasted API quota
+More accurate than fixed windows, prevents burst at window boundaries:
 
-## Solution: Sequential Asynchronous Queue
+```
+Window: [----older----][----current----]
+Weight:      30%             70%
+```
 
-### Core Pattern
+### Tier-Based Limits
+
+| Tier | Requests/min | Burst |
+|------|-------------|-------|
+| Free | 60 | 10 |
+| Pro | 600 | 100 |
+| Enterprise | 6000 | 1000 |
+
+## TypeScript Implementation
 
 ```typescript
-// ✅ CORRECT: Sequential queue with delays
-async function processImageQueue(characters: Character[]) {
-  for (const character of characters) {
-    // Process one at a time
-    await generateImage(character);
+// rate-limiter.ts
+import { Redis } from 'ioredis';
 
-    // Add delay between calls to respect API limits
-    await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
+interface RateLimitConfig {
+  windowMs: number;
+  maxRequests: number;
+  burstLimit?: number;
+}
+
+interface RateLimitResult {
+  allowed: boolean;
+  remaining: number;
+  resetAt: number;
+  retryAfter?: number;
+}
+
+const TIER_LIMITS: Record<string, RateLimitConfig> = {
+  free: { windowMs: 60000, maxRequests: 60, burstLimit: 10 },
+  pro: { windowMs: 60000, maxRequests: 600, burstLimit: 100 },
+  enterprise: { windowMs: 60000, maxRequests: 6000, burstLimit: 1000 },
+};
+
+class RateLimiter {
+  constructor(private redis: Redis) {}
+
+  async check(key: string, tier: string = 'free'): Promise<RateLimitResult> {
+    const config = TIER_LIMITS[tier] || TIER_LIMITS.free;
+    const now = Date.now();
+    const windowStart = now - config.windowMs;
+
+    const multi = this.redis.multi();
+    
+    // Remove old entries
+    multi.zremrangebyscore(key, 0, windowStart);
+    // Count current window
+    multi.zcard(key);
+    // Add current request
+    multi.zadd(key, now.toString(), `${now}-${Math.random()}`);
+    // Set expiry
+    multi.expire(key, Math.ceil(config.windowMs / 1000) + 1);
+
+    const results = await multi.exec();
+    const currentCount = (results?.[1]?.[1] as number) || 0;
+
+    const allowed = currentCount < config.maxRequests;
+    const remaining = Math.max(0, config.maxRequests - currentCount - 1);
+    const resetAt = now + config.windowMs;
+
+    return {
+      allowed,
+      remaining,
+      resetAt,
+      retryAfter: allowed ? undefined : Math.ceil(config.windowMs / 1000),
+    };
   }
 }
+
+export { RateLimiter, RateLimitConfig, RateLimitResult, TIER_LIMITS };
 ```
 
+## Express Middleware
+
 ```typescript
-// ❌ WRONG: Parallel requests
-async function processImageQueue(characters: Character[]) {
-  // This will trigger rate limits!
-  await Promise.all(
-    characters.map(char => generateImage(char))
-  );
+// rate-limit-middleware.ts
+import { Request, Response, NextFunction } from 'express';
+import { RateLimiter } from './rate-limiter';
+
+interface RateLimitOptions {
+  keyGenerator?: (req: Request) => string;
+  tierResolver?: (req: Request) => string;
+  skip?: (req: Request) => boolean;
 }
+
+function createRateLimitMiddleware(
+  limiter: RateLimiter,
+  options: RateLimitOptions = {}
+) {
+  const {
+    keyGenerator = (req) => req.ip || 'unknown',
+    tierResolver = (req) => (req as any).user?.tier || 'free',
+    skip = () => false,
+  } = options;
+
+  return async (req: Request, res: Response, next: NextFunction) => {
+    if (skip(req)) return next();
+
+    const key = `ratelimit:${keyGenerator(req)}`;
+    const tier = tierResolver(req);
+    const result = await limiter.check(key, tier);
+
+    // Set rate limit headers
+    res.set({
+      'X-RateLimit-Limit': TIER_LIMITS[tier]?.maxRequests || 60,
+      'X-RateLimit-Remaining': result.remaining,
+      'X-RateLimit-Reset': Math.ceil(result.resetAt / 1000),
+    });
+
+    if (!result.allowed) {
+      res.set('Retry-After', result.retryAfter?.toString() || '60');
+      return res.status(429).json({
+        error: 'Too Many Requests',
+        message: `Rate limit exceeded. Retry after ${result.retryAfter} seconds.`,
+        retryAfter: result.retryAfter,
+      });
+    }
+
+    next();
+  };
+}
+
+export { createRateLimitMiddleware };
 ```
 
-## Implementation Guidelines
+## Python Implementation
 
-### 1. Use for...of Loop for Sequential Processing
+```python
+# rate_limiter.py
+import time
+from typing import Optional, NamedTuple
+from redis import Redis
+
+class RateLimitResult(NamedTuple):
+    allowed: bool
+    remaining: int
+    reset_at: float
+    retry_after: Optional[int] = None
+
+TIER_LIMITS = {
+    "free": {"window_ms": 60000, "max_requests": 60, "burst_limit": 10},
+    "pro": {"window_ms": 60000, "max_requests": 600, "burst_limit": 100},
+    "enterprise": {"window_ms": 60000, "max_requests": 6000, "burst_limit": 1000},
+}
+
+class RateLimiter:
+    def __init__(self, redis: Redis):
+        self.redis = redis
+
+    def check(self, key: str, tier: str = "free") -> RateLimitResult:
+        config = TIER_LIMITS.get(tier, TIER_LIMITS["free"])
+        now = time.time() * 1000
+        window_start = now - config["window_ms"]
+
+        pipe = self.redis.pipeline()
+        pipe.zremrangebyscore(key, 0, window_start)
+        pipe.zcard(key)
+        pipe.zadd(key, {f"{now}-{id(object())}": now})
+        pipe.expire(key, int(config["window_ms"] / 1000) + 1)
+        
+        results = pipe.execute()
+        current_count = results[1]
+
+        allowed = current_count < config["max_requests"]
+        remaining = max(0, config["max_requests"] - current_count - 1)
+        reset_at = now + config["window_ms"]
+
+        return RateLimitResult(
+            allowed=allowed,
+            remaining=remaining,
+            reset_at=reset_at,
+            retry_after=None if allowed else int(config["window_ms"] / 1000),
+        )
+```
+
+## FastAPI Middleware
+
+```python
+# fastapi_middleware.py
+from fastapi import Request, HTTPException
+from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
+
+class RateLimitMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app, limiter: RateLimiter):
+        super().__init__(app)
+        self.limiter = limiter
+
+    async def dispatch(self, request: Request, call_next):
+        # Get user tier from request (customize based on your auth)
+        tier = getattr(request.state, "user_tier", "free")
+        key = f"ratelimit:{request.client.host}"
+        
+        result = self.limiter.check(key, tier)
+        
+        if not result.allowed:
+            return JSONResponse(
+                status_code=429,
+                content={
+                    "error": "Too Many Requests",
+                    "retry_after": result.retry_after,
+                },
+                headers={
+                    "Retry-After": str(result.retry_after),
+                    "X-RateLimit-Remaining": "0",
+                },
+            )
+        
+        response = await call_next(request)
+        response.headers["X-RateLimit-Remaining"] = str(result.remaining)
+        response.headers["X-RateLimit-Reset"] = str(int(result.reset_at / 1000))
+        return response
+```
+
+## In-Memory Alternative (No Redis)
 
 ```typescript
-// In WorldContext or similar service
-const needsImages = characters.filter(c => !c.imageUrl);
+// memory-rate-limiter.ts
+class InMemoryRateLimiter {
+  private windows = new Map<string, number[]>();
 
-for (const character of needsImages) {
-  try {
-    const imageUrl = await geminiService.generatePortrait(character);
-    updateCharacterImage(character.id, imageUrl);
-  } catch (error) {
-    handleGenerationError(character.id, error);
+  check(key: string, tier: string = 'free'): RateLimitResult {
+    const config = TIER_LIMITS[tier] || TIER_LIMITS.free;
+    const now = Date.now();
+    const windowStart = now - config.windowMs;
+
+    // Get or create window
+    let timestamps = this.windows.get(key) || [];
+    
+    // Remove old entries
+    timestamps = timestamps.filter(t => t > windowStart);
+    
+    const allowed = timestamps.length < config.maxRequests;
+    
+    if (allowed) {
+      timestamps.push(now);
+      this.windows.set(key, timestamps);
+    }
+
+    return {
+      allowed,
+      remaining: Math.max(0, config.maxRequests - timestamps.length),
+      resetAt: now + config.windowMs,
+      retryAfter: allowed ? undefined : Math.ceil(config.windowMs / 1000),
+    };
   }
 
-  // Hard-coded delay to prevent burst traffic
-  await new Promise(resolve => setTimeout(resolve, 2000));
-}
-```
-
-### 2. Implement API Timeouts
-
-Race API calls against timeouts to prevent hung requests:
-
-```typescript
-async function generateWithTimeout(character: Character, timeoutMs = 30000) {
-  return Promise.race([
-    geminiService.generatePortrait(character),
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('Generation timed out')), timeoutMs)
-    )
-  ]);
-}
-```
-
-### 3. Add Queue Status Indicators
-
-Show users progress during sequential processing:
-
-```typescript
-// Update UI with queue progress
-setGenerationQueue({
-  total: needsImages.length,
-  current: index + 1,
-  inProgress: true,
-  character: character.name
-});
-```
-
-## Cache Strategy
-
-Reduce API calls through robust caching:
-
-### Cache Key Design
-
-```typescript
-// ✅ Entity-stable keys (won't invalidate on prompt changes)
-const cacheKey = `${CACHE_VERSION}-character-portrait:${character.id}`;
-
-// ❌ Prompt-based keys (invalidate too often)
-const cacheKey = `${CACHE_VERSION}-${fullPromptText}`;
-```
-
-### Cache Versioning
-
-```typescript
-// Global cache version for instant invalidation
-const CACHE_VERSION = 'v2'; // Bump to invalidate all caches
-
-// Prepend to all cache keys
-const cacheKey = `${CACHE_VERSION}-character-portrait:${id}`;
-```
-
-### Cache Busting
-
-```typescript
-// For explicit regeneration (e.g., "Regenerate" button)
-async function regenerateImage(character: Character) {
-  const imageUrl = await geminiService.generatePortrait(
-    character,
-    { forceRebuild: true } // Bypasses cache
-  );
-  return imageUrl;
-}
-```
-
-## Rate Limit Best Practices
-
-### 1. Delay Between Requests
-
-```typescript
-// Minimum 2 seconds between API calls
-const RATE_LIMIT_DELAY_MS = 2000;
-
-await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_DELAY_MS));
-```
-
-### 2. Exponential Backoff on 429
-
-```typescript
-async function callWithBackoff(fn: () => Promise<any>, maxRetries = 3) {
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      return await fn();
-    } catch (error) {
-      if (error.status === 429 && i < maxRetries - 1) {
-        const delayMs = Math.pow(2, i) * 1000; // 1s, 2s, 4s
-        await new Promise(resolve => setTimeout(resolve, delayMs));
+  // Cleanup old entries periodically
+  cleanup(): void {
+    const now = Date.now();
+    for (const [key, timestamps] of this.windows) {
+      const filtered = timestamps.filter(t => t > now - 60000);
+      if (filtered.length === 0) {
+        this.windows.delete(key);
       } else {
-        throw error;
+        this.windows.set(key, filtered);
       }
     }
   }
 }
 ```
 
-### 3. Queue Size Limits
+## Best Practices
+
+1. **Use Redis for distributed systems**: In-memory only works for single instances
+2. **Set appropriate headers**: Clients need `X-RateLimit-*` and `Retry-After`
+3. **Return 429 status**: Standard HTTP status for rate limiting
+4. **Consider burst limits**: Allow short bursts above sustained rate
+5. **Key by user, not just IP**: Authenticated users should have their own limits
+
+## Common Mistakes
+
+- Using fixed windows (causes burst at boundaries)
+- Not handling Redis failures gracefully
+- Forgetting to set response headers
+- Rate limiting health check endpoints
+- Not differentiating authenticated vs anonymous users
+
+## Integration with Stripe Tiers
 
 ```typescript
-// Limit concurrent queue size
-const MAX_QUEUE_SIZE = 10;
-
-if (queue.length > MAX_QUEUE_SIZE) {
-  // Process in batches or show warning
-  console.warn(`Queue size ${queue.length} exceeds maximum ${MAX_QUEUE_SIZE}`);
-}
-```
-
-## Error Handling
-
-### Categorize Errors
-
-```typescript
-function handleGeminiError(error: any, character: Character) {
-  if (error.status === 429) {
-    // Rate limit - add to retry queue
-    retryQueue.push(character);
-  } else if (error.message?.includes('timeout')) {
-    // Timeout - set error state
-    setCharacterError(character.id, 'Generation timed out');
-  } else if (error.status >= 500) {
-    // Server error - temporary, retry later
-    setCharacterError(character.id, 'Server error, retry later');
-  } else {
-    // Other error - likely permanent
-    setCharacterError(character.id, 'Generation failed');
-  }
-}
-```
-
-## Real-World Example from WescoBar
-
-From `WorldContext.tsx`:
-
-```typescript
-// On startup, identify all core characters needing images
-useEffect(() => {
-  const coreCharacters = characters.filter(
-    c => c.isCoreCharacter && !c.imageUrl
+// Resolve tier from Stripe subscription
+const tierResolver = async (req: Request): Promise<string> => {
+  const user = req.user;
+  if (!user?.stripeSubscriptionId) return 'free';
+  
+  const subscription = await stripe.subscriptions.retrieve(
+    user.stripeSubscriptionId
   );
-
-  if (coreCharacters.length === 0) return;
-
-  async function generateImagesSequentially() {
-    for (const character of coreCharacters) {
-      try {
-        // Race against timeout
-        const imageUrl = await Promise.race([
-          geminiService.generateCharacterPortrait(character),
-          new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Timeout')), 30000)
-          )
-        ]);
-
-        // Update state
-        updateCharacter(character.id, { imageUrl });
-      } catch (error) {
-        // Store error on character object
-        updateCharacter(character.id, {
-          generationError: error.message
-        });
-      }
-
-      // Hard-coded delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-    }
-  }
-
-  generateImagesSequentially();
-}, [characters]);
+  
+  const priceId = subscription.items.data[0]?.price.id;
+  return PRICE_TO_TIER[priceId] || 'free';
+};
 ```
-
-## Quick Reference
-
-| Scenario | Pattern | Delay |
-|----------|---------|-------|
-| Bulk generation (10+ items) | Sequential for...of loop | 2 seconds |
-| Single generation (user-initiated) | Direct call with timeout | No delay |
-| Retry after 429 | Exponential backoff | 1s → 2s → 4s |
-| Cache miss | Check cache → API → cache store | 2 seconds between misses |
-
-## Related Skills
-
-- `gemini-api/error-handling` - Comprehensive error handling patterns
-- `gemini-api/caching-strategies` - Advanced caching techniques
-- `gemini-api/image-generation` - Complete image generation workflows
-
-## Additional Resources
-
-See `REFERENCE.md` for:
-- Gemini API rate limit documentation
-- Full WorldContext implementation example
-- Cache version management strategies
-- Performance optimization patterns

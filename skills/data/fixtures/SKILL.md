@@ -1,52 +1,58 @@
 ---
 name: test-skill
-description: |
-  A test skill for unit testing.
-  Use when: testing the chunker, running unit tests.
-  Helps with: validating skill parsing works correctly.
-author: Memory Forge
-version: 1.0.0
-date: 2025-01-28
+description: Test skill for validation purposes
+allowed-tools: Read, Grep
 ---
 
 # Test Skill
 
-## Problem
+This is a test skill for validation purposes.
 
-This is a sample problem description for testing purposes.
-It explains what issue this skill addresses.
+## What This Skill Provides
 
-## Trigger Conditions
+- **Standard 1** - First standard
+- **Standard 2** - Second standard
+- **Standard 3** - Third standard
 
-When to activate this skill:
+## When to Activate This Skill
 
-- Error: `Test error message`
-- Error: `Another test error`
-- When running unit tests
+Activate this skill when:
+- Working with test scenarios
+- Validating component structures
+- Learning about skill patterns
 
-## Solution
+## Workflow
 
-### Step 1: First Action
+### Step 1: Identify Requirements
+Determine what standards are needed for the current task.
 
-Do the first thing to solve the problem.
+### Step 2: Load Relevant Standards
+Based on the task:
+- **Testing** → Read standards/testing.md
+- **Validation** → Read standards/validation.md
+- **Patterns** → Read standards/patterns.md
 
-```typescript
-const example = 'code';
+### Step 3: Apply Standards
+Follow guidance from loaded standards.
+
+## Standards Organization
+
+```
+standards/
+├── testing.md          (Testing standards)
+├── validation.md       (Validation standards)
+└── patterns.md         (Pattern standards)
 ```
 
-### Step 2: Second Action
+## Tool Access
 
-Continue with the second step.
+**Read**: Load standard files on-demand
+**Grep**: Search for specific patterns in standards
 
-## Verification
+## Quality Verification
 
-How to confirm the solution worked:
-
-1. Run the tests
-2. Check the output
-3. Verify success
-
-## Notes
-
-- This is a test skill
-- Only for testing purposes
+Skills are self-contained when:
+- [ ] All standards in standards/ directory
+- [ ] All paths use relative paths
+- [ ] No external file references
+- [ ] No cross-skill duplication

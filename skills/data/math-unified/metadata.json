@@ -1,7 +1,7 @@
 {
   "name": "math-unified",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math-unified/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-31T04:36:22.381459Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/math/math-unified/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-02-01T03:15:20.696816Z"
 }

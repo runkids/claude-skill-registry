@@ -1,196 +1,173 @@
 ---
 name: tauri
-description: Provides comprehensive guidance for Tauri framework including Rust backend, frontend integration, window management, and desktop app development. Use when the user asks about Tauri, needs to create Tauri applications, implement Tauri features, or build lightweight desktop apps.
-license: Complete terms in LICENSE.txt
+description: Tauri path handling, cross-platform file operations, and API usage. Use when working with file paths in Tauri frontend code, accessing filesystem APIs, or handling platform differences in desktop apps.
 ---
 
-## When to use this skill
+# Tauri Path Handling
 
-Use this skill whenever the user wants to:
-- Install and set up Tauri in a project
-- Create desktop applications with Tauri
-- Use Tauri CLI commands
-- Configure Tauri applications
-- Handle frontend-backend communication
-- Use Tauri APIs
-- Build and package Tauri applications
-- Troubleshoot Tauri issues
+## Context Detection
 
-## How to use this skill
+Before choosing a path API, determine your execution context:
 
-This skill is organized to match the Tauri official documentation structure (https://v2.tauri.org.cn/, https://v2.tauri.org.cn/start/, https://v2.tauri.org.cn/reference/cli/). When working with Tauri:
+| Context                 | Location                                       | Correct API            |
+| ----------------------- | ---------------------------------------------- | ---------------------- |
+| **Tauri frontend**      | `apps/*/src/**/*.ts`, `apps/*/src/**/*.svelte` | `@tauri-apps/api/path` |
+| **Node.js/Bun backend** | `packages/**/*.ts`, CLI tools                  | Node.js `path` module  |
 
-1. **Identify the topic** from the user's request:
-   - Installation/安装 → `examples/start/installation.md`
-   - Quick Start/快速开始 → `examples/start/quick-start.md`
-   - Guide/使用指南 → `examples/guide/`
-   - CLI/命令行 → `examples/reference/cli.md`
-   - API/API 文档 → `api/`
+**Rule**: If the code runs in the browser (Tauri webview), use Tauri's path APIs. If it runs in Node.js/Bun, use the Node.js `path` module.
 
-2. **Load the appropriate example file** from the `examples/` directory:
+## Available Functions from `@tauri-apps/api/path`
 
-   **Start (快速开始)**:
-   - `examples/start/intro.md` - Introduction to Tauri
-   - `examples/start/installation.md` - Installation guide
-   - `examples/start/quick-start.md` - Quick start guide
-   - `examples/start/prerequisites.md` - Prerequisites
+### Path Manipulation
 
-   **Guide (使用指南)**:
-   - `examples/guide/architecture.md` - Architecture
-   - `examples/guide/frontend.md` - Frontend setup
-   - `examples/guide/backend.md` - Backend (Rust)
-   - `examples/guide/commands.md` - Commands
-   - `examples/guide/events.md` - Events
-   - `examples/guide/window.md` - Window management
-   - `examples/guide/filesystem.md` - File system
-   - `examples/guide/configuration.md` - Configuration
-   - `examples/guide/build.md` - Build and package
+| Function               | Purpose                                    | Example                                           |
+| ---------------------- | ------------------------------------------ | ------------------------------------------------- |
+| `join(...paths)`       | Join path segments with platform separator | `await join(baseDir, 'workspaces', id)`           |
+| `dirname(path)`        | Get parent directory                       | `await dirname('/foo/bar/file.txt')` → `/foo/bar` |
+| `basename(path, ext?)` | Get filename, optionally strip extension   | `await basename('/foo/bar.txt', '.txt')` → `bar`  |
+| `extname(path)`        | Get file extension                         | `await extname('file.txt')` → `.txt`              |
+| `normalize(path)`      | Resolve `..` and `.` segments              | `await normalize('/foo/bar/../baz')` → `/foo/baz` |
+| `resolve(...paths)`    | Resolve to absolute path                   | `await resolve('relative', 'path')`               |
+| `isAbsolute(path)`     | Check if path is absolute                  | `await isAbsolute('/foo')` → `true`               |
 
-   **Reference (参考)**:
-   - `examples/reference/cli.md` - CLI commands
-   - `examples/reference/config.md` - Configuration reference
+### Platform Constants
 
-3. **Follow the specific instructions** in that example file for syntax, structure, and best practices
+| Function      | Purpose                 | Returns                      |
+| ------------- | ----------------------- | ---------------------------- |
+| `sep()`       | Platform path separator | `\` on Windows, `/` on POSIX |
+| `delimiter()` | Platform path delimiter | `;` on Windows, `:` on POSIX |
 
-   **Important Notes**:
-   - Tauri uses Web frontend and Rust backend
-   - Frontend can be any web framework
-   - Backend is written in Rust
-   - Communication via commands and events
-   - Each example file includes key concepts, code examples, and key points
+### Base Directories
 
-4. **Reference API documentation** in the `api/` directory when needed:
-   - `api/tauri-api.md` - Tauri API
-   - `api/commands-api.md` - Commands API
-   - `api/events-api.md` - Events API
-   - `api/window-api.md` - Window API
-   - `api/filesystem-api.md` - File system API
-   - `api/config-api.md` - Configuration API
+| Function                | Purpose                            |
+| ----------------------- | ---------------------------------- |
+| `appLocalDataDir()`     | App's local data directory         |
+| `appDataDir()`          | App's roaming data directory       |
+| `appConfigDir()`        | App's config directory             |
+| `appCacheDir()`         | App's cache directory              |
+| `appLogDir()`           | App's log directory                |
+| `tempDir()`             | System temp directory              |
+| `resourceDir()`         | App's resource directory           |
+| `resolveResource(path)` | Resolve path relative to resources |
 
-5. **Use templates** from the `templates/` directory:
-   - `templates/installation.md` - Installation templates
-   - `templates/project-setup.md` - Project setup templates
-   - `templates/configuration.md` - Configuration templates
+## Patterns
 
-### 1. Understanding Tauri
+### Constructing Paths (Correct)
 
-Tauri is a framework for building desktop applications using web frontend technologies and Rust backend.
+```typescript
+import { appLocalDataDir, dirname, join } from '@tauri-apps/api/path';
 
-**Key Concepts**:
-- **Frontend**: Web technologies (HTML, CSS, JavaScript)
-- **Backend**: Rust
-- **Commands**: Frontend-backend communication
-- **Events**: Event system
-- **Window**: Window management
-- **File System**: File operations
+// Join path segments - handles platform separators automatically
+const baseDir = await appLocalDataDir();
+const filePath = await join(baseDir, 'workspaces', workspaceId, 'data.json');
 
-### 2. Installation
-
-**Prerequisites**:
-- Node.js
-- Rust
-- System dependencies
-
-**Using npm**:
-
-```bash
-npm install @tauri-apps/cli
+// Get parent directory - cleaner than manual slicing
+const parentDir = await dirname(filePath);
+await mkdir(parentDir, { recursive: true });
 ```
 
-**Using cargo**:
+### Logging Paths (Exception)
 
-```bash
-cargo install tauri-cli
+For human-readable log output, hardcoded `/` is acceptable since it's not used for filesystem operations:
+
+```typescript
+// OK for logging - consistent cross-platform log output
+const logPath = pathSegments.join('/');
+console.log(`[Persistence] Loading from ${logPath}`);
 ```
 
-### 3. Basic Setup
+## Anti-Patterns
 
-```bash
-# Create Tauri project
-npm create tauri-app
+### Never: Manual String Concatenation
 
-# Or using cargo
-cargo tauri init
+```typescript
+// BAD: Hardcoded separator breaks on Windows
+const filePath = baseDir + '/' + 'workspaces' + '/' + id;
+
+// BAD: Template literal with hardcoded separator
+const filePath = `${baseDir}/workspaces/${id}`;
+
+// GOOD: Use join()
+const filePath = await join(baseDir, 'workspaces', id);
 ```
 
+### Never: Manual Parent Directory Extraction
 
-### Doc mapping (one-to-one with official documentation)
+```typescript
+// BAD: Manual slicing is error-prone
+const parentSegments = pathSegments.slice(0, -1);
+const parentDir = await join(baseDir, ...parentSegments);
 
-- `examples/guide/` or `examples/getting-started/` → https://v2.tauri.org.cn/start/
-- `api/` → https://v2.tauri.org.cn/reference/cli/
+// GOOD: Use dirname()
+const parentDir = await dirname(filePath);
+```
 
-## Examples and Templates
+### Never: Hardcoded Separators in Filesystem Operations
 
-This skill includes detailed examples organized to match the official documentation structure. All examples are in the `examples/` directory (see mapping above).
+```typescript
+// BAD: Windows uses backslashes
+const configPath = appDir + '/config.json';
 
-**To use examples:**
-- Identify the topic from the user's request
-- Load the appropriate example file from the mapping above
-- Follow the instructions, syntax, and best practices in that file
-- Adapt the code examples to your specific use case
+// GOOD: Platform-agnostic
+const configPath = await join(appDir, 'config.json');
+```
 
-**To use templates:**
-- Reference templates in `templates/` directory for common scaffolding
-- Adapt templates to your specific needs and coding style
+### Never: Assuming Path Format
 
-## API Reference
+```typescript
+// BAD: Splitting on '/' fails on Windows paths
+const parts = filePath.split('/');
 
-Detailed API documentation is available in the `api/` directory, organized to match the official Tauri API documentation structure:
+// GOOD: Use dirname/basename for extraction
+const dir = await dirname(filePath);
+const file = await basename(filePath);
+```
 
-### Tauri API (`api/tauri-api.md`)
-- Tauri core API
-- API methods
-- API types
+## Import Pattern
 
-### Commands API (`api/commands-api.md`)
-- Command definition
-- Command invocation
-- Command parameters
+Always import from `@tauri-apps/api/path`:
 
-### Events API (`api/events-api.md`)
-- Event emission
-- Event listening
-- Event handling
+```typescript
+import {
+	appLocalDataDir,
+	dirname,
+	join,
+	basename,
+	extname,
+	normalize,
+	resolve,
+	sep,
+} from '@tauri-apps/api/path';
+```
 
-### Window API (`api/window-api.md`)
-- Window creation
-- Window management
-- Window events
+## Note on Async
 
-### File System API (`api/filesystem-api.md`)
-- File operations
-- Directory operations
-- Path operations
+All Tauri path functions are **async** because they communicate with the Rust backend via IPC. Always `await` them:
 
-### Configuration API (`api/config-api.md`)
-- Configuration options
-- Configuration file
-- Environment variables
+```typescript
+// All path operations return Promises
+const baseDir = await appLocalDataDir();
+const filePath = await join(baseDir, 'file.txt');
+const parent = await dirname(filePath);
+const separator = await sep();
+```
 
-**To use API reference:**
-1. Identify the API you need help with
-2. Load the corresponding API file from the `api/` directory
-3. Find the API signature, parameters, return type, and examples
-4. Reference the linked example files for detailed usage patterns
-5. All API files include links to relevant example files in the `examples/` directory
+## Filesystem Operations
 
-## Best Practices
+Use `@tauri-apps/plugin-fs` for file operations, combined with Tauri path APIs:
 
-1. **Separate frontend and backend**: Keep frontend and backend code separate
-2. **Use commands**: Use commands for frontend-backend communication
-3. **Handle errors**: Properly handle errors in both frontend and backend
-4. **Security**: Follow Tauri security best practices
-5. **Performance**: Optimize application performance
-6. **Build configuration**: Configure build and package properly
-7. **Use TypeScript**: Leverage TypeScript for type safety
+```typescript
+import { appLocalDataDir, dirname, join } from '@tauri-apps/api/path';
+import { mkdir, readFile, writeFile } from '@tauri-apps/plugin-fs';
 
-## Resources
+async function saveData(segments: string[], data: Uint8Array) {
+	const baseDir = await appLocalDataDir();
+	const filePath = await join(baseDir, ...segments);
 
-- **Official Documentation**: https://v2.tauri.org.cn/
-- **Quick Start**: https://v2.tauri.org.cn/start/
-- **CLI Reference**: https://v2.tauri.org.cn/reference/cli/
-- **GitHub Repository**: https://github.com/tauri-apps/tauri
+	// Ensure parent directory exists
+	const parentDir = await dirname(filePath);
+	await mkdir(parentDir, { recursive: true });
 
-## Keywords
-
-Tauri, tauri, desktop application, 桌面应用, Rust, Web frontend, commands, events, window, file system, CLI, 命令, 事件, 窗口, 文件系统, 命令行, Tauri CLI, Tauri commands, Tauri events, Tauri window, Tauri filesystem, cross-platform, 跨平台
+	await writeFile(filePath, data);
+}
+```

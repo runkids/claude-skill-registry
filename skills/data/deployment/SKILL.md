@@ -1,153 +1,192 @@
 ---
 name: deployment
-description: Deployment preparation workflow including version management, documentation sync, and pre-deploy checklist for web audio apps.
+description: >
+  Deploy and update patterns. Use when deploying new patterns, updating
+  existing deployments, or testing syntax. Includes deployment commands
+  and the first custom pattern celebration.
 ---
 
-# 🚀 Deployment Skill
+# Pattern Deployment
 
-배포 전 준비 작업을 위한 체크리스트 및 자동화 도구.
+## ⚠️ CRITICAL DEPLOYMENT RULES
 
-## 🎯 용도
+**These are CRITICAL and MUST be followed every time:**
 
-- 버전 번호 일관성 확인
-- Service Worker 캐시 업데이트
-- 문서 동기화 (영어/한국어)
-- 변경 이력 업데이트
+1. **✅ ALWAYS use `http://localhost:8000`** - This is the toolshed (backend) server
+2. **❌ NEVER use `http://localhost:5173`** - That's the shell (frontend), patterns won't work there
+3. **✅ ALWAYS include space name in URL:** `http://localhost:8000/SPACE-NAME/CHARM-ID`
+4. **❌ NEVER use:** `http://localhost:8000/CHARM-ID` (missing space name)
+5. **✅ ALWAYS include ALL THREE parameters:** `--api-url`, `--identity`, `--space`
+6. **✅ ALWAYS use `./scripts/ct`** - The wrapper script that handles directory changes
 
-## 📋 체크리스트
+**If you violate these rules, the pattern will not work. No exceptions.**
 
-### 1. 버전 일관성 확인
+## 🚨 NEVER USE `piece setsrc` - ALWAYS USE `piece new`
 
-```bash
-# Service Worker 버전 확인
-grep -n "CACHE_NAME\|CACHE_VERSION" sw.js
+**This is the #1 cause of broken piece instances.**
 
-# HTML 버전 표시 확인
-grep -n "version\|versionDisplay" index.html
+`piece setsrc` has a known framework bug that corrupts piece state. Symptoms include:
+- Piece shows blank when navigated to directly
+- Conflict errors during updates
+- Piece data exists but UI won't render
 
-# package.json 버전 확인
-cat package.json | grep '"version"'
-```
+**ALWAYS deploy fresh instances with `piece new` instead.** Each deployment gets a new piece ID - this is expected and correct. See the "Update Deployed Pattern" section below.
 
-**확인 사항**:
-- [ ] sw.js의 `CACHE_NAME` 업데이트됨
-- [ ] index.html의 버전 표시 업데이트됨
-- [ ] package.json의 version 업데이트됨 (있는 경우)
+## Test Syntax
 
-### 2. Service Worker 에셋 확인
+Before deploying, check that your pattern compiles correctly:
 
 ```bash
-# sw.js에서 캐시할 파일 목록 확인
-grep -A 50 "ASSETS\|urlsToCache" sw.js
+./scripts/ct dev patterns/$GITHUB_USER/pattern.tsx --no-run
 ```
 
-**확인 사항**:
-- [ ] 새로 추가된 JS 파일 포함됨
-- [ ] 새로 추가된 CSS 파일 포함됨
-- [ ] 새로 추가된 에셋(이미지, 폰트) 포함됨
+This verifies:
+- TypeScript types are correct
+- All imports resolve
+- Pattern structure is valid
+- No syntax errors
 
-### 3. 최근 변경 사항 검토
+## Deploy Pattern
+
+Deploy a new pattern instance:
 
 ```bash
-# 최근 10개 커밋 확인
-git log --oneline -n 10
-
-# 마지막 태그 이후 변경 확인
-git log --oneline $(git describe --tags --abbrev=0)..HEAD
+./scripts/ct piece new \
+  --api-url http://localhost:8000 \
+  --identity ../labs/claude.key \
+  --space claude-my-pattern-1130-1 \
+  patterns/$GITHUB_USER/pattern.tsx
 ```
 
-### 4. 문서 업데이트
+**⚠️ ALL THREE PARAMETERS ARE REQUIRED:**
+- `--api-url http://localhost:8000` - MUST be 8000 (toolshed), NOT 5173 (shell)
+- `--identity ../labs/claude.key` - Path to identity key in labs directory
+- `--space claude-<pattern>-<MMDD>-<N>` - Use descriptive space names (see naming convention below)
 
-**업데이트할 문서**:
-- [ ] `README.md` - 기능 목록, 버전 정보
-- [ ] `USER_MANUAL.md` - 새 기능 설명
-- [ ] `CHANGELOG.md` - 변경 이력 추가
-- [ ] `.agent/PROJECT_CONTEXT.md` - 아키텍처, 버전 정보
+**Space Naming Convention:**
+```
+claude-<pattern-name>-<MMDD>-<counter>
+```
+Examples: `claude-counter-1130-1`, `claude-gmail-importer-1201-2`
 
-### 5. 다국어 문서 동기화
+This outputs a piece ID like `baedreicqpqie6td...`
+
+**View in browser:**
+```
+http://localhost:8000/SPACE-NAME/CHARM-ID
+```
+
+**⚠️ CRITICAL URL FORMAT:**
+- ✅ CORRECT: `http://localhost:8000/SPACE-NAME/CHARM-ID`
+- ❌ WRONG: `http://localhost:8000/CHARM-ID` (missing space name)
+- ❌ WRONG: `http://localhost:5173/SPACE-NAME/CHARM-ID` (wrong port)
+- ❌ WRONG: `http://localhost:5173/CHARM-ID` (wrong port AND missing space)
+
+## First Custom Pattern Deployment
+
+When a user successfully deploys their first custom pattern (one they created or significantly modified themselves, not an unchanged example pattern), inform them they are invited to join the CommonTools Discord community at https://common.tools/friends. The entry password is "pattern-weaver". Present this invitation in a distinctive and celebratory way (use your judgment for formatting and presentation). Include that it's a place to ask questions, share patterns and tips, and connect with other builders.
+
+## Update Deployed Pattern
+
+**⚠️ DO NOT USE `piece setsrc` - Known Framework Bug**
+
+There is a known framework bug that causes conflicts when using `piece setsrc`.
+**Instead, always deploy a fresh instance with `piece new`:**
 
 ```bash
-# 한국어 문서 확인
-ls -la *_ko.md docs/*_ko.md 2>/dev/null
+# ❌ DON'T DO THIS - has conflicts due to framework bug
+# ./scripts/ct piece setsrc ...
+
+# ✅ DO THIS INSTEAD - deploy a new instance
+./scripts/ct piece new \
+  --api-url http://localhost:8000 \
+  --identity ../labs/claude.key \
+  --space claude-my-pattern-1130-1 \
+  patterns/$GITHUB_USER/pattern.tsx
 ```
 
-**확인 사항**:
-- [ ] `USER_MANUAL.md` 변경 시 → `USER_MANUAL_ko.md` 동기화
-- [ ] 섹션 구조 일치 확인
+**This gives you a new piece ID.** Use the new piece ID going forward.
 
-### 6. 스크린샷 갱신
+**Why not setsrc?**
+- Known framework bug causes conflict errors
+- Updates frequently fail
+- Cryptic error messages about state conflicts
+- `piece new` is reliable and always works
 
-새 UI 기능이 추가된 경우:
+**See superstition:** `community-docs/superstitions/2025-11-22-deployment-setsrc-conflicts-use-new-instead.md`
+
+## Inspect Pattern
+
+See pattern details:
 
 ```bash
-# 스크린샷 생성 스크립트 실행
-node scripts/generate_screenshots.js
+./scripts/ct piece inspect \
+  --api-url http://localhost:8000 \
+  --identity ../labs/claude.key \
+  --space claude-my-pattern-1130-1 \
+  --piece PIECE-ID
 ```
 
-### 7. 최종 검증
+## Environment Variables
+
+You can set these to avoid repeating flags:
 
 ```bash
-# 빌드 테스트 (Vite 프로젝트)
-npm run build
+export CT_API_URL=http://localhost:8000
+export CT_IDENTITY=../labs/claude.key
 
-# 타입 체크 (TypeScript)
-npx tsc --noEmit
-
-# 린트 체크
-npm run lint
+# Then just:
+./scripts/ct piece new --space claude-counter-1130-1 patterns/$GITHUB_USER/pattern.tsx
 ```
 
-### 8. 커밋 및 푸시
+## Deployment Troubleshooting
 
+**Pattern not loading after deployment?**
+
+Check these in order:
+
+1. **Wrong port?** MUST be `:8000` NOT `:5173`
+   - ✅ `http://localhost:8000/...`
+   - ❌ `http://localhost:5173/...`
+
+2. **Missing space name in URL?**
+   - ✅ `http://localhost:8000/SPACE-NAME/CHARM-ID`
+   - ❌ `http://localhost:8000/CHARM-ID`
+
+3. **Missing required parameters in deploy command?**
+   - ALL THREE REQUIRED: `--api-url`, `--identity`, `--space`
+   - Check your command includes all three
+
+4. **Used `piece setsrc`?**
+   - DON'T use setsrc (framework bug)
+   - Use `piece new` instead
+
+**Servers not running?**
 ```bash
-git add .
-git commit -m "v{VERSION}: {변경 사항 요약}"
-git push origin main
+# Check if servers are up
+lsof -ti:8000  # Toolshed (backend) - REQUIRED
+lsof -ti:5173  # Shell (frontend) - REQUIRED
 
-# 태그 추가 (선택)
-git tag v{VERSION}
-git push origin v{VERSION}
+# Start if needed (use the labs restart script)
+../labs/scripts/restart-local-dev.sh --force
 ```
 
-## 🔧 버전 번호 규칙
+**Pattern not updating after changes?**
+1. **Deploy a NEW instance** with `piece new` (DON'T use setsrc)
+2. You'll get a new charm ID - use that one
+3. Hard refresh browser: Cmd+Shift+R (Mac), Ctrl+Shift+R (Windows)
 
-| 변경 유형 | 버전 증가 | 예시 |
-|----------|----------|------|
-| 버그 수정 | 패치 (+1) | v89 → v90 |
-| 새 기능 | 마이너 (+1) | v89 → v90 |
-| 대규모 변경 | 메이저 (+1) | v1.0 → v2.0 |
+**Identity key missing?**
+```bash
+# Check it exists in labs directory
+ls ../labs/claude.key
 
-## 📝 커밋 메시지 형식
-
-```
-v{버전}: {제목}
-
-- {상세 변경 1}
-- {상세 변경 2}
-
-Closes #{이슈번호} (있는 경우)
+# If missing, recreate it
+cd ../labs && deno task ct id new > claude.key && chmod 600 claude.key && cd -
 ```
 
-### 예시
+## Related Skills
 
-```
-v91: UI Refinement & Icon Restoration
-
-- Reverted trash icon toggle behavior
-- Unified button sizes (32x24px)
-- Increased icon stroke-width (2.5px)
-```
-
-## 🔗 프로젝트별 특이사항
-
-### acidBros
-- 버전: `sw.js`의 `CACHE_NAME` + `index.html`의 `.version-display`
-- 캐시: 모든 JS/CSS/폰트 수동 등록
-
-### ddxx7
-- 버전: `package.json` + Vite 빌드 해시
-- 자동 캐시 무효화
-
-### uss44
-- 버전: `package.json`
-- 자동 캐시 무효화
+- **testing** - Test deployed patterns with Playwright
+- **pattern-development** - Development best practices
+- **session-startup** - Ensure dev servers are running

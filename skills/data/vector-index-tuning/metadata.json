@@ -1,7 +1,7 @@
 {
   "name": "vector-index-tuning",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/vector-index-tuning/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:41.411066Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/llm-application-dev/skills/vector-index-tuning/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:51.290452Z"
 }

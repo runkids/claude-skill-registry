@@ -1,106 +1,136 @@
 ---
 name: social-media
-description: Activate for social media content, platform-specific posting, engagement strategies, cross-posting, and social analytics. Use when creating social posts, planning content calendars, or optimizing for specific platforms.
-license: MIT
+description: Add or update social media posting integrations (Discord, LinkedIn, Telegram, Twitter) in workflows. Use when adding new platforms, debugging posting failures, modifying message templates, or configuring webhook URLs.
+allowed-tools: Read, Edit, Grep, Glob
 ---
 
-# Social Media
+# Social Media Integration Skill
 
-Platform-specific content creation, scheduling, and engagement strategies.
+Integrations live in `apps/web/src/lib/workflows/social/`.
 
-## When to Use
+**Supported Platforms:** Discord (webhook), LinkedIn (OAuth), Telegram (Bot API), Twitter (API v2)
 
-- Social media post creation
-- Platform-specific optimization
-- Content calendar planning
-- Engagement strategy
-- Cross-posting adaptation
-- Thread creation
-- Hashtag research
+## Integration Patterns
 
-## Core Capabilities
+### Telegram
 
-### Platform Specifications
-Load: `references/platform-specs.md`
-
-### Posting Best Practices
-Load: `references/posting-best-practices.md`
-
-### Thread Templates
-Load: `references/thread-templates.md`
-
-### Engagement Templates
-Load: `references/engagement-templates.md`
-
-## Quick Reference
-
-| Platform | Post Length | Best Times |
-|----------|-------------|------------|
-| LinkedIn | 3000 chars | Tue-Thu 8-10am |
-| Twitter/X | 280 chars | Tue-Fri 9am-12pm |
-| Instagram | 2200 chars | Mon-Fri 11am-2pm |
-| TikTok | 4000 chars | Tue-Thu 7-9pm |
-
-## Workflow
-
-### Post Creation
-1. Define platform and goal
-2. Select content format
-3. Write platform-optimized copy
-4. Create/select visuals
-5. Add hashtags and mentions
-6. Schedule optimal time
-7. Plan follow-up engagement
-
-### Thread Creation
-1. Choose thread type (educational, story, list, how-to, breakdown)
-2. Write hook (tweet 1 - most important)
-3. Outline key points (5-15 tweets)
-4. Add visuals where relevant
-5. End with CTA
-
-### Cross-Posting
-1. Create primary content
-2. Adapt tone per platform
-3. Adjust format/length
-4. Customize hashtags
-5. Stagger posting times
-
-## Output Format
-
-```markdown
-## Social Post: [Platform]
-
-**Format:** [single/carousel/video/thread]
-**Goal:** [awareness/engagement/traffic/conversion]
-
-### Content
-[Post copy]
-
-### Hashtags
-[Platform-appropriate hashtags]
-
-### Visual
-[Image/video description]
+```typescript
+export async function postToTelegram(message: string) {
+  const url = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
+  await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: process.env.TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: "Markdown",
+    }),
+  });
+}
 ```
 
-## Report Output
+### Twitter
 
-**Activate:** `assets-organizing` skill for report file paths
+```typescript
+export async function postToTwitter(message: string) {
+  await fetch("https://api.twitter.com/2/tweets", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ text: message }),
+  });
+}
+```
 
-Social reports go to `assets/reports/social/{date}-{platform}-{report-type}.md`
+### LinkedIn
 
-## Agent Integration
+```typescript
+export async function postToLinkedIn(message: string) {
+  await fetch("https://api.linkedin.com/v2/ugcPosts", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.LINKEDIN_ACCESS_TOKEN}`,
+      "Content-Type": "application/json",
+      "X-Restli-Protocol-Version": "2.0.0",
+    },
+    body: JSON.stringify({
+      author: `urn:li:organization:${process.env.LINKEDIN_ORG_ID}`,
+      lifecycleState: "PUBLISHED",
+      specificContent: {
+        "com.linkedin.ugc.ShareContent": {
+          shareCommentary: { text: message },
+          shareMediaCategory: "NONE",
+        },
+      },
+      visibility: { "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC" },
+    }),
+  });
+}
+```
 
-**Primary Agents:** social-media-manager, content-creator, community-manager
+## Message Templates
 
-**Skill Dependencies:** creativity, assets-organizing (report organization)
+```typescript
+export function createCarDataMessage(data: CarRegistrationData) {
+  return `🚗 Car Registration Update - ${data.month} ${data.year}
+
+📊 Total Registrations: ${data.total.toLocaleString()}
+🏆 Top Makes: ${data.topMakes.slice(0, 3).join(", ")}
+
+📈 View: https://sgcarstrends.com/data/${data.year}/${data.month}
+
+#SingaporeCars #CarRegistration`;
+}
+```
+
+## Character Limits
+
+| Platform | Limit |
+|----------|-------|
+| Twitter | 280 |
+| LinkedIn | 3,000 |
+| Telegram | 4,096 |
+| Discord | 2,000 (message), 6,000 (embed) |
+
+## Environment Variables
+
+```env
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_CHAT_ID=...
+TWITTER_BEARER_TOKEN=...
+LINKEDIN_ACCESS_TOKEN=...
+LINKEDIN_ORG_ID=...
+```
+
+## Error Handling
+
+```typescript
+export async function postToAllPlatforms(message: string) {
+  const results = await Promise.allSettled([
+    postToTelegram(message),
+    postToTwitter(message),
+    postToLinkedIn(message),
+  ]);
+  const failures = results.filter(r => r.status === "rejected");
+  if (failures.length > 0) console.error("Posting failures:", failures);
+}
+```
+
+## Debugging
+
+1. **Auth errors**: Verify env vars, check token expiration
+2. **Rate limits**: Implement retry with backoff
+3. **Format issues**: Check char limits, test markdown support
 
 ## Best Practices
 
-1. Native content > cross-posted content
-2. Engage before and after posting
-3. Use platform-native features
-4. Post consistently, not constantly
-5. Respond to comments within 1 hour
-6. Test posting times for your audience
+1. **Error Handling**: Handle API failures gracefully
+2. **Rate Limiting**: Implement limits to avoid bans
+3. **Testing**: Test on dev/sandbox accounts first
+4. **Credentials**: Never commit tokens
+
+## References
+
+- `apps/web/CLAUDE.md` for workflow integration details

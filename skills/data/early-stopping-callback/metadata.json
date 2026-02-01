@@ -1,7 +1,7 @@
 {
   "name": "early-stopping-callback",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/early-stopping-callback/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-31T03:32:45.712693Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "planned-skills/generated/07-ml-training/early-stopping-callback/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:17.431701Z"
 }

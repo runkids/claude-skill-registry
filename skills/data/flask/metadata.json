@@ -1,7 +1,7 @@
 {
   "name": "flask",
-  "repo": "dennislee928/Smart_Zone",
-  "path": ".claude/skills/flask/SKILL.md",
-  "source": "github.com/dennislee928/Smart_Zone",
-  "downloaded_at": "2026-01-31T04:46:44.454411Z"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/flask/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-02-01T05:00:34.543293Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "serp-analysis",
-  "repo": "aaron-he-zhu/seo-geo-claude-skills",
-  "path": "research/serp-analysis/SKILL.md",
-  "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
-  "downloaded_at": "2026-01-31T04:26:00.854629Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/seo/skills/serp-analysis/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-02-01T03:26:48.182337Z"
 }

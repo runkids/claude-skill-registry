@@ -1,95 +1,111 @@
 ---
 name: worktree-create
-description: 新しいブランチとworktreeを作成し、開発作業を開始するためのスキル。タスク着手時に「worktreeを作成」「ブランチを作成して作業開始」「/worktree-create <branch-name>」などで使用。
+description: "Create isolated git worktrees for parallel development. Use when working on multiple issues simultaneously."
+mcp_fallback: none
+category: worktree
 ---
 
 # Worktree Create
 
-新規タスクの作業を開始する際に、ブランチとworktreeを作成するスキル。
+Create separate working directories on different branches without stashing changes.
 
-## 使用タイミング
+## When to Use
 
-- 新しいタスクに着手する時
-- 機能開発やバグ修正を開始する時
-- 独立した作業ディレクトリが必要な時
+- Starting work on a new issue
+- Need to work on multiple issues in parallel
+- Want to avoid stashing/context switching overhead
+- Testing changes across different branches
 
-## 引数
-
-```
-/worktree-create <branch-name>
-```
-
-- `<branch-name>`: 作成するブランチ名（例: `feature/add-user-auth`, `fix/login-bug`）
-
-## ブランチ命名規則
-
-| プレフィックス | 用途 |
-|--------------|------|
-| `feature/` | 新機能 |
-| `fix/` | バグ修正 |
-| `refactor/` | リファクタリング |
-| `docs/` | ドキュメント |
-
-## 実行手順
-
-### 1. 現在の状態を確認
+## Quick Reference
 
 ```bash
-# 現在のブランチと未コミットの変更を確認
-git status
+# Create worktree for new branch
+./scripts/create_worktree.sh <issue-number> <description>
+
+# Example
+./scripts/create_worktree.sh 42 "implement-tensor-ops"
+# Creates: ../ProjectOdyssey-42-implement-tensor-ops/
+
+# List all worktrees
 git worktree list
+
+# Switch worktrees
+cd ../ProjectOdyssey-42-implement-tensor-ops
 ```
 
-### 2. Worktreeを作成
+## Workflow
+
+1. **Create worktree** - Run create script with issue number and description
+2. **Navigate** - `cd` to new worktree directory (parallel to main)
+3. **Work normally** - Make changes, commit, push as usual
+4. **Switch back** - `cd` to different worktree or main directory
+5. **Clean up** - Remove worktree after PR merge (see `worktree-cleanup` skill)
+
+## Error Handling
+
+| Error | Solution |
+|-------|----------|
+| Branch already exists | Use different branch name or delete old branch |
+| Directory exists | Choose different location or remove directory |
+| Cannot switch away | Ensure all changes are committed |
+| Permission denied | Check directory permissions |
+
+## Directory Structure
+
+```text
+parent-directory/
+├── ProjectOdyssey/                    # Main worktree (main branch)
+├── ProjectOdyssey-42-tensor-ops/      # Issue #42 worktree
+├── ProjectOdyssey-73-bugfix/          # Issue #73 worktree
+└── ProjectOdyssey-99-experiment/      # Experimental worktree
+```
+
+## Best Practices
+
+- One worktree per issue (don't share branches)
+- Use descriptive names: `<issue-number>-<description>`
+- All worktrees share same `.git` directory
+- Clean up after PR merge
+- Each branch can only be checked out in ONE worktree
+
+## Multi-Issue Parallel Development
+
+When working on related issues (e.g., Plan → Test/Impl/Package → Cleanup phases):
+
+### Phase-Based Worktree Pattern
 
 ```bash
-# mainブランチから新しいworktreeを作成
-git worktree add ../Lorepedia-<branch-name> -b <branch-name> main
+# Phase 1: Plan (sequential, must complete first)
+git worktree add ../ProjectOdyssey-62-plan-agents 62-plan-agents
+
+# Phase 2: Parallel development (after Plan complete)
+git worktree add ../ProjectOdyssey-63-test-agents 63-test-agents
+git worktree add ../ProjectOdyssey-64-impl-agents 64-impl-agents
+git worktree add ../ProjectOdyssey-65-pkg-agents 65-pkg-agents
+
+# Phase 3: Cleanup (after parallel phases complete)
+git worktree add ../ProjectOdyssey-66-cleanup-agents 66-cleanup-agents
 ```
 
-### 3. 環境変数ファイルのシンボリックリンク作成
+### Coordination Patterns
 
-worktree間で`.env`を共有するため、メインリポジトリの`.env`へシンボリックリンクを作成:
+- **Test and Impl** coordinate for TDD (test-first development)
+- **Package** integrates Test and Impl artifacts
+- All worktrees reference the same Plan specifications
+- Cleanup merges all parallel work and resolves issues
 
-```bash
-cd ../Lorepedia-<branch-name>
+### PR Strategy
 
-# メインリポジトリ（最初のworktree）のパスを動的に取得してリンク
-MAIN_REPO=$(git worktree list --porcelain | grep "^worktree " | head -1 | sed 's/worktree //')
-ln -s "$MAIN_REPO/.env" .env
-```
+**Recommended: One PR per Phase**
 
-### 4. 依存関係のインストール
+- PR 1: Plan issues → Merge specifications together
+- PR 2: Test/Impl/Package → Merge implementation together
+- PR 3: Cleanup → Final polish
 
-worktreeディレクトリでは`node_modules`が共有されないため、必要に応じてインストール:
+Advantages: Logical grouping, easier review, clear milestones
 
-```bash
-pnpm install
-```
+## References
 
-### 5. 作業開始の案内
-
-worktree作成後、以下を案内する:
-- 作業ディレクトリのパス
-- 次のステップ（実装開始）
-
-## 注意事項
-
-- 未コミットの変更がある場合は、先にコミットまたはスタッシュする
-- 同名のブランチが既に存在する場合はエラーになる
-- worktree作成後は新しいディレクトリで作業を継続する
-
-## 実行例
-
-```
-User: /worktree-create feature/add-world-list
-```
-
-Assistant:
-1. git status で現在の状態を確認
-2. git worktree add ../Lorepedia-feature-add-world-list -b feature/add-world-list main を実行
-3. ln -s でメインリポジトリの.envへシンボリックリンクを作成
-4. pnpm install を実行
-5. 作業ディレクトリ: /path/to/Lorepedia-feature-add-world-list
-   次のステップ: 実装を開始してください
-```
+- `scripts/create_worktree.sh` implementation
+- See `worktree-cleanup` skill for removing worktrees
+- See `worktree-sync` skill for keeping worktrees up to date

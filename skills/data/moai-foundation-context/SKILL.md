@@ -1,54 +1,29 @@
 ---
 name: moai-foundation-context
+aliases: [moai-foundation-context]
 description: Enterprise context and session management with token budget optimization and state persistence
-license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
+version: 3.1.0
+modularized: false
 user-invocable: false
-metadata:
-  version: "3.1.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "foundation, context, session, token-optimization, state-management, multi-agent"
-  aliases: "moai-foundation-context"
-  replaces: "moai-core-context-budget, moai-core-session-state"
-
-# MoAI Extension: Progressive Disclosure
-progressive_disclosure:
-  enabled: true
-  level1_tokens: 100
-  level2_tokens: 5000
-
-# MoAI Extension: Triggers
-triggers:
-  keywords:
-    - "token"
-    - "context"
-    - "session"
-    - "budget"
-    - "optimization"
-    - "handoff"
-    - "state"
-    - "memory"
-    - "/clear"
-    - "context window"
-    - "token limit"
-    - "session persistence"
-    - "context management"
-    - "multi-agent"
-  agents:
-    - "manager-spec"
-    - "manager-ddd"
-    - "manager-strategy"
-    - "manager-quality"
-    - "manager-docs"
-    - "manager-project"
-  phases:
-    - "plan"
-    - "run"
-    - "sync"
+category: foundation
+tags:
+  [
+    "foundation",
+    "context",
+    "session",
+    "token-optimization",
+    "state-management",
+    "multi-agent",
+  ]
+updated: 2026-01-11
+status: "active"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
+replaces: moai-core-context-budget, moai-core-session-state
 ---
 
 ## Quick Reference

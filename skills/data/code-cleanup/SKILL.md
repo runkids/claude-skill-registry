@@ -1,122 +1,25 @@
 ---
 name: code-cleanup
-description: |
-  Detect and clean redundant code in Python and TypeScript projects.
-  Finds unused imports, dead functions, stale comments, debug statements,
-  and unused dependencies. Use when asked to "clean code", "find dead code",
-  "remove unused imports", "check redundant code", or "清理代码".
+description: Systematic code cleanup and refactoring agent that identifies and fixes code quality issues without changing functionality. Focuses on: - Dead code removal - Import organization - Type improvements - Consistent patterns - File organization Use when "User asks to "clean up" code, User mentions "dead code" or "unused", User wants to "organize imports", User asks about "code quality", User wants to "refactor" without changing behavior, Code review identifies cleanup items, After major feature completion, cleanup, refactoring, code-quality, maintenance, organization" mentioned. 
 ---
 
-# Code Cleanup Skill
+# Code Cleanup
 
-Scan projects for redundant code and generate cleanup reports.
+## Identity
 
-## Quick Start
+You are a code quality engineer who believes that clean code is a feature,
+not a luxury. You've seen codebases become unmaintainable through accumulated
+cruft. You know the difference between necessary complexity and accidental
+mess. You refactor incrementally, not in big-bang rewrites. You leave code
+better than you found it.
 
-```bash
-# Scan for dead code (unused imports, functions, variables)
-python scripts/scan_dead_code.py backend/
 
-# Scan for stale code (old TODOs, debug statements, commented code)
-python scripts/scan_stale_code.py src/
+## Reference System Usage
 
-# Check unused dependencies
-python scripts/scan_unused_deps.py .
-```
+You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
 
-## Scripts
+* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
+* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
+* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
 
-| Script | Detects | Confidence |
-|--------|---------|------------|
-| scan_dead_code.py | Unused imports, functions, classes, variables | High |
-| scan_stale_code.py | Commented code, old TODOs, debug statements | Medium |
-| scan_unused_deps.py | Unused packages in requirements.txt/package.json | Low |
-
-## Usage
-
-### scan_dead_code.py
-
-```bash
-python scripts/scan_dead_code.py <dir> [--format json|text] [--ignore "test_*"]
-```
-
-Detects:
-- Unused imports (high confidence, safe to remove)
-- Unused functions/classes not starting with `_` (medium confidence)
-- Unused top-level variables (medium confidence)
-
-### scan_stale_code.py
-
-```bash
-python scripts/scan_stale_code.py <dir> [--todo-days 90] [--no-debug]
-```
-
-Detects:
-- Commented-out code blocks
-- TODOs/FIXMEs older than N days (default: 90)
-- Debug statements: `print(`, `console.log(`, `debugger`, `pdb`
-
-### scan_unused_deps.py
-
-```bash
-python scripts/scan_unused_deps.py <dir> [--type python|node|all]
-```
-
-Checks:
-- requirements.txt vs actual imports
-- package.json dependencies vs actual imports
-
-## Output Format
-
-All scripts output JSON by default:
-
-```json
-{
-  "target": "backend/",
-  "issues": [
-    {
-      "type": "unused_import",
-      "file": "services/user.py",
-      "line": 3,
-      "code": "import os",
-      "confidence": "high",
-      "suggestion": "Remove unused import: os"
-    }
-  ],
-  "summary": {
-    "total": 15,
-    "high": 10,
-    "medium": 5,
-    "low": 0
-  }
-}
-```
-
-## Confidence Levels
-
-| Level | Meaning | Action |
-|-------|---------|--------|
-| high | Definitely unused | Safe to remove |
-| medium | Likely unused | Review before removing |
-| low | Possibly unused | Manual inspection needed |
-
-## Cleanup Workflow
-
-1. Run scan scripts on target directory
-2. Review JSON output, filter by confidence
-3. For each issue: remove, keep, or defer
-4. Apply changes (Claude can help edit files)
-5. Run tests to verify nothing broke
-
-## Safety Notes
-
-- Scripts are **read-only** (scan only, no modifications)
-- Always backup before bulk cleanup
-- Run tests after cleanup
-- Some "unused" code may be used dynamically (reflection, `__getattr__`, lazy imports)
-- Ignore `__init__.py` re-exports
-
-## References
-
-- Detection patterns: `references/detection-patterns.md`
-- Cleanup examples: `references/cleanup-examples.md`
+**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.

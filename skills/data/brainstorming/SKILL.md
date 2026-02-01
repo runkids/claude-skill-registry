@@ -32,19 +32,6 @@ Start by understanding the current project context, then ask questions one at a 
 - Cover: architecture, components, data flow, error handling, testing
 - Be ready to go back and clarify if something doesn't make sense
 
-## After the Design
-
-**Documentation:**
-- Create the plan directory: `plans/active/{plan-name}/design/`
-- Write validated design files (overview.md, approach.md, etc.)
-- Files should cross-reference each other with relative links
-- Commit the design documents to git
-
-**Implementation (if continuing):**
-- Ask: "Ready to set up for implementation?"
-- Use gremlins:using-git-worktrees to create isolated workspace
-- Use gremlins:writing-plans to create detailed implementation plan
-
 ## Key Principles
 
 - **One question at a time** - Don't overwhelm with multiple questions

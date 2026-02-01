@@ -1,45 +1,23 @@
 ---
-name: moai-domain-backend
-description: >
-  Backend development specialist covering API design, database integration,
-  microservices architecture, and modern backend patterns.
-license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Write Edit Bash Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
+name: "moai-domain-backend"
+description: "Backend development specialist covering API design, database integration, microservices architecture, and modern backend patterns"
+version: 1.0.0
+category: "domain"
+modularized: false
 user-invocable: false
-metadata:
-  version: "1.0.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "backend, api, database, microservices, architecture"
-  author: "MoAI-ADK Team"
-
-# MoAI Extension: Triggers
-triggers:
-  keywords:
-    - backend
-    - API
-    - server
-    - authentication
-    - authorization
-    - REST
-    - GraphQL
-    - gRPC
-    - microservices
-    - database
-    - endpoint
-    - middleware
-    - FastAPI
-    - Express
-    - Django
-    - Flask
-    - serverless
-    - caching
-    - Redis
-    - PostgreSQL
-    - MongoDB
+tags: ['backend', 'api', 'database', 'microservices', 'architecture']
+updated: 2026-01-11
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Grep
+  - Glob
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
+status: "active"
+author: "MoAI-ADK Team"
 ---
 
 # Backend Development Specialist
@@ -92,7 +70,7 @@ Create a UserService class that initializes with an AsyncIOMotorClient. Set up t
 
 Service Discovery with Consul:
 
-Create a ServiceRegistry class that connects to Consul. Implement register_service method that registers a service with name, id, port, and health check endpoint. Implement discover_service method that queries healthy services and returns list of adddess:port strings.
+Create a ServiceRegistry class that connects to Consul. Implement register_service method that registers a service with name, id, port, and health check endpoint. Implement discover_service method that queries healthy services and returns list of address:port strings.
 
 Event-Driven Architecture:
 

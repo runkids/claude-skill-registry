@@ -1,7 +1,7 @@
 {
   "name": "fixtures",
-  "repo": "javicasper/memory-forge",
-  "path": "tools/embeddings/tests/fixtures/sample-skill.md",
-  "source": "github.com/javicasper/memory-forge",
-  "downloaded_at": "2026-01-31T04:39:36.286572Z"
+  "repo": "cuioss/plan-marshall",
+  "path": "test/pm-plugin-development/plugin-create/fixtures/valid-skill.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-02-01T04:25:04.477139Z"
 }

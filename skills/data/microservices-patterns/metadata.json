@@ -1,7 +1,7 @@
 {
   "name": "microservices-patterns",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/microservices-patterns/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:14.398303Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/backend-development/skills/microservices-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:52.802150Z"
 }

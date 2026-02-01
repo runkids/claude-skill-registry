@@ -10,4 +10,4 @@ triggers:
 
 Captures patterns to improve framework over time.
 
-*Full version: See `.claude/reference/skills-full/adaptive-learning-full.md` in plugin source.*
+`Read .claude/reference/skills-full/adaptive-learning-full.md`

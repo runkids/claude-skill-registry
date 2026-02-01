@@ -1,7 +1,7 @@
 {
   "name": "data-modeling",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/business-analysis/skills/data-modeling/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-31T04:13:12.803775Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/data/data-modeling/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-02-01T05:04:25.208583Z"
 }

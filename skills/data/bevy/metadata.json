@@ -1,11 +1,7 @@
 {
   "name": "bevy",
-  "description": "This skill should be used when working on Bevy game engine projects. It provides specialized knowledge for Bevy's Entity Component System (ECS) architecture, component-driven design patterns, system o",
-  "repo": "bfollington/terma",
-  "category": "development",
-  "tags": [
-    "bevy"
-  ],
-  "stars": 15,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ngxtm/devkit",
+  "path": "rules/rust/bevy/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-02-01T04:01:43.456424Z"
 }

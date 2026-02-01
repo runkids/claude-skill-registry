@@ -1,9 +1,7 @@
 {
   "name": "vibes",
-  "description": "Generate React web apps with Fireproof database. Use when creating new web applications, adding components, or working with local-first databases. Ideal for quick prototypes and single-page apps that ",
-  "repo": "popmechanic/vibes-cli",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "openclaw/skills",
+  "path": "skills/binora/vibes/SKILL.md",
+  "source": "github.com/openclaw/skills",
+  "downloaded_at": "2026-02-01T03:17:27.092745Z"
 }

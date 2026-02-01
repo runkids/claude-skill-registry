@@ -1,37 +1,24 @@
 ---
-name: moai-baas-railway-ext
-version: 4.0.0
+name: "moai-baas-railway-ext"
+version: "4.0.0"
 created: 2025-11-11
-updated: '2025-11-18'
+updated: 2025-11-13
 status: stable
-description: Enterprise Railway Full-Stack Platform with AI-powered container orchestration,
-  Context7 integration, and intelligent deployment automation for scalable modern
-  applications
-keywords:
-- railway
-- full-stack
-- container-deployment
-- ci-cd
-- database-provisioning
-- auto-scaling
-- context7-integration
-- ai-orchestration
-- production-deployment
-allowed-tools:
-- Read
-- Bash
-- Write
-- Edit
-- Glob
-- Grep
-- WebFetch
-- mcp__context7__resolve-library-id
-- mcp__context7__get-library-docs
-stability: stable
+description: Enterprise Railway Full-Stack Platform with AI-powered container orchestration, Context7 integration, and intelligent deployment automation for scalable modern applications
+keywords: ['railway', 'full-stack', 'container-deployment', 'ci-cd', 'database-provisioning', 'auto-scaling', 'context7-integration', 'ai-orchestration', 'production-deployment']
+allowed-tools: 
+  - Read
+  - Bash
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
-
-# Enterprise Railway Full-Stack Platform Expert 
+# Enterprise Railway Full-Stack Platform Expert v4.0.0
 
 ## Skill Metadata
 
@@ -49,7 +36,7 @@ stability: stable
 
 Enterprise Railway Full-Stack Platform expert with AI-powered container orchestration, Context7 integration, and intelligent deployment automation for scalable modern applications.
 
-**Revolutionary  capabilities**:
+**Revolutionary v4.0.0 capabilities**:
 - 🤖 **AI-Powered Railway Architecture** using Context7 MCP for latest deployment patterns
 - 📊 **Intelligent Container Orchestration** with automated scaling and optimization
 - 🚀 **Real-time Performance Analytics** with AI-driven deployment insights
@@ -516,7 +503,7 @@ class RailwayEnvironmentManager:
 
 ## Changelog
 
-- ** .0** (2025-11-13): Complete Enterprise   rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Railway platform updates, and advanced deployment automation
+- **v4.0.0** (2025-11-13): Complete Enterprise v4.0 rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Railway platform updates, and advanced deployment automation
 - **v2.0.0** (2025-11-11): Complete metadata structure, deployment patterns, CI/CD integration
 - **v1.0.0** (2025-11-11): Initial Railway full-stack platform
 
@@ -540,4 +527,4 @@ class RailwayEnvironmentManager:
 
 ---
 
-**End of Enterprise Railway Full-Stack Platform Expert **
+**End of Enterprise Railway Full-Stack Platform Expert v4.0.0**

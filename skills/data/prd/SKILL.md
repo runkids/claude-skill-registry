@@ -1,264 +1,770 @@
 ---
-name: prd
-description: 'Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan this feature, requirements for, spec out.'
+description: Generate an executable PRD for Ralph from an idea file or description.
 ---
 
-# PRD Generator
+# /prd - Generate PRD for Ralph
 
-Create detailed Product Requirements Documents that are clear, actionable, and suitable for implementation.
+Generate executable stories for Ralph's autonomous development loop.
 
----
+**CRITICAL: This command does NOT write code. It produces `.ralph/prd.json` only.**
 
-## The Job
+## User Input
 
-1. Receive a feature description from the user
-2. Ask 3-5 essential clarifying questions (with lettered options)
-3. Generate a structured PRD based on answers
-4. Save to `tasks/prd-[feature-name].md`
-
-**Important:** Do NOT start implementing. Just create the PRD.
-
----
-
-## Step 1: Clarifying Questions
-
-Ask only critical questions where the initial prompt is ambiguous. Focus on:
-
--   **Problem/Goal:** What problem does this solve?
--   **Core Functionality:** What are the key actions?
--   **Scope/Boundaries:** What should it NOT do?
--   **Success Criteria:** How do we know it's done?
-
-### Format Questions Like This:
-
-```
-1. What is the primary goal of this feature?
-   A. Improve user onboarding experience
-   B. Increase user retention
-   C. Reduce support burden
-   D. Other: [please specify]
-
-2. Who is the target user?
-   A. New users only
-   B. Existing users only
-   C. All users
-   D. Admin users only
-
-3. What is the scope?
-   A. Minimal viable version
-   B. Full-featured implementation
-   C. Just the backend/API
-   D. Just the UI
+```text
+$ARGUMENTS
 ```
 
-This lets users respond with "1A, 2C, 3B" for quick iteration.
+## Workflow
 
----
+### Step 1: Determine Input Type
 
-## Step 2: PRD Structure
+**If `$ARGUMENTS` is empty:**
+1. Check for idea files:
+   ```bash
+   ls docs/ideas/*.md 2>/dev/null || echo "No ideas found"
+   ```
+2. Ask: "Would you like to:
+   - Convert an idea file (e.g., `/prd auth` for `docs/ideas/auth.md`)
+   - Describe a feature directly (e.g., `/prd 'Add user logout button'`)"
 
-Generate the PRD with these sections:
+**If `$ARGUMENTS` looks like a file reference** (no spaces, matches `docs/ideas/*.md`):
+- If it's a full path, use it directly
+- If it's just a name like `content-engine`, look for `docs/ideas/content-engine.md`
+- Proceed to "Read and Understand the Idea"
 
-### 1. Introduction/Overview
+**If `$ARGUMENTS` is a description** (has spaces, is a sentence):
+- This is the **quick PRD flow** - no `docs/ideas/` file created
+- Good for small features that don't need documentation
+- Skip to "Confirm Understanding" below
 
-Brief description of the feature and the problem it solves.
+### Step 2a: Read and Understand the Idea (from file)
 
-### 2. Goals
+Read the idea file and summarize:
 
-Specific, measurable objectives (bullet list).
+Say: "I've read `{path}`. Here's my understanding:
 
-### 3. User Stories
+**Feature:** {name}
+**Problem:** {one line}
+**Solution:** {one line}
+**Scope:** {key items}
 
-Each story needs:
+I'll now split this into {N} stories for Ralph. Continue?"
 
--   **Title:** Short descriptive name
--   **Description:** "As a [user], I want [feature] so that [benefit]"
--   **Acceptance Criteria:** Verifiable checklist of what "done" means
+**STOP and wait for user confirmation.**
 
-Each story should be small enough to implement in one focused session.
+### Step 2b: Confirm Understanding (from description)
 
-**Format:**
-
-```markdown
-### US-001: [Title]
-
-**Description:** As a [user], I want [feature] so that [benefit].
-
-**Acceptance Criteria:**
-
--   [ ] Specific verifiable criterion
--   [ ] Another criterion
--   [ ] Typecheck/lint passes
--   [ ] **[UI stories only]** Verify in browser
+If working from a direct description, first explore the codebase briefly:
+```bash
+ls -la src/ app/ 2>/dev/null | head -20
+cat package.json 2>/dev/null | jq '{name, dependencies}' || true
+cat pyproject.toml 2>/dev/null | head -20 || true
 ```
 
-**Important:**
+Then say: "I'll create a PRD for: **{description}**
 
--   Acceptance criteria must be verifiable, not vague. "Works correctly" is bad. "Button shows confirmation dialog before deleting" is good.
--   **For any story with UI changes:** Always include "Verify in browser" as acceptance criteria. This ensures visual verification of frontend work.
+Before I generate stories, quick questions:
+1. **Type:** Frontend or backend?
+2. **Scale:** Any specific limits (users, items, rate limits)?
+3. **Anything else** I should know?
 
-### 4. Functional Requirements
+(Or say 'go' to proceed with defaults)"
 
-Numbered list of specific functionalities:
+**STOP and wait for user input** (can be brief or 'go').
 
--   "FR-1: The system must allow users to..."
--   "FR-2: When a user clicks X, the system must..."
+### Step 3: Check for Existing PRD
 
-Be explicit and unambiguous.
+```bash
+cat .ralph/prd.json 2>/dev/null
+```
 
-### 5. Non-Goals (Out of Scope)
+If it exists, read it and say:
+"`.ralph/prd.json` exists with {N} stories ({M} completed, {P} pending).
 
-What this feature will NOT include. Critical for managing scope.
+Options:
+- **'append'** - Add new stories to the existing PRD (recommended)
+- **'overwrite'** - Replace it entirely
+- **'cancel'** - Stop here"
 
-### 6. Design Considerations (Optional)
+**STOP and wait for user choice.**
 
--   UI/UX requirements
--   Link to mockups if available
--   Relevant existing components to reuse
+If user chooses **'append'**:
+- Find highest existing story number (ignore prefix - could be US-005 or TASK-005)
+- **Always use TASK- prefix** for new stories (e.g., if highest is US-005 or TASK-005, new stories start at TASK-006)
+- New stories will be added after existing ones
 
-### 7. Technical Considerations (Optional)
+### Step 4: Split into Stories
 
--   Known constraints or dependencies
--   Integration points with existing systems
--   Performance requirements
+Break the idea into small, executable stories:
 
-### 8. Success Metrics
+- Each story completable in one Claude session (~10-15 min)
+- Max 3-4 acceptance criteria per story
+- Max 10 stories (suggest phases if more needed)
+- If appending, start IDs from the next available number
 
-How will success be measured?
+### Step 5: Write Draft PRD
 
--   "Reduce time to complete X by 50%"
--   "Increase conversion rate by 10%"
+Write the initial PRD to `.ralph/prd.json`:
 
-### 9. Open Questions
+1. Ensure .ralph directory exists:
+   ```bash
+   mkdir -p .ralph && touch .ralph/.prd-edit-allowed
+   ```
 
-Remaining questions or areas needing clarification.
+2. Write all stories to `.ralph/prd.json`
+   - If **appending**: Read existing JSON, add new stories, update count
+
+**Do not present to user yet - validation comes next.**
+
+### Step 6: Validate and Fix (MANDATORY)
+
+**Read back the PRD you just wrote and validate EVERY story.**
+
+```bash
+cat .ralph/prd.json
+```
+
+For EACH story, check:
+
+#### 6a. Testability
+- ❌ `grep -q 'function' file.py` → Only checks code exists, not behavior
+- ❌ `test -f src/component.tsx` → Only checks file exists
+- ❌ `npm test` alone for backend → Mocks can pass without real behavior
+- ✅ `curl ... | jq -e` → Tests actual API response
+- ✅ `npx playwright test` → Real browser tests
+- ✅ `npx tsc --noEmit` → Real type checking
+
+#### 6b. Dependencies
+- Can this story's tests pass given prior stories completed?
+- If TASK-003 needs a user, does TASK-001/002 create one?
+
+#### 6c. Security (for auth/input stories)
+Does acceptanceCriteria include:
+- Password handling → "Passwords hashed with bcrypt (cost 10+)"
+- Auth responses → "Password/tokens NEVER in response body"
+- User input → "Input sanitized to prevent SQL injection/XSS"
+- Login endpoints → "Rate limited to N attempts per minute"
+- Token expiry → "JWT expires after N hours"
+
+#### 6d. Scale (for list/data stories)
+Does acceptanceCriteria include:
+- List endpoints → "Returns paginated results (max 100 per page)"
+- Query params → "Accepts ?page=N&limit=N"
+- Large datasets → "Database query uses index on [column]"
+
+#### 6e. Context (for frontend stories)
+- Does `contextFiles` include the idea file (has ASCII mockups)?
+- Does `contextFiles` include styleguide (if exists)?
+- Is `testUrl` set?
+
+**Fix any issues you find:**
+
+| Problem | Fix |
+|---------|-----|
+| testSteps use grep/test only | Replace with curl, playwright |
+| Backend story has only `npm test` | Add curl commands that hit real endpoints |
+| Story depends on something not created | Reorder or add missing dependency |
+| Auth story missing security criteria | Add password hashing, rate limiting to acceptanceCriteria |
+| List endpoint missing pagination | Add pagination criteria to acceptanceCriteria |
+| Frontend missing contextFiles | Add idea file + styleguide paths |
+| Frontend missing testUrl | Add URL from config |
+
+### Step 7: Reorder if Needed
+
+If validation found dependency issues, reorder stories:
+
+1. Stories that create foundations (DB schemas, base components) come first
+2. Stories that depend on others come after their dependencies
+3. Update `dependsOn` arrays to reflect the order
+4. Re-number story IDs if needed (TASK-001, TASK-002, etc.)
+
+**After reordering, re-run Step 6 validation to confirm the new order works.**
+
+### Step 8: Present Final PRD
+
+Open the PRD for review:
+```bash
+open -a TextEdit .ralph/prd.json
+```
+
+Say: "I've {created|updated} the PRD with {N} stories and opened it in TextEdit.
+
+Review the PRD and let me know:
+- **'approved'** - Ready for `ralph run`
+- **'edit [changes]'** - Tell me what to change
+- Or edit the JSON directly and say **'done'**"
+
+**STOP and wait for user response.**
+
+### Step 9: Final Instructions
+
+Once approved, say:
+
+"PRD is ready!
+
+**Source:** `{idea-file-path}`
+**PRD:** `.ralph/prd.json` ({N} stories)
+
+To start autonomous development:
+```bash
+ralph run
+```
+
+Ralph will work through each story, running tests and committing as it goes."
+
+**DO NOT start implementing code.**
 
 ---
 
-## Writing for Junior Developers
+## Complete PRD JSON Schema
 
-The PRD reader may be a junior developer or AI agent. Therefore:
+**Full working example:** See `templates/prd-example.json` for a complete, valid PRD.
 
--   Be explicit and unambiguous
--   Avoid jargon or explain it
--   Provide enough detail to understand purpose and core logic
--   Number requirements for easy reference
--   Use concrete examples where helpful
+```json
+{
+  "feature": {
+    "name": "Feature Name",
+    "ideaFile": "docs/ideas/{feature-name}.md",
+    "branch": "feature/{feature-name}",
+    "status": "pending"
+  },
 
----
+  "originalContext": "docs/ideas/{feature-name}.md",
 
-## Output
+  "techStack": {
+    "frontend": "{detected from package.json}",
+    "backend": "{detected from pyproject.toml/go.mod}",
+    "database": "{detected or asked}"
+  },
 
--   **Format:** Markdown (`.md`)
--   **Location:** `tasks/`
--   **Filename:** `prd-[feature-name].md` (kebab-case)
+  "testing": {
+    "approach": "TDD",
+    "unit": {
+      "frontend": "{vitest|jest - detected from package.json}",
+      "backend": "{pytest|go test - detected from project}"
+    },
+    "integration": "{playwright|cypress}",
+    "e2e": "{playwright|cypress}",
+    "coverage": {
+      "minimum": 80,
+      "enforced": false
+    }
+  },
 
----
+  "architecture": {
+    "frontend": "src/components",
+    "backend": "src/api",
+    "doNotCreate": ["new database tables without migration"]
+  },
 
-## Example PRD
+  "globalConstraints": [
+    "All API calls must have error handling",
+    "No console.log in production code",
+    "Use existing UI components from src/components/ui"
+  ],
 
-```markdown
-# PRD: Task Priority System
+  "testUsers": {
+    "admin": {"email": "admin@test.com", "password": "test123"},
+    "user": {"email": "user@test.com", "password": "test123"}
+  },
 
-## Introduction
+  "metadata": {
+    "createdAt": "ISO timestamp",
+    "estimatedStories": 5,
+    "complexity": "low|medium|high"
+  },
 
-Add priority levels to tasks so users can focus on what matters most. Tasks can be marked as high, medium, or low priority, with visual indicators and filtering to help users manage their workload effectively.
+  "stories": [
+    {
+      "id": "TASK-001",
+      "type": "frontend|backend",
+      "title": "Short description",
+      "priority": 1,
+      "passes": false,
 
-## Goals
+      "files": {
+        "create": ["paths to new files"],
+        "modify": ["paths to existing files"],
+        "reuse": ["existing files to import from"]
+      },
 
--   Allow assigning priority (high/medium/low) to any task
--   Provide clear visual differentiation between priority levels
--   Enable filtering and sorting by priority
--   Default new tasks to medium priority
+      "acceptanceCriteria": [
+        "What it should do"
+      ],
 
-## User Stories
+      "errorHandling": [
+        "What happens when things fail"
+      ],
 
-### US-001: Add priority field to database
+      "testing": {
+        "types": ["unit", "integration"],
+        "approach": "TDD",
+        "files": {
+          "unit": ["src/components/Dashboard.test.tsx"],
+          "integration": ["tests/integration/dashboard.test.ts"],
+          "e2e": ["tests/e2e/dashboard.spec.ts"]
+        }
+      },
 
-**Description:** As a developer, I need to store task priority so it persists across sessions.
+      "testSteps": [
+        "curl -s {config.urls.backend}/endpoint | jq -e '.expected == true'",
+        "npx playwright test tests/e2e/feature.spec.ts"
+      ],
 
-**Acceptance Criteria:**
+      "testUrl": "{config.urls.frontend}/feature-page",
 
--   [ ] Add priority column to tasks table: 'high' | 'medium' | 'low' (default 'medium')
--   [ ] Generate and run migration successfully
--   [ ] Typecheck passes
+      "mcp": ["playwright", "devtools"],
 
-### US-002: Display priority indicator on task cards
+      "contextFiles": [
+        "docs/ideas/feature.md",
+        "src/styles/styleguide.html"
+      ],
 
-**Description:** As a user, I want to see task priority at a glance so I know what needs attention first.
+      "skills": [
+        {"name": "styleguide", "usage": "Reference for UI components"},
+        {"name": "vibe-check", "usage": "Run after implementation"}
+      ],
 
-**Acceptance Criteria:**
+      "apiContract": {
+        "endpoint": "GET /api/resource",
+        "response": {"field": "type"}
+      },
 
--   [ ] Each task card shows colored priority badge (red=high, yellow=medium, gray=low)
--   [ ] Priority visible without hovering or clicking
--   [ ] Typecheck passes
--   [ ] Verify in browser
+      "prerequisites": [
+        "Backend server running",
+        "Database seeded"
+      ],
 
-### US-003: Add priority selector to task edit
+      "notes": "Human guidance - preferences, warnings, tips",
 
-**Description:** As a user, I want to change a task's priority when editing it.
+      "scale": "small|medium|large",
 
-**Acceptance Criteria:**
+      "architecture": {
+        "pattern": "React Query for data fetching",
+        "constraints": ["No Redux"]
+      },
 
--   [ ] Priority dropdown in task edit modal
--   [ ] Shows current priority as selected
--   [ ] Saves immediately on selection change
--   [ ] Typecheck passes
--   [ ] Verify in browser
-
-### US-004: Filter tasks by priority
-
-**Description:** As a user, I want to filter the task list to see only high-priority items when I'm focused.
-
-**Acceptance Criteria:**
-
--   [ ] Filter dropdown with options: All | High | Medium | Low
--   [ ] Filter persists in URL params
--   [ ] Empty state message when no tasks match filter
--   [ ] Typecheck passes
--   [ ] Verify in browser
-
-## Functional Requirements
-
--   FR-1: Add `priority` field to tasks table ('high' | 'medium' | 'low', default 'medium')
--   FR-2: Display colored priority badge on each task card
--   FR-3: Include priority selector in task edit modal
--   FR-4: Add priority filter dropdown to task list header
--   FR-5: Sort by priority within each status column (high to medium to low)
-
-## Non-Goals
-
--   No priority-based notifications or reminders
--   No automatic priority assignment based on due date
--   No priority inheritance for subtasks
-
-## Technical Considerations
-
--   Reuse existing badge component with color variants
--   Filter state managed via URL search params
--   Priority stored in database, not computed
-
-## Success Metrics
-
--   Users can change priority in under 2 clicks
--   High-priority tasks immediately visible at top of lists
--   No regression in task list performance
-
-## Open Questions
-
--   Should priority affect task ordering within a column?
--   Should we add keyboard shortcuts for priority changes?
+      "dependsOn": []
+    }
+  ]
+}
 ```
 
 ---
 
-## Checklist
+## Field Reference
 
-Before saving the PRD:
+### PRD-Level Fields
 
--   [ ] Asked clarifying questions with lettered options
--   [ ] Incorporated user's answers
--   [ ] User stories are small and specific
--   [ ] Functional requirements are numbered and unambiguous
--   [ ] Non-goals section defines clear boundaries
--   [ ] Saved to `tasks/prd-[feature-name].md`
+| Field | Required | Description |
+|-------|----------|-------------|
+| `feature` | Yes | Feature name, branch, status |
+| `originalContext` | Yes | Path to idea file (Claude reads this for full context) |
+| `techStack` | No | Technologies in use (auto-detect from project) |
+| `testing` | Yes | Testing strategy, tools, coverage requirements |
+| `architecture` | No | Directory structure, patterns, constraints |
+| `globalConstraints` | No | Rules that apply to ALL stories |
+| `testUsers` | No | Test accounts for auth flows |
+| `metadata` | Yes | Created date, complexity estimate |
+
+**Note:** URLs come from `.ralph/config.json`, not the PRD. Use `{config.urls.backend}` in testSteps.
+
+### Story-Level Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Unique ID (TASK-001, TASK-002, etc.) |
+| `type` | Yes | frontend or backend (keep stories atomic) |
+| `title` | Yes | Short description |
+| `priority` | No | Order of importance (1 = highest) |
+| `passes` | Yes | Always starts as `false` |
+| `files` | Yes | create, modify, reuse arrays |
+| `acceptanceCriteria` | Yes | What must be true when done |
+| `errorHandling` | Yes | How to handle failures |
+| `testing` | Yes | Test types, approach, and files for this story |
+| `testSteps` | Yes | Executable shell commands |
+| `testUrl` | Frontend | URL to verify the feature |
+| `mcp` | Frontend | MCP tools for verification |
+| `contextFiles` | No | Files Claude should read (idea files, styleguides) |
+| `skills` | No | Relevant skills with usage hints |
+| `apiContract` | Backend | Expected request/response format |
+| `prerequisites` | No | What must be running/ready |
+| `notes` | No | Human guidance for Claude |
+| `scale` | No | small, medium, large |
+| `architecture` | No | Story-specific patterns/constraints |
+| `dependsOn` | No | Story IDs that must complete first |
+
+---
+
+## Testing Strategy
+
+### PRD-Level Testing Config
+
+Define the overall testing strategy for the feature. **Auto-detect tools from project config files:**
+
+```json
+"testing": {
+  "approach": "TDD",
+  "unit": {
+    "frontend": "vitest",
+    "backend": "pytest"
+  },
+  "integration": "playwright",
+  "e2e": "playwright",
+  "coverage": {
+    "minimum": 80,
+    "enforced": false
+  }
+}
+```
+
+**Detection hints:**
+- Check `package.json` for `vitest`, `jest`, `playwright`, `cypress`
+- Check `pyproject.toml` for `pytest`
+- Check `go.mod` for Go projects (use `go test`)
+
+| Field | Values | Description |
+|-------|--------|-------------|
+| `approach` | `TDD`, `test-after` | Write tests first (TDD) or after implementation |
+| `unit.frontend` | `vitest`, `jest` | Frontend unit test runner (detect from package.json) |
+| `unit.backend` | `pytest`, `go test` | Backend unit test runner (detect from project) |
+| `integration` | `playwright`, `cypress` | Integration test tool |
+| `e2e` | `playwright`, `cypress` | End-to-end test tool |
+| `coverage.minimum` | `0-100` | Minimum coverage percentage |
+| `coverage.enforced` | `true/false` | Fail if coverage not met |
+
+### Story-Level Testing Config
+
+Specify what tests each story needs:
+
+```json
+"testing": {
+  "types": ["unit", "integration"],
+  "approach": "TDD",
+  "files": {
+    "unit": ["src/components/Dashboard.test.tsx"],
+    "integration": ["tests/integration/dashboard.test.ts"],
+    "e2e": ["tests/e2e/dashboard.spec.ts"]
+  }
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `types` | Required test types: `unit`, `integration`, `e2e` |
+| `approach` | Override PRD-level approach for this story |
+| `files.unit` | Unit test files to create |
+| `files.integration` | Integration test files to create |
+| `files.e2e` | E2E test files to create |
+
+### Test Types
+
+| Type | What it Tests | When to Use |
+|------|---------------|-------------|
+| **Unit** | Individual functions, components in isolation | Always - every new file needs unit tests |
+| **Integration** | How pieces work together (API + DB, Component + Hook) | When story involves multiple modules |
+| **E2E** | Full user flows in browser | User-facing features with interactions |
+
+### TDD Workflow
+
+When `approach: "TDD"`:
+
+1. **Write failing test first** - Define expected behavior
+2. **Implement minimum code** - Make the test pass
+3. **Refactor** - Clean up while tests stay green
+4. **Repeat** - Next acceptance criterion
+
+Example for a Dashboard component:
+```
+1. Write test: "renders user name in header"
+2. Run test → FAIL (component doesn't exist)
+3. Create Dashboard.tsx with user name
+4. Run test → PASS
+5. Write test: "shows loading state"
+6. Run test → FAIL
+7. Add loading state
+8. Run test → PASS
+```
+
+### Testing Anti-Patterns (AVOID THESE)
+
+**Missing integration points:**
+```json
+// ❌ BAD - creates function but doesn't verify callers use it
+{
+  "files": {"modify": ["graph.py"]},
+  "acceptanceCriteria": ["Create stream_agent function"]
+}
+
+// ✅ GOOD - verifies the full chain
+{
+  "files": {"modify": ["graph.py", "service.py"]},
+  "acceptanceCriteria": [
+    "service.py calls stream_agent() (not run_agent)",
+    "POST /chat returns progress SSE events"
+  ]
+}
+```
+
+**(See "The Grep for Code Trap" section above for the #1 anti-pattern)**
+
+### Removing/Modifying UI - Update Tests!
+
+**CRITICAL: When a story removes or modifies UI elements, it MUST update related tests.**
+
+Stories that remove UI must include:
+```json
+{
+  "files": {
+    "modify": ["src/components/Dashboard.tsx"],
+    "delete": ["src/components/SelectionPanel.tsx"]
+  },
+  "acceptanceCriteria": [
+    "Selection panel removed from dashboard",
+    "All tests referencing 'Auto-select' button updated or removed"
+  ],
+  "testSteps": [
+    "grep -r 'Auto-select' tests/ && exit 1 || echo 'No stale test references'",
+    "npx playwright test tests/e2e/dashboard.spec.ts"
+  ]
+}
+```
+
+The `grep ... && exit 1` pattern ensures the story fails if stale test references exist.
+
+### Acceptance Criteria Rules
+
+1. **Behavior over implementation** - Describe what the user/API sees, not what code exists
+2. **Verifiable** - Each criterion must be testable with a curl, pytest, or playwright
+3. **Include callers** - If adding a new function, verify callers use it
+4. **Update tests** - If removing UI, verify no tests reference removed elements
+
+```
+❌ "Use astream_events() for progress"
+✅ "POST /chat streams progress events before final response"
+
+❌ "Create stream_agent function"
+✅ "service.py send_message_stream() calls stream_agent()"
+```
+
+### Integration Test Requirements
+
+Backend stories that modify internal functions MUST have integration tests that verify the API behavior:
+
+```python
+# ✅ GOOD - tests actual API behavior
+async def test_send_message_streams_progress_events():
+    """Verify the API actually streams progress events."""
+    async with client.stream("POST", f"/chat/{conv_id}/messages",
+                             json={"content": "test"}) as response:
+        events = [e async for e in parse_sse(response)]
+        progress_events = [e for e in events if e["event_type"] == "progress"]
+        assert len(progress_events) > 0, "No progress events streamed"
+```
+
+### Example Stories by Type
+
+**Frontend story:**
+```json
+"testing": {
+  "types": ["unit", "e2e"],
+  "approach": "TDD",
+  "files": {
+    "unit": ["src/components/Dashboard.test.tsx"],
+    "e2e": ["tests/e2e/dashboard.spec.ts"]
+  }
+}
+```
+
+**Backend API story:**
+```json
+"testing": {
+  "types": ["unit", "integration"],
+  "approach": "TDD",
+  "files": {
+    "unit": ["tests/unit/test_stream_agent.py"],
+    "integration": ["tests/integration/test_chat_streaming.py"]
+  }
+},
+"acceptanceCriteria": [
+  "service.py calls stream_agent() instead of run_agent()",
+  "POST /chat/messages returns SSE stream with progress events",
+  "Progress events include tool name and status"
+],
+"testSteps": [
+  "pytest tests/integration/test_chat_streaming.py -v",
+  "curl -N {config.urls.backend}/chat/1/messages -d '{\"content\":\"test\"}' | grep -q 'progress'"
+]
+```
+
+---
+
+## MCP Tools
+
+Specify which MCP tools Claude should use for verification:
+
+| Tool | When to Use |
+|------|-------------|
+| `playwright` | UI testing, screenshots, form interactions, a11y |
+| `devtools` | Console errors, network inspection, DOM debugging |
+| `postgres` | Database verification (future) |
+
+**Frontend stories** default to `["playwright", "devtools"]`.
+**Backend-only stories** can use `[]` or omit.
+
+---
+
+## Skills Reference
+
+Point Claude to relevant skills for guidance:
+
+| Skill | When to Use |
+|-------|-------------|
+| `styleguide` | Frontend stories - reference UI components |
+| `vibe-check` | Any story - check for AI anti-patterns after |
+| `review` | Security-sensitive stories - OWASP checks |
+| `explain` | Complex logic - document decisions |
+
+Example:
+```json
+"skills": [
+  {"name": "styleguide", "usage": "Use existing Card, Button components"},
+  {"name": "vibe-check", "usage": "Run after implementation to catch issues"}
+]
+```
+
+---
+
+## Test Steps - CRITICAL
+
+⚠️ **THE #1 CAUSE OF FALSE PASSES: grep-only test steps that verify code exists but not behavior.**
+
+**Test steps MUST be executable shell commands.** Ralph runs them with bash.
+
+### The "Grep for Code" Trap - NEVER DO THIS
+
+```json
+// ❌ BAD - This will PASS even when the feature is completely broken!
+"testSteps": [
+  "grep -q 'astream_events' app/domains/chat/agent/graph.py",
+  "grep -q 'export function' src/api/users.ts"
+]
+
+// ✅ GOOD - This actually tests if the feature works
+"testSteps": [
+  "curl -N {config.urls.backend}/chat -d '{\"message\":\"test\"}' | grep -q 'progress'",
+  "curl -s {config.urls.backend}/users | jq -e '.data | length >= 0'"
+]
+```
+
+**Why is grep bad?** Ralph runs `grep -q 'function' file.py` → returns 0 → marks story as PASSED. But the function could be completely broken, have wrong parameters, or never get called. The test passed but the feature doesn't work.
+
+### Backend Stories MUST Have Curl Tests
+
+**CRITICAL: Every backend story MUST include curl commands that verify actual API behavior.**
+
+Use `{config.urls.backend}` - Ralph expands this from `.ralph/config.json`:
+
+```json
+// ✅ REQUIRED for backend stories
+"testSteps": [
+  "curl -s {config.urls.backend}/users | jq -e '.data | length > 0'",
+  "curl -s -X POST {config.urls.backend}/users -d '{\"email\":\"test@test.com\"}' | jq -e '.id'",
+  "curl -N {config.urls.backend}/chat/1/messages -d '{\"content\":\"test\"}' | grep -q 'progress'"
+]
+```
+
+Ralph reads `.ralph/config.json` and expands `{config.urls.backend}` before running.
+
+**Why?** Grep tests verify code exists. Curl tests verify the feature works. (See "The Grep for Code Trap" above.)
+
+### Test Steps by Story Type
+
+| Story Type | Required testSteps |
+|------------|-------------------|
+| `backend` | curl commands using `{config.urls.backend}` to verify API behavior |
+| `frontend` | `tsc --noEmit` (type errors) + `npm test` (unit) + playwright (e2e) |
+| `e2e` | playwright test commands |
+
+**Frontend stories MUST include TypeScript check** - curl won't catch type errors:
+```json
+// ✅ Frontend story testSteps
+"testSteps": [
+  "npx tsc --noEmit",
+  "npm test -- --testPathPattern=Dashboard",
+  "npx playwright test tests/e2e/dashboard.spec.ts"
+]
+```
+
+### Good Test Steps (executable)
+```json
+// Backend story - use {config.urls.backend}
+"testSteps": [
+  "curl -s {config.urls.backend}/health | jq -e '.status == \"ok\"'",
+  "curl -s -X POST {config.urls.backend}/users -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\"}' | jq -e '.id'",
+  "pytest tests/integration/test_users.py -v"
+]
+
+// Frontend story
+"testSteps": [
+  "npm test -- --testPathPattern=Button.test.tsx",
+  "npx tsc --noEmit"
+]
+
+// E2E story
+"testSteps": [
+  "npx playwright test tests/e2e/user-signup.spec.ts"
+]
+```
+
+### Bad Test Steps (will PASS but miss bugs)
+```json
+"testSteps": [
+  "grep -q 'function createUser' app/services/user.py",  // ❌ PASSES if code exists, even if broken
+  "grep -q 'export default' src/components/Dashboard.tsx", // ❌ PASSES even if component crashes
+  "test -f src/api/users.ts",                            // ❌ PASSES if file exists, even if empty
+  "Visit http://localhost:3000/dashboard",                // ❌ Not executable
+  "User can see the dashboard"                            // ❌ Not executable
+]
+```
+
+**NEVER use grep/test to verify behavior.** These will mark stories as PASSED when the feature is broken.
+
+**If a step can't be automated**, put it in `acceptanceCriteria` instead. Claude will verify it visually using MCP tools.
+
+---
+
+## Context Files
+
+Use `contextFiles` to point Claude to important reference material:
+
+```json
+"contextFiles": [
+  "docs/ideas/dashboard.md",
+  "src/styles/styleguide.html",
+  "docs/api-spec.md"
+]
+```
+
+This is where ASCII mockups, design specs, and detailed requirements live. Claude reads these during the Orient step.
+
+---
+
+## Guidelines
+
+- **Keep stories small** - Max 3-4 acceptance criteria (~1000 tokens)
+- **Order by dependency** - Foundation stories first
+- **Specify files explicitly** - Max 3-4 files per story
+- **Define error handling** - Every story specifies failure behavior
+- **Include contextFiles** - Point to idea files with full context (ASCII art, mockups)
+- **Add relevant skills** - Help Claude find the right patterns
+
+### UI Stories Must Include
+- `testUrl` - Where to verify
+- `mcp: ["playwright", "devtools"]` - Browser tools
+- Acceptance criteria for: page loads, elements render, mobile works
+
+### API Stories Must Include
+- `apiContract` - Expected request/response
+- `errorHandling` - What happens on 400, 401, 500, etc.
+- `testSteps` with curl commands to verify endpoints

@@ -1,133 +1,145 @@
 ---
-name: find-skills
-description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.
+name: "find-skills"
+description: "Discover and install skills from multiple marketplaces for AI coding agents"
+version: "1.0.0"
+tags: ["meta", "discovery", "marketplace", "skills"]
 ---
 
 # Find Skills
 
-This skill helps you discover and install skills from the open agent skills ecosystem.
+Universal skill discovery across all AI agent skill marketplaces.
 
-## When to Use This Skill
+## When to Use
 
 Use this skill when the user:
+- Asks "how do I do X" where X might have an existing skill
+- Says "find a skill for X" or "is there a skill that can..."
+- Wants to extend agent capabilities with specialized knowledge
+- Mentions a domain (testing, deployment, design, security, etc.)
 
-- Asks "how do I do X" where X might be a common task with an existing skill
-- Says "find a skill for X" or "is there a skill for X"
-- Asks "can you do X" where X is a specialized capability
-- Expresses interest in extending agent capabilities
-- Wants to search for tools, templates, or workflows
-- Mentions they wish they had help with a specific domain (design, testing, deployment, etc.)
+## SkillKit CLI Commands
 
-## What is the Skills CLI?
+```bash
+# Search skills
+npx skillkit@latest find <query>
 
-The Skills CLI (`npx skills`) is the package manager for the open agent skills ecosystem. Skills are modular packages that extend agent capabilities with specialized knowledge, workflows, and tools.
+# Install from GitHub
+npx skillkit@latest install <owner/repo>
 
-**Key commands:**
+# Browse TUI marketplace
+npx skillkit@latest marketplace
 
-- `npx skills find [query]` - Search for skills interactively or by keyword
-- `npx skills add <package>` - Install a skill from GitHub or other sources
-- `npx skills check` - Check for skill updates
-- `npx skills update` - Update all installed skills
+# List installed skills
+npx skillkit@latest list
 
-**Browse skills at:** https://skills.sh/
+# Get recommendations based on your project
+npx skillkit@latest recommend
+```
 
-## How to Help Users Find Skills
+## Skill Sources (15,000+ skills)
 
-### Step 1: Understand What They Need
+### Official Partners
+| Source | Install |
+|--------|---------|
+| Anthropic | `npx skillkit@latest install anthropics/skills` |
+| Vercel | `npx skillkit@latest install vercel-labs/agent-skills` |
+| Expo | `npx skillkit@latest install expo/skills` |
+| Remotion | `npx skillkit@latest install remotion-dev/skills` |
+| Supabase | `npx skillkit@latest install supabase/agent-skills` |
+| Stripe | `npx skillkit@latest install stripe/ai` |
 
-When a user asks for help with something, identify:
+### Community Collections
+| Source | Focus |
+|--------|-------|
+| `trailofbits/skills` | Security, auditing |
+| `obra/superpowers` | TDD, workflow |
+| `wshobson/agents` | Dev patterns |
+| `ComposioHQ/awesome-claude-skills` | Curated collection |
+| `langgenius/dify` | AI platform |
+| `better-auth/skills` | Authentication |
+| `elysiajs/skills` | Bun/ElysiaJS |
+| `rohitg00/kubectl-mcp-server` | Kubernetes MCP |
 
-1. The domain (e.g., React, testing, design, deployment)
-2. The specific task (e.g., writing tests, creating animations, reviewing PRs)
-3. Whether this is a common enough task that a skill likely exists
+## How to Help Users
+
+### Step 1: Understand the Need
+Identify:
+1. Domain (React, testing, DevOps, security, etc.)
+2. Specific task (writing tests, deployment, code review)
+3. Technology stack
 
 ### Step 2: Search for Skills
 
-Run the find command with a relevant query:
-
+Run search with relevant keywords:
 ```bash
-npx skills find [query]
+npx skillkit@latest find "react testing"
+npx skillkit@latest find "kubernetes"
+npx skillkit@latest find "security audit"
 ```
 
-For example:
+### Step 3: Present Results
 
-- User asks "how do I make my React app faster?" → `npx skills find react performance`
-- User asks "can you help me with PR reviews?" → `npx skills find pr review`
-- User asks "I need to create a changelog" → `npx skills find changelog`
-
-The command will return results like:
-
-```
-Install with npx skills add <owner/repo@skill>
-
-vercel-labs/agent-skills@vercel-react-best-practices
-└ https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices
-```
-
-### Step 3: Present Options to the User
-
-When you find relevant skills, present them to the user with:
-
-1. The skill name and what it does
-2. The install command they can run
-3. A link to learn more at skills.sh
+When you find skills, show:
+1. Skill name and description
+2. The install command
+3. Source repository
 
 Example response:
-
 ```
-I found a skill that might help! The "vercel-react-best-practices" skill provides
-React and Next.js performance optimization guidelines from Vercel Engineering.
+Found: "React Best Practices" from Vercel Labs
+- React and Next.js patterns from Vercel Engineering
 
-To install it:
-npx skills add vercel-labs/agent-skills@vercel-react-best-practices
-
-Learn more: https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices
+Install:
+npx skillkit@latest install vercel-labs/agent-skills
 ```
 
-### Step 4: Offer to Install
+### Step 4: Install
 
-If the user wants to proceed, you can install the skill for them:
-
+Install for the user:
 ```bash
-npx skills add <owner/repo@skill> -g -y
+npx skillkit@latest install <owner/repo>
 ```
 
-The `-g` flag installs globally (user-level) and `-y` skips confirmation prompts.
-
-## Common Skill Categories
-
-When searching, consider these common categories:
-
-| Category        | Example Queries                          |
-| --------------- | ---------------------------------------- |
-| Web Development | react, nextjs, typescript, css, tailwind |
-| Testing         | testing, jest, playwright, e2e           |
-| DevOps          | deploy, docker, kubernetes, ci-cd        |
-| Documentation   | docs, readme, changelog, api-docs        |
-| Code Quality    | review, lint, refactor, best-practices   |
-| Design          | ui, ux, design-system, accessibility     |
-| Productivity    | workflow, automation, git                |
-
-## Tips for Effective Searches
-
-1. **Use specific keywords**: "react testing" is better than just "testing"
-2. **Try alternative terms**: If "deploy" doesn't work, try "deployment" or "ci-cd"
-3. **Check popular sources**: Many skills come from `vercel-labs/agent-skills` or `ComposioHQ/awesome-claude-skills`
-
-## When No Skills Are Found
-
-If no relevant skills exist:
-
-1. Acknowledge that no existing skill was found
-2. Offer to help with the task directly using your general capabilities
-3. Suggest the user could create their own skill with `npx skills init`
-
-Example:
-
+Or install specific skill (non-interactive):
+```bash
+npx skillkit@latest install owner/repo --skills skill-name
+npx skillkit@latest install anthropics/skills --skills frontend-design
+npx skillkit@latest install vercel-labs/agent-skills -s react-best-practices
 ```
-I searched for skills related to "xyz" but didn't find any matches.
-I can still help you with this task directly! Would you like me to proceed?
 
-If this is something you do often, you could create your own skill:
-npx skills init my-xyz-skill
-```
+## Common Searches
+
+| Need | Search Query |
+|------|--------------|
+| React patterns | `npx skillkit@latest find react` |
+| Testing | `npx skillkit@latest find testing jest` |
+| TypeScript | `npx skillkit@latest find typescript` |
+| DevOps | `npx skillkit@latest find docker kubernetes` |
+| Security | `npx skillkit@latest find security` |
+| API design | `npx skillkit@latest find api rest graphql` |
+| Mobile | `npx skillkit@latest find react-native expo` |
+| Database | `npx skillkit@latest find postgres prisma` |
+
+## When No Skills Found
+
+If no matching skill exists:
+1. Offer to help directly with your capabilities
+2. Suggest creating a custom skill:
+   ```bash
+   npx skillkit@latest init my-skill
+   ```
+3. Recommend publishing to share with others:
+   ```bash
+   npx skillkit@latest publish
+   ```
+
+## Browse Online
+
+- Website: https://agentskills.com
+- GitHub: https://github.com/rohitg00/skillkit
+
+## Important Notes
+
+- Use `owner/repo` format, NOT full URLs
+- Use `--skills` (plural) or `-s` flag for specific skills
+- Add `@latest` to npx for latest version: `npx skillkit@latest`

@@ -1,7 +1,7 @@
 {
   "name": "find-todos",
-  "repo": "manastalukdar/claude-devstudio",
-  "path": "skills/find-todos/SKILL.md",
-  "source": "github.com/manastalukdar/claude-devstudio",
-  "downloaded_at": "2026-01-31T03:53:52.397138Z"
+  "repo": "nextflow-io/training",
+  "path": ".claude/skills/find-todos/SKILL.md",
+  "source": "github.com/nextflow-io/training",
+  "downloaded_at": "2026-02-01T01:32:17.426961Z"
 }

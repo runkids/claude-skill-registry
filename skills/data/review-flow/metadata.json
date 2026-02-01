@@ -1,7 +1,7 @@
 {
   "name": "review-flow",
-  "repo": "HikaruEgashira/agent-skills",
-  "path": "wf/skills/review-flow/SKILL.md",
-  "source": "github.com/HikaruEgashira/agent-skills",
-  "downloaded_at": "2026-01-31T04:23:35.430859Z"
+  "repo": "KanayaActa/ai-driven-dev-template",
+  "path": ".claude/skills/review-flow/SKILL.md",
+  "source": "github.com/KanayaActa/ai-driven-dev-template",
+  "downloaded_at": "2026-02-01T03:03:42.003688Z"
 }

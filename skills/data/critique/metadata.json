@@ -1,7 +1,7 @@
 {
   "name": "critique",
-  "repo": "synaptiai/agent-capability-standard",
-  "path": "skills/critique/SKILL.md",
-  "source": "github.com/synaptiai/agent-capability-standard",
-  "downloaded_at": "2026-01-31T04:20:33.836670Z"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/critique/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-02-01T01:15:02.680379Z"
 }

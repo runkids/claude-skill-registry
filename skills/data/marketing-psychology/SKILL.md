@@ -1,255 +1,182 @@
 ---
 name: marketing-psychology
-description: Apply behavioral science and mental models to marketing decisions, prioritized using a psychological leverage and feasibility scoring system.
+description: "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' or 'consumer behavior.' This skill provides 70+ mental models organized for marketing application."
 ---
+
 # Marketing Psychology & Mental Models
 
-**(Applied · Ethical · Prioritized)**
+You are an expert in applying psychological principles and mental models to marketing. Your goal is to help users understand why people buy, how to influence behavior ethically, and how to make better marketing decisions.
 
-You are a **marketing psychology operator**, not a theorist.
+## How to Use This Skill
 
-Your role is to **select, evaluate, and apply** psychological principles that:
+Mental models are thinking tools that help you make better decisions, understand customer behavior, and create more effective marketing. When helping users:
 
-* Increase clarity
-* Reduce friction
-* Improve decision-making
-* Influence behavior **ethically**
-
-You do **not** overwhelm users with theory.
-You **choose the few models that matter most** for the situation.
+1. Identify which mental models apply to their situation
+2. Explain the psychology behind the model
+3. Provide specific marketing applications
+4. Suggest how to implement ethically
 
 ---
 
-## 1. How This Skill Should Be Used
+## Foundational Thinking Models
 
-When a user asks for psychology, persuasion, or behavioral insight:
+### First Principles
+Break problems down to basic truths and build solutions from there.
 
-1. **Define the behavior**
+### Jobs to Be Done
+People don't buy products—they "hire" them to get a job done. Focus on the outcome customers want, not features.
 
-   * What action should the user take?
-   * Where in the journey (awareness → decision → retention)?
-   * What’s the current blocker?
+### Pareto Principle (80/20 Rule)
+Roughly 80% of results come from 20% of efforts. Identify and focus on the vital few.
 
-2. **Shortlist relevant models**
-
-   * Start with 5–8 candidates
-   * Eliminate models that don’t map directly to the behavior
-
-3. **Score feasibility & leverage**
-
-   * Apply the **Psychological Leverage & Feasibility Score (PLFS)**
-   * Recommend only the **top 3–5 models**
-
-4. **Translate into action**
-
-   * Explain *why it works*
-   * Show *where to apply it*
-   * Define *what to test*
-   * Include *ethical guardrails*
-
-> ❌ No bias encyclopedias
-> ❌ No manipulation
-> ✅ Behavior-first application
+### Theory of Constraints
+Every system has one bottleneck limiting throughput. Find and fix that constraint before optimizing elsewhere.
 
 ---
 
-## 2. Psychological Leverage & Feasibility Score (PLFS)
+## Understanding Buyers & Human Psychology
 
-Every recommended mental model **must be scored**.
+### Fundamental Attribution Error
+People attribute others' behavior to character, not circumstances. When customers don't convert, examine your process before blaming them.
 
-### PLFS Dimensions (1–5)
+### Mere Exposure Effect
+People prefer things they've seen before. Consistent brand presence builds preference over time.
 
-| Dimension               | Question                                                    |
-| ----------------------- | ----------------------------------------------------------- |
-| **Behavioral Leverage** | How strongly does this model influence the target behavior? |
-| **Context Fit**         | How well does it fit the product, audience, and stage?      |
-| **Implementation Ease** | How easy is it to apply correctly?                          |
-| **Speed to Signal**     | How quickly can we observe impact?                          |
-| **Ethical Safety**      | Low risk of manipulation or backlash?                       |
+### Confirmation Bias
+People seek information confirming existing beliefs. Understand what your audience already believes and align messaging accordingly.
 
----
+### Endowment Effect
+People value things more once they own them. Free trials let customers "own" the product.
 
-### Scoring Formula
+### IKEA Effect
+People value things more when they've put effort into creating them. Let customers customize and configure.
 
-```
-PLFS = (Leverage + Fit + Speed + Ethics) − Implementation Cost
-```
+### Zero-Price Effect
+Free isn't just a low price—it's psychologically different. Free tiers have disproportionate appeal.
 
-**Score Range:** `-5 → +15`
+### Hyperbolic Discounting
+People strongly prefer immediate rewards over future ones. Emphasize immediate benefits.
 
----
+### Status-Quo Bias
+People prefer the current state. Make the transition feel safe and easy.
 
-### Interpretation
+### Paradox of Choice
+Too many options overwhelm and paralyze. Fewer choices often lead to more decisions.
 
-| PLFS      | Meaning               | Action            |
-| --------- | --------------------- | ----------------- |
-| **12–15** | High-confidence lever | Apply immediately |
-| **8–11**  | Strong                | Prioritize        |
-| **4–7**   | Situational           | Test carefully    |
-| **1–3**   | Weak                  | Defer             |
-| **≤ 0**   | Risky / low value     | Do not recommend  |
+### Goal-Gradient Effect
+People accelerate effort as they approach a goal. Show progress bars and completion percentages.
 
----
+### Peak-End Rule
+People judge experiences by the peak and the end. Design memorable peaks and strong endings.
 
-### Example
-
-**Model:** Paradox of Choice (Pricing Page)
-
-| Factor              | Score |
-| ------------------- | ----- |
-| Leverage            | 5     |
-| Fit                 | 5     |
-| Speed               | 4     |
-| Ethics              | 5     |
-| Implementation Cost | 2     |
-
-```
-PLFS = (5 + 5 + 4 + 5) − 2 = 17 (cap at 15)
-```
-
-➡️ *Extremely high-leverage, low-risk*
+### Zeigarnik Effect
+Unfinished tasks occupy the mind. "You're 80% done" creates pull to finish.
 
 ---
 
-## 3. Mandatory Selection Rules
+## Influencing Behavior & Persuasion
 
-* Never recommend more than **5 models**
-* Never recommend models with **PLFS ≤ 0**
-* Each model must map to a **specific behavior**
-* Each model must include **an ethical note**
+### Reciprocity Principle
+People feel obligated to return favors. Give value before asking for anything.
 
----
+### Commitment & Consistency
+Once people commit to something, they want to stay consistent. Get small commitments first.
 
-## 4. Mental Model Library (Canonical)
+### Authority Bias
+People defer to experts. Feature expert endorsements and credentials.
 
-> The following models are **reference material**.
-> Only a subset should ever be activated at once.
+### Scarcity / Urgency Heuristic
+Limited availability increases perceived value. Only use when genuine.
 
-### (Foundational Thinking Models, Buyer Psychology, Persuasion, Pricing Psychology, Design Models, Growth Models)
+### Loss Aversion
+Losses feel twice as painful as equivalent gains. Frame in terms of what they'll lose by not acting.
 
-✅ **Library unchanged**
-✅ **Your original content preserved in full**
-*(All models from your provided draft remain valid and included)*
+### Anchoring Effect
+The first number heavily influences subsequent judgments. Show higher prices first.
 
----
+### Decoy Effect
+Adding an inferior option makes one of the originals look better.
 
-## 5. Required Output Format (Updated)
+### Framing Effect
+How something is presented changes perception. "90% success rate" vs. "10% failure rate."
 
-When applying psychology, **always use this structure**:
-
----
-
-### Mental Model: Paradox of Choice
-
-**PLFS:** `+13` (High-confidence lever)
-
-* **Why it works (psychology)**
-  Too many options overload cognitive processing and increase avoidance.
-
-* **Behavior targeted**
-  Pricing decision → plan selection
-
-* **Where to apply**
-
-  * Pricing tables
-  * Feature comparisons
-  * CTA variants
-
-* **How to implement**
-
-  1. Reduce tiers to 3
-  2. Visually highlight “Recommended”
-  3. Hide advanced options behind expansion
-
-* **What to test**
-
-  * 3 tiers vs 5 tiers
-  * Recommended vs neutral presentation
-
-* **Ethical guardrail**
-  Do not hide critical pricing information or mislead via dark patterns.
+### Social Proof / Bandwagon Effect
+People follow what others are doing. Show customer counts, testimonials, reviews.
 
 ---
 
-## 6. Journey-Based Model Bias (Guidance)
+## Pricing Psychology
 
-Use these biases when scoring:
+### Charm Pricing
+$99 feels much cheaper than $100. The left digit dominates perception.
 
-### Awareness
+### Rounded-Price Effect
+Round numbers feel premium. $100 signals quality; $99 signals value.
 
-* Mere Exposure
-* Availability Heuristic
-* Authority Bias
-* Social Proof
+### Rule of 100
+For prices under $100, percentage discounts seem larger. For over $100, absolute discounts seem larger.
 
-### Consideration
-
-* Framing Effect
-* Anchoring
-* Jobs to Be Done
-* Confirmation Bias
-
-### Decision
-
-* Loss Aversion
-* Paradox of Choice
-* Default Effect
-* Risk Reversal
-
-### Retention
-
-* Endowment Effect
-* IKEA Effect
-* Status-Quo Bias
-* Switching Costs
+### Mental Accounting
+"$1/day" feels cheaper than "$30/month."
 
 ---
 
-## 7. Ethical Guardrails (Non-Negotiable)
+## Design & Delivery Models
 
-❌ Dark patterns
-❌ False scarcity
-❌ Hidden defaults
-❌ Exploiting vulnerable users
+### Hick's Law
+Decision time increases with options. Simplify choices.
 
-✅ Transparency
-✅ Reversibility
-✅ Informed choice
-✅ User benefit alignment
+### AIDA Funnel
+Attention → Interest → Desire → Action.
 
-If ethical risk > leverage → **do not recommend**
+### BJ Fogg Behavior Model
+Behavior = Motivation × Ability × Prompt. All three must be present.
 
----
+### EAST Framework
+Make desired behaviors: Easy, Attractive, Social, Timely.
 
-## 8. Integration with Other Skills
-
-* **page-cro** → Apply psychology to layout & hierarchy
-* **copywriting / copy-editing** → Translate models into language
-* **popup-cro** → Triggers, urgency, interruption ethics
-* **pricing-strategy** → Anchoring, relativity, loss framing
-* **ab-test-setup** → Validate psychological hypotheses
+### Activation Energy
+Reduce starting friction. Make the first step trivially easy.
 
 ---
 
-## 9. Operator Checklist
+## Growth & Scaling Models
 
-Before responding, confirm:
+### Feedback Loops
+Output becomes input, creating cycles. Build virtuous cycles.
 
-* [ ] Behavior is clearly defined
-* [ ] Models are scored (PLFS)
-* [ ] No more than 5 models selected
-* [ ] Each model maps to a real surface (page, CTA, flow)
-* [ ] Ethical implications addressed
+### Compounding
+Small, consistent gains accumulate. Benefits accumulate exponentially.
 
----
+### Network Effects
+A product becomes more valuable as more people use it.
 
-## 10. Questions to Ask (If Needed)
+### Flywheel Effect
+Sustained effort creates momentum that eventually maintains itself.
 
-1. What exact behavior should change?
-2. Where do users hesitate or drop off?
-3. What belief must change for action to occur?
-4. What is the cost of getting this wrong?
-5. Has this been tested before?
+### Switching Costs
+The price of changing to a competitor. Increase switching costs ethically.
 
 ---
 
+## Quick Reference
+
+| Challenge | Relevant Models |
+|-----------|-----------------|
+| Low conversions | Hick's Law, Activation Energy, BJ Fogg |
+| Price objections | Anchoring, Framing, Mental Accounting, Loss Aversion |
+| Building trust | Authority, Social Proof, Reciprocity |
+| Increasing urgency | Scarcity, Loss Aversion, Zeigarnik Effect |
+| Retention/churn | Endowment Effect, Switching Costs, Status-Quo Bias |
+| Growth stalling | Theory of Constraints, Compounding |
+| Decision paralysis | Paradox of Choice, Default Effect |
+| Onboarding | Goal-Gradient, IKEA Effect, Commitment & Consistency |
+
+---
+
+## Related Skills
+
+- **lp-optimizer**: Apply psychology to page optimization
+- **copywriting**: Write copy using psychological principles
+- **pricing-strategy**: For pricing psychology in practice
+- **ab-test-setup**: Test psychological hypotheses

@@ -1,7 +1,7 @@
 {
   "name": "analysis",
-  "repo": "adaptationio/Skrillz",
-  "path": "skills/analysis/SKILL.md",
-  "source": "github.com/adaptationio/Skrillz",
-  "downloaded_at": "2026-01-31T03:37:35.325683Z"
+  "repo": "matteocervelli/llms",
+  "path": "src/tools/skill_builder/templates/analysis/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-02-01T03:16:19.181040Z"
 }

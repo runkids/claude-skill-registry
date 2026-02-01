@@ -1,9 +1,7 @@
 {
   "name": "superset-chart-builder",
-  "description": "Expert guidance for selecting, configuring, and optimizing Apache Superset charts. This skill helps you choose the right visualization, configure it properly, and avoid common mistakes - with specific",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/superset-chart-builder/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:02.565850Z"
 }

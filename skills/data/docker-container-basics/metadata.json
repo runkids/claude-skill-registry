@@ -1,7 +1,7 @@
 {
   "name": "docker-container-basics",
-  "repo": "Brmbobo/Web2podcast",
-  "path": ".claude/agents/enterprise-frontend-design/agents/skills/01-devops-basics/docker-container-basics/SKILL.md",
-  "source": "github.com/Brmbobo/Web2podcast",
-  "downloaded_at": "2026-01-31T04:41:44.898215Z"
+  "repo": "NovaAI-innovation/Infinite-Agency",
+  "path": ".qwen/skills/docker-container-basics/SKILL.md",
+  "source": "github.com/NovaAI-innovation/Infinite-Agency",
+  "downloaded_at": "2026-02-01T02:41:45.401248Z"
 }

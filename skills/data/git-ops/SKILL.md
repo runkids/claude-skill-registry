@@ -1,37 +1,35 @@
 ---
 name: git-ops
-description: Use when performing git operations or generating smart commit messages - provides safe git workflow guidance, validation checks, and conventional commit formatting.
+description: Comprehensive git workflow including worktree isolation, branching, and branch finalization.
 ---
 
-# Git Ops
+# Unified Git Operations
 
-## Overview
-Execute git operations safely while producing clear, conventional commit messages and workflow guidance.
+## Phase 1: Isolation (Worktrees)
+Use this when starting new features or executing implementation plans.
 
-## When to Use
-- Running git commands (status, add, commit, push, pull)
-- Generating smart commit messages
-- Managing branches and merges
+1. **Directory Selection**:
+   - Check `.worktrees/` (preferred) or `worktrees/`.
+   - If neither exists, check `CLAUDE.md` for a preference or ask the user.
+2. **Safety Verification**:
+   - MUST verify the worktree directory is ignored in `.gitignore`. If not, add it and commit the change immediately.
+3. **Creation**:
+   - `git worktree add <path> -b <branch-name>`
+   - Run project setup (e.g., `npm install`, `pip install`).
+4. **Baseline Verification**:
+   - Run tests to ensure the workspace starts in a clean state (Green).
 
-Avoid when:
-- The task is unrelated to git operations
+## Phase 2: Implementation & Commits
+- Use atomic commits: `[Action] [Scope]: [Specific change]`.
+- One logical change per commit.
 
-## Quick Reference
+## Phase 3: Finalization
+Use this when implementation is complete and all tests pass.
 
-| Task | Load reference |
-| --- | --- |
-| Git operations | `skills/git-ops/references/git.md` |
-
-## Workflow
-1. Confirm repository state and intent.
-2. Load the git operations reference.
-3. Execute the command safely.
-4. Provide status summary and next steps.
-
-## Output
-- Operation result summary
-- Suggested follow-ups or warnings
-
-## Common Mistakes
-- Running destructive commands without confirmation
-- Writing non-standard commit messages
+1. **Verify Tests**: Run the full test suite one last time.
+2. **Present Options**:
+   - **1. Merge locally**: Checkout base, pull, merge, verify, delete feature branch, remove worktree.
+   - **2. Create PR**: Push branch, run `gh pr create` with summary and test plan.
+   - **3. Keep as-is**: Preserves branch and worktree for later.
+   - **4. Discard**: Require explicit "discard" confirmation before deleting branch and worktree.
+3. **Cleanup**: Only remove the worktree for options 1, 2, and 4 (if PR is pushed and worktree no longer needed).

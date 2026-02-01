@@ -1,169 +1,224 @@
 ---
+
 name: tavily
-description: Tavily AI search API integration via curl. Use this skill to perform live web search and RAG-style retrieval.
-vm0_secrets:
-  - TAVILY_API_KEY
----
+description: "Tavily AI search API for LLM applications: web search, content extraction, site crawling, mapping, and research. Keywords: Tavily, AI search, RAG, web search API, LLM search, extract, crawl, map, research, tavily-python."
+version: "0.7.21"
+release_date: "2026-01-30"
 
-# Tavily Search API
+# Tavily
 
-Use Tavily's search API via direct `curl` calls to perform **live web search**, ideal for powering retrieval-augmented generation (RAG) for LLMs and agents.
+AI-optimized search engine for building LLM applications with real-time web data.
 
-> Official documentation: `https://docs.tavily.com/`
+## Quick Navigation
 
----
+| Topic          | Reference                                         |
+| -------------- | ------------------------------------------------- |
+| REST API       | [api.md](references/api.md)                       |
+| Python SDK     | [python.md](references/python.md)                 |
+| JavaScript SDK | [javascript.md](references/javascript.md)         |
+| Best Practices | [best-practices.md](references/best-practices.md) |
+| Integrations   | [integrations.md](references/integrations.md)     |
 
 ## When to Use
 
-Use this skill when you need:
+- Building RAG applications with real-time web data
+- AI agents that need current information
+- Content extraction from web pages
+- Site crawling with AI-guided instructions
+- Autonomous research tasks
 
-- **Fresh, up-to-date information** (news, trends, ongoing events)
-- **Search results with sources/links** to ground LLM or agent answers
-- **Research / desk research** inside automation workflows
-- A **reliable retrieval layer** for RAG, combined with skills like Notion or Firecrawl
-
----
-
-## Prerequisites
-
-1. Sign up for Tavily and create an API key
-2. Store your Tavily API key in the environment variable `TAVILY_API_KEY`
-
-Set it in your local shell or runtime environment, for example:
+## Installation
 
 ```bash
-export TAVILY_API_KEY="tvly-xxxxxxxxxxxxxxxx"
+# Python
+pip install tavily-python
+
+# JavaScript
+npm i @tavily/core
 ```
 
----
+## Quick Start
 
+### Python
 
-> **Important:** When using `$VAR` in a command that pipes to another command, wrap the command containing `$VAR` in `bash -c '...'`. Due to a Claude Code bug, environment variables are silently cleared when pipes are used directly.
-> ```bash
-> bash -c 'curl -s "https://api.example.com" -H "Authorization: Bearer $API_KEY"' | jq '.results[] | {title, url}'
-> ```
+```python
+from tavily import TavilyClient
 
-## How to Use
-
-All examples below assume you have `TAVILY_API_KEY` set in your environment.
-The base endpoint for the Tavily search API is a `POST` request to:
-
-- `https://api.tavily.com/search`
-
-with a JSON body.
-
----
-
-### 1. Basic Search
-
-Write to `/tmp/tavily_request.json`:
-
-```json
-{
-  "query": "2025 AI Trending",
-  "search_depth": "basic",
-  "max_results": 5
-}
+client = TavilyClient(api_key="tvly-YOUR_API_KEY")
+response = client.search("What is the latest news about AI?")
+print(response)
 ```
 
-Then run:
+### JavaScript
+
+```javascript
+import { tavily } from "@tavily/core";
+
+const client = tavily({ apiKey: "tvly-YOUR_API_KEY" });
+const response = await client.search("What is the latest news about AI?");
+console.log(response);
+```
+
+### cURL
 
 ```bash
-bash -c 'curl -s -X POST "https://api.tavily.com/search" --header "Content-Type: application/json" --header "Authorization: Bearer ${TAVILY_API_KEY}" -d @/tmp/tavily_request.json'
+curl -X POST https://api.tavily.com/search \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer tvly-YOUR_API_KEY" \
+  -d '{"query": "What is the latest news about AI?"}'
 ```
 
-**Key parameters:**
+## Core APIs
 
-- `query`: Search query or natural language question
-- `search_depth`:
-  - `"basic"` – faster, good for most use cases
-  - `"advanced"` – deeper search and higher recall
-- `max_results`: Maximum number of results to return (e.g. 3 / 5 / 10)
+| API      | Purpose                         | Credits          |
+| -------- | ------------------------------- | ---------------- |
+| Search   | Web search optimized for LLMs   | 1-2 per request  |
+| Extract  | Extract content from URLs       | 1-2 per 5 URLs   |
+| Map      | Map website structure           | 1-2 per 10 pages |
+| Crawl    | Crawl + extract from sites      | Map + Extract    |
+| Research | Autonomous deep research (beta) | 4-250 per task   |
 
----
+## Pricing & Credits
 
-### 2. Advanced Search
+**Free tier:** 1,000 credits/month (no credit card required)
 
-Write to `/tmp/tavily_request.json`:
+| Plan       | Credits/month | Price/credit |
+| ---------- | ------------- | ------------ |
+| Researcher | 1,000         | Free         |
+| Project    | 4,000         | $0.0075      |
+| Bootstrap  | 15,000        | $0.0067      |
+| Startup    | 38,000        | $0.0058      |
+| Growth     | 100,000       | $0.005       |
+| Pay-as-go  | Per usage     | $0.008       |
 
-```json
+### Credit Costs
+
+| API             | Basic               | Advanced   |
+| --------------- | ------------------- | ---------- |
+| Search          | 1                   | 2          |
+| Extract         | 1/5 URLs            | 2/5 URLs   |
+| Map             | 1/10 pages          | 2/10 pages |
+| Crawl           | Map + Extract costs |
+| Research (mini) | 4-110               | -          |
+| Research (pro)  | 15-250              | -          |
+
+## Rate Limits
+
+| Environment | RPM (requests/min) |
+| ----------- | ------------------ |
+| Development | 100                |
+| Production  | 1,000              |
+
+**Note:** Crawl endpoint limited to 100 RPM for both environments.
+
+Production keys require paid plan or PAYGO enabled.
+
+## Search API
+
+Primary endpoint for LLM-optimized web search.
+
+```python
+response = client.search(
+    query="Latest AI developments",
+    search_depth="advanced",      # "basic" (1 credit) or "advanced" (2 credits)
+    max_results=10,               # 1-20 results
+    include_answer=True,          # Include AI-generated answer
+    include_raw_content=False,    # Include raw HTML
+    include_domains=["arxiv.org"],  # Filter to specific domains
+    exclude_domains=["pinterest.com"]  # Exclude domains
+)
+```
+
+### Response Structure
+
+```python
 {
-  "query": "serverless SaaS pricing best practices",
-  "search_depth": "advanced",
-  "max_results": 8,
-  "include_answer": true,
-  "include_domains": ["docs.aws.amazon.com", "cloud.google.com"],
-  "exclude_domains": ["reddit.com", "twitter.com"],
-  "include_raw_content": false
+    "query": "...",
+    "answer": "AI-generated summary...",  # if include_answer=True
+    "results": [
+        {
+            "title": "Page Title",
+            "url": "https://...",
+            "content": "Extracted relevant content...",
+            "score": 0.95,
+            "raw_content": "..."  # if include_raw_content=True
+        }
+    ]
 }
 ```
 
-Then run:
+## Extract API
 
-```bash
-bash -c 'curl -s -X POST "https://api.tavily.com/search" --header "Content-Type: application/json" --header "Authorization: Bearer ${TAVILY_API_KEY}" -d @/tmp/tavily_request.json'
+Extract content from specific URLs.
+
+```python
+response = client.extract(
+    urls=["https://example.com/article1", "https://example.com/article2"],
+    extract_depth="basic"  # "basic" or "advanced"
+)
 ```
 
-**Common advanced parameters:**
+## Crawl API
 
-- `include_answer`: When `true`, Tavily returns a summarized `answer` field
-- `include_domains`: Whitelist of domains to include
-- `exclude_domains`: Blacklist of domains to exclude
-- `include_raw_content`: Whether to include raw page content (HTML / raw text). Default is `false`.
+Crawl websites with AI-guided instructions.
 
----
-
-### 3. Typical Response Structure (Example)
-
-Tavily returns a JSON object similar to:
-
-```json
-{
-  "answer": "Brief summary...",
-  "results": [
-  {
-  "title": "Article title",
-  "url": "https://example.com/article",
-  "content": "Snippet or extracted content...",
-  "score": 0.89
-  }
-  ]
-}
+```python
+response = client.crawl(
+    url="https://docs.example.com",
+    instructions="Find all pages about Python SDK",  # Optional AI guidance
+    max_depth=2,
+    limit=50
+)
 ```
 
-In agents or automation flows you typically:
+## Map API
 
-- Use `answer` as a concise, ready-to-use summary
-- Iterate over `results` to extract `title` + `url` as references / citations
+Get website structure without extracting content.
 
----
-
-### 4. Using Tavily in n8n (HTTP Request Node)
-
-To integrate Tavily in n8n with the HTTP Request node:
-
-- **Method**: `POST`
-- **URL**: `https://api.tavily.com/search`
-- **Headers**:
-  - `Content-Type`: `application/json`
-  - `Authorization`: `Bearer {{ $env.TAVILY_API_KEY }}`
-- **Body**: JSON, for example:
-
-```json
-{
-  "query": "n8n self-hosted best practices",
-  "search_depth": "basic",
-  "max_results": 5
-}
+```python
+response = client.map(
+    url="https://docs.example.com",
+    instructions="Find documentation pages"  # Optional
+)
 ```
 
-This lets you pipe Tavily search results into downstream nodes such as LLMs, Notion, Slack notifications, etc.
+## Research API (Beta)
 
----
+Autonomous deep research on complex topics.
 
-## Guidelines
+```python
+response = client.research(
+    input="What are the implications of quantum computing on cryptography?",
+    model="pro"  # "pro" (15-250 credits) or "mini" (4-110 credits)
+)
+```
 
-1. **Use `advanced` only when necessary**: it consumes more resources and is best for deep research / high-value questions.
-2. **Mind quotas and cost**: Tavily typically offers free tiers plus paid usage; in automation flows, add guards (filters, rate limits).
-3. **Post-process results with an LLM**: use Tavily for retrieval, then let your LLM summarize, extract tables, or generate reports.
-4. **Handle sensitive data carefully**: avoid sending raw secrets or PII directly in `query`; anonymize or mask when possible.
+## Why Tavily?
+
+| Feature          | Traditional Search | Tavily        |
+| ---------------- | ------------------ | ------------- |
+| Output           | URLs + snippets    | Full content  |
+| Scraping         | Manual             | Built-in      |
+| LLM optimization | None               | Purpose-built |
+| Filtering        | Manual             | AI-powered    |
+| Context limits   | Not handled        | Optimized     |
+
+## Best Practices
+
+1. **Use `search_depth="basic"`** for simple queries (saves credits)
+2. **Use `include_answer=True`** for quick summaries
+3. **Filter domains** to improve relevance
+4. **Use Extract** when you know specific URLs
+5. **Use Research** for complex, multi-step queries
+
+## Prohibitions
+
+- Do not expose API keys in client-side code
+- Do not exceed rate limits (implement backoff)
+- Do not scrape sites that block Tavily crawler
+
+## Links
+
+- [API Playground](https://app.tavily.com/playground)
+- [Documentation](https://docs.tavily.com)
+- [Community](https://discord.gg/tavily)

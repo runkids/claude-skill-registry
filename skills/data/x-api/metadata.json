@@ -1,11 +1,7 @@
 {
   "name": "x-api",
-  "description": "Unified Twitter/X API client for retrieving user info and tweets via twitterapi.io. Supports user lookup and advanced tweet search with a clean Typer-based CLI and agent-friendly Python interface.",
-  "repo": "shalomma/social-media-research",
-  "category": "development",
-  "tags": [
-    "api"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "danstrem2/clawdbot-skill-master-pack",
+  "path": "skills/x-api/SKILL.md",
+  "source": "github.com/danstrem2/clawdbot-skill-master-pack",
+  "downloaded_at": "2026-02-01T02:40:43.563170Z"
 }

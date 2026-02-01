@@ -1,7 +1,7 @@
 {
   "name": "worktree-workflow",
-  "repo": "takemo101/compose-workflow",
-  "path": ".opencode/skill/worktree-workflow/SKILL.md",
-  "source": "github.com/takemo101/compose-workflow",
-  "downloaded_at": "2026-01-31T03:06:17.631909Z"
+  "repo": "brmatola/gremlins",
+  "path": "skills/worktree-workflow/SKILL.md",
+  "source": "github.com/brmatola/gremlins",
+  "downloaded_at": "2026-02-01T04:31:49.729555Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "model-registry-manager",
-  "description": "Model Registry Manager - Auto-activating skill for ML Deployment.Triggers on: model registry manager, model registry managerPart of the ML Deployment skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/08-ml-deployment/model-registry-manager/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-01T01:33:39.947791Z"
 }

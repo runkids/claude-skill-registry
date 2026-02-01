@@ -1,7 +1,7 @@
 {
   "name": "incident-response",
-  "repo": "TheBushidoCollective/han",
-  "path": "jutsu/jutsu-runbooks/skills/incident-response/SKILL.md",
-  "source": "github.com/TheBushidoCollective/han",
-  "downloaded_at": "2026-01-30T03:34:00.163062Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/infra/incident-response/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-02-01T05:04:23.584015Z"
 }

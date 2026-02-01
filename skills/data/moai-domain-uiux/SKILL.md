@@ -1,43 +1,28 @@
 ---
-name: moai-domain-uiux
-description: >
-  Domain UI/UX Expert - Enterprise design systems, component architecture,
-  accessibility, icons, and theming integration.
-license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
+name: "moai-domain-uiux"
+description: "Domain UI/UX Expert - Enterprise design systems, component architecture, accessibility, icons, and theming integration"
+version: 2.0.0
+category: "domain"
+modularized: true
 user-invocable: false
-metadata:
-  version: "2.0.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "domain, uiux, design-systems, accessibility, components, icons, theming"
-
-# MoAI Extension: Triggers
-triggers:
-  keywords:
-    - UI/UX
-    - design system
-    - accessibility
-    - WCAG
-    - ARIA
-    - icon
-    - theming
-    - dark mode
-    - design tokens
-    - component library
-    - Radix UI
-    - shadcn
-    - Storybook
-    - Figma
-    - design tokens
-    - Style Dictionary
-    - Lucide
-    - Iconify
-    - responsive design
-    - user experience
+tags:
+  [
+    "domain",
+    "uiux",
+    "design-systems",
+    "accessibility",
+    "components",
+    "icons",
+    "theming",
+  ]
+updated: 2026-01-11
+status: "active"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
 ## Quick Reference
@@ -67,7 +52,6 @@ Module Organization:
 - Accessibility: modules/accessibility-wcag.md (WCAG 2.2 compliance, testing, navigation)
 - Icons: modules/icon-libraries.md (10+ libraries, selection guide, performance optimization)
 - Theming: modules/theming-system.md (theme system, CSS variables, brand customization)
-- Web Interface Guidelines: modules/web-interface-guidelines.md (Vercel Labs comprehensive UI/UX compliance)
 - Examples: examples.md (practical implementation examples)
 - Reference: reference.md (external documentation links)
 
@@ -216,7 +200,7 @@ Agents:
 
 Commands:
 
-- /moai:2-run - DDD implementation cycle
+- /moai:2-run - TDD implementation cycle
 - /moai:3-sync - Documentation generation
 
 ---
@@ -242,7 +226,6 @@ Official Resources:
 - Style Dictionary: https://styledictionary.com
 - Lucide Icons: https://lucide.dev
 - Iconify: https://iconify.design
-- Vercel Web Interface Guidelines: https://github.com/vercel-labs/web-interface-guidelines
 
 ---
 

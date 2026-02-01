@@ -1,7 +1,7 @@
 {
   "name": "implementation-approach",
-  "repo": "shinpr/agentic-code",
-  "path": ".agents/skills/implementation-approach/SKILL.md",
-  "source": "github.com/shinpr/agentic-code",
-  "downloaded_at": "2026-01-31T04:25:51.373881Z"
+  "repo": "shinpr/claude-code-workflows",
+  "path": "skills/implementation-approach/SKILL.md",
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-02-01T04:14:05.905515Z"
 }

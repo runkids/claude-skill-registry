@@ -1,28 +1,29 @@
 ---
 name: Global Coding Style
-description: Maintain consistent code formatting, naming conventions, type safety, and automated code quality standards across PHP and TypeScript/JavaScript. Use this skill when writing or editing any PHP files (.php), TypeScript/JavaScript files (.ts, .tsx, .js, .jsx), when implementing type declarations and return types, when running code formatters (Laravel Pint, Ultracite) or linters, when running static analysis tools (Larastan), when naming variables, functions, classes, or files, when applying DRY principles, when removing dead code, or when preparing code for review or commit.
+description: Write reality-first code with intentional naming, small focused functions, automated formatting, and no speculative features. Use this skill when writing any code that needs clear structure, guard clauses, documented trade-offs, and deterministic side effects. Applies across all file types when making design decisions about code organization, naming conventions, removing dead code, or ensuring every line serves a proven need verified by tests or runtime execution.
 ---
 
 # Global Coding Style
 
-This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global coding style.
-
 ## When to use this skill
 
-- When writing or editing PHP files (.php) in any part of the application
-- When writing or editing TypeScript or JavaScript files (.ts, .tsx, .js, .jsx)
-- When implementing explicit return type declarations in PHP methods and functions
-- When adding type hints to function parameters in PHP
-- When leveraging TypeScript types in frontend code
-- When naming variables, functions, classes, methods, or files
-- When running Laravel Pint for PHP code formatting
-- When running Ultracite for JavaScript/TypeScript linting and formatting
-- When running Larastan (PHPStan) for static analysis
-- When applying DRY principles to eliminate code duplication
-- When removing unused imports, dead code, or commented-out blocks
-- When configuring pre-commit hooks via Lefthook
-- When preparing code for review with CodeRabbit CLI
-- When refactoring code for better readability and maintainability
+- When writing any code in any language or framework that needs clear, maintainable structure
+- When naming variables, functions, classes, or modules to communicate purpose and constraints
+- When creating functions and ensuring they have single, clearly-defined responsibilities
+- When setting up or configuring automated formatting tools like Prettier, ESLint, Black, or Ruff
+- When writing guard clauses to surface invalid states early in functions
+- When documenting non-obvious trade-offs or design decisions in code comments
+- When identifying and removing dead code, commented-out experiments, or unused imports
+- When deciding whether to add backwards compatibility versus deleting legacy code
+- When making functions with side effects (I/O, mutations) explicit rather than hidden
+- When avoiding speculative abstractions or "future features" without proven need
+- When applying linters/formatters before committing code to maintain consistency
+- When refactoring code to eliminate single-letter variables outside tight algorithmic loops
+- When reviewing code for formatting drift, unnecessary complexity, or unclear naming
+
+# Global Coding Style
+
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global coding style.
 
 ## Instructions
 

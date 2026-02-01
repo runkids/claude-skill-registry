@@ -1,9 +1,7 @@
 {
   "name": "paddle-ocr-validation",
-  "description": "PaddleOCR-based receipt and BIR form extraction with validation",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/paddle-ocr-validation/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:01.688348Z"
 }

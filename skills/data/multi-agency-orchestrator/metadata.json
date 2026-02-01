@@ -1,9 +1,7 @@
 {
   "name": "multi-agency-orchestrator",
-  "description": "Coordinate operations across RIM, CKVC, BOM, JPAL, JLI, JAP, LAS, RMQB agencies",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/multi-agency-orchestrator/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:01.461564Z"
 }

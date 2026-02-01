@@ -1,9 +1,7 @@
 {
   "name": "tldr",
-  "description": "Simplified and community-driven man pages. Use this to quickly understand CLI tools.",
-  "repo": "clawdbot/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/clawdbot/skills"
+  "repo": "danstrem2/clawdbot-skill-master-pack",
+  "path": "skills/tldr/SKILL.md",
+  "source": "github.com/danstrem2/clawdbot-skill-master-pack",
+  "downloaded_at": "2026-02-01T02:40:43.030520Z"
 }

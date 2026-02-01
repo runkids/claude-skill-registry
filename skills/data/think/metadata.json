@@ -1,9 +1,7 @@
 {
   "name": "think",
-  "description": "Apply Reflective Thought Composition (RTC) for deep analysis of complex problems. Use when facing complex tasks requiring structured reasoning.",
-  "repo": "duong/dotfiles",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/duong/dotfiles"
+  "repo": "ivy/dotfiles",
+  "path": "home/dot_claude/skills/think/SKILL.md",
+  "source": "github.com/ivy/dotfiles",
+  "downloaded_at": "2026-02-01T02:20:38.131221Z"
 }

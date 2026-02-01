@@ -1,7 +1,7 @@
 {
   "name": "hooks",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/hooks/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-31T04:36:19.868909Z"
+  "repo": "ngxtm/devkit",
+  "path": "rules/react/hooks/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-02-01T04:01:44.130337Z"
 }

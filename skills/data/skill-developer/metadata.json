@@ -1,7 +1,7 @@
 {
   "name": "skill-developer",
-  "repo": "Squirrelfishcityhall150/claude-code-kit",
-  "path": "cli/core/skills/skill-developer/SKILL.md",
-  "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
-  "downloaded_at": "2026-01-31T04:49:50.735808Z"
+  "repo": "NmBoyd/claude_setup",
+  "path": ".claude/skills/skill-developer/SKILL.md",
+  "source": "github.com/NmBoyd/claude_setup",
+  "downloaded_at": "2026-02-01T05:04:45.402594Z"
 }

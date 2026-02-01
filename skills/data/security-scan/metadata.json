@@ -1,7 +1,7 @@
 {
   "name": "security-scan",
-  "repo": "EtroxTaran/conductor",
-  "path": ".claude/skills/security-scan/SKILL.md",
-  "source": "github.com/EtroxTaran/conductor",
-  "downloaded_at": "2026-01-31T04:41:31.975343Z"
+  "repo": "grahama1970/agent-skills",
+  "path": "skills/security-scan/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-02-01T04:28:48.060219Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "rspress-api-docs",
-  "repo": "savvy-web/pnpm-monorepo-template",
+  "repo": "savvy-web/pnpm-module-template",
   "path": ".claude/skills/rspress-api-docs/SKILL.md",
-  "source": "github.com/savvy-web/pnpm-monorepo-template",
-  "downloaded_at": "2026-01-30T04:43:26.527600Z"
+  "source": "github.com/savvy-web/pnpm-module-template",
+  "downloaded_at": "2026-02-01T04:27:58.374440Z"
 }

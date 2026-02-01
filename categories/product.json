@@ -1,7 +1,7 @@
 {
   "category": "product",
-  "count": 1079,
-  "updated_at": "2026-01-31T04:52:27.336991Z",
+  "count": 1075,
+  "updated_at": "2026-02-01T05:09:24.333407Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -198,21 +198,6 @@
       ],
       "stars": 13,
       "install": "lightfastai/lightfast/.claude/skills/blog-writer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "blog-writer",
-      "description": "Create category-aware, AEO-optimized blog posts for Lightfast. Use when writing technology deep-dives, company announcements, or product launches.",
-      "repo": "lightfastai/lightfast",
-      "path": "data/blog-writer",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "blog",
-        "writer"
-      ],
-      "stars": 13,
-      "install": "lightfastai/lightfast",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1867,18 +1852,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-ado/skills/ado-mapper",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ado-mapper",
-      "description": "Expert in bidirectional conversion between SpecWeave increments and Azure DevOps (ADO) Epics/Features/User Stories/Tasks. Handles export (increment → ADO), import (ADO → increment), and bidirectional ",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/ado-mapper",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9457,18 +9430,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "positioning-angles",
-      "description": "Discovers differentiated market positioning using 8 proven frameworks. This skill should be used when launching a new product or service, entering competitive markets, refreshing stale positioning, or",
-      "repo": "Salesably/salesably-marketplace",
-      "path": "data/positioning-angles",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Salesably/salesably-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pr-and-check",
       "description": "Use this skill when you are requested to create a PR for a feature branch to develop, or from develop to production.",
       "repo": "klaushofrichter/een-api-toolkit",
@@ -10556,18 +10517,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/reddit-product-viability",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reddit-product-viability",
-      "description": "Scrape and analyze Reddit for real user signals about product viability, pain severity, willingness to pay, and competitor saturation. Validate product ideas before building by systematically analyzin",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/reddit-product-viability",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {

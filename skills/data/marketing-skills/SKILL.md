@@ -1,165 +1,80 @@
 ---
-name: marketing-skills-guide
-description: Guide for marketing and growth skills including SEO, copywriting, CRO, email campaigns, paid ads, and product launch strategies.
+name: marketing-skills
+description: TL;DR: 23 marketing playbooks (CRO, SEO, copy, analytics, experiments, pricing, launches, ads, social). Use to get checklists + copy/paste deliverables fast.
 ---
 
-# Marketing & Growth Skills
+# Marketing Skills
 
-## Scope
+## Summary
 
-Use this skill when:
+One installed skill containing 23 marketing modules. Pick the relevant module under `references/` to get practical checklists, frameworks, and copy/paste deliverables.
 
-- Finding or adding marketing-related skills
-- Understanding growth and conversion optimization
-- Working with SEO, content, or advertising skills
-- Organizing product launch and strategy skills
+This skill vendors the full content from `coreyhaines31/marketingskills` under `references/` and provides a simple router to load the right module.
 
-## Marketing Skill Categories
+## How to use
 
-### SEO & Content
+1) Identify the module that matches the request.
+2) Read the corresponding `references/<module>/SKILL.md` file.
+3) Apply the framework and deliver practical outputs (drafts + checklists).
 
-| Skill | Purpose |
-|-------|---------|
-| seo-audit | Technical and on-page SEO auditing |
-| programmatic-seo | SEO-driven pages at scale |
-| content-creator | SEO-optimized marketing content |
-| schema-markup | Structured data for rich snippets |
+## Included modules (what each one does)
 
-### Copywriting
+Each module lives at `references/<module>/SKILL.md`.
 
-| Skill | Purpose |
-|-------|---------|
-| copywriting | Landing pages, pricing pages, features |
-| copy-editing | Seven-sweeps editing framework |
-| email-sequence | Drip campaigns, lifecycle emails |
+- `ab-test-setup`: plan and implement A/B tests
+- `analytics-tracking`: set up tracking and measurement (GA4/GTM/events)
+- `competitor-alternatives`: competitor comparison + alternatives / “vs” pages
+- `copy-editing`: edit and polish existing copy
+- `copywriting`: write or improve marketing copy (headlines, CTAs, page copy)
+- `email-sequence`: build email sequences and drip campaigns
+- `form-cro`: optimize lead capture and contact forms
+- `free-tool-strategy`: plan engineering-as-marketing free tools (calculators, generators)
+- `launch-strategy`: product launches and announcements
+- `marketing-ideas`: idea bank for growth + marketing tactics
+- `marketing-psychology`: mental models / cognitive biases for better persuasion
+- `onboarding-cro`: improve activation and onboarding
+- `page-cro`: conversion optimization for any marketing page
+- `paid-ads`: create and optimize paid ad campaigns
+- `paywall-upgrade-cro`: optimize in-app paywalls and upgrade screens
+- `popup-cro`: create/optimize popups and modals
+- `pricing-strategy`: pricing, packaging, and monetization
+- `programmatic-seo`: build SEO pages at scale (templates + data)
+- `referral-program`: design referral and affiliate programs
+- `schema-markup`: add structured data and rich snippets
+- `seo-audit`: audit technical and on-page SEO
+- `signup-flow-cro`: optimize signup and registration flows
+- `social-content`: create and schedule social media content
 
-### Conversion Rate Optimization (CRO)
+## Module router
 
-| Skill | Focus Area |
-|-------|------------|
-| page-cro | Homepage, landing page optimization |
-| form-cro | Lead capture forms |
-| signup-flow-cro | Registration, trial activation |
-| onboarding-cro | Post-signup user activation |
-| paywall-upgrade-cro | Freemium conversion |
-| popup-cro | Modals and overlays |
+Pick one of these modules and read the matching file:
 
-### Paid Advertising
+- `references/page-cro/SKILL.md`
+- `references/signup-flow-cro/SKILL.md`
+- `references/onboarding-cro/SKILL.md`
+- `references/form-cro/SKILL.md`
+- `references/popup-cro/SKILL.md`
+- `references/paywall-upgrade-cro/SKILL.md`
+- `references/copywriting/SKILL.md`
+- `references/copy-editing/SKILL.md`
+- `references/email-sequence/SKILL.md`
+- `references/social-content/SKILL.md`
+- `references/analytics-tracking/SKILL.md`
+- `references/ab-test-setup/SKILL.md`
+- `references/seo-audit/SKILL.md`
+- `references/programmatic-seo/SKILL.md`
+- `references/schema-markup/SKILL.md`
+- `references/competitor-alternatives/SKILL.md`
+- `references/pricing-strategy/SKILL.md`
+- `references/launch-strategy/SKILL.md`
+- `references/paid-ads/SKILL.md`
+- `references/referral-program/SKILL.md`
+- `references/free-tool-strategy/SKILL.md`
+- `references/marketing-ideas/SKILL.md`
+- `references/marketing-psychology/SKILL.md`
 
-| Skill | Platforms |
-|-------|-----------|
-| paid-ads | Google Ads, Meta, LinkedIn |
-| competitive-ads-extractor | Ad library analysis |
-| analytics-tracking | GA4, GTM, custom events |
+## Output rules
 
-### Strategy & Planning
-
-| Skill | Purpose |
-|-------|---------|
-| pricing-strategy | SaaS pricing and packaging |
-| launch-strategy | Product launches, GTM |
-| referral-program | Word-of-mouth, affiliates |
-| marketing-ideas | 140 proven SaaS strategies |
-| marketing-psychology | 70+ mental models |
-| free-tool-strategy | Engineering-as-marketing tools |
-| competitor-alternatives | Competitor comparison pages |
-
-### Testing & Analytics
-
-| Skill | Purpose |
-|-------|---------|
-| ab-test-setup | Plan and implement A/B tests |
-| analytics-tracking | GA4, GTM, event tracking |
-
-### Social Media
-
-| Skill | Purpose |
-|-------|---------|
-| social-content | Social media content and scheduling |
-
-## Content Humanization
-
-| Skill | Purpose |
-|-------|---------|
-| humanizer | Remove AI writing signs from text |
-| Humanizer-zh | Chinese version of humanizer |
-
-## Where to Add in README
-
-- **SEO tools**: `Marketing & Growth` or `Web Performance & SEO`
-- **Copywriting**: `Marketing & Growth`
-- **CRO tools**: `Marketing & Growth`
-- **Analytics**: `Marketing & Growth` or `Integration & Automation`
-
-## Key Skill Repositories
-
-### Antigravity Collection
-```
-sickn33/antigravity-awesome-skills/skills/
-├── copywriting/
-├── seo-audit/
-├── page-cro/
-├── email-sequence/
-├── paid-ads/
-├── pricing-strategy/
-├── launch-strategy/
-├── programmatic-seo/
-└── marketing-ideas/
-```
-
-### Corey Haines Marketing Skills
-```
-coreyhaines31/marketingskills/skills/
-├── ab-test-setup/
-├── analytics-tracking/
-├── competitor-alternatives/
-├── copy-editing/
-├── form-cro/
-├── free-tool-strategy/
-├── marketing-psychology/
-├── onboarding-cro/
-├── paywall-upgrade-cro/
-├── popup-cro/
-├── referral-program/
-├── schema-markup/
-├── signup-flow-cro/
-└── social-content/
-```
-
-## Marketing Workflow Integration
-
-### Content Pipeline
-
-1. **Research**: Keyword research, competitor analysis
-2. **Planning**: Content calendar, topic clusters
-3. **Creation**: AI-assisted writing with humanization
-4. **Optimization**: SEO audit, CRO testing
-5. **Distribution**: Email, social, paid promotion
-6. **Analysis**: Analytics tracking, A/B testing
-
-### Launch Checklist
-
-- [ ] Pricing strategy defined
-- [ ] Landing page optimized (CRO)
-- [ ] Email sequences ready
-- [ ] Paid ads configured
-- [ ] Analytics tracking live
-- [ ] Referral program setup
-
-## Best Practices
-
-1. **A/B testing**: Always test variations
-2. **Data-driven**: Base decisions on metrics
-3. **Brand consistency**: Maintain voice and style
-4. **Compliance**: GDPR, CAN-SPAM awareness
-5. **Attribution**: Track conversion sources
-
-## Full Resource List
-
-For more detailed marketing skill resources, complete link lists, or the latest information, use WebFetch to retrieve the full README.md:
-
-```
-https://raw.githubusercontent.com/gmh5225/awesome-skills/refs/heads/main/README.md
-```
-
-The README.md contains the complete categorized resource list with all links.
+- Prefer 80/20: biggest levers first.
+- Never invent metrics or keyword volumes. If missing, label assumptions.
+- When possible: include copy/paste drafts and an implementation checklist.

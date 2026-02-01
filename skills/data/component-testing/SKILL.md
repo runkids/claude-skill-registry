@@ -1,61 +1,34 @@
 ---
 name: component-testing
-description: Enforces project React component testing conventions using Testing Library with proper rendering, user interactions, and accessibility testing.
----
+description: Use this skill to create or modify tests for a component.
+----
 
-# Component Testing Skill
+## Component testing
 
-## Purpose
+Use this skill to create or modify component tests for the application.
 
-This skill provides React component testing conventions using Testing Library. Component tests verify rendering, user interactions, and accessibility of React components.
+## Creating stories
 
-## Activation
+- Create a separate story for each state of the component.
+- Add tests to verify event handling logic included in the component.
+- Stories must be added next to the component. 
+- If the component file is `button.tsx` then the stories file is `button.stories.tsx`
 
-This skill activates when:
+## Template for a component story
 
-- Creating or modifying files in `tests/components/`
-- Testing React components (`.tsx` files)
-- Working with Testing Library
-- Testing user interactions with `userEvent`
+```jsx
+import { GitHubSignInButton } from "./github-signin-button"; // The module exporting the component
+import { Meta, StoryObj } from "@storybook/nextjs-vite"; // Required framework components
 
-## File Patterns
+const meta = {
+    component: GitHubSignInButton,               // The exported component
+    title: "Components/Auth/GitHubSignInButton", // The logical path to the component.
+}
 
-- `tests/components/**/*.test.tsx`
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-## Workflow
-
-1. Detect component test work (file path contains `tests/components/`)
-2. Load `references/Component-Testing-Conventions.md`
-3. Also load `testing-base` skill for shared conventions
-4. Apply component test patterns with Testing Library
-5. Ensure accessibility-first query usage
-
-## Key Patterns (REQUIRED)
-
-### Custom Render
-
-- ALWAYS use `customRender` from `tests/setup/test-utils.tsx`
-- Returns `{ user, ...renderResult }` with pre-configured userEvent
-- Includes all providers (theme, clerk, etc.)
-
-### Testing Library Queries
-
-- Prefer `getByRole` for accessibility
-- Use `getByTestId` with namespace pattern (ui-_, feature-_, form-\*)
-- Use `getByText`, `getByLabelText` for content
-- Use `queryBy*` for assertions on missing elements
-
-### User Interactions
-
-- Use `user` from customRender return (pre-configured userEvent)
-- Always `await` user interactions
-- Test real user behaviors, not implementation details
-
-### Pre-Mocked Dependencies
-
-- Clerk, Next.js navigation, sonner, next-themes are pre-mocked
-- Mock server actions with `vi.mock()`
-
-## References
-
-- `references/Component-Testing-Conventions.md` - Complete component testing conventions
+export const Default: Story = {
+    args: {},
+};
+```

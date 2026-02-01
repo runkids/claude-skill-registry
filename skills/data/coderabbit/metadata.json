@@ -1,9 +1,7 @@
 {
   "name": "coderabbit",
-  "description": "AI-powered code review using CodeRabbit CLI and GitHub integration. Use when running local code reviews before commits (\"run coderabbit\", \"review my changes\"), configuring .coderabbit.yaml files, inte",
-  "repo": "basher83/lunar-claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "itechmeat/llm-code",
+  "path": "skills/coderabbit/SKILL.md",
+  "source": "github.com/itechmeat/llm-code",
+  "downloaded_at": "2026-02-01T04:11:19.964812Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "review-plan",
-  "description": "Critically review implementation plans before execution. Use when validating plans, checking standards compliance, or before running implement-plan.",
-  "repo": "dopsonbr/agent-kit",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Meme-Lords/granhackaria-run1",
+  "path": ".claude/skills/gsd/commands/review-plan/SKILL.md",
+  "source": "github.com/Meme-Lords/granhackaria-run1",
+  "downloaded_at": "2026-02-01T02:21:03.833827Z"
 }

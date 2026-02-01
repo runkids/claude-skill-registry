@@ -1,7 +1,7 @@
 {
   "name": "docker-workflows",
-  "repo": "AutumnsGrove/GroveEngine",
+  "repo": "AutumnsGrove/GroveScout",
   "path": ".claude/skills/docker-workflows/SKILL.md",
-  "source": "github.com/AutumnsGrove/GroveEngine",
-  "downloaded_at": "2026-01-30T03:12:57.901218Z"
+  "source": "github.com/AutumnsGrove/GroveScout",
+  "downloaded_at": "2026-02-01T03:52:08.644704Z"
 }

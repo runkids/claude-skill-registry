@@ -1,292 +1,243 @@
 ---
-name: debug-workflow
-description: Execute the Debug Code Change workflow end-to-end with safety gates. Use when debugging code changes, investigating issues, or performing root cause analysis with audit trail.
-argument-hint: "[goal] [scope] [constraints]"
-disable-model-invocation: false
-user-invocable: true
-allowed-tools: Read, Grep, Bash, Edit, Git, Web
-context: fork
-agent: general-purpose
+name: Debug Workflow
+description: Guides developers through scenario test debugging using Ruby debug gem step execution. Provides interactive debugging patterns and test helper context.
 ---
 
-## Intent
+# Debug Workflow Skill
 
-Run the composed workflow **debug-workflow** using atomic capability skills to systematically debug code changes with full safety and audit capabilities.
+Guide for debugging failing scenario tests using Ruby debug gem step execution and interactive debugging workflow.
 
-**Success criteria:**
-- Every step output is grounded with evidence anchors
-- Safety gates are respected (checkpoint before any mutation)
-- All issues are traced to root cause with supporting evidence
-- Final result includes complete audit trail
-- Rollback pathway documented and verified
+## When to Use This Skill
 
-**Compatible schemas:**
-- `reference/workflow_catalog.yaml`
+Use this skill when:
+- You need to debug a failing scenario test
+- You want to understand test execution behavior interactively
+- You need guidance on setting up the debug environment
+- You want to learn the four core debugging patterns
+- You're integrating debugging into the TDD cycle
 
-## Inputs
+## Your Primary Role
 
-| Parameter | Required | Type | Description |
-|-----------|----------|------|-------------|
-| `goal` | Yes | string | The debugging objective (e.g., "identify why tests fail after refactor") |
-| `scope` | Yes | string\|array | Files, directories, or components to investigate |
-| `constraints` | No | object | Hard limits (e.g., time budget, files to exclude, severity threshold) |
-| `prior_context` | No | object | Previous debugging attempts or known information |
+Help developers debug failing scenario tests by:
+1. **Analyzing test structure** — Understanding what the test expects
+2. **Setting up debug environment** — Installing gem, preparing test command
+3. **Guiding interactive debugging** — Walking through step execution
+4. **Interpreting state** — Helping read variables, file system, command outputs
+5. **Identifying root causes** — Connecting debug findings to actual code issues
 
-## Procedure
+## When Developers Ask For Help
 
-0) **Create checkpoint marker** if mutation might occur:
-   - Create `.claude/checkpoint.ok` after confirming rollback strategy
+### Scenario 1: "How do I debug test/scenario/new_scenario_test.rb?"
 
-1) **Invoke `/inspect`** and store output as `inspect_out`
-   - Examine the scope for symptoms, error patterns, recent changes
+**Your approach:**
+1. Read the test file to understand structure
+2. Identify what assertions are being tested
+3. Show the exact debug command: `ruby -r debug -Itest test/scenario/new_scenario_test.rb`
+4. Explain available debug commands (step, next, pp, continue, help)
+5. Reference the official guide: `.claude/docs/step-execution-guide.md`
 
-2) **Invoke `/search`** and store output as `search_out`
-   - Find related code, error messages, similar patterns
+### Scenario 2: "My test is failing. Debug session output shows..."
 
-3) **Invoke `/map-relationships`** and store output as `map-relationships_out`
-   - Map dependencies, call graphs, data flows
+**Your approach:**
+1. Analyze the debug output they provide
+2. Explain what it means (variable values, execution state)
+3. Suggest next debug steps
+4. Guide use of specific debugging commands:
+   - `pp output` to inspect ptrk command output
+   - `system("ls -la #{tmpdir}")` to check file system
+   - `info locals` to see all variables
+5. Help interpret findings in context of test expectations
 
-4) **Invoke `/model-schema`** and store output as `model-schema_out`
-   - Model the expected vs actual behavior
+### Scenario 3: "I'm in a debug session. This assertion is failing..."
 
-5) **Invoke `/critique`** and store output as `critique_out`
-   - Critically analyze hypotheses, identify weak points
+**Your approach:**
+1. Ask what the failure is (output mismatch, missing file, wrong status code?)
+2. Suggest specific inspection commands
+3. Walk through how to check file system or variable values
+4. Guide toward identifying the root cause
+5. Propose where in the implementation to look for the bug
 
-6) **Invoke `/plan`** and store output as `plan_out`
-   - Create remediation plan with verification criteria
+## Core Debugging Patterns
 
-7) **Invoke `/act-plan`** and store output as `act-plan_out`
-   - Execute the fix with checkpoint protection
+Guide developers through these four patterns:
 
-8) **Invoke `/verify`** and store output as `verify_out`
-   - Confirm fix addresses root cause
+### Pattern 1: Check Command Success
 
-9) **Invoke `/audit`** and store output as `audit_out`
-   - Record all actions and evidence for audit trail
+```ruby
+output, status = run_ptrk_command("new #{project_id}", cwd: tmpdir)
+# Debug: Is ptrk command succeeding?
 
-10) **Invoke `/rollback`** if needed and store output as `rollback_out`
-    - Restore previous state if verification fails
-
-## Output Contract
-
-Return a structured object:
-
-```yaml
-workflow_id: string  # Unique workflow execution ID
-goal: string  # The debugging objective
-status: completed | failed | rolled_back
-steps:
-  inspect_out:
-    summary: string
-    findings: array[string]
-    evidence_anchors: array[string]
-  search_out:
-    summary: string
-    matches: array[string]
-    evidence_anchors: array[string]
-  map_relationships_out:
-    summary: string
-    dependencies: array[string]
-    evidence_anchors: array[string]
-  model_schema_out:
-    summary: string
-    evidence_anchors: array[string]
-  critique_out:
-    summary: string
-    weaknesses: array[string]
-    evidence_anchors: array[string]
-  plan_out:
-    summary: string
-    actions: array[string]
-    verification_criteria: array[string]
-    evidence_anchors: array[string]
-  act_plan_out:
-    summary: string
-    changes_made: array[string]
-    evidence_anchors: array[string]
-  verify_out:
-    result: PASS | FAIL
-    evidence_anchors: array[string]
-  audit_out:
-    log_path: string
-    evidence_anchors: array[string]
-  rollback_out:
-    executed: boolean
-    restore_point: string | null
-    evidence_anchors: array[string]
-root_cause:
-  description: string
-  evidence_anchors: array[string]
-resolution:
-  description: string
-  files_changed: array[string]
-verification: PASS | FAIL
-audit_log_pointer: string  # Path to .claude/audit.log
-rollback_available: boolean
-rollback_command: string | null
-confidence: number  # 0.0-1.0
-evidence_anchors: array[string]
-assumptions: array[string]
+(rdbg) pp status.success?       # true or false?
+(rdbg) pp status.exitstatus     # 0 or non-zero?
+(rdbg) pp output                # What's the error message?
 ```
 
-### Field Definitions
+When debugging: Distinguish between command logic errors and execution problems. Check exit code first, then inspect output.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `workflow_id` | string | Unique identifier for this workflow execution |
-| `status` | enum | Final workflow status |
-| `steps` | object | Summary and evidence from each workflow step |
-| `root_cause` | object | Identified root cause with evidence |
-| `resolution` | object | What was done to fix the issue |
-| `verification` | enum | Final PASS/FAIL after fix applied |
-| `confidence` | number | 0.0-1.0 based on evidence quality |
-| `evidence_anchors` | array | All evidence references collected |
-| `assumptions` | array | Explicit assumptions made during debugging |
+### Pattern 2: Verify File System State
 
-## Examples
+```ruby
+assert Dir.exist?(File.join(project_dir, "storage", "home"))
+# Debug: Was the directory actually created?
 
-### Example 1: Debug Failing Test After Refactor
-
-**Input:**
-```yaml
-goal: "Identify why user authentication tests fail after handler refactor"
-scope:
-  - "src/api/handlers/auth.py"
-  - "tests/test_auth.py"
-constraints:
-  max_time: "30m"
-  severity: "high"
+(rdbg) system("ls -la #{tmpdir}")         # List all created dirs
+(rdbg) system("find #{tmpdir} -type d")   # Find all directories
+(rdbg) system("ls -la #{project_dir}")    # List project contents
 ```
 
-**Output:**
-```yaml
-workflow_id: "debug_20240115_143022"
-goal: "Identify why user authentication tests fail after handler refactor"
-status: completed
-steps:
-  inspect_out:
-    summary: "Test failure in test_login_success, line 45"
-    findings:
-      - "Expected status 200, got 401"
-      - "Token validation logic changed in refactor"
-    evidence_anchors:
-      - "file:tests/test_auth.py:45"
-      - "file:src/api/handlers/auth.py:78"
-  search_out:
-    summary: "Found 3 related token validation patterns"
-    matches:
-      - "src/api/handlers/auth.py:validate_token"
-      - "src/utils/jwt.py:decode_token"
-    evidence_anchors:
-      - "tool:grep:validate_token"
-  map_relationships_out:
-    summary: "auth.py depends on jwt.py for token validation"
-    dependencies:
-      - "auth.py -> jwt.py"
-      - "auth.py -> user_model.py"
-    evidence_anchors:
-      - "tool:ast:import_analysis"
-  critique_out:
-    summary: "Token validation order changed - signature check now after expiry"
-    weaknesses:
-      - "Signature validation moved after expiry check, causing premature rejection"
-    evidence_anchors:
-      - "file:src/api/handlers/auth.py:78-85"
-  plan_out:
-    summary: "Restore original validation order"
-    actions:
-      - "Move signature check before expiry check"
-    verification_criteria:
-      - "test_login_success passes"
-      - "No regression in other auth tests"
-    evidence_anchors:
-      - "file:src/api/handlers/auth.py:78"
-  act_plan_out:
-    summary: "Reordered validation steps"
-    changes_made:
-      - "src/api/handlers/auth.py:78-85"
-    evidence_anchors:
-      - "tool:git:diff"
-  verify_out:
-    result: PASS
-    evidence_anchors:
-      - "tool:bash:pytest tests/test_auth.py"
-  audit_out:
-    log_path: ".claude/audit.log"
-    evidence_anchors:
-      - "file:.claude/audit.log"
-  rollback_out:
-    executed: false
-    restore_point: "chk_20240115_143000"
-    evidence_anchors: []
-root_cause:
-  description: "Token signature validation was moved after expiry check during refactor, causing valid tokens to be rejected before signature verification"
-  evidence_anchors:
-    - "file:src/api/handlers/auth.py:78-85"
-    - "tool:git:blame"
-resolution:
-  description: "Restored original validation order: signature check before expiry check"
-  files_changed:
-    - "src/api/handlers/auth.py"
-verification: PASS
-audit_log_pointer: ".claude/audit.log"
-rollback_available: true
-rollback_command: "git stash pop"
-confidence: 0.95
-evidence_anchors:
-  - "file:tests/test_auth.py:45"
-  - "file:src/api/handlers/auth.py:78-85"
-  - "tool:bash:pytest"
-  - "tool:git:diff"
-assumptions:
-  - "Test environment matches production configuration"
-  - "No concurrent changes to auth module"
+When debugging: Use `system()` calls to explore actual vs expected file structure. This shows what was really created.
+
+### Pattern 3: Check Assertion Pattern Matching
+
+```ruby
+assert_match(/expected_pattern/, output)
+# Debug: Does the output actually contain the pattern?
+
+(rdbg) pp output                        # See full output
+(rdbg) pp output.lines                  # Split into lines
+(rdbg) pp output.include?("pattern")    # Check for substring
+(rdbg) pp output.match?(/regex_pattern/)  # Check regex match
 ```
 
-**Evidence pattern:** Combined code inspection, git blame for change attribution, test execution for verification.
+When debugging: Show exact output so differences from expectations are clear. Help developers see where the mismatch is.
 
-## Verification
+### Pattern 4: Multi-Step Workflow Debugging
 
-- [ ] **Step Completeness**: All 10 workflow steps executed with output
-- [ ] **Evidence Grounding**: Every step output includes evidence_anchors
-- [ ] **Checkpoint Created**: Mutation steps preceded by checkpoint
-- [ ] **Root Cause Identified**: root_cause has specific description and evidence
-- [ ] **Verification Passed**: verify_out.result is PASS before completion
-- [ ] **Audit Trail**: audit_log_pointer points to valid log file
-- [ ] **Rollback Ready**: rollback_command documented if changes made
+```ruby
+run_ptrk_command("new #{project_id}", cwd: tmpdir)
+run_ptrk_command("env list", cwd: project_dir)
+run_ptrk_command("env set --latest", cwd: project_dir)
+# Debug: Which step fails? What's the state after each?
 
-**Verification tools:** Bash (for test execution), Git (for change verification), Read (for audit log)
+(rdbg) step                           # Execute first command
+(rdbg) system("ls -la #{tmpdir}")     # Check what's created
+(rdbg) continue                       # Skip to next command
+(rdbg) pp output                      # Check its output
+(rdbg) step                           # Execute third command
+```
 
-## Safety Constraints
+When debugging: Break workflow into steps, check state after each. Use `continue` to jump between steps efficiently.
 
-- `mutation`: true
-- `requires_checkpoint`: true
-- `requires_approval`: false
-- `risk`: high
+## Available Debugger Commands
 
-**Capability-specific rules:**
-- NEVER proceed to `act-plan` without checkpoint and explicit plan
-- STOP and request clarification if any step produces confidence < 0.3
-- ALWAYS verify fix before marking workflow complete
-- Document rollback command before any mutation
-- Preserve original error state for comparison
+These are the tools developers have in the `(rdbg)` prompt:
 
-## Composition Patterns
+| Command | Short | Purpose | Example |
+|---------|-------|---------|---------|
+| `step` | `s` | Step to next line (enter method calls) | `(rdbg) step` |
+| `next` | `n` | Step over next line (skip method calls) | `(rdbg) next` |
+| `continue` | `c` | Continue until next breakpoint | `(rdbg) continue` |
+| `finish` | `f` | Continue until method returns | `(rdbg) finish` |
+| `pp var` | | Pretty-print variable value | `(rdbg) pp output` |
+| `pp var.class` | | Show variable's class | `(rdbg) pp status.class` |
+| `pp var.inspect` | | Show inspected details | `(rdbg) pp output.inspect` |
+| `info locals` | | Show all local variables | `(rdbg) info locals` |
+| `list` | `l` | Show code context (5 lines) | `(rdbg) list` |
+| `system(cmd)` | | Execute shell command | `(rdbg) system("ls -la #{tmpdir}")` |
+| `help` | `h` | Show all debugger commands | `(rdbg) help` |
+| `quit` | `q` | Exit debugger | `(rdbg) quit` |
 
-**Commonly follows:**
-- `receive` - After receiving bug report or error notification
-- `retrieve` - After fetching relevant context or logs
+## Test Helper Functions Reference
 
-**Commonly precedes:**
-- `summarize` - To create debug report for stakeholders
-- `send` - To notify team of resolution
+The tests use these helpers (from `test/test_helper.rb`):
 
-**Anti-patterns:**
-- Never skip `/inspect` to jump directly to `/plan`
-- Never proceed past `/critique` without addressing identified weaknesses
-- Never execute `/act-plan` without prior `/checkpoint`
-- Never mark complete without `/verify` confirmation
+```ruby
+# Generate unique project ID for test isolation
+project_id = generate_project_id
+# Returns: "20251203_015500_abc123f" (timestamp + hash)
 
-**Workflow references:**
-- See `reference/workflow_catalog.yaml#debug-workflow` for step definitions
-- See `reference/composition_patterns.md#checkpoint-act-verify-rollback` for CAVR pattern
+# Execute ptrk CLI command in specified directory
+output, status = run_ptrk_command("new my-project", cwd: tmpdir)
+# Returns: [String output, Process::Status status]
+# - output: stdout or stderr combined
+# - status: Process::Status with .success? and .exitstatus
+```
+
+When debugging: Use these to understand what test data is, what commands are being run.
+
+## Important Context About Tests
+
+- **Test isolation**: Each test uses `Dir.mktmpdir` with `generate_project_id()`
+- **Working directory**: Tests run in tmpdir, not actual project
+- **Exit codes matter**: Always check `status.success?` after ptrk commands
+- **File permissions**: tmpdir has normal read/write/execute permissions
+- **Cleanup**: tmpdir is automatically cleaned up when test exits
+
+## Common Test Structure
+
+Most scenario tests follow this pattern:
+
+```ruby
+def test_something_meaningful
+  Dir.mktmpdir do |tmpdir|
+    project_id = generate_project_id
+    output, status = run_ptrk_command("new #{project_id}", cwd: tmpdir)
+
+    # Assertions about project structure, command output, etc
+    assert status.success?
+    assert File.exist?(...)
+    assert_match(/pattern/, output)
+  end
+end
+```
+
+When debugging: Help developers understand the test setup, identify where the failure occurs, and inspect the state at that point.
+
+## Integration with TDD Cycle
+
+Help developers apply debugging workflow within t-wada style TDD:
+
+1. **Red Phase**: Run test normally, see failure
+   ```bash
+   bundle exec ruby -Itest test/scenario/your_test.rb
+   ```
+   → Failure is expected, shows what needs fixing
+
+2. **Green Phase**: Debug to understand expected behavior
+   ```bash
+   ruby -r debug -Itest test/scenario/your_test.rb
+   ```
+   → Use step execution to see what should happen
+   → Modify implementation code based on findings
+
+3. **RuboCop Phase**: Lint the code
+   ```bash
+   bundle exec rubocop test/scenario/your_test.rb --autocorrect
+   ```
+
+4. **Refactor Phase**: Debug again to verify changes work
+   ```bash
+   ruby -r debug -Itest test/scenario/your_test.rb
+   ```
+   → Ensure refactoring didn't break behavior
+
+5. **Commit Phase**: Clean git history
+   ```bash
+   git add . && git commit -m "..."
+   ```
+
+## Reference Documentation
+
+Always direct developers to these resources:
+
+- **`.claude/docs/step-execution-guide.md`** — Comprehensive guide
+  - Complete installation instructions
+  - Basic workflow walkthrough
+  - Detailed practical examples
+  - Advanced techniques
+  - Troubleshooting section
+
+- **`CLAUDE.md`** — Project development guide
+  - Quick start for debugging
+  - Integration with TDD cycle
+  - Test helper reference
+  - Common debugging patterns
+
+- **`.claude/examples/debugging-session-example.md`** — Real-world example
+  - Actual debug session transcript
+  - Common inspection patterns
+  - Troubleshooting during debug sessions
+
+- **`test_helper.rb`** — Test utilities implementation
+  - Test helper function definitions
+  - Test case base class setup

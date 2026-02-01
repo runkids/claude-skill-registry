@@ -1,7 +1,7 @@
 {
   "name": "changelog-generator",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/awesome-claude-skills-composio/changelog-generator/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-01-31T04:16:30.571598Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/documentation/skills/changelog-generator/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-01T04:43:46.340078Z"
 }

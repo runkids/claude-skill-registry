@@ -1,35 +1,67 @@
 ---
 name: pr
-description: Creates a pull request for the current branch.
-unsandboxed: true
+description: Creates pull requests with proper formatting. Use when creating PRs, opening pull requests, or preparing changes for review.
 ---
 
-When asked to create a pull request, follow these steps:
+# Pull Requests
 
-1. Run `git status`. If any of the following conditions apply, stop and report the errors:
+## PR Title
 
-   - There are unstaged changes
-   - There are untracked files
-   - The current branch is the default branch (`main`)
+Use the [Conventional Commit Format](https://www.conventionalcommits.org/), same as commit messages:
 
-2. Check if this is a stacked PR:
+```text
+<type>(<scope>): <description>
+```
 
-   - Run `git merge-base main HEAD` to find the common ancestor with main
-   - Run `git log --oneline <merge-base>..HEAD` to see commits since diverging from main
-   - Check if any parent commits are on another feature branch (not main)
-   - If so, run `gh pr list --head <parent-branch>` to check if that branch has an open PR
-   - If a parent branch has an open PR, this is a **stacked PR**
+## Types
 
-3. Run `git log main..HEAD --oneline` to see the commit history.
+- `feat`: User-facing features or behavior changes (must change production code)
+- `fix`: Bug fixes (must change production code)
+- `docs`: Documentation only
+- `style`: Code style/formatting (no logic changes)
+- `refactor`: Code restructuring without behavior change
+- `test`: Adding or updating tests
+- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
 
-4. Run `git diff` and/or `git show` as necessary to understand the changes.
+## PR Description Template
 
-5. Run `gh pr create` to create a pull request. The PR body should include:
+```markdown
+## Summary
+One sentence describing the overall change.
 
-   - A brief narrative description of the PR
-   - A summary of the changes (bullet points)
-   - A brief description of how the code is tested (narrative, not a checklist)
+- Optional supporting details
+- If needed
 
-   **If this is a stacked PR**, add `--draft` to create it as a draft PR.
+## Test plan
+- [ ] How to verify it works
+```
 
-6. Return the PR URL and any relevant information.
+## Labels
+
+Apply labels using `gh pr create --label <label>` or `gh pr edit --add-label <label>`:
+
+- `enhancement` - User-facing features or improvements (must change production code behavior)
+- `refactor` - Production code changes that don't alter behavior
+- `bug` - Fixes broken production code functionality
+- `test` - Changes to tests
+- `documentation` - Documentation changes
+
+**No label needed** for dependency bumps, CI/CD, tooling, or infrastructure changes.
+
+## Branch Naming
+
+Use `type/short-description`:
+
+```text
+feat/cache-policy
+fix/robots-txt-503
+chore/pre-commit-hooks
+```
+
+## Instructions
+
+1. Run `git log main..HEAD` to see commits for this branch
+2. Run `git diff main...HEAD` to see all changes
+3. Summarize the changes in 1-2 sentences
+4. Create a test plan with verification steps
+5. Apply appropriate labels

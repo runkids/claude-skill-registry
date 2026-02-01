@@ -1,7 +1,7 @@
 {
   "name": "audit-context-building",
-  "repo": "Blurjp/ImagePrepMCP",
-  "path": ".claude/skills/trailofbits-audit-context-building/skills/audit-context-building/SKILL.md",
-  "source": "github.com/Blurjp/ImagePrepMCP",
-  "downloaded_at": "2026-01-31T03:14:28.423864Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/audit-context-building/skills/audit-context-building/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:26.079452Z"
 }

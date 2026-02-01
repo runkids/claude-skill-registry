@@ -1,7 +1,7 @@
 {
   "name": "session",
-  "repo": "rjmurillo/ai-agents",
-  "path": ".claude/skills/session/SKILL.md",
-  "source": "github.com/rjmurillo/ai-agents",
-  "downloaded_at": "2026-01-31T04:15:20.071536Z"
+  "repo": "Chachamaru127/claude-code-harness",
+  "path": "opencode/skills/session/SKILL.md",
+  "source": "github.com/Chachamaru127/claude-code-harness",
+  "downloaded_at": "2026-02-01T03:39:22.589895Z"
 }

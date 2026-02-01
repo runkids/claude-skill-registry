@@ -1,11 +1,7 @@
 {
   "name": "telegram",
-  "description": "This skill should be used when fetching, searching, downloading, or sending messages on Telegram. Use for queries like \"show my Telegram messages\", \"search Telegram for...\", \"get unread messages\", \"se",
-  "repo": "PytaichukBohdan/DanaCockFightBot",
-  "category": "development",
-  "tags": [
-    "telegram"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "itechmeat/llm-code",
+  "path": "skills/telegram/SKILL.md",
+  "source": "github.com/itechmeat/llm-code",
+  "downloaded_at": "2026-02-01T04:11:19.751728Z"
 }

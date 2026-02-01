@@ -1,272 +1,448 @@
 ---
 name: cypress
-description: Provides comprehensive guidance for Cypress end-to-end testing including commands, assertions, component testing, CI/CD integration, and best practices. Use when the user asks about Cypress, needs to write E2E tests, component tests, or configure Cypress for testing.
-license: Complete terms in LICENSE.txt
+description: Writes E2E and component tests with Cypress including selectors, commands, fixtures, and API testing. Use when testing web applications end-to-end, testing user flows, or writing integration tests.
 ---
 
-## When to use this skill
+# Cypress
 
-Use this skill whenever the user wants to:
-- Set up Cypress for end-to-end testing
-- Write Cypress test cases
-- Configure Cypress for component testing
-- Integrate Cypress with CI/CD pipelines
-- Use Cypress commands and assertions
-- Debug Cypress tests
-- Optimize Cypress test performance
-- Migrate from other testing frameworks to Cypress
-- Use Cypress with different frameworks (React, Vue, Angular, Svelte)
-- Configure Cypress for different environments
+Fast, reliable testing for anything that runs in a browser.
 
-## How to use this skill
+## Quick Start
 
-This skill is organized to match the Cypress official documentation structure (https://docs.cypress.io/app/get-started/why-cypress, https://docs.cypress.io/api/table-of-contents). When working with Cypress:
+**Install:**
+```bash
+npm install cypress --save-dev
+```
 
-1. **Identify the topic** from the user's request:
-   - Getting Started/快速开始 → `examples/get-started/`
-   - Core Concepts/核心概念 → `examples/core-concepts/`
-   - Component Testing/组件测试 → `examples/component-testing/`
-   - End-to-End Testing/E2E测试 → `examples/end-to-end-testing/`
-   - Continuous Integration/持续集成 → `examples/continuous-integration/`
-   - Guides/指南 → `examples/guides/`
-   - References/参考 → `examples/references/`
-   - API Reference/API 参考 → `api/`
+**Open Cypress:**
+```bash
+npx cypress open
+```
 
-2. **Load the appropriate example file** from the `examples/` directory:
+**Run headless:**
+```bash
+npx cypress run
+```
 
-   **Getting Started (快速开始)** - `examples/get-started/`:
-   - `examples/get-started/install-cypress.md`
-   - `examples/get-started/open-the-app.md`
-   - `examples/get-started/why-cypress.md`
+## Project Structure
 
-   **Core Concepts (核心概念)** - `examples/core-concepts/`:
-   - `examples/core-concepts/best-practices.md`
-   - `examples/core-concepts/interacting-with-elements.md`
-   - `examples/core-concepts/introduction-to-cypress.md`
-   - `examples/core-concepts/open-mode.md`
-   - `examples/core-concepts/retry-ability.md`
-   - `examples/core-concepts/test-isolation.md`
-   - `examples/core-concepts/testing-types.md`
-   - `examples/core-concepts/variables-and-aliases.md`
-   - `examples/core-concepts/writing-and-organizing-tests.md`
+```
+cypress/
+  e2e/               # E2E test files
+    home.cy.ts
+    auth.cy.ts
+  fixtures/          # Test data
+    users.json
+  support/
+    commands.ts      # Custom commands
+    e2e.ts          # E2E support file
+    component.ts    # Component support file
+  downloads/         # Downloaded files
+cypress.config.ts    # Configuration
+```
 
-   **Component Testing (组件测试)** - `examples/component-testing/`:
-   - `examples/component-testing/angular/api.md`
-   - `examples/component-testing/angular/examples.md`
-   - `examples/component-testing/angular/overview.md`
-   - `examples/component-testing/component-framework-configuration.md`
-   - `examples/component-testing/custom-frameworks.md`
-   - `examples/component-testing/get-started.md`
-   - `examples/component-testing/react/api.md`
-   - `examples/component-testing/react/examples.md`
-   - `examples/component-testing/react/overview.md`
-   - `examples/component-testing/styling-components.md`
-   - `examples/component-testing/svelte/api.md`
-   - `examples/component-testing/svelte/examples.md`
-   - `examples/component-testing/svelte/overview.md`
-   - `examples/component-testing/vue/api.md`
-   - `examples/component-testing/vue/examples.md`
-   - `examples/component-testing/vue/overview.md`
+## Configuration
 
-   **End-to-End Testing (E2E测试)** - `examples/end-to-end-testing/`:
-   - `examples/end-to-end-testing/testing-your-app.md`
-   - `examples/end-to-end-testing/writing-your-first-end-to-end-test.md`
+```typescript
+// cypress.config.ts
+import { defineConfig } from 'cypress';
 
-   **Continuous Integration (持续集成)** - `examples/continuous-integration/`:
-   - `examples/continuous-integration/aws-codebuild.md`
-   - `examples/continuous-integration/bitbucket-pipelines.md`
-   - `examples/continuous-integration/circleci.md`
-   - `examples/continuous-integration/github-actions.md`
-   - `examples/continuous-integration/gitlab-ci.md`
-   - `examples/continuous-integration/overview.md`
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:3000',
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    defaultCommandTimeout: 10000,
+    video: false,
+    screenshotOnRunFailure: true,
+    setupNodeEvents(on, config) {
+      // Node event listeners
+    },
+  },
+  component: {
+    devServer: {
+      framework: 'react',
+      bundler: 'vite',
+    },
+  },
+  env: {
+    apiUrl: 'http://localhost:3001',
+  },
+});
+```
 
-   **Guides (指南)** - `examples/guides/`:
-   - `examples/guides/accessibility-testing.md`
-   - `examples/guides/authentication-testing/amazon-cognito-authentication.md`
-   - `examples/guides/authentication-testing/auth0-authentication.md`
-   - `examples/guides/authentication-testing/azure-active-directory-authentication.md`
-   - `examples/guides/authentication-testing/google-authentication.md`
-   - `examples/guides/authentication-testing/okta-authentication.md`
-   - `examples/guides/authentication-testing/social-authentication.md`
-   - `examples/guides/conditional-testing.md`
-   - `examples/guides/cross-browser-testing.md`
-   - `examples/guides/cross-origin-testing.md`
-   - `examples/guides/cypress-studio.md`
-   - `examples/guides/debugging.md`
-   - `examples/guides/migration/protractor-to-cypress.md`
-   - `examples/guides/migration/selenium-to-cypress.md`
-   - `examples/guides/network-requests.md`
-   - `examples/guides/screenshots-and-videos.md`
-   - `examples/guides/stubs-spies-and-clocks.md`
-   - `examples/guides/test-retries.md`
+## Basic Test
 
-   **References (参考)** - `examples/references/`:
-   - `examples/references/advanced-installation.md`
-   - `examples/references/assertions.md`
-   - `examples/references/bundled-libraries.md`
-   - `examples/references/changelog.md`
-   - `examples/references/client-certificates.md`
-   - `examples/references/command-line.md`
-   - `examples/references/configuration.md`
-   - `examples/references/content-security-policy.md`
-   - `examples/references/environment-variables.md`
-   - `examples/references/error-messages.md`
-   - `examples/references/experiments.md`
-   - `examples/references/launching-browsers.md`
-   - `examples/references/migration-guide.md`
-   - `examples/references/module-api.md`
-   - `examples/references/proxy-configuration.md`
-   - `examples/references/recipes.md`
-   - `examples/references/roadmap.md`
-   - `examples/references/trade-offs.md`
-   - `examples/references/troubleshooting.md`
+```typescript
+// cypress/e2e/home.cy.ts
+describe('Home Page', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
 
-   **Other Sections**:
-   - `examples/faq.md`
-   - `examples/plugins/plugins-guide.md`
-   - `examples/plugins/plugins-list.md`
-   - `examples/tooling/IDE-integration.md`
-   - `examples/tooling/code-coverage.md`
-   - `examples/tooling/reporters.md`
-   - `examples/tooling/typescript-support.md`
-   - `examples/tooling/visual-testing.md`
+  it('displays the welcome message', () => {
+    cy.contains('h1', 'Welcome').should('be.visible');
+  });
 
-3. **Reference API documentation** in the `api/` directory when needed:
+  it('navigates to about page', () => {
+    cy.get('a[href="/about"]').click();
+    cy.url().should('include', '/about');
+    cy.contains('About Us').should('be.visible');
+  });
+});
+```
 
-   **Commands API** - `api/commands/`:
-   - `api/commands/and.md`
-   - `api/commands/as.md`
-   - `api/commands/blur.md`
-   - `api/commands/check.md`
-   - `api/commands/children.md`
-   - `api/commands/clear.md`
-   - `api/commands/clearallcookies.md`
-   - `api/commands/clearalllocalstorage.md`
-   - `api/commands/clearallsessionstorage.md`
-   - `api/commands/clearcookie.md`
-   - `api/commands/clearcookies.md`
-   - `api/commands/clearlocalstorage.md`
-   - `api/commands/click.md`
-   - `api/commands/clock.md`
-   - `api/commands/closest.md`
-   - `api/commands/contains.md`
-   - `api/commands/dblclick.md`
-   - `api/commands/debug.md`
-   - `api/commands/document.md`
-   - `api/commands/each.md`
-   - `api/commands/end.md`
-   - `api/commands/eq.md`
-   - `api/commands/exec.md`
-   - `api/commands/filter.md`
-   - `api/commands/find.md`
-   - `api/commands/first.md`
-   - `api/commands/fixture.md`
-   - `api/commands/focus.md`
-   - `api/commands/focused.md`
-   - `api/commands/get.md`
-   - `api/commands/getallcookies.md`
-   - `api/commands/getalllocalstorage.md`
-   - `api/commands/getallsessionstorage.md`
-   - `api/commands/getcookie.md`
-   - `api/commands/getcookies.md`
-   - `api/commands/go.md`
-   - `api/commands/hash.md`
-   - `api/commands/hover.md`
-   - `api/commands/intercept.md`
-   - `api/commands/invoke.md`
-   - `api/commands/its.md`
-   - `api/commands/last.md`
-   - `api/commands/location.md`
-   - `api/commands/log.md`
-   - `api/commands/mount.md`
-   - `api/commands/next.md`
-   - `api/commands/nextall.md`
-   - `api/commands/nextuntil.md`
-   - `api/commands/not.md`
-   - `api/commands/origin.md`
-   - ... and 43 more command files
+## Selectors
 
-   **Cypress API** - `api/cypress-api/`:
-   - `api/cypress-api/arch.md`
-   - `api/cypress-api/browser.md`
-   - `api/cypress-api/catalog-of-events.md`
-   - `api/cypress-api/config.md`
-   - `api/cypress-api/cookies.md`
-   - `api/cypress-api/currentretry.md`
-   - `api/cypress-api/currenttest.md`
-   - `api/cypress-api/custom-commands.md`
-   - `api/cypress-api/custom-queries.md`
-   - `api/cypress-api/cypress-log.md`
-   - `api/cypress-api/dom.md`
-   - `api/cypress-api/element-selector-api.md`
-   - `api/cypress-api/ensure.md`
-   - `api/cypress-api/env.md`
-   - `api/cypress-api/isbrowser.md`
-   - `api/cypress-api/iscy.md`
-   - `api/cypress-api/keyboard-api.md`
-   - `api/cypress-api/platform.md`
-   - `api/cypress-api/require.md`
-   - `api/cypress-api/screenshot-api.md`
-   - `api/cypress-api/session.md`
-   - `api/cypress-api/spec.md`
-   - `api/cypress-api/stop.md`
-   - `api/cypress-api/testing-type.md`
-   - `api/cypress-api/version.md`
+### Best Practices
 
-   **Node Events API** - `api/node-events/`:
-   - `api/node-events/after-run-api.md`
-   - `api/node-events/after-screenshot-api.md`
-   - `api/node-events/after-spec-api.md`
-   - `api/node-events/before-run-api.md`
-   - `api/node-events/before-spec-api.md`
-   - `api/node-events/browser-launch-api.md`
-   - `api/node-events/configuration-api.md`
-   - `api/node-events/overview.md`
-   - `api/node-events/preprocessors-api.md`
+```typescript
+// Prefer data-* attributes
+cy.get('[data-testid="submit-button"]');
+cy.get('[data-cy="user-name"]');
 
-   **Utilities API** - `api/utilities/`:
-   - `api/utilities/$.md`
-   - `api/utilities/_.md`
-   - `api/utilities/blob.md`
-   - `api/utilities/buffer.md`
-   - `api/utilities/minimatch.md`
-   - `api/utilities/promise.md`
-   - `api/utilities/sinon.md`
+// By role (accessibility)
+cy.get('button').contains('Submit');
+cy.get('input[type="email"]');
 
-   **Table of Contents** - `api/table-of-contents/`:
+// By text content
+cy.contains('Sign In');
+cy.contains('button', 'Submit');
 
-4. **Follow the specific instructions** in that example file for syntax, structure, and best practices
+// Avoid brittle selectors
+// Bad: cy.get('.btn-primary-lg-submit')
+// Bad: cy.get('#form > div:nth-child(3) > button')
+```
 
-   **Important Notes**:
-   - All examples follow Cypress best practices
-   - Examples include both JavaScript and TypeScript versions where applicable
-   - Each example file includes parameters, returns, common errors, best practices, and scenarios
-   - Always check the example file for best practices and common patterns
+### Chaining
 
-5. **Reference the official documentation** when needed:
-   - Getting Started: https://docs.cypress.io/app/get-started/why-cypress
-   - API Reference: https://docs.cypress.io/api/table-of-contents
+```typescript
+cy.get('[data-cy="user-form"]')
+  .find('input[name="email"]')
+  .type('test@example.com');
+
+cy.get('[data-cy="user-list"]')
+  .children()
+  .first()
+  .click();
+```
+
+## Commands
+
+### Navigation
+
+```typescript
+cy.visit('/');
+cy.visit('/users/123');
+cy.go('back');
+cy.go('forward');
+cy.reload();
+```
+
+### Interactions
+
+```typescript
+// Click
+cy.get('button').click();
+cy.get('button').dblclick();
+cy.get('button').rightclick();
+
+// Type
+cy.get('input').type('Hello World');
+cy.get('input').type('test@email.com{enter}');
+cy.get('input').clear().type('New value');
+
+// Select
+cy.get('select').select('Option 1');
+cy.get('select').select(['opt1', 'opt2']);
+
+// Checkbox/Radio
+cy.get('input[type="checkbox"]').check();
+cy.get('input[type="checkbox"]').uncheck();
+cy.get('input[type="radio"]').check('value');
+
+// File upload
+cy.get('input[type="file"]').selectFile('cypress/fixtures/image.png');
+
+// Scroll
+cy.scrollTo('bottom');
+cy.get('.container').scrollTo(0, 500);
+
+// Focus/Blur
+cy.get('input').focus();
+cy.get('input').blur();
+```
+
+### Assertions
+
+```typescript
+// Visibility
+cy.get('button').should('be.visible');
+cy.get('.modal').should('not.exist');
+cy.get('.loading').should('not.be.visible');
+
+// Content
+cy.get('h1').should('contain', 'Welcome');
+cy.get('h1').should('have.text', 'Welcome Home');
+cy.get('p').should('include.text', 'partial');
+
+// Attributes
+cy.get('input').should('have.value', 'test');
+cy.get('a').should('have.attr', 'href', '/about');
+cy.get('button').should('be.disabled');
+cy.get('input').should('be.enabled');
+
+// CSS
+cy.get('div').should('have.class', 'active');
+cy.get('div').should('have.css', 'display', 'flex');
+
+// Length
+cy.get('li').should('have.length', 5);
+cy.get('li').should('have.length.greaterThan', 3);
+
+// Chained
+cy.get('input')
+  .should('be.visible')
+  .and('have.value', '')
+  .and('be.enabled');
+```
+
+## Fixtures
+
+### Load Fixture Data
+
+```json
+// cypress/fixtures/users.json
+{
+  "users": [
+    { "id": 1, "name": "John", "email": "john@example.com" },
+    { "id": 2, "name": "Jane", "email": "jane@example.com" }
+  ]
+}
+```
+
+```typescript
+// In test
+cy.fixture('users').then((data) => {
+  const user = data.users[0];
+  cy.get('[data-cy="email"]').type(user.email);
+});
+
+// Or with alias
+beforeEach(() => {
+  cy.fixture('users').as('usersData');
+});
+
+it('uses fixture data', function() {
+  cy.get('[data-cy="email"]').type(this.usersData.users[0].email);
+});
+```
+
+## API Testing
+
+### cy.request
+
+```typescript
+describe('API Tests', () => {
+  it('fetches users', () => {
+    cy.request('GET', '/api/users').then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body).to.have.length.greaterThan(0);
+    });
+  });
+
+  it('creates a user', () => {
+    cy.request({
+      method: 'POST',
+      url: '/api/users',
+      body: {
+        name: 'John Doe',
+        email: 'john@example.com',
+      },
+    }).then((response) => {
+      expect(response.status).to.eq(201);
+      expect(response.body).to.have.property('id');
+    });
+  });
+
+  it('handles auth', () => {
+    cy.request({
+      method: 'POST',
+      url: '/api/login',
+      body: { email: 'test@example.com', password: 'password' },
+    }).then((response) => {
+      expect(response.body).to.have.property('token');
+      // Use token in subsequent requests
+      cy.request({
+        method: 'GET',
+        url: '/api/profile',
+        headers: {
+          Authorization: `Bearer ${response.body.token}`,
+        },
+      });
+    });
+  });
+});
+```
+
+### Intercept Network Requests
+
+```typescript
+describe('Mocking API', () => {
+  it('mocks API response', () => {
+    cy.intercept('GET', '/api/users', {
+      statusCode: 200,
+      body: [
+        { id: 1, name: 'Mocked User' },
+      ],
+    }).as('getUsers');
+
+    cy.visit('/users');
+    cy.wait('@getUsers');
+    cy.contains('Mocked User').should('be.visible');
+  });
+
+  it('mocks with fixture', () => {
+    cy.intercept('GET', '/api/users', { fixture: 'users.json' }).as('getUsers');
+    cy.visit('/users');
+    cy.wait('@getUsers');
+  });
+
+  it('spies on requests', () => {
+    cy.intercept('POST', '/api/users').as('createUser');
+
+    cy.get('[data-cy="create-user-form"]').within(() => {
+      cy.get('input[name="name"]').type('John');
+      cy.get('button[type="submit"]').click();
+    });
+
+    cy.wait('@createUser').its('request.body').should('deep.equal', {
+      name: 'John',
+    });
+  });
+
+  it('delays response', () => {
+    cy.intercept('GET', '/api/data', {
+      delay: 2000,
+      body: { data: 'slow response' },
+    });
+
+    cy.visit('/data');
+    cy.get('.loading').should('be.visible');
+    cy.get('.data').should('be.visible');
+  });
+});
+```
+
+## Custom Commands
+
+```typescript
+// cypress/support/commands.ts
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(email: string, password: string): Chainable<void>;
+      getByCy(selector: string): Chainable<JQuery<HTMLElement>>;
+    }
+  }
+}
+
+Cypress.Commands.add('login', (email, password) => {
+  cy.session([email, password], () => {
+    cy.visit('/login');
+    cy.get('[data-cy="email"]').type(email);
+    cy.get('[data-cy="password"]').type(password);
+    cy.get('[data-cy="submit"]').click();
+    cy.url().should('include', '/dashboard');
+  });
+});
+
+Cypress.Commands.add('getByCy', (selector) => {
+  return cy.get(`[data-cy="${selector}"]`);
+});
+
+export {};
+```
+
+```typescript
+// Usage
+describe('Dashboard', () => {
+  beforeEach(() => {
+    cy.login('test@example.com', 'password');
+  });
+
+  it('shows dashboard', () => {
+    cy.visit('/dashboard');
+    cy.getByCy('welcome-message').should('be.visible');
+  });
+});
+```
+
+## Component Testing
+
+```typescript
+// cypress/component/Button.cy.tsx
+import Button from '../../src/components/Button';
+
+describe('Button Component', () => {
+  it('renders with text', () => {
+    cy.mount(<Button>Click me</Button>);
+    cy.contains('Click me').should('be.visible');
+  });
+
+  it('handles click', () => {
+    const onClick = cy.stub().as('onClick');
+    cy.mount(<Button onClick={onClick}>Click me</Button>);
+    cy.get('button').click();
+    cy.get('@onClick').should('have.been.calledOnce');
+  });
+
+  it('shows disabled state', () => {
+    cy.mount(<Button disabled>Disabled</Button>);
+    cy.get('button').should('be.disabled');
+  });
+});
+```
+
+## Waiting
+
+```typescript
+// Wait for element
+cy.get('.loading').should('not.exist');
+cy.get('.data').should('be.visible');
+
+// Wait for network
+cy.intercept('GET', '/api/data').as('getData');
+cy.visit('/');
+cy.wait('@getData');
+
+// Wait for multiple
+cy.wait(['@getUsers', '@getPosts']);
+
+// Explicit wait (avoid when possible)
+cy.wait(1000);
+```
 
 ## Best Practices
 
-1. **Use data-cy attributes**: Use data-cy attributes for stable, test-friendly selectors
-2. **Avoid hard-coded waits**: Leverage Cypress's built-in retry-ability instead of cy.wait()
-3. **Keep tests isolated**: Each test should be independent and not rely on other tests
-4. **Use custom commands**: Create custom commands for reusable test logic
-5. **Follow assertion patterns**: Use Cypress's built-in assertions for better error messages
-6. **Configure properly**: Set up cypress.config.js correctly for your project
-7. **Use fixtures**: Use fixtures for test data instead of hard-coding values
-8. **Component testing**: Use component testing for isolated component testing
-9. **CI/CD integration**: Configure Cypress properly for CI/CD environments
-10. **Debug effectively**: Use Cypress's debugging tools and commands
+1. **Use data-* attributes** - Stable selectors
+2. **Don't use cy.wait(ms)** - Use assertions instead
+3. **Reset state between tests** - Use beforeEach
+4. **Use cy.session** - Cache authentication
+5. **Use intercept for mocking** - Control network
 
-## Resources
+## Common Mistakes
 
-- **Official Documentation**: https://docs.cypress.io/
-- **Getting Started**: https://docs.cypress.io/app/get-started/why-cypress
-- **API Reference**: https://docs.cypress.io/api/table-of-contents
-- **GitHub Repository**: https://github.com/cypress-io/cypress
+| Mistake | Fix |
+|---------|-----|
+| Using arbitrary waits | Use assertions that retry |
+| Brittle CSS selectors | Use data-testid attributes |
+| Not cleaning up state | Use beforeEach/afterEach |
+| Testing implementation | Test user behavior |
+| Flaky tests | Use proper waiting strategies |
 
-## Keywords
+## Reference Files
 
-Cypress, end-to-end testing, E2E testing, component testing, test automation, browser testing, test framework, assertions, commands, fixtures, CI/CD, continuous integration, test runner, 端到端测试, E2E测试, 组件测试, 测试自动化, 浏览器测试, 测试框架, 断言, 命令, 固定数据, 持续集成, 测试运行器
+- [references/commands.md](references/commands.md) - All commands
+- [references/assertions.md](references/assertions.md) - Assertion types
+- [references/ci.md](references/ci.md) - CI/CD integration

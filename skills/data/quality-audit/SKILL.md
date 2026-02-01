@@ -1,354 +1,332 @@
 ---
 name: quality-audit
-description: >-
-  Meta-skill for auditing and validating skill quality. Use when reviewing
-  skills for consistency, completeness, accuracy, and adherence to standards.
-  Provides structured rubrics, scoring frameworks, and actionable recommendations.
-author: cortex team
-version: 1.0.0
-license: MIT
-tags: [meta, quality, validation, review, standards]
-created: 2026-01-05
-updated: 2026-01-05
+description: >
+  Stratified quality sampling and statistical validation for LLM outputs.
+  Works with ANY project's extraction results. Calculates confidence intervals,
+  chi-square tests, and stratified sampling by configurable dimensions.
+allowed-tools: ["Bash", "Read", "Write"]
 triggers:
-  - audit skill
-  - review skill quality
-  - validate skill
-  - skill quality check
-  - rubric assessment
-dependencies:
-  skills: []
-  tools: []
-token_estimate: ~2000
+  - quality-audit
+  - quality audit
+  - audit quality
+  - stratified sample
+  - statistical validation
+  - llm quality check
+  - extraction quality
+metadata:
+  short-description: Statistical quality validation for LLM extraction results
 ---
 
 # Quality Audit Skill
 
-Systematic framework for evaluating skill quality across four dimensions: **Clarity**, **Completeness**, **Accuracy**, and **Usefulness**.
+Stratified quality sampling and statistical validation for LLM extraction results.
+Works with **any project** - not tied to specific extraction tasks.
 
-## When to Use This Skill
+## Key Features
 
-- Reviewing a new skill before adding to the registry
-- Auditing existing skills for quality improvements
-- Creating quality rubrics for skill validation
-- Standardizing skill quality across the library
-- Preparing skills for production use
+1. **Stratified Sampling**: Sample by any dimension (framework, source, confidence)
+2. **Statistical Rigor**: Chi-square tests, 95% confidence intervals
+3. **Generic Interface**: Works with any JSON/JSONL extraction results
+4. **UltraThink Mode**: High-token reasoning for difficult edge cases
+5. **Quality Gates**: Configurable thresholds for pass/fail
 
-## Core Principles
+## Quick Start
 
-### The Four Quality Dimensions
+```bash
+cd /home/graham/workspace/experiments/pi-mono/.pi/skills/quality-audit
 
-| Dimension | Weight | Focus |
-|-----------|--------|-------|
-| **Clarity** | 25% | Structure, readability, progressive disclosure |
-| **Completeness** | 25% | Coverage, examples, edge cases, anti-patterns |
-| **Accuracy** | 30% | Correctness, best practices, security |
-| **Usefulness** | 20% | Real-world applicability, production-readiness |
+# Sample from extraction results
+./run.sh sample --input results.jsonl --stratify framework --samples-per-stratum 5
 
-### Scoring Scale (1-5)
+# Audit samples with LLM verification
+./run.sh audit --samples samples.json --threshold 0.85
 
-| Score | Label | Meaning |
-|-------|-------|---------|
-| 1 | Unacceptable | Fundamentally broken, dangerous, or unusable |
-| 2 | Needs Work | Major issues requiring significant revision |
-| 3 | Acceptable | Meets minimum standards, functional |
-| 4 | Good | High quality, minor improvements possible |
-| 5 | Excellent | Exemplary, production-ready, best-in-class |
+# Generate full quality report
+./run.sh report --input results.jsonl --output quality_report.md
 
-### Passing Criteria
-
-- **Minimum**: 3.0 weighted average (acceptable)
-- **Target**: 4.0 weighted average (good)
-- **Exceptional**: 4.5+ weighted average (excellent)
-- **Blocking**: Accuracy must be ≥3.0 (no dangerous advice)
-
-## Audit Workflow
-
-### Phase 1: Structure Check
-
-```yaml
-checklist:
-  structure:
-    - [ ] Has valid YAML frontmatter
-    - [ ] Contains required metadata (name, description)
-    - [ ] Follows progressive disclosure (Tier 1 → 2 → 3)
-    - [ ] Sections are logically ordered
-    - [ ] Token estimate is reasonable (<5000 for core)
+# UltraThink mode for difficult cases (uses more tokens)
+./run.sh audit --samples samples.json --ultrathink
 ```
 
-### Phase 2: Content Evaluation
+## Commands
 
-```yaml
-checklist:
-  content:
-    - [ ] "When to Use" section is clear
-    - [ ] Core principles are well-defined
-    - [ ] Code examples are complete and runnable
-    - [ ] Anti-patterns are documented
-    - [ ] Troubleshooting guidance exists
+### sample - Stratified Sampling
+
+```bash
+./run.sh sample --input results.jsonl --stratify framework --samples-per-stratum 5
+
+# Options:
+#   --input FILE            Input JSON/JSONL with extraction results
+#   --stratify DIMENSION    Dimension to stratify by (framework, source, confidence)
+#   --samples-per-stratum N Number of samples per stratum (default: 5)
+#   --seed INT              Random seed for reproducibility (default: 42)
+#   --output FILE           Output file for samples (default: samples.json)
 ```
 
-### Phase 3: Dimension Scoring
+### audit - Quality Verification
 
-For each dimension, evaluate against specific criteria:
+```bash
+./run.sh audit --samples samples.json --threshold 0.85
 
-**Clarity Criteria:**
-- Well-organized sections with logical flow
-- Concise explanations without jargon overload
-- Code examples are readable and well-commented
-- Progressive disclosure from simple to complex
+# Options:
+#   --samples FILE          Sampled cases to audit
+#   --threshold FLOAT       Minimum accuracy to pass (default: 0.85)
+#   --model NAME            LLM model for verification (default: from env)
+#   --ultrathink            Enable UltraThink mode (more tokens, deeper reasoning)
+#   --human                 Generate review document for human verification
+#   --output FILE           Output audit results
+```
 
-**Completeness Criteria:**
-- Covers core concepts thoroughly
-- Includes edge cases and error handling
-- Provides both do's and don'ts
-- Has working examples for main use cases
+### report - Full Quality Report
 
-**Accuracy Criteria:**
-- Code examples compile/run without errors
-- Follows current best practices (not deprecated)
-- Security considerations are correct
-- Performance claims are verifiable
+```bash
+./run.sh report --input results.jsonl --output quality_report.md
 
-**Usefulness Criteria:**
-- Examples solve real-world problems
-- Can be applied immediately
-- Scales to production use cases
-- Includes troubleshooting guidance
+# Options:
+#   --input FILE            Full extraction results
+#   --output FILE           Report output path
+#   --samples-per-stratum N Samples for statistical estimation (default: 10)
+#   --include-chi-square    Include chi-square agreement test
+```
 
-### Phase 4: Report Generation
+## Stratification Dimensions
+
+The skill supports stratifying by any field in your data. Common dimensions:
+
+| Dimension    | Example Values                      | Use Case                           |
+|--------------|-------------------------------------|-------------------------------------|
+| `framework`  | D3FEND, ATT&CK, NIST, CWE          | Validate coverage across frameworks |
+| `source`     | deterministic, llm, keyword_fallback| Compare extraction methods          |
+| `confidence` | low (0-0.5), med (0.5-0.8), high   | Focus on uncertain cases            |
+| `collection` | controls, techniques, mitigations   | Multi-collection validation         |
+
+### Custom Stratification
+
+For custom fields:
+
+```bash
+./run.sh sample --input results.jsonl --stratify "metadata.worksheet_type" --samples-per-stratum 3
+```
+
+## Statistical Tests
+
+### 95% Confidence Intervals
+
+For each stratum and overall:
+
+```
+Overall Accuracy: 87.5% +/- 4.2% (95% CI)
+```
+
+Calculated as: `p +/- 1.96 * sqrt(p * (1-p) / n)`
+
+### Chi-Square Agreement Test
+
+Compare LLM results vs deterministic mappings:
+
+```bash
+./run.sh report --input results.jsonl --include-chi-square
+```
+
+Output:
+```
+Chi-Square Agreement Test:
+  - Null hypothesis: LLM and deterministic agree at random
+  - Chi-square statistic: 45.2
+  - p-value: < 0.001
+  - Interpretation: Strong agreement (not random)
+```
+
+### Sample Size Calculation
+
+Calculate required samples for target precision:
+
+```bash
+./run.sh sample-size --target-precision 0.05 --expected-accuracy 0.85
+# Output: Need 196 samples for +/- 5% precision at 85% expected accuracy
+```
+
+## UltraThink Mode
+
+For difficult edge cases, enable UltraThink mode which:
+
+1. Uses extended thinking budget (more tokens)
+2. Requires explicit reasoning chain before verdict
+3. Requests multiple verification passes
+4. Higher confidence in final verdict
+
+```bash
+./run.sh audit --samples samples.json --ultrathink --model deepseek
+
+# UltraThink prompt includes:
+# "Take your time and think through this carefully. Consider:
+#  1. What is the primary function of this control?
+#  2. Which taxonomy tier best captures its essence?
+#  3. Are there edge cases or ambiguities?
+#  4. Confidence in your assessment?
+#  Reason through each step before giving your final answer."
+```
+
+## Input Format
+
+The skill accepts JSON or JSONL with extraction results. Required fields:
+
+```json
+{
+  "id": "D3-FEV",
+  "input": {
+    "name": "File Eviction",
+    "description": "Removes files from system"
+  },
+  "output": {
+    "conceptual": ["Precision", "Resilience"],
+    "tactical": ["Evict", "Restore"]
+  },
+  "metadata": {
+    "source": "llm",
+    "confidence": 0.9,
+    "framework": "D3FEND"
+  }
+}
+```
+
+Flexible field mapping via `--id-field`, `--output-field`, `--metadata-field`.
+
+## Output Format
+
+### Sample Output (samples.json)
+
+```json
+{
+  "created": "2026-01-29T10:00:00Z",
+  "seed": 42,
+  "stratify_by": "framework",
+  "samples_per_stratum": 5,
+  "strata": {
+    "D3FEND": [...],
+    "ATT&CK": [...],
+    "NIST": [...],
+    "CWE": [...]
+  }
+}
+```
+
+### Audit Output (audit_results.json)
+
+```json
+{
+  "timestamp": "2026-01-29T10:00:00Z",
+  "model": "deepseek",
+  "ultrathink": false,
+  "results": {
+    "overall_accuracy": 0.875,
+    "confidence_interval_95": "87.5% +/- 4.2%",
+    "per_stratum": {
+      "D3FEND": {"sampled": 5, "correct": 5, "accuracy": 1.0},
+      "ATT&CK": {"sampled": 5, "correct": 4, "accuracy": 0.8}
+    },
+    "chi_square": {
+      "statistic": 45.2,
+      "p_value": 0.0001,
+      "conclusion": "Strong agreement"
+    }
+  },
+  "quality_gate": {
+    "threshold": 0.85,
+    "passed": true
+  }
+}
+```
+
+### Report Output (quality_report.md)
 
 ```markdown
-## Audit Report: {skill_name}
+# Quality Audit Report
 
-**Date**: {date}
-**Auditor**: {auditor}
-**Status**: {PASS|FAIL|NEEDS_REVIEW}
+## Summary
+- **Total Records**: 4011
+- **Sampled**: 40 (10 per stratum)
+- **Overall Accuracy**: 87.5% +/- 4.2%
+- **Quality Gate**: PASS (threshold: 85%)
 
-### Scores
+## Per-Stratum Results
+| Stratum | Sampled | Correct | Accuracy | 95% CI |
+|---------|---------|---------|----------|--------|
+| D3FEND  | 10      | 10      | 100%     | +/- 0% |
+| ATT&CK  | 10      | 8       | 80%      | +/- 12.5% |
+...
 
-| Dimension | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Clarity | {x}/5 | 25% | {x*0.25} |
-| Completeness | {x}/5 | 25% | {x*0.25} |
-| Accuracy | {x}/5 | 30% | {x*0.30} |
-| Usefulness | {x}/5 | 20% | {x*0.20} |
-| **Total** | | | **{sum}/5** |
+## Chi-Square Agreement Test
+...
 
-### Issues Found
-
-- [CRITICAL] {issue description}
-- [MAJOR] {issue description}
-- [MINOR] {issue description}
-
-### Recommendations
-
-1. {actionable recommendation}
-2. {actionable recommendation}
+## Recommendations
+...
 ```
 
-## Implementation Patterns
+## Integration with Projects
 
-### Pattern 1: Quick Audit (5-minute review)
+### SPARTA Integration
 
-Use for rapid assessment of skill quality:
+```python
+from quality_audit import stratified_sample, audit_samples, quality_report
+
+# Sample from DuckDB results
+samples = stratified_sample(
+    input_source=conn,  # DuckDB connection
+    query="SELECT * FROM bridge_tag_results",
+    stratify_by="framework",
+    samples_per_stratum=10,
+)
+
+# Audit with LLM
+results = audit_samples(samples, model="deepseek", ultrathink=True)
+
+# Generate report
+report = quality_report(results, threshold=0.85)
+```
+
+### Generic JSON/JSONL
 
 ```bash
-# Run automated structure checks
-cortex skills audit <skill-name> --quick
-
-# Output: Pass/Fail with basic metrics
+# From any JSON extraction results
+./run.sh sample --input extractions.jsonl --stratify source --samples-per-stratum 5
+./run.sh audit --samples samples.json --threshold 0.85
 ```
 
-**Quick Audit Checks:**
-1. YAML frontmatter valid?
-2. Required sections present?
-3. Code blocks have language tags?
-4. No TODO/FIXME markers?
-5. Token count reasonable?
+## Configuration
 
-### Pattern 2: Full Audit (15-30 minute review)
-
-Comprehensive evaluation with human review:
+Environment variables:
 
 ```bash
-# Generate full audit report
-cortex skills audit <skill-name> --full
+# LLM for verification (optional - uses configured model)
+QUALITY_AUDIT_MODEL=deepseek
 
-# Interactive mode for scoring
-cortex skills audit <skill-name> --interactive
+# Default threshold
+QUALITY_AUDIT_THRESHOLD=0.85
+
+# UltraThink token budget
+QUALITY_AUDIT_ULTRATHINK_TOKENS=4096
 ```
 
-**Full Audit Process:**
-1. Run automated checks
-2. Read through content manually
-3. Test code examples
-4. Score each dimension
-5. Document issues and recommendations
-6. Generate report
-
-### Pattern 3: Comparative Audit
-
-Compare skill against reference implementation:
+## Quality Gates for CI/CD
 
 ```bash
-# Compare against template-skill-enhanced
-cortex skills audit <skill-name> --compare template-skill-enhanced
+# Exit code 0 = pass, 1 = fail
+./run.sh audit --samples samples.json --threshold 0.85
+
+# Use in pipelines
+if ./run.sh audit --samples samples.json --threshold 0.85; then
+    echo "Quality gate passed"
+else
+    echo "Quality gate failed - accuracy below threshold"
+    exit 1
+fi
 ```
 
-### Pattern 4: Batch Audit
+## Use Cases
 
-Audit multiple skills for registry health:
-
-```bash
-# Audit all skills in a category
-cortex skills audit --category security
-
-# Audit skills below threshold
-cortex skills audit --below-score 3.5
-```
-
-## CLI Commands
-
-```bash
-# Basic audit
-cortex skills audit <skill-name>
-
-# Options
-  --quick           Quick structural check only
-  --full            Full audit with all dimensions
-  --interactive     Interactive scoring mode
-  --output FILE     Write report to file
-  --format FORMAT   Output format (markdown|json|yaml)
-  --compare SKILL   Compare against reference skill
-  --fix             Auto-fix simple issues (formatting)
-```
-
-## Creating Custom Rubrics
-
-Skills can define custom rubrics in `validation/rubric.yaml`:
-
-```yaml
-# validation/rubric.yaml
-version: "1.0.0"
-skill_name: my-skill
-
-dimensions:
-  clarity:
-    weight: 25
-    criteria:
-      - "API examples use realistic data"
-      - "Error handling is shown for each operation"
-  completeness:
-    weight: 25
-    criteria:
-      - "Covers all HTTP methods"
-      - "Includes pagination patterns"
-  accuracy:
-    weight: 30
-    criteria:
-      - "Follows REST conventions"
-      - "Security headers documented"
-  usefulness:
-    weight: 20
-    criteria:
-      - "Examples work with common frameworks"
-
-passing_criteria:
-  minimum_score: 3.5  # Higher bar for this skill
-  required_dimensions:
-    - accuracy
-    - completeness
-```
-
-## Best Practices
-
-### Do
-
-- **Be specific** - "Line 45: SQL query vulnerable to injection" not "has security issues"
-- **Be actionable** - Include how to fix each issue
-- **Be fair** - Use the same standards consistently
-- **Document evidence** - Quote specific content for each score
-- **Prioritize** - Critical issues first, suggestions last
-
-### Don't
-
-- Score based on personal style preferences
-- Mark deprecated patterns without suggesting alternatives
-- Fail skills for missing optional sections
-- Ignore security issues regardless of other scores
-- Rush through audits for complex skills
-
-## Anti-Patterns
-
-### The Rubber Stamp
-
-**Problem**: Approving skills without thorough review
-**Why it's bad**: Low-quality skills erode trust in the library
-**Fix**: Use the full audit checklist, test code examples
-
-### The Perfectionist Block
-
-**Problem**: Failing skills for minor issues
-**Why it's bad**: Prevents useful skills from being available
-**Fix**: Distinguish between blocking issues and suggestions
-
-### Score Inflation
-
-**Problem**: Giving high scores without justification
-**Why it's bad**: Makes scores meaningless
-**Fix**: Document specific evidence for each score
-
-## Integration with CI/CD
-
-```yaml
-# .github/workflows/skill-quality.yml
-name: Skill Quality Gate
-
-on:
-  pull_request:
-    paths:
-      - 'skills/**'
-
-jobs:
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install cortex
-        run: pip install cortex
-      - name: Audit changed skills
-        run: |
-          for skill in $(git diff --name-only HEAD~1 | grep 'skills/' | cut -d'/' -f2 | uniq); do
-            cortex skills audit "$skill" --quick --fail-under 3.0
-          done
-```
-
-## Troubleshooting
-
-### "Audit fails but skill looks fine"
-
-1. Check YAML frontmatter syntax
-2. Verify all required sections exist
-3. Ensure code blocks have language tags
-4. Check for hidden characters (copy/paste issues)
-
-### "Scores seem inconsistent"
-
-1. Review the scoring guide for each dimension
-2. Calibrate by auditing template-skill-enhanced first
-3. Use --interactive mode for clearer criteria
-
-## External Resources
-
-- [Skill Template Reference](../template-skill-enhanced/SKILL.md)
-- [Rubric Schema](../rubric.schema.yaml)
-- [Skill Creator Guide](../skill-creator/SKILL.md)
-
-## Changelog
-
-### 1.0.0 (2026-01-05)
-- Initial release
-- Four-dimension scoring framework
-- CLI integration
-- CI/CD workflow example
+1. **SPARTA Bridge Tags**: Validate taxonomy extraction quality
+2. **QRA Generation**: Verify question-answer pairs are accurate
+3. **Document Extraction**: Check text extraction quality
+4. **Classification Tasks**: Any LLM classification with ground truth
+5. **A/B Testing**: Compare extraction approaches statistically

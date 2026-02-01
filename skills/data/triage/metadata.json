@@ -1,7 +1,7 @@
 {
   "name": "triage",
-  "repo": "Lobbi-Docs/claude",
-  "path": "plugins/jira-orchestrator/skills/triage/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-31T04:13:33.192018Z"
+  "repo": "joa23/linear-cli",
+  "path": ".claude/skills/triage/SKILL.md",
+  "source": "github.com/joa23/linear-cli",
+  "downloaded_at": "2026-02-01T04:39:10.961828Z"
 }

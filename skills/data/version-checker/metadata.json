@@ -1,7 +1,7 @@
 {
   "name": "version-checker",
-  "repo": "matteocervelli/llms",
+  "repo": "arbgjr/smart_alarm",
   "path": ".claude/skills/version-checker/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-31T02:10:24.837123Z"
+  "source": "github.com/arbgjr/smart_alarm",
+  "downloaded_at": "2026-02-01T03:42:50.780092Z"
 }

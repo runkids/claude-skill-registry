@@ -1,9 +1,7 @@
 {
   "name": "email-sequences",
-  "description": "Creates automated email sequences for every stage of the customer journey including welcome, nurture, conversion, and launch flows. This skill should be used when building automated email flows, launc",
-  "repo": "Salesably/salesably-marketplace",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "sanky369/vibe-building-skills",
+  "path": "skills/marketing/email-sequences/SKILL.md",
+  "source": "github.com/sanky369/vibe-building-skills",
+  "downloaded_at": "2026-02-01T02:47:32.303613Z"
 }

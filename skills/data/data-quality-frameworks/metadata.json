@@ -1,7 +1,7 @@
 {
   "name": "data-quality-frameworks",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/data-quality-frameworks/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:42.679481Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/data-engineering/skills/data-quality-frameworks/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:51.810949Z"
 }

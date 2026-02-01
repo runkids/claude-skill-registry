@@ -1,12 +1,7 @@
 {
   "name": "sanity-cms",
-  "description": "Integrate Sanity headless CMS for content management. Use when building content-driven sites with structured content, requiring an editor UI, or needing real-time previews.",
-  "repo": "ProfPowell/project-template",
-  "category": "development",
-  "tags": [
-    "sanity",
-    "cms"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "dejanvasic85/williamstownsc",
+  "path": ".claude/skills/sanity-cms/SKILL.md",
+  "source": "github.com/dejanvasic85/williamstownsc",
+  "downloaded_at": "2026-02-01T05:00:31.932966Z"
 }

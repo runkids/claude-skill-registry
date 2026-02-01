@@ -1,9 +1,7 @@
 {
   "name": "feature-engineer",
-  "description": "Comprehensive feature engineering for ML pipelines: data quality assessment, feature creation, selection, transformation, and encoding. Activates for \"feature engineering\", \"create features\", \"feature",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-ml/skills/feature-engineer/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-02-01T01:48:09.849975Z"
 }

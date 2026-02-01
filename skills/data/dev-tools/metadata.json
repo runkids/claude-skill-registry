@@ -1,12 +1,7 @@
 {
   "name": "dev-tools",
-  "description": "Run CLI dev tools for game development (world inspection, benchmarks, assets, simulation). Use when user wants to 'check performance', 'inspect world', 'validate assets', 'stress test', or asks about ",
-  "repo": "sunholo-data/stapledons_voyage",
-  "category": "development",
-  "tags": [
-    "dev",
-    "tools"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "osoleve/the-fold",
+  "path": ".claude/skills/dev-tools/SKILL.md",
+  "source": "github.com/osoleve/the-fold",
+  "downloaded_at": "2026-02-01T02:03:49.768846Z"
 }

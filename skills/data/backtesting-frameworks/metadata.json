@@ -1,7 +1,7 @@
 {
   "name": "backtesting-frameworks",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/backtesting-frameworks/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:42.257911Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/quantitative-trading/skills/backtesting-frameworks/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:53.105819Z"
 }

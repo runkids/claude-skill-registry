@@ -9,7 +9,7 @@ description: >
 license: MIT
 metadata:
     author: aurora
-    version: '1.1'
+    version: '1.2'
     auto_invoke:
         'Implementing NestJS/Aurora components, handlers, services, guards,
         interceptors'
@@ -51,25 +51,10 @@ etc.), see `aurora-cqrs` skill.
 
 **MANDATORY: Use `prettier` skill after EVERY file modification**
 
-After editing/creating ANY file:
-
-1. ✅ **IMMEDIATELY** invoke `prettier` skill
-2. ✅ Format the modified file(s)
-3. ✅ Verify formatting succeeded
-4. ✅ Continue to next task
-
 ```bash
 # Quick reference (see prettier skill for full details)
 npm run format -- <file-path>
 ```
-
-**See `.claude/skills/prettier/SKILL.md` for:**
-
-- Complete formatting commands
-- Workflow patterns
-- Integration with other skills
-- Troubleshooting
-- Configuration details
 
 **❌ NEVER skip formatting or leave unformatted code**
 
@@ -77,101 +62,15 @@ npm run format -- <file-path>
 
 ### ⚠️ Business Logic Placement (CRITICAL!)
 
-**MUST follow these rules:**
-
 #### ✅ Command Handler (execute() method)
 
-**PUT HERE:**
-
-- ✅ Business validations (e.g., price > 0, year >= 2008)
-- ✅ Complex business rules (e.g., check last maintenance date)
-- ✅ Pre-validation queries (e.g., find duplicates)
-- ✅ Duplicate checks
-- ✅ External service calls (e.g., notifications, APIs)
-- ✅ Transformations or calculations before persisting
-
-```typescript
-@CommandHandler(CreateMaintenanceHistoryCommand)
-export class CreateMaintenanceHistoryCommandHandler {
-    constructor(
-        private readonly service: CreateMaintenanceHistoryService,
-        private readonly repository: TeslaIMaintenanceHistoryRepository,
-    ) {}
-
-    async execute(command: CreateMaintenanceHistoryCommand): Promise<void> {
-        /* #region AI-generated code */
-        // ✅ CORRECT: Business validation BEFORE service call
-        const lastMaintenance = await this.repository.find({
-            queryStatement: {
-                where: { unitId: { '[eq]': command.payload.unitId } },
-                order: [{ workshopEntryDate: 'desc' }],
-                limit: 1,
-            },
-            cQMetadata: command.cQMetadata,
-        });
-
-        if (lastMaintenance) {
-            const daysDiff = calculateDaysDifference(
-                lastMaintenance.workshopEntryDate.value,
-            );
-            if (daysDiff > 365) {
-                throw new TeslaUnitNotRevisedInOneYearException(
-                    'Unit has not been serviced in over a year',
-                );
-            }
-        }
-        /* #endregion AI-generated code */
-
-        // Call service (only persistence)
-        await this.service.main(payload, command.cQMetadata);
-    }
-}
-```
+**PUT HERE:** Business validations, complex rules, pre-validation queries, duplicate checks, external service calls, transformations before persisting.
 
 #### ❌ Service (main() method)
 
-**DO NOT PUT HERE:**
+**DO NOT PUT HERE:** Business validations, business rules, pre-validation queries.
 
-- ❌ Business validations → Put in Handler
-- ❌ Business rules → Put in Handler
-- ❌ Pre-validation queries → Put in Handler
-
-**Services are ONLY for:**
-
-- ✅ Creating aggregate with factory pattern
-- ✅ Persisting via repository
-- ✅ Publishing domain events (created, updated, deleted)
-
-```typescript
-@Injectable()
-export class CreateMaintenanceHistoryService {
-    constructor(
-        private readonly publisher: EventPublisher,
-        private readonly repository: TeslaIMaintenanceHistoryRepository,
-    ) {}
-
-    async main(payload, cQMetadata): Promise<void> {
-        // ✅ ONLY persistence and events (NO business logic)
-        const maintenanceHistory = TeslaMaintenanceHistory.register(
-            payload.id,
-            payload.unitId,
-            payload.workshopEntryDate,
-            payload.workshopExitDate,
-            new TeslaMaintenanceHistoryCreatedAt({ currentTimestamp: true }),
-            new TeslaMaintenanceHistoryUpdatedAt({ currentTimestamp: true }),
-            null,
-        );
-
-        await this.repository.create(maintenanceHistory, {
-            createOptions: cQMetadata?.repositoryOptions,
-        });
-
-        const register = this.publisher.mergeObjectContext(maintenanceHistory);
-        register.created({ payload: maintenanceHistory, cQMetadata });
-        register.commit();
-    }
-}
-```
+**Services are ONLY for:** Creating aggregate with factory pattern, persisting via repository, publishing domain events.
 
 #### 🔑 Decision Tree
 
@@ -189,6 +88,14 @@ What am I implementing?
        - Only create, persist, publish events
 ```
 
+For detailed handler and service examples, see [Handler Examples](handlers.md).
+
+---
+
+### ⚠️ @api Handlers Rule (CRITICAL!)
+
+**@api handlers MUST ONLY dispatch commands/queries.** No business logic, no repository queries, no if/throw logic. See `aurora-cqrs` skill for full details.
+
 ---
 
 ### ⚠️ Querying with Relations (CRITICAL!)
@@ -201,273 +108,37 @@ What am I implementing?
 
 ```typescript
 /* #region AI-generated code */
-// 1. Check cliter/tesla/unit.aurora.yaml for 'model' relationship
-// 2. Use include to load relation in single query
 const queryStatement: QueryStatement = {
     where: { id: unitId },
     include: [{ association: 'model' }], // Field name from YAML relationship
 };
-
-const unit = await this.unitRepository.find({
-    queryStatement,
-    cQMetadata: command.cQMetadata,
-});
-
-// Access related entity
-if (unit && unit.model) {
-    unit.model.isActive = new TeslaModelIsActive(false);
-}
 /* #endregion AI-generated code */
 ```
 
-**Benefits:**
-
-- ✅ Single query (avoid N+1 problem)
-- ✅ Better performance
-- ❌ Never make sequential queries for related data
-
-**See:**
-
-- `aurora-schema` skill - Read/analyze YAML schemas
-- `aurora-criteria` skill - QueryStatement with include syntax
+**Benefits:** Single query (avoid N+1 problem), better performance.
 
 ---
 
 ### Marking Custom Code
 
-**ALWAYS mark custom code with AI-generated comments:**
+**Always mark custom code with AI-generated comments:**
 
 ```typescript
 /* #region AI-generated code */
 // Custom logic here
-if (condition) {
-    // implementation
-}
 /* #endregion AI-generated code */
 ```
 
-**Rules:**
-
-- Mark complete logical blocks
-- DO NOT break syntax with comments
-- Preserve existing code outside regions
-
 ---
 
-## NestJS Components
+## Detailed References
 
-### Command Handler
+For detailed code examples, see:
 
-```typescript
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { CreateUserCommand } from './create-user.command';
-import { UserRepository } from '@infrastructure/user/repositories/user.repository';
-
-@CommandHandler(CreateUserCommand)
-export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
-    constructor(
-        private readonly service: CreateUserService,
-        private readonly repository: UserRepository, // Inject if needed for validations
-    ) {}
-
-    async execute(command: CreateUserCommand): Promise<void> {
-        const { payload } = command;
-
-        /* #region AI-generated code */
-        // Business validation: Check duplicates
-        const existingUser = await this.repository.find({
-            queryStatement: {
-                where: { email: payload.email },
-            },
-        });
-
-        if (existingUser) {
-            throw new ConflictException('User already exists');
-        }
-
-        // Business rule: isLocked=true → isActive=false
-        if (payload.isLocked === true) {
-            payload.isActive = false;
-        }
-        /* #endregion AI-generated code */
-
-        // Call service (only persistence)
-        await this.service.main(payload, command.cQMetadata);
-    }
-}
-```
-
-### Query Handler
-
-```typescript
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetUsersQuery } from './get-users.query';
-import { UserMapper } from '@domain/user/user.mapper';
-
-@QueryHandler(GetUsersQuery)
-export class GetUsersHandler implements IQueryHandler<GetUsersQuery> {
-    private readonly mapper: UserMapper = new UserMapper();
-
-    constructor(
-        private readonly service: GetUsersService,
-        private readonly cache: CacheService, // Custom service
-    ) {}
-
-    async execute(query: GetUsersQuery): Promise<UserResponse[]> {
-        /* #region AI-generated code */
-        // Try cache first
-        const cacheKey = `users:${JSON.stringify(query.queryStatement)}`;
-        const cached = await this.cache.get(cacheKey);
-        if (cached) return cached;
-        /* #endregion AI-generated code */
-
-        const users = await this.service.main(
-            query.queryStatement,
-            query.constraint,
-            query.cQMetadata,
-        );
-
-        if (query.cQMetadata?.excludeMapModelToAggregate) {
-            return users;
-        }
-
-        const responses = this.mapper.mapAggregatesToResponses(users);
-
-        /* #region AI-generated code */
-        // Cache results for 1 hour
-        await this.cache.set(cacheKey, responses, 3600);
-        /* #endregion AI-generated code */
-
-        return responses;
-    }
-}
-```
-
-### Guard
-
-```typescript
-import {
-    Injectable,
-    CanActivate,
-    ExecutionContext,
-    ForbiddenException,
-} from '@nestjs/common';
-
-@Injectable()
-export class UserNotLockedGuard implements CanActivate {
-    /* #region AI-generated code */
-    canActivate(context: ExecutionContext): boolean {
-        const request = context.switchToHttp().getRequest();
-        const user = request.user;
-
-        if (user?.isLocked) {
-            throw new ForbiddenException('User account is locked');
-        }
-
-        return true;
-    }
-    /* #endregion AI-generated code */
-}
-```
-
-### Interceptor
-
-```typescript
-import {
-    Injectable,
-    NestInterceptor,
-    ExecutionContext,
-    CallHandler,
-} from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
-@Injectable()
-export class LoggingInterceptor implements NestInterceptor {
-    /* #region AI-generated code */
-    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-        const now = Date.now();
-        const request = context.switchToHttp().getRequest();
-
-        return next.handle().pipe(
-            tap(() => {
-                const elapsed = Date.now() - now;
-                console.log(`${request.method} ${request.url} - ${elapsed}ms`);
-            }),
-        );
-    }
-    /* #endregion AI-generated code */
-}
-```
-
-### Custom Decorator
-
-```typescript
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-
-export const CurrentUser = createParamDecorator(
-    (data: unknown, ctx: ExecutionContext) => {
-        /* #region AI-generated code */
-        const request = ctx.switchToHttp().getRequest();
-        return request.user;
-        /* #endregion AI-generated code */
-    },
-);
-
-// Usage in controller:
-@Get('profile')
-getProfile(@CurrentUser() user: User) {
-    return user;
-}
-```
-
-### Pipe
-
-```typescript
-import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
-
-@Injectable()
-export class ParseIntPipe implements PipeTransform<string, number> {
-    /* #region AI-generated code */
-    transform(value: string): number {
-        const val = parseInt(value, 10);
-        if (isNaN(val)) {
-            throw new BadRequestException('Validation failed: not a number');
-        }
-        return val;
-    }
-    /* #endregion AI-generated code */
-}
-```
-
-### Exception Filter
-
-```typescript
-import {
-    ExceptionFilter,
-    Catch,
-    ArgumentsHost,
-    HttpException,
-} from '@nestjs/common';
-import { Response } from 'express';
-
-@Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
-    /* #region AI-generated code */
-    catch(exception: HttpException, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-        const status = exception.getStatus();
-
-        response.status(status).json({
-            statusCode: status,
-            timestamp: new Date().toISOString(),
-            message: exception.message,
-        });
-    }
-    /* #endregion AI-generated code */
-}
-```
+- [Handler Examples](handlers.md) — Command/Query handler examples with business logic
+- [NestJS Components](nestjs-components.md) — Guards, Interceptors, Pipes, Decorators, Exception Filters
+- [Common Patterns](patterns.md) — Validation, caching, exception filters, custom domain operations
+- [Testing Patterns](testing.md) — Unit test examples
 
 ---
 
@@ -514,17 +185,6 @@ import { CreateUserCommand } from './create-user.command';
 - **Semicolons**: Required
 - **Quotes**: Single quotes
 
-```typescript
-@Injectable()
-export class MyService {
-    constructor(private readonly repository: UserRepository) {}
-
-    async myMethod(id: string): Promise<User> {
-        return await this.repository.findById(id);
-    }
-}
-```
-
 ---
 
 ## Dependency Injection
@@ -557,48 +217,6 @@ export class UserService {
     exports: [UserService],
 })
 export class UserModule {}
-```
-
----
-
-## Testing Patterns
-
-### Unit Test (Handler)
-
-```typescript
-describe('CreateUserHandler', () => {
-    let handler: CreateUserHandler;
-    let service: CreateUserService;
-    let repository: UserRepository;
-
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            providers: [
-                CreateUserHandler,
-                {
-                    provide: CreateUserService,
-                    useValue: { main: jest.fn() },
-                },
-                {
-                    provide: UserRepository,
-                    useValue: { find: jest.fn() },
-                },
-            ],
-        }).compile();
-
-        handler = module.get<CreateUserHandler>(CreateUserHandler);
-        service = module.get<CreateUserService>(CreateUserService);
-        repository = module.get<UserRepository>(UserRepository);
-    });
-
-    it('should throw ConflictException if user exists', async () => {
-        jest.spyOn(repository, 'find').mockResolvedValue({ id: '1' });
-
-        await expect(
-            handler.execute({ payload: { email: 'test@example.com' } }),
-        ).rejects.toThrow(ConflictException);
-    });
-});
 ```
 
 ---
@@ -673,100 +291,6 @@ Need reusable business logic?
 - Don't forget to commit events (call `aggregate.commit()`)
 - Don't create commands/queries manually (use Aurora CLI)
 - Don't mix concerns (keep separation of concerns)
-
----
-
-## Common Patterns
-
-### Pattern 1: Command with Pre-Validation
-
-```typescript
-@CommandHandler(CreateOrderCommand)
-export class CreateOrderCommandHandler {
-    constructor(
-        private readonly service: CreateOrderService,
-        private readonly productRepository: ProductRepository,
-    ) {}
-
-    async execute(command: CreateOrderCommand): Promise<void> {
-        /* #region AI-generated code */
-        // Validate product exists and has stock
-        const product = await this.productRepository.findById(
-            command.payload.productId,
-        );
-
-        if (!product) {
-            throw new NotFoundException('Product not found');
-        }
-
-        if (product.stock < command.payload.quantity) {
-            throw new BadRequestException('Insufficient stock');
-        }
-        /* #endregion AI-generated code */
-
-        await this.service.main(command.payload, command.cQMetadata);
-    }
-}
-```
-
-### Pattern 2: Query with Caching
-
-```typescript
-@QueryHandler(GetProductsQuery)
-export class GetProductsQueryHandler {
-    constructor(
-        private readonly service: GetProductsService,
-        private readonly cache: CacheService,
-    ) {}
-
-    async execute(query: GetProductsQuery): Promise<ProductResponse[]> {
-        /* #region AI-generated code */
-        const key = `products:${JSON.stringify(query.queryStatement)}`;
-        const cached = await this.cache.get(key);
-        if (cached) return cached;
-        /* #endregion AI-generated code */
-
-        const products = await this.service.main(...);
-        const responses = this.mapper.mapAggregatesToResponses(products);
-
-        /* #region AI-generated code */
-        await this.cache.set(key, responses, 3600);
-        /* #endregion AI-generated code */
-
-        return responses;
-    }
-}
-```
-
-### Pattern 3: Global Exception Filter
-
-```typescript
-@Catch()
-export class GlobalExceptionFilter implements ExceptionFilter {
-    /* #region AI-generated code */
-    catch(exception: unknown, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-
-        const status =
-            exception instanceof HttpException
-                ? exception.getStatus()
-                : HttpStatus.INTERNAL_SERVER_ERROR;
-
-        const message =
-            exception instanceof HttpException
-                ? exception.message
-                : 'Internal server error';
-
-        response.status(status).json({
-            statusCode: status,
-            timestamp: new Date().toISOString(),
-            message,
-        });
-    }
-    /* #endregion AI-generated code */
-}
-```
 
 ---
 

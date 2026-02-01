@@ -1,7 +1,7 @@
 {
   "name": "commit-and-push",
-  "repo": "sasamuku/dotfiles",
-  "path": ".claude/skills/commit-and-push/SKILL.md",
-  "source": "github.com/sasamuku/dotfiles",
-  "downloaded_at": "2026-01-31T03:56:43.712183Z"
+  "repo": "FradSer/dotclaude",
+  "path": "git/skills/commit-and-push/SKILL.md",
+  "source": "github.com/FradSer/dotclaude",
+  "downloaded_at": "2026-02-01T04:27:38.353840Z"
 }

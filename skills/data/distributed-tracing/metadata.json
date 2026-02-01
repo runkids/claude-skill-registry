@@ -1,7 +1,7 @@
 {
   "name": "distributed-tracing",
-  "repo": "paunchygent/skriptoteket",
-  "path": ".claude/skills/distributed-tracing/SKILL.md",
-  "source": "github.com/paunchygent/skriptoteket",
-  "downloaded_at": "2026-01-31T03:48:12.440777Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/observability-monitoring/skills/distributed-tracing/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:53.665538Z"
 }

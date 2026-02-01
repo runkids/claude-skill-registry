@@ -1,9 +1,7 @@
 {
   "name": "product-video",
-  "description": "Create animated product videos with reveals and animations. Use when creating product demos, promotional videos, or dynamic visual content.",
   "repo": "sanky369/vibe-building-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/sanky369/vibe-building-skills"
+  "path": "skills/creative/product-video/SKILL.md",
+  "source": "github.com/sanky369/vibe-building-skills",
+  "downloaded_at": "2026-02-01T02:47:31.935454Z"
 }

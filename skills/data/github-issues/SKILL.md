@@ -1,560 +1,354 @@
 ---
 name: github-issues
-description: Use when creating, updating, or managing GitHub issues. Ensures consistent format, labeling, and conventions for issue tracking.
+description: Query and search GitHub issues using gh CLI with web fallback. Supports filtering by labels, state, assignees, and full-text search. Use when troubleshooting errors, checking if an issue is already reported, or finding workarounds.
+allowed-tools: Bash, Read, Glob, Grep, WebFetch, WebSearch
 ---
 
-# GitHub Issues Conventions
+# GitHub Issues Lookup
 
-## Core Principle
-**"Issues describe problems, commits describe solutions."**
+Query and search GitHub issues for troubleshooting, bug tracking, and finding workarounds. Supports `gh` CLI with automatic web fallback.
 
-Write clear, actionable issues that anyone can pick up and understand. The issue title describes what's wrong or needed; labels and types handle categorization.
-
-## When to Use
-
-**Always use for:**
-- Creating new GitHub issues
-- Reviewing issue quality before submission
-- Planning work breakdown into trackable items
-- Writing bug reports or feature requests
-
-**Skip for:**
-- Internal notes or comments
-- Commit messages (use conventional commits instead)
-- Quick discussions that don't need tracking
-
-## Issue Title Guidelines
-
-**Format:** Plain, descriptive sentence case. No prefixes, no types, no emojis.
-
-The title should describe the **problem or need**, not the solution. GitHub's issue types and labels handle categorization.
-
-### Good Titles
-
-| Title | Why it works |
-|-------|--------------|
-| Login fails with special characters in password | Describes the problem clearly |
-| Add team invitation email notifications | States the need directly |
-| Expiry dates display in wrong timezone | Specific, observable behavior |
-| Dashboard loads slowly with many secrets | Clear performance issue |
-| Missing validation on API key name field | Identifies the gap |
-
-### Bad Titles
-
-| Title | Problem | Better Version |
-|-------|---------|----------------|
-| Fix login bug | Too vague | Login fails with special characters in password |
-| feat: Add email notifications | Has prefix (use labels) | Add team invitation email notifications |
-| [BUG] Timezone issue | Bracket prefix | Expiry dates display in wrong timezone |
-| Performance improvements | No specifics | Dashboard loads slowly with many secrets |
-| Update validation | What validation? Where? | Missing validation on API key name field |
-
-## Issue Types
-
-Use GitHub's native issue type feature or labels to categorize:
-
-| Type | When to Use | Example |
-|------|-------------|---------|
-| **Bug** | Something isn't working as expected | Login fails with valid credentials |
-| **Feature** | New functionality that doesn't exist | Add keyboard shortcuts for common actions |
-| **Task** | Implementation work item | Set up CI/CD pipeline for auth service |
-| **Documentation** | Docs improvements or additions | Document API rate limiting behavior |
-| **Enhancement** | Improvement to existing functionality | Improve secret search performance |
-
-## Issue Body Templates
-
-### Bug Report
-
-```markdown
-## Description
-[Brief description of the bug]
-
-## Steps to Reproduce
-1. [First step]
-2. [Second step]
-3. [Third step]
-
-## Expected Behavior
-[What should happen]
-
-## Actual Behavior
-[What actually happens]
-
-## Environment
-- Browser: [e.g., Chrome 120]
-- OS: [e.g., macOS 14.2]
-- Service: [e.g., auth-service, frontend]
-
-## Additional Context
-[Screenshots, error messages, relevant logs]
-```
-
-### Feature Request
-
-```markdown
-## Problem Statement
-[What problem does this solve? Why is it needed?]
-
-## Proposed Solution
-[High-level description of the feature]
-
-## Acceptance Criteria
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-- [ ] [Criterion 3]
-
-## Alternatives Considered
-[Other approaches you thought about]
-
-## Additional Context
-[Mockups, examples from other products, related issues]
-```
-
-### Task
-
-```markdown
-## Context
-[Background information and why this task exists]
-
-## Requirements
-[What needs to be done]
-
-- [ ] [Requirement 1]
-- [ ] [Requirement 2]
-- [ ] [Requirement 3]
-
-## Acceptance Criteria
-- [ ] [How we know it's done - criterion 1]
-- [ ] [How we know it's done - criterion 2]
-
-## Technical Notes
-[Implementation hints, constraints, related code]
-
-## Related Issues
-- #[related issue number]
-```
-
-## Labels Convention
-
-Use consistent labels across the KeyArc project for filtering and organization.
-
-### Priority Labels
-
-| Label | When to Use |
-|-------|-------------|
-| `priority:critical` | Production is broken, security vulnerability, data loss risk |
-| `priority:high` | Major feature blocked, significant user impact |
-| `priority:medium` | Important but not urgent, default for most work |
-| `priority:low` | Nice to have, minor improvements, can wait |
-
-### Service Labels
-
-| Label | Scope |
-|-------|-------|
-| `service:auth` | Auth service (signup, login, tokens) |
-| `service:gateway` | API gateway (routing, JWT validation) |
-| `service:keys` | Key service (secrets, folders, sharing) |
-| `service:account` | Account service (profiles, teams, members) |
-| `service:frontend` | Angular frontend application |
-
-### Status Labels
-
-| Label | Meaning |
-|-------|---------|
-| `status:ready` | Issue is fully specified, ready to work on |
-| `status:blocked` | Waiting on external dependency or decision |
-| `status:needs-info` | Requires more information before proceeding |
-| `status:in-progress` | Someone is actively working on this |
-
-### Scope Labels
-
-| Label | Domain |
-|-------|--------|
-| `scope:security` | Security-related work (encryption, auth, audit) |
-| `scope:api` | API design, endpoints, contracts |
-| `scope:ui` | User interface, UX, visual design |
-| `scope:database` | Database schema, migrations, queries |
-
-## Organizing Work
-
-GitHub provides organizational layers above individual issues. For KeyArc, use milestones and sub-issues to keep work structured without overhead.
-
-### Milestones
-
-Use milestones to group issues toward a release or phase goal.
-
-**KeyArc Milestones:**
-
-| Milestone | Purpose | Example Issues |
-|-----------|---------|----------------|
-| Phase 1: Auth & Core | Authentication, database, gateway setup | Auth service scaffold, JWT implementation |
-| Phase 2: Key Management | Secret storage and organization | Key service endpoints, folder management |
-| Phase 3: Team Sharing | Multi-user and team features | Team creation, key sharing, RBAC |
-| v1.0 Launch | Production readiness | Performance tuning, security audit, docs |
-
-**When to use milestones:**
-- Release planning (what's in v1.0?)
-- Phase tracking (what's left for Phase 1?)
-- Sprint goals (if using time-boxed iterations)
-
-**Creating a milestone:**
-```bash
-gh api repos/OWNER/REPO/milestones -f title="Phase 1: Auth & Core" -f description="Authentication service, database setup, and API gateway" -f due_on="2026-03-01T00:00:00Z"
-```
-
-**Assigning issues to milestones:**
-```bash
-gh issue edit 123 --milestone "Phase 1: Auth & Core"
-```
-
-### Sub-issues
-
-Use sub-issues to break down larger features or service implementations into trackable pieces.
-
-**Pattern:** Create a parent issue for a major feature or service, then add sub-issues for individual tasks.
-
-**Example: Auth Service Implementation**
-
-```
-Parent: Implement Auth Service (#10)
-├── Sub: Create auth service project scaffold (#11)
-├── Sub: Implement signup endpoint (#12)
-├── Sub: Implement login endpoint (#13)
-├── Sub: Add JWT token generation (#14)
-├── Sub: Add password reset flow (#15)
-└── Sub: Write auth service integration tests (#16)
-```
-
-**Parent issue template:**
-
-```markdown
 ## Overview
-[High-level description of the feature or service]
 
-## Sub-issues
-This work is broken down into the following tasks:
-- [ ] #11 - Create auth service project scaffold
-- [ ] #12 - Implement signup endpoint
-- [ ] #13 - Implement login endpoint
-- [ ] #14 - Add JWT token generation
-- [ ] #15 - Add password reset flow
-- [ ] #16 - Write auth service integration tests
+This skill provides comprehensive guidance for querying GitHub issues from any repository. It prioritizes the GitHub CLI (`gh`) for fast, reliable access with automatic fallback to web-based methods when gh is unavailable.
 
-## Acceptance Criteria
-- [ ] All sub-issues completed
-- [ ] Service deployed to staging
-- [ ] Integration tests passing
+**Core value:** Quickly find relevant issues when troubleshooting errors, checking if bugs are already reported, or discovering workarounds for known problems.
 
-## Technical Notes
-[Architecture decisions, constraints, links to docs]
-```
+## When to Use This Skill
 
-**When to use sub-issues:**
-- Service implementation (5+ related tasks)
-- Complex features spanning multiple components
-- Work that needs to be parallelized across contributors
+This skill should be used when:
 
-**When NOT to use sub-issues:**
-- Simple features (just use a single issue)
-- Unrelated tasks (use labels/milestones instead)
-- Bugs (usually standalone)
+- **Troubleshooting errors** - Search for issues matching error messages or symptoms
+- **Checking if issue exists** - Before reporting a bug, search for duplicates
+- **Finding workarounds** - Discover solutions from issue discussions
+- **Tracking features** - Search for feature requests and their status
+- **Understanding history** - Find closed issues explaining past decisions
 
-### GitHub Project Board
+**Trigger keywords:** github issues, search issues, find issue, bug report, issue lookup, gh issue, troubleshoot, workaround, known issue
 
-KeyArc uses a GitHub Project board to track work status. **Every issue must be added to the project board.**
+## Prerequisites
 
-**Project Reference:**
-- Project ID: `PVT_kwDODzuJ-c4BNYGm`
-- Status Field ID: `PVTSSF_lADODzuJ-c4BNYGmzg8Y71s`
-- Phase Field ID: `PVTSSF_lADODzuJ-c4BNYGmzg8Y8FI`
-- Track Field ID: `PVTSSF_lADODzuJ-c4BNYGmzg8Y8FM`
-- Project URL: https://github.com/orgs/KeyArc/projects/1
+**Recommended (not required):**
 
-**Field Options:**
+- **GitHub CLI (gh)** - Install from <https://cli.github.com/>
+- **Authentication** - Run `gh auth login` for private repos
 
-| Field | Option | ID |
-|-------|--------|-----|
-| Status | Ready | `e5dd8d9b` |
-| Status | Blocked | `a149a0a4` |
-| Status | In Progress | `b3644764` |
-| Status | In Review | `9a932cb4` |
-| Status | Done | `f3192413` |
-| Phase | Phase 1: Foundation | `acaef4ee` |
-| Phase | Phase 2: Authentication | `205962fc` |
-| Track | Dev | `e916e7bd` |
-| Track | DevOps | `8612f72a` |
-| Track | QA | `a28706f5` |
+The skill works without `gh` by falling back to web-based methods.
 
-### Complete Issue Creation Workflow
+## Quick Start
 
-When creating a new issue, follow these steps:
+### Search Issues (gh CLI)
 
-**Step 1: Create the issue with milestone and labels**
 ```bash
-gh issue create --repo KeyArc/keyarc \
-  --title "Issue title here" \
-  --body "Issue body..." \
-  --milestone "Phase 1: Foundation" \
-  --label "priority:high,track:dev,scope:infra"
+# Check if gh is available
+gh --version
+
+# Search for issues by keyword
+gh issue list --repo owner/repo --search "keyword" --state all
+
+# Filter by label
+gh issue list --repo owner/repo --label "bug" --state open
+
+# View specific issue
+gh issue view 11984 --repo owner/repo
+
+# Search with multiple terms
+gh issue list --repo owner/repo --search "error message here" --limit 20
 ```
 
-**Step 2: Add to project board**
+### Search Issues (Web Fallback)
+
+When gh is unavailable, use WebSearch or WebFetch:
+
+```text
+# Search via web (using WebSearch tool)
+Search: "site:github.com/owner/repo/issues keyword"
+
+# Direct URL pattern
+https://github.com/owner/repo/issues?q=keyword
+```
+
+## Core Capabilities
+
+### 1. Basic Issue Search
+
+Search issues by keywords, matching title and body text.
+
+**gh CLI:**
+
 ```bash
-gh project item-add 1 --owner KeyArc --url https://github.com/KeyArc/keyarc/issues/ISSUE_NUMBER
+# Basic keyword search (all states)
+gh issue list --repo anthropics/claude-code --search "path doubling" --state all
+
+# Open issues only
+gh issue list --repo anthropics/claude-code --search "path doubling" --state open
+
+# Closed issues only
+gh issue list --repo anthropics/claude-code --search "path doubling" --state closed
 ```
 
-**Step 3: Set project fields (status, phase, track)**
+**For detailed query syntax:** See [references/query-patterns.md](references/query-patterns.md)
+
+---
+
+### 2. Filter by Labels
+
+Narrow results using repository labels.
+
 ```bash
-# Get the item ID first
-ITEM_ID=$(gh project item-list 1 --owner KeyArc --format json | jq -r '.items[] | select(.content.number == ISSUE_NUMBER) | .id')
+# Single label
+gh issue list --repo owner/repo --label "bug"
 
-# Set status to Ready
-gh api graphql -f query='
-mutation {
-  updateProjectV2ItemFieldValue(input: {
-    projectId: "PVT_kwDODzuJ-c4BNYGm"
-    itemId: "'"$ITEM_ID"'"
-    fieldId: "PVTSSF_lADODzuJ-c4BNYGmzg8Y71s"
-    value: {singleSelectOptionId: "e5dd8d9b"}
-  }) { projectV2Item { id } }
-}'
+# Multiple labels (AND)
+gh issue list --repo owner/repo --label "bug" --label "high-priority"
 
-# Set phase (use option ID from Field Options table)
-gh api graphql -f query='
-mutation {
-  updateProjectV2ItemFieldValue(input: {
-    projectId: "PVT_kwDODzuJ-c4BNYGm"
-    itemId: "'"$ITEM_ID"'"
-    fieldId: "PVTSSF_lADODzuJ-c4BNYGmzg8Y8FI"
-    value: {singleSelectOptionId: "acaef4ee"}
-  }) { projectV2Item { id } }
-}'
-
-# Set track (use option ID from Field Options table)
-gh api graphql -f query='
-mutation {
-  updateProjectV2ItemFieldValue(input: {
-    projectId: "PVT_kwDODzuJ-c4BNYGm"
-    itemId: "'"$ITEM_ID"'"
-    fieldId: "PVTSSF_lADODzuJ-c4BNYGmzg8Y8FM"
-    value: {singleSelectOptionId: "e916e7bd"}
-  }) { projectV2Item { id } }
-}'
+# Common label patterns
+gh issue list --repo owner/repo --label "enhancement" --state open
+gh issue list --repo owner/repo --label "documentation"
 ```
 
-### Quick Reference Commands
+---
 
-**Add issue to project:**
+### 3. Filter by Assignee/Author
+
+Find issues by who created or is assigned to them.
+
 ```bash
-gh project item-add 1 --owner KeyArc --url https://github.com/KeyArc/keyarc/issues/NUMBER
+# By assignee
+gh issue list --repo owner/repo --assignee username
+
+# By author
+gh issue list --repo owner/repo --author username
+
+# Combined filters
+gh issue list --repo owner/repo --author username --state closed
 ```
 
-**Update status to In Progress:**
+---
+
+### 4. View Issue Details
+
+Get full issue content including description and comments.
+
 ```bash
-gh api graphql -f query='
-mutation {
-  updateProjectV2ItemFieldValue(input: {
-    projectId: "PVT_kwDODzuJ-c4BNYGm"
-    itemId: "ITEM_ID"
-    fieldId: "PVTSSF_lADODzuJ-c4BNYGmzg8Y71s"
-    value: {singleSelectOptionId: "b3644764"}
-  }) { projectV2Item { id } }
-}'
+# View issue (opens in terminal)
+gh issue view 11984 --repo anthropics/claude-code
+
+# View with comments
+gh issue view 11984 --repo anthropics/claude-code --comments
+
+# JSON output for parsing
+gh issue view 11984 --repo anthropics/claude-code --json title,body,comments
 ```
 
-**List project items with status:**
+---
+
+### 5. Web Fallback Strategy
+
+When gh CLI is unavailable, fall back to web-based methods.
+
+**Detection:**
+
 ```bash
-gh project item-list 1 --owner KeyArc --format json | jq '.items[] | {number: .content.number, title: .content.title, status: .status}'
+# Check if gh is available
+if command -v gh &> /dev/null; then
+    echo "gh available"
+else
+    echo "falling back to web"
+fi
 ```
 
-### GitHub API Tips
+**Web methods (in order of preference):**
 
-Use `gh api` - handles auth automatically:
+1. **WebSearch tool**: `site:github.com/owner/repo/issues keyword`
+2. **firecrawl MCP**: Scrape GitHub search results
+3. **Direct URL**: `https://github.com/owner/repo/issues?q=keyword`
+
+**For detailed fallback guidance:** See [references/web-fallback.md](references/web-fallback.md)
+
+---
+
+## Output Formats
+
+The skill supports three output formats:
+
+### Compact (default)
+
+One line per issue, good for scanning:
+
+```text
+#11984 [open] Path doubling in PowerShell hooks (bug, hooks)
+#11523 [closed] Fix memory leak in long sessions (bug, fixed)
+#10892 [open] Add custom status line support (enhancement)
+```
+
+### Table
+
+Markdown table format for structured display:
+
+```markdown
+| # | State | Title | Labels |
+| --- | --- | --- | --- |
+| 11984 | open | Path doubling in PowerShell hooks | bug, hooks |
+| 11523 | closed | Fix memory leak in long sessions | bug, fixed |
+```
+
+### Detailed
+
+Full information for deep investigation:
+
+```markdown
+### #11984 - Path doubling in PowerShell hooks
+**State:** open | **Labels:** bug, hooks | **Created:** 2024-12-01
+**URL:** https://github.com/anthropics/claude-code/issues/11984
+
+When using cd && in PowerShell, paths get doubled...
+```
+
+---
+
+## Common Workflows
+
+### Troubleshooting an Error
+
+1. Extract key terms from error message
+2. Search issues with those terms
+3. Check both open and closed issues
+4. Look for workarounds in comments
+
 ```bash
-gh api repos/OWNER/REPO/issues -q '.[] | {number, title}'  # GET + jq
-gh api repos/OWNER/REPO/issues/10/comments -X POST -f body="text"  # -f for strings
-gh api repos/OWNER/REPO/issues/10/dependencies/blocked_by -X POST -F issue_id=123  # -F for integers
+# Example: Troubleshoot a specific error
+gh issue list --repo anthropics/claude-code --search "ENOENT" --state all --limit 10
 ```
 
-For project boards, use `gh api graphql -f query='mutation {...}'`.
+### Before Reporting a Bug
 
-Auto-unblock workflow: `.github/workflows/auto-unblock-issues.yml` moves issues to "Ready" when blockers close.
+1. Search for existing issues with similar symptoms
+2. Check closed issues for past fixes
+3. If duplicate exists, add your context as a comment
 
-### Organizational Hierarchy
-
-```
-Milestone (Phase 1: Auth & Core)
-├── Parent Issue: Implement Auth Service (#10)
-│   ├── Sub-issue: Signup endpoint (#12)
-│   ├── Sub-issue: Login endpoint (#13)
-│   └── Sub-issue: JWT tokens (#14)
-├── Parent Issue: Set up API Gateway (#20)
-│   ├── Sub-issue: JWT validation (#21)
-│   └── Sub-issue: Route configuration (#22)
-└── Standalone Issue: Configure PostgreSQL (#5)
+```bash
+# Search before reporting
+gh issue list --repo owner/repo --search "feature not working" --state all
 ```
 
-This gives you:
-- **Milestone view:** "What's left for Phase 1?"
-- **Parent issue view:** "What's left for Auth Service?"
-- **Individual issues:** Assignable, trackable units of work
+### Finding Workarounds
 
-## Good vs Bad Examples
+1. Search closed issues with your problem keywords
+2. Look for issues with "workaround" or "solution" in body
+3. Check issue comments for community solutions
 
-### Example 1: Bug Report
-
-**Bad:**
-```
-Title: Login broken
-Body: The login doesn't work sometimes. Please fix.
+```bash
+# Find workarounds
+gh issue list --repo owner/repo --search "workaround" --state closed --label "bug"
 ```
 
-**Good:**
-```
-Title: Login fails when password contains ampersand character
+---
 
-## Description
-Users cannot log in when their password contains an & character.
+## Error Handling
 
-## Steps to Reproduce
-1. Create account with password "Test&123"
-2. Log out
-3. Attempt to log in with same credentials
+### gh not installed
 
-## Expected Behavior
-Login succeeds with valid credentials
+```text
+Error: gh: command not found
 
-## Actual Behavior
-Error: "Invalid credentials" even though password is correct
+Solution: Install GitHub CLI from https://cli.github.com/
+  - macOS: brew install gh
+  - Windows: winget install --id GitHub.cli
+  - Linux: See https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 
-## Environment
-- Browser: Chrome 120, Firefox 121
-- OS: macOS 14.2
-
-## Additional Context
-Suspect URL encoding issue with special characters in authHash.
+Alternatively, falling back to web-based search...
 ```
 
-### Example 2: Feature Request
+### Not authenticated
 
-**Bad:**
-```
-Title: Add notifications
-Body: We need notifications for the app.
-```
+```text
+Error: gh requires authentication
 
-**Good:**
-```
-Title: Add email notifications for expiring API keys
-
-## Problem Statement
-Users have no way to know when their API keys are about to expire
-unless they manually check the dashboard. This leads to service
-outages when keys expire unexpectedly.
-
-## Proposed Solution
-Send email notifications at configurable intervals before key expiry:
-- 30 days before (default)
-- 7 days before
-- 1 day before
-
-## Acceptance Criteria
-- [ ] User can configure notification preferences
-- [ ] Emails sent at specified intervals before expiry
-- [ ] Email contains key name, expiry date, and link to dashboard
-- [ ] Respects user's notification opt-out preference
-
-## Alternatives Considered
-- In-app notifications only: Not helpful if user doesn't check app
-- Slack integration: Too complex for v1, consider as future enhancement
+Solution: Run `gh auth login` and follow the prompts.
+For public repos, web fallback can be used without authentication.
 ```
 
-### Example 3: Task
+### Rate limited
 
-**Bad:**
-```
-Title: Set up database
-Body: Need to set up the database.
-```
+```text
+Error: API rate limit exceeded
 
-**Good:**
-```
-Title: Configure PostgreSQL database with Alembic migrations
-
-## Context
-The auth service needs a database to store user credentials and
-encrypted vault keys. Using PostgreSQL for consistency with
-architecture decisions.
-
-## Requirements
-- [ ] Create PostgreSQL instance on Fly.io
-- [ ] Configure SQLAlchemy async engine
-- [ ] Set up Alembic for migrations
-- [ ] Create initial user table migration
-- [ ] Add database health check endpoint
-
-## Acceptance Criteria
-- [ ] Service connects to database on startup
-- [ ] Migrations run successfully
-- [ ] Health check returns database status
-- [ ] Connection pooling configured appropriately
-
-## Technical Notes
-- Use asyncpg driver for async support
-- Follow existing SQLAlchemy patterns from src/shared/models/
-- Database URL from FLY_PG_PROXY_CONN_STRING
-
-## Related Issues
-- #12 (Create auth service scaffold)
+Solution: Wait 60 seconds before retrying.
+Authenticated requests have higher limits (5000/hour vs 60/hour).
 ```
 
-## Red Flags
+### No results found
 
-Signs of poor issue quality that need revision:
+```text
+No issues found matching "very specific query"
 
-**Title problems:**
-- Includes type prefix (feat:, bug:, etc.)
-- Uses brackets like [BUG] or [FEATURE]
-- Too vague ("Fix issue", "Update code")
-- Describes solution instead of problem ("Use async/await")
-- Contains emojis
+Suggestions:
+- Try broader search terms
+- Remove filters (state, label)
+- Check spelling
+- Search closed issues too (--state all)
+```
 
-**Body problems:**
-- No reproduction steps for bugs
-- No acceptance criteria
-- Missing context for why this matters
-- Wall of text without structure
-- No environment details for bugs
+---
 
-**Scope problems:**
-- Combines multiple unrelated changes
-- Too large to complete in one PR
-- Dependencies not identified
+## References
 
-## Key Principles
+**Detailed Guides:**
 
-1. **Describe problems, not solutions** - The title should say what's wrong or needed, not how to fix it
+- [references/gh-cli-guide.md](references/gh-cli-guide.md) - Installation, authentication, advanced usage
+- [references/query-patterns.md](references/query-patterns.md) - Search syntax and filter examples
+- [references/web-fallback.md](references/web-fallback.md) - Web-based fallback strategies
 
-2. **One issue, one concern** - Each issue should track a single piece of work
+**Related Agents:**
 
-3. **Include reproduction steps** - For bugs, always include steps to reproduce
+- **history-reviewer** agent - Git history exploration and summarization
 
-4. **Define "done"** - Acceptance criteria tell you when the issue is complete
+---
 
-5. **Use labels consistently** - Labels enable filtering and help with planning
+## Test Scenarios
 
-6. **Link related issues** - Connect issues that depend on or relate to each other
+### Scenario 1: Basic issue search
 
-7. **Keep it actionable** - Someone should be able to pick up the issue and start working
+**Query:** "Search for issues about hooks in the Claude Code repo"
 
-## Integration with Workflow
+**Expected Behavior:**
 
-Issues connect to other parts of the development workflow:
+- Skill activates on "issues", "hooks", "Claude Code"
+- Checks if gh CLI is available
+- Runs `gh issue list --repo anthropics/claude-code --search "hooks" --state all`
+- Returns formatted results
 
-- **Issue** describes the problem/need
-- **Branch** named after issue (`feature/123-add-notifications`)
-- **Commits** describe solutions (conventional commits: `feat:`, `fix:`)
-- **PR** links back to issue (`Closes #123`)
-- **Issue closed** when PR merges
+### Scenario 2: Troubleshooting error
 
-This creates full traceability from problem to solution.
+**Query:** "I'm getting a path doubling error in PowerShell. Is this a known issue?"
+
+**Expected Behavior:**
+
+- Skill activates on "error", "known issue", "PowerShell"
+- Searches for related issues
+- Finds #11984 and similar
+- Provides workaround if available
+
+### Scenario 3: Fallback to web
+
+**Query:** "Search for issues but gh isn't installed"
+
+**Expected Behavior:**
+
+- Detects gh not available
+- Falls back to WebSearch with `site:github.com/owner/repo/issues`
+- Returns results in same format
+
+## Version History
+
+- **v1.0.0** (2025-12-26): Initial release
+
+---
+
+## Last Updated
+
+**Date:** 2025-12-05
+**Model:** claude-opus-4-5-20251101
+
+**Audit Status:** NEW - Pending initial audit

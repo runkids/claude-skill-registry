@@ -1,16 +1,7 @@
 {
   "name": "agentdb-state-manager",
-  "description": "Persistent state management using AgentDB (DuckDB) for workflow analytics and checkpoints.Provides read-only analytics cache synchronized from TODO_*.md files, enabling:- Complex dependency graph quer",
-  "repo": "stharrold/yuimedi-paper-20250901",
-  "category": "data",
-  "tags": [
-    "agentdb",
-    "state",
-    "manager"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "agentdb-state-manager",
-  "github_path": ".gemini/skills/agentdb-state-manager",
-  "github_branch": "main"
+  "repo": "stharrold/media-intelligence",
+  "path": "ARCHIVED/workflow_v5_backup/.agents/agentdb-state-manager/SKILL.md",
+  "source": "github.com/stharrold/media-intelligence",
+  "downloaded_at": "2026-02-01T01:58:33.101594Z"
 }

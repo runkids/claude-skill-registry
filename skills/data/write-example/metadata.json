@@ -1,7 +1,7 @@
 {
   "name": "write-example",
-  "repo": "NovaAI-innovation/Infinite-Agency",
-  "path": ".qwen/skills/write-example/SKILL.md",
-  "source": "github.com/NovaAI-innovation/Infinite-Agency",
-  "downloaded_at": "2026-01-31T02:55:32.300836Z"
+  "repo": "tldraw/tldraw",
+  "path": ".claude/skills/write-example/SKILL.md",
+  "source": "github.com/tldraw/tldraw",
+  "downloaded_at": "2026-02-01T04:27:41.995341Z"
 }

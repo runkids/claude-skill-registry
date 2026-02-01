@@ -1,7 +1,7 @@
 {
   "name": "database-migration",
-  "repo": "haxllo/repolens",
-  "path": ".gemini/skills/database-migration/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:41.077329Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/framework-migration/skills/database-migration/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:50.786555Z"
 }

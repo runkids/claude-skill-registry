@@ -1,7 +1,7 @@
 {
   "name": "final-release-review",
-  "repo": "zaziedlm/openai-agents-python",
+  "repo": "openai/openai-agents-python",
   "path": ".codex/skills/final-release-review/SKILL.md",
-  "source": "github.com/zaziedlm/openai-agents-python",
-  "downloaded_at": "2026-01-31T03:59:48.051914Z"
+  "source": "github.com/openai/openai-agents-python",
+  "downloaded_at": "2026-02-01T02:59:35.243152Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "hello-world",
-  "repo": "kasperjunge/agent-resources-legacy",
-  "path": ".claude/skills/hello-world/SKILL.md",
-  "source": "github.com/kasperjunge/agent-resources-legacy",
-  "downloaded_at": "2026-01-31T03:58:40.364747Z"
+  "repo": "yurakawa/mskills",
+  "path": "examples/hello-world/SKILL.md",
+  "source": "github.com/yurakawa/mskills",
+  "downloaded_at": "2026-02-01T03:06:24.282140Z"
 }

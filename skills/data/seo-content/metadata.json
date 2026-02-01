@@ -1,9 +1,7 @@
 {
   "name": "seo-content",
-  "description": "Creates search-optimized articles that rank well and read naturally for humans. This skill should be used when writing blog posts, pillar content, guides, or any content where organic search traffic i",
-  "repo": "Salesably/salesably-marketplace",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "sanky369/vibe-building-skills",
+  "path": "skills/marketing/seo-content/SKILL.md",
+  "source": "github.com/sanky369/vibe-building-skills",
+  "downloaded_at": "2026-02-01T02:47:31.653644Z"
 }

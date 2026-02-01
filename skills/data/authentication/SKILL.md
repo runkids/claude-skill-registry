@@ -1,271 +1,160 @@
 ---
 name: authentication
-description: Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+description: 認証機能（Authentication Policy, MFA）の開発・修正を行う際に使用。認証ポリシー、パスワード、OTP、FIDO2、条件付き認証実装時に役立つ。
 ---
 
-# Authentication Skill
+# 認証（Authentication）機能 開発ガイド
 
-Provides comprehensive authentication and authorization capabilities for the Golden Armada AI Agent Fleet Platform.
+## ドキュメント
 
-## When to Use This Skill
+- `documentation/docs/content_06_developer-guide/03-application-plane/04-authentication.md` - 認証実装ガイド
+- `documentation/docs/content_06_developer-guide/05-configuration/authentication-policy.md` - 認証ポリシー設定
+- `documentation/docs/content_06_developer-guide/05-configuration/authn/` - 認証方式別設定ガイド
+  - `password.md`, `sms.md`, `email.md`, `fido2.md`, `fido-uaf.md`
+- `documentation/docs/content_03_concepts/03-authentication-authorization/concept-01-authentication-policy.md` - 認証ポリシー概念
+- `documentation/docs/content_03_concepts/03-authentication-authorization/concept-02-mfa.md` - MFA概念
+- `documentation/docs/content_10_ai_developer/ai-41-authentication.md` - AI開発者向けガイド
 
-Activate this skill when working with:
-- User authentication flows
-- JWT token management
-- OAuth2 integration
-- Session management
-- Role-based access control (RBAC)
+## 機能概要
 
-## JWT Authentication
+認証機能は、ユーザーの本人確認を行う層。
+- **多様な認証方式**: Password, Email OTP, SMS OTP, FIDO2/WebAuthn, FIDO-UAF
+- **条件付き認証**: scope/ACR/clientベースでポリシー切替
+- **Step-up認証**: 高セキュリティ操作時の追加認証
+- **MFA**: 多要素認証のオーケストレーション
 
-### Token Generation
-\`\`\`python
-from jose import jwt
-from datetime import datetime, timedelta
-from passlib.context import CryptContext
+## モジュール構成
 
-SECRET_KEY = os.environ["JWT_SECRET"]
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-REFRESH_TOKEN_EXPIRE_DAYS = 7
+```
+libs/
+├── idp-server-core/                         # 認証コア
+│   └── .../openid/authentication/
+│       ├── AuthenticationInteractor.java   # 認証Interactor IF
+│       ├── AuthenticationTransaction.java  # 認証トランザクション
+│       ├── AuthenticationTransactionCommandRepository.java
+│       └── AuthenticationTransactionQueryRepository.java
+│
+├── idp-server-authentication-interactors/   # 認証Interactor実装
+│   └── .../authentication/interactors/
+│       ├── password/
+│       │   └── PasswordAuthenticationInteractor.java
+│       ├── sms/
+│       │   └── SmsAuthenticationInteractor.java
+│       ├── email/
+│       │   └── EmailAuthenticationInteractor.java
+│       ├── fido2/
+│       │   ├── Fido2AuthenticationInteractor.java
+│       │   └── Fido2RegistrationInteractor.java
+│       ├── fidouaf/
+│       │   └── FidoUafAuthenticationInteractor.java
+│       └── ... (各認証方式の実装)
+│
+└── idp-server-control-plane/                # 管理API
+    └── .../management/authentication/
+        └── AuthenticationPolicyManagementApi.java
+```
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+## 認証ポリシー設定
 
-def create_access_token(user_id: str, roles: list[str]) -> str:
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    payload = {
-        "sub": user_id,
-        "roles": roles,
-        "exp": expire,
-        "iat": datetime.utcnow(),
-        "type": "access"
-    }
-    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+認証ポリシーは設定ベースで管理:
 
-def create_refresh_token(user_id: str) -> str:
-    expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
-    payload = {
-        "sub": user_id,
-        "exp": expire,
-        "type": "refresh"
-    }
-    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
-
-def verify_token(token: str) -> dict:
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token expired")
-    except jwt.JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
-\`\`\`
-
-### Password Hashing
-\`\`\`python
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
-
-# Usage
-async def authenticate_user(email: str, password: str) -> User | None:
-    user = await get_user_by_email(email)
-    if not user:
-        return None
-    if not verify_password(password, user.hashed_password):
-        return None
-    return user
-\`\`\`
-
-## FastAPI Auth Dependencies
-
-\`\`\`python
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
-
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
-    payload = verify_token(token)
-    user = await get_user(payload["sub"])
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
-    return user
-
-async def get_current_active_user(user: User = Depends(get_current_user)) -> User:
-    if not user.is_active:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return user
-
-# Role-based access
-def require_roles(*roles: str):
-    async def role_checker(user: User = Depends(get_current_user)):
-        if not any(role in user.roles for role in roles):
-            raise HTTPException(status_code=403, detail="Insufficient permissions")
-        return user
-    return role_checker
-
-# Usage
-@app.get("/admin")
-async def admin_route(user: User = Depends(require_roles("admin"))):
-    return {"message": "Admin access granted"}
-\`\`\`
-
-## OAuth2 Integration
-
-### Google OAuth2
-\`\`\`python
-from authlib.integrations.starlette_client import OAuth
-
-oauth = OAuth()
-oauth.register(
-    name='google',
-    client_id=os.environ['GOOGLE_CLIENT_ID'],
-    client_secret=os.environ['GOOGLE_CLIENT_SECRET'],
-    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-    client_kwargs={'scope': 'openid email profile'}
-)
-
-@app.get('/auth/google')
-async def google_login(request: Request):
-    redirect_uri = request.url_for('google_callback')
-    return await oauth.google.authorize_redirect(request, redirect_uri)
-
-@app.get('/auth/google/callback')
-async def google_callback(request: Request):
-    token = await oauth.google.authorize_access_token(request)
-    user_info = token.get('userinfo')
-
-    # Find or create user
-    user = await get_or_create_user(
-        email=user_info['email'],
-        name=user_info['name'],
-        provider='google'
-    )
-
-    # Generate JWT
-    access_token = create_access_token(user.id, user.roles)
-    return {"access_token": access_token, "token_type": "bearer"}
-\`\`\`
-
-### GitHub OAuth2
-\`\`\`python
-oauth.register(
-    name='github',
-    client_id=os.environ['GITHUB_CLIENT_ID'],
-    client_secret=os.environ['GITHUB_CLIENT_SECRET'],
-    authorize_url='https://github.com/login/oauth/authorize',
-    access_token_url='https://github.com/login/oauth/access_token',
-    api_base_url='https://api.github.com/',
-    client_kwargs={'scope': 'user:email'}
-)
-\`\`\`
-
-## Session Management
-
-\`\`\`python
-from fastapi import Request, Response
-import secrets
-
-async def create_session(user_id: str, response: Response) -> str:
-    session_id = secrets.token_urlsafe(32)
-
-    # Store in Redis
-    await redis.hset(f"session:{session_id}", mapping={
-        "user_id": user_id,
-        "created_at": datetime.utcnow().isoformat()
-    })
-    await redis.expire(f"session:{session_id}", 86400)  # 24 hours
-
-    # Set cookie
-    response.set_cookie(
-        key="session_id",
-        value=session_id,
-        httponly=True,
-        secure=True,
-        samesite="lax",
-        max_age=86400
-    )
-
-    return session_id
-
-async def get_session(request: Request) -> dict | None:
-    session_id = request.cookies.get("session_id")
-    if not session_id:
-        return None
-
-    session = await redis.hgetall(f"session:{session_id}")
-    if not session:
-        return None
-
-    # Refresh TTL
-    await redis.expire(f"session:{session_id}", 86400)
-    return session
-
-async def destroy_session(request: Request, response: Response):
-    session_id = request.cookies.get("session_id")
-    if session_id:
-        await redis.delete(f"session:{session_id}")
-    response.delete_cookie("session_id")
-\`\`\`
-
-## RBAC Implementation
-
-\`\`\`python
-from enum import Enum
-from typing import Set
-
-class Permission(str, Enum):
-    READ_AGENTS = "read:agents"
-    WRITE_AGENTS = "write:agents"
-    DELETE_AGENTS = "delete:agents"
-    ADMIN = "admin"
-
-ROLE_PERMISSIONS: dict[str, Set[Permission]] = {
-    "viewer": {Permission.READ_AGENTS},
-    "operator": {Permission.READ_AGENTS, Permission.WRITE_AGENTS},
-    "admin": {Permission.READ_AGENTS, Permission.WRITE_AGENTS, Permission.DELETE_AGENTS, Permission.ADMIN},
+```java
+public class AuthenticationConfiguration {
+    String type;  // password, sms, email, fido2, fido_uaf, etc.
+    Map<String, Object> payload;
+    // 設定内容は type により異なる
 }
+```
 
-def has_permission(user_roles: list[str], required: Permission) -> bool:
-    for role in user_roles:
-        if role in ROLE_PERMISSIONS and required in ROLE_PERMISSIONS[role]:
-            return True
-    return False
+## 認証Interactorパターン
 
-def require_permission(permission: Permission):
-    async def permission_checker(user: User = Depends(get_current_user)):
-        if not has_permission(user.roles, permission):
-            raise HTTPException(status_code=403, detail="Permission denied")
-        return user
-    return permission_checker
+`idp-server-core/openid/authentication/` 内:
 
-# Usage
-@app.delete("/agents/{id}")
-async def delete_agent(
-    id: str,
-    user: User = Depends(require_permission(Permission.DELETE_AGENTS))
-):
-    await agent_service.delete(id)
-    return {"status": "deleted"}
-\`\`\`
+```java
+public interface AuthenticationInteractor {
 
-## Security Best Practices
+    AuthenticationInteractionType type();
 
-1. **Use HTTPS** always in production
-2. **Hash passwords** with bcrypt or argon2
-3. **Short-lived access tokens** (15-30 minutes)
-4. **Refresh token rotation** on each use
-5. **HttpOnly, Secure cookies** for tokens
-6. **Rate limit** authentication endpoints
-7. **Log authentication events** for auditing
-8. **Implement account lockout** after failed attempts
+    String method();
+
+    /**
+     * 認証インタラクションを実行
+     */
+    AuthenticationInteractionRequestResult interact(
+        Tenant tenant,
+        AuthenticationTransaction transaction,
+        AuthenticationInteractionType type,
+        AuthenticationInteractionRequest request,
+        RequestAttributes requestAttributes,
+        UserQueryRepository userQueryRepository
+    );
+}
+```
+
+### パスワード認証実装例（概念的）
+
+`idp-server-authentication-interactors/` モジュール内のInteractorは、
+interact()メソッドを実装し、AuthenticationInteractionRequestResultを返します。
+
+パスワード検証の概念:
+- トランザクションとリクエストを受け取る
+- ユーザーリポジトリからユーザー情報を取得
+- パスワードエンコーダーで検証
+- 成功/失敗の結果をAuthenticationInteractionRequestResultで返却
+
+## FIDO2/WebAuthn認証
+
+`idp-server-webauthn4j-adapter/` モジュール内:
+
+WebAuthn Assertion検証をwebauthn4jライブラリを使用して実行し、
+公開鍵暗号方式により認証を実現します。
+
+## E2Eテスト
+
+```
+e2e/src/tests/
+├── spec/
+│   ├── oidc_core_3_1_code.test.js           # Authorization Code Flow
+│   ├── rfc6749_4_3_resource_owner_password_credentials.test.js  # パスワードグラント
+│   └── ... (各OIDCフロー仕様テスト)
+│
+├── scenario/application/
+│   ├── scenario-01-user-registration.test.js  # ユーザー登録
+│   ├── scenario-03-mfa-registration.test.js   # MFA登録
+│   └── scenario-04-ciba-mfa.test.js           # CIBA MFA
+│
+├── usecase/mfa/
+│   ├── mfa-01-password-reset-email-auth.test.js
+│   └── mfa-03-fido-uaf-device-registration-acr-policy.test.js
+│
+└── monkey/
+    ├── password-authentication-monkey.test.js
+    └── sms-authentication-monkey.test.js
+```
+
+## コマンド
+
+```bash
+# ビルド
+./gradlew :libs:idp-server-core:compileJava
+./gradlew :libs:idp-server-authentication-interactors:compileJava
+./gradlew :libs:idp-server-webauthn4j-adapter:compileJava
+
+# テスト
+cd e2e && npm test -- spec/oidc_core_3_1_code.test.js
+cd e2e && npm test -- scenario/application/scenario-03-mfa-registration.test.js
+```
+
+## トラブルシューティング
+
+### 認証Interactorが見つからない
+- `AuthenticationConfiguration.type` が正しいか確認
+- 対応するInteractor実装が登録されているか確認
+
+### MFA登録がブロックされる
+- Pre-authentication: ユーザーが認証済みか確認
+- ACR Policy: 現在のACRが要求レベルを満たすか確認
+
+### 認証トランザクションが期限切れ
+- `AuthenticationTransaction` の有効期限（デフォルト: 5分）を確認
+- Redis等のセッションストレージが正常か確認

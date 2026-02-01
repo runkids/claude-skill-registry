@@ -1,19 +1,6 @@
 ---
 name: swift-best-practices
-description: |
-  This skill should be used when writing or reviewing Swift code for iOS or macOS projects. Apply modern Swift 6+ best practices, concurrency patterns, API design guidelines, and migration strategies. Covers async/await, actors, MainActor, Sendable, typed throws, and Swift 6 breaking changes.
-
-  Keywords: concurrency, async-await, actors, Sendable, typed-throws, Swift-6, migration, data-races, MainActor, nonisolated, isolated, iOS, macOS, SwiftUI, Combine, Swift-concurrency, actor-isolation, strict-concurrency, Swift-migration, modern-Swift, Swift-evolution, code-review, Swift-patterns, Apple-platforms, Xcode, iOS-development, macOS-development
-license: MIT
-allowed-tools: [Read, Write, Edit, Bash, Grep, Glob]
-metadata:
-  version: 1.0.0
-  swift_version: "6.0+"
-  platform: "macOS 15.7+, iOS 18+"
-  production_tested: true
-  companion_mcp: "swiftlens"
-  mcp_install: "uvx swiftlens"
-  references_source: "sammcj/agentic-coding (Apache 2.0)"
+description: This skill should be used when writing or reviewing Swift code for iOS or macOS projects. Apply modern Swift 6+ best practices, concurrency patterns, API design guidelines, and migration strategies. Covers async/await, actors, MainActor, Sendable, typed throws, and Swift 6 breaking changes.
 ---
 
 # Swift Best Practices Skill
@@ -32,42 +19,6 @@ Use this skill when:
 - Migrating code from Swift 5 to Swift 6
 - Addressing concurrency warnings, data race issues, or compiler errors related to Sendable/isolation
 - Working with modern Swift language features introduced in Swift 6 and 6.2
-
-## SwiftLens MCP Integration (Claude Code)
-
-This skill complements **SwiftLens MCP server** for semantic-level Swift code analysis.
-
-**What SwiftLens Provides:**
-- 15 tools for semantic Swift analysis using Apple's SourceKit-LSP
-- Symbol lookup, cross-file references, type information
-- Safe code modification and refactoring
-- Compiler-grade understanding of Swift code structure
-
-**What This Skill Provides:**
-- Swift 6+ design patterns and best practices
-- Concurrency strategies (async/await, actors, MainActor)
-- API design guidelines and naming conventions
-- Migration guidance (Swift 5 → Swift 6)
-
-**Setup for Claude Code CLI:**
-
-Create `.claude/mcps/swiftlens.json` in your Swift project:
-
-```json
-{
-  "mcpServers": {
-    "swiftlens": {
-      "description": "SwiftLens MCP provides semantic Swift analysis via SourceKit-LSP",
-      "command": "uvx",
-      "args": ["swiftlens"]
-    }
-  }
-}
-```
-
-**⚠️ Note**: This is **Claude Code** configuration (not Claude Desktop). See `references/swiftlens-mcp-claude-code.md` for complete setup guide, all 15 tools, index building, and usage examples.
-
-**Workflow**: SwiftLens provides **runtime analysis** (what the code is doing), this skill provides **design expertise** (what the code should be doing).
 
 ## Core Guidelines
 
@@ -261,7 +212,6 @@ if #unavailable(iOS 18, *) {
 
 Detailed reference material to load when in-depth information is needed:
 
-- **swiftlens-mcp-claude-code.md** - SwiftLens MCP server setup for Claude Code CLI, 15 semantic analysis tools, index building, usage examples, and integration workflows
 - **api-design.md** - Complete API design conventions, documentation standards, parameter guidelines, and naming patterns
 - **concurrency.md** - Detailed async/await patterns, actor best practices, common pitfalls, performance considerations, and thread safety patterns
 - **swift6-features.md** - New language features in Swift 6/6.2, breaking changes, migration strategies, and modern patterns

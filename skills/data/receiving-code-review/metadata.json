@@ -1,7 +1,7 @@
 {
   "name": "receiving-code-review",
-  "repo": "brmatola/gremlins",
-  "path": "skills/receiving-code-review/SKILL.md",
-  "source": "github.com/brmatola/gremlins",
-  "downloaded_at": "2026-01-31T04:47:46.994472Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/core/receiving-code-review/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-02-01T05:03:20.755118Z"
 }

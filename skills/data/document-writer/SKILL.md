@@ -1,90 +1,99 @@
 ---
 name: document-writer
-description: Use when writing documentation. Provides a writing style guide and content structure patterns.
+description: Use when writing blog posts or documentation markdown files - provides writing style guide (active voice, present tense), content structure patterns, and MDC component usage. Overrides brevity rules for proper grammar. Use nuxt-content for MDC syntax, nuxt-ui for component props.
+license: MIT
 ---
 
-# Documentation Writer for Storyblok Ecosystem
+# Documentation Writer for Nuxt Ecosystem
 
-Provide writing guidance for Storyblok DX documentation.
+Writing guidance for blog posts and documentation following patterns from official Nuxt websites.
 
-## When to use
+## When to Use
 
-Use this skill for the following tasks:
+- Writing blog posts for Nuxt ecosystem projects
+- Creating or editing documentation pages
+- Ensuring consistent writing style across content
 
-- Create or edit documentation pages and `README.md` files.
-- Ensure a consistent writing style across all content.
+## Writing Standard
 
-## Voice and Perspective
+**Override**: When writing documentation, maintain proper grammar and complete sentences. The "sacrifice grammar for brevity" rule does NOT apply here.
 
-- **Active Voice**: Always use the active voice. Avoid the passive voice.
-- **Imperative Mood**: Use the imperative second-person voice for instructions ("Add the following...").
-- **Third-person**: Use the third-person voice for descriptions and technical references.
-- **Generic Voice**: Strive for simplicity, clarity, and consistency. Avoid soloists; the documentation should feel written by one team.
-- **Gerunds**: Avoid gerunds (nouns ending in "-ing") in headings and instructions. Use "Find information" instead of "Finding information."
-  - **Exception**: Gerunds are acceptable when referring to established technical concepts (for example, "Caching," "Routing," or "Versioning").
+Documentation must be:
 
-### Active voice
+- Grammatically correct
+- Clear and unambiguous
+- Properly punctuated
+- Complete sentences (not fragments)
 
-Subject performs action. Prefer this.
+Brevity is still valued, but never at the cost of clarity or correctness.
 
-| Active (use)                    | Passive (avoid)                       |
-| ------------------------------- | ------------------------------------- |
-| The module creates a connection | A connection is created by the module |
-| You can override defaults       | Defaults can be overridden            |
+## Related Skills
 
-### When passive is okay
+For component and syntax details, use these skills:
 
-- Actor unknown: "The file is loaded during startup."
-- Object more important: "Data is cached for 5 minutes."
-- System behavior: "Routes are generated from pages directory."
+| Skill            | Use For                                         |
+| ---------------- | ----------------------------------------------- |
+| **nuxt-content** | MDC syntax, prose components, code highlighting |
+| **nuxt-ui**      | Component props, theming, UI patterns           |
 
-## Spelling and Capitalization
+## Available References
 
-### Spelling
+| Reference                                                            | Purpose                                         |
+| -------------------------------------------------------------------- | ----------------------------------------------- |
+| **[references/writing-style.md](references/writing-style.md)**       | Voice, tone, sentence structure                 |
+| **[references/content-patterns.md](references/content-patterns.md)** | Blog frontmatter, structure, component patterns |
 
-- **American English**: Use standard American spellings (for example, *neighbor*, *center*).
-- **Abbreviations**: Define on first reference if used more than twice (for example, "universal resource identifier (URI)"). Use abbreviations for common terms (for example, "HTTP").
-- **Special Characters**: Use only when technically correct. Avoid emojis and decorative symbols unless they add technical value.
+## Loading Files
 
-### Capitalization
+**Consider loading these reference files based on your task:**
 
-- **Title Case**: Use Title Case for H1/Titles (`#`) and CTAs.
-- **Sentence Case**: Use sentence case for headings H2 through H6.
-  - Important: if there is no H1 assume that you're only see part of the document and always stick to casing rules!
-- **Technical Casing**: Always use the technical casing for code, variables, and instances (for example, `pop()`, `StoryblokBridge` vs `storyblokBridge`).
-- **File Types**: Use uppercase (for example, JPEG, ZIP).
-- **URLs**: Use lowercase.
-- **Lists**: Capitalize list items.
-- **Colons**: Use lowercase after a colon unless it's a proper noun or start of a full sentence.
+- [ ] [references/writing-style.md](references/writing-style.md) - if writing prose, improving voice/tone, or structuring sentences
+- [ ] [references/content-patterns.md](references/content-patterns.md) - if creating blog posts, setting up frontmatter, or using MDC components
 
-## Punctuation
+**DO NOT load all files at once.** Load only what's relevant to your current task.
 
-- **Oxford Comma**: Always use a comma before the last item in a list.
-- **Dashes**: 
-  - **Hyphens**: Join compound phrases.
-  - **Em dashes**: Demarcate an aside, surrounded by spaces. Avoid En dashes.
-- **Spaces**: Use only one space between sentences. No space before punctuation.
-- **Quotes**: End punctuation goes inside the quotation mark ("like this.").
-  - **Exception**: Place punctuation outside quotation marks if the quote is a literal string, command, or code snippet to avoid syntax errors (for example, set the value to "true".).
-- **Parentheticals**: End punctuation goes after the closing parenthesis unless the parenthetical is a full sentence.
+## Quick Reference
 
-## Structure
+### Writing Patterns
 
-- **Headings**:
-  - Only one H1 per page.
-  - Maintain semantic nesting (H3 under H2, H4 under H3).
-  - No single headings or sub-headings in a section.
-- **Lists**:
-  - Default to unordered (bulleted) lists. Use ordered (numbered) only for essential sequences.
-  - Use parallel structure for list items.
-- **Parallels**: Express coordinate ideas in similar form across lists, subheadings, and tables.
+| Pattern       | Example                                            |
+| ------------- | -------------------------------------------------- |
+| Subject-first | "The `useFetch` composable handles data fetching." |
+| Imperative    | "Add the following to `nuxt.config.ts`."           |
+| Contextual    | "When using authentication, configure..."          |
 
-### Subject-first declarative
+### Modal Verbs
 
-Place subject first, verb follows. Clear and direct.
+| Verb     | Meaning     |
+| -------- | ----------- |
+| `can`    | Optional    |
+| `should` | Recommended |
+| `must`   | Required    |
 
-```text
-The `useStoryblokBridge` hook enables live preview.
-The Storyblok CLI provides powerful migration tooling.
-The debug option controls module behavior during development.
-```
+### Component Patterns (WHEN to use)
+
+| Need              | Component                         |
+| ----------------- | --------------------------------- |
+| Info aside        | `::note`                          |
+| Suggestion        | `::tip`                           |
+| Caution           | `::warning`                       |
+| Required          | `::important`                     |
+| CTA               | `:u-button{to="..." label="..."}` |
+| Multi-source code | `::code-group`                    |
+
+> For component props: see **nuxt-ui** skill
+
+## Headings
+
+- **H1 (`#`)**: No backticks — they don't render properly
+- **H2-H4**: Backticks work fine
+
+## Checklist
+
+- [ ] Active voice (85%+)
+- [ ] Present tense
+- [ ] 2-4 sentences per paragraph
+- [ ] Explanation before code
+- [ ] File path labels on code blocks
+- [ ] Appropriate callout types
+- [ ] No backticks in H1 headings

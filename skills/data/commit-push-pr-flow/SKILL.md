@@ -1,15 +1,20 @@
 ---
 name: commit-push-pr-flow
-description: |
-    タスク完了後に自律的に実行する必要があるフロースキルです。
-    Trigger: task completed, ready to submit code
+description: タスク完了後に自動的に実行する必要があるフロースキルです
 model: haiku
 ---
 
-Commit, push, and open a pr
+Commit, push, and open a PR
 
-- create branch(if current branch in default) and pr
-- following pr template
-- description in japanese
-- 提出後は gh pr view --web で差分を共有して完了してください
-- 完了後 review-flow を呼び出します
+## 手順
+1. `git status` で変更を確認
+2. 変更内容からConventional Commits形式のメッセージを生成
+3. `git add .` でステージング（.env等の機密ファイルがないか確認）
+4. `git commit -m "生成したメッセージ"`
+5. `git push -u origin HEAD`
+6. `gh pr create --title "PRタイトル" --body "説明（日本語）"`
+7. `gh pr view --web` で結果を共有して完了
+
+## 注意
+- PRタイトルにイシュー番号を含める（例: [YOUR_PREFIX]-15: ...）
+- 説明は日本語で記述

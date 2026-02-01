@@ -1,7 +1,7 @@
 {
   "category": "productivity",
-  "count": 1539,
-  "updated_at": "2026-01-31T04:52:27.071988Z",
+  "count": 1535,
+  "updated_at": "2026-02-01T05:09:24.082432Z",
   "skills": [
     {
       "name": "commit-helper",
@@ -5191,21 +5191,6 @@
       "name": "chrome-automation",
       "description": "Launch and control Chrome with AT-SPI2 accessibility for browser automation. Use when asked to start chrome, open browser, launch chrome, begin browser automation, or control web pages.",
       "repo": "cevatkerim/claude-skills",
-      "path": "data/chrome-automation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "chrome",
-        "automation"
-      ],
-      "stars": 2,
-      "install": "cevatkerim/claude-skills",
-      "source": "local"
-    },
-    {
-      "name": "chrome-automation",
-      "description": "Launch and control Chrome with AT-SPI2 accessibility for browser automation. Use when asked to start chrome, open browser, launch chrome, begin browser automation, or control web pages.",
-      "repo": "cevatkerim/claude-skills",
       "path": "chrome-automation",
       "branch": "main",
       "category": "productivity",
@@ -6564,21 +6549,6 @@
       ],
       "stars": 1,
       "install": "hackur/web-standards-playground-showcase/.claude-laravel-backup/skills/deployment-workflow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "drone-cv-expert",
-      "description": "Expert in drone systems, computer vision, and autonomous navigation. Specializes in flight control, SLAM, object detection, sensor fusion, and path planning. Activate on \"drone\", \"UAV\", \"SLAM\", \"visua",
-      "repo": "erichowens/some_claude_skills",
-      "path": "data/drone-cv-expert",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "drone",
-        "expert"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -15759,18 +15729,6 @@
       "name": "notion-workflow-sync",
       "description": "Sync workflows between Odoo, BIR systems, and Notion with external ID upsert and deduplication",
       "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/notion-workflow-sync",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "notion-workflow-sync",
-      "description": "Sync workflows between Odoo, BIR systems, and Notion with external ID upsert and deduplication",
-      "repo": "jgtolentino/insightpulse-odoo",
       "path": "docs/claude-code-skills/community/notion-workflow-sync",
       "branch": "main",
       "category": "productivity",
@@ -17248,18 +17206,6 @@
       "stars": 0,
       "install": "laurenj3250-debug/vethub2.0/.claude/skills/prompt-engineering",
       "source": "local"
-    },
-    {
-      "name": "prompt-templates",
-      "description": "Reusable prompt templates for common tasks and optimization patterns",
-      "repo": "pluginagentmarketplace/custom-plugin-prompt-engineering",
-      "path": "data/prompt-templates",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "pluginagentmarketplace/custom-plugin-prompt-engineering",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "prompt-templates",

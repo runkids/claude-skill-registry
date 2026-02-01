@@ -1,115 +1,199 @@
 ---
-name: Dev Tools
-description: Run CLI dev tools for game development (world inspection, benchmarks, assets, simulation). Use when user wants to 'check performance', 'inspect world', 'validate assets', 'stress test', or asks about new CLI features.
+name: dev-tools
+description: Developer tools for The Fold - protocols (extensible dispatch), protocol bundles, refactoring toolkit (rename, move, dead code), and template DSL. Use when defining new protocols, refactoring code, or generating S-expressions.
+allowed-tools: Bash(./fold:*), Read, Edit, Write, Grep, Glob
 ---
 
-# Dev Tools
+# Developer Tools
 
-CLI development tools for Stapledons Voyage game. Provides performance benchmarks, world inspection, asset validation, and simulation stress testing.
+Power-user tools for protocol definition, refactoring, and code generation.
 
-## Quick Start
+## Open Protocol System
 
-```bash
-# Build CLI first
-make cli
+Extensible type dispatch for the Open/Closed Principle (`lattice/fp/protocol.ss`).
 
-# Run commands
-./bin/voyage world -summary      # Quick world state
-./bin/voyage bench -n 1000       # Performance benchmarks
-./bin/voyage assets              # Validate game assets
-./bin/voyage sim -steps 1000     # Stress test simulation
+Objects must be tagged lists: `(list 'type-tag ...)`. Dispatch is O(1) via hashtable.
+
+```scheme
+(load "lattice/fp/protocol.ss")
+
+;; Define a protocol (generic operation)
+(define-protocol (draw obj ctx) "Draw object to context")
+
+;; Register implementations per type tag
+(implement-protocol! 'draw 'circle
+  (lambda (c ctx) (draw-circle (circle-center c) ctx)))
+(implement-protocol! 'draw 'rectangle
+  (lambda (r ctx) (draw-rect (rect-pos r) ctx)))
+
+;; Use (automatic dispatch via type tag)
+(draw my-circle canvas)  ; calls circle implementation
 ```
 
-## When to Use This Skill
+### Key Functions
 
-Invoke this skill when user asks to:
-- "check performance" or "run benchmarks"
-- "inspect world" or "show world state"
-- "validate assets" or "check assets"
-- "stress test" or "test simulation"
-- "what CLI tools do we have?"
-- Debug simulation issues or performance problems
+| Function | Purpose |
+|----------|---------|
+| `define-protocol` | Create a new protocol with signature and docstring |
+| `implement-protocol!` | Register implementation for a type tag |
+| `protocol-implementations` | List all implementations of a protocol |
+| `protocol?` | Check if a symbol names a protocol |
 
-## Available Commands
+## Protocol Bundles
 
-### World Inspection
-```bash
-./bin/voyage world                    # Full world state (truncated)
-./bin/voyage world -summary           # Quick stats only
-./bin/voyage world -json              # Raw JSON output
-./bin/voyage world -seed 123          # Use specific seed
-./bin/voyage world -steps 100         # Run N steps first
+Reduce boilerplate when implementing multiple related protocols (`lattice/fp/protocol-bundle.ss`).
+
+```scheme
+(load "lattice/fp/protocol-bundle.ss")
+
+;; Define a bundle of related protocol pairs (getter, setter)
+(define-protocol-bundle body-ops
+  ((body-pos body-set-pos) "pos")
+  ((body-vel body-set-vel) "vel")
+  ((body-mass body-set-mass) "mass"))
+
+;; Derive implementations using naming convention: <prefix>-<field>, <prefix>-with-<field>
+(derive-bundle! body-ops 'rigid-body-2d rigid-body)
+
+;; With overrides for slots that don't follow the convention
+(derive-bundle! body-ops 'particle particle
+  ("mass" (lambda (p) 1.0) (lambda (p m) p)))  ; Particles have implicit mass
+
+;; Explicit implementation when convention doesn't apply
+(implement-bundle! body-ops 'custom-body
+  ("pos" custom-get-pos custom-set-pos)
+  ("vel" custom-get-vel custom-set-vel)
+  ("mass" custom-get-mass custom-set-mass))
 ```
 
-### Performance Benchmarks
-```bash
-./bin/voyage bench                    # Default 1000 iterations
-./bin/voyage bench -n 10000           # More iterations
-./bin/voyage bench -warmup 50         # Custom warmup
-./bin/voyage bench -profile           # With CPU profiling
+### Introspection
+
+```scheme
+(bundle-types bundle)      ; List types implementing this bundle
+(bundle-protocols bundle)  ; List protocols in this bundle
+(list-bundles)             ; List all defined bundles
 ```
 
-### Asset Validation
-```bash
-./bin/voyage assets                   # Check assets/
-./bin/voyage assets -dir ./custom     # Custom directory
-./bin/voyage assets -v                # Verbose (list files)
-./bin/voyage assets -fix              # Create missing dirs
+## Refactoring Toolkit
+
+Unified interface for codebase refactoring (`boundary/tools/refactor-toolkit.ss`).
+
+```scheme
+(load "boundary/tools/refactor-toolkit.ss")
+
+;; Help and discovery
+(refactor 'help)                           ; Show all operations
 ```
 
-### Simulation Stress Test
-```bash
-./bin/voyage sim                      # 10000 steps default
-./bin/voyage sim -steps 100000        # Longer test
-./bin/voyage sim -seed 123            # Specific seed
-./bin/voyage sim -validate            # Validate state each step
+### Rename Symbols
+
+```scheme
+;; Preview rename (shows all affected files)
+(refactor 'rename 'old-name 'new-name)
+
+;; Apply staged changes
+(refactor 'apply)
 ```
 
-### AI Handler Testing
-```bash
-./bin/voyage ai -list                 # Show available providers
-./bin/voyage ai -prompt "Hello"       # Auto-detect provider
-./bin/voyage ai -generate-image       # Image generation
-./bin/voyage ai -list-voices          # TTS voices
+### Move Symbols
+
+```scheme
+;; Preview move (shows source/target changes)
+(refactor 'move 'symbol "target-file.ss")
+
+;; Apply staged move
+(refactor-move-apply!)
 ```
 
-## Scripts
+### Dead Code Analysis
 
-### `scripts/quick_bench.sh`
-Run benchmarks with filtered output (removes debug noise).
+```scheme
+;; Scan entire codebase
+(refactor 'dead-code)
 
-### `scripts/full_report.sh`
-Generate comprehensive development report.
+;; Scan specific path
+(refactor 'dead-code "lattice/fp")
+```
 
-### `scripts/suggest_tools.sh`
-Analyze codebase for potential new CLI tools.
+### Dependency Analysis
 
-## Workflow
+```scheme
+;; Show callers and callees
+(refactor 'deps 'symbol)
+```
 
-1. **Build CLI** - `make cli`
-2. **Run command** - Execute voyage command
-3. **Interpret results** - Check output
-4. **Report issues** - Use ailang-feedback for codegen bugs
+### Change Management
 
-## Suggesting New CLI Tools
+```scheme
+(refactor 'status)   ; Show pending changes
+(refactor 'undo)     ; Undo last operation
+(refactor 'clear)    ; Discard pending changes
+```
 
-When identifying CLI needs, consider:
-- `voyage save` - Inspect/manage save files
-- `voyage replay` - Replay recorded inputs
-- `voyage export` - Export data for analysis
-- `voyage config` - Manage game configuration
-- `voyage starmap` - Starmap data tools
+### Quick Aliases
 
-To add a new tool:
-1. Add command case to `cmd/cli/main.go`
-2. Implement `run<Command>Command()` function
-3. Update this skill documentation
-4. Run `make cli`
+| Alias | Full Command |
+|-------|--------------|
+| `rr` | `(refactor 'rename ...)` |
+| `rm` | `(refactor 'move ...)` |
+| `rd` | `(refactor 'deps ...)` |
+| `rdc` | `(refactor 'dead-code ...)` |
 
-## Known Issues
+## Template DSL (AI Code Generation)
 
-**Debug output noise:** Filter with `| grep -v "^tick"` - tracked as AILANG bug.
+Grammar-driven code construction for building S-expressions without tracking parentheses.
 
-## Resources
+**Files:**
+- `lattice/dsl/template/template.ss` (core)
+- `boundary/tools/template-session.ss` (session)
+- `boundary/tools/template-parser.ss` (parser)
 
-See [resources/cli_reference.md](resources/cli_reference.md) for complete documentation.
+### Batch Mode (Recommended)
+
+```scheme
+(load "boundary/tools/template-parser.ss")
+
+;; Build quicksort - template with holes, then fill them
+(tp-batch "
+  define (qs lst) $body
+  --- $body := if $cond $then $else
+  --- $cond := null? lst
+  --- $then := '()
+  --- $else := append (qs (filter $pred (cdr lst))) (cons (car lst) (qs (filter $pred2 (cdr lst))))
+  --- $pred := lambda (x) (< x (car lst))
+  --- $pred2 := lambda (x) (>= x (car lst))
+")
+```
+
+### Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| Holes (`$name`) | Non-terminals that get filled incrementally |
+| Implicit parens | Multi-token statements get automatic outer `()` |
+| Batch separator | `---` chains definitions/fills in sequence |
+
+### Interactive Mode
+
+```scheme
+(load "boundary/tools/template-session.ss")
+
+;; Start a template session
+(tp-start)
+
+;; Define template with holes
+(tp "define (factorial n) $body")
+
+;; Fill holes incrementally
+(tp-fill '$body "if (= n 0) 1 (* n (factorial (- n 1)))")
+
+;; Get result
+(tp-result)  ; => (define (factorial n) (if (= n 0) 1 (* n (factorial (- n 1)))))
+```
+
+### When to Use Template DSL
+
+- Building complex nested S-expressions
+- AI-generated code (avoids parenthesis counting errors)
+- Incremental code construction
+- Code with repeated patterns

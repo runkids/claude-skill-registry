@@ -1,7 +1,7 @@
 {
   "name": "condition-based-waiting",
-  "repo": "NickCrew/claude-cortex",
+  "repo": "timequity/vibe-coder",
   "path": "skills/condition-based-waiting/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:14.808939Z"
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-02-01T05:04:23.718947Z"
 }

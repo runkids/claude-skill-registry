@@ -1,7 +1,7 @@
 {
   "name": "security-auditor",
-  "repo": "nahisaho/MUSUBI",
-  "path": "src/templates/agents/claude-code/skills/security-auditor/SKILL.md",
-  "source": "github.com/nahisaho/MUSUBI",
-  "downloaded_at": "2026-01-31T04:06:04.142898Z"
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "path": ".claude/skills/security-auditor/SKILL.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-02-01T04:47:57.495073Z"
 }

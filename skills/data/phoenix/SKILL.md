@@ -1,216 +1,475 @@
 ---
-name: arize-phoenix
-description: Open-source AI observability platform for tracing, evaluating, and improving LLM applications with OpenTelemetry integration
+name: phoenix-observability
+description: Open-source AI observability platform for LLM tracing, evaluation, and monitoring. Use when debugging LLM applications with detailed traces, running evaluations on datasets, or monitoring production AI systems with real-time insights.
+version: 1.0.0
+author: Orchestra Research
 license: MIT
-metadata:
-  author: Arize AI
-  category: ai-observability
+tags: [Observability, Phoenix, Arize, Tracing, Evaluation, Monitoring, LLM Ops, OpenTelemetry]
+dependencies: [arize-phoenix>=12.0.0]
 ---
 
-# Arize Phoenix
+# Phoenix - AI Observability Platform
 
-Phoenix is an open-source AI observability platform built on OpenTelemetry that helps developers understand, debug, and improve AI applications. It provides comprehensive tracing, evaluation, prompt engineering, and experimentation capabilities for LLM-based systems. Phoenix captures detailed execution information from AI applications, measures output quality with evaluators, enables systematic prompt iteration, and supports data-driven experimentation to optimize AI performance.
+Open-source AI observability and evaluation platform for LLM applications with tracing, evaluation, datasets, experiments, and real-time monitoring.
 
-## When to Use This Skill
+## When to use Phoenix
 
-- Debugging AI application failures by inspecting LLM calls, tool executions, and retrieval operations
-- Measuring and improving AI output quality using LLM-based or code-based evaluators
-- Iterating on prompts using real production examples and testing variations systematically
-- Comparing different versions of AI applications (prompts, models, architectures) using experiments
-- Monitoring LLM costs, token usage, latency, and error rates in production
-- Building datasets from production traces for evaluation and fine-tuning
-- Tracking multi-turn conversations and maintaining context across interactions
-- Optimizing RAG systems by analyzing retrieval quality and document relevance
-- Evaluating agent performance including tool call accuracy and actionability
-- Managing prompt versions and deploying them across different environments
+**Use Phoenix when:**
+- Debugging LLM application issues with detailed traces
+- Running systematic evaluations on datasets
+- Monitoring production LLM systems in real-time
+- Building experiment pipelines for prompt/model comparison
+- Self-hosted observability without vendor lock-in
 
-## Capabilities
+**Key features:**
+- **Tracing**: OpenTelemetry-based trace collection for any LLM framework
+- **Evaluation**: LLM-as-judge evaluators for quality assessment
+- **Datasets**: Versioned test sets for regression testing
+- **Experiments**: Compare prompts, models, and configurations
+- **Playground**: Interactive prompt testing with multiple models
+- **Open-source**: Self-hosted with PostgreSQL or SQLite
 
-Agents can leverage Phoenix to:
+**Use alternatives instead:**
+- **LangSmith**: Managed platform with LangChain-first integration
+- **Weights & Biases**: Deep learning experiment tracking focus
+- **Arize Cloud**: Managed Phoenix with enterprise features
+- **MLflow**: General ML lifecycle, model registry focus
 
-- **Trace** AI application execution with detailed visibility into LLM calls, tool executions, retrieval operations, embeddings, and prompt templates
-- **Evaluate** output quality using pre-built or custom evaluators with LLM-as-a-judge or code-based evaluation logic
-- **Annotate** traces with human feedback, scores, labels, and quality signals for continuous improvement
-- **Experiment** systematically by comparing different versions of applications using datasets and evaluators
-- **Monitor** performance metrics including latency, token usage, costs, and error rates across projects
-- **Iterate** on prompts using the playground, span replay, and dataset-based testing
-- **Organize** traces into projects and sessions for better management and analysis
-- **Integrate** with 20+ AI frameworks and LLM providers via OpenTelemetry instrumentation
+## Quick start
 
-## Skills
+### Installation
 
-### Tracing
+```bash
+pip install arize-phoenix
 
-- **Capture traces** via OpenTelemetry (OTLP) protocol with automatic instrumentation for major frameworks
-- **View execution flow** showing every LLM call, tool execution, retrieval operation, embedding generation, and response generation
-- **Inspect LLM parameters** including temperature, system prompts, function calls, and invocation parameters
-- **Analyze retrieval operations** with document scores, order, and embedding text for RAG systems
-- **Track token usage** with detailed breakdowns by token type (input/output) and model
-- **Monitor latency** at trace, span, and component levels with quantile analysis
-- **Organize with projects** to separate traces by environment, application, team, or use case
-- **Group with sessions** to track multi-turn conversations and maintain context across interactions
-- **Add metadata** to traces with custom attributes, tags, and structured data for filtering and analysis
-- **Annotate traces** with scores, labels, human feedback, and LLM evaluations for quality measurement
-- **Export and import traces** for backup, migration, or analysis in external tools
-- **Track costs** with automatic calculation based on token usage and model pricing
+# With specific backends
+pip install arize-phoenix[embeddings]  # Embedding analysis
+pip install arize-phoenix-otel         # OpenTelemetry config
+pip install arize-phoenix-evals        # Evaluation framework
+pip install arize-phoenix-client       # Lightweight REST client
+```
 
-### Evaluation
+### Launch Phoenix server
 
-- **Run LLM-as-a-judge evaluations** using any LLM provider (OpenAI, Anthropic, Gemini, custom endpoints) to assess output quality
-- **Build custom evaluators** with Python or TypeScript using custom prompts, scoring logic, and evaluation criteria
-- **Use pre-built evaluators** for common tasks including faithfulness, relevance, toxicity, summarization, agent evaluation, and RAG quality
-- **Write code-based evaluators** for deterministic checks like exact match, regex patterns, or custom Python/TypeScript logic
-- **Execute evaluations at scale** with automatic concurrency, rate limit handling, error management, and batching via executors
-- **Map complex inputs** using input schemas and mappings to transform nested data structures for evaluators
-- **View evaluator traces** with complete transparency into prompts, model reasoning, scores, and execution metadata
-- **Run batch evaluations** on traces, datasets, or custom data sources with automatic retry and error handling
-- **Integrate evaluations** into workflows by running evals on production traces or test datasets
+```python
+import phoenix as px
 
-### Datasets & Experiments
+# Launch in notebook (ThreadServer mode)
+session = px.launch_app()
 
-- **Create datasets** from traces, code, CSV files, or manually curated examples with inputs and optional reference outputs
-- **Build golden datasets** with reference outputs (ground truth) for objective evaluation using code-based evaluators
-- **Version datasets** with automatic tracking of inserts, updates, and deletes for reproducibility
-- **Run experiments** by executing task functions against datasets with evaluators to compare different versions
-- **Compare experiments** side-by-side in the UI to see performance differences, score distributions, and individual example results
-- **Use repetitions** to run experiments multiple times for statistical confidence and account for LLM variability
-- **Organize with splits** to separate datasets into train/test/validation splits for proper evaluation workflows
-- **Export datasets** in JSONL or CSV formats for fine-tuning, analysis, or sharing
-- **View experiment results** in the Phoenix UI with task function traces, scores per example, and aggregate performance metrics
+# View UI
+session.view()  # Embedded iframe
+print(session.url)  # http://localhost:6006
+```
 
-### Prompt Engineering
+### Command-line server (production)
 
-- **Manage prompts** with versioning, storage, and deployment across different environments
-- **Test prompts interactively** in the Prompt Playground with various models, parameters, and tools
-- **Replay LLM spans** from production traces in the playground to debug failures and test improvements
-- **Test at scale** by running prompts against datasets to evaluate performance systematically
-- **Compare prompt versions** side-by-side to see which performs better on your data
-- **Optimize automatically** using automated prompt optimization features
-- **Sync prompts via SDK** to keep prompts in sync across applications and environments programmatically
-- **Tag prompts** for deployment control across development, staging, and production environments
-- **Track prompt changes** with version history, author information, and timestamps
+```bash
+# Start Phoenix server
+phoenix serve
 
-### Projects & Organization
+# With PostgreSQL
+export PHOENIX_SQL_DATABASE_URL="postgresql://user:pass@host/db"
+phoenix serve --port 6006
+```
 
-- **Create projects** to organize traces by environment (development, staging, production), application, or team
-- **Set up sessions** to track multi-turn conversations with chatbot-like UI showing conversation history
-- **View metrics dashboards** with pre-defined metrics including latency, errors, token usage, costs, and model performance
-- **Filter and search** traces by metadata, attributes, annotations, or custom tags
-- **Configure data retention** policies to control how long trace and evaluation data is stored
+### Basic tracing
 
-### API & Programmatic Access
+```python
+from phoenix.otel import register
+from openinference.instrumentation.openai import OpenAIInstrumentor
 
-- **Use Python SDK** (arize-phoenix-client, arize-phoenix-evals, arize-phoenix-otel) for programmatic access
-- **Use TypeScript SDK** (arizeai-phoenix-client, arizeai-phoenix-evals, arizeai-phoenix-otel) for JavaScript/TypeScript applications
-- **Access REST API** for annotations, datasets, experiments, traces, spans, prompts, projects, and users
-- **Instrument manually** using OpenTelemetry decorators, wrappers, or direct OpenInference SDKs
-- **Generate API keys** for programmatic access with role-based permissions
+# Configure OpenTelemetry with Phoenix
+tracer_provider = register(
+    project_name="my-llm-app",
+    endpoint="http://localhost:6006/v1/traces"
+)
 
-### Authentication & Security
+# Instrument OpenAI SDK
+OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
-- **Configure RBAC** with role-based access control for user permissions and project access
-- **Set up authentication** including SSO and user management for self-hosted instances
-- **Manage API keys** for secure programmatic access to Phoenix APIs and SDKs
-- **Control data privacy** with self-hosting options for VPC deployment or local execution
+# All OpenAI calls are now traced
+from openai import OpenAI
+client = OpenAI()
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
 
-## Workflows
+## Core concepts
 
-### Workflow 1: Instrument and Trace an AI Application
-1. **Choose integration** - Select appropriate Phoenix integration for your framework (LangChain, LlamaIndex, OpenAI, etc.)
-2. **Install package** - Install Phoenix client and OpenTelemetry packages for your language (Python or TypeScript)
-3. **Configure endpoint** - Set Phoenix endpoint URL and optionally configure project name and session tracking
-4. **Instrument application** - Add auto-instrumentation or manual instrumentation to capture LLM calls, tool executions, and retrievals
-5. **View traces** - Open Phoenix UI to see execution flow, latency, token usage, and detailed span information
-6. **Add annotations** - Add scores, labels, or human feedback to traces for quality measurement
+### Traces and spans
 
-### Workflow 2: Evaluate AI Output Quality
-1. **Choose evaluator type** - Select LLM-as-a-judge for subjective quality or code-based for objective checks
-2. **Configure LLM provider** - Set up evaluator LLM (OpenAI, Anthropic, Gemini, or custom endpoint)
-3. **Define evaluation logic** - Use pre-built evaluator or create custom evaluator with prompts/scoring logic
-4. **Run evaluation** - Execute evaluator on traces, datasets, or custom data with automatic batching and concurrency
-5. **Review results** - View evaluator traces, scores, explanations, and labels in Phoenix UI
-6. **Iterate** - Adjust evaluator prompts or logic based on results and human feedback
+A **trace** represents a complete execution flow, while **spans** are individual operations within that trace.
 
-### Workflow 3: Run Experiments to Compare Versions
-1. **Create dataset** - Build dataset with inputs and optional reference outputs from traces, code, or CSV
-2. **Define task function** - Create Python function that wraps your AI application logic and returns outputs
-3. **Select evaluators** - Choose code-based evaluators for ground truth comparison or LLM-as-a-judge for subjective quality
-4. **Run experiment** - Execute task function against dataset with evaluators to generate scores
-5. **Compare results** - View experiment results in UI with aggregate metrics, score distributions, and per-example analysis
-6. **Iterate** - Make changes to prompts, models, or architecture and run new experiment to compare performance
+```python
+from phoenix.otel import register
+from opentelemetry import trace
 
-### Workflow 4: Optimize Prompts with Playground
-1. **Identify prompt** - Find prompt in traces or load existing prompt from prompt management
-2. **Open playground** - Load prompt into Prompt Playground with current parameters and tools
-3. **Test variations** - Modify prompt text, model parameters, tools, or response format and test with real inputs
-4. **View traces** - All playground runs are automatically recorded as traces for analysis
-5. **Test at scale** - Run prompt variations against dataset examples to evaluate performance systematically
-6. **Save and deploy** - Save best-performing prompt version, tag for environment, and deploy via SDK
+# Setup tracing
+tracer_provider = register(project_name="my-app")
+tracer = trace.get_tracer(__name__)
 
-### Workflow 5: Debug Production Issues
-1. **Identify problematic trace** - Search or filter traces to find failed or low-quality executions
-2. **Inspect execution flow** - View detailed span information including LLM calls, tool executions, and retrievals
-3. **Replay span** - Load problematic LLM span into Prompt Playground to test fixes
-4. **Test improvements** - Modify prompts, parameters, or tools in playground and compare outputs
-5. **Add to dataset** - Add problematic examples to dataset for future testing
-6. **Run experiment** - Test improved version against dataset to verify fix before deployment
+# Create custom spans
+with tracer.start_as_current_span("process_query") as span:
+    span.set_attribute("input.value", query)
 
-## Integrations
+    # Child spans are automatically nested
+    with tracer.start_as_current_span("retrieve_context"):
+        context = retriever.search(query)
 
-### LLM Providers
-OpenAI, Anthropic, Amazon Bedrock, Google (Gemini), Groq, MistralAI, VertexAI, LiteLLM, OpenRouter, Together, Vercel AI
+    with tracer.start_as_current_span("generate_response"):
+        response = llm.generate(query, context)
 
-### Python Frameworks
-Agno, AutoGen, BeeAI, CrewAI, DSPy, Google ADK, Graphite, Guardrails AI, Haystack, Hugging Face smolagents, Instructor, LlamaIndex, LangChain, LangGraph, MCP, NVIDIA, Portkey, Pydantic AI
+    span.set_attribute("output.value", response)
+```
 
-### TypeScript Frameworks
-BeeAI, LangChain.js, Mastra, MCP, Vercel AI SDK
+### Projects
 
-### Java Frameworks
-LangChain4j, Spring AI, Arconia
+Projects organize related traces:
 
-### Platforms
-Dify, Flowise, LangFlow, Prompt Flow
+```python
+import os
+os.environ["PHOENIX_PROJECT_NAME"] = "production-chatbot"
 
-### Vector Databases
-MongoDB, OpenSearch, Pinecone, Qdrant, Weaviate, Zilliz/Milvus, Couchbase
+# Or per-trace
+from phoenix.otel import register
+tracer_provider = register(project_name="experiment-v2")
+```
 
-### Evaluation Integrations
-Cleanlab, Ragas, UQLM
+## Framework instrumentation
 
-### Observability Protocols
-OpenTelemetry (OTLP), OpenInference
+### OpenAI
 
-### Developer Tools
-Claude Code, Cursor, Phoenix MCP Server
+```python
+from phoenix.otel import register
+from openinference.instrumentation.openai import OpenAIInstrumentor
 
-### Cloud Platforms
-AWS (CloudFormation), Kubernetes (Helm), Docker, Railway
+tracer_provider = register()
+OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
+```
 
-## Context
+### LangChain
 
-**OpenTelemetry**: Phoenix tracing is built on OpenTelemetry (OTLP), an industry-standard observability protocol. This means instrumentation code written for Phoenix can be reused with other observability platforms, avoiding vendor lock-in.
+```python
+from phoenix.otel import register
+from openinference.instrumentation.langchain import LangChainInstrumentor
 
-**OpenInference**: Phoenix uses OpenInference instrumentation, an extension of OpenTelemetry specifically designed for AI/LLM applications. OpenInference adds semantic conventions for LLM spans, retrieval operations, and embeddings.
+tracer_provider = register()
+LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
 
-**Traces and Spans**: A trace represents the complete execution path of a request through an AI application. Spans are individual units of work within a trace (e.g., a single LLM call, tool execution, or retrieval operation). Spans can be nested to show hierarchical execution flow.
+# All LangChain operations traced
+from langchain_openai import ChatOpenAI
+llm = ChatOpenAI(model="gpt-4o")
+response = llm.invoke("Hello!")
+```
 
-**Projects**: Projects provide organizational structure for traces, allowing separation by environment, application, or team. Each project has its own metrics dashboard and data isolation.
+### LlamaIndex
 
-**Sessions**: Sessions group related traces into conversational threads, enabling tracking of multi-turn conversations with context maintained across interactions.
+```python
+from phoenix.otel import register
+from openinference.instrumentation.llama_index import LlamaIndexInstrumentor
 
-**Evaluators**: Evaluators measure the quality of AI outputs. LLM-based evaluators use LLMs as judges to assess subjective quality. Code-based evaluators use deterministic logic for objective checks. All evaluators return scores with optional labels, explanations, and metadata.
+tracer_provider = register()
+LlamaIndexInstrumentor().instrument(tracer_provider=tracer_provider)
+```
 
-**Datasets**: Datasets are collections of examples with inputs and optional reference outputs. Golden datasets contain reference outputs (ground truth) for objective evaluation. Datasets are versioned automatically.
+### Anthropic
 
-**Experiments**: Experiments run task functions (wrapped AI application logic) against datasets with evaluators to systematically compare different versions. Experiments track scores per example and aggregate metrics.
+```python
+from phoenix.otel import register
+from openinference.instrumentation.anthropic import AnthropicInstrumentor
 
-**Prompts**: In Phoenix, a prompt includes the prompt template, invocation parameters (temperature, etc.), tools, and response format. Prompts are versioned and can be tagged for deployment across environments.
+tracer_provider = register()
+AnthropicInstrumentor().instrument(tracer_provider=tracer_provider)
+```
 
-**Executors**: Executors handle evaluation execution with automatic concurrency, rate limit management, error handling, and batching. They can achieve up to 20x speedup compared to direct API calls.
+## Evaluation framework
 
-**Self-Hosting**: Phoenix can be self-hosted on Docker, Kubernetes, AWS, Railway, or locally. Self-hosted instances support authentication, email configuration, and data retention policies.
+### Built-in evaluators
 
-**Phoenix Cloud**: Managed Phoenix hosting service with automatic updates, scaling, and maintenance handled by Arize team.
+```python
+from phoenix.evals import (
+    OpenAIModel,
+    HallucinationEvaluator,
+    RelevanceEvaluator,
+    ToxicityEvaluator,
+    llm_classify
+)
 
-> For additional documentation: https://arize.com/docs/phoenix/llms.txt
+# Setup model for evaluation
+eval_model = OpenAIModel(model="gpt-4o")
+
+# Evaluate hallucination
+hallucination_eval = HallucinationEvaluator(eval_model)
+results = hallucination_eval.evaluate(
+    input="What is the capital of France?",
+    output="The capital of France is Paris.",
+    reference="Paris is the capital of France."
+)
+```
+
+### Custom evaluators
+
+```python
+from phoenix.evals import llm_classify
+
+# Define custom evaluation
+def evaluate_helpfulness(input_text, output_text):
+    template = """
+    Evaluate if the response is helpful for the given question.
+
+    Question: {input}
+    Response: {output}
+
+    Is this response helpful? Answer 'helpful' or 'not_helpful'.
+    """
+
+    result = llm_classify(
+        model=eval_model,
+        template=template,
+        input=input_text,
+        output=output_text,
+        rails=["helpful", "not_helpful"]
+    )
+    return result
+```
+
+### Run evaluations on dataset
+
+```python
+from phoenix import Client
+from phoenix.evals import run_evals
+
+client = Client()
+
+# Get spans to evaluate
+spans_df = client.get_spans_dataframe(
+    project_name="my-app",
+    filter_condition="span_kind == 'LLM'"
+)
+
+# Run evaluations
+eval_results = run_evals(
+    dataframe=spans_df,
+    evaluators=[
+        HallucinationEvaluator(eval_model),
+        RelevanceEvaluator(eval_model)
+    ],
+    provide_explanation=True
+)
+
+# Log results back to Phoenix
+client.log_evaluations(eval_results)
+```
+
+## Datasets and experiments
+
+### Create dataset
+
+```python
+from phoenix import Client
+
+client = Client()
+
+# Create dataset
+dataset = client.create_dataset(
+    name="qa-test-set",
+    description="QA evaluation dataset"
+)
+
+# Add examples
+client.add_examples_to_dataset(
+    dataset_name="qa-test-set",
+    examples=[
+        {
+            "input": {"question": "What is Python?"},
+            "output": {"answer": "A programming language"}
+        },
+        {
+            "input": {"question": "What is ML?"},
+            "output": {"answer": "Machine learning"}
+        }
+    ]
+)
+```
+
+### Run experiment
+
+```python
+from phoenix import Client
+from phoenix.experiments import run_experiment
+
+client = Client()
+
+def my_model(input_data):
+    """Your model function."""
+    question = input_data["question"]
+    return {"answer": generate_answer(question)}
+
+def accuracy_evaluator(input_data, output, expected):
+    """Custom evaluator."""
+    return {
+        "score": 1.0 if expected["answer"].lower() in output["answer"].lower() else 0.0,
+        "label": "correct" if expected["answer"].lower() in output["answer"].lower() else "incorrect"
+    }
+
+# Run experiment
+results = run_experiment(
+    dataset_name="qa-test-set",
+    task=my_model,
+    evaluators=[accuracy_evaluator],
+    experiment_name="baseline-v1"
+)
+
+print(f"Average accuracy: {results.aggregate_metrics['accuracy']}")
+```
+
+## Client API
+
+### Query traces and spans
+
+```python
+from phoenix import Client
+
+client = Client(endpoint="http://localhost:6006")
+
+# Get spans as DataFrame
+spans_df = client.get_spans_dataframe(
+    project_name="my-app",
+    filter_condition="span_kind == 'LLM'",
+    limit=1000
+)
+
+# Get specific span
+span = client.get_span(span_id="abc123")
+
+# Get trace
+trace = client.get_trace(trace_id="xyz789")
+```
+
+### Log feedback
+
+```python
+from phoenix import Client
+
+client = Client()
+
+# Log user feedback
+client.log_annotation(
+    span_id="abc123",
+    name="user_rating",
+    annotator_kind="HUMAN",
+    score=0.8,
+    label="helpful",
+    metadata={"comment": "Good response"}
+)
+```
+
+### Export data
+
+```python
+# Export to pandas
+df = client.get_spans_dataframe(project_name="my-app")
+
+# Export traces
+traces = client.list_traces(project_name="my-app")
+```
+
+## Production deployment
+
+### Docker
+
+```bash
+docker run -p 6006:6006 arizephoenix/phoenix:latest
+```
+
+### With PostgreSQL
+
+```bash
+# Set database URL
+export PHOENIX_SQL_DATABASE_URL="postgresql://user:pass@host:5432/phoenix"
+
+# Start server
+phoenix serve --host 0.0.0.0 --port 6006
+```
+
+### Environment variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PHOENIX_PORT` | HTTP server port | `6006` |
+| `PHOENIX_HOST` | Server bind address | `127.0.0.1` |
+| `PHOENIX_GRPC_PORT` | gRPC/OTLP port | `4317` |
+| `PHOENIX_SQL_DATABASE_URL` | Database connection | SQLite temp |
+| `PHOENIX_WORKING_DIR` | Data storage directory | OS temp |
+| `PHOENIX_ENABLE_AUTH` | Enable authentication | `false` |
+| `PHOENIX_SECRET` | JWT signing secret | Required if auth enabled |
+
+### With authentication
+
+```bash
+export PHOENIX_ENABLE_AUTH=true
+export PHOENIX_SECRET="your-secret-key-min-32-chars"
+export PHOENIX_ADMIN_SECRET="admin-bootstrap-token"
+
+phoenix serve
+```
+
+## Best practices
+
+1. **Use projects**: Separate traces by environment (dev/staging/prod)
+2. **Add metadata**: Include user IDs, session IDs for debugging
+3. **Evaluate regularly**: Run automated evaluations in CI/CD
+4. **Version datasets**: Track test set changes over time
+5. **Monitor costs**: Track token usage via Phoenix dashboards
+6. **Self-host**: Use PostgreSQL for production deployments
+
+## Common issues
+
+**Traces not appearing:**
+```python
+from phoenix.otel import register
+
+# Verify endpoint
+tracer_provider = register(
+    project_name="my-app",
+    endpoint="http://localhost:6006/v1/traces"  # Correct endpoint
+)
+
+# Force flush
+from opentelemetry import trace
+trace.get_tracer_provider().force_flush()
+```
+
+**High memory in notebook:**
+```python
+# Close session when done
+session = px.launch_app()
+# ... do work ...
+session.close()
+px.close_app()
+```
+
+**Database connection issues:**
+```bash
+# Verify PostgreSQL connection
+psql $PHOENIX_SQL_DATABASE_URL -c "SELECT 1"
+
+# Check Phoenix logs
+phoenix serve --log-level debug
+```
+
+## References
+
+- **[Advanced Usage](references/advanced-usage.md)** - Custom evaluators, experiments, production setup
+- **[Troubleshooting](references/troubleshooting.md)** - Common issues, debugging, performance
+
+## Resources
+
+- **Documentation**: https://docs.arize.com/phoenix
+- **Repository**: https://github.com/Arize-ai/phoenix
+- **Docker Hub**: https://hub.docker.com/r/arizephoenix/phoenix
+- **Version**: 12.0.0+
+- **License**: Apache 2.0

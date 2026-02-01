@@ -10,7 +10,6 @@ Comprehensive guide for working with the Google Cloud SDK (gcloud CLI) - the pri
 ## When to Use This Skill
 
 Use this skill when you need to:
-
 - Install and configure the Google Cloud SDK
 - Authenticate with Google Cloud (user accounts, service accounts, ADC)
 - Initialize gcloud and set up projects/configurations
@@ -27,14 +26,12 @@ Use this skill when you need to:
 ### The gcloud CLI
 
 **Architecture:**
-
 - **Command Structure:** `gcloud + [release-level] + component + entity + operation + [args] + [flags]`
 - **Release Levels:** alpha, beta, GA (general availability)
 - **Components:** compute, container, app, sql, iam, config, auth, storage, etc.
 - **Global Flags:** `--project`, `--format`, `--filter`, `--quiet`, `--verbosity`
 
 **Key Features:**
-
 - Unified CLI for 100+ Google Cloud services
 - Consistent command patterns across all services
 - Rich output formatting (JSON, YAML, CSV, table)
@@ -44,14 +41,12 @@ Use this skill when you need to:
 ### Authentication vs Authorization
 
 **Authentication** (Who you are):
-
 - User accounts (developers, admins)
 - Service accounts (applications, automation)
 - Application Default Credentials (ADC)
 - OAuth 2.0, API keys, workload/workforce identity federation
 
 **Authorization** (What you can do):
-
 - IAM roles and permissions
 - Service account impersonation
 - Resource-level access control
@@ -59,13 +54,11 @@ Use this skill when you need to:
 ### Configuration Management
 
 **Named Configurations:**
-
 - Multiple configuration profiles for different environments
 - Each configuration stores: account, project, region, zone, and other properties
 - Switch between configurations instantly
 
 **Properties:**
-
 - 50+ configurable properties across 7 categories
 - Precedence: CLI flags > env vars > config files > defaults
 
@@ -76,7 +69,6 @@ Use this skill when you need to:
 ### A. Installation Methods
 
 #### Linux (Archive Installation)
-
 ```bash
 # Download (choose architecture)
 curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz
@@ -92,7 +84,6 @@ tar -xf google-cloud-cli-linux-x86_64.tar.gz
 ```
 
 #### Debian/Ubuntu (Package Manager)
-
 ```bash
 # Add repo
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -105,7 +96,6 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 ```
 
 #### macOS
-
 ```bash
 # Download installer
 curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz
@@ -116,7 +106,6 @@ tar -xf google-cloud-cli-darwin-arm.tar.gz
 ```
 
 #### Windows
-
 ```powershell
 # Download installer from https://cloud.google.com/sdk/docs/install
 # Run GoogleCloudSDKInstaller.exe
@@ -162,7 +151,6 @@ gcloud components remove COMPONENT_ID
 ```
 
 **Core Components (installed by default):**
-
 - `gcloud` - Main CLI
 - `gsutil` - Cloud Storage utility
 - `bq` - BigQuery CLI
@@ -175,7 +163,6 @@ gcloud components remove COMPONENT_ID
 ### A. Authentication Methods
 
 #### 1. User Account (OAuth 2.0)
-
 ```bash
 # Login with browser
 gcloud auth login
@@ -197,7 +184,6 @@ gcloud auth revoke user@example.com
 ```
 
 #### 2. Service Account
-
 ```bash
 # Activate service account with key file
 gcloud auth activate-service-account SA_EMAIL --key-file=path/to/key.json
@@ -217,7 +203,6 @@ gcloud projects add-iam-policy-binding PROJECT_ID \
 ```
 
 #### 3. Application Default Credentials (ADC)
-
 ```bash
 # Setup ADC for client libraries
 gcloud auth application-default login
@@ -236,7 +221,6 @@ gcloud auth application-default revoke
 ```
 
 #### 4. Service Account Impersonation (Recommended for Production)
-
 ```bash
 # Impersonate for single command
 gcloud compute instances list \
@@ -253,7 +237,6 @@ gcloud config unset auth/impersonate_service_account
 ```
 
 **Why Impersonation?**
-
 - Short-lived temporary credentials (no persistent key risk)
 - No need to distribute service account keys
 - Centralized permission management
@@ -262,7 +245,6 @@ gcloud config unset auth/impersonate_service_account
 ### B. Configuration Profiles
 
 #### Create and Manage Configurations
-
 ```bash
 # Create new configuration
 gcloud config configurations create dev
@@ -292,7 +274,6 @@ gcloud config configurations delete dev
 ```
 
 #### Multi-Environment Pattern
-
 ```bash
 # Development environment
 gcloud config configurations create dev
@@ -596,7 +577,6 @@ echo "All instances created"
 ### F. CI/CD Integration
 
 #### GitHub Actions
-
 ```yaml
 name: Deploy to GCP
 
@@ -627,7 +607,6 @@ jobs:
 ```
 
 #### GitLab CI
-
 ```yaml
 deploy:
   image: google/cloud-sdk:alpine
@@ -647,7 +626,6 @@ deploy:
 ### A. Security
 
 **1. Never Commit Credentials**
-
 ```bash
 # Add to .gitignore
 echo "key.json" >> .gitignore
@@ -656,7 +634,6 @@ echo "application_default_credentials.json" >> .gitignore
 ```
 
 **2. Use Service Account Impersonation**
-
 ```bash
 # Prefer impersonation over key files
 gcloud config set auth/impersonate_service_account SA_EMAIL
@@ -665,7 +642,6 @@ gcloud config set auth/impersonate_service_account SA_EMAIL
 ```
 
 **3. Principle of Least Privilege**
-
 ```bash
 # Grant minimal required roles
 gcloud projects add-iam-policy-binding PROJECT_ID \
@@ -674,7 +650,6 @@ gcloud projects add-iam-policy-binding PROJECT_ID \
 ```
 
 **4. Rotate Keys Regularly**
-
 ```bash
 # Create new key
 gcloud iam service-accounts keys create new-key.json \
@@ -688,7 +663,6 @@ gcloud iam service-accounts keys delete KEY_ID \
 ### B. Performance
 
 **1. Use Server-Side Filtering**
-
 ```bash
 # Good: Filter on server
 gcloud compute instances list --filter="zone:us-central1"
@@ -698,7 +672,6 @@ gcloud compute instances list | grep us-central1
 ```
 
 **2. Limit Output**
-
 ```bash
 # Only fetch what you need
 gcloud compute instances list --limit=10
@@ -708,7 +681,6 @@ gcloud compute instances list --format="value(name,zone)"
 ```
 
 **3. Batch Operations**
-
 ```bash
 # Use --async for parallel operations
 gcloud compute instances create instance-1 --async
@@ -719,7 +691,6 @@ gcloud compute instances create instance-3 --async
 ### C. Maintainability
 
 **1. Use Named Configurations**
-
 ```bash
 # Separate dev/staging/prod configurations
 gcloud config configurations create dev
@@ -727,7 +698,6 @@ gcloud config configurations create prod
 ```
 
 **2. Document Commands**
-
 ```bash
 #!/bin/bash
 # Purpose: Deploy application to Cloud Run
@@ -740,7 +710,6 @@ gcloud run deploy my-service --image=gcr.io/project/image:latest
 ```
 
 **3. Use Environment Variables**
-
 ```bash
 # Make scripts portable
 PROJECT_ID=${GCP_PROJECT_ID:-default-project}
@@ -772,7 +741,6 @@ gcloud compute instances create my-instance --verbosity=debug
 ### Common Issues
 
 **1. Authentication Failures**
-
 ```bash
 # Check current authentication
 gcloud auth list
@@ -786,7 +754,6 @@ gcloud auth application-default login
 ```
 
 **2. Permission Denied**
-
 ```bash
 # Check IAM permissions
 gcloud projects get-iam-policy PROJECT_ID \
@@ -798,7 +765,6 @@ gcloud iam service-accounts get-iam-policy SA_EMAIL
 ```
 
 **3. Quota Exceeded**
-
 ```bash
 # Check quota usage
 gcloud compute project-info describe --project=PROJECT_ID
@@ -807,7 +773,6 @@ gcloud compute project-info describe --project=PROJECT_ID
 ```
 
 **4. Network Issues**
-
 ```bash
 # Check connectivity
 gcloud info
@@ -819,7 +784,6 @@ gcloud config set proxy/port PROXY_PORT
 ```
 
 **5. Configuration Issues**
-
 ```bash
 # View current configuration
 gcloud config list
@@ -835,30 +799,30 @@ gcloud init
 
 ### Essential Commands
 
-| Task                 | Command                                        |
-| -------------------- | ---------------------------------------------- |
-| Initialize gcloud    | `gcloud init`                                  |
-| Login                | `gcloud auth login`                            |
-| Set project          | `gcloud config set project PROJECT_ID`         |
-| List resources       | `gcloud [SERVICE] list`                        |
-| Describe resource    | `gcloud [SERVICE] describe RESOURCE`           |
-| Create resource      | `gcloud [SERVICE] create RESOURCE`             |
-| Delete resource      | `gcloud [SERVICE] delete RESOURCE`             |
-| Get help             | `gcloud [SERVICE] --help`                      |
-| View configurations  | `gcloud config configurations list`            |
+| Task | Command |
+|------|---------|
+| Initialize gcloud | `gcloud init` |
+| Login | `gcloud auth login` |
+| Set project | `gcloud config set project PROJECT_ID` |
+| List resources | `gcloud [SERVICE] list` |
+| Describe resource | `gcloud [SERVICE] describe RESOURCE` |
+| Create resource | `gcloud [SERVICE] create RESOURCE` |
+| Delete resource | `gcloud [SERVICE] delete RESOURCE` |
+| Get help | `gcloud [SERVICE] --help` |
+| View configurations | `gcloud config configurations list` |
 | Switch configuration | `gcloud config configurations activate CONFIG` |
 
 ### Global Flags
 
-| Flag          | Purpose            | Example                     |
-| ------------- | ------------------ | --------------------------- |
-| `--project`   | Override project   | `--project=my-project`      |
-| `--format`    | Output format      | `--format=json`             |
-| `--filter`    | Server-side filter | `--filter="status=RUNNING"` |
-| `--limit`     | Limit results      | `--limit=10`                |
-| `--quiet`     | Suppress prompts   | `--quiet`                   |
-| `--verbosity` | Log level          | `--verbosity=debug`         |
-| `--async`     | Don't wait         | `--async`                   |
+| Flag | Purpose | Example |
+|------|---------|---------|
+| `--project` | Override project | `--project=my-project` |
+| `--format` | Output format | `--format=json` |
+| `--filter` | Server-side filter | `--filter="status=RUNNING"` |
+| `--limit` | Limit results | `--limit=10` |
+| `--quiet` | Suppress prompts | `--quiet` |
+| `--verbosity` | Log level | `--verbosity=debug` |
+| `--async` | Don't wait | `--async` |
 
 ### Common Properties
 
@@ -884,7 +848,6 @@ gcloud config set app/cloud_build_timeout 1200
 ## VIII. RESOURCES
 
 ### Official Documentation
-
 - **gcloud CLI Reference:** https://cloud.google.com/sdk/gcloud/reference
 - **Installation Guide:** https://cloud.google.com/sdk/docs/install
 - **Authentication Guide:** https://cloud.google.com/docs/authentication
@@ -892,7 +855,6 @@ gcloud config set app/cloud_build_timeout 1200
 - **Scripting Guide:** https://cloud.google.com/sdk/docs/scripting-gcloud
 
 ### Tools
-
 - **Cloud Console:** https://console.cloud.google.com
 - **Cloud Shell:** Browser-based shell with gcloud pre-installed
 - **Cloud Code:** IDE extensions (VS Code, IntelliJ)
@@ -913,25 +875,21 @@ gcloud config set app/cloud_build_timeout 1200
 ## Common Use Cases
 
 ### Multi-Environment Deployment
-
 - Separate configurations for dev/staging/prod
 - Service account impersonation for each environment
 - Automated deployments via CI/CD
 
 ### Infrastructure as Code
-
 - Create resources with gcloud in shell scripts
 - Export configurations as YAML/JSON
 - Version control infrastructure commands
 
 ### Data Pipeline Automation
-
 - Scheduled BigQuery jobs
 - Cloud Storage file transfers
 - Pub/Sub message processing
 
 ### Security Compliance
-
 - Audit logging for all operations
 - Encrypted data at rest and in transit
 - Regular key rotation and access reviews

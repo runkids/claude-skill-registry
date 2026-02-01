@@ -1,206 +1,185 @@
 ---
 name: docs-verify
-description: Verify documentation consistency
-allowed-tools:
-  - Bash
-  - Read
-  - Grep
-  - Glob
-model: sonnet
+description: Documentation verification for 3-Tier system - validates line limits, cross-references, file counts
 ---
 
-# Verify Documentation
+# SKILL: Documentation Verification
 
-Check documentation for consistency and completeness.
+> **Purpose**: Validate 3-Tier documentation system compliance - line limits, cross-references, file counts
 
-## Usage
+---
 
-```
-/docs-verify
-```
+## Quick Start
 
-## Checks Performed
+### When to Use
 
-### 1. Rule Count Matches CLAUDE.md
+- After closing plan (`/03_close`)
+- After running `/document`
+- Before committing documentation changes
+
+### Quick Reference
 
 ```bash
-ACTUAL=$(ls .claude/rules/*.md 2>/dev/null | wc -l | tr -d ' ')
-LISTED=$(grep -c '^- `.*\.md`' CLAUDE.md)
+# Pure bash link check (no external deps)
+for file in CLAUDE.md docs/ai-context/*.md; do
+  [ -f "$file" ] || continue
+  grep -oE '@[^][:space:]]+' "$file" | while read ref; do
+    ref_path="${ref#@}"
+    [ ! -e "$ref_path" ] && echo "Broken: $ref in $file"
+  done
+done
+```
 
-if [ "$ACTUAL" -eq "$LISTED" ]; then
-    echo "✓ Rule count matches: $ACTUAL rules"
-else
-    echo "✗ Mismatch: $ACTUAL files, $LISTED listed in CLAUDE.md"
-    echo "  Actual files:"
-    ls .claude/rules/*.md
+---
+
+## Change Detection (MANDATORY FIRST STEP)
+
+**Before running verification, check if docs changed**:
+
+```bash
+# Get changed markdown files (with fallback)
+CHANGED_MD=$(git diff --name-only HEAD~1 -- "*.md" 2>/dev/null || git diff --name-only -- "*.md" 2>/dev/null || echo "FALLBACK_FULL_VERIFY")
+
+# Fallback: If git diff fails, run full verification
+if [ "$CHANGED_MD" = "FALLBACK_FULL_VERIFY" ]; then
+    echo "Cannot detect changes, running full verification"
+    CHANGED_MD=$(find . -name "*.md" -type f ! -path "*/.git/*" ! -path "*/.trash/*")
+fi
+
+if [ -z "$CHANGED_MD" ]; then
+    echo "No markdown files changed"
+    echo "Skipping documentation verification"
+    exit 0
+fi
+
+echo "Changed markdown files:"
+echo "$CHANGED_MD"
+```
+
+---
+
+## Core Concepts
+
+### 3-Tier System
+
+**Tier 1** (3 files, ≤200 lines each):
+- `CLAUDE.md` - Project architecture, features, Quick Start
+- `docs/ai-context/project-structure.md` - Tech stack, file tree
+- `docs/ai-context/docs-overview.md` - Documentation navigation
+
+**Tier 2**: Component CONTEXT.md files (unlimited)
+
+**Tier 3**: Feature-specific CONTEXT.md files
+
+---
+
+## Verification Checks
+
+### 1. Tier 1 Line Limits (Changed Files Only)
+
+**Limit**: ≤200 lines per file
+
+```bash
+TIER1_FILES=(
+  "CLAUDE.md"
+  "docs/ai-context/project-structure.md"
+  "docs/ai-context/docs-overview.md"
+)
+
+for file in "${TIER1_FILES[@]}"; do
+  # Only check if file was changed
+  if echo "$CHANGED_MD" | grep -q "$file"; then
+    LINES=$(wc -l < "$file" | tr -d ' ')
+    if [ "$LINES" -gt 200 ]; then
+      echo "FAIL: $file has $LINES lines (limit: 200)"
+      exit 1
+    fi
+    echo "$file: $LINES lines"
+  fi
+done
+```
+
+**On violation**: Extract content to Tier 2 CONTEXT.md files
+
+### 2. Tier 1 File Count (CRITICAL)
+
+**Limit**: Exactly 2 files in `docs/ai-context/`
+
+```bash
+COUNT=$(find docs/ai-context -maxdepth 1 -name "*.md" -type f | wc -l | tr -d ' ')
+if [ "$COUNT" -ne 2 ]; then
+  echo "FAIL: docs/ai-context/ has $COUNT files (expected: 2)"
+  exit 1
 fi
 ```
 
-### 2. Check for Duplicate Type Definitions
+### 3. Cross-Reference Validation (Changed Files Only)
 
 ```bash
-echo ""
-echo "Checking for Player struct definitions..."
-PLAYER_DEFS=$(grep -l "struct Player" .claude/rules/*.md docs/**/*.md 2>/dev/null)
-
-echo "  Should appear in:"
-echo "    - .claude/rules/game-state.md (CANONICAL)"
-echo "    - docs/api/types.md (reference to canonical)"
-echo ""
-echo "  Found in:"
-echo "$PLAYER_DEFS" | while read file; do
-    if [ ! -z "$file" ]; then
-        HAS_CANONICAL=$(grep -c "CANONICAL" "$file" 2>/dev/null || echo "0")
-        if [ "$HAS_CANONICAL" -gt 0 ]; then
-            echo "    ✓ $file (CANONICAL)"
-        else
-            echo "    → $file (reference)"
-        fi
+# Only validate changed files
+for file in $CHANGED_MD; do
+  [ -f "$file" ] || continue
+  grep -oE '@\.(claude|docs)/[^][:space:]]+' "$file" 2>/dev/null | while read ref; do
+    ref_path="${ref#@}"
+    ref_path="${ref_path%[\`\*\]\"]}"
+    if [ ! -e "$ref_path" ]; then
+      echo "Broken reference: $ref in $file"
     fi
+  done
 done
 ```
 
-### 3. Skill Count Matches
+### 4. Circular Reference Detection
 
 ```bash
-echo ""
-SKILL_DIRS=$(ls -d .claude/skills/*/ 2>/dev/null | wc -l | tr -d ' ')
-SKILL_ROWS=$(grep -c '^| `/.*`' CLAUDE.md)
+# Check for self-references (A → A)
+find . -name "*.md" ! -path "*/REFERENCE.md" ! -path "*/.git/*" | while read file; do
+  refs=$(grep -oE '@\.(claude|docs)/[^)[:space:]+' "$file" || true)
+  for ref in $refs; do
+    if [ "${ref#@}" = "$file" ]; then
+      echo "Self-reference: $file"
+    fi
+  done
+done
+```
 
-if [ "$SKILL_DIRS" -eq "$SKILL_ROWS" ]; then
-    echo "✓ Skill count matches: $SKILL_DIRS skills"
-else
-    echo "✗ Mismatch: $SKILL_DIRS directories, $SKILL_ROWS in table"
-    echo "  Skill directories:"
-    ls -d .claude/skills/*/
+### 5. Skill Count Validation
+
+```bash
+ACTUAL=$(find .claude/skills -name "SKILL.md" | wc -l | tr -d ' ')
+STATED=$(grep -oE '\*\*[0-9]+ Skills\*\*' README.md | grep -oE '[0-9]+' || echo "0")
+
+if [ "$ACTUAL" -ne "$STATED" ]; then
+  echo "WARNING: Skill count mismatch - README: $STATED, actual: $ACTUAL"
 fi
 ```
 
-### 4. Cross-References Valid
+---
 
-```bash
-echo ""
-echo "Checking cross-references in CLAUDE.md..."
-grep -oh 'docs/[^)]*\.md' CLAUDE.md | sort -u | while read file; do
-    if [ -f "$file" ]; then
-        echo "  ✓ $file exists"
-    else
-        echo "  ✗ $file referenced but not found"
-    fi
-done
+## Integration Pattern
+
+### In Commands
+
+```markdown
+## Step 3: Documentation Verification
+
+Invoke the `docs-verify` skill to validate documentation compliance.
+
+The skill checks:
+- Tier 1 line limits (≤200 lines)
+- Tier 1 file count (exactly 2 in ai-context/)
+- Cross-reference validity
+- Circular references
 ```
 
-### 5. Agent Count
+Claude reads this skill file and executes the bash commands inline.
 
-```bash
-echo ""
-AGENT_FILES=$(ls .claude/agents/*.md 2>/dev/null | wc -l | tr -d ' ')
-echo "Agents: $AGENT_FILES files"
-ls .claude/agents/*.md 2>/dev/null | while read file; do
-    AGENT_NAME=$(basename "$file" .md)
-    echo "  → $AGENT_NAME"
-done
-```
+---
 
-### 6. GitHub Templates Exist
+## Related Skills
 
-```bash
-echo ""
-echo "Checking GitHub issue templates..."
-TEMPLATES=("bug_report.md" "feature_request.md" "task.md" "config.yml")
-LABELS_FILE=".github/labels.json"
+**three-tier-docs**: Full 3-Tier documentation system | **vibe-coding**: File size standards
 
-for template in "${TEMPLATES[@]}"; do
-    if [ -f ".github/ISSUE_TEMPLATE/$template" ]; then
-        echo "  ✓ $template"
-    else
-        echo "  ✗ $template missing"
-    fi
-done
+---
 
-if [ -f "$LABELS_FILE" ]; then
-    LABEL_COUNT=$(jq 'length' "$LABELS_FILE" 2>/dev/null || echo "?")
-    echo "  ✓ labels.json ($LABEL_COUNT labels defined)"
-else
-    echo "  ✗ labels.json missing"
-fi
-```
-
-## Final Report
-
-Generate summary report:
-
-```
-Documentation Verification Report
-===================================
-Date: [timestamp]
-
-Rules: [X/Y] ✓
-Skills: [X/Y] ✓
-Agents: [N] ✓
-Cross-references: [Status]
-GitHub templates: [X/4] ✓
-
-Issues Found: [count]
-[List any issues]
-
-Recommendations:
-[If issues found, suggest fixes]
-```
-
-## Example Output
-
-```
-Documentation Verification Report
-===================================
-
-✓ Rule count matches: 8 rules
-✓ Player struct found in correct locations
-✓ Skill count matches: 19 skills
-✓ All cross-references valid
-✓ Agents: 6 files
-  → architect
-  → bug-hunter
-  → code-reviewer
-  → game-designer
-  → play-tester
-  → test-runner
-✓ GitHub templates: 4/4 ✓
-  ✓ bug_report.md
-  ✓ feature_request.md
-  ✓ task.md
-  ✓ config.yml
-  ✓ labels.json (16 labels defined)
-
-Issues Found: 0
-
-Last verified: 2026-01-25 18:45:00
-Status: All checks passed ✓
-```
-
-## Use Cases
-
-**Before committing documentation changes**:
-```
-/docs-verify
-→ Ensure all references are consistent
-```
-
-**After adding new skill**:
-```
-/docs-verify
-→ Check skill count matches CLAUDE.md
-```
-
-**Weekly maintenance**:
-```
-/docs-verify
-→ Catch any drift or inconsistencies
-```
-
-## Notes
-
-- Non-destructive: only reads files, never modifies
-- Can be run anytime without risk
-- Use `/docs-update` to fix issues found
-- Requires jq for JSON parsing (labels.json check)
+**Version**: claude-pilot 4.4.14

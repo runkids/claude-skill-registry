@@ -1,7 +1,7 @@
 {
   "name": "saga-orchestration",
-  "repo": "ccf/claude-code-ccf-marketplace",
+  "repo": "wshobson/agents",
   "path": "plugins/backend-development/skills/saga-orchestration/SKILL.md",
-  "source": "github.com/ccf/claude-code-ccf-marketplace",
-  "downloaded_at": "2026-01-31T03:32:09.992201Z"
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:50.897344Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "session-security-checker",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/session-security-checker/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-30T04:24:29.287737Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "skills/03-security-fundamentals/session-security-checker/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:17.914115Z"
 }

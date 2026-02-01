@@ -1,103 +1,201 @@
 ---
 name: jira
-description: Operate Atlassian Jira through the official jira CLI; trigger this skill to list, inspect, create, update, triage, or report on Jira work using deterministic shell commands aligned with Jira MCP workflows.
-version: 0.1.0
+description: "Create, list, view, and manage Jira issues via REST API; triggers on 'jira', 'create ticket', 'list issues', 'change type'."
 ---
 
-# Jira Issue Management
+## Purpose
+Model-neutral helper to interact with Jira via Atlassian REST API v3. Supports creating issues, listing, viewing, assigning, and transitioning.
 
-**Use this skill whenever Jira work is requested.**
+## Triggers
+Use when the user says: "create a jira ticket", "list jira issues", "jira create", "show jira issue", "assign ticket".
 
-## Setup
+## Configuration
+Reads from `~/.jira.d/`:
+- `config.yml` - endpoint, user, authentication-method
+- `api-token` - raw API token (no variable assignment)
 
-- Run `./scripts/check-environment.sh`. The skill halts with explicit instructions when `jira` is missing or not authenticated (`jira init` required once).
-- Ensure the `jira` CLI remains in PATH after the check.
-- Use upstream flags like `--project`, `--board`, etc., for context as needed; no extra configuration lives in the skill.
-
-## Command Pattern
-
-```bash
-jira <command> <subcommand> [arguments] [flags]
+Example config.yml:
+```yaml
+endpoint: https://yourcompany.atlassian.net
+user: your.email@company.com
+authentication-method: api-token
 ```
 
-Primary commands: `issue`, `project`, `board`, `sprint`, `epic`, `release`, `open`, `me`, `serverinfo`.
+## How to use
 
-Keep outputs deterministic:
+### Create Issue
+```bash
+# Create Epic
+lisa jira create --type epic --project PROJ --summary "Feature title" --description "Description text"
 
-- Run `./scripts/check-environment.sh` at the start of every session; abort work if it reports an error.
-- Add `--plain` plus `--columns ...` for TSV tables that stream cleanly.
-- Use `--raw` (alias for JSON) when structured data is required.
-- Provide explicit ranges via `--paginate start:limit` to cap interactive views.
+# Create Story
+lisa jira create --type story --project PROJ --summary "Story title" --parent PROJ-123
 
-## Core Workflows
+# Create Sub-task
+lisa jira create --type subtask --project PROJ --summary "Sub-task title" --parent PROJ-123
 
-- **Projects** – enumerate available projects  
-  ```bash
-  jira project list --plain --columns key,name,type
-  ```
+# Create with assignment
+lisa jira create --type task --project PROJ --summary "Task" --assign me
+```
 
-- **Issues**  
-  - Search / filter:
-    ```bash
-    jira issue list --status Done --assignee "$(jira me)" --plain --columns key,summary,status,assignee
-    jira issue search 'project = PROJ AND status = "In Progress"' --plain --columns key,summary,status
-    jira issue list --raw --jql 'label = backend' --paginate 0:50
-    ```
-  - View details: `jira issue view PROJ-123 --plain --comments 5`
-  - Create:
-    ```bash
-    jira issue create \
-      --type Bug \
-      --summary "API returns 500" \
-      --description-file docs/bug.md \
-      --priority High \
-      --assignee "$(jira me)" \
-      --label backend --label urgent
-    ```
-  - Update:
-    ```bash
-    jira issue edit PROJ-123 --summary "Refine API contract" --priority Medium
-    jira issue move PROJ-123 "In Review" --comment "Ready for QA"
-    jira issue assign PROJ-123 user@example.com
-    ```
-  - Comment / worklog:
-    ```bash
-    jira issue comment add PROJ-123 "Investigating..." --no-input
-    jira issue worklog add PROJ-123 "1h 30m" --comment "Debugging"
-    ```
-  - Linking: `jira issue link PROJ-1 PROJ-2 "Blocks"` (remove with `jira issue unlink ...`).
+### List Issues
+```bash
+# List by project
+lisa jira list --project PROJ --limit 10
 
-- **Epics**  
-  - Create: `jira epic create --name "Platform Stability" --summary "Q3 initiative"`  
-  - List: `jira epic list --plain --columns key,summary,status`  
-  - Attach issues: `jira epic add EPIC-1 PROJ-123 PROJ-456`
+# List with JQL
+lisa jira list --jql "assignee = currentUser() ORDER BY created DESC" --limit 5
 
-- **Boards & Sprints**  
-  - Boards: `jira board list --plain --columns id,name,type`
-  - Sprint overview: `jira sprint list --plain --columns id,name,state,start,end`
-  - Sprint issues: `jira sprint list <SPRINT_ID> --plain --columns key,summary,status,assignee`
-  - Move issues: `jira sprint add <SPRINT_ID> PROJ-123 PROJ-456`
-  - Close sprint: `jira sprint close <SPRINT_ID>`
+# List my issues
+lisa jira list --mine --limit 10
+```
 
-- **Releases (Versions)** – `jira release list --plain --columns name,start,end,state`
+### View Issue
+```bash
+lisa jira view PROJ-123
+```
 
-- **Open in browser** – `jira open PROJ-123 --no-browser` (omit flag to launch UI).
+### Assign Issue
+```bash
+# Assign to self
+lisa jira assign PROJ-123 --to me
 
-- **User / Instance context** – `jira me`, `jira serverinfo`, `jira version`.
+# Assign to user
+lisa jira assign PROJ-123 --to "user@company.com"
+```
 
-## Output Strategies
+### Transition Issue
+```bash
+# Move to In Progress
+lisa jira transition PROJ-123 --to "In Progress"
 
-- Issues default to `key,summary,status,assignee`; sprints to `id,name,state,start,end`. Override with `--columns`.
-- `--raw` returns JSON for downstream processing (`jq`, scripting).
-- Combine commands with standard Unix tooling:
-  ```bash
-  jira issue list --plain --columns key,status,assignee | rg "In Progress"
-  jira issue view PROJ-123 --plain --comments 10 | tee PROJ-123.txt
-  ```
+# Move to Done
+lisa jira transition PROJ-123 --to "Done"
 
-## Reference Material
+# Move to Code Review
+lisa jira transition PROJ-123 --to "Code Review"
+```
 
-- `references/mcp-parity.md` contains a Jira MCP → CLI mapping, including attachments, watchers, and worklogs.
-- For authentication or environment issues
-    - re-run `jira init` and review `~/.config/.jira/.config.yml`.
-    - check that JIRA_API_TOKEN is set or `~/.netrc` contains proper jira setup
+### Change Issue Type
+```bash
+# Change Epic to Story
+lisa jira change-type PROJ-123 --to story
+
+# Change to Task
+lisa jira change-type PROJ-123 --to task
+```
+
+Valid types: `epic`, `story`, `task`, `subtask`, `bug`
+
+## Workflow: PR Created
+
+**When a Pull Request is created**, transition all associated Jira tickets to "Code Review":
+
+1. Identify the ticket(s) from the branch name (e.g., `PROJ-123`)
+2. Check if the ticket has subtasks (use `view` command)
+3. Transition the main ticket and ALL subtasks to "Code Review"
+
+```bash
+# Example: Transition epic and all subtasks to Code Review
+lisa jira transition PROJ-123 --to "Code Review"
+
+# For subtasks (if in "To Do", first move to "In Progress")
+for ticket in PROJ-124 PROJ-125 PROJ-126; do
+  lisa jira transition "$ticket" --to "Code Review"
+done
+```
+
+**Note:** If a ticket is in "To Do", you may need to transition through "In Progress" first:
+```bash
+lisa jira transition PROJ-123 --to "In Progress"
+lisa jira transition PROJ-123 --to "Code Review"
+```
+
+**See also:** `git` skill for PR creation, CI triggers, and test retriggers.
+
+## I/O Contract (examples)
+
+### Create
+```json
+{
+  "status": "ok",
+  "action": "create",
+  "issue": {
+    "key": "PROJ-123",
+    "url": "https://company.atlassian.net/browse/PROJ-123",
+    "summary": "Feature title",
+    "type": "Epic"
+  }
+}
+```
+
+### List
+```json
+{
+  "status": "ok",
+  "action": "list",
+  "issues": [
+    {"key": "PROJ-123", "summary": "...", "status": "To Do", "assignee": "John Doe"}
+  ],
+  "total": 10
+}
+```
+
+### View
+```json
+{
+  "status": "ok",
+  "action": "view",
+  "issue": {
+    "key": "PROJ-123",
+    "summary": "...",
+    "description": "...",
+    "status": "To Do",
+    "assignee": "John Doe",
+    "reporter": "...",
+    "created": "2026-01-13T...",
+    "subtasks": [...]
+  }
+}
+```
+
+### Change Type
+```json
+{
+  "status": "ok",
+  "action": "change-type",
+  "issue": {
+    "key": "PROJ-123",
+    "url": "https://company.atlassian.net/browse/PROJ-123",
+    "previousType": "Epic",
+    "newType": "story"
+  }
+}
+```
+
+### Error
+```json
+{
+  "status": "error",
+  "error": "Authentication failed",
+  "details": "..."
+}
+```
+
+## Issue Types
+Standard Jira issue types (IDs may vary by project):
+- `epic` (10000) - Parent for features
+- `story` (10001) - User stories
+- `task` (10002) - General tasks
+- `subtask` (10003) - Sub-tasks linked to parent
+- `bug` (10004) - Bug reports
+
+## Cross-model checklist
+- Claude: concise instructions; use JSON output for parsing
+- Gemini: explicit commands and minimal formatting
+
+## Notes
+- Requires Node.js >= 18 (uses native fetch)
+- API token must have project access permissions
+- Description uses Atlassian Document Format (ADF) internally
+- Rate limits apply per Atlassian Cloud policies

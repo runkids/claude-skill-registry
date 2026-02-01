@@ -1,7 +1,7 @@
 {
   "name": "stable-baselines3",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/stable-baselines3/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-31T03:49:26.455558Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/stable-baselines3/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:40.648242Z"
 }

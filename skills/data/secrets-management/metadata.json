@@ -1,7 +1,7 @@
 {
   "name": "secrets-management",
-  "repo": "haxllo/repolens",
-  "path": ".gemini/skills/secrets-management/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:40.939242Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/cicd-automation/skills/secrets-management/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:49.350547Z"
 }

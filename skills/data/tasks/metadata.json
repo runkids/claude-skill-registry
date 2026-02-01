@@ -1,7 +1,7 @@
 {
   "name": "tasks",
-  "repo": "miles990/multi-agent-workflow",
-  "path": "skills/tasks/SKILL.md",
-  "source": "github.com/miles990/multi-agent-workflow",
-  "downloaded_at": "2026-01-31T04:40:46.154932Z"
+  "repo": "TonyCasey/lisa",
+  "path": "src/project/.lisa/skills/tasks/SKILL.md",
+  "source": "github.com/TonyCasey/lisa",
+  "downloaded_at": "2026-02-01T04:56:23.684463Z"
 }

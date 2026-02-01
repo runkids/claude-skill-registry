@@ -1,9 +1,7 @@
 {
   "name": "iac-security-auditor",
-  "description": "Use this skill AFTER a terraform plan has been generated. This skill audits a terraform plan file for security vulnerabilities (using tfsec/checkov) and company compliance policies. It either APPROVES",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/iac-security-auditor/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:02.857552Z"
 }

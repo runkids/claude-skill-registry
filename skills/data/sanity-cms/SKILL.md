@@ -1,555 +1,1235 @@
 ---
 name: sanity-cms
-description: Integrate Sanity headless CMS for content management. Use when building content-driven sites with structured content, requiring an editor UI, or needing real-time previews.
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+description: A headless CMS that provides a flexible content model and powerful APIs. Use for structured content management with type-safe queries for Williamstown SC.
 ---
 
-# Sanity CMS Skill
+# sanity-cms
 
-Integrate Sanity headless CMS for structured content management.
+## Instructions
 
-## Architecture Overview
+Follow documentation from https://www.sanity.io/learn/llms.txt to implement Sanity CMS in the project. This skill provides project-specific patterns for sports club content modeling, TypeScript integration, and Next.js optimization.
 
+## Content Modeling for Sports Clubs
+
+### Core Schema Types
+
+The Williamstown SC website requires these primary content types:
+
+1. **blogPost** - Club news, announcements, match reports
+2. **event** - Matches, training sessions, club events
+3. **player** - Team roster and player profiles
+4. **fixture** - Match schedule, results, and statistics
+5. **sponsor** - Club sponsors and partners
+6. **page** - Static pages (About, Contact, etc.)
+7. **teamMember** - Coaching staff and committee members
+
+## Schema Best Practices
+
+### Naming Conventions
+
+Follow these conventions for consistency:
+
+```typescript
+// Schema files: camelCase.ts
+blogPost.ts;
+teamMember.ts;
+fixtureResult.ts;
+
+// Field names: camelCase
+publishedAt;
+featuredImage;
+homeTeamScore;
+
+// Document types: camelCase
+blogPost;
+teamMember;
+fixtureResult;
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Sanity Studio  │────▶│   Sanity API    │◀────│   Your Site     │
-│  (Editor UI)    │     │   (Content DB)  │     │  (Astro/11ty)   │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
-     Editors                 Hosted              Build-time fetch
-```
 
-## Project Setup
+### Required Fields Pattern
 
-### Initialize Sanity
+Every document type should include these base fields:
 
-```bash
-# Create new Sanity project
-npm create sanity@latest -- --project-name my-project --dataset production
-
-# Or add to existing project
-npm install sanity @sanity/client
-```
-
-### Project Structure
-
-```
-project/
-├── sanity/                 # Sanity Studio
-│   ├── schemas/            # Content schemas
-│   │   ├── index.js
-│   │   ├── post.js
-│   │   └── author.js
-│   ├── sanity.config.js    # Studio config
-│   └── sanity.cli.js       # CLI config
-├── src/                    # Your site
-│   └── lib/
-│       └── sanity.js       # Client setup
-└── package.json
-```
-
-## Schema Definition
-
-### Basic Document Schema
-
-```javascript
-// sanity/schemas/post.js
-export default {
-  name: 'post',
-  title: 'Blog Post',
+```typescript
+{
+  name: 'blogPost', // or your document type
   type: 'document',
   fields: [
     {
       name: 'title',
-      title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required().max(100),
+      title: 'Title',
+      validation: (Rule) => Rule.required()
     },
     {
       name: 'slug',
-      title: 'Slug',
       type: 'slug',
+      title: 'Slug',
       options: {
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required()
     },
-    {
-      name: 'publishedAt',
-      title: 'Published At',
-      type: 'datetime',
-    },
-    {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{ type: 'author' }],
-    },
-    {
-      name: 'mainImage',
-      title: 'Main Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          title: 'Alt Text',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        },
-      ],
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'array',
-      of: [
-        { type: 'block' },
-        { type: 'image' },
-        { type: 'code' },
-      ],
-    },
-    {
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      of: [{ type: 'string' }],
-      options: {
-        layout: 'tags',
-      },
-    },
-  ],
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare({ title, author, media }) {
-      return {
-        title,
-        subtitle: author ? `by ${author}` : '',
-        media,
-      };
-    },
-  },
-};
+    // _createdAt and _updatedAt are automatic
+    // Additional fields...
+  ]
+}
 ```
 
-### Author Schema
+### SEO Metadata Pattern
 
-```javascript
-// sanity/schemas/author.js
+Reusable SEO object for all content types:
+
+```typescript
+// schemas/objects/seo.ts
 export default {
-  name: 'author',
-  title: 'Author',
-  type: 'document',
+  name: 'seo',
+  title: 'SEO',
+  type: 'object',
   fields: [
     {
-      name: 'name',
-      title: 'Name',
+      name: 'metaTitle',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      title: 'Meta Title',
+      description: 'Title for search engines (50-60 characters)',
+      validation: (Rule) => Rule.max(60)
     },
     {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: { source: 'name' },
-    },
-    {
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-    },
-    {
-      name: 'bio',
-      title: 'Bio',
+      name: 'metaDescription',
       type: 'text',
+      title: 'Meta Description',
+      description: 'Description for search engines (120-160 characters)',
+      validation: (Rule) => Rule.min(120).max(160)
     },
-  ],
+    {
+      name: 'ogImage',
+      type: 'image',
+      title: 'Social Share Image',
+      description: 'Recommended: 1200x630px'
+    },
+  ]
+}
+
+// Use in document schemas:
+{
+  name: 'seo',
+  type: 'seo',
+  title: 'SEO Settings'
+}
+```
+
+## Example Document Schemas
+
+### Blog Post Schema
+
+```typescript
+// schemas/documents/blogPost.ts
+export default {
+	name: 'blogPost',
+	title: 'Blog Post',
+	type: 'document',
+	fields: [
+		{
+			name: 'title',
+			type: 'string',
+			title: 'Title',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'slug',
+			type: 'slug',
+			title: 'Slug',
+			options: {
+				source: 'title',
+				maxLength: 96
+			},
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'publishedAt',
+			type: 'datetime',
+			title: 'Published At',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'excerpt',
+			type: 'text',
+			title: 'Excerpt',
+			description: 'Short summary for cards and previews',
+			rows: 3,
+			validation: (Rule) => Rule.max(200)
+		},
+		{
+			name: 'mainImage',
+			type: 'image',
+			title: 'Main Image',
+			options: {
+				hotspot: true
+			},
+			fields: [
+				{
+					name: 'alt',
+					type: 'string',
+					title: 'Alternative Text',
+					validation: (Rule) => Rule.required()
+				}
+			]
+		},
+		{
+			name: 'categories',
+			type: 'array',
+			title: 'Categories',
+			of: [{ type: 'reference', to: [{ type: 'category' }] }]
+		},
+		{
+			name: 'body',
+			type: 'array',
+			title: 'Body',
+			of: [
+				{ type: 'block' },
+				{
+					type: 'image',
+					options: { hotspot: true },
+					fields: [
+						{
+							name: 'alt',
+							type: 'string',
+							title: 'Alternative Text'
+						}
+					]
+				}
+			]
+		},
+		{
+			name: 'featured',
+			type: 'boolean',
+			title: 'Featured Post',
+			description: 'Display on homepage'
+		},
+		{
+			name: 'seo',
+			type: 'seo',
+			title: 'SEO Settings'
+		}
+	],
+	preview: {
+		select: {
+			title: 'title',
+			media: 'mainImage',
+			subtitle: 'publishedAt'
+		}
+	}
 };
 ```
 
-### Register Schemas
+### Fixture/Match Result Schema
 
-```javascript
-// sanity/schemas/index.js
-import post from './post';
-import author from './author';
-
-export const schemaTypes = [post, author];
+```typescript
+// schemas/documents/fixture.ts
+export default {
+	name: 'fixture',
+	title: 'Fixture',
+	type: 'document',
+	fields: [
+		{
+			name: 'matchDate',
+			type: 'datetime',
+			title: 'Match Date & Time',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'competition',
+			type: 'string',
+			title: 'Competition',
+			options: {
+				list: [
+					{ title: 'NPL Victoria', value: 'npl' },
+					{ title: 'FFA Cup', value: 'ffa-cup' },
+					{ title: 'State League', value: 'state-league' }
+				]
+			}
+		},
+		{
+			name: 'homeTeam',
+			type: 'string',
+			title: 'Home Team',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'awayTeam',
+			type: 'string',
+			title: 'Away Team',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'homeScore',
+			type: 'number',
+			title: 'Home Score',
+			description: 'Leave empty for upcoming matches'
+		},
+		{
+			name: 'awayScore',
+			type: 'number',
+			title: 'Away Score',
+			description: 'Leave empty for upcoming matches'
+		},
+		{
+			name: 'venue',
+			type: 'string',
+			title: 'Venue',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'isHomeGame',
+			type: 'boolean',
+			title: 'Is Home Game',
+			description: 'Is this a Williamstown SC home game?'
+		},
+		{
+			name: 'matchReport',
+			type: 'array',
+			title: 'Match Report',
+			description: 'Detailed match report (optional)',
+			of: [{ type: 'block' }]
+		},
+		{
+			name: 'highlights',
+			type: 'url',
+			title: 'Highlights Video URL',
+			description: 'YouTube or other video platform URL'
+		}
+	],
+	preview: {
+		select: {
+			homeTeam: 'homeTeam',
+			awayTeam: 'awayTeam',
+			homeScore: 'homeScore',
+			awayScore: 'awayScore',
+			date: 'matchDate'
+		},
+		prepare({ homeTeam, awayTeam, homeScore, awayScore, date }) {
+			const score =
+				homeScore !== undefined && awayScore !== undefined ? `${homeScore}-${awayScore}` : 'vs';
+			return {
+				title: `${homeTeam} ${score} ${awayTeam}`,
+				subtitle: new Date(date).toLocaleDateString()
+			};
+		}
+	}
+};
 ```
 
-```javascript
-// sanity/sanity.config.js
-import { defineConfig } from 'sanity';
-import { deskTool } from 'sanity/desk';
-import { schemaTypes } from './schemas';
+### Player Profile Schema
 
-export default defineConfig({
-  name: 'default',
-  title: 'My Project',
-  projectId: 'your-project-id',
-  dataset: 'production',
-  plugins: [deskTool()],
-  schema: {
-    types: schemaTypes,
+```typescript
+// schemas/documents/player.ts
+export default {
+	name: 'player',
+	title: 'Player',
+	type: 'document',
+	fields: [
+		{
+			name: 'name',
+			type: 'string',
+			title: 'Full Name',
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'slug',
+			type: 'slug',
+			title: 'Slug',
+			options: {
+				source: 'name',
+				maxLength: 96
+			}
+		},
+		{
+			name: 'number',
+			type: 'number',
+			title: 'Squad Number',
+			validation: (Rule) => Rule.min(1).max(99)
+		},
+		{
+			name: 'position',
+			type: 'string',
+			title: 'Position',
+			options: {
+				list: [
+					{ title: 'Goalkeeper', value: 'GK' },
+					{ title: 'Defender', value: 'DEF' },
+					{ title: 'Midfielder', value: 'MID' },
+					{ title: 'Forward', value: 'FWD' }
+				]
+			},
+			validation: (Rule) => Rule.required()
+		},
+		{
+			name: 'photo',
+			type: 'image',
+			title: 'Player Photo',
+			options: {
+				hotspot: true
+			},
+			fields: [
+				{
+					name: 'alt',
+					type: 'string',
+					title: 'Alternative Text',
+					validation: (Rule) => Rule.required()
+				}
+			]
+		},
+		{
+			name: 'bio',
+			type: 'text',
+			title: 'Biography',
+			rows: 4
+		},
+		{
+			name: 'stats',
+			type: 'object',
+			title: 'Season Statistics',
+			fields: [
+				{
+					name: 'appearances',
+					type: 'number',
+					title: 'Appearances',
+					initialValue: 0
+				},
+				{
+					name: 'goals',
+					type: 'number',
+					title: 'Goals',
+					initialValue: 0
+				},
+				{
+					name: 'assists',
+					type: 'number',
+					title: 'Assists',
+					initialValue: 0
+				}
+			]
+		}
+	],
+	preview: {
+		select: {
+			title: 'name',
+			number: 'number',
+			position: 'position',
+			media: 'photo'
+		},
+		prepare({ title, number, position, media }) {
+			return {
+				title: `${number ? `#${number} ` : ''}${title}`,
+				subtitle: position,
+				media
+			};
+		}
+	}
+};
+```
+
+## TypeScript Integration
+
+### Generate Types
+
+Add to your `package.json`:
+
+```json
+{
+	"scripts": {
+		"sanity:typegen": "sanity schema extract && sanity typegen generate"
+	}
+}
+```
+
+Run after schema changes:
+
+```bash
+npm run sanity:typegen
+```
+
+### Use Generated Types
+
+```typescript
+// Import generated types
+import type {BlogPost, Fixture, Player} from '@/sanity/types'
+
+// Type-safe data fetching
+const posts: BlogPost[] = await client.fetch(query)
+
+// Type-safe component props
+interface NewsCardProps {
+  post: BlogPost
+}
+
+const NewsCard = ({post}: NewsCardProps) => {
+  return (
+    <article>
+      <h2>{post.title}</h2>
+      <p>{post.excerpt}</p>
+    </article>
+  )
+}
+```
+
+### Type-safe GROQ Queries
+
+```typescript
+import { groq } from 'next-sanity';
+import type { BlogPost } from '@/sanity/types';
+
+const query = groq`
+  *[_type == "blogPost"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    "mainImage": mainImage.asset->url,
+    "categories": categories[]->title
+  }
+`;
+
+const posts = await client.fetch<BlogPost[]>(query);
+```
+
+## GROQ Query Patterns
+
+### Common Queries
+
+#### Latest Blog Posts
+
+```groq
+*[_type == "blogPost"] | order(publishedAt desc)[0...10] {
+  _id,
+  title,
+  slug,
+  excerpt,
+  publishedAt,
+  "image": mainImage.asset->url,
+  "imageAlt": mainImage.alt,
+  "categories": categories[]->title,
+  featured
+}
+```
+
+#### Upcoming Fixtures
+
+```groq
+*[_type == "fixture" && matchDate > now()] | order(matchDate asc) {
+  _id,
+  matchDate,
+  homeTeam,
+  awayTeam,
+  venue,
+  competition,
+  isHomeGame
+}
+```
+
+#### Past Results
+
+```groq
+*[_type == "fixture" && matchDate < now() && defined(homeScore)] | order(matchDate desc)[0...10] {
+  _id,
+  matchDate,
+  homeTeam,
+  awayTeam,
+  homeScore,
+  awayScore,
+  venue,
+  isHomeGame
+}
+```
+
+#### Team Roster by Position
+
+```groq
+*[_type == "player"] | order(position asc, number asc) {
+  _id,
+  name,
+  number,
+  position,
+  "photo": photo.asset->url,
+  "photoAlt": photo.alt,
+  stats
+}
+```
+
+#### Single Post with Full Content
+
+```groq
+*[_type == "blogPost" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  publishedAt,
+  excerpt,
+  body,
+  "mainImage": mainImage.asset->url,
+  "mainImageAlt": mainImage.alt,
+  "categories": categories[]->{
+    _id,
+    title,
+    slug
   },
-});
+  seo
+}
 ```
 
-## Client Setup
+### Reference Expansion
 
-### Sanity Client
+```groq
+// Single reference with ->
+"author": author->name,
+"category": category->title,
 
-```javascript
-// src/lib/sanity.js
-import { createClient } from '@sanity/client';
+// Array of references with []->
+"tags": tags[]->title,
+"players": players[]-> {
+  name,
+  number,
+  position
+},
 
-export const client = createClient({
-  projectId: 'your-project-id',
-  dataset: 'production',
-  apiVersion: '2024-01-01',
-  useCdn: true, // Use CDN for production
-});
-
-// For preview/draft content
-export const previewClient = createClient({
-  projectId: 'your-project-id',
-  dataset: 'production',
-  apiVersion: '2024-01-01',
-  useCdn: false,
-  token: process.env.SANITY_TOKEN, // Read token for drafts
-});
+// Nested references
+"author": author-> {
+  name,
+  "image": image.asset->url
+}
 ```
 
-### Environment Variables
+### Filtering & Sorting
 
-```bash
-# .env
-SANITY_PROJECT_ID=your-project-id
-SANITY_DATASET=production
-SANITY_TOKEN=your-read-token  # For previews only
+```groq
+// Filter by multiple conditions
+*[_type == "blogPost" && featured == true && publishedAt < now()]
+
+// Filter with references
+*[_type == "blogPost" && references(*[_type == "category" && title == "News"]._id)]
+
+// Date filtering
+*[_type == "fixture" && matchDate >= $startDate && matchDate <= $endDate]
+
+// Sorting
+| order(publishedAt desc)
+| order(matchDate asc)
+| order(position asc, number asc) // Multiple fields
 ```
 
-## GROQ Queries
+### Pagination
 
-### Basic Queries
+```groq
+// First 10 results
+*[_type == "blogPost"] | order(publishedAt desc)[0...10]
 
-```javascript
-// Fetch all published posts
-const posts = await client.fetch(`
-  *[_type == "post" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
-    _id,
-    title,
-    "slug": slug.current,
-    publishedAt,
-    "author": author->name,
-    "mainImage": mainImage.asset->url
-  }
-`);
+// Next 10 results (11-20)
+*[_type == "blogPost"] | order(publishedAt desc)[10...20]
 
-// Fetch single post by slug
-const post = await client.fetch(`
-  *[_type == "post" && slug.current == $slug][0] {
-    _id,
-    title,
-    body,
-    publishedAt,
-    "author": author->{name, image, bio},
-    mainImage {
-      asset->{url, metadata},
-      alt
+// Using variables
+*[_type == "blogPost"] | order(publishedAt desc)[$start...$end]
+```
+
+## Image Optimization
+
+### Image Schema with Validation
+
+```typescript
+{
+  name: 'mainImage',
+  type: 'image',
+  title: 'Main Image',
+  options: {
+    hotspot: true, // Enable focal point selection
+  },
+  fields: [
+    {
+      name: 'alt',
+      type: 'string',
+      title: 'Alternative Text',
+      description: 'Describe the image for accessibility',
+      validation: (Rule) => Rule.required().error('Alt text is required for accessibility')
+    },
+    {
+      name: 'caption',
+      type: 'string',
+      title: 'Caption',
+      description: 'Optional caption to display below image'
     }
-  }
-`, { slug: 'my-post-slug' });
-```
-
-### Common Query Patterns
-
-```javascript
-// Pagination
-const page = 1;
-const perPage = 10;
-const posts = await client.fetch(`
-  *[_type == "post"] | order(publishedAt desc) [$start...$end] {
-    title,
-    "slug": slug.current
-  }
-`, {
-  start: (page - 1) * perPage,
-  end: page * perPage,
-});
-
-// Filter by reference
-const authorPosts = await client.fetch(`
-  *[_type == "post" && author._ref == $authorId] {
-    title,
-    "slug": slug.current
-  }
-`, { authorId: 'author-id-here' });
-
-// Search
-const results = await client.fetch(`
-  *[_type == "post" && title match $query] {
-    title,
-    "slug": slug.current
-  }
-`, { query: '*search*' });
-
-// Count
-const count = await client.fetch(`count(*[_type == "post"])`);
-```
-
-## Astro Integration
-
-### Setup
-
-```bash
-npm install @sanity/astro @sanity/image-url
-```
-
-```javascript
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import sanity from '@sanity/astro';
-
-export default defineConfig({
-  integrations: [
-    sanity({
-      projectId: 'your-project-id',
-      dataset: 'production',
-      useCdn: true,
-    }),
   ],
-});
-```
-
-### Fetching in Astro
-
-```astro
----
-// src/pages/blog/index.astro
-import { sanityClient } from 'sanity:client';
-
-const posts = await sanityClient.fetch(`
-  *[_type == "post"] | order(publishedAt desc) {
-    _id,
-    title,
-    "slug": slug.current,
-    publishedAt
-  }
-`);
----
-
-<ul>
-  {posts.map((post) => (
-    <li>
-      <a href={`/blog/${post.slug}`}>{post.title}</a>
-    </li>
-  ))}
-</ul>
-```
-
-### Dynamic Routes
-
-```astro
----
-// src/pages/blog/[slug].astro
-import { sanityClient } from 'sanity:client';
-
-export async function getStaticPaths() {
-  const posts = await sanityClient.fetch(`
-    *[_type == "post"] { "slug": slug.current }
-  `);
-
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
-}
-
-const { slug } = Astro.params;
-
-const post = await sanityClient.fetch(`
-  *[_type == "post" && slug.current == $slug][0] {
-    title,
-    body,
-    publishedAt
-  }
-`, { slug });
----
-
-<article>
-  <h1>{post.title}</h1>
-  <!-- Render body -->
-</article>
-```
-
-## 11ty Integration
-
-### Data File
-
-```javascript
-// src/_data/posts.js
-import { createClient } from '@sanity/client';
-
-const client = createClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset: 'production',
-  apiVersion: '2024-01-01',
-  useCdn: true,
-});
-
-export default async function() {
-  return client.fetch(`
-    *[_type == "post"] | order(publishedAt desc) {
-      _id,
-      title,
-      "slug": slug.current,
-      publishedAt,
-      body
-    }
-  `);
+  validation: (Rule) => Rule.required()
 }
 ```
-
-### Template
-
-```nunjucks
-{# src/blog.njk #}
----
-pagination:
-  data: posts
-  size: 1
-  alias: post
-permalink: /blog/{{ post.slug }}/
----
-
-<article>
-  <h1>{{ post.title }}</h1>
-  <time>{{ post.publishedAt | dateFormat }}</time>
-  <!-- Render body -->
-</article>
-```
-
-## Image Handling
 
 ### Image URL Builder
 
-```javascript
-// src/lib/image.js
+```typescript
+// lib/sanity/image.ts
 import imageUrlBuilder from '@sanity/image-url';
-import { client } from './sanity.js';
+
+// Usage:
+import { urlFor } from '@/lib/sanity/image';
+
+import { client } from './client';
 
 const builder = imageUrlBuilder(client);
 
-export function urlFor(source) {
-  return builder.image(source);
+export function urlFor(source: any) {
+	return builder.image(source);
+}
+
+const imageUrl = urlFor(post.mainImage).width(800).height(600).fit('crop').url();
+```
+
+### Next.js Image Integration
+
+```tsx
+import Image from 'next/image';
+import { urlFor } from '@/lib/sanity/image';
+
+<Image
+	src={urlFor(post.mainImage).width(800).height(600).url()}
+	alt={post.mainImage.alt}
+	width={800}
+	height={600}
+	className="rounded-lg"
+/>;
+```
+
+### Responsive Images
+
+```typescript
+// Generate srcset for responsive images
+function getImageSrcSet(image: any, widths: number[] = [400, 800, 1200]) {
+  return widths.map(width =>
+    `${urlFor(image).width(width).url()} ${width}w`
+  ).join(', ')
+}
+
+// Usage in component:
+<img
+  src={urlFor(image).width(800).url()}
+  srcSet={getImageSrcSet(image)}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+  alt={image.alt}
+/>
+```
+
+## Portable Text (Rich Text)
+
+### Schema Configuration
+
+```typescript
+{
+  name: 'body',
+  title: 'Body',
+  type: 'array',
+  of: [
+    {
+      type: 'block',
+      marks: {
+        decorators: [
+          {title: 'Strong', value: 'strong'},
+          {title: 'Emphasis', value: 'em'},
+          {title: 'Underline', value: 'underline'},
+        ],
+        annotations: [
+          {
+            name: 'link',
+            type: 'object',
+            title: 'Link',
+            fields: [
+              {
+                name: 'href',
+                type: 'url',
+                title: 'URL',
+                validation: (Rule) => Rule.required()
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      type: 'image',
+      options: {hotspot: true},
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+          validation: (Rule) => Rule.required()
+        },
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption'
+        }
+      ]
+    }
+  ]
 }
 ```
 
-### Usage
+### Rendering Portable Text
 
-```javascript
-import { urlFor } from '../lib/image.js';
-
-// Get URL with transformations
-const imageUrl = urlFor(post.mainImage)
-  .width(800)
-  .height(600)
-  .format('webp')
-  .url();
-
-// Responsive images
-const srcset = [400, 800, 1200]
-  .map((w) => `${urlFor(post.mainImage).width(w).url()} ${w}w`)
-  .join(', ');
-```
-
-## Portable Text (Rich Content)
-
-### Rendering in Astro
-
-```astro
----
-import { PortableText } from '@portabletext/react';
+```tsx
+import {PortableText} from '@portabletext/react'
+import Image from 'next/image'
+import {urlFor} from '@/lib/sanity/image'
 
 const components = {
-  types: {
-    image: ({ value }) => (
-      <img src={urlFor(value).width(800).url()} alt={value.alt} />
+  block: {
+    h1: ({children}) => (
+      <h1 className="text-4xl font-bold mb-4">{children}</h1>
     ),
-    code: ({ value }) => (
-      <pre><code class={`language-${value.language}`}>{value.code}</code></pre>
+    h2: ({children}) => (
+      <h2 className="text-3xl font-bold mb-3">{children}</h2>
+    ),
+    h3: ({children}) => (
+      <h3 className="text-2xl font-bold mb-2">{children}</h3>
+    ),
+    normal: ({children}) => (
+      <p className="mb-4 leading-relaxed">{children}</p>
     ),
   },
   marks: {
-    link: ({ children, value }) => (
-      <a href={value.href} target="_blank" rel="noopener">{children}</a>
+    link: ({children, value}) => (
+      <a
+        href={value.href}
+        className="text-primary underline hover:text-primary-focus"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
     ),
   },
-};
----
+  types: {
+    image: ({value}) => (
+      <figure className="my-8">
+        <Image
+          src={urlFor(value).width(1200).url()}
+          alt={value.alt || 'Blog post image'}
+          width={1200}
+          height={800}
+          className="rounded-lg"
+        />
+        {value.caption && (
+          <figcaption className="text-sm text-center mt-2 text-base-content/70">
+            {value.caption}
+          </figcaption>
+        )}
+      </figure>
+    ),
+  },
+}
 
+// Usage:
 <PortableText value={post.body} components={components} />
 ```
 
-## Preview Mode
+## Preview & Draft Mode
 
-### Astro Preview
+### Enable Draft Mode in Next.js
 
-```javascript
-// src/pages/api/preview.js
-export async function GET({ request, cookies }) {
-  const url = new URL(request.url);
-  const secret = url.searchParams.get('secret');
-  const slug = url.searchParams.get('slug');
+```typescript
+// app/api/draft/route.ts
+import { draftMode } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-  if (secret !== process.env.PREVIEW_SECRET) {
-    return new Response('Invalid secret', { status: 401 });
-  }
+export async function GET(request: Request) {
+	const { searchParams } = new URL(request.url);
+	const secret = searchParams.get('secret');
+	const slug = searchParams.get('slug');
 
-  cookies.set('preview', 'true', { path: '/' });
+	// Verify secret token
+	if (secret !== process.env.SANITY_PREVIEW_SECRET) {
+		return new Response('Invalid token', { status: 401 });
+	}
 
-  return Response.redirect(`/blog/${slug}`);
+	// Enable draft mode
+	draftMode().enable();
+
+	// Redirect to the path
+	redirect(slug || '/');
 }
 ```
 
-## Deployment
+### Disable Draft Mode
 
-### Studio Hosting
+```typescript
+// app/api/exit-draft/route.ts
+import { draftMode } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-```bash
-# Deploy Sanity Studio
-cd sanity
-npx sanity deploy
+export async function GET() {
+	draftMode().disable();
+	redirect('/');
+}
 ```
 
-### API Configuration
+### Fetch with Draft Content
 
-1. Go to sanity.io/manage
-2. Add CORS origins for your site
-3. Create API token for previews (read-only)
+```typescript
+import { draftMode } from 'next/headers';
+import { client } from '@/lib/sanity/client';
 
-## Checklist
+export async function getPosts() {
+	const preview = draftMode().isEnabled;
 
-When integrating Sanity:
+	const posts = await client.fetch(
+		query,
+		{},
+		{
+			perspective: preview ? 'previewDrafts' : 'published',
+			// Disable caching in preview mode
+			cache: preview ? 'no-store' : 'force-cache',
+			next: {
+				revalidate: preview ? 0 : 3600
+			}
+		}
+	);
 
-- [ ] Schemas define all content types
-- [ ] Validation rules on required fields
-- [ ] Client uses CDN in production
-- [ ] Environment variables configured
-- [ ] CORS origins set in Sanity dashboard
-- [ ] Images use URL builder
-- [ ] Portable Text has custom components
-- [ ] Preview mode works (if needed)
+	return posts;
+}
+```
 
-## Related Skills
+## Schema Organization
 
-- **astro** - Astro integration patterns
-- **eleventy** - 11ty data file patterns
-- **env-config** - Environment variables
-- **deployment** - Deploying with Sanity
+### Recommended Directory Structure
+
+```
+sanity/
+├── schemas/
+│   ├── documents/          # Top-level content types
+│   │   ├── blogPost.ts
+│   │   ├── event.ts
+│   │   ├── fixture.ts
+│   │   ├── page.ts
+│   │   ├── player.ts
+│   │   └── sponsor.ts
+│   ├── objects/            # Reusable objects
+│   │   ├── seo.ts
+│   │   ├── socialLinks.ts
+│   │   └── stats.ts
+│   └── index.ts            # Export all schemas
+├── lib/
+│   ├── client.ts           # Sanity client config
+│   └── image.ts            # Image URL builder
+├── env.ts                  # Environment variables
+└── types.ts                # Generated TypeScript types
+```
+
+### Schema Index File
+
+```typescript
+// schemas/index.ts
+import blogPost from './documents/blogPost';
+import event from './documents/event';
+import fixture from './documents/fixture';
+import player from './documents/player';
+import seo from './objects/seo';
+
+export const schemaTypes = [
+	// Documents
+	blogPost,
+	event,
+	fixture,
+	player,
+	// Objects
+	seo
+];
+```
+
+## Validation Patterns
+
+### Common Validations
+
+```typescript
+// Required field
+validation: (Rule) => Rule.required();
+
+// String length
+validation: (Rule) => Rule.min(50).max(160);
+
+// Number range
+validation: (Rule) => Rule.min(0).max(100);
+
+// URL validation
+validation: (Rule) =>
+	Rule.uri({
+		scheme: ['http', 'https']
+	});
+
+// Custom validation
+validation: (Rule) =>
+	Rule.custom((value) => {
+		if (!value) {
+			return 'This field is required';
+		}
+		if (value.length < 10) {
+			return 'Must be at least 10 characters';
+		}
+		return true;
+	});
+
+// Conditional validation
+validation: (Rule) =>
+	Rule.custom((value, context) => {
+		if (context.document.featured && !value) {
+			return 'Featured posts must have an excerpt';
+		}
+		return true;
+	});
+```
+
+## Content Relationships
+
+### References
+
+```typescript
+// Single reference
+{
+  name: 'author',
+  title: 'Author',
+  type: 'reference',
+  to: [{type: 'person'}],
+  validation: (Rule) => Rule.required()
+}
+
+// Multiple references
+{
+  name: 'categories',
+  title: 'Categories',
+  type: 'array',
+  of: [{type: 'reference', to: [{type: 'category'}]}]
+}
+
+// Reference with preview
+{
+  name: 'relatedPosts',
+  title: 'Related Posts',
+  type: 'array',
+  of: [
+    {
+      type: 'reference',
+      to: [{type: 'blogPost'}],
+      options: {
+        filter: '_id != $id',
+        filterParams: {id: '_id'}
+      }
+    }
+  ]
+}
+```
+
+### Querying References
+
+```groq
+// Expand single reference
+"author": author-> {
+  name,
+  "image": image.asset->url
+}
+
+// Expand array of references
+"categories": categories[]-> {
+  _id,
+  title,
+  slug
+}
+
+// Filter by reference
+*[_type == "blogPost" && references(*[_type == "category" && slug.current == $categorySlug]._id)]
+```
+
+## Performance Optimization
+
+### Client Configuration
+
+```typescript
+// lib/sanity/client.ts
+import { createClient } from 'next-sanity';
+
+export const client = createClient({
+	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+	apiVersion: '2024-01-01',
+	useCdn: process.env.NODE_ENV === 'production',
+	perspective: 'published'
+});
+```
+
+### Next.js Caching
+
+```typescript
+// On-demand revalidation
+import { revalidateTag } from 'next/cache';
+
+// Fetch with caching
+const posts = await client.fetch(
+	query,
+	{},
+	{
+		cache: 'force-cache',
+		next: {
+			revalidate: 3600, // Revalidate every hour
+			tags: ['posts'] // Tag for on-demand revalidation
+		}
+	}
+);
+
+export async function POST(request: Request) {
+	revalidateTag('posts');
+	return Response.json({ revalidated: true });
+}
+```
+
+### GROQ Query Optimization
+
+```groq
+// Use select() to limit fields
+*[_type == "blogPost"]{
+  _id,
+  title,
+  slug,
+  publishedAt
+}
+
+// Avoid fetching large fields unless needed
+*[_type == "blogPost"]{
+  ..., // All fields
+  body  // Exclude this for list views
+}
+
+// Use pagination
+*[_type == "blogPost"] | order(publishedAt desc)[0...10]
+
+// Limit reference depth
+"author": author->{name} // Only fetch name, not entire document
+```
+
+## Webhooks & Real-time Updates
+
+### Sanity Webhook Setup
+
+Configure webhooks in Sanity dashboard:
+
+1. Go to API → Webhooks
+2. Add webhook URL: `https://yoursite.com/api/revalidate`
+3. Select dataset and events (create, update, delete)
+
+### Next.js Revalidation Endpoint
+
+```typescript
+// app/api/revalidate/route.ts
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(request: NextRequest) {
+	const body = await request.json();
+	const secret = request.headers.get('x-sanity-webhook-secret');
+
+	// Verify webhook secret
+	if (secret !== process.env.SANITY_WEBHOOK_SECRET) {
+		return NextResponse.json({ message: 'Invalid secret' }, { status: 401 });
+	}
+
+	// Revalidate based on document type
+	const { _type } = body;
+
+	if (_type === 'blogPost') {
+		revalidateTag('posts');
+		revalidatePath('/news');
+	}
+
+	if (_type === 'fixture') {
+		revalidateTag('fixtures');
+		revalidatePath('/fixtures');
+	}
+
+	return NextResponse.json({ revalidated: true });
+}
+```
+
+## Best Practices
+
+### Content Modeling
+
+1. **Keep schemas focused** - One document type per concern
+2. **Use objects for reusability** - SEO, social links, etc.
+3. **Add descriptions** - Help content editors understand fields
+4. **Set sensible defaults** - Use `initialValue` for common values
+5. **Validate thoroughly** - Prevent bad data at input time
+
+### TypeScript
+
+1. **Generate types after schema changes** - Keep types in sync
+2. **Use type guards** - Verify data structure at runtime
+3. **Type query results** - Add type annotations to fetch calls
+
+### Performance
+
+1. **Use CDN for images** - Sanity automatically serves via CDN
+2. **Implement ISR** - Use Next.js revalidation for fresh content
+3. **Limit query fields** - Only fetch what you need
+4. **Paginate large datasets** - Don't fetch everything at once
+
+### Security
+
+1. **Never expose tokens** - Use environment variables
+2. **Validate webhook secrets** - Verify incoming requests
+3. **Sanitize user input** - Even from CMS (Portable Text is safe by default)
+
+## Common Pitfalls
+
+❌ **Don't:**
+
+- Fetch entire documents when you only need a few fields
+- Store computed values that can be calculated
+- Create deeply nested schemas (max 3-4 levels)
+- Use references when a simple string field would work
+- Skip alt text on images
+
+✅ **Do:**
+
+- Use GROQ projections to limit fields
+- Calculate derived values in queries or components
+- Keep schemas flat when possible
+- Reference only when you need to share/update content
+- Always require alt text for accessibility
+
+## Quick Reference
+
+### GROQ Syntax
+
+```groq
+*[filter] | order(field direction)[range] {projection}
+
+// Examples:
+*[_type == "blogPost"]                    // All blog posts
+*[_type == "blogPost" && featured]         // Filtered
+| order(publishedAt desc)                  // Sorted
+[0...10]                                   // Paginated
+{title, slug, "image": mainImage.asset->url}  // Projected
+```
+
+### Common Field Types
+
+```
+string, text, number, boolean, datetime, date
+slug, url, email
+image, file
+array, object
+reference
+block (Portable Text)
+```
+
+### Validation Methods
+
+```
+required(), min(), max(), length(), regex(), email(), url(), custom()
+```

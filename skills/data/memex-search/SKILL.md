@@ -1,9 +1,12 @@
 ---
 name: memex-search
-description: Search, filter, and retrieve Claude/Codex history indexed by the memex CLI. Use when the user wants to index history, run lexical/semantic/hybrid search, fetch full transcripts, or produce LLM-friendly JSON output for RAG.
-allowed-tools: Bash(memex:*)
+description: >-
+  Search, filter, and retrieve Claude/Codex history indexed by the memex CLI.
+  Use when the user wants to index history, run lexical/semantic/hybrid search,
+  fetch full transcripts, or produce LLM-friendly JSON output for RAG.
+allowed-tools:
+  - 'Bash(memex:*)'
 ---
-
 # Memex Search
 
 Use this skill to index local history and retrieve results in a structured, LLM-friendly way.

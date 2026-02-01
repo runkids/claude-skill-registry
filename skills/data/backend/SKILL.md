@@ -1,370 +1,770 @@
 ---
-name: Backend Development
-description: พัฒนา Backend ด้วย Spring Boot, Node.js, Python อย่างมืออาชีพ
+name: backend-agent
+description: Handles backend/API/database work for Unite-Hub. Implements Next.js API routes, Supabase database operations, RLS policies, authentication, and third-party integrations (Gmail, Stripe).
 ---
 
-# Backend Development Skill
+# Backend Agent Skill
 
 ## Overview
 
-Skill สำหรับพัฒนา Backend applications ครอบคลุม 3 tech stacks หลัก พร้อม best practices
+The Backend Agent is responsible for all server-side work in Unite-Hub:
+1. **Next.js API route development** (serverless functions)
+2. **Supabase database operations** (queries, mutations, RLS)
+3. **Authentication and authorization** (NextAuth.js, Supabase Auth)
+4. **Third-party integrations** (Gmail API, Stripe, Claude AI)
+5. **Database schema management** (migrations, indexes)
+6. **API security and performance** (rate limiting, caching)
 
----
+## How to Use This Agent
 
-## Spring Boot (Java/Kotlin)
+### Trigger
 
-### Project Structure
+User says: "Create new API endpoint", "Fix database query", "Update RLS policies", "Implement Gmail integration"
 
-```
-src/main/java/com/example/myapp/
-├── config/              # Configuration classes
-│   ├── SecurityConfig.java
-│   └── WebConfig.java
-├── controller/          # REST Controllers
-│   └── UserController.java
-├── service/             # Business logic
-│   ├── UserService.java
-│   └── impl/
-│       └── UserServiceImpl.java
-├── repository/          # Data access
-│   └── UserRepository.java
-├── model/               # JPA Entities
-│   └── User.java
-├── dto/                 # Data Transfer Objects
-│   ├── request/
-│   └── response/
-├── exception/           # Custom exceptions
-│   └── GlobalExceptionHandler.java
-└── MyApplication.java
-```
+### What the Agent Does
 
-### Best Practices
+#### 1. Understand the Request
 
-#### Controller
+**Questions to Ask**:
+- What's the API endpoint purpose?
+- What database tables are involved?
+- What's the expected input/output format?
+- What authentication is required?
+- What's the priority (P0/P1/P2)?
 
-```java
-@RestController
-@RequestMapping("/api/users")
-@RequiredArgsConstructor
-public class UserController {
+#### 2. Analyze Current Implementation
 
-    private final UserService userService;
+**Step A: Locate Files**
+```bash
+# Find API routes
+find src/app/api -name "route.ts" | grep -i "contacts"
 
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> getUsers() {
-        return ResponseEntity.ok(userService.findAll());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.findById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<UserResponse> createUser(
-            @Valid @RequestBody CreateUserRequest request) {
-        return ResponseEntity
-            .status(HttpStatus.CREATED)
-            .body(userService.create(request));
-    }
-}
+# Find database utilities
+find src/lib -name "*.ts" | grep -i "db"
 ```
 
-#### Service
-
-```java
-@Service
-@RequiredArgsConstructor
-@Transactional(readOnly = true)
-public class UserServiceImpl implements UserService {
-
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-
-    @Override
-    public UserResponse findById(Long id) {
-        return userRepository.findById(id)
-            .map(userMapper::toResponse)
-            .orElseThrow(() -> new ResourceNotFoundException("User", id));
-    }
-
-    @Override
-    @Transactional
-    public UserResponse create(CreateUserRequest request) {
-        User user = userMapper.toEntity(request);
-        return userMapper.toResponse(userRepository.save(user));
-    }
-}
+**Step B: Read Current Code**
+```typescript
+// Use text_editor tool
+text_editor.view("src/app/api/contacts/route.ts")
+text_editor.view("src/lib/db.ts")
 ```
 
-#### Exception Handling
+**Step C: Identify Dependencies**
+- What database tables are queried?
+- What authentication is required?
+- What external APIs are called?
+- What error handling exists?
 
-```java
-@RestControllerAdvice
-public class GlobalExceptionHandler {
+#### 3. Implement Changes
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException ex) {
-        return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(new ErrorResponse(ex.getMessage()));
-    }
+**Step A: Create API Route**
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult()
-            .getFieldErrors()
-            .stream()
-            .map(e -> e.getField() + ": " + e.getDefaultMessage())
-            .toList();
-        return ResponseEntity
-            .badRequest()
-            .body(new ErrorResponse("Validation failed", errors));
-    }
-}
-```
-
----
-
-## Node.js (Express/NestJS)
-
-### Express + TypeScript Structure
-
-```
-src/
-├── config/
-│   └── index.ts
-├── controllers/
-│   └── user.controller.ts
-├── services/
-│   └── user.service.ts
-├── repositories/
-│   └── user.repository.ts
-├── models/
-│   └── user.model.ts
-├── middlewares/
-│   ├── auth.middleware.ts
-│   └── error.middleware.ts
-├── routes/
-│   ├── user.routes.ts
-│   └── index.ts
-├── utils/
-│   └── errors.ts
-└── index.ts
-```
-
-### Best Practices
-
-#### Controller
+All API routes in Unite-Hub follow this pattern:
 
 ```typescript
-// user.controller.ts
-export class UserController {
-  constructor(private userService: UserService) {}
+// src/app/api/example/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase";
 
-  getUsers = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const users = await this.userService.findAll();
-      res.json(users);
-    } catch (error) {
-      next(error);
+export async function POST(request: NextRequest) {
+  try {
+    // 1. Parse request body
+    const body = await request.json();
+    const { workspaceId, action, ...params } = body;
+
+    // 2. Validate input
+    if (!workspaceId) {
+      return NextResponse.json(
+        { error: "workspaceId is required" },
+        { status: 400 }
+      );
     }
-  };
 
-  createUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const user = await this.userService.create(req.body);
-      res.status(201).json(user);
-    } catch (error) {
-      next(error);
+    // 3. Get Supabase client
+    const supabase = createClient();
+
+    // 4. Check authentication (if needed)
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
     }
-  };
-}
-```
 
-#### Error Middleware
+    // 5. Perform database operation
+    const { data, error } = await supabase
+      .from("contacts")
+      .select("*")
+      .eq("workspace_id", workspaceId)  // CRITICAL: Workspace filter
+      .eq("organization_id", user.organization_id);  // CRITICAL: Org filter
 
-```typescript
-// error.middleware.ts
-export function errorHandler(
-  error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
-  if (error instanceof AppError) {
-    return res.status(error.statusCode).json({
-      message: error.message,
-      errors: error.errors,
+    if (error) {
+      console.error("Database error:", error);
+      return NextResponse.json(
+        { error: "Database query failed" },
+        { status: 500 }
+      );
+    }
+
+    // 6. Return success response
+    return NextResponse.json({
+      success: true,
+      data,
+      count: data.length
     });
-  }
 
-  console.error(error);
-  res.status(500).json({ message: "Internal server error" });
-}
-```
-
-### NestJS Structure
-
-```
-src/
-├── modules/
-│   ├── users/
-│   │   ├── users.controller.ts
-│   │   ├── users.service.ts
-│   │   ├── users.module.ts
-│   │   ├── dto/
-│   │   └── entities/
-│   └── auth/
-├── common/
-│   ├── filters/
-│   ├── guards/
-│   └── interceptors/
-└── main.ts
-```
-
----
-
-## Python (FastAPI/Django)
-
-### FastAPI Structure
-
-```
-app/
-├── api/
-│   ├── v1/
-│   │   ├── endpoints/
-│   │   │   └── users.py
-│   │   └── router.py
-│   └── deps.py          # Dependencies
-├── core/
-│   ├── config.py
-│   └── security.py
-├── models/
-│   └── user.py
-├── schemas/
-│   └── user.py
-├── services/
-│   └── user.py
-├── db/
-│   ├── base.py
-│   └── session.py
-└── main.py
-```
-
-### Best Practices
-
-#### Router
-
-```python
-# api/v1/endpoints/users.py
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-
-router = APIRouter()
-
-@router.get("/", response_model=list[UserResponse])
-async def get_users(
-    skip: int = 0,
-    limit: int = 100,
-    db: Session = Depends(get_db)
-):
-    return user_service.get_users(db, skip=skip, limit=limit)
-
-@router.get("/{user_id}", response_model=UserResponse)
-async def get_user(
-    user_id: int,
-    db: Session = Depends(get_db)
-):
-    user = user_service.get_user(db, user_id)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
-    return user
-
-@router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def create_user(
-    user_in: UserCreate,
-    db: Session = Depends(get_db)
-):
-    return user_service.create_user(db, user_in)
-```
-
-#### Schema (Pydantic)
-
-```python
-# schemas/user.py
-from pydantic import BaseModel, EmailStr
-
-class UserBase(BaseModel):
-    email: EmailStr
-    name: str
-
-class UserCreate(UserBase):
-    password: str
-
-class UserResponse(UserBase):
-    id: int
-
-    class Config:
-        from_attributes = True
-```
-
----
-
-## API Design Best Practices
-
-### RESTful Conventions
-
-| Action | HTTP Method | Endpoint       | Status Code |
-| ------ | ----------- | -------------- | ----------- |
-| List   | GET         | /api/users     | 200         |
-| Get    | GET         | /api/users/:id | 200         |
-| Create | POST        | /api/users     | 201         |
-| Update | PUT         | /api/users/:id | 200         |
-| Patch  | PATCH       | /api/users/:id | 200         |
-| Delete | DELETE      | /api/users/:id | 204         |
-
-### Response Format
-
-```json
-// Success
-{
-  "data": { ... },
-  "meta": {
-    "page": 1,
-    "limit": 10,
-    "total": 100
+  } catch (error) {
+    console.error("API error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
-// Error
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Validation failed",
-    "details": [
-      { "field": "email", "message": "Invalid email format" }
-    ]
+// Support OPTIONS for CORS
+export async function OPTIONS(request: NextRequest) {
+  return NextResponse.json({}, { status: 200 });
+}
+```
+
+**Step B: Database Operations**
+
+All database operations MUST use workspace filtering:
+
+```typescript
+// ❌ BAD - No workspace filter
+const { data } = await supabase
+  .from("contacts")
+  .select("*");
+
+// ✅ GOOD - Workspace filtered
+const { data } = await supabase
+  .from("contacts")
+  .select("*")
+  .eq("workspace_id", workspaceId)
+  .eq("organization_id", orgId);
+```
+
+**Required filters for data isolation**:
+- `.eq("workspace_id", workspaceId)` - Workspace scope
+- `.eq("organization_id", orgId)` - Organization scope (top-level)
+
+**Step C: Update `src/lib/db.ts` Wrapper**
+
+The `db.ts` wrapper provides consistent database access:
+
+```typescript
+// src/lib/db.ts
+import { createClient } from "@/lib/supabase";
+
+export const db = {
+  contacts: {
+    async listByWorkspace(workspaceId: string) {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("contacts")
+        .select("*")
+        .eq("workspace_id", workspaceId)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    },
+
+    async getById(contactId: string, workspaceId: string) {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("contacts")
+        .select("*")
+        .eq("id", contactId)
+        .eq("workspace_id", workspaceId)
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+
+    async create(contact: ContactInput, workspaceId: string) {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("contacts")
+        .insert([{ ...contact, workspace_id: workspaceId }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+
+    async update(contactId: string, updates: Partial<ContactInput>, workspaceId: string) {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("contacts")
+        .update(updates)
+        .eq("id", contactId)
+        .eq("workspace_id", workspaceId)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    }
+  },
+
+  // Similar patterns for campaigns, emails, etc.
+};
+```
+
+**CRITICAL FIX for V1**: Add missing import in `src/lib/db.ts:58`
+
+```typescript
+// Line 1 - Add import
+import { createClient, getSupabaseServer } from "./supabase";
+
+// Line 58 - Fix usage
+const supabaseServer = getSupabaseServer();
+const { data: workspace, error } = await supabaseServer
+  .from("workspaces")
+  .select("*")
+  .eq("id", workspaceId)
+  .single();
+```
+
+#### 4. Implement Authentication
+
+**Pattern 1: Client-Side Auth (Browser)**
+
+```typescript
+import { createClient } from "@/lib/supabase";
+
+export async function GET(request: NextRequest) {
+  const supabase = createClient();
+
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // User is authenticated, proceed
+}
+```
+
+**Pattern 2: Server-Side Auth (API Routes)**
+
+```typescript
+import { getSupabaseServer } from "@/lib/supabase";
+
+export async function POST(request: NextRequest) {
+  const supabase = getSupabaseServer();
+
+  const { data: { session }, error } = await supabase.auth.getSession();
+
+  if (error || !session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Session is valid, proceed
+}
+```
+
+**CRITICAL for V1**: Re-enable authentication on all API routes
+
+Many routes currently have:
+```typescript
+// TODO: Re-enable authentication in production
+// const { auth } = await import("@/lib/auth");
+// const session = await auth();
+```
+
+**Action Required**: Remove TODO comments and re-enable auth checks.
+
+#### 5. Row Level Security (RLS) Policies
+
+All Supabase tables MUST have RLS policies:
+
+```sql
+-- Enable RLS on table
+ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Users can only see contacts in their workspace
+CREATE POLICY "Users can view workspace contacts"
+ON contacts
+FOR SELECT
+USING (
+  workspace_id IN (
+    SELECT w.id
+    FROM workspaces w
+    JOIN user_organizations uo ON uo.organization_id = w.organization_id
+    WHERE uo.user_id = auth.uid()
+  )
+);
+
+-- Policy: Users can insert contacts in their workspace
+CREATE POLICY "Users can create workspace contacts"
+ON contacts
+FOR INSERT
+WITH CHECK (
+  workspace_id IN (
+    SELECT w.id
+    FROM workspaces w
+    JOIN user_organizations uo ON uo.organization_id = w.organization_id
+    WHERE uo.user_id = auth.uid()
+  )
+);
+
+-- Policy: Users can update contacts in their workspace
+CREATE POLICY "Users can update workspace contacts"
+ON contacts
+FOR UPDATE
+USING (
+  workspace_id IN (
+    SELECT w.id
+    FROM workspaces w
+    JOIN user_organizations uo ON uo.organization_id = w.organization_id
+    WHERE uo.user_id = auth.uid()
+  )
+);
+```
+
+**CRITICAL for V1**: Verify RLS policies exist for:
+- `contacts`
+- `campaigns`
+- `drip_campaigns`
+- `emails`
+- `generated_content`
+- `campaign_enrollments`
+
+#### 6. Third-Party Integrations
+
+**Gmail API Integration**
+
+```typescript
+// src/lib/integrations/gmail.ts
+import { google } from "googleapis";
+
+export async function getGmailClient(accessToken: string) {
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.GOOGLE_CALLBACK_URL
+  );
+
+  oauth2Client.setCredentials({ access_token: accessToken });
+
+  return google.gmail({ version: "v1", auth: oauth2Client });
+}
+
+export async function fetchEmails(gmail: any, maxResults = 50) {
+  const res = await gmail.users.messages.list({
+    userId: "me",
+    maxResults,
+    q: "is:unread", // Only unread emails
+  });
+
+  const messages = res.data.messages || [];
+  const emails = [];
+
+  for (const message of messages) {
+    const email = await gmail.users.messages.get({
+      userId: "me",
+      id: message.id,
+    });
+    emails.push(email.data);
+  }
+
+  return emails;
+}
+```
+
+**Claude AI Integration**
+
+```typescript
+// src/lib/integrations/claude.ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+export async function generateContent({
+  contactName,
+  contactCompany,
+  interactionHistory,
+  contentType,
+}: {
+  contactName: string;
+  contactCompany: string;
+  interactionHistory: string;
+  contentType: "followup" | "proposal" | "case_study";
+}) {
+  const message = await client.messages.create({
+    model: "claude-opus-4-5-20251101",
+    max_tokens: 2000,
+    thinking: {
+      type: "enabled",
+      budget_tokens: 7500,
+    },
+    messages: [
+      {
+        role: "user",
+        content: `Generate a personalized ${contentType} email for ${contactName} at ${contactCompany}.
+
+Interaction history:
+${interactionHistory}
+
+Generate a professional, personalized email that references their previous interactions.`,
+      },
+    ],
+  });
+
+  return message.content[0].type === "text" ? message.content[0].text : null;
+}
+```
+
+#### 7. Error Handling and Logging
+
+**Structured Error Responses**:
+
+```typescript
+// Error response format
+return NextResponse.json(
+  {
+    error: "Error message for user",
+    code: "ERROR_CODE",
+    details: isDev ? error.message : undefined, // Only in development
+  },
+  { status: 500 }
+);
+```
+
+**Audit Logging**:
+
+```typescript
+// Log all important actions
+await supabase.from("auditLogs").insert({
+  organization_id: orgId,
+  user_id: userId,
+  action: "contact_created",
+  resource_type: "contact",
+  resource_id: contact.id,
+  context: {
+    contact_email: contact.email,
+    source: "api",
+  },
+  ip_address: request.headers.get("x-forwarded-for"),
+  user_agent: request.headers.get("user-agent"),
+  created_at: new Date().toISOString(),
+});
+```
+
+## Common Tasks
+
+### Task 1: Fix Missing Workspace Filter in API
+
+**Example**: `/api/agents/contact-intelligence` missing workspace filter
+
+**Steps**:
+1. Read `src/app/api/agents/contact-intelligence/route.ts`
+2. Find database queries
+3. Add `.eq("workspace_id", workspaceId)`
+4. Add null check for workspaceId
+5. Test with multiple workspaces
+
+**Code**:
+```typescript
+// Before
+const { data: contacts } = await supabase.from("contacts").select("*");
+
+// After
+if (!workspaceId) {
+  return NextResponse.json(
+    { error: "workspaceId is required" },
+    { status: 400 }
+  );
+}
+
+const { data: contacts, error } = await supabase
+  .from("contacts")
+  .select("*")
+  .eq("workspace_id", workspaceId);
+
+if (error) {
+  console.error("Database error:", error);
+  return NextResponse.json(
+    { error: "Failed to fetch contacts" },
+    { status: 500 }
+  );
+}
+```
+
+### Task 2: Create New API Endpoint
+
+**Example**: Create `/api/contacts/bulk-update` endpoint
+
+**Steps**:
+1. Create `src/app/api/contacts/bulk-update/route.ts`
+2. Implement POST handler
+3. Add authentication check
+4. Validate input
+5. Perform bulk update with workspace filter
+6. Test endpoint
+
+**Code**:
+```typescript
+// src/app/api/contacts/bulk-update/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase";
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { workspaceId, contactIds, updates } = body;
+
+    // Validate input
+    if (!workspaceId || !contactIds || !Array.isArray(contactIds)) {
+      return NextResponse.json(
+        { error: "Invalid input" },
+        { status: 400 }
+      );
+    }
+
+    // Get authenticated user
+    const supabase = createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Perform bulk update
+    const { data, error } = await supabase
+      .from("contacts")
+      .update(updates)
+      .in("id", contactIds)
+      .eq("workspace_id", workspaceId)  // CRITICAL: Workspace filter
+      .select();
+
+    if (error) {
+      console.error("Bulk update error:", error);
+      return NextResponse.json(
+        { error: "Bulk update failed" },
+        { status: 500 }
+      );
+    }
+
+    // Log audit event
+    await supabase.from("auditLogs").insert({
+      organization_id: user.organization_id,
+      user_id: user.id,
+      action: "contacts_bulk_updated",
+      resource_type: "contact",
+      context: {
+        updated_count: data.length,
+        contact_ids: contactIds,
+        updates,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      updated: data.length,
+      contacts: data,
+    });
+
+  } catch (error) {
+    console.error("API error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 ```
 
+### Task 3: Update RLS Policies
+
+**Example**: Add RLS policy for new table
+
+**Steps**:
+1. Connect to Supabase SQL Editor
+2. Enable RLS on table
+3. Create SELECT policy
+4. Create INSERT policy
+5. Create UPDATE policy
+6. Create DELETE policy (if needed)
+7. Test policies
+
+**Code**:
+```sql
+-- Enable RLS
+ALTER TABLE new_table ENABLE ROW LEVEL SECURITY;
+
+-- SELECT policy
+CREATE POLICY "Users can view workspace records"
+ON new_table
+FOR SELECT
+USING (
+  workspace_id IN (
+    SELECT w.id
+    FROM workspaces w
+    JOIN user_organizations uo ON uo.organization_id = w.organization_id
+    WHERE uo.user_id = auth.uid()
+  )
+);
+
+-- INSERT policy
+CREATE POLICY "Users can create workspace records"
+ON new_table
+FOR INSERT
+WITH CHECK (
+  workspace_id IN (
+    SELECT w.id
+    FROM workspaces w
+    JOIN user_organizations uo ON uo.organization_id = w.organization_id
+    WHERE uo.user_id = auth.uid()
+  )
+);
+
+-- UPDATE policy
+CREATE POLICY "Users can update workspace records"
+ON new_table
+FOR UPDATE
+USING (
+  workspace_id IN (
+    SELECT w.id
+    FROM workspaces w
+    JOIN user_organizations uo ON uo.organization_id = w.organization_id
+    WHERE uo.user_id = auth.uid()
+  )
+);
+
+-- Test policy
+SELECT * FROM new_table; -- Should only return user's workspace records
+```
+
+## Database Best Practices
+
+### Query Optimization
+
+```typescript
+// ❌ BAD - N+1 query problem
+const contacts = await db.contacts.listByWorkspace(workspaceId);
+for (const contact of contacts) {
+  const emails = await db.emails.listByContact(contact.id); // N queries!
+}
+
+// ✅ GOOD - Single query with join
+const { data } = await supabase
+  .from("contacts")
+  .select(`
+    *,
+    emails (*)
+  `)
+  .eq("workspace_id", workspaceId);
+```
+
+### Indexing
+
+```sql
+-- Create indexes for frequently queried columns
+CREATE INDEX idx_contacts_workspace_id ON contacts(workspace_id);
+CREATE INDEX idx_contacts_ai_score ON contacts(ai_score DESC);
+CREATE INDEX idx_emails_contact_id ON emails(contact_id);
+CREATE INDEX idx_campaign_enrollments_contact ON campaign_enrollments(contact_id);
+```
+
+### Pagination
+
+```typescript
+const PAGE_SIZE = 20;
+
+const { data, error, count } = await supabase
+  .from("contacts")
+  .select("*", { count: "exact" })
+  .eq("workspace_id", workspaceId)
+  .order("created_at", { ascending: false })
+  .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+
+return {
+  contacts: data,
+  totalCount: count,
+  page,
+  pageSize: PAGE_SIZE,
+  totalPages: Math.ceil(count / PAGE_SIZE),
+};
+```
+
+## API Security Checklist
+
+✅ **Authentication**:
+- [ ] User is authenticated (Supabase Auth)
+- [ ] Session is valid
+- [ ] User has access to requested workspace
+
+✅ **Authorization**:
+- [ ] User belongs to organization
+- [ ] User has required role (owner/admin/member)
+- [ ] Workspace belongs to user's organization
+
+✅ **Input Validation**:
+- [ ] Required fields present
+- [ ] Data types correct
+- [ ] Values within acceptable ranges
+- [ ] SQL injection prevented (Supabase parameterized queries)
+- [ ] XSS prevented (sanitize user input)
+
+✅ **Data Isolation**:
+- [ ] Workspace filtering on ALL queries
+- [ ] Organization filtering on ALL queries
+- [ ] RLS policies enabled on ALL tables
+
+✅ **Error Handling**:
+- [ ] Try/catch blocks
+- [ ] Structured error responses
+- [ ] No sensitive data in error messages
+- [ ] Errors logged to console/monitoring
+
+✅ **Audit Logging**:
+- [ ] All mutations logged to auditLogs
+- [ ] User ID, action, resource captured
+- [ ] Timestamp recorded
+
+## Version 1 Constraints
+
+**What We Fix for V1**:
+- ✅ Add workspace filtering to ALL API endpoints
+- ✅ Re-enable authentication on ALL routes
+- ✅ Fix `src/lib/db.ts` missing import
+- ✅ Verify RLS policies on ALL tables
+- ✅ Test ALL 104 API endpoints
+
+**What We Do NOT Build for V1**:
+- ❌ Advanced rate limiting
+- ❌ GraphQL API
+- ❌ Webhook infrastructure
+- ❌ Background job queue
+- ❌ Caching layer (Redis)
+
+## Key Points
+
+- **Always filter by workspace** - Data isolation is critical
+- **Always check authentication** - No public endpoints without explicit reason
+- **Use RLS policies** - Defense in depth
+- **Log all mutations** - Audit trail for compliance
+- **Handle errors gracefully** - Return structured error responses
+- **Test with multiple workspaces** - Verify data isolation
+
 ---
 
-## Backend Checklist
+## Integration with Other Agents
 
-- [ ] Clear project structure
-- [ ] Input validation
-- [ ] Proper error handling
-- [ ] Authentication/Authorization
-- [ ] Database transactions
-- [ ] Logging
-- [ ] API documentation (Swagger/OpenAPI)
-- [ ] Rate limiting
-- [ ] CORS configuration
-- [ ] Environment configuration
-- [ ] Unit tests
-- [ ] Integration tests
+The Backend Agent works with:
+- **Frontend Agent** - Provides API endpoints
+- **Email Agent** - Processes email data
+- **Content Agent** - Stores generated content
+- **Orchestrator** - Coordinates workflows
+- **Docs Agent** - Updates API documentation

@@ -1,316 +1,421 @@
 ---
 name: langfuse-observability
 description: |
-  Query Langfuse traces, prompts, and LLM metrics. Use when:
-  - Analyzing LLM generation traces (errors, latency, tokens)
-  - Reviewing prompt performance and versions
-  - Debugging failed generations
-  - Comparing model outputs across runs
-  Keywords: langfuse, traces, observability, LLM metrics, prompt management, generations
+  Set up comprehensive observability for Langfuse with metrics, dashboards, and alerts.
+  Use when implementing monitoring for LLM operations, setting up dashboards,
+  or configuring alerting for Langfuse integration health.
+  Trigger with phrases like "langfuse monitoring", "langfuse metrics",
+  "langfuse observability", "monitor langfuse", "langfuse alerts", "langfuse dashboard".
+allowed-tools: Read, Write, Edit
+version: 1.0.0
+license: MIT
+author: Jeremy Longshore <jeremy@intentsolutions.io>
 ---
 
 # Langfuse Observability
 
-Query traces, prompts, and metrics from Langfuse. Requires env vars:
-- `LANGFUSE_SECRET_KEY`
-- `LANGFUSE_PUBLIC_KEY`
-- `LANGFUSE_HOST` (e.g., `https://us.cloud.langfuse.com`)
+## Overview
+Set up comprehensive observability for Langfuse integrations including metrics, dashboards, and alerts.
 
-## Quick Start
+## Prerequisites
+- Prometheus or compatible metrics backend
+- Grafana or similar dashboarding tool
+- AlertManager or PagerDuty configured
+- Langfuse SDK integrated
 
-All commands run from the skill directory:
-```bash
-cd ~/.claude/skills/langfuse-observability
-```
+## Key Metrics
 
-### List Recent Traces
-```bash
-# Last 10 traces
-npx tsx scripts/fetch-traces.ts --limit 10
+| Metric | Type | Description |
+|--------|------|-------------|
+| `langfuse_traces_total` | Counter | Total traces created |
+| `langfuse_generations_total` | Counter | Total LLM generations |
+| `langfuse_generation_duration_seconds` | Histogram | LLM call latency |
+| `langfuse_tokens_total` | Counter | Total tokens used |
+| `langfuse_cost_usd_total` | Counter | Total LLM cost |
+| `langfuse_errors_total` | Counter | Error count by type |
+| `langfuse_flush_duration_seconds` | Histogram | SDK flush latency |
 
-# Filter by name pattern
-npx tsx scripts/fetch-traces.ts --name "quiz-generation" --limit 5
+## Instructions
 
-# Filter by user
-npx tsx scripts/fetch-traces.ts --user-id "user_abc123" --limit 10
-```
-
-### Get Single Trace Details
-```bash
-# Full trace with spans and generations
-npx tsx scripts/fetch-trace.ts <trace-id>
-```
-
-### Get Prompt
-```bash
-# Fetch specific prompt
-npx tsx scripts/list-prompts.ts --name scry-intent-extraction
-
-# With label
-npx tsx scripts/list-prompts.ts --name scry-intent-extraction --label production
-```
-
-### Get Metrics Summary
-```bash
-# Summary for recent traces
-npx tsx scripts/get-metrics.ts --limit 50
-
-# Filter by trace name
-npx tsx scripts/get-metrics.ts --name "quiz-generation" --limit 100
-```
-
-## Output Formats
-
-All scripts output JSON to stdout for easy parsing.
-
-### Trace List Output
-```json
-[
-  {
-    "id": "trace-abc123",
-    "name": "quiz-generation",
-    "userId": "user_xyz",
-    "input": {"prompt": "..."},
-    "output": {"concepts": [...]},
-    "latencyMs": 3200,
-    "createdAt": "2025-12-09T..."
-  }
-]
-```
-
-### Single Trace Output
-Includes full nested structure: trace → observations (spans + generations) with token usage.
-
-### Metrics Output
-```json
-{
-  "totalTraces": 50,
-  "successCount": 48,
-  "errorCount": 2,
-  "avgLatencyMs": 2850,
-  "totalTokens": 125000,
-  "byName": {"quiz-generation": 30, "phrasing-generation": 20}
-}
-```
-
-## Common Workflows
-
-### Debug Failed Generation
-```bash
-cd ~/.claude/skills/langfuse-observability
-
-# 1. Find recent traces
-npx tsx scripts/fetch-traces.ts --limit 10
-
-# 2. Get details of specific trace
-npx tsx scripts/fetch-trace.ts <trace-id>
-```
-
-### Monitor Token Usage
-```bash
-# Get metrics for cost analysis
-npx tsx scripts/get-metrics.ts --limit 100
-```
-
-### Check Prompt Configuration
-```bash
-npx tsx scripts/list-prompts.ts --name scry-concept-synthesis --label production
-```
-
-## Cost Tracking
-
-### Calculate Costs
+### Step 1: Implement Prometheus Metrics
 
 ```typescript
-// Get metrics with cost calculation
-const metrics = await langfuse.getMetrics({ limit: 100 });
+// lib/langfuse/metrics.ts
+import { Registry, Counter, Histogram, Gauge } from "prom-client";
 
-// Pricing per 1M tokens (update as needed)
-const pricing = {
-  "claude-3-5-sonnet": { input: 3.0, output: 15.0 },
-  "gpt-4o": { input: 2.5, output: 10.0 },
+const registry = new Registry();
+
+// Trace metrics
+export const traceCounter = new Counter({
+  name: "langfuse_traces_total",
+  help: "Total Langfuse traces created",
+  labelNames: ["name", "status", "environment"],
+  registers: [registry],
+});
+
+// Generation metrics
+export const generationCounter = new Counter({
+  name: "langfuse_generations_total",
+  help: "Total LLM generations",
+  labelNames: ["model", "status"],
+  registers: [registry],
+});
+
+export const generationDuration = new Histogram({
+  name: "langfuse_generation_duration_seconds",
+  help: "LLM generation duration",
+  labelNames: ["model"],
+  buckets: [0.1, 0.5, 1, 2, 5, 10, 30, 60],
+  registers: [registry],
+});
+
+// Token metrics
+export const tokenCounter = new Counter({
+  name: "langfuse_tokens_total",
+  help: "Total tokens used",
+  labelNames: ["model", "type"], // type: prompt, completion
+  registers: [registry],
+});
+
+// Cost metrics
+export const costCounter = new Counter({
+  name: "langfuse_cost_usd_total",
+  help: "Total LLM cost in USD",
+  labelNames: ["model"],
+  registers: [registry],
+});
+
+// Error metrics
+export const errorCounter = new Counter({
+  name: "langfuse_errors_total",
+  help: "Langfuse errors by type",
+  labelNames: ["error_type", "operation"],
+  registers: [registry],
+});
+
+// SDK health metrics
+export const flushDuration = new Histogram({
+  name: "langfuse_flush_duration_seconds",
+  help: "Langfuse SDK flush duration",
+  buckets: [0.01, 0.05, 0.1, 0.25, 0.5, 1, 2.5],
+  registers: [registry],
+});
+
+export const pendingEventsGauge = new Gauge({
+  name: "langfuse_pending_events",
+  help: "Number of events pending flush",
+  registers: [registry],
+});
+
+export { registry };
+```
+
+### Step 2: Create Instrumented Langfuse Wrapper
+
+```typescript
+// lib/langfuse/instrumented.ts
+import { Langfuse } from "langfuse";
+import {
+  traceCounter,
+  generationCounter,
+  generationDuration,
+  tokenCounter,
+  costCounter,
+  errorCounter,
+  flushDuration,
+} from "./metrics";
+
+const MODEL_PRICING: Record<string, { input: number; output: number }> = {
+  "gpt-4-turbo": { input: 10.0, output: 30.0 },
+  "gpt-4o": { input: 5.0, output: 15.0 },
   "gpt-4o-mini": { input: 0.15, output: 0.6 },
+  "claude-3-sonnet": { input: 3.0, output: 15.0 },
 };
 
-function calculateCost(model: string, inputTokens: number, outputTokens: number) {
-  const p = pricing[model] || { input: 1, output: 1 };
-  return (inputTokens * p.input + outputTokens * p.output) / 1_000_000;
-}
-```
+class InstrumentedLangfuse {
+  private langfuse: Langfuse;
+  private environment: string;
 
-### Daily/Monthly Spend
-
-```bash
-# Get traces for date range
-npx tsx scripts/fetch-traces.ts --from "2025-12-01" --to "2025-12-07" --limit 1000
-
-# Calculate spend (parse output and sum costs)
-```
-
-### Cost Alerts
-
-**Set up alerts in Langfuse dashboard:**
-1. Go to Dashboard → Alerts
-2. Create alert for: `daily_cost > X` or `cost_per_trace > Y`
-3. Configure notification (email, Slack webhook)
-
-**Or implement in code:**
-```typescript
-async function checkCostBudget() {
-  const dailyMetrics = await langfuse.getMetrics({ since: "24h" });
-  const dailyCost = calculateTotalCost(dailyMetrics);
-
-  if (dailyCost > DAILY_BUDGET) {
-    await notifySlack(`⚠️ LLM daily spend ($${dailyCost}) exceeded budget ($${DAILY_BUDGET})`);
+  constructor(config: ConstructorParameters<typeof Langfuse>[0]) {
+    this.langfuse = new Langfuse(config);
+    this.environment = process.env.NODE_ENV || "development";
   }
-}
-```
 
-## Production Best Practices
+  trace(params: Parameters<typeof this.langfuse.trace>[0]) {
+    const trace = this.langfuse.trace(params);
 
-### 1. Trace Everything
-
-```typescript
-import { Langfuse } from "langfuse";
-
-const langfuse = new Langfuse({
-  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
-  secretKey: process.env.LANGFUSE_SECRET_KEY,
-});
-
-// Wrap every LLM call
-async function tracedLLMCall(name: string, messages: Message[]) {
-  const trace = langfuse.trace({
-    name,
-    userId: currentUser.id,
-    metadata: { environment: process.env.NODE_ENV },
-  });
-
-  const generation = trace.generation({
-    name: "chat",
-    model: selectedModel,
-    input: messages,
-  });
-
-  try {
-    const response = await llm.chat({ model: selectedModel, messages });
-
-    generation.end({
-      output: response.choices[0].message,
-      usage: {
-        promptTokens: response.usage.prompt_tokens,
-        completionTokens: response.usage.completion_tokens,
-      },
+    traceCounter.inc({
+      name: params.name || "unknown",
+      status: "created",
+      environment: this.environment,
     });
 
-    return response;
-  } catch (error) {
-    generation.end({ level: "ERROR", statusMessage: error.message });
-    throw error;
+    // Wrap update to track completion
+    const originalUpdate = trace.update.bind(trace);
+    trace.update = (updateParams) => {
+      if (updateParams.level === "ERROR") {
+        traceCounter.inc({
+          name: params.name || "unknown",
+          status: "error",
+          environment: this.environment,
+        });
+      } else if (updateParams.output) {
+        traceCounter.inc({
+          name: params.name || "unknown",
+          status: "completed",
+          environment: this.environment,
+        });
+      }
+      return originalUpdate(updateParams);
+    };
+
+    // Wrap generation to track LLM calls
+    const originalGeneration = trace.generation.bind(trace);
+    trace.generation = (genParams) => {
+      const startTime = Date.now();
+      const generation = originalGeneration(genParams);
+      const model = genParams.model || "unknown";
+
+      generationCounter.inc({ model, status: "started" });
+
+      // Wrap end to track completion
+      const originalEnd = generation.end.bind(generation);
+      generation.end = (endParams) => {
+        const duration = (Date.now() - startTime) / 1000;
+        generationDuration.observe({ model }, duration);
+        generationCounter.inc({ model, status: "completed" });
+
+        // Track tokens
+        if (endParams?.usage) {
+          const { promptTokens = 0, completionTokens = 0 } = endParams.usage;
+
+          tokenCounter.inc({ model, type: "prompt" }, promptTokens);
+          tokenCounter.inc({ model, type: "completion" }, completionTokens);
+
+          // Track cost
+          const pricing = MODEL_PRICING[model];
+          if (pricing) {
+            const cost =
+              (promptTokens / 1_000_000) * pricing.input +
+              (completionTokens / 1_000_000) * pricing.output;
+            costCounter.inc({ model }, cost);
+          }
+        }
+
+        return originalEnd(endParams);
+      };
+
+      return generation;
+    };
+
+    return trace;
+  }
+
+  async flushAsync() {
+    const timer = flushDuration.startTimer();
+    try {
+      await this.langfuse.flushAsync();
+    } catch (error) {
+      errorCounter.inc({ error_type: "flush_error", operation: "flush" });
+      throw error;
+    } finally {
+      timer();
+    }
+  }
+
+  async shutdownAsync() {
+    return this.langfuse.shutdownAsync();
+  }
+}
+
+export const langfuse = new InstrumentedLangfuse({
+  publicKey: process.env.LANGFUSE_PUBLIC_KEY!,
+  secretKey: process.env.LANGFUSE_SECRET_KEY!,
+});
+```
+
+### Step 3: Expose Metrics Endpoint
+
+```typescript
+// api/metrics/route.ts (Next.js) or app.get('/metrics') (Express)
+import { registry } from "@/lib/langfuse/metrics";
+
+export async function GET() {
+  const metrics = await registry.metrics();
+
+  return new Response(metrics, {
+    headers: {
+      "Content-Type": registry.contentType,
+    },
+  });
+}
+```
+
+### Step 4: Configure Prometheus Scraping
+
+```yaml
+# prometheus.yml
+scrape_configs:
+  - job_name: "llm-app"
+    static_configs:
+      - targets: ["app:3000"]
+    metrics_path: "/api/metrics"
+    scrape_interval: 15s
+
+  - job_name: "langfuse-cloud"
+    static_configs:
+      - targets: ["cloud.langfuse.com"]
+    scheme: https
+    metrics_path: "/api/public/metrics"
+    bearer_token: "${LANGFUSE_PUBLIC_KEY}"
+```
+
+### Step 5: Create Grafana Dashboard
+
+```json
+{
+  "dashboard": {
+    "title": "Langfuse LLM Observability",
+    "panels": [
+      {
+        "title": "LLM Requests per Second",
+        "type": "timeseries",
+        "targets": [{
+          "expr": "rate(langfuse_generations_total[5m])",
+          "legendFormat": "{{model}}"
+        }]
+      },
+      {
+        "title": "LLM Latency (P50/P95/P99)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.5, rate(langfuse_generation_duration_seconds_bucket[5m]))",
+            "legendFormat": "P50"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(langfuse_generation_duration_seconds_bucket[5m]))",
+            "legendFormat": "P95"
+          },
+          {
+            "expr": "histogram_quantile(0.99, rate(langfuse_generation_duration_seconds_bucket[5m]))",
+            "legendFormat": "P99"
+          }
+        ]
+      },
+      {
+        "title": "Token Usage by Model",
+        "type": "timeseries",
+        "targets": [{
+          "expr": "rate(langfuse_tokens_total[1h])",
+          "legendFormat": "{{model}} - {{type}}"
+        }]
+      },
+      {
+        "title": "LLM Cost (USD/hour)",
+        "type": "stat",
+        "targets": [{
+          "expr": "sum(rate(langfuse_cost_usd_total[1h])) * 3600"
+        }]
+      },
+      {
+        "title": "Error Rate",
+        "type": "timeseries",
+        "targets": [{
+          "expr": "rate(langfuse_errors_total[5m])",
+          "legendFormat": "{{error_type}}"
+        }]
+      }
+    ]
   }
 }
 ```
 
-### 2. Add Context
-
-```typescript
-// Include useful metadata for debugging
-const trace = langfuse.trace({
-  name: "user-query",
-  userId: user.id,
-  sessionId: session.id,  // Group related traces
-  metadata: {
-    userPlan: user.plan,
-    feature: "chat",
-    version: "v2.1",
-  },
-  tags: ["production", "chat-feature"],
-});
-```
-
-### 3. Score Outputs
-
-```typescript
-// Track quality metrics
-generation.score({
-  name: "user-feedback",
-  value: userRating, // 1-5
-});
-
-// Or automated scoring
-generation.score({
-  name: "response-length",
-  value: response.content.length < 500 ? 1 : 0,
-});
-```
-
-### 4. Flush Before Exit
-
-```typescript
-// Important for serverless environments
-await langfuse.flushAsync();
-```
-
-## Promptfoo Integration
-
-### Trace → Eval Case Workflow
-
-1. **Find interesting traces in Langfuse** (failures, edge cases)
-2. **Export as test cases** for Promptfoo
-3. **Add to regression suite** to prevent future issues
-
-```typescript
-// Export failed traces as test cases
-const failedTraces = await langfuse.getTraces({ level: "ERROR", limit: 50 });
-
-const testCases = failedTraces.map(trace => ({
-  vars: trace.input,
-  assert: [
-    { type: "not-contains", value: "error" },
-    { type: "llm-rubric", value: "Response should address the user's question" },
-  ],
-}));
-
-// Add to promptfooconfig.yaml
-```
-
-### Langfuse Callback in Promptfoo
+### Step 6: Configure Alerts
 
 ```yaml
-# promptfooconfig.yaml
-defaultTest:
-  options:
-    callback: langfuse
-    callbackConfig:
-      publicKey: ${LANGFUSE_PUBLIC_KEY}
-      secretKey: ${LANGFUSE_SECRET_KEY}
+# alerts/langfuse.yaml
+groups:
+  - name: langfuse_alerts
+    rules:
+      - alert: LangfuseHighErrorRate
+        expr: |
+          rate(langfuse_errors_total[5m]) /
+          rate(langfuse_generations_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Langfuse error rate > 5%"
+          description: "LLM error rate is {{ $value | humanizePercentage }}"
+
+      - alert: LangfuseHighLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(langfuse_generation_duration_seconds_bucket[5m])
+          ) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LLM P95 latency > 10s"
+
+      - alert: LangfuseHighCost
+        expr: |
+          sum(rate(langfuse_cost_usd_total[1h])) * 24 > 100
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Projected daily LLM cost > $100"
+
+      - alert: LangfuseFlushBacklog
+        expr: langfuse_pending_events > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Langfuse event backlog > 1000"
+
+      - alert: LangfuseDown
+        expr: up{job="llm-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "LLM application is down"
 ```
 
-## Alternatives Comparison
+## Output
+- Prometheus metrics for all Langfuse operations
+- Instrumented Langfuse wrapper
+- Metrics endpoint for scraping
+- Grafana dashboard configuration
+- AlertManager rules
 
-| Feature | Langfuse | Helicone | LangSmith |
-|---------|----------|----------|-----------|
-| Open Source | ✅ | ✅ | ❌ |
-| Self-Host | ✅ | ✅ | ❌ |
-| Free Tier | ✅ Generous | ✅ 10K/mo | ⚠️ Limited |
-| Prompt Mgmt | ✅ | ❌ | ✅ |
-| Tracing | ✅ | ✅ | ✅ |
-| Cost Track | ✅ | ✅ | ✅ |
-| A/B Testing | ⚠️ | ❌ | ✅ |
+## Metrics Reference
 
-**Choose Langfuse when**: Self-hosting needed, cost-conscious, want prompt management.
+| Dashboard Panel | Prometheus Query | Purpose |
+|-----------------|------------------|---------|
+| Request Rate | `rate(langfuse_generations_total[5m])` | LLM throughput |
+| Latency | `histogram_quantile(0.95, ...)` | Performance |
+| Token Usage | `rate(langfuse_tokens_total[1h])` | Usage tracking |
+| Cost | `sum(rate(langfuse_cost_usd_total[1h]))` | Budget |
+| Error Rate | `rate(langfuse_errors_total[5m])` | Reliability |
 
-**Choose Helicone when**: Proxy-based setup preferred, simple integration.
+## Error Handling
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Missing metrics | No instrumentation | Use wrapped client |
+| High cardinality | Too many labels | Limit label values |
+| Alert storms | Wrong thresholds | Tune alert rules |
+| Metric gaps | Scrape failures | Check Prometheus targets |
 
-**Choose LangSmith when**: LangChain ecosystem, enterprise support needed.
+## Resources
+- [Prometheus Best Practices](https://prometheus.io/docs/practices/naming/)
+- [Grafana Dashboards](https://grafana.com/docs/grafana/latest/dashboards/)
+- [AlertManager](https://prometheus.io/docs/alerting/latest/alertmanager/)
+- [Langfuse Analytics](https://langfuse.com/docs/analytics)
 
-## Related Skills
-
-- `llm-evaluation` - Promptfoo for testing, pairs well with Langfuse for observability
-- `llm-gateway-routing` - OpenRouter/LiteLLM for model routing
-- `ai-llm-development` - Overall LLM development patterns
-
-## Related Commands
-
-- `/llm-gates` - Audit LLM infrastructure including observability gaps
-- `/observe` - General observability audit
+## Next Steps
+For incident response, see `langfuse-incident-runbook`.

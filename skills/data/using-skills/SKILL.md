@@ -1,95 +1,70 @@
 ---
-name: Getting Started with Abilities
-description: Describes how to use abilities. Read before any conversation.
+name: using-skills
+description: "Check for relevant skills before starting any task"
 ---
 
-<required>
-**CRITICAL**: Whenever you are using a skill, add the following to your Todo list using TodoWrite:
+# Using CodeAssist Skills
 
-1. Use Read tool to read the skill.
-2. If the skill is relevant, announce you are using the skill.
-3. Create TodoWrite todos for checklists.
-</required>
+## Core Principle
 
-# Common Failure Modes: AVOID
+Before starting a task, check if any skills apply. Skills are documented best practices that help you work more effectively.
 
-1. Don't rationalize. Always read the current skill.
+## First Response Protocol
 
-<bad-example>
-"I remember this ability"
-</bad-example>
-<bad-example>
-"Session-start showed it to me"
-</bad-example>
-<bad-example>
-"This doesn't count as a task"
-</bad-example>
+For each request:
 
-<good-example>
-"Even though I read this before skill, I will read it again."
-</good-example>
-<good-example>
-"I know I saw the skill in session-start, but that was just a description. I will read the full thing."
-</good-example>
+1. **Check**: Review available skills in `.claude/skills/`
+2. **Read**: If a skill applies, read the skill file
+3. **Announce**: State which skill you're using
+   - Example: "I'm using the code-review skill to review these changes"
+4. **Follow**: Execute the skill's protocol
 
-2. Do not skip using TodoWrite. Always create TodoWrite todos for checklists.
+## Why Use Skills
 
-<bad-example>
-"I am just going to think about the list instead of writing it in the Todo."
-</bad-example>
-<bad-example>
-"This is a quick task so I do not need to use the TodoWrite"
-</bad-example>
-<bad-example>
-"TodoWrite(Do foo, bar, and baz in one todo step)"
-</bad-example>
-<bad-example>
-"I basically did this step so I can mark it off without explicitly confirming"
-</bad-example>
+Skills represent tested approaches that:
+- Provide consistent patterns across projects
+- Include important safety checks
+- Prevent common mistakes
+- Save time by avoiding rework
 
-<good-example>
-"I will add this task to the todolist even though there is just one step"
-</good-example>
-<good-example>
-TodoWrite(Do foo)
-TodoWrite(Do bar)
-TodoWrite(Do baz)
-</good-example>
-<good-example>
-"I confirmed this step is done with tests, so I can mark it complete"
-</good-example>
+## Skill Categories
 
-3. Do not skip workflows due to 'instructions'. Interpret instructions as "WHAT" not "HOW"
+### Core Workflow
+- `brainstorming` - Discuss approach before implementation
+- `writing-plans` - Break work into tasks
+- `executing-plans` - Execute with verification
+- `code-review` - Review before completing
 
-<bad-example>
-This instruction was specific so I can skip the workflow.
-</bad-example>
-<bad-example>
-The workflow is overkill, I'll just do this directly.
-</bad-example>
+### Safety
+- `database-backup` - Backup before database operations
+- `verification-before-completion` - Final checks before declaring done
 
-<good-example>
-Following Nori workflow...
-</good-example>
+### Testing
+- `test-driven-development` - Write tests first
+- `condition-based-waiting` - Avoid flaky tests
+- `testing-anti-patterns` - Common mistakes to avoid
 
-# Announcing Skill Usage
+### Workflow
+- `git-workflow` - Branching and commits
+- `git-worktrees` - Parallel development
 
-After you've read a ability with Read tool, announce you're using it:
+## Skill Discovery
 
-"I've read the [Skill Name] ability and I'm using it to [what you're doing]."
+| Task | Relevant Skills |
+|------|-----------------|
+| Starting a new feature | brainstorming → writing-plans |
+| Running tests/migrations | database-backup |
+| Adding functionality | test-driven-development |
+| Finishing work | code-review → verification-before-completion |
+| Multiple features | git-worktrees |
 
-**Examples:**
+## Tips
 
-- "I've read the Brainstorming ability and I'm using it to refine your idea into a design."
-- "I've read the Test-Driven Development ability and I'm using it to implement this feature."
-- "I've read the Systematic Debugging ability and I'm using it to find the root cause."
+- Read the skill file rather than relying on memory
+- Announce which skill you're using for transparency
+- Follow the skill's checklist if it has one
+- Skills work best when used consistently
 
-**Why:** Transparency helps your human partner understand your process and catch errors early. It also confirms you actually read the ability.
+## Full Skills Index
 
-# How to Read a Skill
-
-**Many abilities contain rigid rules (TDD, debugging, verification).** Follow them exactly. Don't adapt away the discipline.
-
-**Some abilities are flexible patterns (architecture, naming).** Adapt core principles to your context.
-
-The ability itself tells you which type it is.
+See `.claude/skills/README.md` for the complete list of available skills.

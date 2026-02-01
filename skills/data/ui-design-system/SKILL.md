@@ -1,379 +1,199 @@
 ---
 name: ui-design-system
-description: UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer handoff tools. Use for creating design systems, maintaining visual consistency, and facilitating design-dev collaboration.
+description: Enforce modern dashboard UI patterns with pill-shaped design, professional colour scheme, and typography standards. Use when building or reviewing UI components for the web application.
 ---
 
-# UI Design System
+# UI Design System Skill
 
-Generate design tokens, create color palettes, calculate typography scales, build component systems, and prepare developer handoff documentation.
+This skill enforces consistent UI patterns across the SG Cars Trends web application, ensuring a modern, professional dashboard design.
 
----
+## When to Activate
 
-## Table of Contents
+- Building new dashboard components or pages
+- Reviewing existing UI for consistency
+- Implementing navigation, cards, buttons, or metrics displays
+- Applying colour scheme or typography
+- Creating new features that require UI components
+- Migrating or refactoring existing components
 
-- [Trigger Terms](#trigger-terms)
-- [Workflows](#workflows)
-  - [Workflow 1: Generate Design Tokens](#workflow-1-generate-design-tokens)
-  - [Workflow 2: Create Component System](#workflow-2-create-component-system)
-  - [Workflow 3: Responsive Design](#workflow-3-responsive-design)
-  - [Workflow 4: Developer Handoff](#workflow-4-developer-handoff)
-- [Tool Reference](#tool-reference)
-- [Quick Reference Tables](#quick-reference-tables)
-- [Knowledge Base](#knowledge-base)
+## Design Principles
 
----
+1. **No sidebar** - Horizontal pill navigation only
+2. **Pill-shaped elements** - Use `rounded-full` for interactive elements
+3. **Large rounded cards** - Use `rounded-2xl` or `rounded-3xl`
+4. **Professional automotive aesthetic** - Navy Blue primary, clean typography
+5. **Generous whitespace** - Grid-based layouts with `gap-6` or `gap-8`
 
-## Trigger Terms
+## Colour Palette (GitHub Issue #406)
 
-Use this skill when you need to:
+| Role | Colour | Hex | Tailwind Class |
+|------|--------|-----|----------------|
+| Primary | Navy Blue | `#191970` | `bg-primary`, `text-primary` |
+| Secondary | Slate Gray | `#708090` | `bg-secondary`, `text-secondary` |
+| Accent | Cyan | `#00FFFF` | `bg-accent`, `text-accent` |
+| Background | Powder Blue | `#B0E0E6` | `bg-muted` |
+| Text | Dark Slate Gray | `#2F4F4F` | `text-foreground` |
 
-- "generate design tokens"
-- "create color palette"
-- "build typography scale"
-- "calculate spacing system"
-- "create design system"
-- "generate CSS variables"
-- "export SCSS tokens"
-- "set up component architecture"
-- "document component library"
-- "calculate responsive breakpoints"
-- "prepare developer handoff"
-- "convert brand color to palette"
-- "check WCAG contrast"
-- "build 8pt grid system"
+### Semantic Colour Usage
 
----
+- `text-primary` / `bg-primary` - Brand elements, primary buttons
+- `text-foreground` - Body text (Dark Slate Gray)
+- `text-default-900` - Strong emphasis (H4 headings)
+- `text-default-600` - Secondary text (TextSm)
+- `text-muted-foreground` - Captions, metadata
 
-## Workflows
+### Opacity Scale
 
-### Workflow 1: Generate Design Tokens
+- `text-foreground/60` - Secondary text
+- `text-foreground/40` - Muted text
+- `text-white` - Only for image overlays
 
-**Situation:** You have a brand color and need a complete design token system.
+## Component Patterns
 
-**Steps:**
+### Navigation (Horizontal Pill Tabs)
 
-1. **Identify brand color and style**
-   - Brand primary color (hex format)
-   - Style preference: `modern` | `classic` | `playful`
-
-2. **Generate tokens using script**
-   ```bash
-   python scripts/design_token_generator.py "#0066CC" modern json
-   ```
-
-3. **Review generated categories**
-   - Colors: primary, secondary, neutral, semantic, surface
-   - Typography: fontFamily, fontSize, fontWeight, lineHeight
-   - Spacing: 8pt grid-based scale (0-64)
-   - Borders: radius, width
-   - Shadows: none through 2xl
-   - Animation: duration, easing
-   - Breakpoints: xs through 2xl
-
-4. **Export in target format**
-   ```bash
-   # CSS custom properties
-   python scripts/design_token_generator.py "#0066CC" modern css > design-tokens.css
-
-   # SCSS variables
-   python scripts/design_token_generator.py "#0066CC" modern scss > _design-tokens.scss
-
-   # JSON for Figma/tooling
-   python scripts/design_token_generator.py "#0066CC" modern json > design-tokens.json
-   ```
-
-5. **Validate accessibility**
-   - Check color contrast meets WCAG AA (4.5:1 normal, 3:1 large text)
-   - Verify semantic colors have contrast colors defined
-
----
-
-### Workflow 2: Create Component System
-
-**Situation:** You need to structure a component library using design tokens.
-
-**Steps:**
-
-1. **Define component hierarchy**
-   - Atoms: Button, Input, Icon, Label, Badge
-   - Molecules: FormField, SearchBar, Card, ListItem
-   - Organisms: Header, Footer, DataTable, Modal
-   - Templates: DashboardLayout, AuthLayout
-
-2. **Map tokens to components**
-
-   | Component | Tokens Used |
-   |-----------|-------------|
-   | Button | colors, sizing, borders, shadows, typography |
-   | Input | colors, sizing, borders, spacing |
-   | Card | colors, borders, shadows, spacing |
-   | Modal | colors, shadows, spacing, z-index, animation |
-
-3. **Define variant patterns**
-
-   Size variants:
-   ```
-   sm: height 32px, paddingX 12px, fontSize 14px
-   md: height 40px, paddingX 16px, fontSize 16px
-   lg: height 48px, paddingX 20px, fontSize 18px
-   ```
-
-   Color variants:
-   ```
-   primary: background primary-500, text white
-   secondary: background neutral-100, text neutral-900
-   ghost: background transparent, text neutral-700
-   ```
-
-4. **Document component API**
-   - Props interface with types
-   - Variant options
-   - State handling (hover, active, focus, disabled)
-   - Accessibility requirements
-
-5. **Reference:** See `references/component-architecture.md`
-
----
-
-### Workflow 3: Responsive Design
-
-**Situation:** You need breakpoints, fluid typography, or responsive spacing.
-
-**Steps:**
-
-1. **Define breakpoints**
-
-   | Name | Width | Target |
-   |------|-------|--------|
-   | xs | 0 | Small phones |
-   | sm | 480px | Large phones |
-   | md | 640px | Tablets |
-   | lg | 768px | Small laptops |
-   | xl | 1024px | Desktops |
-   | 2xl | 1280px | Large screens |
-
-2. **Calculate fluid typography**
-
-   Formula: `clamp(min, preferred, max)`
-
-   ```css
-   /* 16px to 24px between 320px and 1200px viewport */
-   font-size: clamp(1rem, 0.5rem + 2vw, 1.5rem);
-   ```
-
-   Pre-calculated scales:
-   ```css
-   --fluid-h1: clamp(2rem, 1rem + 3.6vw, 4rem);
-   --fluid-h2: clamp(1.75rem, 1rem + 2.3vw, 3rem);
-   --fluid-h3: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
-   --fluid-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
-   ```
-
-3. **Set up responsive spacing**
-
-   | Token | Mobile | Tablet | Desktop |
-   |-------|--------|--------|---------|
-   | --space-md | 12px | 16px | 16px |
-   | --space-lg | 16px | 24px | 32px |
-   | --space-xl | 24px | 32px | 48px |
-   | --space-section | 48px | 80px | 120px |
-
-4. **Reference:** See `references/responsive-calculations.md`
-
----
-
-### Workflow 4: Developer Handoff
-
-**Situation:** You need to hand off design tokens to development team.
-
-**Steps:**
-
-1. **Export tokens in required formats**
-   ```bash
-   # For CSS projects
-   python scripts/design_token_generator.py "#0066CC" modern css
-
-   # For SCSS projects
-   python scripts/design_token_generator.py "#0066CC" modern scss
-
-   # For JavaScript/TypeScript
-   python scripts/design_token_generator.py "#0066CC" modern json
-   ```
-
-2. **Prepare framework integration**
-
-   **React + CSS Variables:**
-   ```tsx
-   import './design-tokens.css';
-
-   <button className="btn btn-primary">Click</button>
-   ```
-
-   **Tailwind Config:**
-   ```javascript
-   const tokens = require('./design-tokens.json');
-
-   module.exports = {
-     theme: {
-       colors: tokens.colors,
-       fontFamily: tokens.typography.fontFamily
-     }
-   };
-   ```
-
-   **styled-components:**
-   ```typescript
-   import tokens from './design-tokens.json';
-
-   const Button = styled.button`
-     background: ${tokens.colors.primary['500']};
-     padding: ${tokens.spacing['2']} ${tokens.spacing['4']};
-   `;
-   ```
-
-3. **Sync with Figma**
-   - Install Tokens Studio plugin
-   - Import design-tokens.json
-   - Tokens sync automatically with Figma styles
-
-4. **Handoff checklist**
-   - [ ] Token files added to project
-   - [ ] Build pipeline configured
-   - [ ] Theme/CSS variables imported
-   - [ ] Component library aligned
-   - [ ] Documentation generated
-
-5. **Reference:** See `references/developer-handoff.md`
-
----
-
-## Tool Reference
-
-### design_token_generator.py
-
-Generates complete design token system from brand color.
-
-| Argument | Values | Default | Description |
-|----------|--------|---------|-------------|
-| brand_color | Hex color | #0066CC | Primary brand color |
-| style | modern, classic, playful | modern | Design style preset |
-| format | json, css, scss, summary | json | Output format |
-
-**Examples:**
-
-```bash
-# Generate JSON tokens (default)
-python scripts/design_token_generator.py "#0066CC"
-
-# Classic style with CSS output
-python scripts/design_token_generator.py "#8B4513" classic css
-
-# Playful style summary view
-python scripts/design_token_generator.py "#FF6B6B" playful summary
+```tsx
+<div className="flex items-center gap-2 rounded-full border p-1">
+  <Button className="rounded-full" color="primary">Dashboard</Button>
+  <Button className="rounded-full" variant="light">Calendar</Button>
+  <Button className="rounded-full" variant="light">Projects</Button>
+</div>
 ```
 
-**Output Categories:**
+### Cards
 
-| Category | Description | Key Values |
-|----------|-------------|------------|
-| colors | Color palettes | primary, secondary, neutral, semantic, surface |
-| typography | Font system | fontFamily, fontSize, fontWeight, lineHeight |
-| spacing | 8pt grid | 0-64 scale, semantic (xs-3xl) |
-| sizing | Component sizes | container, button, input, icon |
-| borders | Border values | radius (per style), width |
-| shadows | Shadow styles | none through 2xl, inner |
-| animation | Motion tokens | duration, easing, keyframes |
-| breakpoints | Responsive | xs, sm, md, lg, xl, 2xl |
-| z-index | Layer system | base through notification |
+```tsx
+import { Card, CardHeader, CardBody } from "@heroui/card";
+import Typography from "@web/components/typography";
 
----
+<Card className="rounded-2xl shadow-sm">
+  <CardHeader className="flex flex-col items-start gap-2">
+    <Typography.H4>Card Title</Typography.H4>
+    <Typography.TextSm>Description text</Typography.TextSm>
+  </CardHeader>
+  <CardBody>{/* Content */}</CardBody>
+</Card>
+```
 
-## Quick Reference Tables
+### Buttons
 
-### Color Scale Generation
+- Primary: `<Button className="rounded-full" color="primary">Action</Button>`
+- Secondary: `<Button className="rounded-full" variant="bordered">Cancel</Button>`
+- Icon: `<Button className="rounded-full" isIconOnly><Icon /></Button>`
 
-| Step | Brightness | Saturation | Use Case |
-|------|------------|------------|----------|
-| 50 | 95% fixed | 30% | Subtle backgrounds |
-| 100 | 95% fixed | 38% | Light backgrounds |
-| 200 | 95% fixed | 46% | Hover states |
-| 300 | 95% fixed | 54% | Borders |
-| 400 | 95% fixed | 62% | Disabled states |
-| 500 | Original | 70% | Base/default color |
-| 600 | Original × 0.8 | 78% | Hover (dark) |
-| 700 | Original × 0.6 | 86% | Active states |
-| 800 | Original × 0.4 | 94% | Text |
-| 900 | Original × 0.2 | 100% | Headings |
+### Status Badges
 
-### Typography Scale (1.25x Ratio)
+```tsx
+<Chip className="rounded-full" color="success" size="sm">
+  <span className="mr-1">●</span> Done
+</Chip>
+<Chip className="rounded-full" color="warning" size="sm">
+  <span className="mr-1">●</span> Waiting
+</Chip>
+<Chip className="rounded-full" color="danger" size="sm">
+  <span className="mr-1">●</span> Failed
+</Chip>
+```
 
-| Size | Value | Calculation |
-|------|-------|-------------|
-| xs | 10px | 16 ÷ 1.25² |
-| sm | 13px | 16 ÷ 1.25¹ |
-| base | 16px | Base |
-| lg | 20px | 16 × 1.25¹ |
-| xl | 25px | 16 × 1.25² |
-| 2xl | 31px | 16 × 1.25³ |
-| 3xl | 39px | 16 × 1.25⁴ |
-| 4xl | 49px | 16 × 1.25⁵ |
-| 5xl | 61px | 16 × 1.25⁶ |
+### Metrics Display
 
-### WCAG Contrast Requirements
+```tsx
+<div className="flex flex-col gap-1">
+  <Typography.Caption>Total Registrations</Typography.Caption>
+  <div className="flex items-baseline gap-2">
+    <span className="font-bold text-3xl">46,500</span>
+    <Chip className="rounded-full" color="success" size="sm">+2.5%</Chip>
+  </div>
+</div>
+```
 
-| Level | Normal Text | Large Text |
-|-------|-------------|------------|
-| AA | 4.5:1 | 3:1 |
-| AAA | 7:1 | 4.5:1 |
+## Typography Rules
 
-Large text: ≥18pt regular or ≥14pt bold
+Always use Typography components from `@web/components/typography`:
 
-### Style Presets
+| Component | Usage | Styles |
+|-----------|-------|--------|
+| `Typography.H1` | Page titles | `font-semibold text-4xl text-foreground` |
+| `Typography.H2` | Section titles | `font-semibold text-3xl text-foreground` |
+| `Typography.H3` | Subsection titles | `font-medium text-2xl text-foreground` |
+| `Typography.H4` | Card titles | `font-medium text-xl text-default-900` |
+| `Typography.TextLg` | Lead paragraphs | `text-lg text-foreground` |
+| `Typography.Text` | Body text | `text-base text-foreground` |
+| `Typography.TextSm` | Secondary text | `text-sm text-default-600` |
+| `Typography.Label` | Form labels | `font-medium text-sm text-foreground` |
+| `Typography.Caption` | Metadata | `text-xs text-muted-foreground` |
 
-| Aspect | Modern | Classic | Playful |
-|--------|--------|---------|---------|
-| Font Sans | Inter | Helvetica | Poppins |
-| Font Mono | Fira Code | Courier | Source Code Pro |
-| Radius Default | 8px | 4px | 16px |
-| Shadows | Layered, subtle | Single layer | Soft, pronounced |
+### Enforcement Rules
 
----
+- ✅ Always use `Typography.H4` for CardHeader titles
+- ✅ Always use `Typography.TextSm` for CardHeader descriptions
+- ✅ Use `Typography.H2` for section headings
+- ❌ Avoid raw `<h1>`, `<h2>`, `<h3>`, `<h4>` tags outside MDX content
+- ⚠️ Exception: Raw tags allowed for MDX blog content and image overlays
 
-## Knowledge Base
+## Layout Guidelines
 
-Detailed reference guides in `references/`:
+### Spacing
 
-| File | Content |
-|------|---------|
-| `token-generation.md` | Color algorithms, HSV space, WCAG contrast, type scales |
-| `component-architecture.md` | Atomic design, naming conventions, props patterns |
-| `responsive-calculations.md` | Breakpoints, fluid typography, grid systems |
-| `developer-handoff.md` | Export formats, framework setup, Figma sync |
+- Use `flex flex-col gap-*` for vertical spacing (not `space-y-*`)
+- Standard gaps: `gap-2`, `gap-4`, `gap-6`, `gap-8`
+- Avoid `margin-top` for sibling spacing
 
----
+### Grid Layouts
 
-## Validation Checklist
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <Card className="rounded-2xl">{/* ... */}</Card>
+  <Card className="rounded-2xl">{/* ... */}</Card>
+  <Card className="rounded-2xl">{/* ... */}</Card>
+</div>
+```
 
-### Token Generation
-- [ ] Brand color provided in hex format
-- [ ] Style matches project requirements
-- [ ] All token categories generated
-- [ ] Semantic colors include contrast values
+## Anti-Patterns (What NOT to Do)
 
-### Component System
-- [ ] All sizes implemented (sm, md, lg)
-- [ ] All variants implemented (primary, secondary, ghost)
-- [ ] All states working (hover, active, focus, disabled)
-- [ ] Uses only design tokens (no hardcoded values)
+### Navigation
+- ❌ Vertical sidebar navigation
+- ❌ Square/rectangular tabs
+- ❌ Dropdown-only navigation
 
-### Accessibility
-- [ ] Color contrast meets WCAG AA
-- [ ] Focus indicators visible
-- [ ] Touch targets ≥ 44×44px
-- [ ] Semantic HTML elements used
+### Cards
+- ❌ Sharp corners (`rounded-none`, `rounded-sm`)
+- ❌ Heavy shadows (`shadow-lg`, `shadow-xl`)
+- ❌ Raw `<h3>` tags in CardHeader
 
-### Developer Handoff
-- [ ] Tokens exported in required format
-- [ ] Framework integration documented
-- [ ] Design tool synced
-- [ ] Component documentation complete
+### Buttons
+- ❌ Square buttons (`rounded-none`, `rounded-md`)
+- ❌ Hardcoded colours (`bg-blue-500`)
+- ❌ Missing hover states
+
+### Colours
+- ❌ Hardcoded hex values in components
+- ❌ `text-white` outside image overlays
+- ❌ Inconsistent opacity values
+
+### Spacing
+- ❌ `space-y-*` utilities
+- ❌ `mt-*` for sibling spacing
+- ❌ Odd gap values (`gap-3`, `gap-5`, `gap-7`)
+
+## Tools Used
+
+- **Read**: Examine existing component implementations
+- **Grep**: Find similar patterns in codebase
+- **Context7 MCP**: Fetch latest HeroUI documentation
+  - `mcp__context7__resolve-library-id` - Find library ID
+  - `mcp__context7__get-library-docs` - Get component docs
+
+## Accessibility Requirements (WCAG AA)
+
+- Normal text: Minimum 4.5:1 contrast ratio
+- Large text: Minimum 3:1 contrast ratio
+- Interactive elements: Minimum 3:1 for focus indicators
+- Information must not be conveyed by colour alone
+- All interactive elements must be keyboard accessible
+
+## Related Documentation
+
+- `apps/web/CLAUDE.md` - Full UI guidelines
+- GitHub Issue #406 - Colour scheme specification
+- HeroUI documentation - Component API reference

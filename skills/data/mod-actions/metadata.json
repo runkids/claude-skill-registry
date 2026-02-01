@@ -1,7 +1,7 @@
 {
   "name": "mod-actions",
-  "repo": "civitai/civitai",
-  "path": ".claude/skills/mod-actions/SKILL.md",
-  "source": "github.com/civitai/civitai",
-  "downloaded_at": "2026-01-31T01:58:07.259253Z"
+  "repo": "NeverSight/skills_feed",
+  "path": "data/skills-md/civitai/civitai/mod-actions/SKILL.md",
+  "source": "github.com/NeverSight/skills_feed",
+  "downloaded_at": "2026-02-01T04:02:38.231014Z"
 }

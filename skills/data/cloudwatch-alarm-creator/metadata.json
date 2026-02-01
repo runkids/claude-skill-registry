@@ -1,7 +1,7 @@
 {
   "name": "cloudwatch-alarm-creator",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/cloudwatch-alarm-creator/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-31T03:32:46.679745Z"
+  "repo": "dengineproblem/agents-monorepo",
+  "path": ".claude/skills/cloudwatch-alarm-creator/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-02-01T03:41:54.694251Z"
 }

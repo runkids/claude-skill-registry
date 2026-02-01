@@ -1,65 +1,100 @@
 ---
-name: help
-description: Guide on using oh-my-claudecode plugin
+name: mvp-help
+description: |
+  Help and documentation for Idea to MVP plugin.
+  Use when: user asks about building MVPs, vibe coding, or available commands.
+  Triggers: "help", "what can you do", "mvp help", "how to build".
 ---
 
-# How OMC Works
+# Idea to MVP Help
 
-**You don't need to learn any commands!** OMC enhances Claude Code with intelligent behaviors that activate automatically.
+Vibe coding: describe your idea, get a deployed MVP.
 
-## What Happens Automatically
-
-| When You... | I Automatically... |
-|-------------|-------------------|
-| Give me a complex task | Parallelize and delegate to specialist agents |
-| Ask me to plan something | Start a planning interview |
-| Need something done completely | Persist until verified complete |
-| Work on UI/frontend | Activate design sensibility |
-| Say "stop" or "cancel" | Intelligently stop current operation |
-
-## Magic Keywords (Optional Shortcuts)
-
-You can include these words naturally in your request for explicit control:
-
-| Keyword | Effect | Example |
-|---------|--------|---------|
-| **ralph** | Persistence mode | "ralph: fix all the bugs" |
-| **ralplan** | Iterative planning | "ralplan this feature" |
-| **ulw** | Max parallelism | "ulw refactor the API" |
-| **plan** | Planning interview | "plan the new endpoints" |
-
-**ralph includes ultrawork:** When you activate ralph mode, it automatically includes ultrawork's parallel execution. No need to combine keywords.
-
-## Stopping Things
-
-Just say:
-- "stop"
-- "cancel"
-- "abort"
-
-I'll figure out what to stop based on context.
-
-## First Time Setup
-
-If you haven't configured OMC yet:
+## How It Works
 
 ```
-/oh-my-claudecode:omc-setup
+You: "I want an app for tracking expenses"
+     ↓
+Claude: Asks clarifying questions
+     ↓
+Claude: Builds everything (hidden complexity)
+     ↓
+You: "✅ Done! [Preview] [Deploy]"
 ```
 
-This is the **only command** you need to know. It downloads the configuration and you're done.
+## Commands
 
-## For 2.x Users
+| Command | Description |
+|---------|-------------|
+| `/mvp:brainstorm` | Refine idea with Socratic dialogue |
+| `/mvp:idea` | Start from scratch with simple questions |
+| `/mvp:build` | Create the app (full pipeline) |
+| `/mvp:add` | Add feature to existing app |
+| `/mvp:preview` | Show current state |
+| `/mvp:deploy` | Publish to production |
 
-Your old commands still work! `/ralph`, `/ultrawork`, `/plan`, etc. all function exactly as before.
+## Skills (Hidden Pipeline)
 
-But now you don't NEED them - everything is automatic.
+These work automatically behind the scenes:
 
-## Need More Help?
+| Phase | Skills |
+|-------|--------|
+| Ideation | brainstorming, idea-validation |
+| Planning | stack-selector, db-designer |
+| Building | ui-generator, api-generator, feature-builder |
+| Quality | test-driven-development, auto-testing, security-check |
+| Polish | frontend-design, theme-factory, code-review-auto |
+| Deploy | deploy-automation, verification-gate |
 
-- **README**: https://github.com/Yeachan-Heo/oh-my-claudecode
-- **Issues**: https://github.com/Yeachan-Heo/oh-my-claudecode/issues
+## Quick Start
 
----
+### Have an idea?
+```
+/mvp:idea
+```
+Answer simple questions, get an app.
 
-*Version: 3.5.5*
+### Want to explore first?
+```
+/mvp:brainstorm
+```
+Refine your idea before building.
+
+### Ready to build?
+```
+/mvp:build
+```
+Full pipeline: design → code → test → deploy.
+
+## No Technical Jargon
+
+You never need to know:
+- What framework to use
+- How to structure code
+- What tests to write
+- How to deploy
+
+Just describe what you want. We handle the rest.
+
+## Troubleshooting
+
+### Плагин не обновляется после `/plugin`
+
+Если после обновления плагина (`/plugin` → Update) изменения не применяются:
+
+```bash
+# Удалить кэш плагина
+rm -rf ~/.claude/plugins/cache/vibe-coder
+
+# Затем заново
+/plugin
+# → vibe-coder → Update
+```
+
+После этого перезапустить Claude Code.
+
+### Команды не работают
+
+1. Проверить что плагин установлен: `/plugin` → должен показать vibe-coder
+2. Перезапустить Claude Code после установки/обновления
+3. Если всё ещё не работает — удалить кэш (см. выше)

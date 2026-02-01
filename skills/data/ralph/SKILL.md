@@ -1,106 +1,126 @@
 ---
-name: ralph
-description: "Convert PRDs to prd.json format for the Ralph autonomous agent system. Use when you have an existing PRD and need to convert it to Ralph's JSON format. Triggers on: convert this prd, turn this into ralph format, create prd.json from this, ralph json."
+name: generating-prds
+description: Generates Product Requirements Documents (PRDs) for new features suitable for AI implementation. Use when planning features, starting projects, or creating specifications. Triggers include "create PRD", "write prd", "plan feature", "requirements document", or "spec out".
+user-invocable: true
 ---
 
-# Ralph PRD Converter
+# PRD Generator
 
-Converts existing PRDs to the prd.json format that Ralph uses for autonomous execution.
+Create detailed Product Requirements Documents that are clear, actionable, and suitable for autonomous AI implementation via the Ralph loop.
 
----
+______________________________________________________________________
 
 ## The Job
 
-Take a PRD (markdown file or text) and convert it to `prd.json` in your ralph directory.
+1. Receive a feature description from the user
+1. Ask 3-5 essential clarifying questions (with lettered options)
+1. Generate a structured PRD based on answers
+1. Save to `PRD.md`
+1. Create empty `progress.txt`
 
----
+**Important:** Do NOT start implementing. Just create the PRD.
 
-## Output Format
+______________________________________________________________________
 
-```json
-{
-    "project": "[Project Name]",
-    "branchName": "ralph/[feature-name-kebab-case]",
-    "description": "[Feature description from PRD title/intro]",
-    "userStories": [
-        {
-            "id": "US-001",
-            "title": "[Story title]",
-            "description": "As a [user], I want [feature] so that [benefit]",
-            "acceptanceCriteria": [
-                "Criterion 1",
-                "Criterion 2",
-                "Typecheck passes"
-            ],
-            "priority": 1,
-            "passes": false,
-            "notes": ""
-        }
-    ]
-}
+## Step 1: Clarifying Questions
+
+Ask only critical questions where the initial prompt is ambiguous. Focus on:
+
+- **Problem/Goal:** What problem does this solve?
+- **Core Functionality:** What are the key actions?
+- **Scope/Boundaries:** What should it NOT do?
+- **Success Criteria:** How do we know it's done?
+
+### Format Questions Like This:
+
+```
+1. What is the primary goal of this feature?
+   A. Improve user onboarding experience
+   B. Increase user retention
+   C. Reduce support burden
+   D. Other: [please specify]
+
+2. Who is the target user?
+   A. New users only
+   B. Existing users only
+   C. All users
+   D. Admin users only
+
+3. What is the scope?
+   A. Minimal viable version
+   B. Full-featured implementation
+   C. Just the backend/API
+   D. Just the UI
 ```
 
----
+This lets users respond with "1A, 2C, 3B" for quick iteration.
 
-## Story Size: The Number One Rule
+______________________________________________________________________
 
-**Each story must be completable in ONE Ralph iteration (one context window).**
+## Step 2: Story Sizing (THE NUMBER ONE RULE)
 
-Ralph spawns a fresh Amp instance per iteration with no memory of previous work. If a story is too big, the LLM runs out of context before finishing and produces broken code.
+**Each story must be completable in ONE context window (~10 min of AI work).**
+
+Ralph spawns a fresh instance per iteration with no memory of previous work. If a story is too big, the AI runs out of context before finishing and produces broken code.
 
 ### Right-sized stories:
 
--   Add a database column and migration
--   Add a UI component to an existing page
--   Update a server action with new logic
--   Add a filter dropdown to a list
+- Add a database column and migration
+- Add a single UI component to an existing page
+- Update a server action with new logic
+- Add a filter dropdown to a list
 
-### Too big (split these):
+### Too big (MUST split):
 
--   "Build the entire dashboard" - Split into: schema, queries, UI components, filters
--   "Add authentication" - Split into: schema, middleware, login UI, session handling
--   "Refactor the API" - Split into one story per endpoint or pattern
+| Too Big               | Split Into                                         |
+| --------------------- | -------------------------------------------------- |
+| "Build the dashboard" | Schema, queries, UI components, filters            |
+| "Add authentication"  | Schema, middleware, login UI, session handling     |
+| "Add drag and drop"   | Drag events, drop zones, state update, persistence |
+| "Refactor the API"    | One story per endpoint or pattern                  |
 
 **Rule of thumb:** If you cannot describe the change in 2-3 sentences, it is too big.
 
----
+______________________________________________________________________
 
-## Story Ordering: Dependencies First
+## Step 3: Story Ordering (Dependencies First)
 
-Stories execute in priority order. Earlier stories must not depend on later ones.
+Stories execute in priority order. Earlier stories must NOT depend on later ones.
 
 **Correct order:**
 
 1. Schema/database changes (migrations)
-2. Server actions / backend logic
-3. UI components that use the backend
-4. Dashboard/summary views that aggregate data
+1. Server actions / backend logic
+1. UI components that use the backend
+1. Dashboard/summary views that aggregate data
 
 **Wrong order:**
 
-1. UI component (depends on schema that does not exist yet)
-2. Schema change
+```
+US-001: UI component (depends on schema that doesn't exist yet!)
+US-002: Schema change
+```
 
----
+______________________________________________________________________
 
-## Acceptance Criteria: Must Be Verifiable
+## Step 4: Acceptance Criteria (Must Be Verifiable)
 
 Each criterion must be something Ralph can CHECK, not something vague.
 
 ### Good criteria (verifiable):
 
--   "Add `status` column to tasks table with default 'pending'"
--   "Filter dropdown has options: All, Active, Completed"
--   "Clicking delete shows confirmation dialog"
--   "Typecheck passes"
--   "Tests pass"
+- "Add `status` column to tasks table with default 'pending'"
+- "Filter dropdown has options: All, Active, Completed"
+- "Clicking delete shows confirmation dialog"
+- "Typecheck passes"
+- "Tests pass"
 
 ### Bad criteria (vague):
 
--   "Works correctly"
--   "User can do X easily"
--   "Good UX"
--   "Handles edge cases"
+- "Works correctly"
+- "User can do X easily"
+- "Good UX"
+- "Handles edge cases"
 
 ### Always include as final criterion:
 
@@ -108,172 +128,154 @@ Each criterion must be something Ralph can CHECK, not something vague.
 "Typecheck passes"
 ```
 
-For stories with testable logic, also include:
-
-```
-"Tests pass"
-```
-
 ### For stories that change UI, also include:
 
 ```
-"Verify in browser"
+"Verify changes work in browser"
 ```
 
-Frontend stories are NOT complete until visually verified in the browser.
+______________________________________________________________________
 
----
+## PRD Structure
 
-## Conversion Rules
+Generate the PRD with these sections:
 
-1. **Each user story becomes one JSON entry**
-2. **IDs**: Sequential (US-001, US-002, etc.)
-3. **Priority**: Based on dependency order, then document order
-4. **All stories**: `passes: false` and empty `notes`
-5. **branchName**: Derive from feature name, kebab-case, prefixed with `ralph/`
-6. **Always add**: "Typecheck passes" to every story's acceptance criteria
+### 1. Introduction
 
----
+Brief description of the feature and the problem it solves.
 
-## Splitting Large PRDs
+### 2. Goals
 
-If a PRD has big features, split them:
+Specific, measurable objectives (bullet list).
 
-**Original:**
+### 3. User Stories
 
-> "Add user notification system"
+Each story needs:
 
-**Split into:**
+- **ID:** Sequential (US-001, US-002, etc.)
+- **Title:** Short descriptive name
+- **Description:** "As a [user], I want [feature] so that [benefit]"
+- **Acceptance Criteria:** Verifiable checklist
 
-1. US-001: Add notifications table to database
-2. US-002: Create notification service for sending notifications
-3. US-003: Add notification bell icon to header
-4. US-004: Create notification dropdown panel
-5. US-005: Add mark-as-read functionality
-6. US-006: Add notification preferences page
-
-Each is one focused change that can be completed and verified independently.
-
----
-
-## Example
-
-**Input PRD:**
+**Format:**
 
 ```markdown
-# Task Status Feature
+### US-001: [Title]
+**Description:** As a [user], I want [feature] so that [benefit].
 
-Add ability to mark tasks with different statuses.
-
-## Requirements
-
--   Toggle between pending/in-progress/done on task list
--   Filter list by status
--   Show status badge on each task
--   Persist status in database
+**Acceptance Criteria:**
+- [ ] Specific verifiable criterion
+- [ ] Another criterion
+- [ ] Typecheck passes
+- [ ] [UI stories] Verify changes work in browser
 ```
 
-**Output prd.json:**
+### 4. Non-Goals
 
-```json
-{
-    "project": "TaskApp",
-    "branchName": "ralph/task-status",
-    "description": "Task Status Feature - Track task progress with status indicators",
-    "userStories": [
-        {
-            "id": "US-001",
-            "title": "Add status field to tasks table",
-            "description": "As a developer, I need to store task status in the database.",
-            "acceptanceCriteria": [
-                "Add status column: 'pending' | 'in_progress' | 'done' (default 'pending')",
-                "Generate and run migration successfully",
-                "Typecheck passes"
-            ],
-            "priority": 1,
-            "passes": false,
-            "notes": ""
-        },
-        {
-            "id": "US-002",
-            "title": "Display status badge on task cards",
-            "description": "As a user, I want to see task status at a glance.",
-            "acceptanceCriteria": [
-                "Each task card shows colored status badge",
-                "Badge colors: gray=pending, blue=in_progress, green=done",
-                "Typecheck passes",
-                "Verify in browser"
-            ],
-            "priority": 2,
-            "passes": false,
-            "notes": ""
-        },
-        {
-            "id": "US-003",
-            "title": "Add status toggle to task list rows",
-            "description": "As a user, I want to change task status directly from the list.",
-            "acceptanceCriteria": [
-                "Each row has status dropdown or toggle",
-                "Changing status saves immediately",
-                "UI updates without page refresh",
-                "Typecheck passes",
-                "Verify in browser"
-            ],
-            "priority": 3,
-            "passes": false,
-            "notes": ""
-        },
-        {
-            "id": "US-004",
-            "title": "Filter tasks by status",
-            "description": "As a user, I want to filter the list to see only certain statuses.",
-            "acceptanceCriteria": [
-                "Filter dropdown: All | Pending | In Progress | Done",
-                "Filter persists in URL params",
-                "Typecheck passes",
-                "Verify in browser"
-            ],
-            "priority": 4,
-            "passes": false,
-            "notes": ""
-        }
-    ]
-}
+What this feature will NOT include. Critical for scope.
+
+### 5. Technical Considerations (Optional)
+
+- Known constraints
+- Existing components to reuse
+
+______________________________________________________________________
+
+## Example PRD
+
+```markdown
+# PRD: Task Priority System
+
+## Introduction
+
+Add priority levels to tasks so users can focus on what matters most. Tasks can be marked as high, medium, or low priority, with visual indicators and filtering.
+
+## Goals
+
+- Allow assigning priority (high/medium/low) to any task
+- Provide clear visual differentiation between priority levels
+- Enable filtering by priority
+- Default new tasks to medium priority
+
+## User Stories
+
+### US-001: Add priority field to database
+**Description:** As a developer, I need to store task priority so it persists across sessions.
+
+**Acceptance Criteria:**
+- [ ] Add priority column: 'high' | 'medium' | 'low' (default 'medium')
+- [ ] Generate and run migration successfully
+- [ ] Typecheck passes
+
+### US-002: Display priority indicator on task cards
+**Description:** As a user, I want to see task priority at a glance so I know what needs attention first.
+
+**Acceptance Criteria:**
+- [ ] Each task card shows colored priority badge (red=high, yellow=medium, gray=low)
+- [ ] Priority visible without hovering or clicking
+- [ ] Typecheck passes
+- [ ] Verify changes work in browser
+
+### US-003: Add priority selector to task edit
+**Description:** As a user, I want to change a task's priority when editing it.
+
+**Acceptance Criteria:**
+- [ ] Priority dropdown in task edit modal
+- [ ] Shows current priority as selected
+- [ ] Saves immediately on selection change
+- [ ] Typecheck passes
+- [ ] Verify changes work in browser
+
+### US-004: Filter tasks by priority
+**Description:** As a user, I want to filter the task list to see only high-priority items when I'm focused.
+
+**Acceptance Criteria:**
+- [ ] Filter dropdown with options: All | High | Medium | Low
+- [ ] Filter persists in URL params
+- [ ] Empty state message when no tasks match filter
+- [ ] Typecheck passes
+- [ ] Verify changes work in browser
+
+## Non-Goals
+
+- No priority-based notifications or reminders
+- No automatic priority assignment based on due date
+- No priority inheritance for subtasks
+
+## Technical Considerations
+
+- Reuse existing badge component with color variants
+- Filter state managed via URL search params
 ```
+
+______________________________________________________________________
+
+## Output
+
+Save to `PRD.md` in the current directory.
+
+Also create `progress.txt`:
+
+```markdown
+# Progress Log
+
+## Learnings
+(Patterns discovered during implementation)
 
 ---
-
-## Archiving Previous Runs & Reset
-
-**Before writing a new prd.json, check if there is an existing one from a different feature:**
-
-1. Read the current `prd.json` if it exists
-2. Check if `branchName` differs from the new feature's branch name
-3. If different AND `progress.txt` has content:
-    - Create archive folder: `archive/YYYY-MM-DD-feature-name/`
-    - Copy current `prd.json` and `progress.txt` to archive
-
-**ALWAYS reset progress.txt:**
-
-After writing the new `prd.json`, reset `progress.txt` to empty:
-
-```bash
-echo "" > progress.txt
 ```
 
-This ensures Ralph starts fresh with no leftover progress from previous runs.
-
----
+______________________________________________________________________
 
 ## Checklist Before Saving
 
-Before writing prd.json, verify:
-
--   [ ] **Previous run archived** (if prd.json exists with different branchName, archive it first)
--   [ ] Each story is completable in one iteration (small enough)
--   [ ] Stories are ordered by dependency (schema to backend to UI)
--   [ ] Every story has "Typecheck passes" as criterion
--   [ ] UI stories have "Verify in browser" as criterion
--   [ ] Acceptance criteria are verifiable (not vague)
--   [ ] No story depends on a later story
--   [ ] **progress.txt reset to empty** after writing prd.json
+- [ ] Asked clarifying questions with lettered options
+- [ ] Incorporated user's answers
+- [ ] User stories use US-001 format
+- [ ] Each story completable in ONE iteration (small enough)
+- [ ] Stories ordered by dependency (schema → backend → frontend)
+- [ ] All criteria are verifiable (not vague)
+- [ ] Every story has "Typecheck passes" as criterion
+- [ ] UI stories have "Verify changes work in browser"
+- [ ] Non-goals section defines clear boundaries
+- [ ] Saved PRD.md and progress.txt

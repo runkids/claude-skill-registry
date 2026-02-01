@@ -1,7 +1,7 @@
 {
   "name": "slo-implementation",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/plugins/observability-monitoring/skills/slo-implementation/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-01-31T03:36:52.184652Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/observability-monitoring/skills/slo-implementation/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:52.902723Z"
 }

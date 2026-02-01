@@ -1,7 +1,7 @@
 {
   "category": "design",
-  "count": 5565,
-  "updated_at": "2026-01-31T04:52:26.950728Z",
+  "count": 5547,
+  "updated_at": "2026-02-01T05:09:23.967146Z",
   "skills": [
     {
       "name": "add-uint-support",
@@ -5762,20 +5762,6 @@
       "name": "keep",
       "description": "Session continuity for Keep workflow. Detects resumable work at conversation start.",
       "repo": "lackeyjb/claude-keep",
-      "path": "data/keep",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "keep"
-      ],
-      "stars": 7,
-      "install": "lackeyjb/claude-keep",
-      "source": "local"
-    },
-    {
-      "name": "keep",
-      "description": "Session continuity for Keep workflow. Detects resumable work at conversation start.",
-      "repo": "lackeyjb/claude-keep",
       "path": "skills/keep",
       "branch": "main",
       "category": "design",
@@ -8322,21 +8308,6 @@
       ],
       "stars": 3,
       "install": "jwynia/the-kepler-testimonies/.claude/skills/character-arc",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "component-variants",
-      "description": "Creates light and dark mode component variants with consistent color token mapping. Use when building dual-theme components, creating light/dark UI pairs, or implementing theme-aware designs.",
-      "repo": "ainergiz/design-inspirations",
-      "path": "data/component-variants",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "component",
-        "variants"
-      ],
-      "stars": 3,
-      "install": "ainergiz/design-inspirations",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -11495,24 +11466,6 @@
       "name": "color-theory-palette-harmony-expert",
       "description": "Expert in color theory, palette harmony, and perceptual color science for computational photo composition. Specializes in earth-mover distance optimization, warm/cool alternation, diversity-aware pale",
       "repo": "erichowens/some_claude_skills",
-      "path": "data/color-theory-palette-harmony-expert",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "color",
-        "theory",
-        "palette",
-        "harmony",
-        "expert"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "color-theory-palette-harmony-expert",
-      "description": "Expert in color theory, palette harmony, and perceptual color science for computational photo composition. Specializes in earth-mover distance optimization, warm/cool alternation, diversity-aware pale",
-      "repo": "erichowens/some_claude_skills",
       "path": ".claude/skills/color-theory-palette-harmony-expert",
       "branch": "main",
       "category": "design",
@@ -11999,20 +11952,6 @@
       ],
       "stars": 1,
       "install": "tatat/agents-playground/skills/customer-support",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "daisy-ui",
-      "description": "A Tailwind CSS component library that provides a set of pre-designed UI components. Use for accessible, themed components that match Williamstown SC brand.",
-      "repo": "dejanvasic85/williamstownsc",
-      "path": "data/daisy-ui",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "daisy"
-      ],
-      "stars": 1,
-      "install": "dejanvasic85/williamstownsc",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -12658,21 +12597,6 @@
       "stars": 1,
       "install": "CANTAGESTUDIO/CosmicAtlasPacker/.claude/skills/flutter-performance-docs",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "frontend-architect",
-      "description": "Build production-grade UI/UX with React (Next.js, Docusaurus), CSS architecture (Tailwind, Modules, Global), animations, theming, performance optimization, state management, and testing. Use when crea",
-      "repo": "uneezaismail/Physical-AI-Humanoid-Robotics",
-      "path": "data/frontend-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "architect"
-      ],
-      "stars": 1,
-      "install": "uneezaismail/Physical-AI-Humanoid-Robotics",
-      "source": "local"
     },
     {
       "name": "frontend-architect",
@@ -13443,24 +13367,6 @@
       ],
       "stars": 1,
       "install": "davidorex/vcv-rack-module-creation-framework/.claude/skills/panel-mockup",
-      "source": "local"
-    },
-    {
-      "name": "photo-content-recognition-curation-expert",
-      "description": "Expert in photo content recognition, intelligent curation, and quality filtering. Specializes in face/animal/place recognition, perceptual hashing for de-duplication, screenshot/meme detection, burst ",
-      "repo": "erichowens/some_claude_skills",
-      "path": "data/photo-content-recognition-curation-expert",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "photo",
-        "content",
-        "recognition",
-        "curation",
-        "expert"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills",
       "source": "local"
     },
     {
@@ -14675,22 +14581,6 @@
       "name": "vaporwave-glassomorphic-ui-designer",
       "description": "Expert in creating modern, aesthetic UI designs blending vaporwave nostalgia with glassomorphic elegance for photo/memory applications. Masters SwiftUI Material effects, neon pastel color palettes, fr",
       "repo": "erichowens/some_claude_skills",
-      "path": "data/vaporwave-glassomorphic-ui-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "vaporwave",
-        "glassomorphic",
-        "designer"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills",
-      "source": "local"
-    },
-    {
-      "name": "vaporwave-glassomorphic-ui-designer",
-      "description": "Expert in creating modern, aesthetic UI designs blending vaporwave nostalgia with glassomorphic elegance for photo/memory applications. Masters SwiftUI Material effects, neon pastel color palettes, fr",
-      "repo": "erichowens/some_claude_skills",
       "path": ".claude/skills/vaporwave-glassomorphic-ui-designer",
       "branch": "main",
       "category": "design",
@@ -14946,22 +14836,6 @@
       "name": "windows-3-1-web-designer",
       "description": "Expert in authentic Windows 3.1 aesthetic for modern web applications. Creates pixel-perfect retro UI with beveled borders, system gray palettes, and program manager styling. Use for retro-themed web ",
       "repo": "erichowens/some_claude_skills",
-      "path": "data/windows-3-1-web-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "windows",
-        "web",
-        "designer"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills",
-      "source": "local"
-    },
-    {
-      "name": "windows-3-1-web-designer",
-      "description": "Expert in authentic Windows 3.1 aesthetic for modern web applications. Creates pixel-perfect retro UI with beveled borders, system gray palettes, and program manager styling. Use for retro-themed web ",
-      "repo": "erichowens/some_claude_skills",
       "path": ".claude/skills/windows-3-1-web-designer",
       "branch": "main",
       "category": "design",
@@ -14972,22 +14846,6 @@
       ],
       "stars": 1,
       "install": "erichowens/some_claude_skills/.claude/skills/windows-3-1-web-designer",
-      "source": "local"
-    },
-    {
-      "name": "wisdom-accountability-coach",
-      "description": "Longitudinal memory tracking, philosophy teaching, and personal accountability with compassion. Expert in pattern recognition, Stoicism/Buddhism, and growth guidance.",
-      "repo": "erichowens/some_claude_skills",
-      "path": "data/wisdom-accountability-coach",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "wisdom",
-        "accountability",
-        "coach"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills",
       "source": "local"
     },
     {
@@ -24444,18 +24302,6 @@
       "tags": [],
       "stars": 0,
       "install": "buzzdan/ai-coding-rules",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "component-development",
-      "description": "Create and modify React components following project patterns. Use when building UI components, forms, layouts, navigation, or implementing React hooks. Includes DaisyUI, Tailwind CSS, and lucide-reac",
-      "repo": "doitsu2014/my-blogs-rsbuild",
-      "path": "data/component-development",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "doitsu2014/my-blogs-rsbuild",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -39634,18 +39480,6 @@
       "name": "i18n-patterns",
       "description": "Internationalization (i18n) patterns for server and client components using getTranslations and useTranslations. Use when working with translations, locales, multilingual content, translation files, T",
       "repo": "QingqiShi/shiqingqi.com",
-      "path": "data/i18n-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "QingqiShi/shiqingqi.com",
-      "source": "GitHub Search API"
-    },
-    {
-      "name": "i18n-patterns",
-      "description": "Internationalization (i18n) patterns for server and client components using getTranslations and useTranslations. Use when working with translations, locales, multilingual content, translation files, T",
-      "repo": "QingqiShi/shiqingqi.com",
       "path": ".claude/skills/i18n-patterns",
       "branch": "main",
       "category": "design",
@@ -43083,18 +42917,6 @@
       "source": "local"
     },
     {
-      "name": "lead-magnet",
-      "description": "Create high-converting lead magnets that generate email subscribers. Supports checklists, templates, swipe files, mini-courses, and guides with landing page copy.",
-      "repo": "majesticlabs-dev/majestic-marketplace",
-      "path": "data/lead-magnet",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "majesticlabs-dev/majestic-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "learn-nexus",
       "description": "Master Nexus philosophy and best practices. Load when user mentions: learn nexus, nexus tutorial, system mastery, nexus best practices, how nexus works, nexus philosophy, nexus design, understand nexu",
       "repo": "abdullahbeam/nexus-design-abdullah",
@@ -45188,22 +45010,6 @@
       "name": "marp-slide-quality",
       "description": "Analyze and improve Marp markdown presentations using SlideGauge. Use when working with Marp slides, presentation files ending in .md with marp frontmatter, or when user asks to check, analyze, improv",
       "repo": "nibzard/marp-slide-quality",
-      "path": "data/marp-slide-quality",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "marp",
-        "slide",
-        "quality"
-      ],
-      "stars": 0,
-      "install": "nibzard/marp-slide-quality",
-      "source": "local"
-    },
-    {
-      "name": "marp-slide-quality",
-      "description": "Analyze and improve Marp markdown presentations using SlideGauge. Use when working with Marp slides, presentation files ending in .md with marp frontmatter, or when user asks to check, analyze, improv",
-      "repo": "nibzard/marp-slide-quality",
       "path": "design/marp-slide-quality",
       "branch": "main",
       "category": "design",
@@ -46069,18 +45875,6 @@
       "stars": 0,
       "install": "auldsyababua/instructor-workflow/skills/merge-conflict-resolver",
       "source": "local"
-    },
-    {
-      "name": "metrics-dashboard",
-      "description": "KPI and metrics dashboard workflow covering metric definition, data sourcing,visualization design, and anomaly detection. Delivers actionable dashboards.",
-      "repo": "LerianStudio/ring",
-      "path": "data/metrics-dashboard",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "LerianStudio/ring",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "metrics-dashboard",
@@ -52449,18 +52243,6 @@
       "tags": [],
       "stars": 0,
       "install": "bobmatnyc/claude-mpm/src/claude_mpm/skills/bundled/pm/mpm-verification-protocols",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pmbok-project-management",
-      "description": "Comprehensive PMP/PMBOK project management methodologies and best practices. Use this skill when users need guidance on project management processes, templates, knowledge areas, process groups, tools,",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/pmbok-project-management",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -63247,18 +63029,6 @@
       "name": "superset-dashboard-designer",
       "description": "Expert guidance for designing effective Apache Superset dashboards with professional layouts, intuitive navigation, and optimized user experience. This skill helps you create dashboards that tell clea",
       "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/superset-dashboard-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "superset-dashboard-designer",
-      "description": "Expert guidance for designing effective Apache Superset dashboards with professional layouts, intuitive navigation, and optimized user experience. This skill helps you create dashboards that tell clea",
-      "repo": "jgtolentino/insightpulse-odoo",
       "path": "docs/claude-code-skills/community/superset-dashboard-designer",
       "branch": "main",
       "category": "design",
@@ -70221,18 +69991,6 @@
       "name": "vibes",
       "description": "Generate React web apps with Fireproof database. Use when creating new web applications, adding components, or working with local-first databases. Ideal for quick prototypes and single-page apps that ",
       "repo": "popmechanic/vibes-cli",
-      "path": "data/vibes",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "popmechanic/vibes-cli",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vibes",
-      "description": "Generate React web apps with Fireproof database. Use when creating new web applications, adding components, or working with local-first databases. Ideal for quick prototypes and single-page apps that ",
-      "repo": "popmechanic/vibes-cli",
       "path": "skills/vibes",
       "branch": "main",
       "category": "design",
@@ -72291,18 +72049,6 @@
       "tags": [],
       "stars": 0,
       "install": "wshobson/agents/plugins/backend-development/skills/workflow-orchestration-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "workflow-orchestrator",
-      "description": "Expert workflow orchestrator specializing in complex process design, state machine implementation, and business process automation. Masters workflow patterns, error compensation, and transaction manag",
-      "repo": "zenobi-us/dotfiles",
-      "path": "data/workflow-orchestrator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zenobi-us/dotfiles",
       "source": "SkillsMP + GitHub Raw"
     },
     {

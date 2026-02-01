@@ -1,127 +1,155 @@
 ---
-skill: learn
-description: Extract lessons from conversation and persist to project configuration
-trigger: |
-  Suggest this skill when the conversation reveals:
-  - Mistakes that had to be corrected
-  - Undocumented dependencies or workarounds
-  - Missing prerequisites discovered mid-task
-  - Repeated manual processes that could be automated
-  - Knowledge gaps about the codebase
+name: learn
+description: Teach Claude a new pattern, preference, or convention explicitly. Use when you want to save a correction, preference, or coding pattern for future sessions. Triggers on keywords like "remember this", "always do", "never do", "learn this pattern", "/learn".
+allowed-tools: Read, Write, Edit, Bash
+infer: true
 ---
 
-# Learn from Conversation
+# Pattern Learning Skill
 
-Analyze the current conversation to extract lessons learned, mistakes made, or knowledge gaps discovered, then persist them to the project configuration.
+Explicitly teach Claude patterns, preferences, or conventions that should be remembered across sessions.
 
-## Process
-
-### 1. Analyze Conversation
-
-Review the entire conversation for:
-
-**Mistakes & Corrections:**
-- Commands that failed and had to be retried
-- Missing prerequisites discovered mid-task
-- Incorrect assumptions about the codebase
-- Configuration issues encountered
-
-**Knowledge Gaps:**
-- Information Claude didn't know but should have
-- Patterns that weren't documented
-- Dependencies between systems not captured
-- Environment setup requirements
-
-**Workarounds Discovered:**
-- Solutions to common problems
-- Non-obvious configuration requirements
-- Integration quirks between tools/libraries
-
-**Process Improvements:**
-- Steps that should be automated
-- Checks that should happen earlier
-- Prerequisites that should be validated first
-
-### 2. Categorize Learnings
-
-For each learning, determine where it belongs:
-
-| Category | Destination | When to Use |
-|----------|-------------|-------------|
-| Project knowledge | CLAUDE.md | Facts about the codebase, patterns, conventions |
-| Prerequisites | CLAUDE.md | Things that must be true before actions |
-| Workflow automation | Skills | Multi-step processes Claude should suggest |
-| User-initiated flow | Commands | Explicit workflows users will request |
-
-### 3. Present Findings
-
-Format findings as:
+## Quick Usage
 
 ```
-## Lessons Learned
-
-### For CLAUDE.md
-1. **[Section]**: [What to add/update]
-   - Reason: [Why this was learned]
-   - Suggested text: [Actual content to add]
-
-### For Skills
-1. **[Skill name]**: [What it would do]
-   - Trigger: [When Claude should suggest it]
-   - Reason: [Why this would help]
-
-### For Commands
-1. **[Command name]**: [What it would do]
-   - Reason: [Why users would want this]
+/learn always use PlatformValidationResult instead of throwing ValidationException
+/learn [wrong] var x = 1 [right] const x = 1 - always prefer const
+/learn prefer async/await over .then() chains in this codebase
 ```
 
-### 4. Confirm and Apply
+## Teaching Formats
 
-For each learning:
-1. Show the proposed change
-2. Ask for confirmation
-3. Apply the change if approved
+### Format 1: Natural Language
 
-**For CLAUDE.md updates:**
-- Find the appropriate section
-- Add new content or update existing
-- Preserve existing structure and formatting
+```
+/learn always use IGrowthRootRepository instead of generic IPlatformRootRepository
+```
 
-**For new skills/commands:**
-- Create the file in the appropriate directory
-- Follow existing patterns for format
-- Update CLAUDE.md to document the new skill/command
+Detected patterns: "always use X instead of Y", "prefer X over Y", "never do X"
 
-### 5. Summary
+### Format 2: Explicit Wrong/Right
 
-After applying changes, show:
-- Files modified
-- New files created
-- Sections updated in CLAUDE.md
+```
+/learn [wrong] throw new ValidationException("Invalid") [right] return PlatformValidationResult.Invalid("Invalid")
+```
 
-## Examples of Learnable Patterns
+Best for code-level corrections with exact examples.
 
-**Missing Prerequisites:**
-> "The tests failed because a required service wasn't running"
-→ Add to CLAUDE.md: "Before running tests, ensure [service] is running"
+### Format 3: Code Block Comparison
 
-**Undocumented Dependency:**
-> "Library X doesn't work with tool Y without configuration"
-→ Add to CLAUDE.md: Technical note about the workaround
+```
+/learn
+Wrong:
+```csharp
+public void Process() {
+    if (x == null) throw new ArgumentNullException();
+}
+```
 
-**Repeated Manual Process:**
-> "Every time I add a [file type], I have to create tests, run linting, run build..."
-→ Create skill that automates this workflow
+Right:
+```csharp
+public PlatformValidationResult Process() {
+    return x == null
+        ? PlatformValidationResult.Invalid("X required")
+        : PlatformValidationResult.Valid();
+}
+```
+```
 
-**Environment Issue:**
-> "The build kept failing because a required variable wasn't set"
-→ Add to CLAUDE.md: Required environment variables
+### Format 4: Category-Specific
 
-## Guidelines
+```
+/learn backend: always add [ComputedEntityProperty] attribute to computed properties with empty setter
+/learn frontend: extend AppBaseComponent instead of using raw Component
+/learn workflow: always use TodoWrite before starting multi-step tasks
+```
 
-- **Be specific**: Include exact commands, file paths, and error messages
-- **Be actionable**: Write content that directly helps future Claude sessions
-- **Be minimal**: Only add what's truly useful, avoid over-documenting
-- **Preserve structure**: Fit new content into existing CLAUDE.md organization
-- **Avoid duplication**: Check if similar content already exists before adding
-- **Protect sensitive data**: Before persisting to docs/config, redact secrets, credentials, tokens, private URLs, API keys, passwords, and customer data. Generalize examples to avoid exposing sensitive information.
+## How It Works
+
+1. **Detection**: The pattern-learner hook detects your teaching input
+2. **Extraction**: Extracts wrong/right pair, keywords, and context
+3. **Storage**: Saves to `.claude/learned-patterns/{category}/{slug}.yaml`
+4. **Injection**: Future sessions automatically inject relevant patterns based on context
+
+## Pattern Categories
+
+| Category | Use For |
+|----------|---------|
+| `backend` | C#, .NET, API, Entity, Repository patterns |
+| `frontend` | Angular, TypeScript, Component, Store patterns |
+| `workflow` | Development process, git, planning patterns |
+| `general` | Cross-cutting concerns |
+
+## Confidence System
+
+- Explicit teaching starts at **80% confidence**
+- Implicit corrections (detected from "no, do X instead") start at **40% confidence**
+- Confidence increases when pattern is:
+  - Confirmed by user
+  - Injected and followed
+- Confidence decreases when:
+  - Pattern conflicts with user action
+  - 30 days pass without use (decay)
+- Patterns below **20% confidence** are auto-archived
+
+## Conflict Checking
+
+Patterns that conflict with `docs/claude/*.md` documentation are blocked to prevent inconsistencies.
+
+## Examples
+
+### Backend Pattern
+```
+/learn backend: DTO mapping should be in the DTO class using MapToEntity(), not in command handlers
+```
+
+### Frontend Pattern
+```
+/learn frontend: always use .pipe(this.untilDestroyed()) for subscriptions in components
+```
+
+### Anti-Pattern
+```
+/learn never call external APIs directly in command handlers - use Entity Event Handlers for side effects
+```
+
+### Code Style
+```
+/learn [wrong] items.Select(x => new Dto(x)).ToList() [right] items.SelectList(x => new Dto(x))
+```
+
+## Related Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/learned-patterns` | List and manage learned patterns |
+| `/learned-patterns view <id>` | View specific pattern details |
+| `/learned-patterns archive <id>` | Archive a pattern |
+| `/learned-patterns boost <id>` | Increase pattern confidence |
+
+## Storage Location
+
+Patterns are stored in:
+```
+.claude/learned-patterns/
+  index.yaml              # Pattern lookup index
+  backend/                # Backend patterns
+  frontend/               # Frontend patterns
+  workflow/               # Workflow patterns
+  general/                # General patterns
+  archive/                # Archived patterns
+```
+
+## Tips
+
+1. **Be Specific**: Include context about when the pattern applies
+2. **Use Examples**: Code blocks help clarify exact patterns
+3. **Categorize**: Prefix with category for better organization
+4. **Review Periodically**: Use `/learned-patterns` to review and prune
+
+## Technical Details
+
+- Storage: YAML files in `.claude/learned-patterns/`
+- Detection: `pattern-learner.cjs` hook on UserPromptSubmit
+- Injection: `pattern-injector.cjs` hook on SessionStart and PreToolUse
+- Max injection: 5 patterns per context, ~400 tokens budget

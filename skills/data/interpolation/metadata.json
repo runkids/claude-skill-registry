@@ -1,7 +1,7 @@
 {
   "name": "interpolation",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/numerical-methods/interpolation/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-31T04:36:25.749659Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/math/math/numerical-methods/interpolation/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-02-01T03:15:16.763926Z"
 }

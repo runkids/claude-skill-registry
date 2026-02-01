@@ -1,189 +1,371 @@
 ---
 name: ux-design
-description: UX心理学に基づくUIデザインスキル。UIコンポーネント設計時、フォーム設計時、ユーザーフロー設計時、UXレビュー時に使用。認知心理学・行動経済学の原則を適用して使いやすいインターフェースを設計する。
+description: UX design expert for user research, personas, journey mapping, information architecture, wireframing, prototyping, usability testing, and accessibility. Creates user-centered designs with WCAG 2.1 AA/AAA compliance.
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# UX Design スキル
+# UX Design Skill
 
-認知心理学・行動経済学に基づくUXデザイン原則を適用し、
-ユーザーにとって使いやすく、心地よいインターフェースを設計する。
+Expert in user experience design, creating intuitive, accessible, and user-centered digital experiences.
 
-## このスキルを使う場面
+## When to Use This Skill
 
-- UIコンポーネントの設計・実装時
-- フォーム・入力インターフェースの設計時
-- オンボーディング・ユーザーフローの設計時
-- 既存UIのUXレビュー・改善時
-- ローディング・フィードバック設計時
+Use this skill when:
 
-## 主要原則（頻出）
+- Conducting user research and creating personas
+- Designing information architecture and user flows
+- Creating wireframes and prototypes
+- Planning usability tests
+- Ensuring accessibility compliance (WCAG 2.1 AA/AAA)
+- Developing design systems and component libraries
+- Analyzing user feedback and iterating on designs
 
-### 1. Aesthetic-Usability Effect（美的ユーザビリティ効果）
+## Core UX Design Process
 
-美しいデザインは、より使いやすいと感じられる。
+### 1. Discover & Research
 
-```tsx
-// ✅ 統一されたデザインシステム
-<Card className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-  <CardHeader className="space-y-1">
-    <CardTitle className="text-xl font-semibold">タイトル</CardTitle>
-    <CardDescription className="text-gray-500">説明文</CardDescription>
-  </CardHeader>
-</Card>
+**User Research**
 
-// ❌ バラバラなスタイル
-<div style={{ border: "1px solid black", padding: 10 }}>
-  <h1>タイトル</h1>
-  <p>説明文</p>
-</div>
+- Conduct user interviews and surveys
+- Analyze user pain points and goals
+- Create data-driven user personas
+- Map user journeys and scenarios
+- Perform competitive analysis
+- Identify accessibility requirements
+
+**Deliverables:**
+
+- User personas with demographics, goals, pain points, behaviors
+- Journey maps showing touchpoints and emotions
+- Competitive analysis reports
+- Research insights summary
+
+### 2. Define & Strategize
+
+**Information Architecture**
+
+- Define content hierarchy
+- Create site maps and navigation structures
+- Organize information logically
+- Plan user flows and task flows
+- Identify key user paths
+
+**Deliverables:**
+
+- Site maps and IA diagrams
+- User flow diagrams
+- Task flow documentation
+- Navigation structures
+
+### 3. Design & Prototype
+
+**Wireframing**
+
+- Start with low-fidelity sketches
+- Create mid-fidelity wireframes
+- Progress to high-fidelity mockups
+- Focus on layout, hierarchy, and content placement
+- Ensure responsive design across breakpoints (mobile, tablet, desktop)
+
+**Prototyping**
+
+- Create interactive prototypes for testing
+- Design meaningful microinteractions
+- Plan transitions and animations
+- Consider loading states and error handling
+
+**Deliverables:**
+
+- Low-fidelity wireframes
+- High-fidelity mockups
+- Interactive prototypes
+- Responsive design specifications
+
+### 4. Validate & Test
+
+**Usability Testing**
+
+- Create test protocols and scenarios
+- Define success metrics
+- Conduct moderated/unmoderated tests
+- Gather qualitative and quantitative feedback
+- Identify usability issues
+
+**Accessibility Audits**
+
+- Test with screen readers
+- Verify keyboard navigation
+- Check color contrast ratios
+- Validate ARIA labels and semantic HTML
+- Ensure WCAG 2.1 AA/AAA compliance
+
+**Deliverables:**
+
+- Usability test protocols
+- Test results and insights
+- Accessibility audit reports
+- Recommended improvements
+
+### 5. Iterate & Refine
+
+**Design Iteration**
+
+- Analyze test results
+- Prioritize issues by severity
+- Implement improvements
+- Retest critical flows
+- Document design decisions
+
+## Design Principles
+
+### User-Centered Design
+
+- **Empathy First**: Always design for the user, not for yourself
+- **Accessibility is Non-Negotiable**: WCAG 2.1 AA minimum, AAA when possible
+- **Progressive Disclosure**: Show only what users need, when they need it
+- **Clear Feedback**: Provide immediate, clear feedback for all actions
+- **Error Prevention**: Design to prevent errors before they happen
+
+### Visual Hierarchy
+
+- Use size, color, contrast, and spacing to guide attention
+- Most important elements should be most prominent
+- Group related elements together (proximity)
+- Use consistent patterns for similar elements
+
+### Cognitive Load
+
+- Minimize user memory burden
+- Use recognition over recall
+- Provide clear labels and instructions
+- Break complex tasks into simple steps
+- Use familiar patterns and conventions
+
+## Accessibility Guidelines (WCAG 2.1)
+
+### Perceivable
+
+- **Text Alternatives**: Alt text for images, labels for icons
+- **Color Contrast**: Minimum 4.5:1 for normal text, 3:1 for large text
+- **Resizable Text**: Support up to 200% zoom
+- **Non-Text Contrast**: 3:1 for UI components and graphics
+
+### Operable
+
+- **Keyboard Navigation**: All functionality accessible via keyboard
+- **Focus Indicators**: Clear, visible focus states
+- **No Keyboard Traps**: Users can navigate away from all elements
+- **Skip Links**: Allow skipping repetitive content
+- **Timing**: Provide controls for time-based content
+
+### Understandable
+
+- **Clear Language**: Use simple, concise language
+- **Predictable Navigation**: Consistent patterns across pages
+- **Error Identification**: Clearly identify and describe errors
+- **Input Assistance**: Provide labels, instructions, and validation
+
+### Robust
+
+- **Valid HTML**: Use semantic, valid markup
+- **ARIA Attributes**: Use ARIA when native HTML isn't sufficient
+- **Screen Reader Compatible**: Test with NVDA, JAWS, VoiceOver
+- **Cross-Browser**: Work across modern browsers
+
+## Design System Components
+
+### Design Tokens
+
+- Colors (primary, secondary, accent, semantic)
+- Typography (font families, sizes, weights, line heights)
+- Spacing (margins, padding, gaps)
+- Shadows and elevation
+- Border radius and borders
+- Breakpoints (mobile, tablet, desktop, wide)
+
+### Component Library
+
+- Buttons (primary, secondary, tertiary, danger)
+- Forms (inputs, selects, checkboxes, radio buttons)
+- Navigation (headers, footers, menus, breadcrumbs)
+- Feedback (alerts, toasts, modals, tooltips)
+- Data display (tables, lists, cards, badges)
+- Loading states (spinners, skeletons, progress bars)
+
+### Patterns
+
+- Authentication flows (login, signup, password reset)
+- CRUD operations (create, read, update, delete)
+- Search and filtering
+- Pagination and infinite scroll
+- Empty states and error states
+
+## Integration with Project
+
+When using this skill in the st44-home project:
+
+### With Frontend Skill
+
+1. **UX Design** defines the structure, flows, and interactions
+2. **Frontend** implements using Angular 21+ patterns
+3. **Frontend Design** applies aesthetic polish
+
+### With Database Skill
+
+- Design data models based on user needs
+- Plan for user-friendly data display
+- Consider performance for user experience
+
+### Workflow Integration
+
+1. **Research Phase**: Use this skill to understand users
+2. **Design Phase**: Create wireframes and flows
+3. **Implementation**: Hand off to `frontend` skill with specs
+4. **Polish**: Apply `frontend-design` for aesthetics
+5. **Validate**: Return here for usability testing
+
+## Deliverable Templates
+
+### User Persona Template
+
+```markdown
+## Persona Name
+
+**Demographics:**
+
+- Age, location, occupation, tech proficiency
+
+**Goals:**
+
+- What they want to achieve
+- Why they use the product
+
+**Pain Points:**
+
+- Current frustrations
+- Barriers to success
+
+**Behaviors:**
+
+- How they currently solve problems
+- Preferred platforms and devices
+
+**Quote:**
+"A representative quote that captures their mindset"
 ```
 
-### 2. Doherty Threshold（0.4秒の壁）
+### User Flow Template
 
-0.4秒以上の待ち時間はユーザーの興味を失わせる。
+```markdown
+## User Flow: [Task Name]
 
-```tsx
-// ✅ 即座のフィードバック + ストリーミング
-const [isPending, startTransition] = useTransition();
+**Entry Point:** Where the user starts
+**Goal:** What the user wants to accomplish
+**Success Criteria:** How we know they succeeded
 
-<Button disabled={isPending}>
-  {isPending ? <Spinner className="animate-spin" /> : "送信"}
-</Button>
+**Steps:**
 
-// ✅ Optimistic Update
-const { mutate } = useMutation({
-  onMutate: async (newData) => {
-    // 即座にUIを更新
-    queryClient.setQueryData(["items"], (old) => [...old, newData]);
-  },
-});
+1. Action → System Response
+2. Action → System Response
+3. [Continue...]
+
+**Alternative Paths:**
+
+- Error scenarios
+- Edge cases
+
+**Exit Points:**
+
+- Success state
+- Abandon points
 ```
 
-### 3. Familiarity Bias（親近性バイアス）
+### Wireframe Specifications
 
-既知のUIパターンを使うことで認知負荷を下げる。
+```markdown
+## Page/Component: [Name]
 
-```tsx
-// ✅ 標準的なチャットUI
-<div className="flex flex-col h-screen">
-  <header className="border-b p-4">タイトル</header>
-  <main className="flex-1 overflow-y-auto p-4">
-    {/* メッセージ一覧 */}
-  </main>
-  <footer className="border-t p-4">
-    <input placeholder="メッセージを入力..." />
-  </footer>
-</div>
+**Purpose:** Brief description
+**User Need:** What problem this solves
+
+**Layout:**
+
+- Header: [Elements]
+- Main Content: [Sections]
+- Sidebar: [Components]
+- Footer: [Elements]
+
+**Key Elements:**
+
+- Element 1: Purpose, behavior, states
+- Element 2: Purpose, behavior, states
+
+**Interactions:**
+
+- Hover states
+- Click actions
+- Form validation
+- Loading states
+
+**Responsive Behavior:**
+
+- Mobile: [Changes]
+- Tablet: [Changes]
+- Desktop: [Default]
 ```
 
-### 4. Labor Illusion（労力の錯覚）
+## Success Criteria
 
-処理中であることを示すと、ユーザーは結果をより価値あるものと感じる。
+Before marking UX design work complete:
 
-```tsx
-// ✅ 処理中の可視化
-{isLoading && (
-  <div className="flex items-center gap-2 text-gray-500">
-    <Spinner className="animate-spin" />
-    <span>AIが回答を生成中...</span>
-  </div>
-)}
+- [ ] User research conducted with clear insights
+- [ ] Personas created based on real user data
+- [ ] User flows mapped for key tasks
+- [ ] Wireframes created (low to high fidelity)
+- [ ] Accessibility requirements defined (WCAG 2.1 AA minimum)
+- [ ] Interactive prototypes ready for testing
+- [ ] Usability test plan created
+- [ ] Design system tokens and components documented
+- [ ] Responsive behavior specified for all breakpoints
+- [ ] Handoff documentation clear for implementation
+
+## Tools & Testing
+
+### Recommended Testing Approach
+
+```bash
+# Accessibility testing tools
+# - AXE DevTools (browser extension)
+# - Lighthouse (Chrome DevTools)
+# - WAVE (browser extension)
+
+# Screen readers
+# - NVDA (Windows) - free
+# - JAWS (Windows) - commercial
+# - VoiceOver (macOS/iOS) - built-in
+
+# Keyboard navigation testing
+# - Test all functionality with Tab, Enter, Escape, Arrow keys
+# - Verify focus order is logical
+# - Ensure no keyboard traps
 ```
 
-### 5. Progressive Disclosure（段階的開示）
+## Philosophy
 
-情報を段階的に表示し、必要な時に必要な情報にアクセスできるようにする。
+> Great UX design is invisible. Users should accomplish their goals effortlessly, without thinking about the interface. Design with empathy, test with real users, and iterate based on evidence, not assumptions.
 
-```tsx
-// ✅ 詳細は折りたたみ
-<Accordion>
-  <AccordionItem>
-    <AccordionTrigger>詳細オプション</AccordionTrigger>
-    <AccordionContent>
-      {/* 高度な設定 */}
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+## Resources
 
-// ✅ ステップ形式のフォーム
-<Stepper currentStep={step}>
-  <Step title="基本情報" />
-  <Step title="詳細設定" />
-  <Step title="確認" />
-</Stepper>
-```
+### Key Principles
 
-## 設計時の適用フロー
+- **Don't Make Me Think** (Steve Krug): Minimize cognitive load
+- **Fitts's Law**: Larger, closer targets are faster to acquire
+- **Hick's Law**: More choices = longer decision time
+- **Miller's Law**: People remember 7±2 items
+- **Jakob's Law**: Users expect your site to work like others
 
-### 1. ユーザーの状態を把握
+### Accessibility Resources
 
-| 状態 | 適用すべき原則 |
-|------|---------------|
-| 初めて使う | Familiarity Bias, Progressive Disclosure |
-| 待っている | Doherty Threshold, Labor Illusion |
-| 選択に迷っている | Default Bias, Decoy Effect |
-| 離脱しそう | Peak-End Rule, Goal Gradient Effect |
-
-### 2. 認知負荷を最小化
-
-- **視覚的階層**: 重要な情報を目立たせる
-- **チャンキング**: 情報をグループ化する
-- **一貫性**: 同じ操作は同じ見た目にする
-
-### 3. フィードバックを設計
-
-- **即時性**: 0.4秒以内に何らかの反応
-- **進捗表示**: 長い処理はプログレス表示
-- **完了確認**: 成功・失敗を明確に伝える
-
-## 参照ドキュメント
-
-詳細な原則と実装パターンは以下を参照:
-
-- [PRINCIPLES.md](PRINCIPLES.md) - UX心理学原則一覧（43原則）
-- [PATTERNS.md](PATTERNS.md) - 実装パターン集
-- [CHECKLIST.md](CHECKLIST.md) - UXレビューチェックリスト
-
-## クイックリファレンス
-
-### フォーム設計
-
-| 課題 | 原則 | 実装 |
-|------|------|------|
-| 入力が面倒 | Default Bias | 適切なデフォルト値を設定 |
-| 項目が多い | Progressive Disclosure | ステップ分割・折りたたみ |
-| エラーが分かりにくい | Cognitive Load | インラインバリデーション |
-| 送信に不安 | Social Proof | 「〇〇人が利用」表示 |
-
-### ボタン・CTA設計
-
-| 課題 | 原則 | 実装 |
-|------|------|------|
-| クリックされない | Visual Hierarchy | 色・サイズで強調 |
-| 迷う | Decoy Effect | 推奨プランを明示 |
-| 押すのが不安 | Loss Aversion | 「無料」「いつでも解約可」 |
-
-### ローディング設計
-
-| 課題 | 原則 | 実装 |
-|------|------|------|
-| 待ち時間が長い | Doherty Threshold | ストリーミング・スケルトン |
-| 進捗が分からない | Labor Illusion | 処理内容を表示 |
-| 完了が分からない | Peak-End Rule | 成功アニメーション |
-
-## アンチパターン
-
-### ❌ ダークパターン
-
-以下は避けるべき操作的なUXパターン:
-
-- **Confirmshaming**: 拒否オプションを恥ずかしい文言にする
-- **Hidden Costs**: 最後まで追加料金を隠す
-- **Roach Motel**: 登録は簡単、解約は困難
-- **Trick Questions**: 紛らわしいチェックボックス
-
-### ❌ 過剰な適用
-
-- Gamificationの乱用（ポイント・バッジの氾濫）
-- Scarcity Effectの嘘（常に「残りわずか」）
-- Nudgeの強制（選択肢がないように見せる）
+- WCAG 2.1 Guidelines: https://www.w3.org/WAI/WCAG21/quickref/
+- WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
+- A11y Project Checklist: https://www.a11yproject.com/checklist/

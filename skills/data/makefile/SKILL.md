@@ -1,193 +1,319 @@
 ---
 name: makefile
-description: Makefile skill for the ikigai project
+description: GNU Make automation and build system guidance
+version: 2.0.0
+release_date: "2023-02-26"
 ---
 
-# Makefile
+# Makefile Skill
 
-## Description
+Guidance for creating and maintaining GNU Make build automation.
 
-Build system for ikigai Linux coding agent with comprehensive testing, dynamic analysis, code quality, and multi-distribution packaging support.
+## Quick Navigation
 
-## Check Target Requirements
+| Topic                         | Reference                               |
+| ----------------------------- | --------------------------------------- |
+| Rules, prerequisites, targets | [syntax.md](references/syntax.md)       |
+| Variable types and assignment | [variables.md](references/variables.md) |
+| Built-in functions            | [functions.md](references/functions.md) |
+| Special and phony targets     | [targets.md](references/targets.md)     |
+| Recipe execution, parallel    | [recipes.md](references/recipes.md)     |
+| Implicit and pattern rules    | [implicit.md](references/implicit.md)   |
+| Common practical patterns     | [patterns.md](references/patterns.md)   |
 
-**FUNDAMENTAL REQUIREMENT:** All check targets must have consistent, minimal output.
+---
 
-**Output format:**
-- **Success**: Green circle (🟢) + filename
-- **Failure**: Red circle (🔴) + filename
-- **No other output**: No progress messages, no verbose logs, no noise
+## Core Concepts
 
-**The 10 check targets:**
-1. `check-compile` - Compile all .c files to .o files
-2. `check-link` - Link all binaries (main, tests, tools)
-3. `check-filesize` - Verify files are under size limits
-4. `check-unit` - Run unit tests
-5. `check-integration` - Run integration tests
-6. `check-complexity` - Check cyclomatic complexity and nesting depth
-7. `check-sanitize` - Run tests with AddressSanitizer and UndefinedBehaviorSanitizer
-8. `check-tsan` - Run tests with ThreadSanitizer
-9. `check-valgrind` - Run tests under Valgrind Memcheck
-10. `check-helgrind` - Run tests under Valgrind Helgrind
-
-All checks must behave identically in output format.
-
-## Build
-
-- `make all` - Build the ikigai client binary with default debug configuration.
-- `make release` - Clean and rebuild the client in release mode with optimizations.
-- `make clean` - Remove all build artifacts, coverage data, reports, and distribution packages.
-- `make check-compile` - Compile all .c files (src + tests) to .o files. Emits 🟢/🔴 per file.
-- `make check-compile FILE=src/foo.c` - Compile only the specified file + dependencies.
-- `make check-link` - Link all binaries (client, tests, tools). Emits 🟢/🔴 per binary.
-- `make check-link FILE=build/debug/tests/unit/foo_test` - Link only the specified binary.
-
-## Installation
-
-- `make install` - Install the ikigai binary and config files to PREFIX (default /usr/local).
-- `make uninstall` - Remove installed binary and configuration files from the system.
-- `make install-deps` - Install build dependencies using the system package manager.
-
-## Testing
-
-- `make check` - Build and run all tests in parallel (unit and integration).
-- `make check TEST=name` - Build and run a single test matching the specified name.
-- `make check-unit` - Build and run only unit tests in parallel.
-- `make check-integration` - Build and run only integration and database tests.
-
-## Mock Verification
-
-- `make verify-mocks` - Verify OpenAI mock fixtures against real API responses.
-- `make verify-mocks-anthropic` - Verify Anthropic mock fixtures against real API responses.
-- `make verify-mocks-google` - Verify Google mock fixtures against real API responses.
-- `make verify-mocks-all` - Verify all provider mock fixtures against real APIs.
-- `make verify-credentials` - Validate API keys in ~/.config/ikigai/credentials.json.
-
-## VCR Recording
-
-- `make vcr-record-openai` - Re-record OpenAI VCR fixtures with real API calls.
-- `make vcr-record-anthropic` - Re-record Anthropic VCR fixtures with real API calls.
-- `make vcr-record-google` - Re-record Google VCR fixtures with real API calls.
-- `make vcr-record-all` - Re-record all provider VCR fixtures.
-
-## Dynamic Analysis
-
-- `make check-sanitize` - Run all tests with AddressSanitizer and UndefinedBehaviorSanitizer.
-- `make check-valgrind` - Run all tests under Valgrind Memcheck for memory leak detection.
-- `make check-helgrind` - Run all tests under Valgrind Helgrind for thread error detection.
-- `make check-tsan` - Run all tests with ThreadSanitizer for race condition detection.
-- `make check-dynamic` - Run all dynamic analysis checks sequentially (or parallel with PARALLEL=1).
-
-## Quality Assurance
-
-- `make check-coverage` - Generate code coverage report and enforce coverage thresholds.
-- `make coverage-map` - Generate source file to test mapping for targeted coverage runs.
-- `make lint` - Run all lint checks (complexity and filesize).
-- `make check-complexity` - Check cyclomatic complexity and nesting depth against thresholds.
-- `make check-filesize` - Verify all source and documentation files are below size limits.
-- `make ci` - Run complete CI pipeline (lint, coverage, all tests, all dynamic analysis).
-
-## Code Formatting
-
-- `make fmt` - Format all source code using uncrustify with project style guide.
-- `make tags` - Generate ctags index for source code navigation.
-- `make cloc` - Count lines of code in source, tests, and Makefile.
-
-## Distribution
-
-- `make dist` - Create source distribution tarball for packaging.
-- `make distro-images` - Build Docker images for all supported distributions.
-- `make distro-images-clean` - Remove all Docker images for supported distributions.
-- `make distro-clean` - Clean build artifacts using Docker container.
-- `make distro-check` - Run full CI checks on all supported distributions via Docker.
-- `make distro-package` - Build distribution packages (deb, rpm) for all supported distributions.
-
-## Utility
-
-- `make help` - Display detailed help for all available targets and build modes.
-- `make clean-test-runs` - Remove test run sentinel files used for parallel execution.
-
-## Build Modes
-
-| Mode | Flags | Purpose |
-|------|-------|---------|
-| `BUILD=debug` | `-O0 -g3 -DDEBUG` | Default build with full debug symbols and no optimization |
-| `BUILD=release` | `-O2 -g -DNDEBUG -D_FORTIFY_SOURCE=2` | Optimized production build with security hardening |
-| `BUILD=sanitize` | `-O0 -g3 -fsanitize=address,undefined` | Debug build with address and undefined behavior sanitizers |
-| `BUILD=tsan` | `-O0 -g3 -fsanitize=thread` | Debug build with thread sanitizer for race detection |
-| `BUILD=valgrind` | `-O0 -g3 -fno-omit-frame-pointer` | Debug build optimized for Valgrind analysis |
-
-## Common Workflows
-
-```bash
-# Development workflow
-make clean && make all               # Clean build in debug mode
-make check                           # Run all tests
-make fmt                             # Format code before commit
-
-# Single test execution
-make check TEST=config_test          # Run only config_test
-
-# Quality assurance
-make lint                            # Check complexity and file sizes
-make check-coverage                  # Generate coverage report
-make check-dynamic                   # Run all sanitizers and Valgrind
-
-# Release workflow
-make release                         # Build optimized release binary
-make ci                              # Run full CI pipeline
-
-# Distribution workflow
-make dist                            # Create source tarball
-make distro-images                   # Build Docker images
-make distro-package                  # Build deb/rpm packages
-
-# Custom builds
-make all BUILD=release               # Build in release mode
-make check BUILD=sanitize            # Run tests with sanitizers
-make check-coverage COVERAGE_THRESHOLD=95  # Require 95% coverage
-
-# Distribution testing
-make distro-check DISTROS="debian"   # Test only on Debian
-make distro-package DISTROS="fedora ubuntu"  # Build packages for specific distros
-
-# Parallel execution
-make -j8 check                       # Run tests with 8 parallel jobs
-make check-dynamic PARALLEL=1        # Run sanitizers in parallel
-
-# VCR fixture recording
-VCR_RECORD=1 make check-unit         # Re-record fixtures during test run
-make vcr-record-openai               # Re-record all OpenAI fixtures
-```
-
-## Tool Build Pattern
+### Rule Structure
 
 ```makefile
-tool_name_tool: libexec/ikigai/tool-name-tool
-
-libexec/ikigai/tool-name-tool: src/tools/tool_name/main.c $(TOOL_COMMON_SRCS) | libexec/ikigai
-	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -ltalloc && echo "🔗 $@" || (echo "🔴 $@" && exit 1)
+target: prerequisites
+        recipe
 ```
 
-**Critical:** `$(LDFLAGS)` must come before `-o $@ $^`, not after. Libraries go at the end.
+**Critical:** Recipe lines MUST start with TAB character.
 
-## Test File Naming Convention
+### File vs Phony Targets
 
-**CRITICAL:** Only two file endings are allowed in the `tests/` directory:
+```makefile
+# File target - creates/updates a file
+build/app.o: src/app.c
+        $(CC) -c $< -o $@
 
-1. **`*_test.c`** - Test files that build into test binaries
-2. **`*_helper.c`** - Helper files used by tests (stubs, mocks, utilities)
+# Phony target - action, not a file
+.PHONY: clean test install
 
-Any other naming pattern is invalid and must be renamed to match one of these patterns.
+clean:
+        rm -rf build/
+```
 
-## Important Notes
+### Variable Assignment
 
-- Never run parallel make with different targets - different BUILD modes use incompatible flags.
-- Always stay in project root - use relative paths instead of changing directories.
-- Default BUILD mode is debug; specify BUILD=release for optimized builds.
-- Coverage requires 90% line, function, and branch coverage by default.
-- Maximum file size is 16384 bytes for all non-vendor source and documentation files.
-- Cyclomatic complexity threshold is 15, nesting depth threshold is 5.
-- Vendor files (yyjson, fzy) compile with relaxed warnings.
-- Test binaries support parallel execution using .run sentinel files.
-- Signal tests are skipped when running with sanitizers (SKIP_SIGNAL_TESTS=1).
+| Operator | Name        | When Expanded           |
+| -------- | ----------- | ----------------------- |
+| `:=`     | Simple      | Once, at definition     |
+| `?=`     | Conditional | If not already set      |
+| `=`      | Recursive   | Each use (late binding) |
+| `+=`     | Append      | Adds to existing value  |
+
+```makefile
+CC := gcc              # Immediate
+CFLAGS ?= -O2          # Default, overridable
+DEBUG = $(VERBOSE)     # Late binding
+CFLAGS += -Wall        # Append
+```
+
+### Automatic Variables
+
+| Variable | Meaning                         |
+| -------- | ------------------------------- |
+| `$@`     | Target                          |
+| `$<`     | First prerequisite              |
+| `$^`     | All prerequisites (unique)      |
+| `$?`     | Prerequisites newer than target |
+| `$*`     | Stem in pattern rules           |
+
+---
+
+## Essential Patterns
+
+### Self-Documenting Help
+
+```makefile
+.DEFAULT_GOAL := help
+
+help: ## Show available targets
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
+
+install: ## Install dependencies
+	uv sync
+
+test: ## Run tests
+	uv run pytest
+```
+
+### Platform Detection
+
+```makefile
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+    OPEN := open
+else ifeq ($(UNAME_S),Linux)
+    OPEN := xdg-open
+endif
+```
+
+### Build Directory
+
+```makefile
+BUILDDIR := build
+SOURCES := $(wildcard src/*.c)
+OBJECTS := $(patsubst src/%.c,$(BUILDDIR)/%.o,$(SOURCES))
+
+$(BUILDDIR)/%.o: src/%.c | $(BUILDDIR)
+	$(CC) -c $< -o $@
+
+$(BUILDDIR):
+	mkdir -p $@
+```
+
+### Environment Export
+
+```makefile
+export PYTHONPATH := $(PWD)/src
+export DATABASE_URL
+
+test:
+	pytest tests/  # sees exported variables
+```
+
+---
+
+## Common Targets
+
+### Quality Checks
+
+```makefile
+.PHONY: lint format check test
+
+lint: ## Run linters
+	ruff check .
+	mypy src/
+
+format: ## Format code
+	ruff format .
+
+check: format lint test ## All quality checks
+```
+
+### Cleanup
+
+```makefile
+.PHONY: clean clean-all
+
+clean: ## Remove build artifacts
+	rm -rf build/ dist/ *.egg-info
+	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+
+clean-all: clean ## Remove all generated files
+	rm -rf .venv .pytest_cache .mypy_cache
+```
+
+### Docker Integration
+
+```makefile
+IMAGE := myapp
+VERSION := $(shell git describe --tags --always)
+
+docker-build: ## Build Docker image
+	docker build -t $(IMAGE):$(VERSION) .
+
+docker-run: ## Run container
+	docker run -d -p 8000:8000 $(IMAGE):$(VERSION)
+```
+
+---
+
+## Recipe Execution
+
+### Each Line = Separate Shell
+
+```makefile
+# Won't work - cd lost between lines
+bad:
+	cd subdir
+	pwd           # Still in original dir!
+
+# Correct - combine commands
+good:
+	cd subdir && pwd
+
+# Or use line continuation
+also-good:
+	cd subdir && \
+	pwd && \
+	make
+```
+
+### Silent and Error Handling
+
+```makefile
+target:
+	@echo "@ suppresses command echo"
+	-rm -f maybe.txt    # - ignores errors
+```
+
+### Parallel Execution
+
+```bash
+make -j4              # 4 parallel jobs
+make -j4 lint test    # Run lint and test in parallel
+```
+
+---
+
+## Output Discipline
+
+**One line in, one line out.** Avoid echo spam.
+
+```makefile
+# ❌ Too chatty
+start:
+	@echo "Starting services..."
+	docker compose up -d
+	@echo "Waiting..."
+	@sleep 3
+	@echo "Done!"
+
+# ✅ Concise
+start: ## Start services
+	@echo "Starting at http://localhost:8000 ..."
+	@docker compose up -d
+	@echo "Logs: docker compose logs -f"
+```
+
+---
+
+## Conditionals
+
+```makefile
+DEBUG ?= 0
+
+ifeq ($(DEBUG),1)
+    CFLAGS += -g -O0
+else
+    CFLAGS += -O2
+endif
+
+ifdef CI
+    TEST_FLAGS := --ci
+endif
+```
+
+---
+
+## Including Files
+
+```makefile
+# Required include (error if missing)
+include config.mk
+
+# Optional include (silent if missing)
+-include local.mk
+-include .env
+```
+
+---
+
+## Common Pitfalls
+
+| Pitfall               | Problem                                 | Solution                 |
+| --------------------- | --------------------------------------- | ------------------------ |
+| Spaces in recipes     | Recipes need TAB                        | Use actual TAB character |
+| Missing .PHONY        | `make test` fails if `test` file exists | Declare `.PHONY: test`   |
+| cd in recipes         | Each line is new shell                  | Use `cd dir && command`  |
+| `=` vs `:=` confusion | Unexpected late expansion               | Use `:=` by default      |
+| Unexported vars       | Subprocesses don't see vars             | `export VAR`             |
+| Complex shell in make | Hard to maintain                        | Move to external script  |
+
+---
+
+## Quick Reference
+
+```makefile
+# Makefile Template
+.DEFAULT_GOAL := help
+SHELL := /bin/bash
+.SHELLFLAGS := -ec
+
+.PHONY: help install test lint format clean
+
+help: ## Show this help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
+
+install: ## Install dependencies
+	uv sync --extra dev
+
+test: ## Run tests
+	uv run pytest tests/ -v
+
+lint: ## Run linters
+	uv run ruff check .
+
+format: ## Format code
+	uv run ruff format .
+
+clean: ## Clean artifacts
+	rm -rf build/ dist/ .pytest_cache
+```
+
+---
+
+## See Also
+
+- [GNU Make Manual](https://www.gnu.org/software/make/manual/make.html)
+- [patterns.md](references/patterns.md) - Extended patterns and recipes

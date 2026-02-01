@@ -1,9 +1,7 @@
 {
   "name": "snapshot",
-  "description": "Automate App Store screenshot capture across devices and languages",
-  "repo": "greenstevester/fastlane-skill",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "technicalpickles/pickled-claude-plugins",
+  "path": "plugins/agent-meta/skills/snapshot/SKILL.md",
+  "source": "github.com/technicalpickles/pickled-claude-plugins",
+  "downloaded_at": "2026-02-01T03:16:37.722443Z"
 }

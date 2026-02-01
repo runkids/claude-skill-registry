@@ -1,7 +1,7 @@
 {
   "name": "writing-rules",
-  "repo": "otrebu/all-agents",
-  "path": ".claude/plugins/cache/claude-code-plugins/hookify/0.1.0/skills/writing-rules/SKILL.md",
-  "source": "github.com/otrebu/all-agents",
-  "downloaded_at": "2026-01-31T04:31:20.704069Z"
+  "repo": "akiojin/playfab-mcp-server",
+  "path": ".claude/skills/writing-rules/SKILL.md",
+  "source": "github.com/akiojin/playfab-mcp-server",
+  "downloaded_at": "2026-02-01T03:25:58.699136Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "integration-testing",
-  "repo": "zerobias-org/module",
-  "path": ".claude/skills/integration-testing/SKILL.md",
-  "source": "github.com/zerobias-org/module",
-  "downloaded_at": "2026-01-31T04:45:42.664330Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/integration-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-02-01T03:28:59.929216Z"
 }

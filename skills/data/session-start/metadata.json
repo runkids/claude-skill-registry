@@ -1,7 +1,7 @@
 {
   "name": "session-start",
-  "repo": "RustyLindquist/EnhancedHR",
-  "path": ".claude/skills/session-start/SKILL.md",
-  "source": "github.com/RustyLindquist/EnhancedHR",
-  "downloaded_at": "2026-01-31T03:55:17.693532Z"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/session-start/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-02-01T04:43:54.049144Z"
 }

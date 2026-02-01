@@ -1,385 +1,155 @@
 ---
 name: api-testing
-description: REST and GraphQL API testing with Playwright. Use when testing APIs, mocking endpoints, validating responses, or integrating API tests with E2E flows.
-version: 1.0.0
-tags: [testing, api, rest, graphql, playwright, automation]
+description: Write and run API tests with Vitest for endpoints, middleware, and integrations. Use when testing API functionality, request/response validation, or error handling.
+allowed-tools: Read, Edit, Write, Bash, Grep, Glob
 ---
 
-# API Testing with Playwright
+# API Testing Skill
 
-Comprehensive API testing for REST and GraphQL endpoints using Playwright's built-in API testing capabilities.
-
-## Quick Start
-
-```typescript
-import { test, expect } from '@playwright/test';
-
-test('GET /api/users returns users', async ({ request }) => {
-  const response = await request.get('/api/users');
-
-  expect(response.ok()).toBeTruthy();
-  expect(response.status()).toBe(200);
-
-  const users = await response.json();
-  expect(users).toHaveLength(10);
-  expect(users[0]).toHaveProperty('email');
-});
-```
-
-## Installation
+## Running Tests
 
 ```bash
-# Playwright includes API testing - no extra packages needed
-npm install -D @playwright/test
+pnpm test                  # Run all tests
+pnpm test:watch            # Watch mode
+pnpm test:coverage         # With coverage
+pnpm -F @sgcarstrends/web test              # Run web tests
+pnpm -F @sgcarstrends/web test:watch        # Watch mode for web
 ```
 
-## Configuration
+## Test Structure
 
-**playwright.config.ts:**
+```
+apps/web/__tests__/
+├── setup.ts              # Test setup
+├── helpers.ts            # Test utilities
+├── queries/              # Query tests
+├── components/           # Component tests
+└── utils/                # Utility tests
+```
+
+## Testing API Routes
+
+### Basic Endpoint Test
+
 ```typescript
-import { defineConfig } from '@playwright/test';
+import { describe, it, expect } from "vitest";
 
-export default defineConfig({
-  testDir: './tests',
-  use: {
-    baseURL: 'http://localhost:3000',
-    extraHTTPHeaders: {
-      'Accept': 'application/json',
-    },
+describe("GET /api/health", () => {
+  it("returns 200 OK", async () => {
+    const res = await fetch("http://localhost:3000/api/health");
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ status: "ok" });
+  });
+});
+```
+
+### Testing with Query Params
+
+```typescript
+describe("GET /api/cars", () => {
+  it("filters by month", async () => {
+    const res = await fetch("http://localhost:3000/api/cars?month=2024-01");
+    expect(res.status).toBe(200);
+  });
+
+  it("returns 400 for invalid month", async () => {
+    const res = await fetch("http://localhost:3000/api/cars?month=invalid");
+    expect(res.status).toBe(400);
+  });
+});
+```
+
+### Testing POST Endpoints
+
+```typescript
+describe("POST /api/posts", () => {
+  it("creates a new post", async () => {
+    const res = await fetch("http://localhost:3000/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: "Test", content: "Content" }),
+    });
+    expect(res.status).toBe(201);
+  });
+});
+```
+
+## Mocking
+
+### Mock Database
+
+```typescript
+import { vi } from "vitest";
+import { db } from "../src/config/database";
+
+vi.spyOn(db.query.cars, "findMany").mockResolvedValue([
+  { make: "Toyota", model: "Corolla", number: 100 },
+]);
+```
+
+### Mock External APIs
+
+```typescript
+const mockFetch = vi.fn().mockResolvedValue({
+  ok: true,
+  json: async () => ({ records: [] }),
+});
+global.fetch = mockFetch;
+```
+
+### Mock Redis
+
+```typescript
+vi.mock("@sgcarstrends/utils", () => ({
+  redis: {
+    get: vi.fn(),
+    set: vi.fn(),
+    del: vi.fn(),
   },
-  projects: [
-    {
-      name: 'api',
-      testMatch: /.*\.api\.spec\.ts/,
-    },
-    {
-      name: 'e2e',
-      testMatch: /.*\.e2e\.spec\.ts/,
-      use: { browserName: 'chromium' },
-    },
-  ],
-});
+}));
 ```
 
-## REST API Testing
-
-### GET Requests
+## Test Helpers
 
 ```typescript
-test('fetch user by ID', async ({ request }) => {
-  const response = await request.get('/api/users/123');
-
-  expect(response.ok()).toBeTruthy();
-
-  const user = await response.json();
-  expect(user.id).toBe(123);
-  expect(user.email).toMatch(/@/);
+// apps/web/__tests__/helpers.ts
+export const createAuthHeader = (token: string) => ({
+  Authorization: `Bearer ${token}`,
 });
-```
 
-### POST Requests
-
-```typescript
-test('create new user', async ({ request }) => {
-  const response = await request.post('/api/users', {
-    data: {
-      name: 'John Doe',
-      email: 'john@example.com',
-    },
-  });
-
-  expect(response.status()).toBe(201);
-
-  const user = await response.json();
-  expect(user.id).toBeDefined();
-  expect(user.name).toBe('John Doe');
-});
-```
-
-### PUT/PATCH Requests
-
-```typescript
-test('update user', async ({ request }) => {
-  const response = await request.put('/api/users/123', {
-    data: {
-      name: 'Jane Doe',
-    },
-  });
-
-  expect(response.ok()).toBeTruthy();
-
-  const user = await response.json();
-  expect(user.name).toBe('Jane Doe');
-});
-```
-
-### DELETE Requests
-
-```typescript
-test('delete user', async ({ request }) => {
-  const response = await request.delete('/api/users/123');
-  expect(response.status()).toBe(204);
-
-  // Verify deletion
-  const getResponse = await request.get('/api/users/123');
-  expect(getResponse.status()).toBe(404);
-});
-```
-
-## Authentication
-
-### Bearer Token
-
-```typescript
-test.describe('authenticated requests', () => {
-  let token: string;
-
-  test.beforeAll(async ({ request }) => {
-    const response = await request.post('/api/auth/login', {
-      data: {
-        email: 'test@example.com',
-        password: 'password123',
-      },
-    });
-    const data = await response.json();
-    token = data.token;
-  });
-
-  test('access protected endpoint', async ({ request }) => {
-    const response = await request.get('/api/protected', {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    expect(response.ok()).toBeTruthy();
-  });
-});
-```
-
-### Cookie-Based Auth
-
-```typescript
-test('login and access dashboard', async ({ request, context }) => {
-  // Login (sets cookie automatically)
-  await request.post('/api/auth/login', {
-    data: { email: 'test@example.com', password: 'pass' },
-  });
-
-  // Cookie is automatically included in subsequent requests
-  const response = await request.get('/api/dashboard');
-  expect(response.ok()).toBeTruthy();
-});
-```
-
-## GraphQL Testing
-
-### Query
-
-```typescript
-test('GraphQL query users', async ({ request }) => {
-  const response = await request.post('/graphql', {
-    data: {
-      query: `
-        query GetUsers {
-          users {
-            id
-            name
-            email
-          }
-        }
-      `,
-    },
-  });
-
-  const { data, errors } = await response.json();
-  expect(errors).toBeUndefined();
-  expect(data.users).toHaveLength(10);
-});
-```
-
-### Mutation
-
-```typescript
-test('GraphQL create user', async ({ request }) => {
-  const response = await request.post('/graphql', {
-    data: {
-      query: `
-        mutation CreateUser($input: CreateUserInput!) {
-          createUser(input: $input) {
-            id
-            name
-            email
-          }
-        }
-      `,
-      variables: {
-        input: {
-          name: 'John Doe',
-          email: 'john@example.com',
-        },
-      },
-    },
-  });
-
-  const { data, errors } = await response.json();
-  expect(errors).toBeUndefined();
-  expect(data.createUser.id).toBeDefined();
-});
-```
-
-### With Authentication
-
-```typescript
-test('GraphQL with auth', async ({ request }) => {
-  const response = await request.post('/graphql', {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    data: {
-      query: `
-        query Me {
-          me {
-            id
-            email
-            role
-          }
-        }
-      `,
-    },
-  });
-
-  const { data } = await response.json();
-  expect(data.me.role).toBe('admin');
-});
-```
-
-## API Mocking (for E2E tests)
-
-### Mock API Responses
-
-```typescript
-test('display mocked products', async ({ page }) => {
-  // Mock the API
-  await page.route('**/api/products', route => {
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify([
-        { id: 1, name: 'Mock Product', price: 99.99 },
-      ]),
-    });
-  });
-
-  await page.goto('/products');
-  await expect(page.locator('.product')).toHaveCount(1);
-  await expect(page.locator('.product-name')).toHaveText('Mock Product');
-});
-```
-
-### Simulate Errors
-
-```typescript
-test('handle API error gracefully', async ({ page }) => {
-  await page.route('**/api/products', route => {
-    route.fulfill({
-      status: 500,
-      body: JSON.stringify({ error: 'Server error' }),
-    });
-  });
-
-  await page.goto('/products');
-  await expect(page.locator('.error-message')).toBeVisible();
-});
-```
-
-### Delay Responses
-
-```typescript
-test('show loading state', async ({ page }) => {
-  await page.route('**/api/products', async route => {
-    await new Promise(r => setTimeout(r, 2000));
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify([]),
-    });
-  });
-
-  await page.goto('/products');
-  await expect(page.locator('.loading-spinner')).toBeVisible();
-});
-```
-
-## Response Validation
-
-### JSON Schema Validation
-
-```typescript
-import Ajv from 'ajv';
-
-const ajv = new Ajv();
-const userSchema = {
-  type: 'object',
-  properties: {
-    id: { type: 'number' },
-    name: { type: 'string' },
-    email: { type: 'string', format: 'email' },
-  },
-  required: ['id', 'name', 'email'],
+export const seedDatabase = async (data: any[]) => {
+  await db.insert(cars).values(data);
 };
 
-test('validate response schema', async ({ request }) => {
-  const response = await request.get('/api/users/1');
-  const user = await response.json();
-
-  const validate = ajv.compile(userSchema);
-  expect(validate(user)).toBeTruthy();
-});
-```
-
-### Response Headers
-
-```typescript
-test('check response headers', async ({ request }) => {
-  const response = await request.get('/api/users');
-
-  expect(response.headers()['content-type']).toContain('application/json');
-  expect(response.headers()['x-rate-limit-remaining']).toBeDefined();
-});
-```
-
-## File Upload
-
-```typescript
-import path from 'path';
-
-test('upload file', async ({ request }) => {
-  const response = await request.post('/api/upload', {
-    multipart: {
-      file: {
-        name: 'test.pdf',
-        mimeType: 'application/pdf',
-        buffer: Buffer.from('PDF content'),
-      },
-      description: 'Test document',
-    },
-  });
-
-  expect(response.ok()).toBeTruthy();
-  const result = await response.json();
-  expect(result.filename).toBe('test.pdf');
-});
+export const clearDatabase = async () => {
+  await db.delete(cars);
+};
 ```
 
 ## Best Practices
 
-1. **Separate API and E2E tests** - Use different test files/projects
-2. **Use fixtures for common data** - Avoid repetition
-3. **Test error cases** - 400, 401, 403, 404, 500 responses
-4. **Validate response schemas** - Catch breaking changes early
-5. **Mock external APIs** - Don't depend on third-party availability
-6. **Clean up test data** - Use `afterEach` or `afterAll` hooks
+1. **Isolate tests** - Each test should be independent
+2. **Test error cases** - Test both happy and error paths
+3. **Use mocks** - Mock external dependencies
+4. **Clean up** - Reset state in afterEach
+5. **Descriptive names** - Clear test descriptions
+6. **Coverage goals** - Aim for 80%+ coverage
+
+## Coverage Configuration
+
+```typescript
+// vitest.config.ts
+export default defineConfig({
+  test: {
+    coverage: {
+      provider: "v8",
+      thresholds: { lines: 80, functions: 80, branches: 80 },
+    },
+  },
+});
+```
 
 ## References
 
-- `references/graphql-testing.md` - Advanced GraphQL patterns
-- `references/schema-validation.md` - JSON Schema with Ajv
+- Vitest: https://vitest.dev
+- Next.js Testing: https://nextjs.org/docs/app/building-your-application/testing

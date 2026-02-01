@@ -1,147 +1,405 @@
 ---
 name: mcp-client
-description: Compiled MCP client skill with universal Python client and server scripts. Reduces token usage by 98-99% compared to direct MCP calls.
+description: Universal MCP client for connecting to any MCP server with progressive disclosure. Wraps MCP servers as skills to avoid context window bloat from tool definitions. Use when interacting with external MCP servers (Playwright, GitHub, filesystem, etc.), listing available tools, or executing MCP tool calls. Triggers on "connect to MCP", "list MCP tools", "call MCP", "use Playwright", "browser navigate", "browser snapshot".
 ---
 
-# Compiled MCP Client Skill
+# Universal MCP Client
 
-Use this skill to execute MCP tool calls via compiled scripts, reducing token usage dramatically.
+Connect to any MCP server without bloating context with tool definitions.
 
-## Token Comparison
+> **⚠️ PLAYWRIGHT USERS: READ "CRITICAL: Playwright Browser Session Behavior" SECTION BELOW!**
+>
+> Each MCP call = new browser session. Browser CLOSES after each call.
+> You CANNOT navigate in one call and click in another.
+> Use `browser_run_code` for ANY multi-step operation.
+> If you need to return to a state (e.g., logged in), you MUST redo ALL steps from scratch.
 
-| Method | Tokens per Call | 3 Calls Total |
-|--------|----------------|---------------|
-| Direct MCP | ~5,000-8,000 | ~15,000-24,000 |
-| Compiled Skill | ~150 (SKILL.md only) | ~150 |
-| **Savings** | | **~98-99%** |
+## How It Works
 
-## Architecture
+Instead of loading all MCP tool schemas into context, this client:
+1. Lists available servers from config
+2. Queries tool schemas on-demand
+3. Executes tools with JSON arguments
 
-```
-.claude/skills/mcp-client/
-├── SKILL.md                    # This file (~150 tokens)
-├── scripts/
-│   ├── mcp-client.py          # Universal MCP client (runs locally)
-│   ├── start-context7.sh      # Start Context7 server
-│   ├── start-better-auth.sh   # Start Better Auth server
-│   ├── start-neon.sh          # Start Neon server
-│   └── start-playwright.sh    # Start Playwright server
-└── references/                # Cached documentation (optional)
-```
+## Configuration
 
-## Usage Pattern
+Config location priority:
+1. `MCP_CONFIG_PATH` environment variable
+2. `.claude/skills/mcp-client/references/mcp-config.json`
+3. `.mcp.json` in current directory
+4. `~/.claude.json`
 
-### Execute MCP Tool via Script
+## Commands
 
 ```bash
-# Call Context7 for Next.js docs
-python scripts/mcp-client.py --server context7 --tool get-library-docs --args '{"context7CompatibleLibraryID": "nextjs", "topic": "app-router"}'
+# List configured servers
+python scripts/mcp_client.py servers
 
-# Call Better Auth for JWT config
-python scripts/mcp-client.py --server better-auth --tool search --args '{"query": "jwt plugin configuration"}'
+# List tools from a specific server
+python scripts/mcp_client.py tools playwright
 
-# Call Neon for database schema
-python scripts/mcp-client.py --server neon --tool run_sql --args '{"sql": "SELECT * FROM tasks LIMIT 5"}'
+# Call a tool
+python scripts/mcp_client.py call playwright browser_navigate '{"url": "https://example.com"}'
 ```
 
-### Server Management
+---
 
+# CRITICAL: Playwright Browser Session Behavior
+
+## ⚠️ The Session Problem
+
+**Each MCP call creates a NEW browser session. The browser CLOSES after each call.**
+
+This means:
 ```bash
-# Start all servers
-bash scripts/start-context7.sh
-bash scripts/start-better-auth.sh
-bash scripts/start-neon.sh
-bash scripts/start-playwright.sh
-
-# Stop servers (each has corresponding stop script)
+# ❌ WRONG - These run in SEPARATE browser sessions!
+python scripts/mcp_client.py call playwright browser_navigate '{"url": "https://example.com"}'
+python scripts/mcp_client.py call playwright browser_click '{"element": "Accept cookies"}'
+python scripts/mcp_client.py call playwright browser_snapshot '{}'
+# ^ The snapshot captures a FRESH page, not the page after clicking!
 ```
 
-## Available MCP Servers
+## ✅ The Solution: `browser_run_code`
 
-| Server | Port | Purpose |
-|--------|------|---------|
-| context7 | 3001 | Next.js, FastAPI, SQLModel, Tailwind docs |
-| better-auth | 3002 | Better Auth, JWT, OAuth docs |
-| neon | 3003 | PostgreSQL, database operations |
-| playwright | 8808 | Browser automation |
-
-## Quick Reference
-
-### Context7 - Documentation Queries
+Use `browser_run_code` to run **multiple Playwright steps in ONE browser session**:
 
 ```bash
-# Get Next.js App Router docs
-python scripts/mcp-client.py -s context7 -t get-library-docs -a '{
-  "context7CompatibleLibraryID": "nextjs",
-  "topic": "app-router"
-}'
+python scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://example.com\");
 
-# Get FastAPI routing docs
-python scripts/mcp-client.py -s context7 -t get-library-docs -a '{
-  "context7CompatibleLibraryID": "fastapi",
-  "topic": "routing"
-}'
+    // Wait for and click cookie banner
+    const acceptBtn = page.getByRole(\"button\", { name: /accept/i });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+      await page.waitForTimeout(1000);
+    }
 
-# Get SQLModel docs
-python scripts/mcp-client.py -s context7 -t get-library-docs -a '{
-  "context7CompatibleLibraryID": "sqlmodel",
-  "topic": "models"
+    // Wait for page to stabilize
+    await page.waitForLoadState(\"networkidle\");
+
+    // Return snapshot data for analysis
+    const snapshot = await page.accessibility.snapshot();
+    return JSON.stringify(snapshot, null, 2);
+  "
 }'
 ```
 
-### Better Auth - Auth Documentation
+## When to Use Each Approach
+
+| Scenario | Tool | Why |
+|----------|------|-----|
+| Simple page load + snapshot | `browser_navigate` | Returns snapshot automatically |
+| Multi-step interaction | `browser_run_code` | Keeps session alive |
+| Click then observe result | `browser_run_code` | Session persists |
+| Fill form and submit | `browser_run_code` | Session persists |
+| Hover to reveal menu | `browser_run_code` | Session persists |
+
+---
+
+# Playwright Workflows for Test Discovery
+
+## 1. Basic Page Exploration (Single Step)
+
+`browser_navigate` returns **both** navigation result AND accessibility snapshot:
 
 ```bash
-# Search Better Auth docs
-python scripts/mcp-client.py -s better-auth -t search -a '{"query": "jwt plugin"}'
-
-# List available files
-python scripts/mcp-client.py -s better-auth -t list_files -a '{}'
+python scripts/mcp_client.py call playwright browser_navigate '{"url": "https://example.com"}'
 ```
 
-### Neon - Database Operations
+Output includes:
+- Page URL and title
+- Full accessibility tree (all visible elements with roles, names, states)
+- Element references for further interaction
+
+**Use this when:** Simple page load without interactions
+
+## 2. Page with Cookie Banner (Multi-Step)
 
 ```bash
-# Run SQL query
-python scripts/mcp-client.py -s neon -t run_sql -a '{
-  "sql": "SELECT * FROM tasks LIMIT 10",
-  "projectId": "your-project-id"
+python scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://www.olx.ro\");
+
+    // Handle cookie consent
+    try {
+      const cookieBtn = page.getByRole(\"button\", { name: \"Accept\" });
+      await cookieBtn.click({ timeout: 5000 });
+      await page.waitForTimeout(1000);
+    } catch (e) {
+      // No cookie banner
+    }
+
+    // Get accessibility snapshot
+    const snapshot = await page.accessibility.snapshot({ interestingOnly: false });
+    return JSON.stringify(snapshot, null, 2);
+  "
 }'
+```
 
-# Describe table schema
-python scripts/mcp-client.py -s neon -t describe_table_schema -a '{
-  "tableName": "tasks",
-  "projectId": "your-project-id"
+## 3. Navigate to Subpage (Multi-Step)
+
+```bash
+python scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://www.olx.ro\");
+
+    // Dismiss cookies
+    const acceptBtn = page.getByRole(\"button\", { name: \"Accept\" });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+      await page.waitForTimeout(500);
+    }
+
+    // Navigate to login
+    await page.goto(\"https://www.olx.ro/cont/\");
+
+    // Wait for redirect to login domain
+    await page.waitForURL(/login\\.olx\\.ro/, { timeout: 10000 });
+
+    // Get form structure
+    const snapshot = await page.accessibility.snapshot();
+    return JSON.stringify({ url: page.url(), snapshot }, null, 2);
+  "
 }'
 ```
 
-### Playwright - Browser Automation
+## 4. Explore Element Interactions (Multi-Step)
+
+Use this to understand how menus/dropdowns behave:
 
 ```bash
-# Navigate to URL
-python scripts/mcp-client.py -s playwright -t navigate -a '{"url": "https://example.com"}'
+python scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://www.olx.ro\");
 
-# Take screenshot
-python scripts/mcp-client.py -s playwright -t screenshot -a '{}'
+    // Dismiss cookies
+    const acceptBtn = page.getByRole(\"button\", { name: \"Accept\" });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+    }
+
+    // Click on category to see what happens
+    const categoryLink = page.getByRole(\"link\", { name: /Auto, moto/i }).first();
+    await categoryLink.click();
+
+    // Wait to see result
+    await page.waitForTimeout(1500);
+
+    // Capture state after click
+    const snapshot = await page.accessibility.snapshot();
+    return JSON.stringify({
+      url: page.url(),
+      didNavigate: page.url().includes(\"auto\"),
+      snapshot: snapshot
+    }, null, 2);
+  "
+}'
 ```
+
+## 5. Fill Form and Capture State
+
+```bash
+python scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://login.olx.ro\");
+
+    // Fill login form
+    await page.locator(\"input[type=email]\").fill(\"test@example.com\");
+    await page.locator(\"input[type=password]\").fill(\"test123\");
+
+    // Click login button
+    await page.getByTestId(\"login-submit-button\").click();
+
+    // Wait for response
+    await page.waitForTimeout(3000);
+
+    // Capture any error messages
+    const errors = await page.locator(\"[class*=error], [role=alert]\").allTextContents();
+    const snapshot = await page.accessibility.snapshot();
+
+    return JSON.stringify({
+      url: page.url(),
+      errors: errors,
+      snapshot: snapshot
+    }, null, 2);
+  "
+}'
+```
+
+---
+
+# Gathering Selectors for Page Objects
 
 ## Best Practices
 
-1. **Use compiled scripts**: Always call `mcp-client.py` instead of direct MCP tools
-2. **Filter results**: The client automatically truncates large responses
-3. **Cache frequently used docs**: Store in `references/` folder
-4. **Server management**: Start servers once, reuse for multiple calls
-5. **Error handling**: Check for `error` field in response
+### 1. Use Accessibility Tree First
 
-## Environment Variables
+The snapshot from `browser_navigate` or `browser_run_code` provides:
+- **Role**: button, link, textbox, combobox, etc.
+- **Name**: accessible name (from label, aria-label, text content)
+- **State**: disabled, checked, expanded, etc.
+
+Map these to Playwright locators:
+```typescript
+// From snapshot: { role: "button", name: "Căutare" }
+page.getByRole('button', { name: /Căutare/i })
+
+// From snapshot: { role: "textbox", name: "Ce anume cauți?" }
+page.getByRole('textbox', { name: /Ce anume cauți/i })
+
+// From snapshot: { role: "link", name: "Auto, moto și ambarcațiuni" }
+page.getByRole('link', { name: /Auto, moto/i })
+```
+
+### 2. Selector Priority
+
+| Priority | Method | Use When |
+|----------|--------|----------|
+| 1 | `getByRole()` | Element has semantic role + accessible name |
+| 2 | `getByTestId()` | Element has `data-testid` attribute |
+| 3 | `getByText()` | Unique text content |
+| 4 | `getByPlaceholder()` | Input with placeholder |
+| 5 | `locator('[attr="value"]')` | CSS attribute selector |
+| 6 | `locator('.class')` | CSS class (fragile, avoid) |
+
+### 3. Handling Multiple Matches
+
+```typescript
+// Use .first() when multiple match
+page.getByRole('link', { name: 'Category' }).first()
+
+// Use parent context
+page.locator('nav').getByRole('link', { name: 'Category' })
+
+// Use filter
+page.getByRole('button').filter({ hasText: /submit/i })
+```
+
+### 4. Get Full DOM for Complex Cases
+
+When accessibility tree isn't enough, get raw HTML:
 
 ```bash
-# Override server URLs
-export MCP_CONTEXT7_URL="http://localhost:3001"
-export MCP_BETTER_AUTH_URL="http://localhost:3002"
-export MCP_NEON_URL="http://localhost:3003"
-export MCP_PLAYWRIGHT_URL="http://localhost:8808"
+python scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://example.com\");
 
-# Neon authentication
-export NEON_API_KEY="your-api-key"
+    // Get specific element HTML
+    const formHtml = await page.locator(\"form\").first().innerHTML();
+
+    // Or get all buttons with their attributes
+    const buttons = await page.locator(\"button\").evaluateAll(btns =>
+      btns.map(b => ({
+        text: b.textContent,
+        testid: b.dataset.testid,
+        class: b.className,
+        type: b.type
+      }))
+    );
+
+    return JSON.stringify({ formHtml, buttons }, null, 2);
+  "
+}'
+```
+
+---
+
+# Quick Reference: Playwright MCP Tools
+
+| Tool | Session Behavior | Use Case |
+|------|-----------------|----------|
+| `browser_navigate` | New session, returns snapshot | Simple page load |
+| `browser_run_code` | **Single session, custom script** | Multi-step operations |
+| `browser_click` | New session | Single click (usually not useful alone) |
+| `browser_type` | New session | Single type (usually not useful alone) |
+| `browser_snapshot` | Reuses if session exists | Get current page state |
+| `browser_screenshot` | Reuses if session exists | Visual capture |
+
+## Tool Arguments
+
+### browser_navigate
+```json
+{"url": "https://example.com"}
+```
+
+### browser_run_code
+```json
+{
+  "code": "await page.goto('https://example.com'); return await page.title();"
+}
+```
+
+The `code` must be valid JavaScript that:
+- Uses `page` object (Playwright Page)
+- Uses `await` for async operations
+- Returns the data you want (use `JSON.stringify` for objects)
+
+### browser_click
+```json
+{"element": "Submit button", "ref": "optional-element-ref"}
+```
+
+### browser_type
+```json
+{"element": "Email input", "text": "user@example.com"}
+```
+
+---
+
+# Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| "No MCP config found" | Missing config file | Create mcp-config.json |
+| "Server not found" | Server not in config | Add server to config |
+| "Connection failed" | Server not running | Start the MCP server |
+| "Invalid JSON" | Bad tool arguments | Check argument format |
+| "Timeout" | Page too slow | Increase timeout in code |
+| "Element not found" | Wrong selector | Check snapshot for actual names |
+
+---
+
+# Setup
+
+1. Copy the example config:
+   ```bash
+   cp .claude/skills/mcp-client/references/mcp-config.example.json \
+      .claude/skills/mcp-client/references/mcp-config.json
+   ```
+
+2. The config should contain:
+   ```json
+   {
+     "mcpServers": {
+       "playwright": {
+         "command": "npx",
+         "args": ["@playwright/mcp@latest"]
+       }
+     }
+   }
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install mcp fastmcp
+   ```
+
+## Config Example
+
+See [references/mcp-config.example.json](references/mcp-config.example.json)
+
+## Available Servers
+
+See [references/mcp-servers.md](references/mcp-servers.md) for:
+- Playwright (browser automation)
+- GitHub (repository operations)
+- Filesystem (file access)
+- Sequential Thinking (reasoning)
+- And more...
+
+## Dependencies
+
+```bash
+pip install mcp fastmcp
 ```

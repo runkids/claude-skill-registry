@@ -1,297 +1,221 @@
 ---
 name: excalidraw
-description: Create and design Excalidraw diagrams, especially architecture diagrams for software, cloud (AWS, Azure, GCP), databases, AI/ML, analytics, and infrastructure. Generates valid .excalidraw JSON files. Works with VS Code, VS Code Insiders, Obsidian. Triggers on excalidraw, architecture diagram, system design, cloud diagram, infrastructure diagram, flowchart, whiteboard, software architecture, database diagram, network diagram, data flow, microservices diagram, C4 model.
+description: "Use when working with *.excalidraw or *.excalidraw.json files, user mentions diagrams/flowcharts, or requests architecture visualization - delegates all Excalidraw operations to subagents to prevent context exhaustion from verbose JSON (single files: 4k-22k tokens, can exceed read limits)"
 ---
 
-# Excalidraw Diagram Designer
+# Excalidraw Subagent Delegation
 
-Expert skill for creating professional Excalidraw diagrams with focus on technical architecture. Generates valid `.excalidraw` JSON files that work seamlessly with VS Code, VS Code Insiders, and Obsidian.
+## Overview
 
-## Quick Start
+**Core principle:** Main agents NEVER read Excalidraw files directly. Always delegate to subagents to isolate context consumption.
 
-### Create a Diagram
-1. Ask what type of diagram is needed
-2. Generate the `.excalidraw` JSON file
-3. User opens it in their preferred editor
+Excalidraw files are JSON with high token cost but low information density. Single files range from 4k-22k tokens (largest can exceed read tool limits). Reading multiple diagrams quickly exhausts context budget (7 files = 67k tokens = 33% of budget).
 
-### File Extensions
-- `.excalidraw` - Standard JSON format
-- `.excalidraw.json` - Explicit JSON format
-- `.excalidraw.svg` - Embedded in SVG (editable)
-- `.excalidraw.png` - Embedded in PNG (editable)
+## The Problem
 
-## Core Element Types
+Excalidraw JSON structure:
+- Each shape has 20+ properties (x, y, width, height, strokeColor, seed, version, etc.)
+- Most properties are visual metadata (positioning, styling, roughness)
+- Actual content: text labels and element relationships (<10% of file)
+- **Signal-to-noise ratio is extremely low**
 
-### Basic Shapes
-```json
-{
-  "type": "rectangle|ellipse|diamond",
-  "x": 100,
-  "y": 100,
-  "width": 200,
-  "height": 100,
-  "strokeColor": "#1e1e1e",
-  "backgroundColor": "#a5d8ff",
-  "fillStyle": "solid|hachure|cross-hatch",
-  "strokeWidth": 2,
-  "strokeStyle": "solid|dashed|dotted",
-  "roughness": 1,
-  "opacity": 100
-}
+Example: 14-element diagram = 596 lines, 16K, ~4k tokens. 79-element diagram = 2,916 lines, 88K, ~22k tokens (exceeds read limit).
+
+## When to Use
+
+**Trigger on ANY of these:**
+- File path contains `.excalidraw` or `.excalidraw.json`
+- User requests: "explain/update/create diagram", "show architecture", "visualize flow"
+- User mentions: "flowchart", "architecture diagram", "Excalidraw file"
+- Architecture/design documentation tasks involving visual artifacts
+
+**Use delegation even for:**
+- "Small" files (smallest is 4k tokens - still significant)
+- "Quick checks" (checking component names still loads full JSON)
+- Single file operations (isolation prevents context pollution)
+- Modifications (don't need full format understanding in main context)
+
+## Delegation Pattern
+
+### Main Agent Responsibilities
+
+**NEVER:**
+- ❌ Use Read tool on *.excalidraw files
+- ❌ Parse Excalidraw JSON in main context
+- ❌ Load multiple diagrams for comparison
+- ❌ Inspect file to "understand the format"
+
+**ALWAYS:**
+- ✅ Delegate ALL Excalidraw operations to subagents
+- ✅ Provide clear task description to subagent
+- ✅ Request text-only summaries (not raw JSON)
+- ✅ Keep diagram analysis isolated from main work
+
+### Subagent Task Templates
+
+#### Read/Understand Operation
+```
+Task: Extract and explain the components in [file.excalidraw.json]
+
+Approach:
+1. Read the Excalidraw JSON
+2. Extract only text elements (ignore positioning/styling)
+3. Identify relationships between components
+4. Summarize architecture/flow
+
+Return:
+- List of components/services with descriptions
+- Connection/dependency relationships
+- Key insights about the architecture
+- DO NOT return raw JSON or verbose element details
 ```
 
-### Text Elements
-```json
-{
-  "type": "text",
-  "x": 100,
-  "y": 100,
-  "text": "Your text here",
-  "fontSize": 20,
-  "fontFamily": 1,
-  "textAlign": "left|center|right",
-  "verticalAlign": "top|middle|bottom",
-  "strokeColor": "#1e1e1e"
-}
+#### Modify Operation
+```
+Task: Add [component] to [file.excalidraw.json], connected to [existing-component]
+
+Approach:
+1. Read file to identify existing elements
+2. Find [existing-component] and its position
+3. Create new element JSON for [component]
+4. Add arrow elements for connections
+5. Write updated file
+
+Return:
+- Confirmation of changes made
+- Position of new element
+- IDs of created elements
 ```
 
-### Lines & Arrows
-```json
-{
-  "type": "arrow|line",
-  "x": 100,
-  "y": 100,
-  "points": [[0, 0], [200, 0]],
-  "startArrowhead": null,
-  "endArrowhead": "arrow|triangle|dot|bar",
-  "strokeColor": "#1e1e1e",
-  "strokeWidth": 2
-}
+#### Create Operation
+```
+Task: Create new Excalidraw diagram showing [description]
+
+Approach:
+1. Design layout for [number] components
+2. Create rectangle elements with text labels
+3. Add arrows showing relationships
+4. Use consistent styling (colors, fonts)
+5. Write to [file.excalidraw.json]
+
+Return:
+- Confirmation of file created
+- Summary of components included
+- File location
 ```
 
-### Shapes with Labels (Text Containers)
-```json
-{
-  "type": "rectangle",
-  "x": 100,
-  "y": 100,
-  "width": 200,
-  "height": 80,
-  "backgroundColor": "#a5d8ff",
-  "boundElements": [{"type": "text", "id": "text-id"}]
-}
+#### Compare Operation
+```
+Task: Compare architecture approaches in [file1] vs [file2]
+
+Approach:
+1. Read both files
+2. Extract text labels from each
+3. Identify structural differences
+4. Compare component relationships
+
+Return:
+- Key differences in architecture
+- Components unique to each approach
+- Relationship/flow differences
+- DO NOT return full element details from both files
 ```
 
-## Complete File Structure
+## Common Rationalizations (STOP and Delegate Instead)
 
-```json
-{
-  "type": "excalidraw",
-  "version": 2,
-  "source": "https://excalidraw.com",
-  "elements": [],
-  "appState": {
-    "gridSize": 20,
-    "viewBackgroundColor": "#ffffff"
-  },
-  "files": {}
-}
+| Excuse | Reality | What to Do |
+|--------|---------|------------|
+| "Direct reading is most efficient" | Consumes 4k-22k tokens unnecessarily | Delegate to subagent |
+| "It's token-efficient to read directly" | Baseline tests showed 9-45% budget used | Always delegate |
+| "This is optimal for one-time analysis" | "One-time" still pollutes main context | Subagent isolation |
+| "The JSON is straightforward" | Simplicity ≠ token efficiency | Delegate anyway |
+| "I need to understand the format" | Format understanding not needed in main agent | Subagent handles format |
+| "Within reasonable bounds" (18k tokens) | "Reasonable" is subjective rationalization | Hard rule: delegate |
+| "Just a quick check of components" | "Quick check" still loads full JSON | Extract text via subagent |
+| "File is small (16K)" | 4k tokens is NOT small | Size threshold doesn't matter |
+
+## Red Flags - STOP and Delegate
+
+Catch yourself about to:
+- Use Read tool on .excalidraw file
+- "Quickly check" what components exist
+- "Understand the structure" before modifying
+- Load file to "see what's there"
+- Compare multiple diagrams side-by-side
+- Parse JSON to "extract just the text"
+
+**All of these mean: Use Task tool with subagent instead.**
+
+## Quick Reference
+
+| Operation | Main Agent Action | Subagent Returns |
+|-----------|-------------------|------------------|
+| **Understand diagram** | Delegate with "Extract and explain" template | Component list + relationships |
+| **Modify diagram** | Delegate with "Add [X] connected to [Y]" template | Confirmation + changes made |
+| **Create diagram** | Delegate with "Create showing [description]" template | File location + summary |
+| **Compare diagrams** | Delegate with "Compare [A] vs [B]" template | Key differences (not raw JSON) |
+
+## Token Analysis (Why This Matters)
+
+Real data from baseline testing:
+
+| Scenario | Without Delegation | With Delegation | Savings |
+|----------|-------------------|-----------------|---------|
+| Single large file | 22k tokens (45% budget) | ~500 tokens (subagent summary) | 98% |
+| Two-file comparison | 18k tokens (9% budget) | ~800 tokens (diff summary) | 96% |
+| Modification task | 14k tokens (7% budget) | ~300 tokens (confirmation) | 98% |
+
+**Context pollution impact:**
+- Reading all 7 project diagrams: 67k tokens (33% of 200k budget)
+- With delegation: ~2k tokens (isolated in subagents)
+- **Savings: 97% context budget preserved**
+
+## Implementation Example
+
+**❌ BAD (Direct Read):**
+```
+User: "What architecture is shown in detailed-architecture.excalidraw.json?"
+Agent: Let me read that file... [reads 22k tokens into main context]
 ```
 
-## Architecture Diagram Libraries
-
-**Always recommend users install these libraries from https://libraries.excalidraw.com:**
-
-### Cloud Providers
-| Library | Contents |
-|---------|----------|
-| **AWS Architecture Icons** | Lambda, EC2, S3, RDS, ELB, API Gateway |
-| **AWS Serverless Icons** | Lambda, DynamoDB, EventBridge, Cognito, SNS, SQS |
-| **Azure Cloud Services** | Key Vault, App Insights, DevOps, VMs, SQL Database |
-| **Azure Network** | VPN Gateway, Firewall, Load Balancer, DNS Zones |
-| **Azure Containers** | AKS, Container Registry, App Services |
-| **GCP Icons** | Cloud Run, BigQuery, Dataflow, Pub/Sub, Vertex AI |
-| **Google Architecture Icons** | Complete GCP service portfolio |
-
-### Infrastructure & Architecture
-| Library | Contents |
-|---------|----------|
-| **Software Architecture** | Microservice, database, cache, event bus, browser, mobile |
-| **C4 Architecture** | Simon Brown's C4 model elements |
-| **Cloud Design Patterns** | Cloud architecture concepts |
-| **Technology Logos** | Kubernetes, Docker, Terraform, Kafka, Redis |
-| **Network Topology** | VPN, Firewall, Server, Switch, Router, Client |
-
-### Data & DevOps
-| Library | Contents |
-|---------|----------|
-| **Data Science Logos** | Airflow, Jupyter, Pandas, TensorFlow, Scikit-learn |
-| **Dev Ops Icons** | Ansible, Jenkins, Vault, Consul, Elasticsearch |
-| **Database Icons** | Oracle, PostgreSQL, MongoDB, Redis components |
-| **Snowflake Icons** | Snowflake data warehouse components |
-
-## Architecture Diagram Patterns
-
-### 1. Microservices Architecture
+**✅ GOOD (Subagent Delegation):**
 ```
-[API Gateway] --> [Service A] --> [Database A]
-              --> [Service B] --> [Database B]
-              --> [Service C] --> [Message Queue] --> [Worker]
+User: "What architecture is shown in detailed-architecture.excalidraw.json?"
+Agent: I'll use a subagent to extract the architecture details.
+
+[Dispatches Task tool with general-purpose subagent]
+Task: Extract and explain components in .ryanquinn3/ticketing/detailed-architecture.excalidraw.json
+
+[Receives ~500 token summary with component list and relationships]
+[Responds to user with architecture explanation, main context preserved]
 ```
 
-### 2. Cloud Infrastructure (3-Tier)
-```
-[Users] --> [CDN/Load Balancer]
-        --> [Web Tier (Auto-scaling)]
-        --> [App Tier (Containers/Functions)]
-        --> [Data Tier (Database + Cache)]
-```
+## Why "Straightforward JSON" Doesn't Matter
 
-### 3. Data Pipeline
-```
-[Sources] --> [Ingestion] --> [Processing] --> [Storage] --> [Analytics]
-   |              |              |              |              |
- APIs         Kafka/        Spark/          Data Lake      BI Tools
- Files        Kinesis       Databricks      Warehouse      ML Models
-```
+Agents often rationalize: "The format is simple, I can just read it."
 
-### 4. Event-Driven Architecture
-```
-[Producers] --> [Event Bus/Broker] --> [Consumers]
-                      |
-              [Event Store/Log]
-```
+**The problem isn't complexity - it's verbosity:**
+- Simple structure with 20+ properties per element
+- Repetitive metadata (seed, version, nonce, roughness)
+- Positioning data (x, y, width, height) not semantically useful
+- Visual styling (strokeColor, opacity, fillStyle) irrelevant to content
 
-## Color Palettes for Architecture Diagrams
+**Token cost comes from volume, not complexity.**
 
-### Professional Tech Palette
-| Component | Color | Hex |
-|-----------|-------|-----|
-| Compute/Services | Blue | `#a5d8ff` |
-| Storage/Database | Green | `#b2f2bb` |
-| Networking | Orange | `#ffd8a8` |
-| Security | Red | `#ffc9c9` |
-| Integration | Purple | `#d0bfff` |
-| Users/External | Gray | `#dee2e6` |
+Even "straightforward" JSON consumes 4k-22k tokens because:
+- 79 elements × ~280 tokens/element = 22k tokens
+- Most tokens are metadata noise
+- Only text labels and relationships matter (~10% of content)
 
-### Cloud Provider Colors
-| Provider | Primary | Secondary |
-|----------|---------|-----------|
-| AWS | `#ff9900` | `#232f3e` |
-| Azure | `#0078d4` | `#50e6ff` |
-| GCP | `#4285f4` | `#34a853` |
-| Kubernetes | `#326ce5` | `#ffffff` |
+## The Iron Law
 
-## VS Code Integration
+**Main agents NEVER read Excalidraw files. No exceptions.**
 
-### Setup
-1. Install extension: `pomdtr.excalidraw-editor`
-2. Create file with `.excalidraw` extension
-3. Open file to launch Excalidraw editor
+Not for:
+- "Quick checks"
+- "Small files"
+- "Understanding format"
+- "One-time analysis"
+- "Optimal efficiency"
 
-### Workspace Library
-Add to `.vscode/settings.json`:
-```json
-{
-  "excalidraw.workspaceLibraryPath": ".excalidraw/library.excalidrawlib"
-}
-```
-
-### Keyboard Shortcuts
-- `R` - Rectangle
-- `D` - Diamond
-- `E` - Ellipse
-- `A` - Arrow
-- `L` - Line
-- `T` - Text
-- `Shift` - Lock aspect ratio (1:1)
-
-## Obsidian Integration
-
-### Setup
-1. Install "Excalidraw" plugin from Community Plugins
-2. Create new drawing: `Ctrl/Cmd + P` > "Create new drawing"
-
-### ExcalidrawAutomate API
-```javascript
-const ea = ExcalidrawAutomate;
-ea.reset();
-
-// Add elements
-ea.addRect(100, 100, 200, 100);
-ea.addText(150, 140, "Service A");
-ea.addArrow([[300, 150], [400, 150]]);
-
-// Create drawing
-await ea.create();
-```
-
-### Templater Integration
-Create templates that generate architecture diagrams:
-```javascript
-<%*
-const ea = ExcalidrawAutomate;
-ea.reset();
-ea.style.strokeColor = "#1e1e1e";
-ea.style.backgroundColor = "#a5d8ff";
-// Build diagram...
-await ea.create({filename: "architecture"});
-%>
-```
-
-## Best Practices
-
-### Layout Guidelines
-1. **Flow direction**: Left-to-right or top-to-bottom
-2. **Alignment**: Use grid (20px default)
-3. **Spacing**: Minimum 40px between elements
-4. **Grouping**: Related components close together
-5. **Labels**: Clear, concise text on all elements
-
-### Architecture Diagram Checklist
-- [ ] Clear title and legend
-- [ ] Consistent colors per component type
-- [ ] Directional arrows showing data/control flow
-- [ ] Labeled connections
-- [ ] Grouped related services
-- [ ] External vs internal systems distinguished
-
-### Icon Usage
-- Use official cloud provider icons for vendor services
-- Use generic shapes for abstract concepts
-- Maintain consistent icon sizes (60x60 or 80x80 recommended)
-- Add labels below or inside icons
-
-## Example: Generate Complete Architecture Diagram
-
-When user requests "Create an AWS serverless architecture diagram":
-
-1. **Identify components**: API Gateway, Lambda, DynamoDB, S3, CloudWatch
-2. **Define layout**: Left-to-right flow
-3. **Apply colors**: AWS orange/gray palette
-4. **Generate JSON** with proper element positioning
-5. **Save as** `aws-serverless-architecture.excalidraw`
-
-## Troubleshooting
-
-### File Won't Open
-- Verify JSON syntax is valid
-- Check file extension is correct
-- Ensure `"type": "excalidraw"` is present
-
-### Elements Not Visible
-- Check `x`, `y` coordinates are reasonable (0-2000 range)
-- Verify `opacity` is not 0
-- Ensure `isDeleted` is not true
-
-### Arrows Not Connecting
-- Use `boundElements` array on shapes
-- Set `startBinding` and `endBinding` on arrows
-- Match element IDs correctly
-
-## Reference Files
-
-For detailed documentation, see:
-- `reference.md` - Complete element property reference
-- `scripts/excalidraw_generator.py` - Python diagram generator
-- `templates/` - Ready-to-use architecture templates
+**Always delegate. Isolation is free via subagents.**

@@ -1,269 +1,399 @@
 ---
 name: error-recovery
-description: Handle Claude Code errors gracefully - error types, recovery, prevention
-version: 1.0.0
-author: Claude Code SDK
-tags: [errors, recovery, handling, prevention]
+description: Use when encountering failures - assess severity, preserve evidence, execute rollback decision tree, and verify post-recovery state
 ---
 
 # Error Recovery
 
-Handle Claude Code errors gracefully with systematic recovery strategies and prevention techniques.
+## Overview
 
-## Quick Reference
+Handle failures gracefully with structured recovery.
 
-| Error Category | Common Causes | Quick Fix |
-|----------------|---------------|-----------|
-| API Errors | Rate limits, overload, auth | Wait, retry, check credentials |
-| Tool Errors | Permissions, missing files | Check permissions, validate paths |
-| Context Errors | Token overflow, corruption | `/compact` or `/clear` |
-| MCP Errors | Server disconnect, timeout | Restart server, check logs |
-| Hook Errors | JSON syntax, script failure | Validate JSON, test script |
+**Core principle:** When things break, don't panic. Assess, preserve, recover, verify.
 
-## Error Message Anatomy
+**Announce at start:** "I'm using error-recovery to handle this failure."
 
-Claude Code error messages follow a consistent pattern:
+## The Recovery Protocol
 
 ```
-[Error Category] [Specific Error]: [Description]
-  at [Location/Context]
-  Cause: [Root cause if known]
-  Suggestion: [Recommended action]
+Error Detected
+      │
+      ▼
+┌─────────────┐
+│ 1. ASSESS   │ ← Severity? Scope? Impact?
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ 2. PRESERVE │ ← Capture evidence before it's lost
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ 3. RECOVER  │ ← Follow decision tree
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ 4. VERIFY   │ ← Confirm clean state
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ 5. DOCUMENT │ ← Record what happened
+└─────────────┘
 ```
 
-### Reading Error Messages
+## Step 1: Assess Severity
 
-| Part | What It Tells You | Action |
-|------|-------------------|--------|
-| Category | Type of error (API, Tool, etc.) | Determines recovery approach |
-| Specific Error | Exact error code/name | Look up in error reference |
-| Description | Human-readable explanation | Understand what went wrong |
-| Location | Where error occurred | Identify failing component |
-| Cause | Why it happened | Fix root cause |
-| Suggestion | Recommended fix | Try suggested action first |
+### Severity Levels
 
-## Common Error Patterns
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Critical** | System unusable, data at risk | Build completely broken, tests cause data loss |
+| **Major** | Significant functionality broken | Feature doesn't work, many tests failing |
+| **Minor** | Isolated issue, workaround exists | Single test flaky, style error |
+| **Info** | Warning only, not blocking | Deprecation notice, performance hint |
 
-### API Errors
+### Assessment Questions
 
-| Error | Meaning | Recovery |
-|-------|---------|----------|
-| `rate_limit_error` | Too many requests | Wait 60s, reduce frequency |
-| `overloaded_error` | API at capacity | Wait 30-60s, retry |
-| `context_length_exceeded` | Too many tokens | `/compact` or split request |
-| `authentication_error` | Invalid/expired token | `claude auth login` |
-| `invalid_request_error` | Malformed request | Check input format |
-| `api_error` | Server-side issue | Retry with backoff |
+```markdown
+## Error Assessment
 
-### Tool Errors
+**Error:** [Description of error]
+**Location:** [Where it occurred]
 
-| Error | Meaning | Recovery |
-|-------|---------|----------|
-| `permission_denied` | Tool not allowed | `/permissions`, allow tool |
-| `file_not_found` | Path doesn't exist | Verify path, check working dir |
-| `directory_not_found` | Dir doesn't exist | Create directory first |
-| `read_error` | Can't read file | Check permissions, encoding |
-| `write_error` | Can't write file | Check permissions, disk space |
-| `command_failed` | Bash command error | Check exit code, stderr |
-| `timeout` | Operation too slow | Increase timeout, simplify |
+### Severity Checklist
+- [ ] Is the system still functional?
+- [ ] Is any data at risk?
+- [ ] Are other features affected?
+- [ ] Is this blocking progress?
 
-### Context Errors
-
-| Error | Meaning | Recovery |
-|-------|---------|----------|
-| `context_overflow` | Token limit reached | `/compact` or `/clear` |
-| `memory_limit` | Too much in memory | Clear memory banks |
-| `session_expired` | Session timed out | Start new session |
-| `state_corruption` | Session state invalid | `/clear`, restart |
-
-## Recovery Workflow
-
-### Step 1: Identify Error Type
-
-```
-Error occurred
-    |
-    +-- API Error?
-    |   +-- Yes --> See API recovery
-    |   +-- No --> Continue
-    |
-    +-- Tool Error?
-    |   +-- Yes --> See Tool recovery
-    |   +-- No --> Continue
-    |
-    +-- Context Error?
-    |   +-- Yes --> See Context recovery
-    |   +-- No --> Continue
-    |
-    +-- Unknown?
-        +-- Check debug output
-        +-- Use /bug to report
+### Scope
+- Files affected: [list]
+- Features affected: [list]
+- Users affected: [none/some/all]
 ```
 
-### Step 2: Apply Recovery Strategy
+## Step 2: Preserve Evidence
 
-**For API Errors:**
-1. Wait for rate limit window (60s typical)
-2. Retry with exponential backoff
-3. If persistent, check credentials
+**Capture BEFORE attempting fixes:**
 
-**For Tool Errors:**
-1. Check `/permissions`
-2. Validate inputs (paths, arguments)
-3. Check file/directory exists
-
-**For Context Errors:**
-1. Run `/compact` to reduce context
-2. If severe, use `/clear`
-3. Start fresh if corrupted
-
-### Step 3: Verify Recovery
+### Error Logs
 
 ```bash
-# Check system health
-claude doctor
+# Capture error output
+pnpm test 2>&1 | tee error-log.txt
 
-# Verify specific component
-/permissions  # Tool permissions
-/mcp          # MCP servers
-/hooks        # Hook status
+# Or from failed command
+./failing-command 2>&1 | tee error-log.txt
 ```
 
-## Quick Recovery Commands
+### Stack Traces
 
-| Situation | Command |
-|-----------|---------|
-| Context too large | `/compact` |
-| Session corrupted | `/clear` |
-| Need to restart | `Ctrl+C`, restart `claude` |
-| Check health | `claude doctor` |
-| Debug mode | `claude --debug` |
-| Verbose logging | `ANTHROPIC_LOG=debug claude` |
-
-## Retry Patterns
-
-### Simple Retry
-
-For transient errors (rate limits, overload):
+```markdown
+## Stack Trace
 
 ```
-1. Wait initial delay (1s)
-2. Retry operation
-3. If fails, double delay (2s, 4s, 8s...)
-4. Max 5 retries or 60s total
-5. If still failing, escalate
+Error: Connection refused
+    at Database.connect (src/db/connection.ts:45)
+    at UserService.init (src/services/user.ts:23)
+    at main (src/index.ts:12)
+```
 ```
 
-### Backoff with Jitter
+### State Capture
 
-For high-contention scenarios:
+```bash
+# Git state
+git status
+git diff
 
-```
-delay = min(cap, base * 2^attempt) + random(0, 1000ms)
-```
+# Environment state
+env | grep -E "NODE|NPM|PATH"
 
-- Base: 1000ms
-- Cap: 60000ms
-- Jitter: 0-1000ms random
-
-### Circuit Breaker
-
-For persistent failures:
-
-```
-If 3 failures in 60s:
-    Open circuit (stop trying)
-    Wait 5 minutes
-    Try once (half-open)
-    If success: close circuit
-    If failure: keep open
+# Dependency state
+pnpm list
 ```
 
-## Error Prevention Checklist
+### Screenshot (if visual)
 
-Before operations:
-- [ ] Validate file paths exist
-- [ ] Check permissions are granted
-- [ ] Verify network connectivity
-- [ ] Ensure context has headroom
-- [ ] Test hooks work correctly
+For UI errors, capture screenshots before changes.
 
-During operations:
-- [ ] Watch for warning signs
-- [ ] Monitor context size
-- [ ] Handle errors gracefully
-- [ ] Log important state
+## Step 3: Recover
 
-After errors:
-- [ ] Document what happened
-- [ ] Fix root cause
-- [ ] Add prevention measures
-- [ ] Test fix works
+### Decision Tree
 
-## Reference Files
+```
+What type of failure?
+         │
+    ┌────┴────┬────────────┬────────────┐
+    │         │            │            │
+  Code      Build      Environment   External
+  Error     Error        Issue       Service
+    │         │            │            │
+    ▼         ▼            ▼            ▼
+  ┌────┐   ┌────┐      ┌────┐      ┌────┐
+  │Git │   │Clean│     │Re-  │     │Wait/│
+  │reco│   │build│     │init │     │Retry│
+  │very│   │     │     │     │     │     │
+  └────┘   └────┘      └────┘      └────┘
+```
 
-| File | Contents |
-|------|----------|
-| [ERROR-TYPES.md](./ERROR-TYPES.md) | Comprehensive error reference |
-| [RECOVERY-PATTERNS.md](./RECOVERY-PATTERNS.md) | Recovery strategies and patterns |
-| [PREVENTION.md](./PREVENTION.md) | Error prevention techniques |
+### Code Error Recovery
 
-## Common Scenarios
+**Single file broken:**
 
-### Scenario: Rate Limited
+```bash
+# Revert just that file
+git checkout HEAD -- path/to/file.ts
+```
 
-**Symptom:** `rate_limit_error` after many requests
+**Feature broken (multiple files):**
 
-**Solution:**
-1. Wait 60 seconds
-2. Reduce request frequency
-3. Batch operations when possible
+```bash
+# Find last good commit
+git log --oneline
 
-### Scenario: Context Overflow
+# Revert to that commit (soft reset keeps changes staged)
+git reset --soft [GOOD_COMMIT]
 
-**Symptom:** `context_length_exceeded` error
+# Or hard reset (discards changes)
+git reset --hard [GOOD_COMMIT]
+```
 
-**Solution:**
-1. Run `/compact` to summarize context
-2. If still too large, `/clear` and restart
-3. Use smaller file reads (with offset/limit)
+**Working directory is a mess:**
 
-### Scenario: Tool Permission Denied
+```bash
+# Stash current changes
+git stash
 
-**Symptom:** Tool blocked by permissions
+# Verify clean state
+git status
 
-**Solution:**
-1. Run `/permissions`
-2. Allow the specific tool
-3. Or add to settings.json for persistence
+# Optionally recover stash later
+git stash pop
+```
 
-### Scenario: MCP Server Disconnected
+### Build Error Recovery
 
-**Symptom:** MCP tools return errors
+```bash
+# Clean build artifacts
+rm -rf node_modules dist build .cache
 
-**Solution:**
-1. Check `/mcp` for server status
-2. Restart MCP server if needed
-3. Verify `.mcp.json` configuration
+# Reinstall dependencies
+pnpm install --frozen-lockfile  # Clean install from lock file
 
-## Best Practices
+# Rebuild
+pnpm build
+```
 
-1. **Fail Fast**: Validate early, fail before expensive operations
-2. **Graceful Degradation**: Have fallbacks for non-critical features
-3. **Clear Errors**: Provide actionable error messages
-4. **Log Everything**: Enable debug mode when troubleshooting
-5. **Test Recovery**: Verify recovery procedures work before you need them
+### Environment Error Recovery
 
-## When to Escalate
+```bash
+# Check environment
+env | grep -E "NODE|PNPM"
 
-Use `/bug` command when:
-- Error persists after recovery attempts
-- Error message is unclear or missing
-- Behavior contradicts documentation
-- Reproducible crash occurs
+# Reset Node modules
+rm -rf node_modules
+pnpm install --frozen-lockfile
 
-Include in report:
-- Claude Code version
-- Error message (full text)
-- Steps to reproduce
-- Debug output
+# If using nvm, verify version
+nvm use
+
+# Re-run init script
+./scripts/init.sh
+```
+
+### External Service Error
+
+```bash
+# Check if service is up
+curl -I https://service.example.com/health
+
+# If down, wait and retry
+sleep 60
+curl -I https://service.example.com/health
+
+# If still down, check status page
+# Document as external blocker
+```
+
+## Step 4: Verify
+
+After recovery, verify clean state:
+
+### Basic Verification
+
+```bash
+# Clean working directory
+git status
+# Expected: "nothing to commit, working tree clean" or known changes
+
+# Tests pass
+pnpm test
+
+# Build succeeds
+pnpm build
+
+# Types check
+pnpm typecheck
+```
+
+### Functionality Verification
+
+```bash
+# Run the specific thing that was broken
+pnpm test --grep "specific test"
+
+# Or verify the feature manually
+```
+
+## Step 5: Document
+
+### Issue Comment
+
+```bash
+gh issue comment [ISSUE_NUMBER] --body "## Error Recovery
+
+**Error encountered:** [Description]
+
+**Severity:** Major
+
+**Evidence:**
+\`\`\`
+[Error output]
+\`\`\`
+
+**Recovery actions:**
+1. [Action 1]
+2. [Action 2]
+
+**Verification:**
+- [x] Tests pass
+- [x] Build succeeds
+
+**Root cause:** [If known]
+
+**Prevention:** [If applicable]
+"
+```
+
+### Knowledge Graph
+
+```javascript
+// Store for future reference
+mcp__memory__add_observations({
+  observations: [{
+    entityName: "Issue #[NUMBER]",
+    contents: [
+      "Encountered [error type] on [date]",
+      "Caused by: [root cause]",
+      "Resolved by: [recovery action]"
+    ]
+  }]
+});
+```
+
+## Common Recovery Patterns
+
+### "Tests were passing, now failing"
+
+```bash
+# What changed?
+git diff HEAD~3
+
+# Did dependencies change?
+git diff HEAD~3 pnpm-lock.yaml
+
+# Clean reinstall
+rm -rf node_modules && pnpm install --frozen-lockfile
+```
+
+### "Works locally, fails in CI"
+
+```bash
+# Check for environment differences
+# - Node version
+# - OS differences
+# - Env vars
+
+# Run with CI-like settings
+CI=true pnpm test
+```
+
+### "Build was working, now broken"
+
+```bash
+# Check TypeScript errors
+pnpm typecheck
+
+# Check for circular dependencies
+pnpm dlx madge --circular src/
+
+# Clean build
+rm -rf dist && pnpm build
+```
+
+### "I broke everything"
+
+```bash
+# Don't panic
+# Find last known good state
+git log --oneline
+
+# Reset to that state
+git reset --hard [GOOD_COMMIT]
+
+# Verify
+pnpm test
+
+# Start again more carefully
+```
+
+## Escalation
+
+If recovery fails after 2-3 attempts:
+
+```markdown
+## Escalation: Unrecoverable Error
+
+**Issue:** #[NUMBER]
+
+**Error:** [Description]
+
+**Recovery attempts:**
+1. [Attempt 1] - [Result]
+2. [Attempt 2] - [Result]
+
+**Current state:** [Broken/Partially working]
+
+**Evidence preserved:** [Links to logs, screenshots]
+
+**Requesting help with:** [Specific question]
+```
+
+Mark issue as Blocked and await human input.
+
+## Checklist
+
+When error occurs:
+
+- [ ] Severity assessed
+- [ ] Evidence preserved (logs, state, screenshots)
+- [ ] Recovery action selected
+- [ ] Recovery executed
+- [ ] Clean state verified
+- [ ] Tests pass
+- [ ] Build succeeds
+- [ ] Issue documented
+
+## Integration
+
+This skill is called by:
+- `issue-driven-development` - When errors occur
+- `ci-monitoring` - CI failures
+
+This skill may trigger:
+- `research-after-failure` - If cause is unknown
+- Issue update via `issue-lifecycle`

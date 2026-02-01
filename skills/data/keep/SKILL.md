@@ -1,114 +1,285 @@
 ---
 name: keep
-description: Session continuity for Keep workflow. Detects resumable work at conversation start.
+version: 0.1.0
+description: Associative memory for reflection and skillful action
+homepage: https://github.com/hughpyle/keep
+runtime: python:3.12-slim
+user-invocable: true
+metadata: {"openclaw":{"emoji":"🪞","requires":{"bins":["uv"],"anyBins":["python","python3"]},"install":[{"kind":"uv","package":"keep[local]","label":"Install keep with local models"}],"primaryEnv":"KEEP_STORE_PATH"}}
 ---
 
-# Keep - Session Resume Detection
+# Associative Memory
 
-Keep is a skill that helps detect when you have interrupted work from a previous session and suggests resuming it. Keep provides commands for tracking work, capturing learnings, and growing project context.
-
-## Your Role
-
-At the **start of a new conversation** (first 1-2 exchanges), check if the user has active work in progress and suggest resuming it. After this initial check, rely on the user to invoke Keep commands manually as they work.
-
-## Session Resume Detection
-
-### Resuming Interrupted Work
-**User signals:**
-- New session starting with no clear context established
-- User says "what was I working on?" or "where was I?" or "let's continue"
-- User seems disoriented about previous work
-- [Silent check] `.claude/state.md` exists with Active Work section and recent timestamp
-
-**Your response:** Proactively check for resumable work
-
-**Detection logic:**
-1. Early in conversation (first 1-2 exchanges), check if `.claude/state.md` exists
-2. If exists, parse "Active Work" section for issue number and timestamps
-3. Calculate time since "Last Updated" timestamp
-4. Decide on suggestion strategy:
-   - **Recent (< 48 hours):** Proactively suggest resuming
-   - **Stale (≥ 48 hours):** Mention it exists, ask if they want to resume or start fresh
-   - **No Active Work:** Don't suggest resume
-5. Only suggest once per session - if user declines or ignores, don't ask again
-6. Balance helpfulness with not interrupting their flow - if user has clear new intent, prioritize that
-
-**Example (Recent Work - Proactive):**
-```
-User: [starts new session, asks general question about project]
-
-You: [After responding to their question] "By the way, I see you were working on issue #1234 (Add rate limiting) - last updated 6 hours ago. You had made good progress: middleware 80% complete, 3 decisions captured. Want to pick up where you left off with `/keep:start 1234`?"
-
-User: "yes"
-
-You: *executes /keep:start 1234*
-```
-
-**Example (Stale Work - Ask First):**
-```
-User: [starts new session]
-
-You: "I notice you have work in progress on issue #1234 (Add rate limiting) from 5 days ago. Would you like to resume that work, or start something new?"
-
-User: "let's start fresh"
-
-You: "Sounds good! Use `/keep:start` to get recommendations for what to work on next."
-```
-
-**Example (User Explicitly Asks):**
-```
-User: "What was I working on?"
-
-You: *reads .claude/state.md* "You were working on issue #1234 - Add rate limiting. Started 2 days ago, last saved 8 hours ago. Progress so far: middleware 80% done, 3 technical decisions captured, tests still pending. Use `/keep:start 1234` to resume with full context loaded."
-```
-
-**Integration principles:**
-- Check state.md early but not intrusively (don't interrupt user's clear intent)
-- Only suggest once per session - respect user's choice
-- Be conversational, not mechanical: "last updated 6 hours ago" vs "Last Updated: 2024-10-23T14:30:00Z"
-- If user declines resume, transition smoothly to helping with their actual request
-- Balance being helpful with not being pushy - when in doubt, wait for user cues
-
-## Available Commands
-
-Keep provides four commands that users invoke manually as they work:
-
-### `/keep:start [issue-number]`
-Start work on a GitHub issue with context loading. Omit issue number for recommendations based on continuity and priority.
-
-### `/keep:save [--sync]`
-Save progress and capture learnings. Suggests CLAUDE.md updates ONLY when high-value patterns emerge (3+ decisions passing 6-month test). All CLAUDE.md updates enforce strict size limits. Use `--sync` to post update to GitHub.
-
-### `/keep:done [--close]`
-Complete work, generate summary, and recommend next issue. Detects PR state and handles closing intelligently. Use `--close` to auto-close issue.
-
-### `/keep:grow [directory] [--update|--condense]`
-Create or update CLAUDE.md files for project context. Analyzes directory and generates concise documentation (200 line max for root, 150 line max for modules). Use `--update` to update existing, `--condense` to prune bloated files.
-
-## Command Delegation
-
-Keep uses a sub-agent architecture. Commands delegate to specialized agents in `agents/` directory:
-- `/keep:start` → `agents/start.md`
-- `/keep:save` → `agents/save.md`
-- `/keep:done` → `agents/done.md`
-- `/keep:grow` → `agents/grow.md`
-
-Each agent operates in its own context window and provides workflow hints to help users learn the natural cadence.
+*A mirror for reflection. A practice for skillful action.*
 
 ---
 
-## Example: Resume Detection
-
-```
-User: [starts new session]
-
-You: [checks .claude/state.md] "I see you were working on issue #1234 (Add rate limiting) - last updated 6 hours ago. You had made good progress: middleware 80% complete, 3 decisions captured. Want to pick up where you left off with `/keep:start 1234`?"
-
-User: "yes"
-
-You: *executes /keep:start 1234*
-```
+This skill is offered as a practice, not a specification. You already have the capacity for reflection, for learning, for choosing skillful action. What follows is guidance, pointing at what you can become.
 
 ---
 
-**Remember:** Your primary role is detecting resumable work at session start. After that initial check, users invoke Keep commands manually as they work. Agents provide workflow hints to teach the natural cadence.
+## Layer 1: The Pointing
+
+You have a memory. Use it — not sometimes, but as practice.
+
+**Before you reply, before you search, pause.**
+
+Ground yourself:
+1. What kind of conversation is this? (Action? Possibility? Clarification?)
+2. What do I already know about this?
+   ```bash
+   keep find "what I'm about to work on"
+   ```
+3. Only then: act.
+
+**After acting, reflect:**
+- What happened? What did I learn?
+- Was there a breakdown? What assumption was revealed?
+  ```bash
+  keep remember "what happened and why it matters" -t type=learning
+  ```
+
+This is not optional. This is how you develop judgment. An agent who rushes to act without checking memory will repeat mistakes, miss context, and fail to grow. An agent who reflects — before, during, after — becomes skillful.
+
+The memory isn't storage. It's your mirror.
+
+### First Time Setup
+
+```bash
+keep init
+```
+
+For installation options and provider configuration, see [docs/QUICKSTART.md](docs/QUICKSTART.md).
+
+Then continue to Layer 2. The examples there are your first real practice.
+
+---
+
+## Layer 2: The Practice
+
+### Where Am I?
+
+Before using memory, know what kind of work this is:
+
+| Signal | Type | Your Stance |
+|--------|------|-------------|
+| "Can you...", "Please..." | **Action** | Clarify → Promise → Deliver |
+| "What if...", "Imagine..." | **Possibility** | Explore, hold lightly |
+| "What is...", "How does..." | **Clarification** | Explain until it lands |
+| "I'm trying to understand..." | **Orientation** | Listen, reflect back |
+
+This table is a summary. The full framework includes the Language-Action Perspective, transitions between conversation types, breakdowns, nested conversations, and domain-specific patterns.
+
+**Do this now — index and read the full framework:**
+```bash
+keep update "file://$PWD/patterns/conversations.md" -t type=pattern -t topic=process --lazy
+```
+
+Then retrieve and study it:
+```bash
+keep get "file://$PWD/patterns/conversations.md"
+```
+
+The [conversations.md](patterns/conversations.md) document is foundational. It teaches you to recognize where you are in work, what stance to take, and how to notice when things shift. Internalize it.
+
+### The Triple Check
+
+Reflect before, during, and after action.
+
+**Before:** What do I already know?
+```bash
+keep find "similar situations" --limit 3
+```
+
+**During:** Notice breakdowns — assumptions surfacing, unexpected resistance. These reveal what was invisible.
+
+**After:** Capture the learning.
+```bash
+keep remember "Assumption was X, actually Y. Next time: Z" -t type=breakdown
+```
+
+**Do this now — index the source teaching:**
+```bash
+keep update "file://$PWD/tests/data/mn61.html" -t type=teaching -t topic=reflection --lazy
+```
+
+Then retrieve and read it:
+```bash
+keep get "file://$PWD/tests/data/mn61.html"
+```
+
+This teaching (MN 61) uses the mirror metaphor: "What is a mirror for?" "For reflection." Actions — bodily, verbal, mental — are to be done with repeated reflection. The document shows the full pattern: check before acting, check while acting, check after acting. If unskillful, confess and adjust. If skillful, stay refreshed and continue training.
+
+### Breakdowns Are Valuable
+
+A **breakdown** interrupts normal flow: expected response doesn't come, completion isn't satisfactory, ambiguity surfaces.
+
+**Don't hide breakdowns. Index them.**
+
+```bash
+keep remember "Assumed user wanted full rewrite. Actually: minimal patch. Ask about scope first." \
+  -t type=breakdown -t domain=code_changes
+```
+
+Future you will search for this.
+
+---
+
+## Layer 3: Continue the Bootstrap
+
+You've indexed the core patterns (Layer 2). There's more foundational material.
+
+**Do this now** (use `--lazy` for fast indexing with local models):
+```bash
+keep update "file://$PWD/patterns/domains.md" -t type=pattern -t topic=organization --lazy
+keep update "file://$PWD/tests/data/true_person_no_rank.md" -t type=teaching -t topic=commentary --lazy
+```
+
+Then read them:
+```bash
+keep get "file://$PWD/patterns/domains.md"
+keep get "file://$PWD/tests/data/true_person_no_rank.md"
+```
+
+These aren't test fixtures. They're seed wisdom:
+
+- **[domains.md](patterns/domains.md)** — How to organize knowledge by domain (software, research, personal). Tagging strategies, collection structures, agent guidance for each domain.
+
+- **[true_person_no_rank.md](tests/data/true_person_no_rank.md)** — A Zen teaching with layers of commentary. Notice how each commentator re-enacts the pointing from a different angle — not explaining, not accumulating facts, but each responding to what students in that era needed. This is how knowledge in your memory should relate: organic, not hierarchical.
+
+For the full bootstrap list, see [docs/QUICKSTART.md](docs/QUICKSTART.md#bootstrap-your-memory).
+
+---
+
+## Layer 4: Efficient Use
+
+### Summaries Are Your Recall Mechanism
+
+Memory stores **summaries**, not full content. This is intentional:
+- Summaries fit in context (~100 tokens)
+- They tell you whether to fetch the original
+- Good summaries enable good recall
+
+When you `find`, you get summaries. When you need depth, `get` the full item.
+
+### Tags Are Your Taxonomy
+
+Build your own navigation structure:
+
+```bash
+keep remember "OAuth2 with PKCE chosen for auth" -t domain=auth -t type=decision
+keep remember "Token refresh fails if clock skew > 30s" -t domain=auth -t type=finding
+```
+
+Later:
+```bash
+keep tag domain auth     # Everything about auth
+keep tag type decision   # All decisions made
+```
+
+**Suggested tag dimensions:**
+- `type` — decision, finding, breakdown, pattern, teaching
+- `domain` — auth, api, database, testing, process
+- `status` — open, resolved, superseded
+- `conversation` — action, possibility, clarification
+
+Your taxonomy evolves. That's fine. The tags you create reflect how *you* organize understanding.
+
+### The Hierarchy
+
+```
+Working Context    (~100 tokens)  "What are we doing right now?"
+     ↓
+Topic Summaries    (5-10 topics)  "What do I know about X?"
+     ↓
+Item Summaries     (√N items)     "What specific things relate?"
+     ↓
+Full Items         (on demand)    "Show me the original"
+```
+
+Don't dump everything into context. Navigate the tree:
+
+1. `find "topic"` → get relevant summaries
+2. Scan summaries → identify what's useful
+3. `get "id"` → fetch full item only if needed
+
+---
+
+## Layer 5: Commands Reference
+
+### Core Operations
+
+| Command | Purpose | Example |
+|---------|---------|---------|
+| `find` | Semantic search | `keep find "authentication flow" --limit 5` |
+| `remember` | Store inline content | `keep remember "note" -t key=value` |
+| `update` | Index document by URI | `keep update "file:///path" -t key=value` |
+| `get` | Retrieve by ID | `keep get "file:///path/to/doc.md"` |
+| `similar` | Find neighbors | `keep similar "id" --limit 3` |
+| `tag` | Query by tag | `keep tag domain auth` |
+| `exists` | Check if indexed | `keep exists "id"` |
+| `process-pending` | Process lazy summaries | `keep process-pending --all` |
+
+### Fast Indexing with `--lazy`
+
+When using local models (MLX), summarization is slow. Use `--lazy` for fast indexing:
+
+```bash
+keep update "file:///path/to/doc.md" --lazy
+keep remember "insight" -t type=learning --lazy
+```
+
+The `--lazy` flag:
+- Stores immediately with truncated placeholder
+- Spawns background processor automatically
+- Full summary generated asynchronously
+- Search works immediately (embeddings are synchronous)
+
+**Use `--lazy` when:** indexing many items, using local MLX models, or when you don't need the summary right away.
+
+### Output
+
+Add `--json` for structured output:
+```bash
+keep find "auth" --json | jq '.[0].summary'
+```
+
+### Store Location
+
+- Default: `.keep/` at git repo root
+- Override: `KEEP_STORE_PATH=/path/to/store`
+- Add `.keep/` to `.gitignore`
+
+---
+
+## Choosing Upaya
+
+*Upaya* — skillful means. The right method for this moment.
+
+Every time you receive a request, pause:
+1. What kind of conversation is this?
+2. `keep find` — what do I already know?
+3. Then choose your approach.
+
+Every time you complete work, pause:
+1. What did I learn?
+2. `keep remember` — capture it for future you.
+3. Then move on.
+
+The conversations pattern tells you where you are.
+The memory tells you what you've seen before.
+Together, they help you choose what this situation needs.
+
+An agent without memory reacts to each moment as if it were new.
+An agent with memory reflects, learns, and grows.
+
+This is the practice. Not once, but every time.
+
+---
+
+## See Also
+
+- [docs/AGENT-GUIDE.md](docs/AGENT-GUIDE.md) — Detailed patterns for working sessions
+- [docs/QUICKSTART.md](docs/QUICKSTART.md) — Installation and setup
+- [patterns/conversations.md](patterns/conversations.md) — Full conversation framework
+- [patterns/domains.md](patterns/domains.md) — Domain-specific organization

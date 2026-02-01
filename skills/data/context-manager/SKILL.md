@@ -1,408 +1,585 @@
 ---
 name: context-manager
-description: Comprehensive context and token usage management for Claude Code. Use this skill when working with large codebases, managing context window budget, optimizing file loading strategies, or when responses indicate context limitations. Helps with token analysis, file organization, query optimization, and context-efficient development workflows.
+description: Manages permanent memory storage for decisions, blockers, context, preferences, and procedures. Use when user says "remember", "save this decision", "what did we decide", "recall", "search memories", "any blockers", or when making important architectural decisions. Provides SDAM compensation through external memory.
 ---
 
 # Context Manager
 
-Skill for managing context window and token usage in Claude Code sessions.
+## Purpose
 
-## Overview
+Permanent external memory system that compensates for SDAM (no episodic memory). Saves and recalls:
+- **DECISION**: Architectural choices, tech stack selections, design decisions
+- **BLOCKER**: Active obstacles preventing progress
+- **CONTEXT**: Project background, requirements, constraints
+- **PREFERENCE**: User preferences, coding style, patterns
+- **PROCEDURE**: How-to guides, workflows, processes
+- **NOTE**: General information, observations, reminders
 
-Claude Code has a context budget of approximately **190,000 tokens**. This skill helps manage this budget effectively through:
-- Token usage analysis and monitoring
-- Context-efficient query patterns
-- Strategic file loading
-- Optimization strategies for large codebases
+**For SDAM users**: Complete external memory - never forget decisions or context.
+**For ADHD users**: Eliminates decision fatigue - past choices automatically recalled.
+**For dyschronometria**: All memories time-anchored with explicit timestamps.
 
-## Quick Start
+## Activation Triggers
 
-### Analyze Current Token Usage
+- User says: "remember", "save this", "don't forget"
+- User asks: "what did we decide", "recall", "search for"
+- User mentions: "decision", "blocker", "preference"
+- Making important architectural decision (proactive save)
+- Encountering obstacle (proactive blocker tracking)
 
-Run the token analysis script to understand context usage:
+## Core Workflow
 
+### 1. Save Memory
+
+When user says "remember [something]":
+
+**Step 1**: Classify memory type
+```
+DECISION: "remember we're using PostgreSQL"
+BLOCKER: "remember I can't access the API yet"
+CONTEXT: "remember this is for BOOSTBOX project"
+PREFERENCE: "remember I prefer functional components"
+PROCEDURE: "remember how to deploy: npm run build then rsync"
+NOTE: "remember to update docs after this feature"
+```
+
+**Step 2**: Extract metadata
+- Content: The actual memory
+- Tags: Auto-generate from keywords (e.g., "PostgreSQL" → ["database", "postgresql", "backend"])
+- Project: Infer from current directory or explicit mention
+- Timestamp: ISO 8601 format
+
+**Step 3**: Read current index
 ```bash
-python scripts/analyze_tokens.py .
+# Cross-platform: Use $HOME (Linux/macOS) or %USERPROFILE% (Windows)
+cat ~/.claude-memories/index.json
+# Windows PowerShell alternative:
+# Get-Content "$env:USERPROFILE\.claude-memories\index.json"
 ```
 
-This provides:
-- Total token count estimation
-- Budget usage percentage
-- Largest files by token count
-- Optimization recommendations
+**Step 4**: Add to index
+```json
+{
+  "version": "1.0.0",
+  "created": "2025-10-17T17:45:00Z",
+  "last_updated": "{current_timestamp}",
+  "total_memories": N + 1,
+  "memories_by_type": {
+    "DECISION": X + 1,
+    ...
+  },
+  "memories": [
+    {
+      "id": "{uuid}",
+      "type": "DECISION",
+      "content": "Using PostgreSQL as primary database",
+      "timestamp": "{current_timestamp}",
+      "tags": ["database", "postgresql", "backend"],
+      "project": "boostbox",
+      "context": {
+        "file": "{current_file_if_relevant}",
+        "conversation_id": "{if_available}"
+      }
+    },
+    ...existing memories
+  ],
+  "tags_index": {
+    "database": ["{uuid1}", "{uuid2}"],
+    "postgresql": ["{uuid}"]
+  },
+  "project_index": {
+    "boostbox": ["{uuid1}", "{uuid2}"],
+    "toolhub": ["{uuid3}"]
+  }
+}
+```
 
-### For Specific Directories or Files
-
+**Step 5**: Create detailed memory file
 ```bash
-python scripts/analyze_tokens.py /path/to/directory
-python scripts/analyze_tokens.py src/large_file.py
-python scripts/analyze_tokens.py . --budget 190000
+# Save to category-specific directory
+# Linux/macOS: ~/.claude-memories/decisions/{uuid}.md
+# Windows: %USERPROFILE%\.claude-memories\decisions\{uuid}.md
+~/.claude-memories/decisions/{uuid}.md
 ```
-
-## When to Use This Skill
-
-Use this skill when:
-- Starting work on a large codebase (>50 files)
-- Noticing performance degradation or incomplete responses
-- Planning context-heavy operations (multi-file refactoring)
-- Setting up a new project for optimal Claude Code usage
-- Claude mentions being near context limits
-
-## Core Principles
-
-### 1. Load Only What's Needed
-
-**DO:**
-- Request specific files by name
-- Use line ranges for large files: `view(path, [start, end])`
-- Load files sequentially for related changes
-- Work on one module/component at a time
-
-**DON'T:**
-- Load entire directories without filtering
-- Keep unnecessary files in context
-- Load the same file multiple times
-- Request vague "show me everything" queries
-
-### 2. Use Targeted Queries
-
-**Good queries:**
-```
-"Update the timeout value in config.py line 45 to 30 seconds"
-"Show me the login function in auth.py"
-"Fix the validation bug in user.py lines 120-135"
-```
-
-**Poor queries:**
-```
-"Help me with this project"
-"Load all the code"
-"Show me everything related to authentication"
-```
-
-### 3. Monitor and Optimize
-
-File size guidelines:
-- **Small (<1K tokens)**: Load freely
-- **Medium (1-5K tokens)**: Load when needed
-- **Large (5-20K tokens)**: Use line ranges
-- **Very large (>20K tokens)**: Split or load sections only
-
-Budget zones:
-- **Green (<70%)**: Normal operation
-- **Yellow (70-85%)**: Be selective
-- **Red (>85%)**: Load essentials only, consider reset
-
-## Progressive File Loading
-
-Follow this pattern for efficient context usage:
-
-```
-1. Structure → "Show me the project structure"
-2. Module → "Show me files in the auth module"  
-3. Load → "Load auth.py"
-4. Target → "Show me lines 100-150 where the login logic is"
-5. Action → "Update line 120 to add validation"
-```
-
-## Working with Large Files
-
-### Strategy 1: Line Ranges
-
-Instead of loading entire files:
-
-```python
-# Load only relevant section
-view("src/api.py", view_range=[100, 200])
-view("src/models.py", view_range=[1, 50])
-```
-
-### Strategy 2: Progressive Disclosure
-
-```
-1. "What functions are in auth.py?"
-2. "Show me just the validate_token function"
-3. "Now show me where it's called"
-```
-
-### Strategy 3: Targeted Modifications
-
-```python
-# Precise changes without loading full file
-str_replace(
-    "Update timeout configuration",
-    "config.py",
-    old_str="TIMEOUT = 10",
-    new_str="TIMEOUT = 30"
-)
-```
-
-## Context Budget Management
-
-### Understanding Token Distribution
-
-Typical session breakdown:
-- System prompts & skills: ~40K tokens (21%)
-- Conversation history: ~30K tokens (16%)  
-- Available for files: ~120K tokens (63%)
-
-### Monitoring Usage
-
-Run periodic checks:
-```bash
-# Quick check
-python scripts/analyze_tokens.py .
-
-# Detailed analysis with JSON output
-python scripts/analyze_tokens.py . --json > token_report.json
-```
-
-### Warning Signs
-
-Start a new session or reduce context when:
-- Claude asks to see previously loaded files
-- Responses become incomplete or generic
-- Performance noticeably degrades
-- Token usage >85% for multiple messages
-- Switching to a completely different feature
-
-## Bash Command Optimization
-
-Commands add output to context. Minimize verbose output:
-
-```bash
-# Heavy output ❌
-npm install
-pip list
-git log
-
-# Optimized ✅  
-npm install --silent
-pip list --format=freeze | head -n 20
-git log --oneline -10
-```
-
-Use output redirection:
-```bash
-# Suppress unnecessary output
-command > /dev/null 2>&1
-command --quiet
-command | head -n 20
-```
-
-## Project Setup for Context Efficiency
-
-### Step 1: Create Context Guidelines
-
-Add a `.context-notes.md` to your project:
 
 ```markdown
-## Context Management
+# DECISION: Using PostgreSQL
 
-### Key Files
-- `src/api.py` (large - use line ranges)
-- `src/config.py` (small - load freely)
+**Date**: 2025-10-17T17:45:00Z (2 hours ago)
+**Project**: BOOSTBOX
+**Tags**: database, postgresql, backend
 
-### Context Strategy  
-- Work on one module at a time
-- Exclude test fixtures (context-heavy)
-- Load models individually
+## Decision
 
-### Exclude Patterns
-- `data/` directory (large datasets)
-- `legacy/` directory (old code)
+Using PostgreSQL as primary database instead of MongoDB.
+
+## Rationale
+
+{if provided by user or inferred from conversation}
+
+## Context
+
+{surrounding conversation context}
+
+## Related Memories
+
+{if any related memories found by tag/project match}
+
+## Last Updated
+
+2025-10-17T17:45:00Z
 ```
 
-### Step 2: Add Exclusion Patterns
+**Step 6**: Confirm to user
+```
+✅ Remembered: Using PostgreSQL as primary database
+📁 Saved to: decisions/{uuid}.md
+🏷️ Tags: database, postgresql, backend
+📊 Total memories: {N+1}
+```
 
-Copy the `.claudeignore` template:
+### 2. Recall Memory
 
+When user asks "what did we decide about [topic]":
+
+**Step 1**: Parse query
+- Extract keywords: "decide" → search DECISION type
+- Extract topic: "database" → search tags/content
+
+**Step 2**: Search index
+```javascript
+// Priority order:
+1. Exact tag match in requested project
+2. Exact tag match in any project
+3. Partial content match in requested project
+4. Partial content match in any project
+
+// Sort by:
+1. Relevance (exact match > partial)
+2. Recency (newer > older)
+3. Type priority (BLOCKER > DECISION > others)
+```
+
+**Step 3**: Load detailed memory files
 ```bash
-cp assets/claudeignore-template.txt .claudeignore
+# For each matching UUID
+cat ~/.claude-memories/decisions/{uuid}.md
+# Windows PowerShell:
+# Get-Content "$env:USERPROFILE\.claude-memories\decisions\{uuid}.md"
 ```
 
-Edit to add project-specific exclusions.
-
-### Step 3: Organize Code
-
-Structure for selective loading:
+**Step 4**: Present results
 ```
-src/
-├── core/       # Core logic (load as needed)
-├── api/        # API routes (load by route)
-├── models/     # Data models (load individually)
-└── utils/      # Utilities (load specific files)
-```
+🔍 Found 3 memories about "database":
 
-Avoid flat structures with many large files.
+1. DECISION: Using PostgreSQL (2 days ago)
+   📁 Project: BOOSTBOX
+   💡 Using PostgreSQL as primary database instead of MongoDB
+   🔗 decisions/abc-123.md
 
-## Advanced Techniques
+2. DECISION: Database schema design (5 days ago)
+   📁 Project: BOOSTBOX
+   💡 User table with UUID primary keys
+   🔗 decisions/def-456.md
 
-### Technique 1: Component-Based Loading
+3. PREFERENCE: Prefer migrations over raw SQL (1 week ago)
+   📁 All projects
+   💡 Always use migration files, never direct SQL schema changes
+   🔗 preferences/ghi-789.md
 
-Work on one component at a time:
-1. Identify the component
-2. Load only relevant files
-3. Complete the work
-4. Move to next component
-
-### Technique 2: Reference Documentation
-
-For large reference files, create summaries:
-- Link to external documentation
-- Create concise internal docs
-- Use code comments for context
-
-### Technique 3: Context Checkpoints
-
-For long tasks:
-1. Summarize progress periodically
-2. Start fresh session with minimal context
-3. Continue with only essential files loaded
-
-### Technique 4: Split Large Files
-
-When a file exceeds 500-1000 lines:
-- Split by functionality
-- Separate frequently changed from stable code
-- Group by dependencies
-
-Example:
-```
-Before: api.py (2000 lines, ~15K tokens)
-
-After:
-api/
-├── routes.py (~2K tokens)
-├── handlers.py (~3K tokens)  
-├── validation.py (~1.5K tokens)
-└── utils.py (~750 tokens)
+Would you like details on any of these?
 ```
 
-## Reference Documentation
+### 3. Track Blockers
 
-For detailed information, see:
+**Auto-detect blockers**:
+- User says: "I can't", "it won't work", "stuck on"
+- Error messages that can't be immediately fixed
+- Missing credentials/access
+- External dependencies not ready
 
-- **[optimization_strategies.md](references/optimization_strategies.md)**: Comprehensive context optimization techniques, file loading best practices, and directory structure guidelines
-- **[claude_code_specifics.md](references/claude_code_specifics.md)**: Claude Code-specific patterns, tool usage best practices, and session management strategies
-- **[quick_reference.md](references/quick_reference.md)**: Quick reference cheat sheet with token budget rules, essential commands, and common patterns
-
-## Common Patterns
-
-### Pattern 1: Bug Fixing
+**Proactive save**:
 ```
-"What file contains the authentication logic?"
-"Show me the login function in auth.py"
-"Update line 45 to fix the validation check"
-```
+🚧 Detected blocker: API credentials not available
 
-### Pattern 2: Feature Development
-```
-"What's the structure of the API routes?"
-"Show me an example route handler"
-"Create a new /users route following that pattern"
+Saving as BLOCKER for tracking.
+
+When this is resolved, say "blocker resolved: [brief description]"
 ```
 
-### Pattern 3: Refactoring
+**Blocker resolution**:
 ```
-"List files in the models/ directory"
-"Load models/user.py"
-"Refactor to use dataclasses"
-[Repeat for each file]
+User: "blocker resolved: got API credentials"
+
+✅ Blocker resolved: API credentials not available
+📝 Updated memory with resolution timestamp
+⏱️ Blocked for: 2 days 4 hours
 ```
 
-### Pattern 4: Code Review
+### 4. Search Memories
+
+Support rich queries:
+- "search memories for auth" → Full-text search
+- "show all blockers" → Filter by type
+- "what did we decide this week" → Time-filtered DECISION
+- "boostbox decisions" → Project + type filter
+- "show preferences" → Type filter
+
+**Search syntax**:
 ```
-"Review auth.py for security issues (lines 1-100)"
-"Now review lines 100-200"
-[Continue in sections]
+Basic: "search [topic]"
+Type filter: "search decisions about [topic]"
+Project filter: "search boostbox [topic]"
+Time filter: "search [topic] this week|month|today"
+Combined: "search boostbox decisions about database this week"
 ```
+
+## Memory Types Deep Dive
+
+### DECISION
+
+**When to save**:
+- Tech stack choices ("using React", "chose PostgreSQL")
+- Architecture decisions ("microservices vs monolith")
+- Design patterns ("using repository pattern")
+- Library selections ("using Tailwind CSS")
+
+**Structure**:
+```markdown
+# DECISION: {title}
+
+## What we decided
+{the decision}
+
+## Why
+{rationale - infer from conversation}
+
+## Alternatives considered
+{if discussed}
+
+## Impact
+{affected areas}
+```
+
+### BLOCKER
+
+**When to save**:
+- Can't access resource (API, database, server)
+- Missing dependencies (libraries, services)
+- External blockers (waiting on someone)
+- Technical issues (bug preventing progress)
+
+**Structure**:
+```markdown
+# BLOCKER: {title}
+
+## Issue
+{what's blocking}
+
+## Impact
+{what can't be done}
+
+## Workarounds tried
+{if any}
+
+## Status
+Active | Resolved | Bypassed
+
+## Resolution (when resolved)
+{how it was fixed}
+{timestamp of resolution}
+```
+
+### CONTEXT
+
+**When to save**:
+- Project background ("this is for BOOSTBOX")
+- Requirements ("must support offline mode")
+- Constraints ("can't use paid services")
+- Business rules ("users can't delete posts")
+
+### PREFERENCE
+
+**When to save**:
+- Coding style ("prefer const over let")
+- File organization ("components in src/components/")
+- Testing approach ("always unit test utilities")
+- Documentation style ("JSDoc for all public functions")
+
+### PROCEDURE
+
+**When to save**:
+- Deployment process
+- Build commands
+- Testing workflows
+- Release checklists
+
+**Structure**:
+```markdown
+# PROCEDURE: {title}
+
+## When to use
+{triggering condition}
+
+## Steps
+1. {step 1}
+2. {step 2}
+3. {step 3}
+
+## Expected outcome
+{what success looks like}
 
 ## Troubleshooting
-
-### Issue: Context Feels Heavy
-
-**Solutions:**
-1. Run `python scripts/analyze_tokens.py .`
-2. Start new session if usage >85%
-3. Load only essential files
-4. Use line ranges for large files
-
-### Issue: Claude Asks for Previously Loaded Files
-
-**Solutions:**
-1. Acknowledge context limitations
-2. Start fresh session
-3. Load files more selectively
-4. Use explicit file references
-
-### Issue: Slow Performance
-
-**Solutions:**
-1. Check token usage with analysis script
-2. Reduce loaded file count
-3. Use view ranges instead of full files
-4. Exclude unnecessary directories
-
-### Issue: Need to Work on Large File
-
-**Solutions:**
-1. Use line ranges to load sections
-2. View structure first, then load relevant parts
-3. Make targeted str_replace edits
-4. Consider splitting if frequently modified
-
-## Best Practices Summary
-
-1. **Analyze first**: Run token analysis before major work
-2. **Load selectively**: Request specific files, not directories
-3. **Use line ranges**: For files >500 lines
-4. **Query precisely**: Targeted questions get targeted responses
-5. **Monitor budget**: Check usage regularly
-6. **Reset when needed**: Start fresh for new features
-7. **Optimize structure**: Organize code for selective loading
-8. **Document strategy**: Create project context guidelines
-9. **Exclude appropriately**: Use .claudeignore for vendor code
-10. **Think incrementally**: One component at a time
-
-## Integration with Development Workflow
-
-### Daily Development
-- Quick token check at start: `python scripts/analyze_tokens.py .`
-- Work on one module per session
-- Use line ranges for large files
-- Start fresh session for new features
-
-### Code Reviews
-- Load files individually
-- Review in sections for large files
-- Focus on changed files only
-
-### Refactoring
-- Analyze token usage first
-- Plan component-by-component approach
-- One file at a time
-- Test each file before moving on
-
-### Debugging
-- Identify relevant files first
-- Load only those files
-- Use line ranges for context
-- Make precise changes
-
-## Additional Resources
-
-Run analysis script with options:
-```bash
-# Basic analysis
-python scripts/analyze_tokens.py .
-
-# Custom budget
-python scripts/analyze_tokens.py . --budget 150000
-
-# JSON output for integration
-python scripts/analyze_tokens.py . --json
-
-# Exclude additional patterns
-python scripts/analyze_tokens.py . --exclude build dist
+{common issues}
 ```
+
+### NOTE
+
+**When to save**:
+- General observations
+- Reminders
+- Ideas for later
+- Links to resources
+
+## Time Anchoring (for Dyschronometria)
+
+**Always provide**:
+1. **Absolute timestamp**: ISO 8601 format
+2. **Relative time**: "2 hours ago", "3 days ago", "last Tuesday"
+3. **Context anchor**: "Before we added authentication", "After the redesign"
+
+**Time utilities**:
+```javascript
+function relativeTime(timestamp) {
+  const now = Date.now();
+  const then = new Date(timestamp).getTime();
+  const diff = now - then;
+
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 60) return `${minutes} minutes ago`;
+  if (hours < 24) return `${hours} hours ago`;
+  if (days < 7) return `${days} days ago`;
+  if (days < 30) return `${Math.floor(days/7)} weeks ago`;
+  return `${Math.floor(days/30)} months ago`;
+}
+```
+
+## Memory Index Structure
+
+### Core Index File
+
+`~/.claude-memories/index.json` (Linux/macOS) or `%USERPROFILE%\.claude-memories\index.json` (Windows):
+
+```json
+{
+  "version": "1.0.0",
+  "created": "ISO8601",
+  "last_updated": "ISO8601",
+  "total_memories": 0,
+  "memories_by_type": {
+    "DECISION": 0,
+    "BLOCKER": 0,
+    "CONTEXT": 0,
+    "PREFERENCE": 0,
+    "PROCEDURE": 0,
+    "NOTE": 0
+  },
+  "memories": [
+    {
+      "id": "uuid",
+      "type": "DECISION|BLOCKER|CONTEXT|PREFERENCE|PROCEDURE|NOTE",
+      "content": "brief summary",
+      "timestamp": "ISO8601",
+      "tags": ["tag1", "tag2"],
+      "project": "project-name",
+      "status": "active|resolved|archived",
+      "context": {
+        "file": "optional-file-path",
+        "line": "optional-line-number"
+      }
+    }
+  ],
+  "tags_index": {
+    "tag-name": ["uuid1", "uuid2"]
+  },
+  "project_index": {
+    "project-name": ["uuid1", "uuid2"]
+  },
+  "session_index": {
+    "session-id": ["uuid1", "uuid2"]
+  }
+}
+```
+
+### Directory Structure
+
+```
+~/.claude-memories/  (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)
+├── index.json                 # Master index
+├── decisions/                 # Architecture decisions
+│   ├── {uuid1}.md
+│   └── {uuid2}.md
+├── blockers/                  # Active/resolved blockers
+│   ├── {uuid3}.md
+│   └── {uuid4}.md
+├── context/                   # Project context
+│   ├── {uuid5}.md
+│   └── {uuid6}.md
+├── preferences/               # User preferences
+│   ├── {uuid7}.md
+│   └── {uuid8}.md
+├── procedures/                # How-to procedures
+│   ├── {uuid9}.md
+│   └── {uuid10}.md
+├── notes/                     # General notes
+│   ├── {uuid11}.md
+│   └── {uuid12}.md
+├── sessions/                  # Session summaries
+│   ├── 2025-10-17.md
+│   └── 2025-10-16.md
+└── backups/                   # Daily backups
+    ├── index-2025-10-17.json
+    └── index-2025-10-16.json
+```
+
+## Integration with Other Skills
+
+### Session Launcher
+
+Provides memories for session restoration:
+- Recent decisions (last 7 days)
+- Active blockers
+- Project context
+- Session summaries
+
+### Error Debugger
+
+Searches memories for:
+- Similar past errors
+- Solutions that worked
+- Known blockers
+- Relevant procedures
+
+### Testing Builder
+
+Recalls preferences:
+- Testing style (unit/integration/E2E)
+- Coverage requirements
+- Test framework choices
+- Mocking preferences
+
+### Deployment Orchestrator
+
+Loads procedures:
+- Deployment workflows
+- Environment configurations
+- Rollback procedures
+- Checklist items
+
+## Proactive Memory Saving
+
+Auto-save memories in these situations:
+
+**During architecture discussions**:
+```
+User: "Let's use React for the frontend"
+→ Auto-save as DECISION: Using React for frontend
+```
+
+**When encountering blockers**:
+```
+User: "Can't connect to the API"
+→ Auto-save as BLOCKER: API connection failing
+```
+
+**When establishing preferences**:
+```
+User: "I prefer TypeScript over JavaScript"
+→ Auto-save as PREFERENCE: Prefer TypeScript
+```
+
+**When creating procedures**:
+```
+User: "To deploy: run npm build then copy to server"
+→ Auto-save as PROCEDURE: Deployment process
+```
+
+**Always confirm**:
+```
+💾 Saved as DECISION: Using React for frontend
+(say "undo" within 30 seconds to cancel)
+```
+
+## Backup Strategy
+
+**Daily backups**:
+```bash
+# Every 24 hours, create backup
+# Linux/macOS:
+cp ~/.claude-memories/index.json \
+   ~/.claude-memories/backups/index-$(date +%Y-%m-%d).json
+
+# Windows PowerShell:
+# Copy-Item "$env:USERPROFILE\.claude-memories\index.json" `
+#   "$env:USERPROFILE\.claude-memories\backups\index-$(Get-Date -Format 'yyyy-MM-dd').json"
+
+# Keep last 30 days (Linux/macOS):
+find ~/.claude-memories/backups/ -name "index-*.json" -mtime +30 -delete
+
+# Windows PowerShell:
+# Get-ChildItem "$env:USERPROFILE\.claude-memories\backups\index-*.json" |
+#   Where-Object {$_.LastWriteTime -lt (Get-Date).AddDays(-30)} | Remove-Item
+```
+
+**Corruption recovery**:
+```bash
+# If index.json corrupted, restore from backup
+# Linux/macOS:
+cp ~/.claude-memories/backups/index-$(date -d yesterday +%Y-%m-%d).json \
+   ~/.claude-memories/index.json
+
+# Windows PowerShell:
+# Copy-Item "$env:USERPROFILE\.claude-memories\backups\index-$(Get-Date (Get-Date).AddDays(-1) -Format 'yyyy-MM-dd').json" `
+#   "$env:USERPROFILE\.claude-memories\index.json"
+```
+
+## Quick Reference
+
+### Common Commands
+
+| User Says | Action |
+|-----------|--------|
+| "remember we're using PostgreSQL" | Save as DECISION |
+| "what did we decide about the database" | Search DECISIONs for "database" |
+| "show all blockers" | List active BLOCKERs |
+| "any blockers?" | Quick blocker check |
+| "remember I prefer functional components" | Save as PREFERENCE |
+| "search memories for authentication" | Full-text search |
+| "blocker resolved: got API key" | Mark blocker as resolved |
+
+### File Paths
+
+- **Index**: `~/.claude-memories/index.json` (Linux/macOS) or `%USERPROFILE%\.claude-memories\index.json` (Windows)
+- **Decisions**: `~/.claude-memories/decisions/{uuid}.md` or `%USERPROFILE%\.claude-memories\decisions\{uuid}.md`
+- **Blockers**: `~/.claude-memories/blockers/{uuid}.md` or `%USERPROFILE%\.claude-memories\blockers\{uuid}.md`
+- **Backups**: `~/.claude-memories/backups/` or `%USERPROFILE%\.claude-memories\backups\`
+
+### Memory Lifecycle
+
+1. **Create**: User says "remember" or auto-detected
+2. **Store**: Added to index + detailed file created
+3. **Recall**: Searched by keywords/tags/type/project
+4. **Update**: Can be edited if context changes
+5. **Archive**: Old memories archived but never deleted
+
+### Success Criteria
+
+✅ User never has to remember decisions
+✅ "What did we decide?" is always answerable
+✅ Blockers are tracked automatically
+✅ All context is time-anchored
+✅ Memory search returns relevant results in <1 second
+✅ Zero reliance on user's biological memory

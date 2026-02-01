@@ -1,9 +1,7 @@
 {
   "name": "policy-qa",
-  "description": "Answer policy questions with strict citations. Refuses to answer without sources.",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/finance/policy-qa/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:57.779697Z"
 }

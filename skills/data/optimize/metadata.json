@@ -1,7 +1,7 @@
 {
   "name": "optimize",
-  "repo": "gudzenkov/SuperClaudeZero",
-  "path": ".claude/skills/optimize/SKILL.md",
-  "source": "github.com/gudzenkov/SuperClaudeZero",
-  "downloaded_at": "2026-01-31T04:41:58.304634Z"
+  "repo": "leanbusqts/agent47",
+  "path": "templates/skills/optimize/SKILL.md",
+  "source": "github.com/leanbusqts/agent47",
+  "downloaded_at": "2026-02-01T03:13:22.556069Z"
 }

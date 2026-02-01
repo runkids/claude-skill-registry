@@ -1,7 +1,7 @@
 {
   "name": "skill-template",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/claude-ecosystem/skills/skill-development/assets/skill-template/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-31T04:13:08.328124Z"
+  "repo": "mattg101/SolidLink",
+  "path": "docs/dev/.agent/skills/skill-deploy-update/assets/skill-template/SKILL.md",
+  "source": "github.com/mattg101/SolidLink",
+  "downloaded_at": "2026-02-01T04:03:34.702907Z"
 }

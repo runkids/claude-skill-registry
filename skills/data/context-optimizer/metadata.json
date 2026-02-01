@@ -1,7 +1,7 @@
 {
   "name": "context-optimizer",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/context-optimizer/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:07.203263Z"
+  "repo": "robinmestre/resume",
+  "path": ".claude/skills/context-optimizer/SKILL.md",
+  "source": "github.com/robinmestre/resume",
+  "downloaded_at": "2026-02-01T03:02:04.491823Z"
 }

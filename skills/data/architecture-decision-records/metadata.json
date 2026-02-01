@@ -1,7 +1,7 @@
 {
   "name": "architecture-decision-records",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/architecture-decision-records/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:44.090987Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/documentation/skills/architecture-decision-records/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-01T04:43:47.827755Z"
 }

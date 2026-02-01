@@ -1,7 +1,7 @@
 {
   "name": "scientific-slides",
-  "repo": "Victory-Hugo/S2-Agent-Skill",
-  "path": "skills/writing/scientific-slides/SKILL.md",
-  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
-  "downloaded_at": "2026-01-31T04:16:20.867218Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/scientific-slides/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-02-01T02:01:49.642968Z"
 }

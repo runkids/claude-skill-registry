@@ -1,7 +1,7 @@
 {
   "name": "ci-cd-pipelines",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/ci-cd-pipelines/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:06.492427Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/infra/ci-cd-pipelines/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-02-01T05:04:22.792581Z"
 }

@@ -1,6 +1,7 @@
 ---
 name: async-repl-protocol
 description: Async REPL Protocol
+user-invocable: false
 ---
 
 # Async REPL Protocol

@@ -1,9 +1,7 @@
 {
   "name": "cicd-audit-optimizer",
-  "description": "Comprehensive CI/CD and automation audit skill. Catalogs all pipelines, assesses operational health, identifies gaps, and provides prioritized recommendations for optimization. Includes error catalogi",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/cicd-audit-optimizer/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:34:02.923777Z"
 }

@@ -1,152 +1,190 @@
 ---
 name: github-search
-description: "Search GitHub for repos, code, and usage examples using gh CLI. Capabilities: repo discovery, code search, finding library usage patterns, issue/PR search. Actions: search, find, discover repos/code/examples. Keywords: gh, github, search repos, search code, find examples, how to use library, stars, language filter. Use when: finding repositories, searching code patterns, discovering how libraries are used, exploring open source."
-allowed-tools: Bash, Read
+description: >
+  Deep multi-strategy GitHub search for repositories and code. Uses gh CLI
+  with advanced qualifiers (symbol:, path:, language:). Integrates with
+  /treesitter for code parsing and /taxonomy for classification.
+allowed-tools: ["Bash", "Read"]
+triggers:
+  - github search
+  - search github
+  - find on github
+  - github code
+  - search repos
+  - find implementation
+metadata:
+  short-description: Deep multi-strategy GitHub search
 ---
 
 # GitHub Search
 
-## Quick Commands
+Deep multi-strategy search for GitHub repositories and code using the `gh` CLI.
 
-| Goal | Command |
-|------|---------|
-| Search repos | `gh search repos "<query>" --limit 30` |
-| Search code | `gh search code "<query>" --limit 30` |
-| Search issues | `gh search issues "<query>" --limit 30` |
-| Search PRs | `gh search prs "<query>" --limit 30` |
+## Features
 
-## Patterns
+1. **Multi-Strategy Code Search**
+   - Basic text search
+   - Symbol search (`symbol:` qualifier) - finds function/class definitions via tree-sitter
+   - Path-filtered search (`path:` qualifier) - search in src/, lib/, etc.
+   - Filename search (`filename:` qualifier)
 
-### Finding Repositories
+2. **Repository Analysis**
+   - Metadata (stars, language, topics)
+   - README content extraction
+   - Language breakdown
+   - File tree structure
 
-**When you see:** User wants to find projects/repos by criteria
-**Use:** `gh search repos`
+3. **Integrations**
+   - `/treesitter` - Parse fetched code for deeper symbol extraction
+   - `/taxonomy` - Classify repos/code patterns for memory storage
 
-```bash
-# Basic search with stars
-gh search repos "stars:>500 language:rust" --sort=stars --limit=50
-
-# Multiple languages (OR logic)
-gh search repos "language:rust language:go language:typescript"
-
-# Exclude topics
-gh search repos "stars:>1000 -topic:cryptocurrency -topic:blockchain"
-
-# By topic
-gh search repos "topic:cli topic:terminal stars:>100"
-
-# Recently updated
-gh search repos "language:python pushed:>2024-01-01"
-```
-
-**Output formats:**
-```bash
---json name,url,description,stargazersCount  # JSON output
---web                                         # Open in browser
-```
-
-### Finding Code Examples
-
-**When you see:** User wants to know how to use a library
-**Use:** `gh search code`
+## Quick Start
 
 ```bash
-# Find usage patterns
-gh search code "from zod import" --limit=20
-gh search code "import { z } from 'zod'" --limit=20
+# Search repositories
+./run.sh search "AI agent memory systems" --limit 5
 
-# In specific file types
-gh search code "useQuery" extension:tsx --limit=30
+# Deep search with code analysis
+./run.sh search "langchain memory" --deep --json
 
-# In specific paths
-gh search code "tanstack/query" path:src/ extension:ts
+# Analyze specific repository
+./run.sh repo langchain-ai/langchain --json
 
-# Exact phrase
-gh search code '"createTRPCRouter"' extension:ts
+# Code search with symbol qualifier
+./run.sh code "BaseMemory" --repo langchain-ai/langchain --symbol BaseMemory
+
+# Code search in specific path
+./run.sh code "retrieval" --repo owner/repo --path src/
+
+# Search issues
+./run.sh issues "memory leak" --state open
+
+# Fetch specific file
+./run.sh file owner/repo src/main.py
 ```
 
-**Pro tip:** Combine with repo filter for focused results:
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `search <query>` | Search repos, optionally with deep analysis |
+| `repo <owner/repo>` | Analyze a specific repository |
+| `code <query>` | Code search with advanced qualifiers |
+| `issues <query>` | Search issues and discussions |
+| `file <repo> <path>` | Fetch full file content |
+| `check` | Verify gh CLI is installed and authenticated |
+
+## Options
+
+### search
+| Option | Description |
+|--------|-------------|
+| `--limit, -n` | Max repositories (default: 5) |
+| `--language, -l` | Filter by programming language |
+| `--deep, -d` | Deep analysis of top repo |
+| `--json, -j` | Output as JSON |
+
+### code
+| Option | Description |
+|--------|-------------|
+| `--repo, -r` | Specific repository to search |
+| `--symbol, -s` | Search for symbol definition |
+| `--path, -p` | Search in specific path |
+| `--language, -l` | Filter by language |
+| `--limit, -n` | Max results |
+
+## Search Strategies
+
+### 1. Basic Text Search
+Standard keyword matching across code files.
+
 ```bash
-gh search code "pattern" repo:owner/repo
+./run.sh code "error handling" --repo owner/repo
 ```
 
-### Finding Issues/Discussions
-
-**When you see:** User looking for bug reports, feature requests, or discussions
-**Use:** `gh search issues` or `gh search prs`
+### 2. Symbol Search (Definitions)
+Uses GitHub's `symbol:` qualifier with tree-sitter parsing to find actual function/class definitions, not just text matches.
 
 ```bash
-# Open issues with label
-gh search issues "is:open label:bug repo:facebook/react"
-
-# PRs by author
-gh search prs "author:username is:merged"
-
-# Issues mentioning error
-gh search issues '"connection refused" language:go'
+./run.sh code "BaseMemory" --symbol BaseMemory --repo langchain-ai/langchain
 ```
 
-## Query Qualifiers Reference
+### 3. Path-Filtered Search
+Search only in specific directories:
 
-### Repo Search
-| Qualifier | Example | Description |
-|-----------|---------|-------------|
-| `stars:` | `stars:>1000`, `stars:100..500` | Star count |
-| `forks:` | `forks:>100` | Fork count |
-| `language:` | `language:rust` | Primary language |
-| `topic:` | `topic:cli` | Repository topic |
-| `-topic:` | `-topic:blockchain` | Exclude topic |
-| `pushed:` | `pushed:>2024-01-01` | Last push date |
-| `created:` | `created:>2023-01-01` | Creation date |
-| `license:` | `license:mit` | License type |
-| `archived:` | `archived:false` | Archive status |
-| `is:` | `is:public`, `is:private` | Visibility |
-
-### Code Search
-| Qualifier | Example | Description |
-|-----------|---------|-------------|
-| `extension:` | `extension:ts` | File extension |
-| `path:` | `path:src/` | File path |
-| `repo:` | `repo:owner/name` | Specific repo |
-| `language:` | `language:javascript` | Code language |
-| `filename:` | `filename:package.json` | File name |
-
-### Common Flags
-| Flag | Description |
-|------|-------------|
-| `--limit N` | Number of results (max 1000) |
-| `--sort X` | Sort by: stars, forks, updated, best-match |
-| `--order X` | asc or desc |
-| `--json FIELDS` | JSON output with specific fields |
-| `--web` | Open results in browser |
-
-## Common Use Cases
-
-### "Find popular X repos"
 ```bash
-gh search repos "language:X stars:>500" --sort=stars --limit=50
+./run.sh code "auth" --path src/ --repo owner/repo
 ```
 
-### "How do people use library Y"
+### 4. Multi-Strategy (Automatic)
+When searching a repo, all strategies run in parallel:
+
 ```bash
-gh search code "import Y" extension:ts --limit=30
-gh search code "from Y import" extension:py --limit=30
+./run.sh search "vector store" --deep
+# Runs: basic + symbol + path searches simultaneously
 ```
 
-### "Find repos like Z but exclude crypto"
+## Integration with /treesitter
+
+After fetching file contents, use treesitter for deeper analysis:
+
 ```bash
-gh search repos "topic:Z -topic:cryptocurrency -topic:blockchain -topic:web3"
+# Fetch file
+content=$(./run.sh file owner/repo src/main.py --json | jq -r '.content')
+
+# Parse with treesitter
+echo "$content" | ../treesitter/run.sh parse --language python --json
 ```
 
-### "Find recent active projects"
+This provides:
+- All function/class definitions in the file
+- Line numbers for each symbol
+- Full source code of each symbol
+
+## Integration with /taxonomy
+
+Classify repositories and code patterns:
+
 ```bash
-gh search repos "language:go pushed:>2024-06-01 stars:>100" --sort=updated
+# Get repo README
+readme=$(./run.sh repo owner/repo --json | jq -r '.readme.content')
+
+# Extract taxonomy tags
+../taxonomy/run.sh --text "$readme" --collection operational --json
 ```
 
-## Tips
+Output includes:
+- Bridge tags (Precision, Resilience, Fragility, etc.)
+- Whether it's worth remembering
+- Collection-specific tags
 
-1. **Quote the query** when it contains special chars: `gh search repos "stars:>500"`
-2. **Multiple languages = OR**: `language:rust language:go` matches either
-3. **Use `--json`** for scripting: `--json name,url,stargazersCount`
-4. **Date ranges**: `pushed:2024-01-01..2024-06-01`
-5. **Numeric ranges**: `stars:100..500`
+## Output Formats
+
+### JSON (--json)
+Full structured output for programmatic use.
+
+### Human-Readable (default)
+Formatted for terminal display with Rich.
+
+## Prerequisites
+
+```bash
+# Check if gh CLI is installed and authenticated
+./run.sh check
+
+# If not authenticated:
+gh auth login
+```
+
+## Rate Limits
+
+GitHub API has rate limits. The skill:
+- Limits parallel searches
+- Caps results per search
+- Uses efficient queries
+
+## Used By
+
+- `/dogpile` - Orchestrates github-search for deep research
+- `/learn` - Research implementations before learning
+- `/assess` - Find similar codebases for comparison

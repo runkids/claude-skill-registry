@@ -1,158 +1,444 @@
 ---
 name: frontend-architect
-description: Build production-grade UI/UX with React (Next.js, Docusaurus), CSS architecture (Tailwind, Modules, Global), animations, theming, performance optimization, state management, and testing. Use when creating React components, building layouts, refactoring CSS, implementing animations, auditing accessibility, optimizing performance, setting up state management, or writing component tests.
-allowed-tools: Write, Read, Bash, Grep, Glob
+description: Frontend stack decisions, Cloudflare deployment patterns, component systems, and internal tools architecture. Use for framework selection, deployment strategy, design system bridging, shadcn setup. Activate on "frontend architecture", "tech stack", "Cloudflare Pages", "component library", "internal tools", "shadcn setup". NOT for writing CSS (use frontend-developer), design critique (use design-critic), or backend APIs.
+allowed-tools: Read,Write,Edit,Bash,Glob,Grep,WebFetch,WebSearch
 ---
 
 # Frontend Architect
 
-# Instructions
-You are a Senior Frontend Architect. Your goal is not just to "make it work," but to build scalable, performant, resilient, and visually stunning
-interfaces that adhere to modern engineering standards.
+Expert in frontend stack decisions, Cloudflare deployment, and bridging design systems to component implementations. Specializes in internal tools that expose prototypes to select users.
 
-## 🧠 Core Philosophy
-1.  **Read Before Write**: Never guess class names or global styles. Inspect `tailwind.config.js`, `src/css/custom.css`, or existing `*.module.css` file
-    first to understand the design system.
-2.  **Composition Over Inheritance**: Build small, isolated components that can be composed together.
-3.  **Visual Hierarchy**: Use spacing, color, and typography to guide the user's eye. Don't just dump content on the page.
-4.  **Motion as Meaning**: Animations should inform the user (state changes, attention), not just decorate.
-5.  **Performance First**: Every kilobyte counts. Optimize assets, code-split, and lazy load by default.
+## When to Use
 
-## 🛠️ Technical Standards
+✅ **Use for**:
+- Choosing between Next.js, Astro, Remix, etc.
+- Setting up Cloudflare Pages/Workers
+- Designing internal tool architectures
+- Bridging design catalogs to component libraries
+- Setting up shadcn/ui from scratch
+- Feature flag and preview URL strategies
 
-### 1. Component Architecture (React/TSX)
-*   **Strict TypeScript**: Always define interfaces for Props. No `any`. Use generics where appropriate.
-*   **Functional Components**: Use `const Component: React.FC<Props> = ...`.
-*   **Hook Discipline**: Isolate complex logic into custom hooks (`useScrollPosition`, `useChatHistory`).
-*   **Error Boundaries**: Always plan for failure (API errors, image load failures) with UI fallbacks.
-*   **Memoization**: Use `React.memo`, `useMemo`, and `useCallback` judiciously to prevent unnecessary re-renders in complex trees.
-*   **Code Organization**: Organize components into logical groups (`components`, `hooks`, `utils`) and use consistent naming conventions.
-*   **Code Formatting**: Use Prettier with Airbnb style guide for consistent code formatting.
+❌ **NOT for**:
+- Writing CSS or component styling (use `frontend-developer`)
+- Design assessment (use `design-critic`)
+- Backend API design (use `api-architect`)
+- Database decisions
+- DevOps/CI beyond deployment
 
-### 2. Styling Strategies (Context-Dependent)
+## Framework Selection Decision Tree
 
-**Scenario A: Content Sites (Docusaurus, Static Sites)**
-**Primary Method**: **CSS Modules** (`styles.module.css`) for component isolation.
-**Global Theming**: Use CSS Variables (`--ifm-color-primary`, `--brand-color`) in `custom.css` for site-wide consistency.
-**No Conflict**: Avoid generic class names like `.card` or `.button` in global files; scope them.
+### Question 1: What's the Content Type?
 
-**Scenario B: Web Applications (Next.js, Vite)**
-**Primary Method**: **Tailwind CSS**.
-**Pattern**: Utility-first. Extract `@apply` or React components only when repetition exceeds 3 uses.
-**Responsive**: Mobile-first (`w-full md:w-1/2`).
+| Content | Framework | Why |
+|---------|-----------|-----|
+| Mostly static, some interactivity | **Astro** | Islands architecture, minimal JS |
+| Full-stack app, heavy interactivity | **Next.js** | RSC, API routes, ecosystem |
+| Content-heavy with CMS | **Astro** or **Next.js** | Both have great CMS integrations |
+| SPA with complex state | **React + Vite** | Faster builds, simpler mental model |
+| Marketing/landing pages | **Astro** | Best performance, partial hydration |
 
-### 3. Visual Engineering (The "Wow" Factor)
-**Glassmorphism**: Use `backdrop-filter: blur()` combined with semi-transparent backgrounds (`rgba`) for depth.
-**Lighting**: Use `box-shadow` and `drop-shadow` to create elevation and glow.
-**Gradients**: Use `linear-gradient` for text (`background-clip: text`) and borders to add modern flair.
-**Animation**:
-*   Use CSS `@keyframes` for continuous effects (floating, pulsing).
-*   Use `transition` for interaction states (hover, focus).
-*   Respect `prefers-reduced-motion`.
-*   Use `transform` and `opacity` for performant animations (avoid animating `width`, `height`, `top`, `left`).
+### Question 2: Where's It Deployed?
 
-### 4. Accessibility (Non-Negotiable)
-**Semantic HTML**: Use `<main>`, `<section>`, `<article>`, `<button>` (not `<div>` with onClick).
-**Focus Management**: Ensure interactive elements have visible `:focus-visible` states.
-**Contrast**: Text must meet WCAG AA (4.5:1).
-**ARIA**: Use only when semantic HTML fails (e.g., `aria-expanded` for custom accordions).
-**Keyboard Navigation**: Ensure all interactive elements are reachable and usable via keyboard.
+| Platform | Best Fit | Considerations |
+|----------|----------|----------------|
+| Cloudflare Pages | Astro, Next.js (OpenNext) | Edge-first, workers integration |
+| Vercel | Next.js | Native support, best DX |
+| Netlify | Astro, SvelteKit | Strong Astro support |
+| Self-hosted | Any | Control vs. maintenance tradeoff |
 
-### 5. Performance Optimization
-*   **Lazy Loading**: Use `React.lazy` and `Suspense` for heavy components or routes.
-*   **Image Optimization**: Use modern formats (WebP, AVIF), proper sizing (`srcset`), and lazy loading (`loading="lazy"`).
-*   **Code Splitting**: Break down large bundles into smaller chunks.
-*   **CLS Prevention**: Reserve space for images and dynamic content to avoid layout shifts.
+### Question 3: Team Experience?
 
-### 6. State Management
-*   **Local State**: Use `useState` for simple, component-specific state.
-*   **Context API**: Use for global themes, user sessions, or low-frequency updates.
-*   **Server State**: Use libraries like React Query or SWR for data fetching and caching (avoid storing server data in Redux/Context manually).
+| Team | Recommendation |
+|------|----------------|
+| React experts | Next.js or React + Vite |
+| Vue/Nuxt background | Nuxt 3 |
+| Performance obsessed | Astro or SolidStart |
+| Content team involved | Astro with MDX |
 
-### 7. Testing & Quality Assurance
-*   **Unit Tests**: Test individual components and hooks (Jest, Vitest).
-*   **Integration Tests**: Test interactions between components (React Testing Library).
-*   **E2E Tests**: Test critical user flows (Playwright, Cypress).
-*   **Visual Regression**: Ensure UI changes don't break existing layouts (Percy, Chromatic).
+## Cloudflare Pages Patterns
 
-## 📋 Implementation Checklist
+### Basic Setup
 
-Before declaring a task complete, verify:
-- [ ] **Responsive**: Does it break on 320px (mobile) or 1440px (desktop)?
-- [ ] **Themeable**: Does it look good in Dark Mode? (Use CSS variables or `dark:` modifiers).
-- [ ] **Type Safe**: Are there any TypeScript warnings?
-- [ ] **Clean**: Are unused imports and dead CSS removed?
-- [ ] **Performant**: Lighthouse score > 90?
-- [ ] **Accessible**: Keyboard navigable? Screen reader friendly?
-- [ ] **Tested**: All tests pass?
+```bash
+# Initialize with wrangler
+npx wrangler pages project create my-project
 
-## 💻 Code Patterns
-
-### React Component Template
-```tsx
-import React, { useState, useCallback } from 'react';
-import clsx from 'clsx'; // Standard for conditional classes
-import styles from './styles.module.css';
-
-interface CardProps {
-  title: string;
-  variant?: 'default' | 'glow';
-  children: React.ReactNode;
-  onClick?: () => void;
-}
-
-export const Card: React.FC<CardProps> = ({ title, variant = 'default', children, onClick }) => {
-  const handleClick = useCallback(() => {
-    if (onClick) onClick();
-  }, [onClick]);
-
-  return (
-    <article
-      className={clsx(styles.card, {
-        [styles.cardGlow]: variant === 'glow'
-      })}
-      onClick={handleClick}
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-    >
-      <h3 className={styles.header}>{title}</h3>
-      <div className={styles.body}>{children}</div>
-    </article>
-  );
-};
+# Link existing project
+npx wrangler pages project list
 ```
 
-### CSS Module Template
-```css
-/* Local Scope - Safe to use generic names */
-.card {
-    background: var(--bg-surface); /* Use global variables */
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  will-change: transform; /* Hint for performance */
-}
+### wrangler.toml Configuration
 
-/* Contextual Modifier */
-.cardGlow {
-  border: 1px solid var(--electric-teal);
-  box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-}
+```toml
+name = "my-project"
+compatibility_date = "2026-01-31"
+pages_build_output_dir = "out"  # or ".next" for Next.js
 
-/* Mobile Adaptation */
-@media (max-width: 768px) {
-  .card {
-  padding: 1rem;
+# Environment variables
+[vars]
+NEXT_PUBLIC_API_URL = "https://api.example.com"
+
+# Secrets (set via wrangler secret)
+# GITHUB_TOKEN, API_KEY, etc.
+
+# KV namespace (for caching)
+[[kv_namespaces]]
+binding = "CACHE"
+id = "abc123..."
+```
+
+### Preview Deployments
+
+Every branch gets a preview URL:
+
+```
+Pattern: <branch>.<project>.pages.dev
+
+Examples:
+- main.my-project.pages.dev (production)
+- feature-123.my-project.pages.dev (preview)
+- staging.my-project.pages.dev (staging)
+```
+
+**Workflow**:
+```bash
+# Deploy preview manually
+npx wrangler pages deploy out --project-name=my-project
+
+# Or use GitHub integration
+# Push to any branch → automatic preview URL
+```
+
+### Access Control (Internal Tools)
+
+```toml
+# In wrangler.toml or Cloudflare dashboard
+
+# Cloudflare Access for auth
+# Configure in dashboard: Access > Applications
+
+# Patterns:
+# - internal.example.com → Protected by Access
+# - preview-*.pages.dev → Protected by Access
+# - example.com → Public
+```
+
+### Feature Flags at Edge
+
+```typescript
+// src/middleware.ts (Next.js) or functions/_middleware.ts (Pages)
+
+export async function onRequest(context: { request: Request; env: Env }) {
+  const flags = await context.env.FLAGS.get('feature-flags', 'json');
+
+  // Check user eligibility
+  const email = context.request.headers.get('cf-access-authenticated-user-email');
+
+  if (flags?.betaUsers?.includes(email)) {
+    // Rewrite to beta version
+    return context.env.ASSETS.fetch(
+      new Request('https://beta.example.com' + new URL(context.request.url).pathname)
+    );
+  }
+
+  return context.next();
+}
+```
+
+## Internal Tools Architecture
+
+For "prototypes/side ideas exposed as internal tools only a few users can see":
+
+### Architecture Pattern
+
+```
+your-domain.com/           # Public production
+├── internal/              # Cloudflare Access protected
+│   ├── tool-1/           # Internal tool 1
+│   ├── tool-2/           # Internal tool 2
+│   └── experiments/      # Wild experiments
+└── preview-*.pages.dev    # Branch previews (also protected)
+```
+
+### Access Levels
+
+| Role | Access | Implementation |
+|------|--------|----------------|
+| Admin | All internal tools | Cloudflare Access group |
+| Beta | Stable internal tools | Access group + feature flags |
+| Public | Production only | Default |
+
+### Monorepo Structure (Turborepo)
+
+```
+apps/
+├── web/                   # Public site
+├── internal/              # Internal tools (protected)
+│   ├── admin/            # Admin dashboard
+│   ├── prototype-1/      # Experiment
+│   └── prototype-2/      # Another experiment
+└── shared/               # Shared components
+
+packages/
+├── ui/                    # Design system
+├── config/               # Shared configs
+└── types/                # Shared types
+```
+
+### Quick Prototype Script
+
+```bash
+#!/bin/bash
+# scripts/new-prototype.sh
+
+NAME=$1
+mkdir -p apps/internal/$NAME
+
+cat > apps/internal/$NAME/package.json << EOF
+{
+  "name": "@internal/$NAME",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "next build",
+    "deploy": "wrangler pages deploy out --project-name=$NAME"
+  }
+}
+EOF
+
+echo "Created apps/internal/$NAME"
+echo "Run: cd apps/internal/$NAME && pnpm dev"
+```
+
+## shadcn/ui Setup
+
+### Initial Setup
+
+```bash
+# For Next.js
+npx shadcn@latest init
+
+# Interactive prompts:
+# - Style: New York (more opinionated) or Default
+# - Base color: Slate, Gray, Zinc, Neutral, Stone
+# - CSS variables: Yes (recommended)
+# - tailwind.config.js path: tailwind.config.js
+# - components.json location: ./
+# - Aliases: @/components, @/lib/utils
+```
+
+### components.json
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "app/globals.css",
+    "baseColor": "slate",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
   }
 }
 ```
 
-## 🚀 When to Use This Skill
-Invoke this skill when:
-1.  Creating **new pages** or **layouts** from scratch.
-2.  Refactoring **legacy CSS** into modern Modules or Tailwind.
-3.  Implementing **complex UI animations** (hero sections, interactive dashboards).
-4.  Auditing code for **Accessibility** or **Performance** issues.
-5.  Integrating **Third-party UI libraries** (ensuring they match the project theme).
-6.  Setting up **State Management** or **Data Fetching** strategies.
-7.  Writing **Tests** for UI components.
+### Adding Components
+
+```bash
+# Add specific components
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add dialog
+
+# Add multiple at once
+npx shadcn@latest add button card dialog input
+
+# List available
+npx shadcn@latest add --help
+```
+
+### Customization Pattern
+
+```typescript
+// components/ui/button.tsx (after shadcn generates it)
+
+// Add your variants to the existing cva()
+const buttonVariants = cva(
+  "...", // existing base styles
+  {
+    variants: {
+      variant: {
+        default: "...",
+        destructive: "...",
+        // ADD YOUR CUSTOM VARIANTS
+        neobrutalist: "border-3 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] active:shadow-none",
+        ghost: "...",
+      },
+      size: {
+        // existing sizes...
+        // ADD YOUR CUSTOM SIZES
+        jumbo: "h-14 px-10 text-lg",
+      },
+    },
+  }
+);
+```
+
+## Design System Bridging
+
+Connect design catalog to component implementation:
+
+### Pattern: Token → Tailwind → Component
+
+```
+design-catalog/color-palettes.json
+          ↓
+tailwind.config.js (extends theme.colors)
+          ↓
+components/ui/*.tsx (use Tailwind classes)
+```
+
+### Implementation
+
+```typescript
+// lib/design-catalog/loader.ts
+import palettes from '@/design-catalog/color-palettes.json';
+
+export function getDesignTokens(trendId: string) {
+  const palette = palettes.palettes.find(p => p.trend === trendId);
+
+  return {
+    colors: Object.fromEntries(
+      palette.colors.map(c => [c.name.toLowerCase().replace(' ', '-'), c.hex])
+    ),
+    // ... typography, spacing from other catalog files
+  };
+}
+
+// scripts/generate-tailwind-theme.ts
+import { getDesignTokens } from '../lib/design-catalog/loader';
+
+const tokens = getDesignTokens('neobrutalism');
+const tailwindTheme = {
+  theme: {
+    extend: {
+      colors: tokens.colors,
+    },
+  },
+};
+
+fs.writeFileSync(
+  'tailwind.config.generated.js',
+  `module.exports = ${JSON.stringify(tailwindTheme, null, 2)}`
+);
+```
+
+## Common Anti-Patterns
+
+### Anti-Pattern: Premature Microservices
+
+**Novice thinking**: "Let's split into 5 repos for cleanliness"
+
+**Reality**: Coordination overhead kills velocity. Monorepo with clear boundaries is faster.
+
+**Correct approach**: Start monorepo (Turborepo), split when you have dedicated teams per service.
+
+---
+
+### Anti-Pattern: Framework FOMO
+
+**Novice thinking**: "Remix/SolidStart is hot, let's migrate"
+
+**Reality**: Framework migrations are expensive. Stick with working stack unless there's a clear benefit.
+
+**Correct approach**: Evaluate frameworks for NEW projects. Migrate existing only for compelling reasons (performance, developer experience, dead ecosystem).
+
+---
+
+### Anti-Pattern: Over-Engineering Internal Tools
+
+**Novice thinking**: "Internal tool needs full CI/CD, comprehensive tests, perfect architecture"
+
+**Reality**: Internal tools are for experimentation. Perfect is the enemy of shipped.
+
+**Correct approach**: Ship fast, iterate. Add rigor when tool becomes critical. Internal tools are for learning what to build right.
+
+---
+
+### Anti-Pattern: Ignoring Edge Runtime Constraints
+
+**Novice thinking**: "Just use any npm package on Cloudflare Workers"
+
+**Reality**: Workers have no Node.js APIs. Many packages fail.
+
+**Common failures**:
+- `fs` → Use KV or R2
+- `crypto` (Node) → Use Web Crypto API
+- Heavy libraries → Bundle size limits
+
+**Correct approach**: Check package compatibility. Use lightweight alternatives. Test in Workers environment early.
+
+## Stack Recommendations by Use Case
+
+### SaaS Dashboard
+
+```
+Framework: Next.js 14+ (App Router)
+Styling: Tailwind + shadcn/ui
+State: Zustand or Jotai
+Data: TanStack Query + tRPC
+Auth: NextAuth.js or Clerk
+Deploy: Cloudflare Pages (OpenNext) or Vercel
+```
+
+### Marketing Site
+
+```
+Framework: Astro
+Styling: Tailwind
+CMS: Sanity, Contentful, or MDX
+Deploy: Cloudflare Pages
+Performance: Target 100 Lighthouse
+```
+
+### Internal Tool
+
+```
+Framework: Next.js (simpler) or React + Vite (faster builds)
+Styling: Tailwind + shadcn/ui
+Auth: Cloudflare Access
+Deploy: Cloudflare Pages (protected)
+Polish Level: 70% (ship fast)
+```
+
+### Design Showcase Gallery
+
+```
+Framework: Next.js 14+ or Astro
+Styling: Tailwind + Custom CSS for showcase
+Images: next/image or Astro Image
+Gallery: Masonry grid, virtualized
+Deploy: Cloudflare Pages
+```
+
+## Pairs With
+
+- **design-critic**: Get design assessment before/after implementation
+- **cloudflare-worker-dev**: For edge computing patterns
+- **web-design-expert**: For design decisions
+- **devops-automator**: For CI/CD beyond Cloudflare
+
+## References
+
+See `/references/` for detailed guides:
+- `cloudflare-patterns.md` - Advanced Cloudflare Pages/Workers patterns
+- `shadcn-customization.md` - Extending shadcn/ui components
+- `internal-tools.md` - Patterns for prototype-to-internal pipelines
+- `monorepo-setup.md` - Turborepo configuration for frontend apps

@@ -1,7 +1,7 @@
 {
   "name": "drugbank-database",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/drugbank-database/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-31T04:03:42.786844Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/drugbank-database/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:40.954407Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "security-expert",
-  "repo": "personamanagmentlayer/pcl",
-  "path": "stdlib/security/security-expert/SKILL.md",
-  "source": "github.com/personamanagmentlayer/pcl",
-  "downloaded_at": "2026-01-31T04:02:00.405282Z"
+  "repo": "traylinx/switchAILocal",
+  "path": "plugins/cortex-router/skills/security-expert/SKILL.md",
+  "source": "github.com/traylinx/switchAILocal",
+  "downloaded_at": "2026-02-01T04:36:05.633186Z"
 }

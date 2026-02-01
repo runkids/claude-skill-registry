@@ -1,7 +1,7 @@
 {
   "name": "cookie-security-analyzer",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/03-security-fundamentals/cookie-security-analyzer/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-31T03:32:32.927180Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/03-security-fundamentals/cookie-security-analyzer/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-01T01:33:40.599786Z"
 }

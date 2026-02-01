@@ -1,7 +1,7 @@
 {
   "name": "lindy-install-auth",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "plugins/saas-packs/lindy-pack/skills/lindy-install-auth/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-31T03:32:32.254464Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/plugins/saas-packs/lindy-pack/lindy-install-auth/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-02-01T03:36:27.966371Z"
 }

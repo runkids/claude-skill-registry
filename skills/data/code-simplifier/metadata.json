@@ -1,7 +1,7 @@
 {
   "name": "code-simplifier",
-  "repo": "duc01226/EasyPlatform",
-  "path": ".claude/skills/code-simplifier/SKILL.md",
-  "source": "github.com/duc01226/EasyPlatform",
-  "downloaded_at": "2026-01-31T04:18:24.408549Z"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/code-simplifier/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-02-01T04:43:54.792244Z"
 }

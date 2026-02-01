@@ -1,7 +1,7 @@
 {
   "name": "claude-settings-expert",
-  "repo": "pur3v4d3r/pur3-pkb-codebase",
-  "path": ".claude/skills/claude-settings-expert/skill.md",
-  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
-  "downloaded_at": "2026-01-31T02:07:36.064997Z"
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/anthropic/claude-settings-expert/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-02-01T02:24:01.752035Z"
 }

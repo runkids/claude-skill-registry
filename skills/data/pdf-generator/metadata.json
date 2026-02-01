@@ -1,7 +1,7 @@
 {
   "name": "pdf-generator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/19-business-automation/pdf-generator/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-31T03:32:32.303694Z"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/tools/pdf-generator/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-02-01T01:58:40.515461Z"
 }

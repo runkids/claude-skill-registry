@@ -1,105 +1,142 @@
 ---
 name: update-changelog
-description:
-  Orchestrate complete changelog workflow. Invoke `init-changelog` (if
-  needed), `edit-changelog`, and `cleanup-changelog` skills in sequence.
-  Use when the user or agent needs to update the changelog.
+description: Update CHANGELOG.md with recent changes, optionally scoped to a sub-project. Use for changelog updates, pre-release prep, or documenting recent work.
+argument-hint: "[scope]"
+model: haiku
+user-invocable: true
+disable-model-invocation: true
+allowed-tools: Read, Bash, Task, AskUserQuestion
 ---
 
-# Update changelog
+# Update Changelog
 
-**`GOAL`**: orchestrate the complete changelog update workflow by
-invoking `init-changelog`, `edit-changelog`, and `cleanup-changelog`
-skills in sequence.
+Orchestrate changelog updates with optional sub-project scoping. Handles pre-checks and scope selection, then delegates to the changelog-agent for git analysis and entry generation.
 
-**`WHEN`**: use when the user requests to update the changelog or when
-the agent needs to ensure the changelog reflects the latest commits.
+## Arguments
 
-## Purpose
-
-This skill provides a single entry point for changelog management:
-
-- Initializes `CHANGELOG.md` structure if missing (via `init-changelog`
-  skill)
-- Updates changelog from git commits (via `edit-changelog` skill)
-- Cleans up formatting and removes empty sections (via
-  `cleanup-changelog` skill)
-- Handles dependencies and conditional logic intelligently
-
-## Prerequisites
-
-- Requires an initialized Git repository
-- Conventional commit format for user-facing changes (`feat:`, `fix:`,
-  etc.)
+- `$ARGUMENTS` - Optional scope: `all`, `sdd-tools`, `dev-tools`, `task-manager`, or `project`. If not provided, prompts for selection.
 
 ## Workflow
 
-Follow these steps in sequence:
+Execute these 5 steps in order.
 
-### Step 1: Check for `CHANGELOG.md`
+---
 
-- Check if `CHANGELOG.md` exists in the repository root.
-- If missing: Invoke the `init-changelog` skill to create it.
-  - Verify the output status (`SUCCESS`, `WARN`, or `ERROR`).
-  - If `ERROR`: Stop and report the error to the user.
-  - If `SUCCESS` or `WARN`: Continue to Step 2.
-- If exists: Continue directly to Step 2.
+### Step 1: Pre-flight Checks
 
-### Step 2: Update from git commits
+Verify the environment is ready:
 
-- Invoke the `edit-changelog` skill to update from git commits.
-- Capture the status from the first line of output (`SUCCESS`, `WARN`,
-  or `ERROR`).
-- Handle the status:
-  - If `ERROR`: Stop and report the error to the user.
-  - If `WARN` (no new commits): Report to user that changelog already
-    reflects latest commits. Skip Step 3 and proceed to Step 4.
-  - If `SUCCESS` (changes made): Continue to Step 3.
+```bash
+git rev-parse --is-inside-work-tree
+```
+- If not a git repo, stop and report: "Not inside a git repository."
 
-### Step 3: Cleanup formatting (conditional)
+```bash
+git log --oneline -1
+```
+- If no commits exist, stop and report: "No commits found in this repository."
 
-- Only run this step if `edit-changelog` reported `SUCCESS`.
-- Invoke the `cleanup-changelog` skill to clean up formatting.
-- This step runs: `fix-markdown` → `remove-empty-headers.sh` →
-  `fix-markdown`
+```bash
+ls CHANGELOG.md 2>/dev/null
+```
+- Note whether CHANGELOG.md exists. If it does not, inform the user: "No CHANGELOG.md found. The changelog-agent will offer to create one."
 
-### Step 4: Report completion
+---
 
-- Communicate a summary to the user indicating:
-  - What actions the skill performed
-  - Whether the changelog received updates
-  - Any warnings or errors encountered during the process
-- **`DONE`**
+### Step 2: Load Context
 
-## Behavior
+Read the changelog-format skill for formatting guidelines:
 
-**Smart initialization:**
+```
+${CLAUDE_PLUGIN_ROOT}/skills/changelog-format/SKILL.md
+```
 
-- Automatically invokes `init-changelog` if `CHANGELOG.md` does not
-  exist
-- Skips initialization if `CHANGELOG.md` already exists
+This provides Keep a Changelog conventions that the changelog-agent will follow.
 
-**Conditional cleanup:**
+---
 
-- Only runs `cleanup-changelog` if `edit-changelog` made changes
-  (`SUCCESS` status)
-- Skips cleanup if the update requires no changes (`WARN` status)
+### Step 3: Determine Scope
 
-**Error handling:**
+**If `$ARGUMENTS` is provided and matches a known scope**, use it directly.
 
-- Stops immediately on `ERROR` from any sub-skill
-- Reports errors to the user
+**Known scopes:**
 
-## Output
+| Scope | Description | Git path filter |
+|-------|-------------|----------------|
+| `sdd-tools` | SDD tools plugin | `-- claude-tools/sdd-tools/` |
+| `dev-tools` | Dev tools plugin | `-- claude-tools/dev-tools/` |
+| `task-manager` | Task manager app | `-- claude-apps/task-manager/` |
+| `project` | Root project files only | `-- . ':!claude-tools' ':!claude-apps'` |
+| `all` | Entire repository | *(no filter)* |
 
-**Files created/modified:**
+**If `$ARGUMENTS` is empty or does not match a known scope**, use `AskUserQuestion` to ask:
 
-- `CHANGELOG.md` - Created (if missing) or updated with new entries
-- `.last-aggregated-commit` - Created (if missing) or updated to `HEAD`
+```
+Which scope should the changelog update cover?
+```
 
-**Status communication:**
+Options:
+1. "All changes (Recommended)" - Entire repository, auto-detects sub-projects
+2. "sdd-tools" - Only claude-tools/sdd-tools/ changes
+3. "dev-tools" - Only claude-tools/dev-tools/ changes
+4. "task-manager" - Only claude-apps/task-manager/ changes
 
-- Reports initialization status when invoking `init-changelog`
-- Reports update status from `edit-changelog`
-- Reports cleanup status when invoking `cleanup-changelog`
-- Provides final summary of all actions taken
+*(User can also type "project" for root-only files.)*
+
+---
+
+### Step 4: Launch Changelog Agent
+
+Use the `Task` tool to spawn the changelog-agent with the determined scope.
+
+**Agent configuration:**
+- `subagent_type`: `dev-tools:changelog-agent`
+
+**Prompt construction:**
+
+For **scoped** updates (sdd-tools, dev-tools, task-manager, project):
+```
+Analyze commits since the last release and update the CHANGELOG.md [Unreleased] section.
+
+SCOPE: {scope}
+PATH FILTER: {path_filter}
+
+Append the path filter to all git log, git diff --name-status, and git diff --dirstat commands.
+For example: git log v{version}..HEAD --format="%H|%s|%b" --no-merges {path_filter}
+
+When writing entries, place them under a sub-project heading:
+### {scope}
+Use #### for categories (Added, Changed, Fixed, etc.) within the sub-project heading.
+```
+
+For **all** (no filter):
+```
+Analyze commits since the last release and update the CHANGELOG.md [Unreleased] section.
+
+SCOPE: all
+
+No path filter — analyze all commits. When changes span multiple sub-projects, group entries under sub-project headings:
+### sdd-tools
+### dev-tools
+### task-manager
+### project
+
+Use #### for categories (Added, Changed, Fixed, etc.) within each sub-project heading.
+Determine sub-projects from the file paths in each commit. Commits touching only root files (not under claude-tools/ or claude-apps/) belong under "project".
+If all changes belong to a single area, you may omit sub-project headings and use ### for categories directly.
+```
+
+Wait for the agent to complete before proceeding.
+
+---
+
+### Step 5: Report Completion
+
+After the changelog-agent finishes, report to the user:
+
+```
+Changelog updated. Suggested next steps:
+- Review the diff: git diff CHANGELOG.md
+- Commit: /dev-tools:git-commit
+- Push: /dev-tools:git-push
+```

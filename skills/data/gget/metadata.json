@@ -1,7 +1,7 @@
 {
   "name": "gget",
-  "repo": "Victory-Hugo/S2-Agent-Skill",
-  "path": "skills/genomics/gget/SKILL.md",
-  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
-  "downloaded_at": "2026-01-31T04:16:19.058488Z"
+  "repo": "overtimepog/AgentTheo",
+  "path": ".claude/skills/scientific-skills/gget/SKILL.md",
+  "source": "github.com/overtimepog/AgentTheo",
+  "downloaded_at": "2026-02-01T04:15:19.127652Z"
 }

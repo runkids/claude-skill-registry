@@ -1,6 +1,7 @@
 ---
 name: seoul-subway
 description: Seoul Subway assistant for real-time arrivals, route planning, and service alerts (Korean/English)
+model: sonnet
 metadata: {"moltbot":{"emoji":"🚇","requires":{"bins":["curl","jq"]}}}
 homepage: https://github.com/dukbong/seoul-subway
 user-invocable: true
@@ -18,6 +19,34 @@ Query real-time Seoul Subway information. **No API key required** - uses proxy s
 | Station Search | Line and station code lookup | "강남역 몇호선?" | "What line is Gangnam?" |
 | Route Search | Shortest path with time/fare | "신도림에서 서울역" | "Sindorim to Seoul Station" |
 | Service Alerts | Delays, incidents, non-stops | "지하철 지연 있어?" | "Any subway delays?" |
+
+### Natural Language Triggers / 자연어 트리거
+
+다양한 자연어 표현을 인식합니다:
+
+#### Real-time Arrival / 실시간 도착
+| English | 한국어 |
+|---------|--------|
+| "When's the next train at Gangnam?" | "강남 몇 분 남았어?" |
+| "Trains at Gangnam" | "강남 열차" |
+| "Gangnam arrivals" | "강남 언제 와?" |
+| "Next train to Gangnam" | "다음 열차 강남" |
+
+#### Route Search / 경로 검색
+| English | 한국어 |
+|---------|--------|
+| "How do I get to Seoul Station from Gangnam?" | "강남에서 서울역 어떻게 가?" |
+| "Gangnam → Seoul Station" | "강남 → 서울역" |
+| "Gangnam to Seoul Station" | "강남에서 서울역 가는 길" |
+| "Route from Gangnam to Hongdae" | "강남부터 홍대까지" |
+
+#### Service Alerts / 운행 알림
+| English | 한국어 |
+|---------|--------|
+| "Is Line 2 running normally?" | "2호선 정상 운행해?" |
+| "Any delays on Line 1?" | "1호선 지연 있어?" |
+| "Subway status" | "지하철 상황" |
+| "Line 3 alerts" | "3호선 알림" |
 
 ---
 
@@ -369,26 +398,48 @@ curl "https://vercel-proxy-henna-eight.vercel.app/api/alerts"
 
 ---
 
+## Line Color Mapping / 노선 색상 매핑
+
+| Line / 호선 | Color / 색상 | Emoji |
+|-------------|--------------|-------|
+| 1호선 / Line 1 | Blue / 파랑 | 🔵 |
+| 2호선 / Line 2 | Green / 초록 | 🟢 |
+| 3호선 / Line 3 | Orange / 주황 | 🟠 |
+| 4호선 / Line 4 | Sky Blue / 하늘 | 🔵 |
+| 5호선 / Line 5 | Purple / 보라 | 🟣 |
+| 6호선 / Line 6 | Brown / 갈색 | 🟤 |
+| 7호선 / Line 7 | Olive / 올리브 | 🟢 |
+| 8호선 / Line 8 | Pink / 분홍 | 🩷 |
+| 9호선 / Line 9 | Gold / 금색 | 🟡 |
+| 신분당선 / Sinbundang | Red / 빨강 | 🔴 |
+| 경의중앙선 / Gyeongui-Jungang | Cyan / 청록 | 🔵 |
+| 공항철도 / Airport Railroad | Blue / 파랑 | 🔵 |
+| 수인분당선 / Suin-Bundang | Yellow / 노랑 | 🟡 |
+
+---
+
 ## Output Format Guide
 
 ### Real-time Arrival
 
 **Korean:**
 ```
-[강남역 도착 정보]
+[강남역 Gangnam]
 
 | 호선 | 방향 | 도착 | 위치 | 유형 |
 |------|------|------|------|------|
-| 2호선 | 성수행 | 3분 | 역삼 | 일반 |
+| 🟢 2 | 성수 (Seongsu) | 3분 | 역삼 | 일반 |
+| 🟢 2 | 신촌 (Sinchon) | 5분 | 선정릉 | 일반 |
 ```
 
 **English:**
 ```
-[Gangnam Station Arrivals]
+[Gangnam Station 강남역]
 
 | Line | Direction | Arrival | Location | Type |
 |------|-----------|---------|----------|------|
-| Line 2 | Seongsu-bound | 3 min | Yeoksam | Regular |
+| 🟢 2 | Seongsu (성수) | 3 min | Yeoksam | Regular |
+| 🟢 2 | Sinchon (신촌) | 5 min | Seonjeongneung | Regular |
 ```
 
 ### Station Search
@@ -415,24 +466,32 @@ curl "https://vercel-proxy-henna-eight.vercel.app/api/alerts"
 
 **Korean:**
 ```
-[강남 -> 홍대입구]
+[강남 → 홍대입구]
 
-소요시간: 38분 | 거리: 22.1 km | 요금: 1,650원 | 환승: 1회
+소요시간: 38분 | 거리: 22.1km | 요금: 1,650원 | 환승: 1회
 
-1. 09:03 강남 출발 (2호선 성수방면)
-2. 09:18 신도림 환승 (2호선 -> 1호선)
-3. 09:42 홍대입구 도착
+🟢 강남 ─2호선─▶ 🟢 신도림 ─2호선─▶ 🟢 홍대입구
+
+| 구분 | 역 | 호선 | 시간 |
+|------|-----|------|------|
+| 출발 | 강남 Gangnam | 🟢 2 | 09:03 |
+| 환승 | 신도림 Sindorim | 🟢 2→2 | 09:18 |
+| 도착 | 홍대입구 Hongdae | 🟢 2 | 09:42 |
 ```
 
 **English:**
 ```
-[Gangnam -> Hongdae]
+[Gangnam → Hongdae]
 
-Time: 38 min | Distance: 22.1 km | Fare: 1,650 KRW | Transfers: 1
+Time: 38 min | Distance: 22.1 km | Fare: 1,650 KRW | Transfer: 1
 
-1. 09:03 Depart Gangnam (Line 2 towards Seongsu)
-2. 09:18 Transfer at Sindorim (Line 2 -> Line 1)
-3. 09:42 Arrive Hongdae
+🟢 Gangnam ─Line 2─▶ 🟢 Sindorim ─Line 2─▶ 🟢 Hongdae
+
+| Step | Station | Line | Time |
+|------|---------|------|------|
+| Depart | Gangnam 강남 | 🟢 2 | 09:03 |
+| Transfer | Sindorim 신도림 | 🟢 2→2 | 09:18 |
+| Arrive | Hongdae 홍대입구 | 🟢 2 | 09:42 |
 ```
 
 ### Service Alerts
@@ -441,20 +500,20 @@ Time: 38 min | Distance: 22.1 km | Fare: 1,650 KRW | Transfers: 1
 ```
 [운행 알림]
 
-[1호선] 종로3가역 무정차 (15:00 ~ 15:22)
-- 코레일 열차 연기 발생으로 인함
+🔵 1호선 | 종로3가역 무정차 (15:00 ~ 15:22)
+└─ 코레일 열차 연기 발생으로 인함
 
-[2호선] 정상 운행
+🟢 2호선 | 정상 운행
 ```
 
 **English:**
 ```
 [Service Alerts]
 
-[Line 1] Jongno 3-ga Non-stop (15:00 ~ 15:22)
-- Due to smoke from Korail train
+🔵 Line 1 | Jongno 3-ga Non-stop (15:00 ~ 15:22)
+└─ Due to smoke from Korail train
 
-[Line 2] Normal operation
+🟢 Line 2 | Normal operation
 ```
 
 ### Error

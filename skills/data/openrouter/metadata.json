@@ -1,7 +1,7 @@
 {
   "name": "openrouter",
-  "repo": "enuno/claude-command-and-control",
-  "path": "skills-templates/openrouter/SKILL.md",
-  "source": "github.com/enuno/claude-command-and-control",
-  "downloaded_at": "2026-01-31T04:29:18.322363Z"
+  "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "path": ".github/skills/openrouter/SKILL.md",
+  "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "downloaded_at": "2026-02-01T01:32:47.402835Z"
 }

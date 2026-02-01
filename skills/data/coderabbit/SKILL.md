@@ -1,142 +1,135 @@
 ---
+
 name: coderabbit
-description: >
-  AI-powered code review using CodeRabbit CLI and GitHub integration. Use when running
-  local code reviews before commits ("run coderabbit", "review my changes"), configuring
-  .coderabbit.yaml files, integrating CodeRabbit with Claude Code for autonomous review
-  workflows, using @coderabbitai commands in pull requests, or setting up automated
-  code review pipelines.
----
+description: "CodeRabbit AI code review. Covers CLI, configuration, triage workflow. Keywords: @coderabbitai, code review."
+version: "—"
+release_date: "2026-01-21"
 
 # CodeRabbit
 
-AI code review tool that catches race conditions, memory leaks, and security vulnerabilities.
-Integrates with Claude Code for autonomous review-and-fix workflows.
+AI-powered code review for pull requests and local changes.
 
-## Quick Start: Claude Code Integration
+## Quick Navigation
 
-Run CodeRabbit as part of your development workflow:
+| Task                          | Reference                                                                                         |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| Install & run CLI             | [cli-usage.md](references/cli-usage.md)                                                           |
+| Configure .coderabbit.yaml    | [configuration.md](references/configuration.md)                                                   |
+| Supported tools (40+ linters) | [tools.md](references/tools.md)                                                                   |
+| Git platform setup            | [platforms.md](references/platforms.md)                                                           |
+| PR commands (@coderabbitai)   | [pr-commands.md](references/pr-commands.md)                                                       |
+| Claude/Cursor/Codex workflow  | [agent-integration.md](references/agent-integration.md)                                           |
+| Triage findings               | [triage.md](references/triage.md)                                                                 |
+| Fix single issue              | [fix.md](references/fix.md)                                                                       |
+| Reporting & metrics           | [end-to-end-workflow.md#reporting--metrics](references/end-to-end-workflow.md#reporting--metrics) |
+| End-to-end workflow           | [end-to-end-workflow.md](references/end-to-end-workflow.md)                                       |
+| Windows/WSL setup             | [windows-wsl.md](references/windows-wsl.md)                                                       |
 
-```text
-Implement the feature from the spec, then run coderabbit --prompt-only
-in the background and fix any issues found.
-```
+## Quick Start
 
-Key flags for Claude Code:
-
-- `--prompt-only` - Minimal output optimized for AI agents
-- `--plain` - Plain text mode (no interactive UI)
-- `--type uncommitted` - Review only uncommitted changes
-
-## CLI Commands
+### Install
 
 ```bash
-# Install
 curl -fsSL https://cli.coderabbit.ai/install.sh | sh
-
-# Authenticate (run once per Claude Code session)
+source ~/.zshrc
 coderabbit auth login
-
-# Review code
-coderabbit                          # Interactive mode
-coderabbit --plain                  # Plain text output
-coderabbit --prompt-only            # AI-optimized output
-coderabbit --type uncommitted       # Only uncommitted changes
-coderabbit --base develop           # Compare against develop branch
 ```
 
-## Claude Code Workflow
+### Run Review
 
-Recommended prompt pattern:
+```bash
+# AI agent workflow (most common)
+coderabbit --prompt-only --type uncommitted
+
+# Interactive mode
+coderabbit
+
+# Plain text output
+coderabbit --plain
+```
+
+### Local Capture Script
+
+If you need to persist raw prompt-only output to a file, use the bundled script:
+
+```bash
+python3 scripts/run_coderabbit.py --output coderabbit-report.txt
+```
+
+Options:
+
+- `--output` to choose a different file name
+- `--timeout` to adjust the timeout in seconds (default: 1800)
+
+### PR Commands
 
 ```text
-Please implement [feature] and then run coderabbit --prompt-only,
-let it run as long as it needs (run it in the background) and fix any issues.
+@coderabbitai review          # Incremental review
+@coderabbitai full review     # Complete review
+@coderabbitai pause           # Stop auto-reviews
+@coderabbitai resume          # Resume auto-reviews
+@coderabbitai resolve         # Mark comments resolved
 ```
 
-CodeRabbit reviews take 7-30+ minutes. Run in background and check periodically.
+## Severity Matrix
 
-**Fix prioritization:** Fix critical issues first, ignore nits. Run CodeRabbit
-again after fixes to verify no new issues introduced. Limit to 2 iterations.
+| Severity     | Action          | Examples                                          |
+| ------------ | --------------- | ------------------------------------------------- |
+| **CRITICAL** | Fix immediately | Security, data loss, tenant isolation             |
+| **HIGH**     | Should fix      | Reliability, performance, architecture violations |
+| **MEDIUM**   | Judgment call   | Maintainability, type safety (quick wins)         |
+| **LOW**      | Skip            | Style/formatting, subjective nits                 |
 
-## GitHub Commands
+## AI Agent Workflow Pattern
 
-Use `@coderabbitai` in PR comments:
+```text
+Implement [feature] and then run the capture script to generate .code-review/coderabbit-report.txt,
+run it in a background terminal and wait for the process to complete before reading the report.
+Fix any critical issues. Ignore nits.
+```
 
-| Command | Description |
-|---------|-------------|
-| `@coderabbitai review` | Incremental review of new changes |
-| `@coderabbitai full review` | Complete review from scratch |
-| `@coderabbitai pause` | Stop automatic reviews |
-| `@coderabbitai resume` | Restart reviews |
-| `@coderabbitai summary` | Regenerate PR summary |
-| `@coderabbitai generate docstrings` | Generate function docs (Pro) |
-| `@coderabbitai generate unit tests` | Generate tests (Pro) |
-| `@coderabbitai resolve` | Resolve all CR comments |
-| `@coderabbitai configuration` | Show current settings |
+Key points:
 
-Add `@coderabbitai ignore` to PR **description** to disable reviews for that PR.
+- Use `--prompt-only` for AI-optimized output
+- Reviews take 7-30+ minutes depending on changeset size
+- Run command in **background terminal** (`background=true`)
+- **Wait for terminal to become idle** (not busy) using `get_terminal_output`
+- **Poll every 60 seconds**, not more frequently — CodeRabbit takes time
+- Do NOT just check for file existence — file is created early but populated gradually
+- Once terminal shows completion, read `.code-review/coderabbit-report.txt`
+- If process times out (30 min default) or errors, report failure to user
+- Limit to 2-3 review iterations maximum
 
-## Configuration (.coderabbit.yaml)
+## Minimal Configuration
 
 ```yaml
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# .coderabbit.yaml
 language: en-US
-tone_instructions: "Be concise and focus on critical issues only"
-
 reviews:
-  profile: chill  # or "assertive" for comprehensive feedback
+  profile: chill
   high_level_summary: true
-  auto_review:
-    enabled: true
-    drafts: false
-    ignore_title_keywords:
-      - "wip"
-      - "draft"
-
-knowledge_base:
-  code_guidelines:
-    enabled: true
-    filePatterns:
-      - "**/.cursorrules"
-      - "**/claude.md"
+  tools:
+    gitleaks:
+      enabled: true
+    ruff:
+      enabled: true
 ```
 
-CodeRabbit auto-reads `claude.md` and `.cursorrules` for coding standards.
+## Critical Prohibitions
 
-## Supported Tools
+- Do not introduce fallbacks, mocks, or stubs in production code
+- Do not broaden scope beyond what CodeRabbit flagged
+- Do not "fix" style nits handled by formatters/linters
+- Do not ignore CRITICAL findings; escalate if unclear
+- Stop and resolve CLI errors (auth/network) before fixing code
 
-CodeRabbit integrates 40+ linters and security analyzers:
+## Links
 
-- **JavaScript/TypeScript:** ESLint, Biome, Oxlint
-- **Python:** Ruff, Pylint, Flake8
-- **Go:** golangci-lint
-- **Security:** Gitleaks, Semgrep, OSV Scanner
-- **Infrastructure:** Checkov, Hadolint
-- **CI/CD:** actionlint, CircleCI
+- Official docs: https://docs.coderabbit.ai/
+- Schema: https://coderabbit.ai/integrations/schema.v2.json
 
-**Full tools reference:** See [references/tools-reference.md](references/tools-reference.md)
+## Templates
 
-## Troubleshooting
-
-**CodeRabbit not finding issues:**
-
-1. Check auth: `coderabbit auth status`
-2. Verify git status: `git status`
-3. Specify review type: `--type uncommitted`
-4. Specify base branch: `--base develop`
-
-**Claude Code not applying fixes:**
-
-1. Use `--prompt-only` mode
-2. Include "run in background" in prompt
-3. Explicitly ask to "fix issues found by CodeRabbit"
-
-## References
-
-- **Overview:** [references/overview.md](references/overview.md)
-- **Claude Code Integration:** [references/claude-code-integration.md](references/claude-code-integration.md)
-- **YAML Configuration:** [references/yaml-configuration-guide.md](references/yaml-configuration-guide.md)
-- **GitHub Commands:** [references/github-commands.md](references/github-commands.md)
-- **Tools Reference:** [references/tools-reference.md](references/tools-reference.md)
-- **Full Configuration:** [references/configuration.md](references/configuration.md)
+- [coderabbit.minimal.yaml](assets/coderabbit.minimal.yaml) — Minimal configuration
+- [coderabbit.full.yaml](assets/coderabbit.full.yaml) — Full example with all options
+- [agent-prompts.md](assets/agent-prompts.md) — Ready-to-use AI agent prompts

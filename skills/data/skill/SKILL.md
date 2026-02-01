@@ -1,406 +1,178 @@
 ---
-name: skill
-description: Manage local skills - list, add, remove, search, edit
-argument-hint: "<command> [args]"
+name: ipsw
+description: Apple firmware and binary reverse engineering with the ipsw CLI tool. Use when analyzing iOS/macOS binaries, disassembling functions in dyld_shared_cache, dumping Objective-C headers from private frameworks, downloading IPSWs or kernelcaches, extracting entitlements, analyzing Mach-O files, or researching Apple security. Triggers on requests involving Apple RE, iOS internals, kernel analysis, KEXT extraction, or vulnerability research on Apple platforms.
 ---
 
-# Skill Management CLI
+# IPSW - Apple Reverse Engineering Toolkit
 
-Meta-skill for managing oh-my-claudecode skills via CLI-like commands.
+**Install:** `brew install blacktop/tap/ipsw`
 
-## Subcommands
+## Choose Your Workflow
 
-### /skill list
-
-Show all local skills organized by scope.
-
-**Behavior:**
-1. Scan user skills at `~/.claude/skills/omc-learned/`
-2. Scan project skills at `.omc/skills/`
-3. Parse YAML frontmatter for metadata
-4. Display in organized table format:
-
-```
-USER SKILLS (~/.claude/skills/omc-learned/):
-| Name              | Triggers           | Quality | Usage | Scope |
-|-------------------|--------------------|---------|-------|-------|
-| error-handler     | fix, error         | 95%     | 42    | user  |
-| api-builder       | api, endpoint      | 88%     | 23    | user  |
-
-PROJECT SKILLS (.omc/skills/):
-| Name              | Triggers           | Quality | Usage | Scope   |
-|-------------------|--------------------|---------|-------|---------|
-| test-runner       | test, run          | 92%     | 15    | project |
-```
-
-**Fallback:** If quality/usage stats not available, show "N/A"
+| Goal | Start Here |
+|------|------------|
+| Download/extract firmware | [Firmware Acquisition](#firmware-acquisition) |
+| Reverse engineer userspace | [Userspace RE](#userspace-re-dyld_shared_cache) |
+| Analyze kernel/KEXTs | [Kernel Analysis](#kernel-analysis) |
+| Research entitlements | [Entitlements](#entitlements) |
+| Dump private API headers | [Class Dump](#class-dump) |
+| Analyze standalone binary | [Mach-O Analysis](#mach-o-analysis) |
 
 ---
 
-### /skill add [name]
-
-Interactive wizard for creating a new skill.
-
-**Behavior:**
-1. **Ask for skill name** (if not provided in command)
-   - Validate: lowercase, hyphens only, no spaces
-2. **Ask for description**
-   - Clear, concise one-liner
-3. **Ask for triggers** (comma-separated keywords)
-   - Example: "error, fix, debug"
-4. **Ask for argument hint** (optional)
-   - Example: "<file> [options]"
-5. **Ask for scope:**
-   - `user` → `~/.claude/skills/omc-learned/<name>/SKILL.md`
-   - `project` → `.omc/skills/<name>/SKILL.md`
-6. **Create skill file** with template:
-
-```yaml
----
-name: <name>
-description: <description>
-triggers:
-  - <trigger1>
-  - <trigger2>
-argument-hint: "<args>"
----
-
-# <Name> Skill
-
-## Purpose
-
-[Describe what this skill does]
-
-## When to Activate
-
-[Describe triggers and conditions]
-
-## Workflow
-
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-## Examples
-
-```
-/oh-my-claudecode:<name> example-arg
-```
-
-## Notes
-
-[Additional context, edge cases, gotchas]
-```
-
-7. **Report success** with file path
-8. **Suggest:** "Edit `/skill edit <name>` to customize content"
-
-**Example:**
-```
-User: /skill add custom-logger
-Assistant: Creating new skill 'custom-logger'...
-
-Description: Enhanced logging with structured output
-Triggers (comma-separated): log, logger, logging
-Argument hint (optional): <level> [message]
-Scope (user/project): user
-
-✓ Created skill at ~/.claude/skills/omc-learned/custom-logger/SKILL.md
-→ Edit with: /skill edit custom-logger
-```
-
----
-
-### /skill remove <name>
-
-Remove a skill by name.
-
-**Behavior:**
-1. **Search for skill** in both scopes:
-   - `~/.claude/skills/omc-learned/<name>/SKILL.md`
-   - `.omc/skills/<name>/SKILL.md`
-2. **If found:**
-   - Display skill info (name, description, scope)
-   - **Ask for confirmation:** "Delete '<name>' skill from <scope>? (yes/no)"
-3. **If confirmed:**
-   - Delete entire skill directory (e.g., `~/.claude/skills/omc-learned/<name>/`)
-   - Report: "✓ Removed skill '<name>' from <scope>"
-4. **If not found:**
-   - Report: "✗ Skill '<name>' not found in user or project scope"
-
-**Safety:** Never delete without explicit user confirmation.
-
-**Example:**
-```
-User: /skill remove old-logger
-Assistant: Found skill 'old-logger' in user scope:
-  Description: Legacy logging utility
-  Scope: user (~/.claude/skills/omc-learned/)
-
-Delete 'old-logger' skill? (yes/no)
-
-User: yes
-Assistant: ✓ Removed skill 'old-logger' from user scope
-```
-
----
-
-### /skill edit <name>
-
-Edit an existing skill interactively.
-
-**Behavior:**
-1. **Find skill** by name (search both scopes)
-2. **Read current content** via Read tool
-3. **Display current values:**
-   ```
-   Current skill 'custom-logger':
-   - Description: Enhanced logging with structured output
-   - Triggers: log, logger, logging
-   - Argument hint: <level> [message]
-   - Scope: user
-   ```
-4. **Ask what to change:**
-   - `description` - Update description
-   - `triggers` - Update trigger keywords
-   - `argument-hint` - Update argument hint
-   - `content` - Edit full markdown content
-   - `rename` - Rename skill (move file)
-   - `cancel` - Exit without changes
-5. **For selected field:**
-   - Show current value
-   - Ask for new value
-   - Update YAML frontmatter or content
-   - Write back to file
-6. **Report success** with summary of changes
-
-**Example:**
-```
-User: /skill edit custom-logger
-Assistant: Current skill 'custom-logger':
-  - Description: Enhanced logging with structured output
-  - Triggers: log, logger, logging
-  - Argument hint: <level> [message]
-
-What would you like to edit? (description/triggers/argument-hint/content/rename/cancel)
-
-User: triggers
-Assistant: Current triggers: log, logger, logging
-New triggers (comma-separated): log, logger, logging, trace
-
-✓ Updated triggers for 'custom-logger'
-```
-
----
-
-### /skill search <query>
-
-Search skills by content, triggers, name, or description.
-
-**Behavior:**
-1. **Scan all skills** in both scopes
-2. **Match query** (case-insensitive) against:
-   - Skill name
-   - Description
-   - Triggers
-   - Full markdown content
-3. **Display matches** with context:
-
-```
-Found 3 skills matching "typescript error":
-
-1. typescript-fixer (user)
-   Description: Fix common TypeScript errors
-   Match: "typescript error handling patterns"
-
-2. error-handler (user)
-   Description: Generic error handling utilities
-   Match: "Supports TypeScript and JavaScript errors"
-
-3. lint-fix (project)
-   Description: Auto-fix linting errors
-   Match: "TypeScript ESLint error resolution"
-```
-
-**Ranking:** Prioritize matches in name/triggers over content matches
-
-**Example:**
-```
-User: /skill search api endpoint
-Assistant: Found 2 skills matching "api endpoint":
-
-1. api-builder (user)
-   Description: Generate REST API endpoints
-   Triggers: api, endpoint, rest
-
-2. backend-scaffold (project)
-   Description: Scaffold backend services
-   Match: "Creates API endpoint boilerplate"
-```
-
----
-
-### /skill info <name>
-
-Show detailed information about a skill.
-
-**Behavior:**
-1. **Find skill** by name (search both scopes)
-2. **Parse YAML frontmatter** and content
-3. **Display complete details:**
-
-```
-Skill: custom-logger
-Scope: user (~/.claude/skills/omc-learned/custom-logger/)
-Description: Enhanced logging with structured output
-Triggers: log, logger, logging
-Argument Hint: <level> [message]
-Quality: 95% (if available)
-Usage Count: 42 times (if available)
-File Path: /home/user/.claude/skills/omc-learned/custom-logger/SKILL.md
-
---- FULL CONTENT ---
-[entire markdown content]
-```
-
-**If not found:** Report error with suggestion to use `/skill search`
-
-**Example:**
-```
-User: /skill info custom-logger
-Assistant: Skill: custom-logger
-Scope: user
-Description: Enhanced logging with structured output
-Triggers: log, logger, logging
-File: ~/.claude/skills/omc-learned/custom-logger/SKILL.md
-
---- CONTENT ---
-# Custom Logger Skill
-
-## Purpose
-Enhanced logging with structured JSON output...
-[rest of content]
-```
-
----
-
-### /skill sync
-
-Sync skills between user and project scopes.
-
-**Behavior:**
-1. **Scan both scopes:**
-   - User skills: `~/.claude/skills/omc-learned/`
-   - Project skills: `.omc/skills/`
-2. **Compare and categorize:**
-   - User-only skills (not in project)
-   - Project-only skills (not in user)
-   - Common skills (in both)
-3. **Display sync opportunities:**
-
-```
-SYNC REPORT:
-
-User-only skills (5):
-  - error-handler
-  - api-builder
-  - custom-logger
-  - test-generator
-  - deploy-helper
-
-Project-only skills (2):
-  - test-runner
-  - backend-scaffold
-
-Common skills (3):
-  - frontend-ui-ux
-  - git-master
-  - planner
-
-Options:
-  [1] Copy user skill to project
-  [2] Copy project skill to user
-  [3] View differences
-  [4] Cancel
-```
-
-4. **Handle user choice:**
-   - Option 1: Select skill(s) to copy to project
-   - Option 2: Select skill(s) to copy to user
-   - Option 3: Show side-by-side diff for common skills
-   - Option 4: Exit
-
-**Safety:** Never overwrite without confirmation
-
-**Example:**
-```
-User: /skill sync
-Assistant: Found 5 user-only skills and 2 project-only skills.
-
-Copy 'error-handler' from user to project? (yes/no/skip)
-User: yes
-Assistant: ✓ Copied 'error-handler' to .omc/skills/
-
-Copy 'api-builder' from user to project? (yes/no/skip)
-User: skip
-...
-```
-
----
-
-## Error Handling
-
-**All commands must handle:**
-- File/directory doesn't exist
-- Permission errors
-- Invalid YAML frontmatter
-- Duplicate skill names
-- Invalid skill names (spaces, special chars)
-
-**Error format:**
-```
-✗ Error: <clear message>
-→ Suggestion: <helpful next step>
-```
-
-## Usage Examples
+## Firmware Acquisition
 
 ```bash
-# List all skills
-/skill list
+# Download latest IPSW for device
+ipsw download ipsw --device iPhone16,1 --latest
 
-# Create a new skill
-/skill add my-custom-skill
+# Download with automatic kernel/DSC extraction
+ipsw download ipsw --device iPhone16,1 --latest --kernel --dyld
 
-# Remove a skill
-/skill remove old-skill
+# Extract components from local IPSW
+ipsw extract --kernel iPhone16,1_18.0_Restore.ipsw
+ipsw extract --dyld --dyld-arch arm64e iPhone16,1_18.0_Restore.ipsw
 
-# Edit existing skill
-/skill edit error-handler
-
-# Search for skills
-/skill search typescript error
-
-# Get detailed info
-/skill info my-custom-skill
-
-# Sync between scopes
-/skill sync
+# Remote extraction (no full download)
+ipsw extract --kernel --remote <IPSW_URL>
 ```
 
-## Implementation Notes
+See [references/download.md](references/download.md) for device identifiers and advanced options.
 
-1. **YAML Parsing:** Use frontmatter extraction for metadata
-2. **File Operations:** Use Read/Write tools, never Edit for new files
-3. **User Confirmation:** Always confirm destructive operations
-4. **Clear Feedback:** Use checkmarks (✓), crosses (✗), arrows (→) for clarity
-5. **Scope Resolution:** Always check both user and project scopes
-6. **Validation:** Enforce naming conventions (lowercase, hyphens only)
+---
 
-## Future Enhancements
+## Userspace RE (dyld_shared_cache)
 
-- `/skill export <name>` - Export skill as shareable file
-- `/skill import <file>` - Import skill from file
-- `/skill stats` - Show usage statistics across all skills
-- `/skill validate` - Check all skills for format errors
-- `/skill template <type>` - Create from predefined templates
+**macOS DSC:** `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`
+
+### Essential Commands
+
+| Command | Purpose |
+|---------|---------|
+| `dyld a2s <DSC> <ADDR>` | Address → symbol (triage crash LR/PC) |
+| `dyld symaddr <DSC> <SYM> --image <DYLIB>` | Symbol → address |
+| `dyld disass <DSC> --vaddr <ADDR>` | Disassemble at address |
+| `dyld disass <DSC> --symbol <SYM> --image <DYLIB>` | Disassemble by symbol |
+| `dyld xref <DSC> <ADDR> --all` | Find all references to address |
+| `dyld dump <DSC> <ADDR> --size 256` | Dump raw bytes at address |
+| `dyld str <DSC> "pattern" --image <DYLIB>` | Search strings |
+| `dyld objc --class <DSC> --image <DYLIB>` | List ObjC classes |
+| `dyld extract <DSC> <DYLIB> -o ./out/` | Extract dylib for external tools |
+
+### Common Workflow
+
+```bash
+# 1. Resolve address from crash/trace
+ipsw dyld a2s $DSC 0x1bc39e1e0
+# → -[SomeClass someMethod:] + 0x40
+
+# 2. Disassemble around that address
+ipsw dyld disass $DSC --vaddr 0x1bc39e1e0
+
+# 3. Find who calls this function
+ipsw dyld xref $DSC 0x1bc39e1a0 --all
+
+# 4. Extract string/data referenced in disassembly
+ipsw dyld dump $DSC 0x1bc39e200 --size 64
+```
+
+**Tip:** Always use `--image <DYLIB>` - it's 10x+ faster.
+
+See [references/dyld.md](references/dyld.md) for complete DSC commands.
+
+---
+
+## Kernel Analysis
+
+```bash
+# List all KEXTs
+ipsw kernel kexts kernelcache.release.iPhone16,1
+
+# Extract specific KEXT
+ipsw kernel extract kernelcache sandbox --output ./kexts/
+
+# Dump syscalls
+ipsw kernel syscall kernelcache
+
+# Diff KEXTs between versions
+ipsw kernel kexts --diff kernelcache_17.0 kernelcache_18.0
+```
+
+See [references/kernel.md](references/kernel.md) for KEXT extraction and kernel analysis.
+
+---
+
+## Entitlements
+
+```bash
+# Single binary entitlements
+ipsw macho info --ent /path/to/binary
+
+# Build searchable database from IPSW
+ipsw ent --sqlite ent.db --ipsw iOS18.ipsw
+
+# Query database
+ipsw ent --sqlite ent.db --key "com.apple.private.security.no-sandbox"
+ipsw ent --sqlite ent.db --key "platform-application"
+ipsw ent --sqlite ent.db --key "com.apple.private.tcc.manager"
+```
+
+See [references/entitlements.md](references/entitlements.md) for common entitlements and query patterns.
+
+---
+
+## Class Dump
+
+Dump Objective-C headers from binaries or dyld_shared_cache:
+
+```bash
+# Dump all headers from framework in DSC
+ipsw class-dump $DSC SpringBoardServices --headers -o ./headers/
+
+# Dump specific class
+ipsw class-dump $DSC Security --class SecKey
+
+# Filter by pattern
+ipsw class-dump $DSC UIKit --class 'UIApplication.*' --headers -o ./headers/
+
+# Include runtime addresses (for hooking)
+ipsw class-dump $DSC Security --re
+```
+
+See [references/class-dump.md](references/class-dump.md) for filtering and output options.
+
+---
+
+## Mach-O Analysis
+
+```bash
+# Full binary info
+ipsw macho info /path/to/binary
+
+# Disassemble function
+ipsw macho disass /path/to/binary --symbol _main
+
+# Get entitlements and signature
+ipsw macho info --ent /path/to/binary
+ipsw macho info --sig /path/to/binary
+```
+
+See [references/macho.md](references/macho.md) for complete Mach-O commands.
+
+---
+
+## Reference Files
+
+- [references/download.md](references/download.md) - Firmware download, device IDs, extraction
+- [references/dyld.md](references/dyld.md) - Complete DSC commands (a2s, xref, dump, str, extract)
+- [references/kernel.md](references/kernel.md) - Kernel and KEXT analysis
+- [references/entitlements.md](references/entitlements.md) - Entitlements database and queries
+- [references/class-dump.md](references/class-dump.md) - ObjC header dumping
+- [references/macho.md](references/macho.md) - Mach-O binary analysis
+
+## Tips
+
+1. **Symbol caching:** First `a2s`/`symaddr` creates `.a2s` cache - subsequent lookups are instant
+2. **Use --image flag:** Specifying dylib is 10x+ faster for DSC operations
+3. **JSON output:** Most commands support `--json` for scripting
+4. **Device IDs:** Use `ipsw device-list` to find device identifiers

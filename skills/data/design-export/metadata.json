@@ -1,7 +1,7 @@
 {
   "name": "design-export",
-  "repo": "savvy-web/pnpm-monorepo-template",
+  "repo": "savvy-web/pnpm-module-template",
   "path": ".claude/skills/design-export/SKILL.md",
-  "source": "github.com/savvy-web/pnpm-monorepo-template",
-  "downloaded_at": "2026-01-30T04:43:25.795431Z"
+  "source": "github.com/savvy-web/pnpm-module-template",
+  "downloaded_at": "2026-02-01T04:27:57.673873Z"
 }

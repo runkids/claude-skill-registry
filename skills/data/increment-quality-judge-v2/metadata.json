@@ -1,9 +1,7 @@
 {
   "name": "increment-quality-judge-v2",
-  "description": "Enhanced AI-powered quality assessment with RISK SCORING (BMAD pattern) and quality gate decisions. Evaluates specifications, plans, and tests for clarity, testability, completeness, feasibility, main",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave/skills/increment-quality-judge-v2/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-02-01T01:48:16.345442Z"
 }

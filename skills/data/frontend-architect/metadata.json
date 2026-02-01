@@ -1,12 +1,7 @@
 {
   "name": "frontend-architect",
-  "description": "Build production-grade UI/UX with React (Next.js, Docusaurus), CSS architecture (Tailwind, Modules, Global), animations, theming, performance optimization, state management, and testing. Use when crea",
-  "repo": "uneezaismail/Physical-AI-Humanoid-Robotics",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "architect"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/frontend-architect/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-02-01T02:38:58.495494Z"
 }

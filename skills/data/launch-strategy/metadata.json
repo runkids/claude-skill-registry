@@ -1,7 +1,7 @@
 {
   "name": "launch-strategy",
-  "repo": "chrissargent48/weekly_report",
-  "path": ".claude/skills/external-skills/skills/launch-strategy/SKILL.md",
-  "source": "github.com/chrissargent48/weekly_report",
-  "downloaded_at": "2026-01-31T03:42:44.150970Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/launch-strategy/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:27.219859Z"
 }

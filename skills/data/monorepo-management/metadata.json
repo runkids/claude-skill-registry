@@ -1,7 +1,7 @@
 {
   "name": "monorepo-management",
-  "repo": "haxllo/repolens",
-  "path": ".claude/skills/monorepo-management/SKILL.md",
-  "source": "github.com/haxllo/repolens",
-  "downloaded_at": "2026-01-31T04:21:41.473990Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/developer-essentials/skills/monorepo-management/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:51.912413Z"
 }

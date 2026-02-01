@@ -1,7 +1,7 @@
 {
   "name": "navigator",
-  "repo": "srbhr/Resume-Matcher",
-  "path": ".claude/skills/navigator/SKILL.md",
-  "source": "github.com/srbhr/Resume-Matcher",
-  "downloaded_at": "2026-01-31T02:04:23.121693Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/navigator/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-01T03:21:45.534980Z"
 }

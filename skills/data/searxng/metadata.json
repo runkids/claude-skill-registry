@@ -1,7 +1,7 @@
 {
   "name": "searxng",
-  "repo": "moltbot/skills",
-  "path": "skills/abk234/searxng/SKILL.md",
-  "source": "github.com/moltbot/skills",
-  "downloaded_at": "2026-01-29T04:12:05.634017Z"
+  "repo": "danstrem2/clawdbot-skill-master-pack",
+  "path": "skills/searxng/SKILL.md",
+  "source": "github.com/danstrem2/clawdbot-skill-master-pack",
+  "downloaded_at": "2026-02-01T02:40:46.363787Z"
 }

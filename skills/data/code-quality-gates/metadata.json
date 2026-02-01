@@ -1,7 +1,7 @@
 {
   "name": "code-quality-gates",
-  "repo": "Kaakati/rails-enterprise-dev",
-  "path": "plugins/reactree-flutter-dev/skills/code-quality-gates/SKILL.md",
-  "source": "github.com/Kaakati/rails-enterprise-dev",
-  "downloaded_at": "2026-01-27T03:42:09.520846Z"
+  "repo": "changoo89/claude-pilot",
+  "path": ".claude/skills/code-quality-gates/SKILL.md",
+  "source": "github.com/changoo89/claude-pilot",
+  "downloaded_at": "2026-02-01T01:34:46.626969Z"
 }

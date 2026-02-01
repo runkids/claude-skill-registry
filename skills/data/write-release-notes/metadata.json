@@ -1,13 +1,7 @@
 {
   "name": "write-release-notes",
-  "description": "Generate professional Bytebase release notes by analyzing git commits, checking Terraform impact, searching Linear for customer feedback, and following established conventions. Creates Linear tracking",
-  "repo": "bytebase/team-skills",
-  "category": "development",
-  "tags": [
-    "write",
-    "release",
-    "notes"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "tldraw/tldraw",
+  "path": ".claude/skills/write-release-notes/SKILL.md",
+  "source": "github.com/tldraw/tldraw",
+  "downloaded_at": "2026-02-01T04:27:42.057686Z"
 }

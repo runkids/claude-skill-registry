@@ -1,9 +1,7 @@
 {
   "name": "vercel-debug-bundle",
-  "description": "Collect Vercel debug evidence for support tickets and troubleshooting.Use when encountering persistent issues, preparing support tickets,or collecting diagnostic information for Vercel problems.Trigge",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/saas-packs/vercel-pack/skills/vercel-debug-bundle/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:13.188075Z"
 }

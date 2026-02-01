@@ -1,12 +1,7 @@
 {
   "name": "env-sync",
-  "description": "Ensures .env.example is updated whenever .env files are modified. Use when adding environment variables, API keys, configuration values, or any secrets to .env files. Prevents configuration drift betw",
-  "repo": "siti34/SPDS-URA",
-  "category": "development",
-  "tags": [
-    "env",
-    "sync"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "danstrem2/clawdbot-skill-master-pack",
+  "path": "skills/env-sync/SKILL.md",
+  "source": "github.com/danstrem2/clawdbot-skill-master-pack",
+  "downloaded_at": "2026-02-01T02:40:47.519099Z"
 }

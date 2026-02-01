@@ -1,9 +1,7 @@
 {
   "name": "notify",
-  "description": "Send push notifications to the user via ntfy.sh",
-  "repo": "mgreenly/ikigai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mgreenly/ikigai"
+  "repo": "Castrozan/.dotfiles",
+  "path": "agents/skills/notify/SKILL.md",
+  "source": "github.com/Castrozan/.dotfiles",
+  "downloaded_at": "2026-02-01T04:26:45.037751Z"
 }

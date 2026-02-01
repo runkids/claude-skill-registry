@@ -1,9 +1,7 @@
 {
   "name": "runbook-creator",
-  "description": "Runbook Creator - Auto-activating skill for Technical Documentation.Triggers on: runbook creator, runbook creatorPart of the Technical Documentation skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "planned-skills/generated/17-technical-docs/runbook-creator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-01T01:40:13.336266Z"
 }

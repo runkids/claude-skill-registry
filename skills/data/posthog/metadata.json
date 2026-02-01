@@ -1,7 +1,7 @@
 {
   "name": "posthog",
-  "repo": "mgd34msu/goodvibes-gemini",
-  "path": "skills/posthog/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-gemini",
-  "downloaded_at": "2026-01-31T03:59:41.178662Z"
+  "repo": "paxtone-io/openkodo",
+  "path": "plugins/kodo-posthog/skills/posthog/SKILL.md",
+  "source": "github.com/paxtone-io/openkodo",
+  "downloaded_at": "2026-02-01T03:59:30.068425Z"
 }

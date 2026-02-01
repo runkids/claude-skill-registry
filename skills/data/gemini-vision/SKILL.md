@@ -25,13 +25,11 @@ This skill enables Claude to use Google's Gemini API for advanced image understa
 The skill checks for `GEMINI_API_KEY` in this order:
 
 1. **Process environment variable** (recommended)
-
    ```bash
    export GEMINI_API_KEY="your-api-key"
    ```
 
 2. **Skill directory**: `.claude/skills/gemini-vision/.env`
-
    ```
    GEMINI_API_KEY=your-api-key
    ```
@@ -43,14 +41,12 @@ The skill checks for `GEMINI_API_KEY` in this order:
 ## Core Capabilities
 
 ### Image Analysis
-
 - **Captioning**: Generate descriptive text for images
 - **Classification**: Categorize and identify image content
 - **Visual QA**: Answer questions about image content
 - **Multi-image**: Compare and analyze up to 3,600 images
 
 ### Advanced Features (Model-Specific)
-
 - **Object Detection**: Identify and locate objects with bounding boxes (Gemini 2.0+)
 - **Segmentation**: Create pixel-level masks for objects (Gemini 2.5+)
 - **Document Understanding**: Process PDFs with vision (up to 1,000 pages)
@@ -130,7 +126,6 @@ Images consume tokens based on size:
 - **Large**: Tiled into 768×768 chunks, 258 tokens each
 
 **Token Formula**:
-
 ```
 crop_unit = floor(min(width, height) / 1.5)
 tiles = (width / crop_unit) × (height / crop_unit)
@@ -142,7 +137,6 @@ total_tokens = tiles × 258
 ## Rate Limits
 
 Limits vary by tier (Free, Tier 1, 2, 3):
-
 - Measured in RPM (requests/min), TPM (tokens/min), RPD (requests/day)
 - Applied per project, not per API key
 - RPD resets at midnight Pacific
@@ -150,27 +144,23 @@ Limits vary by tier (Free, Tier 1, 2, 3):
 ## Best Practices
 
 ### Image Quality
-
 - Use clear, non-blurry images
 - Verify correct image rotation
 - Consider token costs when sizing
 
 ### Prompting
-
 - Be specific in instructions
 - Place text after image for single-image prompts
 - Use few-shot examples for better accuracy
 - Specify output format (JSON, markdown, etc.)
 
 ### File Management
-
 - Use File API for files >20MB
 - Use File API for repeated usage (saves tokens)
 - Files auto-delete after 48 hours
 - Clean up manually when done
 
 ### Security
-
 - Never expose API keys in code
 - Use environment variables
 - Add API key restrictions in Google Cloud Console
@@ -180,7 +170,6 @@ Limits vary by tier (Free, Tier 1, 2, 3):
 ## Error Handling
 
 Common errors:
-
 - **401**: Invalid API key
 - **429**: Rate limit exceeded
 - **400**: Invalid request (check file size, format)
@@ -189,7 +178,6 @@ Common errors:
 ## Additional Resources
 
 See the `references/` directory for:
-
 - **api-reference.md**: Detailed API methods and endpoints
 - **examples.md**: Comprehensive code examples
 - **best-practices.md**: Advanced tips and optimization strategies

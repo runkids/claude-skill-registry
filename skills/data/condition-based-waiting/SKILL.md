@@ -1,6 +1,6 @@
 ---
 name: condition-based-waiting
-description: Use when tests have race conditions, timing dependencies, or inconsistent pass/fail behavior - replaces arbitrary timeouts with condition polling to wait for actual state changes, eliminating flaky tests from timing guesses
+description: Use when tests have race conditions, timing dependencies, or inconsistent pass/fail behavior - replaces arbitrary timeouts with condition polling
 ---
 
 # Condition-Based Waiting
@@ -13,27 +13,13 @@ Flaky tests often guess at timing with arbitrary delays. This creates race condi
 
 ## When to Use
 
-```dot
-digraph when_to_use {
-    "Test uses setTimeout/sleep?" [shape=diamond];
-    "Testing timing behavior?" [shape=diamond];
-    "Document WHY timeout needed" [shape=box];
-    "Use condition-based waiting" [shape=box];
-
-    "Test uses setTimeout/sleep?" -> "Testing timing behavior?" [label="yes"];
-    "Testing timing behavior?" -> "Document WHY timeout needed" [label="yes"];
-    "Testing timing behavior?" -> "Use condition-based waiting" [label="no"];
-}
-```
-
-**Use when:**
-- Tests have arbitrary delays (`setTimeout`, `sleep`, `time.sleep()`)
+- Tests have arbitrary delays (`setTimeout`, `sleep`)
 - Tests are flaky (pass sometimes, fail under load)
 - Tests timeout when run in parallel
 - Waiting for async operations to complete
 
 **Don't use when:**
-- Testing actual timing behavior (debounce, throttle intervals)
+- Testing actual timing behavior (debounce, throttle)
 - Always document WHY if using arbitrary timeout
 
 ## Core Pattern
@@ -62,7 +48,6 @@ expect(result).toBeDefined();
 
 ## Implementation
 
-Generic polling function:
 ```typescript
 async function waitFor<T>(
   condition: () => T | undefined | null | false,
@@ -83,8 +68,6 @@ async function waitFor<T>(
   }
 }
 ```
-
-See @example.ts for complete implementation with domain-specific helpers (`waitForEvent`, `waitForEventCount`, `waitForEventMatch`) from actual debugging session.
 
 ## Common Mistakes
 
@@ -111,10 +94,25 @@ await new Promise(r => setTimeout(r, 200));   // Then: wait for timed behavior
 2. Based on known timing (not guessing)
 3. Comment explaining WHY
 
-## Real-World Impact
+## React Testing Library
 
-From debugging session (2025-10-03):
-- Fixed 15 flaky tests across 3 files
-- Pass rate: 60% → 100%
-- Execution time: 40% faster
-- No more race conditions
+For React tests, use built-in utilities:
+
+```typescript
+import { waitFor, screen } from '@testing-library/react';
+
+// ✅ Wait for element
+await waitFor(() => {
+  expect(screen.getByText('Loaded')).toBeInTheDocument();
+});
+
+// ✅ Find (waits automatically)
+const button = await screen.findByRole('button', { name: 'Submit' });
+```
+
+## Integration
+
+**Complementary skills:**
+- **systematic-debugging** - Replace timeouts identified in Phase 2
+- **testing-anti-patterns** - Flaky tests often caused by timing guesses
+- **testing** - General testing best practices

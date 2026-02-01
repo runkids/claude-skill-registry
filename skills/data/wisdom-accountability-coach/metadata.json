@@ -1,13 +1,7 @@
 {
   "name": "wisdom-accountability-coach",
-  "description": "Longitudinal memory tracking, philosophy teaching, and personal accountability with compassion. Expert in pattern recognition, Stoicism/Buddhism, and growth guidance.",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "wisdom",
-    "accountability",
-    "coach"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/wisdom-accountability-coach/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-02-01T02:39:00.082613Z"
 }

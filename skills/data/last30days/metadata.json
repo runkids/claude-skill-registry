@@ -1,7 +1,7 @@
 {
   "name": "last30days",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/last30days/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:04.598913Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/last30days/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:24.647662Z"
 }

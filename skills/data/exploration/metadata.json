@@ -1,7 +1,7 @@
 {
   "name": "exploration",
-  "repo": "fusengine/agents",
-  "path": "plugins/ai-pilot/skills/exploration/SKILL.md",
-  "source": "github.com/fusengine/agents",
-  "downloaded_at": "2026-01-31T02:15:02.811495Z"
+  "repo": "xiaobei930/claude-code-best-practices",
+  "path": "skills/exploration/SKILL.md",
+  "source": "github.com/xiaobei930/claude-code-best-practices",
+  "downloaded_at": "2026-02-01T03:25:56.351275Z"
 }

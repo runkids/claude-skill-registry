@@ -1,7 +1,7 @@
 {
   "name": "markitdown",
-  "repo": "Victory-Hugo/S2-Agent-Skill",
-  "path": "skills/writing/markitdown/SKILL.md",
-  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
-  "downloaded_at": "2026-01-31T04:16:21.191720Z"
+  "repo": "overtimepog/AgentTheo",
+  "path": ".claude/skills/scientific-skills/markitdown/SKILL.md",
+  "source": "github.com/overtimepog/AgentTheo",
+  "downloaded_at": "2026-02-01T04:15:24.233087Z"
 }

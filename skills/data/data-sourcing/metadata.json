@@ -1,7 +1,7 @@
 {
   "name": "data-sourcing",
-  "repo": "Microck/ordinary-claude-skills",
-  "path": "skills_all/data-sourcing/SKILL.md",
-  "source": "github.com/Microck/ordinary-claude-skills",
-  "downloaded_at": "2026-01-31T03:16:31.933022Z"
+  "repo": "gtmagents/gtm-agents",
+  "path": "plugins/data-enrichment-master/skills/data-sourcing/SKILL.md",
+  "source": "github.com/gtmagents/gtm-agents",
+  "downloaded_at": "2026-02-01T03:20:51.170503Z"
 }

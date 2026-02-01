@@ -1,192 +1,220 @@
 ---
 name: sentiment-analyzer
-description: Analyze sentiment and emotion in audio/video content. Use when you want to identify emotional peaks, detect positive/negative sentiment, find reaction moments, or analyze the emotional journey throughout the video. Supports both transcript-based and AI-based emotion detection.
-allowed-tools: Bash(ffmpeg:*) Bash(python:*)
-compatibility: Requires optional ML models for AI-based detection
-metadata:
-  version: "1.0"
-  methods: "Transcript Keywords + AI Emotion Detection"
+description: Analyze text sentiment (positive/negative/neutral) with confidence scores, emotion detection, and visualization. Supports single text, CSV batch, and trend analysis.
 ---
 
 # Sentiment Analyzer
 
-This skill enables AI agents to analyze sentiment and emotion in video content.
+Analyze the sentiment of text content with detailed scoring, emotion detection, and visualization capabilities. Process single texts, CSV files, or track sentiment trends over time.
 
-## When to Use
+## Quick Start
 
-- User wants to identify emotional peaks in content
-- Detecting positive/negative/neutral sentiment
-- Finding reaction moments (surprise, excitement, anger)
-- Analyzing the emotional journey throughout the video
-- Creating highlight clips from emotional moments
+```python
+from scripts.sentiment_analyzer import SentimentAnalyzer
 
-## Detection Methods
+# Analyze single text
+analyzer = SentimentAnalyzer()
+result = analyzer.analyze("I love this product! It's amazing.")
+print(f"Sentiment: {result['sentiment']} ({result['score']:.2f})")
 
-### 1. Transcript-Based Keyword Detection
-
-Analyzes transcript for emotion keywords:
-
-**Positive:** excited, amazing, incredible, wow, love, happy, joy
-**Negative:** terrible, awful, hate, sad, angry, frustrated, disappointing
-**Surprise:** oh my god, what!, unbelievable, shocked, can't believe
-**Enthusiasm:** let's go, come on, yes!, awesome, fantastic
-
-### 2. AI-Based Emotion Detection (Gemini)
-
-Uses Gemini API for advanced emotion analysis:
-- Context-aware sentiment detection
-- Emotion classification (happy, sad, angry, surprised, neutral)
-- Intensity scoring
-- Speaker emotion tracking
-
-### 3. Audio Feature-Based Detection
-
-Analyzes audio characteristics:
-- Pitch variations
-- Volume/loudness changes
-- Speech rate changes
-- Energy patterns
-
-## Available Scripts
-
-### `scripts/analyze_sentiment.py`
-
-Analyze sentiment in video content.
-
-**Usage:**
-```bash
-python skills/sentiment-analyzer/scripts/analyze_sentiment.py <video_path> [options]
+# Batch analyze CSV
+results = analyzer.analyze_csv("reviews.csv", text_column="review")
+analyzer.plot_distribution("sentiment_dist.png")
 ```
 
-**Options:**
-- `--method`: Analysis method (keywords, ai, audio) - default: keywords
-- `--transcript-path`: Path to transcript SRT/VTT file (for keyword detection)
-- `--output, -o`: Output JSON path (default: `<video_path>_sentiment.json`)
-- `--window-size`: Analysis window size in seconds - default: 5.0
+## Features
 
-**Examples:**
+- **Sentiment Classification**: Positive, negative, neutral with confidence
+- **Polarity Scoring**: -1.0 (negative) to +1.0 (positive)
+- **Subjectivity Detection**: Objective vs subjective content
+- **Emotion Detection**: Joy, anger, sadness, fear, surprise
+- **Batch Processing**: Analyze CSV files with any text column
+- **Trend Analysis**: Track sentiment over time
+- **Visualizations**: Distribution plots, trend charts, word clouds
 
-Analyze from transcript:
-```bash
-python skills/sentiment-analyzer/scripts/analyze_sentiment.py video.mp4 --transcript-path video.srt
+## API Reference
+
+### Initialization
+
+```python
+analyzer = SentimentAnalyzer()
 ```
 
-Analyze with Gemini AI:
-```bash
-python skills/sentiment-analyzer/scripts/analyze_sentiment.py video.mp4 --method ai
+### Single Text Analysis
+
+```python
+result = analyzer.analyze("This is great!")
+# Returns:
+# {
+#     'text': 'This is great!',
+#     'sentiment': 'positive',  # positive, negative, neutral
+#     'score': 0.85,            # -1.0 to 1.0
+#     'confidence': 0.92,       # 0.0 to 1.0
+#     'subjectivity': 0.75,     # 0.0 (objective) to 1.0 (subjective)
+#     'emotions': {'joy': 0.8, 'anger': 0.0, ...}
+# }
 ```
 
-### `scripts/find_emotional_peaks.py`
+### Batch Analysis
 
-Find emotional peaks and significant moments.
+```python
+# From list
+texts = ["Great product!", "Terrible service.", "It's okay."]
+results = analyzer.analyze_batch(texts)
 
-**Usage:**
-```bash
-python skills/sentiment-analyzer/scripts/find_emotional_peaks.py <video_path> [options]
+# From CSV
+results = analyzer.analyze_csv(
+    "reviews.csv",
+    text_column="review_text",
+    output="results.csv"
+)
 ```
 
-**Options:**
-- `--threshold`: Peak detection threshold (0.0-1.0) - default: 0.7
-- `--emotion-type`: Filter by emotion type (positive, negative, surprise, all) - default: all
-- `--output, -o`: Output JSON path
+### Trend Analysis
 
-**Example:**
+```python
+# Analyze sentiment over time
+results = analyzer.analyze_csv(
+    "posts.csv",
+    text_column="content",
+    date_column="posted_at"
+)
+analyzer.plot_trend("sentiment_trend.png")
+```
+
+### Visualizations
+
+```python
+# Sentiment distribution
+analyzer.plot_distribution("distribution.png")
+
+# Sentiment over time
+analyzer.plot_trend("trend.png")
+
+# Word cloud by sentiment
+analyzer.plot_wordcloud("positive", "positive_words.png")
+```
+
+## CLI Usage
+
 ```bash
-python skills/sentiment-analyzer/scripts/find_emotional_peaks.py video.mp4 --threshold 0.8 --emotion-type positive
+# Analyze single text
+python sentiment_analyzer.py --text "I love this product!"
+
+# Analyze file
+python sentiment_analyzer.py --input reviews.csv --column review --output results.csv
+
+# With visualization
+python sentiment_analyzer.py --input reviews.csv --column text --plot distribution.png
+
+# Trend analysis
+python sentiment_analyzer.py --input posts.csv --column content --date posted_at --trend trend.png
+```
+
+### CLI Arguments
+
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--text` | Single text to analyze | - |
+| `--input` | Input CSV file | - |
+| `--column` | Text column name | `text` |
+| `--date` | Date column for trends | - |
+| `--output` | Output CSV file | - |
+| `--plot` | Save distribution plot | - |
+| `--trend` | Save trend plot | - |
+| `--format` | Output format (json, csv) | `json` |
+
+## Examples
+
+### Product Review Analysis
+
+```python
+analyzer = SentimentAnalyzer()
+results = analyzer.analyze_csv("amazon_reviews.csv", text_column="review")
+
+# Summary statistics
+positive = sum(1 for r in results if r['sentiment'] == 'positive')
+negative = sum(1 for r in results if r['sentiment'] == 'negative')
+print(f"Positive: {positive}, Negative: {negative}")
+
+# Average sentiment score
+avg_score = sum(r['score'] for r in results) / len(results)
+print(f"Average sentiment: {avg_score:.2f}")
+```
+
+### Social Media Monitoring
+
+```python
+analyzer = SentimentAnalyzer()
+
+# Analyze tweets with timestamps
+results = analyzer.analyze_csv(
+    "tweets.csv",
+    text_column="tweet_text",
+    date_column="created_at"
+)
+
+# Plot sentiment trend
+analyzer.plot_trend("twitter_sentiment.png", title="Brand Sentiment Over Time")
+```
+
+### Customer Feedback Categorization
+
+```python
+analyzer = SentimentAnalyzer()
+
+feedback = [
+    "Your support team was incredibly helpful!",
+    "The product broke after one day.",
+    "Shipping was on time.",
+    "I'm extremely disappointed with the quality.",
+    "It works as expected, nothing special."
+]
+
+for text in feedback:
+    result = analyzer.analyze(text)
+    print(f"{result['sentiment'].upper():8} ({result['score']:+.2f}): {text[:50]}")
 ```
 
 ## Output Format
 
+### JSON Output
+
 ```json
 {
-  "video_path": "video.mp4",
-  "method": "keywords",
-  "overall_sentiment": {
-    "positive": 0.45,
-    "negative": 0.15,
-    "neutral": 0.40
-  },
-  "emotional_peaks": [
-    {
-      "timestamp": 23.5,
-      "duration": 3.2,
-      "emotion": "positive",
-      "intensity": 0.85,
-      "text": "This is absolutely incredible!",
-      "keywords": ["incredible"]
-    },
-    {
-      "timestamp": 67.0,
-      "duration": 2.8,
-      "emotion": "surprise",
-      "intensity": 0.90,
-      "text": "Oh my god, I can't believe this!",
-      "keywords": ["oh my god", "can't believe"]
-    }
-  ],
-  "sentiment_timeline": [
-    {
-      "start": 0.0,
-      "end": 30.0,
-      "dominant_emotion": "neutral",
-      "intensity": 0.4
-    },
-    {
-      "start": 30.0,
-      "end": 60.0,
-      "dominant_emotion": "positive",
-      "intensity": 0.7
-    }
-  ]
+  "text": "I love this product!",
+  "sentiment": "positive",
+  "score": 0.85,
+  "confidence": 0.92,
+  "subjectivity": 0.75,
+  "emotions": {
+    "joy": 0.82,
+    "anger": 0.02,
+    "sadness": 0.01,
+    "fear": 0.03,
+    "surprise": 0.12
+  }
 }
 ```
 
-## Emotion Keywords
+### CSV Output
 
-### Positive Emotions
-- amazing, incredible, fantastic, awesome, wonderful, great, excellent
-- love, happy, joy, excited, thrilled, delighted, pleased
-- perfect, brilliant, outstanding, impressive, remarkable
+| text | sentiment | score | confidence | subjectivity |
+|------|-----------|-------|------------|--------------|
+| Great product! | positive | 0.85 | 0.91 | 0.80 |
+| Terrible... | negative | -0.72 | 0.88 | 0.65 |
 
-### Negative Emotions
-- terrible, awful, horrible, bad, terrible, disappointing
-- hate, angry, frustrated, annoyed, upset, sad, depressed
-- worst, disgusting, pathetic, useless, failed
+## Dependencies
 
-### Surprise/Excitement
-- wow, oh my god, what!, unbelievable, shocked, stunned
-- surprised, amazed, astonished, incredible, no way
-- excited, thrilled, pumped, fired up, let's go
+```
+textblob>=0.17.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+```
 
-### Neutral/Calm
-- okay, alright, fine, good, normal, regular, standard
+## Limitations
 
-## Integration with Other Skills
-
-After sentiment analysis, you can use these skills:
-
-- `highlight-scanner`: Combine sentiment with other signals
-- `video-trimmer`: Create clips from emotional peaks
-- `autocut-shorts`: Full workflow for creating short clips
-
-## Common Workflow
-
-1. User provides video file
-2. Transcribe using `video-transcriber`
-3. Analyze sentiment using this skill
-4. Find emotional peaks
-5. Create short clips from emotional moments
-
-## Tips
-
-- Emotional peaks are excellent for viral content
-- Positive + surprise emotions have highest viral potential
-- Combine with laughter detection for even better results
-- Consider surrounding context (3-5 seconds before/after)
-- High-intensity emotions (>0.8) are premium clip candidates
-
-## References
-
-- Sentiment analysis research papers
-- Emotion detection in NLP
-- Audio emotion analysis techniques
+- English language optimized (other languages may have reduced accuracy)
+- Sarcasm and irony may not be detected accurately
+- Context-dependent sentiment may be missed
+- Short texts (<5 words) have lower confidence

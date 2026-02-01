@@ -1,7 +1,7 @@
 {
   "name": "Prompting",
-  "repo": "blackpwnguin/Personal-AI",
-  "path": ".claude/skills/Prompting/SKILL.md",
-  "source": "github.com/blackpwnguin/Personal-AI",
-  "downloaded_at": "2026-01-31T01:12:58.101428Z"
+  "repo": "danielmiessler/Personal_AI_Infrastructure",
+  "path": "Releases/v2.5/.claude/skills/Prompting/SKILL.md",
+  "source": "github.com/danielmiessler/Personal_AI_Infrastructure",
+  "downloaded_at": "2026-02-01T01:15:13.320013Z"
 }

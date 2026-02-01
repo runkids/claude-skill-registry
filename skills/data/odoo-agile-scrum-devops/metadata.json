@@ -1,9 +1,7 @@
 {
   "name": "odoo-agile-scrum-devops",
-  "description": "Comprehensive Agile Scrum framework for Odoo ERP development with Finance Shared Service Center workflows, OCA community standards, CI/CD automation, BIR compliance, and multi-agency task management. ",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/odoo-agile-scrum-devops/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:58.080553Z"
 }

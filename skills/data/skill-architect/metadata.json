@@ -1,7 +1,7 @@
 {
   "name": "skill-architect",
-  "repo": "erichowens/some_claude_skills",
+  "repo": "shakefu/contextium",
   "path": ".claude/skills/skill-architect/SKILL.md",
-  "source": "github.com/erichowens/some_claude_skills",
-  "downloaded_at": "2026-01-31T02:10:46.487366Z"
+  "source": "github.com/shakefu/contextium",
+  "downloaded_at": "2026-02-01T01:45:05.370805Z"
 }

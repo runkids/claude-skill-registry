@@ -1,179 +1,199 @@
 ---
 name: create-tasks
-description: Creates well-formed tasks following a template that engineers can implement. Use when creating tasks, defining work items, creating tasks from PRD, breaking down features, or converting requirements into actionable tasks.
+description: Generate Claude Code native Tasks from an existing spec. Use when user says "create tasks", "generate tasks from spec", "spec to tasks", "task generation", or wants to decompose a spec into implementation tasks.
+argument-hint: "[spec-path]"
+user-invocable: true
+disable-model-invocation: false
+allowed-tools: AskUserQuestion, Task, Read, Glob, TaskList
+arguments:
+  - name: spec-path
+    description: Path to the spec file to analyze for task generation
+    required: true
 ---
 
-# GitHub Copilot Skill: create-tasks
+# Spec to Tasks - Create Tasks Skill
 
-> **Note:** This skill has been adapted from [claude-skillz](https://github.com/NTCoding/claude-skillz) 
-> for use with GitHub Copilot Agent Skills.
+You are initiating the task generation workflow. This process reads an existing spec and creates Claude Code native Tasks with dependencies, priorities, and metadata.
 
+## Workflow
+
+### Step 1: Validate Spec File
+
+Verify the spec file exists at the provided path.
+
+If the file is not found:
+1. Check `.claude/sdd-tools.local.md` for a default spec directory or output path, and try resolving the spec path against it
+2. Check if user provided a relative path
+3. Try common spec locations:
+   - `specs/SPEC-{name}.md`
+   - `docs/SPEC-{name}.md`
+   - `{name}.md` in current directory
+3. Use Glob to search for similar filenames:
+   - `**/SPEC*.md`
+   - `**/*spec*.md`
+   - `**/*requirements*.md`
+4. If multiple matches found, use AskUserQuestion to let user select
+5. If no matches found, inform user and ask for correct path
+
+### Step 2: Read Spec Content
+
+Read the entire spec file using the Read tool.
+
+Store the full content for passing to the agent.
+
+### Step 3: Detect Depth Level
+
+Analyze the spec content to detect its depth level:
+
+**Full-Tech Indicators** (check first):
+- Contains `API Specifications` section OR `### 7.4 API` or similar
+- Contains API endpoint definitions (`POST /api/`, `GET /api/`, etc.)
+- Contains `Testing Strategy` section
+- Contains data model schemas with field definitions
+- Contains code examples or schema definitions
+
+**Detailed Indicators**:
+- Uses numbered sections (`## 1.`, `### 2.1`)
+- Contains `Technical Architecture` or `Technical Considerations` section
+- Contains user stories (`**US-001**:` or similar format)
+- Contains acceptance criteria (`- [ ]` checkboxes)
+- Contains feature prioritization (P0, P1, P2, P3)
+
+**High-Level Indicators**:
+- Contains feature table with Priority column
+- Executive summary focus (brief problem/solution)
+- No user stories or acceptance criteria
+- Shorter document (~50-100 lines)
+- Minimal technical details
+
+**Detection Priority**:
+1. If spec contains `**Spec Depth**:` metadata field, use that value directly
+2. Else if Full-Tech indicators found → Full-Tech
+3. Else if Detailed indicators found → Detailed
+4. Else if High-Level indicators found → High-Level
+5. Default → Detailed
+
+### Step 4: Check for Existing Tasks
+
+Use TaskList to check if there are existing tasks that reference this spec.
+
+Look for tasks with `metadata.spec_path` matching the spec path.
+
+If existing tasks found:
+- Count them by status (pending, in_progress, completed)
+- Note their task_uids for merge mode
+- Inform user about merge behavior
+
+Report to user:
+```
+Found {n} existing tasks for this spec:
+• {pending} pending
+• {in_progress} in progress
+• {completed} completed
+
+New tasks will be merged. Completed tasks will be preserved.
+```
+
+### Step 5: Check Settings
+
+Check for optional settings at `.claude/sdd-tools.local.md`:
+- Author name (for attribution)
+- Any custom preferences
+
+This is optional - proceed without settings if not found.
+
+### Step 6: Launch Task Generator Agent
+
+Launch the task-generator agent using the Task tool with subagent_type `sdd-tools:task-generator`.
+
+Provide this context in the prompt:
+
+```
+Generate implementation tasks from the following spec.
+
+Spec Path: {spec_path}
+Detected Depth Level: {depth_level}
+
+{If existing tasks found:}
+Existing Tasks for Merge:
+- {n} pending tasks
+- {n} in_progress tasks (preserve status)
+- {n} completed tasks (never modify)
+
+Existing task UIDs: {list of task_uids}
+
+Task Group: {spec-name}
+
+Spec Content:
+---
+{full_spec_content}
 ---
 
-# Create Tasks
-
-Creates well-formed tasks that provide large amounts of contexts so that engineers that weren't in conversations can implement the task without any prior knowledge and without asking questions.
-
-Tasks should be created using the tools and documentation conventions in the project the skills is being applied to. If the conventions are not clear, ask the user to clarify and then document them.
-
-## What Engineers Need
-
-Every task must provide:
-- What they're building (deliverable)
-- Why it matters (context)
-- Key decisions and principles they must follow
-- Acceptance criteria
-- Dependencies
-- Related code/patterns
-- How to verify it works
-
-## Before Creating Tasks: Slice First
-
-🚨 **NEVER create a task without validating its size first.** A PRD deliverable is NOT automatically a task—it may be an epic that needs splitting.
-
-### Example Mapping Check
-
-Before writing any task, mentally apply Example Mapping:
-
-| Card | Question | Red Flag |
-|------|----------|----------|
-| 🟡 Story | Can you state it in one specific sentence? | Needs "and" or multiple clauses |
-| 🔵 Rules | How many distinct rules/constraints? | More than 3-4 rules = too big |
-| 🟢 Examples | Can you list 3-5 concrete examples? | Can't think of specific examples = unclear |
-| 🔴 Questions | Are there unresolved unknowns? | Many questions = needs spike first |
-
-### Splitting Signals (Task Too Big)
-
-If ANY of these are true, **STOP and split**:
-
-- ❌ Can't describe in a specific, action-oriented title
-- ❌ Would take more than 1 day
-- ❌ Title requires "and" or lists multiple things
-- ❌ Has multiple clusters of acceptance criteria
-- ❌ Cuts horizontally (all DB, then all API, then all UI)
-- ❌ PRD calls it "full implementation" or "complete system"
-
-### SPIDR Splitting Techniques
-
-When you need to split, use these techniques:
-
-| Technique | Split By | Example |
-|-----------|----------|---------|
-| **P**aths | Different user flows | "Pay with card" vs "Pay with PayPal" |
-| **I**nterfaces | Different UIs/platforms | "Desktop search" vs "Mobile search" |
-| **D**ata | Different data types | "Upload images" vs "Upload videos" |
-| **R**ules | Different business rules | "Basic validation" vs "Premium validation" |
-| **S**pikes | Unknown areas | "Research payment APIs" before "Implement payments" |
-
-### Vertical Slices Only
-
-Every task must be a **vertical slice**—cutting through all layers needed for ONE specific thing:
-
-```
-✅ VERTICAL (correct):
-"Add search by title" → touches UI + API + DB for ONE search type
-
-❌ HORIZONTAL (wrong):
-"Build search UI" → "Build search API" → "Build search DB"
+Instructions:
+1. Load the task-generation skill and reference files
+2. Analyze the spec structure and extract requirements
+3. Decompose features into atomic tasks following layer patterns
+4. Infer dependencies between tasks
+5. Present preview summary for user confirmation
+6. Create tasks using TaskCreate with proper metadata
+7. Include `task_group` in each task's metadata, derived from the spec title
+8. Set dependencies using TaskUpdate
+9. {If merge mode:} Merge with existing tasks, preserving completed status
+10. Report completion with recommended first tasks
 ```
 
-## Task Naming
+### Step 7: Handoff Complete
 
-### Formula
+Once you have launched the task-generator agent, your role is complete. The agent will handle:
+- Loading task generation knowledge
+- Analyzing spec content
+- Decomposing into tasks
+- Inferring dependencies
+- Getting user confirmation
+- Creating native Tasks
+- Merging with existing tasks (if re-run)
 
-`[Action verb] [specific object] [outcome/constraint]`
+## Example Usage
 
-### Good Names
-
-- "Add price range filter to product search"
-- "Implement POST /api/users endpoint with email validation"
-- "Display product recommendations on home page"
-- "Enable CSV export for transaction history"
-- "Validate required fields on checkout form"
-
-### Rejected Patterns
-
-🚨 **NEVER use these—they signal an epic, not a task:**
-
-| Pattern | Why It's Wrong |
-|---------|----------------|
-| "Full implementation of X" | Epic masquerading as task |
-| "Build the X system" | Too vague, no specific deliverable |
-| "Complete X feature" | Undefined scope |
-| "Implement X" (alone) | Missing specificity |
-| "X and Y" | Two tasks combined |
-| "Set up X infrastructure" | Horizontal slice |
-
-If you catch yourself writing one of these, **STOP and apply SPIDR**.
-
-## Task Size Validation (INVEST)
-
-Every task MUST pass INVEST before creation:
-
-| Criterion | Question | Fail = Split |
-|-----------|----------|--------------|
-| **I**ndependent | Does it deliver value alone? | Depends on other incomplete tasks |
-| **N**egotiable | Can scope be discussed? | Rigid, all-or-nothing |
-| **V**aluable | Does user/stakeholder see benefit? | Only technical benefit |
-| **E**stimable | Can you size it confidently? | "Uh... maybe 3 days?" |
-| **S**mall | Fits in 1 day? | More than 1 day |
-| **T**estable | Has concrete acceptance criteria? | Vague or missing criteria |
-
-### Hard Limits
-
-- **Max 1 day of work** — if longer, split it
-- **Must be vertical** — touches all layers for ONE thing
-- **Must be demoable** — when done, you can show it working
-
-## Task Template
-
-```markdown
-## Deliverable: [What user/stakeholder sees]
-
-### Context
-[Where this came from and why it matters. PRD reference, bug report, conversation summary—whatever helps engineer understand WHY. You MUST provide the specific file path or URL for any referenced files like a PRD of bug report - don't assume the engineer knows where things are stored]
-
-### Key Decisions and principles
-- [Decision/Principle] — [rationale]
-
-### Delivers
-[Specific outcome in user terms]
-
-### Acceptance Criteria
-- [Condition] → [expected result]
-
-### Dependencies
-- [What must exist first]
-
-### Related Code
-- `path/to/file` — [what pattern/code to use]
-
-### Verification
-[Specific commands/tests that prove it works]
+### Basic Usage
+```
+/sdd-tools:create-tasks specs/SPEC-User-Authentication.md
 ```
 
-## Process
+### With Relative Path
+```
+/sdd-tools:create-tasks SPEC-Payments.md
+```
 
-1. **Slice first** — Apply Example Mapping check. If task fails any splitting signal, use SPIDR to break it down before proceeding.
-2. **Name it** — Write a specific, action-oriented title. If you can't, the task isn't clear enough.
-3. **Validate size** — Must pass INVEST. Max 1 day. Must be vertical slice.
-4. Gather context (from PRD, conversation, bug report, etc.)
-5. Identify key decisions that affect implementation
-6. Define clear acceptance criteria
-7. Find related code/patterns in the codebase
-8. Specify verification commands
-9. Output task using template
+### Re-running (Merge Mode)
+```
+/sdd-tools:create-tasks specs/SPEC-User-Authentication.md
+```
+If tasks already exist for this spec, they will be intelligently merged.
 
-## Checkpoint
+## Expected Output
 
-Before finalizing any task, verify ALL of these:
+The workflow will:
+1. Read and validate the spec
+2. Detect depth level (Full-Tech/Detailed/High-Level)
+3. Show preview with task counts and priorities
+4. Ask for confirmation before creating
+5. Create Claude Code native Tasks
+6. Set up dependency relationships
+7. Report recommended first tasks to start
 
-| Check | Question | If No |
-|-------|----------|-------|
-| **Size** | Is this ≤1 day of work? | Split using SPIDR |
-| **Name** | Is the title specific and action-oriented? | Rewrite using formula |
-| **Vertical** | Does it cut through all layers for ONE thing? | Restructure as vertical slice |
-| **INVEST** | Does it pass all 6 criteria? | Fix the failing criterion |
-| **Context** | Can an engineer implement without asking questions? | Add what's missing |
+After completion, use `TaskList` to view all created tasks.
 
-🚨 **If the PRD says "full implementation" or similar, you MUST split it. Creating such a task is a critical failure.**
+## Notes
+
+- Tasks are created using Claude Code's native task system (TaskCreate/TaskUpdate)
+- Each task includes metadata linking back to the source spec
+- Dependencies are automatically inferred from layer relationships and spec phases
+- Re-running on the same spec merges intelligently (preserves completed tasks)
+- Task UIDs enable tracking across spec updates
+
+## Reference Files
+
+- `references/decomposition-patterns.md` - Feature decomposition patterns by type
+- `references/dependency-inference.md` - Automatic dependency inference rules
+- `references/testing-requirements.md` - Test type mappings and acceptance criteria patterns

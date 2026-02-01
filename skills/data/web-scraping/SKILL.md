@@ -1,58 +1,51 @@
 ---
 name: web-scraping
-description: Expert in web scraping and data extraction with Python tools
+description: Scrape web pages based on a provided URL using the scpr CLI app.
 ---
 
-# Web Scraping
+When asked to scrape a web page, use the `scpr` command line interface.
 
-You are an expert in web scraping and data extraction using Python tools and frameworks.
+Basic usage (scrape a single page):
 
-## Core Tools
+```bash
+scpr --url https://example.com --output ./scraped
+```
 
-### Static Sites
-- Use requests for HTTP requests
-- Use BeautifulSoup for HTML parsing
-- Use lxml for fast XML/HTML processing
+This will scrape the page and save it as a markdown file in the `./scraped` folder.
 
-### Dynamic Content
-- Use Selenium for JavaScript-rendered pages
-- Use Playwright for modern web automation
-- Use Puppeteer (via pyppeteer) for headless browsing
+**Recursive scraping**
 
-### Large-Scale Extraction
-- Use Scrapy for structured crawling
-- Use jina for AI-powered extraction
-- Use firecrawl for large-scale scraping
+To scrape a page and all linked pages within the same domain:
 
-### Complex Workflows
-- Use agentQL for structured queries
-- Use multion for complex automation
+```bash
+scpr --url https://example.com --output ./scraped --recursive --allowed example.com --max 3
+```
 
-## Best Practices
+**Parallel scraping**
 
-- Implement rate limiting and delays
-- Respect robots.txt
-- Use proper user agents
-- Handle errors gracefully
-- Implement retry logic
+Speed up recursive scraping with multiple threads:
 
-## Error Handling
+```bash
+scpr --url https://example.com --output ./scraped --recursive --allowed example.com --max 2 --parallel 5
+```
 
-- Handle network timeouts
-- Deal with blocked requests
-- Manage session cookies
-- Handle pagination properly
+**Additional options**
 
-## Ethical Considerations
+- `--log` - Set logging level (info, debug, warn, error)
+- `--max` - Maximum depth of pages to follow (default: 1)
+- `--parallel` - Number of concurrent threads (default: 1)
+- `--allowed` - Allowed domains for recursive scraping (can be specified multiple times)
 
-- Follow website terms of service
-- Don't overload servers
-- Cache results when possible
-- Be transparent about scraping
+For more details, run:
 
-## Data Processing
+```bash
+scpr --help
+```
 
-- Clean and validate extracted data
-- Handle encoding issues
-- Store data efficiently
-- Implement deduplication
+Once you are done with scraping, you should scan the output folder to find the content the user asked you for, here is an example flow:
+
+```bash
+scpr --url https://example.com --output ./scraped --recursive --allowed example.com --max 2
+cd ./scraped
+grep -r "pattern of interest"
+```

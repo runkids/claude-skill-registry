@@ -1,7 +1,7 @@
 {
   "name": "deploy",
-  "repo": "gudzenkov/SuperClaudeZero",
+  "repo": "BaselHussain/ai-keto-meal-plan-generator",
   "path": ".claude/skills/deploy/SKILL.md",
-  "source": "github.com/gudzenkov/SuperClaudeZero",
-  "downloaded_at": "2026-01-31T04:41:58.049876Z"
+  "source": "github.com/BaselHussain/ai-keto-meal-plan-generator",
+  "downloaded_at": "2026-02-01T04:58:26.368740Z"
 }

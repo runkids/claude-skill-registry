@@ -1,625 +1,408 @@
 ---
-name: AI-Powered Visual Regression Testing
-description: Use this skill when users mention "visual regression", "detect UI changes", "screenshot comparison", "visual testing", "pixel diff", "UI regression", or want to set up intelligent visual testing that understands intentional vs accidental changes. Analyzes visual diffs with AI to categorize changes as expected, warnings, or errors based on git history and design tokens.
-version: 1.0.0
+name: visual-regression-testing
+description: Comprehensive visual regression testing using Playwright and jest-image-snapshot. Implements screenshot comparison, baseline management, CI/CD integration, and visual diff reporting following Ant Design best practices. Use for preventing visual bugs, ensuring UI consistency, and automating visual QA. (project)
+license: Complete terms in LICENSE.txt
 ---
 
-# AI-Powered Visual Regression Testing
+# Visual Regression Testing
+
+This skill provides comprehensive visual regression testing capabilities to detect unintended visual changes in UI components and prevent visual bugs from being merged into production.
 
 ## Overview
 
-Traditional visual regression testing produces overwhelming false positives from anti-aliasing, timestamps, and other noise. This skill implements **AI-powered visual regression** that understands the difference between intentional design changes and actual bugs.
+Visual regression testing works by:
+1. Taking screenshots of components/pages in a known-good state (baselines)
+2. Taking new screenshots after code changes
+3. Comparing new screenshots with baselines pixel-by-pixel
+4. Flagging differences for human review
 
-**Key Innovation:** Uses Claude AI to analyze visual diffs with context awareness (git commits, design token changes, component history) to categorize changes intelligently.
-
-## When to Use This Skill
-
-Trigger this skill when the user:
-- Mentions "visual regression testing" or "screenshot comparison"
-- Wants to "detect UI changes" or "catch visual bugs"
-- Says "pixel diff is too noisy" or "too many false positives"
-- Asks to "set up visual testing" for their Storybook
-- Wants to "review visual changes" in a PR
-- Mentions Chromatic, Percy, or other visual testing tools
+**Framework**: Playwright + jest-image-snapshot
+**Approach**: Based on Ant Design's visual regression testing methodology
 
 ## Core Capabilities
 
-### 1. Intelligent Diff Analysis
+### 1. Screenshot Baseline Management
 
-**Problem:** Traditional pixel diff flags thousands of irrelevant changes:
-- Anti-aliasing differences
-- Timestamp updates
-- Random UUIDs in content
-- Sub-pixel rendering variations
+Create and update baseline screenshots that serve as the source of truth for visual comparison.
 
-**Solution:** AI categorizes changes by semantic meaning:
-- **Ignore:** Rendering noise, timestamps, random data
-- **Expected:** Matches recent design system updates
-- **Warning:** Significant but possibly intentional
-- **Error:** Clear regressions (misalignment, broken layout)
+**Implementation**: `tests/shared/imageTest.tsx`
 
-### 2. Context-Aware Decision Making
+Key features:
+- Automated baseline capture for all component demos
+- Version-controlled baseline storage
+- Easy baseline updates when intentional changes occur
+- Support for multiple viewport sizes and themes
 
-The AI analyzer considers:
-- **Git commits** (last 7 days) - Did we just update the theme?
-- **Design tokens** - Does the new color match a token update?
-- **Component history** - Was this component recently refactored?
-- **PR description** - Did the developer mention this change?
+### 2. Visual Comparison Testing
 
-### 3. Smart Auto-Approval
+**Implementation**: `scripts/visual-regression/`
 
-Define auto-approval rules:
-- Approve all changes matching design token updates
-- Approve timestamp/UUID changes
-- Approve anti-aliasing differences
-- Flag layout shifts for manual review
-
-## Technical Implementation
-
-### Architecture
-
-```
-1. Capture screenshots (baseline + current)
-   ↓ Playwright/Storybook Test Runner
-2. Generate pixel diff
-   ↓ pixelmatch library
-3. AI analysis with context
-   ↓ Claude analyzes diff + git history + tokens
-4. Categorize changes
-   ↓ Ignore, Expected, Warning, Error
-5. Generate actionable report
-   ↓ With recommendations and auto-fix options
-```
-
-### Setup Command
-
-Use `/setup-visual-testing` to configure:
-- Installs @storybook/test-runner, Playwright
-- Creates configuration files
-- Captures initial baseline screenshots
-- Sets up AI analysis pipeline
-- Configures CI/CD integration (optional)
-
-### Analysis Workflow
-
+Core testing workflow:
 ```typescript
-// After code changes
-npm run test:visual
+// Example structure from tests/shared/imageTest.tsx
+import { test, expect } from '@playwright/test';
 
-// Output:
-Running visual regression tests...
-  ✓ 42 components: No changes
-  ⚠️ 3 components: Potential regressions detected
-  ❌ 2 components: Likely bugs found
+test('component visual regression', async ({ page }) => {
+  await page.goto('http://localhost:5173/component-demo');
+  await page.waitForLoadState('networkidle');
 
-AI Analysis Report:
-
-Button Component:
-  ⚠️ Color change detected: #2196F3 → #1976D2
-  Context: Recent commit updated theme.ts (2 hours ago)
-  Analysis: Matches new primary-600 token - appears intentional
-  Recommendation: APPROVE (auto-approve with --accept-theme-changes)
-
-Card Component:
-  ❌ Layout shift: Content misaligned by 2.3px
-  Context: No related changes in recent commits
-  Analysis: Box-sizing or padding regression
-  Recommendation: REJECT - needs investigation
-  Git blame: Modified in commit def456 (unrelated refactor)
-
-Modal Component:
-  ⚠️ Shadow change: Elevation increased
-  Context: Recent commit updated elevation system
-  Analysis: Matches new shadow-lg definition
-  Recommendation: APPROVE (design system update)
+  // Take screenshot and compare with baseline
+  const screenshot = await page.screenshot();
+  expect(screenshot).toMatchImageSnapshot({
+    customSnapshotsDir: '__image_snapshots__',
+    customDiffDir: '__image_snapshots__/diff',
+    threshold: 0.1, // 0.1% pixel difference tolerance
+  });
+});
 ```
 
-## Integration Points
+### 3. CI/CD Integration
 
-### 1. Storybook Test Runner
+**Implementation**: `.github/workflows/visual-regression-*.yml`
 
-```javascript
-// .storybook/test-runner-config.ts
-import { getStoryContext } from '@storybook/test-runner';
-import { analyzeVisualDiff } from './visual-regression-ai';
+Workflow files:
+- `visual-regression-pr.yml` - Runs on pull requests
+- `visual-regression-baseline.yml` - Updates baselines on main branch
+- `visual-regression-report.yml` - Generates and uploads diff reports
 
-export default {
-  async postRender(page, context) {
-    const storyContext = await getStoryContext(page, context);
+**PR Workflow**:
+1. Checkout code and install dependencies
+2. Start local server
+3. Run visual regression tests
+4. If differences found:
+   - Generate diff screenshots
+   - Upload artifacts to GitHub
+   - Post comment on PR with visual diff preview
+   - Mark check as failed
+5. If no differences, mark check as passed
 
-    // Capture screenshot
-    const screenshot = await page.screenshot();
+**Baseline Update Workflow**:
+1. Runs on main branch after merge
+2. Regenerates all baseline screenshots
+3. Commits updated baselines back to repo
 
-    // Compare with baseline
-    const diff = await compareWithBaseline(context.id, screenshot);
+## File Structure
 
-    if (diff.pixelsChanged > 0) {
-      // AI analysis
-      const analysis = await analyzeVisualDiff({
-        diff,
-        storyId: context.id,
-        componentName: storyContext.component,
-        recentCommits: await getRecentCommits(),
-        designTokens: await loadDesignTokens()
-      });
+```
+.github/workflows/
+  ├── visual-regression-pr.yml          # PR visual checks
+  ├── visual-regression-baseline.yml    # Baseline updates
+  └── visual-regression-report.yml      # Diff reporting
 
-      // Categorize
-      if (analysis.category === 'error') {
-        throw new Error(analysis.message);
-      } else if (analysis.category === 'warning') {
-        console.warn(analysis.message);
-      }
-    }
-  }
-};
+tests/shared/
+  └── imageTest.tsx                     # Baseline screenshot utilities
+
+scripts/visual-regression/
+  ├── capture-baselines.ts              # Generate baseline screenshots
+  ├── compare-screenshots.ts            # Compare current vs baseline
+  ├── generate-report.ts                # Create HTML diff report
+  └── upload-to-storage.ts              # Upload to OSS/S3
+
+__image_snapshots__/
+  ├── baseline/                         # Baseline screenshots
+  ├── current/                          # Latest test screenshots
+  └── diff/                             # Difference highlights
 ```
 
-### 2. CI/CD Integration
+## Usage Patterns
+
+### For Component Development
+
+When developing a new component:
+```bash
+# 1. Create component and demos
+npm run dev
+
+# 2. Generate initial baseline
+npm run visual:baseline
+
+# 3. Make changes
+# ... edit component code ...
+
+# 4. Run visual regression test
+npm run visual:test
+
+# 5. Review diffs (if any)
+npm run visual:report
+
+# 6. Update baseline if changes are intentional
+npm run visual:update-baseline
+```
+
+### For PR Reviews
+
+Reviewers can:
+1. Check CI status for visual regression failures
+2. Click artifact link in PR comment
+3. Review visual diff report
+4. Approve/request changes based on visual impact
+
+### For CI/CD Pipeline
 
 ```yaml
-# .github/workflows/visual-regression.yml
+# Example from .github/workflows/visual-regression-pr.yml
 name: Visual Regression Testing
 
-on: [pull_request]
+on:
+  pull_request:
+    branches: [main, develop]
 
 jobs:
   visual-regression:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install dependencies
         run: npm ci
-      - name: Build Storybook
-        run: npm run build-storybook
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Start dev server
+        run: npm run dev &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:5173
+
       - name: Run visual regression tests
-        run: npm run test:visual
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      - name: Upload report
-        uses: actions/upload-artifact@v3
+        run: npm run visual:test
+
+      - name: Upload diff artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          name: visual-regression-report
-          path: .storybook/visual-regression-report/
-```
+          name: visual-diffs
+          path: __image_snapshots__/diff/
 
-### 3. Local Development
+      - name: Generate report
+        if: failure()
+        run: npm run visual:report
 
-```bash
-# First time setup
-/setup-visual-testing
-
-# After making changes
-npm run test:visual
-
-# Auto-approve theme changes
-npm run test:visual -- --accept-theme-changes
-
-# Interactive mode (review each change)
-npm run test:visual -- --interactive
-
-# Update baselines
-npm run test:visual -- --update-baselines
-```
-
-## AI Analysis Logic
-
-### Change Classification
-
-```python
-# skills/visual-regression-testing/scripts/analyze_diff.py
-
-def categorize_change(change, context):
-    """Categorize a visual change using AI analysis"""
-
-    # 1. Check if change is just rendering noise
-    if is_rendering_noise(change):
-        return Category.IGNORE, "Anti-aliasing or sub-pixel rendering"
-
-    # 2. Check if change matches design token update
-    if matches_design_token_update(change, context.design_tokens):
-        token = find_matching_token(change, context.design_tokens)
-        return Category.EXPECTED, f"Matches {token} update in recent commit"
-
-    # 3. Check if change was mentioned in PR/commit
-    if mentioned_in_commits(change, context.recent_commits):
-        return Category.EXPECTED, "Change mentioned in commit message"
-
-    # 4. Analyze semantic significance
-    if is_layout_shift(change):
-        # Layout shifts are almost always bugs
-        return Category.ERROR, "Layout misalignment detected"
-
-    if is_color_change(change):
-        # Color change without token update = warning
-        return Category.WARNING, "Color changed but not in design tokens"
-
-    if is_typography_change(change):
-        # Typography change = warning
-        return Category.WARNING, "Typography change detected"
-
-    # 5. Default to warning for significant changes
-    if change.pixels_changed > threshold:
-        return Category.WARNING, "Significant visual change, please review"
-
-    return Category.IGNORE, "Minor change within acceptable threshold"
-```
-
-### Context Analysis
-
-```python
-def analyze_with_context(diff_image, baseline_image, context):
-    """Analyze diff with full context awareness"""
-
-    # Load context
-    recent_commits = get_git_commits(days=7)
-    design_tokens = load_design_tokens()
-    component_history = load_component_history(context.component_name)
-
-    # Compute pixel diff
-    pixel_changes = compute_pixel_diff(baseline_image, diff_image)
-
-    # Cluster changes by type
-    color_changes = extract_color_changes(pixel_changes)
-    position_changes = extract_position_changes(pixel_changes)
-    size_changes = extract_size_changes(pixel_changes)
-    text_changes = extract_text_changes(pixel_changes)
-
-    # Analyze each cluster
-    categorizations = []
-
-    for change in color_changes:
-        category, reason = categorize_color_change(
-            change,
-            design_tokens,
-            recent_commits
-        )
-        categorizations.append({
-            'type': 'color',
-            'category': category,
-            'reason': reason,
-            'old_color': change.old_color,
-            'new_color': change.new_color,
-            'pixels_affected': change.pixel_count
-        })
-
-    for change in position_changes:
-        category, reason = categorize_position_change(
-            change,
-            component_history,
-            recent_commits
-        )
-        categorizations.append({
-            'type': 'position',
-            'category': category,
-            'reason': reason,
-            'shift_x': change.dx,
-            'shift_y': change.dy,
-            'elements_affected': change.element_count
-        })
-
-    # Generate report
-    return {
-        'total_changes': len(pixel_changes),
-        'categorizations': categorizations,
-        'summary': generate_summary(categorizations),
-        'recommendations': generate_recommendations(categorizations)
-    }
-```
-
-## Example Usage Patterns
-
-### 1. Initial Setup
-
-```bash
-User: "Set up visual regression testing for my Storybook"
-
-Claude: Setting up AI-powered visual regression testing...
-
-✓ Detected: Storybook 9 with Vite
-✓ Installing: @storybook/test-runner, playwright
-✓ Creating: .storybook/test-runner-config.ts
-✓ Creating: .storybook/visual-regression-ai.ts
-✓ Creating: scripts/visual-regression/analyze_diff.py
-
-Capturing baseline screenshots...
-  ✓ Captured 47 component stories
-  ✓ Stored in .storybook/visual-baselines/
-
-Setup complete! Run 'npm run test:visual' to check for regressions.
-```
-
-### 2. Detecting Changes
-
-```bash
-User: "Check for visual regressions in my latest changes"
-
-Claude: Running visual regression analysis...
-
-Comparing 47 components against baseline...
-  ✓ 42 components unchanged
-  ⚠️ 3 components with warnings
-  ❌ 2 components with errors
-
-Detailed Analysis:
-
-1. Button Component (⚠️ Warning)
-   - Change: Primary color #2196F3 → #1976D2
-   - Context: theme.ts updated 2 hours ago
-   - AI Analysis: "Matches theme update - expected"
-   - Recommendation: APPROVE
-
-2. Card Component (❌ Error)
-   - Change: Content shifted 2.3px right
-   - Context: No related commits found
-   - AI Analysis: "Likely regression from layout refactor"
-   - Recommendation: INVESTIGATE
-   - Affected Stories: Default, WithImage, WithActions
-
-3. Tooltip Component (⚠️ Warning)
-   - Change: Shadow increased
-   - Context: Elevation system updated
-   - AI Analysis: "Matches new shadow-lg token"
-   - Recommendation: APPROVE
-
-Would you like to:
-[A] Auto-approve warnings, reject errors
-[R] Reject all and investigate
-[U] Update baselines (approve all)
-[D] Show detailed diffs
-```
-
-### 3. Interactive Review
-
-```bash
-User: "Let me review the changes interactively"
-
-Claude: Starting interactive review...
-
-Change 1 of 5:
-Component: Button
-Story: Primary
-Change Type: Color
-  Old: #2196F3
-  New: #1976D2
-  Pixels: 1,247
-
-Context:
-  - Recent commit: "Update primary color palette" (2h ago)
-  - Token change: primary-600 #2196F3 → #1976D2
-  - Author: you@example.com
-
-AI Recommendation: APPROVE
-Reason: Matches design token update in recent commit
-
-[A]pprove  [R]eject  [V]iew diff  [S]kip  [Q]uit
+      - name: Comment PR with results
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('visual-report.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
 ```
 
 ## Best Practices
 
 ### 1. Baseline Management
 
-- **Capture baselines on main branch** - Ensure baselines represent production
-- **Update after approved changes** - Keep baselines in sync
-- **Version control baselines** - Commit to git or use cloud storage
-- **Separate baselines per environment** - Different for staging vs production
+- **Version control baselines**: Commit baseline screenshots to git
+- **Update selectively**: Only update baselines for intentional visual changes
+- **Document updates**: Include baseline updates in PR descriptions
+- **Platform consistency**: Generate baselines in CI environment, not locally
 
-### 2. Threshold Configuration
+### 2. Test Writing
+
+- **Wait for stability**: Always use `page.waitForLoadState('networkidle')`
+- **Hide dynamic content**: Mask timestamps, animations, random data
+- **Test critical paths**: Focus on user-facing components
+- **Multiple viewports**: Test responsive breakpoints
+- **Theme variants**: Test light/dark modes if applicable
+
+### 3. Threshold Configuration
 
 ```typescript
-// .storybook/visual-regression.config.ts
-export default {
-  // Pixel difference threshold (0-1)
-  threshold: 0.01, // 1% difference
+// Strict comparison for critical UI
+expect(screenshot).toMatchImageSnapshot({ threshold: 0.01 });
 
-  // Auto-approve rules
-  autoApprove: {
-    tokenChanges: true,      // Auto-approve design token updates
-    antiAliasing: true,      // Ignore anti-aliasing differences
-    timestamps: true,        // Ignore timestamp changes
-    uuids: true,            // Ignore UUID changes
-  },
+// Relaxed for minor anti-aliasing differences
+expect(screenshot).toMatchImageSnapshot({ threshold: 0.1 });
 
-  // AI analysis settings
-  aiAnalysis: {
-    includeGitHistory: true,
-    includePRDescription: true,
-    includeDesignTokens: true,
-    lookbackDays: 7,
-  },
-
-  // Notification settings
-  notifications: {
-    onError: 'always',
-    onWarning: 'pr-only',
-    onSuccess: 'never',
-  }
-};
+// Very relaxed for charts/animations
+expect(screenshot).toMatchImageSnapshot({ threshold: 0.5 });
 ```
 
-### 3. CI/CD Integration
+### 4. Performance Optimization
 
-- **Run on every PR** - Catch regressions early
-- **Block merge on errors** - Prevent bugs from reaching main
-- **Allow warnings** - Don't block on potential false positives
-- **Post PR comments** - Show visual diff report in PR
-- **Cache baselines** - Faster CI runs
+- **Parallel execution**: Run tests in parallel across multiple workers
+- **Selective testing**: Only test affected components in PR
+- **Incremental baselines**: Cache and reuse unchanged baselines
+- **Headless mode**: Always run in headless mode in CI
 
-### 4. Team Collaboration
+### 5. False Positive Reduction
 
-- **Shared baselines** - Team uses same baseline images
-- **Review together** - Discuss ambiguous changes
-- **Document decisions** - Why certain changes were approved/rejected
-- **Update guidelines** - Refine auto-approval rules over time
+Common causes of false positives:
+- Font rendering differences across OS
+- Anti-aliasing variations
+- Animation timing
+- Browser version differences
+- System fonts
+
+Solutions:
+- Use Docker for consistent environment
+- Freeze animations with CSS
+- Use consistent browser versions
+- Increase threshold for minor differences
+
+## Integration with Existing Testing
+
+Visual regression testing complements existing testing strategies:
+
+```
+Unit Tests (Jest)
+  ↓
+Component Tests (React Testing Library)
+  ↓
+Visual Regression (Playwright + jest-image-snapshot)
+  ↓
+E2E Tests (Playwright)
+  ↓
+Manual QA
+```
 
 ## Troubleshooting
 
-### Too Many False Positives
+### "Screenshots don't match but look identical"
 
-**Problem:** AI still flagging too many irrelevant changes
+**Cause**: Platform-specific rendering differences
+**Solution**:
+```typescript
+expect(screenshot).toMatchImageSnapshot({
+  failureThreshold: 0.01,
+  failureThresholdType: 'percent'
+});
+```
 
-**Solutions:**
-1. Increase pixel threshold: `threshold: 0.02` (2%)
-2. Enable more auto-approve rules
-3. Add custom ignore patterns:
-   ```typescript
-   ignorePatterns: [
-     '.timestamp',
-     '[data-testid="random-uuid"]',
-     '.animation-in-progress'
-   ]
-   ```
+### "Baselines outdated after dependency update"
 
-### Missing Real Bugs
+**Cause**: Library update changed component styling
+**Solution**:
+```bash
+# Review changes first
+npm run visual:test
 
-**Problem:** AI approving actual regressions
+# Update all baselines if changes are expected
+npm run visual:update-baseline
+```
 
-**Solutions:**
-1. Decrease threshold: `threshold: 0.005` (0.5%)
-2. Disable auto-approve for layout changes
-3. Always manually review "warning" category
-4. Add specific checks:
-   ```typescript
-   strictChecks: {
-     layoutShifts: true,     // Never auto-approve
-     colorContrast: true,    // Check WCAG compliance
-     brokenImages: true      // Detect missing images
-   }
-   ```
+### "CI fails but local tests pass"
 
-### Slow CI Runs
+**Cause**: Different environments (fonts, OS, browser version)
+**Solution**: Use Docker or GitHub Actions locally
+```bash
+# Run in Docker matching CI environment
+docker run -v $(pwd):/app -w /app mcr.microsoft.com/playwright:v1.40.0 npm run visual:test
+```
 
-**Problem:** Visual regression tests taking too long
+## References
 
-**Solutions:**
-1. Parallelize screenshot capture
-2. Only test changed components
-3. Use smaller viewport sizes
-4. Cache Docker images with browsers
-5. Run subset in CI, full suite nightly
+### Implementation Files
 
-### Baseline Drift
+- `.github/workflows/visual-regression-*.yml` - CI/CD workflows
+- `tests/shared/imageTest.tsx` - Baseline screenshot implementation
+- `scripts/visual-regression/` - Test code and utilities
 
-**Problem:** Baselines becoming outdated
+### External Resources
 
-**Solutions:**
-1. Automated baseline updates after merges to main
-2. Weekly baseline regeneration
-3. Separate baselines per branch
-4. Cloud-based baseline management (Chromatic)
+- [Ant Design Visual Regression](https://ant.design/docs/blog/visual-regression/) - Original methodology
+- [Playwright Screenshots](https://playwright.dev/docs/screenshots) - Screenshot API docs
+- [jest-image-snapshot](https://github.com/americanexpress/jest-image-snapshot) - Snapshot matcher
+- [Argos CI](https://argos-ci.com/) - Visual testing platform (used by Ant Design)
 
 ## Advanced Features
 
-### 1. Design Token Integration
+### Multi-Browser Testing
 
-Automatically detect when color/spacing changes match design token updates:
+```typescript
+// Test across Chromium, Firefox, and WebKit
+import { devices } from '@playwright/test';
 
-```python
-# Reference: skills/visual-regression-testing/references/token-integration.md
-
-def check_token_match(old_color, new_color, design_tokens):
-    """Check if color change matches a design token update"""
-
-    recent_token_changes = design_tokens.get_recent_changes(days=7)
-
-    for change in recent_token_changes:
-        if change.old_value == old_color and change.new_value == new_color:
-            return {
-                'matches': True,
-                'token_name': change.token_name,
-                'commit': change.commit_sha,
-                'author': change.author
-            }
-
-    return {'matches': False}
+const browsers = ['chromium', 'firefox', 'webkit'];
+for (const browser of browsers) {
+  test(`visual regression on ${browser}`, async ({ playwright }) => {
+    const browserInstance = await playwright[browser].launch();
+    const page = await browserInstance.newPage();
+    // ... test logic
+  });
+}
 ```
 
-### 2. Component History Tracking
+### Responsive Testing
 
-Track component evolution to understand expected vs unexpected changes:
+```typescript
+// Test multiple viewports
+const viewports = [
+  { width: 375, height: 667, name: 'mobile' },
+  { width: 768, height: 1024, name: 'tablet' },
+  { width: 1920, height: 1080, name: 'desktop' },
+];
 
-```python
-# Reference: skills/visual-regression-testing/references/history-tracking.md
-
-class ComponentHistory:
-    """Track component change history for context"""
-
-    def get_recent_changes(self, component_name, days=30):
-        """Get recent changes to component"""
-        commits = get_git_log(component_name, days=days)
-        return [
-            {
-                'date': commit.date,
-                'author': commit.author,
-                'message': commit.message,
-                'files_changed': commit.files,
-                'change_type': classify_change_type(commit)
-            }
-            for commit in commits
-        ]
-
-    def has_recent_refactor(self, component_name):
-        """Check if component was recently refactored"""
-        changes = self.get_recent_changes(component_name, days=7)
-        return any('refactor' in c['message'].lower() for c in changes)
+for (const viewport of viewports) {
+  test(`visual regression ${viewport.name}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    // ... test logic
+  });
+}
 ```
 
-### 3. PR Description Analysis
+### Component Isolation
 
-Parse PR description for mentioned changes:
+```typescript
+// Test individual component variants
+const variants = ['default', 'primary', 'danger', 'disabled'];
 
-```python
-# Reference: skills/visual-regression-testing/references/pr-analysis.md
-
-def extract_mentioned_changes(pr_description):
-    """Extract visual changes mentioned in PR description"""
-
-    # Look for common patterns
-    patterns = [
-        r'(?i)changed?\s+(?:the\s+)?color\s+(?:of\s+)?(\w+)',
-        r'(?i)updated?\s+(?:the\s+)?(\w+)\s+style',
-        r'(?i)redesigned?\s+(\w+)',
-        r'(?i)new\s+(\w+)\s+component'
-    ]
-
-    mentioned_changes = []
-    for pattern in patterns:
-        matches = re.findall(pattern, pr_description)
-        mentioned_changes.extend(matches)
-
-    return mentioned_changes
+for (const variant of variants) {
+  test(`button ${variant} variant`, async ({ page }) => {
+    await page.goto(`http://localhost:5173/button/${variant}`);
+    await page.waitForLoadState('networkidle');
+    const screenshot = await page.locator('[data-testid="button"]').screenshot();
+    expect(screenshot).toMatchImageSnapshot({
+      customSnapshotIdentifier: `button-${variant}`
+    });
+  });
+}
 ```
 
-## Integration with Existing Skills
+## Agent Capabilities
 
-This skill works seamlessly with:
-- **testing-suite** - Complements interaction and a11y testing
-- **design-to-code** - Visual testing for generated components
-- **accessibility-remediation** - Verify a11y fixes don't break visuals
-- **dark-mode-generation** - Test dark mode variants
-- **ci-cd-generator** - Integrate into deployment pipeline
+When users request visual regression testing, the agent should:
 
-## Files Reference
+1. **Setup Infrastructure**
+   - Create GitHub Actions workflows
+   - Configure Playwright with jest-image-snapshot
+   - Set up baseline directory structure
+   - Add npm scripts for common operations
 
-For detailed implementation:
-- `references/ai-analysis-algorithm.md` - AI decision-making logic
-- `references/token-integration.md` - Design token sync
-- `references/history-tracking.md` - Component evolution tracking
-- `references/pr-analysis.md` - PR description parsing
-- `examples/configuration-examples.md` - Various config setups
-- `examples/ci-cd-integration.md` - CI/CD pipeline examples
-- `scripts/analyze_diff.py` - Python analysis engine
-- `scripts/capture_screenshots.py` - Screenshot capture utility
+2. **Generate Tests**
+   - Create test files for each component
+   - Configure appropriate thresholds
+   - Handle dynamic content masking
+   - Set up multi-viewport testing
 
-## Summary
+3. **Integrate with CI/CD**
+   - Configure PR checks
+   - Set up baseline update workflows
+   - Configure artifact uploads
+   - Add PR commenting with diff previews
 
-AI-Powered Visual Regression Testing transforms noisy pixel diffs into actionable intelligence by understanding context and intent. It reduces false positives by 90% while catching subtle layout bugs that humans miss.
+4. **Provide Documentation**
+   - Document baseline update process
+   - Create troubleshooting guides
+   - Add examples for common scenarios
+   - Document threshold configuration
 
-**Key Benefits:**
-- ✅ 90% reduction in false positives vs traditional pixel diff
-- ✅ Context-aware analysis (git, tokens, history)
-- ✅ Auto-approval for expected changes
-- ✅ Catches subtle regressions humans miss
-- ✅ Integrates with existing CI/CD
-- ✅ Works alongside Chromatic/Percy
+## Example: Full Implementation
 
-**Use this skill to** set up intelligent visual testing, analyze visual changes, configure auto-approval rules, and integrate with CI/CD pipelines.
+See the following files for complete implementation examples:
+- `.github/workflows/visual-regression-pr.yml:1` - Full PR workflow
+- `tests/shared/imageTest.tsx:1` - Baseline screenshot utilities
+- `scripts/visual-regression/compare-screenshots.ts:1` - Comparison logic
+
+This skill enables comprehensive visual regression testing that catches visual bugs before they reach production, maintaining UI consistency across the entire application.

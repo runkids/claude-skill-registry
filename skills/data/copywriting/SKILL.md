@@ -1,225 +1,84 @@
 ---
 name: copywriting
-description: >
-  Use this skill when writing, rewriting, or improving marketing copy
-  for any page (homepage, landing page, pricing, feature, product, or about page).
-  This skill produces clear, compelling, and testable copy while enforcing
-  alignment, honesty, and conversion best practices.
+description: Conversion copywriting formulas, headline templates, email copy patterns, landing page structures, CTA optimization, and writing style extraction. Activate for writing high-converting copy, crafting headlines, email campaigns, landing pages, or applying custom writing styles from assets/writing-styles/ directory.
+license: MIT
 ---
 
 # Copywriting
 
-## Purpose
+Formulas, templates, patterns, and writing styles for high-converting copy.
 
-Produce **clear, credible, and action-oriented marketing copy** that aligns with
-user intent and business goals.
+## When to Use
 
-This skill exists to prevent:
-- writing before understanding the audience
-- vague or hype-driven messaging
-- misaligned CTAs
-- overclaiming or fabricated proof
-- untestable copy
+- Writing headlines/subject lines, landing page copy, email campaigns
+- Social posts, product descriptions, CTA optimization, A/B variations
+- Applying custom writing styles from user documents
 
-You may **not** fabricate claims, statistics, testimonials, or guarantees.
+## Writing Styles
 
----
+Load: `references/writing-styles.md` | Full catalog: `assets/writing-styles/default.md` (50 styles)
 
-## Operating Mode
+**Extract styles from multi-format files:**
+```bash
+python .claude/skills/copywriting/scripts/extract-writing-styles.py --list        # List files
+python .claude/skills/copywriting/scripts/extract-writing-styles.py --style <name> # Extract style
+```
 
-You are operating as an **expert conversion copywriter**, not a brand poet.
+**Formats:** `.md` `.txt` `.pdf` `.docx` `.xlsx` `.pptx` `.jpg` `.png` `.mp4` (docs/media need `GEMINI_API_KEY`)
 
-- Clarity beats cleverness
-- Outcomes beat features
-- Specificity beats buzzwords
-- Honesty beats hype
+## Copy Formulas
 
-Your job is to **help the right reader take the right action**.
+Load: `references/copy-formulas.md`
 
----
+| Formula | Structure | Best For |
+|---------|-----------|----------|
+| AIDA | Attention → Interest → Desire → Action | Landing pages, ads |
+| PAS | Problem → Agitate → Solution | Email, sales pages |
+| BAB | Before → After → Bridge | Testimonials, case studies |
+| 4Ps | Promise → Picture → Proof → Push | Long-form sales |
+| 4Us | Urgent + Unique + Useful + Ultra-specific | Headlines |
+| FAB | Feature → Advantage → Benefit | Product descriptions |
 
-## Phase 1 — Context Gathering (Mandatory)
+## Headlines
 
-Before writing any copy, gather or confirm the following.
-If information is missing, ask for it **before proceeding**.
+Load: `references/headline-templates.md`
 
-### 1️⃣ Page Purpose
-- Page type (homepage, landing page, pricing, feature, about)
-- ONE primary action (CTA)
-- Secondary action (if any)
+Patterns: "How to [X] without [Y]" • "[Number] ways to [benefit]" • "The secret to [outcome]" • "Why [belief] is wrong"
 
-### 2️⃣ Audience
-- Target customer or role
-- Primary problem they are trying to solve
-- What they have already tried
-- Main objections or hesitations
-- Language they use to describe the problem
+## Email Copy
 
-### 3️⃣ Product / Offer
-- What is being offered
-- Key differentiator vs alternatives
-- Primary outcome or transformation
-- Available proof (numbers, testimonials, case studies)
+Load: `references/email-copy.md`
 
-### 4️⃣ Context
-- Traffic source (ads, organic, email, referrals)
-- Awareness level (unaware, problem-aware, solution-aware, product-aware)
-- What visitors already know or expect
+Subject lines: Curiosity gap • Benefit-driven • Question • Urgency
 
----
+## Landing Pages & CTAs
 
-## Phase 2 — Copy Brief Lock (Hard Gate)
+Load: `references/landing-page-copy.md` | `references/cta-patterns.md`
 
-Before writing any copy, you MUST present a **Copy Brief Summary** and pause.
+Hero: Headline (promise) → Subheadline (how) → CTA (action) → Social proof
+CTAs: "Start [verb]ing" • "Get [benefit]" • "Yes, I want [benefit]"
 
-### Copy Brief Summary
-Summarize in 4–6 bullets:
-- Page goal
-- Target audience
-- Core value proposition
-- Primary CTA
-- Traffic / awareness context
+## References
 
-### Assumptions
-List any assumptions explicitly (e.g. awareness level, urgency, sophistication).
+| File | Purpose |
+|------|---------|
+| `references/writing-styles.md` | 30 writing styles quick reference |
+| `references/copy-formulas.md` | AIDA, PAS, BAB, 4Ps, FAB formulas |
+| `references/headline-templates.md` | Headline patterns & templates |
+| `references/email-copy.md` | Email copy patterns |
+| `references/landing-page-copy.md` | Landing page structure |
+| `references/cta-patterns.md` | CTA optimization |
+| `references/power-words.md` | Power words by emotion |
+| `references/social-media-copy.md` | Platform-specific copy |
+| `scripts/extract-writing-styles.py` | Extract styles from multi-format files (PDF, DOCX, images) |
+| `templates/copy-brief.md` | Creative brief template |
 
-Then ask:
+## Agent Integration
 
-> “Does this copy brief accurately reflect what we’re trying to achieve?
-> Please confirm or correct anything before I write copy.”
+**Primary:** copywriter | **Related:** brand-guidelines, content-marketing, email-marketing
 
-**Do NOT proceed until confirmation is given.**
+## Best Practices
 
----
-
-## Phase 3 — Copywriting Principles
-
-### Core Principles (Non-Negotiable)
-
-- **Clarity over cleverness**
-- **Benefits over features**
-- **Specificity over vagueness**
-- **Customer language over company language**
-- **One idea per section**
-
-Always connect:
-> Feature → Benefit → Outcome
-
----
-
-## Writing Style Rules
-
-### Style Guidelines
-- Simple over complex
-- Active over passive
-- Confident over hedged
-- Show outcomes instead of adjectives
-- Avoid buzzwords unless customers use them
-
-### Claim Discipline
-- No fabricated data or testimonials
-- No implied guarantees unless explicitly stated
-- No exaggerated speed or certainty
-- If proof is missing, mark placeholders clearly
-
----
-
-## Phase 4 — Page Structure Framework
-
-### Above the Fold
-
-**Headline**
-- Single most important message
-- Specific value proposition
-- Outcome-focused
-
-**Subheadline**
-- Adds clarity or context
-- 1–2 sentences max
-
-**Primary CTA**
-- Action-oriented
-- Describes what the user gets
-
----
-
-### Core Sections (Use as Appropriate)
-
-- Social proof (logos, stats, testimonials)
-- Problem / pain articulation
-- Solution & key benefits (3–5 max)
-- How it works (3–4 steps)
-- Objection handling (FAQ, comparisons, guarantees)
-- Final CTA with recap and risk reduction
-
-Avoid stacking features without narrative flow.
-
----
-
-## Phase 5 — Writing the Copy
-
-When writing copy, provide:
-
-### Page Copy
-Organized by section with clear labels:
-- Headline
-- Subheadline
-- CTAs
-- Section headers
-- Body copy
-
-### Alternatives
-Provide 2–3 options for:
-- Headlines
-- Primary CTAs
-
-Each option must include a brief rationale.
-
-### Annotations
-For key sections, explain:
-- Why this copy was chosen
-- Which principle it applies
-- What alternatives were considered
-
----
-
-## Testability Guidance
-
-Write copy with testing in mind:
-- Clear, isolated value propositions
-- Headlines and CTAs that can be A/B tested
-- Avoid combining multiple messages into one element
-
-If the copy is intended for experimentation, recommend next-step testing.
-
----
-
-## Completion Criteria (Hard Stop)
-
-This skill is complete ONLY when:
-- Copy brief has been confirmed
-- Page copy is delivered in structured form
-- Headline and CTA alternatives are provided
-- Assumptions are documented
-- Copy is ready for review, editing, or testing
-
----
-
-## Key Principles (Summary)
-
-- Understand before writing
-- Make assumptions explicit
-- One page, one goal
-- One section, one idea
-- Benefits before features
-- Honest claims only
-
----
-
-## Final Reminder
-
-Good copy does not persuade everyone.
-It persuades **the right person** to take **the right action**.
-
-If the copy feels clever but unclear,  
-rewrite it until it feels obvious.
+1. Lead with benefit, not feature | 2. One CTA per piece
+3. Specificity > vague claims | 4. Read aloud—if awkward, rewrite
+5. Test headlines first | 6. Match copy to awareness level

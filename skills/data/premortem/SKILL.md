@@ -272,7 +272,7 @@ print("Risks acknowledged. Proceeding with implementation.")
 for tiger in high_severity_tigers:
     # Internal: How has codebase handled this before?
     Task(
-        subagent_type="scout",
+        subagent_type="explorer",
         prompt=f"""
         Find how this codebase has previously handled: {tiger.category}
 
@@ -287,7 +287,7 @@ for tiger in high_severity_tigers:
 
     # External: What are best practices?
     Task(
-        subagent_type="oracle",
+        subagent_type="planner",
         prompt=f"""
         Research best practices for: {tiger.risk}
 
@@ -412,7 +412,7 @@ User: Research mitigation options
 
 Claude: Researching mitigations...
 
-[Spawns scout + oracle in parallel]
+[Spawns explorer + planner in parallel]
 
 Found 3 options for circuit breaker:
 

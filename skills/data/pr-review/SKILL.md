@@ -1,261 +1,237 @@
 ---
-name: pr-review
-description: 进行 Pull Request 代码审查,包括代码质量、安全性、性能、架构合理性等方面的全面评估。当用户要求审查 PR 或提到 "review pr"、"检查 PR" 等关键词时激活。
+description: Review pull requests including bot suggestions and CI checks
+triggers:
+  - review pr
+  - check pr
+  - review pull request
+  - checkout pr
+  - check pull request
+  - review github pr
 ---
 
-# PR Review 代码审查技能
+# Pull Request Review Workflow
 
-> 全面审查 Pull Request 的代码质量、安全性、性能和架构设计,提供专业的改进建议
+Complete workflow for reviewing pull requests, including checking out the code, reviewing bot suggestions, and verifying builds.
 
-## 快速开始
-
-```bash
-# 审查当前分支的 PR
-gh pr view
-
-# 审查指定 PR
-gh pr view 6324
-
-# 查看变更内容
-gh pr diff 6324
-```
-
-## 工具集成
-
-### 使用 gh CLI 加速审查
+## Quick PR Checkout
 
 ```bash
-# 查看并审查 PR
-gh pr view <number> && gh pr diff <number>
+# Checkout a PR by number
+gh pr checkout <PR_NUMBER>
 
-# 添加审查评论
-gh pr review <number> --comment -b "我的审查意见"
+# View PR details
+gh pr view <PR_NUMBER>
 
-# 批准 PR
-gh pr review <number> --approve
-
-# 请求修改
-gh pr review <number> --request-changes
+# Check CI/build status
+gh pr checks <PR_NUMBER>
 ```
 
-### 本地测试 PR
+## Full Review Process
+
+### 1. Fetch PR Information
 
 ```bash
-# 检出 PR 分支到本地
-gh pr checkout <number>
+# View PR description and metadata
+gh pr view <PR_NUMBER>
 
-# 运行测试
-pnpm test
+# View PR diff
+gh pr diff <PR_NUMBER>
 
-# 运行 lint
-pnpm lint
-
-# 类型检查
-pnpm tsc --noEmit
-
-# 启动开发服务器验证
-pnpm dev
+# List all PR comments
+gh pr view <PR_NUMBER> --comments
 ```
 
-
-
-
-### 常见命令参考
+### 2. Checkout PR Code
 
 ```bash
-# PR 信息查看
-gh pr view --json title,body,author,state,files,additions,deletions
+# Checkout the PR branch
+gh pr checkout <PR_NUMBER>
 
-# PR diff 查看
-gh pr diff
-gh pr diff <number> > /tmp/pr.diff  # 保存到文件
-
-# PR commits 查看
-gh pr view --json commits --jq '.commits[].messageHeadline'
-
-# PR checks 状态
-gh pr checks
-
-# PR 评论
-gh pr comment <number> --body "评论内容"
-
-# PR 审查提交
-gh pr review <number> --approve
-gh pr review <number> --request-changes
-gh pr review <number> --comment -b "评论内容"
-
-# PR 操作
-gh pr merge <number> --squash  # Squash merge
-gh pr close <number>           # 关闭 PR
+# Verify you're on the correct branch
+git branch --show-current
 ```
 
-## 审查流程
+### 3. Review Bot Comments **CAREFULLY**
 
-### 1. 信息收集阶段
+**CRITICAL:** Bot suggestions require careful human evaluation.
 
-自动执行以下步骤:
+When reviewing bot comments (from GitHub bots, linters, or AI assistants):
+
+#### DO:
+- ✅ Read each suggestion carefully and understand what it's proposing
+- ✅ Evaluate whether the suggestion improves code quality
+- ✅ Check if the suggestion aligns with project coding standards
+- ✅ Verify the suggestion doesn't break functionality
+- ✅ Test changes if accepting bot suggestions
+- ✅ Consider context the bot might not understand
+
+#### DON'T:
+- ❌ Accept all bot suggestions blindly
+- ❌ Assume the bot understands project-specific conventions
+- ❌ Let the bot override your engineering judgment
+- ❌ Accept suggestions that reduce code clarity
+- ❌ Apply suggestions without understanding them
+
+#### Common Bot Suggestion Categories:
+
+1. **Code Style/Formatting**
+   - Usually safe to accept if consistent with project style
+   - Verify it doesn't conflict with existing patterns
+
+2. **Performance Optimizations**
+   - Evaluate whether the optimization is meaningful
+   - Check for potential side effects or edge cases
+
+3. **Security/Bug Fixes**
+   - These are high-priority but verify the fix is correct
+   - Ensure the fix doesn't introduce new issues
+
+4. **Refactoring Suggestions**
+   - Consider whether the refactoring improves readability
+   - Check if it aligns with project architecture
+
+5. **Dependency Updates**
+   - Verify compatibility with existing code
+   - Check for breaking changes in changelogs
+
+### 4. Check Build Status
 
 ```bash
-# 1. 获取 PR 基本信息
-gh pr view --json title,body,author,state,headRefName,baseRefName,additions,deletions,files
+# Check all CI checks
+gh pr checks <PR_NUMBER>
 
-# 2. 获取 PR 变更 diff
-gh pr diff
+# List recent workflow runs
+gh run list --limit 5
 
-# 3. 获取 PR 的 commit 历史
-gh pr view --json commits
-
-# 4. 检查 CI/CD 状态
-gh pr checks
+# View specific workflow run
+gh run view <RUN_ID>
 ```
 
-### 2. 多维度代码审查
+### 5. Test Locally
 
-按照以下三个维度进行系统性审查:
+**For firmware changes:**
+```bash
+cd inav
+./build.sh SITL  # or specific target
+```
 
-#### 维度 1: 代码质量标准 📐
+**For configurator changes:**
+```bash
+cd inav-configurator
+NODE_ENV=development npm start
+```
 
-通用的代码质量标准,适用于所有项目:
+### 6. Review Checklist
 
-- **安全性**: 输入验证、权限检查、注入防护、敏感信息保护
-- **正确性**: 错误处理、边界条件、类型安全
-- **性能**: 算法复杂度、数据库优化、内存管理
-- **可测试性**: 测试覆盖、测试质量、Mock 使用
+Use this checklist when reviewing PRs:
 
-📖 **详细指南**: [code-quality-standards.md](./code-quality-standards.md)
+- [ ] Code follows project conventions and style
+- [ ] Changes are well-documented (comments, commit messages)
+- [ ] No unnecessary or debug code left in
+- [ ] All CI checks passing
+- [ ] Bot suggestions reviewed and valid ones addressed
+- [ ] Invalid bot suggestions documented/dismissed
+- [ ] Changes tested locally if significant
+- [ ] No breaking changes (or properly documented if unavoidable)
+- [ ] Related issues/PRs referenced
 
-#### 维度 2: FastGPT 风格规范 🎨
-
-FastGPT 项目特定的代码规范和约定:
-
-- **工作流节点开发**: 类型定义、节点枚举、执行逻辑、isEntry 管理
-- **API 路由开发**: 路由定义、权限验证、错误处理
-- **前端组件开发**: TypeScript + React、Chakra UI、状态管理
-- **数据库操作**: Model 定义、查询优化、索引设计
-- **包结构与依赖**: 依赖方向、导入规范、类型导出
-
-📖 **详细指南**: [fastgpt-style-guide.md](./fastgpt-style-guide.md)
-
-#### 维度 3: 常见问题检查清单 🔍
-
-快速识别和修复常见问题模式:
-
-- **TypeScript 问题**: any 类型滥用、类型定义不完整、不安全断言
-- **异步错误处理**: 未处理 Promise、错误信息丢失、静默失败
-- **React 性能**: 不必要的重渲染、渲染中创建对象、缺少 memoization
-- **工作流节点**: isEntry 未重置、交互历史未清理、白名单遗漏
-- **安全漏洞**: 注入攻击、XSS、文件上传漏洞
-
-📖 **详细清单**: [common-issues-checklist.md](./common-issues-checklist.md)
-
-### 3. 生成并提交审查报告
-
-PR 审查输出分为两个部分:
-1. **整体审查报告**: 提交为 PR 顶部的总体评论
-2. **行级代码评论**: 直接在代码行的位置添加具体评论
-
-#### 步骤 1: 分析代码并准备评论
-
-在审查过程中,需要为每个问题记录:
-- **文件路径**: 如 `packages/service/core/workflow/dispatch.ts`
-- **行号**: 如 `L142-L150`
-- **问题类型**: 🔴严重 / 🟡改进 / 🟢优化
-- **评论内容**: 具体的问题描述和建议
-
-
-#### 步骤 2: 添加行级代码评论
-
-GitHub CLI 支持在特定行添加评论。评论数据格式为 JSON:
+## Viewing PR Comments
 
 ```bash
-# 1. 准备行级评论 JSON 文件
-cat > /tmp/line-comments.json << 'EOF'
-{
-  "body": "行级代码审查评论",
-  "event": "COMMENT",
-  "comments": [
-    {
-      "path": "packages/service/core/workflow/dispatch.ts",
-      "line": 142,
-      "body": "🔴 **严重问题**: 这里缺少错误处理,如果 runtimeNode 为 null 会导致运行时错误。\n\n**建议**:\n```typescript\nif (!runtimeNode) {\n  throw new Error(`Runtime node not found: ${nodeId}`);\n}\n```"
-    },
-    {
-      "path": "packages/service/core/workflow/dispatch.ts",
-      "line": 150,
-      "body": "🟡 **性能优化**: 建议将此正则表达式编译提取到函数外部,避免每次调用都重新编译。\n\n**建议**:\n```typescript\nconst NODE_ID_PATTERN = /^node_([a-f0-9]+)$/; // 在模块顶部定义\n```"
-    }
-  ]
-}
-EOF
+# View all comments including bot suggestions
+gh api repos/iNavFlight/inav/pulls/<PR_NUMBER>/comments
 
-# 2. 提交整体审查报告和行级评论
-gh pr review <number> --body-file /tmp/pr-review.md --json > /tmp/review-result.json
+# For configurator repo
+gh api repos/iNavFlight/inav-configurator/pulls/<PR_NUMBER>/comments
 ```
 
-#### 步骤 3: 生成整体审查报告
+## Adding Review Comments
 
-```markdown
-# PR Review: {PR Title}
+```bash
+# Leave a review comment
+gh pr review <PR_NUMBER> --comment -b "Your comment here"
 
-## 📊 变更概览
-- **PR 编号**: #{number}
-- **作者**: @author
-- **分支**: {baseRefName} ← {headRefName}
-- **变更统计**: +{additions} -{deletions} 行
-- **涉及文件**: {files.length} 个文件
+# Approve PR
+gh pr review <PR_NUMBER> --approve -b "LGTM! Changes look good."
 
-## ✅ 优点
-{列出做得好的地方}
+# Request changes
+gh pr review <PR_NUMBER> --request-changes -b "Please address..."
+```
 
-## ⚠️ 问题汇总
+## Common Review Scenarios
 
-### 🔴 严重问题 ({count} 个,必须修复)
-{简要列出每个严重问题,并在下方添加行级评论}
+### Bot Suggested Too Many Changes
 
-### 🟡 建议改进 ({count} 个)
-{简要列出每个建议}
+If a bot has suggested many changes:
+1. Group suggestions by category (style, performance, bugs)
+2. Evaluate each category separately
+3. Accept valid categories as a group
+4. Document why certain suggestions were rejected
+5. Provide clear feedback to PR author
 
-### 🟢 可选优化 ({count} 个)
-{简要列出优化建议}
+### Build Failures
 
-## 🧪 测试建议
-{建议的测试方法}
+If CI checks are failing:
+1. Check `gh pr checks <PR_NUMBER>` for specific failures
+2. View workflow logs: `gh run view <RUN_ID> --log`
+3. Reproduce locally if needed
+4. Provide specific guidance on fixes
 
-## 💬 总体评价
-- **代码质量**: ⭐⭐⭐⭐☆ (4/5)
-- **安全性**: ⭐⭐⭐⭐⭐ (5/5)
-- **性能**: ⭐⭐⭐⭐☆ (4/5)
-- **可维护性**: ⭐⭐⭐⭐☆ (4/5)
+### Merge Conflicts
 
-## 🚀 审查结论
-{建议: 通过/需修改/拒绝}
+If PR has conflicts:
+1. PR author should resolve conflicts
+2. Verify conflict resolution doesn't break functionality
+3. Re-test after conflicts are resolved
+
+## After Review
+
+```bash
+# Return to your working branch
+git checkout <YOUR_BRANCH>
+
+# Or return to master
+git checkout master
+```
+
+## Example Review Workflow
+
+```bash
+# 1. Check out PR #2433
+gh pr checkout 2433
+
+# 2. View PR and comments
+gh pr view 2433 --comments
+
+# 3. Review bot suggestions carefully
+# (Read through comments, evaluate each suggestion)
+
+# 4. Check builds
+gh pr checks 2433
+
+# 5. Test locally
+cd inav-configurator
+NODE_ENV=development npm start
+
+# 6. Leave review
+gh pr review 2433 --approve -b "Reviewed bot suggestions. Accepted valid ones, documented rejected ones. Code looks good!"
+
+# 7. Return to your branch
+git checkout master
+```
+
+## Resources
+
+- **GitHub CLI docs:** `gh pr --help`
+- **Project review guidelines:** Check `claude/COMMUNICATION.md` for standards
+- **Recent PR reviews:** See `claude/projects/review-pr*/` for examples
 
 ---
 
-## 📍 详细代码评论
-已在以下位置添加了具体的行级评论:
-{列出所有添加了行级评论的位置}
-```
+## Related Skills
 
-#### 步骤 4: 提交整体审查报告
-
-通过 GitHub CLI 提交整体审查报告到评论区。
-
-#### 审查命令快速参考:
-
-| 场景 | 命令 |
-|------|------|
-| 批准 PR | `gh pr review <number> --approve` |
-| 请求修改 | `gh pr review <number> --request-changes` |
-| 一般评论 | `gh pr review <number> --comment` |
-| 从文件提交 | `gh pr review <number> --body-file /tmp/review.md` |
-| 添加普通评论 | `gh pr comment <number> --body "内容"` |
-| 撤销审查 | `gh pr review <number> --dismiss` |
-
-
-## 参考文档
-
-### 核心审查文档
-- **维度 1**: [code-quality-standards.md](./code-quality-standards.md) - 通用代码质量标准
-- **维度 2**: [fastgpt-style-guide.md](./fastgpt-style-guide.md) - FastGPT 项目规范
-- **维度 3**: [common-issues-checklist.md](./common-issues-checklist.md) - 常见问题清单
+- **git-workflow** - Checkout PR branches and manage git operations
+- **create-pr** - Create your own pull requests
+- **check-builds** - Check CI build status for PRs under review
+- **run-configurator** - Test configurator PRs locally
+- **build-sitl** - Build and test firmware PRs

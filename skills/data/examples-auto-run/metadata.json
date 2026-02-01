@@ -1,7 +1,7 @@
 {
   "name": "examples-auto-run",
-  "repo": "zaziedlm/openai-agents-python",
+  "repo": "openai/openai-agents-python",
   "path": ".codex/skills/examples-auto-run/SKILL.md",
-  "source": "github.com/zaziedlm/openai-agents-python",
-  "downloaded_at": "2026-01-31T03:59:47.980595Z"
+  "source": "github.com/openai/openai-agents-python",
+  "downloaded_at": "2026-02-01T02:59:35.179036Z"
 }

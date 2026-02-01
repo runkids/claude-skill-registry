@@ -1,7 +1,7 @@
 {
   "name": "development",
-  "repo": "NovaAI-innovation/Infinite-Agency",
-  "path": ".qwen/skills/development/SKILL.md",
-  "source": "github.com/NovaAI-innovation/Infinite-Agency",
-  "downloaded_at": "2026-01-31T02:55:31.965274Z"
+  "repo": "inocan-group/inferred-types",
+  "path": ".claude/skills/development/SKILL.md",
+  "source": "github.com/inocan-group/inferred-types",
+  "downloaded_at": "2026-02-01T03:55:07.203135Z"
 }

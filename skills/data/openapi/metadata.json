@@ -1,7 +1,7 @@
 {
   "name": "openapi",
-  "repo": "mcclowes/omg",
-  "path": ".claude/skills/openapi/SKILL.md",
-  "source": "github.com/mcclowes/omg",
-  "downloaded_at": "2026-01-31T04:28:01.178177Z"
+  "repo": "itechmeat/llm-code",
+  "path": "skills/openapi/SKILL.md",
+  "source": "github.com/itechmeat/llm-code",
+  "downloaded_at": "2026-02-01T04:11:17.627374Z"
 }

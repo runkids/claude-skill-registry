@@ -1,7 +1,7 @@
 {
   "name": "shellcheck-configuration",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/plugins/shell-scripting/skills/shellcheck-configuration/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-01-31T03:36:51.469213Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/shell-scripting/skills/shellcheck-configuration/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:51.962517Z"
 }

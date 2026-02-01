@@ -1,7 +1,7 @@
 {
   "name": "git-commit",
-  "repo": "ThinkInAIXYZ/deepchat",
-  "path": "resources/skills/git-commit/SKILL.md",
-  "source": "github.com/ThinkInAIXYZ/deepchat",
-  "downloaded_at": "2026-01-31T04:43:42.176227Z"
+  "repo": "davidgasquez/dotfiles",
+  "path": "agents/skills/git-commit/SKILL.md",
+  "source": "github.com/davidgasquez/dotfiles",
+  "downloaded_at": "2026-02-01T04:23:27.599924Z"
 }

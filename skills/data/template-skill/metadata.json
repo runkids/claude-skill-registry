@@ -1,7 +1,7 @@
 {
   "name": "template-skill",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/template-skill/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:11.782354Z"
+  "repo": "mvdmakesthings/skills",
+  "path": "template-skill/SKILL.md",
+  "source": "github.com/mvdmakesthings/skills",
+  "downloaded_at": "2026-02-01T04:56:08.473500Z"
 }

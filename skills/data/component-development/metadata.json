@@ -1,9 +1,7 @@
 {
   "name": "component-development",
-  "description": "Create and modify React components following project patterns. Use when building UI components, forms, layouts, navigation, or implementing React hooks. Includes DaisyUI, Tailwind CSS, and lucide-reac",
-  "repo": "doitsu2014/my-blogs-rsbuild",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "JordiNodeJS/.github-config",
+  "path": ".github/skills/component-development/SKILL.md",
+  "source": "github.com/JordiNodeJS/.github-config",
+  "downloaded_at": "2026-02-01T02:53:22.128926Z"
 }

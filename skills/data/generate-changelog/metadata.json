@@ -1,7 +1,7 @@
 {
   "name": "generate-changelog",
-  "repo": "qmu/workaholic",
-  "path": "plugins/core/skills/generate-changelog/SKILL.md",
-  "source": "github.com/qmu/workaholic",
-  "downloaded_at": "2026-01-31T03:22:00.124602Z"
+  "repo": "mvillmow/ProjectOdyssey",
+  "path": ".claude/skills/tier-2/generate-changelog/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-02-01T04:00:33.856930Z"
 }

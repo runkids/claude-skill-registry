@@ -1,9 +1,7 @@
 {
   "name": "cli-creator",
-  "description": "Create or extend Python command-line interfaces using Typer and wire them into pyproject.toml entry points. Use when asked to add a new CLI, add a subcommand, or expose a console script for a Python p",
-  "repo": "gordonwatts/skill-test",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "evanfang0054/cc-system-creator-scripts",
+  "path": "skills/cli-creator/SKILL.md",
+  "source": "github.com/evanfang0054/cc-system-creator-scripts",
+  "downloaded_at": "2026-02-01T02:43:50.971645Z"
 }

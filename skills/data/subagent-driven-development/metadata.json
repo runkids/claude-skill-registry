@@ -1,7 +1,7 @@
 {
   "name": "subagent-driven-development",
-  "repo": "brmatola/gremlins",
-  "path": "skills/subagent-driven-development/SKILL.md",
-  "source": "github.com/brmatola/gremlins",
-  "downloaded_at": "2026-01-31T04:47:47.488566Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/workflow/subagent-driven-development/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-02-01T05:03:21.541546Z"
 }

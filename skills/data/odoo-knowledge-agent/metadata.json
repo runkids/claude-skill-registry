@@ -1,9 +1,7 @@
 {
   "name": "odoo-knowledge-agent",
-  "description": "Scrape Odoo forum solved threads to build error prevention guardrails and auto-fix scripts. Extract patterns from 1000+ solved issues to prevent common mistakes before deployment and auto-heal product",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "docs/claude-code-skills/community/odoo-knowledge-agent/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:59.555445Z"
 }

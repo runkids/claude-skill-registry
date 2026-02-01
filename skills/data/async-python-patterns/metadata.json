@@ -1,7 +1,7 @@
 {
   "name": "async-python-patterns",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/async-python-patterns/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-31T04:47:13.998009Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/python-development/skills/async-python-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:51.767413Z"
 }

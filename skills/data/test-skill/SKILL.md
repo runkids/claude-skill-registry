@@ -1,42 +1,33 @@
 ---
-title: Test Skill
-description: A sample skill for testing purposes
-version: 1.0.0
-author: SkillMeat Test Suite
+name: test-skill
+description: Brief description of what this skill does and when to use it.
 license: MIT
-tags:
-  - testing
-  - sample
-  - development
+metadata:
+  author: your-name
+  version: "1.0"
 ---
 
 # Test Skill
 
-This is a sample skill used for testing SkillMeat functionality.
+## When to use this skill
 
-## What This Skill Does
+Use this skill when the user needs to...
 
-This skill demonstrates the proper structure of a Claude Code skill with:
-- Valid YAML front matter
-- Proper markdown formatting
-- Example instructions
+## Instructions
 
-## How to Use
+1. First step
+2. Second step
+3. Third step
 
-Use this skill by invoking it in your Claude Code session:
+## Examples
+
+### Example 1
 
 ```
-/test-skill
+Example input or command
 ```
 
-## Example Output
+## Best practices
 
-When invoked, this skill will demonstrate test functionality.
-
-## Testing Notes
-
-This fixture is used for:
-- Validating skill structure
-- Testing artifact installation
-- Verifying deployment workflows
-- Testing metadata extraction
+- Best practice 1
+- Best practice 2

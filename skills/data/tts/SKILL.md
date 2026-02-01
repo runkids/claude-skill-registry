@@ -1,27 +1,29 @@
 ---
 name: tts
-description: Speak text aloud using the local ElevenLabs TTS script; use when the user asks to read or speak text.
+description: Convert text to speech using Hume AI (or OpenAI) API. Use when the user asks for an audio message, a voice reply, or to hear something "of vive voix".
 ---
 
-# TTS
+# Text-to-Speech (TTS)
 
-## Overview
+Convert text to speech and generate audio files (MP3).
 
-Use this skill to synthesize speech from text.
+## Hume AI (Preferred)
 
-## Inputs
+- **Preferred Voice**: `9e1f9e4f-691a-4bb0-b87c-e306a4c838ef`
+- **Keys**: Stored in environment as `HUME_API_KEY` and `HUME_SECRET_KEY`.
 
-- Text to speak
+### Usage
 
-## Workflow
+```bash
+HUME_API_KEY="..." HUME_SECRET_KEY="..." node {baseDir}/scripts/generate_hume_speech.js --text "Hello Jonathan" --output "output.mp3"
+```
 
-1. Extract the text to speak.
-2. Run the local TTS script:
-   `uv run C:\Users\USERNAME\.claude\hooks\utils\tts\elevenlabs_tts.py --voice OCIdyYxzVR7iuL9fyP9f --model eleven_v3 "<TEXT>"`
-3. Create the skip marker file:
-   `echo skip > C:\Users\USERNAME\.claude\hooks\utils\tts\.skip_endhook`
-4. Confirm success.
+## OpenAI (Legacy)
 
-## Output
+- **Preferred Voice**: `nova`
+- **Usage**: `OPENAI_API_KEY="..." node {baseDir}/scripts/generate_speech.js --text "..." --output "..."`
 
-- Short confirmation that speech ran.
+## General Notes
+
+- The scripts print a `MEDIA:` line with the absolute path to the generated file.
+- Use the `message` tool to send the resulting file to the user.

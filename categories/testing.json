@@ -1,7 +1,7 @@
 {
   "category": "testing",
-  "count": 4025,
-  "updated_at": "2026-01-31T04:52:26.576298Z",
+  "count": 4019,
+  "updated_at": "2026-02-01T05:09:23.605050Z",
   "skills": [
     {
       "name": "frontend-testing-langgenius-dify",
@@ -7615,20 +7615,6 @@
       "source": "local"
     },
     {
-      "name": "tavily",
-      "description": "Tavily AI search API integration via curl. Use this skill to perform live web search and RAG-style retrieval.",
-      "repo": "vm0-ai/vm0-skills",
-      "path": "data/tavily",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "tavily"
-      ],
-      "stars": 8,
-      "install": "vm0-ai/vm0-skills",
-      "source": "local"
-    },
-    {
       "name": "test-diff-analyzer",
       "description": "Analyze test differences between runs to identify flaky tests and consistency issues. Use to find tests that fail intermittently.",
       "repo": "mvillmow/ProjectOdyssey",
@@ -11806,21 +11792,6 @@
       ],
       "stars": 1,
       "install": "jgtolentino/insightpulse-odoo/.claude/skills/agent-capabilities",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agent-capabilities",
-      "description": "Comprehensive documentation of Claude's capabilities for visual regression testing, CI/CD integration, and quality assurance automation. Use when setting up testing infrastructure, implementing visual",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/agent-capabilities",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "agent",
-        "capabilities"
-      ],
-      "stars": 1,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -20352,18 +20323,6 @@
       "tags": [],
       "stars": 0,
       "install": "gordonwatts/skill-test/.codex/skills/cli-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cli-creator",
-      "description": "Create or extend Python command-line interfaces using Typer and wire them into pyproject.toml entry points. Use when asked to add a new CLI, add a subcommand, or expose a console script for a Python p",
-      "repo": "gordonwatts/skill-test",
-      "path": "data/cli-creator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "gordonwatts/skill-test",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -34053,18 +34012,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "model-evaluator",
-      "description": "Comprehensive ML model evaluation with multiple metrics, cross-validation, and statistical testing. Activates for \"evaluate model\", \"model metrics\", \"model performance\", \"compare models\", \"validation ",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/model-evaluator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "model-registry",
       "description": "Centralized model versioning, staging, and lifecycle management. Activates for \"model registry\", \"model versioning\", \"model staging\", \"deploy to production\", \"rollback model\", \"model metadata\", \"model",
       "repo": "anton-abyzov/specweave",
@@ -37086,21 +37033,6 @@
       ],
       "stars": 0,
       "install": "nibzard/skills-marketplace/skills/pentest-toolkit",
-      "source": "local"
-    },
-    {
-      "name": "pentest-toolkit",
-      "description": "AI-Powered Security Testing Toolkit - Professional penetration testing tools with intelligent agent-empowering capabilities",
-      "repo": "nibzard/skills-marketplace",
-      "path": "data/pentest-toolkit",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "pentest",
-        "toolkit"
-      ],
-      "stars": 0,
-      "install": "nibzard/skills-marketplace",
       "source": "local"
     },
     {
@@ -45395,18 +45327,6 @@
       "tags": [],
       "stars": 0,
       "install": "jgtolentino/insightpulse-odoo/docs/claude-code-skills/community/supabase-automation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "supabase-automation",
-      "description": "Master Supabase CLI automation, auth configuration, edge functions, secrets management, MCP integration, and Management API for production deployments",
-      "repo": "jgtolentino/insightpulse-odoo",
-      "path": "data/supabase-automation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jgtolentino/insightpulse-odoo",
       "source": "SkillsMP + GitHub Raw"
     },
     {

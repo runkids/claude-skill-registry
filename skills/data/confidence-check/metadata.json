@@ -1,7 +1,7 @@
 {
   "name": "confidence-check",
-  "repo": "bogerpeng/SuperClaude_Framework_internalUse",
-  "path": "plugins/superclaude/skills/confidence-check/SKILL.md",
-  "source": "github.com/bogerpeng/SuperClaude_Framework_internalUse",
-  "downloaded_at": "2026-01-31T04:25:48.698899Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/superclaude/src/superclaude/skills/confidence-check/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-02-01T04:19:32.026957Z"
 }

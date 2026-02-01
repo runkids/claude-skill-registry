@@ -1,7 +1,7 @@
 {
   "name": "git-workflow",
-  "repo": "netresearch/git-workflow-skill",
-  "path": "skills/git-workflow/SKILL.md",
-  "source": "github.com/netresearch/git-workflow-skill",
-  "downloaded_at": "2026-01-31T04:44:59.761135Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/workflow/git-workflow/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-02-01T05:03:19.848711Z"
 }

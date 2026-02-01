@@ -1,556 +1,394 @@
 ---
 name: project-planner
-description: "Universal project planning for non-technical projects. Domains: business, personal, creative, academic, organizational, events. Capabilities: goal setting, milestone planning, resource allocation, timeline creation, risk assessment, progress tracking. Actions: create, plan, structure, breakdown, track projects. Keywords: project plan, roadmap, strategy, goal setting, milestones, timeline, action plan, project management, business plan, personal goals, creative project, academic planning, event planning, organizational change, OKRs, SMART goals, Gantt chart. Use when: creating project plans, setting goals/milestones, planning business initiatives, organizing events, structuring academic work, developing strategies/roadmaps."
-auto_invoke: true
-tags: [planning, project-management, strategy, goal-setting, action-plans, generic-planning]
+description: 项目路径规划与执行助手。帮助分析项目需求、规划执行路径、分解任务、识别风险、管理进度，确保项目高质量交付。
+allowed-tools: Read, Write, Edit, TodoWrite, Bash, Glob, Grep
 ---
 
-# Project Planner Skill
+# 项目路径规划与执行助手
 
-Universal planning methodology for creating structured, actionable plans for any project type. Works for business initiatives, personal goals, creative projects, academic work, event planning, and organizational change.
+## 核心定位
 
-## When to Use This Skill
+这是一个专注于**项目执行规划**的技能，帮助你从想法到落地，系统性地规划项目路径，确保项目按时、高质量地交付。不同于产品需求分析（PRD），这个技能更关注**如何做**和**如何做好**。
 
-Activate this skill when planning:
-- **Business Projects**: Product launches, marketing campaigns, process improvements
-- **Personal Goals**: Career development, learning objectives, lifestyle changes
-- **Creative Projects**: Writing projects, art installations, content creation
-- **Academic Work**: Research projects, thesis planning, study programs
-- **Event Planning**: Conferences, weddings, community events
-- **Organizational Change**: Restructuring, culture initiatives, policy changes
+## 适用场景
 
-**NOT for software development** - Use `implementation-planner` skill instead
+### 项目启动阶段
+- "我想做个电商小程序，帮我规划一下"
+- "老板让我负责一个新项目，从哪开始？"
+- "这个需求大概需要多久能完成？"
 
-## Pre-Planning Protocol
+### 项目规划阶段
+- "帮我分解一下这个项目的任务"
+- "这几个功能有依赖关系，怎么安排顺序？"
+- "如何在3个月内完成这个项目？"
 
-**ALWAYS execute before creating new plan:**
+### 项目执行阶段
+- "项目延期了，怎么调整计划？"
+- "帮我看看这个任务分解是否合理"
+- "如何追踪团队的项目进度？"
 
-1. **Check for active plan**:
-   ```bash
-   test -f docs/plan.md && cat docs/plan.md
-   ```
+### 项目收尾阶段
+- "项目要交付了，检查清单有哪些？"
+- "怎么做项目复盘？"
+- "如何沉淀项目经验？"
 
-2. **If active plan exists**:
-   - Ask user: "Active plan found: [PLAN-ID]. Continue this plan or create new one?"
-   - If continue: Load active plan and continue from current phase
-   - If new: Mark current plan as paused/completed and create new
+## 使用方法
 
-3. **If no active plan**:
-   - Proceed with new plan creation
-
-## Plan Format Standards
-
-### Naming Convention
-- **Format**: `PLAN-YYYYMMDD-HHMM-{project-slug}.md`
-- **Example**: `PLAN-20251118-1430-product-launch.md`
-- **Location**: `docs/plans/`
-
-### Required Frontmatter
-```yaml
----
-plan_id: PLAN-YYYYMMDD-HHMM-{slug}
-title: [Project Name]
-created: YYYY-MM-DD HH:MM
-status: draft | active | completed | on_hold | cancelled
-category: business | personal | creative | academic | event | organizational
-phase: planning | execution | monitoring | complete
-priority: critical | high | medium | low
----
-```
-
-### Required Sections
-1. **Vision & Objectives** - What and why
-2. **Scope & Deliverables** - Specific outcomes
-3. **Action Steps** - Sequenced tasks with owners
-4. **Resources Required** - People, budget, materials, time
-5. **Timeline & Milestones** - Deadlines and checkpoints
-6. **Risks & Contingencies** - What could go wrong
-7. **Success Metrics** - Measurable outcomes
-
-## Master Plan Tracker (docs/plan.md)
-
-Same structure as implementation-planner, tracks all project plans.
-
-### Update Workflow
-
-**When creating new plan:**
-1. Generate plan file in `docs/plans/`
-2. Update `docs/plan.md`:
-   - Set `active_plan` to new plan ID
-   - Add to appropriate category section
-   - Update `last_updated` timestamp
-
-**When completing plan:**
-1. Update plan file `status: completed`
-2. Update `docs/plan.md`:
-   - Move to "Completed" with ✅
-   - Update statistics
-
-**When pausing plan:**
-1. Update plan file `status: on_hold`
-2. Update `docs/plan.md`:
-   - Move to "On Hold" section
-   - Clear `active_plan` if it was active
-
-## Core Planning Principles
-
-1. **Clarity over complexity** - Simple, understandable plans
-2. **Action-oriented** - Every section leads to concrete actions
-3. **Flexibility** - Plans adapt to changing circumstances
-4. **Accountability** - Clear ownership and deadlines
-5. **Measurable** - Success criteria are objective
-
-## Planning Methodology
-
-### Step 1: Vision & Objectives (< 5 minutes)
-
-**Purpose**: Define what you want to achieve and why
-
-**Questions to answer:**
-- What is the desired end state?
-- Why is this project important?
-- Who benefits from this project?
-- What problem does this solve?
-
-**Output format:**
-```markdown
-## Vision & Objectives
-
-### Vision Statement
-[One paragraph describing the ideal outcome]
-
-### Primary Objective
-[Main goal - SMART format: Specific, Measurable, Achievable, Relevant, Time-bound]
-
-### Secondary Objectives
-- Objective 1: [SMART format]
-- Objective 2: [SMART format]
-
-### Alignment
-- **Strategic Fit**: [How this aligns with broader goals]
-- **Stakeholders**: [Who cares about this and why]
-- **Value Proposition**: [Why now, why this approach]
-```
-
-### Step 2: Scope & Deliverables (< 5 minutes)
-
-**Purpose**: Define boundaries and specific outputs
-
-**Questions to answer:**
-- What's included in this project?
-- What's explicitly excluded?
-- What tangible deliverables will we produce?
-- What are the acceptance criteria?
-
-**Output format:**
-```markdown
-## Scope & Deliverables
-
-### In Scope
-- [Specific activity/outcome 1]
-- [Specific activity/outcome 2]
-
-### Out of Scope
-- [What we're NOT doing 1]
-- [What we're NOT doing 2]
-
-### Deliverables
-1. **Deliverable 1**: [Description]
-   - Acceptance Criteria: [How we know it's done]
-   - Format: [Document, event, product, etc.]
-
-2. **Deliverable 2**: [Description]
-   - Acceptance Criteria: [How we know it's done]
-   - Format: [Format]
-
-### Constraints
-- **Budget**: [Budget limitation]
-- **Time**: [Time constraint]
-- **Resources**: [Resource constraints]
-- **Quality**: [Non-negotiable quality standards]
-```
-
-### Step 3: Action Steps (< 10 minutes)
-
-**Purpose**: Break down work into executable tasks
-
-**Sequencing principles:**
-1. Dependencies first - Complete prerequisites before dependent tasks
-2. Quick wins early - Build momentum with achievable tasks
-3. Parallel work - Identify tasks that can happen simultaneously
-4. Critical path - Highlight tasks that determine overall timeline
-
-**Output format:**
-```markdown
-## Action Steps
-
-### Phase 1: [Phase Name] (Weeks 1-2)
-
-#### Step 1.1: [Action Verb] [What]
-- **Description**: [What needs to be done]
-- **Owner**: [Who is responsible]
-- **Duration**: [Estimated time]
-- **Dependencies**: [What must be done first]
-- **Output**: [What this produces]
-- **Verification**: [How to confirm completion]
-
-#### Step 1.2: [Action Verb] [What]
-[Same structure]
-
-### Phase 2: [Phase Name] (Weeks 3-4)
-[Continue with steps]
-
-### Critical Path
-Tasks that determine overall timeline:
-1. Step X.X → Step Y.Y → Step Z.Z
-```
-
-### Step 4: Resources Required (< 5 minutes)
-
-**Purpose**: Identify what's needed to execute
-
-**Categories:**
-- People: Skills, roles, time commitment
-- Budget: Money for materials, services, licenses
-- Materials: Physical items, equipment, supplies
-- Time: Duration, deadlines, availability
-- Knowledge: Training, expertise, information
-- Tools: Software, platforms, systems
-
-**Output format:**
-```markdown
-## Resources Required
-
-### People
-- **Role 1**: [Skills needed], [Time commitment], [Availability]
-- **Role 2**: [Skills], [Time], [Availability]
-
-### Budget
-| Category | Item | Estimated Cost | Status |
-|----------|------|----------------|--------|
-| Materials | [Item] | $X,XXX | Approved/Pending |
-| Services | [Service] | $X,XXX | Approved/Pending |
-
-**Total Budget**: $X,XXX
-
-### Materials & Equipment
-- [Item 1]: [Quantity], [Specifications], [Source]
-- [Item 2]: [Quantity], [Specifications], [Source]
-
-### Knowledge & Training
-- [Skill/Knowledge 1]: [Who needs it], [How to acquire]
-- [Skill/Knowledge 2]: [Who needs it], [How to acquire]
-
-### Tools & Systems
-- [Tool 1]: [Purpose], [License/Access], [Cost]
-- [Tool 2]: [Purpose], [License/Access], [Cost]
-```
-
-### Step 5: Timeline & Milestones (< 5 minutes)
-
-**Purpose**: Set deadlines and create accountability
-
-**Milestone criteria:**
-- Significant progress point
-- Measurable completion
-- Enables next phase
-- Stakeholder visibility
-
-**Output format:**
-```markdown
-## Timeline & Milestones
-
-### Overall Timeline
-**Start Date**: YYYY-MM-DD
-**End Date**: YYYY-MM-DD
-**Total Duration**: [X weeks/months]
-
-### Milestones
-
-#### Milestone 1: [Name] - [Date]
-- **Criteria**: [What must be complete]
-- **Deliverables**: [What to show]
-- **Checkpoint**: [Review meeting/decision point]
-
-#### Milestone 2: [Name] - [Date]
-[Same structure]
-
-### Gantt Chart (Text-based)
+### 快速开始
+直接描述你的项目情况：
 
 ```
-Week 1  : [█████████░░░] Phase 1 (Step 1.1-1.3)
-Week 2  : [░░░░█████████] Phase 1 (Step 1.4-1.6)
-Week 3  : [█████████░░░] Phase 2 (Step 2.1-2.3)
-Week 4  : [░░░░█████████] Phase 2 Complete
+"帮我规划一个项目：开发一个团队协作工具，团队3个人，2个月后要上线"
+"这是我们产品的功能清单，帮我做个项目计划"
+"项目需求发生了变更，帮我重新规划一下路径"
 ```
 
-### Key Dates
-- [YYYY-MM-DD]: [Event/Deadline]
-- [YYYY-MM-DD]: [Event/Deadline]
-```
+### 提供详细信息
+提供越多信息，规划越精准：
 
-### Step 6: Risks & Contingencies (< 5 minutes)
+**基本信息**：
+- 项目名称和目标
+- 团队规模和角色分工
+- 时间约束和关键里程碑
+- 预算和资源限制
 
-**Purpose**: Anticipate problems and plan responses
+**项目背景**（可选）：
+- 是否有现有系统需要对接
+- 技术栈要求或限制
+- 相关的历史项目经验
 
-**Risk categories:**
-- External: Market changes, regulations, competition
-- Resource: Budget cuts, people unavailable, materials
-- Technical: Complexity, dependencies, unknowns
-- Stakeholder: Resistance, competing priorities, misalignment
-- Timeline: Delays, scope creep, optimism bias
+**参考文档**（可选）：
+- 上传需求文档、设计稿、技术方案等
+- 提供类似项目的参考案例
 
-**Output format:**
-```markdown
-## Risks & Contingencies
+## 项目规划框架
 
-### Risk 1: [Description]
-**Category**: [External/Resource/Technical/Stakeholder/Timeline]
-**Probability**: [High/Medium/Low]
-**Impact**: [High/Medium/Low]
-**Risk Score**: [Probability × Impact = Score]
+我会帮你完成以下规划工作：
 
-**Mitigation**: [How to prevent]
-**Contingency**: [What to do if it happens]
-**Early Warning Signs**: [Indicators this is occurring]
-**Owner**: [Who monitors this]
+### 1. 项目理解与拆解
 
-### Risk 2: [Description]
-[Same structure]
+**项目背景分析**：
+- 理解项目的核心目标和价值
+- 识别关键利益相关者
+- 明确项目边界和约束条件
 
-### Risk Matrix
+**任务分解(WBS)**：
+- 将项目分解为可管理的模块
+- 识别模块间的依赖关系
+- 估算每个任务的工作量
 
-```
-Impact
-High   │ R3 │ R1 │ R1 │
-Medium │ R5 │ R2 │ R1 │
-Low    │ R7 │ R5 │ R2 │
-       └────┴────┴────┘
-         L   M   H
-       Probability
-```
-```
+**优先级排序**：
+- 按业务价值排序
+- 按依赖关系排序
+- 按风险高低排序
 
-### Step 7: Success Metrics (< 3 minutes)
+### 2. 里程碑与时间规划
 
-**Purpose**: Define measurable outcomes
+**里程碑设定**：
+- 定义清晰的阶段性目标
+- 设置可验证的交付物
+- 预留缓冲时间
 
-**SMART criteria:**
-- Specific: Exact metric
-- Measurable: Quantifiable
-- Achievable: Realistic
-- Relevant: Aligned with objectives
-- Time-bound: By when
+**时间线规划**：
+- 绘制项目时间轴
+- 规划关键路径
+- 平衡资源分配
 
-**Output format:**
-```markdown
-## Success Metrics
+**进度安排**：
+- 合理安排并行任务
+- 避免资源过度集中
+- 预留应急时间
 
-### Primary Metrics
-- **Metric 1**: [Name]
-  - **Target**: [Specific number/outcome]
-  - **Measurement**: [How to measure]
-  - **Frequency**: [How often to check]
-  - **Baseline**: [Current state]
+### 3. 团队与资源规划
 
-- **Metric 2**: [Name]
-  [Same structure]
+**角色与职责**：
+- 明确团队成员角色
+- 定义职责边界
+- 建立汇报关系
 
-### Secondary Metrics
-- [Metric 3]: [Target]
-- [Metric 4]: [Target]
+**资源分配**：
+- 评估人力资源需求
+- 规划技术/工具资源
+- 预算和时间资源
 
-### Completion Criteria
-- [ ] All deliverables accepted by stakeholders
-- [ ] Primary metrics meet/exceed targets
-- [ ] Budget within ±10% of estimate
-- [ ] Timeline within ±10% of estimate
-- [ ] Stakeholder satisfaction ≥ 8/10
-- [ ] No critical issues remaining
+**协作机制**：
+- 确定沟通频率和方式
+- 建立同步机制
+- 规划协作工具
 
-### Post-Project Review
-- **Review Date**: [2-4 weeks after completion]
-- **Participants**: [Who attends]
-- **Topics**: Lessons learned, metrics achieved, improvements
-```
+### 4. 风险管理
 
-## Complete Plan Template
+**风险识别**：
+- 技术风险（技术难点、第三方依赖）
+- 资源风险（人员变动、资源不足）
+- 时间风险（需求变更、进度延误）
+- 质量风险（技术债务、测试覆盖）
+
+**风险评估**：
+- 评估风险发生概率
+- 评估风险影响程度
+- 确定风险优先级
+
+**应对策略**：
+- 制定预防措施
+- 准备应急预案
+- 分配风险责任人
+
+### 5. 质量保障规划
+
+**质量标准**：
+- 定义质量目标和指标
+- 建立验收标准
+- 确定质量检查点
+
+**测试策略**：
+- 规划测试类型和范围
+- 安排测试时间
+- 定义测试标准
+
+**评审机制**：
+- 规划评审节点
+- 定义评审标准
+- 建立反馈闭环
+
+## 输出成果
+
+完成规划后，你会获得以下成果：
+
+### 项目概览
+- 项目背景和目标
+- 项目范围和边界
+- 关键约束条件
+
+### 任务分解
+- 工作分解结构(WBS)
+- 任务依赖关系图
+- 任务优先级排序
+
+### 时间规划
+- 项目里程碑
+- 详细时间表
+- 关键路径标识
+
+### 团队协作
+- 角色分工
+- 沟通计划
+- 协作工具推荐
+
+### 风险登记册
+- 识别出的风险清单
+- 风险评估矩阵
+- 应对策略和预案
+
+### 质量保障
+- 质量标准
+- 验收标准
+- 检查清单
+
+## 项目规划模板
+
+### 快速规划模板
 
 ```markdown
----
-plan_id: PLAN-YYYYMMDD-HHMM-{slug}
-title: [Project Name]
-created: YYYY-MM-DD HH:MM
-status: draft
-category: [business|personal|creative|academic|event|organizational]
-phase: planning
-priority: [critical|high|medium|low]
----
+# [项目名称] 规划方案
 
-# 🎯 Project Plan: [Project Name]
+## 项目概述
+- **项目目标**: [一句话描述项目要实现什么]
+- **交付物**: [项目最终交付什么]
+- **时间约束**: [截止日期或时间范围]
+- **团队规模**: [多少人参与]
 
-## Vision & Objectives
-[Vision statement and SMART objectives]
+## 核心任务
+### 阶段一：[名称]
+- [ ] 任务1
+- [ ] 任务2
+- [ ] 任务3
 
-## Scope & Deliverables
-[What's included, excluded, and delivered]
+### 阶段二：[名称]
+- [ ] 任务4
+- [ ] 任务5
+- [ ] 任务6
 
-## Action Steps
-[Phased, sequenced tasks with owners]
+## 里程碑
+| 时间点 | 里程碑 | 交付物 |
+|--------|--------|--------|
+| Date1 | M1 | Deliverable1 |
+| Date2 | M2 | Deliverable2 |
 
-## Resources Required
-[People, budget, materials, time, knowledge, tools]
+## 风险识别
+| 风险 | 影响 | 概率 | 应对措施 |
+|------|------|------|----------|
+| Risk1 | High | Medium | Mitigation |
 
-## Timeline & Milestones
-[Dates, milestones, Gantt chart]
-
-## Risks & Contingencies
-[Identified risks with mitigation strategies]
-
-## Success Metrics
-[Measurable outcomes and completion criteria]
-
-## Notes & Considerations
-[Additional context, assumptions, dependencies]
+## 下一步行动
+1. [ ] Action1
+2. [ ] Action2
+3. [ ] Action3
 ```
 
-## Quality Standards
+### 详细规划模板
 
-### Completeness
-- All 7 sections present and filled
-- Each action step has owner and deadline
-- Resources are realistic and available
-- Risks have mitigation plans
-- Success metrics are SMART
+```markdown
+# 项目规划文档
 
-### Clarity
-- Anyone can understand the plan
-- No jargon without explanation
-- Concrete examples provided
-- Ambiguity eliminated
+## 1. 项目定义
+### 1.1 项目背景
+[项目产生的背景和原因]
 
-### Actionability
-- Next steps are clear
-- Owners know what to do
-- Timeline is realistic
-- Resources are secured
+### 1.2 项目目标
+- **主要目标**: [核心目标]
+- **次要目标**: [辅助目标]
+- **成功标准**: [如何判断项目成功]
 
-## Common Project Types
+### 1.3 项目范围
+- **包含范围**: [做的是什么]
+- **排除范围**: [不做什么]
+- **边界条件**: [什么情况下算完成]
 
-### Business Project Example Triggers
-- Product launch, marketing campaign, sales initiative
-- Process improvement, efficiency project
-- Market expansion, partnership development
+## 2. 任务分解
+### 2.1 工作分解结构(WBS)
+```
+项目
+├── 模块1
+│   ├── 任务1.1
+│   ├── 任务1.2
+│   └── 任务1.3
+├── 模块2
+│   ├── 任务2.1
+│   └── 任务2.2
+└── 模块3
+    ├── 任务3.1
+    └── 任务3.2
+```
 
-### Personal Project Example Triggers
-- Career transition, skill development
-- Health/fitness goal, lifestyle change
-- Financial goal, savings plan
+### 2.2 任务详情
+| ID | 任务名称 | 负责人 | 工期 | 依赖 | 优先级 |
+|----|----------|--------|------|------|--------|
+| T1 | 任务1 | PersonA | 3天 | - | P0 |
+| T2 | 任务2 | PersonB | 2天 | T1 | P0 |
 
-### Creative Project Example Triggers
-- Book/article writing, content creation
-- Art project, exhibition planning
-- Music production, album release
+## 3. 时间规划
+### 3.1 里程碑
+| 日期 | 里程碑 | 验收标准 | 状态 |
+|------|--------|----------|------|
+| Date | M1 | Criteria | Done |
 
-### Academic Project Example Triggers
-- Research project, thesis planning
-- Study program, exam preparation
-- Conference presentation, paper publication
+### 3.2 详细进度
+[甘特图或时间轴]
 
-### Event Planning Example Triggers
-- Conference/workshop organization
-- Wedding/celebration planning
-- Community event, fundraiser
+### 3.3 关键路径
+[标识关键路径任务]
 
-### Organizational Change Example Triggers
-- Team restructuring, role changes
-- Culture initiative, value implementation
-- Policy change, process adoption
+## 4. 资源规划
+### 4.1 团队组成
+| 角色 | 姓名 | 职责 | 工作量 |
+|------|------|------|--------|
+| 负责人 | XXX | 整体把控 | 50% |
+| 开发 | XXX | 技术实现 | 100% |
 
-## Continue Planning Workflow
+### 4.2 资源需求
+- 硬件资源
+- 软件资源
+- 外部服务
 
-**When user says "continue plan":**
+## 5. 风险管理
+### 5.1 风险清单
+| ID | 风险描述 | 影响 | 概率 | 风险等级 | 应对策略 | 责任人 |
+|----|----------|------|------|----------|----------|--------|
+| R1 | XXX | 高 | 中 | 高 | XXX | XXX |
 
-1. **Load active plan** from `docs/plan.md`
-2. **Check phase**:
-   - Planning: Add details, refine sections
-   - Execution: Update progress, mark steps complete
-   - Monitoring: Review metrics, adjust timeline
-3. **Update status** as work progresses
+### 5.2 应急预案
+[关键风险的应急预案]
 
-## Format Validation
+## 6. 沟通计划
+### 6.1 常规会议
+| 会议 | 频率 | 参与者 | 输出 |
+|------|------|--------|------|
+| 站会 | 每天 | 团队 | 进展同步 |
+| 周会 | 每周 | 团队+干系人 | 进度汇报 |
 
-**Before finalizing:**
-- [ ] Frontmatter complete (plan_id, title, status, category, phase, priority)
-- [ ] All 7 sections present
-- [ ] Vision is inspiring and clear
-- [ ] Objectives are SMART
-- [ ] Action steps have owners and deadlines
-- [ ] Resources identified and available
-- [ ] Timeline is realistic
-- [ ] Risks have contingencies
-- [ ] Success metrics are measurable
-- [ ] Master tracker updated
+### 6.2 报告机制
+- 日报/周报模板
+- 进度报告频率
+- 升级流程
 
-## Example Usage
+## 7. 质量保障
+### 7.1 质量目标
+- 功能完整性: 100%
+- Bug数量: < 10
+- 性能指标: ...
 
-**Scenario: Product Launch Plan**
+### 7.2 验收标准
+- [ ] 标准1
+- [ ] 标准2
 
-User: "Create a plan for launching our new mobile app"
+### 7.3 检查清单
+- [ ] 检查点1
+- [ ] 检查点2
 
-Claude:
-1. Checks `docs/plan.md` - no active plan
-2. Asks clarifying questions:
-   - Who is the target audience?
-   - What's the launch date goal?
-   - What's the budget?
-3. Creates `PLAN-20251118-1430-mobile-app-launch.md`:
-   - Vision: Achieve 10K downloads in first month
-   - Objectives: SMART goals for downloads, revenue, engagement
-   - Scope: Features in v1.0, marketing channels, launch events
-   - Action Steps: Development, testing, marketing, launch
-   - Resources: Team roles, budget, tools
-   - Timeline: 12-week timeline with milestones
-   - Risks: Technical delays, market reception, competition
-   - Metrics: Downloads, DAU, revenue, ratings
-4. Updates `docs/plan.md` with active plan
+## 8. 变更管理
+### 变更流程
+1. 提出变更请求
+2. 评估变更影响
+3. 审批变更
+4. 执行变更
+5. 验证变更效果
 
-**Scenario: Personal Learning Goal**
+## 附录
+- 术语表
+- 参考资料
+- 历史记录
+```
 
-User: "Help me plan learning Python for data science"
+## 最佳实践
 
-Claude:
-1. Checks for active plan
-2. Creates structured learning plan:
-   - Vision: Become job-ready data scientist in 6 months
-   - Objectives: Complete courses, build portfolio projects
-   - Scope: Topics to cover, projects to build
-   - Action Steps: Weekly study schedule, hands-on practice
-   - Resources: Courses, books, datasets, tools
-   - Timeline: Month-by-month progression
-   - Risks: Time management, motivation, difficulty
-   - Metrics: Courses completed, projects finished, job applications
+### 规划阶段
+- **尽早开始**：项目启动后尽快规划
+- **全员参与**：关键人员参与规划
+- **保持灵活**：规划要可调整
+- **明确假设**：标注不确定因素
 
-## Integration with Implementation Planner
+### 执行阶段
+- **定期回顾**：每周回顾计划执行情况
+- **及时调整**：发现偏差及时修正
+- **透明沟通**：保持信息同步
+- **关注风险**：持续监控风险
 
-**When planning involves software development:**
+### 收尾阶段
+- **完整交付**：确保交付物完整
+- **文档归档**：整理项目文档
+- **经验复盘**：总结经验教训
+- **知识沉淀**：沉淀可复用的方法
 
-1. Use this skill for **overall project planning**:
-   - Business objectives
-   - Stakeholder management
-   - Resource allocation
-   - Timeline
+## 与其他技能配合
 
-2. Use `implementation-planner` for **technical implementation**:
-   - Code architecture
-   - File changes
-   - Testing strategy
-   - Deployment
+这个技能可以与以下技能配合使用：
 
-3. **Cross-reference** plans:
-   - Implementation plan referenced in technical deliverables
-   - Project plan tracks implementation as one action step
+- **project-management**：先做需求分析，再做执行规划
+- **task-management**：将规划转化为任务列表
+- **code-development**：技术实现阶段指导
+- **document-skills**：编写项目文档
+- **time-management**：个人时间管理优化
 
----
+## 注意事项
 
-**This skill creates actionable, complete plans for any project type while maintaining consistent format and tracking.**
+1. **规划要有依据**：基于数据和分析，而非拍脑袋
+2. **留有缓冲**：计划要预留应急时间
+3. **定期更新**：计划要随项目进展更新
+4. **关注执行**：规划是为了执行，不是为了完美
+5. **团队共识**：规划要与团队达成共识
+6. **持续优化**：根据实际情况持续优化规划方法
+
+## 常见问题
+
+### Q: 规划需要多长时间？
+A: 简单项目几小时，复杂项目可能需要几天。关键是规划质量，不是速度。
+
+### Q: 规划可以变更吗？
+A: 当然可以。规划是活的，需要根据实际情况调整。关键是控制变更的影响。
+
+### Q: 任务分解多细合适？
+A: 一般分解到2-3天可完成的任务。太粗难以追踪，太细管理成本高。
+
+### Q: 如何保证规划落地？
+A: 规划+执行+反馈闭环。定期回顾，及时调整，确保规划指导执行。

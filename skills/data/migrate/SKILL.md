@@ -1,270 +1,140 @@
 ---
-name: migrate
-description: Migration workflow - research → analyze → plan → implement → review
+description: Database migration management (create, apply, rollback using Alembic)
+handoffs:
+  - label: Review Migration
+    agent: backend-engineer
+    prompt: Review the generated migration file for correctness
+    send: false
 ---
 
-# /migrate - Migration Workflow
+## User Input
 
-Safe migrations for frameworks, languages, and infrastructure.
-
-## When to Use
-
-- "Migrate to X"
-- "Upgrade framework"
-- "Move from X to Y"
-- "Upgrade Python/Node/etc."
-- "Migrate database"
-- Framework version upgrades
-- Language migrations
-- Infrastructure changes
-
-## Workflow Overview
-
-```
-┌──────────┐    ┌──────────┐    ┌────────────┐    ┌──────────┐    ┌───────────┐
-│  oracle  │───▶│ phoenix  │───▶│   plan-    │───▶│  kraken  │───▶│ surveyor  │
-│          │    │          │    │   agent    │    │          │    │           │
-└──────────┘    └──────────┘    └────────────┘    └──────────┘    └───────────┘
-  Research       Analyze          Plan             Implement       Review
-  target         current          migration        changes         migration
+```text
+$ARGUMENTS
 ```
 
-## Agent Sequence
+Commands: `up` (apply), `down` (rollback), `create <message>`, `status`, `history`
 
-| # | Agent | Role | Output |
-|---|-------|------|--------|
-| 1 | **oracle** | Research target framework/version | Research report |
-| 2 | **phoenix** | Analyze current codebase for migration impact | Impact analysis |
-| 3 | **plan-agent** | Create phased migration plan | Migration plan |
-| 4 | **kraken** | Implement migration changes | Code changes |
-| 5 | **surveyor** | Review migration for completeness | Migration review |
+## Task
 
-## Why Extra Gates?
+Manage database migrations using Alembic for the keto meal plan project.
 
-Migrations are high-risk:
-- Breaking changes between versions
-- Dependency conflicts
-- Data format changes
-- API deprecations
+### Steps
 
-The extra research and review phases catch issues early.
+1. **Parse Arguments**:
+   - `up` or empty: Apply all pending migrations
+   - `down` or `down <N>`: Rollback N migrations (default: 1)
+   - `create <message>`: Create new migration from model changes
+   - `status`: Show current migration status
+   - `history`: Show migration history
 
-## Execution
+2. **Navigate to Backend Directory**:
+   ```bash
+   cd backend
+   ```
 
-### Phase 1: Research Target
+3. **Execute Command**:
 
-```
-Task(
-  subagent_type="oracle",
-  prompt="""
-  Research migration target: [TARGET]
+   **For `up` (Apply Migrations)**:
+   ```bash
+   # Show pending migrations first
+   alembic current
+   alembic heads
 
-  Investigate:
-  - Breaking changes from current version
-  - New APIs and patterns
-  - Deprecated features we use
-  - Migration guides from official docs
-  - Common pitfalls and solutions
+   # Apply migrations
+   alembic upgrade head
 
-  Output: Migration research report
-  """
-)
-```
+   # Verify success
+   alembic current
+   ```
 
-### Phase 2: Analyze Current State
+   **For `down` (Rollback)**:
+   ```bash
+   # Show current version
+   alembic current
 
-```
-Task(
-  subagent_type="phoenix",
-  prompt="""
-  Analyze codebase for migration: [FROM] → [TO]
+   # Rollback (default: 1 step)
+   alembic downgrade -1
 
-  Identify:
-  - Files using deprecated APIs
-  - Dependency conflicts
-  - Patterns that need updating
-  - Test coverage of affected areas
-  - Risk areas (critical paths)
+   # Or rollback N steps if specified
+   # alembic downgrade -N
 
-  Output: Impact analysis with affected files
-  """
-)
-```
+   # Verify rollback
+   alembic current
+   ```
 
-### Phase 3: Plan Migration
+   **For `create <message>` (Create Migration)**:
+   ```bash
+   # Generate migration from SQLAlchemy model changes
+   alembic revision --autogenerate -m "<message>"
 
-```
-Task(
-  subagent_type="plan-agent",
-  prompt="""
-  Create migration plan: [FROM] → [TO]
+   # Show generated migration file path
+   # Example: database/migrations/versions/abc123_add_column.py
+   ```
 
-  Research: [from oracle]
-  Impact: [from phoenix]
+   **For `status` (Show Status)**:
+   ```bash
+   # Current version
+   alembic current
 
-  Plan should:
-  - Be phased (incremental if possible)
-  - Each phase independently testable
-  - Include rollback strategy
-  - Prioritize critical path stability
+   # Latest available version
+   alembic heads
 
-  Output: Phased migration plan
-  """
-)
-```
+   # Check for pending migrations
+   alembic upgrade head --sql | head -20
+   ```
 
-### Phase 4: Implement
+   **For `history` (Show History)**:
+   ```bash
+   # Show all migrations
+   alembic history --verbose
+   ```
 
-```
-Task(
-  subagent_type="kraken",
-  prompt="""
-  Implement migration phase: [PHASE_N]
+4. **Validate Database Connection**:
+   ```bash
+   # Test database connection
+   python -c "from src.lib.database import engine; print('✅ Database connection successful')"
+   ```
 
-  Plan: [from plan-agent]
+5. **Output Summary**:
+   ```
+   ✅ Migration Summary
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Command: [up/down/create/status/history]
 
-  Requirements:
-  - Follow plan exactly
-  - Run tests after each change
-  - Document any deviations
-  - Stop if tests fail
+   Current Version: abc123_migration_name
+   [Status information based on command]
 
-  Output: Completed phase with test results
-  """
-)
-```
+   Database: [connection string without password]
+   ```
 
-### Phase 5: Review Migration
+6. **Recommendations**:
+   - After `create`: "Review migration file at `database/migrations/versions/XXX.py` before applying"
+   - After `up`: "Migration applied successfully. Verify database schema."
+   - After `down`: "⚠️ Migration rolled back. Data may be lost. Verify database state."
 
-```
-Task(
-  subagent_type="surveyor",
-  prompt="""
-  Review migration: [FROM] → [TO]
+## Example Usage
 
-  Check:
-  - All deprecated APIs replaced
-  - No remaining compatibility shims
-  - Tests passing
-  - Performance acceptable
-  - No security regressions
-
-  Output: Migration review report
-  """
-)
+```bash
+/migrate                          # Apply all pending migrations
+/migrate up                       # Apply all pending migrations
+/migrate down                     # Rollback last migration
+/migrate down 2                   # Rollback 2 migrations
+/migrate create "Add user preferences"  # Create new migration
+/migrate status                   # Show migration status
+/migrate history                  # Show migration history
 ```
 
-## Migration Types
+## Exit Criteria
 
-### Framework Upgrade
-```
-User: /migrate React 17 → 18
-→ Full workflow with hooks/concurrent mode changes
-```
+- Migration command executes successfully
+- Database connection verified
+- Current migration version displayed
+- Migration files reviewed (for create command)
 
-### Language Version
-```
-User: /migrate Python 3.9 → 3.12
-→ Focus on new syntax, removed features
-```
+## Safety Notes
 
-### Database Migration
-```
-User: /migrate MongoDB → PostgreSQL
-→ Schema design, data transformation, query rewrite
-```
-
-### Infrastructure
-```
-User: /migrate AWS → GCP
-→ Service mapping, config translation
-```
-
-## Example
-
-```
-User: /migrate from Express to Fastify
-
-Claude: Starting /migrate workflow: Express → Fastify
-
-Phase 1: Researching Fastify...
-[Spawns oracle]
-Key differences:
-- Schema-based validation (vs middleware)
-- Plugin architecture
-- Async/await native
-- Different middleware pattern
-
-Phase 2: Analyzing current Express usage...
-[Spawns phoenix]
-Impact analysis:
-- 23 route files to update
-- 8 middleware to convert
-- 3 plugins need Fastify equivalents
-- Test coverage: 78%
-
-Phase 3: Creating migration plan...
-[Spawns plan-agent]
-
-Migration Plan: Express → Fastify
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Phase 1: Setup & Core
-- Add Fastify alongside Express
-- Migrate core server setup
-- Run both in parallel
-
-Phase 2: Routes (by domain)
-- Migrate auth routes
-- Migrate user routes
-- Migrate product routes
-- ...
-
-Phase 3: Middleware
-- Convert error handler
-- Convert auth middleware
-- Convert logging
-
-Phase 4: Cleanup
-- Remove Express
-- Remove compatibility layer
-- Final testing
-
-Rollback: Keep Express until Phase 4 complete
-
-Phase 4: Implementing Phase 1...
-[Spawns kraken]
-✅ Fastify server running alongside Express
-✅ Core routes migrated
-✅ Tests passing
-
-[Continues through phases...]
-
-Phase 5: Reviewing migration...
-[Spawns surveyor]
-✅ All Express code removed
-✅ 23/23 routes migrated
-✅ Performance improved (2.1x faster)
-✅ No security regressions
-
-Migration complete! Express → Fastify
-```
-
-## Incremental Migration
-
-For large codebases, run one phase at a time:
-
-```
-User: /migrate React 17 → 18 --phase 1
-[Runs only Phase 1]
-
-User: /migrate React 17 → 18 --phase 2
-[Runs Phase 2, reads previous handoff]
-```
-
-## Flags
-
-- `--phase N`: Run specific phase only
-- `--dry-run`: Plan without implementing
-- `--rollback`: Execute rollback plan
-- `--parallel`: Run new alongside old (strangler fig)
+- **Always backup production database before running migrations**
+- **Review autogenerated migrations** - Alembic may not detect all changes
+- **Test migrations** on development database first
+- **Rollback carefully** - downgrade may cause data loss

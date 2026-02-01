@@ -1,6 +1,6 @@
 ---
 name: defense-in-depth
-description: Use when invalid data causes failures deep in execution, requiring validation at multiple system layers - validates at every layer data passes through to make bugs structurally impossible
+description: Use when invalid data causes failures deep in execution - validates at every layer data passes through to make bugs structurally impossible
 ---
 
 # Defense-in-Depth Validation
@@ -25,6 +25,7 @@ Different layers catch different cases:
 ## The Four Layers
 
 ### Layer 1: Entry Point Validation
+
 **Purpose:** Reject obviously invalid input at API boundary
 
 ```typescript
@@ -35,14 +36,12 @@ function createProject(name: string, workingDirectory: string) {
   if (!existsSync(workingDirectory)) {
     throw new Error(`workingDirectory does not exist: ${workingDirectory}`);
   }
-  if (!statSync(workingDirectory).isDirectory()) {
-    throw new Error(`workingDirectory is not a directory: ${workingDirectory}`);
-  }
   // ... proceed
 }
 ```
 
 ### Layer 2: Business Logic Validation
+
 **Purpose:** Ensure data makes sense for this operation
 
 ```typescript
@@ -55,14 +54,15 @@ function initializeWorkspace(projectDir: string, sessionId: string) {
 ```
 
 ### Layer 3: Environment Guards
+
 **Purpose:** Prevent dangerous operations in specific contexts
 
 ```typescript
 async function gitInit(directory: string) {
   // In tests, refuse git init outside temp directories
   if (process.env.NODE_ENV === 'test') {
-    const normalized = normalize(resolve(directory));
-    const tmpDir = normalize(resolve(tmpdir()));
+    const normalized = resolve(directory);
+    const tmpDir = resolve(tmpdir());
 
     if (!normalized.startsWith(tmpDir)) {
       throw new Error(
@@ -75,6 +75,7 @@ async function gitInit(directory: string) {
 ```
 
 ### Layer 4: Debug Instrumentation
+
 **Purpose:** Capture context for forensics
 
 ```typescript
@@ -98,7 +99,7 @@ When you find a bug:
 3. **Add validation at each layer** - Entry, business, environment, debug
 4. **Test each layer** - Try to bypass layer 1, verify layer 2 catches it
 
-## Example from Session
+## Example
 
 Bug: Empty `projectDir` caused `git init` in source code
 
@@ -114,7 +115,7 @@ Bug: Empty `projectDir` caused `git init` in source code
 - Layer 3: `WorktreeManager` refuses git init outside tmpdir in tests
 - Layer 4: Stack trace logging before git init
 
-**Result:** All 1847 tests passed, bug impossible to reproduce
+**Result:** Bug impossible to reproduce
 
 ## Key Insight
 
@@ -125,3 +126,12 @@ All four layers were necessary. During testing, each layer caught bugs the other
 - Debug logging identified structural misuse
 
 **Don't stop at one validation point.** Add checks at every layer.
+
+## Integration
+
+**Used by:**
+- **systematic-debugging** - After finding root cause, add defense-in-depth
+- **root-cause-tracing** - Add validation at each layer traced
+
+**Complements:**
+- **security-check** - Defense-in-depth for security validations

@@ -1,7 +1,7 @@
 {
   "name": "codex-cli",
-  "repo": "creator-hian/claude-code-plugins",
-  "path": "codex-plugin/skills/codex-cli/SKILL.md",
-  "source": "github.com/creator-hian/claude-code-plugins",
-  "downloaded_at": "2026-01-31T03:57:33.915984Z"
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
+  "path": ".claude/skills/codex-cli/SKILL.md",
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-02-01T03:59:36.549836Z"
 }

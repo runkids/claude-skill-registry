@@ -1,11 +1,7 @@
 {
   "name": "superset-sql-developer",
   "repo": "jgtolentino/insightpulse-odoo",
-  "category": "data",
-  "description": "Expert guidance for writing optimized SQL queries for Apache Superset datasets, virtual datasets, and SQL Lab. This skill helps you create performant queries, design efficient datasets, and leverage P",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:12.663397Z",
-  "dir_name": "superset-sql-developer",
-  "github_path": "docs/claude-code-skills/community/superset-sql-developer",
-  "github_branch": "main"
+  "path": "docs/claude-code-skills/community/superset-sql-developer/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:59.623861Z"
 }

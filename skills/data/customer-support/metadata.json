@@ -1,7 +1,7 @@
 {
   "name": "customer-support",
-  "repo": "taiyousan15/taisun_agent",
-  "path": ".claude/skills/customer-support/SKILL.md",
-  "source": "github.com/taiyousan15/taisun_agent",
-  "downloaded_at": "2026-01-30T03:40:24.943887Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/customer-support/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:27.633221Z"
 }

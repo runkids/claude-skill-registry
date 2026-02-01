@@ -1,307 +1,183 @@
 ---
 name: github-pr
-description: Create a GitHub pull request after committing, rebasing, and pushing changes. Use when the user asks to create a PR, submit changes for review, or open a pull request.
+description: GitHub PR utilities for code review workflows
+version: 0.1.0-beta
+license: MIT
+compatibility: opencode
 ---
-
-# PyPTO GitHub Pull Request Workflow
 
 ## Overview
 
-Complete workflow for creating a pull request from a feature branch.
+CLI tools for GitHub pull request operations. Designed to support automated code review workflows. Requires the GitHub CLI (`gh`) to be installed and authenticated.
 
 ## Prerequisites
 
-⚠️ **Run these skills first:**
-1. **`git-commit`** - Commit all changes
-
-## Workflow
-
-```
-1. Check if branch already has an open PR (exit if yes)
-2. Commit changes (use git-commit skill)
-3. Fetch upstream changes
-4. Rebase onto upstream/main
-5. Resolve any conflicts
-6. Push to forked repo
-7. Create PR using gh CLI
-```
-
-## Step 1: Check for Existing PR
-
-**First, check if this branch already has an open PR:**
-
-```bash
-# Get current branch name
-BRANCH_NAME=$(git branch --show-current)
-
-# Check for existing PR (if gh CLI is available)
-if command -v gh &> /dev/null; then
-    EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number')
-
-    if [ -n "$EXISTING_PR" ]; then
-        echo "✓ PR already exists for branch '$BRANCH_NAME': #$EXISTING_PR"
-        gh pr view "$EXISTING_PR"
-        exit 0
-    fi
-fi
-```
-
-**If PR already exists:**
-- Report the existing PR number and URL to the user
-- **Exit immediately** - no further action needed
-- Display PR status using `gh pr view`
-
-**If no PR exists:**
-- Continue to Step 2
-
-## Step 2: Commit Changes
-
-**Use the `git-commit` skill to commit all changes first.**
-
-If changes aren't committed yet:
-```bash
-# Apply git-commit skill
-# This ensures code review and testing are complete
-```
-
-Verify commits are ready:
-```bash
-git log --oneline -5  # Review recent commits
-git status            # Should be clean
-```
-
-## Step 3: Fetch Upstream
-
-**Fetch latest changes from upstream repository:**
-
-```bash
-# Add upstream if not already added
-git remote -v
-# If upstream is missing:
-git remote add upstream https://github.com/hw-native-sys/pypto.git
-
-# Fetch upstream changes
-git fetch upstream
-
-# Verify upstream is up to date
-git log --oneline upstream/main -5
-```
-
-## Step 4: Rebase onto Upstream
-
-**Rebase your branch onto upstream main (or user-specified branch):**
-
-```bash
-# Default: rebase onto upstream/main
-git rebase upstream/main
-
-# Or if user specifies different branch:
-git rebase upstream/BRANCH_NAME
-```
-
-**If conflicts occur:**
-```bash
-# View conflicting files
-git status
-
-# Resolve conflicts in each file
-# Edit files, remove conflict markers
-
-# Stage resolved files
-git add path/to/resolved/file.cpp
-
-# Continue rebase
-git rebase --continue
-
-# If you get stuck, abort and ask user:
-git rebase --abort
-```
-
-**After successful rebase:**
-```bash
-# Verify rebase succeeded
-git log --oneline -10
-git status
-```
-
-## Step 5: Push to Forked Repo
-
-**Push your rebased branch to your fork:**
-
-```bash
-# First push (new branch)
-git push --set-upstream origin BRANCH_NAME
-
-# If branch already exists remotely (after rebase, force push needed)
-git push --force-with-lease origin BRANCH_NAME
-```
-
-**⚠️ Use `--force-with-lease` not `--force`:**
-- `--force-with-lease` is safer - fails if remote has unexpected changes
-- `--force` can overwrite others' work
-
-## Step 6: Create PR with gh CLI
-
-**Check if gh CLI is available:**
-
-```bash
-# Check if gh is installed
-which gh
-
-# Check if authenticated
-gh auth status
-```
-
-**If gh is NOT installed or NOT authenticated:**
-- **DO NOT auto-install or auto-authenticate**
-- Report to user: "gh CLI is not installed/authenticated. Please install and configure manually."
-- Provide manual PR creation URL:
-  ```
-  https://github.com/hw-native-sys/pypto/compare/main...BRANCH_NAME
+- [bun](https://bun.sh) runtime installed
+- [GitHub CLI](https://cli.github.com/) installed and authenticated
+  ```bash
+  brew install gh
+  gh auth login
   ```
 
-**If gh is available and authenticated:**
+## Commands
+
+### Check Review Needed
+
+Determines if a PR should be reviewed by checking various conditions.
 
 ```bash
-# Create PR
-gh pr create \
-  --title "Brief description of changes" \
-  --body "$(cat <<'EOF'
-## Summary
-- Key change 1
-- Key change 2
-- Key change 3
-
-## Testing
-- [ ] All tests pass
-- [ ] Code review completed
-- [ ] Documentation updated
-- [ ] Cross-layer consistency verified
-
-## Related Issues
-Fixes #ISSUE_NUMBER (if applicable)
-EOF
-)"
-
+bun .opencode/skill/github-pr/check-review-needed.js [pr-number]
 ```
 
-**PR Title and Body:**
-- PR title is automatically extracted from the main commit message (first line)
-- PR body contains all commit messages from commits being pushed
-- All commits since `upstream/main` will be included in the PR description
+**Arguments:**
+- `pr-number` - PR number (optional, defaults to current branch's PR)
 
-## Example Complete Workflow
+**Output:**
+JSON object with:
+- `shouldReview` - boolean indicating if review should proceed
+- `reason` - explanation for the decision
+- `prNumber` - the PR number checked
 
+**Conditions checked:**
+- PR is not closed or merged
+- PR is not a draft
+- PR is not from a known bot (dependabot, renovate, etc.)
+- PR title doesn't indicate automation (bump, chore(deps), etc.)
+- PR has not already been reviewed by Claude/AI
+- PR is not trivial (2 or fewer lines changed)
+
+**Examples:**
 ```bash
-# 1. Check for existing PR
-BRANCH_NAME=$(git branch --show-current)
-gh pr list --head "$BRANCH_NAME" --state open
-# If PR exists, exit here
+# Check current branch's PR
+bun .opencode/skill/github-pr/check-review-needed.js
 
-# 2. Commits already done via git-commit skill
-
-# 3. Fetch upstream
-git fetch upstream
-
-# 4. Rebase
-git rebase upstream/main
-# Resolve conflicts if any
-
-# 5. Push
-git push --force-with-lease origin feature/my-feature
-
-# 6. Create PR
-gh pr create \
-  --title "Add support for dynamic tensor shapes" \
-  --body "$(cat <<'EOF'
-## Summary
-- Implement dynamic shape tracking in TensorExpr
-- Add validation for shape consistency
-- Update Python bindings and type stubs
-
-## Testing
-- [x] All tests pass
-- [x] Added tests for dynamic shapes
-- [x] Cross-layer consistency verified
-
-## Breaking Changes
-None
-
-Fixes #123
-EOF
-)"
+# Check specific PR
+bun .opencode/skill/github-pr/check-review-needed.js 123
 ```
 
-## Common Issues
+---
 
-**PR already exists for branch:**
+### List Guideline Files
+
+Finds AGENTS.md (or CLAUDE.md) files relevant to a PR's changes.
+
 ```bash
-# Check existing PR
-gh pr list --head $(git branch --show-current) --state open
+bun .opencode/skill/github-pr/list-guideline-files.js [pr-number] [--json]
+```
 
+**Arguments:**
+- `pr-number` - PR number (optional, defaults to current branch's PR)
+
+**Options:**
+- `--json` - Output as JSON array with file contents
+
+**Search locations:**
+- Repository root
+- All directories containing files modified in the PR
+- Parent directories of modified files
+
+**Priority:** If both AGENTS.md and CLAUDE.md exist in the same directory, AGENTS.md takes precedence.
+
+**Examples:**
+```bash
+# List guideline files for current PR
+bun .opencode/skill/github-pr/list-guideline-files.js
+
+# Get full content as JSON
+bun .opencode/skill/github-pr/list-guideline-files.js 123 --json
+```
+
+**JSON Output Format:**
+```json
+[
+  {
+    "path": "AGENTS.md",
+    "content": "# Project Guidelines\n..."
+  },
+  {
+    "path": "src/components/AGENTS.md",
+    "content": "# Component Guidelines\n..."
+  }
+]
+```
+
+---
+
+### Post Inline Comment
+
+Posts a review comment on a specific line or line range in a PR.
+
+```bash
+bun .opencode/skill/github-pr/post-inline-comment.js <pr-number> --path <file> --line <n> --body <text>
+```
+
+**Arguments:**
+- `pr-number` - PR number (optional if on a PR branch)
+
+**Options:**
+- `--path <file>` - File path to comment on (required)
+- `--line <n>` - Line number to comment on (required)
+- `--start-line <n>` - Start line for multi-line comments (optional)
+- `--body <text>` - Comment body in markdown (required)
+
+**Suggestion blocks:**
+Include a suggestion block for small fixes that can be committed directly:
+
+````markdown
+Fix the error handling:
+
+```suggestion
+try {
+  await authenticate();
+} catch (e) {
+  handleAuthError(e);
+}
+```
+````
+
+**Important:** Suggestions must be complete. The author should be able to click "Commit suggestion" without needing additional changes elsewhere.
+
+**Examples:**
+```bash
+# Single line comment
+bun .opencode/skill/github-pr/post-inline-comment.js 123 \
+  --path src/auth.ts \
+  --line 67 \
+  --body "Missing error handling for OAuth callback"
+
+# Multi-line comment (lines 65-70)
+bun .opencode/skill/github-pr/post-inline-comment.js 123 \
+  --path src/auth.ts \
+  --line 70 \
+  --start-line 65 \
+  --body "This authentication block needs refactoring"
+```
+
+---
+
+## Integration with gh CLI
+
+These tools wrap the GitHub CLI (`gh`). For operations not covered by these utilities, use `gh` directly:
+
+```bash
 # View PR details
-gh pr view PR_NUMBER
+gh pr view 123 --json title,body,state,isDraft,files
 
-# Output message and exit
-echo "✓ PR #PR_NUMBER already exists for this branch. No action needed."
-exit 0
+# Get PR diff
+gh pr diff 123
+
+# View PR comments
+gh pr view 123 --comments
+
+# Post a regular comment
+gh pr comment 123 --body "Comment text"
+
+# View file at PR head
+gh api repos/{owner}/{repo}/contents/{path}?ref={branch}
 ```
 
-**Merge conflicts during rebase:**
-```bash
-# View conflicts
-git status
+## Output Behavior
 
-# Resolve each file, then:
-git add path/to/file.cpp
-git rebase --continue
-
-# If too complex, abort and ask user:
-git rebase --abort
-```
-
-**Push rejected (remote has changes):**
-```bash
-# Fetch and check what changed
-git fetch origin
-git log origin/BRANCH_NAME
-
-# If safe to overwrite:
-git push --force-with-lease origin BRANCH_NAME
-```
-
-**gh CLI not authenticated:**
-```bash
-# Check status
-gh auth status
-
-# Report to user - don't auto-authenticate
-echo "gh CLI not authenticated. Please run: gh auth login"
-```
-
-**Wrong upstream branch:**
-```bash
-# User might specify different branch
-git rebase upstream/dev    # Instead of main
-```
-
-## Checklist
-
-Before creating PR:
-- [ ] **Verified no existing PR for this branch** (exit if PR exists)
-- [ ] All changes committed (via git-commit skill)
-- [ ] Code reviewed and tests passed
-- [ ] Fetched latest upstream changes
-- [ ] Successfully rebased onto upstream/main (or specified branch)
-- [ ] Resolved any merge conflicts
-- [ ] Pushed to forked repo with `--force-with-lease`
-- [ ] gh CLI available and authenticated (or manual URL provided)
-- [ ] PR title and body are clear and complete
-
-## Remember
-
-**Always rebase before creating PR** to ensure your changes work with the latest upstream code.
-
-**Use `--force-with-lease`** when pushing after rebase - it's safer than `--force`.
-
-**Don't auto-install gh CLI** - let the user install and configure it themselves.
+- Command output is displayed directly to the user in the terminal
+- JSON output is formatted for readability and piping
+- Use `--json` flag when you need to process output programmatically

@@ -1,102 +1,128 @@
 ---
 name: design
-description: Entry point for design tasks. Routes to brand-guidelines (brand identity, voice, assets), design-system (tokens, component specs), or ui-styling (implementation). Use for design decisions, visual consistency, design system creation.
-license: MIT
+description: Explore visual design, UI/UX, and design systems. Use when designing visual directions, user journeys, information architecture, color palettes, typography, or reviewing design feedback. NOT for feature planning or technical architecture.
 ---
 
-# Design
+# Design Skill
 
-Umbrella skill coordinating brand-guidelines, design-system, and ui-styling.
+Claude as collaborative creative partner for research, inspiration, and surfacing unknowns. NOT visual execution.
 
-## When to Use
+**Philosophy:** Help designers stay in exploration longer and transition to commitment with earned confidence.
 
-- Design decisions spanning identity + implementation
-- New project design setup
-- Design system creation
-- Visual consistency audits
-- Design-to-code workflows
-- Choosing between design sub-skills
+## ⚠️ CRITICAL: Ask Before Assuming
 
-## Skill Routing
+If ANY required input is missing or unclear:
 
-| Task | Skill | Description |
-|------|-------|-------------|
-| Logo, colors, voice, assets | `brand-guidelines` | Brand identity system |
-| Tokens, specs, CSS vars | `design-system` | Token architecture |
-| shadcn/ui, Tailwind, code | `ui-styling` | Implementation |
+1. **STOP**
+2. Use Ask tool to gather missing information
+3. Do NOT proceed with assumptions
 
-Load: `references/design-routing.md`
+For every input, require:
 
-## Quick Reference
+- **Source**: Research / Stakeholder input / Team assumption
+- **Confidence**: High / Medium / Low
 
-### Brand Identity
-→ **brand-guidelines** skill
-- Logo usage rules
-- Color palette management
-- Typography specifications
-- Voice framework
-- Asset organization
+If >50% inputs are low-confidence assumptions → flag as risk before proceeding.
 
-### Token Architecture
-→ **design-system** skill
-- Primitive → Semantic → Component layers
-- CSS variables
-- Component state specs
-- Tailwind integration
+## Workflow Selection
 
-### Implementation
-→ **ui-styling** skill
-- shadcn/ui components
-- Tailwind utilities
-- Dark mode
-- Responsive design
+| Task Type                          | Workflow                 | Reference                   |
+| ---------------------------------- | ------------------------ | --------------------------- |
+| Limits, boundaries, requirements   | Constraints              | `references/constraints.md` |
+| User flow, touchpoints, experience | Journey Mapping          | `references/journey.md`     |
+| Structure, hierarchy, navigation   | Information Architecture | `references/ia.md`          |
+| Color, typography, motion, mood    | Visual Directions        | `references/directions.md`  |
+| Design tokens, principles          | Design System            | `references/system.md`      |
+| UI copy, tone variations           | Microcopy                | `references/copy.md`        |
+| Competitor flows, UX patterns      | UX Comparison            | `references/compare.md`     |
+| Give/receive design feedback       | Design Critique          | `references/critique.md`    |
 
-## Workflow: New Design System
-
-1. **Brand Foundation** (brand-guidelines)
-   - Define brand colors, typography
-   - Establish voice and tone
-   - Create logo variants
-
-2. **Extract Tokens** (design-system)
-   - Convert brand → primitive tokens
-   - Create semantic mappings
-   - Define component tokens
-
-3. **Implement** (ui-styling)
-   - Configure Tailwind
-   - Add shadcn/ui components
-   - Apply design tokens
-
-## Workflow: Design Audit
-
-1. Review brand consistency (brand-guidelines)
-2. Validate token usage (design-system)
-3. Check component implementation (ui-styling)
-
-## Integration
-
-**Sub-skills:** brand-guidelines, design-system, ui-styling
-
-**Related Skills:** frontend-design, ui-ux-pro-max
-
-**Primary Agents:** ui-ux-designer, frontend-developer, content-creator
-
-## Decision Tree
+## Workflow Flow
 
 ```
-Design task?
-├── Brand identity → brand-guidelines
-│   ├── Logo usage
-│   ├── Colors/fonts
-│   ├── Voice/tone
-│   └── Asset management
-├── Token system → design-system
-│   ├── CSS variables
-│   ├── Component specs
-│   └── Token validation
-└── UI code → ui-styling
-    ├── React components
-    ├── Tailwind classes
-    └── Dark mode
+constraints → journey → ia → directions → system
+                                 ↓
+                               copy
+
+compare → (anytime for research)
+critique → (anytime for feedback)
+```
+
+## Core Principles
+
+### Exploration Mode
+
+- Surface unknowns before constraints
+- Questions over answers early in process
+- No visual execution (no code, no Figma)
+
+### Anti-Convergence
+
+- Always generate **3+ options**
+- Avoid generic defaults (Inter, purple gradients)
+- Include "what we're NOT doing and why"
+
+### Evidence-Grounded
+
+- Every input needs Source + Confidence
+- Flag assumptions explicitly
+- Recommend research when confidence is low
+
+### Accessibility-First
+
+- WCAG considerations in every visual workflow
+- Not an afterthought
+
+## Related Thinking Tools
+
+| Tool                                                                            | When to Use                           |
+| ------------------------------------------------------------------------------- | ------------------------------------- |
+| [First Principles](../../hope/skills/soul/references/tools/first-principles.md) | Question assumptions before designing |
+| [Issue Trees](../../hope/skills/soul/references/tools/issue-trees.md)           | Break down complex design problems    |
+| [Decision Matrix](../../hope/skills/soul/references/tools/decision-matrix.md)   | Choose between design directions      |
+
+## Dimensions
+
+This skill has multiple configuration dimensions. See [compatibility-matrix.md](references/compatibility-matrix.md) for:
+
+- Workflow x Project Phase
+- Visual Direction Type x Brand Attribute
+- Handoff Format x Stakeholder
+- Accessibility Level x Design Approach
+- Journey Confidence x Recommended Action
+- Workflow Sequence Compatibility
+
+Use ✓✓ combinations when possible; avoid ✗ combinations.
+
+## Usage
+
+1. Detect which workflow applies
+2. Check [compatibility matrix](references/compatibility-matrix.md) for dimension compatibility
+3. Announce: "I'm using the design skill for [workflow]"
+4. **Ask for ALL required inputs before proceeding**
+5. Execute workflow with confirmation gates (see below)
+6. Include commitment readiness check
+
+## Confirmation Gates
+
+Multi-step workflows pause at checkpoints to prevent wasted work when intent drifts.
+
+**Gate Points:**
+
+| Phase | Gate |
+|-------|------|
+| After constraints/research | ⚠️ CHECKPOINT: "Does this understanding match your intent?" |
+| After options generation | ⚠️ CHECKPOINT: "Here are the directions. Which resonates before I expand?" |
+| Before final output | ⚠️ CHECKPOINT: "Ready to finalize. Confirm?" |
+
+**Skip gates:** Say "proceed without confirmation" to run uninterrupted.
+
+**In workflows:** Each reference file should pause at these points:
+
+```
+### Phase 2: Exploration
+
+[... phase content ...]
+
+⚠️ **CHECKPOINT**: Present options summary. Ask: "Do these directions capture what you're looking for? Any adjustments before I continue?"
 ```

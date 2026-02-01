@@ -1,7 +1,7 @@
 {
   "name": "system-architect",
-  "repo": "nahisaho/MUSUBI",
-  "path": "src/templates/agents/claude-code/skills/system-architect/SKILL.md",
-  "source": "github.com/nahisaho/MUSUBI",
-  "downloaded_at": "2026-01-31T04:06:04.712055Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/safety/system-architect/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-02-01T05:03:20.388647Z"
 }

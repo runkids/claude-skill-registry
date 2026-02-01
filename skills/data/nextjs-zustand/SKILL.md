@@ -1,257 +1,143 @@
 ---
 name: nextjs-zustand
-description: Zustand for Next.js App Router - Client Components only, hydration handling, persist middleware. Use when implementing global state in Next.js.
-user-invocable: false
+description: Zustand v5 state management for Next.js 16 App Router. Use when implementing global state, stores, persist, hydration, or client-side state in Client Components.
+versions:
+  zustand: 5.0
+  react: 19
+  nextjs: 16
+user-invocable: true
+references: references/installation.md, references/store-patterns.md, references/hydration.md, references/middleware.md, references/nextjs-integration.md, references/typescript.md, references/slices.md, references/auto-selectors.md, references/reset-state.md, references/subscribe-api.md, references/testing.md, references/migration-v5.md
+related-skills: nextjs-16, nextjs-tanstack-form, solid-nextjs
 ---
 
-# Zustand for Next.js
+# Zustand for Next.js 16
 
-State management for Next.js Client Components.
+Minimal, scalable state management with React 18+ useSyncExternalStore.
 
-## Installation
+## Agent Workflow (MANDATORY)
 
-```bash
-bun add zustand
-```
+Before ANY implementation, launch in parallel:
 
----
+1. **fuse-ai-pilot:explore-codebase** - Analyze existing stores and state patterns
+2. **fuse-ai-pilot:research-expert** - Verify latest Zustand v5 docs via Context7/Exa
+3. **mcp__context7__query-docs** - Check middleware and TypeScript patterns
 
-## Important: Client Components Only
-
-Zustand stores work in **Client Components only**. Server Components cannot use hooks.
-
-```typescript
-// ❌ BAD - Server Component
-// app/page.tsx
-export default function Page() {
-  const count = useCounterStore((s) => s.count) // Error!
-}
-
-// ✅ GOOD - Client Component
-// app/Counter.tsx
-'use client'
-export function Counter() {
-  const count = useCounterStore((s) => s.count)
-}
-```
+After implementation, run **fuse-ai-pilot:sniper** for validation.
 
 ---
 
-## Basic Store
+## Overview
 
-```typescript
-// stores/useCounterStore.ts
-import { create } from 'zustand'
+### When to Use
 
-interface CounterState {
-  count: number
-  increment: () => void
-  decrement: () => void
-  reset: () => void
-}
+- Managing client-side state in Next.js App Router applications
+- Need global state across Client Components only
+- Persisting state to localStorage/sessionStorage
+- Building UI state (modals, sidebars, theme, cart)
+- Replacing React Context for complex state
 
-export const useCounterStore = create<CounterState>((set) => ({
-  count: 0,
-  increment: () => set((state) => ({ count: state.count + 1 })),
-  decrement: () => set((state) => ({ count: state.count - 1 })),
-  reset: () => set({ count: 0 }),
-}))
-```
+### Why Zustand v5
 
----
-
-## Store with Async Actions
-
-```typescript
-// stores/useUserStore.ts
-import { create } from 'zustand'
-
-interface User {
-  id: string
-  name: string
-  email: string
-}
-
-interface UserState {
-  user: User | null
-  loading: boolean
-  error: string | null
-  fetchUser: (id: string) => Promise<void>
-  logout: () => void
-}
-
-export const useUserStore = create<UserState>((set) => ({
-  user: null,
-  loading: false,
-  error: null,
-
-  fetchUser: async (id) => {
-    set({ loading: true, error: null })
-    try {
-      const res = await fetch(`/api/users/${id}`)
-      if (!res.ok) throw new Error('Failed to fetch')
-      const user = await res.json()
-      set({ user, loading: false })
-    } catch (err) {
-      set({ error: (err as Error).message, loading: false })
-    }
-  },
-
-  logout: () => set({ user: null }),
-}))
-```
+| Feature | Benefit |
+|---------|---------|
+| Minimal API | Simple create() function, no boilerplate |
+| React 18 native | useSyncExternalStore, no shims needed |
+| TypeScript first | Full inference with currying pattern |
+| Middleware stack | devtools, persist, immer composable |
+| Bundle size | ~2KB gzipped, smallest state library |
+| No providers | Direct store access, no Context wrapper |
 
 ---
 
-## Persist with SSR Hydration
+## Critical Rules
 
-```typescript
-// stores/useAuthStore.ts
-import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
-
-interface AuthState {
-  token: string | null
-  isHydrated: boolean
-  setToken: (token: string) => void
-  clearToken: () => void
-  setHydrated: () => void
-}
-
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      token: null,
-      isHydrated: false,
-      setToken: (token) => set({ token }),
-      clearToken: () => set({ token: null }),
-      setHydrated: () => set({ isHydrated: true }),
-    }),
-    {
-      name: 'auth-storage',
-      storage: createJSONStorage(() => localStorage),
-      onRehydrateStorage: () => (state) => {
-        state?.setHydrated()
-      },
-    }
-  )
-)
-```
+1. **Client Components ONLY** - Never use Zustand in Server Components
+2. **Context pattern for App Router** - Avoid global stores (request isolation)
+3. **useShallow for arrays/objects** - Prevent unnecessary re-renders
+4. **skipHydration with persist** - Required for SSR compatibility
+5. **Currying syntax v5** - `create<State>()((set) => ({...}))`
+6. **SOLID paths** - Stores in `modules/[feature]/src/stores/`
 
 ---
 
-## Hydration Component
+## SOLID Architecture
 
-```typescript
-// components/StoreHydration.tsx
-'use client'
+### Module Structure
 
-import { useEffect, useState } from 'react'
-import { useAuthStore } from '@/stores/useAuthStore'
+Stores organized by feature module:
 
-export function StoreHydration({ children }: { children: React.ReactNode }) {
-  const [isHydrated, setIsHydrated] = useState(false)
+- `modules/cores/stores/` - Shared stores (theme, ui)
+- `modules/auth/src/stores/` - Auth state
+- `modules/cart/src/stores/` - Cart state
+- `modules/[feature]/src/interfaces/` - Store types
 
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
+### File Organization
 
-  if (!isHydrated) {
-    return null // or loading skeleton
-  }
-
-  return <>{children}</>
-}
-
-// Alternative: use store's isHydrated
-export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const isHydrated = useAuthStore((s) => s.isHydrated)
-
-  if (!isHydrated) {
-    return <div>Loading...</div>
-  }
-
-  return <>{children}</>
-}
-```
+| File | Purpose | Max Lines |
+|------|---------|-----------|
+| `store.ts` | Store creation with create() | 50 |
+| `store.interface.ts` | TypeScript interfaces | 30 |
+| `store-provider.tsx` | Context provider (App Router) | 40 |
+| `use-store.ts` | Custom hook with selector | 20 |
 
 ---
 
-## Usage in Client Components
+## Key Concepts
 
-```typescript
-// components/UserProfile.tsx
-'use client'
+### Store Creation (v5 Syntax)
 
-import { useUserStore } from '@/stores/useUserStore'
-import { useEffect } from 'react'
+Double parentheses required for TypeScript inference. Currying pattern ensures full type safety.
 
-export function UserProfile({ userId }: { userId: string }) {
-  const { user, loading, error, fetchUser } = useUserStore()
+### Context-Based Stores
 
-  useEffect(() => {
-    fetchUser(userId)
-  }, [userId, fetchUser])
+For Next.js App Router, wrap stores in Context to prevent request-sharing. Use `createStore` from `zustand/vanilla` with `useRef` for initialization.
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error}</div>
-  if (!user) return <div>No user</div>
+### Middleware Composition
 
-  return (
-    <div>
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
-    </div>
-  )
-}
-```
+Stack middlewares: devtools → persist → immer. Order matters for TypeScript types.
+
+### Hydration Handling
+
+Use `skipHydration: true` with persist middleware. Manually rehydrate in useEffect to avoid SSR mismatches.
 
 ---
 
-## Devtools
+## Reference Guide
 
-```typescript
-// stores/useAppStore.ts
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
-
-export const useAppStore = create<AppState>()(
-  devtools(
-    (set) => ({
-      // state and actions
-    }),
-    { name: 'AppStore' }
-  )
-)
-```
-
----
-
-## Combined Middlewares
-
-```typescript
-import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
-
-export const useStore = create<State>()(
-  devtools(
-    persist(
-      (set) => ({
-        // state
-      }),
-      { name: 'app-storage' }
-    ),
-    { name: 'AppStore' }
-  )
-)
-```
+| Need | Reference |
+|------|-----------|
+| Initial setup | [installation.md](references/installation.md) |
+| Store patterns | [store-patterns.md](references/store-patterns.md) |
+| SSR/Hydration | [hydration.md](references/hydration.md) |
+| Middleware | [middleware.md](references/middleware.md) |
+| Next.js App Router | [nextjs-integration.md](references/nextjs-integration.md) |
+| TypeScript | [typescript.md](references/typescript.md) |
+| Slices pattern | [slices.md](references/slices.md) |
+| Auto selectors | [auto-selectors.md](references/auto-selectors.md) |
+| Reset state | [reset-state.md](references/reset-state.md) |
+| Subscribe API | [subscribe-api.md](references/subscribe-api.md) |
+| Testing | [testing.md](references/testing.md) |
+| Migration v4→v5 | [migration-v5.md](references/migration-v5.md) |
 
 ---
 
 ## Best Practices
 
-1. **Client Components only** - Use `'use client'` directive
-2. **Handle hydration** - Avoid hydration mismatches
-3. **Selector pattern** - `useStore((s) => s.field)` for performance
-4. **Separate stores** - One store per domain (auth, cart, ui)
-5. **Server state** - Use TanStack Query for server data
+1. **Selector pattern** - Always use `useStore((s) => s.field)` for performance
+2. **useShallow** - Wrap array/object selectors to prevent re-renders
+3. **Separate stores** - One store per domain (auth, cart, ui, theme)
+4. **Server data elsewhere** - Use TanStack Query for server state
+5. **DevTools in dev only** - Wrap devtools in process.env check
+6. **Partialize persist** - Only persist necessary fields, never tokens
+
+---
+
+## Forbidden Patterns
+
+| Pattern | Reason | Alternative |
+|---------|--------|-------------|
+| Global stores in App Router | Request sharing between users | Context-based stores |
+| Zustand in Server Components | No React hooks in RSC | Fetch data directly |
+| Persisting auth tokens | Security vulnerability | httpOnly cookies |
+| Without useShallow on objects | Excessive re-renders | `useShallow(selector)` |
+| v4 syntax | TypeScript inference broken | v5 currying `create<T>()()` |

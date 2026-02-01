@@ -1,7 +1,7 @@
 {
   "name": "differential-review",
-  "repo": "jakubciszak/family-plan",
-  "path": ".claude/skills/external/differential-review/skills/differential-review/SKILL.md",
-  "source": "github.com/jakubciszak/family-plan",
-  "downloaded_at": "2026-01-31T04:03:51.089226Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/differential-review/skills/differential-review/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-02-01T04:32:27.523294Z"
 }

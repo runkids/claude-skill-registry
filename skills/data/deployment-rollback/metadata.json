@@ -1,7 +1,7 @@
 {
   "name": "deployment-rollback",
-  "repo": "manastalukdar/claude-devstudio",
-  "path": "skills/deployment-rollback/SKILL.md",
-  "source": "github.com/manastalukdar/claude-devstudio",
-  "downloaded_at": "2026-01-31T03:53:53.117646Z"
+  "repo": "sgcarstrends/sgcarstrends",
+  "path": ".claude/skills/deployment-rollback/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-02-01T04:55:09.090547Z"
 }

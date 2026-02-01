@@ -1,7 +1,7 @@
 {
   "name": "mvcc",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/mvcc/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-31T02:35:46.984429Z"
+  "repo": "NeverSight/skills_feed",
+  "path": "data/skills-md/tursodatabase/turso/mvcc/SKILL.md",
+  "source": "github.com/NeverSight/skills_feed",
+  "downloaded_at": "2026-02-01T04:02:34.569552Z"
 }

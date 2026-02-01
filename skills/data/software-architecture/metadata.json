@@ -1,7 +1,7 @@
 {
   "name": "software-architecture",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/software-architecture/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:06.133842Z"
+  "repo": "hydrosolutions/SAPPHIRE_Forecast_Tools",
+  "path": ".claude/skills/software-architecture/SKILL.md",
+  "source": "github.com/hydrosolutions/SAPPHIRE_Forecast_Tools",
+  "downloaded_at": "2026-02-01T04:55:17.826902Z"
 }

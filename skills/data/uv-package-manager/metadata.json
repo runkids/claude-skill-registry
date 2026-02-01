@@ -1,7 +1,7 @@
 {
   "name": "uv-package-manager",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/uv-package-manager/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-31T03:49:27.046341Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/python-development/skills/uv-package-manager/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:50.143338Z"
 }

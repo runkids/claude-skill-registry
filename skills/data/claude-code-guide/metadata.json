@@ -1,7 +1,7 @@
 {
   "name": "claude-code-guide",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/claude-code-guide/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-31T04:46:03.285903Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/claude-code-guide/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-02-01T04:34:29.886667Z"
 }

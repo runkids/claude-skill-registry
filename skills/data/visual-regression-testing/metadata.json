@@ -1,9 +1,7 @@
 {
   "name": "visual-regression-testing",
-  "description": "Use this skill when users mention \"visual regression\", \"detect UI changes\", \"screenshot comparison\", \"visual testing\", \"pixel diff\", \"UI regression\", or want to set up intelligent visual testing that ",
-  "repo": "flight505/storybook-assistant",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/flight505/storybook-assistant"
+  "repo": "jgtolentino/insightpulse-odoo",
+  "path": ".claude/skills/visual-regression-testing/SKILL.md",
+  "source": "github.com/jgtolentino/insightpulse-odoo",
+  "downloaded_at": "2026-02-01T01:33:57.679581Z"
 }

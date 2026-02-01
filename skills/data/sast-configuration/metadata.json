@@ -1,7 +1,7 @@
 {
   "name": "sast-configuration",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/plugins/security-scanning/skills/sast-configuration/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-01-31T03:36:50.465278Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/security-scanning/skills/sast-configuration/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-02-01T04:51:50.030386Z"
 }

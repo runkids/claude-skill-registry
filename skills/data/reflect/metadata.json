@@ -1,7 +1,7 @@
 {
   "name": "reflect",
-  "repo": "gudzenkov/SuperClaudeZero",
-  "path": ".claude/skills/reflect/SKILL.md",
-  "source": "github.com/gudzenkov/SuperClaudeZero",
-  "downloaded_at": "2026-01-31T04:41:58.121455Z"
+  "repo": "haddock-development/claude-reflect-system",
+  "path": "reflect/SKILL.md",
+  "source": "github.com/haddock-development/claude-reflect-system",
+  "downloaded_at": "2026-02-01T03:51:03.750683Z"
 }

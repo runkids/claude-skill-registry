@@ -1,7 +1,7 @@
 {
   "name": "omero-integration",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/omero-integration/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-31T04:03:43.532901Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/omero-integration/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-02-01T03:19:40.694152Z"
 }

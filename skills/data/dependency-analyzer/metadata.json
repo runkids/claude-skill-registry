@@ -1,7 +1,7 @@
 {
   "name": "dependency-analyzer",
-  "repo": "ntaksh42/agents",
-  "path": ".claude/skills/dependency-analyzer/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-31T04:02:59.270906Z"
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "path": "dependency-analyzer/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-02-01T03:45:45.289950Z"
 }

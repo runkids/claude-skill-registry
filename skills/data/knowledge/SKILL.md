@@ -1,231 +1,111 @@
 ---
 name: knowledge
-description: Extracts knowledge from Amp threads and updates project docs. Use when asked to document recent work, sync docs after an epic, summarize what changed, or update AGENTS.md from thread history.
+description: Display knowledge base status and recent learnings
+user_invokable: true
 ---
 
-# Knowledge Extraction & Documentation Sync
+# Knowledge
 
-Extracts knowledge from Amp threads and synchronizes project documentation.
+Display the current state of the project's knowledge base and recent learnings.
 
-## Pipeline
+## What This Does
 
-```
-REQUEST → THREADS → TOPICS → CODE → DOCS
-```
+Shows:
+- Learning mode status (on/off)
+- Knowledge base statistics (entry counts per category)
+- Recent learnings extracted
+- Cache statistics
 
-| Phase        | Action                     | Tools                  |
-| ------------ | -------------------------- | ---------------------- |
-| 1. Discover  | Find threads by query/time | `find_thread`          |
-| 2. Extract   | Parallel topic extraction  | `Task` + `read_thread` |
-| 3. Verify    | Ground topics in code      | `gkg`, `finder`        |
-| 4. Map       | Find target docs           | `Read`, `Grep`         |
-| 5. Reconcile | Compare all sources        | `Oracle`               |
-| 6. Apply     | Surgical updates           | `edit_file`, `mermaid` |
+## Instructions
 
-## Phase 1: Discover Threads
+1. Read `knowledge/state.json` for learning mode status
+2. Read each knowledge file and count entries:
+   - `knowledge/cache/classifications.md`
+   - `knowledge/learnings/patterns.md`
+   - `knowledge/learnings/quirks.md`
+   - `knowledge/learnings/decisions.md`
+3. Extract recent entries (last 5) from learnings files
+4. Format and display
 
-Start from user request:
-
-```bash
-# "Document last 2 weeks"
-find_thread after:2w
-
-# "Summarize auth work"
-find_thread "authentication"
-
-# "What touched the SDK?"
-find_thread file:packages/sdk
-
-# Combined
-find_thread "refactor" after:1w file:packages/api
-```
-
-## Phase 2: Extract Topics
-
-Spawn parallel `Task` agents (2-3 threads each):
+## Output Format
 
 ```
-Task prompt:
-"Read threads [T-xxx, T-yyy] using read_thread.
-Goal: 'Extract topics, decisions, changes'
+╔═══════════════════════════════════════════════════╗
+║           Project Knowledge Base                   ║
+╚═══════════════════════════════════════════════════╝
 
-Return JSON:
-{
-  'topics': [{
-    'name': 'topic name',
-    'threads': ['T-xxx'],
-    'summary': '1-2 sentences',
-    'decisions': ['...'],
-    'patterns': ['...'],
-    'changes': ['...']
-  }]
-}"
+📚 Learning Status
+───────────────────────────────────────────────────
+Mode: ON (since 2026-01-08 14:00)
+Last Extraction: 5 minutes ago
+Extractions This Session: 3
+
+📊 Knowledge Statistics
+───────────────────────────────────────────────────
+Cache:
+  - Classification entries: 23
+
+Learnings:
+  - Patterns: 8 entries
+  - Quirks: 3 entries
+  - Decisions: 5 entries
+  - Total: 16 insights
+
+📝 Recent Learnings
+───────────────────────────────────────────────────
+[Pattern] "Use async/await for API calls in this codebase"
+  Discovered: 2026-01-08 | Confidence: high
+
+[Quirk] "Auth module uses non-standard token format"
+  Discovered: 2026-01-07 | Confidence: high
+
+[Decision] "Chose Redis over in-memory cache for session storage"
+  Made: 2026-01-06 | Confidence: high
+
+💡 Commands
+───────────────────────────────────────────────────
+/learn      - Extract insights now
+/learn-on   - Enable continuous learning
+/learn-off  - Disable continuous learning
 ```
 
-Collect outputs → Oracle synthesizes:
+## When Knowledge Base is Empty
 
 ```
-Oracle: "Cluster these extractions. Deduplicate.
-Latest thread wins conflicts. Output unified topic list."
+╔═══════════════════════════════════════════════════╗
+║           Project Knowledge Base                   ║
+╚═══════════════════════════════════════════════════╝
+
+📚 Learning Status
+───────────────────────────────────────────────────
+Mode: OFF
+No extractions yet
+
+📊 Knowledge Statistics
+───────────────────────────────────────────────────
+Knowledge base is empty.
+
+💡 Get Started
+───────────────────────────────────────────────────
+Use /learn to extract insights from your current session.
+Use /learn-on to enable continuous learning.
+
+The knowledge base will grow as you work, capturing:
+  - Patterns that work well in this project
+  - Quirks and gotchas to remember
+  - Decisions and their rationale
 ```
 
-See `reference/extraction-prompts.md` for full templates.
+## Steps
 
-## Phase 3: Verify Against Code
+1. Read `knowledge/state.json`
+2. Read frontmatter from each knowledge file to get entry counts
+3. Parse recent entries from learnings files (look for `## Pattern:`, `## Quirk:`, `## Decision:` headers)
+4. Format and display the summary
+5. If files are missing or empty, show the "empty" state
 
-For each topic, verify claims:
+## Notes
 
-```
-Topic: "Added retry logic to API client"
-
-1. finder "retry logic API client"
-   → finds src/api/client.ts
-
-2. gkg__search_codebase_definitions "retry"
-   → RetryPolicy class at L45
-
-3. gkg__get_references "RetryPolicy"
-   → 12 usages across 4 files
-
-→ Confirmed: topic matches code
-```
-
-| Claim Type        | Verification                                |
-| ----------------- | ------------------------------------------- |
-| "Added X"         | `mcp__gkg__search_codebase_definitions "X"` |
-| "Refactored Y"    | `finder "Y"` → `mcp__gkg__get_references`   |
-| "Changed pattern" | `mcp__morph_mcp__warpgrep_codebase_search`  |
-| "Updated config"  | `mcp__gkg__repo_map` on config paths        |
-
-## Phase 4: Map to Docs
-
-Discover existing documentation:
-
-```bash
-# Structure
-gkg__repo_map on docs/, .claude/skills/, */AGENTS.md
-
-# Find existing mentions
-Grep "topic keyword" docs/
-Grep "RetryPolicy" AGENTS.md
-```
-
-Read target files before updating:
-
-```
-Read docs/ARCHITECTURE.md
-→ Note structure, sections, voice
-→ Identify insertion point
-```
-
-See `reference/doc-mapping.md` for target file conventions.
-
-## Phase 5: Reconcile
-
-Oracle compares three sources:
-
-```
-Oracle prompt:
-"Compare:
-1. TOPICS: [extracted]
-2. CODE: [verified state]
-3. DOCS: [current content]
-
-Output:
-- GAPS: topics not in docs
-- STALE: docs ≠ code
-- UPDATES: [{file, section, change, rationale}]"
-```
-
-## Phase 6: Apply Updates
-
-**Text updates**:
-
-```
-Read target → edit_file with precise changes
-Preserve structure and voice
-```
-
-**Architecture diagrams**:
-
-```
-mermaid with citations:
-{
-  "code": "flowchart LR\n  A[Client] --> B[RetryPolicy]",
-  "citations": {
-    "Client": "file:///src/api/client.ts#L10",
-    "RetryPolicy": "file:///src/api/retry.ts#L45"
-  }
-}
-```
-
-**Parallel updates**: Multiple unrelated files → spawn Task per file.
-
-## Concrete Example
-
-User: "Document the auth refactor from last week"
-
-```
-1. find_thread "auth" after:7d
-   → [T-abc, T-def, T-ghi]
-
-2. Task agents extract (parallel):
-   Agent A: T-abc → {topics: [{name: "JWT migration"}]}
-   Agent B: T-def, T-ghi → {topics: [{name: "session cleanup"}]}
-
-3. Oracle clusters:
-   → "Auth Refactor" with sub-topics
-
-4. Verify:
-   mcp__gkg__search_codebase_definitions "JWTService"
-   → confirmed at packages/auth/jwt.ts
-
-5. Map docs:
-   Grep "authentication" AGENTS.md
-   → Section exists at line 45
-
-6. Oracle reconciles:
-   → Gap: JWT migration not documented
-   → Update: AGENTS.md auth section
-
-7. Apply:
-   edit_file AGENTS.md add JWT details
-   mermaid auth flow diagram
-```
-
-## Tool Quick Reference
-
-| Goal                | Tool                                                   |
-| ------------------- | ------------------------------------------------------ |
-| Find threads        | `find_thread query\|after:Xd\|file:path`               |
-| Read thread         | `read_thread` with focused goal                        |
-| Parallel extraction | `Task` (spawn multiple)                                |
-| Find definitions    | `mcp__gkg__search_codebase_definitions`                |
-| Find references     | `mcp__gkg__get_references`                             |
-| Semantic search     | `finder` or `mcp__morph_mcp__warpgrep_codebase_search` |
-| Area overview       | `mcp__gkg__repo_map`                                   |
-| Synthesis           | `Oracle`                                               |
-| Read doc            | `Read`                                                 |
-| Search docs         | `Grep`                                                 |
-| Update doc          | `edit_file`                                            |
-| Diagram             | `mermaid` with citations                               |
-
-## Quality Checklist
-
-```
-- [ ] Topics verified against code (GKG)
-- [ ] Existing docs read before updating
-- [ ] Changes surgical, not wholesale
-- [ ] Mermaid diagrams have citations
-- [ ] Terminology matches existing docs
-```
-
-## Troubleshooting
-
-**Thread not found**: Try topic keywords, widen date range
-
-**Too many threads**: Add `file:` filter, narrow dates
-
-**Topic ≠ code**: Code is truth; note as "planned" or "historical"
-
-**Doc structure unclear**: Read first, match existing patterns
+- Entry counts come from frontmatter `entry_count` field or by counting `##` headers
+- Recent learnings are shown most recent first (by discovered/made date)
+- This is a read-only command - it doesn't modify any files

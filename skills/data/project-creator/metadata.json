@@ -1,12 +1,7 @@
 {
   "name": "project-creator",
-  "description": "Creates new projects from BUILDER stack template. Auto-triggers on Dashboard \"New Project\" button or API call /api/projects/create. Handles clone, port assignment, PM2 setup, deployment.",
-  "repo": "nera0875/blv_htmx",
-  "category": "development",
-  "tags": [
-    "project",
-    "creator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "itechmeat/llm-code",
+  "path": "skills/project-creator/SKILL.md",
+  "source": "github.com/itechmeat/llm-code",
+  "downloaded_at": "2026-02-01T04:11:20.423852Z"
 }

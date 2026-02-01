@@ -1,9 +1,7 @@
 {
   "name": "project-management-guru-adhd",
-  "description": "Expert project manager for ADHD engineers managing multiple concurrent projects. Specializes in hyperfocus management, context-switching minimization, and parakeet-style gentle reminders. Activate on ",
   "repo": "erichowens/some_claude_skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/erichowens/some_claude_skills"
+  "path": ".claude/skills/project-management-guru-adhd/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-02-01T02:39:00.149858Z"
 }

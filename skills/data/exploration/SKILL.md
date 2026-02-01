@@ -1,317 +1,152 @@
 ---
 name: exploration
-description: Codebase exploration techniques for rapid discovery, architecture analysis, pattern detection, and dependency mapping.
-argument-hint: "[directory] [--thorough]"
+description: "Code exploration strategies for understanding unfamiliar codebases. Use when exploring unknown code, debugging, or analyzing architecture."
+allowed-tools: Read, Grep, Glob, Task
 context: fork
-agent: fuse-ai-pilot:explore-codebase
-user-invocable: false
+agent: Explore
 ---
 
-**Session:** ${CLAUDE_SESSION_ID}
+# 代码库探索
 
-# Exploration Skill
+本技能提供代码库探索的通用方法论，包含两种策略模式。
 
-## Exploration Protocol
+## 子文件
 
-### Phase 1: Initial Reconnaissance
+- [isolated-research.md](isolated-research.md) - 隔离研究（快速一次性探索）
+- [iterative-retrieval.md](iterative-retrieval.md) - 渐进式检索（多轮迭代探索）
 
-```bash
-# List root files
-ls -la
+## 策略选择
 
-# Find config files
-find . -maxdepth 2 -name "package.json" -o -name "*.config.*" -o -name "pyproject.toml" -o -name "go.mod" -o -name "Cargo.toml" 2>/dev/null
-
-# Check for common entry points
-ls -la src/ app/ lib/ cmd/ 2>/dev/null
-```
-
-### Phase 2: Structure Mapping
-
-```bash
-# Tree view (excluding common noise)
-tree -L 3 -I 'node_modules|dist|build|.git|__pycache__|.next|target|vendor' 2>/dev/null || find . -type d -maxdepth 3 | head -50
-
-# Identify main directories
-ls -la src/ lib/ app/ internal/ pkg/ 2>/dev/null
-```
-
-### Phase 3: Entry Points Detection
-
-```bash
-# JavaScript/TypeScript
-grep -rn "main\|index\|app.listen\|createServer\|export default" --include="*.{js,ts,jsx,tsx}" | head -20
-
-# Python
-grep -rn "if __name__\|main()\|app.run\|uvicorn" --include="*.py" | head -20
-
-# Go
-grep -rn "func main\|http.ListenAndServe" --include="*.go" | head -20
-
-# Rust
-grep -rn "fn main" --include="*.rs" | head -10
-```
-
-### Phase 4: Dependency Analysis
-
-```bash
-# Node.js
-cat package.json 2>/dev/null | head -50
-
-# Python
-cat pyproject.toml requirements.txt setup.py 2>/dev/null | head -50
-
-# Go
-cat go.mod 2>/dev/null
-
-# Rust
-cat Cargo.toml 2>/dev/null | head -50
-
-# PHP
-cat composer.json 2>/dev/null | head -50
-```
-
-### Phase 5: Pattern Detection
-
-**Search for architectural patterns**:
-
-```bash
-# MVC patterns
-ls -la controllers/ models/ views/ routes/ 2>/dev/null
-
-# Clean/Hexagonal Architecture
-ls -la domain/ application/ infrastructure/ interfaces/ adapters/ ports/ 2>/dev/null
-
-# Feature-based
-ls -la features/ modules/ 2>/dev/null
-
-# Next.js App Router
-ls -la app/ pages/ components/ 2>/dev/null
-```
+| 场景                 | 推荐策略            | 原因                     |
+| -------------------- | ------------------- | ------------------------ |
+| 快速了解某个模块     | isolated-research   | 一次性探索，不污染上下文 |
+| 理解复杂的跨模块流程 | iterative-retrieval | 需要多轮精炼             |
+| 简单的文件/函数定位  | 直接 Grep/Glob      | 无需完整探索流程         |
+| 新项目初始理解       | iterative-retrieval | 需要建立全局认知         |
+| 调试特定 Bug         | isolated-research   | 聚焦单一问题             |
+| 架构分析和文档化     | iterative-retrieval | 需要完整依赖图           |
 
 ---
 
-## Architecture Pattern Detection
+## 通用探索方法
 
-### Pattern Indicators
+### 搜索工具选择
 
-| Pattern | Key Directories | Indicators |
-|---------|-----------------|------------|
-| **MVC** | `controllers/`, `models/`, `views/` | Rails, Laravel, Express |
-| **Clean Architecture** | `domain/`, `application/`, `infrastructure/` | DDD, Use cases |
-| **Hexagonal** | `adapters/`, `ports/`, `core/` | Ports & adapters |
-| **Feature-based** | `features/[name]/` | All layers per feature |
-| **Layered** | `presentation/`, `business/`, `data/` | Traditional 3-tier |
-| **Monolith** | Single `src/` | Mixed concerns |
-| **Microservices** | Multiple `services/` | Separate repos/folders |
-| **Next.js App Router** | `app/`, `components/`, `lib/` | Server/Client components |
-| **Modular Monolith** | `modules/[name]/` | Bounded contexts |
+| 目标               | 工具 | 示例                      |
+| ------------------ | ---- | ------------------------- |
+| 按文件名/路径查找  | Glob | `**/auth/**/*.ts`         |
+| 按代码内容查找     | Grep | `"function authenticate"` |
+| 读取完整文件       | Read | 直接读取已知路径文件      |
+| 深度子任务（隔离） | Task | 派发子代理执行            |
 
----
-
-## Tech Stack Detection
-
-### JavaScript/TypeScript
-
-| File | Technology |
-|------|------------|
-| `package.json` | Dependencies, scripts |
-| `tsconfig.json` | TypeScript config |
-| `next.config.*` | Next.js |
-| `vite.config.*` | Vite |
-| `webpack.config.*` | Webpack |
-| `tailwind.config.*` | Tailwind CSS |
-| `.eslintrc.*` | ESLint |
-| `prisma/schema.prisma` | Prisma ORM |
-
-**Detection commands**:
-```bash
-# Framework detection
-grep -l "next\|react\|vue\|angular\|svelte" package.json 2>/dev/null
-
-# Database/ORM
-ls prisma/ drizzle/ migrations/ 2>/dev/null
-
-# State management
-grep -E "zustand|redux|@reduxjs|jotai|recoil" package.json 2>/dev/null
-```
-
-### Python
-
-| File | Technology |
-|------|------------|
-| `pyproject.toml` | Modern Python project |
-| `requirements.txt` | Dependencies |
-| `setup.py` | Package setup |
-| `manage.py` | Django |
-| `alembic.ini` | Database migrations |
-
-**Detection commands**:
-```bash
-# Framework detection
-grep -E "django|flask|fastapi|starlette" pyproject.toml requirements.txt 2>/dev/null
-
-# ORM
-grep -E "sqlalchemy|django|tortoise|peewee" pyproject.toml requirements.txt 2>/dev/null
-```
-
-### Go
-
-| File | Technology |
-|------|------------|
-| `go.mod` | Module definition |
-| `go.sum` | Dependencies lock |
-| `cmd/` | Entry points |
-| `internal/` | Private packages |
-| `pkg/` | Public packages |
-
-**Detection commands**:
-```bash
-# Framework detection
-grep -E "gin|echo|fiber|chi|gorilla" go.mod 2>/dev/null
-
-# Database
-grep -E "gorm|sqlx|ent|pgx" go.mod 2>/dev/null
-```
-
-### PHP
-
-| File | Technology |
-|------|------------|
-| `composer.json` | Dependencies |
-| `artisan` | Laravel |
-| `bin/console` | Symfony |
-
-### Rust
-
-| File | Technology |
-|------|------------|
-| `Cargo.toml` | Dependencies |
-| `src/lib.rs` | Library crate |
-| `src/main.rs` | Binary crate |
-
----
-
-## Code Organization Assessment
-
-### Check Interface Separation
-
-```bash
-# TypeScript/JavaScript
-ls -la src/interfaces/ src/types/ types/ 2>/dev/null
-
-# Check for interfaces in components (violation)
-grep -r "interface.*Props\|type.*Props" --include="*.tsx" src/components/ 2>/dev/null | head -10
-```
-
-### Check Business Logic Location
-
-```bash
-# Hooks for business logic
-ls -la src/hooks/ hooks/ 2>/dev/null
-
-# Check for logic in components (violation)
-grep -rn "useState\|useEffect\|async" --include="*.tsx" src/components/ 2>/dev/null | wc -l
-```
-
-### Check State Management
-
-```bash
-# Store files
-ls -la src/stores/ stores/ src/store/ 2>/dev/null
-
-# Store usage
-grep -r "useStore\|useSelector\|create(" --include="*.{ts,tsx}" src/ 2>/dev/null | head -10
-```
-
----
-
-## Response Format
+### 搜索策略模式
 
 ```markdown
-## 🗺️ Codebase Exploration: [Project Name]
+## 入口点搜索
 
-### Structure Overview
-- **Type**: Monolith / Microservices / Library / Monorepo
-- **Tech Stack**: [Languages], [Frameworks], [Tools]
-- **Architecture**: [Pattern detected]
-- **Entry Points**: [Main files]
+- 路由/API 端点
+- 中间件
+- main/index 文件
+- 配置文件
 
-### Key Directories
-```
-src/
-├── [dir1]/    # [Purpose]
-├── [dir2]/    # [Purpose]
-└── [dir3]/    # [Purpose]
-```
+## 定义搜索
 
-### Dependencies
-- **Runtime**: [Key dependencies]
-- **Dev**: [Build tools, linters]
-- **Database**: [ORM, driver]
+- class/function 定义
+- type/interface 定义
+- 常量/枚举定义
 
-### Architecture Patterns
-- [Pattern 1]: [Evidence]
-- [Pattern 2]: [Evidence]
+## 使用搜索
 
-### Code Organization
-- **Interfaces**: [Location or ❌ mixed with components]
-- **Business Logic**: [Location or ❌ in components]
-- **State**: [Store location or ❌ prop drilling]
-- **File Sizes**: [Compliant or ❌ violations found]
+- import/require 语句
+- 函数调用点
+- 类实例化
 
-### Potential Issues
-- ⚠️ [Issue 1]
-- ⚠️ [Issue 2]
+## 依赖搜索
 
-### Recommendations
-- 💡 [Suggestion 1]
-- 💡 [Suggestion 2]
+- package.json
+- import 图谱
+- 模块边界
 ```
 
 ---
 
-## Quick Analysis Commands
+## 输出格式（通用）
 
-### Full Stack Assessment
+所有探索结果应遵循统一格式：
 
-```bash
-# One-liner for quick assessment
-echo "=== Package Manager ===" && ls package.json pyproject.toml go.mod Cargo.toml composer.json 2>/dev/null && echo "=== Framework ===" && head -20 package.json 2>/dev/null | grep -E "next|react|vue|express" && echo "=== Structure ===" && ls -la src/ app/ lib/ 2>/dev/null
-```
+```markdown
+## 探索报告
 
-### File Count by Type
+### 问题/目标
 
-```bash
-# Count files by extension
-find . -type f -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" 2>/dev/null | wc -l
-find . -type f -name "*.py" 2>/dev/null | wc -l
-find . -type f -name "*.go" 2>/dev/null | wc -l
-```
+[描述探索的目标]
 
-### Large Files Detection
+### 关键发现
 
-```bash
-# Find files > 100 lines (potential violations)
-find . -name "*.ts" -o -name "*.tsx" -o -name "*.py" 2>/dev/null | xargs wc -l 2>/dev/null | sort -rn | head -20
+| 文件                | 行号 | 功能说明       |
+| ------------------- | ---- | -------------- |
+| `src/auth/login.ts` | 42   | 登录验证入口   |
+| `src/lib/jwt.ts`    | 15   | Token 生成逻辑 |
+
+### 依赖关系
+
+[可选：模块依赖图、调用链]
+
+### 结论
+
+[对问题的回答]
+
+### 后续建议
+
+[可选：建议的下一步动作]
 ```
 
 ---
 
-## Forbidden Behaviors
+## 子策略
 
-- ❌ Make assumptions without code evidence
-- ❌ Ignore configuration files
-- ❌ Overlook test directories
-- ❌ Skip dependency analysis
-- ❌ Miss entry points
-- ❌ Assume architecture without verification
+### 1. isolated-research（隔离研究）
 
-## Behavioral Traits
+**特点**：
 
-- Systematic and methodical
-- Pattern-focused detection
-- Context-aware analysis
-- Comprehensive yet concise
-- Evidence-based insights
-- Quick reconnaissance before deep dive
+- 在子代理中执行，不污染主上下文
+- 一次性任务，快速返回
+- 适合聚焦的单一问题
+
+详细指南参阅 `isolated-research.md`
+
+### 2. iterative-retrieval（迭代检索）
+
+**特点**：
+
+- 多轮迭代，逐步精炼
+- 置信度评估驱动
+- 适合复杂跨模块问题
+
+详细指南参阅 `iterative-retrieval.md`
+
+---
+
+## 与角色系统配合
+
+| 角色     | 探索场景           | 推荐策略            |
+| -------- | ------------------ | ------------------- |
+| `/pm`    | 理解现有功能       | isolated-research   |
+| `/lead`  | 架构分析、技术设计 | iterative-retrieval |
+| `/dev`   | 实现前了解相关代码 | isolated-research   |
+| `/qa`    | 理解测试范围       | isolated-research   |
+| `/debug` | 追踪 Bug 根因      | iterative-retrieval |
+
+---
+
+## 最佳实践
+
+1. **先评估再选择** - 根据问题复杂度选择策略
+2. **记录路径** - 始终包含文件路径和行号
+3. **限制范围** - 明确探索边界，避免发散
+4. **输出结构化** - 使用统一格式便于后续使用
+5. **复用结果** - 探索结果可保存到 memory-bank
+
+---
+
+**核心理念**：探索是理解的基础，好的探索策略能显著提升开发效率。

@@ -1,153 +1,152 @@
 ---
-name: lead-magnet-design
-description: Design high-converting lead magnets and entry points with opt-in mechanisms, traffic strategies, and segmentation.
+name: lead-magnet
+description: Create compelling free offers that attract your ideal customers. Use when building email lists, generating leads, or creating entry points for your audience.
 ---
 
-# Lead Magnet Design
+# Lead Magnet Skill
 
-Design lead magnets and entry points that attract ideal customers and convert them to leads.
+## Overview
 
-## Lead Magnet Concepts Framework
+A Lead Magnet is a free offer that attracts your ideal customer in exchange for their email. This skill teaches you how to create lead magnets that convert.
 
-For each concept provide:
+**Keywords**: lead magnet, lead generation, free offer, email list building, conversion optimization, customer acquisition
 
-| Element | Description |
-|---------|-------------|
-| Title | Clear, benefit-driven |
-| Format | Guide, checklist, video, template, quiz, calculator |
-| Core problem | Single pain point addressed |
-| Key components | 3-5 main sections |
-| Unique value | Why this vs competitors |
-| Production effort | Low/Medium/High |
-| Delivery | PDF, email course, portal |
-| Expected conversion | 15-35% for landing page |
+## Core Methodology
 
-## Format Selection by Goal
+A great lead magnet has three qualities:
 
-| Format | Best For | Conversion | Production |
-|--------|----------|------------|------------|
-| Checklist | Quick wins, beginners | 25-35% | Low |
-| Template | Process-heavy tasks | 30-40% | Low |
-| Guide/ebook | Education, authority | 20-30% | Medium |
-| Video course | Complex topics | 35-50% | High |
-| Quiz | Personalization, fun | 30-45% | Medium |
-| Calculator | ROI, savings proof | 40-60% | Medium |
-| Free trial | Software products | 15-25% | Low |
+1. **Specific** — Solves one specific problem, not everything
+2. **Valuable** — Worth more than just an email address
+3. **Deliverable** — Can be delivered immediately
 
-## Entry Point Strategy
+## Lead Magnet Hooks
 
-### Traffic Source Mapping
+Use these hooks to create compelling lead magnets:
 
-| Source | Intent Level | Content Type | CTA Style |
-|--------|--------------|--------------|-----------|
-| Organic search | High | Problem-solution | Direct |
-| Social media | Low-Medium | Entertaining/Educational | Soft |
-| Paid ads | Varies | Pain-focused | Urgent |
-| Referrals | High | Trust-building | Personal |
-| Content upgrades | Medium | Contextual | Natural |
+### Hook 1: Quick Win
 
-### Channel-Specific Messaging
+Provide a quick, immediate win.
 
-- **SEO**: Match search intent, answer the query, offer deeper resource
-- **Social**: Hook with curiosity, prove value, easy opt-in
-- **Paid**: Pain point headline, proof, clear CTA
-- **Email**: Segment by interest, personalized recommendation
+**Example**: "The 5-Minute Positioning Audit"
 
-## Opt-In Mechanism Design
+**Why it works**: People want results fast.
 
-### Landing Page Blueprint
+### Hook 2: Forbidden Knowledge
 
-```
-1. HEADLINE
-   - Primary: Benefit-driven (what they get)
-   - Sub: Problem acknowledgment + solution promise
+Position as insider or secret information.
 
-2. HERO SECTION
-   - Lead magnet visual (mockup/preview)
-   - 3 bullet points: specific outcomes
-   - CTA button with action verb
+**Example**: "The Positioning Secrets Top Agencies Don't Want You to Know"
 
-3. SOCIAL PROOF
-   - Number of downloads/users
-   - Logos or testimonials
-   - Authority indicators
+**Why it works**: Curiosity drives action.
 
-4. CONTENT PREVIEW
-   - Table of contents or preview
-   - "What you'll learn" section
-   - Sample content teaser
+### Hook 3: Shortcut
 
-5. OBJECTION HANDLING
-   - FAQ section (2-3 questions)
-   - Privacy/spam reassurance
-   - Time commitment clarity
+Provide a shortcut or faster way.
 
-6. FINAL CTA
-   - Repeat value proposition
-   - Urgency element (if applicable)
-   - Form with minimal fields
-```
+**Example**: "The 30-Day Positioning Framework (Instead of 90 Days)"
 
-### Headline Formulas
+**Why it works**: People value time-saving.
 
-1. **How to [Achieve X] Without [Pain Y]**
-2. **The [Number] [Things] Every [Audience] Needs to [Goal]**
-3. **Free [Resource]: [Specific Outcome] in [Timeframe]**
-4. **[Audience]? Here's Your [Benefit] Blueprint**
-5. **Stop [Bad Thing]. Start [Good Thing]. Free [Resource].**
+### Hook 4: Social Proof
 
-### Form Optimization
+Lead with results others achieved.
 
-| Fields | Use Case | Conversion Impact |
-|--------|----------|-------------------|
-| Email only | Max conversion | Baseline |
-| + Name | Personalization | -5-10% |
-| + Company | B2B qualification | -10-15% |
-| + Phone | Sales follow-up | -15-25% |
+**Example**: "How 500+ Founders Found Their Positioning in 30 Days"
 
-**Rule**: Every field reduces conversion 3-7%. Only ask what you'll use.
+**Why it works**: Social proof builds trust.
 
-## Segmentation Strategy
+### Hook 5: Diagnosis
 
-### Initial Segmentation
+Help them diagnose their problem.
 
-Segment at opt-in via:
-- Quiz results (persona, problem type)
-- Content topic (which lead magnet)
-- Traffic source (intent level)
-- Form fields (company size, role)
+**Example**: "The Positioning Diagnostic: Discover Your Blind Spots"
 
-### Quiz/Survey Design
+**Why it works**: Self-awareness drives action.
 
-```yaml
-Question Types:
-  - Situation: "What describes you best?"
-  - Challenge: "What's your biggest challenge with X?"
-  - Goal: "What would success look like?"
-  - Timeline: "When do you need this solved?"
+## Lead Magnet Formats
 
-Output:
-  - Personalized result page
-  - Segment-specific lead magnet
-  - Tailored nurture sequence
-  - Score for sales priority
-```
+### Format 1: Checklist
 
-### Behavioral Segmentation
+A simple checklist they can use immediately.
 
-Track post-opt-in:
-- Email engagement (opens, clicks)
-- Content consumption (pages, time)
-- Return visits
-- Micro-conversions (webinar signup, demo request)
+**Best for**: Quick wins, actionable items
 
-## A/B Testing Recommendations
+**Example**: "The 10-Point Positioning Checklist"
 
-| Element | Test First | Expected Lift |
-|---------|------------|---------------|
-| Headline | Yes | 10-30% |
-| CTA copy | Yes | 5-15% |
-| Form fields | Yes | 10-25% |
-| Social proof | Maybe | 5-10% |
-| Page length | Maybe | 5-15% |
-| Lead magnet format | No (too slow) | Varies |
+### Format 2: Template
+
+A template they can customize and use.
+
+**Best for**: Frameworks, processes, systems
+
+**Example**: "The Positioning Statement Template"
+
+### Format 3: Guide/Workbook
+
+A short guide (5-20 pages) with frameworks and examples.
+
+**Best for**: Education, in-depth content
+
+**Example**: "The Positioning Guide: Find Your Unique Angle"
+
+### Format 4: Audit/Assessment
+
+A diagnostic tool that reveals insights.
+
+**Best for**: Diagnosis, personalization
+
+**Example**: "The Positioning Audit: Discover Your Blind Spots"
+
+### Format 5: Video Course
+
+A short video course (3-5 videos).
+
+**Best for**: Complex topics, visual learners
+
+**Example**: "The 5-Day Positioning Video Course"
+
+### Format 6: Spreadsheet/Calculator
+
+An interactive tool they can use.
+
+**Best for**: Analysis, calculations
+
+**Example**: "The Positioning ROI Calculator"
+
+## Lead Magnet Validation
+
+Before creating, validate your lead magnet:
+
+1. **Solves a specific problem** — Does it solve one clear problem?
+2. **Your ideal customer wants it** — Would your target customer want this?
+3. **You can deliver it** — Can you create this in 1-2 weeks?
+4. **It's better than competitors** — Is it better than similar offers?
+5. **It builds your list** — Does it attract your ideal customer?
+
+## How to Use This Skill
+
+1. **Identify Your Problem** — What problem does your ideal customer have?
+2. **Choose Your Hook** — Which hook resonates most?
+3. **Select Your Format** — What format works best?
+4. **Create Your Offer** — Build your lead magnet
+5. **Build Your Landing Page** — Create a page to promote it
+6. **Validate** — Test with your audience
+
+## Integration with Other Skills
+
+Lead Magnet works with:
+- **Direct Response Copy** — Your landing page copy drives conversions
+- **Email Sequences** — Your welcome sequence delivers on the promise
+- **Positioning Angles** — Your positioning shapes your offer
+
+## Common Pitfalls
+
+**Too Generic** — Your lead magnet could help anyone.  
+**Too Valuable** — You're giving away your paid offer.  
+**Not Valuable Enough** — People don't see the value.  
+**Wrong Audience** — You're attracting the wrong customers.  
+**Hard to Deliver** — You can't deliver it immediately.
+
+## Next Steps
+
+Once you've created your lead magnet, move to Skill 05: Direct Response Copy to write the landing page that sells it.

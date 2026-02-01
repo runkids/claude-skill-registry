@@ -1,316 +1,235 @@
 ---
 name: federation
-description: ActivityPub protocol specification and federation concepts. Use when working with ActivityPub activities, understanding federation mechanics, implementing protocol features, or debugging federation issues.
+description: 外部IdP連携（Federation/SSO）機能の開発・設定を行う際に使用。Google、Azure AD、カスタムOIDCプロバイダー連携、userinfo_mapping_rules設定、oauth-extension実装時に役立つ。
 ---
 
-# ActivityPub Federation Protocol
+# Federation（外部IdP連携）開発ガイド
 
-This skill provides understanding of the ActivityPub protocol specification and how federation works.
+## ドキュメント
 
-**For supported features and compatibility:** See [FEDERATION.md](../../../FEDERATION.md) for the complete list of implemented FEPs, supported standards, and federation compatibility details.
+- `documentation/docs/content_05_how-to/phase-3-advanced/01-federation-setup.md` - 設定ガイド
+- `documentation/docs/content_06_developer-guide/03-application-plane/08-federation.md` - 実装ガイド
+- `documentation/docs/content_06_developer-guide/05-configuration/federation.md` - 設定リファレンス
+- `documentation/docs/content_10_ai_developer/ai-43-federation-oidc.md` - AI開発者向けガイド
 
-**For implementation details:** See [PHP Conventions](../code-style/SKILL.md) for transformers, handlers, and PHP code patterns.
+## モジュール構成
 
-## Core Concepts
-
-### Three Building Blocks
-
-1. **Actors** - Users/accounts in the system
-   - Each actor has a unique URI
-   - Required: `inbox`, `outbox`
-   - Optional: `followers`, `following`, `liked`
-
-2. **Activities** - Actions taken by actors
-   - Create, Update, Delete, Follow, Like, Announce, Undo
-   - Wrap objects to describe how they're shared
-
-3. **Objects** - Content being acted upon
-   - Notes, Articles, Images, Videos, etc.
-   - Can be embedded or referenced by URI
-
-### Actor Structure
-
-```json
-{
-  "@context": "https://www.w3.org/ns/activitystreams",
-  "type": "Person",
-  "id": "https://example.com/@alice",
-  "inbox": "https://example.com/@alice/inbox",
-  "outbox": "https://example.com/@alice/outbox",
-  "followers": "https://example.com/@alice/followers",
-  "following": "https://example.com/@alice/following",
-  "preferredUsername": "alice",
-  "name": "Alice Example",
-  "summary": "Bio text here"
-}
+```
+libs/
+├── idp-server-federation-oidc/           # OIDC Federation実装
+│   └── .../federation/sso/oidc/
+│       ├── OidcFederationInteractor.java # メインInteractor
+│       ├── OidcSsoExecutor.java          # Executor IF
+│       ├── OidcSsoExecutors.java         # Executor管理
+│       ├── StandardOidcExecutor.java     # 標準OIDC実行
+│       ├── OAuthExtensionExecutor.java   # OAuth拡張実行
+│       ├── FacebookOidcExecutor.java     # Facebook専用
+│       ├── UserinfoExecutor.java         # UserInfo取得IF
+│       ├── UserinfoHttpRequestExecutor.java   # 単一リクエスト
+│       ├── UserinfoHttpRequestsExecutor.java  # 複数リクエスト
+│       ├── UserinfoExecutionRequest.java # 実行リクエスト
+│       ├── UserinfoExecutionResult.java  # 実行結果
+│       └── UserInfoMapper.java           # マッピング処理
+│
+├── idp-server-core/                      # コア定義
+│   └── .../openid/federation/
+│       └── sso/
+│           ├── SsoProvider.java
+│           └── FederationConfiguration.java
+│
+└── idp-server-control-plane/             # 管理API
+    └── .../management/federation/
 ```
 
-## Collections
+## プロバイダータイプ（payload.provider）
 
-### Standard Collections
+| provider | 説明 | 用途 |
+|----------|------|------|
+| `standard` | 標準OIDCフロー | Google, Azure AD, カスタムOIDC |
+| `oauth-extension` | OAuth拡張フロー | カスタムUserInfo取得が必要な場合 |
+| `facebook` | Facebook専用 | Facebook Login |
 
-**Inbox** - Receives incoming activities
-- De-duplicate by activity ID
-- Filter based on permissions
-- Process activities for side effects
+**注意**: 無効なprovider値は404エラー（`No OidcSsoExecutor found for provider xxx`）
 
-**Outbox** - Publishes actor's activities
-- Public record of what actor has posted
-- Filtered based on viewer permissions
-- Used for profile activity displays
+## userinfo_mapping_rules
 
-**Followers** - Actors following this actor
-- Updated when Follow activities are Accepted
-- Used for delivery targeting
+### provider別のJSONPath形式
 
-**Following** - Actors this actor follows
-- Tracks subscriptions
-- Used for timeline building
+| provider | JSONPath形式 | 説明 |
+|----------|-------------|------|
+| `standard` | `$.http_request.response_body.{field}` | 標準OIDCプロバイダー |
+| `oauth-extension` (単一) | `$.userinfo_execution_http_request.response_body.{field}` | http_request使用時 |
+| `oauth-extension` (複数) | `$.userinfo_execution_http_requests[index].response_body.{field}` | http_requests使用時 |
 
-### Public Addressing
+### 実装の流れ
 
-Special collection: `https://www.w3.org/ns/activitystreams#Public`
+```
+OAuthExtensionExecutor.requestUserInfo()
+  ↓ UserinfoExecutionRequest に access_token を設定
+  ↓   Map.of("access_token", oidcUserinfoRequest.accessToken())
+  ↓
+UserinfoHttpRequestExecutor.execute()
+  ↓ param.put("request_body", request.toMap())
+  ↓ → $.request_body.access_token でアクセストークン参照可能
+  ↓
+  ↓ 結果を Map.of("userinfo_execution_http_request", result) で返却
+  ↓
+UserInfoMapper.map()
+  ↓ userinfo_mapping_rules で結果をマッピング
+```
 
-- Makes content publicly accessible
-- **Do not deliver to this URI** - it's a marker, not a real inbox
-- Used in `to`, `cc`, `bto`, `bcc` fields for visibility
+### standard プロバイダー例
 
-## Activity Types
-
-### Create
-Wraps newly published content:
 ```json
 {
-  "type": "Create",
-  "actor": "https://example.com/@alice",
-  "object": {
-    "type": "Note",
-    "content": "Hello, Fediverse!"
+  "payload": {
+    "provider": "standard",
+    "userinfo_mapping_rules": [
+      {"from": "$.http_request.response_body.sub", "to": "external_user_id"},
+      {"from": "$.http_request.response_body.email", "to": "email"},
+      {"from": "$.http_request.response_body.name", "to": "name"}
+    ]
   }
 }
 ```
 
-### Follow
-Initiates subscription:
-```json
-{
-  "type": "Follow",
-  "actor": "https://example.com/@alice",
-  "object": "https://other.example/@bob"
-}
-```
-- Recipient should respond with Accept or Reject
-- Only add to followers upon Accept
-
-### Like
-Indicates appreciation:
-```json
-{
-  "type": "Like",
-  "actor": "https://example.com/@alice",
-  "object": "https://other.example/@bob/post/123"
-}
+**実装箇所**: `StandardOidcExecutor` クラスの `requestUserInfo()` メソッド
+```java
+return UserinfoExecutionResult.success(Map.of("http_request", map));
 ```
 
-### Announce
-Reshares/boosts content:
+### oauth-extension プロバイダー例
+
+#### 単一リクエスト（http_request）
+
 ```json
 {
-  "type": "Announce",
-  "actor": "https://example.com/@alice",
-  "object": "https://other.example/@bob/post/123"
-}
-```
-
-### Update
-Modifies existing content:
-- Supplied properties replace existing
-- `null` values remove fields
-- Must include original object ID
-
-### Delete
-Removes content:
-- May replace with Tombstone for referential integrity
-- Should cascade to related activities
-
-### Undo
-Reverses previous activities:
-```json
-{
-  "type": "Undo",
-  "actor": "https://example.com/@alice",
-  "object": {
-    "type": "Follow",
-    "id": "https://example.com/@alice/follow/123"
+  "payload": {
+    "provider": "oauth-extension",
+    "userinfo_execution": {
+      "function": "http_request",
+      "http_request": {
+        "url": "https://api.example.com/user/profile",
+        "method": "GET",
+        "header_mapping_rules": [
+          {
+            "from": "$.request_body.access_token",
+            "to": "Authorization",
+            "functions": [{"name": "format", "args": {"template": "Bearer {{value}}"}}]
+          }
+        ]
+      }
+    },
+    "userinfo_mapping_rules": [
+      {"from": "$.userinfo_execution_http_request.response_body.user_id", "to": "external_user_id"},
+      {"from": "$.userinfo_execution_http_request.response_body.email", "to": "email"}
+    ]
   }
 }
 ```
 
-## Server-to-Server Federation
+#### 複数リクエスト（http_requests）
 
-### Activity Delivery Process
-
-1. **Resolve Recipients**
-   - Check `to`, `bto`, `cc`, `bcc`, `audience` fields
-   - Dereference collections to find individual actors
-   - De-duplicate recipient list
-   - Exclude activity's own actor
-
-2. **Discover Inboxes**
-   - Fetch actor profiles
-   - Extract `inbox` property
-   - Use `sharedInbox` if available for efficiency
-
-3. **Deliver via HTTP POST**
-   - Content-Type: `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`
-   - Include HTTP Signatures for authentication
-   - Handle delivery failures gracefully
-
-### Inbox Forwarding
-
-**Ghost Replies Problem:** When Alice replies to Bob's post that Carol follows, Carol might not see the reply if she doesn't follow Alice.
-
-**Solution:** Inbox forwarding
-- When receiving activity addressing a local collection
-- If activity references local objects
-- Forward to collection members
-- Ensures conversation participants see replies
-
-### Shared Inbox Optimization
-
-For public posts with many recipients on same server:
-- Use `sharedInbox` endpoint instead of individual inboxes
-- Reduces number of HTTP requests
-- Server distributes internally
-
-## Addressing and Visibility
-
-### To/CC Fields
-
-- `to` - Primary recipients (public in UI)
-- `cc` - Secondary recipients (copied/mentioned)
-- `bto` - Blind primary (hidden in delivery)
-- `bcc` - Blind secondary (hidden in delivery)
-
-**Important:** Remove `bto` and `bcc` before delivery to preserve privacy
-
-### Visibility Patterns
-
-**Public Post:**
 ```json
 {
-  "to": ["https://www.w3.org/ns/activitystreams#Public"],
-  "cc": ["https://example.com/@alice/followers"]
+  "payload": {
+    "provider": "oauth-extension",
+    "userinfo_execution": {
+      "function": "http_requests",
+      "http_requests": [
+        {
+          "url": "https://api.example.com/user/overview",
+          "method": "POST",
+          "header_mapping_rules": [
+            {
+              "from": "$.request_body.access_token",
+              "to": "Authorization",
+              "functions": [{"name": "format", "args": {"template": "Bearer {{value}}"}}]
+            }
+          ]
+        }
+      ]
+    },
+    "userinfo_mapping_rules": [
+      {"from": "$.userinfo_execution_http_requests[0].response_body.id", "to": "external_user_id"}
+    ]
+  }
 }
 ```
 
-**Followers-Only:**
-```json
-{
-  "to": ["https://example.com/@alice/followers"]
-}
+## マッピング関数（functions）
+
+`libs/idp-server-platform/src/main/java/org/idp/server/platform/mapper/functions/`
+
+| 関数名 | 説明 | 使用例 |
+|--------|------|--------|
+| `format` | テンプレート置換 | `{"template": "Bearer {{value}}"}` |
+| `join` | 配列結合 | `{"separator": ","}` |
+| `split` | 文字列分割 | `{"separator": ","}` |
+| `replace` | 文字列置換 | `{"from": "a", "to": "b"}` |
+| `regex_replace` | 正規表現置換 | `{"pattern": "...", "replacement": "..."}` |
+| `substring` | 部分文字列 | `{"start": 0, "end": 10}` |
+| `trim` | 空白除去 | - |
+| `case` | 大文字小文字変換 | `{"to": "upper\|lower"}` |
+| `convert_type` | 型変換 | `{"to": "string\|integer\|boolean"}` |
+
+## 重要な`to`フィールド（userinfo_mapping_rules）
+
+| フィールド | 説明 | 必須 |
+|-----------|------|------|
+| `external_user_id` | 外部IdPでのユーザーID | **必須** |
+| `email` | メールアドレス | - |
+| `name` | 表示名 | - |
+| `picture` | プロフィール画像URL | - |
+| `preferred_username` | ユーザー名 | - |
+| `custom_properties.{key}` | カスタム属性 | - |
+
+## 設定テンプレート
+
+```
+config/templates/federation/
+├── google-template.json
+├── azure-ad-template.json
+└── custom-oidc-template.json
 ```
 
-**Direct Message:**
-```json
-{
-  "to": ["https://other.example/@bob"],
-  "cc": []
-}
+## E2Eテスト
+
+```
+e2e/src/tests/
+├── scenario/control_plane/
+│   ├── organization/
+│   │   ├── organization_federation_config_management.test.js
+│   │   └── organization_federation_config_management_structured.test.js
+│   └── system/
+│       └── federation_management.test.js
+│
+└── usecase/advance/
+    └── advance-01-federation-security-event-user-name.test.js
 ```
 
-## Content Verification
-
-### Security Considerations
-
-1. **Verify Origins**
-   - Don't trust claimed sources without verification
-   - Check HTTP Signatures
-   - Validate actor owns referenced objects
-
-2. **Prevent Spoofing**
-   - Mallory could claim Alice posted something
-   - Always verify before processing side effects
-
-3. **Rate Limiting**
-   - Limit recursive dereferencing
-   - Protect against denial-of-service
-   - Implement spam filtering
-
-4. **Content Sanitization**
-   - Clean HTML before browser rendering
-   - Validate media types
-   - Check for malicious payloads
-
-## Protocol Extensions
-
-### Supported Standards
-
-See [FEDERATION.md](../../../FEDERATION.md) for the complete list of implemented standards and FEPs, including:
-- WebFinger - Actor discovery.
-- HTTP Signatures - Request authentication.
-- NodeInfo - Server metadata.
-- Various FEPs (Fediverse Enhancement Proposals).
-
-### FEPs (Fediverse Enhancement Proposals)
-
-FEPs extend ActivityPub with additional features. Common FEP categories include:
-- Long-form text support.
-- Quote posts.
-- Activity intents.
-- Follower synchronization.
-- Actor metadata extensions.
-
-**For supported FEPs in this plugin:** See [FEDERATION.md](../../../FEDERATION.md) for the authoritative list of implemented FEPs.
-
-## Implementation Notes
-
-### WordPress Plugin Specifics
-
-This plugin implements:
-- **Actor Types**: User, Blog, Application
-- **Transformers**: Convert WordPress content to ActivityPub objects
-- **Handlers**: Process incoming activities
-
-For implementation details, see:
-- [PHP Conventions](../code-style/SKILL.md) for code structure
-- [Integration Guide](../integrations/SKILL.md) for extending
-
-### Testing Federation
+## コマンド
 
 ```bash
-# Test actor endpoint
-curl -H "Accept: application/activity+json" \
-  https://site.com/@username
+# ビルド
+./gradlew :libs:idp-server-federation-oidc:compileJava
 
-# Test WebFinger
-curl https://site.com/.well-known/webfinger?resource=acct:user@site.com
-
-# Test NodeInfo
-curl https://site.com/.well-known/nodeinfo
+# テスト
+cd e2e && npm test -- --grep "federation"
+cd e2e && npm test -- scenario/control_plane/organization/organization_federation_config_management.test.js
 ```
 
-## Common Issues
+## トラブルシューティング
 
-### Activities Not Received
-- Check inbox URL is accessible
-- Verify HTTP signature validation
-- Ensure content-type headers correct
-- Check for firewall/security blocks
+### 404エラー: No OidcSsoExecutor found
+- `payload.provider`の値が正しいか確認（大文字小文字を区別）
+- 有効な値: `standard`, `oauth-extension`, `facebook`
 
-### Replies Not Federated
-- Verify inbox forwarding enabled
-- Check addressing includes relevant actors
-- Ensure `inReplyTo` properly set
+### userinfo_mapping_rules が動作しない
+- JSONPathの形式がproviderタイプに合っているか確認
+- `standard` → `$.http_request.response_body.xxx`
+- `oauth-extension` → `$.userinfo_execution_http_request.xxx` or `$.userinfo_execution_http_requests[n].xxx`
 
-### Follower Sync Issues
-- Check Accept activities sent for Follow
-- Verify followers collection updates
-- Ensure shared inbox used when available
-
-## Resources
-
-- [ActivityPub Spec](https://www.w3.org/TR/activitypub/)
-- [ActivityStreams Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/)
-- [Project FEDERATION.md](../../../FEDERATION.md)
-- [FEPs Repository](https://codeberg.org/fediverse/fep)
+### アクセストークンがAPIに渡らない
+- `header_mapping_rules`で`$.request_body.access_token`を参照
+- `format`関数で`Bearer `プレフィックスを追加

@@ -1,166 +1,197 @@
 ---
-name: deploy
-description: Build and deploy project artifacts to target environment
-argument-hint: [environment] [--dry-run]
-user-invocable: true
-allowed-tools:
-  - Read
-  - Write
-  - Bash
-context: fork
-agent: deployer
+description: Deploy frontend and backend to Vercel with migration and health verification
+handoffs:
+  - label: Fix Deployment Issues
+    agent: backend-engineer
+    prompt: Fix the deployment issues identified
+    send: false
 ---
 
-# /deploy - Build and Deployment
+## User Input
 
-Build and deploy project artifacts to target environment.
+```text
+$ARGUMENTS
+```
 
-## Purpose
+Options: `production`, `staging`, `preview`, or empty (defaults to staging)
 
-Manage releases by:
-- Building production artifacts
-- Deploying to environments
-- Verifying deployment success
-- Documenting release
+## Task
 
-## Inputs
+Deploy the keto meal plan application to Vercel with proper migrations and health checks.
 
-- `$ARGUMENTS`: Target environment or --dry-run flag
-- Validated code (prerequisite: /validate passed)
-- `${PROJECT_NAME}`: Current project context
+### Steps
 
-## Outputs
+1. **Parse Arguments**:
+   - `production`: Deploy to production environment
+   - `staging`: Deploy to staging environment (default)
+   - `preview`: Create preview deployment
 
-- Build artifacts
-- Deployment record (Serena memory)
-- Updated version/changelog if applicable
+2. **Pre-Deployment Checks**:
+   ```bash
+   # Ensure we're on correct branch
+   git branch --show-current
 
-## Prerequisites
+   # Check for uncommitted changes
+   git status --porcelain
 
-Before deploying:
-1. All tests pass (`/validate` completed)
-2. No blocking issues
-3. Version bumped (if release)
-4. Changelog updated (if release)
+   # Run tests
+   cd backend && pytest tests/unit/ -v
 
-## Workflow
+   # Build frontend locally to catch errors
+   cd frontend && npm run build
+   ```
 
-### 1. Verify Prerequisites
-Check that validation passed:
-- Look for recent validation report
-- Confirm no blocking issues
-- If prerequisites not met, stop and report
+3. **Push to Git** (if needed):
+   ```bash
+   git add .
+   git commit -m "Deploy: [production|staging|preview]"
+   git push origin $(git branch --show-current)
+   ```
 
-### 2. Determine Target
-Parse `$ARGUMENTS`:
-- `dev` / `development`: Development environment
-- `staging`: Staging environment
-- `prod` / `production`: Production (extra caution)
-- `--dry-run`: Simulate without deploying
+4. **Deploy Frontend to Vercel**:
+   ```bash
+   cd frontend
 
-### 3. Build
-Execute build commands:
+   # Production deployment
+   vercel --prod
+
+   # Or staging/preview
+   vercel
+   ```
+
+5. **Deploy Backend to Render**:
+   ```bash
+   # Backend deploys automatically via GitHub integration
+   # Or trigger manual deploy via Render dashboard
+   # Or use Render CLI:
+
+   cd backend
+
+   # If using Render CLI
+   render deploy --service backend-service
+
+   # Check deploy status
+   render services list
+   ```
+
+6. **Run Database Migrations**:
+   ```bash
+   # Set DATABASE_URL to production/staging database
+   export DATABASE_URL="[production-database-url]"
+
+   cd backend
+   alembic upgrade head
+
+   # Verify migration
+   alembic current
+   ```
+
+7. **Verify Deployment Health**:
+   ```bash
+   # Frontend health (Vercel)
+   curl https://keto-meal-plan.vercel.app/
+
+   # Backend health (Render)
+   curl https://keto-meal-plan-api.onrender.com/health
+
+   # Database connection
+   curl https://keto-meal-plan-api.onrender.com/internal/db-health
+
+   # Redis connection
+   curl https://keto-meal-plan-api.onrender.com/internal/redis-health
+   ```
+
+8. **Test Critical Endpoints**:
+   ```bash
+   # Quiz submission endpoint
+   curl -X POST https://keto-meal-plan-api.onrender.com/v1/quiz/submit \
+     -H "Content-Type: application/json" \
+     -d '{"email":"test@example.com","step_1":"male"}'
+
+   # Webhook endpoint (should return 401 without signature)
+   curl -X POST https://keto-meal-plan-api.onrender.com/webhooks/paddle
+   ```
+
+9. **Configure Environment Variables** (if first deploy):
+
+   **Backend (Render Dashboard)**:
+   - DATABASE_URL
+   - REDIS_URL
+   - OPENAI_API_KEY
+   - GEMINI_API_KEY
+   - PADDLE_API_KEY
+   - PADDLE_WEBHOOK_SECRET
+   - BLOB_READ_WRITE_TOKEN
+   - RESEND_API_KEY
+   - RESEND_FROM_EMAIL
+   - SENTRY_DSN
+   - JWT_SECRET
+   - APP_URL
+
+   **Frontend (Vercel Dashboard)**:
+   ```bash
+   vercel env add NEXT_PUBLIC_API_URL production
+   vercel env add NEXT_PUBLIC_PADDLE_VENDOR_ID production
+   vercel env add NEXT_PUBLIC_PADDLE_ENVIRONMENT production
+   ```
+
+10. **Output Summary**:
+    ```
+    ✅ Deployment Summary
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    Environment: production
+    Branch: main
+
+    Frontend (Vercel):
+    ✅ Deployed to: https://keto-meal-plan.vercel.app
+    ✅ Build successful
+    ✅ Health check: PASS
+
+    Backend (Render):
+    ✅ Deployed to: https://keto-meal-plan-api.onrender.com
+    ✅ Migrations applied: 5 pending → all applied
+    ✅ Health check: PASS
+    ✅ Database: Connected
+    ✅ Redis: Connected
+
+    Post-Deployment:
+    ⚠️ Update Paddle webhook URL to:
+       https://keto-meal-plan-api.onrender.com/webhooks/paddle
+
+    ⚠️ Update NEXT_PUBLIC_API_URL in Vercel to:
+       https://keto-meal-plan-api.onrender.com/v1
+
+    ⚠️ Test full payment flow in production (test mode):
+       1. Complete quiz
+       2. Test payment with Paddle test card
+       3. Verify email delivery
+       4. Check PDF download
+    ```
+
+## Example Usage
+
 ```bash
-# Common patterns
-npm run build
-make build
-go build ./...
-docker build -t app .
+/deploy                  # Deploy to staging
+/deploy staging          # Deploy to staging
+/deploy production       # Deploy to production
+/deploy preview          # Create preview deployment
 ```
 
-Verify build succeeds.
+## Exit Criteria
 
-### 4. Stage (if applicable)
-Prepare deployment package:
-- Bundle artifacts
-- Set environment config
-- Prepare manifests
+- Both frontend and backend deployed successfully
+- Database migrations applied
+- Health checks pass
+- Critical endpoints respond correctly
+- Deployment URLs logged
 
-### 5. Deploy
-Execute deployment:
-```bash
-# Examples (project-specific)
-npm publish
-docker push
-kubectl apply -f deploy/
-./deploy.sh [env]
-```
+## Post-Deployment Checklist
 
-**Note**: For production, require explicit user approval.
-
-### 6. Verify Deployment
-Check deployment success:
-- Health check endpoints
-- Smoke tests
-- Service status
-
-### 7. Document
-Create deployment record:
-
-```yaml
----
-date: YYYY-MM-DD
-time: HH:MM:SS
-version: X.Y.Z
-environment: [environment]
-status: success | failed | rolled-back
-deployed_by: deployer-agent
----
-
-## Deployment Summary
-- **Project**: ${PROJECT_NAME}
-- **Version**: X.Y.Z
-- **Environment**: [target]
-- **Duration**: [time]
-
-## Build
-- Artifacts: [list]
-- Size: [size]
-- Hash: [hash]
-
-## Steps Executed
-1. [Step with result]
-2. [Step with result]
-
-## Verification
-- [ ] Build successful
-- [ ] Deployment complete
-- [ ] Health check passing
-- [ ] Smoke tests passed
-
-## Rollback Info
-If rollback needed:
-- Previous version: X.Y.Z-1
-- Rollback command: [command]
-
-## Notes
-[Observations or issues]
-```
-
-## Safety Measures
-
-### Dry Run
-Always available: `--dry-run` simulates without changes.
-
-### Approval Gates
-- Production deployments require user approval
-- Destructive operations prompt for confirmation
-
-### Rollback Plan
-Before deploying:
-- Note current version
-- Document rollback procedure
-- Test rollback if possible
-
-## Environment Handling
-
-| Environment | Approval | Verification |
-|-------------|----------|--------------|
-| dev | None | Basic |
-| staging | None | Full |
-| prod | Required | Full + Manual |
-
-## Policy References
-
-**Should-read** from `~/.claude/policy/RULES.md`:
-- Safety Rules - Transaction-safe, systematic changes
+- [ ] Update Paddle webhook URL in Paddle dashboard
+- [ ] Test quiz submission in production
+- [ ] Test payment flow with Paddle test card
+- [ ] Verify email delivery
+- [ ] Check Sentry for errors
+- [ ] Monitor Vercel Analytics for traffic
+- [ ] Verify cron jobs scheduled correctly
