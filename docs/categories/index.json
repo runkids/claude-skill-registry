@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-31T04:54:04.680076Z",
+  "updated_at": "2026-02-01T05:11:02.428224Z",
   "categories": [
     {
       "name": ".github-skills",
@@ -17424,7 +17424,7 @@
     {
       "name": "data",
       "code": "dat",
-      "count": 24620
+      "count": 25737
     },
     {
       "name": "data-access",
@@ -19014,7 +19014,7 @@
     {
       "name": "design",
       "code": "des",
-      "count": 5565
+      "count": 5547
     },
     {
       "name": "design-and-build",
@@ -19819,7 +19819,7 @@
     {
       "name": "development",
       "code": "dev",
-      "count": 18307
+      "count": 18268
     },
     {
       "name": "development-code",
@@ -19884,7 +19884,7 @@
     {
       "name": "devops",
       "code": "ops",
-      "count": 3180
+      "count": 3167
     },
     {
       "name": "devops-agent",
@@ -21034,7 +21034,7 @@
     {
       "name": "documents",
       "code": "doc",
-      "count": 2734
+      "count": 2733
     },
     {
       "name": "docusaurus",
@@ -36989,7 +36989,7 @@
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 457
+      "count": 455
     },
     {
       "name": "marketing-audit",
@@ -43179,7 +43179,7 @@
     {
       "name": "other",
       "code": "oth",
-      "count": 18719
+      "count": 18597
     },
     {
       "name": "other-entries",
@@ -46414,7 +46414,7 @@
     {
       "name": "product",
       "code": "prd",
-      "count": 1079
+      "count": 1075
     },
     {
       "name": "product-analytics-integrator",
@@ -46564,7 +46564,7 @@
     {
       "name": "productivity",
       "code": "pro",
-      "count": 1539
+      "count": 1535
     },
     {
       "name": "professeur_lycee",
@@ -54299,7 +54299,7 @@
     {
       "name": "security",
       "code": "sec",
-      "count": 763
+      "count": 756
     },
     {
       "name": "security-agent",
@@ -61844,7 +61844,7 @@
     {
       "name": "testing",
       "code": "tst",
-      "count": 4025
+      "count": 4019
     },
     {
       "name": "testing-agent",

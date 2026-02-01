@@ -1,8 +1,8 @@
 {
   "category": "marketing",
   "code": "mkt",
-  "count": 457,
-  "updated_at": "2026-01-31T04:54:06.918147Z",
+  "count": 455,
+  "updated_at": "2026-02-01T05:11:04.535046Z",
   "skills": [
     {
       "name": "social-media",
@@ -4798,21 +4798,6 @@
       "source": "local"
     },
     {
-      "name": "pipeline-tracker",
-      "description": "Track content through weekly writing pipeline stages (capture/cluster/outline/draft/revise/review/publish). Shows status, suggests next actions, generates pipeline dashboard. Use when user asks about",
-      "repo": "nathan-a-king/writing-infrastructure",
-      "path": "data/pipeline-tracker",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "pipeline",
-        "tracker"
-      ],
-      "stars": 0,
-      "install": "nathan-a-king/writing-infrastructure/data/pipeline-tracker",
-      "source": "local"
-    },
-    {
       "name": "platform-mechanics",
       "description": "Convert verified algorithmic research into structured, machine-readable frameworks describing how social media platforms rank, reward, and penalize content. Provides factual, updatable platform rules",
       "repo": "alavida-ai/noncitizen",
@@ -5229,18 +5214,6 @@
       "tags": [],
       "stars": 0,
       "install": "Salesably/salesably-marketplace/marketing-skills/skills/seo-content",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "seo-content",
-      "description": "Creates search-optimized articles that rank well and read naturally for humans. This skill should be used when writing blog posts, pillar content, guides, or any content where organic search traffic i",
-      "repo": "Salesably/salesably-marketplace",
-      "path": "data/seo-content",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "Salesably/salesably-marketplace/data/seo-content",
       "source": "SkillsMP + GitHub Raw"
     },
     {
