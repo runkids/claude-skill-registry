@@ -1,0 +1,77 @@
+name: Fix Case Duplicates
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+jobs:
+  fix-duplicates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Find and fix case duplicates
+        run: |
+          echo "=== Finding case-duplicate directories ==="
+
+          # Find all skill directories from git
+          git ls-tree -r HEAD --name-only | grep "^skills/" | cut -d'/' -f2 | sort | uniq > /tmp/all_dirs.txt
+
+          # Find duplicates (case-insensitive)
+          cat /tmp/all_dirs.txt | tr '[:upper:]' '[:lower:]' | sort | uniq -d > /tmp/dup_lower.txt
+
+          if [ ! -s /tmp/dup_lower.txt ]; then
+            echo "No case duplicates found!"
+            exit 0
+          fi
+
+          echo "Found case duplicates:"
+          cat /tmp/dup_lower.txt
+
+          # For each duplicate group, keep lowercase and remove others
+          while read lower; do
+            echo ""
+            echo "Processing: $lower"
+
+            # Find all case variants
+            variants=$(grep -i "^${lower}$" /tmp/all_dirs.txt)
+            echo "Variants: $variants"
+
+            # Remove non-lowercase variants
+            for v in $variants; do
+              if [ "$v" != "$lower" ]; then
+                echo "Removing: skills/$v"
+                git rm -rf "skills/$v" || true
+              fi
+            done
+          done < /tmp/dup_lower.txt
+
+          # Check if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          # Commit changes
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git commit -m "fix: remove case-duplicate skill directories
+
+          Merged directories that differed only in case (e.g., Architect and architect)
+          to prevent issues on case-insensitive filesystems (macOS, Windows).
+
+          This is a one-time cleanup. Future duplicates are prevented by normalizing
+          all directory names to lowercase in the download scripts."
+
+          git push

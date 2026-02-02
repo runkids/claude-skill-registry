@@ -34,6 +34,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from crawler.skillsmp_sync import SkillsMPSync
+from scripts.utils import normalize_name
 
 logging.basicConfig(
     level=logging.INFO,
@@ -168,6 +169,8 @@ async def download_skills(registry_path: Path, output_dir: Path, github_token: s
 
     async def try_download(session: aiohttp.ClientSession, skill: dict) -> bool:
         name = skill["name"]
+        # Normalize name to prevent case conflicts on macOS/Windows
+        normalized_name = normalize_name(name)
         repo = skill.get("repo", "")
         path = skill.get("path", "")
 
@@ -201,13 +204,13 @@ async def download_skills(registry_path: Path, output_dir: Path, github_token: s
                         if resp.status == 200:
                             content = await resp.text()
                             if content and len(content) > 50 and ("---" in content[:50] or "#" in content[:100]):
-                                # Valid content - save
-                                skill_dir = data_dir / name
+                                # Valid content - save with normalized name
+                                skill_dir = data_dir / normalized_name
                                 skill_dir.mkdir(parents=True, exist_ok=True)
                                 (skill_dir / "SKILL.md").write_text(content, encoding="utf-8")
                                 (skill_dir / "metadata.json").write_text(
                                     json.dumps({
-                                        "name": name,
+                                        "name": normalized_name,
                                         "description": skill.get("description", ""),
                                         "repo": repo,
                                         "category": skill.get("category", ""),

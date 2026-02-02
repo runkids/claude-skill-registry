@@ -12,6 +12,8 @@ import requests
 from datetime import datetime
 from pathlib import Path
 
+from utils import normalize_name
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -191,6 +193,9 @@ class GitHubTopicDiscovery:
             skill_dir = parts[0].split('/')[-1] if '/' in parts[0] else parts[0]
         else:
             skill_dir = repo.split('/')[-1]
+
+        # Normalize to lowercase to prevent case conflicts on macOS/Windows
+        skill_dir = normalize_name(skill_dir)
 
         # Try to fetch content
         for branch in ['main', 'master']:

@@ -12,6 +12,8 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 
+from utils import normalize_name
+
 GITHUB_RAW = "https://raw.githubusercontent.com"
 
 # Known skill sources with their structure
@@ -63,6 +65,10 @@ def find_skill_dirs_from_readme(repo, branch="main"):
 
 def download_skill(repo, skill_path, skill_name, output_dir, category="community"):
     """Download a single skill."""
+    # Normalize names to prevent case conflicts on macOS/Windows
+    skill_name = normalize_name(skill_name)
+    category = normalize_name(category)
+
     # Try different URL patterns
     urls = [
         f"{GITHUB_RAW}/{repo}/main/{skill_path}/SKILL.md",
