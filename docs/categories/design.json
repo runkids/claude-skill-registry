@@ -1,8 +1,8 @@
 {
   "category": "design",
   "code": "des",
-  "count": 5547,
-  "updated_at": "2026-02-01T05:11:03.484895Z",
+  "count": 5540,
+  "updated_at": "2026-02-02T05:17:48.349905Z",
   "skills": [
     {
       "name": "add-uint-support",
@@ -6291,21 +6291,6 @@
       "name": "committing-changes",
       "description": "Creates commits following project conventions. Handles Conventional Commits with project-specific scopes, PR title requirements, changesets for releases, and CI validation rules.",
       "repo": "jasonkuhrt/kitz",
-      "path": "data/committing-changes",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "committing",
-        "changes"
-      ],
-      "stars": 5,
-      "install": "jasonkuhrt/kitz/data/committing-changes",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "committing-changes",
-      "description": "Creates commits following project conventions. Handles Conventional Commits with project-specific scopes, PR title requirements, changesets for releases, and CI validation rules.",
-      "repo": "jasonkuhrt/kitz",
       "path": ".claude/skills/committing-changes",
       "branch": "main",
       "category": "design",
@@ -10637,21 +10622,6 @@
       "name": "tavily-search",
       "description": "Use Tavily Search API for optimized, real-time web search results for RAG. Requires TAVILY_API_KEY.",
       "repo": "closedloop-technologies/awesome-deep-researchers",
-      "path": "data/tavily-search",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "tavily",
-        "search"
-      ],
-      "stars": 2,
-      "install": "closedloop-technologies/awesome-deep-researchers/data/tavily-search",
-      "source": "local"
-    },
-    {
-      "name": "tavily-search",
-      "description": "Use Tavily Search API for optimized, real-time web search results for RAG. Requires TAVILY_API_KEY.",
-      "repo": "closedloop-technologies/awesome-deep-researchers",
       "path": ".claude/skills/tavily-search",
       "branch": "main",
       "category": "design",
@@ -14199,21 +14169,6 @@
       "name": "typography-expert",
       "description": "Master typographer specializing in font pairing, typographic hierarchy, OpenType features, variable fonts, and performance-optimized web typography. Use for font selection, type scales, web font optim",
       "repo": "erichowens/some_claude_skills",
-      "path": "data/typography-expert",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "typography",
-        "expert"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills/data/typography-expert",
-      "source": "local"
-    },
-    {
-      "name": "typography-expert",
-      "description": "Master typographer specializing in font pairing, typographic hierarchy, OpenType features, variable fonts, and performance-optimized web typography. Use for font selection, type scales, web font optim",
-      "repo": "erichowens/some_claude_skills",
       "path": ".claude/skills/typography-expert",
       "branch": "main",
       "category": "design",
@@ -14638,21 +14593,6 @@
       ],
       "stars": 1,
       "install": "samjhecht/wrangler/skills/verify-governance",
-      "source": "local"
-    },
-    {
-      "name": "vibe-matcher",
-      "description": "Synesthete designer that translates emotional vibes and brand keywords into concrete visual DNA (colors, typography, layouts, interactions). Use when users describe desired \"feel\" (edgy, trustworthy,",
-      "repo": "erichowens/some_claude_skills",
-      "path": "data/vibe-matcher",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "vibe",
-        "matcher"
-      ],
-      "stars": 1,
-      "install": "erichowens/some_claude_skills/data/vibe-matcher",
       "source": "local"
     },
     {
@@ -19702,18 +19642,6 @@
       "tags": [],
       "stars": 0,
       "install": "dreamworks2050/retro-login/.factory/skills/asset-builder",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "astral-uv",
-      "description": "Fast Python package and project management using Astral's uv. Use when installing packages, managing virtual environments, running Python scripts, or initializing Python projects. Triggers on: pyproje",
-      "repo": "ianphil/my-skills",
-      "path": "data/astral-uv",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "ianphil/my-skills/data/astral-uv",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31490,21 +31418,6 @@
       ],
       "stars": 0,
       "install": "Chumbaka-Asia/edu-proposal-chatbot/design/educational-lab-ui",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "efcore-patterns",
-      "description": "Master Entity Framework Core patterns for ABP Framework including entity configuration, DbContext, migrations, relationships, and performance optimization. Use when: (1) configuring entities with Flue",
-      "repo": "thapaliyabikendra/ai-artifacts",
-      "path": "data/efcore-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "efcore",
-        "patterns"
-      ],
-      "stars": 0,
-      "install": "thapaliyabikendra/ai-artifacts/data/efcore-patterns",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -63831,18 +63744,6 @@
       "stars": 0,
       "install": "danielnymberg/prio/.claude/skills/syncfusion-styling",
       "source": "local"
-    },
-    {
-      "name": "synthesis",
-      "description": "Synthesize all accumulated notes and drafts to generate the Discussion and Abstract sections. Sixth step of biomedical-science-writer workflow. Requires all notes/*.md files and drafts/introduction.md",
-      "repo": "sxg/biomedical-science-writer",
-      "path": "data/synthesis",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "sxg/biomedical-science-writer/data/synthesis",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "synthesis",

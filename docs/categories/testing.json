@@ -1,8 +1,8 @@
 {
   "category": "testing",
   "code": "tst",
-  "count": 4019,
-  "updated_at": "2026-02-01T05:11:05.773476Z",
+  "count": 4016,
+  "updated_at": "2026-02-02T05:17:50.822483Z",
   "skills": [
     {
       "name": "frontend-testing-langgenius-dify",
@@ -9120,21 +9120,6 @@
       ],
       "stars": 4,
       "install": "benshapyro/cadre-devkit-claude/skills/error-handler",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "error-handler",
-      "description": "Provides battle-tested error handling patterns for TypeScript and Python. Use when implementing error handling, creating try/catch blocks, or handling exceptions.",
-      "repo": "benshapyro/cadre-devkit-claude",
-      "path": "data/error-handler",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "error",
-        "handler"
-      ],
-      "stars": 4,
-      "install": "benshapyro/cadre-devkit-claude/data/error-handler",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -23585,18 +23570,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "deno",
-      "description": "Deno-specific conventions and patterns.",
-      "repo": "lambdalisue/dotfiles",
-      "path": "data/deno",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "lambdalisue/dotfiles/data/deno",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "deno-typescript-lsp",
       "description": "Use this skill when working with TypeScript/JavaScript files (.ts, .tsx, .js, .jsx, .mts, .cts, .mjs, .cjs) in Deno projects, or when the user asks about Deno-specific patterns, imports, configuration",
       "repo": "jahanson/cc-plugins",
@@ -28249,18 +28222,6 @@
       "tags": [],
       "stars": 0,
       "install": "bailu2025/CC-Plugins/plugins/go-gin-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "gin",
-      "description": "A comprehensive skill for the Go Gin web framework including routing, middleware, binding, and testing",
-      "repo": "bailu2025/CC-Plugins",
-      "path": "data/gin",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "bailu2025/CC-Plugins/data/gin",
       "source": "SkillsMP + GitHub Raw"
     },
     {

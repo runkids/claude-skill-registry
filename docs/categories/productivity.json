@@ -1,8 +1,8 @@
 {
   "category": "productivity",
   "code": "pro",
-  "count": 1535,
-  "updated_at": "2026-02-01T05:11:05.144345Z",
+  "count": 1532,
+  "updated_at": "2026-02-02T05:17:50.133747Z",
   "skills": [
     {
       "name": "commit-helper",
@@ -5775,20 +5775,6 @@
       ],
       "stars": 2,
       "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/swap-management",
-      "source": "local"
-    },
-    {
-      "name": "things",
-      "description": "Interacting with Things 3 task manager for Mac. Use when working with the user's personal todos, tasks, projects, areas, tags, or task lists (inbox, today, upcoming, etc.). Supports creating, reading,",
-      "repo": "bendrucker/claude",
-      "path": "data/things",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "things"
-      ],
-      "stars": 2,
-      "install": "bendrucker/claude/data/things",
       "source": "local"
     },
     {
@@ -19162,18 +19148,6 @@
       "name": "superpowers-lab",
       "description": "Experimental Claude Code skills extending capabilities with new techniques for interactive CLI tools, tmux automation, and advanced workflows.",
       "repo": "Microck/ordinary-claude-skills",
-      "path": "data/superpowers-lab",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "Microck/ordinary-claude-skills/data/superpowers-lab",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "superpowers-lab",
-      "description": "Experimental Claude Code skills extending capabilities with new techniques for interactive CLI tools, tmux automation, and advanced workflows.",
-      "repo": "Microck/ordinary-claude-skills",
       "path": "skills_all/superpowers-lab",
       "branch": "main",
       "category": "productivity",
@@ -20173,20 +20147,6 @@
       "stars": 0,
       "install": "Cloudhabil/AGI-Server/productivity/tuningparameter-optimizer",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "typefully",
-      "description": "This skill should be used when managing social media content through Typefully, including creating drafts, scheduling posts, cross-posting to multiple accounts, and multi-platform publishing (X, Linke",
-      "repo": "synapz-org/typefully-claude-skill",
-      "path": "data/typefully",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "typefully"
-      ],
-      "stars": 0,
-      "install": "synapz-org/typefully-claude-skill/data/typefully",
-      "source": "local"
     },
     {
       "name": "typefully",

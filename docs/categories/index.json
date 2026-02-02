@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-01T05:11:02.428224Z",
+  "updated_at": "2026-02-02T05:17:47.208733Z",
   "categories": [
     {
       "name": ".github-skills",
@@ -17424,7 +17424,7 @@
     {
       "name": "data",
       "code": "dat",
-      "count": 25737
+      "count": 26637
     },
     {
       "name": "data-access",
@@ -19014,7 +19014,7 @@
     {
       "name": "design",
       "code": "des",
-      "count": 5547
+      "count": 5540
     },
     {
       "name": "design-and-build",
@@ -19819,7 +19819,7 @@
     {
       "name": "development",
       "code": "dev",
-      "count": 18268
+      "count": 18239
     },
     {
       "name": "development-code",
@@ -19884,7 +19884,7 @@
     {
       "name": "devops",
       "code": "ops",
-      "count": 3167
+      "count": 3161
     },
     {
       "name": "devops-agent",
@@ -21034,7 +21034,7 @@
     {
       "name": "documents",
       "code": "doc",
-      "count": 2733
+      "count": 2729
     },
     {
       "name": "docusaurus",
@@ -36989,7 +36989,7 @@
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 455
+      "count": 454
     },
     {
       "name": "marketing-audit",
@@ -43179,7 +43179,7 @@
     {
       "name": "other",
       "code": "oth",
-      "count": 18597
+      "count": 18486
     },
     {
       "name": "other-entries",
@@ -46414,7 +46414,7 @@
     {
       "name": "product",
       "code": "prd",
-      "count": 1075
+      "count": 1074
     },
     {
       "name": "product-analytics-integrator",
@@ -46564,7 +46564,7 @@
     {
       "name": "productivity",
       "code": "pro",
-      "count": 1535
+      "count": 1532
     },
     {
       "name": "professeur_lycee",
@@ -61844,7 +61844,7 @@
     {
       "name": "testing",
       "code": "tst",
-      "count": 4019
+      "count": 4016
     },
     {
       "name": "testing-agent",
