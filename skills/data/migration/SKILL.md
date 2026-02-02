@@ -1,172 +1,110 @@
 ---
-name: migration
-description: Create a new database migration following this project's patterns. Use when adding tables, columns, or modifying schema.
-argument-hint: [description]
-disable-model-invocation: true
+name: crowi-migration
+description: |
+  Crowi 2.0 移行ワークフロー。Express/Swig から Next.js + ts-rest への移行時に自動適用。
+  キーワード: migrate, 移行, Express, Swig, legacy, 旧実装
+globs:
+  - "lib/routes/**"
+  - "lib/views/**"
+  - "client/components/**"
 ---
 
-# Create Database Migration
+# Crowi 2.0 Migration Skill
 
-Create a new database migration for `$ARGUMENTS` following Laravel conventions.
+## アーキテクチャ
 
-## Migration Location
-`database/migrations/`
-
-## Naming Convention
-`YYYY_MM_DD_HHMMSS_description.php`
-
-Example: `2024_01_15_143022_create_products_table.php`
-
-## Create Table Migration
-
-```php
-<?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    public function up()
-    {
-        Schema::create('table_name', function (Blueprint $table) {
-            $table->id();
-
-            // Common field patterns from this project:
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('status')->default(1);
-            $table->integer('type')->default(0);
-            $table->decimal('price', 10, 2)->default(0);
-            $table->integer('qty')->default(0);
-            $table->integer('order')->default(0);  // For sorting
-            $table->boolean('active')->default(true);
-            $table->json('data')->nullable();  // For flexible data
-
-            // Foreign keys
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->nullable()->constrained();
-
-            // Position fields (from tables)
-            $table->integer('position_x')->default(0);
-            $table->integer('position_y')->default(0);
-
-            $table->timestamps();
-        });
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('table_name');
-    }
-};
+```
+crowi/
+├── apps/
+│   ├── crowi-api/          # Fastify + ts-rest (port 3300)
+│   └── crowi-web/          # Next.js 16 (port 3301)
+├── packages/
+│   ├── api-contract/       # ts-rest 契約定義
+│   └── shared/             # 共有型
+└── lib/                    # 旧実装（参照元）
+    ├── routes/             # Express ルート
+    ├── views/              # Swig テンプレート
+    └── models/             # Mongoose モデル
 ```
 
-## Add Column Migration
+## 移行パターン
 
-```php
-<?php
+### Express Route → Fastify + ts-rest
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+```typescript
+// Before: lib/routes/page.js
+router.get('/pages', async (req, res) => {
+  const pages = await Page.find();
+  res.render('page/list', { pages });
+});
 
-return new class extends Migration
-{
-    public function up()
-    {
-        Schema::table('existing_table', function (Blueprint $table) {
-            $table->string('new_column')->nullable()->after('existing_column');
-        });
-    }
+// After: packages/api-contract/src/page.ts
+export const pageContract = c.router({
+  listPages: {
+    method: 'GET',
+    path: '/pages',
+    responses: { 200: z.object({ pages: z.array(PageSchema) }) },
+  },
+});
 
-    public function down()
-    {
-        Schema::table('existing_table', function (Blueprint $table) {
-            $table->dropColumn('new_column');
-        });
-    }
-};
+// After: apps/crowi-api/src/routes/page.ts
+listPages: async () => {
+  const pages = await Page.find();
+  return { status: 200, body: { pages } };
+},
 ```
 
-## Common Field Patterns From This Project
+### Swig Template → Next.js Page
 
-### Invoice Table Pattern
-```php
-$table->foreignId('user_id')->constrained();
-$table->foreignId('table_id')->constrained();
-$table->integer('status')->default(1);  // 0=refunded, 1=paid, 2=on-house
-$table->json('order');  // Array of order items
-$table->decimal('total', 10, 2);
-$table->string('payment_type')->nullable();
-$table->text('note')->nullable();
-$table->foreignId('refund_reason_id')->nullable()->constrained();
-$table->decimal('discount', 5, 2)->default(0);
+```typescript
+// Before: lib/views/page/list.html
+{% for page in pages %}
+  <div>{{ page.path }}</div>
+{% endfor %}
+
+// After: apps/crowi-web/app/(main)/pages/page.tsx
+'use client';
+export default function PagesPage() {
+  const { data } = useQuery(['pages'], () => client.page.listPages());
+  return data?.body.pages.map(page => <div key={page._id}>{page.path}</div>);
+}
 ```
 
-### Inventory Table Pattern
-```php
-$table->foreignId('category_id')->constrained();
-$table->string('name');
-$table->text('description')->nullable();
-$table->boolean('active')->default(true);
-$table->integer('sold_by')->default(0);  // 0=piece, 1=half, 2=grams
-$table->decimal('price', 10, 2);
-$table->string('sku')->nullable();
-$table->integer('qty')->default(0);
-$table->string('color')->nullable();
-$table->integer('order')->default(0);
-$table->string('unit')->nullable();
+## サブエージェント
+
+| Agent | 役割 | ツール |
+|-------|------|--------|
+| migration-planner | 計画立案 | Read, Grep, Glob |
+| migration-implementer | 実装 | Read, Write, Edit, Bash |
+| migration-reviewer | レビュー | Read, Grep, Bash |
+| migration-committer | コミット・PR | Read, Bash |
+
+## ワークフロー
+
+```
+/migrate {task-name}
+
+planner → implementer → reviewer ─┬→ committer
+                          ↑       │
+                          └───────┘ (NEEDS_WORK)
 ```
 
-### Warehouse Status Pattern
-```php
-$table->foreignId('warehouse_id')->constrained();
-$table->foreignId('inventory_id')->nullable()->constrained();
-$table->decimal('quantity', 10, 2)->default(0);
-$table->integer('type')->default(0);  // 0=IN, 1=OUT, 2=RESET
-$table->date('date');
-$table->string('batch_id')->nullable();  // Links to invoice
-$table->text('comment')->nullable();
+## タスク管理
+
+- キュー: `.claude/migration-state/queue.json`
+- タスク: `.claude/migration-state/tasks/{task-id}.json`
+- ステータス: `PLANNED` → `REVIEW` → `APPROVED` → `COMMITTED`
+
+## 技術スタック
+
+- **API**: Fastify v5, ts-rest, MongoDB/Mongoose, JWT
+- **Web**: Next.js 16, React 19, Tailwind v4, shadcn/ui
+- **共通**: TypeScript 5.x strict, pnpm, Turborepo
+
+## Crowi テーマ
+
+```css
+--crowi-primary: #43676b;
+--crowi-header: #263a3c;
+--crowi-sidebar: #f8f9fa;
 ```
-
-### Table (dining) Pattern
-```php
-$table->string('name');
-$table->integer('table_number');
-$table->integer('area')->default(0);  // 0=Sala, 1=Basta
-$table->integer('size')->default(1);
-$table->integer('rotate')->default(0);
-$table->integer('position_x')->default(0);
-$table->integer('position_y')->default(0);
-$table->integer('position_x_middle')->default(0);
-$table->integer('position_y_middle')->default(0);
-```
-
-## Artisan Command
-
-```bash
-# Create migration
-php artisan make:migration create_products_table
-
-# Create migration for adding column
-php artisan make:migration add_column_to_table
-
-# Run migrations
-php artisan migrate
-
-# Rollback last batch
-php artisan migrate:rollback
-
-# Fresh migration (drops all tables)
-php artisan migrate:fresh
-```
-
-## Steps
-
-1. Generate migration with `php artisan make:migration`
-2. Define schema in `up()` method
-3. Define rollback in `down()` method
-4. Run `php artisan migrate`
-5. Create or update corresponding Model

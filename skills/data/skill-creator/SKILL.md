@@ -1,7 +1,6 @@
 ---
 name: skill-creator
 description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.
-license: Complete terms in LICENSE.txt
 ---
 
 # Skill Creator
@@ -205,9 +204,9 @@ Skill creation involves these steps:
 
 1. Understand the skill with concrete examples
 2. Plan reusable skill contents (scripts, references, assets)
-3. Initialize the skill (run init_skill.py)
+3. Initialize the skill (execute init_skill function)
 4. Edit the skill (implement resources and write SKILL.md)
-5. Package the skill (run package_skill.py)
+5. Package the skill (execute package_skill function)
 6. Iterate based on real usage
 
 Follow these steps in order, skipping only if there is a clear reason why they are not applicable.
@@ -259,15 +258,21 @@ At this point, it is time to actually create the skill.
 
 Skip this step only if the skill being developed already exists, and iteration or packaging is needed. In this case, continue to the next step.
 
-When creating a new skill from scratch, always run the `init_skill.py` script. The script conveniently generates a new template skill directory that automatically includes everything a skill requires, making the skill creation process much more efficient and reliable.
+When creating a new skill from scratch, execute the `init_skill` function via the WASM module. The function conveniently generates a new template skill directory that automatically includes everything a skill requires, making the skill creation process much more efficient and reliable.
+
+**CRITICAL: You MUST use `run_skill_script` to execute the WASM module - do NOT manually create skill files or recreate the template structure. The WASM module provides the correct template structure with proper placeholders and organization.**
 
 Usage:
 
-```bash
-scripts/init_skill.py <skill-name> --path <output-directory>
+```
+run_skill_script("skill-creator", "wasm/skill.wasm", null, '{"action": "init_skill", "skill_name": "my-new-skill", "path": "skills/public"}')
 ```
 
-The script:
+The WASM module will return JSON with file contents. You should then use `write_file()` to create the files as specified in the response. Do NOT manually create SKILL.md or other files - always use the WASM module output.
+
+The tool call returns JSON output with file contents that are automatically written to the workspace. Parse the output to see what was created.
+
+The function:
 
 - Creates the skill directory at the specified path
 - Generates a SKILL.md template with proper frontmatter and TODO placeholders
@@ -295,7 +300,7 @@ To begin implementation, start with the reusable resources identified above: `sc
 
 Added scripts must be tested by actually running them to ensure there are no bugs and that the output matches what is expected. If there are many similar scripts, only a representative sample needs to be tested to ensure confidence that they all work while balancing time to completion.
 
-Any example files and directories not needed for the skill should be deleted. The initialization script creates example files in `scripts/`, `references/`, and `assets/` to demonstrate structure, but most skills won't need all of them.
+Any example files and directories not needed for the skill should be deleted. The initialization function creates example files in `scripts/`, `references/`, and `assets/` to demonstrate structure, but most skills won't need all of them.
 
 #### Update SKILL.md
 
@@ -321,17 +326,24 @@ Write instructions for using the skill and its bundled resources.
 
 Once development of the skill is complete, it must be packaged into a distributable .skill file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:
 
-```bash
-scripts/package_skill.py <path/to/skill-folder>
+Execute the skill with:
+```json
+{
+  "action": "package_skill",
+  "skill_path": "skills/public/my-skill"
+}
 ```
 
 Optional output directory specification:
-
-```bash
-scripts/package_skill.py <path/to/skill-folder> ./dist
+```json
+{
+  "action": "package_skill",
+  "skill_path": "skills/public/my-skill",
+  "output_dir": "./dist"
+}
 ```
 
-The packaging script will:
+The packaging function will:
 
 1. **Validate** the skill automatically, checking:
 
@@ -342,7 +354,7 @@ The packaging script will:
 
 2. **Package** the skill if validation passes, creating a .skill file named after the skill (e.g., `my-skill.skill`) that includes all files and maintains the proper directory structure for distribution. The .skill file is a zip file with a .skill extension.
 
-If validation fails, the script will report the errors and exit without creating a package. Fix any validation errors and run the packaging command again.
+If validation fails, the function will report the errors and exit without creating a package. Fix any validation errors and run the packaging command again.
 
 ### Step 6: Iterate
 
@@ -354,3 +366,13 @@ After testing the skill, users may request improvements. Often this happens righ
 2. Notice struggles or inefficiencies
 3. Identify how SKILL.md or bundled resources should be updated
 4. Implement changes and test again
+
+## WASM Implementation
+
+This skill is implemented as a WASM module, demonstrating how skills can leverage WebAssembly for cross-platform execution. The WASM module provides three main functions:
+
+- **init_skill**: Creates a new skill from template
+- **package_skill**: Packages a skill into a distributable .skill file
+- **validate_skill**: Validates a skill's structure and metadata
+
+All functions accept JSON input and return JSON output, making them compatible with the OpenSkills runtime's WASM execution model.

@@ -144,7 +144,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -160,62 +160,60 @@ jobs:
 
 ```typescript
 // Custom remote cache server (Express)
-import express from "express";
-import { createReadStream, createWriteStream } from "fs";
-import { mkdir } from "fs/promises";
-import { join } from "path";
+import express from 'express'
+import { createReadStream, createWriteStream } from 'fs'
+import { mkdir } from 'fs/promises'
+import { join } from 'path'
 
-const app = express();
-const CACHE_DIR = "./cache";
+const app = express()
+const CACHE_DIR = './cache'
 
 // Get artifact
-app.get("/v8/artifacts/:hash", async (req, res) => {
-  const { hash } = req.params;
-  const team = req.query.teamId || "default";
-  const filePath = join(CACHE_DIR, team, hash);
+app.get('/v8/artifacts/:hash', async (req, res) => {
+  const { hash } = req.params
+  const team = req.query.teamId || 'default'
+  const filePath = join(CACHE_DIR, team, hash)
 
   try {
-    const stream = createReadStream(filePath);
-    stream.pipe(res);
+    const stream = createReadStream(filePath)
+    stream.pipe(res)
   } catch {
-    res.status(404).send("Not found");
+    res.status(404).send('Not found')
   }
-});
+})
 
 // Put artifact
-app.put("/v8/artifacts/:hash", async (req, res) => {
-  const { hash } = req.params;
-  const team = req.query.teamId || "default";
-  const dir = join(CACHE_DIR, team);
-  const filePath = join(dir, hash);
+app.put('/v8/artifacts/:hash', async (req, res) => {
+  const { hash } = req.params
+  const team = req.query.teamId || 'default'
+  const dir = join(CACHE_DIR, team)
+  const filePath = join(dir, hash)
 
-  await mkdir(dir, { recursive: true });
+  await mkdir(dir, { recursive: true })
 
-  const stream = createWriteStream(filePath);
-  req.pipe(stream);
+  const stream = createWriteStream(filePath)
+  req.pipe(stream)
 
-  stream.on("finish", () => {
-    res.json({
-      urls: [`${req.protocol}://${req.get("host")}/v8/artifacts/${hash}`],
-    });
-  });
-});
+  stream.on('finish', () => {
+    res.json({ urls: [`${req.protocol}://${req.get('host')}/v8/artifacts/${hash}`] })
+  })
+})
 
 // Check artifact exists
-app.head("/v8/artifacts/:hash", async (req, res) => {
-  const { hash } = req.params;
-  const team = req.query.teamId || "default";
-  const filePath = join(CACHE_DIR, team, hash);
+app.head('/v8/artifacts/:hash', async (req, res) => {
+  const { hash } = req.params
+  const team = req.query.teamId || 'default'
+  const filePath = join(CACHE_DIR, team, hash)
 
   try {
-    await fs.access(filePath);
-    res.status(200).end();
+    await fs.access(filePath)
+    res.status(200).end()
   } catch {
-    res.status(404).end();
+    res.status(404).end()
   }
-});
+})
 
-app.listen(3000);
+app.listen(3000)
 ```
 
 ```json

@@ -1,254 +1,376 @@
 ---
 name: database-schema
-description: Generate comprehensive database schemas with proper relations, migrations, and ORM/ODM models for PostgreSQL, MongoDB, and SQLite. Use when creating database schemas that integrate with FastAPI applications, including SQLAlchemy models for SQL databases, PyMongo/ODMantic models for MongoDB, Alembic migrations, and proper relationship definitions.
+description: Schema awareness - read before coding, type generation, prevent column errors
 ---
 
-# Database Schema Generator
+# Database Schema Awareness Skill
 
-This skill provides comprehensive tools for generating database schemas with proper relations, migrations, and ORM/ODM models for PostgreSQL, MongoDB, and SQLite that integrate seamlessly with FastAPI applications.
+*Load with: base.md + [your database skill]*
 
-## When to Use This Skill
+**Problem:** Claude forgets schema details mid-session - wrong column names, missing fields, incorrect types. TDD catches this at runtime, but we can prevent it earlier.
 
-Use this skill when you need to:
-- Generate database schemas with proper relationships and constraints
-- Create ORM/ODM models for SQL (SQLAlchemy) or NoSQL (ODMantic/PyMongo) databases
-- Set up database migrations for schema evolution
-- Define proper indexing strategies for performance
-- Generate FastAPI integration patterns for database operations
-- Create database connection pools and session management
+---
 
-## Supported Database Types
+## Core Rule: Read Schema Before Writing Database Code
 
-### SQL Databases
-- **PostgreSQL**: Advanced features, JSON support, full-text search
-- **SQLite**: Lightweight, file-based, perfect for development/testing
-- **MySQL**: Traditional SQL with comprehensive feature set (coming soon)
+**MANDATORY: Before writing ANY code that touches the database:**
 
-### NoSQL Databases
-- **MongoDB**: Document-based with flexible schema and rich query language
+```
+┌─────────────────────────────────────────────────────────────┐
+│  1. READ the schema file (see locations below)              │
+│  2. VERIFY columns/types you're about to use exist          │
+│  3. REFERENCE schema in your response when writing queries  │
+│  4. TYPE-CHECK using generated types (Drizzle/Prisma/etc)   │
+└─────────────────────────────────────────────────────────────┘
+```
 
-## Core Workflow
+**If schema file doesn't exist → CREATE IT before proceeding.**
 
-### 1. Database Type Selection
-- Choose between PostgreSQL, MongoDB, or SQLite based on requirements
-- Consider factors: scalability, ACID compliance, document flexibility, deployment complexity
+---
 
-### 2. Schema Design
-- Define entities and their relationships
-- Plan indexes for optimal query performance
-- Consider data normalization vs. denormalization trade-offs
+## Schema File Locations (By Stack)
 
-### 3. Model Generation
-- Create appropriate ORM/ODM models based on database type
-- Define proper field types and constraints
-- Implement relationship mappings
+| Stack | Schema Location | Type Generation |
+|-------|-----------------|-----------------|
+| **Drizzle** | `src/db/schema.ts` or `drizzle/schema.ts` | Built-in TypeScript |
+| **Prisma** | `prisma/schema.prisma` | `npx prisma generate` |
+| **Supabase** | `supabase/migrations/*.sql` + types | `supabase gen types typescript` |
+| **SQLAlchemy** | `app/models/*.py` or `src/models.py` | Pydantic models |
+| **TypeORM** | `src/entities/*.ts` | Decorators = types |
+| **Raw SQL** | `schema.sql` or `migrations/` | Manual types required |
 
-### 4. Migration Strategy
-- Generate migration files for schema evolution
-- Plan rollback strategies for safe deployments
-- Consider data migration needs
+### Schema Reference File (Recommended)
 
-### 5. FastAPI Integration
-- Set up database connection pools
-- Implement dependency injection for database sessions
-- Create proper error handling for database operations
+Create `_project_specs/schema-reference.md` for quick lookup:
 
-## Database-Specific Patterns
+```markdown
+# Database Schema Reference
 
-### PostgreSQL Schema Generation
+*Auto-generated or manually maintained. Claude: READ THIS before database work.*
+
+## Tables
+
+### users
+| Column | Type | Nullable | Default | Notes |
+|--------|------|----------|---------|-------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| email | text | NO | - | Unique |
+| name | text | YES | - | Display name |
+| created_at | timestamptz | NO | now() | - |
+| updated_at | timestamptz | NO | now() | - |
+
+### orders
+| Column | Type | Nullable | Default | Notes |
+|--------|------|----------|---------|-------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| user_id | uuid | NO | - | FK → users.id |
+| status | text | NO | 'pending' | enum: pending/paid/shipped/delivered |
+| total_cents | integer | NO | - | Amount in cents |
+| created_at | timestamptz | NO | now() | - |
+
+## Relationships
+- users 1:N orders (user_id)
+
+## Enums
+- order_status: pending, paid, shipped, delivered
+```
+
+---
+
+## Pre-Code Checklist (Database Work)
+
+Before writing any database code, Claude MUST:
+
+```markdown
+### Schema Verification Checklist
+- [ ] Read schema file: `[path to schema]`
+- [ ] Columns I'm using exist: [list columns]
+- [ ] Types match my code: [list type mappings]
+- [ ] Relationships are correct: [list FKs]
+- [ ] Nullable fields handled: [list nullable columns]
+```
+
+**Example in practice:**
+
+```markdown
+### Schema Verification for TODO-042 (Add order history endpoint)
+
+- [x] Read schema: `src/db/schema.ts`
+- [x] Columns exist: orders.id, orders.user_id, orders.status, orders.total_cents, orders.created_at
+- [x] Types: id=uuid→string, total_cents=integer→number, status=text→OrderStatus enum
+- [x] Relationships: orders.user_id → users.id (many-to-one)
+- [x] Nullable: none of these columns are nullable
+```
+
+---
+
+## Type Generation Commands
+
+### Drizzle (TypeScript)
+
+```typescript
+// Schema defines types automatically
+// src/db/schema.ts
+import { pgTable, uuid, text, integer, timestamp } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  email: text('email').notNull().unique(),
+  name: text('name'),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+});
+
+export const orders = pgTable('orders', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').notNull().references(() => users.id),
+  status: text('status').notNull().default('pending'),
+  totalCents: integer('total_cents').notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+});
+
+// Inferred types - USE THESE
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type Order = typeof orders.$inferSelect;
+export type NewOrder = typeof orders.$inferInsert;
+```
+
+### Prisma
+
+```prisma
+// prisma/schema.prisma
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  orders    Order[]
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+model Order {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id])
+  status     String   @default("pending")
+  totalCents Int      @map("total_cents")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("orders")
+}
+```
+
+```bash
+# Generate types after schema changes
+npx prisma generate
+```
+
+### Supabase
+
+```bash
+# Generate TypeScript types from live database
+supabase gen types typescript --local > src/types/database.ts
+
+# Or from remote
+supabase gen types typescript --project-id your-project-id > src/types/database.ts
+```
+
+```typescript
+// Use generated types
+import { Database } from '@/types/database';
+
+type User = Database['public']['Tables']['users']['Row'];
+type NewUser = Database['public']['Tables']['users']['Insert'];
+type Order = Database['public']['Tables']['orders']['Row'];
+```
+
+### SQLAlchemy (Python)
 
 ```python
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Index
-from sqlalchemy.orm import relationship
+# app/models/user.py
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
-from database.base import Base
+from app.db import Base
+import uuid
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True, nullable=False)
-    name = Column(String, nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String, nullable=False, unique=True)
+    name = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
-    posts = relationship("Post", back_populates="author", cascade="all, delete-orphan")
-
-# PostgreSQL-specific indexes
-Index('idx_user_email', 'email', unique=True)
-Index('idx_user_created_at', 'created_at')
+    orders = relationship("Order", back_populates="user")
 ```
 
-### MongoDB Schema Generation (ODMantic)
-
 ```python
-from odmantic import Model, Field, Index
+# app/schemas/user.py - Pydantic for API validation
+from pydantic import BaseModel, EmailStr
+from uuid import UUID
 from datetime import datetime
-from typing import List, Optional
 
-class User(Model):
-    email: str = Field(unique=True, regex=r'^[\w\.-]+@[\w\.-]+\.\w+$')
-    name: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+class UserBase(BaseModel):
+    email: EmailStr
+    name: str | None = None
 
-    class Config:
-        collection = "users"
-        indexes = [
-            Index("email", unique=True),
-            Index("created_at")
-        ]
+class UserCreate(UserBase):
+    pass
 
-class Post(Model):
-    title: str
-    content: str
-    author_id: str = Field(foreign_key="User.id")
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-
-    # Embedded relationships in MongoDB
-    tags: List[str] = []
-    metadata: Optional[dict] = {}
+class User(UserBase):
+    id: UUID
+    created_at: datetime
 
     class Config:
-        collection = "posts"
-        indexes = [
-            Index("author_id"),
-            Index("created_at"),
-            Index("tags")
-        ]
+        from_attributes = True
 ```
 
-### SQLite Schema Generation
+---
 
-```python
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
-from database.base import Base
+## Schema-Aware TDD Workflow
 
-class User(Base):
-    __tablename__ = "users"
+Extend the standard TDD workflow for database work:
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True, nullable=False)
-    name = Column(String, nullable=False)
-    created_at = Column(DateTime, default=func.now())
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
-
-    posts = relationship("Post", back_populates="author")
+```
+┌─────────────────────────────────────────────────────────────┐
+│  0. SCHEMA: Read and verify schema before anything else     │
+│     └─ Read schema file                                     │
+│     └─ Complete Schema Verification Checklist               │
+│     └─ Note any missing columns/tables needed               │
+├─────────────────────────────────────────────────────────────┤
+│  1. RED: Write tests that use correct column names          │
+│     └─ Import generated types                               │
+│     └─ Use type-safe queries in tests                       │
+│     └─ Tests should fail on logic, NOT schema errors        │
+├─────────────────────────────────────────────────────────────┤
+│  2. GREEN: Implement with type-safe queries                 │
+│     └─ Use ORM types, not raw strings                       │
+│     └─ TypeScript/mypy catches column mismatches            │
+├─────────────────────────────────────────────────────────────┤
+│  3. VALIDATE: Type check catches schema drift               │
+│     └─ tsc --noEmit / mypy catches wrong columns            │
+│     └─ Tests validate runtime behavior                      │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Migration Patterns
+---
 
-### Alembic Migration Example
+## Common Schema Mistakes (And How to Prevent)
 
-```python
-"""Add user profile fields
+| Mistake | Example | Prevention |
+|---------|---------|------------|
+| Wrong column name | `user.userName` vs `user.name` | Read schema, use generated types |
+| Wrong type | `totalCents` as string | Type generation catches this |
+| Missing nullable check | `user.name!` when nullable | Schema shows nullable fields |
+| Wrong FK relationship | `order.userId` vs `order.user_id` | Check schema column names |
+| Missing column | Using `user.avatar` that doesn't exist | Read schema before coding |
+| Wrong enum value | `status: 'complete'` vs `'completed'` | Document enums in schema reference |
 
-Revision ID: abc123def456
-Revises: 7d5c8b1a2c3d
-Create Date: 2023-10-15 10:30:00.000000
+### Type-Safe Query Examples
 
-"""
-from alembic import op
-import sqlalchemy as sa
+**Drizzle (catches errors at compile time):**
+```typescript
+// ✅ Correct - uses schema-defined columns
+const user = await db.select().from(users).where(eq(users.email, email));
 
-# revision identifiers
-revision = 'abc123def456'
-down_revision = '7d5c8b1a2c3d'
-branch_labels = None
-depends_on = None
-
-def upgrade():
-    # Add new columns
-    op.add_column('users', sa.Column('bio', sa.Text(), nullable=True))
-    op.add_column('users', sa.Column('avatar_url', sa.String(500), nullable=True))
-    op.add_column('users', sa.Column('is_verified', sa.Boolean(), nullable=True, default=False))
-
-    # Create indexes
-    op.create_index('ix_users_bio', 'users', ['bio'])
-    op.create_index('ix_users_is_verified', 'users', ['is_verified'])
-
-def downgrade():
-    # Remove columns (in reverse order)
-    op.drop_index('ix_users_is_verified')
-    op.drop_index('ix_users_bio')
-    op.drop_column('users', 'is_verified')
-    op.drop_column('users', 'avatar_url')
-    op.drop_column('users', 'bio')
+// ❌ Wrong - TypeScript error: 'userName' doesn't exist
+const user = await db.select().from(users).where(eq(users.userName, email));
 ```
 
-## FastAPI Integration Patterns
+**Prisma (catches errors at compile time):**
+```typescript
+// ✅ Correct
+const user = await prisma.user.findUnique({ where: { email } });
 
-### Database Dependency
-
-```python
-from fastapi import Depends
-from sqlalchemy.orm import Session
-from database.session import get_db
-
-async def get_current_user(
-    token: str = Security(oauth2_scheme),
-    db: Session = Depends(get_db)
-):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
-            raise credentials_exception
-    except JWTError:
-        raise credentials_exception
-
-    user = db.query(User).filter(User.email == email).first()
-    if user is None:
-        raise credentials_exception
-    return user
+// ❌ Wrong - TypeScript error
+const user = await prisma.user.findUnique({ where: { userName: email } });
 ```
 
-## Best Practices
+**Raw SQL (NO protection - avoid):**
+```typescript
+// ❌ Dangerous - no type checking, easy to get wrong
+const result = await db.query('SELECT * FROM users WHERE user_name = $1', [email]);
+// Should be 'email' not 'user_name' - won't catch until runtime
+```
 
-### Performance Optimization
-- Use proper indexing strategies
-- Implement connection pooling
-- Use eager loading for related data when needed
-- Consider caching strategies for read-heavy operations
+---
 
-### Security Considerations
-- Sanitize all database inputs
-- Use parameterized queries to prevent injection
-- Implement proper authentication and authorization
-- Encrypt sensitive data at rest
+## Migration Workflow
 
-### Scalability Patterns
-- Plan for database sharding if needed
-- Use read replicas for read-heavy operations
-- Implement proper database connection management
-- Consider database-specific optimization techniques
+When schema changes are needed:
 
-## Advanced Features
+```
+┌─────────────────────────────────────────────────────────────┐
+│  1. Update schema file (Drizzle/Prisma/SQLAlchemy)          │
+├─────────────────────────────────────────────────────────────┤
+│  2. Generate migration                                       │
+│     └─ Drizzle: npx drizzle-kit generate                    │
+│     └─ Prisma: npx prisma migrate dev --name add_column     │
+│     └─ Supabase: supabase migration new add_column          │
+├─────────────────────────────────────────────────────────────┤
+│  3. Regenerate types                                         │
+│     └─ Prisma: npx prisma generate                          │
+│     └─ Supabase: supabase gen types typescript              │
+├─────────────────────────────────────────────────────────────┤
+│  4. Update schema-reference.md                               │
+├─────────────────────────────────────────────────────────────┤
+│  5. Run type check - find all broken code                    │
+│     └─ npm run typecheck                                    │
+├─────────────────────────────────────────────────────────────┤
+│  6. Fix type errors, update tests, run full validation       │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### Relationship Handling
-- One-to-Many relationships with proper cascading
-- Many-to-Many relationships with join tables
-- One-to-One relationships for specialized use cases
-- Self-referencing relationships for hierarchical data
+---
 
-### Data Validation
-- Database-level constraints
-- Application-level validation through ORM/ODM
-- Custom validation functions
-- Data integrity checks
+## Session Start Protocol
 
-## References
-- See [POSTGRESQL.md](references/POSTGRESQL.md) for PostgreSQL-specific patterns
-- See [MONGODB.md](references/MONGODB.md) for MongoDB schema design
-- See [SQLITE.md](references/SQLITE.md) for SQLite optimization
-- See [MIGRATIONS.md](references/MIGRATIONS.md) for migration strategies
-- See [RELATIONS.md](references/RELATIONS.md) for relationship patterns
-- See [FASTAPI_INTEGRATION.md](references/FASTAPI_INTEGRATION.md) for FastAPI database patterns
+**When starting a session that involves database work:**
+
+1. Read schema file immediately
+2. Read `_project_specs/schema-reference.md` if exists
+3. Note in session state what tables/columns are relevant
+4. Reference schema explicitly when writing code
+
+**Session state example:**
+```markdown
+## Current Session - Database Context
+
+**Schema read:** ✓ src/db/schema.ts
+**Tables in scope:** users, orders, order_items
+**Key columns:**
+- users: id, email, name, created_at
+- orders: id, user_id, status, total_cents
+- order_items: id, order_id, product_id, quantity, price_cents
+```
+
+---
+
+## Anti-Patterns
+
+- ❌ **Guessing column names** - Always read schema first
+- ❌ **Using raw SQL strings** - Use ORM with type generation
+- ❌ **Hardcoding without verification** - Check schema before using any column
+- ❌ **Ignoring type errors** - Schema drift shows up as type errors
+- ❌ **Not regenerating types** - After migration, always regenerate
+- ❌ **Assuming nullable** - Check schema for nullable columns
+
+---
+
+## Checklist
+
+### Setup
+- [ ] Schema file exists in standard location
+- [ ] Type generation configured
+- [ ] `_project_specs/schema-reference.md` created
+- [ ] Types regenerate on schema change
+
+### Per-Task
+- [ ] Schema read before writing database code
+- [ ] Schema Verification Checklist completed
+- [ ] Using generated types (not raw strings)
+- [ ] Type check passes (catches column errors)
+- [ ] Tests use correct schema

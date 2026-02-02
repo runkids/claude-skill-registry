@@ -1,106 +1,94 @@
 ---
 name: sequential-thinking
-description: Enables systematic step-by-step reasoning with revision and branching capabilities. Use when complex problems require multi-stage analysis, design planning, problem decomposition, or when scope is initially unclear. Triggers include "think through step by step", "break this down", "complex problem", or "sequential reasoning".
-allowed-tools: mcp__reasoning__sequentialthinking
+description: Apply structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability, and hypothesis verification. Use for complex problem decomposition, adaptive planning, analysis needing course correction, problems with unclear scope, multi-step solutions, and hypothesis-driven work.
+version: 1.0.0
+license: MIT
 ---
 
 # Sequential Thinking
 
-## Trigger Phrases
+Structured problem-solving via manageable, reflective thought sequences with dynamic adjustment.
 
-Activate when user says:
+## When to Apply
 
-- "think through this step by step", "break this down", "reason through"
-- "complex problem", "multi-step analysis", "decompose this"
-- "let me think about", "need to work through", "figure out"
-- "sequential reasoning", "structured thinking", "systematic analysis"
-- "consider alternatives", "branch the approach", "revise my thinking"
-- "unclear scope", "explore options", "iterative reasoning"
+- Complex problem decomposition
+- Adaptive planning with revision capability
+- Analysis needing course correction
+- Problems with unclear/emerging scope
+- Multi-step solutions requiring context maintenance
+- Hypothesis-driven investigation/debugging
 
-Enables structured problem-solving through iterative reasoning with revision and branching capabilities.
+## Core Process
 
-## Core Capabilities
-
-- **Iterative reasoning**: Break complex problems into sequential thought steps
-- **Dynamic scope**: Adjust total thought count as understanding evolves
-- **Revision tracking**: Reconsider and modify previous conclusions
-- **Branch exploration**: Explore alternative reasoning paths from any point
-- **Maintained context**: Keep track of reasoning chain throughout analysis
-
-## When to Use
-
-Use `mcp__reasoning__sequentialthinking` when:
-
-- Problem requires multiple interconnected reasoning steps
-- Initial scope or approach is uncertain
-- Need to filter through complexity to find core issues
-- May need to backtrack or revise earlier conclusions
-- Want to explore alternative solution paths
-
-**Don't use for**: Simple queries, direct facts, or single-step tasks.
-
-## Basic Usage
-
-The MCP tool `mcp__reasoning__sequentialthinking` accepts these parameters:
-
-### Required Parameters
-
-- `thought` (string): Current reasoning step
-- `nextThoughtNeeded` (boolean): Whether more reasoning is needed
-- `thoughtNumber` (integer): Current step number (starts at 1)
-- `totalThoughts` (integer): Estimated total steps needed
-
-### Optional Parameters
-
-- `isRevision` (boolean): Indicates this revises previous thinking
-- `revisesThought` (integer): Which thought number is being reconsidered
-- `branchFromThought` (integer): Thought number to branch from
-- `branchId` (string): Identifier for this reasoning branch
-
-## Workflow Pattern
-
+### 1. Start with Loose Estimate
 ```
-1. Start with initial thought (thoughtNumber: 1)
-2. For each step:
-   - Express current reasoning in `thought`
-   - Estimate remaining work via `totalThoughts` (adjust dynamically)
-   - Set `nextThoughtNeeded: true` to continue
-3. When reaching conclusion, set `nextThoughtNeeded: false`
+Thought 1/5: [Initial analysis]
+```
+Adjust dynamically as understanding evolves.
+
+### 2. Structure Each Thought
+- Build on previous context explicitly
+- Address one aspect per thought
+- State assumptions, uncertainties, realizations
+- Signal what next thought should address
+
+### 3. Apply Dynamic Adjustment
+- **Expand**: More complexity discovered → increase total
+- **Contract**: Simpler than expected → decrease total
+- **Revise**: New insight invalidates previous → mark revision
+- **Branch**: Multiple approaches → explore alternatives
+
+### 4. Use Revision When Needed
+```
+Thought 5/8 [REVISION of Thought 2]: [Corrected understanding]
+- Original: [What was stated]
+- Why revised: [New insight]
+- Impact: [What changes]
 ```
 
-## Simple Example
-
-```typescript
-// First thought
-{
-  thought: "Problem involves optimizing database queries. Need to identify bottlenecks first.",
-  thoughtNumber: 1,
-  totalThoughts: 5,
-  nextThoughtNeeded: true
-}
-
-// Second thought
-{
-  thought: "Analyzing query patterns reveals N+1 problem in user fetches.",
-  thoughtNumber: 2,
-  totalThoughts: 6, // Adjusted scope
-  nextThoughtNeeded: true
-}
-
-// ... continue until done
+### 5. Branch for Alternatives
 ```
+Thought 4/7 [BRANCH A from Thought 2]: [Approach A]
+Thought 4/7 [BRANCH B from Thought 2]: [Approach B]
+```
+Compare explicitly, converge with decision rationale.
 
-## Advanced Features
+### 6. Generate & Verify Hypotheses
+```
+Thought 6/9 [HYPOTHESIS]: [Proposed solution]
+Thought 7/9 [VERIFICATION]: [Test results]
+```
+Iterate until hypothesis verified.
 
-For revision patterns, branching strategies, and complex workflows, see:
+### 7. Complete Only When Ready
+Mark final: `Thought N/N [FINAL]`
 
-- [Advanced Usage](references/advanced.md) - Revision and branching patterns
-- [Examples](references/examples.md) - Real-world use cases
+Complete when:
+- Solution verified
+- All critical aspects addressed
+- Confidence achieved
+- No outstanding uncertainties
 
-## Tips
+## Application Modes
 
-- Start with rough estimate for `totalThoughts`, refine as you progress
-- Use revision when assumptions prove incorrect
-- Branch when multiple approaches seem viable
-- Express uncertainty explicitly in thoughts
-- Adjust scope freely - accuracy matters less than progress visibility
+**Explicit**: Use visible thought markers when complexity warrants visible reasoning or user requests breakdown.
+
+**Implicit**: Apply methodology internally for routine problem-solving where thinking aids accuracy without cluttering response.
+
+## Scripts (Optional)
+
+Optional scripts for deterministic validation/tracking:
+- `scripts/process-thought.js` - Validate & track thoughts with history
+- `scripts/format-thought.js` - Format for display (box/markdown/simple)
+
+See README.md for usage examples. Use when validation/persistence needed; otherwise apply methodology directly.
+
+## References
+
+Load when deeper understanding needed:
+- `references/core-patterns.md` - Revision & branching patterns
+- `references/examples-api.md` - API design example
+- `references/examples-debug.md` - Debugging example
+- `references/examples-architecture.md` - Architecture decision example
+- `references/advanced-techniques.md` - Spiral refinement, hypothesis testing, convergence
+- `references/advanced-strategies.md` - Uncertainty, revision cascades, meta-thinking

@@ -1,7 +1,7 @@
 {
   "name": "torch_geometric",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/torch_geometric/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-02-01T03:19:39.440397Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/claude-scientific-skills/scientific-skills/torch_geometric/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-02-02T04:13:10.356339Z"
 }

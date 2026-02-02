@@ -1,9 +1,7 @@
 {
   "name": "agent-selector",
-  "description": "Selects and configures agents from the agents repo based on PRD tech stack.\nRuns after task decomposition, before specification generation.",
   "repo": "Smith-Happens/xlightsfpptester",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Smith-Happens/xlightsfpptester"
+  "path": "skills/agent-selector/SKILL.md",
+  "source": "github.com/Smith-Happens/xlightsfpptester",
+  "downloaded_at": "2026-02-02T03:17:40.271517Z"
 }

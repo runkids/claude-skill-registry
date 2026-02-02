@@ -1,7 +1,7 @@
 {
   "name": "crewai",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/crewai/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:23.340512Z"
+  "repo": "claudiodearaujo/IzaCenter",
+  "path": ".gemini/skills/crewai/SKILL.md",
+  "source": "github.com/claudiodearaujo/IzaCenter",
+  "downloaded_at": "2026-02-02T04:54:07.221650Z"
 }

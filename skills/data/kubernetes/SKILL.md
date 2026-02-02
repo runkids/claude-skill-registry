@@ -1,151 +1,304 @@
 ---
-name: kubernetes
-description: Kubernetes deployment, management, and troubleshooting. Activate for k8s, kubectl, pods, deployments, services, ingress, namespaces, and container orchestration tasks.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+name: Kubernetes & Container Orchestration
+description: "Kubernetes deployment and management. Activate when: (1) Creating or modifying K8s manifests, (2) Working with Helm charts, (3) Configuring ArgoCD GitOps, (4) Managing cluster resources, or (5) Troubleshooting pod/service issues."
 ---
 
-# Kubernetes Skill
+# Kubernetes & Container Orchestration
 
-Provides comprehensive Kubernetes deployment and management capabilities for the Golden Armada AI Agent Fleet Platform.
+## Overview
 
-## When to Use This Skill
+Kubernetes (K8s) is a container orchestration platform for deploying, scaling, and managing containerized applications.
 
-Activate this skill when working with:
-- Pod management and debugging
-- Deployment configurations and rollouts
-- Service and ingress setup
-- Kubernetes resource templates
-- Cluster troubleshooting
-- Namespace management
+## Core Resources
+
+| Resource | Purpose | Short Name |
+|----------|---------|------------|
+| Pod | Smallest deployable unit | po |
+| Deployment | Manages ReplicaSets | deploy |
+| Service | Network endpoint | svc |
+| ConfigMap | Configuration data | cm |
+| Secret | Sensitive data | secret |
+| Ingress | External access | ing |
+| PersistentVolumeClaim | Storage request | pvc |
+| Namespace | Resource isolation | ns |
 
 ## Quick Reference
 
-### Common Commands
-\`\`\`bash
-# Pods
-kubectl get pods -n agents
-kubectl describe pod <name> -n agents
-kubectl logs <pod> -n agents --tail=100 -f
-kubectl exec -it <pod> -n agents -- /bin/sh
+### kubectl Commands
 
-# Deployments
-kubectl get deployments -n agents
-kubectl rollout status deployment/<name> -n agents
-kubectl rollout restart deployment/<name> -n agents
-kubectl scale deployment/<name> -n agents --replicas=3
+```bash
+# Context & Cluster
+kubectl config get-contexts
+kubectl config use-context <name>
+kubectl cluster-info
 
-# Services
-kubectl get svc -n agents
-kubectl port-forward svc/<name> 8080:8080 -n agents
+# Resources
+kubectl get pods -A                    # All namespaces
+kubectl get deploy,svc,ing -n <ns>     # Multiple resources
+kubectl describe pod <name>            # Detailed info
+kubectl logs <pod> -f --tail=100       # Stream logs
+kubectl exec -it <pod> -- /bin/sh      # Shell into pod
 
-# Debugging
-kubectl get events -n agents --sort-by='.lastTimestamp'
-kubectl top pods -n agents
-kubectl describe pod <name> -n agents | grep -A10 "Events:"
-\`\`\`
+# Apply/Delete
+kubectl apply -f manifest.yaml
+kubectl delete -f manifest.yaml
+kubectl apply -k ./kustomize/          # Kustomize
 
-## Resource Templates
+# Debug
+kubectl get events --sort-by=.lastTimestamp
+kubectl top pods                       # Resource usage
+kubectl port-forward svc/<name> 8080:80
+```
+
+## Manifest Templates
 
 ### Deployment
-\`\`\`yaml
+
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agent-deployment
-  namespace: agents
+  name: myapp
+  labels:
+    app: myapp
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: agent
+      app: myapp
   template:
     metadata:
       labels:
-        app: agent
+        app: myapp
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
       containers:
-        - name: agent
-          image: golden-armada/agent:latest
+        - name: myapp
+          image: myapp:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secrets
+                  key: database-url
           resources:
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
             requests:
-              cpu: "100m"
               memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
           livenessProbe:
             httpGet:
               path: /health
               port: 8080
             initialDelaySeconds: 10
-            periodSeconds: 30
+            periodSeconds: 5
           readinessProbe:
             httpGet:
-              path: /health
+              path: /ready
               port: 8080
             initialDelaySeconds: 5
-            periodSeconds: 10
-\`\`\`
+            periodSeconds: 3
+```
 
 ### Service
-\`\`\`yaml
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: agent-service
-  namespace: agents
+  name: myapp
 spec:
   selector:
-    app: agent
+    app: myapp
   ports:
     - port: 80
       targetPort: 8080
-  type: ClusterIP
-\`\`\`
+  type: ClusterIP  # or LoadBalancer, NodePort
+```
 
 ### Ingress
-\`\`\`yaml
+
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: agent-ingress
-  namespace: agents
+  name: myapp
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  tls:
+    - hosts:
+        - myapp.example.com
+      secretName: myapp-tls
   rules:
-    - host: agents.example.com
+    - host: myapp.example.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: agent-service
+                name: myapp
                 port:
                   number: 80
-\`\`\`
+```
 
-## Troubleshooting Flow
+## Helm
 
-1. Check pod status: `kubectl get pods`
-2. Check events: `kubectl get events`
-3. Check logs: `kubectl logs <pod>`
-4. Check describe: `kubectl describe pod <pod>`
-5. Check resources: `kubectl top pods`
+### Chart Structure
 
-## Golden Armada Specific
+```
+mychart/
+├── Chart.yaml
+├── values.yaml
+├── templates/
+│   ├── _helpers.tpl
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── ingress.yaml
+└── charts/          # Dependencies
+```
 
-Default namespace: `agents`
-Helm chart location: `deployment/helm/golden-armada`
+### Helm Commands
+
+```bash
+# Repository
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm search repo postgres
+
+# Install/Upgrade
+helm install myrelease mychart/ -f values.yaml -n namespace
+helm upgrade myrelease mychart/ -f values.yaml
+helm upgrade --install myrelease mychart/  # Install or upgrade
+
+# Debug
+helm template mychart/ -f values.yaml      # Render locally
+helm install --dry-run --debug myrelease mychart/
+helm lint mychart/
+
+# Management
+helm list -A                               # All releases
+helm history myrelease                     # Release history
+helm rollback myrelease 1                  # Rollback to revision
+helm uninstall myrelease
+```
+
+## ArgoCD GitOps
+
+### Application Manifest
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/org/repo
+    targetRevision: HEAD
+    path: k8s/overlays/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+### ArgoCD CLI
+
+```bash
+# Login
+argocd login argocd.example.com
+
+# Applications
+argocd app list
+argocd app get myapp
+argocd app sync myapp
+argocd app diff myapp
+
+# Rollback
+argocd app history myapp
+argocd app rollback myapp <revision>
+```
+
+## Kustomize
+
+### Structure
+
+```
+base/
+├── kustomization.yaml
+├── deployment.yaml
+└── service.yaml
+
+overlays/
+├── development/
+│   ├── kustomization.yaml
+│   └── replica-patch.yaml
+└── production/
+    ├── kustomization.yaml
+    └── replica-patch.yaml
+```
+
+### kustomization.yaml
+
+```yaml
+# base/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+
+# overlays/production/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+patchesStrategicMerge:
+  - replica-patch.yaml
+namespace: production
+namePrefix: prod-
+```
+
+## Troubleshooting
+
+### Pod Issues
+
+```bash
+# Pod not starting
+kubectl describe pod <name>
+kubectl logs <pod> --previous  # Previous container logs
+
+# Common issues:
+# - ImagePullBackOff: Check image name/registry access
+# - CrashLoopBackOff: Check logs, liveness probe
+# - Pending: Check resources, node selector, PVC
+```
+
+### Service Issues
+
+```bash
+# Service not reachable
+kubectl get endpoints <svc>    # Check endpoints exist
+kubectl get pods -l app=<label> # Check pod labels match
+kubectl port-forward svc/<name> 8080:80  # Test directly
+```
+
+## External Links
+
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+- [Helm Documentation](https://helm.sh/docs/)
+- [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
+- [Kustomize Documentation](https://kustomize.io/)

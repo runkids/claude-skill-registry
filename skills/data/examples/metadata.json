@@ -1,7 +1,7 @@
 {
   "name": "examples",
-  "repo": "ThamJiaHe/claude-prompt-engineering-guide",
-  "path": "skills/examples/playwright-e2e-testing-skill.md",
-  "source": "github.com/ThamJiaHe/claude-prompt-engineering-guide",
-  "downloaded_at": "2026-02-01T04:35:12.113163Z"
+  "repo": "FradSer/dotclaude",
+  "path": "plugin-optimizer/examples/instruction-skill.md",
+  "source": "github.com/FradSer/dotclaude",
+  "downloaded_at": "2026-02-02T04:42:06.773049Z"
 }

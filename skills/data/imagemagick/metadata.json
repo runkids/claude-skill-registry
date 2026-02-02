@@ -1,7 +1,7 @@
 {
   "name": "imagemagick",
-  "repo": "nodays-off/rack-reserve",
-  "path": ".claude/skills/tools-utilities/imagemagick/SKILL.md",
-  "source": "github.com/nodays-off/rack-reserve",
-  "downloaded_at": "2026-02-01T04:24:46.053529Z"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/imagemagick/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-02-02T04:46:05.118030Z"
 }

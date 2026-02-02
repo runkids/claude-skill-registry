@@ -1,7 +1,7 @@
 {
   "name": "skill-creator",
-  "repo": "AbdullahMalik17/Voice-Assistant17",
-  "path": ".claude/skills/skill-creator/SKILL.md",
-  "source": "github.com/AbdullahMalik17/Voice-Assistant17",
-  "downloaded_at": "2026-02-01T05:06:34.678796Z"
+  "repo": "Geeksfino/openskills",
+  "path": "examples/skills/skill-creator/SKILL.md",
+  "source": "github.com/Geeksfino/openskills",
+  "downloaded_at": "2026-02-02T05:11:07.370561Z"
 }

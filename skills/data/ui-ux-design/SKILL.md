@@ -1,125 +1,228 @@
 ---
 name: ui-ux-design
-description: "Create production-grade frontend interfaces with strong UX and visual craft. Use when building web components, pages, dashboards, forms, landing pages, or any UI. Use when user says 'build a form', 'create a dashboard', 'design a component', 'make a landing page', or asks for UI/UX work."
-allowed-tools: Read, Write, Edit
-hooks:
-  Stop:
-    - hooks:
-        - type: prompt
-          prompt: "Check if UI/UX task is complete based on what was asked. If task was advice/consultation only - no code checklist applies. If code was written: verify interactive states, semantic HTML, focus states, labels (for forms), and contrast were considered for what was built. Only flag missing items that apply to the specific output. Respond {\"ok\": true} if done, or {\"ok\": false, \"reason\": \"specific missing item\"} if not."
+description: "UI/UX design reference database. 50+ styles, 21 palettes, 50 font pairings, 20 charts, 8 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient."
 ---
 
-# UI/UX Design
+# UI Design Reference - Searchable Pattern Database
 
-Create functional, accessible, visually distinctive interfaces. Output is working code.
+Curated reference database of UI/UX patterns, styles, color palettes, font pairings, chart types, product recommendations, UX guidelines, and stack-specific best practices. Use this as a lookup tool to find proven design patterns and implementation guidance.
 
-## When to Use
+## Prerequisites
 
-**Activate automatically when:**
+Check if Python is installed:
 
-- User requests UI components, pages, or applications
-- User mentions forms, dashboards, landing pages, modals
-- User asks to "design", "build", or "create" any interface
-- User wants to improve existing UI/UX
-
-## Workflow
-
-### Step 1: Assess Context
-
-Before coding, identify (internal reasoning):
-
-- Problem being solved
-- Target users
-- Aesthetic direction (see [REFERENCES.md](REFERENCES.md#aesthetic-directions))
-- Constraints (framework, brand, accessibility level)
-
-### Step 2: Consult References
-
-Fetch implementation values from [REFERENCES.md](REFERENCES.md):
-
-- Color palette (with WCAG-compliant values)
-- Font pairing
-- Component patterns (button, input, card, etc.)
-- Spacing and typography tokens
-
-### Step 3: Generate Code
-
-Produce working implementation with:
-
-- All interactive states (hover, focus, active, disabled, loading, error)
-- Semantic HTML (button, nav, main—not div soup)
-- Mobile-first responsive design
-- CSS variables for maintainability
-
-### Step 4: Verify
-
-Run through checklist before delivering.
-
-## Output Requirements
-
-| Requirement | Standard |
-|-------------|----------|
-| Contrast | 4.5:1 text, 3:1 UI components |
-| Focus states | Visible outline on all interactive elements |
-| Touch targets | Minimum 44×44px |
-| Reduced motion | Respect `prefers-reduced-motion` |
-| Labels | All inputs have associated labels |
-| Empty states | Helpful message + clear action |
-| Error states | Explain what happened + how to fix |
-
-## Aesthetic Directions
-
-Match to context. See [REFERENCES.md](REFERENCES.md#aesthetic-directions) for characteristics.
-
-| Style | Best For |
-|-------|----------|
-| Minimalism | Productivity, professional, portfolios |
-| Glassmorphism | Dashboards, tech products |
-| Neubrutalism | Creative, startups, distinctive brands |
-| Editorial | Content sites, publications |
-| Organic | Consumer apps, wellness, community |
-| Dark Mode | User preference, low-light contexts |
-
-## Anti-Patterns
-
-Avoid these markers of generic AI output:
-
-- Purple/blue gradients on white
-- Inter/Roboto/system fonts everywhere
-- Cookie-cutter card layouts
-- Rounded rectangles with soft shadows on everything
-- Color-only meaning (no icons/text backup)
-- Removed focus outlines
-- Error messages without solutions
-
-## Checklist
-
-Copy and track:
-
-```
-- [ ] Context assessed (problem, users, aesthetic direction)
-- [ ] REFERENCES.md consulted for palette + fonts
-- [ ] All interactive states implemented
-- [ ] Loading and error states included
-- [ ] Contrast meets WCAG AA
-- [ ] Semantic HTML used
-- [ ] Focus states visible
-- [ ] Form inputs labeled
-- [ ] prefers-reduced-motion respected
-- [ ] Responsive breakpoints tested
-- [ ] Empty states handled
+```bash
+python3 --version || python --version
 ```
 
-## Recovery
+If Python is not installed, install it based on user's OS:
 
-| Issue | Action |
-|-------|--------|
-| User dislikes direction | Propose 2-3 alternatives from Aesthetic Directions |
-| Looks too generic | Check Anti-Patterns, apply distinctive typography |
-| Accessibility concerns | Verify contrast, focus states, semantic HTML |
-| States incomplete | Walk through checklist systematically |
+**macOS:**
+```bash
+brew install python3
+```
+
+**Ubuntu/Debian:**
+```bash
+sudo apt update && sudo apt install python3
+```
+
+**Windows:**
+```powershell
+winget install Python.Python.3.12
+```
 
 ---
 
-> **License:** MIT - See LICENSE for complete terms
-> **Author:** Arvind Menon
+## How to Use This Skill
+
+When user requests UI/UX work (design, build, create, implement, review, fix, improve), follow this workflow:
+
+### Step 1: Analyze User Requirements
+
+Extract key information from user request:
+- **Product type**: SaaS, e-commerce, portfolio, dashboard, landing page, etc.
+- **Style keywords**: minimal, playful, professional, elegant, dark mode, etc.
+- **Industry**: healthcare, fintech, gaming, education, etc.
+- **Stack**: React, Vue, Next.js, or default to `html-tailwind`
+
+### Step 2: Search Relevant Domains
+
+Use `search.py` multiple times to gather comprehensive information. Search until you have enough context.
+
+```bash
+python3 .claude/skills/ui-ux-design/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
+```
+
+**Recommended search order:**
+
+1. **Product** - Get style recommendations for product type
+2. **Style** - Get detailed style guide (colors, effects, frameworks)
+3. **Typography** - Get font pairings with Google Fonts imports
+4. **Color** - Get color palette (Primary, Secondary, CTA, Background, Text, Border)
+5. **Landing** - Get page structure (if landing page)
+6. **Chart** - Get chart recommendations (if dashboard/analytics)
+7. **UX** - Get best practices and anti-patterns
+8. **Stack** - Get stack-specific guidelines (default: html-tailwind)
+
+### Step 3: Stack Guidelines (Default: html-tailwind)
+
+If user doesn't specify a stack, **default to `html-tailwind`**.
+
+```bash
+python3 .claude/skills/ui-ux-design/scripts/search.py "<keyword>" --stack html-tailwind
+```
+
+Available stacks: `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`
+
+---
+
+## Search Reference
+
+### Available Domains
+
+| Domain | Use For | Example Keywords |
+|--------|---------|------------------|
+| `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare, beauty, service |
+| `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode, brutalism |
+| `typography` | Font pairings, Google Fonts | elegant, playful, professional, modern |
+| `color` | Color palettes by product type | saas, ecommerce, healthcare, beauty, fintech, service |
+| `landing` | Page structure, CTA strategies | hero, hero-centric, testimonial, pricing, social-proof |
+| `chart` | Chart types, library recommendations | trend, comparison, timeline, funnel, pie |
+| `ux` | Best practices, anti-patterns | animation, accessibility, z-index, loading |
+| `prompt` | AI prompts, CSS keywords | (style name) |
+
+### Available Stacks
+
+| Stack | Focus |
+|-------|-------|
+| `html-tailwind` | Tailwind utilities, responsive, a11y (DEFAULT) |
+| `react` | State, hooks, performance, patterns |
+| `nextjs` | SSR, routing, images, API routes |
+| `vue` | Composition API, Pinia, Vue Router |
+| `svelte` | Runes, stores, SvelteKit |
+| `swiftui` | Views, State, Navigation, Animation |
+| `react-native` | Components, Navigation, Lists |
+| `flutter` | Widgets, State, Layout, Theming |
+
+---
+
+## Example Workflow
+
+**User request:** "Làm landing page cho dịch vụ chăm sóc da chuyên nghiệp"
+
+**AI should:**
+
+```bash
+# 1. Search product type
+python3 .claude/skills/ui-ux-design/scripts/search.py "beauty spa wellness service" --domain product
+
+# 2. Search style (based on industry: beauty, elegant)
+python3 .claude/skills/ui-ux-design/scripts/search.py "elegant minimal soft" --domain style
+
+# 3. Search typography
+python3 .claude/skills/ui-ux-design/scripts/search.py "elegant luxury" --domain typography
+
+# 4. Search color palette
+python3 .claude/skills/ui-ux-design/scripts/search.py "beauty spa wellness" --domain color
+
+# 5. Search landing page structure
+python3 .claude/skills/ui-ux-design/scripts/search.py "hero-centric social-proof" --domain landing
+
+# 6. Search UX guidelines
+python3 .claude/skills/ui-ux-design/scripts/search.py "animation" --domain ux
+python3 .claude/skills/ui-ux-design/scripts/search.py "accessibility" --domain ux
+
+# 7. Search stack guidelines (default: html-tailwind)
+python3 .claude/skills/ui-ux-design/scripts/search.py "layout responsive" --stack html-tailwind
+```
+
+**Then:** Synthesize all search results and implement the design.
+
+---
+
+## Tips for Better Results
+
+1. **Be specific with keywords** - "healthcare SaaS dashboard" > "app"
+2. **Search multiple times** - Different keywords reveal different insights
+3. **Combine domains** - Style + Typography + Color = Complete design system
+4. **Always check UX** - Search "animation", "z-index", "accessibility" for common issues
+5. **Use stack flag** - Get implementation-specific best practices
+6. **Iterate** - If first search doesn't match, try different keywords
+
+---
+
+## Common Rules for Professional UI
+
+These are frequently overlooked issues that make UI look unprofessional:
+
+### Icons & Visual Elements
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **No emoji icons** | Use SVG icons (Heroicons, Lucide, Simple Icons) | Use emojis like 🎨 🚀 ⚙️ as UI icons |
+| **Stable hover states** | Use color/opacity transitions on hover | Use scale transforms that shift layout |
+| **Correct brand logos** | Research official SVG from Simple Icons | Guess or use incorrect logo paths |
+| **Consistent icon sizing** | Use fixed viewBox (24x24) with w-6 h-6 | Mix different icon sizes randomly |
+
+### Interaction & Cursor
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Cursor pointer** | Add `cursor-pointer` to all clickable/hoverable cards | Leave default cursor on interactive elements |
+| **Hover feedback** | Provide visual feedback (color, shadow, border) | No indication element is interactive |
+| **Smooth transitions** | Use `transition-colors duration-200` | Instant state changes or too slow (>500ms) |
+
+### Light/Dark Mode Contrast
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Glass card light mode** | Use `bg-white/80` or higher opacity | Use `bg-white/10` (too transparent) |
+| **Text contrast light** | Use `#0F172A` (slate-900) for text | Use `#94A3B8` (slate-400) for body text |
+| **Muted text light** | Use `#475569` (slate-600) minimum | Use gray-400 or lighter |
+| **Border visibility** | Use `border-gray-200` in light mode | Use `border-white/10` (invisible) |
+
+### Layout & Spacing
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Floating navbar** | Add `top-4 left-4 right-4` spacing | Stick navbar to `top-0 left-0 right-0` |
+| **Content padding** | Account for fixed navbar height | Let content hide behind fixed elements |
+| **Consistent max-width** | Use same `max-w-6xl` or `max-w-7xl` | Mix different container widths |
+
+---
+
+## Pre-Delivery Checklist
+
+Before delivering UI code, verify these items:
+
+### Visual Quality
+- [ ] No emojis used as icons (use SVG instead)
+- [ ] All icons from consistent icon set (Heroicons/Lucide)
+- [ ] Brand logos are correct (verified from Simple Icons)
+- [ ] Hover states don't cause layout shift
+- [ ] Use theme colors directly (bg-primary) not var() wrapper
+
+### Interaction
+- [ ] All clickable elements have `cursor-pointer`
+- [ ] Hover states provide clear visual feedback
+- [ ] Transitions are smooth (150-300ms)
+- [ ] Focus states visible for keyboard navigation
+
+### Light/Dark Mode
+- [ ] Light mode text has sufficient contrast (4.5:1 minimum)
+- [ ] Glass/transparent elements visible in light mode
+- [ ] Borders visible in both modes
+- [ ] Test both modes before delivery
+
+### Layout
+- [ ] Floating elements have proper spacing from edges
+- [ ] No content hidden behind fixed navbars
+- [ ] Responsive at 320px, 768px, 1024px, 1440px
+- [ ] No horizontal scroll on mobile
+
+### Accessibility
+- [ ] All images have alt text
+- [ ] Form inputs have labels
+- [ ] Color is not the only indicator
+- [ ] `prefers-reduced-motion` respected

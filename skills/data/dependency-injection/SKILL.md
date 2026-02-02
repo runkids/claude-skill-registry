@@ -1,410 +1,748 @@
 ---
-name: dependency-injection
-description: "Expert DI decisions for iOS/tvOS: when DI containers add value vs overkill, choosing between injection patterns, protocol design for testability, and SwiftUI-specific injection strategies. Use when designing service layers, setting up testing infrastructure, or deciding how to wire dependencies. Trigger keywords: dependency injection, DI, constructor injection, protocol, mock, testability, container, factory, @EnvironmentObject, service locator"
-version: "3.0.0"
+name: dependency-injection-patterns
+description: Organize DI registrations using IServiceCollection extension methods. Group related services into composable Add* methods for clean Program.cs and reusable configuration in tests.
+invocable: false
 ---
 
-# Dependency Injection — Expert Decisions
+# Dependency Injection Patterns
 
-Expert decision frameworks for dependency injection choices. Claude knows DI basics — this skill provides judgment calls for when and how to apply DI patterns.
+## When to Use This Skill
 
----
-
-## Decision Trees
-
-### Do You Need DI?
-
-```
-Is the dependency tested independently?
-├─ NO → Is it a pure function or value type?
-│  ├─ YES → No DI needed (just call it)
-│  └─ NO → Consider DI for future testability
-│
-└─ YES → How many classes use this dependency?
-   ├─ 1 class → Simple constructor injection
-   ├─ 2-5 classes → Protocol + constructor injection
-   └─ Many classes → Consider lightweight container
-```
-
-**The trap**: DI everything. If a helper function has no side effects and doesn't need mocking, don't wrap it in a protocol.
-
-### Which Injection Pattern?
-
-```
-Who creates the object?
-├─ Caller provides dependency
-│  └─ Constructor Injection (most common)
-│     init(service: ServiceProtocol)
-│
-├─ Object creates dependency but needs flexibility
-│  └─ Default Parameter Injection
-│     init(service: ServiceProtocol = Service())
-│
-├─ Dependency changes during lifetime
-│  └─ Property Injection (rare, avoid if possible)
-│     var service: ServiceProtocol?
-│
-└─ Factory creates object with dependencies
-   └─ Factory Pattern
-      container.makeUserViewModel()
-```
-
-### Protocol vs Concrete Type
-
-```
-Will this dependency be mocked in tests?
-├─ YES → Protocol
-│
-└─ NO → Is it from external module?
-   ├─ YES → Protocol (wrap for decoupling)
-   └─ NO → Is interface likely to change?
-      ├─ YES → Protocol
-      └─ NO → Concrete type is fine
-```
-
-**Rule of thumb**: Network, database, analytics, external APIs → Protocol. Date formatters, math utilities → Concrete.
-
-### DI Container Complexity
-
-```
-Team size?
-├─ Solo/Small (1-3)
-│  └─ Default parameters + simple factory
-│
-├─ Medium (4-10)
-│  └─ Simple manual container
-│     final class Container {
-│         lazy var userService = UserService()
-│     }
-│
-└─ Large (10+)
-   └─ Consider Swinject or similar
-      (only if manual wiring becomes painful)
-```
+Use this skill when:
+- Organizing service registrations in ASP.NET Core applications
+- Avoiding massive Program.cs/Startup.cs files with hundreds of registrations
+- Making service configuration reusable between production and tests
+- Designing libraries that integrate with Microsoft.Extensions.DependencyInjection
 
 ---
 
-## NEVER Do
+## The Problem
 
-### Protocol Design
+Without organization, Program.cs becomes unmanageable:
 
-**NEVER** create protocols with only one implementation:
-```swift
-// ❌ Protocol just for the sake of it
-protocol DateFormatterProtocol {
-    func format(_ date: Date) -> String
-}
+```csharp
+// BAD: 200+ lines of unorganized registrations
+var builder = WebApplication.CreateBuilder(args);
 
-class DateFormatterImpl: DateFormatterProtocol {
-    func format(_ date: Date) -> String { ... }
-}
-
-// ✅ Just use the type directly
-let formatter = DateFormatter()
-formatter.dateStyle = .medium
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+builder.Services.AddScoped<IEmailComposer, MjmlEmailComposer>();
+builder.Services.AddSingleton<IEmailLinkGenerator, EmailLinkGenerator>();
+builder.Services.AddScoped<IPaymentProcessor, StripePaymentProcessor>();
+builder.Services.AddScoped<IInvoiceGenerator, InvoiceGenerator>();
+// ... 150 more lines ...
 ```
 
-**Exception**: When wrapping external dependencies for decoupling or testing.
+Problems:
+- Hard to find related registrations
+- No clear boundaries between subsystems
+- Can't reuse configuration in tests
+- Merge conflicts in team settings
+- No encapsulation of internal dependencies
 
-**NEVER** mirror the entire class interface in a protocol:
-```swift
-// ❌ 1:1 mapping is a code smell
-protocol UserServiceProtocol {
-    var users: [User] { get }
-    var isLoading: Bool { get }
-    func fetchUser(id: String) async throws -> User
-    func updateUser(_ user: User) async throws
-    func deleteUser(id: String) async throws
-    // ...20 more methods
-}
+---
 
-// ✅ Minimal interface for what's actually needed
-protocol UserFetching {
-    func fetchUser(id: String) async throws -> User
-}
+## The Solution: Extension Method Composition
+
+Group related registrations into extension methods:
+
+```csharp
+// GOOD: Clean, composable Program.cs
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddUserServices()
+    .AddOrderServices()
+    .AddEmailServices()
+    .AddPaymentServices()
+    .AddValidators();
+
+var app = builder.Build();
 ```
 
-**NEVER** put mutable state requirements in protocols:
-```swift
-// ❌ Forces implementation details
-protocol CacheProtocol {
-    var storage: [String: Any] { get set }  // Leaks implementation
-}
+Each `Add*` method encapsulates a cohesive set of registrations.
 
-// ✅ Behavior-focused
-protocol CacheProtocol {
-    func get(key: String) -> Any?
-    func set(key: String, value: Any)
-}
-```
+---
 
-### Constructor Injection
+## Extension Method Pattern
 
-**NEVER** use property injection when constructor injection works:
-```swift
-// ❌ Object can be in invalid state
-class UserViewModel {
-    var userService: UserServiceProtocol!  // Can be nil!
+### Basic Structure
 
-    func loadUser() async {
-        let user = try? await userService.fetchUser(id: "1")  // Crash if not set!
-    }
-}
+```csharp
+namespace MyApp.Users;
 
-// ✅ Guaranteed valid state
-class UserViewModel {
-    private let userService: UserServiceProtocol
+public static class UserServiceCollectionExtensions
+{
+    public static IServiceCollection AddUserServices(this IServiceCollection services)
+    {
+        // Repositories
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserReadStore, UserReadStore>();
+        services.AddScoped<IUserWriteStore, UserWriteStore>();
 
-    init(userService: UserServiceProtocol) {
-        self.userService = userService  // Never nil
-    }
-}
-```
+        // Services
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserValidationService, UserValidationService>();
 
-**NEVER** create objects with many dependencies (> 5):
-```swift
-// ❌ Too many dependencies — class does too much
-init(
-    userService: UserServiceProtocol,
-    authService: AuthServiceProtocol,
-    analyticsService: AnalyticsProtocol,
-    networkManager: NetworkManagerProtocol,
-    cacheManager: CacheProtocol,
-    configService: ConfigServiceProtocol,
-    featureFlagService: FeatureFlagProtocol
-) { ... }
-
-// ✅ Split into smaller, focused classes
-// Or create a composite service
-```
-
-### Service Locator (Anti-Pattern)
-
-**NEVER** use Service Locator pattern:
-```swift
-// ❌ Hidden dependencies, runtime errors, untestable
-class UserViewModel {
-    func loadUser() async {
-        let service = ServiceLocator.shared.resolve(UserServiceProtocol.self)!
-        // Crashes if not registered
-        // Dependency is hidden
-        // Can't see what this class needs
-    }
-}
-
-// ✅ Explicit constructor injection
-class UserViewModel {
-    private let userService: UserServiceProtocol  // Visible dependency
-
-    init(userService: UserServiceProtocol) {
-        self.userService = userService
+        // Return for chaining
+        return services;
     }
 }
 ```
 
-### Testing
+### With Configuration
 
-**NEVER** create mocks with real side effects:
-```swift
-// ❌ Mock does real work
-class MockNetworkManager: NetworkManagerProtocol {
-    func request<T>(_ endpoint: Endpoint) async throws -> T {
-        // Actually makes network call!
-        return try await URLSession.shared.data(from: endpoint.url)
-    }
-}
+```csharp
+namespace MyApp.Email;
 
-// ✅ Mocks return stubbed data
-class MockNetworkManager: NetworkManagerProtocol {
-    var stubbedResult: Any?
-    var stubbedError: Error?
+public static class EmailServiceCollectionExtensions
+{
+    public static IServiceCollection AddEmailServices(
+        this IServiceCollection services,
+        string configSectionName = "EmailSettings")
+    {
+        // Bind configuration
+        services.AddOptions<EmailOptions>()
+            .BindConfiguration(configSectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-    func request<T>(_ endpoint: Endpoint) async throws -> T {
-        if let error = stubbedError { throw error }
-        return stubbedResult as! T
+        // Register services
+        services.AddSingleton<IMjmlTemplateRenderer, MjmlTemplateRenderer>();
+        services.AddSingleton<IEmailLinkGenerator, EmailLinkGenerator>();
+        services.AddScoped<IUserEmailComposer, UserEmailComposer>();
+        services.AddScoped<IOrderEmailComposer, OrderEmailComposer>();
+
+        // SMTP client depends on environment
+        services.AddScoped<IEmailSender, SmtpEmailSender>();
+
+        return services;
     }
 }
 ```
 
-**NEVER** test mocks instead of real code:
-```swift
-// ❌ Testing the mock, not the system
-func testMockReturnsUser() {
-    let mock = MockUserService()
-    mock.stubbedUser = User(name: "John")
-    XCTAssertEqual(mock.fetchUser().name, "John")  // Tests mock, not app
-}
+### With Dependencies on Other Extensions
 
-// ✅ Test the system under test
-func testViewModelLoadsUser() async {
-    let mock = MockUserService()
-    mock.stubbedUser = User(name: "John")
+```csharp
+namespace MyApp.Orders;
 
-    let viewModel = UserViewModel(userService: mock)  // SUT
-    await viewModel.loadUser(id: "1")
+public static class OrderServiceCollectionExtensions
+{
+    public static IServiceCollection AddOrderServices(this IServiceCollection services)
+    {
+        // This subsystem depends on email services
+        // Caller is responsible for calling AddEmailServices() first
+        // Or we can call it here if it's idempotent
 
-    XCTAssertEqual(viewModel.user?.name, "John")  // Tests ViewModel
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IOrderEmailNotifier, OrderEmailNotifier>();
+
+        return services;
+    }
 }
 ```
 
 ---
 
-## Essential Patterns
+## File Organization
 
-### Default Parameter Injection
+Place extension methods near the services they register:
 
-```swift
-// Production uses real, tests inject mock
-@MainActor
-final class UserViewModel: ObservableObject {
-    private let userService: UserServiceProtocol
-
-    init(userService: UserServiceProtocol = UserService()) {
-        self.userService = userService
-    }
-}
-
-// Production
-let viewModel = UserViewModel()
-
-// Test
-let viewModel = UserViewModel(userService: MockUserService())
+```
+src/
+  MyApp.Api/
+    Program.cs                    # Composes all Add* methods
+  MyApp.Users/
+    Services/
+      UserService.cs
+      IUserService.cs
+    Repositories/
+      UserRepository.cs
+    UserServiceCollectionExtensions.cs   # AddUserServices()
+  MyApp.Orders/
+    Services/
+      OrderService.cs
+    OrderServiceCollectionExtensions.cs  # AddOrderServices()
+  MyApp.Email/
+    Composers/
+      UserEmailComposer.cs
+    EmailServiceCollectionExtensions.cs  # AddEmailServices()
 ```
 
-### Simple Manual Container
+**Convention**: `{Feature}ServiceCollectionExtensions.cs` next to the feature's services.
 
-```swift
-@MainActor
-final class Container {
-    static let shared = Container()
+---
 
-    // Singletons (lazy initialized)
-    lazy var networkManager: NetworkManagerProtocol = NetworkManager()
-    lazy var authService: AuthServiceProtocol = AuthService(network: networkManager)
-    lazy var userService: UserServiceProtocol = UserService(network: networkManager)
+## Naming Conventions
 
-    // Factory methods (new instance each time)
-    func makeUserViewModel() -> UserViewModel {
-        UserViewModel(userService: userService)
+| Pattern | Use For |
+|---------|---------|
+| `Add{Feature}Services()` | General feature registration |
+| `Add{Feature}()` | Short form when unambiguous |
+| `Configure{Feature}()` | When primarily setting options |
+| `Use{Feature}()` | Middleware (on IApplicationBuilder) |
+
+```csharp
+// Feature services
+services.AddUserServices();
+services.AddEmailServices();
+services.AddPaymentServices();
+
+// Third-party integrations
+services.AddStripePayments();
+services.AddSendGridEmail();
+
+// Configuration-heavy
+services.ConfigureAuthentication();
+services.ConfigureAuthorization();
+```
+
+---
+
+## Testing Benefits
+
+The main advantage: **reuse production configuration in tests**.
+
+### WebApplicationFactory
+
+```csharp
+public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
+{
+    private readonly WebApplicationFactory<Program> _factory;
+
+    public ApiTests(WebApplicationFactory<Program> factory)
+    {
+        _factory = factory.WithWebHostBuilder(builder =>
+        {
+            builder.ConfigureServices(services =>
+            {
+                // Production services already registered via Add* methods
+                // Only override what's different for testing
+
+                // Replace email sender with test double
+                services.RemoveAll<IEmailSender>();
+                services.AddSingleton<IEmailSender, TestEmailSender>();
+
+                // Replace external payment processor
+                services.RemoveAll<IPaymentProcessor>();
+                services.AddSingleton<IPaymentProcessor, FakePaymentProcessor>();
+            });
+        });
     }
 
-    func makeLoginViewModel() -> LoginViewModel {
-        LoginViewModel(authService: authService)
+    [Fact]
+    public async Task CreateOrder_SendsConfirmationEmail()
+    {
+        var client = _factory.CreateClient();
+        var emailSender = _factory.Services.GetRequiredService<IEmailSender>() as TestEmailSender;
+
+        await client.PostAsJsonAsync("/api/orders", new CreateOrderRequest(...));
+
+        Assert.Single(emailSender!.SentEmails);
     }
 }
 ```
 
-### SwiftUI Environment Injection
+### Akka.Hosting.TestKit
 
-```swift
-// Custom environment key
-private struct UserServiceKey: EnvironmentKey {
-    static let defaultValue: UserServiceProtocol = UserService()
+```csharp
+public class OrderActorSpecs : Akka.Hosting.TestKit.TestKit
+{
+    protected override void ConfigureAkka(AkkaConfigurationBuilder builder, IServiceProvider provider)
+    {
+        // Reuse production Akka configuration
+        builder.AddOrderActors();
+    }
+
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        // Reuse production service configuration
+        services.AddOrderServices();
+
+        // Override only external dependencies
+        services.RemoveAll<IPaymentProcessor>();
+        services.AddSingleton<IPaymentProcessor, FakePaymentProcessor>();
+    }
+
+    [Fact]
+    public async Task OrderActor_ProcessesPayment()
+    {
+        var orderActor = ActorRegistry.Get<OrderActor>();
+        orderActor.Tell(new ProcessOrder(orderId));
+
+        ExpectMsg<OrderProcessed>();
+    }
 }
+```
 
-extension EnvironmentValues {
-    var userService: UserServiceProtocol {
-        get { self[UserServiceKey.self] }
-        set { self[UserServiceKey.self] = newValue }
+### Standalone Unit Tests
+
+```csharp
+public class UserServiceTests
+{
+    private readonly ServiceProvider _provider;
+
+    public UserServiceTests()
+    {
+        var services = new ServiceCollection();
+
+        // Reuse production registrations
+        services.AddUserServices();
+
+        // Add test infrastructure
+        services.AddSingleton<IUserRepository, InMemoryUserRepository>();
+
+        _provider = services.BuildServiceProvider();
+    }
+
+    [Fact]
+    public async Task CreateUser_ValidData_Succeeds()
+    {
+        var service = _provider.GetRequiredService<IUserService>();
+        var result = await service.CreateUserAsync(new CreateUserRequest(...));
+
+        Assert.True(result.IsSuccess);
+    }
+}
+```
+
+---
+
+## Layered Extensions
+
+For larger applications, compose extensions hierarchically:
+
+```csharp
+// Top-level: Everything the app needs
+public static class AppServiceCollectionExtensions
+{
+    public static IServiceCollection AddAppServices(this IServiceCollection services)
+    {
+        return services
+            .AddDomainServices()
+            .AddInfrastructureServices()
+            .AddApiServices();
     }
 }
 
-// Inject at app level
-@main
-struct MyApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .environment(\.userService, Container.shared.userService)
+// Domain layer
+public static class DomainServiceCollectionExtensions
+{
+    public static IServiceCollection AddDomainServices(this IServiceCollection services)
+    {
+        return services
+            .AddUserServices()
+            .AddOrderServices()
+            .AddProductServices();
+    }
+}
+
+// Infrastructure layer
+public static class InfrastructureServiceCollectionExtensions
+{
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    {
+        return services
+            .AddEmailServices()
+            .AddPaymentServices()
+            .AddStorageServices();
+    }
+}
+```
+
+---
+
+## Akka.Hosting Integration
+
+The same pattern works for Akka.NET actor configuration:
+
+```csharp
+public static class OrderActorExtensions
+{
+    public static AkkaConfigurationBuilder AddOrderActors(
+        this AkkaConfigurationBuilder builder)
+    {
+        return builder
+            .WithActors((system, registry, resolver) =>
+            {
+                var orderProps = resolver.Props<OrderActor>();
+                var orderRef = system.ActorOf(orderProps, "orders");
+                registry.Register<OrderActor>(orderRef);
+            })
+            .WithShardRegion<OrderShardActor>(
+                typeName: "order-shard",
+                (system, registry, resolver) =>
+                    entityId => resolver.Props<OrderShardActor>(entityId),
+                new OrderMessageExtractor(),
+                ShardOptions.Create());
+    }
+}
+
+// Usage in Program.cs
+builder.Services.AddAkka("MySystem", (builder, sp) =>
+{
+    builder
+        .AddOrderActors()
+        .AddInventoryActors()
+        .AddNotificationActors();
+});
+```
+
+See `akka/hosting-actor-patterns` skill for complete Akka.Hosting patterns.
+
+---
+
+## Common Patterns
+
+### Conditional Registration
+
+```csharp
+public static IServiceCollection AddEmailServices(
+    this IServiceCollection services,
+    IHostEnvironment environment)
+{
+    services.AddSingleton<IEmailComposer, MjmlEmailComposer>();
+
+    if (environment.IsDevelopment())
+    {
+        // Use Mailpit in development
+        services.AddSingleton<IEmailSender, MailpitEmailSender>();
+    }
+    else
+    {
+        // Use real SMTP in production
+        services.AddSingleton<IEmailSender, SmtpEmailSender>();
+    }
+
+    return services;
+}
+```
+
+### Factory-Based Registration
+
+```csharp
+public static IServiceCollection AddPaymentServices(
+    this IServiceCollection services,
+    string configSection = "Stripe")
+{
+    services.AddOptions<StripeOptions>()
+        .BindConfiguration(configSection)
+        .ValidateOnStart();
+
+    // Factory for complex initialization
+    services.AddSingleton<IPaymentProcessor>(sp =>
+    {
+        var options = sp.GetRequiredService<IOptions<StripeOptions>>().Value;
+        var logger = sp.GetRequiredService<ILogger<StripePaymentProcessor>>();
+
+        return new StripePaymentProcessor(options.ApiKey, options.WebhookSecret, logger);
+    });
+
+    return services;
+}
+```
+
+### Keyed Services (.NET 8+)
+
+```csharp
+public static IServiceCollection AddNotificationServices(this IServiceCollection services)
+{
+    // Register multiple implementations with keys
+    services.AddKeyedSingleton<INotificationSender, EmailNotificationSender>("email");
+    services.AddKeyedSingleton<INotificationSender, SmsNotificationSender>("sms");
+    services.AddKeyedSingleton<INotificationSender, PushNotificationSender>("push");
+
+    // Resolver that picks the right one
+    services.AddScoped<INotificationDispatcher, NotificationDispatcher>();
+
+    return services;
+}
+```
+
+---
+
+## Anti-Patterns
+
+### Don't: Register Everything in Program.cs
+
+```csharp
+// BAD: Massive Program.cs
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+// ... 200 more lines ...
+```
+
+### Don't: Create Overly Generic Extensions
+
+```csharp
+// BAD: Too vague, doesn't communicate what's registered
+public static IServiceCollection AddServices(this IServiceCollection services)
+{
+    // Registers 50 random things
+}
+```
+
+### Don't: Hide Important Configuration
+
+```csharp
+// BAD: Buried important settings
+public static IServiceCollection AddDatabase(this IServiceCollection services)
+{
+    services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer("hardcoded-connection-string"));  // Hidden!
+}
+
+// GOOD: Accept configuration explicitly
+public static IServiceCollection AddDatabase(
+    this IServiceCollection services,
+    string connectionString)
+{
+    services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
+```
+
+---
+
+## Best Practices Summary
+
+| Practice | Benefit |
+|----------|---------|
+| Group related services into `Add*` methods | Clean Program.cs, clear boundaries |
+| Place extensions near the services they register | Easy to find and maintain |
+| Return `IServiceCollection` for chaining | Fluent API |
+| Accept configuration parameters | Flexibility |
+| Use consistent naming (`Add{Feature}Services`) | Discoverability |
+| Test by reusing production extensions | Confidence, less duplication |
+
+---
+
+## Lifetime Management
+
+Choose the right lifetime based on state:
+
+| Lifetime | Use When | Examples |
+|----------|----------|----------|
+| **Singleton** | Stateless, thread-safe, expensive to create | Configuration, HttpClient factories, caches |
+| **Scoped** | Stateful per-request, database contexts | DbContext, repositories, user context |
+| **Transient** | Lightweight, stateful, cheap to create | Validators, short-lived helpers |
+
+### Rules of Thumb
+
+```csharp
+// SINGLETON: Stateless services, shared safely
+services.AddSingleton<IMjmlTemplateRenderer, MjmlTemplateRenderer>();
+services.AddSingleton<IEmailLinkGenerator, EmailLinkGenerator>();
+
+// SCOPED: Database access, per-request state
+services.AddScoped<IUserRepository, UserRepository>();  // DbContext dependency
+services.AddScoped<IOrderService, OrderService>();       // Uses scoped repos
+
+// TRANSIENT: Cheap, short-lived
+services.AddTransient<CreateUserRequestValidator>();
+```
+
+### Scope Requirements
+
+**Scoped services require a scope to exist.** In ASP.NET Core, each HTTP request creates a scope automatically. But in other contexts (background services, actors), you must create scopes manually.
+
+```csharp
+// ASP.NET Controller - scope exists automatically
+public class OrdersController : ControllerBase
+{
+    private readonly IOrderService _orderService;  // Scoped - works!
+
+    public OrdersController(IOrderService orderService)
+    {
+        _orderService = orderService;
+    }
+}
+
+// Background Service - no automatic scope!
+public class OrderProcessingService : BackgroundService
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public OrderProcessingService(IServiceProvider serviceProvider)
+    {
+        // Inject IServiceProvider, NOT scoped services directly
+        _serviceProvider = serviceProvider;
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken ct)
+    {
+        while (!ct.IsCancellationRequested)
+        {
+            // Create scope manually for each unit of work
+            using var scope = _serviceProvider.CreateScope();
+            var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
+
+            await orderService.ProcessPendingOrdersAsync(ct);
+            await Task.Delay(TimeSpan.FromMinutes(1), ct);
         }
     }
 }
+```
 
-// Consume in any view
-struct UserView: View {
-    @Environment(\.userService) var userService
+---
 
-    var body: some View {
-        // Use userService
+## Akka.NET Actor Scope Management
+
+**Actors don't have automatic DI scopes.** If you need scoped services inside an actor, inject `IServiceProvider` and create scopes manually.
+
+### Pattern: Scope Per Message
+
+```csharp
+public sealed class AccountProvisionActor : ReceiveActor
+{
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IActorRef _mailingActor;
+
+    public AccountProvisionActor(
+        IServiceProvider serviceProvider,
+        IRequiredActor<MailingActor> mailingActor)
+    {
+        _serviceProvider = serviceProvider;
+        _mailingActor = mailingActor.ActorRef;
+
+        ReceiveAsync<ProvisionAccount>(HandleProvisionAccount);
+    }
+
+    private async Task HandleProvisionAccount(ProvisionAccount msg)
+    {
+        // Create scope for this message processing
+        using var scope = _serviceProvider.CreateScope();
+
+        // Resolve scoped services
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var orderRepository = scope.ServiceProvider.GetRequiredService<IOrderRepository>();
+        var emailComposer = scope.ServiceProvider.GetRequiredService<IPaymentEmailComposer>();
+
+        // Do work with scoped services
+        var user = await userManager.FindByIdAsync(msg.UserId);
+        var order = await orderRepository.CreateAsync(msg.Order);
+
+        // DbContext commits when scope disposes
     }
 }
 ```
 
-### Mock with Verification
+### Why This Pattern Works
 
-```swift
-final class MockUserService: UserServiceProtocol {
-    // Stubbed returns
-    var stubbedUser: User?
-    var stubbedError: Error?
+1. **Each message gets fresh DbContext** - No stale entity tracking
+2. **Proper disposal** - Connections released after each message
+3. **Isolation** - One message's errors don't affect others
+4. **Testable** - Can inject mock IServiceProvider
 
-    // Call tracking
-    private(set) var fetchUserCallCount = 0
-    private(set) var fetchUserLastId: String?
+### Singleton Services in Actors
 
-    func fetchUser(id: String) async throws -> User {
-        fetchUserCallCount += 1
-        fetchUserLastId = id
+For stateless services, inject directly (no scope needed):
 
-        if let error = stubbedError { throw error }
-        guard let user = stubbedUser else {
-            throw MockError.notStubbed
-        }
-        return user
+```csharp
+public sealed class NotificationActor : ReceiveActor
+{
+    private readonly IEmailLinkGenerator _linkGenerator;  // Singleton - OK!
+    private readonly IActorRef _mailingActor;
+
+    public NotificationActor(
+        IEmailLinkGenerator linkGenerator,  // Direct injection
+        IRequiredActor<MailingActor> mailingActor)
+    {
+        _linkGenerator = linkGenerator;
+        _mailingActor = mailingActor.ActorRef;
+
+        Receive<SendWelcomeEmail>(Handle);
+    }
+}
+```
+
+### Akka.DependencyInjection Reference
+
+Akka.NET's DI integration is documented at:
+- **Akka.DependencyInjection**: https://getakka.net/articles/actors/dependency-injection.html
+- **Akka.Hosting**: https://github.com/akkadotnet/Akka.Hosting
+
+---
+
+## Common Mistakes
+
+### Injecting Scoped into Singleton
+
+```csharp
+// BAD: Singleton captures scoped service - stale DbContext!
+public class CacheService  // Registered as Singleton
+{
+    private readonly IUserRepository _repo;  // Scoped!
+
+    public CacheService(IUserRepository repo)  // Captured at startup!
+    {
+        _repo = repo;  // This DbContext lives forever - BAD
     }
 }
 
-// Test with verification
-func testFetchesCorrectUser() async {
-    let mock = MockUserService()
-    mock.stubbedUser = User(id: "123", name: "John")
+// GOOD: Inject factory or IServiceProvider
+public class CacheService
+{
+    private readonly IServiceProvider _serviceProvider;
 
-    let viewModel = UserViewModel(userService: mock)
-    await viewModel.loadUser(id: "123")
+    public CacheService(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
 
-    XCTAssertEqual(mock.fetchUserCallCount, 1)
-    XCTAssertEqual(mock.fetchUserLastId, "123")
+    public async Task<User> GetUserAsync(string id)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var repo = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+        return await repo.GetByIdAsync(id);
+    }
+}
+```
+
+### No Scope in Background Work
+
+```csharp
+// BAD: No scope for scoped services
+public class BadBackgroundService : BackgroundService
+{
+    private readonly IOrderService _orderService;  // Scoped!
+
+    public BadBackgroundService(IOrderService orderService)
+    {
+        _orderService = orderService;  // Will throw or behave unexpectedly
+    }
+}
+
+// GOOD: Create scope for each unit of work
+public class GoodBackgroundService : BackgroundService
+{
+    private readonly IServiceScopeFactory _scopeFactory;
+
+    public GoodBackgroundService(IServiceScopeFactory scopeFactory)
+    {
+        _scopeFactory = scopeFactory;
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken ct)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
+        // ...
+    }
 }
 ```
 
 ---
 
-## Quick Reference
+## Resources
 
-### When to Use Each Pattern
-
-| Pattern | Use When | Avoid When |
-|---------|----------|------------|
-| Constructor injection | Default choice | Never avoid |
-| Default parameters | Convenience with testability | Dependency changes at runtime |
-| Property injection | Framework requires it (rare) | You have control over init |
-| Factory | Object needs runtime parameters | Simple object creation |
-| Container | Many cross-cutting dependencies | Small app, few dependencies |
-
-### Protocol Checklist
-
-- [ ] Will it be mocked? If no, skip protocol
-- [ ] Interface is minimal (only needed methods)
-- [ ] No mutable state requirements
-- [ ] No implementation details leaked
-- [ ] Single responsibility
-
-### DI Red Flags
-
-| Smell | Problem | Fix |
-|-------|---------|-----|
-| Protocol for every class | Over-engineering | Only where needed |
-| Service Locator | Hidden dependencies | Constructor injection |
-| > 5 constructor params | Class does too much | Split responsibilities |
-| Property injection | Object can be invalid | Constructor injection |
-| Mock does real work | Tests are slow/flaky | Return stubbed data |
-| 1:1 protocol:class ratio | Unnecessary abstraction | Remove unused protocols |
-
-### SwiftUI DI Comparison
-
-| Pattern | Scope | Use For |
-|---------|-------|---------|
-| `@Environment` | View hierarchy | System/app services |
-| `@EnvironmentObject` | View hierarchy | Observable shared state |
-| `@StateObject` init injection | Single view | View-specific ViewModel |
-| Container factory | App-wide | Complex dependency graphs |
+- **Microsoft.Extensions.DependencyInjection**: https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection
+- **Akka.Hosting**: https://github.com/akkadotnet/Akka.Hosting
+- **Akka.DependencyInjection**: https://getakka.net/articles/actors/dependency-injection.html
+- **Options Pattern**: See `microsoft-extensions/configuration` skill

@@ -1,7 +1,7 @@
 {
   "name": "gcloud",
-  "repo": "nodays-off/rack-reserve",
-  "path": ".claude/skills/cloud-infrastructure/gcloud/SKILL.md",
-  "source": "github.com/nodays-off/rack-reserve",
-  "downloaded_at": "2026-02-01T04:24:48.932205Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/gcloud/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-02-02T04:55:36.330544Z"
 }

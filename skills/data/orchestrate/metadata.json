@@ -1,7 +1,7 @@
 {
   "name": "orchestrate",
-  "repo": "grahama1970/agent-skills",
-  "path": "skills/orchestrate/SKILL.md",
-  "source": "github.com/grahama1970/agent-skills",
-  "downloaded_at": "2026-02-01T04:28:46.097430Z"
+  "repo": "park-kyungchan/palantir",
+  "path": ".claude/skills/orchestrate/SKILL.md",
+  "source": "github.com/park-kyungchan/palantir",
+  "downloaded_at": "2026-02-02T03:03:37.028706Z"
 }

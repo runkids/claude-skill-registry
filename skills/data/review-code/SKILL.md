@@ -1,172 +1,170 @@
 ---
 name: review-code
-description: >
-  Submit code review requests to multiple AI providers (GitHub Copilot, Anthropic Claude,
-  OpenAI Codex, Google Gemini) and get patches back. Use when user says "review code",
-  "review this code", "get a patch for", or needs AI-generated unified diffs for code fixes.
-allowed-tools: Bash, Read
-triggers:
-  - review code
-  - code review
-  - review this code
-  - review my changes
-  - review these changes
-  - get a patch
-  - generate a patch
-  - generate diff
-  - copilot review
-  - codex review
-  - claude review
-  - review request
-  - full review
-  - code review loop
-  - run a code review
-  - request code review
-  - use codex to review
-  - use claude to review
-  - opus vs codex
-  - coder reviewer loop
-  - 3 round review
-  - multi-round review
-  - assess and review
-  - review based on changes
-  - review with gpt-5
-  - review with codex
-metadata:
-  short-description: Multi-provider AI code review CLI
+description: Multi-dimensional code review with structured reports. Analyzes correctness, readability, performance, security, testing, and architecture. Triggers on "review code", "code review", "审查代码", "代码审查".
+allowed-tools: Task, AskUserQuestion, Read, Write, Glob, Grep, Bash, mcp__ace-tool__search_context, mcp__ide__getDiagnostics
 ---
 
-# review-code
+# Review Code
 
-Submit structured code review requests to multiple AI providers and get unified diffs back.
+Multi-dimensional code review skill that analyzes code across 6 key dimensions and generates structured review reports with actionable recommendations.
 
-## Supported Providers & Models
+## Architecture Overview
 
-| Provider    | CLI       | Default Model      | Models Available (Examples)             | Context Bridging | Cost    |
-| ----------- | --------- | ------------------ | --------------------------------------- | ---------------- | ------- |
-| `github`    | `copilot` | `gpt-5`            | `gpt-5`, `claude-sonnet-4.5` ✅         | Native           | Free\*  |
-| `anthropic` | `claude`  | `sonnet`           | `opus`, `sonnet`, `haiku`, `sonnet-4.5` | Native           | 💰 Paid |
-| `openai`    | `codex`   | `gpt-5.2-codex`    | `gpt-5.2-codex`, `o3`, `gpt-5`          | Manually Bridged | 💰 Paid |
-| `google`    | `gemini`  | `gemini-2.5-flash` | `gemini-3-pro`, `gemini-2.5-pro`        | Manually Bridged | 💰 Paid |
-
-> **⚠️ COST WARNING**: Only use `github` provider to avoid API charges. The `anthropic`, `openai`, and `google` providers make direct API calls that cost money.
->
-> **✅ RECOMMENDED**: Use `--provider github --model claude-sonnet-4.5` for Claude models at no additional cost beyond your GitHub Copilot subscription.
->
-> **Context Bridging**: For providers that don't support session persistence (OpenAI, Gemini), the skill automatically injects previous round outputs into the next prompt to enable multi-round iteration.
-
-## Prerequisites
-
-```bash
-# Check provider availability
-python .pi/skills/code-review/code_review.py check
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚠️ Phase 0: Specification Study (强制前置)                       │
+│              → 阅读 specs/review-dimensions.md                   │
+│              → 理解审查维度和问题分类标准                          │
+└───────────────┬─────────────────────────────────────────────────┘
+                ↓
+┌─────────────────────────────────────────────────────────────────┐
+│           Orchestrator (状态驱动决策)                             │
+│           → 读取状态 → 选择审查动作 → 执行 → 更新状态              │
+└───────────────┬─────────────────────────────────────────────────┘
+                │
+    ┌───────────┼───────────┬───────────┬───────────┐
+    ↓           ↓           ↓           ↓           ↓
+┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Collect │ │ Quick   │ │ Deep    │ │ Report  │ │Complete │
+│ Context │ │ Scan    │ │ Review  │ │ Generate│ │         │
+└─────────┘ └─────────┘ └─────────┘ └─────────┘ └─────────┘
+     ↓           ↓           ↓           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                     Review Dimensions                            │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐            │
+│  │Correctness│ │Readability│ │Performance│ │ Security │            │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘            │
+│  ┌──────────┐ ┌──────────┐                                       │
+│  │ Testing  │ │Architecture│                                      │
+│  └──────────┘ └──────────┘                                       │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-## Agent Actions (How to use)
+## Key Design Principles
 
-Use the table below to map user requests to the correct command.
+1. **多维度审查**: 覆盖正确性、可读性、性能、安全性、测试覆盖、架构一致性六大维度
+2. **分层执行**: 快速扫描识别高风险区域，深入审查聚焦关键问题
+3. **结构化报告**: 按严重程度分类，提供文件位置和修复建议
+4. **状态驱动**: 自主模式，根据审查进度动态选择下一步动作
 
-| User Request                      | Command Pattern                                                                    |
-| --------------------------------- | ---------------------------------------------------------------------------------- |
-| "Review this code" (Default)      | `review-full --file request.md`                                                    |
-| "Review with **Claude**" ✅       | `review-full --file request.md --provider github --model claude-sonnet-4.5`        |
-| "Review with **GPT-5**"           | `review-full --file request.md --provider github --model gpt-5`                    |
-| "Review with **Codex GPT-5.2**"   | `review-full --file request.md --provider openai --model gpt-5.2-codex`            |
-| "**4 round** review with Codex"   | `review-full --file request.md --provider openai --model gpt-5.2-codex --rounds 4` |
-| "Get a patch from Gemini"         | `review-full --file request.md --provider google`                                  |
-| "Auto-generate request from repo" | `build -A -t "Fix bug" -o request.md`                                              |
+---
 
-> **💡 COST-SAVING TIP**: Always use `--provider github` for Claude models to avoid API charges. The `github` provider includes Claude models at no additional cost beyond your GitHub Copilot subscription.
+## ⚠️ Mandatory Prerequisites (强制前置条件)
 
-## Quick Start
+> **⛔ 禁止跳过**: 在执行任何审查操作之前，**必须**完整阅读以下文档。
 
-### 1. Create Request File
+### 规范文档 (必读)
 
-First, creating a request file is recommended to define the scope.
+| Document | Purpose | Priority |
+|----------|---------|----------|
+| [specs/review-dimensions.md](specs/review-dimensions.md) | 审查维度定义和检查点 | **P0 - 最高** |
+| [specs/issue-classification.md](specs/issue-classification.md) | 问题分类和严重程度标准 | **P0 - 最高** |
+| [specs/quality-standards.md](specs/quality-standards.md) | 审查质量标准 | P1 |
 
-```bash
-# Auto-generate request context from git status
-python .pi/skills/code-review/code_review.py build -A -t "Fix crash in Auth" -o request.md
+### 模板文件 (生成前必读)
+
+| Document | Purpose |
+|----------|---------|
+| [templates/review-report.md](templates/review-report.md) | 审查报告模板 |
+| [templates/issue-template.md](templates/issue-template.md) | 问题记录模板 |
+
+---
+
+## Execution Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Phase 0: Specification Study (强制前置 - 禁止跳过)               │
+│  → Read: specs/review-dimensions.md                              │
+│  → Read: specs/issue-classification.md                           │
+│  → 理解审查标准和问题分类                                          │
+├─────────────────────────────────────────────────────────────────┤
+│  Action: collect-context                                         │
+│  → 收集目标文件/目录                                               │
+│  → 识别技术栈和语言                                                │
+│  → Output: state.context (files, language, framework)            │
+├─────────────────────────────────────────────────────────────────┤
+│  Action: quick-scan                                              │
+│  → 快速扫描整体结构                                                │
+│  → 识别高风险区域                                                  │
+│  → Output: state.risk_areas, state.scan_summary                  │
+├─────────────────────────────────────────────────────────────────┤
+│  Action: deep-review (per dimension)                             │
+│  → 逐维度深入审查                                                  │
+│  → 记录发现的问题                                                  │
+│  → Output: state.findings[]                                      │
+├─────────────────────────────────────────────────────────────────┤
+│  Action: generate-report                                         │
+│  → 汇总所有发现                                                    │
+│  → 生成结构化报告                                                  │
+│  → Output: review-report.md                                      │
+├─────────────────────────────────────────────────────────────────┤
+│  Action: complete                                                │
+│  → 保存最终状态                                                    │
+│  → 输出审查摘要                                                    │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### 2. Run Review (Standard)
+## Directory Setup
 
-Run the full 3-step pipeline (Generate -> Judge -> Finalize).
-**Default**: Uses GitHub Copilot (`gpt-5`) with 2 rounds.
+```javascript
+const timestamp = new Date().toISOString().slice(0,19).replace(/[-:T]/g, '');
+const workDir = `.workflow/.scratchpad/review-code-${timestamp}`;
 
-```bash
-python .pi/skills/code-review/code_review.py review-full --file request.md
+Bash(`mkdir -p "${workDir}"`);
+Bash(`mkdir -p "${workDir}/findings"`);
 ```
 
-### 3. Run Review (Custom Provider/rounds)
+## Output Structure
 
-```bash
-# Example: 4 rounds using OpenAI Codex
-python .pi/skills/code-review/code_review.py review-full \
-  --file request.md \
-  --provider openai \
-  --model gpt-5.2-codex \
-  --rounds 4
+```
+.workflow/.scratchpad/review-code-{timestamp}/
+├── state.json                    # 审查状态
+├── context.json                  # 目标上下文
+├── findings/                     # 问题发现
+│   ├── correctness.json
+│   ├── readability.json
+│   ├── performance.json
+│   ├── security.json
+│   ├── testing.json
+│   └── architecture.json
+└── review-report.md              # 最终审查报告
 ```
 
-## Commands
+## Review Dimensions
 
-### review-full (Recommended)
+| Dimension | Focus Areas | Key Checks |
+|-----------|-------------|------------|
+| **Correctness** | 逻辑正确性 | 边界条件、错误处理、null 检查 |
+| **Readability** | 代码可读性 | 命名规范、函数长度、注释质量 |
+| **Performance** | 性能效率 | 算法复杂度、I/O 优化、资源使用 |
+| **Security** | 安全性 | 注入风险、敏感信息、权限控制 |
+| **Testing** | 测试覆盖 | 测试充分性、边界覆盖、可维护性 |
+| **Architecture** | 架构一致性 | 设计模式、分层结构、依赖管理 |
 
-Run the iterative review pipeline.
+## Issue Severity Levels
 
-- Supports **session continuity** for all providers (native or bridged).
-- Generates a final unified diff.
+| Level | Prefix | Description | Action Required |
+|-------|--------|-------------|-----------------|
+| **Critical** | [C] | 阻塞性问题，必须立即修复 | Must fix before merge |
+| **High** | [H] | 重要问题，需要修复 | Should fix |
+| **Medium** | [M] | 建议改进 | Consider fixing |
+| **Low** | [L] | 可选优化 | Nice to have |
+| **Info** | [I] | 信息性建议 | For reference |
 
-| Option        | Description                               |
-| ------------- | ----------------------------------------- |
-| `--file`      | Request markdown file (required)          |
-| `--provider`  | `github`, `anthropic`, `openai`, `google` |
-| `--model`     | Specific model ID (e.g. `gpt-5.2`)        |
-| `--rounds`    | Number of iterations (default: 2)         |
-| `--workspace` | Copy uncommitted files to temp workspace  |
+## Reference Documents
 
-### loop (Coder vs Reviewer)
-
-Advanced: Run a feedback loop between two _different_ agents (e.g., Anthropic Coder vs OpenAI Reviewer).
-
-```bash
-code_review.py loop \
-  --coder-provider anthropic --coder-model opus-4.5 \
-  --reviewer-provider openai --reviewer-model gpt-5.2-codex \
-  --rounds 5 --file request.md
-```
-
-### bundle
-
-Bundle request for copy/paste into GitHub Copilot web (if CLI is unavailable).
-
-```bash
-code_review.py bundle --file request.md --clipboard
-```
-
-### find
-
-Find past review requests.
-
-```bash
-code_review.py find --dir . --pattern "*.md"
-```
-
-## Cost Comparison
-
-| Provider      | Cost Model                        | Recommendation               |
-| ------------- | --------------------------------- | ---------------------------- |
-| **GitHub**    | ✅ Free with Copilot subscription | **USE THIS** for all reviews |
-| **Anthropic** | 💰 Pay-per-token API calls        | **AVOID** - costs money      |
-| **OpenAI**    | 💰 Pay-per-token API calls        | **AVOID** - costs money      |
-| **Google**    | 💰 Pay-per-token API calls        | **AVOID** - costs money      |
-
-**Best Practice**: Always use `--provider github` to access Claude models (like `claude-sonnet-4.5`) at no additional cost.
-
-## Project Agent Workflow
-
-1. **Interpret User Request**: e.g., "Fix the bug in auth"
-2. **Build Request**: `code_review.py build -A -t "Fix Auth Bug" -o request.md`
-3. **Execute Review**: `code_review.py review-full --file request.md`
-4. **Apply Patch**: Parse output and apply valid diffs.
+| Document | Purpose |
+|----------|---------|
+| [phases/orchestrator.md](phases/orchestrator.md) | 审查编排器 |
+| [phases/state-schema.md](phases/state-schema.md) | 状态结构定义 |
+| [phases/actions/action-collect-context.md](phases/actions/action-collect-context.md) | 收集上下文 |
+| [phases/actions/action-quick-scan.md](phases/actions/action-quick-scan.md) | 快速扫描 |
+| [phases/actions/action-deep-review.md](phases/actions/action-deep-review.md) | 深入审查 |
+| [phases/actions/action-generate-report.md](phases/actions/action-generate-report.md) | 生成报告 |
+| [phases/actions/action-complete.md](phases/actions/action-complete.md) | 完成审查 |
+| [specs/review-dimensions.md](specs/review-dimensions.md) | 审查维度规范 |
+| [specs/issue-classification.md](specs/issue-classification.md) | 问题分类标准 |
+| [specs/quality-standards.md](specs/quality-standards.md) | 质量标准 |
+| [templates/review-report.md](templates/review-report.md) | 报告模板 |
+| [templates/issue-template.md](templates/issue-template.md) | 问题模板 |

@@ -1,7 +1,7 @@
 {
   "name": "filesystem-context",
-  "repo": "jdeweedata/circletel",
-  "path": ".claude/skills/filesystem-context/SKILL.md",
-  "source": "github.com/jdeweedata/circletel",
-  "downloaded_at": "2026-02-01T02:21:39.408117Z"
+  "repo": "illogical/InstructionLibrary",
+  "path": "skills/filesystem-context/SKILL.md",
+  "source": "github.com/illogical/InstructionLibrary",
+  "downloaded_at": "2026-02-02T04:14:59.650041Z"
 }

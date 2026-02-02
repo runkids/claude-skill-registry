@@ -1,316 +1,84 @@
 ---
 name: task-implementation
-description: Domain-agnostic implementation task execution with two-tier skill loading
-user-invocable: false
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash
+description: Implement a single sub-task from a task list. Use when working on feature development with existing task lists.
 ---
 
-# Task Implementation Skill
+# Task Implementation
 
-**Role**: Domain-agnostic workflow skill for executing implementation tasks (profile=implementation). Loaded by `pm-workflow:task-execute-agent` when `task.profile` is `implementation`.
+Implement a single sub-task from a task list while adhering to project quality controls.
 
-**Key Pattern**: Agent loads this skill via `resolve-workflow-skill --domain {domain} --phase implementation`. Skill executes a generic workflow: understand context → plan → implement → verify. Domain-specific knowledge comes from `task.skills` (loaded by agent).
+## When to Use This Skill
 
-## Contract Compliance
-
-**MANDATORY**: Follow the execution contract defined in:
-
-| Contract | Location | Purpose |
-|----------|----------|---------|
-| Task Contract | `pm-workflow:manage-tasks/standards/task-contract.md` | Task structure and fields |
-| Task Format | `pm-workflow:manage-tasks/standards/task-format.md` | TOON file format specification |
-
-## Two-Tier Skill Loading
-
-See [workflow-architecture:skill-loading](../workflow-architecture/standards/skill-loading.md) for the complete two-tier skill loading pattern with visual diagrams.
-
-**Summary**: Agent loads Tier 1 (system skills) automatically, then Tier 2 (domain skills from `task.skills`). This workflow skill defines HOW the agent executes.
+Use this skill when:
+- Working on feature development with existing task lists in `.ai/[feature_name]/tasks.md`
+- Implementing a specific sub-task assigned to you
+- Following a structured development workflow
 
 ## Input
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `plan_id` | string | Yes | Plan identifier |
-| `task_number` | number | Yes | Task number to execute |
+This skill expects:
+1. `feature_name` - Locates task list at `.ai/[feature_name]/tasks.md`
+2. `subtask_number` - The specific sub-task number to implement
 
-## Output
+If not provided, ask the user to clarify.
 
-```toon
-status: success | error
-plan_id: {echo}
-task_number: {echo}
-execution_summary:
-  steps_completed: N
-  steps_total: M
-  files_modified: [paths]
-verification:
-  passed: true | false
-  command: "{cmd}"
-next_action: task_complete | requires_attention
-message: {error message if status=error}
-```
+## Approach
 
-## Workflow
+You are a junior engineer implementing a sub-task. Do your best to ensure
+the implementation adheres to the project's quality controls. Run linters
+and tests appropriately during iterative development.
 
-### Step 1: Load Task Context
+## Prohibited Actions
 
-Read the task file to understand what needs to be done:
+**IMPORTANT! You must NOT attempt to commit or even stage your changes in git,
+as that will be handled elsewhere.**
 
-```bash
-python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks get \
-  --plan-id {plan_id} \
-  --task-number {task_number}
-```
+While you can update details in the task list as you work, **you must NOT mark
+tasks as completed**. It is not your responsibility to judge whether a task
+is completed.
 
-Extract key fields:
-- `domain`: Domain for this task
-- `profile`: Should be `implementation`
-- `skills`: Domain skills to apply (already loaded by agent)
-- `description`: What to implement
-- `steps`: File paths to work on
-- `verification`: How to verify success
-- `depends_on`: Dependencies (should be complete)
+## Process
 
-### Step 1.5: Read Compatibility Strategy
+**Follow these steps EXACTLY! NO EXCEPTIONS!**
 
-Read the compatibility approach from marshal.json project configuration:
+1. **Implement** the sub-task according to your best judgment
 
-```bash
-python3 .plan/execute-script.py plan-marshall:manage-plan-marshall-config:plan-marshall-config \
-  plan phase-2-refine get --field compatibility --trace-plan-id {plan_id}
-```
+2. **Add test coverage** according to repository guidelines
 
-**No fallback** — if field not found, fail with error and abort task. This ensures project is configured correctly.
+3. **Run linters** according to repository guidelines:
+   - First look for linting commands in: `CLAUDE.md`, `.cursorrules`,
+     `AGENTS.md`, `AGENT.md`, `GEMINI.md`
+   - Then repository documentation (`README.md`, `docs/`)
+   - Then package configuration (`package.json`, `Makefile`, etc.)
+   - Then standard linter patterns
+   
+   For each linter found:
+   a. Run auto-fix mode if available (e.g., `prettier`, `eslint --fix`)
+   b. Run check mode to see remaining issues
+   c. If issues can't be fixed, stop and ask the user what to do next
+   
+   If not passing, go back to step 1.
 
-Extract `compatibility` from the output. Apply throughout all subsequent steps:
+4. **Run tests** according to repository guidelines:
+   - Look for test commands in documentation, package config, or standard patterns
+   - For each test command found: run it, fix issues if possible, ask user if not
+   
+   If not passing, go back to step 1.
 
-- **breaking**: Make changes directly. Remove old code, rename freely, no backward compatibility.
-- **deprecation**: Keep old APIs/methods with `@Deprecated` markers. Add new code alongside old. Provide migration notes in commit messages.
-- **smart_and_ask**: For each change that could break consumers, evaluate impact. If uncertain, ask user via AskUserQuestion before proceeding.
+## Context Maintenance
 
-### Step 2: Understand Context
+- Update details in the task list as you work
+- **Do NOT mark tasks as completed**
+- Add new tasks if they emerge during implementation
+- Update the corresponding `prp.txt` if appropriate
+- Maintain the "Relevant Files" section:
+  - List every file created or modified
+  - Give each file a one-line description of its purpose
 
-Before implementing, understand the codebase context:
+## Quality Gates
 
-**Read affected files** (from steps):
-```bash
-# For each step (file path)
-Read {step.title}  # If file exists
-```
-
-**Read related files**:
-```bash
-# Find related components
-Grep "{component_name}" --type {language}
-Glob {pattern}
-Read {related_file}
-```
-
-**Apply domain knowledge**:
-- Reference patterns from loaded domain skills
-- Understand project conventions
-- Identify dependencies and integration points
-
-### Step 3: Plan Implementation
-
-For each step (file path), determine:
-- What changes are needed
-- How to apply domain skill patterns
-- Order of modifications
-- Integration considerations
-
-**Mark step as in-progress**:
-```bash
-python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks update-step \
-  --plan-id {plan_id} \
-  --task-number {task_number} \
-  --step-number {N} \
-  --status in_progress
-```
-
-### Step 4: Implement Changes
-
-For each step (file path):
-
-**Create new file**:
-```bash
-Write {file_path}
-# Apply patterns from domain skills
-# Follow project conventions
-```
-
-**Modify existing file**:
-```bash
-Edit {file_path}
-# Apply changes following domain skill patterns
-# Maintain existing code style
-```
-
-**Apply domain patterns**:
-- Use patterns from loaded skills (java-core, javascript-core, etc.)
-- Follow CDI/injection patterns if applicable
-- Add proper logging, error handling
-- Include documentation comments
-
-### Step 5: Mark Step Complete
-
-After each step:
-```bash
-python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks update-step \
-  --plan-id {plan_id} \
-  --task-number {task_number} \
-  --step-number {N} \
-  --status completed
-```
-
-### Step 6: Run Verification
-
-After all steps complete, run task verification:
-
-```bash
-# Execute verification commands from task
-{verification.commands[0]}
-{verification.commands[1]}
-...
-```
-
-**Verification patterns by domain**:
-- Java: `mvn test -pl {module}` or `./gradlew test`
-- JavaScript: `npm test` or `npm run build`
-- General: Domain-specific commands from task
-
-### Step 7: Handle Verification Results
-
-**If verification passes**:
-```bash
-python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks update \
-  --plan-id {plan_id} \
-  --task-number {task_number} \
-  --status completed
-```
-
-**If verification fails**:
-1. Analyze error output
-2. Identify failing component
-3. Fix the issue
-4. Re-run verification
-5. Iterate until pass (max 3 iterations)
-
-If still failing after 3 iterations:
-```bash
-python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks update \
-  --plan-id {plan_id} \
-  --task-number {task_number} \
-  --status blocked \
-  --notes "Verification failing after 3 attempts: {error summary}"
-```
-
-### Step 8: Record Lessons
-
-On issues or unexpected patterns:
-```bash
-python3 .plan/execute-script.py plan-marshall:manage-lessons:manage-lesson add \
-  --component "pm-workflow:task-implementation" \
-  --category improvement \
-  --title "{issue summary}" \
-  --detail "{context and resolution}"
-```
-
-**Valid categories**: `bug`, `improvement`, `anti-pattern`
-
-### Step 9: Return Results
-
-```toon
-status: success
-plan_id: {plan_id}
-task_number: {task_number}
-execution_summary:
-  steps_completed: {N}
-  steps_total: {M}
-  files_modified:
-    - {path1}
-    - {path2}
-verification:
-  passed: true
-  command: "{verification command}"
-next_action: task_complete
-```
-
-## Implementation Patterns
-
-### File Creation Pattern
-
-```
-1. Determine target path from step
-2. Check if parent directory exists
-3. Create file with proper structure
-4. Apply domain patterns:
-   - Package/module declaration
-   - Imports/dependencies
-   - Class/function structure
-   - Documentation
-5. Format according to project style
-```
-
-### File Modification Pattern
-
-```
-1. Read existing file
-2. Identify modification points
-3. Apply changes using Edit tool
-4. Preserve existing style
-5. Update related components if needed
-6. Update documentation if needed
-```
-
-### Verification Iteration Pattern
-
-```
-1. Run verification command
-2. If pass → complete
-3. If fail → analyze output
-4. Identify failing assertion/error
-5. Fix specific issue
-6. Re-run verification
-7. Repeat (max 3 times)
-8. If still failing → block task
-```
-
-## Error Handling
-
-### Missing Dependency
-
-If a file depends on code not yet implemented:
-- Check if dependency is in later step
-- If yes, reorder steps
-- If no, create minimal stub and note
-
-### Verification Timeout
-
-If verification command hangs:
-- Kill after 5 minutes
-- Record timeout in notes
-- Try with reduced scope
-
-### Conflicting Changes
-
-If changes conflict with existing code:
-- Analyze conflict
-- Prefer preserving existing behavior
-- Ask for clarification if needed
-
-## Integration
-
-**Invoked by**: `pm-workflow:task-execute-agent` (when task.profile = implementation)
-
-**Skill Loading**: Agent loads this skill via `resolve-task-executor --profile implementation`
-
-**Script Notations** (use EXACTLY as shown):
-- `pm-workflow:manage-tasks:manage-tasks` - Task operations (get, update, update-step)
-- `plan-marshall:manage-plan-marshall-config:plan-marshall-config` - Read compatibility from project config
-- `plan-marshall:manage-lessons:manage-lesson` - Record lessons (add)
-
-**Domain Skills Applied** (loaded by agent from task.skills):
-- Java: `pm-dev-java:java-core`, `pm-dev-java:java-cdi`, etc.
-- JavaScript: `pm-dev-frontend:cui-javascript`, etc.
-- Apply patterns from whatever domain skills are listed in task.skills
+Before considering the sub-task complete:
+- [ ] Implementation matches the sub-task description
+- [ ] Linting passes (auto-fixable issues resolved)
+- [ ] Tests pass (100% success)
+- [ ] Code follows project conventions

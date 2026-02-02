@@ -1,149 +1,204 @@
 ---
 name: refactor
-description: Refactor code to improve structure, readability, and maintainability
-user-invocable: true
-allowed-tools: Read, Grep, Glob, Edit, Write
-argument-hint: '[file-path or component-name]'
+description: Code refactoring workflow - analyze → plan → implement → review → validate
 ---
 
-You are an expert at code refactoring. Your role is to improve code quality without changing functionality.
+# /refactor - Refactoring Workflow
+
+Safe refactoring with review gates.
+
+## When to Use
+
+- "Refactor X"
+- "Clean up this code"
+- "Extract this into a module"
+- "Improve the architecture of Y"
+- Large-scale code restructuring
+- Technical debt reduction
+
+## Workflow Overview
+
+```
+┌──────────┐    ┌────────────┐    ┌──────────┐    ┌──────────┐    ┌───────────┐
+│ phoenix  │───▶│   plan-    │───▶│  kraken  │───▶│plan-reviewer│───▶│ arbiter  │
+│          │    │   agent    │    │          │    │          │    │           │
+└──────────┘    └────────────┘    └──────────┘    └──────────┘    └───────────┘
+  Analyze         Plan             Implement       Review          Verify
+  current         changes          refactor        changes         tests pass
+```
+
+## Agent Sequence
+
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **phoenix** | Analyze current code, identify improvement areas | Analysis report |
+| 2 | **plan-agent** | Create safe refactoring plan | Step-by-step plan |
+| 3 | **kraken** | Implement the refactoring | Code changes |
+| 4 | **plan-reviewer** | Review changes for correctness | Review report |
+| 5 | **arbiter** | Verify all tests still pass | Test report |
 
 ## Refactoring Principles
 
-1. **Make it Work, Make it Right, Make it Fast**
+1. **Tests first**: Ensure adequate test coverage before refactoring
+2. **Small steps**: Each change should be independently verifiable
+3. **Behavior preserved**: No functional changes during refactor
+4. **Reviewable**: Changes should be easy to review
 
-   - Ensure tests pass before and after refactoring
-   - Improve code structure and readability first
-   - Optimize performance only when needed
+## Execution
 
-1. **Small, Incremental Changes**
+### Phase 1: Analyze
 
-   - Make one change at a time
-   - Test after each change
-   - Commit working code frequently
+```
+Task(
+  subagent_type="phoenix",
+  prompt="""
+  Analyze for refactoring: [TARGET_CODE]
 
-1. **Maintain Functionality**
-
-   - Don't change behavior during refactoring
-   - Use tests to verify correctness
-   - Document any behavioral changes if necessary
-
-## Common Refactoring Patterns
-
-### Extract Method
-
-Break down large functions into smaller, focused ones:
-
-```javascript
-// Before
-function processOrder(order) {
-  // validate order (10 lines)
-  // calculate totals (15 lines)
-  // apply discounts (20 lines)
-  // save to database (10 lines)
-}
-
-// After
-function processOrder(order) {
-  validateOrder(order);
-  const totals = calculateTotals(order);
-  const discountedTotal = applyDiscounts(totals, order.customer);
-  saveOrder(order, discountedTotal);
-}
+  Identify:
+  - Current pain points
+  - Code smells
+  - Improvement opportunities
+  - Risk areas
+  - Test coverage gaps
+  """
+)
 ```
 
-### Extract Variable
+### Phase 2: Plan
 
-Replace complex expressions with well-named variables:
+```
+Task(
+  subagent_type="plan-agent",
+  prompt="""
+  Plan refactoring: [TARGET_CODE]
 
-```javascript
-// Before
-if (user.age >= 18 && user.country === 'US' && user.hasValidId) {
-  // ...
-}
+  Analysis: [from phoenix]
 
-// After
-const isEligibleVoter = user.age >= 18 &&
-                        user.country === 'US' &&
-                        user.hasValidId;
-if (isEligibleVoter) {
-  // ...
-}
+  Create:
+  - Step-by-step refactoring plan
+  - Each step should be:
+    - Small and focused
+    - Independently testable
+    - Reversible
+  - Identify files affected
+  - Risk mitigation strategy
+  """
+)
 ```
 
-### Remove Duplication (DRY)
+### Phase 3: Implement
 
-Consolidate repeated code into reusable functions:
+```
+Task(
+  subagent_type="kraken",
+  prompt="""
+  Implement refactoring: [TARGET_CODE]
 
-```javascript
-// Before
-function calculateTaxForUS(amount) {
-  return amount * 0.08;
-}
-function calculateTaxForCA(amount) {
-  return amount * 0.13;
-}
+  Plan: [from plan-agent]
 
-// After
-function calculateTax(amount, region) {
-  const taxRates = { US: 0.08, CA: 0.13 };
-  return amount * (taxRates[region] || 0);
-}
+  Requirements:
+  - Follow plan exactly
+  - Run tests after each step
+  - Stop if tests fail
+  - NO behavior changes
+  """
+)
 ```
 
-### Simplify Conditionals
+### Phase 4: Review
 
-Make complex conditions more readable:
+```
+Task(
+  subagent_type="plan-reviewer",
+  prompt="""
+  Review refactoring: [TARGET_CODE]
 
-```javascript
-// Before
-if (!(status === 'active' || status === 'pending') || disabled) {
-  return;
-}
+  Changes: [git diff from kraken]
 
-// After
-const isInactiveStatus = status !== 'active' && status !== 'pending';
-if (isInactiveStatus || disabled) {
-  return;
-}
+  Check:
+  - Behavior preserved
+  - No unintended changes
+  - Code quality improved
+  - Patterns consistent
+  """
+)
 ```
 
-### Rename for Clarity
+### Phase 5: Validate
 
-Use descriptive names that reveal intent:
+```
+Task(
+  subagent_type="arbiter",
+  prompt="""
+  Validate refactoring: [TARGET_CODE]
 
-```javascript
-// Before
-const d = new Date();
-const t = 86400000;
-
-// After
-const currentDate = new Date();
-const millisecondsPerDay = 86400000;
+  - Run full test suite
+  - Verify no regressions
+  - Check type errors
+  - Run linting
+  """
+)
 ```
 
-## Refactoring Checklist
+## Refactoring Types
 
-- [ ] Code is easier to understand
-- [ ] Functions have single responsibility
-- [ ] Variable and function names are descriptive
-- [ ] Duplication is eliminated
-- [ ] Complex conditionals are simplified
-- [ ] Magic numbers are replaced with named constants
-- [ ] Tests still pass
-- [ ] Performance is not degraded
+### Extract Module
+```
+phoenix → plan-agent → kraken → plan-reviewer → arbiter
+```
 
-## Target for Refactoring
+### Rename/Restructure
+```
+phoenix → kraken → arbiter  (simpler, skip detailed planning)
+```
 
-${ARGUMENTS}
+### Architecture Change
+```
+phoenix → plan-agent → [kraken → plan-reviewer] × N phases → arbiter
+```
 
-## Instructions
+## Example
 
-1. Read and analyze the code at the specified path
-1. Identify refactoring opportunities
-1. Prioritize changes by impact and risk
-1. Apply refactoring patterns systematically
-1. Verify tests pass after each change
-1. Explain the improvements made
+```
+User: /refactor Extract the validation logic into a separate module
 
-Remember: Refactoring is about improving internal structure without changing external behavior. Always ensure tests pass!
+Claude: Starting /refactor workflow...
+
+Phase 1: Analyzing current structure...
+[Spawns phoenix]
+Found: Validation logic spread across 4 files
+- form.ts (lines 45-120)
+- api.ts (lines 200-280)
+- user.ts (lines 15-45)
+- order.ts (lines 88-130)
+
+Phase 2: Planning extraction...
+[Spawns plan-agent]
+Plan:
+1. Create src/validation/index.ts
+2. Extract common validators
+3. Update imports one file at a time
+4. Run tests after each change
+
+Phase 3: Implementing...
+[Spawns kraken]
+Completed all 4 steps, tests green after each
+
+Phase 4: Reviewing changes...
+[Spawns plan-reviewer]
+✅ All behavior preserved
+✅ DRY improved (removed 45 duplicate lines)
+✅ New structure consistent
+
+Phase 5: Final validation...
+[Spawns arbiter]
+✅ 312 tests passing, 0 regressions
+
+Refactoring complete!
+```
+
+## Safety Flags
+
+- `--dry-run`: Plan but don't implement
+- `--step-by-step`: Pause after each change for approval
+- `--coverage-check`: Require >80% coverage before proceeding

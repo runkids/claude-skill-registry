@@ -1,7 +1,7 @@
 {
   "name": "prd-creation",
-  "repo": "vassovass/scl-v3",
-  "path": ".claude/skills/prd-creation/SKILL.md",
-  "source": "github.com/vassovass/scl-v3",
-  "downloaded_at": "2026-01-30T04:37:58.719477Z"
+  "repo": "jayhjenkins/ProductOSv0.2",
+  "path": ".claude/skills/workflows/prd-creation/SKILL.md",
+  "source": "github.com/jayhjenkins/ProductOSv0.2",
+  "downloaded_at": "2026-02-02T05:06:29.264249Z"
 }

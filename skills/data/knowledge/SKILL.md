@@ -1,111 +1,106 @@
 ---
 name: knowledge
-description: Display knowledge base status and recent learnings
-user_invokable: true
+description: 'Query knowledge artifacts across all locations. Triggers: "find learnings", "search patterns", "query knowledge", "what do we know about", "where is the plan".'
 ---
 
-# Knowledge
+# Knowledge Skill
 
-Display the current state of the project's knowledge base and recent learnings.
+**YOU MUST EXECUTE THIS WORKFLOW. Do not just describe it.**
 
-## What This Does
+Find and retrieve knowledge from past work.
 
-Shows:
-- Learning mode status (on/off)
-- Knowledge base statistics (entry counts per category)
-- Recent learnings extracted
-- Cache statistics
+## Execution Steps
 
-## Instructions
+Given `/knowledge <query>`:
 
-1. Read `knowledge/state.json` for learning mode status
-2. Read each knowledge file and count entries:
-   - `knowledge/cache/classifications.md`
-   - `knowledge/learnings/patterns.md`
-   - `knowledge/learnings/quirks.md`
-   - `knowledge/learnings/decisions.md`
-3. Extract recent entries (last 5) from learnings files
-4. Format and display
+### Step 1: Search with ao CLI (if available)
 
-## Output Format
-
-```
-╔═══════════════════════════════════════════════════╗
-║           Project Knowledge Base                   ║
-╚═══════════════════════════════════════════════════╝
-
-📚 Learning Status
-───────────────────────────────────────────────────
-Mode: ON (since 2026-01-08 14:00)
-Last Extraction: 5 minutes ago
-Extractions This Session: 3
-
-📊 Knowledge Statistics
-───────────────────────────────────────────────────
-Cache:
-  - Classification entries: 23
-
-Learnings:
-  - Patterns: 8 entries
-  - Quirks: 3 entries
-  - Decisions: 5 entries
-  - Total: 16 insights
-
-📝 Recent Learnings
-───────────────────────────────────────────────────
-[Pattern] "Use async/await for API calls in this codebase"
-  Discovered: 2026-01-08 | Confidence: high
-
-[Quirk] "Auth module uses non-standard token format"
-  Discovered: 2026-01-07 | Confidence: high
-
-[Decision] "Chose Redis over in-memory cache for session storage"
-  Made: 2026-01-06 | Confidence: high
-
-💡 Commands
-───────────────────────────────────────────────────
-/learn      - Extract insights now
-/learn-on   - Enable continuous learning
-/learn-off  - Disable continuous learning
+```bash
+ao forge search "<query>" --limit 10 2>/dev/null
 ```
 
-## When Knowledge Base is Empty
+If results found, read the relevant files.
 
-```
-╔═══════════════════════════════════════════════════╗
-║           Project Knowledge Base                   ║
-╚═══════════════════════════════════════════════════╝
+### Step 2: Search .agents/ Directory
 
-📚 Learning Status
-───────────────────────────────────────────────────
-Mode: OFF
-No extractions yet
+```bash
+# Search learnings
+grep -r "<query>" .agents/learnings/ 2>/dev/null | head -10
 
-📊 Knowledge Statistics
-───────────────────────────────────────────────────
-Knowledge base is empty.
+# Search patterns
+grep -r "<query>" .agents/patterns/ 2>/dev/null | head -10
 
-💡 Get Started
-───────────────────────────────────────────────────
-Use /learn to extract insights from your current session.
-Use /learn-on to enable continuous learning.
+# Search research
+grep -r "<query>" .agents/research/ 2>/dev/null | head -10
 
-The knowledge base will grow as you work, capturing:
-  - Patterns that work well in this project
-  - Quirks and gotchas to remember
-  - Decisions and their rationale
+# Search retros
+grep -r "<query>" .agents/retros/ 2>/dev/null | head -10
 ```
 
-## Steps
+### Step 3: Search Plans
 
-1. Read `knowledge/state.json`
-2. Read frontmatter from each knowledge file to get entry counts
-3. Parse recent entries from learnings files (look for `## Pattern:`, `## Quirk:`, `## Decision:` headers)
-4. Format and display the summary
-5. If files are missing or empty, show the "empty" state
+```bash
+# Local plans
+grep -r "<query>" .agents/plans/ 2>/dev/null | head -10
 
-## Notes
+# Global plans
+grep -r "<query>" ~/.claude/plans/ 2>/dev/null | head -10
+```
 
-- Entry counts come from frontmatter `entry_count` field or by counting `##` headers
-- Recent learnings are shown most recent first (by discovered/made date)
-- This is a read-only command - it doesn't modify any files
+### Step 4: Use Semantic Search (if MCP available)
+
+```
+Tool: mcp__smart-connections-work__lookup
+Parameters:
+  query: "<query>"
+  limit: 10
+```
+
+### Step 5: Read Relevant Files
+
+For each match found, use the Read tool to get full content.
+
+### Step 6: Synthesize Results
+
+Combine findings into a coherent response:
+- What do we know about this topic?
+- What learnings are relevant?
+- What patterns apply?
+- What past decisions were made?
+
+### Step 7: Report to User
+
+Present the knowledge found:
+1. Summary of findings
+2. Key learnings (with IDs)
+3. Relevant patterns
+4. Links to source files
+5. Confidence level (how much we know)
+
+## Knowledge Locations
+
+| Type | Location | Format |
+|------|----------|--------|
+| Learnings | `.agents/learnings/` | Markdown |
+| Patterns | `.agents/patterns/` | Markdown |
+| Research | `.agents/research/` | Markdown |
+| Retros | `.agents/retros/` | Markdown |
+| Plans | `.agents/plans/` | Markdown |
+| Global Plans | `~/.claude/plans/` | Markdown |
+
+## Key Rules
+
+- **Search multiple locations** - knowledge may be scattered
+- **Use ao CLI first** - semantic search is better
+- **Fall back to grep** - if ao not available
+- **Read full files** - don't just report matches
+- **Synthesize** - combine findings into useful answer
+
+## Example Queries
+
+```bash
+/knowledge authentication    # Find auth-related learnings
+/knowledge "rate limiting"   # Find rate limit patterns
+/knowledge kubernetes        # Find K8s knowledge
+/knowledge "what do we know about caching"
+```

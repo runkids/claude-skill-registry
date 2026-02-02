@@ -1,91 +1,178 @@
 ---
 name: technical-writing
-description: Guide for creating effective internal technical documentation (READMEs, ADRs, Contribution Guides). Use this skill when the user asks to write, refactor, or improve internal project documentation.
+description: "Write clear, engaging technical content from real experience. Use when writing blog posts, documentation, tutorials, or technical articles."
+category: communication
+priority: medium
+tokenEstimate: 800
+agents: [qe-quality-analyzer, qe-api-contract-validator]
+implementation_status: optimized
+optimization_version: 1.0
+last_optimized: 2025-12-03
+dependencies: []
+quick_reference_card: true
+tags: [writing, documentation, communication, blogs, tutorials]
 ---
 
-# Technical Writing for Developers
+# Technical Writing
 
-This skill provides best practices and templates for writing clear, maintainable internal documentation.
+<default_to_action>
+When writing technical content:
+1. LEAD with value (what will reader learn/gain?)
+2. SHOW, don't tell (specific examples, code, numbers)
+3. STRUCTURE for scanning (headers, bold, short paragraphs)
+4. CUT ruthlessly (every sentence must earn its place)
+5. BE honest about trade-offs
 
-## Core Principles
-
-1.  **Audience Awareness**: Write for your teammates (and your future self). Assume they know *how* to code, but not *why* this specific code exists.
-2.  **Active Voice**: Use active voice for instructions.
-    *   *Bad*: "The server should be started by running..."
-    *   *Good*: "Run `npm start` to start the server."
-3.  **Single Source of Truth**: Don't duplicate code logic in comments. Explain *why*, not *what*.
-4.  **Front-Load Context**: Put the most important information (what is this? how do I run it?) at the top.
-
-## Common Artifacts & Templates
-
-### 1. README.md (Root or Component)
-
-Every significant directory should have a README.
-
+**Blog Post Structure:**
 ```markdown
-# [Project/Component Name]
+# Title (specific promise)
 
-[One-sentence description of what this is].
+## Opening (2-3 paragraphs)
+- Hook: The problem or insight
+- Context: Why this matters
+- Promise: What they'll learn
 
-## Prerequisite
+## Body (3-5 sections)
+- One clear idea per section
+- Support with examples/code/data
 
-*   Node.js >= 20
-*   [Other dependency]
-
-## Quick Start
-
-```bash
-npm install
-npm run dev
+## Closing
+- Key takeaway (1-2 sentences)
+- Action reader can take
 ```
 
-## Architecture
+**Before/After:**
+❌ "We implemented a comprehensive testing strategy..."
+✅ "We moved exploratory testing into sprint planning. QE now pairs with devs during story refinement."
+</default_to_action>
 
-[Brief explanation of how it works. Diagrams are great.]
+## Quick Reference Card
 
-## Key Concepts
+### Core Principles
 
-*   **Concept A**: Definition...
-*   **Concept B**: Definition...
+| Principle | Bad | Good |
+|-----------|-----|------|
+| **Lead with value** | "In today's landscape..." | "Here's how we cut bugs 60%" |
+| **Show, don't tell** | "We improved testing" | "Bug detection: 12→47 per sprint" |
+| **Be specific** | "Performance improved" | "Response time: 2.3s→180ms" |
+| **Honest trade-offs** | "This approach is best" | "TDD slowed velocity 20%, reduced bugs 75%" |
+
+### Words to Cut
+
+| Kill | Reason |
+|------|--------|
+| basically, actually, probably | Hedge words |
+| leverage, synergy, paradigm | Corporate speak |
+| very, really, quite | Unnecessary qualifiers |
+| it should be noted that | Just note it |
+
+---
+
+## Audience-Specific Writing
+
+### For Developers
+- Lead with code or concrete problem
+- Show implementation details
+- Discuss trade-offs and alternatives
+- Link to repos or examples
+
+### For QA/QE
+- Start with testing challenge
+- Show strategy, not just tools
+- Include risk assessment
+- Provide adaptable heuristics
+
+### For Leadership
+- Open with business impact
+- Use metrics that matter
+- Connect technical to outcomes
+- Keep technical details concise
+
+---
+
+## Editing Checklist
+
+Before publishing:
+- [ ] Title promises something specific
+- [ ] Opening hooks in 30 seconds
+- [ ] Claims backed by examples
+- [ ] All unnecessary words cut
+- [ ] Code examples tested and correct
+- [ ] Takeaway crystal clear
+- [ ] Would send to respected colleague
+
+---
+
+## Example Transformations
+
+**Before:**
+"We decided to implement a more comprehensive testing strategy that would allow us to catch bugs earlier in the development lifecycle."
+
+**After:**
+"We moved exploratory testing into sprint planning. QE now pairs with devs during story refinement, identifying risks before code is written."
+
+---
+
+**Before:**
+"The benefits of this approach are numerous and include improved quality, faster feedback loops, and better team collaboration."
+
+**After:**
+"Three outcomes: bugs found 2 days earlier on average, 30% fewer regression issues, and devs now ask QE for input during design."
+
+---
+
+## Agent Integration
+
+```typescript
+// Generate documentation from code
+const docs = await Task("Generate Docs", {
+  source: 'src/services/PaymentService.ts',
+  format: 'markdown',
+  includeExamples: true
+}, "qe-quality-analyzer");
+
+// Review documentation quality
+const review = await Task("Review Docs", {
+  files: ['README.md', 'docs/api.md'],
+  checkClarity: true,
+  checkCodeExamples: true
+}, "qe-quality-analyzer");
 ```
 
-### 2. Architecture Decision Record (ADR)
+---
 
-Use for significant technical decisions.
+## Agent Coordination Hints
 
-```markdown
-# [Short Title]
-
-*   **Status**: [Proposed | Accepted | Deprecated]
-*   **Date**: YYYY-MM-DD
-*   **Deciders**: [List names]
-
-## Context
-
-[Describe the problem and constraints.]
-
-## Decision
-
-[Describe what we are doing.]
-
-## Consequences
-
-*   [Positive consequence]
-*   [Negative consequence / Trade-off]
+### Memory Namespace
+```
+aqe/technical-writing/
+├── generated-docs/*   - Auto-generated documentation
+├── reviews/*          - Documentation review findings
+└── templates/*        - Reusable doc templates
 ```
 
-## Style Guide
+### Fleet Coordination
+```typescript
+const docsFleet = await FleetManager.coordinate({
+  strategy: 'documentation',
+  agents: [
+    'qe-quality-analyzer',         // Generate and review
+    'qe-api-contract-validator'    // API doc accuracy
+  ],
+  topology: 'sequential'
+});
+```
 
-*   **Headers**: Use Sentence case for headers (e.g., "Getting started" not "Getting Started").
-*   **Code Blocks**: Always specify the language for syntax highlighting (e.g., \`\`\`typescript).
-*   **Lists**: Use bullet points for options, numbered lists for steps.
-*   **Links**: Use relative links `[Link](./path/to/file)` so they work in the repo browser.
+---
 
-## Review Checklist
+## Related Skills
+- [bug-reporting-excellence](../bug-reporting-excellence/) - Technical bug writing
+- [code-review-quality](../code-review-quality/) - Review documentation
 
-Before committing documentation:
+---
 
-- [ ] **Completeness**: did I cover "how to run" and "how to test"?
-- [ ] **Freshness**: Did I actually run the commands in a fresh terminal?
-- [ ] **Links**: Do all internal links work?
-- [ ] **Grammar**: Is it readable? (Use a spell checker).
+## Remember
+
+**You're not writing to impress.** You're writing to help people solve problems you've already solved. Be the colleague you wish you'd had.
+
+**Write from experience.** Only write about what you've done in production. If exploring, say so.

@@ -1,12 +1,7 @@
 {
   "name": "bug-detective",
-  "description": "Systematic bug hunting combining Sherpa's debugging workflow, Julie's execution tracing, and Goldfish's investigation tracking. Activates for bug fixes with methodical reproduction, test capture, fix,",
-  "repo": "anortham/mcp-toolbox-workflows",
-  "category": "development",
-  "tags": [
-    "bug",
-    "detective"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SebastianLHY/ruoyi-develop-claude",
+  "path": ".claude/skills/bug-detective/SKILL.md",
+  "source": "github.com/SebastianLHY/ruoyi-develop-claude",
+  "downloaded_at": "2026-02-02T02:44:42.968408Z"
 }

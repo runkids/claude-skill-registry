@@ -1,558 +1,108 @@
 ---
 name: lessons-learned
-description: インシデントから抽出された教訓・ベストプラクティスを体系的に管理し、チーム全体の知識として共有・活用するナレッジベース。継続的学習と品質向上の核となるSkill。
+description: Use when capturing discoveries after phase completion, before shipping, or when reflecting on completed work to extract reusable patterns
 ---
 
-# Lessons Learned Skill
+<!-- TOKEN BUDGET: 150 lines / ~450 tokens -->
 
-## 📋 目次
+# Lessons Learned
 
-1. [概要](#概要)
-2. [いつ使うか](#いつ使うか)
-3. [教訓の種類](#教訓の種類)
-4. [抽出プロセス](#抽出プロセス)
-5. [体系化・分類](#体系化分類)
-6. [活用方法](#活用方法)
-7. [定期レビュー](#定期レビュー)
-8. [Agent連携](#agent連携)
+## Overview
 
----
+The lessons-learned system captures discoveries, patterns, and pitfalls found during implementation and feeds them back into project memory. Lessons are stored in `.shipyard/LESSONS.md` and optionally surfaced in `CLAUDE.md` so future agents benefit from past experience.
 
-## 概要
+## When to Use
 
-このSkillは、学習とナレッジ共有の全てをカバーします：
+- After phase completion during `/shipyard:ship` (Step 3a)
+- When reflecting on completed work to extract reusable knowledge
+- When a build summary contains notable discoveries worth preserving
 
-- ✅ インシデントから教訓を抽出
-- ✅ ベストプラクティスの体系化
-- ✅ アンチパターンの記録
-- ✅ 検索可能なナレッジベース
-- ✅ 各Skillへの自動フィードバック
-- ✅ チーム学習の促進
-- ✅ 定期的なレトロスペクティブ
+## LESSONS.md Format
 
-**incident-logger との違い**:
-- `incident-logger`: **生のインシデント記録**（時系列、個別事例）
-- `lessons-learned`: **抽出された教訓**（体系化、一般化、再利用可能）
-
-## 📚 公式ドキュメント・参考リソース
-
-**このガイドで学べること**: 教訓抽出プロセス、ナレッジベース構築、レトロスペクティブ実施、継続的改善
-**公式で確認すべきこと**: 知識管理ツールの最新機能、組織学習のベストプラクティス
-
-### 主要な公式ドキュメント
-
-- **[Retrospective Handbook](https://retromat.org/)** - レトロスペクティブ手法集
-  - [Activities](https://retromat.org/)
-
-- **[Agile Retrospectives](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649)** - アジャイルレトロスペクティブガイド
-
-- **[NASA Lessons Learned](https://llis.nasa.gov/)** - NASA教訓データベース（参考実装）
-
-- **[Toyota Kata](https://en.wikipedia.org/wiki/Toyota_Kata)** - トヨタの改善カタ
-
-### 関連リソース
-
-- **[The Fifth Discipline](https://www.amazon.com/Fifth-Discipline-Practice-Learning-Organization/dp/0385517254)** - 学習する組織
-- **[Continuous Improvement](https://en.wikipedia.org/wiki/Continual_improvement_process)** - 継続的改善プロセス
-- **[Knowledge Management](https://en.wikipedia.org/wiki/Knowledge_management)** - 知識管理
-
----
-
-## いつ使うか
-
-### 自動的に参照されるケース
-
-- 新しいタスクを開始する時（過去の教訓確認）
-- 設計・実装の判断をする時
-- トラブルシューティング時
-
-### 手動で参照すべきケース
-
-- プロジェクト開始時
-- アーキテクチャ決定時
-- レトロスペクティブ実施時
-- 新メンバーのオンボーディング時
-
----
-
-## 教訓の種類
-
-### 1. Do's（すべきこと）
+Store lessons in `.shipyard/LESSONS.md` using this exact structure:
 
 ```markdown
-## 常にOptionalを安全に扱う
+# Shipyard Lessons Learned
 
-### 教訓
-force unwrap (!) は使わず、guard/if let を使用する
+## [YYYY-MM-DD] Phase N: {Phase Name}
 
-### 根拠
-- インシデント#042: force unwrapでクラッシュ
-- インシデント#089: 本番環境で1000ユーザー影響
+### What Went Well
+- {Bullet point}
 
-### ベストプラクティス
-guard let user = user else {
-    // エラーハンドリング
-    return
-}
+### Surprises / Discoveries
+- {Pattern discovered}
 
-### 適用箇所
-- 全ての Optional 処理
-- 特にユーザー入力、API レスポンス
-```
+### Pitfalls to Avoid
+- {Anti-pattern encountered}
 
-詳細: [guides/01-dos.md](guides/01-dos.md)
-
-### 2. Don'ts（避けるべきこと）
-
-```markdown
-## ビルド前の git pull を忘れない
-
-### 教訓
-ビルド前に必ず最新コードを pull する
-
-### 根拠
-- インシデント#023: 古いコードでビルド→TestFlight配布→バグ発見
-- 3時間の無駄 + 緊急Hotfix
-
-### アンチパターン
-# ❌ Bad
-xcodebuild ...
-
-# ✅ Good
-git pull origin main
-xcodebuild ...
-
-### 自動化
-CI/CDで自動的に最新を取得
-```
-
-詳細: [guides/02-donts.md](guides/02-donts.md)
-
-### 3. Patterns（成功パターン）
-
-```markdown
-## MVVM + Repository パターン
-
-### 教訓
-MVVMとRepositoryの組み合わせでテスタビリティ向上
-
-### 成功事例
-- プロジェクトA: テストカバレッジ 45% → 85%
-- ビジネスロジックの Unit Test が容易に
-
-### 実装パターン
-View → ViewModel → UseCase → Repository → DataSource
-
-### いつ使うか
-- 中規模以上のプロジェクト
-- テストを重視する場合
-
-### 参考
-- ios-development/guides/01-mvvm-pattern.md
-```
-
-詳細: [guides/03-patterns.md](guides/03-patterns.md)
-
-### 4. Optimizations（最適化手法）
-
-```markdown
-## LazyVGrid で大量画像表示を最適化
-
-### 教訓
-大量の画像表示には LazyVGrid + Kingfisher
-
-### 問題
-- GridView で 1000件の画像 → メモリ不足でクラッシュ
-
-### 解決策
-LazyVGrid + Kingfisher のキャッシュ機能
-
-### 効果
-- メモリ使用量: 800MB → 150MB
-- スクロール: カクカク → スムーズ
-
-### 実装
-```swift
-LazyVGrid(columns: columns) {
-    ForEach(items) { item in
-        KFImage(URL(string: item.imageURL))
-            .resizable()
-            .frame(width: 100, height: 100)
-    }
-}
-```
-
-詳細: [guides/04-optimizations.md](guides/04-optimizations.md)
-
-### 5. Tools（ツール・手法）
-
-```markdown
-## Instruments でメモリリーク検出
-
-### 教訓
-メモリリーク は Instruments で早期発見
-
-### 使い方
-1. Xcode → Product → Profile
-2. Leaks テンプレート選択
-3. アプリ操作
-4. 赤いバー = リーク発見
-
-### 成功事例
-- インシデント#067: 3日間悩んだリークを10分で発見
-
-### いつ使うか
-- リリース前必須
-- メモリ使用量が増えている時
-```
-
-詳細: [guides/05-tools.md](guides/05-tools.md)
+### Process Improvements
+- {Workflow enhancement}
 
 ---
-
-## 抽出プロセス
-
-### 1. インシデント発生 → 記録（incident-logger）
-
-```
-incidents/2024/042-force-unwrap-crash.md
 ```
 
-### 2. 解決 → 教訓抽出
-
-問いかけ：
-- 何を学んだか？
-- どう防げたか？
-- 他に適用できるか？
-- パターン化できるか？
-
-### 3. 教訓として記録（lessons-learned）
-
-```
-lessons/best-practices/optional-handling.md
-```
-
-### 4. 各Skillにフィードバック
-
-```
-ios-development/references/best-practices.md に追加
-ios-development/checklists/code-review.md に項目追加
-```
-
-### 5. インデックス更新
-
-```
-lessons/index.md に追加
-```
-
-詳細: [guides/06-extraction-process.md](guides/06-extraction-process.md)
+New entries are prepended after the `# Shipyard Lessons Learned` heading so the most recent phase appears first. Each phase gets its own dated section with all four subsections.
 
----
-
-## 体系化・分類
+## Structured Prompts
 
-### ディレクトリ構造
-
-```
-lessons/
-├── index.md                    # 全教訓一覧
-├── best-practices/             # ベストプラクティス
-│   ├── optional-handling.md
-│   ├── error-handling.md
-│   ├── async-programming.md
-│   └── ...
-├── anti-patterns/              # アンチパターン
-│   ├── massive-view-controller.md
-│   ├── force-unwrap.md
-│   └── ...
-├── patterns/                   # 成功パターン
-│   ├── mvvm-repository.md
-│   ├── coordinator.md
-│   └── ...
-├── optimizations/              # 最適化手法
-│   ├── lazy-loading.md
-│   ├── caching-strategy.md
-│   └── ...
-├── tools/                      # ツール・手法
-│   ├── instruments.md
-│   ├── swiftlint.md
-│   └── ...
-└── by-category/                # カテゴリ別
-    ├── architecture/
-    ├── testing/
-    ├── performance/
-    ├── security/
-    └── ...
-```
-
-詳細: [guides/07-organization.md](guides/07-organization.md)
+Present these four questions to the user during lesson capture:
 
----
-
-## 活用方法
+1. **What went well in this phase?** -- Patterns, tools, or approaches that worked effectively.
+2. **What surprised you or what did you learn?** -- Unexpected behaviors, new techniques, or revised assumptions.
+3. **What should future work avoid?** -- Anti-patterns, dead ends, or approaches that caused problems.
+4. **Any process improvements discovered?** -- Workflow changes, tooling suggestions, or efficiency gains.
 
-### 日常的な活用
+Pre-populate suggested answers from build artifacts before asking (see Pre-Population below).
 
-#### 実装前
+## Pre-Population
 
-```
-「ユーザー認証を実装する」
-→ lessons/patterns/ を検索
-→ authentication-pattern.md 発見
-→ 過去の成功パターンを適用
-→ 実装時間 50%短縮
-```
+Before presenting prompts, extract candidate lessons from completed build summaries:
 
-#### トラブル発生時
+1. Read all `SUMMARY-*.md` files in `.shipyard/phases/{N}/results/`.
+2. Extract entries from **"Issues Encountered"** sections -- these often contain workarounds and edge cases.
+3. Extract entries from **"Decisions Made"** sections -- these capture rationale worth preserving.
+4. Present extracted items as pre-populated suggestions the user can accept, edit, or discard.
 
-```
-「メモリリークが疑われる」
-→ lessons/tools/ を検索
-→ instruments.md 発見
-→ 手順通りに実行
-→ 10分で原因特定
-```
+This reduces friction and ensures discoveries documented during building are not lost.
 
-#### コードレビュー時
+## CLAUDE.md Integration
 
-```
-「force unwrap 発見」
-→ lessons/anti-patterns/force-unwrap.md を共有
-→ 過去のインシデント事例を提示
-→ 説得力のあるレビュー
-```
+After the user approves lessons, optionally append a summary to the project's `CLAUDE.md`:
 
-### チーム活用
+1. **Check for CLAUDE.md** -- If no `CLAUDE.md` exists in the project root, skip this step entirely.
+2. **Find existing section** -- Look for a `## Lessons Learned` heading in `CLAUDE.md`.
+3. **Append if exists** -- Add new bullet points under the existing `## Lessons Learned` section.
+4. **Create if missing** -- If `CLAUDE.md` exists but has no `## Lessons Learned` section, append the section at the end of the file.
+5. **Format for CLAUDE.md** -- Use concise single-line bullets. Omit phase dates; focus on actionable guidance:
+   ```markdown
+   ## Lessons Learned
+   - Bash `set -e` interacts poorly with pipelines -- use explicit error checks after pipes
+   - jq `.field // "default"` prevents null propagation in optional config values
+   ```
 
-#### オンボーディング
+## Quality Standards
 
-新メンバーに `lessons/index.md` を共有：
-- プロジェクト固有のベストプラクティス
-- 過去の失敗から学ぶべきこと
-- 成功パターン
+Lessons must be **specific, actionable, and reusable**. Apply these filters:
 
-#### レトロスペクティブ
+**Good lessons** (specific, transferable):
+- "Bash `set -e` interacts poorly with pipelines -- use explicit error checks after pipes"
+- "jq `.field // \"default\"` prevents null propagation in optional config values"
+- "bats-core `run` captures exit code but swallows stderr -- use `2>&1` to capture both"
 
-月次レトロで `lessons/` をレビュー：
-- 新しい教訓の追加
-- 古い教訓の更新
-- 適用状況の確認
+**Bad lessons** (too vague or too specific):
+- "Tests are important" -- too generic, not actionable
+- "Fixed a bug on line 47" -- too specific, not transferable
+- "Code should be clean" -- vague platitude
+- "Changed variable name from x to y" -- implementation detail, not a lesson
 
-詳細: [guides/08-utilization.md](guides/08-utilization.md)
+**Anti-Patterns to reject:**
+- Lessons that duplicate existing entries in LESSONS.md
+- Lessons that reference specific line numbers or ephemeral file locations
+- Lessons that are generic truisms rather than discovered knowledge
+- Lessons longer than two sentences -- split or summarize
 
----
+## Integration
 
-## 定期レビュー
+**Referenced by:** `commands/ship.md` Step 3a for post-phase lesson capture.
 
-### 月次レトロスペクティブ
-
-```markdown
-## Lessons Learned レビュー (2024-12)
-
-### 今月追加された教訓
-- [best-practices] SwiftUI PreferenceKey活用
-- [optimizations] LazyVStack パフォーマンス改善
-- [anti-patterns] ViewModel の肥大化
-
-### 適用状況
-- Optional handling: 適用率 95% ✅
-- MVVM pattern: 新規機能で100%適用 ✅
-- Instruments 定期実行: 未実施 ❌ → 改善必要
-
-### 次月アクション
-- [ ] Instruments を CI に組み込む
-- [ ] ViewModel 肥大化チェックを自動化
-```
-
-テンプレート: [templates/monthly-review.md](templates/monthly-review.md)
-
-### 四半期レビュー
-
-```markdown
-## Q4 2024 Lessons Learned
-
-### 統計
-- 新規教訓: 15件
-- 更新された教訓: 8件
-- 削除された教訓: 2件（陳腐化）
-
-### トップ3教訓（参照回数）
-1. optional-handling.md (48回)
-2. mvvm-repository.md (32回)
-3. instruments.md (28回)
-
-### 効果測定
-- インシデント再発率: 25% → 8%
-- 新規問題解決時間: 平均 3.5h → 1.2h
-
-### 改善点
-- カテゴリ分類の見直し
-- 検索性の向上
-```
-
-テンプレート: [templates/quarterly-review.md](templates/quarterly-review.md)
-
----
-
-## Agent連携
-
-### このSkillを使用するAgents
-
-1. **knowledge-extractor-agent**
-   - インシデントから教訓抽出
-   - パターン認識
-   - Thoroughness: `thorough`
-
-2. **lesson-advisor-agent**
-   - タスク開始時に関連する教訓を提示
-   - Thoroughness: `quick`
-
-3. **pattern-matcher-agent**
-   - コードから既知のパターン/アンチパターン検出
-   - Thoroughness: `medium`
-
-4. **knowledge-updater-agent**
-   - 教訓の陳腐化チェック
-   - 更新提案
-   - Thoroughness: `thorough`
-
-### 推奨Agentワークフロー
-
-#### 新規タスク開始時（自動）
-
-```
-lesson-advisor-agent
-→ タスク内容分析
-→ 関連する教訓を提示
-→ ベストプラクティス適用
-```
-
-#### インシデント解決後（順次実行）
-
-```
-knowledge-extractor-agent (教訓抽出)
-→ レビュー・編集
-→ knowledge-updater-agent (Skillsへフィードバック)
-```
-
-#### 月次レビュー時（並行実行）
-
-```
-pattern-matcher-agent (パターン分析) +
-knowledge-updater-agent (陳腐化チェック) +
-statistics-agent (統計生成)
-→ 結果統合 → レトロ資料作成
-```
-
----
-
-## クイックリファレンス
-
-### 教訓追加コマンド
-
-```bash
-# ベストプラクティス追加
-./scripts/add-lesson.sh best-practices "Optional Handling"
-
-# アンチパターン追加
-./scripts/add-lesson.sh anti-patterns "Massive View Controller"
-```
-
-### 検索
-
-```bash
-# キーワード検索
-./scripts/search-lessons.sh "optional"
-
-# カテゴリ検索
-ls lessons/best-practices/
-```
-
-### 統計
-
-```bash
-# 教訓統計
-./scripts/lesson-stats.sh
-```
-
----
-
-## 詳細ドキュメント
-
-### Guides（詳細ガイド）
-
-1. [Knowledge Base - 教訓データベース構築](guides/01-knowledge-base.md)
-2. [Team Learning - チーム学習プロセス](guides/02-team-learning.md)
-3. [Continuous Improvement - 継続的改善](guides/03-continuous-improvement.md)
-4. [Post-Mortem Process - ポストモーテム実施](guides/04-postmortem-process.md)
-5. [Knowledge Management - 知識管理と共有](guides/05-knowledge-management.md)
-
-### Templates（テンプレート）
-
-#### 教訓関連
-- [教訓テンプレート](templates/lesson-template.md)
-
-#### ポストモーテム関連
-- [ポストモーテムテンプレート](templates/postmortem-template.md)
-- [5 Whys テンプレート](templates/5whys-template.md)
-- [RCA（根本原因分析）テンプレート](templates/rca-template.md)
-
-#### レトロスペクティブ関連
-- [レトロスペクティブテンプレート](templates/retrospective-template.md)
-- [アクションアイテム追跡テンプレート](templates/action-tracking-template.md)
-
-### Scripts（自動化スクリプト）
-
-- [教訓追加](scripts/add-lesson.sh)
-- [検索](scripts/search-lessons.sh)
-- [統計](scripts/lesson-stats.sh)
-- [インデックス更新](scripts/update-index.sh)
-
-### Lessons（実際の教訓）
-
-- [Best Practices](lessons/best-practices/)
-- [Anti-Patterns](lessons/anti-patterns/)
-- [Patterns](lessons/patterns/)
-- [Optimizations](lessons/optimizations/)
-- [Tools](lessons/tools/)
-- [全教訓一覧](lessons/index.md)
-
----
-
-## 成功の指標
-
-### 目標
-
-- ✅ インシデント→教訓抽出率: 100%
-- ✅ 教訓の適用率: 80%+
-- ✅ 再発防止率: 90%+
-- ✅ 新規問題解決時間短縮: 60%+
-
-### 効果測定
-
-```
-導入前（3ヶ月平均）:
-  - 同じ問題の再発: 月5回
-  - 新規問題解決時間: 平均 4.2h
-  - ベストプラクティス適用: 不明
-
-導入後（3ヶ月平均）:
-  - 同じ問題の再発: 月0.5回 (90%削減)
-  - 新規問題解決時間: 平均 1.5h (64%短縮)
-  - ベストプラクティス適用: 85%
-
-ROI: 月40時間の削減 = 開発者1人分の10%
-```
-
----
-
-## 関連Skills
-
-- `incident-logger` - 教訓の元となるインシデント記録
-- 全てのSkills - 教訓を各Skillにフィードバック
-
----
-
-## 更新履歴
-
-このSkill自体の変更履歴は [CHANGELOG.md](CHANGELOG.md) を参照
+**Pairs with:** `shipyard:shipyard-verification` for validating lesson quality before persisting.

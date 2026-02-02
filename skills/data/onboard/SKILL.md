@@ -22,7 +22,7 @@ Use the Task tool with `subagent_type: "general-purpose"` and this prompt:
 ```
 Onboard me to this project.
 
-Read and follow the instructions in .maestro/agents/onboard.md exactly.
+Read and follow the instructions in .claude/agents/onboard.md exactly.
 
 1. Check if thoughts/ledgers/ exists (if not, tell me to run init-project.sh)
 2. Set RepoPrompt workspace to this project, then explore:
@@ -52,6 +52,6 @@ The onboard process:
 ## Notes
 
 - This skill is for BROWNFIELD projects (existing code)
-- For greenfield, use `/maestro:create_plan` instead
-- Ledger can be updated anytime with `/maestro:continuity_ledger`
+- For greenfield, use `/create_plan` instead
+- Ledger can be updated anytime with `/continuity_ledger`
 - RepoPrompt requires the app running with MCP Server enabled

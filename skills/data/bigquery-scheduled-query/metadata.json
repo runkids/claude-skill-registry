@@ -1,9 +1,7 @@
 {
   "name": "bigquery-scheduled-query",
-  "description": "Bigquery Scheduled Query - Auto-activating skill for GCP Skills.Triggers on: bigquery scheduled query, bigquery scheduled queryPart of the GCP Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/14-gcp-skills/bigquery-scheduled-query/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:26:52.389719Z"
 }

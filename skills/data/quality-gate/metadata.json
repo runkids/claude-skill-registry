@@ -1,7 +1,7 @@
 {
   "name": "quality-gate",
-  "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "path": ".claude/skills/quality-gate/SKILL.md",
-  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
-  "downloaded_at": "2026-02-01T03:53:17.254669Z"
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "path": ".claude/skills/quality/quality-gate/SKILL.md",
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-02-02T03:48:10.570516Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "reporting",
-  "description": "Guidelines for formatting reports using HTML details/summary tags",
   "repo": "githubnext/gh-aw",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/githubnext/gh-aw"
+  "path": "skills/reporting/SKILL.md",
+  "source": "github.com/githubnext/gh-aw",
+  "downloaded_at": "2026-02-02T03:48:22.607904Z"
 }

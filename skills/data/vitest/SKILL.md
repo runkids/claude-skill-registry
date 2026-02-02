@@ -1,300 +1,120 @@
 ---
 name: vitest
-description: "Vitest testing framework: Vite-powered tests, Jest-compatible API, mocking, snapshots, coverage, browser mode, and TypeScript support."
-version: "4.0.18"
-release_date: "2026-01-21"
+description: Vitest testing framework patterns for test setup, async testing, mocking with vi.*, snapshots, and test performance (formerly test-vitest). This skill should be used when writing or debugging Vitest tests. This skill does NOT cover TDD methodology (use test-tdd skill), API mocking with MSW (use test-msw skill), or Jest-specific APIs.
 ---
 
-# Vitest
-
-Next generation testing framework powered by Vite.
-
-## Quick Navigation
-
-- [Test API](references/api.md) - test, describe, hooks
-- [Expect API](references/expect.md) - matchers and assertions
-- [Mocking](references/mocking.md) - vi.fn, vi.mock, fake timers
-- [Configuration](references/config.md) - vitest.config.ts options
-- [CLI](references/cli.md) - command line reference
-- [Browser Mode](references/browser.md) - real browser testing
-
-## When to Use
-
-- Testing Vite-based applications (shared config)
-- Need Jest-compatible API with native ESM support
-- Component testing in real browser
-- Fast watch mode with HMR
-- TypeScript testing without extra config
-- Parallel test execution
-
-## Installation
-
-```bash
-npm install -D vitest
-```
-
-**Requirements:** Vite >=v6.0.0, Node >=v20.0.0
-
-## Quick Start
+# Vitest Best Practices
+
+Comprehensive performance optimization and best practices guide for Vitest testing framework. Contains 44 rules across 8 categories, prioritized by impact to guide test writing, refactoring, and code review.
+
+## When to Apply
+
+Reference these guidelines when:
+- Writing new Vitest tests
+- Debugging flaky or slow tests
+- Setting up test configuration
+- Reviewing test code in PRs
+- Migrating from Jest to Vitest
+- Optimizing CI/CD test performance
+
+## Rule Categories by Priority
 
-```js
-// sum.js
-export function sum(a, b) {
-  return a + b;
-}
-```
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Async Patterns | CRITICAL | `async-` |
+| 2 | Test Setup & Isolation | CRITICAL | `setup-` |
+| 3 | Mocking Patterns | HIGH | `mock-` |
+| 4 | Performance | HIGH | `perf-` |
+| 5 | Snapshot Testing | MEDIUM | `snap-` |
+| 6 | Environment | MEDIUM | `env-` |
+| 7 | Assertions | LOW-MEDIUM | `assert-` |
+| 8 | Test Organization | LOW | `org-` |
 
-```js
-// sum.test.js
-import { expect, test } from "vitest";
-import { sum } from "./sum.js";
+## Quick Reference
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(sum(1, 2)).toBe(3);
-});
-```
+### 1. Async Patterns (CRITICAL)
 
-```json
-// package.json
-{
-  "scripts": {
-    "test": "vitest",
-    "test:run": "vitest run",
-    "coverage": "vitest run --coverage"
-  }
-}
-```
+- `async-await-assertions` - Await async assertions to prevent false positives
+- `async-return-promises` - Return promises from test functions
+- `async-fake-timers` - Use fake timers for time-dependent code
+- `async-waitfor-polling` - Use vi.waitFor for async conditions
+- `async-concurrent-expect` - Use test context expect in concurrent tests
+- `async-act-wrapper` - Await user events to avoid act warnings
+- `async-error-handling` - Test async error handling properly
 
-## Configuration
+### 2. Test Setup & Isolation (CRITICAL)
 
-```ts
-// vitest.config.ts (recommended)
-import { defineConfig } from "vitest/config";
+- `setup-beforeeach-cleanup` - Clean up state in afterEach hooks
+- `setup-restore-mocks` - Restore mocks after each test
+- `setup-avoid-shared-state` - Avoid shared mutable state between tests
+- `setup-beforeall-expensive` - Use beforeAll for expensive one-time setup
+- `setup-reset-modules` - Reset modules when testing module state
+- `setup-test-factories` - Use test factories for complex test data
 
-export default defineConfig({
-  test: {
-    globals: true, // Enable global test APIs
-    environment: "jsdom", // Browser-like environment
-    include: ["**/*.{test,spec}.{js,ts,jsx,tsx}"],
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "html"],
-    },
-  },
-});
-```
+### 3. Mocking Patterns (HIGH)
 
-Or extend Vite config:
+- `mock-vi-mock-hoisting` - Understand vi.mock hoisting behavior
+- `mock-spyon-vs-mock` - Choose vi.spyOn vs vi.mock appropriately
+- `mock-implementation-not-value` - Use mockImplementation for dynamic mocks
+- `mock-msw-network` - Use MSW for network request mocking
+- `mock-avoid-overmocking` - Avoid over-mocking
+- `mock-type-safety` - Maintain type safety in mocks
+- `mock-clear-between-tests` - Clear mock state between tests
 
-```ts
-// vite.config.ts
-/// <reference types="vitest/config" />
-import { defineConfig } from "vite";
+### 4. Performance (HIGH)
 
-export default defineConfig({
-  test: {
-    // test options
-  },
-});
-```
+- `perf-pool-selection` - Choose the right pool for performance
+- `perf-disable-isolation` - Disable test isolation when safe
+- `perf-happy-dom` - Use happy-dom over jsdom when possible
+- `perf-sharding` - Use sharding for CI parallelization
+- `perf-run-mode-ci` - Use run mode in CI environments
+- `perf-bail-fast-fail` - Use bail for fast failure in CI
 
-## Test File Naming
+### 5. Snapshot Testing (MEDIUM)
 
-By default, tests must contain `.test.` or `.spec.` in filename:
+- `snap-inline-over-file` - Prefer inline snapshots for small values
+- `snap-avoid-large` - Avoid large snapshots
+- `snap-stable-serialization` - Ensure stable snapshot serialization
+- `snap-review-updates` - Review snapshot updates before committing
+- `snap-describe-intent` - Name snapshot tests descriptively
 
-- `sum.test.js`
-- `sum.spec.ts`
-- `__tests__/sum.js`
+### 6. Environment (MEDIUM)
 
-## Key Commands
+- `env-per-file-override` - Override environment per file when needed
+- `env-setup-files` - Use setup files for global configuration
+- `env-globals-config` - Configure globals consistently
+- `env-browser-api-mocking` - Mock browser APIs not available in test environment
 
-```bash
-# Watch mode (default)
-vitest
+### 7. Assertions (LOW-MEDIUM)
 
-# Single run
-vitest run
+- `assert-specific-matchers` - Use specific matchers over generic ones
+- `assert-edge-cases` - Test edge cases and boundaries
+- `assert-one-assertion-concept` - Test one concept per test
+- `assert-expect-assertions` - Use expect.assertions for async tests
+- `assert-toequal-vs-tobe` - Choose toBe vs toEqual correctly
 
-# With coverage
-vitest run --coverage
+### 8. Test Organization (LOW)
 
-# Filter by file/test name
-vitest sum
-vitest -t "should add"
+- `org-file-colocation` - Colocate test files with source files
+- `org-describe-nesting` - Use describe blocks for logical grouping
+- `org-test-naming` - Write descriptive test names
+- `org-test-skip-only` - Use skip and only appropriately
 
-# UI mode
-vitest --ui
+## How to Use
 
-# Browser tests
-vitest --browser.enabled
-```
+Read individual reference files for detailed explanations and code examples:
 
-## Common Patterns
+- [Section definitions](references/_sections.md) - Category structure and impact levels
+- [Rule template](assets/templates/_template.md) - Template for adding new rules
+- [async-await-assertions](references/async-await-assertions.md) - Example rule file
+- [mock-vi-mock-hoisting](references/mock-vi-mock-hoisting.md) - Example rule file
 
-### Basic Test
+## Related Skills
 
-```ts
-import { describe, it, expect, beforeEach } from "vitest";
+- For TDD methodology, see `test-tdd` skill
+- For API mocking with MSW, see `test-msw` skill
+- For TypeScript testing patterns, see `typescript` skill
 
-describe("Calculator", () => {
-  let calc: Calculator;
+## Full Compiled Document
 
-  beforeEach(() => {
-    calc = new Calculator();
-  });
-
-  it("adds numbers", () => {
-    expect(calc.add(1, 2)).toBe(3);
-  });
-
-  it("throws on invalid input", () => {
-    expect(() => calc.add("a", 1)).toThrow();
-  });
-});
-```
-
-### Mocking
-
-```ts
-import { vi, expect, test } from "vitest";
-import { fetchUser } from "./api";
-
-vi.mock("./api", () => ({
-  fetchUser: vi.fn(),
-}));
-
-test("uses mocked API", async () => {
-  vi.mocked(fetchUser).mockResolvedValue({ name: "John" });
-
-  const user = await fetchUser(1);
-
-  expect(fetchUser).toHaveBeenCalledWith(1);
-  expect(user.name).toBe("John");
-});
-```
-
-### Snapshot Testing
-
-```ts
-import { expect, test } from "vitest";
-
-test("matches snapshot", () => {
-  const result = generateConfig();
-  expect(result).toMatchSnapshot();
-});
-
-// Inline snapshot (auto-updates)
-test("inline snapshot", () => {
-  expect({ foo: "bar" }).toMatchInlineSnapshot();
-});
-```
-
-### Async Testing
-
-```ts
-import { expect, test } from "vitest";
-
-test("async/await", async () => {
-  const result = await fetchData();
-  expect(result).toBeDefined();
-});
-
-test("resolves", async () => {
-  await expect(Promise.resolve("ok")).resolves.toBe("ok");
-});
-
-test("rejects", async () => {
-  await expect(Promise.reject(new Error())).rejects.toThrow();
-});
-```
-
-### Fake Timers
-
-```ts
-import { vi, expect, test, beforeEach, afterEach } from "vitest";
-
-beforeEach(() => {
-  vi.useFakeTimers();
-});
-
-afterEach(() => {
-  vi.useRealTimers();
-});
-
-test("advances time", () => {
-  const callback = vi.fn();
-  setTimeout(callback, 1000);
-
-  vi.advanceTimersByTime(1000);
-
-  expect(callback).toHaveBeenCalled();
-});
-```
-
-## Jest Migration
-
-Most Jest code works with minimal changes:
-
-```diff
-- import { jest } from '@jest/globals'
-+ import { vi } from 'vitest'
-
-- jest.fn()
-+ vi.fn()
-
-- jest.mock('./module')
-+ vi.mock('./module')
-
-- jest.useFakeTimers()
-+ vi.useFakeTimers()
-```
-
-**Key differences:**
-
-- Use `vi` instead of `jest`
-- Globals not enabled by default (add `globals: true`)
-- `vi.mock` is hoisted (use `vi.doMock` for non-hoisted)
-- No `jest.requireActual` (use `vi.importActual`)
-
-## Environment Selection
-
-```ts
-// vitest.config.ts
-{
-  test: {
-    environment: 'jsdom', // or 'happy-dom', 'node', 'edge-runtime'
-  }
-}
-
-// Per-file (docblock at top)
-/** @vitest-environment jsdom */
-```
-
-## TypeScript
-
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "types": ["vitest/globals"]
-  }
-}
-```
-
-## References
-
-See `references/` directory for detailed documentation on:
-
-- Test API and hooks
-- All expect matchers
-- Mocking functions and modules
-- Configuration options
-- CLI commands
-- Browser mode testing
-
-## Links
-
-- [Documentation](https://vitest.dev/)
-- [API Reference](https://vitest.dev/api/)
-- [GitHub](https://github.com/vitest-dev/vitest)
-- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
+For the complete guide with all rules expanded: `AGENTS.md`

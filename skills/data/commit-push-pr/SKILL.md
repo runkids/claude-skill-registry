@@ -1,160 +1,232 @@
 ---
 name: commit-push-pr
-description: Git 커밋, Push, PR 생성 워크플로우를 표준화하는 스킬
+description: |
+  Boris Cherny Pattern 6: Commit changes, push to remote, create/update PR.
+  Automates: git add -> git commit -> git push -> gh pr create.
+  Terminal skill (pipeline endpoint) after /synthesis COMPLETE.
+user-invocable: true
+context: fork
+model: opus
+version: "3.1.0"
+argument-hint: "[commit message] | --workload <slug>"
 allowed-tools:
   - Bash
   - Read
-  - Grep
+  - Write
+  - Task
+  - mcp__sequential-thinking__sequentialthinking
+hooks:
+  Setup:
+    - type: command
+      command: "source /home/palantir/.claude/skills/shared/workload-files.sh"
+      timeout: 5000
+  PreToolUse:
+    - type: command
+      command: "/home/palantir/.claude/hooks/git-safety-check.sh"
+      timeout: 10000
+      matcher: "Bash"
+
+# EFL Pattern Configuration (Terminal Skill - Minimal)
+agent_delegation:
+  enabled: false
+  reason: "Terminal skill - executes directly without delegation"
+
+parallel_agent_config:
+  enabled: false
+  reason: "Git operations must be sequential"
+
+internal_validation:
+  enabled: true
+  checks:
+    - "Branch is not main/master"
+    - "No sensitive files (.env, credentials) staged"
+    - "Commit message follows convention"
+  max_retries: 2
+
+output_paths:
+  l1: ".agent/prompts/{slug}/commit-push-pr/l1_summary.yaml"
+  l2: ".agent/prompts/{slug}/commit-push-pr/l2_index.md"
 ---
 
-# Commit Push PR Skill
+# /commit-push-pr - Git Workflow Automation
 
-이 스킬은 ForkLore 프로젝트의 Git 워크플로우를 표준화합니다.
+> **Version:** 3.1.0 | **Type:** Terminal Skill
+> **Role:** Commit, push, and create PR in one command
+> **Pipeline:** After /synthesis COMPLETE (pipeline endpoint)
 
-## 워크플로우
+## 1. Purpose
 
-### 1. 커밋 전 준비
+Automates the complete git workflow:
+1. Analyze staged/unstaged changes
+2. Generate or use provided commit message
+3. Stage and commit changes
+4. Push with upstream tracking
+5. Create/update pull request
 
-```bash
-# 변경사항 확인
-git status --short
-git diff --stat
-
-# 린트 및 테스트 실행
-cd backend && poetry run ruff check apps/ && poetry run pytest -x
-cd frontend && pnpm lint && pnpm test -- --run
-```
-
-### 2. 커밋 메시지 규칙
-
-**형식**: `type(scope): message`
-
-| Type | 설명 |
-|------|------|
-| `feat` | 새로운 기능 |
-| `fix` | 버그 수정 |
-| `refactor` | 코드 리팩토링 (기능 변경 없음) |
-| `docs` | 문서 변경 |
-| `test` | 테스트 추가/수정 |
-| `chore` | 빌드, 설정 등 기타 변경 |
-
-**예시**:
-```bash
-git commit -m "feat(novels): add chapter reordering API"
-git commit -m "fix(auth): resolve token refresh race condition"
-git commit -m "refactor(contents): extract text processing to service"
-git commit -m "docs(api): update endpoint documentation"
-git commit -m "test(novels): add integration tests for branching"
-```
-
-### 3. 브랜치 명명 규칙
-
-**형식**: `type/#issue-description`
+## 2. Invocation
 
 ```bash
-# 예시
-feat/#123-novel-branching
-fix/#456-auth-token-refresh
-refactor/#789-service-extraction
-docs/#101-api-documentation
+/commit-push-pr                              # Auto-generate message
+/commit-push-pr "feat: Add auth module"      # Provide message
+/commit-push-pr --workload <slug>            # Pipeline completion
 ```
 
-### 4. Push
+## 3. L1/L2/L3 Output Format
+
+### L1 Summary (returned to main context)
+
+```yaml
+taskId: commit-{timestamp}
+agentType: commit-push-pr
+status: success
+summary: "Committed abc1234, pushed to origin/feature-branch, PR #123 created"
+
+branch: "feature/auth-module"
+commitHash: "abc1234"
+filesChanged: 5
+prUrl: "https://github.com/owner/repo/pull/123"
+
+l2Path: .agent/prompts/{slug}/commit-push-pr/l2_index.md
+requiresL2Read: false
+nextActionHint: "Pipeline complete"
+```
+
+### L2 Report Structure
+
+```markdown
+# Commit Summary
+
+**Branch:** feature/auth-module
+**Commit:** abc1234
+**Message:** feat: Add user authentication flow
+
+## Files Changed
+- src/auth/login.py (+42, -10)
+- tests/test_auth.py (+25, -0)
+
+## Push Status
+Pushed to origin/feature/auth-module
+
+## PR Status
+PR #123 created: https://github.com/owner/repo/pull/123
+```
+
+## 4. Execution Strategy
+
+### Phase 1: Analyze Changes
 
 ```bash
-# 새 브랜치 첫 push
-git push -u origin feat/#123-feature-name
-
-# 이후 push
-git push
+git status                    # View untracked and modified
+git diff --cached             # View staged changes
+git diff                      # View unstaged changes
+git log --oneline -5          # Recent commits for style
 ```
 
-### 5. PR 생성
+### Phase 2: Stage and Commit
+
+**Commit Message Format:**
+```
+<type>: <concise description>
+
+<optional body explaining why>
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+```
+
+**Types:** feat, fix, refactor, docs, test, chore, style
+
+### Phase 3: Push to Remote
 
 ```bash
-gh pr create --title "feat(scope): 설명 (#이슈번호)" --body "$(cat <<'EOF'
-## Summary
-- 변경사항 1
-- 변경사항 2
-
-## Changes
-- 파일 1: 설명
-- 파일 2: 설명
-
-## Test
-- [ ] 단위 테스트 통과
-- [ ] 통합 테스트 통과
-- [ ] 수동 테스트 완료
-
-Closes #이슈번호
-EOF
-)" --base develop
+git push -u origin $(git branch --show-current)
 ```
 
-### 6. PR 머지
+### Phase 4: Create/Update PR
 
 ```bash
-# Squash 머지 (권장)
-gh pr merge {PR_NUMBER} --squash --delete-branch
+# Check if PR exists
+gh pr view --json state 2>/dev/null
 
-# 일반 머지
-gh pr merge {PR_NUMBER} --merge --delete-branch
+# Create PR if none exists
+gh pr create --title "<title>" --body "<body>"
 ```
 
-## 전체 워크플로우 예시
+## 5. Safety Validations
 
-```bash
-# 1. develop에서 새 브랜치 생성
-git checkout develop
-git pull origin develop
-git checkout -b feat/#204-mcp-skills-hooks
+| Condition | Action |
+|-----------|--------|
+| Branch is main/master | WARN, ask confirmation |
+| Committing .env files | BLOCK unless explicit |
+| Committing credentials | BLOCK - security risk |
+| Empty commit | SKIP - nothing to commit |
 
-# 2. 작업 수행
-# ... 코드 작성 ...
+### P6: Git Safety Validation
 
-# 3. 변경사항 확인 및 테스트
-git status --short
-cd backend && poetry run pytest -x
-cd frontend && pnpm test -- --run
-
-# 4. 커밋
-git add .
-git commit -m "feat(claude): add MCP, Skills, Hooks configuration
-
-- Add .mcp.json for PostgreSQL and Playwright
-- Add 5 skills for development workflow
-- Add 4 hooks for code quality enforcement
-
-Closes #204"
-
-# 5. Push
-git push -u origin feat/#204-mcp-skills-hooks
-
-# 6. PR 생성
-gh pr create --title "feat(claude): MCP, Skills, Hooks 설정 (#204)" \
-  --body "## Summary
-- MCP 서버 설정 (PostgreSQL, Playwright)
-- Skills 5개 생성 (TDD, PR Review, API, Frontend, Git)
-- Hooks 4개 설정 (Lint, Test, Bash)
-
-Closes #204" --base develop
-
-# 7. PR 머지
-gh pr merge --squash --delete-branch
+```javascript
+const gitSafetyChecks = {
+  maxRetries: 2,
+  checks: [
+    "branch !== 'main' && branch !== 'master'",
+    "!stagedFiles.some(f => f.includes('.env'))",
+    "!stagedFiles.some(f => f.includes('credential'))",
+    "commitMessage.match(/^(feat|fix|refactor|docs|test|chore|style):/)"
+  ],
+  onFailure: "BLOCK and prompt user for correction"
+};
 ```
 
-## 금지 사항
+## 6. Pipeline Integration
 
-| 명령어 | 사유 |
-|--------|------|
-| `git push -f` (main/develop) | 히스토리 손상 |
-| `git commit --amend` (push 후) | 협업 충돌 |
-| `git reset --hard` (공유 브랜치) | 다른 작업자 영향 |
+```
+/synthesis (COMPLETE)
+    |
+    +-- /commit-push-pr <-- THIS SKILL (Terminal)
+            |
+            +-- Pipeline terminates
+```
 
-## 체크리스트
+### Upstream
+- /synthesis with COMPLETE status
 
-- [ ] 브랜치가 이슈 번호를 포함하는가?
-- [ ] 커밋 메시지가 규칙을 따르는가?
-- [ ] 테스트가 통과하는가?
-- [ ] PR이 `Closes #이슈번호`를 포함하는가?
-- [ ] base 브랜치가 `develop`인가?
+### Output
+- No downstream skill (terminal)
+
+## 7. Handoff Contract
+
+```yaml
+handoff:
+  skill: "commit-push-pr"
+  workload_slug: "{slug}"
+  status: "completed"
+  timestamp: "2026-01-28T14:35:00Z"
+  next_action:
+    skill: null
+    arguments: null
+    required: false
+    reason: "Pipeline completed - changes committed and PR created"
+```
+
+## 8. Post-Compact Recovery
+
+```javascript
+if (isPostCompactSession()) {
+  const slug = await getActiveWorkload();
+  if (slug) {
+    const lastCommit = await Bash("git log -1 --oneline");
+    console.log(`Last commit: ${lastCommit}`);
+  }
+  // Continue with current git state
+}
+```
+
+---
+
+### Version History
+
+| Version | Change |
+|---------|--------|
+| 3.1.0 | Cleaned duplicate blocks, normalized frontmatter |
+| 3.0.0 | EFL Pattern integration, git-safety-check hook |
+| 2.2.0 | Standalone execution, handoff contract |
+| 2.1.0 | V2.1.19 spec compatibility |
+| 1.1.1 | Initial git workflow automation |

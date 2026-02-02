@@ -1,170 +1,91 @@
 ---
-name: moai-lang-typescript
-description: >
-  TypeScript 5.9+ development specialist covering React 19, Next.js 16 App Router, type-safe APIs with tRPC, Zod validation, and modern TypeScript patterns. Use when developing TypeScript applications, React components, Next.js pages, or type-safe APIs.
-license: Apache-2.0
-compatibility: Designed for Claude Code
-allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
-user-invocable: false
-metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "typescript, react, nextjs, frontend, fullstack"
-
-# MoAI Extension: Progressive Disclosure
-progressive_disclosure:
-  enabled: true
-  level1_tokens: 100
-  level2_tokens: 5000
-
-# MoAI Extension: Triggers
-triggers:
-  keywords: ["TypeScript", "React", "Next.js", "tRPC", "Zod", ".ts", ".tsx", "tsconfig.json"]
-  languages: ["typescript", "tsx"]
+name: typescript
+description: This skill should be used when the user asks to "optimize TypeScript performance", "speed up tsc compilation", "configure tsconfig.json", "fix type errors", "improve async patterns", or encounters TS errors (TS2322, TS2339, "is not assignable to"). Also triggers on .ts, .tsx, .d.ts file work involving type definitions, module organization, or memory management. Does NOT cover TypeScript basics, framework-specific patterns, or testing.
 ---
 
-## Quick Reference (30 seconds)
-
-TypeScript 5.9+ Development Specialist - Modern TypeScript with React 19, Next.js 16, and type-safe API patterns.
-
-Auto-Triggers: Files with .ts, .tsx, .mts, or .cts extensions, TypeScript configurations, React or Next.js projects
-
-Core Stack:
-
-- TypeScript 5.9: Deferred module evaluation, decorators, satisfies operator
-- React 19: Server Components, use hook, Actions, concurrent features
-- Next.js 16: App Router, Server Actions, middleware, ISR/SSG/SSR
-- Type-Safe APIs: tRPC 11, Zod 3.23, tanstack-query
-- Testing: Vitest, React Testing Library, Playwright
-
-Quick Commands:
-
-Create Next.js 16 project using npx create-next-app with latest, typescript, tailwind, and app flags. Install type-safe API stack with npm install for trpc server, client, react-query, zod, and tanstack react-query. Install testing stack with npm install D flag for vitest, testing-library react, and playwright test.
-
----
-
-## Implementation Guide (5 minutes)
-
-### TypeScript 5.9 Key Features
-
-Satisfies Operator for Type Checking Without Widening:
-
-Define Colors type as union of red, green, and blue string literals. Create palette object with red as number array, green as hex string, and blue as number array. Apply satisfies operator with Record of Colors to string or number array. Now palette.red can use map method because it is inferred as number array, and palette.green can use toUpperCase because it is inferred as string.
-
-Deferred Module Evaluation:
-
-Use import defer with asterisk as namespace from heavy module path. In function that needs the module, access namespace property which loads module on first use.
-
-Modern Decorators Stage 3:
-
-Create logged function decorator that takes target function and ClassMethodDecoratorContext. Return function that logs method name then calls target with apply. Apply logged decorator to class method that fetches data.
-
-### React 19 Patterns
-
-Server Components Default in App Router:
-
-For page component in app/users/[id]/page.tsx, define PageProps interface with params as Promise of object containing id string. Create async default function that awaits params, queries database for user, calls notFound if not found, and returns main element with user name.
-
-use Hook for Unwrapping Promises and Context:
-
-In client component marked with use client directive, import use from react. Create UserProfile component that takes userPromise prop as Promise of User type. Call use hook with the promise to suspend until resolved. Return div with user name.
-
-Actions for Form Handling with Server Functions:
-
-In server actions file marked with use server directive, import revalidatePath. Define CreateUserSchema with zod for name and email validation. Create async createUser function that takes FormData, parses with schema, creates user in database, and revalidates path.
-
-useActionState for Form Status:
-
-In client component, import useActionState. Create form component that destructures state, action, and isPending from useActionState called with createUser action. Return form with action prop, input disabled when pending, button with dynamic text, and error message from state.
-
-### Next.js 16 App Router
-
-Route Structure:
-
-The app directory contains layout.tsx for root layout, page.tsx for home route, loading.tsx for loading UI, error.tsx for error boundary, and api/route.ts for API routes. Subdirectories like users contain page.tsx for list and [id]/page.tsx for dynamic routes. Route groups use parentheses like (marketing)/about/page.tsx.
-
-Metadata API:
-
-Import Metadata type. Export metadata object with title as object containing default and template, and description string. Export async generateMetadata function that takes params, awaits params, fetches user, and returns object with title set to user name.
-
-Server Actions with Validation:
-
-In server file, import zod, revalidatePath, and redirect. Define UpdateUserSchema with id, name, and email validation. Create async updateUser function taking prevState and formData. Parse with safeParse, return errors if failed, update database, revalidate path, and redirect.
-
-### Type-Safe APIs with tRPC
-
-Server Setup:
-
-Import initTRPC and TRPCError from trpc server. Create t by calling initTRPC.context with Context type then create. Export router, publicProcedure, and protectedProcedure from t. The protectedProcedure uses middleware that checks session user and throws UNAUTHORIZED error if missing.
-
-Router Definition:
-
-Import zod. Create userRouter with router function. Define getById procedure using publicProcedure with input schema for id as uuid string, and query that finds user by id. Define create procedure using protectedProcedure with input schema for name and email, and mutation that creates user.
-
-Client Usage:
-
-In client component, create UserList function that calls trpc.user.list.useQuery with page parameter. Destructure data and isLoading. Create mutation with trpc.user.create.useMutation. Return loading state or list of users.
-
-### Zod Schema Patterns
-
-Complex Validation:
-
-Create UserSchema with z.object containing id as uuid string, name with min and max length, email as email format, role as enum of admin, user, and guest, and createdAt with coerce.date. Apply strict method. Infer User type from schema. Create CreateUserSchema by omitting id and createdAt, extending with password and confirmPassword, and adding refine for password match validation with custom message and path.
-
-### State Management
-
-Zustand for Client State:
-
-Import create from zustand and middleware. Define AuthState interface with user as User or null, login method, and logout method. Create useAuthStore with create function wrapped in devtools and persist middleware. Set initial user to null, login sets user, logout sets user to null. Persist uses auth-storage name.
-
-Jotai for Atomic State:
-
-Import atom from jotai and atomWithStorage from jotai/utils. Create countAtom with initial value 0. Create doubleCountAtom as derived atom that gets countAtom and multiplies by 2. Create themeAtom with atomWithStorage for light or dark theme persisted to storage.
-
----
-
-## Advanced Patterns
-
-For comprehensive documentation including advanced TypeScript patterns, performance optimization, testing strategies, and deployment configurations, see:
-
-- reference.md for complete API reference, Context7 library mappings, and advanced type patterns
-- examples.md for production-ready code examples, full-stack patterns, and testing templates
-
-### Context7 Integration
-
-For TypeScript documentation, use microsoft/TypeScript with decorators satisfies topics. For React 19, use facebook/react with server-components use-hook. For Next.js 16, use vercel/next.js with app-router server-actions. For tRPC, use trpc/trpc with procedures middleware. For Zod, use colinhacks/zod with schema validation.
-
----
-
-## Works Well With
-
-- moai-domain-frontend for UI components and styling patterns
-- moai-domain-backend for API design and database integration
-- moai-library-shadcn for component library integration
-- moai-workflow-testing for testing strategies and patterns
-- moai-foundation-quality for code quality standards
-- moai-essentials-debug for debugging TypeScript applications
-
----
-
-## Quick Troubleshooting
-
-TypeScript Errors:
-
-Run npx tsc with noEmit flag for type check only. Run npx tsc with generateTrace flag and output directory for performance trace.
-
-React and Next.js Issues:
-
-Run npm run build to check for build errors. Run npx next lint for ESLint check. Delete .next directory and run npm run dev to clear cache.
-
-Type Safety Patterns:
-
-Create assertNever function taking never type parameter that throws error for unexpected values, used in exhaustive switch statements. Create type guard function isUser that checks if value is object with id property and returns type predicate.
-
----
-
-Last Updated: 2026-01-11
-Status: Active (v1.1.0)
+# TypeScript Best Practices
+
+Comprehensive performance optimization guide for TypeScript applications. Contains 42 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+
+## When to Apply
+
+Reference these guidelines when:
+- Configuring tsconfig.json for a new or existing project
+- Writing complex type definitions or generics
+- Optimizing async/await patterns and data fetching
+- Organizing modules and managing imports
+- Reviewing code for compilation or runtime performance
+
+## Rule Categories by Priority
+
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Type System Performance | CRITICAL | `type-` |
+| 2 | Compiler Configuration | CRITICAL | `tscfg-` |
+| 3 | Async Patterns | HIGH | `async-` |
+| 4 | Module Organization | HIGH | `module-` |
+| 5 | Type Safety Patterns | MEDIUM-HIGH | `safety-` |
+| 6 | Memory Management | MEDIUM | `mem-` |
+| 7 | Runtime Optimization | LOW-MEDIUM | `runtime-` |
+| 8 | Advanced Patterns | LOW | `advanced-` |
+
+## Table of Contents
+
+1. [Type System Performance](references/_sections.md#1-type-system-performance) — **CRITICAL**
+   - 1.1 [Add Explicit Return Types to Exported Functions](references/type-explicit-return-types.md) — CRITICAL (30-50% faster declaration emit)
+   - 1.2 [Avoid Deeply Nested Generic Types](references/type-avoid-deep-generics.md) — CRITICAL (prevents exponential instantiation cost)
+   - 1.3 [Avoid Large Union Types](references/type-avoid-large-unions.md) — CRITICAL (quadratic O(n²) comparison cost)
+   - 1.4 [Extract Conditional Types to Named Aliases](references/type-extract-conditional-types.md) — CRITICAL (enables compiler caching, prevents re-evaluation)
+   - 1.5 [Limit Type Recursion Depth](references/type-limit-recursion-depth.md) — CRITICAL (prevents exponential type expansion)
+   - 1.6 [Prefer Interfaces Over Type Intersections](references/type-interfaces-over-intersections.md) — CRITICAL (2-5× faster type resolution)
+   - 1.7 [Simplify Complex Mapped Types](references/type-simplify-mapped-types.md) — CRITICAL (reduces type computation by 50-80%)
+2. [Compiler Configuration](references/_sections.md#2-compiler-configuration) — **CRITICAL**
+   - 2.1 [Configure Include and Exclude Properly](references/tscfg-exclude-properly.md) — CRITICAL (prevents scanning thousands of unnecessary files)
+   - 2.2 [Enable Incremental Compilation](references/tscfg-enable-incremental.md) — CRITICAL (50-90% faster rebuilds)
+   - 2.3 [Enable skipLibCheck for Faster Builds](references/tscfg-skip-lib-check.md) — CRITICAL (20-40% faster compilation)
+   - 2.4 [Enable strictFunctionTypes for Faster Variance Checks](references/tscfg-strict-function-types.md) — CRITICAL (enables optimized variance checking)
+   - 2.5 [Use isolatedModules for Single-File Transpilation](references/tscfg-isolate-modules.md) — CRITICAL (80-90% faster transpilation with bundlers)
+   - 2.6 [Use Project References for Large Codebases](references/tscfg-project-references.md) — CRITICAL (60-80% faster incremental builds)
+3. [Async Patterns](references/_sections.md#3-async-patterns) — **HIGH**
+   - 3.1 [Annotate Async Function Return Types](references/async-explicit-return-types.md) — HIGH (prevents runtime errors, improves inference)
+   - 3.2 [Avoid await Inside Loops](references/async-avoid-loop-await.md) — HIGH (N× faster for N iterations, 10 users = 10× improvement)
+   - 3.3 [Avoid Unnecessary async/await](references/async-avoid-unnecessary-async.md) — HIGH (eliminates microtask queue overhead)
+   - 3.4 [Defer await Until Value Is Needed](references/async-defer-await.md) — HIGH (enables implicit parallelization)
+   - 3.5 [Use Promise.all for Independent Operations](references/async-parallel-promises.md) — HIGH (2-10× improvement in I/O-bound code)
+4. [Module Organization](references/_sections.md#4-module-organization) — **HIGH**
+   - 4.1 [Avoid Barrel File Imports](references/module-avoid-barrel-imports.md) — HIGH (200-800ms import cost, 30-50% larger bundles)
+   - 4.2 [Avoid Circular Dependencies](references/module-avoid-circular-dependencies.md) — HIGH (prevents runtime undefined errors and slow compilation)
+   - 4.3 [Control @types Package Inclusion](references/module-control-types-inclusion.md) — HIGH (prevents type conflicts and reduces memory usage)
+   - 4.4 [Use Dynamic Imports for Large Modules](references/module-dynamic-imports.md) — HIGH (reduces initial bundle by 30-70%)
+   - 4.5 [Use Type-Only Imports for Types](references/module-use-type-imports.md) — HIGH (eliminates runtime imports for type information)
+5. [Type Safety Patterns](references/_sections.md#5-type-safety-patterns) — **MEDIUM-HIGH**
+   - 5.1 [Enable strictNullChecks](references/safety-strict-null-checks.md) — MEDIUM-HIGH (prevents null/undefined runtime errors)
+   - 5.2 [Prefer unknown Over any](references/safety-prefer-unknown-over-any.md) — MEDIUM-HIGH (forces type narrowing, prevents runtime errors)
+   - 5.3 [Use Assertion Functions for Validation](references/safety-assertion-functions.md) — MEDIUM-HIGH (reduces validation boilerplate by 50-70%)
+   - 5.4 [Use const Assertions for Literal Types](references/safety-const-assertions.md) — MEDIUM-HIGH (preserves literal types, enables better inference)
+   - 5.5 [Use Exhaustive Checks for Union Types](references/safety-exhaustive-checks.md) — MEDIUM-HIGH (prevents 100% of missing case errors at compile time)
+   - 5.6 [Use Type Guards for Runtime Type Checking](references/safety-use-type-guards.md) — MEDIUM-HIGH (eliminates type assertions, catches errors at boundaries)
+6. [Memory Management](references/_sections.md#6-memory-management) — **MEDIUM**
+   - 6.1 [Avoid Closure Memory Leaks](references/mem-avoid-closure-leaks.md) — MEDIUM (prevents retained references in long-lived callbacks)
+   - 6.2 [Avoid Global State Accumulation](references/mem-avoid-global-state.md) — MEDIUM (prevents unbounded memory growth)
+   - 6.3 [Clean Up Event Listeners](references/mem-cleanup-event-listeners.md) — MEDIUM (prevents unbounded memory growth)
+   - 6.4 [Clear Timers and Intervals](references/mem-clear-timers.md) — MEDIUM (prevents callback retention and repeated execution)
+   - 6.5 [Use WeakMap for Object Metadata](references/mem-use-weakmap-for-metadata.md) — MEDIUM (prevents memory leaks, enables automatic cleanup)
+7. [Runtime Optimization](references/_sections.md#7-runtime-optimization) — **LOW-MEDIUM**
+   - 7.1 [Avoid Object Spread in Hot Loops](references/runtime-avoid-object-spread-in-loops.md) — LOW-MEDIUM (reduces object allocations by N×)
+   - 7.2 [Cache Property Access in Loops](references/runtime-cache-property-access.md) — LOW-MEDIUM (reduces property lookups by N×)
+   - 7.3 [Prefer Native Array Methods Over Lodash](references/runtime-prefer-array-methods.md) — LOW-MEDIUM (eliminates library overhead, enables tree-shaking)
+   - 7.4 [Use for-of for Simple Iteration](references/runtime-use-for-of-for-iteration.md) — LOW-MEDIUM (reduces iteration boilerplate by 30-50%)
+   - 7.5 [Use Modern String Methods](references/runtime-use-string-methods.md) — LOW-MEDIUM (2-5× faster than regex for simple patterns)
+   - 7.6 [Use Set/Map for O(1) Lookups](references/runtime-use-set-for-lookups.md) — LOW-MEDIUM (O(n) to O(1) per lookup)
+8. [Advanced Patterns](references/_sections.md#8-advanced-patterns) — **LOW**
+   - 8.1 [Use Branded Types for Type-Safe IDs](references/advanced-branded-types.md) — LOW (prevents mixing incompatible ID types)
+   - 8.2 [Use satisfies for Type Validation with Inference](references/advanced-satisfies-operator.md) — LOW (prevents property access errors, enables 100% autocomplete accuracy)
+   - 8.3 [Use Template Literal Types for String Patterns](references/advanced-template-literal-types.md) — LOW (prevents 100% of string format errors at compile time)
+
+## References
+
+1. [https://github.com/microsoft/TypeScript/wiki/Performance](https://github.com/microsoft/TypeScript/wiki/Performance)
+2. [https://www.typescriptlang.org/docs/handbook/](https://www.typescriptlang.org/docs/handbook/)
+3. [https://v8.dev/blog](https://v8.dev/blog)
+4. [https://nodejs.org/en/learn/diagnostics/memory](https://nodejs.org/en/learn/diagnostics/memory)

@@ -1,166 +1,184 @@
 ---
 name: api-contract-validator
-description: "Validates type contracts between TypeScript interfaces and Pydantic models. Detects field mismatches and type inconsistencies. Related: frontend-backend-mapper for endpoint discovery."
+description: |
+  Validates API contracts for correctness, compatibility, and compliance. Tests REST APIs against
+  OpenAPI/Swagger specifications. Detects breaking changes between versions, validates runtime
+  responses against schemas, and ensures backward compatibility before deployment.
+license: MIT
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+compatibility:
+  claude-code: ">=1.0.0"
+metadata:
+  version: "1.0.0"
+  author: "QuantQuiver AI R&D"
+  category: "testing"
+  tags:
+    - api-testing
+    - openapi
+    - contract-testing
+    - breaking-changes
 ---
 
-# API Contract Validator Workflow
+# API Contract Validator
 
-This skill ensures type safety and consistency between frontend TypeScript interfaces and backend Pydantic models.
+## Purpose
 
-## Workflow Steps
+Validates API contracts for correctness, compatibility, and compliance. Tests REST APIs against OpenAPI/Swagger specifications. Detects breaking changes between versions and validates runtime responses against schemas.
 
-1. **Scan TypeScript interfaces:**
-   - Read frontend API service files (`frontend/src/api/*.ts`)
-   - Extract TypeScript interfaces for requests/responses
-   - Parse field types, optional fields, arrays, enums
-   - Build TypeScript type inventory
+## Triggers
 
-2. **Scan Pydantic models:**
-   - Read backend model files (`backend/app/models/*_schemas.py`)
-   - Extract Pydantic BaseModel definitions
-   - Parse field types, Optional types, Lists, Enums
-   - Build Python type inventory
+Use this skill when:
 
-3. **Match and compare contracts:**
-   - Match TypeScript interfaces to Pydantic models by name
-   - Compare field names (check for camelCase vs snake_case)
-   - Compare field types (string vs str, number vs int/float)
-   - Check required vs optional field consistency
-   - Validate enum values match
+- "validate API contract"
+- "test API endpoints"
+- "check for breaking changes"
+- "API compatibility test"
+- "contract testing"
+- "verify OpenAPI spec"
 
-4. **Detect mismatches:**
-   - **Field name differences**: `userId` vs `user_id`
-   - **Type mismatches**: `string` vs `int`
-   - **Missing fields**: Field in frontend but not backend (or vice versa)
-   - **Optional inconsistencies**: Required in one but optional in another
-   - **Enum value differences**: Different allowed values
+## When to Use
 
-5. **Generate validation report:**
-   - Create `docs/API_CONTRACT_VALIDATION.md` with:
-     - Contract health score
-     - List of all validated contracts
-     - Detailed mismatch reports
-     - Recommended fixes (with code examples)
-     - Breaking vs non-breaking changes
+- New API version deployment
+- Consumer complaints about changes
+- Pre-release validation
+- Multi-service integration testing
+- Third-party API consumption validation
 
-6. **Provide fix suggestions:**
-   - Show exact code changes needed
-   - Generate conversion utilities if needed
-   - Suggest API versioning for breaking changes
+## When NOT to Use
 
-## Validation Report Structure
+- Unit testing internal functions (use unit-test-generator)
+- Load testing (use performance-benchmark)
+- Security testing (use security-test-suite)
+- Data quality validation (use data-validation)
 
-````markdown
+---
+
+## Core Instructions
+
+### Validation Categories
+
+| Category | Description | Severity |
+| -------- | ----------- | -------- |
+| **Schema Compliance** | Response matches OpenAPI schema | Critical |
+| **Status Codes** | Correct codes for scenarios | Critical |
+| **Breaking Changes** | Backward incompatible changes | Critical |
+| **Deprecations** | Deprecated fields/endpoints | Warning |
+| **Headers** | Required headers present | Medium |
+| **Error Format** | Error responses follow standard | Low |
+
+### Breaking Change Detection
+
+| Change Type | Severity | Example |
+| ----------- | -------- | ------- |
+| Removed endpoint | Critical | DELETE /api/v1/users removed |
+| Removed field | Critical | `user.legacy_id` no longer returned |
+| Type change | Critical | `id` changed from string to integer |
+| Added required param | Critical | New required `tenant_id` parameter |
+| Changed authentication | Critical | API key to OAuth2 |
+| Removed enum value | High | Status no longer accepts "pending" |
+
+### Validation Procedure
+
+1. **Specification Analysis Phase**
+   - Load OpenAPI/Swagger specification
+   - Validate spec structure and completeness
+   - Identify all endpoints and schemas
+   - Parse security definitions
+
+2. **Breaking Change Detection Phase**
+   - Compare current spec to previous version
+   - Identify removed endpoints/methods
+   - Detect schema changes (fields, types)
+   - Flag new required parameters
+
+3. **Runtime Validation Phase** (if enabled)
+   - Make HTTP requests to live API
+   - Validate response status codes
+   - Check response against schema
+   - Measure response times
+
+---
+
+## Templates
+
+### Validation Report
+
+```markdown
 # API Contract Validation Report
 
-Generated: 2025-01-06T12:00:00Z
+**Generated:** {timestamp}
+**Specification:** {spec_path}
 
 ## Summary
 
-- Total Contracts Validated: 28
-- ✅ Matching Contracts: 22 (78.6%)
-- ⚠️ Mismatches Found: 6 (21.4%)
-- 🔴 Breaking Issues: 2
-- 🟡 Non-Breaking Issues: 4
+| Metric | Value |
+| ------ | ----- |
+| Total Endpoints | {count} |
+| Passed | {passed} |
+| Failed | {failed} |
+| Breaking Changes | {breaking_count} |
 
-## Contract Health Score: 79/100
+## Breaking Changes
 
-### ✅ VALID CONTRACTS (22)
+### {endpoint_path}
 
-| Contract Name     | Frontend          | Backend             | Status           |
-| ----------------- | ----------------- | ------------------- | ---------------- |
-| `ATSScoreRequest` | aiServices.ts     | analysis_schemas.py | ✅ Perfect match |
-| `UserProfile`     | profileService.ts | schemas.py          | ✅ Perfect match |
-| ...               |
+**Type:** {change_type}
+**Description:** {description}
+**Migration:** {migration_guide}
 
-### 🔴 BREAKING MISMATCHES (2)
+## Endpoint Tests
 
-#### 1. NotificationPreferences
-
-**Location:** `notificationService.ts` ↔ `notification_schemas.py`
-
-**Issues:**
-
-- Field type mismatch: `frequency` is `string` in TS but `int` in Python
-- Missing required field: `user_id` required in backend but not sent from frontend
-
-**Impact:** 🔴 API calls will fail with 422 validation errors
-
-**Fix (Frontend):**
-
-```typescript
-// notificationService.ts
-interface NotificationPreferences {
-  frequency: number; // Change from string to number
-  user_id: string; // Add missing field
-  // ... other fields
-}
-```
-````
-
-**Fix (Backend - Alternative):**
-
-```python
-# notification_schemas.py
-class NotificationPreferencesRequest(BaseModel):
-    frequency: str  # Change from int to str
-    # Remove user_id from request, get from auth instead
+| Method | Path | Status | Response Time |
+| ------ | ---- | ------ | ------------- |
+| {method} | {path} | {status_icon} | {time}ms |
 ```
 
-### 🟡 NON-BREAKING WARNINGS (4)
+---
 
-#### 1. Casing Inconsistency
+## Example
 
-**Issue:** Frontend uses camelCase, backend uses snake_case
-**Affected:** 15 contracts
-**Impact:** 🟡 Works but inconsistent (Pydantic auto-converts)
-**Recommendation:** Standardize on one casing style
+**Input**: Compare two OpenAPI specs for breaking changes
 
-**Example:**
+**Output**:
 
-```typescript
-// Frontend (camelCase)
-interface JobListing {
-  jobTitle: string;
-  companyName: string;
-}
+```markdown
+## Breaking Changes
 
-// Backend (snake_case)
-class JobListingResponse(BaseModel):
-    job_title: str
-    company_name: str
+### /api/users/{id}
+
+**Type:** removed_field
+**Description:** Field 'legacy_id' was removed from response
+**Migration:** Update consumers to use 'id' field instead
+
+### /api/orders
+
+**Type:** added_required
+**Description:** Parameter 'tenant_id' became required
+**Migration:** All consumers must now provide tenant_id header
 ```
 
-**Recommendation:** Add Pydantic alias config:
+---
 
-```python
-class JobListingResponse(BaseModel):
-    job_title: str = Field(alias="jobTitle")
-    company_name: str = Field(alias="companyName")
+## Validation Checklist
 
-    class Config:
-        populate_by_name = True
-```
+- [ ] OpenAPI specification is valid and complete
+- [ ] All endpoints have documented responses
+- [ ] Breaking changes have migration guidance
+- [ ] Runtime tests cover all documented endpoints
+- [ ] Error responses follow standard format
+- [ ] Authentication methods are properly tested
 
-## Type Mapping Reference
+---
 
-| TypeScript  | Python (Pydantic) | Compatible             |
-| ----------- | ----------------- | ---------------------- |
-| `string`    | `str`             | ✅                     |
-| `number`    | `int`, `float`    | ✅                     |
-| `boolean`   | `bool`            | ✅                     |
-| `string[]`  | `List[str]`       | ✅                     |
-| `Date`      | `datetime`        | ⚠️ Needs serialization |
-| `any`       | `Any`             | ⚠️ Avoid if possible   |
-| `T \| null` | `Optional[T]`     | ✅                     |
+## Related Skills
 
-```
-
-## Usage Tips
-
-- Run validator before major releases
-- Integrate into CI/CD pipeline
-- Fix breaking issues immediately
-- Schedule non-breaking fixes for next sprint
-- Use validator output for API documentation
-```
+- `unit-test-generator` - For internal function testing
+- `security-test-suite` - For API security testing
+- `performance-benchmark` - For API load testing

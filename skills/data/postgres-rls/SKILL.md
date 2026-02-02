@@ -1,6 +1,13 @@
 ---
 name: postgres-rls
 description: MANDATORY when touching auth tables, tenant isolation, RLS policies, or multi-tenant database code - enforces Row Level Security best practices and catches common bypass vulnerabilities
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - mcp__github__*
+model: opus
 ---
 
 # PostgreSQL Row Level Security

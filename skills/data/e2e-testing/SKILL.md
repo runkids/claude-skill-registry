@@ -1,285 +1,231 @@
 ---
 name: e2e-testing
-description: E2Eテストの作成・実行を行う際に使用。spec/scenario/monkey/usecaseの4層テスト構造、テストパターン、実行方法に役立つ。
+description: chrome-devtools MCPサーバーを使ったE2Eテストの実施・デバッグを行う。「E2Eテストを実施」「画面をテスト」「ユーザーフローを確認」「ブラウザで動作確認」「画面の表示を検証」などの依頼時に使用。ログインフロー、フォーム送信、ページ遷移などのユーザー操作をインタラクティブにテストする。
 ---
 
-# E2Eテスト開発ガイド
+# E2E Testing Skill
 
-## ドキュメント
+chrome-devtools MCPサーバーを使用したE2Eテストの実施を支援する。
 
-- `e2e/README.md` - E2Eテスト概要
-- `e2e/src/tests/testConfig.js` - テスト設定
+## 概要
 
----
+このスキルはchrome-devtools MCPサーバーを使い、実際のブラウザを操作してE2Eテストを実施する。Playwrightなどのテストフレームワークではなく、MCPツールを直接使用してインタラクティブにテストを行う。
 
-## テスト構造
+## 前提条件
 
-```
-e2e/src/tests/
-├── spec/           # 仕様準拠テスト（RFC/OIDC仕様への準拠確認）
-├── scenario/       # シナリオテスト（ユーザーフロー・ユースケース）
-├── usecase/        # ユースケーステスト（機能別詳細テスト）
-├── monkey/         # ファジングテスト（異常系・エッジケース）
-├── security/       # セキュリティテスト
-└── integration/    # 統合テスト
-```
+- 開発サーバーが起動していること（`pnpm dev`）
+- chrome-devtools MCPサーバーが有効であること
+- Chromeブラウザが利用可能であること
 
----
+## テスト実施ワークフロー
 
-## テストカテゴリ詳細
-
-### spec/ - 仕様準拠テスト
-
-RFC/OIDC仕様への準拠を検証。プロトコルレベルの動作確認。
-
-```
-spec/
-├── oauth/                              # OAuth 2.0
-│   ├── rfc6749_*.test.js              # RFC 6749 (OAuth 2.0)
-│   ├── rfc7009_*.test.js              # RFC 7009 (Token Revocation)
-│   ├── rfc7662_*.test.js              # RFC 7662 (Token Introspection)
-│   └── rfc9126_*.test.js              # RFC 9126 (PAR)
-├── oidc_core_*.test.js                # OIDC Core
-├── oidc_discovery.test.js             # OIDC Discovery
-├── ciba_*.test.js                     # CIBA
-├── fapi_*.test.js                     # FAPI Baseline/Advanced
-├── jarm.test.js                       # JARM
-└── openid_for_verifiable_credential_*.test.js  # OID4VCI
-```
-
-### scenario/ - シナリオテスト
-
-実際のユーザーフローを検証。E2Eでの動作確認。
-
-```
-scenario/
-├── application/                        # アプリケーションシナリオ
-│   ├── scenario-01-user-registration.test.js    # ユーザー登録
-│   ├── scenario-02-sso-oidc.test.js             # SSOログイン
-│   ├── scenario-03-mfa-registration.test.js     # MFA登録
-│   ├── scenario-04-ciba-mfa.test.js             # CIBA MFA
-│   ├── scenario-05-identity_verification-*.test.js  # 身元確認
-│   └── scenario-11-password-policy-full-flow.test.js # パスワードポリシー
-├── control_plane/                      # 管理APIシナリオ
-│   └── organization/                   # 組織管理
-└── resource_server/                    # リソースサーバー
-```
-
-### usecase/ - ユースケーステスト
-
-機能別の詳細テスト。特定機能の網羅的検証。
-
-```
-usecase/
-├── standard/       # 標準機能
-├── advance/        # 高度な機能
-├── ciba/           # CIBA詳細テスト
-├── mfa/            # MFA詳細テスト
-└── financial-grade/  # 金融グレード
-```
-
-### monkey/ - ファジングテスト
-
-異常系・エッジケースを検証。意図的な無効入力・プロトコル違反。
-
-```
-monkey/
-├── authorization-monkey.test.js
-├── token-monkey.test.js
-├── ciba-monkey.test.js
-└── ...
-```
-
----
-
-## テスト設定
-
-### testConfig.js
-
-```javascript
-// e2e/src/tests/testConfig.js
-module.exports = {
-  baseUrl: 'https://api.local.dev',
-  authUrl: 'https://auth.local.dev',
-  tenantId: '...',
-  clientId: '...',
-  // ...
-};
-```
-
----
-
-## テスト実行
-
-### 全テスト実行
+### 1. 開発サーバー起動確認
 
 ```bash
-cd e2e
-npm install
-npm test
+# サーバーが起動しているか確認、なければ起動
+pnpm dev
 ```
 
-### カテゴリ別実行
+### 2. ブラウザツールの有効化
 
-```bash
-# 仕様準拠テスト
-npm test -- spec/
+テスト開始前に必要なツールカテゴリを有効化:
 
-# シナリオテスト
-npm test -- scenario/
+- `activate_browser_navigation_tools` - ページ作成・遷移
+- `activate_snapshot_and_screenshot_tools` - スクリーンショット・スナップショット
+- `activate_form_interaction_tools` - フォーム入力・キー操作
+- `activate_element_interaction_tools` - ドラッグ・ホバー
 
-# 特定ファイル
-npm test -- spec/oidc_core_3_1_code.test.js
-
-# パターンマッチ
-npm test -- --grep "authorization code"
-```
-
-### テスト名指定
-
-```bash
-npm test -- --testNamePattern="token parameter REQUIRED"
-```
-
----
-
-## テスト作成パターン
-
-### 基本構造
-
-```javascript
-const { describe, it, before } = require('mocha');
-const { expect } = require('chai');
-const config = require('../testConfig');
-
-describe('機能名', () => {
-  before(async () => {
-    // セットアップ
-  });
-
-  describe('正常系', () => {
-    it('should return valid response', async () => {
-      // テスト実装
-      const response = await fetch(`${config.baseUrl}/endpoint`);
-      expect(response.status).to.equal(200);
-    });
-  });
-
-  describe('異常系', () => {
-    it('should return error for invalid input', async () => {
-      // エラーケース
-    });
-  });
-});
-```
-
-### OAuth/OIDC テストパターン
-
-```javascript
-// Authorization Request
-const authUrl = new URL(`${config.baseUrl}/authorize`);
-authUrl.searchParams.set('client_id', config.clientId);
-authUrl.searchParams.set('response_type', 'code');
-authUrl.searchParams.set('redirect_uri', config.redirectUri);
-authUrl.searchParams.set('scope', 'openid');
-authUrl.searchParams.set('state', 'random-state');
-
-// Token Request
-const tokenResponse = await fetch(`${config.baseUrl}/token`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: new URLSearchParams({
-    grant_type: 'authorization_code',
-    code: authCode,
-    redirect_uri: config.redirectUri,
-    client_id: config.clientId,
-    client_secret: config.clientSecret
-  })
-});
-```
-
----
-
-## テストデータ設定
-
-### 初期セットアップ
-
-```bash
-# admin-tenant 初期化
-./init-admin-tenant-config.sh
-./setup.sh
-
-# E2Eテスト用データ
-./config/scripts/e2e-test-data.sh
-
-# テナント別データ
-./config/scripts/e2e-test-tenant-data.sh -t <tenant-id>
-```
-
-### テスト用設定ファイル
+### 3. テスト実施フロー
 
 ```
-config/examples/
-├── standard-oidc-web-app/      # 標準OIDCクライアント
-├── fapi-baseline/              # FAPI Baseline
-├── fapi-advance/               # FAPI Advanced
-├── ciba/                       # CIBA
-└── verifiable-credentials/     # VC
+1. ページを開く/遷移する
+2. スナップショットで要素のuidを取得
+3. 要素を操作（クリック、入力など）
+4. 結果を検証（テキスト確認、スクリーンショット）
+5. 次のステップへ
 ```
 
----
+## 主要MCPツール
 
-## CI/CD
+### ナビゲーション系（activate_browser_navigation_tools）
 
-```bash
-# GitHub Actions等での実行
-cd e2e
-npm ci
-npm test -- --reporter json > test-results.json
-```
-
----
-
-## トラブルシューティング
-
-### テスト失敗時
-
-| 問題 | 原因 | 解決策 |
-|------|------|--------|
-| 接続エラー | サーバー未起動 | `docker compose up -d` 確認 |
-| 401 Unauthorized | テストデータ未設定 | `e2e-test-data.sh` 実行 |
-| タイムアウト | 処理遅延 | `--timeout 10000` オプション追加 |
-| DNS解決失敗 | サブドメイン未設定 | `/local-environment` スキル参照 |
-
-### デバッグ
-
-```bash
-# 詳細ログ出力
-DEBUG=* npm test -- spec/oidc_core_3_1_code.test.js
-
-# 単一テスト実行
-npm test -- --grep "specific test name"
-```
-
----
-
-## 命名規則
-
-| カテゴリ | 命名パターン | 例 |
-|---------|-------------|-----|
-| spec | `{rfc番号}_{セクション}_{機能}.test.js` | `rfc6749_4_1_authorization_code.test.js` |
-| scenario | `scenario-{番号}-{説明}.test.js` | `scenario-01-user-registration.test.js` |
-| usecase | `{機能}-{番号}-{説明}.test.js` | `ciba-01-require-rar.test.js` |
-| monkey | `{対象}-monkey.test.js` | `authorization-monkey.test.js` |
-
----
-
-## 関連スキル
-
-| スキル | 用途 |
+| ツール | 用途 |
 |--------|------|
-| `/local-environment` | ローカル環境構築・トラブルシューティング |
-| `/authorization-endpoint` | 認可エンドポイント仕様 |
-| `/token-management` | トークンエンドポイント仕様 |
-| `/ciba` | CIBA仕様 |
-| `/fapi` | FAPI仕様 |
+| ページ作成 | 新しいブラウザページを開く |
+| URL遷移 | 指定URLへ移動 |
+| ページ一覧 | 開いているページを確認 |
+| ページ選択 | 操作対象ページを切り替え |
+
+### スナップショット系（activate_snapshot_and_screenshot_tools）
+
+| ツール | 用途 |
+|--------|------|
+| `mcp_chrome-devtoo_take_screenshot` | スクリーンショット撮影 |
+| テキストスナップショット | ページ構造とuid取得（操作に必須） |
+
+### 操作系
+
+| ツール | 用途 |
+|--------|------|
+| `mcp_chrome-devtoo_click` | 要素をクリック |
+| `mcp_chrome-devtoo_fill` | テキスト入力・セレクト選択 |
+| `mcp_chrome-devtoo_wait_for` | テキスト出現まで待機 |
+| `mcp_chrome-devtoo_evaluate_script` | JavaScript実行 |
+
+### その他
+
+| ツール | 用途 |
+|--------|------|
+| `mcp_chrome-devtoo_emulate` | ネットワーク・位置情報エミュレート |
+| `mcp_chrome-devtoo_resize_page` | 画面サイズ変更（レスポンシブ確認） |
+| `mcp_chrome-devtoo_handle_dialog` | ダイアログ処理 |
+| `mcp_chrome-devtoo_upload_file` | ファイルアップロード |
+
+## テストパターン
+
+### パターン1: ページ表示確認
+
+```
+1. activate_browser_navigation_tools でナビゲーションツール有効化
+2. ページを http://localhost:3000/[path] に遷移
+3. activate_snapshot_and_screenshot_tools でスナップショットツール有効化
+4. テキストスナップショットで内容確認
+5. 期待する要素・テキストが存在するか検証
+6. 必要に応じてスクリーンショット撮影
+```
+
+### パターン2: フォーム入力・送信
+
+```
+1. 対象ページに遷移
+2. テキストスナップショットでフォーム要素のuidを取得
+3. mcp_chrome-devtoo_fill で各フィールドに値を入力
+   - uid: スナップショットから取得した要素ID
+   - value: 入力する値
+4. mcp_chrome-devtoo_click で送信ボタンをクリック
+5. mcp_chrome-devtoo_wait_for で結果表示を待機
+6. 結果を検証
+```
+
+### パターン3: 認証フロー
+
+```
+1. /login ページに遷移
+2. スナップショットでメール/パスワード入力欄のuidを取得
+3. mcp_chrome-devtoo_fill でメールアドレス入力
+4. mcp_chrome-devtoo_fill でパスワード入力
+5. mcp_chrome-devtoo_click でログインボタンクリック
+6. mcp_chrome-devtoo_wait_for でダッシュボード表示を待機
+7. URL・表示内容を検証
+```
+
+### パターン4: ナビゲーション検証
+
+```
+1. 起点ページに遷移
+2. スナップショットでリンク要素のuidを取得
+3. mcp_chrome-devtoo_click でリンクをクリック
+4. 遷移先URLを確認
+5. スナップショットで遷移先の内容を検証
+```
+
+### パターン5: レスポンシブ確認
+
+```
+1. mcp_chrome-devtoo_resize_page でサイズ変更
+   - モバイル: width=375, height=667
+   - タブレット: width=768, height=1024
+   - デスクトップ: width=1280, height=800
+2. スクリーンショットで表示確認
+3. レイアウト崩れがないか検証
+```
+
+## 検証方法
+
+### テキスト検証
+
+```
+1. テキストスナップショットを取得
+2. 期待するテキストが含まれているか確認
+3. または mcp_chrome-devtoo_wait_for で特定テキストの出現を待機
+```
+
+### 視覚的検証
+
+```
+1. mcp_chrome-devtoo_take_screenshot でスクリーンショット取得
+2. 表示を目視確認
+3. 必要に応じてファイルに保存（filePath指定）
+```
+
+### JavaScript実行による検証
+
+```javascript
+// mcp_chrome-devtoo_evaluate_script で実行
+() => {
+  return {
+    title: document.title,
+    url: window.location.href,
+    elementExists: !!document.querySelector('[data-testid="target"]'),
+    inputValue: document.querySelector('input[name="email"]')?.value
+  };
+}
+```
+
+## このプロジェクトの主要テスト対象
+
+| 機能 | パス | 主要シナリオ |
+|------|------|-------------|
+| ログイン | `/login` | メール認証、エラー表示 |
+| 診断フロー | `/dashboard/diagnosis` | 6ステップ入力、送信 |
+| 検索 | `/dashboard/search` | キーワード検索、結果表示 |
+| 比較 | `/dashboard/compare` | 製品選択、比較表示 |
+| 提案書 | `/dashboard/proposal` | 生成、エクスポート |
+
+## よくある問題と対処
+
+| 症状 | 原因 | 対処 |
+|------|------|------|
+| 要素が見つからない | uidが古い | スナップショット再取得 |
+| クリックが効かない | 要素が非表示/覆われている | スクロール or 待機 |
+| 入力できない | 要素タイプ不正 | fillではなくevaluate_script使用 |
+| タイムアウト | 処理遅延 | wait_for で明示的に待機 |
+| ダイアログで停止 | 未処理のalert/confirm | handle_dialog で処理 |
+
+## テスト実施チェックリスト
+
+- [ ] 開発サーバーが起動しているか
+- [ ] 必要なツールカテゴリを有効化したか
+- [ ] 操作前にスナップショットでuidを取得したか
+- [ ] 非同期処理後はwait_forで待機したか
+- [ ] エラーケースもテストしたか
+- [ ] スクリーンショットで結果を記録したか
+
+## このプロジェクトの主要テスト対象
+
+| 機能 | パス | 主要シナリオ |
+|------|------|-------------|
+| ログイン | `/login` | メール認証、エラー表示 |
+| 診断フロー | `/dashboard/diagnosis` | 6ステップ入力、送信 |
+| 検索 | `/dashboard/search` | キーワード検索、結果表示 |
+| 比較 | `/dashboard/compare` | 製品選択、比較表示 |
+| 提案書 | `/dashboard/proposal` | 生成、エクスポート |
+
+## よくある問題と対処
+
+| 症状 | 原因 | 対処 |
+|------|------|------|
+| 要素が見つからない | uidが古い | スナップショット再取得 |
+| クリックが効かない | 要素が非表示/覆われている | スクロール or 待機 |
+| 入力できない | 要素タイプ不正 | fillではなくevaluate_script使用 |
+| タイムアウト | 処理遅延 | wait_for で明示的に待機 |
+| ダイアログで停止 | 未処理のalert/confirm | handle_dialog で処理 |
+
+## テスト実施チェックリスト
+
+- [ ] 開発サーバーが起動しているか
+- [ ] 必要なツールカテゴリを有効化したか
+- [ ] 操作前にスナップショットでuidを取得したか
+- [ ] 非同期処理後はwait_forで待機したか
+- [ ] エラーケースもテストしたか
+- [ ] スクリーンショットで結果を記録したか

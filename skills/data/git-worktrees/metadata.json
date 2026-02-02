@@ -1,7 +1,7 @@
 {
   "name": "git-worktrees",
-  "repo": "liauw-media/household-expense-tracker",
-  "path": ".claude/skills/workflow/git-worktrees/SKILL.md",
-  "source": "github.com/liauw-media/household-expense-tracker",
-  "downloaded_at": "2026-02-01T05:03:20.159803Z"
+  "repo": "mattg101/SolidLink",
+  "path": "docs/dev/.agent/skills/git-worktrees/SKILL.md",
+  "source": "github.com/mattg101/SolidLink",
+  "downloaded_at": "2026-02-02T04:55:25.700434Z"
 }

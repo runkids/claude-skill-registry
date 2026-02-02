@@ -1,95 +1,373 @@
 ---
-name: caching
-description: Enforces project caching conventions when implementing cache layers using React cache(), Next.js unstable_cache, Upstash Redis, and Cloudinary. This skill ensures consistent patterns for cache keys, tags, TTL configuration, cache invalidation, and domain-specific CacheService helpers.
+name: gemini-api-caching
+description: Best practices for Gemini API caching strategy including cache versioning, entity-stable keys, and cache busting for WescoBar
 ---
 
-# Caching Skill
+# Gemini API Caching
 
 ## Purpose
 
-This skill enforces the project caching conventions automatically during cache implementation. It ensures consistent patterns across the 4-layer caching strategy:
+Implement robust caching strategies for Gemini API calls to reduce cost, improve latency, and provide better user experience while supporting cache invalidation when needed.
 
-1. **React `cache()`** - Same-request deduplication (e.g., `getCurrentClerkUserId`, `getOptionalUserId`)
-2. **Next.js `unstable_cache()`** - Cross-request caching with tag-based invalidation (primary)
-3. **Upstash Redis** - High-traffic public data, distributed locks, rate limiting, view tracking
-4. **Cloudinary** - Image transformation and CDN-level caching
+## When to Use
 
-## Activation
+- Implementing any Gemini API feature
+- Generating character portraits or world images
+- Caching AI-generated content
+- Reducing API quota usage
+- Improving app performance
 
-This skill activates when:
+## Caching Strategy
 
-- Working with `CacheService` domain-specific helpers (`.bobbleheads`, `.collections`, `.users`, `.search`, `.redisSearch`, `.analytics`, `.featured`)
-- Implementing cached data fetching in facades
-- Setting up cache invalidation after mutations using `CacheRevalidationService`
-- Working with Redis operations via `RedisOperations` class
-- Using `REDIS_KEYS` for view tracking, locks, or rate limiting
-- Configuring cache tags and TTL values
-- Using `CACHE_KEYS`, `CACHE_CONFIG`, `REDIS_TTL`, or `CacheTagGenerators`
-- Implementing request-level deduplication with React `cache()`
+From AGENTS.md Section 3: "A robust, multi-layered local storage cache"
 
-## Workflow
+### 1. Cache Versioning
+### 2. Entity-Stable Keys
+### 3. Cache Busting
 
-1. Detect caching work (imports from `CacheService`, `CacheRevalidationService`, `CACHE_KEYS`, or `CacheTagGenerators`)
-2. Load `references/Caching-Conventions.md`
-3. Generate/modify code following all conventions
-4. Scan for violations of caching patterns
-5. Auto-fix all violations (no permission needed)
-6. Report fixes applied
+## Instructions
 
-## Key Patterns
+### Step 1: Define Cache Version
 
-### CacheService Domain Helpers
+```typescript
+// Global cache version constant
+const CACHE_VERSION = 'v2';
 
-- Use `CacheService.bobbleheads.{method}()` for bobblehead caching
-- Use `CacheService.collections.{method}()` for collection caching
-- Use `CacheService.users.{method}()` for user caching
-- Use `CacheService.search.{method}()` for search caching (Next.js unstable_cache)
-- Use `CacheService.redisSearch.{method}()` for high-traffic public search (Redis)
-- Use `CacheService.analytics.{method}()` for analytics caching
-- Use `CacheService.featured.{method}()` for featured content caching
+// Prepend to all cache keys
+const getCacheKey = (entity: string, id: string) => {
+  return `${CACHE_VERSION}-${entity}:${id}`;
+};
 
-### Cache Invalidation
+// Example
+const portraitKey = getCacheKey('character-portrait', 'core-pablo');
+// Result: "v2-character-portrait:core-pablo"
+```
 
-- Use `CacheRevalidationService.{domain}.on{Operation}()` for coordinated invalidation
-- Use `CacheService.invalidateByTag()` for direct tag-based invalidation
-- Always invalidate cache after mutations in server actions
-- Check `RevalidationResult.isSuccess` and log failures to Sentry as warnings
+**Purpose**: Instant global cache invalidation by bumping version
 
-### Constants and Utilities
+**When to bump**:
+- Prompt template changes
+- Image generation model updates
+- Quality improvements needed
+- Global regeneration required
 
-- Use `CACHE_KEYS.{DOMAIN}.{METHOD}()` for cache key generation
-- Use `CacheTagGenerators.{domain}.{method}()` for tag generation
-- Use `CACHE_CONFIG.TTL.{LEVEL}` for TTL values:
-  - `REALTIME` (30s), `SHORT` (5 min), `MEDIUM` (30 min), `LONG` (1 hr)
-  - `EXTENDED` (4 hr), `PUBLIC_SEARCH` (10 min), `DAILY` (24 hr), `WEEKLY` (7 days)
-- Use `REDIS_KEYS.{NAMESPACE}.{METHOD}()` for Redis-specific keys (VIEW_TRACKING, LOCKS, RATE_LIMIT)
-- Use `REDIS_TTL.{CATEGORY}` for Redis-specific TTL values
-- Use `createHashFromObject()` for generating option hashes in cache keys
+### Step 2: Use Entity-Stable Keys
 
-## Usage Pattern Reference
+```typescript
+// ✅ CORRECT: Entity-based key (stable)
+const cacheKey = `${CACHE_VERSION}-character-portrait:${character.id}`;
 
-| Use Case         | CacheService Helper                         | Invalidation Service                                |
-| ---------------- | ------------------------------------------- | --------------------------------------------------- |
-| Bobblehead by ID | `CacheService.bobbleheads.byId()`           | `CacheRevalidationService.bobbleheads.onUpdate()`   |
-| Collection list  | `CacheService.collections.byUser()`         | `CacheRevalidationService.collections.onCreate()`   |
-| User profile     | `CacheService.users.profile()`              | `CacheRevalidationService.users.onProfileUpdate()`  |
-| Public search    | `CacheService.redisSearch.publicDropdown()` | `CacheService.search.invalidatePublic()`            |
-| Analytics        | `CacheService.analytics.viewCounts()`       | `CacheRevalidationService.analytics.onViewRecord()` |
-| Social (likes)   | Tag-based via `CacheTagGenerators`          | `CacheRevalidationService.social.onLikeChange()`    |
-| View tracking    | `REDIS_KEYS.VIEW_TRACKING.*` + Redis ops    | TTL-based expiry (no explicit invalidation)         |
+// ❌ WRONG: Prompt-based key (invalidates on prompt changes)
+const cacheKey = `${CACHE_VERSION}-${fullPromptText}`;
+```
 
-## Caching Layer Selection Guide
+**Why entity-stable**:
+- Same character = same cache key
+- Minor prompt tweaks don't invalidate cache
+- Consistent across sessions
+- Reduces unnecessary regeneration
 
-| Use Case                               | Recommended Layer | Rationale                                                            |
-| -------------------------------------- | ----------------- | -------------------------------------------------------------------- |
-| Same-request deduplication             | React `cache()`   | Prevents redundant calls within single render (implemented for auth) |
-| Entity data (bobbleheads, collections) | `unstable_cache`  | Tag-based invalidation, automatic revalidation                       |
-| High-traffic public search             | Redis             | Distributed, fast, handles scale                                     |
-| View tracking deduplication            | Redis             | Distributed, TTL-based expiry                                        |
-| Rate limiting                          | Redis             | Distributed counters, automatic TTL expiry                           |
-| Distributed locks                      | Redis             | Prevents concurrent updates                                          |
-| Image transformations                  | Cloudinary        | CDN-level caching, on-the-fly transforms                             |
+**Entity Types**:
+- `character-portrait:<id>` - Character portraits
+- `world-scene:<id>` - World/location images
+- `story-illustration:<id>` - Story illustrations
+- `ui-element:<name>` - UI-generated images
 
-## References
+### Step 3: Implement Cache Read
 
-- `references/Caching-Conventions.md` - Complete caching conventions
+```typescript
+async function getCharacterPortrait(
+  character: Character,
+  options?: { forceRebuild?: boolean }
+): Promise<string> {
+  // Check force rebuild flag
+  if (options?.forceRebuild) {
+    return await generateNewPortrait(character);
+  }
+
+  // Build cache key
+  const cacheKey = `${CACHE_VERSION}-character-portrait:${character.id}`;
+
+  // Check localStorage cache
+  const cached = localStorage.getItem(cacheKey);
+
+  if (cached) {
+    console.log(`✅ Cache hit: ${cacheKey}`);
+    return cached; // Return cached URL
+  }
+
+  console.log(`⚠️ Cache miss: ${cacheKey}`);
+
+  // Generate new image
+  const imageUrl = await generateNewPortrait(character);
+
+  // Store in cache
+  localStorage.setItem(cacheKey, imageUrl);
+
+  return imageUrl;
+}
+```
+
+### Step 4: Implement Cache Write
+
+```typescript
+async function generateAndCachePortrait(
+  character: Character
+): Promise<string> {
+  // Generate image via Gemini API
+  const imageUrl = await geminiService.generateImage({
+    prompt: buildCharacterPrompt(character),
+    // ... other options
+  });
+
+  // Cache the result
+  const cacheKey = `${CACHE_VERSION}-character-portrait:${character.id}`;
+  localStorage.setItem(cacheKey, imageUrl);
+
+  console.log(`💾 Cached: ${cacheKey}`);
+
+  return imageUrl;
+}
+```
+
+### Step 5: Implement Cache Busting
+
+```typescript
+// Option 1: Force rebuild via flag
+async function regeneratePortrait(character: Character) {
+  const imageUrl = await getCharacterPortrait(character, {
+    forceRebuild: true // Bypass cache
+  });
+  return imageUrl;
+}
+
+// Option 2: Clear specific cache entry
+function clearPortraitCache(character: Character) {
+  const cacheKey = `${CACHE_VERSION}-character-portrait:${character.id}`;
+  localStorage.removeItem(cacheKey);
+  console.log(`🗑️ Cleared cache: ${cacheKey}`);
+}
+
+// Option 3: Clear all portraits
+function clearAllPortraits() {
+  const prefix = `${CACHE_VERSION}-character-portrait:`;
+
+  Object.keys(localStorage)
+    .filter(key => key.startsWith(prefix))
+    .forEach(key => localStorage.removeItem(key));
+
+  console.log(`🗑️ Cleared all portrait cache`);
+}
+
+// Option 4: Bump global version
+// Change CACHE_VERSION = 'v2' → 'v3'
+// All old caches become stale automatically
+```
+
+### Step 6: Handle Cache Expiration (Optional)
+
+```typescript
+interface CachedImage {
+  url: string;
+  timestamp: number;
+  version: string;
+}
+
+function getCachedImage(key: string, maxAge: number = 7 * 24 * 60 * 60 * 1000): string | null {
+  const cached = localStorage.getItem(key);
+
+  if (!cached) return null;
+
+  try {
+    const data: CachedImage = JSON.parse(cached);
+
+    // Check version
+    if (data.version !== CACHE_VERSION) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
+    // Check age
+    const age = Date.now() - data.timestamp;
+    if (age > maxAge) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
+    return data.url;
+  } catch {
+    // Invalid format - clear cache
+    localStorage.removeItem(key);
+    return null;
+  }
+}
+
+function setCachedImage(key: string, url: string) {
+  const data: CachedImage = {
+    url,
+    timestamp: Date.now(),
+    version: CACHE_VERSION
+  };
+
+  localStorage.setItem(key, JSON.stringify(data));
+}
+```
+
+## Integration Patterns
+
+### With Rate Limiting Skill
+
+Combine with `gemini-api-rate-limiting` skill:
+
+```typescript
+async function generateImagesSequentially(characters: Character[]) {
+  for (const character of characters) {
+    // Check cache first (from this skill)
+    const cached = await getCharacterPortrait(character);
+
+    if (cached) {
+      updateCharacterImage(character.id, cached);
+      continue; // Skip API call
+    }
+
+    // Cache miss - generate with rate limiting
+    // (from gemini-api-rate-limiting skill)
+    try {
+      const imageUrl = await generateWithTimeout(character, 30000);
+      updateCharacterImage(character.id, imageUrl);
+    } catch (error) {
+      handleGenerationError(character.id, error);
+    }
+
+    // Delay between calls (rate limiting)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  }
+}
+```
+
+### UI Integration
+
+```typescript
+// In React component
+function CharacterCard({ character }: { character: Character }) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isRegenerating, setIsRegenerating] = useState(false);
+
+  useEffect(() => {
+    // Load from cache or generate
+    getCharacterPortrait(character).then(setImageUrl);
+  }, [character.id]);
+
+  const handleRegenerate = async () => {
+    setIsRegenerating(true);
+
+    // Force rebuild (cache busting)
+    const newUrl = await regeneratePortrait(character);
+    setImageUrl(newUrl);
+
+    setIsRegenerating(false);
+  };
+
+  return (
+    <div>
+      <img src={imageUrl || placeholderImage} alt={character.name} />
+      <button onClick={handleRegenerate} disabled={isRegenerating}>
+        {isRegenerating ? 'Regenerating...' : 'Regenerate Portrait'}
+      </button>
+    </div>
+  );
+}
+```
+
+## Cache Management UI
+
+```typescript
+// Admin/settings panel for cache management
+function CacheManagement() {
+  const [stats, setStats] = useState({ portraits: 0, scenes: 0, total: 0 });
+
+  useEffect(() => {
+    // Calculate cache stats
+    const portraitKeys = Object.keys(localStorage)
+      .filter(key => key.includes('character-portrait'));
+
+    setStats({
+      portraits: portraitKeys.length,
+      scenes: 0, // Add scene counting
+      total: localStorage.length
+    });
+  }, []);
+
+  const clearAllCache = () => {
+    const confirmed = window.confirm('Clear all cached images? This will regenerate on next load.');
+
+    if (confirmed) {
+      Object.keys(localStorage)
+        .filter(key => key.startsWith(CACHE_VERSION))
+        .forEach(key => localStorage.removeItem(key));
+
+      alert('Cache cleared!');
+      window.location.reload();
+    }
+  };
+
+  return (
+    <div>
+      <h3>Gemini API Cache</h3>
+      <p>Cached portraits: {stats.portraits}</p>
+      <p>Total cached items: {stats.total}</p>
+      <button onClick={clearAllCache}>Clear All Cache</button>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+1. **Always check cache first** - Reduce API calls
+2. **Use entity-stable keys** - Don't invalidate on prompt changes
+3. **Version globally** - Easy bulk invalidation
+4. **Provide regenerate option** - Let users force refresh
+5. **Consider expiration** - For time-sensitive content
+6. **Monitor cache size** - localStorage has limits (~5-10MB)
+7. **Handle cache errors** - Fallback to generation
+
+## Related Skills
+
+- `gemini-api-rate-limiting` - Combine cache with rate limiting
+- `gemini-api-error-handling` - Handle cache failures
+
+## Storage Limits
+
+### localStorage Limits
+
+- **Size**: ~5-10MB depending on browser
+- **Monitor usage**: Track total cache size
+- **Cleanup strategy**: Remove oldest entries when full
+
+```typescript
+function getCacheSize(): number {
+  let total = 0;
+
+  for (const key in localStorage) {
+    if (localStorage.hasOwnProperty(key)) {
+      total += localStorage[key].length + key.length;
+    }
+  }
+
+  return total; // bytes
+}
+
+// If approaching limit, clear old entries
+if (getCacheSize() > 5 * 1024 * 1024) { // 5MB
+  clearOldestEntries();
+}
+```
+
+## Notes
+
+- Caching reduces API costs significantly
+- Entity-stable keys prevent unnecessary cache invalidation
+- Global version bumping enables instant cache refresh
+- Force rebuild option gives users control
+- Combine with rate limiting for complete API management

@@ -1,93 +1,115 @@
 ---
-name: research
-description: Company due diligence, technology deep-dives, market analysis, and topic exploration for cyber•Fund investment decisions, content creation, and personal projects. Supports 3 intensity levels (quick/standard/deep) for speed-quality tradeoffs.
+name: Research
+description: Comprehensive research, analysis, and content extraction system. USE WHEN user says 'do research', 'do extensive research', 'quick research', 'minor research', 'research this', 'find information', 'investigate', 'extract wisdom', 'extract alpha', 'analyze content', 'can't get this content', 'use fabric', OR requests any web/content research. Supports three research modes (quick/standard/extensive), deep content analysis, intelligent retrieval, and 242+ Fabric patterns. NOTE: For due diligence, OSINT, or background checks, use OSINT skill instead.
+implements: Science
+science_cycle_time: meso
+context: fork
 ---
+
+## Customization
+
+**Before executing, check for user customizations at:**
+`~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/Research/`
+
+If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
 # Research Skill
 
-Company due diligence, technology deep-dives, market analysis, and topic exploration for cyber•Fund investment decisions, content creation, and personal projects.
+Comprehensive research, analysis, and content extraction system.
 
-## Capabilities
+## MANDATORY: URL Verification
 
-- **Company Research**: Comprehensive DD on target companies
-- **Technology Research**: Deep technical analysis of technologies
-- **Market Research**: Market sizing, dynamics, and opportunity assessment
-- **Topic Research (Content)**: Ideas, narratives, people for essays/tweets
-- **Topic Research (Investment)**: Market dynamics and opportunities for investment thesis
+**READ:** `UrlVerificationProtocol.md` - Every URL must be verified before delivery.
 
-## Research Intensity Levels
+Research agents hallucinate URLs. A single broken link is a catastrophic failure.
 
-- **🔍 Quick** (10-30s): 1 agent
-- **🔬 Standard** (2-5m): 2-3 agents [DEFAULT]
-- **🔎 Deep** (5-15m): 3-5 agents + quality-reviewer
+---
 
-See `shared/intensity-tiers.md` for full specification.
+## Voice Notification
 
-## Workflow
+**When executing a workflow, do BOTH:**
 
-All research types use **one universal workflow**:
-- `workflows/orchestrator.md`
+1. **Send voice notification**:
+   ```bash
+   curl -s -X POST http://localhost:8888/notify \
+     -H "Content-Type: application/json" \
+     -d '{"message": "Running the WORKFLOWNAME workflow from the Research skill"}' \
+     > /dev/null 2>&1 &
+   ```
 
-The orchestrator dynamically selects agents based on research type and intensity.
+2. **Output text notification**:
+   ```
+   Running the **WorkflowName** workflow from the **Research** skill...
+   ```
 
-## Agent Selection
+**Full documentation:** `~/.claude/skills/CORE/SkillNotifications.md`
 
-See `shared/agent-selection-matrix.md` for full matrix.
+## Workflow Routing
 
-| Research Type | Quick | Standard | Deep |
-|---------------|-------|----------|------|
-| Company DD | company | company + market + financial | +team +quality-reviewer |
-| Technology | tech | tech + market | +company +quality-reviewer |
-| Market | market | market + financial | +company +quality-reviewer |
-| Topic-Content | content | content | +quality-reviewer |
-| Topic-Investment | investment | investment + market | +financial +quality-reviewer |
+Route to the appropriate workflow based on the request.
 
-## Agents
+**CRITICAL:** For due diligence, company/person background checks, or vetting -> **INVOKE OSINT SKILL INSTEAD**
 
-**Research agents** (autonomous MCP access):
-- `company-researcher`: Business model, product, traction
-- `market-researcher`: TAM, dynamics, trends
-- `financial-researcher`: Funding, metrics, comparables
-- `team-researcher`: Founder backgrounds, team assessment
-- `tech-researcher`: Technology deep-dives
-- `content-researcher`: Academic papers, social media, first-principles (for content)
-- `investment-researcher`: Market dynamics, opportunities, timing (for investment)
+### Research Modes (Primary Workflows)
+- Quick/minor research (1 Perplexity, 1 query) -> `Workflows/QuickResearch.md`
+- Standard research - DEFAULT (3 agents: Perplexity + Claude + Gemini) -> `Workflows/StandardResearch.md`
+- Extensive research (4 types x 3 threads = 12 agents) -> `Workflows/ExtensiveResearch.md`
 
-**Quality & Synthesis**:
-- `quality-reviewer`: Gap analysis, contradiction detection (deep only, max 1 iteration)
-- `synthesizer`: Consolidate parallel research outputs
+### Deep Content Analysis
+- Extract alpha / deep analysis / highest-alpha insights -> `Workflows/ExtractAlpha.md`
 
-## Common References
+### Content Retrieval
+- Difficulty accessing content (CAPTCHA, bot detection, blocking) -> `Workflows/Retrieve.md`
+- YouTube URL extraction (use `fabric -y URL` immediately) -> `Workflows/YoutubeExtraction.md`
+- Web scraping -> `Workflows/WebScraping.md`
 
-- `shared/agent-selection-matrix.md` - Dynamic agent selection
-- `shared/investment-lens.md` - cyber•Fund investment philosophy
-- `shared/mcp-strategy.md` - MCP tool selection
-- `shared/output-standards.md` - Formats and emoji conventions
-- `shared/intensity-tiers.md` - 3-tier intensity spec
+### Specific Research Types
+- Claude WebSearch only (free, no API keys) -> `Workflows/ClaudeResearch.md`
+- Perplexity API research (use Quick for single-agent) -> `Workflows/QuickResearch.md`
+- Interview preparation (Tyler Cowen style) -> `Workflows/InterviewResearch.md`
+- AI trends analysis -> `Workflows/AnalyzeAiTrends.md`
 
-## Output Locations
+### Fabric Pattern Processing
+- Use Fabric patterns (242+ specialized prompts) -> `Workflows/Fabric.md`
 
-All research creates timestamped workspace:
+### Content Enhancement
+- Enhance/improve content -> `Workflows/Enhance.md`
+- Extract knowledge from content -> `Workflows/ExtractKnowledge.md`
 
-```
-~/CybosVault/private/deals/<company>~/CybosVault/private/research/MMDD-<slug>-YY/   # Company
-~/CybosVault/private/research/<topic>/MMDD-<slug>-YY/           # Tech/Market/Topic
-├── raw/                                     # Agent outputs
-└── report.md                                # Final synthesis
-```
+---
 
-## Key Principles
+## Quick Reference
 
-1. **Agents do ALL data gathering** - Main session orchestrates, agents make MCP calls
-2. **No redundancy** - Each agent makes its own calls autonomously
-3. **Dynamic selection** - Agents chosen based on research type + intensity
-4. **Quality loop** - Deep mode includes quality-reviewer (max 1 iteration)
+**READ:** `QuickReference.md` for detailed examples and mode comparison.
 
-## Investment Context
+| Trigger | Mode | Speed |
+|---------|------|-------|
+| "quick research" | 1 Perplexity agent | ~10-15s |
+| "do research" | 3 agents (default) | ~15-30s |
+| "extensive research" | 12 agents | ~60-90s |
 
-All research applies cyber•Fund's investment philosophy:
-- Path to $1B+ revenue (not niche $50M ARR outcomes)
-- Defensible moat (data, network effects, hard tech)
-- Clear business model (revenue > token speculation)
-- Strong founders (high energy, sales DNA, deep expertise)
-- Market timing ("why now?")
+---
+
+## Integration
+
+### Feeds Into
+- **blogging** - Research for blog posts
+- **newsletter** - Research for newsletters
+- **xpost** - Create posts from research
+
+### Uses
+- **be-creative** - deep thinking for extract alpha
+- **OSINT** - MANDATORY for company/people comprehensive research
+- **BrightData MCP** - CAPTCHA solving, advanced scraping
+- **Apify MCP** - RAG browser, specialized site scrapers
+
+---
+
+## File Organization
+
+**Scratch (temporary work artifacts):** `~/.claude/MEMORY/WORK/{current_work}/scratch/`
+- Read `~/.claude/MEMORY/STATE/current-work.json` to get the `work_dir` value
+- All iterative work artifacts go in the current work item's scratch/ subdirectory
+- This ties research artifacts to the work item for learning and context
+
+**History (permanent):** `~/.claude/History/research/YYYY-MM/YYYY-MM-DD_[topic]/`

@@ -1,7 +1,7 @@
 {
   "category": "product",
-  "count": 1075,
-  "updated_at": "2026-02-01T05:09:24.333407Z",
+  "count": 1074,
+  "updated_at": "2026-02-02T05:16:13.582841Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -7688,18 +7688,6 @@
       "tags": [],
       "stars": 0,
       "install": "andyngdz/exogen_backend/.opencode/skills/logging-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "logging-patterns",
-      "description": "Use when adding logging to features - structured logging with LoggerService categories",
-      "repo": "andyngdz/exogen_backend",
-      "path": "data/logging-patterns",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "andyngdz/exogen_backend",
       "source": "SkillsMP + GitHub Raw"
     },
     {

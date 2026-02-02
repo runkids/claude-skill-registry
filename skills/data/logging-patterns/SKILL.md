@@ -1,58 +1,50 @@
 ---
-name: logging-patterns
-description: Use when adding logging to features - structured logging with LoggerService categories
+id: logging-patterns
+name: Logging Patterns
+description: >-
+  Common logging patterns and practices. This skill is designed to be
+  included in composite skills via the 'includes' feature.
+tags: [logging, observability, example]
 ---
 
 # Logging Patterns
 
-Use this skill when implementing features that need logging or debugging.
+Foundational logging practices for observable applications.
 
-## Checklist
+## Rules
 
-### Setup Logger
-- [ ] Import LoggerService: `from app.services import logger_service`
-- [ ] Get logger with category: `logger = logger_service.get_logger(__name__, category='[Category]')`
-- [ ] Verify category matches feature domain (see categories below)
+- Use structured logging (key-value pairs, not interpolated strings)
+- Include request/correlation IDs in all log entries
+- Log at appropriate levels (DEBUG, INFO, WARN, ERROR)
+- Include enough context to debug issues without the code
+- Don't log sensitive information (passwords, tokens, PII)
 
-### Select Appropriate Category
-Choose the category that matches your feature domain:
-- [ ] `[ModelLoad]` - Model loading operations
-- [ ] `[Download]` - Download operations
-- [ ] `[Generate]` - Image generation
-- [ ] `[API]` - API endpoints
-- [ ] `[Database]` - Database operations
-- [ ] `[Service]` - Service layer operations
-- [ ] `[Socket]` - WebSocket events
-- [ ] `[GPU]` - GPU operations
+## Pitfalls
 
-### Use Appropriate Log Level
-- [ ] `.debug()` - Detailed diagnostic information (only visible with `LOG_LEVEL=DEBUG`)
-- [ ] `.info()` - General informational messages (progress, status updates)
-- [ ] `.warning()` - Warning messages (degraded functionality, deprecated usage)
-- [ ] `.error()` - Error messages (failures that don't stop execution)
-- [ ] `.exception()` - Exceptions with full stack traces (use in except blocks)
+- Logging sensitive data (passwords, API keys, PII)
+- Inconsistent log levels across the codebase
+- Missing correlation IDs in distributed systems
+- Logging at wrong levels (DEBUG in prod, ERROR for non-errors)
 
-### Example Usage
+## Examples
 
-```python
-from app.services import logger_service
+```rust
+// Structured logging with tracing
+use tracing::{info, error, instrument};
 
-logger = logger_service.get_logger(__name__, category='ModelLoad')
+#[instrument(skip(password))]
+fn authenticate(user_id: &str, password: &str) -> Result<Token> {
+    info!(user_id, "authentication attempt");
 
-def load_model(model_path: str):
-    logger.info(f'Loading model from {model_path}')
-    try:
-        # ... model loading logic
-        logger.debug('Model loaded successfully')
-    except FileNotFoundError as error:
-        logger.error(f'Model file not found: {error}')
-        raise
+    match verify_credentials(user_id, password) {
+        Ok(token) => {
+            info!(user_id, "authentication successful");
+            Ok(token)
+        }
+        Err(e) => {
+            error!(user_id, error = %e, "authentication failed");
+            Err(e)
+        }
+    }
+}
 ```
-
-### Configuration
-- [ ] Test with debug logging: `LOG_LEVEL=DEBUG uv run python main.py`
-- [ ] Verify logs appear with correct category prefix in output
-
-## Reference
-
-See `app/services/logger.py` for LoggerService implementation.

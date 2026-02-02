@@ -1,7 +1,7 @@
 {
   "name": "nx-workspace-patterns",
-  "repo": "wshobson/agents",
+  "repo": "ccf/claude-code-ccf-marketplace",
   "path": "plugins/developer-essentials/skills/nx-workspace-patterns/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-02-01T04:51:52.851716Z"
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-02T05:11:55.421123Z"
 }

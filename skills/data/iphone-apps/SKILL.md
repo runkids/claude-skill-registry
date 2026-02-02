@@ -60,6 +60,26 @@ Right: "Before I start, does X mean Y or Z?"
 ### 6. Always Leave It Working
 
 Every stopping point = working state. Tests pass, app launches, changes committed. The user can walk away anytime and come back to something that works.
+
+### 7. Debug Logging Protocol
+
+When adding debug logging (print statements, NSLog, etc.):
+
+1. **Mark clearly:** Comment with `// DEBUG:` prefix
+   ```swift
+   // DEBUG: Testing YIN accuracy corrections
+   print("YIN Detected: \(frequency) Hz")
+   ```
+
+2. **Gather data:** Use logging to understand the problem
+
+3. **Remove before final commit:** Unless user explicitly wants it kept
+   - Production code should not have debug prints
+   - Use proper logging frameworks (os_log) for production if needed
+
+4. **Ask before committing:** "Should I remove the debug logging now?"
+
+**Exception:** Logging that provides user value (error messages, diagnostics) should stay but use proper frameworks.
 </essential_principles>
 
 <intake>

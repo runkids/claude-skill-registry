@@ -1,7 +1,7 @@
 {
   "name": "simple-pr",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/simple-pr/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-02-01T03:21:46.629068Z"
+  "repo": "quickwit-oss/tantivy",
+  "path": ".claude/skills/simple-pr/SKILL.md",
+  "source": "github.com/quickwit-oss/tantivy",
+  "downloaded_at": "2026-02-02T04:58:32.180976Z"
 }

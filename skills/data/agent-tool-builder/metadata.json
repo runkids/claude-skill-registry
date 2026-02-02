@@ -1,7 +1,7 @@
 {
   "name": "agent-tool-builder",
-  "repo": "claudiodearaujo/Sistema-de-narra-o-de-livro-front",
-  "path": ".claude/skills/agent-tool-builder/SKILL.md",
-  "source": "github.com/claudiodearaujo/Sistema-de-narra-o-de-livro-front",
-  "downloaded_at": "2026-02-01T03:01:42.083618Z"
+  "repo": "hainamchung/agent-assistant",
+  "path": "skills/agent-tool-builder/SKILL.md",
+  "source": "github.com/hainamchung/agent-assistant",
+  "downloaded_at": "2026-02-02T03:55:23.039410Z"
 }

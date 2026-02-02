@@ -1,125 +1,202 @@
 ---
-name: running-gemini-cli
-description: Executes Gemini CLI for AI-powered code analysis and generation using Google's Gemini models. Use when needing alternative AI perspectives, complex reasoning, or code generation with Gemini. Triggers include "gemini", "Google AI", or when requesting Gemini-specific analysis.
-context: fork
-allowed-tools: Bash, Read
+name: gemini-cli
+description: "Google Gemini CLI orchestration for AI-assisted development. Capabilities: second opinion/cross-validation, real-time web search (Google Search), codebase architecture analysis, parallel code generation, code review from different perspective. Actions: query, search, analyze, generate, review with Gemini. Keywords: Gemini CLI, second opinion, cross-validation, Google Search, web research, current information, parallel AI, code review, architecture analysis, gemini prompt, AI comparison, real-time search, alternative perspective, code generation. Use when: needing second AI opinion, searching current web information, analyzing codebase architecture, generating code in parallel, getting alternative code review, researching current events/docs."
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Grep
+  - Glob
 ---
 
-# Gemini CLI Integration
+# Gemini CLI Integration Skill
 
-## Overview
+This skill enables Claude Code to effectively orchestrate Gemini CLI (v0.16.0+) with Gemini 3 Pro for code generation, review, analysis, and specialized tasks.
 
-Execute Gemini CLI commands with support for multiple models and flexible prompt input. Integrates Google's Gemini AI models into Claude Code workflows.
+## When to Use This Skill
 
-## When to Use
+### Ideal Use Cases
 
-- Complex reasoning tasks requiring advanced AI capabilities
-- Code generation and analysis with Gemini models
-- Tasks requiring Google's latest AI technology
-- Alternative perspective on code problems
+1. **Second Opinion / Cross-Validation**
+   - Code review after writing code (different AI perspective)
+   - Security audit with alternative analysis
+   - Finding bugs Claude might have missed
 
-## Usage
+2. **Google Search Grounding**
+   - Questions requiring current internet information
+   - Latest library versions, API changes, documentation updates
+   - Current events or recent releases
 
-**Mandatory**: Run via uv with fixed timeout 7200000ms (foreground):
+3. **Codebase Architecture Analysis**
+   - Use Gemini's `codebase_investigator` tool
+   - Understanding unfamiliar codebases
+   - Mapping cross-file dependencies
 
-```bash
-uv run ~/.claude/skills/gemini/scripts/gemini.py "<prompt>" [working_dir]
-```
+4. **Parallel Processing**
+   - Offload tasks while continuing other work
+   - Run multiple code generations simultaneously
+   - Background documentation generation
 
-**Optional** (direct execution or using Python):
+5. **Specialized Generation**
+   - Test suite generation
+   - JSDoc/documentation generation
+   - Code translation between languages
 
-```bash
-~/.claude/skills/gemini/scripts/gemini.py "<prompt>" [working_dir]
-# or
-python3 ~/.claude/skills/gemini/scripts/gemini.py "<prompt>" [working_dir]
-```
+### When NOT to Use
 
-## Environment Variables
+- Simple, quick tasks (overhead not worth it)
+- Tasks requiring immediate response (rate limits cause delays)
+- When context is already loaded and understood
+- Interactive refinement requiring conversation
 
-- **GEMINI_MODEL**: Configure model (default: `gemini-3-pro-preview`)
-  - Example: `export GEMINI_MODEL=gemini-3`
+## Core Instructions
 
-## Timeout Control
-
-- **Fixed**: 7200000 milliseconds (2 hours), immutable
-- **Bash tool**: Always set `timeout: 7200000` for double protection
-
-### Parameters
-
-- `prompt` (required): Task prompt or question
-- `working_dir` (optional): Working directory (default: current directory)
-
-### Return Format
-
-Plain text output from Gemini:
-
-```text
-Model response text here...
-```
-
-Error format (stderr):
-
-```text
-ERROR: Error message
-```
-
-### Invocation Pattern
-
-When calling via Bash tool, always include the timeout parameter:
-
-```yaml
-Bash tool parameters:
-- command: uv run ~/.claude/skills/gemini/scripts/gemini.py "<prompt>"
-- timeout: 7200000
-- description: <brief description of the task>
-```
-
-Alternatives:
-
-```yaml
-# Direct execution (simplest)
-- command: ~/.claude/skills/gemini/scripts/gemini.py "<prompt>"
-
-# Using python3
-- command: python3 ~/.claude/skills/gemini/scripts/gemini.py "<prompt>"
-```
-
-### Examples
-
-**Basic query:**
+### 1. Verify Installation
 
 ```bash
-uv run ~/.claude/skills/gemini/scripts/gemini.py "explain quantum computing"
-# timeout: 7200000
+command -v gemini || which gemini
 ```
 
-**Code analysis:**
+### 2. Basic Command Pattern
 
 ```bash
-uv run ~/.claude/skills/gemini/scripts/gemini.py "review this code for security issues: $(cat app.py)"
-# timeout: 7200000
+gemini "[prompt]" --yolo -o text 2>&1
 ```
 
-**With specific working directory:**
+Key flags:
+- `--yolo` or `-y`: Auto-approve all tool calls
+- `-o text`: Human-readable output
+- `-o json`: Structured output with stats
+- `-m gemini-2.5-flash`: Use faster model for simple tasks
+
+### 3. Critical Behavioral Notes
+
+**YOLO Mode Behavior**: Auto-approves tool calls but does NOT prevent planning prompts. Gemini may still present plans and ask "Does this plan look good?" Use forceful language:
+- "Apply now"
+- "Start immediately"
+- "Do this without asking for confirmation"
+
+**Rate Limits**: Free tier has 60 requests/min, 1000/day. CLI auto-retries with backoff. Expect messages like "quota will reset after Xs".
+
+### 4. Output Processing
+
+For JSON output (`-o json`), parse:
+```json
+{
+  "response": "actual content",
+  "stats": {
+    "models": { "tokens": {...} },
+    "tools": { "byName": {...} }
+  }
+}
+```
+
+## Quick Reference Commands
+
+### Code Generation
+```bash
+gemini "Create [description] with [features]. Output complete file content." --yolo -o text
+```
+
+### Code Review
+```bash
+gemini "Review [file] for: 1) features, 2) bugs/security issues, 3) improvements" -o text
+```
+
+### Bug Fixing
+```bash
+gemini "Fix these bugs in [file]: [list]. Apply fixes now." --yolo -o text
+```
+
+### Test Generation
+```bash
+gemini "Generate [Jest/pytest] tests for [file]. Focus on [areas]." --yolo -o text
+```
+
+### Documentation
+```bash
+gemini "Generate JSDoc for all functions in [file]. Output as markdown." --yolo -o text
+```
+
+### Architecture Analysis
+```bash
+gemini "Use codebase_investigator to analyze this project" -o text
+```
+
+### Web Research
+```bash
+gemini "What are the latest [topic]? Use Google Search." -o text
+```
+
+### Faster Model (Simple Tasks)
+```bash
+gemini "[prompt]" -m gemini-2.5-flash -o text
+```
+
+## Error Handling
+
+### Rate Limit Exceeded
+- CLI auto-retries with backoff
+- Use `-m gemini-2.5-flash` for lower priority tasks
+- Run in background for long operations
+
+### Command Failures
+- Check JSON output for detailed error stats
+- Verify Gemini is authenticated: `gemini --version`
+- Check `~/.gemini/settings.json` for config issues
+
+### Validation After Generation
+Always verify Gemini's output:
+- Check for security vulnerabilities (XSS, injection)
+- Test functionality matches requirements
+- Review code style consistency
+- Verify dependencies are appropriate
+
+## Integration Workflow
+
+### Standard Generate-Review-Fix Cycle
 
 ```bash
-uv run ~/.claude/skills/gemini/scripts/gemini.py "analyze project structure" "/path/to/project"
-# timeout: 7200000
+# 1. Generate
+gemini "Create [code]" --yolo -o text
+
+# 2. Review (Gemini reviews its own work)
+gemini "Review [file] for bugs and security issues" -o text
+
+# 3. Fix identified issues
+gemini "Fix [issues] in [file]. Apply now." --yolo -o text
 ```
 
-**Using python3 directly (alternative):**
+### Background Execution
 
+For long tasks, run in background and monitor:
 ```bash
-python3 ~/.claude/skills/gemini/scripts/gemini.py "your prompt here"
+gemini "[long task]" --yolo -o text 2>&1 &
+# Monitor with BashOutput tool
 ```
 
-## Notes
+## Gemini's Unique Capabilities
 
-- **Recommended**: Use `uv run` for automatic Python environment management (requires uv installed)
-- **Alternative**: Direct execution `./gemini.py` (uses system Python via shebang)
-- Python implementation using standard library (zero dependencies)
-- Cross-platform compatible (Windows/macOS/Linux)
-- PEP 723 compliant (inline script metadata)
-- Requires Gemini CLI installed and authenticated
-- Supports all Gemini model variants (configure via `GEMINI_MODEL` environment variable)
-- Output is streamed directly from Gemini CLI
+These tools are available only through Gemini:
+
+1. **google_web_search** - Real-time internet search via Google
+2. **codebase_investigator** - Deep architectural analysis
+3. **save_memory** - Cross-session persistent memory
+
+## Configuration
+
+### Project Context (Optional)
+
+Create `.gemini/GEMINI.md` in project root for persistent context that Gemini will automatically read.
+
+### Session Management
+
+List sessions: `gemini --list-sessions`
+Resume session: `echo "follow-up" | gemini -r [index] -o text`
+
+## See Also
+
+- `reference.md` - Complete command and flag reference
+- `templates.md` - Prompt templates for common operations
+- `patterns.md` - Advanced integration patterns
+- `tools.md` - Gemini's built-in tools documentation

@@ -1,434 +1,209 @@
 ---
 name: receiving-code-review
-description: "Use when processing code review feedback. Technical evaluation of feedback, verify before implementing. No performative agreement or gratitude."
+description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
 ---
 
-# Receiving Code Review
-
-## Core Principle
-
-**Verify before implementing. Ask before assuming. Technical correctness over social comfort.**
+# Code Review Reception
 
 ## Overview
 
-Code review feedback requires technical evaluation, not performative agreement. This skill teaches how to receive, evaluate, and implement feedback professionally.
+Code review requires technical evaluation, not emotional performance.
 
-## The Iron Laws
+**Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
-### Law 1: Technical Evaluation Required
-
-**Never blindly accept feedback.** Verify it's technically correct first.
-
-### Law 2: No Performative Agreement
-
-**Forbidden phrases:**
-- ❌ "You're absolutely right!"
-- ❌ "Great point!"
-- ❌ "Good catch!"
-- ❌ "Thanks for the feedback!"
-- ❌ "I should have thought of that!"
-
-**Why forbidden:** These are social lubricants, not technical responses. They signal submission rather than evaluation.
-
-### Law 3: Verify Against Codebase
-
-**Check actual code before responding.** Reviewer may be wrong or looking at old version.
-
-## Response Pattern (The Six Steps)
-
-### Step 1: READ
-
-Read feedback completely without reacting.
+## The Response Pattern
 
 ```
-Reviewer feedback received:
-"This function does too much. Split into smaller functions."
+WHEN receiving code review feedback:
 
-[Read completely, don't respond yet]
+1. READ: Complete feedback without reacting
+2. UNDERSTAND: Restate requirement in own words (or ask)
+3. VERIFY: Check against codebase reality
+4. EVALUATE: Technically sound for THIS codebase?
+5. RESPOND: Technical acknowledgment or reasoned pushback
+6. IMPLEMENT: One item at a time, test each
 ```
 
-### Step 2: UNDERSTAND
+## Forbidden Responses
 
-Restate the requirement to confirm understanding.
+**NEVER:**
+- "You're absolutely right!" (explicit CLAUDE.md violation)
+- "Great point!" / "Excellent feedback!" (performative)
+- "Let me implement that now" (before verification)
 
-```
-Understanding check:
-Reviewer suggests: Break down AuthController->login() into smaller methods
+**INSTEAD:**
+- Restate the technical requirement
+- Ask clarifying questions
+- Push back with technical reasoning if wrong
+- Just start working (actions > words)
 
-My understanding:
-- Current login() method is ~80 lines
-- Reviewer wants it split into multiple single-purpose methods
-- Likely: validateCredentials(), generateToken(), logAuthEvent()
-
-Is my understanding correct?
-```
-
-### Step 3: VERIFY
-
-Check against actual codebase reality.
+## Handling Unclear Feedback
 
 ```
-Verification:
+IF any item is unclear:
+  STOP - do not implement anything yet
+  ASK for clarification on unclear items
 
-Checking AuthController->login():
-- Line count: 82 lines ✅ (confirms "too long")
-- Complexity: 3 nested conditions
-- Responsibilities: Validation, auth, token generation, logging, response
-
-Verification: Reviewer's observation is accurate.
+WHY: Items may be related. Partial understanding = wrong implementation.
 ```
 
-### Step 4: EVALUATE
-
-Is the feedback technically sound?
-
+**Example:**
 ```
-Technical evaluation:
+your human partner: "Fix 1-6"
+You understand 1,2,3,6. Unclear on 4,5.
 
-Pros of splitting:
-- Single Responsibility Principle
-- Easier to test individual parts
-- More readable
-
-Cons of splitting:
-- More indirection
-- Might be premature abstraction
-
-Decision: Feedback is technically sound. Benefits outweigh costs.
+❌ WRONG: Implement 1,2,3,6 now, ask about 4,5 later
+✅ RIGHT: "I understand items 1,2,3,6. Need clarification on 4 and 5 before proceeding."
 ```
 
-### Step 5: RESPOND
+## Source-Specific Handling
 
-Technical acknowledgment or reasoned pushback.
+### From your human partner
+- **Trusted** - implement after understanding
+- **Still ask** if scope unclear
+- **No performative agreement**
+- **Skip to action** or technical acknowledgment
 
-**If agreeing:**
+### From External Reviewers
 ```
-Technical acknowledgment:
+BEFORE implementing:
+  1. Check: Technically correct for THIS codebase?
+  2. Check: Breaks existing functionality?
+  3. Check: Reason for current implementation?
+  4. Check: Works on all platforms/versions?
+  5. Check: Does reviewer understand full context?
 
-The login() method is indeed 82 lines with multiple responsibilities.
+IF suggestion seems wrong:
+  Push back with technical reasoning
 
-I'll refactor into:
-1. validateCredentials() - credential checking
-2. generateToken() - token creation
-3. logAuthEvent() - logging
-4. Main login() - orchestration
+IF can't easily verify:
+  Say so: "I can't verify this without [X]. Should I [investigate/ask/proceed]?"
 
-This improves testability and readability.
-
-Implementing now.
-```
-
-**If disagreeing:**
-```
-Technical analysis:
-
-I've reviewed the suggestion to split the login() method.
-
-However, I believe it should remain as-is because:
-
-1. The 82 lines are mostly validation rules (50 lines), which are a cohesive unit
-2. Splitting would create artificial boundaries in what is inherently sequential logic
-3. The current structure follows Laravel controller convention
-4. Tests already cover this method comprehensively (12 test cases)
-
-Alternative: I can extract the 50 lines of validation into a FormRequest class, reducing controller to 32 lines. This follows Laravel patterns better.
-
-What do you think of this approach?
+IF conflicts with your human partner's prior decisions:
+  Stop and discuss with your human partner first
 ```
 
-### Step 6: IMPLEMENT
+**your human partner's rule:** "External feedback - be skeptical, but check carefully"
 
-Implement ONE item at a time, test each.
+## YAGNI Check for "Professional" Features
 
 ```
-Implementing feedback:
+IF reviewer suggests "implementing properly":
+  grep codebase for actual usage
 
-Item 1: Extract validateCredentials() method
-[Implement]
-[Test]
-✅ Tests pass
-
-Item 2: Extract generateToken() method
-[Implement]
-[Test]
-✅ Tests pass
-
-Item 3: Extract logAuthEvent() method
-[Implement]
-[Test]
-✅ Tests pass
-
-All feedback items implemented ✅
-Running full test suite...
-✅ All 127 tests pass
+  IF unused: "This endpoint isn't called. Remove it (YAGNI)?"
+  IF used: Then implement properly
 ```
 
-## Example Responses
+**your human partner's rule:** "You and reviewer both report to me. If we don't need this feature, don't add it."
 
-### Example 1: Security Issue
+## Implementation Order
 
-**Reviewer:**
-"This endpoint is vulnerable to SQL injection."
-
-**Bad Response:**
 ```
-❌ "You're right! I'll fix it immediately."
-```
-
-**Good Response:**
-```
-✅ Technical evaluation:
-
-Checking the endpoint code:
-```php
-$users = DB::select("SELECT * FROM users WHERE email = '{$email}'");
+FOR multi-item feedback:
+  1. Clarify anything unclear FIRST
+  2. Then implement in this order:
+     - Blocking issues (breaks, security)
+     - Simple fixes (typos, imports)
+     - Complex fixes (refactoring, logic)
+  3. Test each fix individually
+  4. Verify no regressions
 ```
 
-Verification: This IS vulnerable to SQL injection.
-The email parameter is concatenated directly into SQL.
+## When To Push Back
 
-Fix: Use parameter binding:
-```php
-$users = DB::select("SELECT * FROM users WHERE email = ?", [$email]);
+Push back when:
+- Suggestion breaks existing functionality
+- Reviewer lacks full context
+- Violates YAGNI (unused feature)
+- Technically incorrect for this stack
+- Legacy/compatibility reasons exist
+- Conflicts with your human partner's architectural decisions
+
+**How to push back:**
+- Use technical reasoning, not defensiveness
+- Ask specific questions
+- Reference working tests/code
+- Involve your human partner if architectural
+
+**Signal if uncomfortable pushing back out loud:** "Strange things are afoot at the Circle K"
+
+## Acknowledging Correct Feedback
+
+When feedback IS correct:
+```
+✅ "Fixed. [Brief description of what changed]"
+✅ "Good catch - [specific issue]. Fixed in [location]."
+✅ [Just fix it and show in the code]
+
+❌ "You're absolutely right!"
+❌ "Great point!"
+❌ "Thanks for catching that!"
+❌ "Thanks for [anything]"
+❌ ANY gratitude expression
 ```
 
-Or better, use Eloquent:
-```php
-$users = User::where('email', $email)->get();
+**Why no thanks:** Actions speak. Just fix it. The code itself shows you heard the feedback.
+
+**If you catch yourself about to write "Thanks":** DELETE IT. State the fix instead.
+
+## Gracefully Correcting Your Pushback
+
+If you pushed back and were wrong:
+```
+✅ "You were right - I checked [X] and it does [Y]. Implementing now."
+✅ "Verified this and you're correct. My initial understanding was wrong because [reason]. Fixing."
+
+❌ Long apology
+❌ Defending why you pushed back
+❌ Over-explaining
 ```
 
-Implementing Eloquent approach (safer and more maintainable).
-```
-
-### Example 2: Performance Issue
-
-**Reviewer:**
-"This has an N+1 query problem."
-
-**Bad Response:**
-```
-❌ "Great catch! Fixing now."
-```
-
-**Good Response:**
-```
-✅ Verification:
-
-Checking the code:
-```php
-$users = User::all();
-foreach ($users as $user) {
-    echo $user->posts->count(); // Query in loop
-}
-```
-
-Confirmed: N+1 problem.
-- 1 query for users
-- N queries for posts (one per user)
-- With 100 users: 101 queries
-
-Fix: Eager loading
-```php
-$users = User::withCount('posts')->get();
-foreach ($users as $user) {
-    echo $user->posts_count; // No additional query
-}
-```
-
-Result: 101 queries → 1 query
-
-Implementing now.
-```
-
-### Example 3: Disagreeing with Feedback
-
-**Reviewer:**
-"Use a singleton pattern for the UserService."
-
-**Bad Response:**
-```
-❌ "I disagree. Singletons are an anti-pattern."
-[Dismissive, no technical reasoning]
-```
-
-**Good Response:**
-```
-✅ Technical analysis:
-
-I've evaluated the singleton suggestion for UserService.
-
-My assessment:
-
-**Against singleton:**
-1. Laravel's service container already provides singleton-like behavior via bind/singleton
-2. Singletons make testing harder (global state)
-3. Current implementation uses dependency injection, which is more testable
-4. No performance benefit (Laravel caching handles this)
-
-**Current approach:**
-```php
-// Registered in ServiceProvider
-$this->app->singleton(UserService::class);
-
-// Injected where needed
-public function __construct(UserService $userService) {
-    $this->userService = $userService;
-}
-```
-
-This achieves the same goal (single instance) while maintaining testability.
-
-**Question:** Is there a specific problem the singleton would solve that the current approach doesn't?
-
-I'm happy to reconsider if there's a technical reason I'm missing.
-```
-
-### Example 4: Unclear Feedback
-
-**Reviewer:**
-"This could be better."
-
-**Bad Response:**
-```
-❌ "Okay, I'll improve it."
-[What does "better" mean?]
-```
-
-**Good Response:**
-```
-✅ Clarification request:
-
-I'd like to understand the concern more specifically.
-
-Current code:
-```php
-public function process($data) {
-    // Processing logic
-}
-```
-
-Questions:
-1. What aspect could be better? (naming, logic, performance, structure?)
-2. What specific improvement are you suggesting?
-3. Is there a particular issue you're seeing?
-
-Once I understand the specific concern, I can evaluate and address it.
-```
-
-## Handling Different Feedback Types
-
-### Type 1: Security Feedback
-**Response:** Always implement. Security > all other concerns.
-
-### Type 2: Performance Feedback
-**Response:** Verify the problem exists, measure improvement.
-
-### Type 3: Style/Naming Feedback
-**Response:** Follow project conventions. If no convention, reasonable disagreement OK.
-
-### Type 4: Architecture Feedback
-**Response:** Discuss trade-offs. Large changes need agreement.
-
-### Type 5: Test Coverage Feedback
-**Response:** Add tests if gaps identified. Defend if coverage is adequate.
-
-## Red Flags in Your Response
-
-- ❌ Immediate agreement without verification
-- ❌ Gratitude expressions ("Thanks!", "Great catch!")
-- ❌ Superlatives ("You're absolutely right!")
-- ❌ Defensive reactions ("That's how it's supposed to work!")
-- ❌ Dismissive responses ("That's not important")
-- ❌ Implementation without understanding
-
-## Green Flags in Your Response
-
-- ✅ Technical evaluation performed
-- ✅ Verification against codebase
-- ✅ Clear reasoning provided
-- ✅ Questions when unclear
-- ✅ One implementation at a time
-- ✅ Tests after each change
+State the correction factually and move on.
 
 ## Common Mistakes
 
-### Mistake 1: Blind Acceptance
+| Mistake | Fix |
+|---------|-----|
+| Performative agreement | State requirement or just act |
+| Blind implementation | Verify against codebase first |
+| Batch without testing | One at a time, test each |
+| Assuming reviewer is right | Check if breaks things |
+| Avoiding pushback | Technical correctness > comfort |
+| Partial implementation | Clarify all items first |
+| Can't verify, proceed anyway | State limitation, ask for direction |
 
+## Real Examples
+
+**Performative Agreement (Bad):**
 ```
-❌ Reviewer: "Add caching here"
-You: "Good idea! Added caching."
-
-Problem: Didn't evaluate if caching is appropriate, what to cache, how long, etc.
-```
-
-### Mistake 2: Performative Agreement
-
-```
-❌ "You're absolutely right! This is a critical issue!"
-
-Problem: Social performance, not technical evaluation.
-```
-
-### Mistake 3: No Verification
-
-```
-❌ Reviewer: "This function is never called"
-You: "I'll remove it"
-
-Problem: Didn't verify. Function might be called via reflection, routes, etc.
+Reviewer: "Remove legacy code"
+❌ "You're absolutely right! Let me remove that..."
 ```
 
-### Mistake 4: Batch Implementation
-
+**Technical Verification (Good):**
 ```
-❌ Implementing all 10 feedback items at once
-
-Problem: If something breaks, unclear which change caused it.
+Reviewer: "Remove legacy code"
+✅ "Checking... build target is 10.15+, this API needs 13+. Need legacy for backward compat. Current impl has wrong bundle ID - fix it or drop pre-13 support?"
 ```
 
-## Integration with Other Skills
+**YAGNI (Good):**
+```
+Reviewer: "Implement proper metrics tracking with database, date filters, CSV export"
+✅ "Grepped codebase - nothing calls this endpoint. Remove it (YAGNI)? Or is there usage I'm missing?"
+```
 
-**Use with:**
-- `code-review` - Your self-review before implementing feedback
-- `systematic-debugging` - If implementing feedback breaks something
-- `test-driven-development` - Add tests for changes
+**Unclear Item (Good):**
+```
+your human partner: "Fix items 1-6"
+You understand 1,2,3,6. Unclear on 4,5.
+✅ "Understand 1,2,3,6. Need clarification on 4 and 5 before implementing."
+```
 
-**After receiving feedback:**
-- `verification-before-completion` - Verify all changes work
-- `requesting-code-review` - Request re-review after changes
+## The Bottom Line
 
-## Response Checklist
+**External feedback = suggestions to evaluate, not orders to follow.**
 
-For each feedback item:
-- [ ] Read completely without reacting
-- [ ] Restate to confirm understanding
-- [ ] Verify against actual code
-- [ ] Evaluate technical merit
-- [ ] Respond with reasoning
-- [ ] Implement ONE item at a time
-- [ ] Test after EACH implementation
-- [ ] Verify all tests still pass
+Verify. Question. Then implement.
 
-## Authority
-
-**This skill is based on:**
-- Professional code review practices
-- Technical evaluation over social performance
-- Emphasis on verification before implementation
-- Inspired by obra/superpowers receiving-code-review skill
-
-**Social Proof**: Technical teams value reasoned responses over blind agreement.
-
-## Your Commitment
-
-When receiving feedback:
-- [ ] I will verify before agreeing
-- [ ] I will ask when unclear
-- [ ] I will provide technical reasoning
-- [ ] I will implement one change at a time
-- [ ] I will test after each change
-- [ ] I will avoid performative agreement
-
----
-
-**Bottom Line**: Code review is technical evaluation, not social agreement. Verify feedback against reality, provide reasoned responses, implement systematically. Technical correctness over social comfort.
+No performative agreement. Technical rigor always.

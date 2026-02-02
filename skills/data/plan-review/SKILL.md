@@ -1,330 +1,298 @@
 ---
 name: plan-review
-description: Use after plan is written to validate implementation plans across completeness, quality, feasibility, and scope dimensions - spawns specialized validators for failed dimensions and refines plan interactively before execution
+description: "Reviews and adjusts PRD plans based on research findings. Use after completing research to evaluate story modifications. Triggers on: review plan, adjust stories, update prd based on research."
 ---
 
-# Plan Review
+# Plan Review Skill
 
-Use this skill to validate implementation plans across completeness, quality, feasibility, and scope dimensions.
+Evaluate research findings and decide whether to adjust upcoming stories in the PRD.
 
-## When to Use
+---
 
-After plan is written and user selects "A) review the plan" option.
+## The Job
 
-## Phase 1: Initial Assessment
+1. Read the research report for the current story
+2. Evaluate if findings impact the current or future stories
+3. Decide on plan modifications (if any)
+4. Update `prd.json` with changes
+5. Document all changes in `changeLog`
+6. Ensure plan remains coherent and achievable
 
-Run automatic checks across 4 dimensions using simple validation logic (no subagents yet):
+---
 
-### Completeness Check
+## When to Modify the Plan
 
-Scan plan for:
-- ✅ All phases have success criteria section
-- ✅ Commands for verification present (`make test-`, `pytest`, etc.)
-- ✅ Rollback/migration strategy mentioned
-- ✅ Edge cases section or error handling
-- ✅ Testing strategy defined
+**MODIFY stories when research reveals:**
 
-**Scoring:**
-- PASS: All criteria present
-- WARN: 1-2 criteria missing
-- FAIL: 3+ criteria missing
+- A better technical approach than originally planned
+- Missing prerequisite steps
+- Stories that should be split (too large for one context)
+- Stories that can be combined (too small, tightly coupled)
+- Changed dependencies requiring reordering
+- New edge cases requiring additional acceptance criteria
 
-### Quality Check
+**DO NOT modify when:**
 
-Scan plan for:
-- ✅ File paths with line numbers: `file.py:123`
-- ✅ Specific function/class names
-- ✅ Code examples are complete (not pseudocode)
-- ✅ Success criteria are measurable
-- ❌ Vague language: "properly", "correctly", "handle", "add validation" without specifics
+- The finding is interesting but doesn't affect implementation
+- Changes would invalidate already-completed stories
+- The modification is scope creep (outside original PRD goals)
 
-**Scoring:**
-- PASS: File paths present, code complete, criteria measurable, no vague language
-- WARN: Some file paths missing or minor vagueness
-- FAIL: No file paths, pseudocode only, vague criteria
+---
 
-### Feasibility Check
+## Types of Plan Modifications
 
-Basic checks (detailed check needs subagent):
-- ✅ References to existing files/functions seem reasonable
-- ✅ No obvious impossibilities
-- ✅ Technology choices are compatible
-- ✅ Libraries mentioned are standard/available
+### 1. Modify Existing Story
 
-**Scoring:**
-- PASS: Seems feasible on surface
-- WARN: Some questionable assumptions
-- FAIL: Obvious blockers or impossibilities
+Update acceptance criteria, description, or research topics.
 
-### Scope Creep Check
-
-Requires research.md memory or brainstorm context:
-- ✅ "What We're NOT Doing" section exists
-- ✅ Features align with original brainstorm
-- ❌ New features added without justification
-- ❌ Gold-plating or over-engineering patterns
-
-**Scoring:**
-- PASS: Scope aligned with original decisions
-- WARN: Minor scope expansion, can justify
-- FAIL: Significant scope creep or gold-plating
-
-## Phase 2: Escalation (If Needed)
-
-If **any dimension scores FAIL**, spawn specialized validators:
-
-```typescript
-const failedDimensions = {
-  completeness: score === 'FAIL',
-  quality: score === 'FAIL',
-  feasibility: score === 'FAIL',
-  scope: score === 'FAIL'
+```json
+{
+  "timestamp": "2026-01-29T12:00:00Z",
+  "storyId": "US-002",
+  "action": "modified",
+  "reason": "Research found that existing badge component supports priority colors, simplifying implementation",
+  "changes": {
+    "acceptanceCriteria": {
+      "removed": ["Create new PriorityBadge component"],
+      "added": ["Reuse Badge component with priority color variant"]
+    }
+  }
 }
-
-// Spawn validators in parallel for failed dimensions
-const validations = await Promise.all([
-  ...(failedDimensions.completeness ? [Task({
-    subagent_type: "completeness-checker",
-    description: "Validate plan completeness",
-    prompt: `
-      Analyze this implementation plan for completeness.
-
-      Plan file: ${planPath}
-
-      Check for:
-      - Success criteria (automated + manual)
-      - Dependencies between phases
-      - Rollback/migration strategy
-      - Edge cases and error handling
-      - Testing strategy
-
-      Report issues and recommendations.
-    `
-  })] : []),
-
-  ...(failedDimensions.feasibility ? [Task({
-    subagent_type: "feasibility-analyzer",
-    description: "Verify plan feasibility",
-    prompt: `
-      Verify this implementation plan is feasible.
-
-      Plan file: ${planPath}
-
-      Use Serena MCP to check:
-      - All referenced files/functions exist
-      - Libraries are in dependencies
-      - Integration points match reality
-      - No technical blockers
-
-      Report what doesn't exist or doesn't match assumptions.
-    `
-  })] : []),
-
-  ...(failedDimensions.scope ? [Task({
-    subagent_type: "scope-creep-detector",
-    description: "Check scope alignment",
-    prompt: `
-      Compare plan against original brainstorm for scope creep.
-
-      Plan file: ${planPath}
-      Research/brainstorm: ${researchMemoryPath}
-
-      Check for:
-      - Features not in original scope
-      - Gold-plating or over-engineering
-      - "While we're at it" additions
-      - Violations of "What We're NOT Doing"
-
-      Report scope expansions and recommend removals.
-    `
-  })] : []),
-
-  ...(failedDimensions.quality ? [Task({
-    subagent_type: "quality-validator",
-    description: "Validate plan quality",
-    prompt: `
-      Check this implementation plan for quality issues.
-
-      Plan file: ${planPath}
-
-      Check for:
-      - Vague language vs. specific actions
-      - Missing file:line references
-      - Untestable success criteria
-      - Incomplete code examples
-
-      Report specific quality issues and improvements.
-    `
-  })] : [])
-])
 ```
 
-## Phase 3: Interactive Refinement
+### 2. Add New Story
 
-Present findings conversationally (like brainstorming skill):
+Insert a prerequisite or follow-up story.
+
+```json
+{
+  "timestamp": "2026-01-29T12:00:00Z",
+  "storyId": "US-001.5",
+  "action": "added",
+  "reason": "Research revealed need for database index on priority column for filter performance",
+  "insertAfter": "US-001"
+}
+```
+
+### 3. Split Story
+
+Break a story into smaller pieces.
+
+```json
+{
+  "timestamp": "2026-01-29T12:00:00Z",
+  "storyId": "US-003",
+  "action": "split",
+  "reason": "Story too large - separating dropdown component from save logic",
+  "splitInto": ["US-003a", "US-003b"]
+}
+```
+
+### 4. Reorder Stories
+
+Change priority/order based on new dependencies.
+
+```json
+{
+  "timestamp": "2026-01-29T12:00:00Z",
+  "storyId": "US-004",
+  "action": "reordered",
+  "reason": "URL state management needed before filter implementation",
+  "newPriority": 2,
+  "previousPriority": 4
+}
+```
+
+### 5. Remove Story
+
+Mark a story as unnecessary (cannot remove completed stories).
+
+```json
+{
+  "timestamp": "2026-01-29T12:00:00Z",
+  "storyId": "US-005",
+  "action": "removed",
+  "reason": "Research found this functionality already exists in the codebase"
+}
+```
+
+---
+
+## Plan Review Process
+
+### Step 1: Read Research Report
+
+Load the research report from `scripts/aha-loop/research/[story-id]-research.md`
+
+Focus on:
+- Implementation recommendations
+- Alternatives comparison (if recommendation differs from plan)
+- Follow-up research needs
+- Gotchas discovered
+
+### Step 2: Evaluate Impact
+
+For each finding, ask:
+
+1. **Does this affect the current story?**
+   - Update acceptance criteria if needed
+   - Add implementation notes
+
+2. **Does this affect future stories?**
+   - Check if dependencies changed
+   - Check if new prerequisites needed
+   - Check if any stories can be simplified/removed
+
+3. **Does this reveal scope issues?**
+   - Story too big? Split it.
+   - Story too small? Combine with related story.
+   - Missing stories? Add them.
+
+### Step 3: Draft Changes
+
+Before modifying `prd.json`:
+
+1. List all proposed changes
+2. Verify no completed stories are affected
+3. Ensure changes maintain logical story order
+4. Check that all stories remain achievable in one context window
+
+### Step 4: Update prd.json
+
+**Backup first** (automatic via aha-loop.sh, but verify).
+
+Apply changes to `prd.json`:
+
+```javascript
+// Example: Adding a story
+{
+  "id": "US-001.5",
+  "title": "Add database index for priority filtering",
+  "description": "As a developer, I need an index on priority column for efficient filtering.",
+  "acceptanceCriteria": [
+    "Create index on tasks.priority column",
+    "Migration runs without errors",
+    "Typecheck passes"
+  ],
+  "priority": 1.5,  // Will be normalized later
+  "passes": false,
+  "researchTopics": [],
+  "researchCompleted": true,  // No research needed for simple index
+  "learnings": "",
+  "implementationNotes": "Discovered during US-001 research that filter queries will need this index",
+  "notes": ""
+}
+```
+
+**Add to changeLog:**
+
+```javascript
+{
+  "changeLog": [
+    // ... existing entries
+    {
+      "timestamp": "2026-01-29T12:00:00Z",
+      "storyId": "US-001.5",
+      "action": "added",
+      "reason": "Research for US-001 revealed need for index to support efficient priority filtering (US-004)",
+      "researchSource": "scripts/aha-loop/research/US-001-research.md"
+    }
+  ]
+}
+```
+
+### Step 5: Normalize Priorities
+
+After modifications, ensure priorities are sequential:
+
+```javascript
+// Before: [1, 1.5, 2, 3, 4]
+// After:  [1, 2, 3, 4, 5]
+```
+
+---
+
+## Safety Rules
+
+### NEVER:
+
+- Delete or modify stories where `passes: true`
+- Add scope beyond original PRD goals
+- Create circular dependencies between stories
+- Make changes without documenting in `changeLog`
+
+### ALWAYS:
+
+- Document the reason for every change
+- Reference the research source
+- Maintain dependency order (schema → backend → UI)
+- Keep stories small enough for one context window
+
+---
+
+## Review Report Template
+
+After plan review, append to `progress.txt`:
 
 ```markdown
-I've reviewed the plan. Here's what I found:
+## Plan Review - [Date/Time]
 
-**Completeness: ${score}**
-${if issues:}
-- ${issue-1}
-- ${issue-2}
+### Research Analyzed
+- [Story ID]: [Research report path]
 
-**Quality: ${score}**
-${if issues:}
-- ${issue-1}
-- ${issue-2}
+### Changes Made
 
-**Feasibility: ${score}**
-${if issues:}
-- ${issue-1}
-- ${issue-2}
+**[Action Type]: [Story ID]**
+- Reason: [Why this change was needed]
+- Impact: [What this affects]
 
-**Scope: ${score}**
-${if issues:}
-- ${issue-1}
-- ${issue-2}
+### No Changes Made (If Applicable)
+- Research findings do not require plan modifications
+- Reason: [Why no changes needed]
 
-${if any FAIL:}
-Let's address these issues. Starting with ${most-critical-dimension}:
+### Updated Story Order
+1. US-001: [Title] ✓ (completed)
+2. US-001.5: [Title] (new)
+3. US-002: [Title]
+...
 
-Q1: ${specific-question}
-   A) ${option-1}
-   B) ${option-2}
-   C) ${option-3}
+---
 ```
 
-### Question Flow
+---
 
-Ask **one question at a time**, wait for answer, then next question.
+## Example: Complete Plan Review
 
-For each issue:
-1. Explain the problem clearly
-2. Offer 2-4 concrete options
-3. Allow "other" for custom response
-4. Apply user's decision immediately
-5. Update plan if changes agreed
-6. Move to next issue
+**Scenario:** Research for US-001 (Add priority to database) revealed:
+1. An index is needed for filter performance
+2. The existing Badge component can be reused
+3. URL state management patterns already exist in codebase
 
-### Refinement Loop
+**Changes:**
 
-After addressing all issues:
-1. Update plan file with agreed changes
-2. Re-run Phase 1 assessment
-3. If still FAIL, spawn relevant validators again
-4. Continue until all dimensions PASS or user approves WARN
+1. **Add US-001.5** - Create index on priority column
+   - Reason: Filter queries (US-004) will be slow without index
+   
+2. **Modify US-002** - Update acceptance criteria
+   - Remove: "Create PriorityBadge component"
+   - Add: "Reuse Badge component with 'priority' variant prop"
+   
+3. **Modify US-004** - Add implementation note
+   - Note: "Use existing useUrlState hook from src/hooks/"
 
-### Approval
+**No reordering needed** - dependencies unchanged.
 
-When all dimensions PASS or user accepts WARN:
+---
 
-```markdown
-Plan review complete! ✅
+## Checklist
 
-**Final Scores:**
-- Completeness: PASS
-- Quality: PASS
-- Feasibility: PASS
-- Scope: PASS
+Before completing plan review:
 
-The plan is ready for execution.
-```
-
-If user approved with WARN:
-
-```markdown
-Plan review complete with warnings.
-
-**Final Scores:**
-- Completeness: PASS
-- Quality: WARN (minor file path gaps)
-- Feasibility: PASS
-- Scope: PASS
-
-Warnings acknowledged. Proceeding with execution.
-```
-
-## Plan Updates
-
-When making changes based on review:
-
-1. Read current plan file
-2. Apply specific edits using Edit tool
-3. Preserve structure and formatting
-4. Update only sections with issues
-5. Verify changes with re-read
-
-Don't rewrite entire plan - use targeted edits.
-
-## Exit Conditions
-
-**Success:** All PASS or user approves WARN
-**Abort:** User requests to skip review and execute anyway
-**Restart:** User requests major redesign (back to brainstorm)
-
-## Example Session
-
-```markdown
-I've reviewed the plan. Here's what I found:
-
-**Completeness: ⚠️ WARN**
-- Phase 2 lacks automated success criteria
-
-**Quality: ✅ PASS**
-
-**Feasibility: ❌ FAIL**
-- Plan assumes `src/auth/handler.py` exists - NOT FOUND
-
-**Scope: ❌ FAIL**
-- Plan includes "admin dashboard" but brainstorm only mentioned "user dashboard"
-
-Let's address these issues. Starting with scope:
-
-Q1: The plan includes an admin dashboard, but your brainstorm only mentioned a user dashboard. Should we:
-   A) Remove admin dashboard (stick to original scope)
-   B) Keep it (intentional expansion)
-   C) Split admin dashboard into separate plan
-
-User: A
-
-Got it. I'll remove the admin dashboard from the plan.
-
-[Updates plan, removes admin dashboard task]
-
-Next, feasibility:
-
-Q2: The plan references `src/auth/handler.py` but this file doesn't exist. I found `src/security/auth.py:45` with similar functionality. Should we:
-   A) Create new `src/auth/handler.py` as planned
-   B) Use existing `src/security/auth.py` instead
-   C) Rename existing file to match plan
-
-User: B
-
-Makes sense. I'll update the plan to use `src/security/auth.py`.
-
-[Updates plan with correct file paths]
-
-Finally, completeness:
-
-Q3: Phase 2 doesn't have automated success criteria. Should we add:
-   A) `make test-auth` command to verify
-   B) Specific pytest command
-   C) Manual testing steps only
-
-User: A
-
-Perfect. I'll add `make test-auth` verification to Phase 2.
-
-[Updates plan with verification command]
-
-Re-checking plan with fixes...
-
-**Final Scores:**
-- Completeness: ✅ PASS
-- Quality: ✅ PASS
-- Feasibility: ✅ PASS
-- Scope: ✅ PASS
-
-Plan review complete! The plan is ready for execution.
-```
+- [ ] Research report fully analyzed
+- [ ] All impacted stories identified
+- [ ] No completed stories modified
+- [ ] Changes documented in `changeLog`
+- [ ] Priorities normalized
+- [ ] Dependencies still valid
+- [ ] All stories achievable in one context window
+- [ ] Review summary added to `progress.txt`

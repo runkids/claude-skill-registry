@@ -1,12 +1,7 @@
 {
   "name": "parallel-explore",
-  "description": "Launch four Explore agents in parallel to simultaneously investigate multiple areas of a codebase. Use this skill when multiple independent exploration tasks need to be performed concurrently, such as",
-  "repo": "oikon48/cc-web-playground",
-  "category": "development",
-  "tags": [
-    "parallel",
-    "explore"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "YougLin-dev/Aha-Loop",
+  "path": ".agents/skills/parallel-explore/SKILL.md",
+  "source": "github.com/YougLin-dev/Aha-Loop",
+  "downloaded_at": "2026-02-02T04:01:05.264942Z"
 }

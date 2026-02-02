@@ -149,7 +149,7 @@ Server is currently disabled. Enable with: 'enable postgres-local'"
 
 ## Tool Invocation
 
-All commands execute from `~/.amplihack/.claude/scenarios/` directory:
+All commands execute from `.claude/scenarios/` directory:
 
 ```bash
 cd .claude/scenarios && python3 -m mcp-manager.cli <command> [args]
@@ -184,7 +184,7 @@ cd .claude/scenarios && python3 -m mcp-manager.cli <command> [args]
 5. **Malformed settings.json**: Validate JSON, offer backup restore
 6. **Invalid Command**: Show common command patterns
 
-For detailed error scenarios and troubleshooting, see `~/.amplihack/.claude/scenarios/mcp-manager/README.md`
+For detailed error scenarios and troubleshooting, see `.claude/scenarios/mcp-manager/README.md`
 
 ## Best Practices
 
@@ -196,10 +196,10 @@ For detailed error scenarios and troubleshooting, see `~/.amplihack/.claude/scen
 
 ## See Also
 
-- Full documentation: `~/.amplihack/.claude/scenarios/mcp-manager/README.md`
-- Tool creation guide: `~/.amplihack/.claude/scenarios/mcp-manager/HOW_TO_CREATE_YOUR_OWN.md`
+- Full documentation: `.claude/scenarios/mcp-manager/README.md`
+- Tool creation guide: `.claude/scenarios/mcp-manager/HOW_TO_CREATE_YOUR_OWN.md`
 - MCP Protocol: https://modelcontextprotocol.io/
-- Claude Code Settings: `~/.amplihack/.claude/settings.json`
+- Claude Code Settings: `.claude/settings.json`
 
 ---
 

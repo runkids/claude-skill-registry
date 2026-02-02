@@ -1,7 +1,7 @@
 {
   "name": "cross-chain",
-  "repo": "omer-metin/skills-for-antigravity",
-  "path": "skills/cross-chain/SKILL.md",
-  "source": "github.com/omer-metin/skills-for-antigravity",
-  "downloaded_at": "2026-02-01T03:32:25.174646Z"
+  "repo": "a5c-ai/babysitter",
+  "path": "plugins/babysitter/skills/babysit/process/specializations/cryptography-blockchain/skills/cross-chain/SKILL.md",
+  "source": "github.com/a5c-ai/babysitter",
+  "downloaded_at": "2026-02-02T04:47:53.228399Z"
 }

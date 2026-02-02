@@ -1,263 +1,570 @@
 ---
-name: server-components
-description: This skill should be used when the user asks about "Server Components", "Client Components", "'use client' directive", "when to use server vs client", "RSC patterns", "component composition", "data fetching in components", or needs guidance on React Server Components architecture in Next.js.
-version: 1.0.0
+name: Server Components Pattern
+description: Pattern Server-First avec Next.js 16 pour data fetching optimal. MANDATORY pour toutes les pages et widgets. À utiliser lors de la création de composants, pages, ou quand l'utilisateur mentionne "fetch", "data loading", "SSR", "server component".
+allowed-tools: [Read, Write, Edit, Glob, Grep]
 ---
 
-# React Server Components in Next.js
+# Server Components Pattern (Next.js 16)
 
-## Overview
+## 🎯 Mission
 
-React Server Components (RSC) allow components to render on the server, reducing client-side JavaScript and enabling direct data access. In Next.js App Router, all components are Server Components by default.
+Implémenter le pattern **Server-First** avec Next.js 16 pour un data fetching optimal, meilleur SEO, et moins de JavaScript client.
 
-## Server vs Client Components
+## 🌟 Philosophie Server-First
 
-### Server Components (Default)
+**Depuis Next.js 16, tous les composants sont Server Components par défaut.**
 
-Server Components run only on the server:
+### Pourquoi Server-First ?
 
-```tsx
-// app/users/page.tsx (Server Component - default)
-async function UsersPage() {
-  const users = await db.user.findMany() // Direct DB access
+- ✅ **SEO optimal** : Contenu pré-rendu côté serveur
+- ✅ **Performance** : Moins de JavaScript client
+- ✅ **Data fetching** : Accès direct à la base de données/APIs
+- ✅ **Security** : Clés API, secrets restent côté serveur
+- ✅ **UX** : Streaming progressif avec Suspense
 
-  return (
-    <ul>
-      {users.map(user => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-**Benefits:**
-- Direct database/filesystem access
-- Keep sensitive data on server (API keys, tokens)
-- Reduce client bundle size
-- Automatic code splitting
-
-### Client Components
-
-Add `'use client'` directive for interactivity:
-
-```tsx
-// components/counter.tsx
-'use client'
-
-import { useState } from 'react'
-
-export function Counter() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  )
-}
-```
-
-**Use Client Components for:**
-- `useState`, `useEffect`, `useReducer`
-- Event handlers (`onClick`, `onChange`)
-- Browser APIs (`window`, `document`)
-- Custom hooks with state
-
-## The Mental Model
-
-Think of the component tree as having a "client boundary":
+## 📋 Decision Tree: Server vs Client Component
 
 ```
-Server Component (page.tsx)
-├── Server Component (header.tsx)
-├── Client Component ('use client') ← boundary
-│   ├── Client Component (child)
-│   └── Client Component (child)
-└── Server Component (footer.tsx)
+┌─────────────────────────────────────┐
+│  Besoin d'interactivité ?          │
+│  (onClick, onChange, useState, etc.)│
+└────────────┬────────────────────────┘
+             │
+      ┌──────┴──────┐
+      │             │
+     NON           OUI
+      │             │
+      ▼             ▼
+┌───────────┐  ┌────────────────┐
+│  SERVER   │  │  CLIENT        │
+│ COMPONENT │  │ COMPONENT      │
+│           │  │ "use client"   │
+└───────────┘  └────────────────┘
 ```
 
-**Key rules:**
-1. Server Components can import Client Components
-2. Client Components cannot import Server Components
-3. You can pass Server Components as `children` to Client Components
+### Server Components (par défaut)
 
-## Composition Patterns
+**Quand utiliser** :
+- Pages, layouts, templates
+- Widgets qui affichent des données
+- Composants sans interactivité
+- Tout ce qui n'a PAS besoin de JavaScript client
 
-### Pattern 1: Server Data → Client Interactivity
+**Exemple** :
+```typescript
+// app/(dashboard)/coach/page.tsx
+// Server Component (par défaut, pas de "use client")
 
-Fetch data in Server Component, pass to Client:
+import { getUser } from "@/lib/auth";
+import { getTeams } from "@/features/teams/api/teams.server";
 
-```tsx
-// app/products/page.tsx (Server)
-import { ProductList } from './product-list'
-
-export default async function ProductsPage() {
-  const products = await getProducts()
-  return <ProductList products={products} />
-}
-
-// app/products/product-list.tsx (Client)
-'use client'
-
-export function ProductList({ products }: { products: Product[] }) {
-  const [filter, setFilter] = useState('')
-
-  const filtered = products.filter(p =>
-    p.name.includes(filter)
-  )
-
-  return (
-    <>
-      <input onChange={e => setFilter(e.target.value)} />
-      {filtered.map(p => <ProductCard key={p.id} product={p} />)}
-    </>
-  )
-}
-```
-
-### Pattern 2: Children as Server Components
-
-Pass Server Components through children prop:
-
-```tsx
-// components/client-wrapper.tsx
-'use client'
-
-export function ClientWrapper({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false)
+export default async function CoachDashboardPage() {
+  const user = await getUser(); // ✅ Fetch server-side
+  const teams = await getTeams(); // ✅ Fetch server-side
 
   return (
     <div>
-      <button onClick={() => setIsOpen(!isOpen)}>Toggle</button>
-      {isOpen && children} {/* Server Component content */}
+      <h1>Bienvenue, {user.firstName}</h1>
+      <TeamsList teams={teams} />
     </div>
-  )
-}
-
-// app/page.tsx (Server)
-import { ClientWrapper } from '@/components/client-wrapper'
-import { ServerContent } from '@/components/server-content'
-
-export default function Page() {
-  return (
-    <ClientWrapper>
-      <ServerContent /> {/* Renders on server! */}
-    </ClientWrapper>
-  )
+  );
 }
 ```
 
-### Pattern 3: Slots for Complex Layouts
+### Client Components (uniquement si nécessaire)
 
-Use multiple children slots:
+**Quand utiliser** :
+- Interactivité (onClick, onChange, onSubmit)
+- Hooks React (useState, useEffect, useContext)
+- Stores Zustand
+- Browser APIs (localStorage, window, etc.)
+- useOptimistic, useTransition
 
-```tsx
-// components/dashboard-shell.tsx
-'use client'
+**Exemple** :
+```typescript
+// features/teams/components/TeamForm.tsx
+"use client"; // ✅ Requis pour Client Component
 
-interface Props {
-  sidebar: React.ReactNode
-  main: React.ReactNode
-}
+import { useState, useTransition } from "react";
+import { createTeamAction } from "../actions/create-team.action";
 
-export function DashboardShell({ sidebar, main }: Props) {
-  const [collapsed, setCollapsed] = useState(false)
+export function TeamForm() {
+  const [name, setName] = useState("");
+  const [isPending, startTransition] = useTransition();
 
-  return (
-    <div className="flex">
-      {!collapsed && <aside>{sidebar}</aside>}
-      <main>{main}</main>
-    </div>
-  )
-}
-```
-
-## Data Fetching
-
-### Async Server Components
-
-Server Components can be async:
-
-```tsx
-// app/posts/page.tsx
-export default async function PostsPage() {
-  const posts = await fetch('https://api.example.com/posts')
-    .then(res => res.json())
+  const handleSubmit = () => {
+    startTransition(async () => {
+      await createTeamAction({ name });
+    });
+  };
 
   return (
-    <ul>
-      {posts.map(post => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
-  )
+    <form onSubmit={handleSubmit}>
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button disabled={isPending}>
+        {isPending ? "Création..." : "Créer"}
+      </button>
+    </form>
+  );
 }
 ```
 
-### Parallel Data Fetching
+## 🏗️ Architecture Server-First
 
-Fetch multiple resources in parallel:
+### Structure des fichiers
 
-```tsx
-export default async function DashboardPage() {
-  const [user, posts, analytics] = await Promise.all([
-    getUser(),
-    getPosts(),
-    getAnalytics(),
-  ])
+```
+features/
+└── teams/
+    ├── api/
+    │   └── teams.server.ts          # ✅ API server-side
+    ├── actions/
+    │   └── create-team.action.ts    # ✅ Server Actions (mutations)
+    ├── components/
+    │   ├── TeamsList.tsx            # ✅ Server Component (fetch)
+    │   ├── TeamCard.tsx             # ✅ Server Component (présentation)
+    │   └── TeamForm.tsx             # ✅ Client Component (interactivité)
+    └── hooks/
+        └── useTeamForm.ts           # ✅ Custom hook (client-side logic)
 
-  return (
-    <Dashboard user={user} posts={posts} analytics={analytics} />
-  )
+app/
+└── (dashboard)/
+    └── teams/
+        └── page.tsx                 # ✅ Server Component (async)
+```
+
+### Template: API Server (*.server.ts)
+
+```typescript
+// features/teams/api/teams.server.ts
+
+import { serverFetch } from "@/lib/server-fetch";
+import type { Team } from "@/types";
+
+/**
+ * Server-side API for Teams
+ *
+ * Functions to fetch team data from Server Components
+ * Uses serverFetch with httpOnly cookies for auth
+ */
+
+export async function getTeams(): Promise<Team[]> {
+  const teams = await serverFetch<Team[]>("/teams", {
+    cache: "no-store", // ou "force-cache" pour caching
+  });
+
+  return teams || [];
+}
+
+export async function getTeam(teamId: string): Promise<Team | null> {
+  const team = await serverFetch<Team>(`/teams/${teamId}`, {
+    cache: "no-store",
+  });
+
+  return team;
 }
 ```
 
-### Streaming with Suspense
+### Template: Server Component Page
 
-Stream slow components:
+```typescript
+// app/(dashboard)/teams/page.tsx
 
-```tsx
-import { Suspense } from 'react'
+import { Suspense } from "react";
+import { getTeams } from "@/features/teams/api/teams.server";
+import { TeamsList } from "@/features/teams/components/TeamsList";
+import { TeamsListSkeleton } from "@/features/teams/components/TeamsListSkeleton";
 
-export default function Page() {
+/**
+ * Teams Page - Server Component
+ *
+ * Pattern: Server Component with Suspense streaming
+ */
+export default async function TeamsPage() {
   return (
-    <div>
-      <Header /> {/* Renders immediately */}
-      <Suspense fallback={<PostsSkeleton />}>
-        <SlowPosts /> {/* Streams when ready */}
+    <div className="container py-8">
+      <h1 className="text-3xl font-bold mb-6">Mes Équipes</h1>
+
+      <Suspense fallback={<TeamsListSkeleton />}>
+        <TeamsList />
       </Suspense>
     </div>
-  )
+  );
 }
 ```
 
-## Decision Guide
+### Template: Server Component Widget
 
-**Use Server Component when:**
-- Fetching data
-- Accessing backend resources
-- Keeping sensitive info on server
-- Reducing client JavaScript
-- Component has no interactivity
+```typescript
+// features/teams/components/TeamsList.tsx
 
-**Use Client Component when:**
-- Using state (`useState`, `useReducer`)
-- Using effects (`useEffect`)
-- Using event listeners
-- Using browser APIs
-- Using custom hooks with state
+import { getTeams } from "../api/teams.server";
+import { TeamCard } from "./TeamCard";
 
-## Common Mistakes
+/**
+ * TeamsList - Server Component
+ *
+ * Fetch teams server-side and display
+ * No client-side JavaScript for data fetching
+ */
+export async function TeamsList() {
+  const teams = await getTeams(); // ✅ Fetch server-side
 
-1. **Don't** add `'use client'` unnecessarily - it increases bundle size
-2. **Don't** try to import Server Components into Client Components
-3. **Do** serialize data at boundaries (no functions, classes, or dates)
-4. **Do** use the children pattern for composition
+  if (teams.length === 0) {
+    return <EmptyTeamsList />;
+  }
 
-## Resources
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {teams.map(team => (
+        <TeamCard key={team.id} team={team} />
+      ))}
+    </div>
+  );
+}
+```
 
-For detailed patterns, see:
-- `references/server-vs-client.md` - Complete comparison guide
-- `references/composition-patterns.md` - Advanced composition
-- `examples/data-fetching-patterns.md` - Data fetching examples
+### Template: Client Component (si interactivité)
+
+```typescript
+// features/teams/components/TeamCard.tsx
+"use client";
+
+import { useTransition } from "react";
+import { deleteTeamAction } from "../actions/delete-team.action";
+
+interface TeamCardProps {
+  team: Team;
+}
+
+export function TeamCard({ team }: TeamCardProps) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleDelete = () => {
+    startTransition(async () => {
+      await deleteTeamAction(team.id);
+    });
+  };
+
+  return (
+    <Card>
+      <h3>{team.name}</h3>
+      <Button onClick={handleDelete} disabled={isPending}>
+        {isPending ? "Suppression..." : "Supprimer"}
+      </Button>
+    </Card>
+  );
+}
+```
+
+## 🔄 Pattern de Composition
+
+### Server Component parent → Client Components enfants
+
+**Règle d'or** : Fetch server-side, pass props aux Client Components
+
+```typescript
+// ✅ BON - Server Component parent
+export async function TeamsDashboard() {
+  const teams = await getTeams(); // Server-side fetch
+
+  return (
+    <div>
+      <TeamsHeader /> {/* Server Component */}
+      <TeamsList teams={teams} /> {/* Client Component si interactivité */}
+    </div>
+  );
+}
+
+// Client Component enfant
+"use client";
+export function TeamsList({ teams }: { teams: Team[] }) {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  return (
+    <div>
+      {teams.map(team => (
+        <div
+          key={team.id}
+          onClick={() => setSelected(team.id)}
+          className={selected === team.id ? "selected" : ""}
+        >
+          {team.name}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### ❌ ANTI-PATTERN: Client Component avec useEffect pour fetch
+
+```typescript
+// ❌ MAUVAIS - Client Component avec useEffect
+"use client";
+
+export function TeamsList() {
+  const [teams, setTeams] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadTeams() {
+      const data = await fetchTeams(); // ❌ Fetch client-side
+      setTeams(data);
+      setIsLoading(false);
+    }
+    void loadTeams();
+  }, []); // ❌ useEffect pour fetch initial = ANTI-PATTERN
+
+  if (isLoading) return <Skeleton />;
+
+  return <div>{teams.map(...)}</div>;
+}
+
+// ✅ BON - Server Component
+export async function TeamsList() {
+  const teams = await getTeams(); // ✅ Fetch server-side
+
+  return <div>{teams.map(...)}</div>;
+}
+```
+
+## 🌊 Suspense & Streaming
+
+### Pattern avec Suspense
+
+```typescript
+// app/(dashboard)/teams/page.tsx
+
+export default async function TeamsPage() {
+  return (
+    <div>
+      {/* Section 1 - Streams independently */}
+      <Suspense fallback={<TeamStatsSkeleton />}>
+        <TeamStats />
+      </Suspense>
+
+      {/* Section 2 - Streams independently */}
+      <Suspense fallback={<TeamsListSkeleton />}>
+        <TeamsList />
+      </Suspense>
+    </div>
+  );
+}
+
+// Chaque composant fetch ses données
+async function TeamStats() {
+  const stats = await getTeamStats(); // Fetch 1
+  return <div>{stats.total} équipes</div>;
+}
+
+async function TeamsList() {
+  const teams = await getTeams(); // Fetch 2 (en parallèle)
+  return <div>{teams.map(...)}</div>;
+}
+```
+
+**Avantages** :
+- ✅ Parallel fetching (TeamStats et TeamsList en parallèle)
+- ✅ Progressive rendering (TeamStats peut s'afficher avant TeamsList)
+- ✅ Meilleure perceived performance
+
+## 🔐 Auth Server-Side
+
+### Fonction getUser()
+
+```typescript
+// lib/auth.ts
+
+import { serverFetch } from "./server-fetch";
+import type { User } from "@/types";
+
+export async function getUser(): Promise<User | null> {
+  const user = await serverFetch<User>("/auth/profile", {
+    requireAuth: true,
+    cache: "no-store",
+  });
+
+  return user;
+}
+
+export async function requireAuth(): Promise<User> {
+  const user = await getUser();
+
+  if (!user) {
+    throw new Error("Unauthorized");
+  }
+
+  return user;
+}
+```
+
+### Usage dans une page
+
+```typescript
+// app/(dashboard)/profile/page.tsx
+
+import { requireAuth } from "@/lib/auth";
+
+export default async function ProfilePage() {
+  const user = await requireAuth(); // ✅ Fetch user server-side
+
+  return (
+    <div>
+      <h1>Profil de {user.firstName}</h1>
+      <ProfileForm user={user} />
+    </div>
+  );
+}
+```
+
+## 📊 Caching Strategy
+
+### cache: "no-store" (default)
+
+```typescript
+export async function getTeams(): Promise<Team[]> {
+  const teams = await serverFetch<Team[]>("/teams", {
+    cache: "no-store", // ✅ Toujours fresh (dashboard, etc.)
+  });
+
+  return teams || [];
+}
+```
+
+### cache: "force-cache"
+
+```typescript
+export async function getPublicStats(): Promise<Stats> {
+  const stats = await serverFetch<Stats>("/stats/public", {
+    cache: "force-cache", // ✅ Cache agressif (données statiques)
+  });
+
+  return stats;
+}
+```
+
+### revalidate
+
+```typescript
+export async function getNews(): Promise<News[]> {
+  const news = await serverFetch<News[]>("/news", {
+    next: { revalidate: 60 }, // ✅ Revalidate toutes les 60s
+  });
+
+  return news || [];
+}
+```
+
+## ✅ Checklist Server-First
+
+### Avant de créer un composant
+
+- [ ] Ai-je besoin d'interactivité ? (onClick, onChange, etc.)
+- [ ] Ai-je besoin de hooks React ? (useState, useEffect, etc.)
+- [ ] Ai-je besoin de Browser APIs ? (localStorage, window, etc.)
+
+**Si OUI à l'une** → Client Component (`"use client"`)
+**Si NON à toutes** → Server Component (par défaut)
+
+### Pour les pages
+
+- [ ] Page est un Server Component (async)
+- [ ] Data fetching server-side (await getTeams())
+- [ ] Suspense pour le streaming
+- [ ] Skeletons pour les fallbacks
+- [ ] Client Components seulement pour l'interactivité
+
+### Pour les APIs
+
+- [ ] Fichier `*.server.ts` pour APIs server-side
+- [ ] Utilise `serverFetch` avec cookies
+- [ ] Gestion d'erreur appropriée
+- [ ] Caching strategy définie
+
+## 🚨 Erreurs Courantes
+
+### 1. useEffect pour fetch initial
+
+```typescript
+// ❌ MAUVAIS
+"use client";
+useEffect(() => {
+  fetchData().then(setData);
+}, []);
+
+// ✅ BON
+export async function Component() {
+  const data = await getData();
+  return <div>{data}</div>;
+}
+```
+
+### 2. "use client" partout
+
+```typescript
+// ❌ MAUVAIS - Tout en Client Component
+"use client";
+export function Page() {
+  return <TeamsList />;
+}
+
+"use client";
+export function TeamsList() {
+  const teams = useTeams(); // Custom hook qui fait fetch
+  return <div>{teams.map(...)}</div>;
+}
+
+// ✅ BON - Server Component + Client si besoin
+export async function Page() {
+  const teams = await getTeams();
+  return <TeamsList teams={teams} />;
+}
+
+// Client seulement si interactivité
+"use client";
+export function TeamsList({ teams }: Props) {
+  const [selected, setSelected] = useState(null);
+  return <div>{teams.map(...)}</div>;
+}
+```
+
+### 3. Props non-sérialisables
+
+```typescript
+// ❌ MAUVAIS - Fonction passée de Server à Client
+export async function ServerComp() {
+  const handleClick = () => console.log("click");
+
+  return <ClientComp onClick={handleClick} />; // ❌ ERROR
+}
+
+// ✅ BON - Server Action
+export async function ServerComp() {
+  return <ClientComp />;
+}
+
+// Client Component définit son propre handler
+"use client";
+export function ClientComp() {
+  const handleClick = async () => {
+    await someAction(); // Server Action
+  };
+
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+## 📚 Skills Complémentaires
+
+- **suspense-streaming** : Suspense et Streaming patterns
+- **server-actions** : Server Actions pour mutations
+- **atomic-component** : Décomposition et composition
+- **react-state-management** : State client (Zustand)
+
+---
+
+**Rappel CRITIQUE** : **Server Components par défaut, Client Components seulement si nécessaire**. Le fetch initial des données se fait TOUJOURS côté serveur, jamais avec useEffect.

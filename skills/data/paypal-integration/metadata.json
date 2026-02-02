@@ -1,7 +1,7 @@
 {
   "name": "paypal-integration",
-  "repo": "wshobson/agents",
-  "path": "plugins/payment-processing/skills/paypal-integration/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-02-01T04:51:50.199413Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/payment-processing/skills/paypal-integration/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-02-02T04:39:38.833711Z"
 }

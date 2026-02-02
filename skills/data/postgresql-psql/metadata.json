@@ -1,7 +1,7 @@
 {
   "name": "postgresql-psql",
-  "repo": "nodays-off/rack-reserve",
-  "path": ".claude/skills/databases/postgresql-psql/SKILL.md",
-  "source": "github.com/nodays-off/rack-reserve",
-  "downloaded_at": "2026-02-01T04:24:41.114221Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/skills/postgresql-psql/SKILL.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-02-02T04:59:19.765765Z"
 }

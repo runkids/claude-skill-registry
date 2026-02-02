@@ -1,9 +1,7 @@
 {
   "name": "gemini-deep-research",
-  "description": "Build Gemini Deep Research agents using the Interactions API. Use when creating autonomous research agents, implementing multi-step information gathering, building research report generators, or integ",
-  "repo": "hiapplyco/claude-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "uuta/dotfiles",
+  "path": "skills/gemini-deep-research/SKILL.md",
+  "source": "github.com/uuta/dotfiles",
+  "downloaded_at": "2026-02-02T05:05:28.039991Z"
 }

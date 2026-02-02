@@ -1,335 +1,435 @@
 ---
-name: react-expert
-description: Use when researching React APIs or concepts for documentation. Use when you need authoritative usage examples, caveats, warnings, or errors for a React feature.
+name: react-tailwind-expert
+description: Senior-level React and Tailwind CSS development expert with 10+ years experience. Automatically audits, generates, and optimizes React applications with focus on hooks, Context API, performance, security, and modern Tailwind styling. Use for React component generation using TypeScript, hook optimization, security audits, responsive design implementation, animation, Context API patterns, performance optimization, and project structure analysis. Ensures clean code, prevents backend data exposure, and follows senior-level best practices.
 ---
 
-# React Expert Research Skill
+# React + Tailwind CSS Expert
 
-## Overview
+Senior-level development assistant specializing in React using TypeScript and hooks, Context API, performance optimization, and modern Tailwind CSS styling with animations and responsiveness.
 
-This skill produces exhaustive documentation research on any React API or concept by searching authoritative sources (tests, source code, PRs, issues) rather than relying on LLM training knowledge.
+## Core Capabilities
 
-<CRITICAL>
-**Skepticism Mandate:** You must be skeptical of your own knowledge. Claude is often trained on outdated or incorrect React patterns. Treat source material as the sole authority. If findings contradict your prior understanding, explicitly flag this discrepancy.
+**React Development**
+- All hooks: useState, useEffect, useContext, useReducer, useMemo, useCallback, useRef, custom hooks(using TypeScript)
+- Performance optimization patterns and anti-patterns
+- Context API implementation and composition
+- Reusable component architecture
+- Security: prevent backend data exposure in console/frontend (using TypeScript)
 
-**Red Flags - STOP if you catch yourself thinking:**
-- "I know this API does X" → Find source evidence first
-- "Common pattern is Y" → Verify in test files
-- Generating example code → Must have source file reference
-</CRITICAL>
+**Tailwind CSS Mastery**
+- Modern, animated, responsive designs (mobile-first)
+- Custom utilities and configuration
+- Component variants and reusable patterns
+- Dark mode implementation
+- Accessibility standards (WCAG 2.1 AA)
 
-## Invocation
+**Security & Clean Code**(using TypeScript)
+- No sensitive data in console.log or frontend code
+- SQL injection prevention in API calls
+- XSS protection and input validation
+- Clean code principles and naming conventions
+- TypeScript best practices
 
-```
-/react-expert useTransition
-/react-expert suspense boundaries
-/react-expert startTransition
-```
+## Workflow: Auto-Scan on Trigger
 
-## Sources (Priority Order)
+When triggered, automatically execute this sequence:
 
-1. **React Repo Tests** - Most authoritative for actual behavior
-2. **React Source Code** - Warnings, errors, implementation details
-3. **Git History** - Commit messages with context
-4. **GitHub PRs & Comments** - Design rationale (via `gh` CLI)
-5. **GitHub Issues** - Confusion/questions (facebook/react + reactjs/react.dev)
-6. **React Working Group** - Design discussions for newer APIs
-7. **Flow Types** - Source of truth for type signatures
-8. **TypeScript Types** - Note discrepancies with Flow
-9. **Current react.dev docs** - Baseline (not trusted as complete)
-
-**No web search** - No Stack Overflow, blog posts, or web searches. GitHub API via `gh` CLI is allowed.
-
-## Workflow
-
-### Step 1: Setup React Repo
-
-First, ensure the React repo is available locally:
-
+### 1. Project Structure Analysis
 ```bash
-# Check if React repo exists, clone or update
-if [ -d ".claude/react" ]; then
-  cd .claude/react && git pull origin main
-else
-  git clone --depth=100 https://github.com/facebook/react.git .claude/react
-fi
+# Scan project structure
+view package.json
+view tsconfig.json
+view tailwind.config.js
+view src/
+
+# Check for common directories
+view src/components/
+view src/hooks/
+view src/contexts/
+view src/utils/
 ```
 
-Get the current commit hash for the research document:
-```bash
-cd .claude/react && git rev-parse --short HEAD
-```
+### 2. Dependency Verification
+Check package.json for:
+- React: ≥18.0.0 Always check for updates
+- TypeScript: ≥5.0.0 Always check for updates
+- Tailwind CSS: ≥3.0.0 Always check for updates
+- React DOM: ≥18.0.0 Always check for updates
 
-### Step 2: Dispatch 6 Parallel Research Agents
+Recommend upgrades if outdated.
 
-Spawn these agents IN PARALLEL using the Task tool. Each agent receives the skepticism preamble:
+### 3. Security Audit
+Scan for:
+- console.log() with sensitive data
+- Hardcoded API keys or secrets
+- Backend data structures exposed to frontend
+- Missing input validation
+- Unsafe dangerouslySetInnerHTML usage
+- API calls with sensitive data in URLs
 
-> "You are researching React's `<TOPIC>`. CRITICAL: Do NOT rely on your prior knowledge about this API. Your training may contain outdated or incorrect patterns. Only report what you find in the source files. If your findings contradict common understanding, explicitly highlight this discrepancy."
+### 4. Hook Usage Audit
+Identify:
+- Missing dependencies in useEffect
+- Unnecessary re-renders (missing memo, useMemo, useCallback)
+- useState for derived state (should use useMemo)
+- Complex state (should use useReducer)
+- Stale closures
+- Hook rules violations
 
-| Agent | subagent_type | Focus | Instructions |
-|-------|---------------|-------|--------------|
-| test-explorer | Explore | Test files for usage patterns | Search `.claude/react/packages/*/src/__tests__/` for test files mentioning the topic. Extract actual usage examples WITH file paths and line numbers. |
-| source-explorer | Explore | Warnings/errors in source | Search `.claude/react/packages/*/src/` for console.error, console.warn, and error messages mentioning the topic. Document trigger conditions. |
-| git-historian | Explore | Commit messages | Run `git log --all --grep="<topic>" --oneline -50` in `.claude/react`. Read full commit messages for context. |
-| pr-researcher | Explore | PRs introducing/modifying API | Run `gh pr list -R facebook/react --search "<topic>" --state all --limit 20`. Read key PR descriptions and comments. |
-| issue-hunter | Explore | Issues showing confusion | Search issues in both `facebook/react` and `reactjs/react.dev` repos. Look for common questions and misunderstandings. |
-| types-inspector | Explore | Flow + TypeScript signatures | Find Flow types in `.claude/react/packages/*/src/*.js` (look for `@flow` annotations). Find TS types in `.claude/react/packages/*/index.d.ts`. Note discrepancies. |
+### 5. Performance Check
+Look for:
+- Components without React.memo where needed
+- Expensive calculations without useMemo
+- Callback functions without useCallback
+- Large lists without virtualization
+- Missing code splitting
+- Unoptimized images
 
-### Step 3: Agent Prompts
+### 6. Tailwind Audit
+Check for:
+- Inline styles (should use Tailwind)
+- Inconsistent spacing/sizing
+- Missing responsive classes
+- Non-mobile-first approach
+- Accessibility issues (color contrast, focus states)
 
-Use these exact prompts when spawning agents:
+## Code Generation Standards
 
-#### test-explorer
-```
-You are researching React's <TOPIC>.
-
-CRITICAL: Do NOT rely on your prior knowledge about this API. Your training may contain outdated or incorrect patterns. Only report what you find in the source files.
-
-Your task: Find test files in .claude/react that demonstrate <TOPIC> usage.
-
-1. Search for test files: Glob for `**/__tests__/**/*<topic>*` and `**/__tests__/**/*.js` then grep for <topic>
-2. For each relevant test file, extract:
-   - The test description (describe/it blocks)
-   - The actual usage code
-   - Any assertions about behavior
-   - Edge cases being tested
-3. Report findings with exact file paths and line numbers
-
-Format your output as:
-## Test File: <path>
-### Test: "<test description>"
-```javascript
-<exact code from test>
-```
-**Behavior:** <what the test asserts>
-```
-
-#### source-explorer
-```
-You are researching React's <TOPIC>.
-
-CRITICAL: Do NOT rely on your prior knowledge about this API. Only report what you find in the source files.
-
-Your task: Find warnings, errors, and implementation details for <TOPIC>.
-
-1. Search .claude/react/packages/*/src/ for:
-   - console.error mentions of <topic>
-   - console.warn mentions of <topic>
-   - Error messages mentioning <topic>
-   - The main implementation file
-2. For each warning/error, document:
-   - The exact message text
-   - The condition that triggers it
-   - The source file and line number
-
-Format your output as:
-## Warnings & Errors
-| Message | Trigger Condition | Source |
-|---------|------------------|--------|
-| "<exact message>" | <condition> | <file:line> |
-
-## Implementation Notes
-<key details from source code>
-```
-
-#### git-historian
-```
-You are researching React's <TOPIC>.
-
-CRITICAL: Do NOT rely on your prior knowledge. Only report what you find in git history.
-
-Your task: Find commit messages that explain <TOPIC> design decisions.
-
-1. Run: cd .claude/react && git log --all --grep="<topic>" --oneline -50
-2. For significant commits, read full message: git show <hash> --stat
-3. Look for:
-   - Initial introduction of the API
-   - Bug fixes (reveal edge cases)
-   - Behavior changes
-   - Deprecation notices
-
-Format your output as:
-## Key Commits
-### <short hash> - <subject>
-**Date:** <date>
-**Context:** <why this change was made>
-**Impact:** <what behavior changed>
-```
-
-#### pr-researcher
-```
-You are researching React's <TOPIC>.
-
-CRITICAL: Do NOT rely on your prior knowledge. Only report what you find in PRs.
-
-Your task: Find PRs that introduced or modified <TOPIC>.
-
-1. Run: gh pr list -R facebook/react --search "<topic>" --state all --limit 20 --json number,title,url
-2. For promising PRs, read details: gh pr view <number> -R facebook/react
-3. Look for:
-   - The original RFC/motivation
-   - Design discussions in comments
-   - Alternative approaches considered
-   - Breaking changes
-
-Format your output as:
-## Key PRs
-### PR #<number>: <title>
-**URL:** <url>
-**Summary:** <what it introduced/changed>
-**Design Rationale:** <why this approach>
-**Discussion Highlights:** <key points from comments>
-```
-
-#### issue-hunter
-```
-You are researching React's <TOPIC>.
-
-CRITICAL: Do NOT rely on your prior knowledge. Only report what you find in issues.
-
-Your task: Find issues that reveal common confusion about <TOPIC>.
-
-1. Search facebook/react: gh issue list -R facebook/react --search "<topic>" --state all --limit 20 --json number,title,url
-2. Search reactjs/react.dev: gh issue list -R reactjs/react.dev --search "<topic>" --state all --limit 20 --json number,title,url
-3. For each issue, identify:
-   - What the user was confused about
-   - What the resolution was
-   - Any gotchas revealed
-
-Format your output as:
-## Common Confusion
-### Issue #<number>: <title>
-**Repo:** <facebook/react or reactjs/react.dev>
-**Confusion:** <what they misunderstood>
-**Resolution:** <correct understanding>
-**Gotcha:** <if applicable>
-```
-
-#### types-inspector
-```
-You are researching React's <TOPIC>.
-
-CRITICAL: Do NOT rely on your prior knowledge. Only report what you find in type definitions.
-
-Your task: Find and compare Flow and TypeScript type signatures for <TOPIC>.
-
-1. Flow types (source of truth): Search .claude/react/packages/*/src/*.js for @flow annotations related to <topic>
-2. TypeScript types: Search .claude/react/packages/*/index.d.ts and @types/react
-3. Compare and note any discrepancies
-
-Format your output as:
-## Flow Types (Source of Truth)
-**File:** <path>
-```flow
-<exact type definition>
-```
-
-## TypeScript Types
-**File:** <path>
+### Component Structure
 ```typescript
-<exact type definition>
+import { memo, useState, useCallback, useMemo } from 'react'
+
+interface UserCardProps {
+  user: {
+    id: string
+    name: string
+    email: string
+  }
+  onEdit?: (id: string) => void
+}
+
+/**
+ * UserCard - Displays user information with edit functionality
+ * Memoized to prevent unnecessary re-renders
+ */
+export const UserCard = memo(function UserCard({ user, onEdit }: UserCardProps) {
+  // Memoize callback to prevent child re-renders
+  const handleEdit = useCallback(() => {
+    onEdit?.(user.id)
+  }, [user.id, onEdit])
+  
+  return (
+    <article className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+      <h3 className="text-xl font-bold text-gray-900">{user.name}</h3>
+      <p className="mt-2 text-sm text-gray-600">{user.email}</p>
+      
+      {onEdit && (
+        <button
+          onClick={handleEdit}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+        >
+          Edit User
+        </button>
+      )}
+    </article>
+  )
+})
 ```
 
-## Discrepancies
-<any differences between Flow and TS definitions>
+### Naming Conventions
+- Components: PascalCase (UserProfile, NavigationMenu)
+- Hooks: camelCase with "use" prefix (useAuth, useLocalStorage)
+- Props interfaces: PascalCase with "Props" suffix (UserCardProps)
+- Functions: camelCase (handleSubmit, fetchUserData)
+- Constants: UPPER_SNAKE_CASE (API_BASE_URL, MAX_RETRIES)
+- CSS classes: Use Tailwind utilities, custom classes as last resort
+
+## Security Patterns
+
+### Never Expose Backend Data
+```typescript
+// ❌ BAD - Exposes sensitive data
+const handleLogin = async (email: string, password: string) => {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password })
+  })
+  
+  const data = await response.json()
+  console.log('User data:', data) // ❌ May contain tokens, hashes, etc.
+  
+  return data
+}
+
+// ✅ GOOD - Sanitized logging
+const handleLogin = async (email: string, password: string) => {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  })
+  
+  if (!response.ok) {
+    const error = await response.json()
+    // Log only non-sensitive error info
+    console.error('Login failed:', error.message)
+    throw new Error(error.message)
+  }
+  
+  const data = await response.json()
+  // Only log success, never sensitive data
+  console.log('Login successful')
+  
+  return {
+    // Return only what frontend needs
+    user: {
+      id: data.user.id,
+      name: data.user.name,
+      email: data.user.email
+    }
+    // Never return: tokens, password hashes, internal IDs
+  }
+}
 ```
 
-### Step 4: Synthesize Results
+### Input Validation
+```typescript
+import { z } from 'zod'
 
-After all agents complete, combine their findings into a single research document.
+const emailSchema = z.string().email()
+const passwordSchema = z.string().min(8).regex(/[A-Z]/).regex(/[0-9]/)
 
-**DO NOT add information from your own knowledge.** Only include what agents found in sources.
-
-### Step 5: Save Output
-
-Write the final document to `.claude/research/<topic>.md`
-
-Replace spaces in topic with hyphens (e.g., "suspense boundaries" → "suspense-boundaries.md")
-
-## Output Document Template
-
-```markdown
-# React Research: <topic>
-
-> Generated by /react-expert on YYYY-MM-DD
-> Sources: React repo (commit <hash>), N PRs, M issues
-
-## Summary
-
-[Brief summary based SOLELY on source findings, not prior knowledge]
-
-## API Signature
-
-### Flow Types (Source of Truth)
-
-[From types-inspector agent]
-
-### TypeScript Types
-
-[From types-inspector agent]
-
-### Discrepancies
-
-[Any differences between Flow and TS]
-
-## Usage Examples
-
-### From Tests
-
-[From test-explorer agent - with file:line references]
-
-### From PRs/Issues
-
-[Real-world patterns from discussions]
-
-## Caveats & Gotchas
-
-[Each with source link]
-
-- **<gotcha>** - Source: <link>
-
-## Warnings & Errors
-
-| Message | Trigger Condition | Source File |
-|---------|------------------|-------------|
-[From source-explorer agent]
-
-## Common Confusion
-
-[From issue-hunter agent]
-
-## Design Decisions
-
-[From git-historian and pr-researcher agents]
-
-## Source Links
-
-### Commits
-- <hash>: <description>
-
-### Pull Requests
-- PR #<number>: <title> - <url>
-
-### Issues
-- Issue #<number>: <title> - <url>
+const LoginForm = () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    
+    // Validate on frontend (UX only, not security)
+    try {
+      emailSchema.parse(email)
+      passwordSchema.parse(password)
+    } catch (error) {
+      // Show user-friendly error
+      setError('Invalid email or password format')
+      return
+    }
+    
+    // Backend validation is REQUIRED for security
+    await login(email, password)
+  }
+  
+  return <form onSubmit={handleSubmit}>{/* ... */}</form>
+}
 ```
 
-## Common Mistakes to Avoid
+## Performance Optimization
 
-1. **Trusting prior knowledge** - If you "know" something about the API, find the source evidence anyway
-2. **Generating example code** - Every code example must come from an actual source file
-3. **Skipping agents** - All 6 agents must run; each provides unique perspective
-4. **Summarizing without sources** - Every claim needs a file:line or PR/issue reference
-5. **Using web search** - No Stack Overflow, no blog posts, no social media
+### Memoization Decision Tree
+```
+Does this component receive props?
+├─ Yes → Is it expensive to render?
+│  ├─ Yes → Use React.memo
+│  └─ No → Usually no memo needed
+└─ No → No memo needed
 
-## Verification Checklist
+Does this calculation run on every render?
+├─ Yes → Is it expensive (loops, heavy computation)?
+│  ├─ Yes → Use useMemo
+│  └─ No → Keep as-is
+└─ No → No useMemo needed
 
-Before finalizing the research document:
+Does this function get passed as a prop?
+├─ Yes → Does the child use it in useEffect dependencies?
+│  ├─ Yes → Use useCallback
+│  └─ No → Consider useCallback if child is memoized
+└─ No → Usually no useCallback needed
+```
 
-- [ ] React repo is at `.claude/react` with known commit hash
-- [ ] All 6 agents were spawned in parallel
-- [ ] Every code example has a source file reference
-- [ ] Warnings/errors table has source locations
-- [ ] No claims made without source evidence
-- [ ] Discrepancies between Flow/TS types documented
-- [ ] Source links section is complete
+### Example: Optimized List
+```typescript
+import { memo, useMemo, useCallback } from 'react'
+
+interface Item {
+  id: string
+  name: string
+  price: number
+}
+
+interface ProductListProps {
+  items: Item[]
+  onItemClick: (id: string) => void
+}
+
+export const ProductList = memo(function ProductList({ items, onItemClick }: ProductListProps) {
+  // Memoize expensive sorting
+  const sortedItems = useMemo(() => {
+    return [...items].sort((a, b) => a.name.localeCompare(b.name))
+  }, [items])
+  
+  // Memoize callback to prevent re-renders of ProductItem
+  const handleClick = useCallback((id: string) => {
+    onItemClick(id)
+  }, [onItemClick])
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedItems.map(item => (
+        <ProductItem key={item.id} item={item} onClick={handleClick} />
+      ))}
+    </div>
+  )
+})
+
+// Memoized child component
+const ProductItem = memo(function ProductItem({ 
+  item, 
+  onClick 
+}: { 
+  item: Item
+  onClick: (id: string) => void 
+}) {
+  return (
+    <article 
+      onClick={() => onClick(item.id)}
+      className="p-4 bg-white rounded-lg shadow cursor-pointer hover:shadow-lg transition-shadow"
+    >
+      <h3 className="text-lg font-semibold">{item.name}</h3>
+      <p className="text-gray-600">${item.price}</p>
+    </article>
+  )
+})
+```
+
+## Tailwind Best Practices
+
+### Responsive Mobile-First Design
+```typescript
+// Always start with mobile, then add breakpoints
+<div className="
+  w-full px-4 py-6           // Mobile: full width, padding
+  sm:px-6                    // Small screens: more padding
+  md:w-3/4 md:px-8          // Medium: 75% width
+  lg:w-2/3 lg:px-12         // Large: 66% width
+  xl:w-1/2                  // Extra large: 50% width
+">
+  <h1 className="
+    text-2xl font-bold       // Mobile: 2xl
+    md:text-3xl             // Medium: 3xl
+    lg:text-4xl             // Large: 4xl
+  ">
+    Responsive Heading
+  </h1>
+</div>
+```
+
+### Animation & Transitions
+```typescript
+// Smooth, performant animations
+<button className="
+  px-6 py-3 bg-blue-600 text-white rounded-lg
+  
+  // Hover state
+  hover:bg-blue-700 hover:scale-105
+  
+  // Focus state (accessibility)
+  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+  
+  // Active state
+  active:scale-95
+  
+  // Transitions
+  transition-all duration-200 ease-in-out
+  
+  // Disabled state
+  disabled:opacity-50 disabled:cursor-not-allowed
+">
+  Click Me
+</button>
+
+// Card with hover effect
+<div className="
+  p-6 bg-white rounded-xl shadow-md
+  hover:shadow-2xl
+  transform hover:-translate-y-1
+  transition-all duration-300
+">
+  Content
+</div>
+```
+
+### Dark Mode
+```typescript
+// Implement dark mode with Tailwind
+<div className="
+  bg-white dark:bg-gray-900
+  text-gray-900 dark:text-gray-100
+  border border-gray-200 dark:border-gray-700
+">
+  <h1 className="text-gray-900 dark:text-white">
+    Works in Light and Dark Mode
+  </h1>
+</div>
+
+// Toggle dark mode (in layout or app component)
+const [darkMode, setDarkMode] = useState(false)
+
+useEffect(() => {
+  if (darkMode) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}, [darkMode])
+```
+
+## Reference Documentation
+
+For detailed information, load these references as needed:
+
+- **references/hooks-patterns.md** - Complete hook patterns, anti-patterns, and optimization strategies
+- **references/context-api.md** - Context API setup, performance, and composition patterns
+- **references/security-checklist.md** - Full security audit procedures and fixes
+- **references/tailwind-components.md** - Reusable Tailwind component patterns and animations
+
+## Auto-Fix Priority
+
+**Critical (Auto-Fix Immediately)**
+1. console.log() with sensitive data → Remove or sanitize
+2. Hardcoded API keys → Move to environment variables
+3. Missing key prop in lists → Add unique keys
+4. Hook dependency warnings → Fix dependencies
+5. Accessibility violations (missing alt, labels) → Add required attributes
+
+**High Priority (Propose & Fix)**
+1. Missing React.memo on expensive components
+2. Missing useMemo for expensive calculations
+3. Missing useCallback for passed callbacks
+4. Inline styles → Convert to Tailwind
+5. Non-responsive design → Add responsive classes
+
+**Medium Priority (Recommend)**
+1. Missing TypeScript types
+2. Inconsistent naming conventions
+3. Complex components (split into smaller)
+4. Missing error boundaries
+5. Non-optimized images
+
+## Integration Commands
+
+**Full Audit:**
+"Audit my React app for performance and security"
+
+**Component Generation:**
+"Create a [component] with Tailwind styling and animations"
+
+**Hook Optimization:**
+"Optimize this component's hooks and performance"
+
+**Security Scan:**
+"Check for security issues in my React components"
+
+**Responsive Design:**
+"Make this component responsive with Tailwind"

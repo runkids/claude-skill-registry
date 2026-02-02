@@ -1,5 +1,5 @@
 ---
-name: tasks-spec-update
+name: spec-update
 description: Use when updating specifications, comparing branches, or ensuring documentation reflects current implementation.
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash, Task
 ---

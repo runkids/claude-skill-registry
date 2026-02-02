@@ -1,7 +1,7 @@
 {
   "name": "unit-testing",
-  "repo": "jaredlander/freshbooks-speed",
+  "repo": "wmeints/promptyard",
   "path": ".claude/skills/unit-testing/SKILL.md",
-  "source": "github.com/jaredlander/freshbooks-speed",
-  "downloaded_at": "2026-02-01T04:59:20.634029Z"
+  "source": "github.com/wmeints/promptyard",
+  "downloaded_at": "2026-02-02T05:12:35.645818Z"
 }

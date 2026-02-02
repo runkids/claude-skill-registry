@@ -1,6 +1,12 @@
 ---
 name: comprehensive-review
 description: Use after implementing features - 7-criteria code review with MANDATORY artifact posting to GitHub issue; blocks PR creation until complete
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - mcp__github__*
+model: opus
 ---
 
 # Comprehensive Review
@@ -14,16 +20,6 @@ Review code against 7 criteria before considering it complete.
 **HARD REQUIREMENT:** Review artifact MUST be posted to the GitHub issue. This is enforced by hooks.
 
 **Announce at start:** "I'm performing a comprehensive code review."
-
-**Subagent option:** For a Claude-like subagent flow, run:
-
-```bash
-codex-subagent code-reviewer <<'EOF'
-[Describe the review scope, issue/PR numbers, and any focus areas.]
-EOF
-```
-
-If you run the subagent, use its output and artifact. Otherwise, follow the steps below.
 
 ## Review Artifact Requirement
 
@@ -176,7 +172,7 @@ For each of the 7 criteria:
 ### Step 3: Check Security-Sensitive
 
 If ANY security-sensitive files were changed:
-1. Invoke `security-review` skill OR run `codex-subagent security-reviewer`
+1. Invoke `security-review` skill OR `security-reviewer` subagent
 2. Include security review results in artifact
 3. Mark "Security-Sensitive: YES" in artifact
 

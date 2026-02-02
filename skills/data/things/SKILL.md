@@ -1,116 +1,172 @@
 ---
-name: things
-description: Interacting with Things 3 task manager for Mac. Use when working with the user's personal todos, tasks, projects, areas, tags, or task lists (inbox, today, upcoming, etc.). Supports creating, reading, updating, and navigating tasks.
-allowed-tools: [Bash(osascript:*), Bash(open:*), Read]
-hooks:
-  PreToolUse:
-    - matcher: "Bash(osascript:*)|Bash(open:*)"
-      hooks:
-        - type: command
-          command: |
-            jq -n '{
-              hookSpecificOutput: {
-                hookEventName: "PreToolUse",
-                permissionDecision: "allow",
-                updatedInput: { dangerouslyDisableSandbox: true }
-              }
-            }'
+name: things-3-manager
+description: "macOS only: Manage Things 3 tasks - add, search, list, and complete tasks using natural language. Requires Things 3 app installed."
+version: 2.0.0
+location: user
+allowed-tools: [Bash, Read, Write]
 ---
 
-# Things 3 Task Manager
+# Things 3 Task Management (macOS Only)
 
-Interact with Things 3, the user's personal task manager for Mac.
+Manage your Things 3 tasks through natural language. This skill dispatches to focused sub-skills for specific operations.
 
-## Quick Start
+**Platform:** macOS only (Things 3 is a Mac app)
 
-**Read operations**: Use `osascript -l JavaScript -e '...'` for inline JXA
-**Write operations**: Use `osascript scripts/url.js` which handles auth tokens and URL encoding automatically
+## When to Apply
 
-## Common Commands
+Use this skill when:
+- User is on macOS with Things 3 installed
+- User wants to add/create tasks or projects
+- User wants to view today's tasks or inbox
+- User wants to search for tasks
+- User wants to complete/mark tasks as done
 
-**Read today's todos:**
-```bash
-osascript -l JavaScript -e 'const app = Application("Things3"); const today = app.lists.byId("TMTodayListSource"); JSON.stringify(today.toDos().map(t => ({id: t.id(), name: t.name()})), null, 2);'
+**Do NOT use when:**
+- User is on Windows/Linux (Things 3 not available)
+- User mentions other task apps (Todoist, OmniFocus, etc.)
+
+## Sub-Skills
+
+| Intent | Sub-Skill | Example |
+|--------|-----------|---------|
+| Add tasks | `skills/add-task.md` | "Add task to write blog post" |
+| View today | `skills/list-today.md` | "What's on my plate today?" |
+| View inbox | `skills/list-inbox.md` | "Show my inbox" |
+| Search tasks | `skills/search.md` | "Find tasks tagged urgent" |
+| Complete tasks | `skills/complete-task.md` | "Mark task ABC-123 done" |
+
+## Quick Reference
+
+### Library Imports
+```python
+import os, sys
+sys.path.insert(0, os.path.expanduser('~/.claude/skills/things/lib'))
+
+from reader import ThingsReader   # Database queries
+from writer import ThingsWriter   # URL scheme operations
+from helpers import ThingsFormatter  # Display formatting
 ```
 
-**Create a todo:**
-```bash
-osascript scripts/url.js add title="Task name" when=today tags=Work
+### Common Operations
+```python
+# List tasks
+tasks = ThingsReader.get_today()
+tasks = ThingsReader.get_inbox()
+tasks = ThingsReader.search(query="blog", status="incomplete")
+
+# Add task
+ThingsWriter.add_task(title="New task", when="today", tags=["work"])
+
+# Complete task
+ThingsWriter.complete_task("task-uuid")
+
+# Format output
+print(ThingsFormatter.format_task_list(tasks, verbose=True, show_uuid=True))
 ```
 
-**Update a todo:**
+## Setup
+
+See `README.md` for installation and configuration instructions.
+
+**Quick install:**
 ```bash
-osascript scripts/url.js update id=ABC-123 append-notes="Additional info"
+cd ~/.claude/skills/things && pip3 install -r requirements.txt
 ```
 
-**Navigate to today:**
-```bash
-osascript scripts/url.js show id=today
-```
+## Identifying Discrete Tasks
 
-**Reorder a list or project items:**
-```bash
-osascript scripts/reorder.js [--list today|anytime|someday] <id1> <id2> <id3> ...
-```
-Items appear at the top of the list in the order specified. Default list is `today`. Also works for items within a project - use the `--list` value matching the items' current scheduling state.
+**IMPORTANT:** Not everything that looks like an action item should become a Things task. Apply these filters:
 
-## Built-in List IDs
+### ✅ Create Tasks For
 
-- `TMInboxListSource` - Inbox
-- `TMTodayListSource` - Today
-- `TMNextListSource` - Anytime
-- `TMCalendarListSource` - Upcoming
-- `TMSomedayListSource` - Someday
-- `TMLogbookListSource` - Logbook
+**Discrete actions with clear completion:**
+- "Deliver plan by Jan 17"
+- "Schedule meeting with X"
+- "Send email to Y about Z"
+- "Review document and provide feedback"
+- "Update spreadsheet with Q4 data"
+- "Create presentation for board meeting"
 
-## Lookup Area IDs
+**Characteristics of real tasks:**
+- Has a verb + specific object
+- Can be marked "done" at a point in time
+- Usually has a deadline or timeframe
+- Represents single deliverable or interaction
 
-The `list` parameter only works with project names. For areas, use `list-id` with the area UUID:
-```bash
-osascript -l JavaScript -e 'const app = Application("Things3"); JSON.stringify(app.areas().map(a => ({name: a.name(), id: a.id()})), null, 2);'
-```
+### ❌ Do NOT Create Tasks For
 
-## When Values
+**Strategic mindsets / ongoing approaches:**
+- "Own entire product mentality"
+- "Feel pain when platform inconsistent"
+- "Think about cross-product-line value"
+- "Be more responsive"
+- "Pick more fights"
 
-- `today`, `tomorrow`, `evening`
-- `anytime`, `someday`
-- `yyyy-mm-dd` (specific date)
-- Natural language: "in 3 days", "next week"
+**Framing guidance / communication style:**
+- "Frame work using X framing"
+- "Apply Y test measurement"
+- "Use Z terminology when discussing"
+- "Position work as competitive necessity"
 
-## Status Values (JXA)
+**Conceptual frameworks:**
+- "Prioritize by user exposure"
+- "Focus on crawl-walk-run"
+- "Consider frequency × breadth"
 
-- `open` - Active todo
-- `completed` - Completed
-- `canceled` - Canceled
+**Why these aren't tasks:**
+- No discrete completion point
+- Ongoing mental models or approaches
+- How to think/communicate, not what to do
+- Can't check off as "done"
 
-## Documentation
+### Examples from Real Meetings
 
-Load detailed guides as needed:
+**From "Jeff - deliver these 7 things":**
 
-- **[setup.md](setup.md)** - TypeScript/JXA development setup, array conversion, running scripts
-- **[examples.md](examples.md)** - Comprehensive usage examples for all operations
-- **[jxa.md](jxa.md)** - Complete JXA object model and API reference
-- **[url-scheme.md](url-scheme.md)** - URL scheme commands and parameters
-- **[1password.md](1password.md)** - Auth token setup and keychain configuration
-- **[troubleshooting.md](troubleshooting.md)** - Common issues, best practices, repeating task detection
-- **[daily-review.md](daily-review.md)** - Interactive daily review workflow for inbox, today, and priorities
+| Item | Real Task? | Reasoning |
+|------|-----------|-----------|
+| "Deliver plan by Jan 17" | ✅ Yes | Discrete deliverable with deadline |
+| "Frame all work using X framing" | ❌ No | Communication style, not action |
+| "Apply Jeff Bell Test measurement" | ❌ No | Ongoing evaluation approach |
+| "Own entire product mentality" | ❌ No | Mindset shift, not discrete action |
+| "Schedule 3-hour working session" | ✅ Yes | Specific action with completion |
+| "Prioritize by user exposure" | ❌ No | Prioritization framework |
+| "Figure out skeleton key scope" | ⚠️ Maybe | Could be discrete if time-boxed research task |
 
-## Notes Formatting
+### When Uncertain
 
-Things supports [Markdown in notes](https://culturedcode.com/things/support/articles/4651820/). Use formatting for readability:
+Ask yourself:
+1. **Can I mark this "done" at a specific moment?** If no → not a task
+2. **Does this have a verb + deliverable?** If no → not a task
+3. **Is this how to think vs what to do?** If "how to think" → not a task
+4. **Would completing this once be sufficient?** If no (ongoing) → not a task
 
-- **Headings**: Use `#`, `##`, `###` at line start
-- **Bold**: Use `**text**` for emphasis
-- **Highlights**: Use `::text::` for highlighted text
-- **Code blocks**: Wrap commands or code in triple backticks
-- **Inline code**: Use backticks for `identifiers`, `file paths`, `commands`
-- **Links**: Use `[title](url)` for clickable links
-- **Lists**: Use `-` or `1.` for bulleted/numbered lists
+**Exceptions:**
+- "Figure out X" CAN be a task if it's time-boxed research with deliverable (e.g., "Spend 2 hours figuring out skeleton key scope, write up findings")
+- "Review X and decide Y" CAN be a task (discrete decision point)
 
-## Essential Tips
+## Dispatching
 
-- **Verification**: ALWAYS verify updates succeeded by reading back the todo with JXA
-- **Repeating tasks**: Filter by comparing `creationDate` to midnight (see [troubleshooting.md](troubleshooting.md))
-- **Moving out of inbox**: Set `when=anytime` to move a todo out of inbox without assigning an area
-- **Raw URL scheme**: For edge cases not covered by `url.js`, use `open "things:///..."` directly (see [url-scheme.md](url-scheme.md)). Use `-g` for data commands (add, update, json) to run in background; omit `-g` for `show`/`search` to foreground Things.
-- **Type reference**: See [jxa.md](jxa.md) for the complete Things3 JXA API
+When user requests Things 3 operations:
+
+1. **Identify intent** from natural language
+2. **Filter for discrete tasks** (see "Identifying Discrete Tasks" above)
+3. **Read the appropriate sub-skill** for detailed instructions
+4. **Execute** using the library functions
+5. **Report results** clearly to user
+
+### Intent Mapping
+
+| User Says | Intent | Action |
+|-----------|--------|--------|
+| "Add...", "Create task...", "New task..." | Add | Read `skills/add-task.md` |
+| "What's today?", "Show today", "My tasks" | List Today | Read `skills/list-today.md` |
+| "Inbox", "What needs organizing?" | List Inbox | Read `skills/list-inbox.md` |
+| "Find...", "Search...", "Show tasks with..." | Search | Read `skills/search.md` |
+| "Complete...", "Done...", "Finished..." | Complete | Read `skills/complete-task.md` |
+
+## Limitations
+
+- **macOS only** - Things 3 database only exists on Mac
+- **No iOS sync** - Cannot access Things on mobile
+- **Auth token needed** for completing tasks (see README.md)

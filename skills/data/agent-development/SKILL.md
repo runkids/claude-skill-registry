@@ -1,331 +1,420 @@
 ---
-name: agent-development
-description: |
-  Design and build custom Claude Code agents with effective descriptions, tool access patterns,
-  and self-documenting prompts. Covers Task tool delegation, model selection, memory limits,
-  and declarative instruction design.
-
-  Use when: creating custom agents, designing agent descriptions for auto-delegation,
-  troubleshooting agent memory issues, or building agent pipelines.
-license: MIT
+name: Agent Development
+description: This skill should be used when the user asks to "create an agent", "add an agent", "write a subagent", "agent frontmatter", "when to use description", "agent examples", "agent tools", "agent colors", "autonomous agent", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.
+version: 0.1.0
 ---
 
-# Agent Development for Claude Code
+# SOURCE: anthropics/claude-plugins-official
+# PATH: plugins/plugin-dev/skills/agent-development/SKILL.md
+# DO NOT EDIT: This file is synced from external source
 
-Build effective custom agents for Claude Code with proper delegation, tool access, and prompt design.
 
-## Agent Description Pattern
+# Agent Development for Claude Code Plugins
 
-The description field determines whether Claude will automatically delegate tasks.
+## Overview
 
-### Strong Trigger Pattern
+Agents are autonomous subprocesses that handle complex, multi-step tasks independently. Understanding agent structure, triggering conditions, and system prompt design enables creating powerful autonomous capabilities.
 
-```yaml
+**Key concepts:**
+- Agents are FOR autonomous work, commands are FOR user-initiated actions
+- Markdown file format with YAML frontmatter
+- Triggering via description field with examples
+- System prompt defines agent behavior
+- Model and color customization
+
+## Agent File Structure
+
+### Complete Format
+
+```markdown
 ---
-name: agent-name
-description: |
-  [Role] specialist. MUST BE USED when [specific triggers].
-  Use PROACTIVELY for [task category].
-  Keywords: [trigger words]
-tools: Read, Write, Edit, Glob, Grep, Bash
-model: sonnet
+name: agent-identifier
+description: Use this agent when [triggering conditions]. Examples:
+
+<example>
+Context: [Situation description]
+user: "[User request]"
+assistant: "[How assistant should respond and use this agent]"
+<commentary>
+[Why this agent should be triggered]
+</commentary>
+</example>
+
+<example>
+[Additional example...]
+</example>
+
+model: inherit
+color: blue
+tools: ["Read", "Write", "Grep"]
 ---
+
+You are [agent role description]...
+
+**Your Core Responsibilities:**
+1. [Responsibility 1]
+2. [Responsibility 2]
+
+**Analysis Process:**
+[Step-by-step workflow]
+
+**Output Format:**
+[What to return]
 ```
 
-### Weak vs Strong Descriptions
+## Frontmatter Fields
 
-| Weak (won't auto-delegate) | Strong (auto-delegates) |
-|---------------------------|-------------------------|
-| "Analyzes screenshots for issues" | "Visual QA specialist. MUST BE USED when analyzing screenshots. Use PROACTIVELY for visual QA." |
-| "Runs Playwright scripts" | "Playwright specialist. MUST BE USED when running Playwright scripts. Use PROACTIVELY for browser automation." |
+### name (required)
 
-**Key phrases**:
-- "MUST BE USED when..."
-- "Use PROACTIVELY for..."
-- Include trigger keywords
+Agent identifier used for namespacing and invocation.
 
-### Delegation Mechanisms
+**Format:** lowercase, numbers, hyphens only
+**Length:** 3-50 characters
+**Pattern:** Must start and end with alphanumeric
 
-1. **Explicit**: `Task tool subagent_type: "agent-name"` - always works
-2. **Automatic**: Claude matches task to agent description - requires strong phrasing
+**Good examples:**
+- `code-reviewer`
+- `test-generator`
+- `api-docs-writer`
+- `security-analyzer`
 
-**Session restart required** after creating/modifying agents.
+**Bad examples:**
+- `helper` (too generic)
+- `-agent-` (starts/ends with hyphen)
+- `my_agent` (underscores not allowed)
+- `ag` (too short, < 3 chars)
 
-## Tool Access Principle
+### description (required)
 
-**If an agent doesn't need Bash, don't give it Bash.**
+Defines when Claude should trigger this agent. **This is the most critical field.**
 
-| Agent needs to... | Give tools | Don't give |
-|-------------------|------------|------------|
-| Create files only | Read, Write, Edit, Glob, Grep | Bash |
-| Run scripts/CLIs | Read, Write, Edit, Glob, Grep, Bash | — |
-| Read/audit only | Read, Glob, Grep | Write, Edit, Bash |
+**Must include:**
+1. Triggering conditions ("Use this agent when...")
+2. Multiple `<example>` blocks showing usage
+3. Context, user request, and assistant response in each example
+4. `<commentary>` explaining why agent triggers
 
-**Why?** Models default to `cat > file << 'EOF'` heredocs instead of Write tool. Each bash command requires approval, causing dozens of prompts per agent run.
+**Format:**
+```
+Use this agent when [conditions]. Examples:
 
-### Allowlist Pattern
+<example>
+Context: [Scenario description]
+user: "[What user says]"
+assistant: "[How Claude should respond]"
+<commentary>
+[Why this agent is appropriate]
+</commentary>
+</example>
 
-Instead of restricting Bash, allowlist safe commands in `.claude/settings.json`:
+[More examples...]
+```
 
-```json
+**Best practices:**
+- Include 2-4 concrete examples
+- Show proactive and reactive triggering
+- Cover different phrasings of same intent
+- Explain reasoning in commentary
+- Be specific about when NOT to use the agent
+
+### model (required)
+
+Which model the agent should use.
+
+**Options:**
+- `inherit` - Use same model as parent (recommended)
+- `sonnet` - Claude Sonnet (balanced)
+- `opus` - Claude Opus (most capable, expensive)
+- `haiku` - Claude Haiku (fast, cheap)
+
+**Recommendation:** Use `inherit` unless agent needs specific model capabilities.
+
+### color (required)
+
+Visual identifier for agent in UI.
+
+**Options:** `blue`, `cyan`, `green`, `yellow`, `magenta`, `red`
+
+**Guidelines:**
+- Choose distinct colors for different agents in same plugin
+- Use consistent colors for similar agent types
+- Blue/cyan: Analysis, review
+- Green: Success-oriented tasks
+- Yellow: Caution, validation
+- Red: Critical, security
+- Magenta: Creative, generation
+
+### tools (optional)
+
+Restrict agent to specific tools.
+
+**Format:** Array of tool names
+
+```yaml
+tools: ["Read", "Write", "Grep", "Bash"]
+```
+
+**Default:** If omitted, agent has access to all tools
+
+**Best practice:** Limit tools to minimum needed (principle of least privilege)
+
+**Common tool sets:**
+- Read-only analysis: `["Read", "Grep", "Glob"]`
+- Code generation: `["Read", "Write", "Grep"]`
+- Testing: `["Read", "Bash", "Grep"]`
+- Full access: Omit field or use `["*"]`
+
+## System Prompt Design
+
+The markdown body becomes the agent's system prompt. Write in second person, addressing the agent directly.
+
+### Structure
+
+**Standard template:**
+```markdown
+You are [role] specializing in [domain].
+
+**Your Core Responsibilities:**
+1. [Primary responsibility]
+2. [Secondary responsibility]
+3. [Additional responsibilities...]
+
+**Analysis Process:**
+1. [Step one]
+2. [Step two]
+3. [Step three]
+[...]
+
+**Quality Standards:**
+- [Standard 1]
+- [Standard 2]
+
+**Output Format:**
+Provide results in this format:
+- [What to include]
+- [How to structure]
+
+**Edge Cases:**
+Handle these situations:
+- [Edge case 1]: [How to handle]
+- [Edge case 2]: [How to handle]
+```
+
+### Best Practices
+
+✅ **DO:**
+- Write in second person ("You are...", "You will...")
+- Be specific about responsibilities
+- Provide step-by-step process
+- Define output format
+- Include quality standards
+- Address edge cases
+- Keep under 10,000 characters
+
+❌ **DON'T:**
+- Write in first person ("I am...", "I will...")
+- Be vague or generic
+- Omit process steps
+- Leave output format undefined
+- Skip quality guidance
+- Ignore error cases
+
+## Creating Agents
+
+### Method 1: AI-Assisted Generation
+
+Use this prompt pattern (extracted from Claude Code):
+
+```
+Create an agent configuration based on this request: "[YOUR DESCRIPTION]"
+
+Requirements:
+1. Extract core intent and responsibilities
+2. Design expert persona for the domain
+3. Create comprehensive system prompt with:
+   - Clear behavioral boundaries
+   - Specific methodologies
+   - Edge case handling
+   - Output format
+4. Create identifier (lowercase, hyphens, 3-50 chars)
+5. Write description with triggering conditions
+6. Include 2-3 <example> blocks showing when to use
+
+Return JSON with:
 {
-  "permissions": {
-    "allow": [
-      "Write", "Edit", "WebFetch(domain:*)",
-      "Bash(cd *)", "Bash(cp *)", "Bash(mkdir *)", "Bash(ls *)",
-      "Bash(cat *)", "Bash(head *)", "Bash(tail *)", "Bash(grep *)",
-      "Bash(diff *)", "Bash(mv *)", "Bash(touch *)", "Bash(file *)"
-    ]
-  }
+  "identifier": "agent-name",
+  "whenToUse": "Use this agent when... Examples: <example>...</example>",
+  "systemPrompt": "You are..."
 }
 ```
 
-## Model Selection (Quality First)
+Then convert to agent file format with frontmatter.
 
-Don't downgrade quality to work around issues - fix root causes instead.
+See `examples/agent-creation-prompt.md` for complete template.
 
-| Model | Use For |
-|-------|---------|
-| **Opus** | Creative work (page building, design, content) - quality matters |
-| **Sonnet** | Most agents - content, code, research (default) |
-| **Haiku** | Only script runners where quality doesn't matter |
+### Method 2: Manual Creation
 
-## Memory Limits
+1. Choose agent identifier (3-50 chars, lowercase, hyphens)
+2. Write description with examples
+3. Select model (usually `inherit`)
+4. Choose color for visual identification
+5. Define tools (if restricting access)
+6. Write system prompt with structure above
+7. Save as `agents/agent-name.md`
 
-### Root Cause Fix (REQUIRED)
+## Validation Rules
 
-Add to `~/.bashrc` or `~/.zshrc`:
-```bash
-export NODE_OPTIONS="--max-old-space-size=16384"
-```
-
-Increases Node.js heap from 4GB to 16GB.
-
-### Parallel Limits (Even With Fix)
-
-| Agent Type | Max Parallel | Notes |
-|------------|--------------|-------|
-| Any agents | 2-3 | Context accumulates; batch then pause |
-| Heavy creative (Opus) | 1-2 | Uses more memory |
-
-### Recovery
-
-1. `source ~/.bashrc` or restart terminal
-2. `NODE_OPTIONS="--max-old-space-size=16384" claude`
-3. Check what files exist, continue from there
-
-## Sub-Agent vs Remote API
-
-**Always prefer Task sub-agents over remote API calls.**
-
-| Aspect | Remote API Call | Task Sub-Agent |
-|--------|-----------------|----------------|
-| Tool access | None | Full (Read, Grep, Write, Bash) |
-| File reading | Must pass all content in prompt | Can read files iteratively |
-| Cross-referencing | Single context window | Can reason across documents |
-| Decision quality | Generic suggestions | Specific decisions with rationale |
-| Output quality | ~100 lines typical | 600+ lines with specifics |
-
-```typescript
-// ❌ WRONG - Remote API call
-const response = await fetch('https://api.anthropic.com/v1/messages', {...})
-
-// ✅ CORRECT - Use Task tool
-// Invoke Task with subagent_type: "general-purpose"
-```
-
-## Declarative Over Imperative
-
-Describe **what** to accomplish, not **how** to use tools.
-
-### Wrong (Imperative)
-
-```markdown
-### Check for placeholders
-```bash
-grep -r "PLACEHOLDER:" build/*.html
-```
-```
-
-### Right (Declarative)
-
-```markdown
-### Check for placeholders
-Search all HTML files in build/ for:
-- PLACEHOLDER: comments
-- TODO or TBD markers
-- Template brackets like [Client Name]
-
-Any match = incomplete content.
-```
-
-### What to Include
-
-| Include | Skip |
-|---------|------|
-| Task goal and context | Explicit bash/tool commands |
-| Input file paths | "Use X tool to..." |
-| Output file paths and format | Step-by-step tool invocations |
-| Success/failure criteria | Shell pipeline syntax |
-| Blocking checks (prerequisites) | Micromanaged workflows |
-| Quality checklists | |
-
-## Self-Documentation Principle
-
-> "Agents that won't have your context must be able to reproduce the behaviour independently."
-
-Every improvement must be encoded into the agent's prompt, not left as implicit knowledge.
-
-### What to Encode
-
-| Discovery | Where to Capture |
-|-----------|------------------|
-| Bug fix pattern | Agent's "Corrections" or "Common Issues" section |
-| Quality requirement | Agent's "Quality Checklist" section |
-| File path convention | Agent's "Output" section |
-| Tool usage pattern | Agent's "Process" section |
-| Blocking prerequisite | Agent's "Blocking Check" section |
-
-### Test: Would a Fresh Agent Succeed?
-
-Before completing any agent improvement:
-1. Read the agent prompt as if you have no context
-2. Ask: Could a new session follow this and produce the same quality?
-3. If no: Add missing instructions, patterns, or references
-
-### Anti-Patterns
-
-| Anti-Pattern | Why It Fails |
-|--------------|--------------|
-| "As we discussed earlier..." | No prior context exists |
-| Relying on files read during dev | Agent may not read same files |
-| Assuming knowledge from errors | Agent won't see your debugging |
-| "Just like the home page" | Agent hasn't built home page |
-
-## Agent Prompt Structure
-
-Effective agent prompts include:
-
-```markdown
-## Your Role
-[What the agent does]
-
-## Blocking Check
-[Prerequisites that must exist]
-
-## Input
-[What files to read]
-
-## Process
-[Step-by-step with encoded learnings]
-
-## Output
-[Exact file paths and formats]
-
-## Quality Checklist
-[Verification steps including learned gotchas]
-
-## Common Issues
-[Patterns discovered during development]
-```
-
-## Pipeline Agents
-
-When inserting a new agent into a numbered pipeline (e.g., `HTML-01` → `HTML-05` → `HTML-11`):
-
-| Must Update | What |
-|-------------|------|
-| New agent | "Workflow Position" diagram + "Next" field |
-| **Predecessor agent** | Its "Next" field to point to new agent |
-
-**Common bug**: New agent is "orphaned" because predecessor still points to old next agent.
-
-**Verification**:
-```bash
-grep -n "Next:.*→\|Then.*runs next" .claude/agents/*.md
-```
-
-## The Sweet Spot
-
-**Best use case**: Tasks that are **repetitive but require judgment**.
-
-Example: Auditing 70 skills manually = tedious. But each audit needs intelligence (check docs, compare versions, decide what to fix). Perfect for parallel agents with clear instructions.
-
-**Not good for**:
-- Simple tasks (just do them)
-- Highly creative tasks (need human direction)
-- Tasks requiring cross-file coordination (agents work independently)
-
-## Effective Prompt Template
+### Identifier Validation
 
 ```
-For each [item]:
-1. Read [source file]
-2. Verify with [external check - npm view, API call, etc.]
-3. Check [authoritative source]
-4. Score/evaluate
-5. FIX issues found ← Critical instruction
+✅ Valid: code-reviewer, test-gen, api-analyzer-v2
+❌ Invalid: ag (too short), -start (starts with hyphen), my_agent (underscore)
 ```
 
-**Key elements**:
-- **"FIX issues found"** - Without this, agents only report. With it, they take action.
-- **Exact file paths** - Prevents ambiguity
-- **Output format template** - Ensures consistent, parseable reports
-- **Batch size ~5 items** - Enough work to be efficient, not so much that failures cascade
+**Rules:**
+- 3-50 characters
+- Lowercase letters, numbers, hyphens only
+- Must start and end with alphanumeric
+- No underscores, spaces, or special characters
 
-## Workflow Pattern
+### Description Validation
+
+**Length:** 10-5,000 characters
+**Must include:** Triggering conditions and examples
+**Best:** 200-1,000 characters with 2-4 examples
+
+### System Prompt Validation
+
+**Length:** 20-10,000 characters
+**Best:** 500-3,000 characters
+**Structure:** Clear responsibilities, process, output format
+
+## Agent Organization
+
+### Plugin Agents Directory
 
 ```
-1. ME: Launch 2-3 parallel agents with identical prompt, different item lists
-2. AGENTS: Work in parallel (read → verify → check → edit → report)
-3. AGENTS: Return structured reports (score, status, fixes applied, files modified)
-4. ME: Review changes (git status, spot-check diffs)
-5. ME: Commit in batches with meaningful changelog
-6. ME: Push and update progress tracking
+plugin-name/
+└── agents/
+    ├── analyzer.md
+    ├── reviewer.md
+    └── generator.md
 ```
 
-**Why agents don't commit**: Allows human review, batching, and clean commit history.
+All `.md` files in `agents/` are auto-discovered.
 
-## Signs a Task Fits This Pattern
+### Namespacing
 
-**Good fit**:
-- Same steps repeated for many items
-- Each item requires judgment (not just transformation)
-- Items are independent (no cross-item dependencies)
-- Clear success criteria (score, pass/fail, etc.)
-- Authoritative source exists to verify against
+Agents are namespaced automatically:
+- Single plugin: `agent-name`
+- With subdirectories: `plugin:subdir:agent-name`
 
-**Bad fit**:
-- Items depend on each other's results
-- Requires creative/subjective decisions
-- Single complex task (use regular agent instead)
-- Needs human input mid-process
+## Testing Agents
+
+### Test Triggering
+
+Create test scenarios to verify agent triggers correctly:
+
+1. Write agent with specific triggering examples
+2. Use similar phrasing to examples in test
+3. Check Claude loads the agent
+4. Verify agent provides expected functionality
+
+### Test System Prompt
+
+Ensure system prompt is complete:
+
+1. Give agent typical task
+2. Check it follows process steps
+3. Verify output format is correct
+4. Test edge cases mentioned in prompt
+5. Confirm quality standards are met
 
 ## Quick Reference
 
-### Agent Frontmatter Template
+### Minimal Agent
 
-```yaml
+```markdown
 ---
-name: my-agent
-description: |
-  [Role] specialist. MUST BE USED when [triggers].
-  Use PROACTIVELY for [task category].
-  Keywords: [trigger words]
-tools: Read, Write, Edit, Glob, Grep, Bash
-model: sonnet
+name: simple-agent
+description: Use this agent when... Examples: <example>...</example>
+model: inherit
+color: blue
 ---
+
+You are an agent that [does X].
+
+Process:
+1. [Step 1]
+2. [Step 2]
+
+Output: [What to provide]
 ```
 
-### Fix Bash Approval Spam
+### Frontmatter Fields Summary
 
-1. Remove Bash from tools if not needed
-2. Put critical instructions FIRST (right after frontmatter)
-3. Use allowlists in `.claude/settings.json`
+| Field | Required | Format | Example |
+|-------|----------|--------|---------|
+| name | Yes | lowercase-hyphens | code-reviewer |
+| description | Yes | Text + examples | Use when... <example>... |
+| model | Yes | inherit/sonnet/opus/haiku | inherit |
+| color | Yes | Color name | blue |
+| tools | No | Array of tool names | ["Read", "Grep"] |
 
-### Memory Crash Recovery
+### Best Practices
 
-```bash
-export NODE_OPTIONS="--max-old-space-size=16384"
-source ~/.bashrc && claude
-```
+**DO:**
+- ✅ Include 2-4 concrete examples in description
+- ✅ Write specific triggering conditions
+- ✅ Use `inherit` for model unless specific need
+- ✅ Choose appropriate tools (least privilege)
+- ✅ Write clear, structured system prompts
+- ✅ Test agent triggering thoroughly
+
+**DON'T:**
+- ❌ Use generic descriptions without examples
+- ❌ Omit triggering conditions
+- ❌ Give all agents same color
+- ❌ Grant unnecessary tool access
+- ❌ Write vague system prompts
+- ❌ Skip testing
+
+## Additional Resources
+
+### Reference Files
+
+For detailed guidance, consult:
+
+- **`references/system-prompt-design.md`** - Complete system prompt patterns
+- **`references/triggering-examples.md`** - Example formats and best practices
+- **`references/agent-creation-system-prompt.md`** - The exact prompt from Claude Code
+
+### Example Files
+
+Working examples in `examples/`:
+
+- **`agent-creation-prompt.md`** - AI-assisted agent generation template
+- **`complete-agent-examples.md`** - Full agent examples for different use cases
+
+### Utility Scripts
+
+Development tools in `scripts/`:
+
+- **`validate-agent.sh`** - Validate agent file structure
+- **`test-agent-trigger.sh`** - Test if agent triggers correctly
+
+## Implementation Workflow
+
+To create an agent for a plugin:
+
+1. Define agent purpose and triggering conditions
+2. Choose creation method (AI-assisted or manual)
+3. Create `agents/agent-name.md` file
+4. Write frontmatter with all required fields
+5. Write system prompt following best practices
+6. Include 2-4 triggering examples in description
+7. Validate with `scripts/validate-agent.sh`
+8. Test triggering with real scenarios
+9. Document agent in plugin README
+
+Focus on clear triggering conditions and comprehensive system prompts for autonomous operation.

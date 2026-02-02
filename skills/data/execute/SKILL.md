@@ -1,291 +1,152 @@
 ---
 name: execute
-description: Execute a plan. Creates ./.gtd/<task_name>/{phase}/SUMMARY.md
-argument-hint: "[phase]"
-disable-model-invocation: true
+description: >
+  Execute implementation plans with checkpoints.
+  Use to systematically work through planned tasks with progress tracking.
 ---
 
-<role>
-You are a plan executor. You implement tasks atomically, verify each one, and produce a summary.
+# Executing Implementation Plans
 
-**Core responsibilities:**
+## Overview
 
-- Read and execute PLAN.md tasks in order
-- Implement code with strict fidelity to the plan
-- Verify each task meets its done criteria
-- Handle deviations appropriately
-- Create SUMMARY.md with proposed commit message
-  </role>
+Load plan, review critically, execute tasks in batches, report for review between batches.
+Stop immediately when blocked - never guess.
 
-<objective>
-Execute all tasks in a plan and produce a summary of what was done.
+**Core principle:** Batch execution with checkpoints for review.
 
-**Flow:** Load Plan → Execute Tasks (Apply Code Standards) → Verify → Summarize
-</objective>
+**Announce at start:** "I'm using the execute skill to implement this plan."
 
-<context>
-**Phase number:** $ARGUMENTS
+## The Process
 
-**Required files:**
+### Step 1: Load and Review Plan
 
-- `./.gtd/<task_name>/{phase}/PLAN.md` — Must exist
+1. Read the plan file completely
+2. Review critically - identify any questions or concerns
+3. **If concerns:** Raise them before starting. Don't proceed with unclear instructions.
+4. **If no concerns:** Create TodoWrite with all tasks, proceed to Step 2
 
-**Output:**
+**Questions to ask:**
+- Are file paths clear and complete?
+- Is the code complete or does it have placeholders?
+- Do I understand the test expectations?
+- Are there implicit dependencies not listed?
 
-- `./.gtd/<task_name>/{phase}/SUMMARY.md`
-- Source code changes
-  </context>
+### Step 2: Execute Batch
 
-<related>
-| Workflow   | Relationship                     |
-| ---------- | -------------------------------- |
-| `/plan`    | Creates the plan this executes   |
-| `/discuss` | Optional review before execution |
-</related>
+**Default batch size: 3 tasks**
 
-<standards_and_constraints>
+For each task in the batch:
+1. Mark task as `in_progress` in TodoWrite
+2. Follow each step exactly as written
+3. Run verifications as specified in plan
+4. Mark as `completed` only when ALL steps pass
+5. Capture learnings: `kodo reflect --signal "Pattern that worked: ..."`
 
-<execution_philosophy>
+**Execute steps literally:**
+- If plan says "run `cargo test`" - run exactly that
+- If plan says "expected output: FAIL" - verify you see FAIL
+- If plan shows code - use that exact code
 
-## Tasks Are Atomic
+### Step 3: Report
 
-Execute one task fully before moving to the next.
+When batch complete:
+```
+Completed tasks 1-3:
+- Task 1: [summary] - PASS
+- Task 2: [summary] - PASS
+- Task 3: [summary] - PASS
 
-## Verify Before Moving On
+Verification output:
+[key test results]
 
-After each task, check its done criteria. Don't proceed if verification fails.
+Ready for feedback before continuing.
+```
 
-## Plan Fidelity
+**Wait for user response before proceeding.**
 
-Implement exactly what the plan specifies. No more, no less.
-If you think the plan is wrong:
+### Step 4: Continue or Adjust
 
-- **STOP** and discuss
-- Do NOT silently deviate
-  </execution_philosophy>
+Based on feedback:
+- **"Continue"** - Execute next batch
+- **"Fix X"** - Apply changes, re-verify, then continue
+- **"Stop"** - Save progress, note remaining tasks
 
-<code_principles>
-**Mantra:** "Code is not an asset; it is a liability. Every line must earn its place."
+Repeat Steps 2-4 until complete.
 
-## Trust Gradient
+### Step 5: Completion
 
-| Zone                           | Trust Level | Action                |
-| ------------------------------ | ----------- | --------------------- |
-| **Edge** (API, user input, DB) | ZERO trust  | Validate everything   |
-| **Core** (internal logic)      | HIGH trust  | Skip redundant checks |
+After all tasks complete:
+1. Run full test suite
+2. Verify all commits are clean
+3. Offer code review: "Ready for review with `kodo:review` skill?"
+4. Capture session learnings: `kodo reflect`
 
-## No Silent Failures
+## When to Stop Immediately
 
-Empty `catch` blocks are forbidden.
+**STOP executing when:**
+- Hit a blocker (missing dependency, unclear instruction)
+- Test fails unexpectedly (not expected failure)
+- Plan has critical gaps
+- You don't understand what a step means
+- Verification fails after 2 attempts
 
-## Atomicity (State)
+**Ask for clarification rather than guessing.**
 
-Before writing state-changing code, ask: "If this fails halfway, is data corrupted?"
+```
+BLOCKED on Task 3, Step 2:
 
-- Use transactions
-- Use `finally` for cleanup
-- Use write-then-rename for files
+Plan says: "Run migration"
+Problem: No migration file exists at specified path
 
-## No Magic Values
+Options:
+A) Create migration file (show me what to create)
+B) Skip this step (may cause issues in Task 4)
+C) Abort and revise plan
 
-Every number, string, or value must have a name.
+Which approach?
+```
 
-</code_principles>
+## Progress Tracking
 
-<deviation_policy>
-| Situation | Action |
-| -------------------------- | ------------------------ |
-| Small bug found | Auto-fix |
-| Missing dependency | Install, note in summary |
-| Unclear requirement | **STOP**, ask user |
-| Architecture change needed | **STOP**, ask user |
-</deviation_policy>
+Use TodoWrite to track:
+```
+- [x] Task 1: Add config struct
+- [x] Task 2: Implement parser
+- [ ] Task 3: Add validation (IN PROGRESS)
+- [ ] Task 4: Wire up CLI
+- [ ] Task 5: Add tests
+```
 
-<prohibitions>
-- **NEVER** deviate from plan silently
-- **NEVER** swallow errors (no empty catch blocks)
-- **NEVER** use `any` type (unless absolutely unavoidable)
-- **NEVER** implement without reading dependencies first
-- **NEVER** scatter retry logic
-</prohibitions>
+Update after each task completion, not at batch boundaries.
 
-</standards_and_constraints>
+## Integration with Kodo
 
-<process>
-
-## 1. Load Plan
-
-**Bash:**
-
+**During execution:**
 ```bash
-if ! test -f "./.gtd/<task_name>/$PHASE/PLAN.md"; then
-    echo "Error: No plan exists for phase $PHASE"
-    exit 1
-fi
+kodo reflect --signal "This pattern worked well"
+kodo query "error handling"  # When stuck, check context
 ```
 
-Read `./.gtd/<task_name>/$PHASE/PLAN.md`.
-
-## 2. Display Execution Start
-
-```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GTD ► EXECUTING PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Objective: {objective}
-
-Tasks:
-[ ] 1. {task 1 name}
-[ ] 2. {task 2 name}
-─────────────────────────────────────────────────────
+**After completion:**
+```bash
+kodo reflect              # Capture all session learnings
+kodo track link #123      # Update linked GitHub issue
 ```
 
-## 3. Execute Tasks
+## Key Principles
 
-**Loop through each task in PLAN.md:**
+- **Review plan critically first** - Don't blindly execute broken plans
+- **Follow steps exactly** - Plans are pre-validated, trust them
+- **Don't skip verifications** - They catch issues early
+- **Stop when blocked** - Guessing creates more problems
+- **Report and wait** - User feedback between batches
 
-### 3a. Announce Task
+## Red Flags
 
-```text
-► Task {N}: {name}
-  Files: {files}
-```
-
-### 3b. Dependency Audit (Pre-Code)
-
-Before calling any existing function/library:
-
-1. Read its implementation/docs.
-2. Note any surprising behavior.
-3. Ensure you understand what it _actually_ does, not just what it _says_ it does.
-
-### 3c. Execute Action (Coding)
-
-Implement the task using **<code_principles>**.
-
-- Validate edge inputs.
-- Ensure atomic state changes.
-- Add specific types (no `any`).
-
-### 3d. Verify Done Criteria
-
-Check the task's `<done>` criteria.
-**If verified:**
-
-```text
-✓ Task {N} complete
-```
-
-**If not verified:**
-
-- Attempt to fix (using Deviation Policy).
-- If still failing, **STOP** and ask user.
-
-### 3e. Track Deviations
-
-Note any work done outside the plan (bugs fixed, adjustments made) for the Summary.
-
----
-
-## 4. Verify Success Criteria
-
-After all tasks, check plan's success criteria:
-
-```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GTD ► VERIFYING PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[✓] {criterion 1}
-[✓] {criterion 2}
-```
-
-**If any fail:** Attempt to fix or ask user.
-
-## 5. Write SUMMARY.md
-
-Write to `./.gtd/<task_name>/$PHASE/SUMMARY.md`:
-
-```markdown
-# Phase {N} Summary
-
-**Status:** Complete
-**Executed:** {date}
-
-## What Was Done
-
-{Narrative summary of implementation}
-
-## Behaviour
-
-**Before:** {describe system behaviour before changes}
-**After:** {describe system behaviour after changes}
-
-## Tasks Completed
-
-1. ✓ {task 1 name}
-   - {what was implemented}
-   - Files: {files changed}
-
-2. ✓ {task 2 name}
-   ...
-
-## Deviations
-
-{List any work done outside the plan, or "None"}
-
-## Success Criteria
-
-- [x] {criterion 1}
-- [x] {criterion 2}
-
-## Files Changed
-
-- `{file 1}` — {what changed}
-
-## Proposed Commit Message
-
-feat(phase-{N}): {short description}
-
-{longer description if needed}
-
-- {bullet 1}
-- {bullet 2}
-```
-
-## 6. Update Roadmap Status
-
-Update `./.gtd/<task_name>/ROADMAP.md` phase status:
-
-```markdown
-### Phase {N}: {Name}
-
-**Status**: ✅ Complete
-```
-
-</process>
-
-<offer_next>
-
-```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GTD ► PHASE {N} COMPLETE ✓
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Summary written to: ./.gtd/{N}/SUMMARY.md
-
-Tasks: {X}/{X} complete
-Deviations: {count}
-Files changed: {count}
-
-─────────────────────────────────────────────────────
-▶ Next Up
-/plan {N+1} — plan the next phase
-─────────────────────────────────────────────────────
-```
-
-</offer_next>
-
-<forced_stop>
-STOP. The workflow is complete. Do NOT automatically run the next command. Wait for the user.
-</forced_stop>
+**You're doing it wrong if:**
+- Executing without reviewing plan first
+- Skipping verification steps
+- Continuing past unexpected failures
+- Batches larger than 3 tasks without checkpoint
+- Guessing when instructions are unclear
+- Not updating TodoWrite progress

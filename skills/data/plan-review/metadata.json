@@ -1,14 +1,7 @@
 {
   "name": "plan-review",
-  "description": "Use after plan is written to validate implementation plans across completeness, quality, feasibility, and scope dimensions - spawns specialized validators for failed dimensions and refines plan intera",
-  "repo": "seanGSISG/crispy-claude",
-  "category": "data",
-  "tags": [
-    "plan",
-    "review"
-  ],
-  "stars": 0,
-  "dir_name": "plan-review",
-  "github_path": ".claude/skills/plan-review",
-  "github_branch": "main"
+  "repo": "YougLin-dev/Aha-Loop",
+  "path": ".agents/skills/plan-review/SKILL.md",
+  "source": "github.com/YougLin-dev/Aha-Loop",
+  "downloaded_at": "2026-02-02T04:01:04.426654Z"
 }

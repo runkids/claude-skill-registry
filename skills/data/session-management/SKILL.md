@@ -1,170 +1,526 @@
 ---
 name: session-management
-description: セッション管理（Session Management）機能の開発・修正を行う際に使用。OPSession, ClientSession, SSO, RP-Initiated Logout, Back-Channel Logout実装時に役立つ。
+description: Context preservation, tiered summarization, resumability
 ---
 
-# セッション管理（Session Management）開発ガイド
+# Session Management Skill
 
-## ドキュメント
+*Load with: base.md*
 
-- `documentation/docs/content_06_developer-guide/04-implementation-guides/oauth-oidc/session-management.md` - セッション管理実装ガイド
-- `documentation/docs/content_03_concepts/03-authentication-authorization/concept-03-session-management.md` - セッション管理概念
-- `documentation/docs/content_03_concepts/03-authentication-authorization/concept-03-session-management-security.md` - セッションセキュリティ
+For maintaining context across long development sessions and enabling seamless resume after breaks.
 
-## 機能概要
+---
 
-セッション管理は、ユーザーの認証状態を維持・管理する層。
-- **2層セッション**: OPSession（SSO用）+ ClientSession（アプリ別）
-- **セッション再利用**: SSO実現のためのセッション共有
-- **セッション切替ポリシー**: STRICT, SWITCH_ALLOWED, MULTI_SESSION
-- **ACRダウングレード防止**: セッションACR検証
-- **ログアウト**: RP-Initiated, Back-Channel, Front-Channel
+## Core Principle
 
-## モジュール構成
+**Checkpoint at natural breakpoints, resume instantly.**
 
+Long development sessions risk context loss. Proactively document state, decisions, and progress so any session can resume exactly where it left off - whether returning after a break or hitting context limits.
+
+---
+
+## Tiered Summarization Rules
+
+### Tier 1: Quick Update (current-state.md only)
+**Trigger**: After completing any small task or todo item
+**Action**: Update "Active Task", "Progress", and "Next Steps" sections
+**Time**: ~30 seconds
+
+### Tier 2: Full Checkpoint (current-state.md + decisions.md)
+**Trigger**:
+- After completing a feature or significant change
+- After any architectural/library decision
+- After ~20 tool calls during active work
+- When switching to a different area of the codebase
+
+**Action**:
+1. Update full current-state.md
+2. Log any decisions to decisions.md
+3. Update files being modified table
+
+### Tier 3: Session Archive (archive/ + full checkpoint)
+**Trigger**:
+- End of work session
+- Completing a major feature/milestone
+- Before a significant context shift
+- When context feels heavy (~50+ tool calls)
+
+**Action**:
+1. Create archive entry: `archive/YYYY-MM-DD[-topic].md`
+2. Full checkpoint
+3. Clear verbose notes from current-state.md
+4. Update code-landmarks.md if new patterns introduced
+
+### Decision Heuristic
 ```
-libs/
-├── idp-server-core/                         # セッションコア
-│   └── .../openid/session/
-│       ├── OIDCSessionHandler.java         # セッション処理Handler
-│       ├── OIDCSessionService.java         # セッション管理Service
-│       ├── OPSession.java                  # OPセッション（SSO）
-│       ├── ClientSession.java              # クライアントセッション
-│       ├── SessionCookieDelegate.java      # Cookie管理
-│       ├── SessionSwitchPolicy.java        # セッション切替ポリシー
-│       └── repository/
-│           ├── OPSessionRepository.java
-│           └── ClientSessionRepository.java
-│
-└── idp-server-control-plane/               # 管理API
-    └── .../management/session/
-        └── SessionManagementApi.java
-```
-
-## セッション構造
-
-### OPSession（SSO用）
-
-`idp-server-core/openid/session/OPSession.java` 内の実際の構造:
-
-```java
-public class OPSession {
-    private OPSessionIdentifier id;
-    private TenantIdentifier tenantId;
-    private User user;
-    private Instant authTime;
-    private String acr;
-    private List<String> amr;
-    private Map<String, Map<String, Object>> interactionResults;
-    private BrowserState browserState;
-    private Instant createdAt;
-    private Instant expiresAt;
-    private Instant lastAccessedAt;
-    private SessionStatus status;
-
-    // セッション再利用可否判定（概念的）
-    public boolean canReuseFor(Acr requiredAcr) {
-        // ACRダウングレード防止
-        return this.acr.isHigherOrEqualTo(requiredAcr);
-    }
-}
+┌─────────────────────────────────────────────────────┐
+│ After completing work, ask:                         │
+├─────────────────────────────────────────────────────┤
+│ Was a decision made?        → Log to decisions.md   │
+│ Task took >10 tool calls?   → Full Checkpoint       │
+│ Major feature complete?     → Archive               │
+│ Ending session?             → Archive + Handoff     │
+│ Otherwise                   → Quick Update          │
+└─────────────────────────────────────────────────────┘
 ```
 
-**注意**: ClientSessionは別エンティティとして独立管理されます。
+---
 
-### ClientSession（アプリ別）
+## Session State Structure
 
-```java
-public class ClientSession {
-    ClientSessionId clientSessionId;
-    SessionId opSessionId;  // OPSessionへの参照
-    ClientId clientId;
-    Scope grantedScope;
-    Instant createdAt;
-    Instant lastAccessedAt;
-}
-```
-
-## セッション処理
-
-`idp-server-core/openid/session/OIDCSessionHandler.java` 内:
-
-```java
-public class OIDCSessionHandler {
-    /**
-     * 認証成功時のセッション作成または再利用
-     *
-     * セッション切替ポリシー:
-     * - 同一ユーザー: 既存セッション再利用
-     * - 異なるユーザー + STRICT: 例外スロー
-     * - 異なるユーザー + SWITCH_ALLOWED: 既存終了、新規作成
-     * - 異なるユーザー + MULTI_SESSION: 新規作成（既存維持）
-     */
-    public OPSession onAuthenticationSuccess(
-        Tenant tenant,
-        User user,
-        Authentication authentication,
-        Map<String, Map<String, Object>> interactionResults,
-        OPSession existingSession
-    ) {
-        // セッション再利用または新規作成ロジック
-        // ...
-    }
-}
-```
-
-## セッション切替ポリシー
-
-```java
-public enum SessionSwitchPolicy {
-    STRICT,           // セッション切替禁止
-    SWITCH_ALLOWED,   // 切替許可（既存セッション無効化）
-    MULTI_SESSION;    // 複数セッション許可
-}
-```
-
-OIDCSessionService内で、ポリシーに応じた処理を実行します。
-
-## E2Eテスト
+Create `_project_specs/session/` directory:
 
 ```
-e2e/src/tests/
-├── spec/
-│   └── (OIDCセッション関連仕様テスト)
-│
-├── scenario/application/
-│   ├── scenario-02-sso-oidc.test.js         # SSOシナリオ
-│   └── scenario-13-sso-session-management.test.js
-│
-├── usecase/standard/
-│   └── standard-04-session-switch-policy.test.js
-│
-└── security/
-    └── session_fixation_password_auth.test.js  # セッション固定攻撃対策
+_project_specs/
+└── session/
+    ├── current-state.md      # Live session state (update frequently)
+    ├── decisions.md          # Key decisions log (append-only)
+    ├── code-landmarks.md     # Important code locations
+    └── archive/              # Past session summaries
+        └── 2025-01-15.md
 ```
 
-## コマンド
+---
+
+## Current State File
+
+**`_project_specs/session/current-state.md`** - Update every 15-20 minutes or after significant progress.
+
+```markdown
+# Current Session State
+
+*Last updated: 2025-01-15 14:32*
+
+## Active Task
+[One sentence: what are we working on right now]
+
+Example: Implementing user authentication flow with JWT tokens
+
+## Current Status
+- **Phase**: [exploring | planning | implementing | testing | debugging | refactoring]
+- **Progress**: [X of Y steps complete, or percentage]
+- **Blocking Issues**: [None, or describe blockers]
+
+## Context Summary
+[2-3 sentences summarizing the current state of work]
+
+Example: Created auth middleware and login endpoint. JWT signing works.
+Currently implementing token refresh logic. Need to add refresh token
+rotation for security.
+
+## Files Being Modified
+| File | Status | Notes |
+|------|--------|-------|
+| src/auth/middleware.ts | Done | JWT verification |
+| src/auth/refresh.ts | In Progress | Token rotation |
+| src/auth/types.ts | Done | Token interfaces |
+
+## Next Steps
+1. [ ] Complete refresh token rotation in refresh.ts
+2. [ ] Add token blacklist for logout
+3. [ ] Write integration tests for auth flow
+
+## Key Context to Preserve
+- Using RS256 algorithm (not HS256) per security requirements
+- Refresh tokens stored in HttpOnly cookies
+- Access tokens: 15 min, Refresh tokens: 7 days
+
+## Resume Instructions
+To continue this work:
+1. Read src/auth/refresh.ts - currently at line 45
+2. The rotateRefreshToken() function needs error handling
+3. Check decisions.md for why we chose RS256 over HS256
+```
+
+---
+
+## Decision Log
+
+**`_project_specs/session/decisions.md`** - Append-only log of architectural and implementation decisions.
+
+```markdown
+# Decision Log
+
+Track key decisions for future reference. Never delete entries.
+
+---
+
+## [2025-01-15] JWT Algorithm Choice
+
+**Decision**: Use RS256 instead of HS256 for JWT signing
+
+**Context**: Implementing authentication system
+
+**Options Considered**:
+1. HS256 (symmetric) - Simpler, single secret
+2. RS256 (asymmetric) - Public/private key pair
+
+**Choice**: RS256
+
+**Reasoning**:
+- Allows token verification without exposing signing key
+- Better for microservices (services only need public key)
+- Industry standard for production systems
+
+**Trade-offs**:
+- Slightly more complex key management
+- Larger token size
+
+**References**:
+- src/auth/keys/ - Key storage
+- docs/security.md - Security architecture
+
+---
+
+## [2025-01-14] Database Schema Approach
+
+**Decision**: Use Drizzle ORM with PostgreSQL
+
+**Context**: Setting up data layer
+
+**Options Considered**:
+1. Prisma - Popular, good DX
+2. Drizzle - Type-safe, SQL-like
+3. Raw SQL - Maximum control
+
+**Choice**: Drizzle
+
+**Reasoning**:
+- Better TypeScript inference than Prisma
+- More transparent SQL generation
+- Lighter weight, faster cold starts
+
+**References**:
+- src/db/schema.ts - Schema definitions
+- src/db/migrations/ - Migration files
+```
+
+---
+
+## Code Landmarks
+
+**`_project_specs/session/code-landmarks.md`** - Important code locations for quick reference.
+
+```markdown
+# Code Landmarks
+
+Quick reference to important parts of the codebase.
+
+## Entry Points
+| Location | Purpose |
+|----------|---------|
+| src/index.ts | Main application entry |
+| src/api/routes.ts | API route definitions |
+| src/workers/index.ts | Background job entry |
+
+## Core Business Logic
+| Location | Purpose |
+|----------|---------|
+| src/core/auth/ | Authentication system |
+| src/core/billing/ | Payment processing |
+| src/core/workflows/ | Main workflow engine |
+
+## Configuration
+| Location | Purpose |
+|----------|---------|
+| src/config/index.ts | Environment config |
+| src/config/features.ts | Feature flags |
+| drizzle.config.ts | Database config |
+
+## Key Patterns
+| Pattern | Example Location | Notes |
+|---------|------------------|-------|
+| Service Layer | src/services/user.ts | Business logic encapsulation |
+| Repository | src/repos/user.ts | Data access abstraction |
+| Middleware | src/middleware/auth.ts | Request processing |
+
+## Testing
+| Location | Purpose |
+|----------|---------|
+| tests/unit/ | Unit tests |
+| tests/integration/ | API tests |
+| tests/e2e/ | End-to-end tests |
+| tests/fixtures/ | Test data |
+
+## Gotchas & Non-Obvious Behavior
+| Location | Issue | Notes |
+|----------|-------|-------|
+| src/utils/date.ts | Timezone handling | Always use UTC internally |
+| src/api/middleware.ts:45 | Auth bypass | Skip auth for health checks |
+| src/db/pool.ts | Connection limit | Max 10 connections in dev |
+```
+
+---
+
+## CLAUDE.md Session Rules
+
+Add this section to CLAUDE.md:
+
+```markdown
+## Session Management
+
+**IMPORTANT**: Follow session-management.md skill. Update session state at natural breakpoints.
+
+### After Every Task Completion
+Ask yourself:
+1. Was a decision made? → Log to `decisions.md`
+2. Did this take >10 tool calls? → Full checkpoint to `current-state.md`
+3. Is a major feature complete? → Create archive entry
+4. Otherwise → Quick update to `current-state.md`
+
+### Checkpoint Triggers
+**Quick Update** (current-state.md):
+- After any todo completion
+- After small changes
+
+**Full Checkpoint** (current-state.md + decisions.md):
+- After significant changes
+- After ~20 tool calls
+- After any decision
+- When switching focus areas
+
+**Archive** (archive/ + full checkpoint):
+- End of session
+- Major feature complete
+- Context feels heavy
+
+### Session Start Protocol
+When beginning work:
+1. Read `_project_specs/session/current-state.md`
+2. Check `_project_specs/todos/active.md`
+3. Review recent `decisions.md` entries if needed
+4. Continue from "Next Steps"
+
+### Session End Protocol
+Before ending or when context limit approaches:
+1. Create archive: `_project_specs/session/archive/YYYY-MM-DD.md`
+2. Update current-state.md with handoff format
+3. Ensure next steps are specific and actionable
+```
+
+---
+
+## Compression Strategies
+
+### When to Compress (Tier 3 Archive)
+
+| Trigger | Action |
+|---------|--------|
+| ~50+ tool calls | Summarize progress, archive verbose notes |
+| Major feature complete | Archive feature details, update landmarks |
+| Context shift | Summarize previous context, archive, start fresh |
+| End of session | Full session handoff with archive |
+
+### What to Keep vs Archive
+
+**Keep in active context:**
+- Current task and immediate next steps
+- Active file list with status
+- Blocking issues
+- Key decisions affecting current work
+
+**Archive/summarize:**
+- Exploration paths that didn't work out
+- Detailed debugging traces (keep conclusion only)
+- Verbose error messages (keep root cause only)
+- Research notes (keep recommendations only)
+
+### Compression Template
+
+When compressing, use this format:
+
+```markdown
+## Compressed Context - [Topic]
+
+**Summary**: [1-2 sentences]
+
+**Key Findings**:
+- [Bullet points of important discoveries]
+
+**Decisions Made**:
+- [Reference to decisions.md entries]
+
+**Relevant Code**:
+- [File:line references]
+
+**Archived Details**: [Link to archive file if created]
+```
+
+---
+
+## Session Archive
+
+After significant work or at session end, create archive:
+
+**`_project_specs/session/archive/YYYY-MM-DD[-topic].md`**
+
+```markdown
+# Session Archive: [Date] - [Topic]
+
+## Summary
+[Paragraph summarizing what was accomplished]
+
+## Tasks Completed
+- [TODO-XXX] Description - Done
+- [TODO-YYY] Description - Done
+
+## Key Decisions
+- [Reference decisions.md entries made this session]
+
+## Code Changes
+| File | Change Type | Description |
+|------|-------------|-------------|
+| src/auth/login.ts | Created | Login endpoint |
+| src/auth/types.ts | Modified | Added RefreshToken type |
+
+## Tests Added
+- tests/auth/login.test.ts - Login flow tests
+- tests/auth/refresh.test.ts - Token refresh tests
+
+## Open Items Carried Forward
+- [Anything not finished, now in active.md]
+
+## Session Stats
+- Duration: ~3 hours
+- Tool calls: ~120
+- Files modified: 8
+- Tests added: 12
+```
+
+---
+
+## Integration with Todo System
+
+### Link Todos to Sessions
+
+In active todos, reference session context:
+
+```markdown
+## [TODO-042] Implement token refresh
+
+**Status:** in-progress
+**Session Context:** See current-state.md
+
+### Progress Notes
+- 2025-01-15: Started implementation, base structure done
+- 2025-01-15: Added rotation logic, need error handling
+```
+
+### Auto-Update on Todo Completion
+
+When completing a todo:
+1. Mark todo complete in active.md
+2. Update current-state.md progress
+3. Log any decisions made
+4. Update code-landmarks.md if new patterns introduced
+
+---
+
+## Quick Commands
+
+Add to project scripts or aliases:
 
 ```bash
-# ビルド
-./gradlew :libs:idp-server-core:compileJava
+# Show current session state
+alias session-status="cat _project_specs/session/current-state.md"
 
-# テスト
-cd e2e && npm test -- scenario/application/scenario-02-sso-oidc.test.js
-cd e2e && npm test -- security/session_fixation_password_auth.test.js
+# Quick edit session state
+alias session-edit="$EDITOR _project_specs/session/current-state.md"
+
+# View recent decisions
+alias decisions="tail -100 _project_specs/session/decisions.md"
+
+# Create session archive
+session-archive() {
+  cp _project_specs/session/current-state.md \
+     "_project_specs/session/archive/$(date +%Y-%m-%d).md"
+  echo "Archived to _project_specs/session/archive/$(date +%Y-%m-%d).md"
+}
 ```
 
-## トラブルシューティング
+---
 
-### SSOが動作しない
-- OPSessionのACRを確認
-- Cookie設定（domain, path, SameSite）を確認
-- `SessionCookieDelegate` の設定を確認
+## Enforcement Mechanisms
 
-### セッション切替エラー
-- `SessionSwitchPolicy`設定を確認
-- `STRICT`の場合は既存セッションを無効化してから再認証
+### 1. CLAUDE.md as Entry Point
+CLAUDE.md must reference session-management.md in the Skills section. Claude reads CLAUDE.md first, which directs it to follow session rules.
 
-### セッションが期限切れ
-- OPSessionの有効期限設定を確認
-- Redisなどのセッションストレージが正常か確認
+### 2. Session File Headers with Reminders
+Include enforcement reminders in session file headers:
+
+**current-state.md header:**
+```markdown
+<!--
+CHECKPOINT RULES (from session-management.md):
+- Quick update: After any todo completion
+- Full checkpoint: After ~20 tool calls or decisions
+- Archive: End of session or major feature complete
+-->
+```
+
+### 3. Self-Check Questions
+After completing any task, Claude should ask:
+```
+□ Did I make a decision? → Log it
+□ Did this take >10 tool calls? → Full checkpoint
+□ Is a feature complete? → Archive
+□ Am I ending/switching context? → Archive + handoff
+```
+
+### 4. Session Start Verification
+When starting a session, Claude must:
+1. Check if `current-state.md` exists and read it
+2. Announce what it found: "Resuming from: [last state]"
+3. Confirm next steps before proceeding
+
+### 5. Periodic Self-Audit
+Every ~20 tool calls, Claude should check:
+- Is current-state.md up to date?
+- Are there unlogged decisions?
+- Is context getting heavy?
+
+### 6. User Prompts
+Users can enforce by asking:
+- "Update session state" → Triggers checkpoint
+- "What's the current state?" → Claude reads and reports
+- "End session" → Triggers archive + handoff
+- "Resume from last session" → Claude reads state files first
+
+---
+
+## Anti-Patterns
+
+- **No state tracking** - Flying blind, can't resume
+- **Overly verbose state** - Keep it scannable, not a novel
+- **Stale state files** - Update regularly or they become useless
+- **Missing decisions** - Future you won't remember why
+- **No code landmarks** - Wastes time re-discovering the codebase
+- **Never archiving** - Session files become cluttered
+- **Ignoring compression signals** - Context overload degrades performance
+- **Skipping checkpoint after decisions** - Key context lost
+- **No handoff at session end** - Next session starts blind
+
+---
+
+## Quick Reference
+
+### Checkpoint Decision Tree
+```
+Task completed?
+    │
+    ├── Decision made? ──────────────────→ Log to decisions.md
+    │
+    ├── >10 tool calls OR significant? ──→ Full Checkpoint
+    │
+    ├── Major feature done? ─────────────→ Archive
+    │
+    └── Otherwise ───────────────────────→ Quick Update
+```
+
+### Files at a Glance
+| File | Update Frequency | Purpose |
+|------|------------------|---------|
+| current-state.md | Every task | Live state, next steps |
+| decisions.md | When deciding | Architectural choices |
+| code-landmarks.md | When patterns change | Code navigation |
+| archive/*.md | End of session/feature | Historical record |

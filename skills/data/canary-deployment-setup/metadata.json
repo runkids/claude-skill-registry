@@ -1,7 +1,7 @@
 {
   "name": "canary-deployment-setup",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/canary-deployment-setup/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-27T03:32:38.968775Z"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/08-ml-deployment/canary-deployment-setup/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:27:05.100259Z"
 }

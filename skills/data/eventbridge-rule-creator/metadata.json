@@ -1,9 +1,7 @@
 {
   "name": "eventbridge-rule-creator",
-  "description": "Eventbridge Rule Creator - Auto-activating skill for AWS Skills.Triggers on: eventbridge rule creator, eventbridge rule creatorPart of the AWS Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/13-aws-skills/eventbridge-rule-creator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:26:50.672641Z"
 }

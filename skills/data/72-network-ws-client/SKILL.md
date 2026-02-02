@@ -279,4 +279,4 @@ namespace Devian
 ## Reference
 
 - Parent Module: `Devian` (단일 런타임 모듈, `namespace Devian`)
-- Related: `skills/devian/10-core-runtime/SKILL.md`
+- Related: `skills/devian-core/10-core-runtime/SKILL.md`

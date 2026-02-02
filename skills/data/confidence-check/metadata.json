@@ -1,7 +1,7 @@
 {
   "name": "confidence-check",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/plugins/superclaude/src/superclaude/skills/confidence-check/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-02-01T04:19:32.026957Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/skills/confidence-check/SKILL.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-02-02T04:59:18.748399Z"
 }

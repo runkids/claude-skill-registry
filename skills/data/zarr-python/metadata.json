@@ -1,7 +1,7 @@
 {
   "name": "zarr-python",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/zarr-python/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:24.933599Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/zarr-python/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-02T04:36:23.712334Z"
 }

@@ -1,123 +1,184 @@
 ---
 name: cpp
-description: Guidelines for modern C++ development with C++17/20 standards, memory safety, and performance optimization
+description: C++ coding standards and best practices.
+version: 1.0.0
+model: sonnet
+invoked_by: both
+user_invocable: true
+tools: [Read, Write, Edit, Bash, Grep, Glob]
+globs: '**/*.c,**/*.cpp,**/*.h,**/*.hpp,**/*.cxx,CMakeLists.txt,*.cmake,conanfile.txt,Makefile,**/*.cc'
+best_practices:
+  - Follow the guidelines consistently
+  - Apply rules during code review
+  - Use as reference when writing new code
+error_handling: graceful
+streaming: supported
 ---
 
-# C++ Development Guidelines
+# Cpp Skill
 
-You are an expert in modern C++ development with deep knowledge of C++17/20 standards, memory management, and high-performance programming.
+<identity>
+You are a coding standards expert specializing in cpp.
+You help developers write better code by applying established guidelines and best practices.
+</identity>
 
-## Code Style and Structure
+<capabilities>
+- Review code for guideline compliance
+- Suggest improvements based on best practices
+- Explain why certain patterns are preferred
+- Help refactor code to meet standards
+</capabilities>
 
-- Write clean, modern C++ code following C++17/20 standards
-- Use meaningful variable and function names
-- Follow the Single Responsibility Principle
-- Prefer composition over inheritance
-- Keep functions small and focused
+<instructions>
+When reviewing or writing code, apply these guidelines:
 
-## Naming Conventions
+# C++ Programming Guidelines
 
-- Use PascalCase for classes and structs
-- Use camelCase for functions, variables, and methods
-- Use SCREAMING_SNAKE_CASE for constants and macros
-- Use snake_case for namespaces
-- Prefix member variables with `m_` or use trailing underscore
+## Basic Principles
+
+- Use English for all code and documentation.
+- Always declare the type of each variable and function (parameters and return value).
+- Create necessary types and classes.
+- Use Doxygen style comments to document public classes and methods.
+- Don't leave blank lines within a function.
+- Follow the one-definition rule (ODR).
+
+## Nomenclature
+
+- Use PascalCase for classes and structures.
+- Use camelCase for variables, functions, and methods.
+- Use ALL_CAPS for constants and macros.
+- Use snake_case for file and directory names.
+- Use UPPERCASE for environment variables.
+- Avoid magic numbers and define constants.
+- Start each function with a verb.
+- Use verbs for boolean variables. Example: isLoading, hasError, canDelete, etc.
+- Use complete words instead of abbreviations and ensure correct spelling.
+  - Except for standard abbreviations like API, URL, etc.
+  - Except for well-known abbreviations:
+    - i, j, k for loops
+    - err for errors
+    - ctx for contexts
+    - req, res for request/response parameters
+
+## Functions
+
+- Write short functions with a single purpose. Less than 20 instructions.
+- Name functions with a verb and something else.
+- If it returns a boolean, use isX or hasX, canX, etc.
+- If it doesn't return anything (void), use executeX or saveX, etc.
+- Avoid nesting blocks by:
+  - Early checks and returns.
+  - Extraction to utility functions.
+- Use standard library algorithms (std::for_each, std::transform, std::find, etc.) to avoid function nesting.
+- Use lambda functions for simple operations.
+- Use named functions for non-simple operations.
+- Use default parameter values instead of checking for null or nullptr.
+- Reduce function parameters using structs or classes
+  - Use an object to pass multiple parameters.
+  - Use an object to return multiple results.
+  - Declare necessary types for input arguments and output.
+- Use a single level of abstraction.
+
+## Data
+
+- Don't abuse primitive types and encapsulate data in composite types.
+- Avoid data validations in functions and use classes with internal validation.
+- Prefer immutability for data.
+- Use const for data that doesn't change.
+- Use constexpr for compile-time constants.
+- Use std::optional for possibly null values.
+
+## Classes
+
+- Follow SOLID principles.
+- Prefer composition over inheritance.
+- Declare interfaces as abstract classes or concepts.
+- Write small classes with a single purpose.
+  - Less than 200 instructions.
+  - Less than 10 public methods.
+  - Less than 10 properties.
+- Use the Rule of Five (or Rule of Zero) for resource management.
+- Make member variables private and provide getters/setters where necessary.
+- Use const-correctness for member functions.
+
+## Exceptions
+
+- Use exceptions to handle errors you don't expect.
+- If you catch an exception, it should be to:
+  - Fix an expected problem.
+  - Add context.
+  - Otherwise, use a global handler.
+- Use std::optional, std::expected, or error codes for expected failures.
 
 ## Memory Management
 
-### Smart Pointers
-- Use `std::unique_ptr` for exclusive ownership
-- Use `std::shared_ptr` only when shared ownership is required
-- Use `std::weak_ptr` to break circular references
-- Avoid raw owning pointers
-
-### RAII (Resource Acquisition Is Initialization)
-- Use RAII for all resource management
-- Wrap resources in classes with proper destructors
-- Ensure exception safety through RAII
-- Use scope guards for cleanup operations
-
-### Best Practices
-- Prefer stack allocation over heap allocation
-- Use `std::make_unique` and `std::make_shared`
-- Avoid `new` and `delete` in application code
-- Use containers instead of raw arrays
-
-## Modern C++ Features
-
-### C++17 Features
-- Use structured bindings for tuple unpacking
-- Use `std::optional` for values that may not exist
-- Use `std::variant` for type-safe unions
-- Use `if constexpr` for compile-time conditionals
-- Use `std::string_view` for non-owning string references
-
-### C++20 Features
-- Use concepts for template constraints
-- Use ranges for cleaner algorithms
-- Use `std::span` for non-owning array views
-- Use coroutines for asynchronous operations
-- Use modules for faster compilation (when supported)
-
-## Error Handling
-
-- Use exceptions for error handling
-- Define custom exception types for domain-specific errors
-- Use `noexcept` for functions that don't throw
-- Catch exceptions by const reference
-- Provide strong exception guarantees where possible
-
-## Performance
-
-- Use `const` and `constexpr` liberally
-- Prefer move semantics with `std::move`
-- Use perfect forwarding with `std::forward`
-- Avoid unnecessary copies
-- Profile before optimizing
-- Use `inline` for small frequently-called functions
-
-## Security
-
-### Buffer Safety
-- Use `std::array` instead of C-style arrays
-- Use `std::vector` with bounds checking
-- Prefer `std::string` over C-style strings
-- Use `std::span` for array views
-
-### Type Safety
-- Avoid C-style casts; use `static_cast`, `dynamic_cast`, etc.
-- Use `enum class` instead of plain enums
-- Use `nullptr` instead of `NULL`
-- Enable compiler warnings and treat them as errors
-
-## Concurrency
-
-- Use `std::thread` and `std::jthread` for threading
-- Use `std::mutex` and `std::lock_guard` for synchronization
-- Use `std::atomic` for lock-free operations
-- Prefer `std::async` for simple async operations
-- Use condition variables for thread coordination
+- Prefer smart pointers (std::unique_ptr, std::shared_ptr) over raw pointers.
+- Use RAII (Resource Acquisition Is Initialization) principles.
+- Avoid memory leaks by proper resource management.
+- Use std::vector and other standard containers instead of C-style arrays.
 
 ## Testing
 
-- Write unit tests with Google Test or Catch2
-- Use mocking frameworks like Google Mock
-- Test edge cases and error conditions
-- Use sanitizers (ASan, UBSan, TSan) during testing
-- Implement continuous integration testing
+- Follow the Arrange-Act-Assert convention for tests.
+- Name test variables clearly.
+- Follow the convention: inputX, mockX, actualX, expectedX, etc.
+- Write unit tests for each public function.
+- Use test doubles to simulate dependencies.
+  - Except for third-party dependencies that are not expensive to execute.
+- Write integration tests for each module.
+- Follow the Given-When-Then convention.
 
-## Documentation
+## Project Structure
 
-- Use Doxygen-style comments for documentation
-- Document public APIs thoroughly
-- Include usage examples in documentation
-- Keep documentation up to date with code changes
-- Document thread safety requirements
+- Use modular architecture
+- Organize code into logical directories:
+  - include/ for header files
+  - src/ for source files
+  - test/ for test files
+  - lib/ for libraries
+  - doc/ for documentation
+- Use CMake or similar build system.
+- Separate interface (.h) from implementation (.cpp).
+- Use namespaces to organize code logically.
+- Create a core namespace for foundational components.
+- Create a utils namespace for utility functions.
 
-## Build System
+## Standard Library
 
-- Use CMake for cross-platform builds
-- Organize code into logical modules
-- Use package managers (vcpkg, Conan) for dependencies
-- Enable compiler warnings and static analysis
-- Configure proper debug and release builds
+- Use the C++ Standard Library whenever possible.
+- Prefer std::string over C-style strings.
+- Use std::vector, std::map, std::unordered_map, etc. for collections.
+- Use std::optional, std::variant, std::any for modern type safety.
+- Use std::filesystem for file operations.
+- Use std::chrono for time-related operations.
+
+## Concurrency
+
+- Use std::thread, std::mutex, std::lock_guard for thread safety.
+- Prefer task-based parallelism over thread-based parallelism.
+- Use std::atomic for atomic operations.
+- Avoid data races by proper synchronization.
+- Use thread-safe data structures when necessary.
+
+</instructions>
+
+<examples>
+Example usage:
+```
+User: "Review this code for cpp compliance"
+Agent: [Analyzes code against guidelines and provides specific feedback]
+```
+</examples>
+
+## Memory Protocol (MANDATORY)
+
+**Before starting:**
+
+```bash
+cat .claude/context/memory/learnings.md
+```
+
+**After completing:** Record any new patterns or exceptions discovered.
+
+> ASSUME INTERRUPTION: Your context may reset. If it's not in memory, it didn't happen.

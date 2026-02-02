@@ -1,7 +1,7 @@
 {
   "name": "plugin-settings",
-  "repo": "fcakyon/claude-codex-settings",
-  "path": "plugins/plugin-dev/skills/plugin-settings/SKILL.md",
-  "source": "github.com/fcakyon/claude-codex-settings",
-  "downloaded_at": "2026-02-01T04:16:04.397526Z"
+  "repo": "HelixDevelopment/HelixAgent",
+  "path": "skills/claude-code/plugin-settings/SKILL.md",
+  "source": "github.com/HelixDevelopment/HelixAgent",
+  "downloaded_at": "2026-02-02T03:53:40.937451Z"
 }

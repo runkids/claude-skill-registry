@@ -1,258 +1,82 @@
 ---
-name: example-skill
-description: Template and guide for creating skills. Demonstrates the standard skill structure with resources, docs, examples, and templates directories. Use this as a reference when building new protocol integrations.
+name: example-data-processor
+description: Process CSV data files by cleaning, transforming, and analyzing them. Use this when users need to work with CSV files, clean data, or perform basic data analysis tasks.
 ---
 
-# Example Skill Template
+# Example Data Processor
 
-This skill serves as a template and guide for creating new skills. It demonstrates the standard structure and best practices used by all skills in this codebase.
+This skill demonstrates a complete skill structure with scripts, references, and proper documentation.
 
-## Overview
+## What This Skill Does
 
-Every skill should provide:
-- **Core Documentation** - Main concepts and quick start guide in SKILL.md
-- **API References** - Detailed method/function documentation in `resources/`
-- **Code Examples** - Working code samples in `examples/`
-- **Starter Templates** - Ready-to-use setup files in `templates/`
-- **Troubleshooting** - Common issues and solutions in `docs/`
+Processes CSV data files with these capabilities:
+- Clean and validate data
+- Transform columns
+- Generate summary statistics
+- Export results
 
-## Required Structure
+## Usage
 
+### Process a CSV file
+
+To process a CSV file:
 ```
-skill-name/
-├── SKILL.md                    # Main skill file (required)
-├── resources/                  # API references and detailed docs
-│   ├── api-reference.md
-│   └── program-addresses.md
-├── examples/                   # Working code examples
-│   └── feature-name/
-│       └── example.ts
-├── templates/                  # Starter templates
-│   └── setup.ts
-└── docs/                       # Guides and troubleshooting
-    └── troubleshooting.md
+Process the data in myfile.csv
 ```
 
-## SKILL.md Format
+The skill will:
+1. Read the CSV file
+2. Clean the data (remove nulls, fix formats)
+3. Generate statistics
+4. Output a summary report
 
-### Frontmatter (Required)
+### Custom Processing
 
-Every SKILL.md must start with YAML frontmatter:
-
-```yaml
----
-name: skill-name
-description: Brief description of what this skill covers. Should be 1-2 sentences explaining the protocol/tool and main features.
----
+For custom processing options:
+```
+Process sales.csv and group by region
 ```
 
-### Recommended Sections
+## Scripts
 
-```markdown
-# Protocol Name Development Guide
+**scripts/process_csv.py** - Main data processing script
+- Reads CSV files
+- Applies transformations
+- Generates output
 
-Brief introduction paragraph.
+**scripts/fetch_data.py** - API data fetcher (demonstrates uv dependencies)
+- Fetches data from APIs using requests
+- Beautiful output formatting with rich
+- **Auto-installs dependencies** via uv inline metadata (PEP 723)
+- No manual pip install needed!
 
-## Overview
+**scripts/validate.py** - Data validation script
+- Checks data quality
+- Reports issues
 
-Bullet points of main features:
-- **Feature 1** - Description
-- **Feature 2** - Description
+## Configuration
 
-## Program IDs (for Solana protocols)
+The scripts use these environment variables:
+- `OUTPUT_DIR` - Where to save processed files (optional)
+- `MAX_ROWS` - Maximum rows to process (optional)
 
-| Program | Address |
-|---------|---------|
-| Main Program | `address` |
-
-## Quick Start
-
-### Installation
-
-\`\`\`bash
-npm install package-name
-\`\`\`
-
-### Basic Setup
-
-\`\`\`typescript
-// Setup code example
-\`\`\`
-
-## Core Features
-
-Document each major feature with:
-- Explanation
-- Code examples
-- Important notes
-
-## Best Practices
-
-- Security considerations
-- Performance tips
-- Common patterns
-
-## Resources
-
-- Links to official docs
-- GitHub repositories
-- Community resources
-
-## Skill Structure
-
-Show the actual file structure of this skill.
+Set them using:
+```
+Set OUTPUT_DIR to /path/to/output
 ```
 
-## Writing Guidelines
+## Reference Documentation
 
-### Code Examples
+For detailed information:
+- [Data Formats](references/formats.md) - Supported data formats and schemas
+- [Examples](references/examples.md) - Common usage examples
 
-1. **Always include imports** - Show complete, runnable code
-2. **Use TypeScript** - Prefer `.ts` files with proper types
-3. **Add comments** - Explain non-obvious logic
-4. **Handle errors** - Show proper error handling patterns
-5. **Use real addresses** - Use actual program IDs, not placeholders
+## Troubleshooting
 
-### Documentation Style
+**"File not found" error:**
+- Ensure the CSV file exists
+- Provide the full path to the file
 
-1. **Be concise** - Get to the point quickly
-2. **Use tables** - For lists of methods, addresses, parameters
-3. **Show, don't tell** - Prefer code examples over lengthy explanations
-4. **Keep updated** - Include version info and update dates
-
-### Resource Files
-
-Create separate files in `resources/` for:
-- Complete API method references
-- Program addresses and PDAs
-- Configuration options
-- Type definitions
-
-### Example Files
-
-Examples in `examples/` should be:
-- Self-contained and runnable
-- Well-commented
-- Cover common use cases
-- Include error handling
-
-### Template Files
-
-Templates in `templates/` should be:
-- Ready to copy and use
-- Include configuration options
-- Have placeholder values clearly marked
-- Include all necessary imports
-
-## Example Protocol Skill
-
-Here's how a typical Solana protocol skill is structured:
-
-```markdown
----
-name: protocol-name
-description: Complete guide for Protocol Name - description of what it does.
----
-
-# Protocol Name Development Guide
-
-## Overview
-
-Protocol Name provides:
-- **Feature A** - What it does
-- **Feature B** - What it does
-
-## Program IDs
-
-| Program | Address |
-|---------|---------|
-| Main | \`ProgramAddress111111111111111111111\` |
-
-## Quick Start
-
-### Installation
-
-\`\`\`bash
-npm install @protocol/sdk
-\`\`\`
-
-### Basic Setup
-
-\`\`\`typescript
-import { Protocol } from '@protocol/sdk';
-
-const protocol = new Protocol(connection);
-\`\`\`
-
-## Core Operations
-
-### Operation 1
-
-\`\`\`typescript
-// Code example
-\`\`\`
-
-### Operation 2
-
-\`\`\`typescript
-// Code example
-\`\`\`
-
-## Best Practices
-
-- Practice 1
-- Practice 2
-
-## Resources
-
-- [Official Docs](https://docs.protocol.com)
-- [GitHub](https://github.com/protocol/sdk)
-
-## Skill Structure
-
-\`\`\`
-protocol-name/
-├── SKILL.md
-├── resources/
-│   ├── api-reference.md
-│   └── program-addresses.md
-├── examples/
-│   └── basic/
-│       └── example.ts
-├── templates/
-│   └── setup.ts
-└── docs/
-    └── troubleshooting.md
-\`\`\`
-```
-
-## Checklist for New Skills
-
-- [ ] SKILL.md with proper frontmatter
-- [ ] Overview section with feature list
-- [ ] Program IDs table (for Solana protocols)
-- [ ] Quick Start with installation and setup
-- [ ] Core operations with code examples
-- [ ] Best practices section
-- [ ] Resources with external links
-- [ ] Skill structure diagram
-- [ ] `resources/` with API references
-- [ ] `examples/` with working code
-- [ ] `templates/` with starter template
-- [ ] `docs/troubleshooting.md` with common issues
-
-## Skill Structure
-
-```
-example-skill/
-├── SKILL.md                    # This file
-├── resources/
-│   └── api-reference.md        # Example API reference format
-├── examples/
-│   └── basic/
-│       └── example.ts          # Example code file
-├── templates/
-│   └── setup.ts                # Example template
-└── docs/
-    └── troubleshooting.md      # Example troubleshooting guide
-```
+**"Invalid data" error:**
+- Check the CSV format matches expected schema
+- See [Data Formats](references/formats.md) for requirements

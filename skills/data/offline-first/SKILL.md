@@ -1,104 +1,108 @@
 ---
-name: offline-first
-description: Local storage, data sync, and conflict resolution for offline-capable apps.
+name: Offline-First
+description: PWA patterns and offline functionality in LivestockAI
 ---
 
 # Offline-First
 
-## Storage Options
+LivestockAI is designed to work offline in areas with unreliable internet connectivity.
 
-| Option | Use Case |
-|--------|----------|
-| AsyncStorage | Simple key-value |
-| MMKV | Fast key-value |
-| SQLite | Complex queries |
-| WatermelonDB | Large datasets, sync |
+## Architecture
 
-## MMKV (Recommended)
+- **IndexedDB**: Local data persistence
+- **Service Worker**: Caching and offline support
+- **Sync Queue**: Pending operations stored locally
 
-```typescript
-import { MMKV } from 'react-native-mmkv';
+## Sync Status Indicators
 
-const storage = new MMKV();
+Always show sync status to users:
 
-// Store
-storage.set('user', JSON.stringify(user));
-storage.set('token', 'abc123');
-
-// Retrieve
-const user = JSON.parse(storage.getString('user') || '{}');
-const token = storage.getString('token');
-
-// Delete
-storage.delete('token');
+```
+● Synced          - Green dot, all data uploaded
+◐ Syncing...      - Animated, upload in progress
+○ Offline (3)     - Gray dot, 3 items pending
+⚠ Sync Failed     - Red, tap to retry
 ```
 
-## Sync Strategy
+## PWA Configuration
 
-### Optimistic Updates
+The PWA manifest is in `public/manifest.json`:
+
+```json
+{
+  "name": "LivestockAI",
+  "short_name": "LivestockAI",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#10b981"
+}
+```
+
+## Offline Data Flow
+
+```
+User Action → IndexedDB (local) → Sync Queue → Server (when online)
+```
+
+## TanStack Query Persistence
 
 ```typescript
-async function updateItem(id: string, data: Partial<Item>) {
-  // 1. Update local immediately
-  await localDb.update(id, { ...data, _synced: false });
+import { persistQueryClient } from '@tanstack/react-query-persist-client'
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 
-  // 2. Update UI
-  queryClient.setQueryData(['item', id], (old) => ({
-    ...old,
-    ...data,
-  }));
+const persister = createSyncStoragePersister({
+  storage: window.localStorage,
+})
 
-  // 3. Sync to server
-  try {
-    await api.updateItem(id, data);
-    await localDb.update(id, { _synced: true });
-  } catch (error) {
-    // Queue for retry
-    await syncQueue.add({ type: 'update', id, data });
+persistQueryClient({
+  queryClient,
+  persister,
+})
+```
+
+## Offline Indicator Component
+
+```typescript
+// app/components/offline-indicator.tsx
+export function OfflineIndicator() {
+  const isOnline = useOnlineStatus()
+  const pendingCount = usePendingSync()
+
+  if (isOnline && pendingCount === 0) {
+    return <span className="text-green-500">● Synced</span>
   }
-}
-```
 
-### Background Sync
-
-```typescript
-import NetInfo from '@react-native-community/netinfo';
-
-NetInfo.addEventListener((state) => {
-  if (state.isConnected) {
-    syncQueue.processAll();
+  if (!isOnline) {
+    return (
+      <span className="text-gray-500">
+        ○ Offline {pendingCount > 0 && `(${pendingCount})`}
+      </span>
+    )
   }
-});
-```
 
-## Conflict Resolution
-
-```typescript
-// Last-write-wins
-if (serverItem.updatedAt > localItem.updatedAt) {
-  await localDb.update(id, serverItem);
-} else {
-  await api.updateItem(id, localItem);
-}
-
-// Or: Manual resolution
-if (hasConflict) {
-  showConflictResolver(serverItem, localItem);
+  return <span className="text-blue-500">◐ Syncing...</span>
 }
 ```
 
-## Network Status
+## Error Recovery
 
-```typescript
-function useNetworkStatus() {
-  const [isOnline, setIsOnline] = useState(true);
-
-  useEffect(() => {
-    return NetInfo.addEventListener((state) => {
-      setIsOnline(state.isConnected ?? false);
-    });
-  }, []);
-
-  return isOnline;
-}
 ```
+┌─────────────────────────────────────────────┐
+│ ⚠️ Failed to save feed record               │
+│                                              │
+│ Check your connection and try again.         │
+│                                              │
+│ [Retry]                      [Save Offline]  │
+└─────────────────────────────────────────────┘
+```
+
+## Performance Targets
+
+- Initial load: <3 seconds on 3G
+- Offline mode: Full functionality without internet
+- Sync performance: <5 seconds for data synchronization
+
+## Related Skills
+
+- `rugged-utility` - Sync status indicators
+- `tanstack-query` - Query persistence

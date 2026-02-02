@@ -1,7 +1,7 @@
 {
   "name": "top-web-vulnerabilities",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/top-web-vulnerabilities/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-29T01:02:53.833813Z"
+  "repo": "claudiodearaujo/IzaCenter",
+  "path": ".gemini/skills/top-web-vulnerabilities/SKILL.md",
+  "source": "github.com/claudiodearaujo/IzaCenter",
+  "downloaded_at": "2026-02-02T04:54:14.818037Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "checkout",
-  "repo": "technicalpickles/pickled-claude-plugins",
-  "path": "plugins/git/skills/checkout/SKILL.md",
-  "source": "github.com/technicalpickles/pickled-claude-plugins",
-  "downloaded_at": "2026-02-01T03:16:37.460436Z"
+  "repo": "flowglad/flowglad",
+  "path": "skills/skills/checkout/SKILL.md",
+  "source": "github.com/flowglad/flowglad",
+  "downloaded_at": "2026-02-02T04:14:00.814949Z"
 }

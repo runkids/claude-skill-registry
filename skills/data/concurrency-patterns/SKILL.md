@@ -1,406 +1,644 @@
 ---
-name: concurrency-patterns
-description: "Expert Swift concurrency decisions: async let vs TaskGroup selection, actor isolation boundaries, @MainActor placement strategies, Sendable conformance judgment calls, and structured vs unstructured task trade-offs. Use when designing concurrent code, debugging data races, or choosing between concurrency patterns. Trigger keywords: async, await, actor, Task, TaskGroup, @MainActor, Sendable, concurrency, data race, isolation, structured concurrency, continuation"
-version: "3.0.0"
+name: csharp-concurrency-patterns
+description: Choosing the right concurrency abstraction in .NET - from async/await for I/O to Channels for producer/consumer to Akka.NET for stateful entity management. Avoid locks and manual synchronization unless absolutely necessary.
+invocable: false
 ---
 
-# Concurrency Patterns — Expert Decisions
+# .NET Concurrency: Choosing the Right Tool
 
-Expert decision frameworks for Swift concurrency choices. Claude knows async/await syntax — this skill provides judgment calls for pattern selection and isolation boundaries.
+## When to Use This Skill
+
+Use this skill when:
+- Deciding how to handle concurrent operations in .NET
+- Evaluating whether to use async/await, Channels, Akka.NET, or other abstractions
+- Tempted to use locks, semaphores, or other synchronization primitives
+- Need to process streams of data with backpressure, batching, or debouncing
+- Managing state across multiple concurrent entities
+
+## The Philosophy
+
+**Start simple, escalate only when needed.**
+
+Most concurrency problems can be solved with `async/await`. Only reach for more sophisticated tools when you have a specific need that async/await can't address cleanly.
+
+**Try to avoid shared mutable state.** The best way to handle concurrency is to design it away. Immutable data, message passing, and isolated state (like actors) eliminate entire categories of bugs.
+
+**Locks should be the exception, not the rule.** When you can't avoid shared mutable state, using a lock occasionally isn't the end of the world. But if you find yourself reaching for `lock`, `SemaphoreSlim`, or other synchronization primitives regularly, step back and reconsider your design.
+
+When you truly need shared mutable state:
+1. **First choice:** Redesign to avoid it (immutability, message passing, actor isolation)
+2. **Second choice:** Use `System.Collections.Concurrent` (ConcurrentDictionary, ConcurrentQueue, etc.)
+3. **Third choice:** Use `Channel<T>` to serialize access through message passing
+4. **Last resort:** Use `lock` for simple, short-lived critical sections
+
+Locks are appropriate when building low-level infrastructure or concurrent data structures. But for business logic, there's almost always a better abstraction.
 
 ---
 
-## Decision Trees
-
-### async let vs TaskGroup
+## Decision Tree
 
 ```
-Is the number of concurrent operations known at compile time?
-├─ YES (2-5 fixed operations)
-│  └─ async let
-│     async let user = fetchUser()
-│     async let posts = fetchPosts()
-│     let (user, posts) = await (try user, try posts)
+What are you trying to do?
 │
-└─ NO (dynamic count, array of IDs)
-   └─ TaskGroup
-      try await withThrowingTaskGroup(of: User.self) { group in
-          for id in userIds { group.addTask { ... } }
-      }
-```
-
-**async let gotcha**: All `async let` values MUST be awaited before scope ends. Forgetting to await silently cancels the task — no error, just missing data.
-
-### Task vs Task.detached
-
-```
-Does the new task need to inherit context?
-├─ YES (inherit priority, actor, task-locals)
-│  └─ Task { }
-│     Example: Continue work on same actor
+├─► Wait for I/O (HTTP, database, file)?
+│   └─► Use async/await
 │
-└─ NO (fully independent execution)
-   └─ Task.detached { }
-      Example: Background processing that shouldn't block UI
-```
-
-**The trap**: `Task { }` inside `@MainActor` runs on MainActor. For truly background work, use `Task.detached(priority:)`.
-
-### Actor vs Class with Lock
-
-```
-Is the mutable state accessed from async contexts?
-├─ YES → Actor (compiler-enforced isolation)
+├─► Process a collection in parallel (CPU-bound)?
+│   └─► Use Parallel.ForEachAsync
 │
-└─ NO → Is it performance-critical?
-   ├─ YES → Class with lock (less overhead)
-   │  └─ Consider @unchecked Sendable if crossing boundaries
-   │
-   └─ NO → Actor (safer, cleaner)
-```
-
-**When actors lose**: High-contention scenarios where lock granularity matters. Actor methods are fully isolated — can't lock just part of the state.
-
-### Sendable Conformance
-
-```
-Is the type crossing concurrency boundaries?
-├─ NO → Don't add Sendable
+├─► Producer/consumer pattern (work queue)?
+│   └─► Use System.Threading.Channels
 │
-└─ YES → What kind of type?
-   ├─ Struct with only Sendable properties
-   │  └─ Implicit Sendable (or add explicit)
-   │
-   ├─ Class with immutable state
-   │  └─ Add Sendable, make let-only
-   │
-   ├─ Class with mutable state
-   │  └─ Is it manually thread-safe?
-   │     ├─ YES → @unchecked Sendable
-   │     └─ NO → Convert to actor
-   │
-   └─ Closure
-      └─ Mark @Sendable, capture only Sendable values
+├─► UI event handling (debounce, throttle, combine)?
+│   └─► Use Reactive Extensions (Rx)
+│
+├─► Server-side stream processing (backpressure, batching)?
+│   └─► Use Akka.NET Streams
+│
+├─► State machines with complex transitions?
+│   └─► Use Akka.NET Actors (Become pattern)
+│
+├─► Manage state for many independent entities?
+│   └─► Use Akka.NET Actors (entity-per-actor)
+│
+├─► Coordinate multiple async operations?
+│   └─► Use Task.WhenAll / Task.WhenAny
+│
+└─► None of the above fits?
+    └─► Ask yourself: "Do I really need shared mutable state?"
+        ├─► Yes → Consider redesigning to avoid it
+        └─► Truly unavoidable → Use Channels or Actors to serialize access
 ```
 
 ---
 
-## NEVER Do
+## Level 1: async/await (Default Choice)
 
-### Task & Structured Concurrency
+**Use for:** I/O-bound operations, non-blocking waits, most everyday concurrency.
 
-**NEVER** create unstructured tasks for parallel work that should be grouped:
-```swift
-// ❌ No way to wait for completion, handle errors, or cancel
-func loadData() async {
-    Task { try? await fetchUsers() }
-    Task { try? await fetchPosts() }
-    // Returns immediately, tasks orphaned
+```csharp
+// Simple async I/O
+public async Task<Order> GetOrderAsync(string orderId, CancellationToken ct)
+{
+    var order = await _database.GetAsync(orderId, ct);
+    var customer = await _customerService.GetAsync(order.CustomerId, ct);
+    return order with { Customer = customer };
 }
 
-// ✅ Structured — errors propagate, cancellation works
-func loadData() async throws {
-    try await withThrowingTaskGroup(of: Void.self) { group in
-        group.addTask { try await fetchUsers() }
-        group.addTask { try await fetchPosts() }
-    }
-}
-```
+// Parallel async operations (when independent)
+public async Task<Dashboard> LoadDashboardAsync(string userId, CancellationToken ct)
+{
+    var ordersTask = _orderService.GetRecentOrdersAsync(userId, ct);
+    var notificationsTask = _notificationService.GetUnreadAsync(userId, ct);
+    var statsTask = _statsService.GetUserStatsAsync(userId, ct);
 
-**NEVER** assume `Task.cancel()` stops execution immediately:
-```swift
-// ❌ Assumes cancellation is synchronous
-task.cancel()
-let result = task.value  // Task may still be running!
+    await Task.WhenAll(ordersTask, notificationsTask, statsTask);
 
-// ✅ Cancellation is cooperative — code must check
-func longOperation() async throws {
-    for item in items {
-        try Task.checkCancellation()  // Or check Task.isCancelled
-        await process(item)
-    }
+    return new Dashboard(
+        Orders: await ordersTask,
+        Notifications: await notificationsTask,
+        Stats: await statsTask);
 }
 ```
 
-**NEVER** forget that async let bindings auto-cancel if not awaited:
-```swift
-// ❌ profileImage is SILENTLY CANCELLED
-func loadUser() async throws -> User {
-    async let user = fetchUser()
-    async let profileImage = fetchImage()  // Never awaited!
-    return try await user  // profileImage cancelled, no error
+**Key principles:**
+- Always accept `CancellationToken`
+- Use `ConfigureAwait(false)` in library code
+- Don't block on async code (no `.Result` or `.Wait()`)
+
+---
+
+## Level 2: Parallel.ForEachAsync (CPU-Bound Parallelism)
+
+**Use for:** Processing collections in parallel when work is CPU-bound or you need controlled concurrency.
+
+```csharp
+// Process items with controlled parallelism
+public async Task ProcessOrdersAsync(
+    IEnumerable<Order> orders,
+    CancellationToken ct)
+{
+    await Parallel.ForEachAsync(
+        orders,
+        new ParallelOptions
+        {
+            MaxDegreeOfParallelism = Environment.ProcessorCount,
+            CancellationToken = ct
+        },
+        async (order, token) =>
+        {
+            await ProcessOrderAsync(order, token);
+        });
 }
 
-// ✅ Await all async let bindings
-func loadUser() async throws -> (User, UIImage?) {
-    async let user = fetchUser()
-    async let profileImage = fetchImage()
-    return try await (user, profileImage)  // Both awaited
-}
-```
+// CPU-bound work with I/O
+public async Task<IReadOnlyList<ProcessedImage>> ProcessImagesAsync(
+    IEnumerable<string> imagePaths,
+    CancellationToken ct)
+{
+    var results = new ConcurrentBag<ProcessedImage>();
 
-### Actor Isolation
+    await Parallel.ForEachAsync(
+        imagePaths,
+        new ParallelOptions { MaxDegreeOfParallelism = 4, CancellationToken = ct },
+        async (path, token) =>
+        {
+            var image = await File.ReadAllBytesAsync(path, token);
+            var processed = ProcessImage(image); // CPU-bound
+            results.Add(processed);
+        });
 
-**NEVER** ignore actor reentrancy:
-```swift
-// ❌ State can change during suspension
-actor BankAccount {
-    var balance: Double = 100
-
-    func transferAll() async throws {
-        let amount = balance  // Capture balance
-        try await sendMoney(amount)  // Suspension point!
-        balance = 0  // Balance might have changed since capture!
-    }
-}
-
-// ✅ Check state AFTER suspension
-actor BankAccount {
-    var balance: Double = 100
-
-    func transferAll() async throws {
-        let amount = balance
-        try await sendMoney(amount)
-        // Re-check or use atomic operation
-        guard balance >= amount else {
-            throw BankError.balanceChanged
-        }
-        balance -= amount
-    }
-}
-```
-
-**NEVER** expose actor state as reference types:
-```swift
-// ❌ Array reference escapes actor isolation
-actor Cache {
-    var items: [Item] = []
-
-    func getItems() -> [Item] {
-        items  // Returns reference that can be mutated outside!
-    }
-}
-
-// ✅ Return copy or use value types
-actor Cache {
-    private var items: [Item] = []
-
-    func getItems() -> [Item] {
-        Array(items)  // Explicit copy
-    }
+    return results.ToList();
 }
 ```
 
-**NEVER** use `nonisolated` to bypass safety without understanding implications:
-```swift
-// ❌ Dangerous — defeats actor protection
-actor DataManager {
-    var cache: [String: Data] = [:]
+**When NOT to use:**
+- Pure I/O operations (async/await is sufficient)
+- When order matters (Parallel doesn't preserve order)
+- When you need backpressure or flow control
 
-    nonisolated func unsafeAccess() -> [String: Data] {
-        cache  // DATA RACE — accessing actor state without isolation!
+---
+
+## Level 3: System.Threading.Channels (Producer/Consumer)
+
+**Use for:** Work queues, producer/consumer patterns, decoupling producers from consumers, simple stream-like processing.
+
+```csharp
+// Basic producer/consumer
+public class OrderProcessor
+{
+    private readonly Channel<Order> _channel;
+
+    public OrderProcessor()
+    {
+        // Bounded channel provides backpressure
+        _channel = Channel.CreateBounded<Order>(new BoundedChannelOptions(100)
+        {
+            FullMode = BoundedChannelFullMode.Wait
+        });
     }
-}
 
-// ✅ nonisolated only for immutable or independent state
-actor DataManager {
-    let id = UUID()  // Immutable — safe
-
-    nonisolated var identifier: String {
-        id.uuidString  // Safe — accessing immutable state
+    // Producer
+    public async Task EnqueueOrderAsync(Order order, CancellationToken ct)
+    {
+        await _channel.Writer.WriteAsync(order, ct);
     }
-}
-```
 
-### @MainActor
-
-**NEVER** access @Published from background without MainActor:
-```swift
-// ❌ Undefined behavior — may crash, may corrupt
-Task.detached {
-    viewModel.isLoading = false  // Background thread!
-}
-
-// ✅ Explicit MainActor
-Task { @MainActor in
-    viewModel.isLoading = false
-}
-// Or mark entire ViewModel as @MainActor
-```
-
-**NEVER** block MainActor with synchronous work:
-```swift
-// ❌ UI freezes during heavy computation
-@MainActor
-func processData() {
-    let result = heavyComputation(data)  // Blocks UI!
-    display(result)
-}
-
-// ✅ Offload to detached task
-@MainActor
-func processData() async {
-    let result = await Task.detached {
-        heavyComputation(data)
-    }.value
-    display(result)  // Back on MainActor
-}
-```
-
-### Continuations
-
-**NEVER** resume continuation more than once:
-```swift
-// ❌ CRASHES — continuation resumed twice
-func fetchAsync() async throws -> Data {
-    try await withCheckedThrowingContinuation { continuation in
-        fetch { result in
-            continuation.resume(returning: result)
-        }
-        fetch { result in  // Oops, called again!
-            continuation.resume(returning: result)  // CRASH!
+    // Consumer (run as background task)
+    public async Task ProcessOrdersAsync(CancellationToken ct)
+    {
+        await foreach (var order in _channel.Reader.ReadAllAsync(ct))
+        {
+            await ProcessOrderAsync(order, ct);
         }
     }
-}
 
-// ✅ Ensure exactly-once resumption
-func fetchAsync() async throws -> Data {
-    try await withCheckedThrowingContinuation { continuation in
-        var hasResumed = false
-        fetch { result in
-            guard !hasResumed else { return }
-            hasResumed = true
-            continuation.resume(returning: result)
-        }
-    }
+    // Signal no more items
+    public void Complete() => _channel.Writer.Complete();
 }
 ```
 
-**NEVER** forget to resume continuation:
-```swift
-// ❌ Task hangs forever if error path doesn't resume
-func fetchAsync() async throws -> Data {
-    try await withCheckedThrowingContinuation { continuation in
-        fetch { data, error in
-            if let data = data {
-                continuation.resume(returning: data)
+```csharp
+// Multiple consumers (work-stealing pattern)
+public class WorkerPool
+{
+    private readonly Channel<WorkItem> _channel;
+    private readonly List<Task> _workers = new();
+
+    public WorkerPool(int workerCount)
+    {
+        _channel = Channel.CreateUnbounded<WorkItem>();
+
+        // Start multiple consumers
+        for (int i = 0; i < workerCount; i++)
+        {
+            _workers.Add(Task.Run(() => ConsumeAsync()));
+        }
+    }
+
+    private async Task ConsumeAsync()
+    {
+        await foreach (var item in _channel.Reader.ReadAllAsync())
+        {
+            await ProcessAsync(item);
+        }
+    }
+
+    public ValueTask EnqueueAsync(WorkItem item)
+        => _channel.Writer.WriteAsync(item);
+}
+```
+
+**Channels are good for:**
+- Decoupling producer speed from consumer speed
+- Buffering work with backpressure
+- Simple fan-out to multiple workers
+- Background processing queues
+
+**Channels are NOT good for:**
+- Complex stream operations (batching, windowing, merging)
+- Stateful processing per entity
+- When you need sophisticated error handling/supervision
+
+---
+
+## Level 4: Akka.NET Streams (Complex Stream Processing)
+
+**Use for:** Backpressure, batching, debouncing, throttling, merging streams, complex transformations.
+
+```csharp
+using Akka.Streams;
+using Akka.Streams.Dsl;
+
+// Batching with timeout
+public Source<IReadOnlyList<Event>, NotUsed> BatchEvents(
+    Source<Event, NotUsed> events)
+{
+    return events
+        .GroupedWithin(100, TimeSpan.FromSeconds(1)) // Batch up to 100 or 1 second
+        .Select(batch => batch.ToList() as IReadOnlyList<Event>);
+}
+
+// Throttling
+public Source<Request, NotUsed> ThrottleRequests(
+    Source<Request, NotUsed> requests)
+{
+    return requests
+        .Throttle(10, TimeSpan.FromSeconds(1), 5, ThrottleMode.Shaping);
+}
+
+// Parallel processing with ordered results
+public Source<ProcessedItem, NotUsed> ProcessWithParallelism(
+    Source<Item, NotUsed> items)
+{
+    return items
+        .SelectAsync(4, async item => await ProcessAsync(item)); // 4 parallel
+}
+
+// Complex pipeline
+public IRunnableGraph<Task<Done>> CreatePipeline(
+    Source<RawEvent, NotUsed> events,
+    Sink<ProcessedEvent, Task<Done>> sink)
+{
+    return events
+        .Where(e => e.IsValid)
+        .GroupedWithin(50, TimeSpan.FromMilliseconds(500))
+        .SelectAsync(4, batch => ProcessBatchAsync(batch))
+        .SelectMany(results => results)
+        .ToMaterialized(sink, Keep.Right);
+}
+```
+
+**Akka.NET Streams excel at:**
+- Batching with size AND time limits
+- Throttling and rate limiting
+- Backpressure that propagates through the entire pipeline
+- Merging/splitting streams
+- Parallel processing with ordering guarantees
+- Error handling with supervision
+
+---
+
+## Level 4b: Reactive Extensions (UI and Event Composition)
+
+**Use for:** UI event handling, composing event streams, time-based operations in client applications.
+
+Rx shines in UI scenarios where you need to react to user events with debouncing, throttling, or combining multiple event sources.
+
+```csharp
+using System.Reactive.Linq;
+
+// Search-as-you-type with debouncing
+public class SearchViewModel
+{
+    public SearchViewModel(ISearchService searchService)
+    {
+        // React to text changes with debouncing
+        SearchResults = SearchText
+            .Throttle(TimeSpan.FromMilliseconds(300))  // Wait for typing to pause
+            .DistinctUntilChanged()                     // Ignore if same text
+            .Where(text => text.Length >= 3)           // Minimum length
+            .SelectMany(text => searchService.SearchAsync(text).ToObservable())
+            .ObserveOn(RxApp.MainThreadScheduler);     // Back to UI thread
+    }
+
+    public IObservable<string> SearchText { get; }
+    public IObservable<IList<SearchResult>> SearchResults { get; }
+}
+
+// Combining multiple UI events
+public IObservable<bool> CanSubmit =>
+    Observable.CombineLatest(
+        UsernameValid,
+        PasswordValid,
+        EmailValid,
+        (user, pass, email) => user && pass && email);
+
+// Double-click detection
+public IObservable<Point> DoubleClicks =>
+    MouseClicks
+        .Buffer(TimeSpan.FromMilliseconds(300))
+        .Where(clicks => clicks.Count >= 2)
+        .Select(clicks => clicks.Last());
+
+// Auto-save with debouncing
+public IDisposable AutoSave =>
+    DocumentChanges
+        .Throttle(TimeSpan.FromSeconds(2))
+        .Subscribe(async doc => await SaveAsync(doc));
+```
+
+**Rx is ideal for:**
+- UI event composition (WPF, WinForms, MAUI, Blazor)
+- Search-as-you-type with debouncing
+- Combining multiple event sources
+- Time-windowed operations in UI
+- Drag-and-drop gesture detection
+- Real-time data visualization
+
+**Rx vs Akka.NET Streams:**
+
+| Scenario | Rx | Akka.NET Streams |
+|----------|----|--------------------|
+| UI events | ✅ Best choice | Overkill |
+| Client-side composition | ✅ Best choice | Overkill |
+| Server-side pipelines | Works but limited | ✅ Better backpressure |
+| Distributed processing | ❌ Not designed for | ✅ Built for this |
+| Hot observables | ✅ Native support | Requires more setup |
+
+**Rule of thumb:** Rx for UI/client, Akka.NET Streams for server-side pipelines.
+
+---
+
+## Level 5: Akka.NET Actors (Stateful Concurrency)
+
+**Use for:** Managing state for multiple entities, state machines, push-based updates, complex coordination, supervision and fault tolerance.
+
+### Entity-Per-Actor Pattern
+
+```csharp
+// Actor per entity - each order has isolated state
+public class OrderActor : ReceiveActor
+{
+    private OrderState _state;
+
+    public OrderActor(string orderId)
+    {
+        _state = new OrderState(orderId);
+
+        Receive<AddItem>(msg =>
+        {
+            _state = _state.AddItem(msg.Item);
+            Sender.Tell(new ItemAdded(msg.Item));
+        });
+
+        Receive<Checkout>(msg =>
+        {
+            if (_state.CanCheckout)
+            {
+                _state = _state.Checkout();
+                Sender.Tell(new CheckoutSucceeded(_state.Total));
             }
-            // Missing else! Continuation never resumed if error
-        }
-    }
-}
-
-// ✅ Handle all paths
-func fetchAsync() async throws -> Data {
-    try await withCheckedThrowingContinuation { continuation in
-        fetch { data, error in
-            if let error = error {
-                continuation.resume(throwing: error)
-            } else if let data = data {
-                continuation.resume(returning: data)
-            } else {
-                continuation.resume(throwing: FetchError.noData)
+            else
+            {
+                Sender.Tell(new CheckoutFailed("Cart is empty"));
             }
+        });
+
+        Receive<GetState>(_ => Sender.Tell(_state));
+    }
+}
+```
+
+### State Machines with Become
+
+Actors excel at implementing state machines using `Become()` to switch message handlers:
+
+```csharp
+public class PaymentActor : ReceiveActor
+{
+    private PaymentData _payment;
+
+    public PaymentActor(string paymentId)
+    {
+        _payment = new PaymentData(paymentId);
+
+        // Start in Pending state
+        Pending();
+    }
+
+    private void Pending()
+    {
+        Receive<AuthorizePayment>(msg =>
+        {
+            _payment = _payment with { Amount = msg.Amount };
+            // Transition to Authorizing state
+            Become(Authorizing);
+            Self.Tell(new ProcessAuthorization());
+        });
+
+        Receive<CancelPayment>(_ =>
+        {
+            Become(Cancelled);
+            Sender.Tell(new PaymentCancelled(_payment.Id));
+        });
+    }
+
+    private void Authorizing()
+    {
+        Receive<ProcessAuthorization>(async _ =>
+        {
+            var result = await _gateway.AuthorizeAsync(_payment);
+            if (result.Success)
+            {
+                _payment = _payment with { AuthCode = result.AuthCode };
+                Become(Authorized);
+            }
+            else
+            {
+                Become(Failed);
+            }
+        });
+
+        // Can't cancel while authorizing - stash for later or reject
+        Receive<CancelPayment>(_ =>
+        {
+            Sender.Tell(new PaymentError("Cannot cancel during authorization"));
+        });
+    }
+
+    private void Authorized()
+    {
+        Receive<CapturePayment>(_ =>
+        {
+            Become(Capturing);
+            Self.Tell(new ProcessCapture());
+        });
+
+        Receive<VoidPayment>(_ =>
+        {
+            Become(Voiding);
+            Self.Tell(new ProcessVoid());
+        });
+    }
+
+    private void Capturing() { /* ... */ }
+    private void Voiding() { /* ... */ }
+    private void Cancelled() { /* Only responds to GetState */ }
+    private void Failed() { /* Only responds to GetState, Retry */ }
+}
+```
+
+### Distributed Entities with Cluster Sharding
+
+```csharp
+// Using Cluster Sharding for distributed entities
+builder.WithShardRegion<OrderActor>(
+    typeName: "orders",
+    entityPropsFactory: (_, _, resolver) =>
+        orderId => Props.Create(() => new OrderActor(orderId)),
+    messageExtractor: new OrderMessageExtractor(),
+    shardOptions: new ShardOptions());
+
+// Send message to any order - sharding routes to correct node
+var orderRegion = registry.Get<OrderActor>();
+orderRegion.Tell(new ShardingEnvelope("order-123", new AddItem(item)));
+```
+
+### When to Use Akka.NET
+
+**Use Akka.NET Actors when you have:**
+
+| Scenario | Why Actors? |
+|----------|-------------|
+| Many entities with independent state | Each entity gets its own actor - no locks, natural isolation |
+| State machines | `Become()` elegantly models state transitions |
+| Push-based/reactive updates | Actors naturally support tell-don't-ask |
+| Supervision requirements | Parent actors supervise children, automatic restart on failure |
+| Distributed systems | Cluster Sharding distributes entities across nodes |
+| Long-running workflows | Actors + persistence = durable workflows |
+| Real-time systems | Message-driven, non-blocking by design |
+| IoT / device management | Each device = one actor, scales to millions |
+
+**Don't use Akka.NET when:**
+
+| Scenario | Better Alternative |
+|----------|-------------------|
+| Simple work queue | `Channel<T>` |
+| Request/response API | `async/await` |
+| Batch processing | `Parallel.ForEachAsync` or Akka.NET Streams |
+| UI event handling | Reactive Extensions |
+| Shared state (single instance) | Service with `Channel` for serialization |
+| CRUD operations | Standard async services |
+
+### The Actor Mindset
+
+Think of actors when your problem looks like:
+- "I have **thousands** of [orders/users/devices/sessions] that need independent state"
+- "Each [entity] goes through a **lifecycle** with different behaviors at each stage"
+- "I need to **push updates** to interested parties when something changes"
+- "If processing fails, I want to **restart** just that entity, not the whole system"
+- "This needs to work across **multiple servers**"
+
+If none of these apply, you probably don't need actors.
+
+---
+
+## Anti-Patterns: What to Avoid
+
+### ❌ Locks for Business Logic
+
+```csharp
+// BAD: Using locks to protect shared state
+private readonly object _lock = new();
+private Dictionary<string, Order> _orders = new();
+
+public void UpdateOrder(string id, Action<Order> update)
+{
+    lock (_lock)
+    {
+        if (_orders.TryGetValue(id, out var order))
+        {
+            update(order);
         }
     }
 }
+
+// GOOD: Use an actor or Channel to serialize access
+// Each order gets its own actor - no locks needed
+```
+
+### ❌ Manual Thread Management
+
+```csharp
+// BAD: Creating threads manually
+var thread = new Thread(() => ProcessOrders());
+thread.Start();
+
+// GOOD: Use Task.Run or better abstractions
+_ = Task.Run(() => ProcessOrdersAsync(cancellationToken));
+```
+
+### ❌ Blocking in Async Code
+
+```csharp
+// BAD: Blocking on async
+var result = GetDataAsync().Result; // Deadlock risk!
+GetDataAsync().Wait();              // Also bad
+
+// GOOD: Async all the way
+var result = await GetDataAsync();
+```
+
+### ❌ Shared Mutable State Without Protection
+
+```csharp
+// BAD: Multiple tasks mutating shared state
+var results = new List<Result>();
+await Parallel.ForEachAsync(items, async (item, ct) =>
+{
+    var result = await ProcessAsync(item, ct);
+    results.Add(result); // Race condition!
+});
+
+// GOOD: Use ConcurrentBag or collect results differently
+var results = new ConcurrentBag<Result>();
+// Or better: return from the lambda and collect
 ```
 
 ---
 
-## Essential Patterns
+## Quick Reference: Which Tool When?
 
-### Task-Local Values
-
-```swift
-enum RequestContext {
-    @TaskLocal static var requestId: String?
-    @TaskLocal static var userId: String?
-}
-
-// Set context for entire task tree
-func handleRequest() async {
-    await RequestContext.$requestId.withValue(UUID().uuidString) {
-        await RequestContext.$userId.withValue(currentUserId) {
-            await processRequest()  // All child tasks inherit context
-        }
-    }
-}
-
-// Access anywhere in task tree
-func logEvent(_ message: String) {
-    let requestId = RequestContext.requestId ?? "unknown"
-    logger.info("[\(requestId)] \(message)")
-}
-```
-
-### Cancellation-Aware Loops
-
-```swift
-func processItems(_ items: [Item]) async throws {
-    for item in items {
-        // Check at start of each iteration
-        try Task.checkCancellation()
-
-        // Or handle gracefully without throwing
-        guard !Task.isCancelled else {
-            await saveProgress(items: processedItems)
-            return
-        }
-
-        await process(item)
-    }
-}
-```
-
-### AsyncStream from Delegate
-
-```swift
-func locationUpdates() -> AsyncStream<CLLocation> {
-    AsyncStream { continuation in
-        let delegate = LocationDelegate { location in
-            continuation.yield(location)
-        }
-
-        continuation.onTermination = { @Sendable _ in
-            delegate.stop()
-        }
-
-        delegate.start()
-    }
-}
-```
+| Need | Tool | Example |
+|------|------|---------|
+| Wait for I/O | `async/await` | HTTP calls, database queries |
+| Parallel CPU work | `Parallel.ForEachAsync` | Image processing, calculations |
+| Work queue | `Channel<T>` | Background job processing |
+| UI events with debounce/throttle | Reactive Extensions | Search-as-you-type, auto-save |
+| Server-side batching/throttling | Akka.NET Streams | Event aggregation, rate limiting |
+| State machines | Akka.NET Actors | Payment flows, order lifecycles |
+| Entity state management | Akka.NET Actors | Order management, user sessions |
+| Fire multiple async ops | `Task.WhenAll` | Loading dashboard data |
+| Race multiple async ops | `Task.WhenAny` | Timeout with fallback |
+| Periodic work | `PeriodicTimer` | Health checks, polling |
 
 ---
 
-## Quick Reference
+## The Escalation Path
 
-### Concurrency Pattern Selection
+```
+async/await (start here)
+    │
+    ├─► Need parallelism? → Parallel.ForEachAsync
+    │
+    ├─► Need producer/consumer? → Channel<T>
+    │
+    ├─► Need UI event composition? → Reactive Extensions
+    │
+    ├─► Need server-side stream processing? → Akka.NET Streams
+    │
+    └─► Need state machines or entity management? → Akka.NET Actors
+```
 
-| Pattern | Use When | Gotcha |
-|---------|----------|--------|
-| `async let` | 2-5 known parallel operations | Must await all bindings |
-| `TaskGroup` | Dynamic number of operations | Results arrive out of order |
-| `Task { }` | Fire-and-forget with context | Inherits actor isolation |
-| `Task.detached` | True background work | No context inheritance |
-| `actor` | Shared mutable state | Reentrancy on suspension |
-
-### Sendable Quick Check
-
-| Type | Sendable? |
-|------|-----------|
-| Value types with Sendable properties | ✅ Implicit |
-| `let`-only classes | ✅ Add conformance |
-| Mutable classes with internal locking | ⚠️ @unchecked Sendable |
-| Mutable classes without locking | ❌ Use actor instead |
-| Closures | ✅ If marked @Sendable |
-
-### Red Flags
-
-| Smell | Problem | Fix |
-|-------|---------|-----|
-| `Task { }` everywhere | Losing structured concurrency | Use TaskGroup |
-| `@unchecked Sendable` on mutable class | Potential data race | Use actor or add locking |
-| `nonisolated` accessing mutable state | Data race | Remove nonisolated |
-| Continuation without all-paths handling | Potential hang | Handle every code path |
-| `Task.detached` for everything | Losing priority/cancellation | Use structured `Task { }` |
+**Only escalate when you have a concrete need.** Don't reach for actors or streams "just in case" - start with async/await and move up only when the simpler approach doesn't fit.

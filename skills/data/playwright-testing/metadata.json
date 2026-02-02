@@ -1,7 +1,7 @@
 {
   "name": "playwright-testing",
-  "repo": "mhagrelius/dotfiles",
-  "path": ".claude/skills/playwright-testing/SKILL.md",
-  "source": "github.com/mhagrelius/dotfiles",
-  "downloaded_at": "2026-02-01T04:46:55.776562Z"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/playwright-testing/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-02-02T04:29:48.672822Z"
 }

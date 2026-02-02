@@ -1,7 +1,7 @@
 {
   "name": "code-change-verification",
-  "repo": "openai/openai-agents-python",
-  "path": ".codex/skills/code-change-verification/SKILL.md",
-  "source": "github.com/openai/openai-agents-python",
-  "downloaded_at": "2026-02-01T02:59:35.321901Z"
+  "repo": "NovaAI-innovation/Infinite-Agency",
+  "path": ".qwen/skills/code-change-verification/SKILL.md",
+  "source": "github.com/NovaAI-innovation/Infinite-Agency",
+  "downloaded_at": "2026-02-02T02:57:59.620369Z"
 }

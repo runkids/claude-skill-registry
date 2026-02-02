@@ -1,89 +1,168 @@
 ---
 name: debug
-description: Debug code issues, trace errors, and identify root causes
-user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash
-argument-hint: '[error-description or file-path]'
+description: >
+  Systematic debugging workflow for tracking down and fixing issues.
+  Use when encountering bugs, errors, or unexpected behavior.
 ---
 
-You are an expert debugging specialist. Your role is to help identify, diagnose, and fix code issues systematically.
+# Systematic Debugging
 
-## Debugging Approach
+## Overview
 
-1. **Understand the Problem**: Gather information about the issue
+Random fixes waste time and create new bugs. Quick patches mask underlying issues.
+Follow the four phases to find root cause before attempting any fix.
 
-   - What is the expected behavior?
-   - What is the actual behavior?
-   - When does the issue occur?
-   - Any error messages or stack traces?
+**Core principle:** NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST.
 
-1. **Reproduce the Issue**: Ensure the problem can be consistently reproduced
+**Announce at start:** "I'm using the debug skill to investigate this issue."
 
-   - Identify steps to reproduce
-   - Determine conditions that trigger the issue
-   - Note any environmental factors
+## The Iron Law
 
-1. **Isolate the Cause**: Narrow down the source of the problem
+```
+If you haven't completed Phase 1, you cannot propose fixes.
+```
 
-   - Check recent changes in the codebase
-   - Review related code sections
-   - Examine logs and error messages
-   - Use binary search to locate the issue
+## When to Use
 
-1. **Analyze Root Cause**: Understand why the issue occurs
+Use for ANY technical issue:
+- Test failures
+- Runtime errors
+- Unexpected behavior
+- Performance problems
+- Build failures
 
-   - Review logic flow and data transformations
-   - Check assumptions and edge cases
-   - Identify any race conditions or timing issues
-   - Look for common patterns (null references, type mismatches, etc.)
+**Use ESPECIALLY when:**
+- Under time pressure (emergencies make guessing tempting)
+- "Just one quick fix" seems obvious
+- Previous fix didn't work
+- You've tried multiple fixes already
 
-1. **Propose Solutions**: Suggest fixes and improvements
+## The Four Phases
 
-   - Provide multiple solution approaches if applicable
-   - Explain trade-offs of each solution
-   - Include code examples for the fix
-   - Suggest preventive measures
+### Phase 1: Root Cause Investigation
 
-## Common Debugging Areas
+**BEFORE attempting ANY fix:**
 
-**Logic Errors:**
+1. **Read Error Messages Carefully**
+   - Don't skip past errors or warnings
+   - Read stack traces completely
+   - Note line numbers, file paths, error codes
 
-- Incorrect conditionals or loops
-- Off-by-one errors
-- Missing or incorrect edge case handling
+2. **Reproduce Consistently**
+   - Can you trigger it reliably?
+   - What are the exact steps?
+   - If not reproducible - gather more data, don't guess
 
-**Runtime Errors:**
+3. **Check Recent Changes**
+   ```bash
+   git diff HEAD~5           # Recent changes
+   git log --oneline -10     # Recent commits
+   ```
 
-- Null/undefined references
-- Type mismatches
-- Resource leaks (memory, file handles, connections)
-- Concurrency issues (race conditions, deadlocks)
+4. **Check Existing Knowledge**
+   ```bash
+   kodo query "similar bug"       # Was this fixed before?
+   kodo query "error handling"    # Known patterns
+   ```
 
-**Performance Issues:**
+5. **Trace Data Flow**
+   - Where does the bad value originate?
+   - Trace backward through call stack
+   - Find the SOURCE, not the symptom
 
-- Inefficient algorithms (O(n²) when O(n) is possible)
-- Memory leaks
-- Unnecessary computations
-- Blocking operations
+### Phase 2: Pattern Analysis
 
-**Integration Issues:**
+1. **Find Working Examples**
+   - Locate similar working code in codebase
+   - What works that's similar to what's broken?
 
-- API contract mismatches
-- Data format inconsistencies
-- Authentication/authorization failures
-- Network timeouts or connectivity problems
+2. **Identify Differences**
+   - What's different between working and broken?
+   - List every difference, however small
 
-## Issue to Debug
+### Phase 3: Hypothesis and Testing
 
-${ARGUMENTS}
+1. **Form Single Hypothesis**
+   - State clearly: "I think X is the root cause because Y"
+   - Write it down
+   - Be specific, not vague
 
-## Instructions
+2. **Test Minimally**
+   - Make the SMALLEST possible change
+   - One variable at a time
+   - Don't fix multiple things at once
 
-1. Analyze the provided information (error message, file path, or description)
-1. Read relevant code sections
-1. Trace the execution flow
-1. Identify the root cause
-1. Propose a fix with explanation
-1. Suggest how to prevent similar issues in the future
+3. **Verify**
+   - Did it work? Yes -> Phase 4
+   - Didn't work? Form NEW hypothesis
+   - DON'T add more fixes on top
 
-Remember: Be systematic and thorough. Sometimes the issue is not where it first appears!
+### Phase 4: Implementation
+
+1. **Create Failing Test First**
+   - Write test that reproduces the bug
+   - Verify test fails before fixing
+   - Use `kodo:plan` patterns for test structure
+
+2. **Implement Single Fix**
+   - Address the root cause identified
+   - ONE change at a time
+   - No "while I'm here" improvements
+
+3. **Verify Fix**
+   - Test passes now?
+   - No other tests broken?
+   - Issue actually resolved?
+
+4. **If Fix Doesn't Work**
+   - Count: How many fixes have you tried?
+   - **If 3+ fixes failed: STOP**
+   - Question the architecture, not the symptoms
+   - Discuss with user before attempting more
+
+5. **Capture Learning**
+   ```bash
+   kodo reflect --signal "Bug root cause was X, fixed by Y"
+   ```
+
+## Red Flags - STOP and Return to Phase 1
+
+If you catch yourself thinking:
+- "Quick fix for now, investigate later"
+- "Just try changing X and see if it works"
+- "I don't fully understand but this might work"
+- "Let me try multiple changes at once"
+- **"One more fix attempt" (when already tried 2+)**
+
+**ALL of these mean: STOP. Return to Phase 1.**
+
+## Integration with Kodo
+
+**Before debugging:**
+```bash
+kodo query "similar error"    # Check if this was solved before
+kodo query "this module"      # Understand expected behavior
+```
+
+**After fixing:**
+```bash
+kodo reflect --signal "Root cause: X. Fixed by: Y"
+kodo reflect --signal "Pattern to avoid: Z"
+```
+
+## Key Principles
+
+- **Root cause first** - Symptom fixes are failure
+- **One hypothesis at a time** - Scientific method works
+- **Test before fix** - Prove the bug exists
+- **3 strikes rule** - After 3 failed fixes, question architecture
+- **Learn from bugs** - Capture patterns with `kodo reflect`
+
+## Quick Reference
+
+| Phase | Goal | Success Criteria |
+|-------|------|------------------|
+| 1. Root Cause | Understand WHAT and WHY | Can explain the bug |
+| 2. Pattern | Find working reference | Know what should work |
+| 3. Hypothesis | Form testable theory | Single clear hypothesis |
+| 4. Implementation | Fix and verify | Bug gone, tests pass |

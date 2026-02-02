@@ -1,14 +1,7 @@
 {
   "name": "netgraph-dsl",
-  "description": "NetGraph scenario DSL for defining network topologies, traffic demands, failure policies, and analysis workflows in YAML. Use when: creating or editing .yaml/.yml network scenarios, defining nodes/lin",
-  "repo": "networmix/NetGraph",
-  "category": "data",
-  "tags": [
-    "netgraph",
-    "dsl"
-  ],
-  "stars": 0,
-  "dir_name": "netgraph-dsl",
-  "github_path": ".claude/skills/netgraph-dsl",
-  "github_branch": "main"
+  "repo": "networmix/skills",
+  "path": "netgraph-dsl/SKILL.md",
+  "source": "github.com/networmix/skills",
+  "downloaded_at": "2026-02-02T05:06:54.172002Z"
 }

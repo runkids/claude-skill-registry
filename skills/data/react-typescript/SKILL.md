@@ -1,552 +1,264 @@
 ---
 name: react-typescript
-description: TypeScript expertise for React/Next.js development. Use when writing React components with strict typing, fixing TypeScript errors, handling generic components, or working with TanStack Query types. Focuses on common pitfalls and advanced patterns.
-model_tier: sonnet
-parallel_hints:
-  can_parallel_with: [frontend-development, test-writer, code-review]
-  must_serialize_with: []
-  preferred_batch_size: 5
-context_hints:
-  max_file_context: 60
-  compression_level: 1
-  requires_git_context: true
-  requires_db_context: false
-escalation_triggers:
-  - pattern: "module.*augmentation"
-    reason: "Module augmentation has global impact"
-  - pattern: "third-party.*conflict"
-    reason: "Third-party library type conflicts need investigation"
-  - keyword: ["complex generic", "performance"]
-    reason: "Complex type patterns may need expert review"
+description: Build modern React applications with TypeScript. Covers React 18+ patterns, hooks, component architecture, state management (Zustand, Redux Toolkit), server components, and best practices. Use for React development, TypeScript integration, component design, and frontend architecture.
 ---
 
-# React TypeScript Skill
+# React with TypeScript
 
-Expert TypeScript patterns for React and Next.js development, focusing on strict type safety, common error resolutions, and advanced patterns used in this project.
+Build production-ready React applications using TypeScript with modern patterns and best practices.
 
-## When This Skill Activates
+## Instructions
 
-- TypeScript compilation errors in React components
-- Writing new React components with proper typing
-- Handling generic components and hooks
-- Working with TanStack Query type inference
-- Fixing `any` type issues
-- JSX-specific TypeScript patterns
-
-## Project Context
-
-This project uses:
-- Next.js 14.x with App Router
-- React 18.x
-- TypeScript 5.x (strict mode)
-- TanStack Query 5.x
-- TailwindCSS 3.x
-- lucide-react for icons
-
-## Common TypeScript Errors & Fixes
-
-### 1. Cannot Find Module 'react'
-
-**Error:**
-```
-error TS2307: Cannot find module 'react' or its corresponding type declarations.
-```
-
-**Cause:** Missing `@types/react` or corrupted `node_modules`
-
-**Fix:**
-```bash
-cd /home/user/Autonomous-Assignment-Program-Manager/frontend
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### 2. Parameter Implicitly Has 'any' Type
-
-**Error:**
-```
-error TS7006: Parameter 'e' implicitly has an 'any' type.
-```
-
-**Bad:**
-```typescript
-const handleChange = (e) => {
-  setValue(e.target.value);
-};
-```
-
-**Good:**
-```typescript
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setValue(e.target.value);
-};
-
-// For form submissions
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-};
-
-// For keyboard events
-const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  if (e.key === 'Enter') submit();
-};
-```
-
-### 3. JSX Element Implicitly Has 'any' Type
-
-**Error:**
-```
-error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
-```
-
-**Cause:** Missing React types or incorrect tsconfig
-
-**Fix:** Ensure `tsconfig.json` includes:
-```json
-{
-  "compilerOptions": {
-    "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"]
-  }
-}
-```
-
-### 4. Type 'unknown' Not Assignable to 'ReactNode'
-
-**Error:**
-```
-error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
-```
-
-**Bad:**
-```typescript
-const data = useQuery(...);
-return <div>{data.value}</div>; // value is unknown
-```
-
-**Good:**
-```typescript
-interface ResponseData {
-  value: string;
-}
-
-const { data } = useQuery<ResponseData>({
-  queryKey: ['key'],
-  queryFn: fetchData,
-});
-
-return <div>{data?.value}</div>;
-```
-
-### 5. Property Does Not Exist on Type
-
-**Error:**
-```
-error TS2339: Property 'role' does not exist on type 'Person'.
-```
-
-**Fix:** Extend the type or use type assertion:
-```typescript
-// Option 1: Extend the interface
-interface Person {
-  id: string;
-  name: string;
-}
-
-interface PersonWithRole extends Person {
-  role: string;
-}
-
-// Option 2: Use intersection type
-type PersonWithRole = Person & { role: string };
-
-// Option 3: Add to original interface (if you control it)
-interface Person {
-  id: string;
-  name: string;
-  role?: string; // Optional if not always present
-}
-```
-
-### 6. Generic Component Type Issues
-
-**Error:**
-```
-error TS2322: Type 'NoInfer<TQueryFnData>' is not assignable to type...
-```
-
-**Bad:**
-```typescript
-const { data } = useQuery({
-  queryKey: ['residents'],
-  queryFn: async () => {
-    const res = await fetch('/api/residents');
-    return res.json(); // Returns unknown
-  },
-});
-
-// data is TQueryFnData, not your type
-```
-
-**Good:**
-```typescript
-interface Resident {
-  id: string;
-  name: string;
-  specialty: string;
-}
-
-const { data } = useQuery<Resident[]>({
-  queryKey: ['residents'],
-  queryFn: async (): Promise<Resident[]> => {
-    const res = await fetch('/api/residents');
-    return res.json();
-  },
-});
-
-// data is now Resident[] | undefined
-```
-
-### 7. Index Signature Issues
-
-**Error:**
-```
-error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type
-```
-
-**Bad:**
-```typescript
-interface Metrics {
-  cpu: number;
-  memory: number;
-}
-
-const metrics: Metrics = { cpu: 80, memory: 60 };
-const key = 'cpu';
-const value = metrics[key]; // Error: string can't index Metrics
-```
-
-**Good:**
-```typescript
-// Option 1: Use keyof
-const key: keyof Metrics = 'cpu';
-const value = metrics[key]; // Works
-
-// Option 2: Add index signature
-interface Metrics {
-  cpu: number;
-  memory: number;
-  [key: string]: number;
-}
-
-// Option 3: Type assertion (last resort)
-const value = metrics[key as keyof Metrics];
-```
+1. **Always use TypeScript** - Define proper types for props, state, and API responses
+2. **Prefer functional components** - Use hooks over class components
+3. **Follow component composition** - Build small, reusable, single-responsibility components
+4. **Implement proper error boundaries** - Wrap critical UI sections
+5. **Use React 18+ features** - Concurrent features, Suspense, transitions when appropriate
 
 ## Component Patterns
 
-### Typed Component Props
+### Basic Component Structure
 
-```typescript
-// Always define explicit interfaces
-interface ScheduleViewProps {
-  scheduleId: string;
-  onUpdate?: (schedule: Schedule) => void;
-  className?: string;
-  children?: React.ReactNode;
+```tsx
+import { useState, useCallback } from 'react';
+
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary' | 'danger';
+  disabled?: boolean;
+  loading?: boolean;
 }
 
-// Use React.FC or explicit return type
-export const ScheduleView: React.FC<ScheduleViewProps> = ({
-  scheduleId,
-  onUpdate,
-  className,
-  children,
-}) => {
-  // ...
-};
+export function Button({
+  label,
+  onClick,
+  variant = 'primary',
+  disabled = false,
+  loading = false,
+}: ButtonProps) {
+  const handleClick = useCallback(() => {
+    if (!disabled && !loading) {
+      onClick();
+    }
+  }, [disabled, loading, onClick]);
 
-// Alternative: function declaration with explicit types
-export function ScheduleView({
-  scheduleId,
-  onUpdate,
-  className,
-  children,
-}: ScheduleViewProps): React.ReactElement {
-  // ...
-}
-```
-
-### Generic Components
-
-```typescript
-// For reusable components with type parameters
-interface SelectProps<T> {
-  options: T[];
-  value: T | null;
-  onChange: (value: T) => void;
-  getLabel: (option: T) => string;
-  getValue: (option: T) => string;
-}
-
-// Use trailing comma to disambiguate from JSX in .tsx files
-export function Select<T,>({
-  options,
-  value,
-  onChange,
-  getLabel,
-  getValue,
-}: SelectProps<T>): React.ReactElement {
   return (
-    <select
-      value={value ? getValue(value) : ''}
-      onChange={(e) => {
-        const selected = options.find(o => getValue(o) === e.target.value);
-        if (selected) onChange(selected);
-      }}
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={disabled || loading}
+      className={`btn btn-${variant}`}
+      aria-busy={loading}
     >
-      {options.map((option) => (
-        <option key={getValue(option)} value={getValue(option)}>
-          {getLabel(option)}
-        </option>
-      ))}
-    </select>
+      {loading ? <Spinner /> : label}
+    </button>
   );
 }
 ```
 
-### Discriminated Unions for Props
+### Custom Hooks Pattern
 
-```typescript
-// Use discriminated unions for mutually exclusive props
-type ButtonProps =
-  | { variant: 'link'; href: string; onClick?: never }
-  | { variant: 'button'; onClick: () => void; href?: never };
+```tsx
+import { useState, useEffect, useCallback } from 'react';
 
-interface BaseButtonProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export function Button(props: BaseButtonProps & ButtonProps) {
-  if (props.variant === 'link') {
-    return <a href={props.href} className={props.className}>{props.children}</a>;
-  }
-  return <button onClick={props.onClick} className={props.className}>{props.children}</button>;
-}
-```
-
-## Hook Patterns
-
-### Typed useState
-
-```typescript
-// Explicit type when inference isn't enough
-const [schedule, setSchedule] = useState<Schedule | null>(null);
-
-// For arrays, be explicit
-const [items, setItems] = useState<Assignment[]>([]);
-
-// For objects with nullable fields
-interface FormState {
-  name: string;
-  date: Date | null;
-  error?: string;
-}
-const [form, setForm] = useState<FormState>({
-  name: '',
-  date: null,
-});
-```
-
-### Typed useRef
-
-```typescript
-// For DOM elements
-const inputRef = useRef<HTMLInputElement>(null);
-
-// For mutable values
-const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-// For imperative handles
-interface ScheduleHandle {
-  refresh: () => void;
-  scrollToDate: (date: Date) => void;
-}
-const scheduleRef = useRef<ScheduleHandle>(null);
-```
-
-### Typed Custom Hooks
-
-```typescript
-interface UseScheduleOptions {
-  autoRefresh?: boolean;
-  refreshInterval?: number;
-}
-
-interface UseScheduleReturn {
-  schedule: Schedule | null;
-  isLoading: boolean;
+interface UseApiResult<T> {
+  data: T | null;
+  loading: boolean;
   error: Error | null;
-  refresh: () => void;
+  refetch: () => void;
 }
 
-export function useSchedule(
-  scheduleId: string,
-  options: UseScheduleOptions = {}
-): UseScheduleReturn {
-  const { autoRefresh = false, refreshInterval = 30000 } = options;
+function useApi<T>(url: string): UseApiResult<T> {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  // Implementation...
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const json = await response.json();
+      setData(json);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    } finally {
+      setLoading(false);
+    }
+  }, [url]);
 
-  return { schedule, isLoading, error, refresh };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, loading, error, refetch: fetchData };
 }
 ```
 
-## TanStack Query Patterns
+### Compound Component Pattern
 
-### Typed Queries
+```tsx
+import { createContext, useContext, useState, ReactNode } from 'react';
 
-```typescript
-// Define return types explicitly
-interface ScheduleResponse {
-  id: string;
-  assignments: Assignment[];
-  metadata: ScheduleMetadata;
+interface AccordionContextType {
+  openItems: Set<string>;
+  toggle: (id: string) => void;
 }
 
-export function useScheduleQuery(scheduleId: string) {
-  return useQuery<ScheduleResponse, Error>({
-    queryKey: ['schedule', scheduleId],
-    queryFn: async (): Promise<ScheduleResponse> => {
-      const res = await fetch(`/api/schedules/${scheduleId}`);
-      if (!res.ok) throw new Error('Failed to fetch schedule');
-      return res.json();
-    },
-    staleTime: 5 * 60 * 1000,
+const AccordionContext = createContext<AccordionContextType | null>(null);
+
+function useAccordion() {
+  const context = useContext(AccordionContext);
+  if (!context) throw new Error('Must be used within Accordion');
+  return context;
+}
+
+interface AccordionProps {
+  children: ReactNode;
+  allowMultiple?: boolean;
+}
+
+export function Accordion({ children, allowMultiple = false }: AccordionProps) {
+  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+
+  const toggle = (id: string) => {
+    setOpenItems(prev => {
+      const next = new Set(allowMultiple ? prev : []);
+      if (prev.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  return (
+    <AccordionContext.Provider value={{ openItems, toggle }}>
+      <div role="region">{children}</div>
+    </AccordionContext.Provider>
+  );
+}
+
+Accordion.Item = function AccordionItem({ id, title, children }: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}) {
+  const { openItems, toggle } = useAccordion();
+  const isOpen = openItems.has(id);
+
+  return (
+    <div>
+      <button
+        onClick={() => toggle(id)}
+        aria-expanded={isOpen}
+        aria-controls={`panel-${id}`}
+      >
+        {title}
+      </button>
+      {isOpen && <div id={`panel-${id}`}>{children}</div>}
+    </div>
+  );
+};
+```
+
+## State Management
+
+### Zustand (Recommended for most cases)
+
+```tsx
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface UserState {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (user: User) => void;
+  logout: () => void;
+}
+
+export const useUserStore = create<UserState>()(
+  persist(
+    (set) => ({
+      user: null,
+      isAuthenticated: false,
+      login: (user) => set({ user, isAuthenticated: true }),
+      logout: () => set({ user: null, isAuthenticated: false }),
+    }),
+    { name: 'user-storage' }
+  )
+);
+```
+
+### React Query for Server State
+
+```tsx
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+function useTodos() {
+  return useQuery({
+    queryKey: ['todos'],
+    queryFn: () => fetch('/api/todos').then(r => r.json()),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
-```
 
-### Typed Mutations
-
-```typescript
-interface UpdateScheduleVariables {
-  scheduleId: string;
-  data: Partial<Schedule>;
-}
-
-export function useUpdateSchedule() {
+function useAddTodo() {
   const queryClient = useQueryClient();
 
-  return useMutation<Schedule, Error, UpdateScheduleVariables>({
-    mutationFn: async ({ scheduleId, data }) => {
-      const res = await fetch(`/api/schedules/${scheduleId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error('Update failed');
-      return res.json();
-    },
-    onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['schedule', variables.scheduleId] });
+  return useMutation({
+    mutationFn: (newTodo: Todo) =>
+      fetch('/api/todos', {
+        method: 'POST',
+        body: JSON.stringify(newTodo),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
   });
 }
 ```
 
-## Type Utilities
+## Project Structure
 
-### Useful Built-in Types
-
-```typescript
-// Partial - make all properties optional
-type PartialSchedule = Partial<Schedule>;
-
-// Required - make all properties required
-type RequiredSchedule = Required<Schedule>;
-
-// Pick - select specific properties
-type ScheduleSummary = Pick<Schedule, 'id' | 'name' | 'startDate'>;
-
-// Omit - exclude specific properties
-type ScheduleInput = Omit<Schedule, 'id' | 'createdAt'>;
-
-// Record - create object type with specific keys
-type StatusColors = Record<ScheduleStatus, string>;
-
-// Extract/Exclude for union types
-type ValidStatus = Exclude<ScheduleStatus, 'deleted'>;
+```
+src/
+├── components/
+│   ├── ui/           # Reusable UI components
+│   ├── features/     # Feature-specific components
+│   └── layouts/      # Layout components
+├── hooks/            # Custom hooks
+├── stores/           # State management
+├── services/         # API services
+├── types/            # TypeScript types
+├── utils/            # Utility functions
+└── pages/            # Page components (if not using router)
 ```
 
-### Custom Type Guards
+## Best Practices
 
-```typescript
-// Type guard function
-function isSchedule(value: unknown): value is Schedule {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'id' in value &&
-    'assignments' in value
-  );
-}
+1. **Type everything** - No `any` types, use `unknown` if needed
+2. **Memoize appropriately** - Use `useMemo`, `useCallback`, `React.memo` for expensive operations
+3. **Handle loading/error states** - Every async operation needs these states
+4. **Use proper keys** - Never use array index as key for dynamic lists
+5. **Avoid prop drilling** - Use context or state management for deep prop passing
+6. **Code split** - Use `React.lazy()` for route-level code splitting
+7. **Test components** - Write unit tests with React Testing Library
 
-// Usage
-const data: unknown = await fetchData();
-if (isSchedule(data)) {
-  // TypeScript knows data is Schedule here
-  console.log(data.assignments);
-}
-```
+## When to Use
 
-## Running Type Checks
+- Building React applications with TypeScript
+- Creating reusable component libraries
+- Implementing complex state management
+- Setting up new React projects
+- Refactoring class components to functional
 
-```bash
-cd /home/user/Autonomous-Assignment-Program-Manager/frontend
+## Notes
 
-# Type check only (no emit)
-npm run type-check
-
-# Type check all files (including tests)
-npm run type-check:all
-
-# Watch mode for development
-npx tsc --noEmit --watch
-
-# Check specific file
-npx tsc --noEmit src/components/MyComponent.tsx
-```
-
-## Integration with Other Skills
-
-### With test-writer
-When writing tests for typed components:
-1. Use proper mock types
-2. Test type narrowing paths
-3. Verify discriminated union handling
-
-### With code-review
-TypeScript-specific review points:
-1. No `any` types
-2. Proper null handling
-3. Exhaustive type checks
-4. Correct generic usage
-
-### With automated-code-fixer
-For TypeScript errors:
-1. Identify error category
-2. Apply pattern fix
-3. Verify with `npm run type-check`
-4. Check for cascading type issues
-
-## Escalation Rules
-
-**Escalate to human when:**
-
-1. Complex generic type constraints needed
-2. Module augmentation required
-3. Type conflicts with third-party libraries
-4. Performance issues from excessive type checking
-5. Need to modify shared type definitions
+- Requires React 18+ for latest features
+- Use Vite for new projects (faster than CRA)
+- Consider Next.js for SSR/SSG requirements
+- Always include proper accessibility attributes

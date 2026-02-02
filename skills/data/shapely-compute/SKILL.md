@@ -199,7 +199,7 @@ uv run python scripts/shapely_compute.py fromwkt "POLYGON((0 0,1 0,1 1,0 1,0 0))
 
 ## Geometry Types
 - `point` - Single coordinate (x, y) or (x, y, z)
-- `line`/maestro:`linestring` - Sequence of connected points
+- `line`/`linestring` - Sequence of connected points
 - `polygon` - Closed shape with optional holes
 - `multipoint`, `multilinestring`, `multipolygon` - Collections
 
@@ -229,5 +229,5 @@ All commands return JSON with:
 | Simplify path | `op simplify` |
 
 ## Related Skills
-- `/maestro:math-mode` - Full math orchestration (SymPy, Z3)
-- `/maestro:math-plot` - Visualization with matplotlib
+- `/math-mode` - Full math orchestration (SymPy, Z3)
+- `/math-plot` - Visualization with matplotlib

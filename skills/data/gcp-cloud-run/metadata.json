@@ -1,7 +1,7 @@
 {
   "name": "gcp-cloud-run",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/gcp-cloud-run/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:26.296694Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/gcp-cloud-run/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-02-02T04:28:45.270660Z"
 }

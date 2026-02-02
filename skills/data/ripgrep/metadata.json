@@ -1,11 +1,7 @@
 {
   "name": "ripgrep",
-  "description": "Use when searching text in files, codebases, books, or documents. Use when finding files by pattern, searching large files that are too big to read fully, extracting specific content from many files, ",
-  "repo": "ratacat/claude-skills",
-  "category": "development",
-  "tags": [
-    "ripgrep"
-  ],
-  "stars": 8,
-  "source": "local"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/ripgrep/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-02-02T04:09:57.896366Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "deno",
-  "description": "Deno-specific conventions and patterns.",
-  "repo": "lambdalisue/dotfiles",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "kuboon/dotfiles",
+  "path": "skills/deno/SKILL.md",
+  "source": "github.com/kuboon/dotfiles",
+  "downloaded_at": "2026-02-02T01:17:28.579623Z"
 }

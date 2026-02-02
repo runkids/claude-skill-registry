@@ -1,7 +1,7 @@
 {
   "name": "generate-image",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/generate-image/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-02-01T03:19:38.944870Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/generate-image/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-02-02T04:19:24.743265Z"
 }

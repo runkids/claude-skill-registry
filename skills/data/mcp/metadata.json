@@ -1,7 +1,7 @@
 {
   "name": "mcp",
-  "repo": "kimny1143/claude-code-template",
-  "path": ".claude/skills/mcp/SKILL.md",
-  "source": "github.com/kimny1143/claude-code-template",
-  "downloaded_at": "2026-02-01T02:34:27.788965Z"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/mcp/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-02-02T04:46:03.398514Z"
 }

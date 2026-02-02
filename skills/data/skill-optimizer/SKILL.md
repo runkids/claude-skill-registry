@@ -1,415 +1,467 @@
 ---
 name: skill-optimizer
-description: Refactors Claude Code skills to reduce token usage 80-95% using Progressive Disclosure Architecture (PDA). Splits monolithic skills into orchestrator + reference files, extracts scripts, creates reference/ directories. Use when optimizing skills, improving skill efficiency, refactoring large/bloated skills, reducing token costs, applying PDA, modularizing skills, breaking down skills, or converting encyclopedia-style skills to orchestrator pattern.
-allowed-tools: Read, Write, Edit, Glob
+description: Optimize Claude Code skills for token efficiency using progressive disclosure and content loading order. Use when optimizing skills, reducing token usage, restructuring skill content, improving skill performance, analyzing skill size, applying 500-line rule, implementing progressive disclosure, organizing reference files, optimizing YAML frontmatter, reducing context consumption, improving skill architecture, analyzing token costs, splitting large skills, or working with skill content loading. Covers Level 1 (metadata), Level 2 (instructions), Level 3 (resources) loading optimization.
 ---
 
 # Skill Optimizer
 
 ## Purpose
 
-Transform existing Claude Code skills into optimized, efficient versions using Progressive Disclosure Architecture (PDA) and best practices. Achieve 80-95% token reduction while improving maintainability.
+Optimize existing Claude Code skills to minimize token consumption by leveraging the three-level content loading architecture and progressive disclosure patterns.
 
 ## When to Use
 
-- User asks to "optimize this skill" or "improve this skill"
-- Optimizing skill metadata for better detection/discovery
-- Improving YAML frontmatter description for trigger coverage
-- Refactoring monolithic skills
-- Applying PDA to existing skills
-- Reducing token costs
-- Improving skill maintainability
+Use this skill when:
+- Analyzing existing skills for optimization opportunities
+- Skills are too large (approaching or exceeding 500 lines)
+- Need to reduce context consumption
+- Restructuring skills for progressive disclosure
+- Converting monolithic skills to multi-file architecture
+- Optimizing YAML frontmatter for better discovery
+- Improving skill performance and load times
+- Auditing skills for token efficiency
+- Creating new skills with optimization in mind
 
-## Optimization Process
-
-### Phase 0: Metadata Optimization (Highest Impact)
-
-**Always start here.** Optimizing the YAML frontmatter yields the highest ROI for skill detection and should be done first, before any content refactoring.
-
-0. **Optimize YAML Frontmatter**
-   - Analyze current `name` and `description` fields
-   - Identify all potential trigger phrases and edge cases
-   - Research best practices for skill discovery
-   - Update description with comprehensive trigger coverage
-
-   **Description Optimization Guidelines:**
-   - Maximum 1024 characters (use available space)
-   - Include both what the skill does AND when to use it
-   - Add specific trigger phrases users might say
-   - Include concrete metrics (e.g., "80-95% token savings")
-   - Mention problem keywords (e.g., "large/bloated", "monolithic")
-   - List action verbs (e.g., "optimize", "refactor", "modularize")
-   - Add pattern keywords (e.g., "orchestrator", "PDA", "encyclopedia-style")
-   - Write in third person
-   - Balance specificity with coverage
-
-   **Metadata Checklist:**
-   - [ ] Description includes concrete metrics/savings
-   - [ ] Problem keywords present (large, bloated, monolithic)
-   - [ ] Multiple action verbs listed
-   - [ ] Pattern terminology included (orchestrator, PDA)
-   - [ ] Edge case triggers covered
-   - [ ] Third-person voice maintained
-   - [ ] Under 1024 character limit
-   - [ ] Name follows conventions (lowercase, hyphens, <64 chars)
-
-1. **Assess Current State**
-   - Read SKILL.md
-   - Calculate file size
-   - Identify content types
-   - Map reference opportunities
-
-2. **Determine Optimization Strategy**
-   ```
-   If SKILL.md < 5KB:
-     → Minor improvements only
-     → Keep current structure
-
-   If SKILL.md 5-10KB:
-     → Consider progressive disclosure
-     → Evaluate content organization
-
-   If SKILL.md > 10KB:
-     → Apply PDA strongly recommended
-     → Split into orchestrator + references
-
-   If SKILL.md > 20KB:
-     → PDA essential
-     → Major refactor needed
-   ```
-
-3. **Identify Content for Extraction**
-   - API documentation → reference/api.md
-   - Detailed examples → reference/examples.md
-   - Troubleshooting → reference/troubleshooting.md
-   - Domain-specific docs → reference/[domain].md
-
-### Phase 2: Refactoring
-
-4. **Create Orchestrator SKILL.md**
-   - Keep only essential routing logic (3-5KB max)
-   - Add conditional loading instructions
-   - Include quick reference section
-   - Link to detailed references
-
-5. **Extract Reference Files**
-   - Create reference/ directory
-   - Move detailed docs to separate files
-   - Add tables of contents for long files
-   - Ensure one-level depth from SKILL.md
-
-6. **Add Scripts (if applicable)**
-   - Create scripts/ directory
-   - Move mechanical operations to scripts
-   - Document script usage
-   - Add execution instructions
-
-### Phase 3: Validation
-
-7. **Verify PDA Implementation**
-   - SKILL.md is now 3-5KB
-   - References load on-demand
-   - All links work correctly
-   - File structure is standard
-
-8. **Calculate Token Savings**
-   ```
-   Before: [original KB] KB per request
-   After: [new KB] KB + on-demand average
-   Savings: [percentage]%
-   ```
-
-9. **Test Navigation**
-   - Can user find information quickly?
-   - Are references clearly linked?
-   - Is structure intuitive?
-
-## Optimization Patterns
-
-### Pattern 1: Encyclopedia to Orchestrator
-
-**Before (50KB monolith):**
-```markdown
-# plantuml.md
-
-## Sequence Diagrams
-[8KB of syntax docs]
-
-## Class Diagrams
-[10KB of syntax docs]
-
-## Flowcharts
-[5KB of syntax docs]
-
-... [27KB more]
-```
-
-**After (3KB orchestrator):**
-```markdown
----
-name: plantuml-diagrams
-description: Generate PlantUML diagrams...
 ---
 
-# PlantUML Diagram Generator
+## Content Loading Architecture
 
-Analyze user request to determine diagram type.
+### Three-Level Loading System
 
-**For sequence diagrams:**
-1. Read reference/plantuml_sequence.md
-2. Generate PlantUML code
-3. Bash: scripts/plantuml.sh generate [code]
+**Level 1: Metadata (Always Loaded - ~100 tokens/skill)**
+- YAML frontmatter in SKILL.md
+- Loaded at startup into system prompt
+- Enables skill discovery without context overhead
+- **Optimization Target**: Description field (max 1024 chars)
 
-**For class diagrams:**
-1. Read reference/plantuml_class.md
-2. Generate PlantUML code
-3. Bash: scripts/plantuml.sh generate [code]
+**Level 2: Instructions (Loaded When Triggered - <5,000 tokens)**
+- Main SKILL.md content
+- Loads dynamically when skill is relevant
+- Contains workflows, best practices, guidance
+- **Optimization Target**: Keep under 500 lines
 
-**For flowcharts:**
-1. Read reference/plantuml_flowchart.md
-2. Generate PlantUML code
-3. Bash: scripts/plantuml.sh generate [code]
-```
+**Level 3: Resources (Loaded As Needed - Variable)**
+- Additional markdown files (REFERENCE.md, EXAMPLES.md, etc.)
+- Code scripts in scripts/ directory
+- Templates, schemas, documentation
+- **Optimization Target**: No penalty until accessed
 
-**Savings:** 78-94%
+### Key Principle
 
-### Pattern 2: Domain Split
+**"Files don't consume context until accessed"** - Bundle comprehensive documentation in reference files without context penalty.
 
-**Before (25KB all-in-one):**
-```markdown
-# bigquery-skill
-
-## Finance Data
-[6KB of finance schema]
-
-## Sales Data
-[7KB of sales schema]
-
-## Product Data
-[6KB of product schema]
-
-## Marketing Data
-[6KB of marketing schema]
-```
-
-**After (2KB orchestrator):**
-```markdown
----
-name: bigquery-analytics
-description: Analyze business data...
 ---
 
-# BigQuery Data Analysis
+## Quick Optimization Workflow
 
-## Available Datasets
+### 1. Analyze Current State
 
-**Finance**: Revenue, ARR, billing → Read [reference/finance.md](reference/finance.md)
-**Sales**: Opportunities, pipeline → Read [reference/sales.md](reference/sales.md)
-**Product**: API usage, features → Read [reference/product.md](reference/product.md)
-**Marketing**: Campaigns → Read [reference/marketing.md](reference/marketing.md)
-
-## Process
-
-1. Determine domain from user request
-2. Read appropriate reference file
-3. Construct query
-4. Execute and format results
+**Check skill size:**
+```bash
+wc -l .claude/skills/skill-name/SKILL.md
 ```
 
-**Savings:** 80-92%
+**Identify optimization opportunities:**
+- [ ] SKILL.md > 500 lines?
+- [ ] Detailed API docs in main file?
+- [ ] Extensive examples in main file?
+- [ ] Long reference tables or schemas?
+- [ ] Code snippets that could be scripts?
+- [ ] Multiple distinct topics/sections?
 
-### Pattern 3: Script Extraction
+### 2. Apply 500-Line Rule
 
-**Before (inline instructions):**
-```markdown
-## Upload to Notion
+**If SKILL.md > 500 lines:**
 
-1. Parse markdown file
-2. Convert to Notion blocks
-3. Call Notion API with page ID
-4. Handle errors
-[15KB of detailed API instructions]
-```
+✅ **Keep in main file:**
+- Purpose and when to use
+- Quick start / common workflows
+- Critical best practices
+- Brief examples (5-10 lines)
+- Cross-references to detailed files
 
-**After (script + reference):**
-```markdown
-## Upload to Notion
+❌ **Move to reference files:**
+- Comprehensive API documentation
+- Extensive code examples (>20 lines)
+- Detailed troubleshooting guides
+- Pattern libraries
+- Schema definitions
+- Long reference tables
 
-**Process:**
-1. Validate: `python scripts/validate.py [file]`
-2. Upload: `python scripts/upload.py [file] [database-id]`
-3. Report: URL returned
+### 3. Structure Reference Files
 
-**For API details:** See [reference/notion-api.md](reference/notion-api.md)
-```
-
-**Savings:** 70-85%
-
-## Refactoring Checklist
-
-### Metadata Optimization (Phase 0 - Do First)
-- [ ] YAML frontmatter reviewed
-- [ ] Description includes concrete metrics
-- [ ] Problem keywords added (large, bloated, monolithic)
-- [ ] Multiple action verbs listed
-- [ ] Pattern terminology included
-- [ ] Trigger phrases comprehensive
-- [ ] Character count verified (max 1024)
-- [ ] Third-person voice maintained
-
-### Structure Optimization
-- [ ] SKILL.md reduced to 3-5KB
-- [ ] reference/ directory created
-- [ ] scripts/ directory created (if needed)
-- [ ] File organization follows standards
-- [ ] Paths use forward slashes
-
-### Content Optimization
-- [ ] Essential info in SKILL.md
-- [ ] Detailed docs in reference/
-- [ ] Examples moved to reference/examples.md
-- [ ] API docs in reference/api.md
-- [ ] Troubleshooting in reference/troubleshooting.md
-
-### Link Optimization
-- [ ] All references one level deep
-- [ ] Links use relative paths
-- [ ] Link text is descriptive
-- [ ] No broken links
-- [ ] Cross-references where helpful
-
-### Token Optimization
-- [ ] Progressive disclosure implemented
-- [ ] On-demand loading pattern used
-- [ ] Scripts for mechanical work
-- [ ] Redundant content removed
-- [ ] Token savings calculated
-
-## Output Format
-
-```markdown
-# Skill Optimization Report
-
-## Summary
-**Before:** [original size] KB
-**After:** [new size] KB + [avg on-demand] KB
-**Token Savings:** [percentage]%
-
-## Changes Made
-
-### Structure Changes
-- Created reference/ directory
-- Split content into [N] reference files
-- Created scripts/ with [N] scripts
-
-### Content Reorganization
-- SKILL.md now [size] KB (was [old size] KB)
-- Moved [topic] to reference/[file].md
-- Extracted [content] to scripts/[script].py
-
-### Token Efficiency
-**Per-request usage:**
-- Before: Always [old KB] KB
-- After: [base KB] KB + [on-demand KB] KB (average)
-- Savings: [percentage]%
-
-**Annual cost savings** (at 100 requests/day):
-- Before: $[cost]/year
-- After: $[new cost]/year
-- Saved: $[savings]/year
-
-## New File Structure
+**Create organized reference hierarchy:**
 ```
 skill-name/
-├── SKILL.md ([size] KB)
-├── reference/
-│   ├── api.md ([size] KB)
-│   ├── examples.md ([size] KB)
-│   └── troubleshooting.md ([size] KB)
-└── scripts/
-    ├── validate.py
-    └── process.py
+├── SKILL.md              # <500 lines, workflows & quick ref
+├── REFERENCE.md          # Comprehensive documentation
+├── EXAMPLES.md           # Detailed code examples
+├── PATTERNS.md           # Pattern library
+├── TROUBLESHOOTING.md    # Debug guide
+└── scripts/              # Executable utilities
+    └── helper.sh
 ```
 
-## Usage Examples
+**Add table of contents to files >100 lines**
+
+### 4. Optimize YAML Frontmatter
+
+**Description optimization (max 1024 chars):**
+
+✅ **Include:**
+- All trigger keywords and phrases
+- Use cases and scenarios
+- File types and technologies
+- Common action verbs
+- Related concepts
+
+❌ **Avoid:**
+- Generic descriptions
+- Missing key terms
+- Overly verbose explanations
+
+**Example:**
+```yaml
+---
+name: database-development
+description: Database development guidance for PostgreSQL including schema design, migrations, RLS policies, indexing strategies, privacy-preserving patterns, query optimization, and Prisma ORM. Use when working with tables, columns, indexes, migrations, RLS, Row-Level Security, database schema, SQL queries, Prisma schema, database optimization, privacy architecture, or PostgreSQL best practices.
+---
+```
+
+### 5. Implement Progressive Disclosure
+
+**Pattern:**
+```markdown
+## Topic Overview
+
+Brief explanation (2-3 sentences).
+
+**Key Points:**
+- Important consideration 1
+- Important consideration 2
+
+**For detailed information**: [REFERENCE.md](REFERENCE.md#topic-details)
+
+**Quick Example:**
+\`\`\`typescript
+// Minimal working example (5-10 lines)
+\`\`\`
+
+**For more examples**: [EXAMPLES.md](EXAMPLES.md#topic-examples)
+```
+
+---
+
+## Optimization Patterns Summary
+
+### Pattern 1: Extract API Documentation
+
+**Strategy**: Move detailed API docs to REFERENCE.md
+
+**Before**: 80+ lines of API documentation in SKILL.md
+**After**: 10-line summary with link to complete docs
+**Savings**: ~70 lines (~1,400 tokens)
+
+**For complete pattern details**: [REFERENCE.md](REFERENCE.md#pattern-1-extract-api-documentation)
+
+### Pattern 2: Extract Pattern Libraries
+
+**Strategy**: Move code patterns to PATTERNS.md
+
+**Before**: 200+ lines of pattern code in SKILL.md
+**After**: 18-line summary with quick example
+**Savings**: ~182 lines (~3,640 tokens)
+
+**For complete pattern details**: [REFERENCE.md](REFERENCE.md#pattern-2-extract-pattern-libraries)
+
+### Pattern 3: Extract Troubleshooting
+
+**Strategy**: Move debug guides to TROUBLESHOOTING.md
+
+**Before**: 300+ lines of troubleshooting in SKILL.md
+**After**: 18-line summary with quick diagnostics
+**Savings**: ~282 lines (~5,640 tokens)
+
+**For complete pattern details**: [REFERENCE.md](REFERENCE.md#pattern-3-extract-troubleshooting)
+
+### Pattern 4: Convert Code to Scripts
+
+**Strategy**: Move executable code to scripts/ directory
+
+**Before**: 55+ lines of bash script in SKILL.md
+**After**: 7-line reference to executable script
+**Savings**: ~48 lines (~960 tokens) + script code never enters context
+
+**For complete pattern details**: [REFERENCE.md](REFERENCE.md#pattern-4-convert-code-to-scripts)
+
+---
+
+## Common Anti-Patterns
+
+Avoid these common mistakes when creating or optimizing skills:
+
+❌ **Anti-Pattern 1: Monolithic Skills**
+- Single SKILL.md with 1000+ lines
+- Solution: Split into main + reference files
+
+❌ **Anti-Pattern 2: Incomplete References**
+- Reference files exist but not linked
+- Solution: Link all reference files from SKILL.md
+
+❌ **Anti-Pattern 3: Nested References**
+- References pointing to other references (>1 level)
+- Solution: Keep hierarchy flat (max 1 level)
+
+❌ **Anti-Pattern 4: Sparse Frontmatter**
+- Minimal YAML description missing keywords
+- Solution: Rich description with all triggers
+
+❌ **Anti-Pattern 5: Code as Documentation**
+- 100+ line scripts embedded in markdown
+- Solution: Move to scripts/ directory
+
+**For detailed anti-patterns and solutions**: [REFERENCE.md](REFERENCE.md#common-anti-patterns)
+
+---
+
+## Migration Workflow
+
+### Quick Migration Steps
+
+**Phase 1: Discovery**
+```bash
+# Check skill size
+wc -l .claude/skills/skill-name/SKILL.md
+
+# Identify sections to extract
+grep "^##" .claude/skills/skill-name/SKILL.md
+```
+
+**Phase 2: Planning**
+- Design file hierarchy (SKILL.md + reference files)
+- Plan content distribution
+- Identify scripts to extract
+
+**Phase 3: Implementation**
+```bash
+# Create reference files
+touch REFERENCE.md EXAMPLES.md
+mkdir -p scripts
+
+# Extract content systematically
+# 1. Copy section to reference file
+# 2. Replace in SKILL.md with summary + link
+# 3. Verify link works
+# 4. Remove detailed content from SKILL.md
+```
+
+**Phase 4: Optimization**
+- Trim remaining content
+- Optimize frontmatter with trigger keywords
+- Add navigation aids (table of contents)
+
+**Phase 5: Validation**
+```bash
+# Verify under 500 lines
+wc -l .claude/skills/skill-name/SKILL.md
+
+# Test links work
+grep -o '\[.*\](.*\.md#.*)' SKILL.md
+```
+
+**For complete migration workflow**: [REFERENCE.md](REFERENCE.md#complete-migration-workflow)
+
+---
+
+## Advanced Techniques
+
+Quick reference to advanced optimization strategies:
+
+**Technique 1: Conditional Content Loading**
+- Structure content so advanced sections load only when needed
+- Benefits: Most users don't load advanced content
+
+**Technique 2: Layered Examples**
+- Progressive complexity: minimal → production → enterprise
+- Benefits: Beginners see simple examples, advanced users access complex ones
+
+**Technique 3: Executable Documentation**
+- Scripts that both execute and document
+- Benefits: Zero token cost, self-documenting output
+
+**Technique 4: Tabular Compression**
+- Use tables to compress structured data
+- Benefits: 60%+ space reduction for configurations/options
+
+**Technique 5: Smart Chunking**
+- Group related small sections instead of individual extraction
+- Benefits: Better narrative flow, fewer cross-references
+
+**For detailed advanced techniques**: [REFERENCE.md](REFERENCE.md#advanced-optimization-techniques)
+
+---
+
+## Optimization Checklist
+
+When optimizing a skill, verify:
+
+### Content Structure
+- [ ] SKILL.md is under 500 lines
+- [ ] Main file contains quick reference only
+- [ ] Detailed docs moved to reference files
+- [ ] Reference files have table of contents (if >100 lines)
+- [ ] Cross-references use relative links
+- [ ] No deeply nested references (max 1 level)
+
+### YAML Frontmatter
+- [ ] Description includes all trigger keywords
+- [ ] Description is under 1024 characters
+- [ ] Description covers use cases and scenarios
+- [ ] Description mentions file types/technologies
+- [ ] Name follows kebab-case convention
+
+### Progressive Disclosure
+- [ ] Overview → Details pattern used
+- [ ] Quick examples in main file (5-10 lines)
+- [ ] Extensive examples in EXAMPLES.md
+- [ ] Brief summaries with references to details
+- [ ] Common workflows highlighted in main file
+
+### File Organization
+- [ ] Reference files named clearly
+- [ ] Scripts in scripts/ directory
+- [ ] Scripts are executable (chmod +x)
+- [ ] No redundant content across files
+- [ ] Each file has single, clear purpose
+
+### Token Efficiency
+- [ ] Eliminated verbose explanations
+- [ ] Removed duplicate information
+- [ ] Used bullet points vs paragraphs
+- [ ] Moved large code blocks to reference files
+- [ ] Converted reusable code to scripts
+
+---
+
+## Measurement & Validation
+
+### Token Estimation
+
+**Quick estimate:**
+```bash
+lines=$(wc -l < SKILL.md)
+tokens=$((lines * 20))  # Conservative: 20 tokens/line
+echo "Estimated tokens: ~$tokens"
+```
+
+**Target**: Keep SKILL.md under 10,000 tokens (~500 lines)
+
+### Before/After Comparison
+
+```bash
+# Calculate savings
+BEFORE=850  # lines before optimization
+AFTER=420   # lines after optimization
+SAVINGS=$((BEFORE - AFTER))
+TOKEN_SAVINGS=$((SAVINGS * 20))
+
+echo "Reduced by $SAVINGS lines"
+echo "Estimated token savings: ~$TOKEN_SAVINGS tokens"
+```
+
+### Quality Checks
+
+- [ ] All original information preserved
+- [ ] Links work correctly
+- [ ] Main file comprehensive for common cases
+- [ ] Reference files well-organized
+- [ ] Navigation intuitive
+
+**For detailed measurement methods**: [REFERENCE.md](REFERENCE.md#measurement--validation)
+
+---
+
+## Best Practices Summary
+
+✅ **DO:**
+- Keep SKILL.md minimum but use other reference files to keep the full and detailed knowledge base
+- Use progressive disclosure (overview → details)
+- Include all trigger keywords in description
+- Create clear cross-references to detailed docs
+- Add table of contents to reference files >100 lines
+- Convert reusable code to scripts
+- Test optimization with real usage
+
+❌ **DON'T:**
+- Exceed 500 lines in SKILL.md
+- Nest references more than 1 level deep
+- Include API docs in main file
+- Embed long code examples in main file
+- Create reference files without linking them
+- Use sparse YAML descriptions
+- Optimize without preserving critical info
+
+---
+
+## Quick Reference
+
+**File size limits:**
+- SKILL.md: <500 lines (strict)
+- Reference files: No limit (loaded on-demand)
+- YAML description: 1024 chars max
+
+**Optimization priority:**
+1. Apply 500-line rule to SKILL.md
+2. Extract API docs to REFERENCE.md
+3. Move examples to EXAMPLES.md or PATTERNS.md
+4. Convert scripts to scripts/ directory
+5. Enrich YAML frontmatter description
+
+**Common extractions:**
+- API documentation → REFERENCE.md
+- Code examples → EXAMPLES.md
+- Troubleshooting → TROUBLESHOOTING.md
+- Pattern library → PATTERNS.md
+- Scripts → scripts/ directory
+
+**Typical token savings:**
+- API extraction: ~1,400 tokens
+- Pattern library: ~3,640 tokens
+- Troubleshooting: ~5,640 tokens
+- Scripts: ~960 tokens + no code in context
+
+**For comprehensive optimization patterns and detailed workflows**: [REFERENCE.md](REFERENCE.md)
+
+---
+
+## Real-World Example
+
 **Before optimization:**
 ```
-> [request]
-# Loads 50KB every time
+skill-example/
+└── SKILL.md  (850 lines, ~17,000 tokens)
 ```
 
 **After optimization:**
 ```
-> [request for X]
-# Loads 3KB + 8KB (X reference) = 11KB
-
-> [request for Y]
-# Loads 3KB + 5KB (Y reference) = 8KB
+skill-example/
+├── SKILL.md              (420 lines, ~8,400 tokens)
+├── REFERENCE.md          (350 lines, loaded on-demand)
+├── EXAMPLES.md           (180 lines, loaded on-demand)
+└── scripts/
+    ├── validate.sh       (code never enters context)
+    └── setup.sh          (code never enters context)
 ```
 
-## Next Steps
-1. Test the optimized skill
-2. Verify all links work
-3. Monitor token usage
-4. Adjust as needed
-```
+**Result**: 50% token reduction on initial load, comprehensive docs still available on-demand
 
-## Common Optimizations
+---
 
-### For API Documentation
-**Extract to:** reference/api.md
-**Include in SKILL.md:** "For API details, see reference/api.md"
+**Next Steps**:
+1. Audit existing skills: `wc -l .claude/skills/*/SKILL.md`
+2. Identify candidates for optimization (>500 lines)
+3. Apply optimization workflow
+4. Measure token savings
+5. Validate with real usage
 
-### For Examples
-**Extract to:** reference/examples.md
-**Include in SKILL.md:** "For examples, see reference/examples.md"
-
-### For Troubleshooting
-**Extract to:** reference/troubleshooting.md
-**Include in SKILL.md:** "For troubleshooting, see reference/troubleshooting.md"
-
-### For Domain-Specific Content
-**Extract to:** reference/[domain].md
-**Include in SKILL.md:** Conditional loading based on request
-
-### For Mechanical Operations
-**Extract to:** scripts/[operation].py
-**Include in SKILL.md:** "Run: python scripts/[operation].py"
-
-## Quality Validation
-
-After optimization, verify:
-
-1. **Functionality Preserved**
-   - All original capabilities maintained
-   - No information lost
-   - User experience improved
-
-2. **Performance Improved**
-   - Token usage reduced
-   - Load time faster
-   - Maintenance easier
-
-3. **Usability Enhanced**
-   - Easier to navigate
-   - Clear organization
-   - Intuitive structure
-
-## Integration with Other Skills
-
-- **skill-reviewer** - Review before optimizing
-- **skill-generator** - If complete rewrite needed
-- **skill-architect** - For complete workflow management
-
-## See Also
-
-- [SKILL_GENERATOR.md](.claude/skills/skill-generator/SKILL.md) - Create new skills
-- [SKILL_REVIEWER.md](.claude/skills/skill-reviewer/SKILL.md) - Review skill quality
-- [SKILL_ARCHITECT.md](.claude/skills/skill-architect/SKILL.md) - Complete workflow
-- [CLAUDE_SKILLS_ARCHITECTURE.md](../../../docs/CLAUDE_SKILLS_ARCHITECTURE.md) - PDA reference
-
-## Sources
-
-Based on:
-- [CLAUDE_SKILLS_ARCHITECTURE.md](../../../docs/CLAUDE_SKILLS_ARCHITECTURE.md)
-- Progressive Disclosure Architecture principles
+**For detailed guidance**: See [REFERENCE.md](REFERENCE.md) for complete optimization patterns, anti-patterns, migration workflows, and advanced techniques.

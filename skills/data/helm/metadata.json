@@ -1,7 +1,7 @@
 {
   "name": "helm",
-  "repo": "Lobbi-Docs/claude",
-  "path": ".claude/skills/helm/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-02-01T04:01:58.343988Z"
+  "repo": "jyasuu/cheat-sheet",
+  "path": "skills/helm/SKILL.md",
+  "source": "github.com/jyasuu/cheat-sheet",
+  "downloaded_at": "2026-02-02T03:19:46.070720Z"
 }

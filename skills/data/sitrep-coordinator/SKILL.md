@@ -187,7 +187,7 @@ Options:
 
 ### Authorization Code Format
 
-```text
+```
 [PROJECT]-[PHASE]-[AGENT]-[SEQUENCE]
 
 Examples:
@@ -243,7 +243,7 @@ UNIFIED-TIER-CLAUDE-DESK-012
 ### Pattern 1: Sequential Handoff
 **Use Case:** Tasks that must be completed in order
 
-```text
+```
 Agent A → SITREP → Agent B → SITREP → Agent C
 ```
 
@@ -256,7 +256,7 @@ Agent A → SITREP → Agent B → SITREP → Agent C
 ### Pattern 2: Parallel Execution
 **Use Case:** Independent tasks executed simultaneously
 
-```text
+```
 Coordinator → SITREP → Agent A
                      → Agent B
                      → Agent C
@@ -273,7 +273,7 @@ Coordinator → SITREP → Agent A
 ### Pattern 3: Iterative Refinement
 **Use Case:** Multiple passes for quality improvement
 
-```text
+```
 Agent A → SITREP → Agent B (Review)
    ↑                    ↓
    └────── Iterate ─────┘
@@ -288,7 +288,7 @@ Agent A → SITREP → Agent B (Review)
 ### Pattern 4: Escalation Chain
 **Use Case:** Decision authority hierarchy
 
-```text
+```
 Agent A → Blocker → SITREP → Team Lead
                               ↓
                          SITREP → Executive

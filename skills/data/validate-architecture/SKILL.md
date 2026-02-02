@@ -1,500 +1,293 @@
 ---
 name: validate-architecture
-description: Validate architecture document completeness and quality against comprehensive checklist. Checks required sections, technology justifications, NFRs coverage, and generates quality score with actionable recommendations. Use after architecture creation to verify completeness, quality, and NFR coverage before implementation begins.
-acceptance:
-  - validation_complete: "All checklist items evaluated"
-  - quality_score_calculated: "Quality score (0-100) computed"
-  - gaps_identified: "Missing elements and gaps documented"
-  - recommendations_provided: "Actionable recommendations given"
-inputs:
-  architecture_file:
-    type: string
-    required: true
-    description: "Path to architecture document (docs/architecture.md)"
-  project_type:
-    type: string
-    required: false
-    description: "frontend | backend | fullstack (auto-detected if not provided)"
-  strict_mode:
-    type: boolean
-    required: false
-    description: "Enforce stricter validation criteria (default: false)"
-outputs:
-  validation_passed:
-    type: boolean
-    description: "Whether architecture passed validation (score ≥70)"
-  quality_score:
-    type: number
-    description: "Overall quality score (0-100)"
-  gaps:
-    type: array
-    description: "List of missing or incomplete elements"
-  recommendations:
-    type: array
-    description: "Prioritized improvement recommendations"
-telemetry:
-  emit: "skill.validate-architecture.completed"
-  track:
-    - quality_score
-    - validation_passed
-    - gaps_count
-    - project_type
-    - duration_ms
+description: Validate DDD/Clean Architecture compliance in code changes, checking layer violations, transaction patterns, and Row-Level Security
+context: fork
+agent: Explore
+allowed-tools: Read, Grep, Bash
+user-invocable: true
+argument-hint: [パスまたはドメイン名]
 ---
 
-# Validate Architecture
+# civicship-api アーキテクチャ検証
 
-## Purpose
+**DDD (ドメイン駆動設計)** と **Clean Architecture** の原則に基づいてコード変更を検証します。
 
-Validate architecture documents for completeness, quality, and adherence to best practices. Generates comprehensive validation report with quality score, identified gaps, and prioritized recommendations for improvement.
-
-**Core Principles:**
-- **Comprehensive checklists:** Cover all architectural dimensions
-- **Objective scoring:** Consistent, repeatable quality measurement
-- **Actionable feedback:** Specific, prioritized improvements
-- **Adapt to context:** Different criteria for different project types
+`$ARGUMENTS` が指定された場合、その特定のパスまたはドメインを検証します。指定がない場合は、現在のブランチの未コミット変更を全て検証します。
 
 ---
 
-## Prerequisites
+## 重要なアーキテクチャルール
 
-- Architecture document exists (docs/architecture.md or specified path)
-- Architecture follows standard structure (see create-architecture skill)
+### 1. レイヤー違反
+
+**Resolverレイヤー** (`controller/resolver.ts`)
+- ✅ UseCaseのメソッドのみを呼び出す必要がある
+- ✅ フィールドリゾルバではDataLoaderを使用する必要がある（N+1問題防止）
+- ❌ ビジネスロジックを書いてはいけない
+- ❌ Repositoryを直接呼び出してはいけない
+
+**UseCaseレイヤー** (`usecase.ts`)
+- ✅ Serviceを使ってビジネスフローをオーケストレーションする必要がある
+- ✅ `ctx.issuer.onlyBelongingCommunity(ctx, async (tx) => {...})` でトランザクションを管理する必要がある
+- ✅ 自ドメインおよび他ドメインのServiceを呼び出せる
+- ✅ 結果を返す前にPresenterを呼び出す必要がある
+- ❌ 他ドメインのUseCaseを呼び出してはいけない（循環依存の原因）
+
+**Serviceレイヤー** (`service.ts`)
+- ✅ ビジネスロジックとバリデーションを実装する必要がある
+- ✅ Repositoryを呼び出す必要がある
+- ✅ 他ドメインのServiceを呼び出せる（読み取り操作のみ）
+- ✅ `tx` パラメータを受け取り、Repositoryに渡す必要がある（Service内で `if (tx)` 分岐はしない）
+- ❌ GraphQL型（`GqlXxx`）を返してはいけない - Prisma型のみを返す
+
+**Repositoryレイヤー** (`data/repository.ts`)
+- ✅ Prismaクエリのみを実行する必要がある
+- ✅ Row-Level Security (RLS)のため `ctx.issuer` を使用する必要がある
+- ✅ `tx` パラメータをメソッドタイプに応じて処理する必要がある:
+  - **Mutationメソッド**（create/update/delete）: 必須の `tx: Prisma.TransactionClient` を受け取り、直接使用（`if (tx)` 分岐なし）
+  - **Queryメソッド** トランザクション内外両方で呼ばれる可能性: オプショナルの `tx?: Prisma.TransactionClient` を受け取り、`if (tx)` で分岐
+- ❌ ビジネスロジックを含めてはいけない
+
+**Converter** (`data/converter.ts`)
+- ✅ 純粋関数である必要がある（GraphQL input → Prisma形式）
+- ❌ トランザクションを使用してはいけない
+- ❌ データベースクエリを実行してはいけない
+
+**Presenter** (`presenter.ts`)
+- ✅ 純粋関数である必要がある（Prisma → GraphQL型）
+- ❌ ビジネスロジックを含めてはいけない
+- ❌ データベースクエリを実行してはいけない
 
 ---
 
-## Workflow
+### 2. トランザクションパターンの検証
 
-### 1. Load Architecture Document
+**パターンA: Mutationメソッド（create/update/delete） - 必須トランザクション**
 
-**Action:** Read architecture document using bmad-commands
+```typescript
+// UseCaseがトランザクションを管理
+async managerCreateOpportunity({ input, permission }, ctx) {
+  return ctx.issuer.onlyBelongingCommunity(ctx, async (tx) => {
+    const record = await this.service.createOpportunity(ctx, input, permission.communityId, tx);
+    return OpportunityPresenter.create(record);
+  });
+}
 
-Execute:
+// Serviceがtxを受け取り、Repositoryに渡す
+async createOpportunity(ctx, input, communityId, tx) {
+  const data = this.converter.create(input, communityId);
+  return await this.repository.create(ctx, data, tx);
+}
+
+// Repositoryは必須のtxパラメータを受け取る（分岐なし）
+async create(ctx, data, tx: Prisma.TransactionClient) {
+  return tx.opportunity.create({
+    data,
+    select: opportunitySelectDetail,
+  });
+}
+```
+
+**パターンB: Queryメソッド - オプショナルトランザクション（柔軟な使用）**
+
+```typescript
+// Repositoryはオプショナルのtxパラメータを受け取り、分岐処理
+async findCommunityWallet(ctx, communityId, tx?: Prisma.TransactionClient) {
+  if (tx) {
+    return tx.wallet.findFirst({
+      where: { communityId, type: WalletType.COMMUNITY },
+      select: walletSelectDetail,
+    });
+  }
+  return ctx.issuer.public(ctx, (tx) => {
+    return tx.wallet.findFirst({
+      where: { communityId, type: WalletType.COMMUNITY },
+      select: walletSelectDetail,
+    });
+  });
+}
+```
+
+**違反としてフラグするもの:**
+- ❌ Serviceレイヤーでトランザクションを開始している（UseCaseのみで行う）
+- ❌ ServiceからRepositoryへの `tx` パラメータ伝播が欠けている
+- ❌ Mutationメソッドがオプショナルの `tx?` を使用している（必須の `tx` にすべき）
+- ❌ オプショナルの `tx?` を使用しているQueryメソッドで `if (tx)` 分岐がない
+
+---
+
+### 3. Row-Level Security (RLS) の検証
+
+**必須パターン:**
+- `ctx.issuer.public(ctx, tx => {...})` - 公開クエリ
+- `ctx.issuer.internal(ctx, tx => {...})` - 内部/管理者クエリ
+- `ctx.issuer.onlyBelongingCommunity(ctx, async tx => {...})` - ユーザーの所属コミュニティのみ
+
+**違反としてフラグするもの:**
+- ❌ `ctx.issuer` ラッパーなしの直接Prismaクエリ
+- ❌ `communityId` 分離チェックの欠如
+- ❌ RLSメソッドを使用していないRepository
+
+---
+
+### 4. GraphQL型の命名規則
+
+**正しい:**
+- 型: `GqlUser`, `GqlCommunity`
+- 入力: `GqlCreateUserInput`, `GqlUpdateCommunityInput`
+- ペイロード: `GqlUserPayload`, `GqlCommunityConnection`
+- Prisma型: `PrismaUser`, `PrismaCommunity`
+
+**違反としてフラグするもの:**
+- ❌ `GqlXxx` 型を返すService
+- ❌ Service/Repositoryレイヤーで使用されているGraphQL型
+- ❌ 誤った命名規則
+
+---
+
+### 5. DataLoaderによるN+1問題防止
+
+**フィールドリゾルバはDataLoaderを使用する必要がある:**
+```typescript
+Opportunity: {
+  community: (parent, _, ctx) => ctx.loaders.community.load(parent.communityId),
+  createdByUser: (parent, _, ctx) => ctx.loaders.user.load(parent.createdBy)
+}
+```
+
+**違反としてフラグするもの:**
+- ❌ データベースへの直接クエリを行うフィールドリゾルバ
+- ❌ `controller/dataloader.ts` のDataLoader定義の欠如
+
+---
+
+## 検証プロセス
+
+### ステップ1: 検証対象ファイルの特定
+
+`$ARGUMENTS` が指定された場合:
 ```bash
-python .claude/skills/bmad-commands/scripts/read_file.py \
-  --path {architecture_file} \
-  --output json
+# 特定のドメインを検証
+find src/application/domain/"$ARGUMENTS" -type f \( -name "*.ts" -o -name "*.graphql" \)
 ```
 
-**Parse document to extract:**
-- Present sections
-- Technology stack components
-- ADRs count and quality
-- NFRs coverage
-- Security considerations
-- Scalability mentions
-
----
-
-### 2. Detect Project Type
-
-**Auto-detect from architecture content:**
-
-**Frontend indicators:**
-- Component architecture section
-- State management discussion
-- UI/routing mentions
-- Frontend technologies (React, Vue, etc.)
-
-**Backend indicators:**
-- API design section
-- Service layer architecture
-- Database/data layer
-- Backend technologies (Node, Python, etc.)
-
-**Fullstack indicators:**
-- Both frontend and backend sections
-- Integration/API contract sections
-- End-to-end authentication flow
-- Full stack technologies (Next.js, etc.)
-
-**If unable to detect:** Prompt for project_type parameter
-
----
-
-### 3. Run Completeness Checklist
-
-**Validate required sections based on project type:**
-
-#### Universal Sections (All Types)
-- ✅ System Overview (purpose, users, features)
-- ✅ Technology Stack (with justifications)
-- ✅ Deployment Architecture
-- ✅ Security Architecture
-- ✅ Architecture Decision Records (≥3)
-
-#### Frontend-Specific Sections
-- ✅ Component Architecture
-- ✅ State Management Strategy
-- ✅ Routing Design
-- ✅ Styling Approach
-- ✅ Build & Deployment Pipeline
-
-#### Backend-Specific Sections
-- ✅ API Design (REST/GraphQL/tRPC)
-- ✅ Service Layer Architecture
-- ✅ Data Architecture & Modeling
-- ✅ Integration Patterns
-- ✅ Error Handling Strategy
-
-#### Fullstack-Specific Sections
-- ✅ End-to-End Integration
-- ✅ API Contracts/Type Safety
-- ✅ Authentication & Authorization Flow
-- ✅ Frontend-Backend Communication
-- ✅ Unified Deployment Strategy
-
-**Score:** +10 points per required section present
-
-**See:** `references/validation-rules.md` for complete validation criteria and scoring rubrics
-
----
-
-### 4. Validate Technology Stack
-
-**Check that all technology choices:**
-- ✅ Are documented (not just mentioned)
-- ✅ Have justifications (why this choice?)
-- ✅ List alternatives considered
-- ✅ Explain trade-offs
-- ✅ Are appropriate for project scale
-
-**Scoring:**
-- All choices justified: +15 points
-- Most choices justified: +10 points
-- Some justified: +5 points
-- None justified: 0 points
-
-**Flag unjustified technologies as gaps**
-
----
-
-### 5. Assess NFR Coverage
-
-**Verify Non-Functional Requirements addressed:**
-
-| NFR Category | Required Elements |
-|--------------|-------------------|
-| Performance | Response time targets, optimization strategies |
-| Scalability | User growth plan, bottleneck identification |
-| Security | Auth/authz, encryption, compliance |
-| Reliability | Availability targets, fault tolerance |
-| Maintainability | Code organization, testing strategy |
-
-**Scoring:**
-- All NFRs addressed: +15 points
-- Most NFRs addressed: +10 points
-- Some NFRs addressed: +5 points
-- Few/none addressed: 0 points
-
-**See:** `references/validation-rules.md` for NFR validation criteria
-
----
-
-### 6. Evaluate ADRs Quality
-
-**Check Architecture Decision Records:**
-
-**Quantity:**
-- ≥10 ADRs: +10 points
-- 5-9 ADRs: +7 points
-- 3-4 ADRs: +5 points
-- <3 ADRs: 0 points
-
-**Quality (sample 3-5 ADRs):**
-- ✅ Context clearly stated
-- ✅ Decision explicitly stated
-- ✅ Alternatives considered (≥2)
-- ✅ Rationale provided
-- ✅ Consequences documented
-
-**Well-formed ADRs:** +5 points
-**Partial ADRs:** +2 points
-**Poor ADRs:** 0 points
-
----
-
-### 7. Check Security Posture
-
-**Validate security considerations:**
-- ✅ Authentication mechanism defined
-- ✅ Authorization strategy documented
-- ✅ Data encryption (at rest, in transit)
-- ✅ Input validation approach
-- ✅ Security best practices mentioned
-- ✅ Compliance requirements (if applicable)
-
-**Scoring:**
-- Comprehensive security: +10 points
-- Basic security: +5 points
-- Minimal security: 0 points
-
-**Critical gap:** Missing security section
-
----
-
-### 8. Assess Scalability Planning
-
-**Check scalability considerations:**
-- ✅ User growth projections
-- ✅ Scaling strategy (horizontal/vertical)
-- ✅ Bottleneck identification
-- ✅ Load balancing approach
-- ✅ Database scaling plan
-- ✅ Caching strategy
-
-**Scoring:**
-- Detailed scalability plan: +10 points
-- Basic scalability mentions: +5 points
-- No scalability planning: 0 points
-
----
-
-### 9. Validate Deployment Strategy
-
-**Check deployment architecture:**
-- ✅ Deployment platform specified
-- ✅ Environment strategy (dev, staging, prod)
-- ✅ CI/CD pipeline outlined
-- ✅ Monitoring and observability
-- ✅ Backup and disaster recovery
-
-**Scoring:**
-- Comprehensive deployment: +10 points
-- Basic deployment: +5 points
-- Missing deployment: 0 points
-
----
-
-### 10. Calculate Quality Score
-
-**Total possible points:** 100
-
-**Score breakdown:**
-- Completeness (sections): 30-40 points (varies by type)
-- Technology justifications: 15 points
-- NFR coverage: 15 points
-- ADRs quantity & quality: 15 points
-- Security posture: 10 points
-- Scalability planning: 10 points
-- Deployment strategy: 10 points
-
-**Quality Grades:**
-- **90-100:** Excellent (A)
-- **80-89:** Good (B)
-- **70-79:** Acceptable (C)
-- **60-69:** Needs Improvement (D)
-- **<60:** Insufficient (F)
-
-**Validation passes if score ≥70**
-
----
-
-### 11. Identify Gaps
-
-**Categorize identified gaps:**
-
-**Critical Gaps (blocking):**
-- Missing security section
-- No technology justifications
-- Fewer than 3 ADRs
-- Zero NFR coverage
-
-**Major Gaps (important):**
-- Missing key sections for project type
-- Poor ADR quality
-- Minimal security details
-- No scalability planning
-
-**Minor Gaps (nice-to-have):**
-- Incomplete deployment details
-- Missing diagrams
-- Light monitoring discussion
-
-**Priority:** Critical → Major → Minor
-
----
-
-### 12. Generate Recommendations
-
-**Based on identified gaps, provide actionable recommendations:**
-
-**Recommendation format:**
-```markdown
-**Priority:** Critical | Major | Minor
-**Gap:** [Specific missing element]
-**Recommendation:** [Concrete action to take]
-**Impact:** [Why this matters]
-**Effort:** [Estimated time to address]
+指定がない場合:
+```bash
+# 未コミット変更を検証
+git status --porcelain | grep -E '^\s*[MA]' | cut -c 4-
 ```
 
-**Example:**
-```markdown
-**Priority:** Critical
-**Gap:** Security architecture section missing
-**Recommendation:** Add security architecture section covering authentication, authorization, encryption, and input validation
-**Impact:** Security is fundamental for production readiness
-**Effort:** 2-3 hours
-```
+### ステップ2: ファイルの読み取りと分析
 
-**See:** `references/templates.md` for recommendation and report templates
+各ファイルに対してレイヤー固有のチェックを実行:
 
----
+**`controller/resolver.ts` の場合:**
+- Repositoryの直接呼び出しを検索（例: `repository.find`, `repository.create`）
+- 全てのフィールドリゾルバが `ctx.loaders` を使用していることを確認
 
-### 13. Generate Validation Report
+**`usecase.ts` の場合:**
+- `ctx.issuer.onlyBelongingCommunity(ctx, async (tx) => ...)` パターンを確認
+- 他ドメインのUseCaseの呼び出しをチェック（例: `otherDomainUseCase.doSomething()`）
+- 返却前にPresenterを呼び出していることを確認
 
-**Create comprehensive validation report:**
+**`service.ts` の場合:**
+- `Gql` 型のインポートまたは返却を検索
+- `tx` パラメータが適切に宣言され、渡されていることを確認
+- 不適切なクロスドメインUseCaseの呼び出しをチェック
+
+**`data/repository.ts` の場合:**
+- 全てのクエリが `ctx.issuer.public/internal/onlyBelongingCommunity` を使用していることを確認
+- Mutationメソッド（create/update/delete）が必須の `tx: Prisma.TransactionClient` を使用していることをチェック
+- オプショナルの `tx?` を使用するQueryメソッドで `if (tx)` 分岐を実装していることをチェック
+- ビジネスロジック（複雑な条件文、バリデーション）を検索
+
+**`data/converter.ts` の場合:**
+- `tx` パラメータがないことを確認
+- Prismaクライアントの使用がないことを確認
+
+**`presenter.ts` の場合:**
+- 純粋関数のみであることを確認
+- Prismaクライアントの使用がないことを確認
+
+**`schema/*.graphql` の場合:**
+- 型命名が `Gql*` 規約に従っていることを確認
+- 対応するResolverの実装があることをチェック
+
+### ステップ3: 検出結果の報告
+
+構造化されたレポートを生成:
 
 ```markdown
-# Architecture Validation Report
+# アーキテクチャ検証レポート
 
-**Architecture:** [file path]
-**Project Type:** [detected type]
-**Validation Date:** [timestamp]
-**Validation Result:** PASS | FAIL
+## サマリー
+- 分析ファイル数: X
+- 検出違反数: Y
+- 重大問題数: Z
 
----
+## 違反
 
-## Quality Score: [score]/100
+### レイヤー違反
+- [ ] **ファイル**: `src/application/domain/opportunity/controller/resolver.ts:45`
+  - **問題**: ResolverがRepositoryを直接呼び出している
+  - **修正**: UseCaseメソッドを呼び出すように変更
 
-**Grade:** [A/B/C/D/F]
+### トランザクションパターンの問題
+- [ ] **ファイル**: `src/application/domain/user/service.ts:120`
+  - **問題**: Repositoryへの `tx` パラメータ伝播が欠けている
+  - **修正**: `tx` パラメータを追加し、Repositoryメソッドに渡す
 
-**Score Breakdown:**
-- Completeness: [X]/40
-- Technology Stack: [X]/15
-- NFR Coverage: [X]/15
-- ADRs: [X]/15
-- Security: [X]/10
-- Scalability: [X]/10
-- Deployment: [X]/10
+### Row-Level Securityの問題
+- [ ] **ファイル**: `src/application/domain/community/data/repository.ts:78`
+  - **問題**: `ctx.issuer` なしの直接Prismaクエリ
+  - **修正**: クエリを `ctx.issuer.public(ctx, tx => ...)` でラップ
 
----
+### GraphQL型の違反
+- [ ] **ファイル**: `src/application/domain/wallet/service.ts:56`
+  - **問題**: Serviceが `GqlWallet` 型を返している
+  - **修正**: Prisma型を返し、Presenterで変換
 
-## Sections Present
+### DataLoaderの欠如
+- [ ] **ファイル**: `src/application/domain/opportunity/controller/resolver.ts:89`
+  - **問題**: フィールドリゾルバが直接データベースクエリを実行
+  - **修正**: `ctx.loaders.community.load(parent.communityId)` を使用
 
-✅ System Overview
-✅ Component Architecture (Frontend)
-✅ Technology Stack
-❌ Security Architecture (MISSING)
-⚠️  Scalability Plan (Incomplete)
+## 推奨事項
 
----
-
-## Gaps Identified
-
-### Critical Gaps
-1. Security architecture section missing
-2. No NFR coverage
-
-### Major Gaps
-3. Only 2 ADRs (minimum 3 required)
-4. Technology choices not justified
-
-### Minor Gaps
-5. Monitoring not discussed
-6. Disaster recovery not mentioned
-
----
-
-## Recommendations
-
-### 1. Add Security Architecture (Critical)
-**Gap:** Security section missing
-**Action:** Document authentication, authorization, encryption, input validation
-**Impact:** Production readiness blocker
-**Effort:** 2-3 hours
-
-### 2. Address NFRs (Critical)
-**Gap:** Zero NFR coverage
-**Action:** Add sections for performance targets, scalability plan, reliability targets
-**Impact:** Architecture may not meet requirements
-**Effort:** 1-2 hours
-
-[... continue for all gaps ...]
-
----
-
-## Summary
-
-**Overall Assessment:** [Summary paragraph]
-
-**Next Steps:**
-1. Address all critical gaps
-2. Address major gaps
-3. Re-run validation
-4. Proceed to implementation when score ≥70
-
----
-
-**Validation Tool:** BMAD Enhanced validate-architecture skill
-**Validated by:** Winston (Architect)
+1. 完全なアーキテクチャガイドラインについては @CLAUDE.md を確認
+2. リグレッションがないことを確認するため `pnpm test` を実行
+3. Service内のビジネスロジックに対するユニットテストの追加を検討
 ```
 
 ---
 
-## Common Scenarios
+## 追加チェック
 
-### Scenario 1: High-Quality Architecture (Score 85+)
-**Result:** PASS with minor recommendations
-**Action:** Proceed to implementation, optionally address minor gaps
+### 依存性注入の検証
+- 全てのService/Repositoryが `src/application/provider.ts` に登録されていることを確認
+- `@injectable()` および `@inject("ServiceName")` デコレータをチェック
 
-### Scenario 2: Acceptable Architecture (Score 70-79)
-**Result:** PASS with major recommendations
-**Action:** Address major gaps before implementation
+### GraphQLスキーマの同期
+- スキーマ変更後、`pnpm gql:generate` が実行されたことを確認
+- TypeScriptコンパイルエラーをチェック
 
-### Scenario 3: Insufficient Architecture (Score <70)
-**Result:** FAIL
-**Action:** Address all critical and major gaps, then re-validate
-
-### Scenario 4: Missing Critical Sections
-**Result:** FAIL (auto-fail for missing critical sections)
-**Action:** Add missing sections, re-validate
+### セキュリティチェック
+- パスワードやシークレットがログに出力されていないこと
+- Serviceレイヤーでの入力バリデーション
+- パラメータ化クエリ（Prismaが処理）
 
 ---
 
-## Strict Mode
+## 終了基準
 
-**When enabled (--strict):**
-- Minimum score: 80 (instead of 70)
-- All major gaps must be addressed
-- ADR quality rigorously checked
-- More detailed NFR validation
-
-**Use strict mode for:**
-- Production systems
-- High-complexity projects
-- Compliance-sensitive applications
-- Enterprise deployments
+以下の場合にレポートが完成:
+- ✅ スコープ内の全ファイルが分析された
+- ✅ 各違反にファイルパス、行番号、修正案が含まれる
+- ✅ サマリー統計が正確である
+- ✅ 推奨事項が実行可能である
 
 ---
 
-## Best Practices
+## 参考資料
 
-1. **Run early and often** - Validate during architecture creation, not after
-2. **Address critical gaps immediately** - Don't proceed with critical gaps
-3. **Iterate** - Re-validate after addressing gaps
-4. **Use as checklist** - Reference validation checklist while creating architecture
-5. **Don't over-optimize** - Score of 70-80 is usually sufficient for implementation
-
----
-
-## Reference Files
-
-- `references/validation-rules.md` - Comprehensive validation rules, scoring criteria, and rubrics for all dimensions
-- `references/templates.md` - Validation report templates, recommendation formats, and output structures
-- `references/examples.md` - Complete validation examples showing PASS (85/100), borderline PASS (72/100), and FAIL (42/100) scenarios
-
----
-
-## When to Escalate
-
-Escalate to user when:
-- Architecture file not found or unreadable
-- Unable to detect project type automatically
-- Score is below 50 (major rework needed)
-- Critical compliance issues detected
-- Architecture deviates significantly from standards
-
----
-
-*Part of BMAD Enhanced Quality Suite*
+完全なアーキテクチャドキュメントと実装パターンについては `@CLAUDE.md` を参照してください。

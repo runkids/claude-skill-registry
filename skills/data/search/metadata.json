@@ -1,7 +1,7 @@
 {
   "name": "search",
-  "repo": "ngxtm/devkit",
-  "path": "rules/nestjs/search/SKILL.md",
-  "source": "github.com/ngxtm/devkit",
-  "downloaded_at": "2026-02-01T04:01:45.298107Z"
+  "repo": "ConaryLabs/Mira",
+  "path": "plugin/skills/search/SKILL.md",
+  "source": "github.com/ConaryLabs/Mira",
+  "downloaded_at": "2026-02-02T04:37:24.313620Z"
 }

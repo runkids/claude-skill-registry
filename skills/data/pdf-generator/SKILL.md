@@ -1,39 +1,72 @@
 ---
-name: pdf-generator
-description: 从HTML、Markdown或文本内容生成PDF文档，支持模板、样式和页面配置。
-metadata:
-  short-description: 从HTML/Markdown生成PDF
-source:
-  repository: https://github.com/foliojs/pdfkit
-  license: MIT
+name: "pdf-generator"
+description: |
+  Generate pdf generator operations. Auto-activating skill for Business Automation.
+  Triggers on: pdf generator, pdf generator
+  Part of the Business Automation skill category. Use when working with pdf generator functionality. Trigger with phrases like "pdf generator", "pdf generator", "pdf".
+allowed-tools: "Read, Write, Edit, Bash(cmd:*)"
+version: 1.0.0
+license: MIT
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
-# PDF Generator Tool
+# Pdf Generator
 
-## Description
-Generate PDF documents from HTML, Markdown, or text with customizable styling and layout.
+## Overview
 
-## Trigger
-- `/generate-pdf` command
-- User requests PDF generation
-- User needs to export document as PDF
+This skill provides automated assistance for pdf generator tasks within the Business Automation domain.
 
-## Usage
+## When to Use
 
-```bash
-# Generate PDF from Markdown
-python scripts/generate_pdf.py --input "document.md" --output "document.pdf"
+This skill activates automatically when you:
+- Mention "pdf generator" in your request
+- Ask about pdf generator patterns or best practices
+- Need help with business automation skills covering workflow automation, email processing, spreadsheet operations, and business process optimization.
 
-# Generate PDF from HTML
-python scripts/generate_pdf.py --input "report.html" --output "report.pdf" --format html
+## Instructions
 
-# Generate PDF with custom options
-python scripts/generate_pdf.py --input "doc.md" --output "doc.pdf" --title "My Report" --author "John" --page-size A4
-```
+1. Provides step-by-step guidance for pdf generator
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-## Tags
-`pdf`, `document`, `export`, `markdown`, `html`
+## Examples
 
-## Compatibility
-- Codex: ✅
-- Claude Code: ✅
+**Example: Basic Usage**
+Request: "Help me with pdf generator"
+Result: Provides step-by-step guidance and generates appropriate configurations
+
+
+## Prerequisites
+
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of business automation concepts
+
+
+## Output
+
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
+
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
+
+
+## Resources
+
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
+
+## Related Skills
+
+Part of the **Business Automation** skill category.
+Tags: automation, workflow, spreadsheets, email, business

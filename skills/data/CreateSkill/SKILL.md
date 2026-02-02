@@ -6,29 +6,9 @@ description: Create and validate skills. USE WHEN create skill, new skill, skill
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/CreateSkill/`
+`~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/CreateSkill/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the CreateSkill skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **CreateSkill** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # CreateSkill
 
@@ -36,9 +16,9 @@ MANDATORY skill creation framework for ALL skill creation requests.
 
 ## Authoritative Source
 
-**Before creating ANY skill, READ:** `~/.claude/skills/PAI/SkillSystem.md`
+**Before creating ANY skill, READ:** `~/.claude/skills/CORE/SkillSystem.md`
 
-**Canonical example to follow:** `~/.claude/skills/Art/SKILL.md`
+**Canonical example to follow:** `~/.claude/skills/_BLOGGING/SKILL.md`
 
 ## TitleCase Naming Convention
 
@@ -105,7 +85,7 @@ skills/SkillName/Tools/Utils/Helper.ts           # THREE levels - NO
 - Good: `Workflows/CompanyDueDiligence.md`
 - Bad: `Workflows/Company/DueDiligence.md`
 
-**See:** `~/.claude/skills/PAI/SkillSystem.md` (Flat Folder Structure section)
+**See:** `~/.claude/skills/CORE/SkillSystem.md` (Flat Folder Structure section)
 
 ---
 
@@ -218,10 +198,28 @@ Brief description.
 - **Efficiency:** Workflows load only what they actually need
 - **Maintainability:** Easier to update individual sections
 
-**See:** `~/.claude/skills/PAI/SkillSystem.md` (Dynamic Loading Pattern section)
+**See:** `~/.claude/skills/CORE/SkillSystem.md` (Dynamic Loading Pattern section)
 
 ---
 
+## Voice Notification
+
+**When executing a workflow, do BOTH:**
+
+1. **Send voice notification**:
+   ```bash
+   curl -s -X POST http://localhost:8888/notify \
+     -H "Content-Type: application/json" \
+     -d '{"message": "Running the WORKFLOWNAME workflow from the CreateSkill skill"}' \
+     > /dev/null 2>&1 &
+   ```
+
+2. **Output text notification**:
+   ```
+   Running the **WorkflowName** workflow from the **CreateSkill** skill...
+   ```
+
+**Full documentation:** `~/.claude/skills/CORE/SkillNotifications.md`
 
 ## Workflow Routing
 

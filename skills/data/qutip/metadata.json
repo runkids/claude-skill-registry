@@ -1,7 +1,7 @@
 {
   "name": "qutip",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/qutip/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:20.089374Z"
+  "repo": "merllinsbeard/ai-claude-skills-collection",
+  "path": "development/qutip/SKILL.md",
+  "source": "github.com/merllinsbeard/ai-claude-skills-collection",
+  "downloaded_at": "2026-02-02T02:59:56.184502Z"
 }

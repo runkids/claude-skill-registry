@@ -1,7 +1,7 @@
 {
   "name": "ai-development-guide",
-  "repo": "shinpr/claude-code-workflows",
-  "path": "skills/ai-development-guide/SKILL.md",
-  "source": "github.com/shinpr/claude-code-workflows",
-  "downloaded_at": "2026-02-01T04:14:05.768062Z"
+  "repo": "shinpr/agentic-code",
+  "path": ".agents/skills/ai-development-guide/SKILL.md",
+  "source": "github.com/shinpr/agentic-code",
+  "downloaded_at": "2026-02-02T01:42:13.105434Z"
 }

@@ -1,16 +1,16 @@
 ---
 name: aurora-cqrs
 description: >
-    Aurora CQRS Architecture Reference - Understanding the CQRS structure,
-    component relationships, editable zones, and data flow in Aurora/NestJS
-    projects. Trigger: When needing to understand CQRS architecture, component
-    structure, or editable zones.
+  Aurora CQRS Architecture Reference - Understanding the CQRS structure,
+  component relationships, editable zones, and data flow in Aurora/NestJS
+  projects. Trigger: When needing to understand CQRS architecture, component
+  structure, or editable zones.
 license: MIT
 metadata:
-    author: aurora
-    version: '1.2'
-    auto_invoke:
-        'Understanding CQRS architecture, component structure, editable zones'
+  author: aurora
+  version: '1.2'
+  auto_invoke:
+    'Understanding CQRS architecture, component structure, editable zones'
 ---
 
 ## When to Use
@@ -75,25 +75,36 @@ Aurora implements CQRS using NestJS CQRS module with:
 
 ### ⚠️ @api Handler Responsibility (CRITICAL!)
 
-**@api handlers (REST controllers, GraphQL resolvers, handler classes in @api/) have ONE job:**
+**@api handlers (REST controllers, GraphQL resolvers, handler classes in @api/)
+have ONE job:**
+
 - ✅ Dispatch commands/queries via `commandBus.dispatch()` or `queryBus.ask()`
 - ✅ Map HTTP/GraphQL input to command/query objects
 - ✅ Return response to client
 
 **@api handlers MUST NOT contain:**
+
 - ❌ Business validations (status checks, permission rules)
 - ❌ Repository queries (findById, find, get)
 - ❌ State transitions or business rules
 - ❌ Multiple sequential command/query dispatches with logic between them
 
-**If you find yourself writing `if/throw` logic in an @api handler, STOP.
-That logic belongs in a CommandHandler in `@app/`.**
+**If you find yourself writing `if/throw` logic in an @api handler, STOP. That
+logic belongs in a CommandHandler in `@app/`.**
+
+**⚠️ WARNING about codebase examples:** Some IAM `@api` handlers (e.g.,
+`iam-update-me-account.handler.ts`, `iam-check-password-me-account.handler.ts`)
+contain business logic directly in `@api`. These are LEGACY cross-module
+orchestration handlers, NOT a pattern to replicate. For domain operations
+(provision, cancel, approve, etc.), ALWAYS create Command + Handler + Service in
+`@app/application/<operation>/`.
 
 ## Critical Patterns
 
 ### ⚠️ EDITABLE ZONES (CRITICAL!)
 
-**In Aurora-generated files, you can ONLY edit the `execute()` method body in handlers.**
+**In Aurora-generated files, you can ONLY edit the `execute()` method body in
+handlers.**
 
 **DO NOT modify:**
 
@@ -118,10 +129,13 @@ That logic belongs in a CommandHandler in `@app/`.**
 
 For detailed structures, types, and handler examples, see:
 
-- [Commands & Queries Reference](commands-queries.md) — Command/Query structures, types, and handler examples
-- [Services Reference](services.md) — Command, Query, and Custom service structures
+- [Commands & Queries Reference](commands-queries.md) — Command/Query
+  structures, types, and handler examples
+- [Services Reference](services.md) — Command, Query, and Custom service
+  structures
 - [Events & Sagas Reference](events-sagas.md) — Events, EventHandlers, Sagas
-- [Aggregates, Repositories & Mappers](aggregates.md) — Aggregates, Repositories, Mappers
+- [Aggregates, Repositories & Mappers](aggregates.md) — Aggregates,
+  Repositories, Mappers
 - [Common Patterns](patterns.md) — Validation, cache, events, saga patterns
 
 ## Decision Trees

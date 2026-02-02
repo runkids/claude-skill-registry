@@ -1,7 +1,7 @@
 {
   "name": "commands",
-  "repo": "Ven0m0/claude-config",
-  "path": "claude/commands/heal-skill.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-02-01T05:04:57.733028Z"
+  "repo": "softaworks/agent-toolkit",
+  "path": ".claude/commands/add-skill.md",
+  "source": "github.com/softaworks/agent-toolkit",
+  "downloaded_at": "2026-02-02T04:46:26.557127Z"
 }

@@ -1,7 +1,22 @@
 ---
-name: building-mcp-servers
-description: Creates high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services. Use when building MCP servers to integrate APIs, designing tool schemas, or implementing Python (FastMCP) or TypeScript (MCP SDK) servers. Triggers include "MCP server", "tool schema", "model context protocol", or "FastMCP".
-allowed-tools: Read, Write, Edit, Bash, WebFetch
+name: mcp-builder
+description: Create high-quality MCP servers for LLM tool integration.
+
+summary: |
+  - Frameworks: FastMCP (Python), MCP SDK (TypeScript)
+  - Design: Workflow tools > API wrappers, consolidate operations
+  - Tool descriptions: 200+ words, include edge cases and examples
+  - Error handling: Typed errors, meaningful messages, retry guidance
+  - Testing: Unit + integration + eval framework
+
+context_cost: medium
+load_when:
+  - 'mcp server'
+  - 'model context protocol'
+  - 'llm tools'
+  - 'fastmcp'
+
+license: Complete terms in LICENSE.txt
 ---
 
 # MCP Server Development Guide
@@ -10,13 +25,7 @@ allowed-tools: Read, Write, Edit, Bash, WebFetch
 
 To create high-quality MCP (Model Context Protocol) servers that enable LLMs to effectively interact with external services, use this skill. An MCP server provides tools that allow LLMs to access external services and APIs. The quality of an MCP server is measured by how well it enables LLMs to accomplish real-world tasks using the tools provided.
 
-## Progressive Details
-
-Use the workflow and reference library below when you need full build guidance.
-
-<!-- progressive: mcp-workflow -->
-
-______________________________________________________________________
+---
 
 # Process
 
@@ -132,7 +141,7 @@ Based on your research, create a detailed plan that includes:
 - Consider rate limiting and timeout scenarios
 - Handle authentication and authorization errors
 
-______________________________________________________________________
+---
 
 ### Phase 2: Implementation
 
@@ -219,9 +228,9 @@ For each tool in the plan:
 - TypeScript strict mode enabled
 - No `any` types - use proper types
 - Explicit Promise<T> return types
-- Build process configured (`bun run build`)
+- Build process configured (`npm run build`)
 
-______________________________________________________________________
+---
 
 ### Phase 3: Review and Refine
 
@@ -257,7 +266,7 @@ To ensure quality, review the code for:
 
 **For Node/TypeScript:**
 
-- Run `bun run build` and ensure it completes without errors
+- Run `npm run build` and ensure it completes without errors
 - Verify dist/index.js is created
 - To manually test: Run server in tmux, then test with evaluation harness in main process
 - Or use the evaluation harness directly (it manages the server for stdio transport)
@@ -269,7 +278,7 @@ To verify implementation quality, load the appropriate checklist from the langua
 - Python: see "Quality Checklist" in [🐍 Python Guide](./reference/python_mcp_server.md)
 - Node/TypeScript: see "Quality Checklist" in [⚡ TypeScript Guide](./reference/node_mcp_server.md)
 
-______________________________________________________________________
+---
 
 ### Phase 4: Create Evaluations
 
@@ -286,9 +295,9 @@ Evaluations test whether LLMs can effectively use your MCP server to answer real
 To create effective evaluations, follow the process outlined in the evaluation guide:
 
 1. **Tool Inspection**: List available tools and understand their capabilities
-1. **Content Exploration**: Use READ-ONLY operations to explore available data
-1. **Question Generation**: Create 10 complex, realistic questions
-1. **Answer Verification**: Solve each question yourself to verify answers
+2. **Content Exploration**: Use READ-ONLY operations to explore available data
+3. **Question Generation**: Create 10 complex, realistic questions
+4. **Answer Verification**: Solve each question yourself to verify answers
 
 #### 4.3 Evaluation Requirements
 
@@ -315,7 +324,7 @@ Create an XML file with this structure:
 </evaluation>
 ```
 
-______________________________________________________________________
+---
 
 # Reference Files
 
@@ -342,7 +351,6 @@ Load these resources as needed during development:
 ### Language-Specific Implementation Guides (Load During Phase 2)
 
 - [🐍 Python Implementation Guide](./reference/python_mcp_server.md) - Complete Python/FastMCP guide with:
-
   - Server initialization patterns
   - Pydantic model examples
   - Tool registration with `@mcp.tool`
@@ -350,7 +358,6 @@ Load these resources as needed during development:
   - Quality checklist
 
 - [⚡ TypeScript Implementation Guide](./reference/node_mcp_server.md) - Complete TypeScript guide with:
-
   - Project structure
   - Zod schema patterns
   - Tool registration with `server.registerTool`
@@ -365,5 +372,3 @@ Load these resources as needed during development:
   - XML format specifications
   - Example questions and answers
   - Running an evaluation with the provided scripts
-
-<!-- /progressive -->

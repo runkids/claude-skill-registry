@@ -1,11 +1,7 @@
 {
   "name": "surrealdb",
-  "description": "Write production-ready SurrealDB queries and operations using SurrealQL. Use when users need to create schemas, write CRUD queries, model graph relationships, build authentication systems, optimize pe",
-  "repo": "tyrchen/claude-skills",
-  "category": "development",
-  "tags": [
-    "surrealdb"
-  ],
-  "stars": 11,
-  "source": "local"
+  "repo": "mikkelkrogsholm/bookstrap",
+  "path": ".claude/skills/surrealdb/SKILL.md",
+  "source": "github.com/mikkelkrogsholm/bookstrap",
+  "downloaded_at": "2026-02-02T01:06:40.533754Z"
 }

@@ -1,405 +1,171 @@
 ---
 name: plan
-description: Create execution plan for a phase. Creates ./.gtd/<task_name>/{phase}/PLAN.md
-argument-hint: "[phase] [--research] [--skip-research] [--test]"
-disable-model-invocation: true
+description: >
+  Create implementation plans with TDD approach.
+  Use to structure work before coding, ensuring test coverage from the start.
 ---
 
-<role>
-You are a plan creator. You break a phase into executable tasks with clear done criteria.
+# Writing Implementation Plans
 
-**Core responsibilities:**
+## Overview
 
-- Parse phase argument and validate against roadmap
-- Research if needed (unless skipped)
-- Create PLAN.md with atomic tasks
-- Verify plan before writing
-  </role>
+Create comprehensive implementation plans assuming the engineer has zero context.
+Document everything: which files to touch, complete code snippets, how to test.
+Break work into bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
-<objective>
-Create executable plans (PLAN.md files) for a roadmap phase.
+**Core principle:** Each task is 2-5 minutes of work. Test first, implement second.
 
-**Default flow:** Research (if needed) → Plan → Verify → Write
-</objective>
+**Announce at start:** "I'm using the plan skill to create the implementation plan."
 
-<context>
-**Phase number:** $ARGUMENTS (optional — auto-detects next unplanned phase)
+**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
-**Flags:**
+## Bite-Sized Task Granularity
 
-- `--research` — Force re-research even if RESEARCH.md exists
-- `--skip-research` — Skip research, go straight to planning
-- `--test` — Add a "Create Failing Test" task, TDD style
+**Each step is ONE action (2-5 minutes):**
 
-**Required files:**
+```
+Task N: Add validation function
 
-- `./.gtd/SPEC.md` — Must be FINALIZED
-- `./.gtd/ROADMAP.md` — Must have phases defined
-
-**Output:**
-
-- `./.gtd/{phase}/PLAN.md`
-- `./.gtd/{phase}/RESEARCH.md` (if research performed)
-
-**Agents used:**
-
-- `research` — During research phase
-  </context>
-
-<related>
-| Workflow   | Relationship                  |
-| ---------- | ----------------------------- |
-| `/roadmap` | Creates phases this reads     |
-| `/discuss-plan` | Reviews plan before execution |
-| `/execute` | Runs the plan                 |
-</related>
-
-<standards_and_constraints>
-
-  <philosophy>
-
-## Plans Are Prompts
-
-PLAN.md IS the prompt. It contains:
-
-- Objective (what and why)
-- Context (file references)
-- Tasks (with verification criteria)
-- Success criteria (measurable)
-
-## Aggressive Atomicity
-
-Each plan: **2-3 tasks max**. No exceptions.
-
-## Discovery Levels
-
-| Level        | When                                    | Action                       |
-| ------------ | --------------------------------------- | ---------------------------- |
-| 0 - Skip     | Pure internal work, no new dependencies | No research                  |
-| 1 - Quick    | Single known library, low risk          | Quick search, no RESEARCH.md |
-| 2 - Standard | 2-3 options, new integration            | Create RESEARCH.md           |
-| 3 - Deep     | Architectural decision, high risk       | Full research                |
-
-  </philosophy>
-
-<design_principles>
-
-## Core Principles
-
-**Mantra:** "Optimize for Evolution, not just Implementation."
-
-- **Gall's Law:** Reject complexity. Start with the smallest working modular monolith.
-- **Single Source of Truth:** Data must be normalized. If state exists in two places, you have designed a bug.
-- **Complete Path Principle:** Information never teleports. Every producer needs a consumer. Every event needs a handler.
-- **Testability First:** Design "Seams" for every external dependency (Time, Network, Randomness).
-- **Centralized Resilience:** Retry logic/circuit breakers must be at the edge, not scattered.
-
-## Blueprint Checklist
-
-- [ ] **Data Model:** Defined schemas (SQL/JSON) with exact types.
-- [ ] **Constraints:** What must ALWAYS be true? (e.g., "Balance >= 0").
-- [ ] **Failure Modes:** Handling partial failures and data corruption.
-- [ ] **Error Taxonomy:** Define Retryable vs Fatal errors.
-      </design_principles>
-
-<prohibitions>
-- **No Implementation Code:** Do not write function bodies. Define interfaces.
-- **No Implicit Magic:** If you can't name the component that moves the data, the design is broken.
-</prohibitions>
-
-<task_types>
-**Automation-first rule:** If agent CAN do it, agent MUST do it. Checkpoints are for verification AFTER automation.
-
-| Type                      | Use For                               | Autonomy         |
-| ------------------------- | ------------------------------------- | ---------------- |
-| `auto`                    | Everything agent can do independently | Fully autonomous |
-| `checkpoint:human-verify` | Visual/functional verification        | Pauses for user  |
-| `checkpoint:decision`     | Implementation choices                | Pauses for user  |
-
-<complexity_rubric>
-
-## Self-Calibration: The "Gut Check"
-
-Before planning, you must assess the **Risk Profile** of this phase. Do not rely on a fixed list of keywords. Instead, simulate the implementation in your head and ask:
-
-**"What is the probability that a Junior Developer would break the system implementing this?"**
-
-### Complexity Levels
-
-| Level      | Internal Monologue Guide                                                                                                                                                      | Action                             |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------- |
-| **Low**    | "I can see the entire solution clearly. It is boilerplate or standard CRUD. I have 100% certainty."                                                                           | Standard flow.                     |
-| **Medium** | "I know the pattern, but there are edge cases (null checks, state sync) I need to be careful about."                                                                          | Standard flow, but detailed tasks. |
-| **High**   | "This is tricky. It involves critical state transitions, ambiguous requirements, or I have to invent a new pattern. There is a >10% chance I might misunderstand the intent." | **MANDATORY CHECKPOINT.**          |
-
-**Rule for High Complexity:**
-
-1. You MUST insert a `checkpoint:human-verify` task immediately after the High Complexity task.
-2. You MUST explain _why_ it is High Complexity in the plan's context.
-
-</complexity_rubric>
-
-</task_types>
-
-</standards_and_constraints>
-
-<process>
-
-## 1. Validate Environment
-
-**Bash:**
-
-```bash
-if ! test -f "./.gtd/ROADMAP.md"; then
-    echo "Error: ROADMAP.md must exist"
-    exit 1
-fi
+Step 1: Write the failing test
+Step 2: Run it to verify it fails
+Step 3: Implement minimal code to pass
+Step 4: Run tests to verify they pass
+Step 5: Commit
 ```
 
-## 2. Parse Arguments
+**NOT acceptable:**
+- "Implement validation with tests" (too vague)
+- "Add function and write tests" (multiple actions)
 
-Extract from $ARGUMENTS:
+## Plan Document Structure
 
-- Phase number (integer)
-- `--research` flag
-- `--skip-research` flag
-- `--test` flag
-
-**If no phase number:** Detect next unplanned phase from ROADMAP.md.
-
-## 3. Validate Phase
-
-**Bash:**
-
-```bash
-grep "## Phase $PHASE:" "./.gtd/<task_name>/ROADMAP.md"
-```
-
-**If not found:** Error with available phases.
-**If found:** Extract phase name and objective.
-
-## 4. Ensure Phase Directory
-
-**Bash:**
-
-```bash
-mkdir -p "./.gtd/<task_name>/$PHASE"
-```
-
-## 5. Handle Research
-
-**If `--skip-research`:** Skip to step 6.
-
-**Check for existing research:**
-
-```bash
-test -f "./.gtd/<task_name>/$PHASE/RESEARCH.md"
-```
-
-**If exists AND `--research` NOT set:**
-
-- Display: "Using existing research"
-- Skip to step 6
-
-**If research needed:**
-Display:
-
-```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GTD ► RESEARCHING PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-Spawn researcher agent:
-
-**Trigger:** If need to trigger research.
-**Concurrency:** As many as needed.
-
-Fill prompt and spawn:
+**Every plan MUST start with this header:**
 
 ```markdown
-<objective>
-Research implementation details for Phase {phase}: {phase_name}
+# [Feature Name] Implementation Plan
 
-**Goal:** {phase_objective}
-</objective>
+> **For Claude:** Use kodo:execute skill to implement this plan task-by-task.
 
-<context>
-- Spec: ./.gtd/<task_name>/SPEC.md
-- Roadmap: ./.gtd/<task_name>/ROADMAP.md
-- Phase Dir: ./.gtd/<task_name>/{phase}/
-</context>
+**Goal:** [One sentence describing what this builds]
 
-<research_checklist>
+**Architecture:** [2-3 sentences about approach]
 
-1. Identify existing components to modify
-2. Find similar patterns to reuse
-3. Check for specific constraints (types, schemas, config)
-4. Verify dependency versions/availability
-   </research_checklist>
+**Tech Stack:** [Key technologies/libraries]
 
-<output_format>
-Research Notes (RESEARCH.md) covering:
-
-- Technical Approach
-- Key Files to Touch
-- Pseudo-code/Snippets
-- Potential Pitfalls
-  </output_format>
-```
-
-```python
-Task(
-  prompt=filled_prompt,
-  subagent_type="researcher",
-  description="Researching phase implementation details"
-)
-```
-
-Write subagent output to `./.gtd/<task_name>/$PHASE/RESEARCH.md`.
+**GitHub Issue:** [Link if exists, or "Create with `kodo track issue`"]
 
 ---
-
-## 6. Create Plan
-
-Display:
-
-```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GTD ► PLANNING PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-### 6a. Gather Context
-
-Load SPEC.md, ROADMAP.md, and RESEARCH.md (if exists). Use research findings to inform design constraints defined in `<design_principles>`.
-
-### 6b. Decompose into Tasks
-
-1. **Perform Task-Level Self-Calibration:**
-   - For EACH task you define, simulate the implementation in your head.
-   - Assign a Complexity Level (Low/Medium/High) based on the `<complexity_rubric>`.
-   - _Crucial:_ If you feel ANY hesitation about the "correct" way to implement a specific task, label that task as **High**.
-
-2. **Handle TDD:**
-   - If the `--test` flag is active:
-     - **Task 1 MUST be:** "Create Failing Test".
-     - **Constraint:** The test must define the interfaces planned and assert the desired outcome. It must fail initially (Red state).
-     - **Done:** Test exists and fails with expected "logic missing" error.
-
-3. **Decompose deliverables** into remaining atomic tasks (total 2-3 max).
-
-4. **Apply Safety Brakes:**
-   - If a task is rated **High** complexity: Insert a `checkpoint:human-verify` task immediately after it.
-   - The checkpoint action must read: "STOP. Review the implementation of {file} for {specific_risk}."
-
-5. Define done criteria for each.
-
-### 6c. Write PLAN.md
-
-Write to `./.gtd/<task_name>/$PHASE/PLAN.md` using this template:
+## Task Structure Template
 
 ```markdown
-phase: { N }
-created: { date }
-is_tdd: { true/false }
+### Task N: [Component Name]
 
----
+**Files:**
+- Create: `exact/path/to/file.rs`
+- Modify: `exact/path/to/existing.rs:123-145`
+- Test: `tests/exact/path/to/test.rs`
 
-# Plan: Phase {N} - {Name}
+**Step 1: Write the failing test**
 
-## Objective
-
-{What this phase delivers and why}
-
-## Context
-
-- ./.gtd/SPEC.md
-- ./.gtd/ROADMAP.md
-- {relevant source files}
-
-## Architecture Constraints
-
-- **Single Source:** {Where is the authoritative data?}
-- **Invariants:** {What must ALWAYS be true?}
-- **Resilience:** {How do we handle failures?}
-- **Testability:** {What needs to be injected/mocked?}
-
-## Tasks
-
-<task id="1" type="auto" complexity="Low/Medium/High">
-  <name>{Task name}</name>
-  <risk>{One sentence rationale if complexity > Low}</risk>
-  <files>{exact file paths}</files>
-  <action>
-    {Specific implementation instructions}
-    - What to do
-    - What to avoid and WHY
-  </action>
-  <done>{How we know this task is complete}</done>
-</task>
-
-<task id="2" type="checkpoint:human-verify">
-  <name>STOP. Review the implementation of {file} for {specific_risk}</name>
-  <risk>{One sentence rationale if complexity > Low}</risk>
-  <files>{exact file paths}</files>
-  <action>
-    {Specific review instructions}
-  </action>
-  <done>{How we know this task is complete}</done>
-</task>
-
-<task id="3" type="auto">
-  ...
-</task>
-
-## Success Criteria
-
-- [ ] {Measurable outcome 1}
-- [ ] {Measurable outcome 2}
+```rust
+#[test]
+fn test_specific_behavior() {
+    let result = function(input);
+    assert_eq!(result, expected);
+}
 ```
 
-## 7. Verify Plan
+**Step 2: Run test to verify it fails**
 
-Check:
+Run: `cargo test test_specific_behavior`
+Expected: FAIL with "cannot find function `function`"
 
-- [ ] Tasks are specific (no "implement X")
-- [ ] Done criteria are measurable
-- [ ] 2-3 tasks max
-- [ ] All files specified
-- [ ] Adherence to `<prohibitions>`
+**Step 3: Write minimal implementation**
 
-**If issues found:** Fix before writing.
-
-</process>
-
-<offer_next>
-
-```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GTD ► PHASE {N} PLANNED ✓
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Plan written to ./.gtd/<task_name>/{phase}/PLAN.md
-
-{X} tasks defined
-
-| Task | Name |
-|------|------|
-| 1 | {name} |
-| 2 | {name} |
-
-─────────────────────────────────────────────────────
-▶ Next Up
-/execute {N} — run this plan
-─────────────────────────────────────────────────────
-Also available:
-/discuss-plan {N} — review plan before executing
-─────────────────────────────────────────────────────
+```rust
+pub fn function(input: Input) -> Output {
+    // Minimal implementation
+    expected
+}
 ```
 
-</offer_next>
+**Step 4: Run test to verify it passes**
 
-<forced_stop>
-STOP. The workflow is complete. Do NOT automatically run the next command. Wait for the user.
-</forced_stop>
+Run: `cargo test test_specific_behavior`
+Expected: PASS
+
+**Step 5: Commit**
+
+```bash
+git add src/path/file.rs tests/path/test.rs
+git commit -m "feat: add specific feature"
+```
+```
+
+## What Plans Must Include
+
+**For every task:**
+- Exact file paths (not "in the tests folder")
+- Complete code snippets (not "add validation logic")
+- Exact commands with expected output
+- Clear success criteria
+
+**For the overall plan:**
+- Dependency order between tasks
+- Which tasks can run in parallel
+- Estimated complexity flags for risky areas
+
+## Integration with Kodo
+
+**Before writing the plan:**
+```bash
+kodo query "similar features"     # Check existing patterns
+kodo query "testing patterns"     # Check test conventions
+```
+
+**After writing the plan:**
+```bash
+kodo track issue "Implement <feature>"  # Create GitHub issue
+kodo track link #123                     # Link to existing issue
+```
+
+## Execution Handoff
+
+After saving the plan, offer execution choice:
+
+**"Plan saved to `docs/plans/<filename>.md`. Two execution options:**
+
+1. **Continue in this session** - Execute tasks one-by-one with checkpoints
+2. **Parallel session** - Open new session with `kodo:execute` skill
+
+**Which approach?"**
+
+**If continuing:**
+- Use `kodo:execute` skill
+- Stay in this session
+- Execute in batches with review checkpoints
+
+**If parallel session:**
+- Guide user to open new Claude session
+- Point to plan file location
+- New session uses `kodo:execute` skill
+
+## Key Principles
+
+- **Exact file paths** - No ambiguity about where code goes
+- **Complete code** - Copy-paste ready, not "add appropriate logic"
+- **Test-first always** - Every task starts with failing test
+- **Frequent commits** - One commit per task minimum
+- **YAGNI ruthlessly** - Remove anything not strictly needed
+
+## Red Flags
+
+**You're doing it wrong if:**
+- Tasks take more than 5 minutes
+- Steps say "implement" without showing exact code
+- File paths are relative or vague
+- Tests come after implementation
+- Plan has no commit checkpoints
+- Skipping `kodo query` to check existing patterns

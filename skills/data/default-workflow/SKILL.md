@@ -2,13 +2,10 @@
 name: default-workflow
 version: 1.0.0
 description: Development workflow for features, bugs, refactoring. Auto-activates for multi-file implementations.
-DEPRECATED: true
-deprecation_notice: |
-  This skill is DEPRECATED as of 2025-11-26.
-  Workflow selection is now handled directly in CLAUDE.md via the
-  "MANDATORY: Workflow Selection" section. Read the workflow file
-  directly instead of using this skill wrapper.
-auto_activates: []
+auto_activates:
+  - "implement feature spanning multiple files"
+  - "complex integration across components"
+  - "refactor affecting 5+ files"
 explicit_triggers:
   - /ultrathink
   - /amplihack:default-workflow
@@ -31,7 +28,7 @@ This is a thin wrapper that references the complete workflow definition stored i
 
 **This skill is a thin wrapper that references the canonical workflow:**
 
-**Source**: `~/.amplihack/.claude/workflow/DEFAULT_WORKFLOW.md` (471+ lines)
+**Source**: `.claude/workflow/DEFAULT_WORKFLOW.md` (471+ lines)
 
 The canonical workflow contains the complete development process with all details, agent specifications, and execution guidance.
 
@@ -42,7 +39,7 @@ When this skill is activated, you MUST:
 1. **Read the canonical workflow** immediately:
 
    ```
-   Read(file_path="~/.amplihack/.claude/workflow/DEFAULT_WORKFLOW.md")
+   Read(file_path=".claude/workflow/DEFAULT_WORKFLOW.md")
    ```
 
    Note: Path is relative to project root. Claude Code resolves this automatically.
@@ -83,7 +80,7 @@ This skill auto-activates for:
 
 ## Related Files
 
-- **Canonical Workflow**: `~/.amplihack/.claude/workflow/DEFAULT_WORKFLOW.md`
-- **Command Interface**: `~/.amplihack/.claude/commands/amplihack/ultrathink.md`
-- **Orchestrator Skill**: `~/.amplihack/.claude/skills/ultrathink-orchestrator/`
-- **Investigation Workflow**: `~/.amplihack/.claude/skills/investigation-workflow/`
+- **Canonical Workflow**: `.claude/workflow/DEFAULT_WORKFLOW.md`
+- **Command Interface**: `.claude/commands/amplihack/ultrathink.md`
+- **Orchestrator Skill**: `.claude/skills/ultrathink-orchestrator/`
+- **Investigation Workflow**: `.claude/skills/investigation-workflow/`

@@ -1,9 +1,9 @@
 INFO:__main__:============================================================
 INFO:__main__:STEP 3: Downloading SKILL.md files
 INFO:__main__:============================================================
-INFO:__main__:Total skills in registry: 94841
-INFO:__main__:Already downloaded: 41687
-INFO:__main__:To download: 6746
+INFO:__main__:Total skills in registry: 95742
+INFO:__main__:Already downloaded: 42422
+INFO:__main__:To download: 6725
 INFO:__main__:Batch 1/23: ✅ 0 | ❌ 300 | ⚡ 0.0/s
 INFO:__main__:Batch 2/23: ✅ 0 | ❌ 600 | ⚡ 0.0/s
 INFO:__main__:Batch 3/23: ✅ 0 | ❌ 900 | ⚡ 0.0/s
@@ -26,15 +26,15 @@ INFO:__main__:Batch 19/23: ✅ 0 | ❌ 5700 | ⚡ 0.0/s
 INFO:__main__:Batch 20/23: ✅ 0 | ❌ 6000 | ⚡ 0.0/s
 INFO:__main__:Batch 21/23: ✅ 0 | ❌ 6300 | ⚡ 0.0/s
 INFO:__main__:Batch 22/23: ✅ 0 | ❌ 6600 | ⚡ 0.0/s
-INFO:__main__:Batch 23/23: ✅ 0 | ❌ 6746 | ⚡ 0.0/s
+INFO:__main__:Batch 23/23: ✅ 0 | ❌ 6725 | ⚡ 0.0/s
 INFO:__main__:============================================================
 INFO:__main__:DOWNLOAD COMPLETE
 INFO:__main__:============================================================
 INFO:__main__:Downloaded: 0
-INFO:__main__:Failed: 6746
-INFO:__main__:Total skills: 41688
+INFO:__main__:Failed: 6725
+INFO:__main__:Total skills: 42423
 INFO:__main__:Failure report saved to /home/runner/work/claude-skill-registry/claude-skill-registry/failure_report.json
 INFO:__main__:============================================================
 INFO:__main__:PIPELINE COMPLETE
-INFO:__main__:Total time: 72.1s (1.2 min)
+INFO:__main__:Total time: 110.8s (1.8 min)
 INFO:__main__:============================================================

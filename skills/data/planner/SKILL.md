@@ -1,188 +1,273 @@
 ---
 name: planner
-description: This skill should be used when the user asks to "plan a feature", "create feature plan", "start planning", "new feature", or wants comprehensive planning with analysis, spec, research, design, and TDD task breakdown.
+description: Interactive planning and execution for complex tasks. Use when breaking down multi-step projects (planning) or executing approved plans through delegation (execution). Planning creates milestones with specifications; execution delegates to specialized agents.
+license: MIT
+metadata:
+version: 1.0.0
+model: claude-opus-4-5
 ---
 
-# Feature Planning Session
+# Planner Skill
 
-Create a comprehensive feature planning artifact for: **$ARGUMENTS**
+## Purpose
 
-This planning session follows the Feature Planning Methodology documented in `aidocs/feature-planning-methodology.md`.
+Two workflows for complex tasks:
 
-## Session Initialization
+1. **Planning workflow** (planner.py): Create and review implementation plans
+2. **Execution workflow** (executor.py): Execute approved plans through delegation
 
-### Step 1: Determine Feature ID
+## Invocation Routing
 
-Run this command to find the next feature number:
+**Invoke planner.py** when user asks to:
+
+- "plan", "design", "architect" a feature
+- "review" an existing plan
+- Break down a complex task into milestones
+
+**Invoke executor.py** when user asks to:
+
+- "execute", "implement", "run" a plan
+- "resume" or "continue" execution
+- Provides a plan file path for implementation
+
+---
+
+## When to Use
+
+Use the planner skill when the task has:
+
+- Multiple milestones with dependencies
+- Architectural decisions requiring documentation
+- Migration steps that need coordination
+- Complexity that benefits from forced reflection pauses
+
+## When to Skip
+
+Skip the planner skill when the task is:
+
+- Single-step with obvious implementation
+- A quick fix or minor change
+- Already well-specified by the user
+
+---
+
+# PLANNING WORKFLOW (planner.py)
+
+## Workflow Overview
+
+```
+PLANNING PHASE (steps 1-N)
+    |
+    v
+Write plan to file
+    |
+    v
+REVIEW PHASE (steps 1-2)
+    |-- Step 1: @agent-technical-writer (plan-annotation)
+    |-- Step 2: @agent-quality-reviewer (plan-review)
+    v
+APPROVED --> Execution workflow
+```
+
+## Preconditions
+
+Before invoking step 1, you MUST have:
+
+1. **Plan file path** - If user did not specify, ASK before proceeding
+2. **Clear problem statement** - What needs to be accomplished
+
+## Invocation
 
 ```bash
-{ ls backlog/plans/ 2>/dev/null; ls backlog/plans/_completed/ 2>/dev/null; } | grep -E '^[0-9]{3}' | sort -r | head -1
+python3 scripts/planner.py \
+  --step-number 1 \
+  --total-steps <estimated_steps> \
+  --thoughts "<your thinking about the problem>"
 ```
 
-The Feature ID format is `{NNN}-{slug}` where:
-- `NNN` = 3-digit sequential number (001, 002, 003...)
-- `slug` = lowercase, hyphenated descriptor (2-4 words)
+### Arguments
 
-### Step 2: Create Branch and Folder Structure
+| Argument        | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `--phase`       | Workflow phase: `planning` (default) or `review` |
+| `--step-number` | Current step (starts at 1)                       |
+| `--total-steps` | Estimated total steps for this phase             |
+| `--thoughts`    | Your thinking, findings, and progress            |
+
+## Planning Workflow
+
+1. Confirm preconditions (plan file path, problem statement)
+2. Invoke step 1 immediately
+3. Complete REQUIRED ACTIONS from output
+4. Invoke next step with your thoughts
+5. Repeat until `STATUS: phase_complete`
+6. Write plan to file using format below
+
+## Phase Transition: Planning to Review
+
+When planning phase completes, the script outputs an explicit `ACTION REQUIRED`
+marker:
+
+```
+============================================
+>>> ACTION REQUIRED: INVOKE REVIEW PHASE <<<
+============================================
+```
+
+**You MUST invoke the review phase before proceeding to execution.**
+
+The review phase ensures:
+
+- Temporally contaminated comments are fixed (via @agent-technical-writer)
+- Code snippets have WHY comments (via @agent-technical-writer)
+- Plan is validated for production risks (via @agent-quality-reviewer)
+- Documentation needs are identified
+
+## Review Phase
+
+After writing the plan file, transition to review phase:
 
 ```bash
-git checkout -b feature/{NNN}-{slug}
-mkdir -p backlog/plans/{NNN}-{slug}/contracts
+python3 scripts/planner.py \
+  --phase review \
+  --step-number 1 \
+  --total-steps 2 \
+  --thoughts "Plan written to [path/to/plan.md]"
 ```
 
-**Note**: When feature is complete, move folder to `backlog/plans/_completed/{NNN}-{slug}/`
+### Review Step 1: Technical Writer
 
-### Step 3: Create Planning Artifacts
+Delegate to @agent-technical-writer with mode: `plan-annotation`
 
-Create all artifacts in sequence using templates from `references/templates.md`.
+### Review Step 2: Quality Reviewer
+
+Delegate to @agent-quality-reviewer with mode: `plan-review`
+
+### After Review
+
+- **PASS / PASS_WITH_CONCERNS**: Ready for execution workflow
+- **NEEDS_CHANGES**: Return to planning phase to address issues
 
 ---
 
-## Planning Phases
+# EXECUTION WORKFLOW (executor.py)
 
-### Phase 1: Analysis (`analysis.md`)
+## Workflow Overview
 
-**Goal**: Understand the problem space, existing code, and patterns.
-
-Key sections:
-- Executive Summary with pattern/integration mapping
-- Architecture Comparison (current vs target)
-- Pattern Mapping from existing codebase
-- What Exists vs What's Needed
-- Key Insights (what works, gaps/limitations)
-
-### Phase 2: Specification (`spec.md`)
-
-**Goal**: Define requirements from user perspectives.
-
-Key sections:
-- Problem Statement and Solution Summary
-- User Stories with Acceptance Criteria
-- Functional Requirements (FR-1, FR-2, etc.)
-- Non-Functional Requirements (performance, security)
-- Scope (in/out/future)
-- Success Criteria, Assumptions, Risks
-
-### Phase 3: Research (`research.md`)
-
-**Goal**: Validate design against external specifications, APIs, or standards.
-
-Key sections:
-- Conformance Analysis against external specs
-- Gap identification
-- Recommendations (critical, minor, future)
-
-### Phase 4: Design
-
-Create three artifacts:
-
-**4a. Implementation Plan (`plan.md`)**
-- Architecture diagrams (ASCII)
-- Component responsibilities
-- File structure with MODIFY/NEW annotations
-- Key design decisions with rationale
-- Risk mitigation
-
-**4b. Data Model (`data-model.md`)**
-- Entity definitions with fields/types
-- Relationships and invariants
-- State transitions
-- Validation rules
-
-**4c. Contracts (`contracts/`)**
-- Interface definitions
-- API schemas
-- Configuration schemas
-
-### Phase 5: Test Design
-
-**5a. Spec Tests (`specs/tests/{NNN}-{slug}.md`)**
-
-**CRITICAL**: Before writing spec tests, load the spec-tests skill:
 ```
-Skill(skill="all-skills:spec-tests")
+Step 1: Execution Planning
+    |
+    v
+Step 2: Reconciliation (conditional, if prior work signaled)
+    |
+    v
+Step 3: Milestone Execution (repeat until all complete)
+    |
+    v
+Step 4: Post-Implementation QR
+    |
+    v
+QR issues? --YES--> Step 5: Issue Resolution --> delegate fixes --> Step 4
+    |
+    NO
+    v
+Step 6: Documentation
+    |
+    v
+Step 7: Retrospective
 ```
 
-See `references/spec-tests-guide.md` for detailed writing guidance.
+## Preconditions
 
-Key principles:
-- Tests verified by reading code, not executing
-- Intent explains WHY users/business care
-- Assertions reference specific files and observable structures
+Before invoking step 1, you MUST have:
 
-**5b. Task Breakdown (`tasks.md`)**
+1. **Approved plan file** - Plan that passed review phase
+2. **Clear context window** - User should /clear before execution
 
-Organize tasks by phase with TDD workflow:
-- `[TEST]` tasks: Write failing tests first
-- `[IMPL]` tasks: Implement to pass tests
-- `[SPEC]` tasks: Run spec tests at phase boundaries
+## Invocation
 
-Include dependency diagram and task summary table.
+```bash
+python3 scripts/executor.py \
+  --plan-file PATH \
+  --step-number 1 \
+  --total-steps 7 \
+  --thoughts "<user's request and context>"
+```
+
+### Arguments
+
+| Argument        | Description                      |
+| --------------- | -------------------------------- |
+| `--plan-file`   | Path to the approved plan file   |
+| `--step-number` | Current step (1-7)               |
+| `--total-steps` | Always 7 for executor            |
+| `--thoughts`    | Your current thinking and status |
+
+## Execution Steps
+
+| Step | Name                   | Purpose                                       |
+| ---- | ---------------------- | --------------------------------------------- |
+| 1    | Execution Planning     | Analyze plan, detect reconciliation, strategy |
+| 2    | Reconciliation         | (conditional) Validate existing code vs plan  |
+| 3    | Milestone Execution    | Delegate to agents, run tests (repeat)        |
+| 4    | Post-Implementation QR | Quality review of implemented code            |
+| 5    | Issue Resolution       | (conditional) Present issues, collect fixes   |
+| 6    | Documentation          | TW pass for CLAUDE.md, README.md              |
+| 7    | Retrospective          | Present execution summary                     |
+
+Note: Step 3 may be re-invoked multiple times until all milestones complete.
+Step 4 may loop back through step 5 until QR passes.
 
 ---
 
-## Session Workflow
+## Resources
 
-### Execution Order
+| Resource                              | Purpose                                            |
+| ------------------------------------- | -------------------------------------------------- |
+| `resources/plan-format.md`            | Plan template (injected at planning completion)    |
+| `resources/diff-format.md`            | Authoritative specification for code change format |
+| `resources/temporal-contamination.md` | Detecting/fixing temporally contaminated comments  |
+| `resources/default-conventions.md`    | Default conventions when project docs are silent   |
 
-1. **Initialize**: Determine Feature ID, create branch and folders
-2. **Phase 1**: Create `analysis.md` - understand problem space
-3. **Phase 2**: Create `spec.md` - define requirements
-4. **Phase 3**: Create `research.md` - validate against external specs (if applicable)
-5. **Phase 4**: Create `plan.md`, `data-model.md`, `contracts/` - design
-6. **Phase 5**: Create `specs/tests/{NNN}-{slug}.md` and `tasks.md` - test design
-7. **Cleanup**: Remove the corresponding quick plan from `backlog/plans/` (e.g., `backlog/plans/YYYYMMDD-{slug}.md`) since the full planning artifacts supersede it
-
-### Interactive Planning
-
-As work progresses through each phase:
-- Read relevant existing code to inform analysis
-- Ask clarifying questions about requirements
-- Research external APIs/specs as needed
-- Validate design decisions with the user
-
-### Output Summary
-
-After completing all phases, summarize:
-
-```
-Feature: {NNN}-{slug}
-Branch: feature/{NNN}-{slug}
-
-Created Artifacts:
-├── backlog/plans/{NNN}-{slug}/
-│   ├── analysis.md      ✅
-│   ├── spec.md          ✅
-│   ├── research.md      ✅
-│   ├── plan.md          ✅
-│   ├── data-model.md    ✅
-│   ├── tasks.md         ✅
-│   └── contracts/
-│       └── README.md    ✅
-└── specs/tests/{NNN}-{slug}.md  ✅
-
-Cleaned Up:
-- Removed quick plan: backlog/plans/YYYYMMDD-{slug}.md  🗑️
-
-Next Steps:
-1. Review planning artifacts
-2. Commit: git add backlog/plans/{NNN}-{slug} specs/tests/{NNN}-{slug}.md && git commit -m "feat: planning for {NNN}-{slug}"
-3. Begin implementation: /work-plan {NNN}
-4. When complete: mv backlog/plans/{NNN}-{slug} backlog/plans/_completed/
-```
+Note: Execution guidance is embedded directly in `scripts/executor.py` (not in
+separate resource files) since it's only used by that script.
 
 ---
 
-## Additional Resources
+## Quick Reference
 
-### Reference Files
+```bash
+# === PLANNING WORKFLOW ===
 
-For detailed templates and guidance, consult:
-- **`references/templates.md`** - Full templates for all planning artifacts
-- **`references/spec-tests-guide.md`** - Detailed spec test writing guidance
+# Start planning
+python3 scripts/planner.py --step-number 1 --total-steps 4 --thoughts "..."
 
-### External References
+# Continue planning
+python3 scripts/planner.py --step-number 2 --total-steps 4 --thoughts "..."
 
-- [Feature Planning Methodology](../aidocs/feature-planning-methodology.md)
-- [Developer Guide](../docs/developer-guide.md)
-- [Example: 001-mcp-integration](../backlog/plans/_completed/001-mcp-integration/)
+# Start review (after plan written)
+python3 scripts/planner.py --phase review --step-number 1 --total-steps 2 \
+  --thoughts "Plan at plans/feature.md"
+
+# Continue review
+python3 scripts/planner.py --phase review --step-number 2 --total-steps 2 \
+  --thoughts "TW done, ready for QR"
+
+# === EXECUTION WORKFLOW ===
+
+# Start execution
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 1 \
+  --total-steps 7 --thoughts "Execute the feature plan"
+
+# Continue milestone execution
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 3 \
+  --total-steps 7 --thoughts "Completed M1, M2. Executing M3..."
+
+# After QR passes
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 6 \
+  --total-steps 7 --thoughts "QR passed. Running documentation."
+
+# Generate retrospective
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 7 \
+  --total-steps 7 --thoughts "Execution complete. Generating retrospective."
+```

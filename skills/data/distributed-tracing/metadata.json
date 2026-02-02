@@ -1,7 +1,7 @@
 {
   "name": "distributed-tracing",
-  "repo": "wshobson/agents",
-  "path": "plugins/observability-monitoring/skills/distributed-tracing/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-02-01T04:51:53.665538Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/observability-monitoring/skills/distributed-tracing/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-02-02T04:39:46.831214Z"
 }

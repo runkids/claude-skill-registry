@@ -1,7 +1,7 @@
 {
   "name": "cleanup",
-  "repo": "BaselHussain/ai-keto-meal-plan-generator",
-  "path": ".claude/skills/cleanup/SKILL.md",
-  "source": "github.com/BaselHussain/ai-keto-meal-plan-generator",
-  "downloaded_at": "2026-02-01T04:58:26.433292Z"
+  "repo": "Brownbull/khujta_sphere",
+  "path": "skills/utility/cleanup/skill.md",
+  "source": "github.com/Brownbull/khujta_sphere",
+  "downloaded_at": "2026-02-02T04:49:55.188713Z"
 }

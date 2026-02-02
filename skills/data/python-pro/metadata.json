@@ -1,7 +1,7 @@
 {
   "name": "python-pro",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/python-pro/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:24.794257Z"
+  "repo": "Jeffallan/claude-skills",
+  "path": "skills/python-pro/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-02-02T04:44:38.167110Z"
 }

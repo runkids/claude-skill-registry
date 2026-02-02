@@ -1,113 +1,48 @@
 ---
 name: pull-requests
-description: Guidelines for creating and managing Pull Requests in this repo
+description: Use this skill for pull request workflows - creating PRs (branch, commit, push, open), reviewing PRs (code quality, test coverage, issue fixing), or merging PRs (CI checks, merge, cleanup). Handles the complete PR lifecycle via gh CLI. Triggers included, "create PR", "open PR", "review PR", "merge PR".
 ---
 
-# Pull Request Guidelines
+# Pull Request Workflows
 
-## Attribution Footer
+This skill handles the complete PR lifecycle. Based on context and user intent, follow the appropriate workflow.
 
-Public work (issues/PRs/commits) must use 🤖 in the title and include this footer in the body:
+## Context
 
-```md
----
+- Current git status: !`git status`
+- Current branch: !`git branch --show-current`
+- PR state (if exists): !`GH_PAGER= gh pr view --json number,title,state 2>/dev/null || echo "No PR for current branch"`
+- Arguments: $ARGUMENTS
 
-_Generated with `mux` • Model: `<modelString>` • Thinking: `<thinkingLevel>` • Cost: `$<costs>`_
+## Workflow Selection
 
-<!-- mux-attribution: model=<modelString> thinking=<thinkingLevel> costs=<costs> -->
-```
+**Determine which workflow to use based on context:**
 
-Always check `$MUX_MODEL_STRING`, `$MUX_THINKING_LEVEL`, and `$MUX_COSTS_USD` via bash before creating or updating PRs—include them in the footer if set.
+### Use Creating Workflow when:
+- User asks to "create a PR", "open a PR", "push for review"
+- On a feature branch with uncommitted or unpushed changes
+- No PR exists for the current branch
 
-## Lifecycle Rules
+→ See `./creating-workflow.md`
 
-- Before submitting a PR, ensure the branch name reflects the work and the base branch is correct.
-  - PRs are always squash-merged into `main`.
-  - Often, work begins from another PR's merged state; rebase onto `main` before submitting a new PR.
-- Reuse existing PRs; never close or recreate without instruction.
-- Force-push minor PR updates; otherwise add a new commit to preserve the change timeline.
-- If a PR is already open for your change, keep it up to date with the latest commits; don't leave it stale.
-- Never enable auto-merge or merge into `main` yourself. The user must explicitly merge PRs.
+### Use Reviewing Workflow when:
+- User asks to "review PR", "check code quality", "run review"
+- PR exists and is open
+- Want to run code review agents before merge
 
-## CI & Validation
+→ See `./reviewing-workflow.md`
 
-- After pushing, you may use `./scripts/wait_pr_checks.sh <pr_number>` to wait for CI to pass.
-- Use `wait_pr_checks` only when there's no more useful work to do.
-- Waiting for PR checks can take 10+ minutes, so prefer local validation (e.g., run a subset of integration tests) to catch issues early.
+### Use Merging Workflow when:
+- User asks to "merge PR", "complete PR", "finalize changes"
+- PR exists, is reviewed, and ready for merge
+- Need to run final CI checks and merge
 
-## Status Decoding
+→ See `./merging-workflow.md`
 
-| Field              | Value         | Meaning             |
-| ------------------ | ------------- | ------------------- |
-| `mergeable`        | `MERGEABLE`   | Clean, no conflicts |
-| `mergeable`        | `CONFLICTING` | Needs resolution    |
-| `mergeStateStatus` | `CLEAN`       | Ready to merge      |
-| `mergeStateStatus` | `BLOCKED`     | Waiting for CI      |
-| `mergeStateStatus` | `BEHIND`      | Needs rebase        |
-| `mergeStateStatus` | `DIRTY`       | Has conflicts       |
+## Quick Reference
 
-If behind: `git fetch origin && git rebase origin/main && git push --force-with-lease`.
-
-## Codex Review Workflow
-
-When posting multi-line comments with `gh` (e.g., `@codex review`), **do not** rely on `\n` escapes inside quoted `--body` strings (they will be sent as literal text). Prefer `--body-file -` with a heredoc to preserve real newlines:
-
-```bash
-gh pr comment <pr_number> --body-file - <<'EOF'
-@codex review
-
-<message>
-EOF
-```
-
-### Handling Codex Comments
-
-Use these scripts to check and resolve Codex review comments:
-
-- `./scripts/check_codex_comments.sh <pr_number>` — Lists unresolved Codex comments (both regular comments and review threads). Outputs thread IDs needed for resolution.
-- `./scripts/resolve_pr_comment.sh <thread_id>` — Resolves a review thread by its ID (e.g., `PRRT_abc123`).
-
-When Codex leaves review comments, you **must** address them before the PR can merge:
-
-1. Push your fixes
-2. Resolve each review thread: `./scripts/resolve_pr_comment.sh <thread_id>`
-3. Comment `@codex review` to re-request review
-4. Re-run `./scripts/check_codex_comments.sh <pr_number>` to verify all comments resolved
-
-## PR Title Conventions
-
-- Title prefixes: `perf|refactor|fix|feat|ci|tests|bench`
-- Example: `🤖 fix: handle workspace rename edge cases`
-- Use `tests:` for test-only changes (test helpers, flaky test fixes, storybook)
-- Use `ci:` for CI config changes
-
-## PR Bodies
-
-### Structure
-
-PR bodies should generally follow this structure; omit sections that are N/A or trivially inferable for the change.
-
-- Summary
-  - Single-paragraph executive summary of the change
-- Background
-  - The "why" behind the change
-  - What problem this solves
-  - Relevant commits, issues, or PRs that capture more context
-- Implementation
-- Validation
-  - Steps taken to prove the change works as intended
-  - Avoid boilerplate like `ran tests`; include this section only for novel, change-specific steps
-  - Do not include steps implied by passing PR checks
-- Risks
-  - PRs that touch intricate logic must include an assessment of regression risk
-  - Explain regression risk in terms of severity and affected product areas
-
-## Upkeep
-
-Once the code is pushed to the remote (even if not yet a Pull Request), do your best to commit
-and push all changes before responding to ensure its visible to the user. Commits on the working branch
-are for yourself to understand the change, they do not have to follow repository conventions as the
-PR body and title become the commit subject and body respectively.
-
-Whenever generating a compaction summary, include whether or not a Pull Request was opened
-and the general state of the remote (e.g. CI checks, known reviews, divergence).
+| Intent      | Workflow  | Key Actions                                                 |
+| ----------- | --------- | ----------------------------------------------------------- |
+| "Create PR" | Creating  | Branch → Commit → Push → `gh pr create`                     |
+| "Review PR" | Reviewing | Identify PR → Run review agents → Fix issues → Update state |
+| "Merge PR"  | Merging   | CI checks → Confirm ready → `gh pr merge` → Checkout main   |

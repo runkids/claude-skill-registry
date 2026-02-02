@@ -1,50 +1,43 @@
 ---
 name: commit
-description: Generates commit messages and creates commits. Use when writing commit messages, committing changes, or reviewing staged changes.
+description: "Use when user says 'commit', 'save changes', 'wrap up', 'done with changes', or wants to create a git commit. Analyzes staged/unstaged changes and generates conventional commit messages based on project history."
+disable-model-invocation: true
+allowed-tools: Bash, Read, AskUserQuestion
 ---
 
-# Commit Messages
+# /commit
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) format.
+This skill analyzes code changes and generates a high-quality commit message that follows the project's existing style.
 
-## Format
+## Pre-fetched Context
 
-```text
-<type>(<scope>): <description>
+- **Recent commits:** !`git log --oneline -15 2>/dev/null || echo "No git history"`
+- **Current branch:** !`git branch --show-current 2>/dev/null`
+- **Staged changes:** !`git diff --staged --stat 2>/dev/null | head -30`
+- **Unstaged changes:** !`git diff --stat 2>/dev/null | head -20`
+- **File status:** !`git status -s 2>/dev/null | head -20`
 
-[optional body]
-```
+## Actions
 
-## Types
+1. **Step 1: Analyze Context**
+   - Review the pre-fetched git information above.
+   - If there are no changes (both staged and unstaged empty), inform the user and stop.
 
-- `feat`: User-facing features or behavior changes (must change production code)
-- `fix`: Bug fixes (must change production code)
-- `docs`: Documentation only
-- `style`: Code style/formatting (no logic changes)
-- `refactor`: Code restructuring without behavior change
-- `test`: Adding or updating tests
-- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
+2. **Step 2: Handle Unstaged Changes**
+   - If there are only unstaged changes, ask the user if they want to stage files first.
+   - Use `AskUserQuestion` to present options: stage all, stage specific files, or cancel.
 
-## Scopes
+3. **Step 3: Analyze Changes**
+   - Read the actual diff content for staged changes: `git diff --staged`
+   - Understand what was changed and why.
 
-Optional. Use when it adds clarity. Examples: `cloudfront`, `s3`, `ci`.
+4. **Step 4: Generate Commit Message**
+   - Based on the project's historical commit style (from pre-fetched context), generate a message that:
+     - Follows the project's format (conventional commits, emoji usage, etc.)
+     - Accurately and concisely describes the changes
+     - Explains the "why" behind the change, not just the "what"
 
-## Breaking Changes
-
-Use `!` suffix: `feat!: remove deprecated resource`
-
-## Examples
-
-```text
-feat(cloudfront): add immutable cache headers
-fix: correct CloudFront Function ARN attribute
-chore: add husky pre-commit hooks
-docs: update architecture documentation
-```
-
-## Instructions
-
-1. Run `git diff --staged` to see staged changes
-2. Analyze the changes and determine the appropriate type
-3. Write a concise description (under 72 characters)
-4. Add body only if the "why" isn't obvious from the description
+5. **Step 5: Propose and Commit**
+   - Use `AskUserQuestion` to present the generated message.
+   - Options: use as-is, edit, or cancel.
+   - If confirmed, run `git commit -m "<message>"`.

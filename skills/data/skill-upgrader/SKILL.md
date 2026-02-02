@@ -235,7 +235,6 @@ Use v5 Hybrid template:
 ---
 name: {original_name}
 description: {original_description}
-version: 5.1-hybrid
 ---
 
 # Option: {name}
@@ -270,7 +269,7 @@ version: 5.1-hybrid
 ## Example Usage
 
 ```
-User: "Upgrade .maestro/skills/implement_plan/SKILL.md to v5 Hybrid"
+User: "Upgrade .claude/skills/implement_plan/SKILL.md to v5 Hybrid"
 
 Claude:
 1. Creates session directory

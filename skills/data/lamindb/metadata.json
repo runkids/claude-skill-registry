@@ -1,7 +1,7 @@
 {
   "name": "lamindb",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/lamindb/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:21.303804Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/claude-scientific-skills/scientific-skills/lamindb/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-02-02T04:13:03.752989Z"
 }

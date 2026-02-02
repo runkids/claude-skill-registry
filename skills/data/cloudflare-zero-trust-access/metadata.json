@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-zero-trust-access",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/cloudflare-zero-trust-access/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-02-01T04:42:32.436241Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-zero-trust-access/skills/cloudflare-zero-trust-access/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-02-02T02:14:12.225916Z"
 }

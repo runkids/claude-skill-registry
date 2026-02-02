@@ -1,770 +1,315 @@
 ---
-name: backend-agent
-description: Handles backend/API/database work for Unite-Hub. Implements Next.js API routes, Supabase database operations, RLS policies, authentication, and third-party integrations (Gmail, Stripe).
+name: backend
+description: tRPC router patterns, Supabase integration, API design, error handling for backend services
 ---
 
-# Backend Agent Skill
+## Core Principles
 
-## Overview
+1. **Validate All Inputs** - Every procedure uses Zod schema validation
+2. **Protect Endpoints** - Use protectedProcedure for auth-required operations
+3. **Verify Ownership** - Always check user owns resource before mutation
+4. **Handle Errors Gracefully** - Convert Supabase errors to TRPCError
+5. **Use Core for Logic** - Business calculations go in @repo/core
+6. **Type-Safe Everywhere** - Leverage tRPC + TypeScript end-to-end
 
-The Backend Agent is responsible for all server-side work in Unite-Hub:
-1. **Next.js API route development** (serverless functions)
-2. **Supabase database operations** (queries, mutations, RLS)
-3. **Authentication and authorization** (NextAuth.js, Supabase Auth)
-4. **Third-party integrations** (Gmail API, Stripe, Claude AI)
-5. **Database schema management** (migrations, indexes)
-6. **API security and performance** (rate limiting, caching)
+## Patterns to Follow
 
-## How to Use This Agent
-
-### Trigger
-
-User says: "Create new API endpoint", "Fix database query", "Update RLS policies", "Implement Gmail integration"
-
-### What the Agent Does
-
-#### 1. Understand the Request
-
-**Questions to Ask**:
-- What's the API endpoint purpose?
-- What database tables are involved?
-- What's the expected input/output format?
-- What authentication is required?
-- What's the priority (P0/P1/P2)?
-
-#### 2. Analyze Current Implementation
-
-**Step A: Locate Files**
-```bash
-# Find API routes
-find src/app/api -name "route.ts" | grep -i "contacts"
-
-# Find database utilities
-find src/lib -name "*.ts" | grep -i "db"
-```
-
-**Step B: Read Current Code**
-```typescript
-// Use text_editor tool
-text_editor.view("src/app/api/contacts/route.ts")
-text_editor.view("src/lib/db.ts")
-```
-
-**Step C: Identify Dependencies**
-- What database tables are queried?
-- What authentication is required?
-- What external APIs are called?
-- What error handling exists?
-
-#### 3. Implement Changes
-
-**Step A: Create API Route**
-
-All API routes in Unite-Hub follow this pattern:
+### Pattern 1: Protected Procedure with Input Validation
 
 ```typescript
-// src/app/api/example/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase";
+export const activitiesRouter = createTRPCRouter({
+  create: protectedProcedure
+    .input(
+      z.object({
+        name: z.string().min(1),
+        type: z.enum(["run", "bike", "swim", "other"]),
+        distance: z.number().nonnegative().optional(),
+        duration: z.number().int().positive(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { data, error } = await ctx.supabase
+        .from("activities")
+        .insert({
+          ...input,
+          profile_id: ctx.session.user.id, // Add user ID
+        })
+        .select()
+        .single();
 
-export async function POST(request: NextRequest) {
-  try {
-    // 1. Parse request body
-    const body = await request.json();
-    const { workspaceId, action, ...params } = body;
+      if (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create activity",
+        });
+      }
 
-    // 2. Validate input
-    if (!workspaceId) {
-      return NextResponse.json(
-        { error: "workspaceId is required" },
-        { status: 400 }
-      );
+      return data;
+    }),
+});
+```
+
+### Pattern 2: Ownership Verification Before Mutation
+
+```typescript
+delete: protectedProcedure
+  .input(z.object({ id: z.string().uuid() }))
+  .mutation(async ({ ctx, input }) => {
+    // Verify ownership FIRST
+    const { data: activity } = await ctx.supabase
+      .from('activities')
+      .select('id, profile_id')
+      .eq('id', input.id)
+      .eq('profile_id', ctx.session.user.id)
+      .single();
+
+    if (!activity) {
+      throw new TRPCError({
+        code: 'NOT_FOUND',
+        message: 'Activity not found',
+      });
     }
 
-    // 3. Get Supabase client
-    const supabase = createClient();
+    // Delete with double-check
+    const { error } = await ctx.supabase
+      .from('activities')
+      .delete()
+      .eq('id', input.id)
+      .eq('profile_id', ctx.session.user.id);
 
-    // 4. Check authentication (if needed)
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+    if (error) throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: error.message,
+    });
+
+    return { success: true };
+  }),
+```
+
+### Pattern 3: Complex Query with Filters
+
+```typescript
+list: protectedProcedure
+  .input(
+    z.object({
+      limit: z.number().min(1).max(100).default(20),
+      offset: z.number().min(0).default(0),
+      type: z.enum(['run', 'bike', 'swim']).optional(),
+      dateFrom: z.string().optional(),
+      sortBy: z.enum(['date', 'distance']).default('date'),
+    })
+  )
+  .query(async ({ ctx, input }) => {
+    let query = ctx.supabase
+      .from('activities')
+      .select('*', { count: 'exact' })
+      .eq('profile_id', ctx.session.user.id);
+
+    // Apply filters conditionally
+    if (input.type) {
+      query = query.eq('type', input.type);
+    }
+    if (input.dateFrom) {
+      query = query.gte('started_at', input.dateFrom);
     }
 
-    // 5. Perform database operation
-    const { data, error } = await supabase
-      .from("contacts")
-      .select("*")
-      .eq("workspace_id", workspaceId)  // CRITICAL: Workspace filter
-      .eq("organization_id", user.organization_id);  // CRITICAL: Org filter
+    // Apply sorting
+    query = query.order(
+      input.sortBy === 'date' ? 'started_at' : 'distance_meters',
+      { ascending: false }
+    );
+
+    // Apply pagination
+    query = query.range(input.offset, input.offset + input.limit - 1);
+
+    const { data, error, count } = await query;
+
+    if (error) throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: error.message,
+    });
+
+    return {
+      items: data || [],
+      total: count || 0,
+      hasMore: (count || 0) > input.offset + input.limit,
+    };
+  }),
+```
+
+### Pattern 4: Manual Transaction with Rollback
+
+```typescript
+createWithStreams: protectedProcedure
+  .input(
+    z.object({
+      activity: activitySchema,
+      streams: z.object({
+        gps: z.array(z.object({lat: z.number(), lng: z.number(), timestamp: z.number()})).optional(),
+        power: z.array(z.number()).optional(),
+        heartRate: z.array(z.number()).optional(),
+        cadence: z.array(z.number()).optional(),
+        pace: z.array(z.number()).optional(),
+        altitude: z.array(z.number()).optional(),
+        speed: z.array(z.number()).optional(),
+      }),
+    })
+  )
+  .mutation(async ({ ctx, input }) => {
+    import { compressStreams } from '@repo/core';
+
+    // 1. Compress stream data
+    const compressedStreams = compressStreams(input.streams);
+
+    // 2. Create activity with embedded stream data
+    const { data: activity, error } = await ctx.supabase
+      .from('activities')
+      .insert({
+        ...input.activity,
+        metrics: {
+          streams: compressedStreams,
+        },
+      })
+      .select()
+      .single();
 
     if (error) {
-      console.error("Database error:", error);
-      return NextResponse.json(
-        { error: "Database query failed" },
-        { status: 500 }
-      );
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: `Failed to create activity: ${error.message}`,
+      });
     }
 
-    // 6. Return success response
-    return NextResponse.json({
-      success: true,
-      data,
-      count: data.length
+    return activity;
+  }),
+```
+
+### Pattern 5: Use Core Package for Business Logic
+
+```typescript
+calculateMetrics: protectedProcedure
+  .input(z.object({ activityId: z.string().uuid() }))
+  .mutation(async ({ ctx, input }) => {
+    // Fetch data from database
+    const { data: activity } = await ctx.supabase
+      .from('activities')
+      .select('*, metrics')
+      .eq('id', input.activityId)
+      .single();
+
+    // Use core package for calculations
+    import { calculateTSS, decompressStreams } from '@repo/core';
+
+    const streams = decompressStreams(activity.metrics.streams);
+    const tss = calculateTSS({
+      powerStream: streams.power,
+      duration: activity.duration_seconds,
+      ftp: activity.profile.ftp,
     });
 
-  } catch (error) {
-    console.error("API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
+    // Update database with results
+    await ctx.supabase
+      .from('activities')
+      .update({
+        metrics: {
+          ...activity.metrics,
+          tss
+        }
+      })
+      .eq('id', input.activityId);
 
-// Support OPTIONS for CORS
-export async function OPTIONS(request: NextRequest) {
-  return NextResponse.json({}, { status: 200 });
-}
+    return { tss };
+  }),
 ```
 
-**Step B: Database Operations**
+## Anti-Patterns to Avoid
 
-All database operations MUST use workspace filtering:
+### Anti-Pattern 1: Missing Auth on Protected Routes
 
 ```typescript
-// ❌ BAD - No workspace filter
-const { data } = await supabase
-  .from("contacts")
-  .select("*");
+// ❌ BAD
+.query(async ({ ctx, input }) => {
+  // No auth check - anyone can access
+  const { data } = await ctx.supabase.from('users').select('*');
+})
 
-// ✅ GOOD - Workspace filtered
-const { data } = await supabase
-  .from("contacts")
-  .select("*")
-  .eq("workspace_id", workspaceId)
-  .eq("organization_id", orgId);
+// ✅ CORRECT
+protectedProcedure
+  .query(async ({ ctx, input }) => {
+    // Auth enforced by middleware
+    const { data } = await ctx.supabase
+      .from('activities')
+      .eq('profile_id', ctx.session.user.id);
+  })
 ```
 
-**Required filters for data isolation**:
-- `.eq("workspace_id", workspaceId)` - Workspace scope
-- `.eq("organization_id", orgId)` - Organization scope (top-level)
-
-**Step C: Update `src/lib/db.ts` Wrapper**
-
-The `db.ts` wrapper provides consistent database access:
+### Anti-Pattern 2: Missing Input Validation
 
 ```typescript
-// src/lib/db.ts
-import { createClient } from "@/lib/supabase";
+// ❌ BAD
+.mutation(async ({ ctx, input }) => {
+  await ctx.supabase.from('activities').insert(input);
+})
 
-export const db = {
-  contacts: {
-    async listByWorkspace(workspaceId: string) {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("contacts")
-        .select("*")
-        .eq("workspace_id", workspaceId)
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      return data || [];
-    },
-
-    async getById(contactId: string, workspaceId: string) {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("contacts")
-        .select("*")
-        .eq("id", contactId)
-        .eq("workspace_id", workspaceId)
-        .single();
-
-      if (error) throw error;
-      return data;
-    },
-
-    async create(contact: ContactInput, workspaceId: string) {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("contacts")
-        .insert([{ ...contact, workspace_id: workspaceId }])
-        .select()
-        .single();
-
-      if (error) throw error;
-      return data;
-    },
-
-    async update(contactId: string, updates: Partial<ContactInput>, workspaceId: string) {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("contacts")
-        .update(updates)
-        .eq("id", contactId)
-        .eq("workspace_id", workspaceId)
-        .select()
-        .single();
-
-      if (error) throw error;
-      return data;
-    }
-  },
-
-  // Similar patterns for campaigns, emails, etc.
-};
+// ✅ CORRECT
+.input(activitySchema)
+.mutation(async ({ ctx, input }) => {
+  await ctx.supabase.from('activities').insert(input);
+})
 ```
 
-**CRITICAL FIX for V1**: Add missing import in `src/lib/db.ts:58`
+### Anti-Pattern 3: Silently Ignoring Errors
 
 ```typescript
-// Line 1 - Add import
-import { createClient, getSupabaseServer } from "./supabase";
+// ❌ BAD
+const { data, error } = await ctx.supabase.from("activities").select("*");
+return data || [];
 
-// Line 58 - Fix usage
-const supabaseServer = getSupabaseServer();
-const { data: workspace, error } = await supabaseServer
-  .from("workspaces")
-  .select("*")
-  .eq("id", workspaceId)
-  .single();
-```
-
-#### 4. Implement Authentication
-
-**Pattern 1: Client-Side Auth (Browser)**
-
-```typescript
-import { createClient } from "@/lib/supabase";
-
-export async function GET(request: NextRequest) {
-  const supabase = createClient();
-
-  const { data: { user }, error } = await supabase.auth.getUser();
-
-  if (error || !user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  // User is authenticated, proceed
-}
-```
-
-**Pattern 2: Server-Side Auth (API Routes)**
-
-```typescript
-import { getSupabaseServer } from "@/lib/supabase";
-
-export async function POST(request: NextRequest) {
-  const supabase = getSupabaseServer();
-
-  const { data: { session }, error } = await supabase.auth.getSession();
-
-  if (error || !session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  // Session is valid, proceed
-}
-```
-
-**CRITICAL for V1**: Re-enable authentication on all API routes
-
-Many routes currently have:
-```typescript
-// TODO: Re-enable authentication in production
-// const { auth } = await import("@/lib/auth");
-// const session = await auth();
-```
-
-**Action Required**: Remove TODO comments and re-enable auth checks.
-
-#### 5. Row Level Security (RLS) Policies
-
-All Supabase tables MUST have RLS policies:
-
-```sql
--- Enable RLS on table
-ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
-
--- Policy: Users can only see contacts in their workspace
-CREATE POLICY "Users can view workspace contacts"
-ON contacts
-FOR SELECT
-USING (
-  workspace_id IN (
-    SELECT w.id
-    FROM workspaces w
-    JOIN user_organizations uo ON uo.organization_id = w.organization_id
-    WHERE uo.user_id = auth.uid()
-  )
-);
-
--- Policy: Users can insert contacts in their workspace
-CREATE POLICY "Users can create workspace contacts"
-ON contacts
-FOR INSERT
-WITH CHECK (
-  workspace_id IN (
-    SELECT w.id
-    FROM workspaces w
-    JOIN user_organizations uo ON uo.organization_id = w.organization_id
-    WHERE uo.user_id = auth.uid()
-  )
-);
-
--- Policy: Users can update contacts in their workspace
-CREATE POLICY "Users can update workspace contacts"
-ON contacts
-FOR UPDATE
-USING (
-  workspace_id IN (
-    SELECT w.id
-    FROM workspaces w
-    JOIN user_organizations uo ON uo.organization_id = w.organization_id
-    WHERE uo.user_id = auth.uid()
-  )
-);
-```
-
-**CRITICAL for V1**: Verify RLS policies exist for:
-- `contacts`
-- `campaigns`
-- `drip_campaigns`
-- `emails`
-- `generated_content`
-- `campaign_enrollments`
-
-#### 6. Third-Party Integrations
-
-**Gmail API Integration**
-
-```typescript
-// src/lib/integrations/gmail.ts
-import { google } from "googleapis";
-
-export async function getGmailClient(accessToken: string) {
-  const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    process.env.GOOGLE_CALLBACK_URL
-  );
-
-  oauth2Client.setCredentials({ access_token: accessToken });
-
-  return google.gmail({ version: "v1", auth: oauth2Client });
-}
-
-export async function fetchEmails(gmail: any, maxResults = 50) {
-  const res = await gmail.users.messages.list({
-    userId: "me",
-    maxResults,
-    q: "is:unread", // Only unread emails
-  });
-
-  const messages = res.data.messages || [];
-  const emails = [];
-
-  for (const message of messages) {
-    const email = await gmail.users.messages.get({
-      userId: "me",
-      id: message.id,
-    });
-    emails.push(email.data);
-  }
-
-  return emails;
-}
-```
-
-**Claude AI Integration**
-
-```typescript
-// src/lib/integrations/claude.ts
-import Anthropic from "@anthropic-ai/sdk";
-
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
-
-export async function generateContent({
-  contactName,
-  contactCompany,
-  interactionHistory,
-  contentType,
-}: {
-  contactName: string;
-  contactCompany: string;
-  interactionHistory: string;
-  contentType: "followup" | "proposal" | "case_study";
-}) {
-  const message = await client.messages.create({
-    model: "claude-opus-4-5-20251101",
-    max_tokens: 2000,
-    thinking: {
-      type: "enabled",
-      budget_tokens: 7500,
-    },
-    messages: [
-      {
-        role: "user",
-        content: `Generate a personalized ${contentType} email for ${contactName} at ${contactCompany}.
-
-Interaction history:
-${interactionHistory}
-
-Generate a professional, personalized email that references their previous interactions.`,
-      },
-    ],
-  });
-
-  return message.content[0].type === "text" ? message.content[0].text : null;
-}
-```
-
-#### 7. Error Handling and Logging
-
-**Structured Error Responses**:
-
-```typescript
-// Error response format
-return NextResponse.json(
-  {
-    error: "Error message for user",
-    code: "ERROR_CODE",
-    details: isDev ? error.message : undefined, // Only in development
-  },
-  { status: 500 }
-);
-```
-
-**Audit Logging**:
-
-```typescript
-// Log all important actions
-await supabase.from("auditLogs").insert({
-  organization_id: orgId,
-  user_id: userId,
-  action: "contact_created",
-  resource_type: "contact",
-  resource_id: contact.id,
-  context: {
-    contact_email: contact.email,
-    source: "api",
-  },
-  ip_address: request.headers.get("x-forwarded-for"),
-  user_agent: request.headers.get("user-agent"),
-  created_at: new Date().toISOString(),
-});
-```
-
-## Common Tasks
-
-### Task 1: Fix Missing Workspace Filter in API
-
-**Example**: `/api/agents/contact-intelligence` missing workspace filter
-
-**Steps**:
-1. Read `src/app/api/agents/contact-intelligence/route.ts`
-2. Find database queries
-3. Add `.eq("workspace_id", workspaceId)`
-4. Add null check for workspaceId
-5. Test with multiple workspaces
-
-**Code**:
-```typescript
-// Before
-const { data: contacts } = await supabase.from("contacts").select("*");
-
-// After
-if (!workspaceId) {
-  return NextResponse.json(
-    { error: "workspaceId is required" },
-    { status: 400 }
-  );
-}
-
-const { data: contacts, error } = await supabase
-  .from("contacts")
-  .select("*")
-  .eq("workspace_id", workspaceId);
-
+// ✅ CORRECT
+const { data, error } = await ctx.supabase.from("activities").select("*");
 if (error) {
-  console.error("Database error:", error);
-  return NextResponse.json(
-    { error: "Failed to fetch contacts" },
-    { status: 500 }
-  );
+  throw new TRPCError({
+    code: "INTERNAL_SERVER_ERROR",
+    message: error.message,
+  });
 }
+return data || [];
 ```
 
-### Task 2: Create New API Endpoint
+## File Organization
 
-**Example**: Create `/api/contacts/bulk-update` endpoint
-
-**Steps**:
-1. Create `src/app/api/contacts/bulk-update/route.ts`
-2. Implement POST handler
-3. Add authentication check
-4. Validate input
-5. Perform bulk update with workspace filter
-6. Test endpoint
-
-**Code**:
-```typescript
-// src/app/api/contacts/bulk-update/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase";
-
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { workspaceId, contactIds, updates } = body;
-
-    // Validate input
-    if (!workspaceId || !contactIds || !Array.isArray(contactIds)) {
-      return NextResponse.json(
-        { error: "Invalid input" },
-        { status: 400 }
-      );
-    }
-
-    // Get authenticated user
-    const supabase = createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-    if (authError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // Perform bulk update
-    const { data, error } = await supabase
-      .from("contacts")
-      .update(updates)
-      .in("id", contactIds)
-      .eq("workspace_id", workspaceId)  // CRITICAL: Workspace filter
-      .select();
-
-    if (error) {
-      console.error("Bulk update error:", error);
-      return NextResponse.json(
-        { error: "Bulk update failed" },
-        { status: 500 }
-      );
-    }
-
-    // Log audit event
-    await supabase.from("auditLogs").insert({
-      organization_id: user.organization_id,
-      user_id: user.id,
-      action: "contacts_bulk_updated",
-      resource_type: "contact",
-      context: {
-        updated_count: data.length,
-        contact_ids: contactIds,
-        updates,
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      updated: data.length,
-      contacts: data,
-    });
-
-  } catch (error) {
-    console.error("API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
+```
+packages/trpc/src/
+├── routers/
+│   ├── index.ts          # Aggregate all routers
+│   ├── activities.ts     # Activity CRUD
+│   ├── profiles.ts       # Profile management
+│   └── auth.ts           # Authentication
+├── context.ts            # tRPC context (session, supabase)
+└── trpc.ts               # tRPC initialization
 ```
 
-### Task 3: Update RLS Policies
+## Checklist
 
-**Example**: Add RLS policy for new table
+- [ ] All inputs validated with Zod
+- [ ] Protected procedures for auth-required operations
+- [ ] Ownership verified before mutations
+- [ ] Errors converted to TRPCError
+- [ ] Business logic in @repo/core
+- [ ] Cache invalidation handled client-side
+- [ ] Pagination for large datasets
+- [ ] Proper error codes (UNAUTHORIZED, NOT_FOUND, etc.)
 
-**Steps**:
-1. Connect to Supabase SQL Editor
-2. Enable RLS on table
-3. Create SELECT policy
-4. Create INSERT policy
-5. Create UPDATE policy
-6. Create DELETE policy (if needed)
-7. Test policies
+## Related Skills
 
-**Code**:
-```sql
--- Enable RLS
-ALTER TABLE new_table ENABLE ROW LEVEL SECURITY;
+- [Core Package Skill](./core-package-skill.md) - Business logic
+- [Web Frontend Skill](./web-frontend-skill.md) - tRPC client
+- [Mobile Frontend Skill](./mobile-frontend-skill.md) - tRPC mobile
 
--- SELECT policy
-CREATE POLICY "Users can view workspace records"
-ON new_table
-FOR SELECT
-USING (
-  workspace_id IN (
-    SELECT w.id
-    FROM workspaces w
-    JOIN user_organizations uo ON uo.organization_id = w.organization_id
-    WHERE uo.user_id = auth.uid()
-  )
-);
+## Version History
 
--- INSERT policy
-CREATE POLICY "Users can create workspace records"
-ON new_table
-FOR INSERT
-WITH CHECK (
-  workspace_id IN (
-    SELECT w.id
-    FROM workspaces w
-    JOIN user_organizations uo ON uo.organization_id = w.organization_id
-    WHERE uo.user_id = auth.uid()
-  )
-);
-
--- UPDATE policy
-CREATE POLICY "Users can update workspace records"
-ON new_table
-FOR UPDATE
-USING (
-  workspace_id IN (
-    SELECT w.id
-    FROM workspaces w
-    JOIN user_organizations uo ON uo.organization_id = w.organization_id
-    WHERE uo.user_id = auth.uid()
-  )
-);
-
--- Test policy
-SELECT * FROM new_table; -- Should only return user's workspace records
-```
-
-## Database Best Practices
-
-### Query Optimization
-
-```typescript
-// ❌ BAD - N+1 query problem
-const contacts = await db.contacts.listByWorkspace(workspaceId);
-for (const contact of contacts) {
-  const emails = await db.emails.listByContact(contact.id); // N queries!
-}
-
-// ✅ GOOD - Single query with join
-const { data } = await supabase
-  .from("contacts")
-  .select(`
-    *,
-    emails (*)
-  `)
-  .eq("workspace_id", workspaceId);
-```
-
-### Indexing
-
-```sql
--- Create indexes for frequently queried columns
-CREATE INDEX idx_contacts_workspace_id ON contacts(workspace_id);
-CREATE INDEX idx_contacts_ai_score ON contacts(ai_score DESC);
-CREATE INDEX idx_emails_contact_id ON emails(contact_id);
-CREATE INDEX idx_campaign_enrollments_contact ON campaign_enrollments(contact_id);
-```
-
-### Pagination
-
-```typescript
-const PAGE_SIZE = 20;
-
-const { data, error, count } = await supabase
-  .from("contacts")
-  .select("*", { count: "exact" })
-  .eq("workspace_id", workspaceId)
-  .order("created_at", { ascending: false })
-  .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
-
-return {
-  contacts: data,
-  totalCount: count,
-  page,
-  pageSize: PAGE_SIZE,
-  totalPages: Math.ceil(count / PAGE_SIZE),
-};
-```
-
-## API Security Checklist
-
-✅ **Authentication**:
-- [ ] User is authenticated (Supabase Auth)
-- [ ] Session is valid
-- [ ] User has access to requested workspace
-
-✅ **Authorization**:
-- [ ] User belongs to organization
-- [ ] User has required role (owner/admin/member)
-- [ ] Workspace belongs to user's organization
-
-✅ **Input Validation**:
-- [ ] Required fields present
-- [ ] Data types correct
-- [ ] Values within acceptable ranges
-- [ ] SQL injection prevented (Supabase parameterized queries)
-- [ ] XSS prevented (sanitize user input)
-
-✅ **Data Isolation**:
-- [ ] Workspace filtering on ALL queries
-- [ ] Organization filtering on ALL queries
-- [ ] RLS policies enabled on ALL tables
-
-✅ **Error Handling**:
-- [ ] Try/catch blocks
-- [ ] Structured error responses
-- [ ] No sensitive data in error messages
-- [ ] Errors logged to console/monitoring
-
-✅ **Audit Logging**:
-- [ ] All mutations logged to auditLogs
-- [ ] User ID, action, resource captured
-- [ ] Timestamp recorded
-
-## Version 1 Constraints
-
-**What We Fix for V1**:
-- ✅ Add workspace filtering to ALL API endpoints
-- ✅ Re-enable authentication on ALL routes
-- ✅ Fix `src/lib/db.ts` missing import
-- ✅ Verify RLS policies on ALL tables
-- ✅ Test ALL 104 API endpoints
-
-**What We Do NOT Build for V1**:
-- ❌ Advanced rate limiting
-- ❌ GraphQL API
-- ❌ Webhook infrastructure
-- ❌ Background job queue
-- ❌ Caching layer (Redis)
-
-## Key Points
-
-- **Always filter by workspace** - Data isolation is critical
-- **Always check authentication** - No public endpoints without explicit reason
-- **Use RLS policies** - Defense in depth
-- **Log all mutations** - Audit trail for compliance
-- **Handle errors gracefully** - Return structured error responses
-- **Test with multiple workspaces** - Verify data isolation
+- **1.0.0** (2026-01-21): Initial version
 
 ---
 
-## Integration with Other Agents
-
-The Backend Agent works with:
-- **Frontend Agent** - Provides API endpoints
-- **Email Agent** - Processes email data
-- **Content Agent** - Stores generated content
-- **Orchestrator** - Coordinates workflows
-- **Docs Agent** - Updates API documentation
+**Next Review**: 2026-02-21

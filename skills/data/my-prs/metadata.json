@@ -1,7 +1,7 @@
 {
   "name": "my-prs",
-  "repo": "airbytehq/airbyte",
-  "path": ".claude/skills/my-prs/SKILL.md",
-  "source": "github.com/airbytehq/airbyte",
-  "downloaded_at": "2026-02-01T03:06:53.773391Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/my-prs/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-02T04:36:11.904081Z"
 }

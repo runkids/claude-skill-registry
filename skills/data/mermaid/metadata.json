@@ -1,9 +1,7 @@
 {
   "name": "mermaid",
-  "description": "Guide for creating beautiful Mermaid diagrams with proper styling for GitHub markdown (dark/light mode compatible, no icons).",
-  "repo": "aiskillstore/marketplace",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aiskillstore/marketplace"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/mermaid/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-02-02T02:12:03.770464Z"
 }

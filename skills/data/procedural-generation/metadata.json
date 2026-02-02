@@ -1,7 +1,7 @@
 {
   "name": "procedural-generation",
-  "repo": "taozhuo/game-dev-skills",
-  "path": ".claude/skills/procedural-generation/SKILL.md",
-  "source": "github.com/taozhuo/game-dev-skills",
-  "downloaded_at": "2026-01-31T04:19:40.584623Z"
+  "repo": "a5c-ai/babysitter",
+  "path": "plugins/babysitter/skills/babysit/process/specializations/game-development/skills/procedural-generation/SKILL.md",
+  "source": "github.com/a5c-ai/babysitter",
+  "downloaded_at": "2026-02-02T04:47:58.438640Z"
 }

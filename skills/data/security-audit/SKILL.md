@@ -1,18 +1,28 @@
 ---
-skill: security-audit
-description: Perform comprehensive security vulnerability scan: $ARGUMENTS (feature name)
-location: project
+name: security-audit
+description: >-
+  Security auditing and vulnerability assessment. TODO: Implement for devops.
+  Invoked by: "security audit", "security scan", "vulnerability scan", "audit".
 ---
 
-# Security Audit: $ARGUMENTS
+# Security Audit
 
-I'll perform a comprehensive security audit for: **$ARGUMENTS**
+**Status**: Stub - Not Implemented
+**Domain**: DevOps
 
-This will include:
-1. Creating an isolated git worktree
-2. Running dependency vulnerability scans (npm audit)
-3. Analyzing code for security vulnerabilities
-4. Generating a detailed security report
-5. Offering to fix identified issues
+## Overview
 
-Starting security audit now...
+This is a placeholder skill for devops workflows. It will guide security auditing including dependency scanning, secret detection, and vulnerability assessment.
+
+## TODO
+
+- [ ] Define security scanning workflow
+- [ ] Add templates for audit reports
+- [ ] Define dependency vulnerability scanning
+- [ ] Add supporting files for secret detection
+- [ ] Document SAST and DAST integration
+- [ ] Document compliance checks
+
+---
+
+**End of Skill**

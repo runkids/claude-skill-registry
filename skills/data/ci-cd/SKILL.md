@@ -1,378 +1,301 @@
-# CI/CD Pipeline Skill
-
-> **Category**: Operations
-> **Last Updated**: January 2026
-
+---
+name: ci-cd-setup
+description: Set up CI/CD pipelines - connect Gitea repos to Coolify using deploy keys and webhooks (official Coolify approach).
+metadata: {"moltbot":{"emoji":"🔄","requires":{"env":["GITEA_TOKEN","COOLIFY_TOKEN"]}}}
 ---
 
-## Purpose
+# CI/CD Pipeline Setup Skill
 
-Document and interact with GitHub Actions CI/CD workflows. Provides guidance on checking build status, understanding pipeline stages, and integrating with deployment workflows.
-
----
-
-## Key Terminology
-
-Understanding the distinction between CI, deployment, and sync:
-
-| Term | What It Means | Workflow |
-|------|---------------|----------|
-| **CI (Continuous Integration)** | Build, test, code quality checks | `sdap-ci.yml` |
-| **Staging Deployment** | Deploy to staging environment | `deploy-staging.yml` (separate workflow) |
-| **Production Deployment** | Deploy to production | `deploy-to-azure.yml` (manual trigger) |
-| **Merge to Master** | Push changes to origin/master | Git operation (not a workflow) |
-| **Sync Main Repo** | Pull origin/master to local main repo | Git operation (needed for worktrees) |
-
-### Important Distinctions
-
-1. **CI ≠ Staging Deployment**: CI validates code quality. Staging deployment is a *separate* workflow that runs *after* CI passes on master.
-
-2. **"Merge to master" updates origin/master** but does NOT:
-   - Trigger staging deployment immediately (CI runs first)
-   - Sync the main repo's local master (must be done explicitly when using worktrees)
-
-3. **Staging deployment triggers automatically** after CI passes on master, but may fail independently of CI.
-
----
-
-## Applies When
-
-- Checking CI status after pushing code
-- Waiting for build/test results before merging
-- Troubleshooting failed workflows
-- Understanding deployment pipeline
-- **Trigger phrases**: "check CI", "build status", "workflow failed", "deployment status", "CI/CD"
-
----
+This skill automates connecting Gitea repositories to Coolify for continuous deployment using the **official Coolify integration method**.
 
 ## Quick Reference
 
-### Check CI Status
+```bash
+# Connect a repo to Coolify (one command - handles everything)
+bash /srv/paas/scripts/setup-ci-cd.sh <repo-name> <subdomain> [port]
 
-```powershell
-# Check all checks for current PR
-gh pr checks
-
-# Check specific PR
-gh pr checks 123
-
-# View workflow run details
-gh run view
-
-# List recent workflow runs
-gh run list --limit 5
-
-# Watch a running workflow
-gh run watch
+# Example: Deploy "my-api" at https://api.digpulsepi.com
+bash /srv/paas/scripts/setup-ci-cd.sh my-api api 8080
 ```
 
-### Common Actions
+**Required env vars**: `GITEA_TOKEN`, `COOLIFY_TOKEN`
 
-| Action | Command |
-|--------|---------|
-| View PR checks | `gh pr checks` |
-| View run details | `gh run view {run-id}` |
-| Download artifacts | `gh run download {run-id}` |
-| Re-run failed jobs | `gh run rerun {run-id} --failed` |
-| Cancel a run | `gh run cancel {run-id}` |
-| Trigger workflow manually | `gh workflow run {workflow-name}` |
-
----
-
-## GitHub Workflows Overview
-
-### Primary CI Pipeline: `sdap-ci.yml`
-
-**Triggers**: Push to `main`/`master`, Pull requests
-
-| Job | Purpose | Blocking? |
-|-----|---------|-----------|
-| `security-scan` | Trivy vulnerability scanner | Yes |
-| `build-test` | Build + test (Debug & Release) | Yes |
-| `code-quality` | Format check, ADR tests, plugin size, dependencies | Yes |
-| `integration-readiness` | Package artifacts for deployment | Yes |
-| `adr-pr-comment` | Post ADR violations to PR (non-blocking) | No |
-| `summary` | Pipeline summary report | No |
-
-**Key Checks**:
-- Trivy security scan uploads to GitHub Security tab
-- `dotnet format --verify-no-changes` for code style
-- NetArchTest ADR validation (`Spaarke.ArchTests`)
-- Plugin assembly size limit (1MB per ADR-002)
-- Vulnerable package detection
-
-### Deployment: `deploy-to-azure.yml`
-
-**Triggers**: Manual (`workflow_dispatch`), After `sdap-ci.yml` succeeds on master
-
-| Job | Purpose |
-|-----|---------|
-| `deploy-infrastructure` | Deploy Bicep templates to Azure |
-| `deploy-api` | Deploy BFF API to App Service |
-| `smoke-test` | Verify `/ping` endpoint responds |
-| `notify` | Deployment summary |
-
-**Prerequisites**:
-- Azure OIDC authentication configured
-- `AZURE_CLIENT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` secrets set
-- Environment: `production`
-
-### Staging Deployment: `deploy-staging.yml`
-
-**Triggers**: Manual, After `sdap-ci.yml` succeeds on master
-
-| Job | Purpose |
-|-----|---------|
-| `deploy-api` | Deploy API to staging App Service |
-| `deploy-plugins` | Deploy Dataverse plugins via PAC CLI |
-| `integration-tests` | Run integration tests against staging |
-| `notify` | Deployment summary |
-
-**Prerequisites**:
-- `STAGING_APP_NAME` secret configured
-- `POWER_PLATFORM_*` secrets for plugin deployment
-- Environment: `staging`
-
-### ADR Compliance Audit: `adr-audit.yml`
-
-**Triggers**: Manual, Weekly (Monday 9 AM UTC)
-
-| Job | Purpose |
-|-----|---------|
-| `audit` | Run NetArchTest ADR validations |
-| | Parse results and create/update tracking issue |
-
-**Behavior**:
-- Creates GitHub issue with `architecture`, `technical-debt`, `adr-audit` labels
-- Updates existing issue if open
-- Closes issue automatically when all violations resolved
-- Groups violations by ADR number
-
-### Supporting Workflows
-
-| Workflow | Purpose | Triggers |
-|----------|---------|----------|
-| `build-only.yml` | Simple build + artifact upload | Push to main, manual |
-| `dotnet.yml` | .NET build validation | (Legacy) |
-| `test.yml` | Test runner | (Legacy) |
-| `auto-add-to-project.yml` | Auto-add issues/PRs to GitHub Project | Issue/PR events |
-
----
-
-## Workflow Integration Points
-
-### Before Merging a PR
-
-```
-1. Push changes (triggers sdap-ci.yml)
-2. Wait for all checks to pass:
-   gh pr checks --watch
-3. Review any ADR violation comments
-4. Merge when all checks green
-```
-
-### After Merge to Master
-
-```
-1. sdap-ci.yml runs on master
-2. If successful, deploy-staging.yml triggers automatically
-3. Monitor staging deployment:
-   gh run list --workflow=deploy-staging.yml
-4. Verify staging health:
-   curl https://{staging-app}.azurewebsites.net/ping
-```
-
-### Manual Production Deployment
-
-```
-1. Verify staging is healthy
-2. Trigger production deployment:
-   gh workflow run deploy-to-azure.yml
-3. Monitor deployment:
-   gh run watch
-4. Verify production health:
-   curl https://{prod-app}.azurewebsites.net/ping
-```
-
----
-
-## CI/CD Workflow Diagram
+## How CI/CD Works (Official Coolify Method)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        Developer Workflow                        │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  /push-to-github                                                 │
-│  - Code review, ADR check (local)                               │
-│  - Commit and push                                               │
-│  - Create PR                                                     │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  sdap-ci.yml (Automatic on PR/Push)                             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
-│  │ security-scan│  │ build-test   │  │ code-quality │          │
-│  │ (Trivy)      │  │ (Debug/Rel)  │  │ (ADR, format)│          │
-│  └──────────────┘  └──────────────┘  └──────────────┘          │
-│         │                  │                  │                  │
-│         └──────────────────┼──────────────────┘                  │
-│                            ▼                                     │
-│                ┌──────────────────────┐                         │
-│                │ integration-readiness │                         │
-│                │ (Package artifacts)   │                         │
-│                └──────────────────────┘                         │
-│                            │                                     │
-│         ┌──────────────────┼──────────────────┐                 │
-│         ▼                  ▼                  ▼                  │
-│  ┌────────────┐    ┌────────────┐    ┌────────────┐            │
-│  │adr-pr-comm │    │  summary   │    │ artifacts  │            │
-│  │(PR comment)│    │  (report)  │    │ (30 days)  │            │
-│  └────────────┘    └────────────┘    └────────────┘            │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              │ (on master merge)
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  deploy-staging.yml (Automatic after CI success)                │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
-│  │ deploy-api   │─▶│deploy-plugins│─▶│ integration  │          │
-│  │ (App Service)│  │ (PAC CLI)    │  │ tests        │          │
-│  └──────────────┘  └──────────────┘  └──────────────┘          │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              │ (manual trigger)
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  deploy-to-azure.yml (Manual production deployment)             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
-│  │ deploy-infra │─▶│ deploy-api   │─▶│ smoke-test   │          │
-│  │ (Bicep)      │  │ (App Service)│  │ (/ping)      │          │
-│  └──────────────┘  └──────────────┘  └──────────────┘          │
+│                    CI/CD FLOW                                   │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. git push to Gitea                                           │
+│           ↓                                                     │
+│  2. Gitea sends webhook to Coolify                              │
+│     URL: https://coolify.{domain}/webhooks/source/gitea/        │
+│          events/manual?app={APP_UUID}                           │
+│           ↓                                                     │
+│  3. Coolify verifies webhook secret (manual_webhook_secret_gitea)│
+│           ↓                                                     │
+│  4. Coolify helper container clones via SSH                     │
+│     git@gitea:user/repo.git (uses deploy key)                   │
+│           ↓                                                     │
+│  5. Build & Deploy container                                    │
+│           ↓                                                     │
+│  6. Traefik routes traffic to container                         │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
----
+## Prerequisites
+
+### Verify Network Connectivity
+
+The stack uses two bridged networks. All core services must be on BOTH for full functionality:
+
+```bash
+# Check service networks
+for svc in gitea n8n openclaw-cli lobe-chat; do
+    echo "$svc: $(docker inspect $svc --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}')"
+done
+
+# Required: Gitea on coolify network (for Coolify helper to clone repos via SSH)
+docker inspect gitea --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}' | grep coolify
+
+# If missing, connect all services:
+docker network connect coolify gitea
+docker network connect coolify n8n
+docker network connect coolify openclaw-cli
+docker network connect coolify lobe-chat
+docker network connect paas-network coolify-proxy
+```
+
+### Verify API Tokens
+
+```bash
+# Test Gitea token
+curl -sf "http://127.0.0.1:3000/api/v1/user" \
+  -H "Authorization: token $GITEA_TOKEN" | jq '{login, email}'
+
+# Test Coolify token  
+curl -sf "http://127.0.0.1:8080/api/v1/servers" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq '.[0].name'
+```
+
+## Automated Setup (Recommended)
+
+```bash
+# Export tokens (if not already in environment)
+export GITEA_TOKEN="your-gitea-token"
+export COOLIFY_TOKEN="your-coolify-token"
+
+# Run setup script
+bash /srv/paas/scripts/setup-ci-cd.sh REPO_NAME SUBDOMAIN PORT
+```
+
+The script handles:
+1. ✅ Creates repository in Gitea (if needed)
+2. ✅ Generates SSH deploy key pair
+3. ✅ Adds private key to Coolify via API
+4. ✅ Adds public key to Gitea repo as deploy key
+5. ✅ Creates application in Coolify with `private-deploy-key` endpoint
+6. ✅ Creates webhook in Gitea with matching secret
+7. ✅ Sets `is_force_https_enabled: false` (Cloudflare handles HTTPS)
+
+## Manual Setup (Step by Step)
+
+### Step 1: Generate SSH Deploy Key
+
+```bash
+KEY_NAME="my-app-deploy-key"
+ssh-keygen -t ed25519 -f "$KEY_NAME" -N "" -C "$KEY_NAME"
+```
+
+### Step 2: Add Private Key to Coolify
+
+```bash
+PRIVATE_KEY=$(cat "$KEY_NAME" | jq -Rs .)
+
+curl -sf -X POST "http://127.0.0.1:8080/api/v1/security/keys" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"name\": \"$KEY_NAME\",
+    \"description\": \"Deploy key for my-app\",
+    \"private_key\": $PRIVATE_KEY
+  }"
+# Returns: {"uuid": "KEY_UUID"}
+```
+
+### Step 3: Add Public Key to Gitea Repository
+
+```bash
+PUBLIC_KEY=$(cat "${KEY_NAME}.pub")
+
+curl -sf -X POST "http://127.0.0.1:3000/api/v1/repos/OWNER/REPO/keys" \
+  -H "Authorization: token $GITEA_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"title\": \"$KEY_NAME\",
+    \"key\": \"$PUBLIC_KEY\",
+    \"read_only\": true
+  }"
+```
+
+### Step 4: Get Coolify UUIDs
+
+```bash
+# Server UUID
+SERVER_UUID=$(curl -sf "http://127.0.0.1:8080/api/v1/servers" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq -r '.[0].uuid')
+
+# Project UUID
+PROJECT_UUID=$(curl -sf "http://127.0.0.1:8080/api/v1/projects" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq -r '.[0].uuid')
+
+echo "Server: $SERVER_UUID"
+echo "Project: $PROJECT_UUID"
+```
+
+### Step 5: Create Application with Deploy Key
+
+```bash
+# Generate webhook secret
+WEBHOOK_SECRET=$(openssl rand -hex 16)
+
+curl -sf -X POST "http://127.0.0.1:8080/api/v1/applications/private-deploy-key" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"project_uuid\": \"$PROJECT_UUID\",
+    \"server_uuid\": \"$SERVER_UUID\",
+    \"environment_name\": \"production\",
+    \"private_key_uuid\": \"$KEY_UUID\",
+    \"git_repository\": \"git@gitea:OWNER/REPO.git\",
+    \"git_branch\": \"main\",
+    \"name\": \"my-app\",
+    \"description\": \"Deployed from Gitea\",
+    \"domains\": \"http://myapp.digpulsepi.com\",
+    \"ports_exposes\": \"80\",
+    \"build_pack\": \"dockerfile\",
+    \"is_auto_deploy_enabled\": true,
+    \"is_force_https_enabled\": false,
+    \"manual_webhook_secret_gitea\": \"$WEBHOOK_SECRET\",
+    \"instant_deploy\": false
+  }"
+# Returns: {"uuid": "APP_UUID"}
+```
+
+**Important Notes:**
+- Use `http://` for domains (Cloudflare handles HTTPS)
+- `is_force_https_enabled: false` prevents redirect loops
+- `manual_webhook_secret_gitea` must match webhook secret in Gitea
+- Git URL uses internal hostname: `git@gitea:user/repo.git`
+
+### Step 6: Create Webhook in Gitea
+
+```bash
+# Webhook URL format (official Coolify format)
+WEBHOOK_URL="https://coolify.digpulsepi.com/webhooks/source/gitea/events/manual?app=$APP_UUID"
+
+curl -sf -X POST "http://127.0.0.1:3000/api/v1/repos/OWNER/REPO/hooks" \
+  -H "Authorization: token $GITEA_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"active\": true,
+    \"type\": \"gitea\",
+    \"config\": {
+      \"url\": \"$WEBHOOK_URL\",
+      \"content_type\": \"json\",
+      \"secret\": \"$WEBHOOK_SECRET\"
+    },
+    \"events\": [\"push\", \"pull_request\"],
+    \"branch_filter\": \"*\"
+  }"
+```
+
+### Step 7: Trigger First Deployment
+
+```bash
+# Trigger deployment via API
+curl -sf -X POST "http://127.0.0.1:8080/api/v1/applications/$APP_UUID/restart" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN"
+
+# Check deployment status
+curl -sf "http://127.0.0.1:8080/api/v1/deployments" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq '.[0] | {uuid, status}'
+```
 
 ## Troubleshooting
 
-### Common CI Failures
+### Deployment fails: "Could not resolve hostname gitea"
 
-| Failure | Cause | Fix |
-|---------|-------|-----|
-| `security-scan` | Vulnerable dependency | Update package or add to allowlist |
-| `build-test` | Compilation error | Fix code errors locally |
-| `code-quality` format | Code style violation | Run `dotnet format` locally |
-| `code-quality` ADR | Architecture violation | Run `/adr-check` locally, fix violations |
-| `code-quality` plugin size | Plugin >1MB | Reduce dependencies per ADR-002 |
-| `code-quality` vulnerable | Package vulnerability | Update or replace vulnerable package |
-
-### View Detailed Logs
-
-```powershell
-# Get run ID from list
-gh run list --workflow=sdap-ci.yml
-
-# View full logs
-gh run view {run-id} --log
-
-# View specific job logs
-gh run view {run-id} --log --job={job-id}
-
-# Download logs
-gh run view {run-id} --log > ci-logs.txt
+```bash
+# Connect all core services to coolify network
+docker network connect coolify gitea
+docker network connect coolify n8n
+docker network connect coolify openclaw-cli
+docker network connect coolify lobe-chat
+docker network connect paas-network coolify-proxy
 ```
 
-### Re-run Failed Jobs
+### Webhook not triggering deployment
 
-```powershell
-# Re-run only failed jobs
-gh run rerun {run-id} --failed
+```bash
+# Check webhook exists in Gitea
+curl -sf "http://127.0.0.1:3000/api/v1/repos/OWNER/REPO/hooks" \
+  -H "Authorization: token $GITEA_TOKEN" | jq '.[] | {id, active, config}'
 
-# Re-run entire workflow
-gh run rerun {run-id}
+# Verify webhook secret matches in Coolify app
+curl -sf "http://127.0.0.1:8080/api/v1/applications/$APP_UUID" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq '.manual_webhook_secret_gitea'
 ```
 
----
+### Test webhook manually
 
-## Required Secrets
-
-### CI Pipeline (sdap-ci.yml)
-No secrets required - runs in read-only mode.
-
-### Staging Deployment
-| Secret | Purpose |
-|--------|---------|
-| `AZURE_CLIENT_ID` | Azure OIDC app ID |
-| `AZURE_SUBSCRIPTION_ID` | Azure subscription |
-| `AZURE_TENANT_ID` | Azure AD tenant |
-| `STAGING_APP_NAME` | App Service name |
-| `POWER_PLATFORM_URL` | Dataverse environment URL |
-| `POWER_PLATFORM_CLIENT_ID` | Dataverse app ID |
-| `POWER_PLATFORM_CLIENT_SECRET` | Dataverse app secret |
-| `STAGING_TEST_CLIENT_ID` | Integration test credentials |
-| `STAGING_TEST_CLIENT_SECRET` | Integration test credentials |
-
-### Production Deployment
-| Secret | Purpose |
-|--------|---------|
-| `AZURE_CLIENT_ID` | Azure OIDC app ID |
-| `AZURE_SUBSCRIPTION_ID` | Azure subscription |
-| `AZURE_TENANT_ID` | Azure AD tenant |
-| `AZURE_RESOURCE_GROUP` | Target resource group |
-| `AZURE_APP_SERVICE_NAME` | App Service name |
-
----
-
-## Integration with Skills
-
-| Skill | CI/CD Integration |
-|-------|-------------------|
-| `push-to-github` | After push, check `gh pr checks` before merge |
-| `adr-check` | Local validation mirrors `code-quality` ADR tests |
-| `azure-deploy` | Manual deployment uses same process as `deploy-to-azure.yml` |
-| `dataverse-deploy` | Plugin deployment mirrors `deploy-staging.yml` |
-| `code-review` | Quality gates run same checks as `code-quality` job |
-
----
-
-## Related Skills
-
-- `push-to-github` - Push code and create PRs
-- `pull-from-github` - Pull latest changes
-- `azure-deploy` - Manual Azure deployments
-- `dataverse-deploy` - Manual Dataverse deployments
-- `adr-check` - Local ADR validation
-
----
-
-## Tips for AI
-
-- Always check `gh pr checks` before suggesting merge
-- If CI fails, read logs with `gh run view {id} --log` before suggesting fixes
-- ADR violations in CI mirror local `/adr-check` - use same fix guidance
-- Staging deploys automatically after master merge - no manual trigger needed
-- Production deployment requires manual trigger - never auto-deploy to prod
-- Use `gh run watch` to monitor long-running deployments
-
-### Worktree Considerations
-
-- After merging to master from a worktree, **always sync the main repo**
-- CI passing does NOT mean the main repo is synced - these are separate concerns
-- When user asks to "merge to master and sync", ensure BOTH operations complete:
-  1. Push to origin/master (triggers CI → staging)
-  2. Pull origin/master to main repo's local master
-- Report full status: CI status, staging deployment status, AND main repo sync status
-
-### Complete Merge Flow (Worktree)
-
+```bash
+# Simulate a push event
+curl -X POST "$WEBHOOK_URL" \
+  -H "Content-Type: application/json" \
+  -H "X-Gitea-Event: push" \
+  -H "X-Gitea-Signature: $(echo -n '{}' | openssl dgst -sha256 -hmac '$WEBHOOK_SECRET' | cut -d' ' -f2)" \
+  -d '{}'
 ```
-1. Push branch:master → updates origin/master
-2. CI runs on master → monitor with gh run watch
-3. If CI passes → staging deployment triggers automatically
-4. Sync main repo → cd {main-repo} && git pull origin master
-5. Report all statuses to user
+
+### Check deployment logs
+
+```bash
+# Get latest deployment
+DEPLOY_UUID=$(curl -sf "http://127.0.0.1:8080/api/v1/deployments" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq -r '.[0].uuid')
+
+# Check status
+curl -sf "http://127.0.0.1:8080/api/v1/deployments/$DEPLOY_UUID" \
+  -H "Authorization: Bearer $COOLIFY_TOKEN" | jq '{status, created_at, finished_at}'
 ```
+
+## API Reference
+
+### Coolify Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/applications/private-deploy-key` | POST | Create app with deploy key |
+| `/api/v1/applications/{uuid}/restart` | POST | Trigger deployment |
+| `/api/v1/security/keys` | POST | Add SSH private key |
+| `/api/v1/deployments/{uuid}` | GET | Check deployment status |
+| `/webhooks/source/gitea/events/manual?app={uuid}` | POST | Webhook endpoint |
+
+### Gitea Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/repos/{owner}/{repo}/keys` | POST | Add deploy key |
+| `/api/v1/repos/{owner}/{repo}/hooks` | POST | Create webhook |
+
+### Build Packs
+
+| Build Pack | Use Case |
+|------------|----------|
+| `dockerfile` | Has Dockerfile (recommended) |
+| `nixpacks` | Auto-detect language |
+| `dockercompose` | Multi-container apps |
+| `static` | HTML/CSS/JS only |

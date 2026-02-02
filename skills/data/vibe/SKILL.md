@@ -5,11 +5,24 @@ description: 'Talos-class comprehensive code validation. Use for "validate code"
 
 # Vibe Skill
 
-> **Quick Ref:** Validate code across 8 aspects (security, quality, architecture, etc). Output: `.agents/vibe/*.md` + grade A-F.
-
 **YOU MUST EXECUTE THIS WORKFLOW. Do not just describe it.**
 
 Comprehensive code validation across 8 quality aspects.
+
+---
+
+## ⚠️ Claude Validation Limitation Warning
+
+**Claude is weak at systematic verification.** This was proven when Claude scored docs 9/10 "Ready for Implementation" while Codex found critical bugs at 6/10 on the same prompt.
+
+**For SPEC/DOCUMENT validation:**
+- Claude skims instead of traces
+- Claude pattern-matches instead of reasons
+- Claude is biased toward "looks good"
+
+**Mitigation required:** See "Spec/Document Validation Mode" section below.
+
+---
 
 ## Execution Steps
 
@@ -41,6 +54,64 @@ git rev-parse --git-dir 2>/dev/null || echo "NOT_GIT"
 
 If NOT_GIT and no explicit path provided, STOP with error:
 > "Not in a git repository. Provide explicit file path: `/vibe path/to/files`"
+
+### Step 1a.1: Load Prior Validation Knowledge (ao integration)
+
+**Search for relevant learnings before validation:**
+
+```bash
+# Check if ao CLI is available
+if command -v ao &> /dev/null; then
+  # Search for prior validation failures on similar code
+  ao search "validation failures" --limit 5 2>/dev/null || true
+
+  # Check for known anti-patterns from learnings
+  ao anti-patterns 2>/dev/null | head -20 || true
+else
+  # ao not available - skip knowledge injection
+  echo "Note: ao CLI not available, skipping knowledge injection"
+fi
+```
+
+**Use the results to:**
+- Inform validation focus areas based on past failures
+- Flag code patterns that previously caused issues
+- Apply extra scrutiny to areas with known anti-patterns
+
+If ao not available, skip this step and continue with validation.
+
+### Step 1b: Run Toolchain Validation (MANDATORY)
+
+**Before ANY agent dispatch, run the toolchain:**
+
+```bash
+./scripts/toolchain-validate.sh --gate 2>&1 | tee .agents/tooling/vibe-run.log
+TOOL_EXIT=$?
+```
+
+**Interpret results:**
+
+| Exit Code | Meaning | Action |
+|-----------|---------|--------|
+| 0 | All tools pass | Proceed to agent dispatch |
+| 2 | CRITICAL findings | **STOP. Report tool findings. Do not dispatch agents.** |
+| 3 | HIGH findings only | Proceed, but note in report |
+
+**If TOOL_EXIT == 2:**
+
+```
+Report to user:
+
+  Grade: F (tools failed)
+
+  Toolchain found CRITICAL issues that must be fixed:
+  - See .agents/tooling/<tool>.txt for details
+
+  Fix these issues before re-running /vibe.
+  Do NOT generate a false "Grade: B" when tools are failing.
+```
+
+**DO NOT dispatch agents if tools found CRITICAL issues.** This prevents theater where agents ignore definitive tool failures and produce optimistic reports.
 
 ### Step 2: Determine Target and Vibe Level
 
@@ -110,53 +181,120 @@ For each file, check:
 | **Slop** | AI hallucinations, cargo cult code, over-engineering |
 | **Accessibility** | Missing ARIA, keyboard nav issues, contrast |
 
-### Step 6: Dispatch Expert Agents (for deep validation)
+### Step 6: Dispatch Triage Agents (with Tool Output)
 
-For comprehensive validation, dispatch 6 specialized agents **in parallel (single message, 6 Task tool calls)**:
+**Agents TRIAGE tool findings. They do not "review for issues."**
+
+**Before dispatching, read tool outputs:**
+```bash
+cat .agents/tooling/semgrep.txt
+cat .agents/tooling/gitleaks.txt
+cat .agents/tooling/gosec.txt
+cat .agents/tooling/ruff.txt
+cat .agents/tooling/golangci-lint.txt
+cat .agents/tooling/shellcheck.txt
+cat .agents/tooling/radon.txt
+cat .agents/tooling/hadolint.txt
+```
+
+Launch 3 agents in parallel with SPECIFIC tool output:
 
 ```
-Tool: Task (ALL 6 IN PARALLEL)
+Tool: Task (ALL 3 IN PARALLEL)
 Parameters:
   subagent_type: "agentops:security-reviewer"
   model: "haiku"
-  description: "Security review"
-  prompt: "Review these files for security issues: <file-list>"
+  description: "Triage security tool findings"
+  prompt: |
+    TOOL FINDINGS TO TRIAGE:
+
+    ## Gitleaks Output:
+    <paste .agents/tooling/gitleaks.txt>
+
+    ## Semgrep Output:
+    <paste .agents/tooling/semgrep.txt>
+
+    ## Gosec Output:
+    <paste .agents/tooling/gosec.txt>
+
+    For EACH finding, determine verdict:
+
+    TRUE_POSITIVE if:
+    - File path exists (not in comments/examples)
+    - Not in test fixtures (*/test/*, */mock/*, *_test.go)
+    - Not already suppressed (.gitleaksignore, //nolint, # nosec)
+    - Pattern matches real credential (not placeholder like "xxx")
+
+    FALSE_POSITIVE if:
+    - In test fixtures or examples
+    - Already in ignore file
+    - Placeholder value (contains "example", "test", "xxx")
+    - Dead code path (function never called)
+
+    OUTPUT FORMAT:
+    | File:Line | Tool | Finding | Verdict | Reason | Fix (if TRUE_POS) |
+    |-----------|------|---------|---------|--------|-------------------|
 
 Tool: Task
 Parameters:
   subagent_type: "agentops:code-reviewer"
   model: "haiku"
-  description: "Code quality review"
-  prompt: "Review these files for quality issues: <file-list>"
+  description: "Triage linter findings"
+  prompt: |
+    LINTER FINDINGS TO TRIAGE:
+
+    ## Ruff/Golangci-lint Output:
+    <paste .agents/tooling/ruff.txt or golangci-lint.txt>
+
+    ## Shellcheck Output:
+    <paste .agents/tooling/shellcheck.txt>
+
+    For EACH finding, apply severity rules:
+
+    FIX_NOW if:
+    - Blocks functionality (import error, syntax error)
+    - Security implication (bare except, eval usage)
+    - Cyclomatic complexity >15 in changed code
+
+    TECH_DEBT if:
+    - Style only (line length 81-100)
+    - Complexity 10-15
+    - Has TODO with issue reference
+
+    NOISE if:
+    - Already passing CI
+    - No functional impact
+    - In generated code
+
+    OUTPUT FORMAT:
+    | File:Line | Finding | Priority | Reason |
+    |-----------|---------|----------|--------|
 
 Tool: Task
 Parameters:
   subagent_type: "agentops:architecture-expert"
   model: "haiku"
-  description: "Architecture review"
-  prompt: "Review architecture and patterns in: <file-list>"
+  description: "Triage complexity findings"
+  prompt: |
+    COMPLEXITY FINDINGS TO TRIAGE:
 
-Tool: Task
-Parameters:
-  subagent_type: "agentops:code-quality-expert"
-  model: "haiku"
-  description: "Complexity review"
-  prompt: "Check complexity and maintainability of: <file-list>"
+    ## Radon Output:
+    <paste .agents/tooling/radon.txt>
 
-Tool: Task
-Parameters:
-  subagent_type: "agentops:security-expert"
-  model: "haiku"
-  description: "Security deep dive"
-  prompt: "Deep security analysis of: <file-list>"
+    ## Hadolint Output:
+    <paste .agents/tooling/hadolint.txt>
 
-Tool: Task
-Parameters:
-  subagent_type: "agentops:ux-expert"
-  model: "haiku"
-  description: "UX/Accessibility review"
-  prompt: "Review UX and accessibility of: <file-list>"
+    For EACH high-complexity function:
+    - Is it in changed files? (only review what's new)
+    - Can it be split? (identify extraction points)
+    - Is complexity justified? (state machines, parsers OK)
+
+    OUTPUT FORMAT:
+    | File:Function | Complexity | In Changed? | Recommendation |
+    |---------------|------------|-------------|----------------|
 ```
+
+**Key change:** Agents now receive ACTUAL tool output and have EXPLICIT criteria for verdicts.
 
 **Timeout handling:** Per-agent timeout of 3 minutes (180000ms). If agent times out, continue with remaining results if quorum (80%) met. See `.agents/specs/conflict-resolution-algorithm.md` for synthesis rules.
 
@@ -257,6 +395,38 @@ Tell the user:
 3. Critical and high findings (if any)
 4. Location of full report
 
+### Step 12: Record Validation Results (ao integration)
+
+**Store validation learnings for future sessions:**
+
+```bash
+# Check if ao CLI is available
+if command -v ao &> /dev/null; then
+  # If CRITICAL findings were discovered, record them as learnings
+  if [ "<grade>" = "D" ] || [ "<grade>" = "F" ]; then
+    ao memory_store \
+      --content "Validation found CRITICAL issues in <target>: <summary of critical findings>" \
+      --memory_type "episode" \
+      --tags '["validation", "critical", "<area>"]' \
+      --source "vibe skill" 2>/dev/null || true
+  fi
+
+  # Record any new anti-patterns discovered
+  # (Only if a pattern was found that wasn't already known)
+  # ao forge transcript <session-log> 2>/dev/null || true
+else
+  # ao not available - skip result recording
+  echo "Note: ao CLI not available, skipping result recording"
+fi
+```
+
+**What gets recorded:**
+- CRITICAL findings become episodes for future reference
+- Novel anti-patterns get extracted via forge
+- Validation outcomes help calibrate future assessments
+
+If ao not available, skip this step and continue.
+
 ## Key Rules
 
 - **0 CRITICAL = PASS** - the gate rule
@@ -264,6 +434,8 @@ Tell the user:
 - **Actionable fixes** - tell them HOW to fix, not just what's wrong
 - **Grade reflects reality** - don't inflate or deflate
 - **Write the report** - always produce `.agents/vibe/` artifact
+- **For specs: Build tables, don't trust impressions** - mechanical cross-referencing required
+- **Never claim "Ready for Implementation" on validation** - recommend external verification
 
 ## Quick vs Deep
 
@@ -290,3 +462,103 @@ The vibe skill includes an automated prescan script at `scripts/prescan.sh`:
 - `1`: Secrets detected (blocks gate)
 
 **Integration:** Run prescan before full vibe validation to catch secrets early.
+
+---
+
+## Spec/Document Validation Mode
+
+**When target is documentation or specs** (*.md files in docs/, specs/, or similar):
+
+### Why This Is Different
+
+Code validation: Look for bugs, security issues, complexity.
+Spec validation: Cross-reference consistency across multiple documents.
+
+**Claude fails at spec validation** because it:
+- Skims instead of mechanically tracing
+- Assumes similar terms are equivalent
+- Rationalizes differences instead of flagging conflicts
+
+### Mandatory Protocol for Spec Validation
+
+**Step S1: Generate Explicit Checklist BEFORE Reading**
+
+```
+Before reading any documents, generate a checklist:
+- List every entity that should be consistent (agents, states, message types, timeouts)
+- List every cross-reference to verify (A mentions B → B exists and matches)
+- List every enum/constant that appears in multiple places
+```
+
+**Step S2: Build Mechanical Cross-Reference Tables**
+
+For each entity type, build a table with tool calls:
+
+```markdown
+| Entity | Doc A (line) | Doc B (line) | Match? |
+|--------|--------------|--------------|--------|
+| HARVEST_REQUEST sender | auth matrix:152 "Moirai" | comm matrix:1123 "Athena" | ❌ CONFLICT |
+```
+
+**Step S3: Trace Relationships, Don't Pattern Match**
+
+For every relationship claim:
+1. Read the EXACT line in source doc
+2. Read the EXACT line in target doc
+3. Compare literally, not conceptually
+4. Flag ANY difference, even if it "seems equivalent"
+
+**Step S4: Bias Toward Finding Problems**
+
+- Assume bugs exist
+- Try to break the spec
+- Ask: "What would Codex catch that I'm missing?"
+
+**Step S5: Never Say "Ready for Implementation"**
+
+Final output must be:
+```
+## Findings
+[List what was found]
+
+## Verification Status
+⚠️ Claude-based validation has known limitations.
+Recommend external verification with Codex or mechanical diff tools.
+
+## Cross-Reference Tables
+[Show the tables built in Step S2]
+```
+
+### Dispatch Spec Validation Agents
+
+For spec validation, dispatch these agents **in parallel**:
+
+```
+Tool: Task (ALL IN PARALLEL)
+Parameters:
+  subagent_type: "agentops:plan-compliance-expert"
+  description: "Check spec compliance"
+  prompt: "Verify these specs are internally consistent: <file-list>"
+
+Tool: Task
+Parameters:
+  subagent_type: "agentops:gap-identifier"
+  description: "Find spec gaps"
+  prompt: "Find missing definitions or broken references in: <file-list>"
+
+Tool: Task
+Parameters:
+  subagent_type: "agentops:assumption-challenger"
+  description: "Challenge assumptions"
+  prompt: "Challenge assumptions and find conflicts in: <file-list>"
+```
+
+### Example: What Claude Missed
+
+| Issue Type | What Claude Did | What Claude Should Do |
+|------------|-----------------|----------------------|
+| Authorization Matrix wrong sender | Saw "HARVEST_REQUEST" in both tables, moved on | Build table: sender in Auth Matrix vs sender in Comm Matrix |
+| Bead status enum mismatch | Saw "pending/assigned" vs "open", assumed equivalent | Flag: "pending" ≠ "open" - which is canonical? |
+| Retry logic contradiction | Saw "retry" and "3" in multiple docs, assumed consistent | Trace: On rejection → does Demigod retry or Apollo escalate? |
+
+**The lesson:** Mechanical verification beats gestalt impression.

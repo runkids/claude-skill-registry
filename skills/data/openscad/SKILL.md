@@ -1,148 +1,232 @@
 ---
 name: openscad
-description: Create parametric 3D models using OpenSCAD, a script-based solid CAD modeler. Use when the user asks to create 3D printable objects, parametric designs, mechanical parts, CAD models, or requests .scad files. OpenSCAD uses constructive solid geometry (CSG) and extrusion of 2D shapes to create 3D models through code.
+description: "Create and render OpenSCAD 3D models. Generate preview images from multiple angles, extract customizable parameters, validate syntax, and export STL files for 3D printing platforms like MakerWorld."
 ---
 
 # OpenSCAD Skill
 
-Generate OpenSCAD (.scad) files for parametric 3D modeling. OpenSCAD is a functional programming language for creating solid 3D CAD objects using CSG (Constructive Solid Geometry).
+Create, validate, and export OpenSCAD 3D models. Supports parameter customization, visual preview from multiple angles, and STL export for 3D printing platforms like MakerWorld.
 
-## Core Concepts
+## Prerequisites
 
-OpenSCAD scripts describe geometry through:
-1. **Primitives** - Basic 2D/3D shapes (cube, sphere, cylinder, circle, square, polygon)
-2. **Transformations** - Position/modify objects (translate, rotate, scale, mirror, color)
-3. **Boolean Operations** - Combine shapes (union, difference, intersection)
-4. **Modules** - Reusable parametric components
-5. **Extrusion** - Convert 2D to 3D (linear_extrude, rotate_extrude)
+OpenSCAD must be installed. Install via Homebrew:
+```bash
+brew install openscad
+```
+
+## Tools
+
+This skill provides several tools in the `tools/` directory:
+
+### Preview Generation
+```bash
+# Generate a single preview image
+./tools/preview.sh model.scad output.png [--camera=x,y,z,tx,ty,tz,dist] [--size=800x600]
+
+# Generate multi-angle preview (front, back, left, right, top, iso)
+./tools/multi-preview.sh model.scad output_dir/
+```
+
+### STL Export
+```bash
+# Export to STL for 3D printing
+./tools/export-stl.sh model.scad output.stl [-D 'param=value']
+```
+
+### Parameter Extraction
+```bash
+# Extract customizable parameters from an OpenSCAD file
+./tools/extract-params.sh model.scad
+```
+
+### Validation
+```bash
+# Check for syntax errors and warnings
+./tools/validate.sh model.scad
+```
+
+## Visual Validation (Required)
+
+**Always validate your OpenSCAD models visually after creating or modifying them.**
+
+After writing or editing any OpenSCAD file:
+
+1. **Generate multi-angle previews** using `multi-preview.sh`
+2. **View each generated image** using the `read` tool
+3. **Check for issues** from multiple perspectives:
+   - Front/back: Verify symmetry, features, and proportions
+   - Left/right: Check depth and side profiles
+   - Top: Ensure top features are correct
+   - Isometric: Overall shape validation
+4. **Iterate if needed**: If something looks wrong, fix the code and re-validate
+
+This catches issues that syntax validation alone cannot detect:
+- Inverted normals or inside-out geometry
+- Misaligned features or incorrect boolean operations
+- Proportions that don't match the intended design
+- Missing or floating geometry
+- Z-fighting or overlapping surfaces
+
+**Never deliver an OpenSCAD model without visually confirming it looks correct from multiple angles.**
 
 ## Workflow
 
-1. Define parameters as variables at the top for easy customization
-2. Create modules for reusable components
-3. Build geometry using primitives and boolean operations
-4. Use comments to explain complex sections
-5. Set `$fn` for curved surface resolution (higher = smoother but slower)
+### 1. Creating an OpenSCAD Model
 
-## Quick Reference
+Write OpenSCAD code with customizable parameters at the top:
 
-### 3D Primitives
 ```openscad
-cube([x, y, z], center=false);
-cube(size, center=false);
-sphere(r=radius);  // or d=diameter
-cylinder(h=height, r=radius, center=false);
-cylinder(h=height, r1=bottom_r, r2=top_r);  // cone
-polyhedron(points=[[x,y,z],...], faces=[[p0,p1,p2],...]);
+// Customizable parameters
+wall_thickness = 2;        // [1:0.5:5] Wall thickness in mm
+width = 50;                // [20:100] Width in mm
+height = 30;               // [10:80] Height in mm
+rounded = true;            // Add rounded corners
+
+// Model code below
+module main_shape() {
+    if (rounded) {
+        minkowski() {
+            cube([width - 4, width - 4, height - 2]);
+            sphere(r = 2);
+        }
+    } else {
+        cube([width, width, height]);
+    }
+}
+
+difference() {
+    main_shape();
+    translate([wall_thickness, wall_thickness, wall_thickness])
+        scale([1 - 2*wall_thickness/width, 1 - 2*wall_thickness/width, 1])
+        main_shape();
+}
 ```
 
-### 2D Primitives
+Parameter comment format:
+- `// [min:max]` - numeric range
+- `// [min:step:max]` - numeric range with step
+- `// [opt1, opt2, opt3]` - dropdown options
+- `// Description text` - plain description
+
+### 2. Validate the Model
+```bash
+./tools/validate.sh model.scad
+```
+
+### 3. Generate Previews
+
+Generate preview images to visually validate the model:
+```bash
+./tools/multi-preview.sh model.scad ./previews/
+```
+
+This creates PNG images from multiple angles. Use the `read` tool to view them.
+
+### 4. Export to STL
+```bash
+./tools/export-stl.sh model.scad output.stl
+# With custom parameters:
+./tools/export-stl.sh model.scad output.stl -D 'width=60' -D 'height=40'
+```
+
+## Camera Positions
+
+Common camera angles for previews:
+- **Isometric**: `--camera=0,0,0,45,0,45,200`
+- **Front**: `--camera=0,0,0,90,0,0,200`
+- **Top**: `--camera=0,0,0,0,0,0,200`
+- **Right**: `--camera=0,0,0,90,0,90,200`
+
+Format: `x,y,z,rotx,roty,rotz,distance`
+
+## MakerWorld Publishing
+
+For MakerWorld, you typically need:
+1. STL file(s) exported via `export-stl.sh`
+2. Preview images (at least one good isometric view)
+3. A description of customizable parameters
+
+Consider creating a `model.json` with metadata:
+```json
+{
+  "name": "Model Name",
+  "description": "Description for MakerWorld",
+  "parameters": [...],
+  "tags": ["functional", "container", "organizer"]
+}
+```
+
+## Example: Full Workflow
+
+```bash
+# 1. Create the model (write .scad file)
+
+# 2. Validate syntax
+./tools/validate.sh box.scad
+
+# 3. Generate multi-angle previews
+./tools/multi-preview.sh box.scad ./previews/
+
+# 4. IMPORTANT: View and validate ALL preview images
+#    Use the read tool on each PNG file to visually inspect:
+#    - previews/box_front.png
+#    - previews/box_back.png
+#    - previews/box_left.png
+#    - previews/box_right.png
+#    - previews/box_top.png
+#    - previews/box_iso.png
+#    Look for geometry issues, misalignments, or unexpected results.
+#    If anything looks wrong, go back to step 1 and fix it!
+
+# 5. Extract and review parameters
+./tools/extract-params.sh box.scad
+
+# 6. Export STL with default parameters
+./tools/export-stl.sh box.scad box.stl
+
+# 7. Export STL with custom parameters
+./tools/export-stl.sh box.scad box_large.stl -D 'width=80' -D 'height=60'
+```
+
+**Remember**: Never skip the visual validation step. Many issues (wrong dimensions, boolean operation errors, inverted geometry) are only visible when you actually look at the rendered model.
+
+## OpenSCAD Quick Reference
+
+### Basic Shapes
 ```openscad
-square([x, y], center=false);
-circle(r=radius);  // or d=diameter
-polygon(points=[[x,y],...]);
-text("string", size=10, font="Liberation Sans");
+cube([x, y, z]);
+sphere(r = radius);
+cylinder(h = height, r = radius);
+cylinder(h = height, r1 = bottom_r, r2 = top_r);  // cone
 ```
 
 ### Transformations
 ```openscad
 translate([x, y, z]) object();
-rotate([x_deg, y_deg, z_deg]) object();
-rotate(a=degrees, v=[x,y,z]) object();  // rotate around axis
-scale([x, y, z]) object();
-mirror([x, y, z]) object();  // mirror across plane
-color("red") object();
-color([r, g, b, a]) object();  // 0-1 values
+rotate([rx, ry, rz]) object();
+scale([sx, sy, sz]) object();
+mirror([x, y, z]) object();
 ```
 
 ### Boolean Operations
 ```openscad
-union() { obj1(); obj2(); }         // combine (implicit if no operator)
-difference() { base(); cut1(); }    // subtract from first child
-intersection() { obj1(); obj2(); }  // keep only overlap
+union() { a(); b(); }        // combine
+difference() { a(); b(); }   // subtract b from a
+intersection() { a(); b(); } // overlap only
 ```
 
-### Extrusion (2D to 3D)
+### Advanced
 ```openscad
-linear_extrude(height=h, twist=deg, scale=s, slices=n, center=false)
-    2d_shape();
-rotate_extrude(angle=360, $fn=n)
-    2d_shape();  // shape must be on positive X side
+linear_extrude(height) 2d_shape();
+rotate_extrude() 2d_shape();
+hull() { objects(); }        // convex hull
+minkowski() { a(); b(); }    // minkowski sum (rounding)
 ```
 
-### Control Structures
+### 2D Shapes
 ```openscad
-// Loops
-for (i = [0:10]) translate([i*5, 0, 0]) cube(3);
-for (i = [0:2:10]) ...;  // start:step:end
-for (pos = [[0,0], [10,5], [5,10]]) translate(pos) sphere(2);
-
-// Conditionals
-if (condition) { ... } else { ... }
-variable = condition ? value_if_true : value_if_false;
+circle(r = radius);
+square([x, y]);
+polygon(points = [[x1,y1], [x2,y2], ...]);
+text("string", size = 10);
 ```
-
-### Modules and Functions
-```openscad
-// Module (creates geometry)
-module my_part(size=10, holes=true) {
-    difference() {
-        cube(size);
-        if (holes) cylinder(h=size+1, r=size/4, center=true);
-    }
-}
-my_part(20, holes=false);
-
-// Function (returns value)
-function circumference(r) = 2 * PI * r;
-```
-
-### Special Variables
-```openscad
-$fn = 100;  // fragments for full circle (overrides $fa/$fs)
-$fa = 12;   // minimum angle per fragment
-$fs = 2;    // minimum size per fragment
-$preview    // true during F5 preview, false during F6 render
-```
-
-## Best Practices
-
-### Parametric Design
-```openscad
-// Define all dimensions as variables
-wall_thickness = 2;
-inner_diameter = 20;
-height = 30;
-
-// Derive other values
-outer_diameter = inner_diameter + 2*wall_thickness;
-```
-
-### Avoiding Rendering Issues
-```openscad
-// Use epsilon to prevent z-fighting in boolean operations
-eps = 0.01;
-difference() {
-    cube([10, 10, 10]);
-    translate([2, 2, -eps])
-        cylinder(h=10 + 2*eps, r=3);  // slightly taller than parent
-}
-```
-
-### Manifold Geometry for 3D Printing
-- Ensure all geometry is watertight (no gaps)
-- Holes must fully penetrate surfaces
-- Use `render()` to verify complex geometry
-- Check face orientation with F12 (Thrown Together view)
-
-## Detailed References
-
-- For complete syntax: See `references/language_reference.md`
-- For example patterns: See `references/examples.md`
-
-## Output
-
-Save generated code as `.scad` files. Users can open in OpenSCAD for:
-- F5: Quick preview
-- F6: Full render (required before export)
-- Export to STL/AMF/3MF for 3D printing

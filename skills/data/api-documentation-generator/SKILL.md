@@ -1,208 +1,484 @@
 ---
 name: api-documentation-generator
-description: Automated API documentation generation with support for OpenAPI/Swagger specifications, endpoint analysis, request/response examples, authentication methods, rate limiting, and integration guides. Use when Claude needs to generate API documentation, analyze existing APIs, create specification files, or produce developer-friendly documentation.
+description: "Generate comprehensive, developer-friendly API documentation from code, including endpoints, parameters, examples, and best practices"
 ---
 
 # API Documentation Generator
 
 ## Overview
-This skill automates the creation and maintenance of comprehensive API documentation with support for industry-standard formats and developer-friendly presentation. It intelligently analyzes source code to extract API contracts and generates complete, accurate documentation.
+
+Automatically generate clear, comprehensive API documentation from your codebase. This skill helps you create professional documentation that includes endpoint descriptions, request/response examples, authentication details, error handling, and usage guidelines.
+
+Perfect for REST APIs, GraphQL APIs, and WebSocket APIs.
 
 ## When to Use This Skill
-- Generating OpenAPI/Swagger specifications from code
-- Creating API documentation from existing endpoints
-- Updating documentation to match API changes
-- Producing developer guides and integration tutorials
-- Analyzing API contracts and dependencies
-- Converting API specifications between formats
-- Reverse-engineering undocumented APIs
-- Generating client SDK documentation
-- Creating interactive API explorers
 
-## Supported Languages & Frameworks
-### REST APIs
-- Express.js / Fastify (Node.js)
-- Flask / Django (Python)
-- Spring Boot (Java)
-- ASP.NET Core (C#)
-- Ruby on Rails
-- Laravel (PHP)
+- Use when you need to document a new API
+- Use when updating existing API documentation
+- Use when your API lacks clear documentation
+- Use when onboarding new developers to your API
+- Use when preparing API documentation for external users
+- Use when creating OpenAPI/Swagger specifications
 
-### GraphQL APIs
-- Schema introspection
-- Query/mutation/subscription documentation
-- Type definitions and relationships
+## How It Works
 
-### Other API Types
-- gRPC services and protobuf definitions
-- SOAP web services
-- Webhook documentation
+### Step 1: Analyze the API Structure
 
-## Supported Formats
-- OpenAPI 3.0/3.1 (formerly Swagger)
-- Swagger 2.0
-- AsyncAPI 2.x (for event-driven APIs)
-- RAML 1.0
-- API Blueprint
-- Postman Collections
-- GraphQL Schema Definition Language (SDL)
-- JSON Schema
-- HAR (HTTP Archive format)
+First, I'll examine your API codebase to understand:
+- Available endpoints and routes
+- HTTP methods (GET, POST, PUT, DELETE, etc.)
+- Request parameters and body structure
+- Response formats and status codes
+- Authentication and authorization requirements
+- Error handling patterns
 
-## Documentation Components
+### Step 2: Generate Endpoint Documentation
 
-### API Information
-- Title, description, and version
-- Contact details and support information
-- License information and terms of service
-- External documentation links
-- API lifecycle stage (development, beta, stable, deprecated)
+For each endpoint, I'll create documentation including:
 
-### Endpoints & Operations
-- HTTP methods and paths
-- Path, query, header, and cookie parameters
-- Request body schemas with validation rules
-- Response schemas for all status codes
-- Example requests and responses
-- Deprecation notices and migration guidance
+**Endpoint Details:**
+- HTTP method and URL path
+- Brief description of what it does
+- Authentication requirements
+- Rate limiting information (if applicable)
 
-### Security Definitions
-- API key authentication
-- OAuth 2.0 flows (Authorization Code, Client Credentials, etc.)
-- JWT/Token authentication
-- Basic/Digest authentication
-- Mutual TLS
-- Custom authentication schemes
-- Security requirement mappings per endpoint
+**Request Specification:**
+- Path parameters
+- Query parameters
+- Request headers
+- Request body schema (with types and validation rules)
 
-### Advanced Features
-- Server definitions with variables
-- Tags for logical grouping
-- External documentation
-- Callback definitions
-- Link relations
-- Webhooks and event documentation
-- Discriminator objects for polymorphism
+**Response Specification:**
+- Success response (status code + body structure)
+- Error responses (all possible error codes)
+- Response headers
 
-## Analysis Capabilities
+**Code Examples:**
+- cURL command
+- JavaScript/TypeScript (fetch/axios)
+- Python (requests)
+- Other languages as needed
 
-### Code Analysis
-- Framework-specific route detection
-- Parameter and schema inference
-- Authentication method identification
-- Error response pattern recognition
-- Validation rule extraction
+### Step 3: Add Usage Guidelines
 
-### Schema Detection
-- Request/response schema analysis
-- Type inference from code
-- Validation constraints mapping
-- Default value extraction
-- Enum value detection
+I'll include:
+- Getting started guide
+- Authentication setup
+- Common use cases
+- Best practices
+- Rate limiting details
+- Pagination patterns
+- Filtering and sorting options
 
-### Security Analysis
-- Authentication scheme identification
-- Permission/role mapping
-- Security requirement inference
-- Credential location detection
+### Step 4: Document Error Handling
+
+Clear error documentation including:
+- All possible error codes
+- Error message formats
+- Troubleshooting guide
+- Common error scenarios and solutions
+
+### Step 5: Create Interactive Examples
+
+Where possible, I'll provide:
+- Postman collection
+- OpenAPI/Swagger specification
+- Interactive code examples
+- Sample responses
+
+## Examples
+
+### Example 1: REST API Endpoint Documentation
+
+```markdown
+## Create User
+
+Creates a new user account.
+
+**Endpoint:** `POST /api/v1/users`
+
+**Authentication:** Required (Bearer token)
+
+**Request Body:**
+\`\`\`json
+{
+  "email": "user@example.com",      // Required: Valid email address
+  "password": "SecurePass123!",     // Required: Min 8 chars, 1 uppercase, 1 number
+  "name": "John Doe",               // Required: 2-50 characters
+  "role": "user"                    // Optional: "user" or "admin" (default: "user")
+}
+\`\`\`
+
+**Success Response (201 Created):**
+\`\`\`json
+{
+  "id": "usr_1234567890",
+  "email": "user@example.com",
+  "name": "John Doe",
+  "role": "user",
+  "createdAt": "2026-01-20T10:30:00Z",
+  "emailVerified": false
+}
+\`\`\`
+
+**Error Responses:**
+
+- `400 Bad Request` - Invalid input data
+  \`\`\`json
+  {
+    "error": "VALIDATION_ERROR",
+    "message": "Invalid email format",
+    "field": "email"
+  }
+  \`\`\`
+
+- `409 Conflict` - Email already exists
+  \`\`\`json
+  {
+    "error": "EMAIL_EXISTS",
+    "message": "An account with this email already exists"
+  }
+  \`\`\`
+
+- `401 Unauthorized` - Missing or invalid authentication token
+
+**Example Request (cURL):**
+\`\`\`bash
+curl -X POST https://api.example.com/api/v1/users \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "SecurePass123!",
+    "name": "John Doe"
+  }'
+\`\`\`
+
+**Example Request (JavaScript):**
+\`\`\`javascript
+const response = await fetch('https://api.example.com/api/v1/users', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    email: 'user@example.com',
+    password: 'SecurePass123!',
+    name: 'John Doe'
+  })
+});
+
+const user = await response.json();
+console.log(user);
+\`\`\`
+
+**Example Request (Python):**
+\`\`\`python
+import requests
+
+response = requests.post(
+    'https://api.example.com/api/v1/users',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'email': 'user@example.com',
+        'password': 'SecurePass123!',
+        'name': 'John Doe'
+    }
+)
+
+user = response.json()
+print(user)
+\`\`\`
+```
+
+### Example 2: GraphQL API Documentation
+
+```markdown
+## User Query
+
+Fetch user information by ID.
+
+**Query:**
+\`\`\`graphql
+query GetUser($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    name
+    role
+    createdAt
+    posts {
+      id
+      title
+      publishedAt
+    }
+  }
+}
+\`\`\`
+
+**Variables:**
+\`\`\`json
+{
+  "id": "usr_1234567890"
+}
+\`\`\`
+
+**Response:**
+\`\`\`json
+{
+  "data": {
+    "user": {
+      "id": "usr_1234567890",
+      "email": "user@example.com",
+      "name": "John Doe",
+      "role": "user",
+      "createdAt": "2026-01-20T10:30:00Z",
+      "posts": [
+        {
+          "id": "post_123",
+          "title": "My First Post",
+          "publishedAt": "2026-01-21T14:00:00Z"
+        }
+      ]
+    }
+  }
+}
+\`\`\`
+
+**Errors:**
+\`\`\`json
+{
+  "errors": [
+    {
+      "message": "User not found",
+      "extensions": {
+        "code": "USER_NOT_FOUND",
+        "userId": "usr_1234567890"
+      }
+    }
+  ]
+}
+\`\`\`
+```
+
+### Example 3: Authentication Documentation
+
+```markdown
+## Authentication
+
+All API requests require authentication using Bearer tokens.
+
+### Getting a Token
+
+**Endpoint:** `POST /api/v1/auth/login`
+
+**Request:**
+\`\`\`json
+{
+  "email": "user@example.com",
+  "password": "your-password"
+}
+\`\`\`
+
+**Response:**
+\`\`\`json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expiresIn": 3600,
+  "refreshToken": "refresh_token_here"
+}
+\`\`\`
+
+### Using the Token
+
+Include the token in the Authorization header:
+
+\`\`\`
+Authorization: Bearer YOUR_TOKEN
+\`\`\`
+
+### Token Expiration
+
+Tokens expire after 1 hour. Use the refresh token to get a new access token:
+
+**Endpoint:** `POST /api/v1/auth/refresh`
+
+**Request:**
+\`\`\`json
+{
+  "refreshToken": "refresh_token_here"
+}
+\`\`\`
+```
 
 ## Best Practices
 
-### Writing Effective Descriptions
-- Use clear, concise language
-- Explain purpose and behavior
-- Document side effects
-- Specify business context
-- Include usage examples
-- Define business terminology
+### ✅ Do This
 
-### Parameter Documentation
-- Specify data types and constraints
-- Indicate required vs optional
-- Document default values
-- Explain validation rules
-- Include example values
-- Describe inter-parameter relationships
+- **Be Consistent** - Use the same format for all endpoints
+- **Include Examples** - Provide working code examples in multiple languages
+- **Document Errors** - List all possible error codes and their meanings
+- **Show Real Data** - Use realistic example data, not "foo" and "bar"
+- **Explain Parameters** - Describe what each parameter does and its constraints
+- **Version Your API** - Include version numbers in URLs (/api/v1/)
+- **Add Timestamps** - Show when documentation was last updated
+- **Link Related Endpoints** - Help users discover related functionality
+- **Include Rate Limits** - Document any rate limiting policies
+- **Provide Postman Collection** - Make it easy to test your API
 
-### Response Documentation
-- Detail all possible status codes
-- Document error response formats
-- Specify success and failure cases
-- Include example payloads
-- Explain response headers
-- Describe pagination patterns
+### ❌ Don't Do This
 
-### Security Documentation
-- Document authentication requirements
-- Explain authorization scopes
-- Specify rate limiting policies
-- Detail security headers
-- Provide security best practices
+- **Don't Skip Error Cases** - Users need to know what can go wrong
+- **Don't Use Vague Descriptions** - "Gets data" is not helpful
+- **Don't Forget Authentication** - Always document auth requirements
+- **Don't Ignore Edge Cases** - Document pagination, filtering, sorting
+- **Don't Leave Examples Broken** - Test all code examples
+- **Don't Use Outdated Info** - Keep documentation in sync with code
+- **Don't Overcomplicate** - Keep it simple and scannable
+- **Don't Forget Response Headers** - Document important headers
 
-## Generation Process
+## Documentation Structure
 
-### 1. API Discovery
-- Scan source code for API endpoints
-- Extract route definitions and HTTP methods
-- Identify API framework and patterns
-- Map endpoint relationships
+### Recommended Sections
 
-### 2. Schema Analysis
-- Analyze request/response structures
-- Infer data types and validation rules
-- Extract example values
-- Map relationships between entities
+1. **Introduction**
+   - What the API does
+   - Base URL
+   - API version
+   - Support contact
 
-### 3. Security Mapping
-- Identify authentication methods
-- Map authorization requirements
-- Document security schemes
-- Extract API key locations
+2. **Authentication**
+   - How to authenticate
+   - Token management
+   - Security best practices
 
-### 4. Specification Creation
-- Generate OpenAPI specification
-- Validate against standards
-- Add descriptions and examples
-- Organize endpoints by tags
-- Include server definitions
+3. **Quick Start**
+   - Simple example to get started
+   - Common use case walkthrough
 
-### 5. Documentation Generation
-- Create human-readable documentation
-- Generate interactive API explorer
-- Produce client SDK documentation
-- Build integration guides
-- Export in multiple formats
+4. **Endpoints**
+   - Organized by resource
+   - Full details for each endpoint
 
-## Quality Assurance
-- Verify all endpoints are documented
-- Check for consistent naming
-- Validate example requests/responses
-- Ensure security schemes are clear
-- Confirm all parameters are documented
-- Test generated documentation usability
-- Validate against OpenAPI specification
+5. **Data Models**
+   - Schema definitions
+   - Field descriptions
+   - Validation rules
 
-## Integration Guides
-- Authentication setup
-- Error handling patterns
-- Rate limiting considerations
-- Common use case examples
-- Troubleshooting tips
-- Migration guides for version changes
-- Performance optimization recommendations
+6. **Error Handling**
+   - Error code reference
+   - Error response format
+   - Troubleshooting guide
 
-## Scripts Available
-- `scripts/generate-openapi.js` - Generate OpenAPI spec from code
-- `scripts/validate-spec.js` - Validate API specification
-- `scripts/export-docs.js` - Export documentation in various formats
-- `scripts/check-completeness.js` - Verify documentation completeness
-- `scripts/analyze-endpoints.js` - Deep endpoint analysis
-- `scripts/extract-schemas.js` - Extract and document data schemas
-- `scripts/generate-sdk-docs.js` - Generate client SDK documentation
+7. **Rate Limiting**
+   - Limits and quotas
+   - Headers to check
+   - Handling rate limit errors
 
-## References
-- `references/openapi-specification.md` - Complete OpenAPI specification guidelines and best practices
-- `references/documentation-best-practices.md` - API documentation best practices and writing guidelines
-- `references/framework-patterns.md` - Framework-specific API patterns and conventions
-- `references/security-schemes.md` - Comprehensive security scheme documentation
-- `references/error-handling.md` - API error handling patterns and documentation
+8. **Changelog**
+   - API version history
+   - Breaking changes
+   - Deprecation notices
+
+9. **SDKs and Tools**
+   - Official client libraries
+   - Postman collection
+   - OpenAPI specification
+
+## Common Pitfalls
+
+### Problem: Documentation Gets Out of Sync
+**Symptoms:** Examples don't work, parameters are wrong, endpoints return different data
+**Solution:** 
+- Generate docs from code comments/annotations
+- Use tools like Swagger/OpenAPI
+- Add API tests that validate documentation
+- Review docs with every API change
+
+### Problem: Missing Error Documentation
+**Symptoms:** Users don't know how to handle errors, support tickets increase
+**Solution:**
+- Document every possible error code
+- Provide clear error messages
+- Include troubleshooting steps
+- Show example error responses
+
+### Problem: Examples Don't Work
+**Symptoms:** Users can't get started, frustration increases
+**Solution:**
+- Test every code example
+- Use real, working endpoints
+- Include complete examples (not fragments)
+- Provide a sandbox environment
+
+### Problem: Unclear Parameter Requirements
+**Symptoms:** Users send invalid requests, validation errors
+**Solution:**
+- Mark required vs optional clearly
+- Document data types and formats
+- Show validation rules
+- Provide example values
+
+## Tools and Formats
+
+### OpenAPI/Swagger
+Generate interactive documentation:
+```yaml
+openapi: 3.0.0
+info:
+  title: My API
+  version: 1.0.0
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+```
+
+### Postman Collection
+Export collection for easy testing:
+```json
+{
+  "info": {
+    "name": "My API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/users"
+      }
+    }
+  ]
+}
+```
+
+## Related Skills
+
+- `@doc-coauthoring` - For collaborative documentation writing
+- `@copywriting` - For clear, user-friendly descriptions
+- `@test-driven-development` - For ensuring API behavior matches docs
+- `@systematic-debugging` - For troubleshooting API issues
+
+## Additional Resources
+
+- [OpenAPI Specification](https://swagger.io/specification/)
+- [REST API Best Practices](https://restfulapi.net/)
+- [GraphQL Documentation](https://graphql.org/learn/)
+- [API Design Patterns](https://www.apiguide.com/)
+- [Postman Documentation](https://learning.postman.com/docs/)
+
+---
+
+**Pro Tip:** Keep your API documentation as close to your code as possible. Use tools that generate docs from code comments to ensure they stay in sync!

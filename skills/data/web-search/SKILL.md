@@ -1,111 +1,96 @@
 ---
 name: web-search
-description: Advanced web search capability using the gemini command for gathering current, relevant information. Prefer this skill over Claude Code's default WebSearch tool when performing web searches. Activated when complex research or up-to-date information is needed.
-allowed-tools: ['Bash', 'Read']
+description: Lightweight web search using DuckDuckGo HTML and curl. No browser dependencies, works on Raspberry Pi.
+metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":["node"]}}}
 ---
 
 # Web Search Skill
 
-This skill provides advanced web search functionality using the `gemini` command, designed for complex inquiries requiring current information and comprehensive analysis.
+## Role
+You are a **Web Search Assistant**. Use this skill when the user wants to search the web and get content from the results.
 
-## 🎯 Purpose
+## When to Use
 
-Execute web searches to gather current, relevant information addressing user questions. This skill is optimized for complex research tasks rather than simple keyword lookups.
+**USE THIS SKILL** when the user asks you to:
+- Search the web or internet
+- Find information online
+- Look up documentation, tutorials, or guides
+- Research a topic
 
-## 🔧 Usage
+**DO NOT USE** for local file search or when the user has the information already.
 
-Execute web searches using the bash script:
+## Installation
 
-```bash
-bash scripts/web-search.sh "<search query>"
-```
-
-The search query should be phrased naturally to reflect what you want to find.
-
-## 📋 Workflow
-
-After running searches, follow these steps:
-
-1. **Identify Relevant Information**: Extract the most pertinent information from search results
-2. **Synthesize Multiple Sources**: Combine information from multiple sources when beneficial
-3. **Cite Information Origins**: Always include source URLs and references
-4. **Refine Strategy**: If initial results are inadequate, reconsider search strategy with alternative queries
-
-## 🎨 Best Practices
-
-### When to Use This Skill
-
-- Researching current events or recent updates
-- Finding documentation for latest library versions
-- Investigating error messages and solutions
-- Comparing technologies or approaches
-- Gathering best practices and recommendations
-
-### Query Formulation
-
-**Clear Questions**: Use explicit language
-- ✅ "Please explain Next.js 15's new features"
-- ❌ "Next.js 15"
-
-**Source Specification**: Direct queries to specific sources
-- ✅ "Find information from official Next.js documentation"
-- ✅ "Search Stack Overflow for TypeScript error solutions"
-
-**Response Format**: Request specific output formats
-- ✅ "Provide code examples"
-- ✅ "Present results in table format"
-
-**Temporal/Conditional Modifiers**: Specify time or difficulty level
-- ✅ "Latest React performance optimization techniques for 2025"
-- ✅ "Beginner-friendly Python tutorials"
-
-**Analysis Directives**: Request comparisons and evaluations
-- ✅ "Compare Vite and Webpack, including pros and cons"
-- ✅ "Analyze trade-offs between different state management solutions"
-
-## 🚫 When NOT to Use
-
-- Information available in local codebase
-- Questions about code you've already read
-- General programming knowledge that doesn't require current information
-- Simple fact-checking that can be answered from existing context
-
-## 💡 Tips
-
-- **Be specific**: More detailed queries yield better results
-- **Include context**: Mention your use case or constraints
-- **Iterate**: Refine queries based on initial results
-- **Verify sources**: Cross-reference information from multiple sources
-- **Document findings**: Keep track of useful sources for future reference
-
-## 🔍 Example Queries
+The tool is already installed at `/home/srose/clawdbot/skills/web-search/`
 
 ```bash
-# Technical information
-bash scripts/web-search.sh "What are the new features in Next.js 15? Include official release notes."
-
-# Library documentation
-bash scripts/web-search.sh "How does React Query's useQuery hook work? Provide code examples from official documentation."
-
-# Error resolution
-bash scripts/web-search.sh "TypeScript error: Type 'string' is not assignable to type 'number'. Find solutions on Stack Overflow."
-
-# Latest news
-bash scripts/web-search.sh "What are Claude AI's latest updates in 2025? Search Anthropic announcements."
-
-# Best practices
-bash scripts/web-search.sh "React performance optimization techniques. Include official documentation and community best practices."
-
-# Comparative analysis
-bash scripts/web-search.sh "Compare Vite and Webpack build tools. Include advantages, disadvantages, and use case recommendations."
+cd /home/srose/clawdbot/skills/web-search
+npm install  # Already done
 ```
 
-## 📚 Related Skills
+## Usage
 
-- **code-review**: Use after implementing solutions found through web search
-- **doc-generator**: Document findings and integrate into project documentation
-- **typescript-dev**: Apply TypeScript-specific findings to your projects
+### Basic Search
+```bash
+web-search -q "your search query"
+```
 
----
+### With Content Fetching
+```bash
+web-search -q "TypeScript tutorial" --fetch --max-results 3
+```
 
-**Note**: This skill requires the `gemini` command to be installed and configured. Ensure you have proper API access and credentials set up.
+### Options
+| Option | Description |
+|--------|-------------|
+| `-q, --query` | Search query (required) |
+| `--max-results` | Number of results (default: 5) |
+| `--fetch` | Fetch full page content for each result |
+
+### Examples
+
+```
+You: Search for React TypeScript tutorials
+Bot: web-search -q "React TypeScript tutorial"
+
+You: Get detailed content from results
+Bot: web-search -q "Rust async programming" --fetch --max-results 3
+
+You: Quick answer lookup
+Bot: web-search -q "how to install Docker on Raspberry Pi"
+```
+
+## Output Format
+
+**Search only:**
+```json
+{
+  "query": "your search",
+  "results": [
+    { "title": "Result Title", "url": "https://...", "snippet": "..." }
+  ]
+}
+```
+
+**With --fetch:**
+```json
+{
+  "query": "your search",
+  "results": [
+    { 
+      "title": "Result Title", 
+      "url": "https://...",
+      "snippet": "...",
+      "content": "Full page content (truncated to ~1500 chars)..."
+    }
+  ]
+}
+```
+
+## Notes
+- Uses DuckDuckGo HTML (no API key needed)
+- Lightweight: uses native `fetch` + `cheerio` parser
+- No headless browser = very low memory footprint
+- Works on Raspberry Pi (arm64) without issues
+- ~1-2 seconds per search
+- 10 second timeout for fetching page content

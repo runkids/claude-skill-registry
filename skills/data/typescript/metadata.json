@@ -1,7 +1,7 @@
 {
   "name": "typescript",
-  "repo": "Ven0m0/claude-config",
-  "path": "claude/skills/typescript/SKILL.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-02-01T05:05:00.021896Z"
+  "repo": "pproenca/dot-skills",
+  "path": "skills/.curated/typescript/SKILL.md",
+  "source": "github.com/pproenca/dot-skills",
+  "downloaded_at": "2026-02-02T04:40:39.591664Z"
 }

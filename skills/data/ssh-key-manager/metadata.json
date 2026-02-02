@@ -1,9 +1,7 @@
 {
   "name": "ssh-key-manager",
-  "description": "Ssh Key Manager - Auto-activating skill for DevOps Basics.Triggers on: ssh key manager, ssh key managerPart of the DevOps Basics skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "planned-skills/generated/01-devops-basics/ssh-key-manager/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-02T03:38:07.036202Z"
 }

@@ -1,33 +1,28 @@
 ---
-name: complete-checkpoint
-description: Run after completing significant work — implementing a feature, fixing a bug, refactoring, or any substantial code changes. Proactively ensure code quality before reporting work as done.
+name: gsd:complete-checkpoint
+description: Complete checkpoint and finalize phase
+version: 1.0.0
+triggers: [complete checkpoint, finish checkpoint]
+tools: [Bash, Glob, Grep, Write]
 ---
 
-# Complete Checkpoint
+# GSD Complete Checkpoint
 
-After finishing a significant piece of work, run these checks:
+Completes a checkpoint and finalizes phase progress.
 
-## 1. Lint and Format
+## When to Use
 
-```bash
-uv run ruff check --fix && uv run ruff format
-```
+- When phase is complete
+- At final checkpoint
+- Before moving to next phase
 
-## 2. Run Tests
+## Process
 
-```bash
-uv run pytest -v
-```
+1. Load checkpoint status
+2. Verify all tasks complete
+3. Finalize checkpoint documentation
+4. Prepare for next phase
 
-## One-Liner
+## Success Criteria
 
-```bash
-uv run ruff check --fix && uv run ruff format && uv run pytest -v
-```
-
-## Behavior
-
-1. Run the checks without asking permission
-2. If everything passes: briefly report success, continue with summary
-3. If anything fails: fix the issues, then re-run checks
-4. Don't report work as "done" until checks pass
+Checkpoint completed and phase finalized.

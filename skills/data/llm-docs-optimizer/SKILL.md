@@ -1,7 +1,6 @@
 ---
 name: llm-docs-optimizer
 description: Optimize documentation for AI coding assistants and LLMs. Improves docs for Claude, Copilot, and other AI tools through c7score optimization, llms.txt generation, question-driven restructuring, and automated quality scoring. Use when asked to improve, optimize, or enhance documentation for AI assistants, LLMs, c7score, Context7, or when creating llms.txt files. Also use for documentation quality analysis, README optimization, or ensuring docs follow best practices for LLM retrieval systems.
-version: 1.3.0
 ---
 
 # LLM Docs Optimizer

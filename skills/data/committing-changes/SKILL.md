@@ -1,69 +1,74 @@
 ---
 name: committing-changes
-description: Creates commits following project conventions. Handles Conventional Commits with project-specific scopes, PR title requirements, changesets for releases, and CI validation rules.
+description: Use this skill when committing code changes, creating git commits, staging files for commit, or when the user asks to commit, save changes, or make a commit. Handles conventional commit format, explicit file staging, and commit message crafting.
 ---
 
-# Committing Changes
+## Context
 
-## Steps
+- Current git status: !`git status`
+- Current git diff (staged and unstaged changes): !`git diff HEAD`
+- Recent commit messages (for style reference): !`git log --oneline -10`
+- User-provided message override (optional): $ARGUMENTS
 
-### For Regular Commits
+## Your task
 
-1. Stage changes with `git add`
-2. Commit using Conventional Commits format: `<type>(<scope>): <description>`
-3. If this is a release-worthy change (`feat`, `fix`, `perf`, `docs`), run `pnpm changeset`
+Commit the work from this chat session using best practice conventions.
 
-### For PRs
+### Step 1: Identify Changed Files
 
-1. The **PR title** is what matters - PRs are squash-merged
-2. PR title must follow CC format
-3. Include changeset if release-worthy
+Review the git status output above. Only stage files that were actually modified during this conversation. Do NOT use `git add -A` or `git add .` blindly.
 
-## Reference
+### Step 2: Stage Files Explicitly
 
-### Scopes
-
-Package name minus `@kitz/` prefix. Comma-separate for multiple packages. Omit for repo-level.
-
-```
-feat(core): add new utility          # @kitz/core
-fix(core, arr): update shared type   # Multiple packages
-ci: add Vercel Remote Cache          # Repo-level (no scope)
+Add only the specific files that changed:
+```bash
+git add path/to/file1 path/to/file2
 ```
 
-### Types
+### Step 3: Craft the Commit Message
 
-| Type | Description | Version Bump |
-|------|-------------|--------------|
-| `feat` | New feature | Minor |
-| `fix` | Bug fix | Patch |
-| `docs` | Documentation | Patch |
-| `perf` | Performance improvement | Patch |
-| `style` | Formatting, whitespace | None |
-| `refactor` | Code change (no behavior change) | None |
-| `test` | Adding/updating tests | None |
-| `build` | Build system, dependencies | None |
-| `ci` | CI configuration | None |
-| `chore` | Other maintenance | None |
-| `chore.docs` | README, guides (not code docs) | None |
+Follow conventional commits format:
+- **feat**: New feature
+- **fix**: Bug fix
+- **refactor**: Code change that neither fixes nor adds
+- **docs**: Documentation only
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks
 
-### Special Rules
+Structure:
+```
+<type>(<scope>): <short description>
 
-**`chore.docs` vs `docs`:**
-- `docs(pkg)`: JSDoc, code comments → Patch release, full CI
-- `chore.docs`: README, guides → No release, CI skipped
+<optional body with details>
+```
 
-**CI Skips:** `ci:` or `chore.docs:` PR titles skip code checks (only format runs)
+Guidelines:
+- Keep the subject line under 72 characters
+- Use imperative mood ("add" not "added")
+- Focus on the "why" not just the "what"
+- Reference any relevant context from the conversation
 
-**Changesets:** Required for `feat`, `fix`, `perf`, `docs(pkg)`. Run `pnpm changeset` to create.
+### Step 4: Create the Commit
 
-### Bypasses (edge cases only)
+If user provided a message override in $ARGUMENTS, use that instead of crafting one.
 
-- `<!-- cc-bypass -->` in PR body: Skip CC validation
-- `<!-- changeset-bypass -->` in PR body: Skip changeset validation
+Use a HEREDOC for proper formatting:
+```bash
+git commit -m "$(cat <<'EOF'
+<type>(<scope>): <description>
 
-## Notes
+<optional body>
+EOF
+)"
+```
 
-- Individual PR commits don't matter - only the PR title affects releases
-- Scopes are for changelogs, not CI filtering (Turborepo uses git diff)
-- Semver rule: `feat` = "new capability", `fix` = "works better"
+### Step 5: Verify Success
+
+After committing, run `git status` to confirm the commit succeeded.
+
+## Important
+
+- Never stage files that weren't part of this session's work
+- Never commit secrets, credentials, or .env files
+- If no changes exist to commit, inform the user instead of creating an empty commit
+- You MUST complete all steps in a single response using parallel tool calls where appropriate

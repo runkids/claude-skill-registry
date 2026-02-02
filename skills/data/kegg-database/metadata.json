@@ -1,7 +1,7 @@
 {
   "name": "kegg-database",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/kegg-database/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:25.990223Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/scientific-skills/skills/kegg-database/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-02-02T04:36:35.208785Z"
 }

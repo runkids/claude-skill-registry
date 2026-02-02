@@ -1,7 +1,7 @@
 {
   "category": "marketing",
-  "count": 455,
-  "updated_at": "2026-02-01T05:09:24.346818Z",
+  "count": 454,
+  "updated_at": "2026-02-02T05:16:13.596444Z",
   "skills": [
     {
       "name": "social-media",
@@ -5782,21 +5782,6 @@
       ],
       "stars": 0,
       "install": "kowalah-dev/kowalah-marketing/.claude/skills/template-creator",
-      "source": "local"
-    },
-    {
-      "name": "template-creator",
-      "description": "Create new ChatGPT Enterprise templates for the Kowalah marketing website following the established content collection schema. Use when the user requests to create a new template resource (policy, eva",
-      "repo": "kowalah-dev/kowalah-marketing",
-      "path": "data/template-creator",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "template",
-        "creator"
-      ],
-      "stars": 0,
-      "install": "kowalah-dev/kowalah-marketing",
       "source": "local"
     },
     {

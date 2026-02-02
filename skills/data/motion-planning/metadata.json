@@ -1,9 +1,7 @@
 {
   "name": "motion-planning",
-  "description": "Generate production-quality Python code for robot motion planning algorithms that run inPyodide (browser). Creates educational code for teaching path planning (A*, RRT), trajectoryoptimization, PID co",
-  "repo": "khanaleema/PhysicalAI-Book",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "a5c-ai/babysitter",
+  "path": "plugins/babysitter/skills/babysit/process/specializations/robotics-simulation/skills/motion-planning/SKILL.md",
+  "source": "github.com/a5c-ai/babysitter",
+  "downloaded_at": "2026-02-02T04:47:53.541426Z"
 }

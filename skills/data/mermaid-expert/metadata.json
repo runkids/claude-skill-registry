@@ -1,7 +1,7 @@
 {
   "name": "mermaid-expert",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/mermaid-expert/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:26.872345Z"
+  "repo": "datamaker-kr/synapse-claude-marketplace",
+  "path": "plugins/platform-dev-team-common/skills/mermaid-expert/SKILL.md",
+  "source": "github.com/datamaker-kr/synapse-claude-marketplace",
+  "downloaded_at": "2026-02-02T03:54:11.842942Z"
 }

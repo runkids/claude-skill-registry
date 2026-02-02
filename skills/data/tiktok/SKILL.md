@@ -1,219 +1,143 @@
 ---
 name: tiktok
-description: Управление TikTok рекламой
+description: Enables Claude to manage TikTok content, engagement, and analytics through browser automation
+version: 1.0.0
+author: Canifi
+category: social
 ---
 
-# TikTok Ads Skill
+# TikTok Skill
 
-Этот skill позволяет управлять рекламными кампаниями TikTok.
+## Overview
+Automates TikTok operations including uploading videos, engaging with content, managing profile, and accessing creator analytics through the web interface.
 
-## Базовый формат вызова
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/{toolName} \
-  -H "Content-Type: application/json" \
-  -d '{...параметры...}'
-```
-
----
-
-## READ Tools (Чтение данных)
-
-### getTikTokCampaigns
-Получить кампании TikTok.
+## Quick Install
 
 ```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokCampaigns \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123", "period": "last_7d", "status": "active"}'
+curl -sSL https://canifi.com/skills/tiktok/install.sh | bash
 ```
 
-### getTikTokCampaignDetails
-Детали кампании.
+Or manually:
+```bash
+cp -r skills/tiktok ~/.canifi/skills/
+```
+
+## Setup
+
+Configure via [canifi-env](https://canifi.com/setup/scripts):
 
 ```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokCampaignDetails \
-  -H "Content-Type: application/json" \
-  -d '{"campaignId": "123"}'
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
+
+canifi-env set TIKTOK_EMAIL "your-email@example.com"
+canifi-env set TIKTOK_PASSWORD "your-password"
 ```
 
-### getTikTokAdGroups
-Получить группы объявлений.
+## Privacy & Authentication
 
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
+
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokAdGroups \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123", "campaignId": "456", "status": "active"}'
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-### getTikTokAds
-Получить объявления.
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
 
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokAds \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123", "adGroupId": "456"}'
+## Capabilities
+- Upload and publish videos
+- Like and comment on videos
+- Follow/unfollow accounts
+- Search users and sounds
+- View analytics and insights
+- Manage video settings
+- Access trending content
+- Handle video descriptions and hashtags
+
+## Usage Examples
+
+### Example 1: Upload Video
+```
+User: "Post this video to TikTok with trending hashtags"
+Claude: I'll upload that TikTok video.
+- Navigate to tiktok.com/upload
+- Upload video file
+- Add description and hashtags
+- Configure visibility settings
+- Publish video
+- Confirm posted successfully
 ```
 
-### getTikTokSpendReport
-Отчёт по расходам.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokSpendReport \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123", "period": "last_7d", "breakdown": "day"}'
+### Example 2: Engage with Content
+```
+User: "Like videos on the For You page"
+Claude: I'll engage with trending content.
+- Navigate to For You page
+- View and like interesting videos
+- Track engagement actions
+- Confirm likes registered
 ```
 
-### getTikTokAccountStatus
-Статус аккаунта.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokAccountStatus \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123"}'
+### Example 3: Check Analytics
+```
+User: "Show me my TikTok video performance this week"
+Claude: I'll pull your analytics.
+- Navigate to Creator Center
+- Access Analytics section
+- Gather video performance data
+- Present views, likes, shares summary
 ```
 
-### getTikTokAdvertiserInfo
-Информация о рекламодателе.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokAdvertiserInfo \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123"}'
+### Example 4: Search Trending Sounds
+```
+User: "Find trending sounds for my next video"
+Claude: I'll find trending sounds.
+- Navigate to sounds search
+- Browse trending audio
+- List popular sounds with usage counts
+- Provide sound links
 ```
 
-### getTikTokDirections
-Направления TikTok.
+## Authentication Flow
+1. Navigate to tiktok.com via Playwright MCP
+2. Click login and select email/password option
+3. Enter credentials from canifi-env
+4. Handle CAPTCHA if presented (notify user)
+5. Complete 2FA if enabled (notify user via iMessage)
+6. Verify feed access
+7. Maintain session cookies
 
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokDirections \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123"}'
-```
+## Error Handling
+- **Login Failed**: Try alternative login methods
+- **Session Expired**: Re-authenticate automatically
+- **CAPTCHA Required**: Notify user to complete manually
+- **2FA Required**: iMessage for verification code
+- **Upload Failed**: Check video format and duration
+- **Rate Limited**: Wait before continuing actions
+- **Content Removed**: Check community guidelines
+- **Account Restricted**: Notify user of status
 
-### getTikTokDirectionCreatives
-Креативы направления.
+## Self-Improvement Instructions
+When encountering new TikTok features:
+1. Document new UI elements
+2. Add support for new video features
+3. Log successful upload patterns
+4. Update for Creator Center changes
 
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokDirectionCreatives \
-  -H "Content-Type: application/json" \
-  -d '{"directionId": "123"}'
-```
-
-### getTikTokDirectionInsights
-Инсайты направления.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/getTikTokDirectionInsights \
-  -H "Content-Type: application/json" \
-  -d '{"directionId": "123", "period": "last_7d"}'
-```
-
----
-
-## WRITE Tools (Изменение данных)
-
-**ВАЖНО**: Перед выполнением WRITE операций запроси подтверждение!
-
-### pauseTikTokCampaign
-Поставить кампанию на паузу.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/pauseTikTokCampaign \
-  -H "Content-Type: application/json" \
-  -d '{"campaignId": "123", "reason": "Budget optimization"}'
-```
-
-### resumeTikTokCampaign
-Возобновить кампанию.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/resumeTikTokCampaign \
-  -H "Content-Type: application/json" \
-  -d '{"campaignId": "123"}'
-```
-
-### pauseTikTokAdGroup
-Поставить группу на паузу.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/pauseTikTokAdGroup \
-  -H "Content-Type: application/json" \
-  -d '{"adGroupId": "123", "reason": "High CPA"}'
-```
-
-### resumeTikTokAdGroup
-Возобновить группу.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/resumeTikTokAdGroup \
-  -H "Content-Type: application/json" \
-  -d '{"adGroupId": "123"}'
-```
-
-### updateTikTokAdGroupBudget
-Изменить бюджет группы.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/updateTikTokAdGroupBudget \
-  -H "Content-Type: application/json" \
-  -d '{"adGroupId": "123", "dailyBudget": 5000}'
-```
-
-### pauseTikTokAd
-Поставить объявление на паузу.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/pauseTikTokAd \
-  -H "Content-Type: application/json" \
-  -d '{"adId": "123", "reason": "Low CTR"}'
-```
-
-### resumeTikTokAd
-Возобновить объявление.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/resumeTikTokAd \
-  -H "Content-Type: application/json" \
-  -d '{"adId": "123"}'
-```
-
-### uploadTikTokVideo
-Загрузить видео.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/uploadTikTokVideo \
-  -H "Content-Type: application/json" \
-  -d '{"advertiserId": "123", "videoUrl": "https://...", "filename": "creative.mp4"}'
-```
-
----
-
-## Сравнение с Facebook
-
-### compareTikTokWithFacebook
-Сравнить метрики TikTok и Facebook.
-
-```bash
-curl -s -X POST http://agent-brain:7080/brain/tools/compareTikTokWithFacebook \
-  -H "Content-Type: application/json" \
-  -d '{
-    "tiktokAdvertiserId": "123",
-    "facebookAdAccountId": "act_456",
-    "period": "last_7d"
-  }'
-```
-
----
-
-## Примеры использования
-
-### Анализ TikTok кампаний
-1. Получи кампании: `getTikTokCampaigns`
-2. Сравни с Facebook: `compareTikTokWithFacebook`
-3. Оптимизируй бюджеты
-
-### Оптимизация
-1. Получи группы: `getTikTokAdGroups`
-2. Найди с высоким CPA
-3. Поставь на паузу: `pauseTikTokAdGroup`
+## Notes
+- TikTok web has limited features vs app
+- Video length limits vary by account
+- Sounds library differs by region
+- Creator Fund requires eligibility
+- Algorithm favors consistent posting
+- Duet/Stitch features in app only
+- Live streaming requires followers threshold

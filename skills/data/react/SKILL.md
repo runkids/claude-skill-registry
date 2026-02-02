@@ -1,476 +1,73 @@
 ---
 name: react
-description: Core React 19 patterns including hooks, Suspense, lazy loading, component structure, TypeScript best practices, and performance optimization. Use when working with React components, hooks, lazy loading, Suspense boundaries, or React-specific TypeScript patterns.
+description: React 19 performance optimization guidelines for concurrent rendering, Server Components, actions, hooks, and memoization (formerly react-19). This skill should be used when writing React 19 components, using concurrent features, or optimizing re-renders. This skill does NOT cover Next.js-specific features like App Router, next.config.js, or Next.js caching (use nextjs-16-app-router skill). For client-side form validation with React Hook Form, use react-hook-form skill.
 ---
 
-# React Core Patterns
-
-## Purpose
-
-Essential React 19 patterns for building modern applications with hooks, Suspense, lazy loading, and TypeScript.
-
-**Note**: React 19 (released December 2024) breaking changes:
-- `forwardRef` no longer needed - pass `ref` as a prop directly
-- `propTypes` removed (silently ignored)
-- New JSX transform required
-- `React.FC` type discouraged - use direct function components instead
-
-## When to Use This Skill
-
-- Creating React components
-- Using React hooks (useState, useEffect, useCallback, useMemo)
-- Implementing lazy loading and code splitting
-- Working with Suspense boundaries
-- React-specific TypeScript patterns
-- Performance optimization with React
-
----
-
-## Quick Start
-
-### Component Structure Template
-
-```typescript
-import { useState, useCallback } from 'react';
-
-interface Props {
-  userId: string;
-  onUpdate?: (data: UserData) => void;
-}
-
-interface UserData {
-  name: string;
-  email: string;
-}
-
-function UserProfile({ userId, onUpdate }: Props) {
-  const [data, setData] = useState<UserData | null>(null);
-
-  const handleUpdate = useCallback((newData: UserData) => {
-    setData(newData);
-    onUpdate?.(newData);
-  }, [onUpdate]);
-
-  return (
-    <div>
-      {/* Component content */}
-    </div>
-  );
-}
-
-export default UserProfile;
-```
-
-### Component Checklist
-
-Creating a React component? Follow this:
-
-- [ ] Use function components with typed props (not `React.FC`)
-- [ ] Define interfaces for Props and local state
-- [ ] Use `useCallback` for event handlers passed to children
-- [ ] Use `useMemo` for expensive computations
-- [ ] Lazy load if heavy component: `lazy(() => import())`
-- [ ] Wrap lazy components in `<Suspense>` with fallback
-- [ ] Default export at bottom
-- [ ] No conditional hooks (hooks must be called in same order)
-- [ ] Pass `ref` as a prop (no `forwardRef` needed in React 19)
-
----
-
-## Core Hooks Patterns
-
-### useState
-
-```typescript
-// Simple state
-const [count, setCount] = useState<number>(0);
-
-// Object state
-const [user, setUser] = useState<User | null>(null);
-
-// Array state
-const [items, setItems] = useState<Item[]>([]);
-
-// Functional updates when depending on previous state
-setCount(prev => prev + 1);
-setItems(prev => [...prev, newItem]);
-```
-
-### useCallback
-
-```typescript
-// Wrap functions passed to child components
-const handleClick = useCallback((id: string) => {
-  console.log('Clicked:', id);
-}, []); // Empty deps if no dependencies
-
-// With dependencies
-const handleUpdate = useCallback((data: FormData) => {
-  apiCall(userId, data);
-}, [userId]); // Re-create when userId changes
-```
-
-### useMemo
-
-```typescript
-// Expensive computation
-const sortedItems = useMemo(() => {
-  return items.sort((a, b) => a.score - b.score);
-}, [items]);
-
-// Derived state
-const totalPrice = useMemo(() => {
-  return cart.reduce((sum, item) => sum + item.price, 0);
-}, [cart]);
-```
-
-### useEffect
-
-```typescript
-// Run once on mount
-useEffect(() => {
-  fetchData();
-}, []);
-
-// Run when dependency changes
-useEffect(() => {
-  if (userId) {
-    loadUserData(userId);
-  }
-}, [userId]);
-
-// Cleanup
-useEffect(() => {
-  const subscription = subscribe(userId);
-  return () => subscription.unsubscribe();
-}, [userId]);
-```
-
----
-
-## Lazy Loading & Code Splitting
-
-### Basic Lazy Loading
-
-```typescript
-import React, { Suspense } from 'react';
-
-// Lazy load heavy component
-const HeavyChart = React.lazy(() => import('./HeavyChart'));
-
-function Dashboard() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <Suspense fallback={<div>Loading chart...</div>}>
-        <HeavyChart />
-      </Suspense>
-    </div>
-  );
-}
-```
-
-### Multiple Lazy Components
-
-```typescript
-const AdminPanel = React.lazy(() => import('./AdminPanel'));
-const UserSettings = React.lazy(() => import('./UserSettings'));
-const Reports = React.lazy(() => import('./Reports'));
-
-function App() {
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Routes>
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/settings" element={<UserSettings />} />
-        <Route path="/reports" element={<Reports />} />
-      </Routes>
-    </Suspense>
-  );
-}
-```
-
-### Feature-Based Code Splitting
-
-```typescript
-// features/auth/index.tsx
-export { default } from './AuthFeature';
-
-// Lazy load entire feature
-const AuthFeature = React.lazy(() => import('~/features/auth'));
-
-<Suspense fallback={<FeatureLoader />}>
-  <AuthFeature />
-</Suspense>
-```
-
----
-
-## Suspense Patterns
-
-### Suspense Boundaries
-
-```typescript
-// Wrap data-fetching components
-<Suspense fallback={<Skeleton />}>
-  <UserProfile userId={id} />
-</Suspense>
-
-// Nested Suspense for granular loading
-<Suspense fallback={<PageLoader />}>
-  <Header />
-  <Suspense fallback={<ContentSkeleton />}>
-    <MainContent />
-  </Suspense>
-  <Footer />
-</Suspense>
-```
-
-### Error Boundaries with Suspense
-
-```typescript
-import { ErrorBoundary } from 'react-error-boundary';
-
-<ErrorBoundary fallback={<ErrorFallback />}>
-  <Suspense fallback={<Loading />}>
-    <DataComponent />
-  </Suspense>
-</ErrorBoundary>
-```
-
----
-
-## TypeScript Patterns
-
-### Component Props
-
-```typescript
-// Basic props
-interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  disabled?: boolean;
-}
-
-// Props with children
-interface CardProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-// Props with specific child types
-interface ListProps {
-  children: React.ReactElement<ItemProps> | React.ReactElement<ItemProps>[];
-}
-
-// Props with event handlers
-interface FormProps {
-  onSubmit: (data: FormData) => void;
-  onChange?: (field: string, value: unknown) => void;
-}
-```
-
-### Hooks TypeScript
-
-```typescript
-// useState with type
-const [user, setUser] = useState<User | null>(null);
-const [items, setItems] = useState<Item[]>([]);
-
-// useRef with type
-const inputRef = useRef<HTMLInputElement>(null);
-const timerRef = useRef<number | null>(null);
-
-// Custom hook with return type
-function useUser(id: string): { user: User | null; loading: boolean } {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // ... implementation
-
-  return { user, loading };
-}
-```
-
----
-
-## Performance Optimization
-
-### React.memo
-
-```typescript
-// Memoize component to prevent unnecessary re-renders
-const UserCard = React.memo<UserCardProps>(({ user, onUpdate }) => {
-  return (
-    <div>
-      <h3>{user.name}</h3>
-      <button onClick={() => onUpdate(user.id)}>Update</button>
-    </div>
-  );
-});
-
-// Custom comparison function
-const UserCard = React.memo(UserCardComponent, (prevProps, nextProps) => {
-  return prevProps.user.id === nextProps.user.id;
-});
-```
-
-### Avoiding Re-renders
-
-```typescript
-// ❌ Bad: Creates new function on every render
-function Parent() {
-  return <Child onClick={() => console.log('clicked')} />;
-}
-
-// ✅ Good: Stable function reference
-function Parent() {
-  const handleClick = useCallback(() => {
-    console.log('clicked');
-  }, []);
-
-  return <Child onClick={handleClick} />;
-}
-```
-
----
-
-## Common Patterns
-
-### Conditional Rendering
-
-```typescript
-// Ternary operator
-{isLoading ? <Spinner /> : <Content />}
-
-// Logical AND
-{error && <ErrorMessage error={error} />}
-
-// Nullish coalescing
-{user ?? <GuestView />}
-
-// Early return for loading states
-function Component() {
-  const { data } = useSomeHook();
-
-  // ❌ Avoid early returns for loading - breaks hooks rules
-  // Use Suspense instead
-
-  return <div>{data.map(...)}</div>;
-}
-```
-
-### Lists and Keys
-
-```typescript
-// Always use stable keys
-{items.map(item => (
-  <ItemCard key={item.id} item={item} />
-))}
-
-// Never use index as key if list can reorder
-// ❌ Bad
-{items.map((item, index) => (
-  <ItemCard key={index} item={item} />
-))}
-```
-
----
-
-## File Organization
-
-### Feature-Based Structure
-
-```
-src/
-├── features/
-│   ├── auth/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── types/
-│   │   └── index.tsx
-│   └── posts/
-│       ├── components/
-│       ├── hooks/
-│       ├── types/
-│       └── index.tsx
-├── components/  # Shared components
-├── hooks/       # Shared hooks
-└── types/       # Shared types
-```
-
-### Component Co-location
-
-```
-features/posts/
-├── components/
-│   ├── PostCard.tsx
-│   ├── PostList.tsx
-│   └── PostForm.tsx
-├── hooks/
-│   ├── usePost.ts
-│   └── usePosts.ts
-├── types/
-│   └── post.ts
-└── index.tsx  # Public API
-```
-
----
-
-## Common Mistakes to Avoid
-
-### 1. Conditional Hooks
-
-```typescript
-// ❌ Never do this
-function Component({ condition }) {
-  if (condition) {
-    const [state, setState] = useState(0); // Breaks rules of hooks
-  }
-}
-
-// ✅ Do this
-function Component({ condition }) {
-  const [state, setState] = useState(0);
-  // Use state conditionally, not the hook
-}
-```
-
-### 2. Missing Dependencies
-
-```typescript
-// ❌ Bad: Missing dependency
-useEffect(() => {
-  fetchUser(userId);
-}, []); // userId should be in deps
-
-// ✅ Good: All dependencies listed
-useEffect(() => {
-  fetchUser(userId);
-}, [userId]);
-```
-
-### 3. Mutating State
-
-```typescript
-// ❌ Bad: Mutating state directly
-const handleAdd = () => {
-  items.push(newItem); // Don't mutate
-  setItems(items);
-};
-
-// ✅ Good: Create new array
-const handleAdd = () => {
-  setItems([...items, newItem]);
-};
-```
-
----
-
-## Additional Resources
-
-For more detailed patterns, see:
-- [component-patterns.md](resources/component-patterns.md) - Advanced component patterns
-- [performance.md](resources/performance.md) - Performance optimization techniques
-- [typescript-patterns.md](resources/typescript-patterns.md) - TypeScript best practices
-- [hooks-patterns.md](resources/hooks-patterns.md) - Custom hooks and advanced patterns
+# React 19 Best Practices
+
+Comprehensive performance optimization guide for React 19 applications. Contains 40 rules across 8 categories, prioritized by impact from critical (concurrent rendering, server components) to incremental (component patterns).
+
+## Table of Contents
+
+1. [Concurrent Rendering](references/_sections.md#1-concurrent-rendering) — **CRITICAL**
+   - 1.1 [Avoid Suspense Fallback Thrashing](references/conc-suspense-fallback.md) — HIGH (prevents flickering, smoother UX)
+   - 1.2 [Leverage Automatic Batching for Fewer Renders](references/conc-automatic-batching.md) — HIGH (32% fewer renders in heavy updates)
+   - 1.3 [Use useDeferredValue for Derived Expensive Values](references/conc-use-deferred-value.md) — CRITICAL (prevents jank in derived computations)
+   - 1.4 [Use useTransition for Non-Blocking Updates](references/conc-use-transition.md) — CRITICAL (keeps UI responsive during heavy updates)
+   - 1.5 [Write Concurrent-Safe Components](references/conc-concurrent-safe.md) — MEDIUM-HIGH (prevents bugs in concurrent rendering)
+2. [Server Components](references/_sections.md#2-server-components) — **CRITICAL**
+   - 2.1 [Avoid Client-Only Libraries in Server Components](references/rsc-avoid-client-only-libs.md) — MEDIUM-HIGH (prevents build errors, correct component placement)
+   - 2.2 [Enable Streaming with Nested Suspense](references/rsc-streaming.md) — MEDIUM-HIGH (progressive loading, faster TTFB)
+   - 2.3 [Fetch Data in Server Components](references/rsc-data-fetching-server.md) — CRITICAL (38% less client JS, no client waterfalls)
+   - 2.4 [Minimize Server/Client Boundary Crossings](references/rsc-server-client-boundary.md) — CRITICAL (reduces serialization overhead, smaller bundles)
+   - 2.5 [Pass Only Serializable Props to Client Components](references/rsc-serializable-props.md) — HIGH (prevents runtime errors, ensures correct hydration)
+   - 2.6 [Use Composition to Mix Server and Client Components](references/rsc-composition-pattern.md) — HIGH (maintains server rendering for static content)
+3. [Actions & Forms](references/_sections.md#3-actions-&-forms) — **HIGH**
+   - 3.1 [Use Form Actions Instead of onSubmit](references/form-actions.md) — HIGH (progressive enhancement, simpler code)
+   - 3.2 [Use useActionState for Form State Management](references/form-use-action-state.md) — HIGH (declarative form handling, automatic pending states)
+   - 3.3 [Use useFormStatus for Submit Button State](references/form-use-form-status.md) — MEDIUM-HIGH (proper loading indicators, prevents double submission)
+   - 3.4 [Use useOptimistic for Instant UI Feedback](references/form-use-optimistic.md) — HIGH (instant perceived response, auto-rollback on failure)
+   - 3.5 [Validate Forms on Server with Actions](references/form-validation.md) — MEDIUM (secure validation, consistent error handling)
+4. [Data Fetching](references/_sections.md#4-data-fetching) — **HIGH**
+   - 4.1 [Fetch Data in Parallel with Promise.all](references/data-parallel-fetching.md) — MEDIUM-HIGH (eliminates waterfalls, 2-5× faster)
+   - 4.2 [Use cache() for Request Deduplication](references/data-cache-deduplication.md) — HIGH (eliminates duplicate fetches per render)
+   - 4.3 [Use Error Boundaries with Suspense](references/data-error-boundaries.md) — MEDIUM (graceful error recovery, isolated failures)
+   - 4.4 [Use Suspense for Declarative Loading States](references/data-suspense-data-fetching.md) — HIGH (cleaner code, coordinated loading UI)
+   - 4.5 [Use the use() Hook for Promises in Render](references/data-use-hook.md) — HIGH (cleaner async component code, Suspense integration)
+5. [State Management](references/_sections.md#5-state-management) — **MEDIUM-HIGH**
+   - 5.1 [Calculate Derived Values During Render](references/rstate-derived-values.md) — MEDIUM (eliminates sync bugs, simpler code)
+   - 5.2 [Split Context to Prevent Unnecessary Re-renders](references/rstate-context-optimization.md) — MEDIUM (reduces re-renders from context changes)
+   - 5.3 [Use Functional State Updates for Derived Values](references/rstate-functional-updates.md) — MEDIUM-HIGH (prevents stale closures, stable callbacks)
+   - 5.4 [Use Lazy Initialization for Expensive Initial State](references/rstate-lazy-initialization.md) — MEDIUM-HIGH (prevents expensive computation on every render)
+   - 5.5 [Use useReducer for Complex State Logic](references/rstate-use-reducer.md) — MEDIUM (clearer state transitions, easier testing)
+6. [Memoization & Performance](references/_sections.md#6-memoization-&-performance) — **MEDIUM**
+   - 6.1 [Avoid Premature Memoization](references/memo-avoid-premature.md) — MEDIUM (memoization has overhead, measure first)
+   - 6.2 [Leverage React Compiler for Automatic Memoization](references/memo-compiler.md) — MEDIUM (automatic optimization, less manual code)
+   - 6.3 [Use React.memo for Expensive Pure Components](references/memo-react-memo.md) — MEDIUM (skips re-render when props unchanged)
+   - 6.4 [Use useCallback for Stable Function References](references/memo-use-callback.md) — MEDIUM (prevents child re-renders from reference changes)
+   - 6.5 [Use useMemo for Expensive Calculations](references/memo-use-memo.md) — MEDIUM (skips expensive recalculation on re-renders)
+7. [Effects & Events](references/_sections.md#7-effects-&-events) — **MEDIUM**
+   - 7.1 [Always Clean Up Effect Side Effects](references/effect-cleanup.md) — MEDIUM (prevents memory leaks, stale callbacks)
+   - 7.2 [Avoid Effects for Derived State and User Events](references/effect-avoid-unnecessary.md) — MEDIUM (eliminates sync bugs, simpler code)
+   - 7.3 [Avoid Object and Array Dependencies in Effects](references/effect-object-dependencies.md) — MEDIUM (prevents infinite loops, unnecessary re-runs)
+   - 7.4 [Use useEffectEvent for Non-Reactive Logic](references/effect-use-effect-event.md) — MEDIUM (separates reactive from non-reactive code)
+   - 7.5 [Use useSyncExternalStore for External Subscriptions](references/effect-use-sync-external-store.md) — MEDIUM (correct subscription handling, SSR compatible)
+8. [Component Patterns](references/_sections.md#8-component-patterns) — **LOW-MEDIUM**
+   - 8.1 [Choose Controlled vs Uncontrolled Appropriately](references/rcomp-controlled-components.md) — LOW-MEDIUM (correct data flow, proper form handling)
+   - 8.2 [Prefer Composition Over Props Explosion](references/rcomp-composition.md) — LOW-MEDIUM (more flexible, reusable components)
+   - 8.3 [Use Key to Reset Component State](references/rcomp-key-reset.md) — LOW-MEDIUM (correct state isolation, proper resets)
+   - 8.4 [Use Render Props for Inversion of Control](references/rcomp-render-props.md) — LOW-MEDIUM (flexible rendering, shared logic)
+
+## References
+
+1. [https://react.dev](https://react.dev)
+2. [https://react.dev/blog/2024/12/05/react-19](https://react.dev/blog/2024/12/05/react-19)
+3. [https://react.dev/blog/2025/10/01/react-19-2](https://react.dev/blog/2025/10/01/react-19-2)
+4. [https://react.dev/learn/you-might-not-need-an-effect](https://react.dev/learn/you-might-not-need-an-effect)
+5. [https://github.com/facebook/react](https://github.com/facebook/react)
+
+## Related Skills
+
+- For Next.js 16 App Router, see `nextjs-16-app-router` skill
+- For client-side form handling, see `react-hook-form` skill
+- For data caching with TanStack Query, see `tanstack-query` skill

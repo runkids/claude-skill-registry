@@ -1,7 +1,7 @@
 {
   "name": "openai-knowledge",
-  "repo": "openai/openai-agents-python",
-  "path": ".codex/skills/openai-knowledge/SKILL.md",
-  "source": "github.com/openai/openai-agents-python",
-  "downloaded_at": "2026-02-01T02:59:35.057261Z"
+  "repo": "NovaAI-innovation/Infinite-Agency",
+  "path": ".qwen/skills/openai-knowledge/SKILL.md",
+  "source": "github.com/NovaAI-innovation/Infinite-Agency",
+  "downloaded_at": "2026-02-02T02:57:57.755143Z"
 }

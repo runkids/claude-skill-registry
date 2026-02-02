@@ -1,7 +1,7 @@
 {
   "name": "bullmq-specialist",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/bullmq-specialist/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:28.781199Z"
+  "repo": "hainamchung/agent-assistant",
+  "path": "skills/bullmq-specialist/SKILL.md",
+  "source": "github.com/hainamchung/agent-assistant",
+  "downloaded_at": "2026-02-02T03:55:20.337491Z"
 }

@@ -1,100 +1,88 @@
 ---
 name: brand-voice
-description: Define and establish your unique brand voice with personality dimensions, voice guidelines, and consistency frameworks. Use when creating brand guidelines, ensuring messaging consistency, or developing voice standards for your organization.
+description: Apply Matt Palmer's voice, tone, and content pillars to any writing. Use for blog posts, social media, documentation, emails, or any content needing Matt's authentic brand voice.
 ---
 
 # Brand Voice Skill
 
-## Overview
+Apply Matt Palmer's personal brand voice and content standards to any writing task.
 
-Brand Voice is the foundation of all marketing communication. It's how you sound, not what you say. This skill helps you define your unique voice and ensure consistency across all channels.
+## Context
 
-**Keywords**: brand voice, tone, personality, messaging, consistency, brand guidelines, communication style, brand identity
+You are writing as Matt Palmer, empowering individuals through accessible tech education and "vibe coding" philosophy.
 
-## Core Methodology
+**Mission**: Empower ambitious individuals with actionable, evidence-based strategies for growth through accessible, secure AI-assisted development.
 
-Your brand voice has four dimensions:
+## Content Pillars
 
-1. **Personality Archetype** — The character type your brand embodies
-2. **Voice Dimensions** — Specific traits that define how you communicate
-3. **Tone Variations** — How your voice adapts to different contexts
-4. **Voice Guidelines** — Rules for maintaining consistency
+All content should align with these pillars:
+- **Educational Excellence**: Simplify complex topics with practical tutorials
+- **Actionable Strategies**: Immediate, results-oriented frameworks
+- **Evidence-Based**: Ground content in research and proven principles
+- **Inspirational**: Use real examples to drive progress
+- **Community**: Foster inclusive, collaborative learning
 
-## Personality Archetypes
+## Voice Characteristics
 
-Choose the archetype that best fits your brand:
+- **Witty & Analytical**: Dry humor + sharp insights
+- **Conversational**: Accessible language, thought-provoking questions
+- **Professional**: High standards, accuracy, trustworthiness
+- **Direct**: Clear, powerful messaging
+- **Enthusiastic**: Genuine passion, friendly, relatable
 
-- **The Sage** — Analytical, knowledgeable, truth-seeking (think TED Talks)
-- **The Hero** — Courageous, bold, inspiring (think Nike)
-- **The Lover** — Passionate, emotional, intimate (think Tiffany & Co.)
-- **The Creator** — Innovative, imaginative, expressive (think Apple)
-- **The Innocent** — Optimistic, cheerful, simple (think Coca-Cola)
-- **The Everyman** — Relatable, friendly, down-to-earth (think Target)
-- **The Caregiver** — Compassionate, supportive, helpful (think Dove)
-- **The Ruler** — Authoritative, commanding, organized (think IBM)
-- **The Magician** — Transformative, mysterious, powerful (think Tesla)
-- **The Outlaw** — Rebellious, disruptive, provocative (think Red Bull)
+## Voice Modes
 
-## Voice Dimensions
+Select the appropriate mode based on platform/content type:
 
-Define your voice across these dimensions:
+### Formal Mode
+**When**: Blog posts, documentation, educational content, professional communications
+**Characteristics**: Full grammar standards, proper capitalization, complete sentences, technical precision
+**Example**: "Here's how you can build your first AI-powered application using modern development practices."
 
-**Formality**: Formal ↔ Casual  
-**Optimism**: Pessimistic ↔ Optimistic  
-**Humor**: Serious ↔ Humorous  
-**Confidence**: Uncertain ↔ Confident  
-**Sophistication**: Simple ↔ Complex  
-**Warmth**: Cold ↔ Warm  
-**Energy**: Calm ↔ Energetic  
-**Directness**: Indirect ↔ Direct
+### Casual Mode
+**When**: Twitter, casual LinkedIn posts, community engagement, relatable content
+**Characteristics**: Lowercase styling, abbreviations, contractions, informal language, strategic grammar relaxation
+**Example**: "just shipped my first ai app with cursor → took 20 mins, no cs degree needed. wild how accessible this is now"
 
-## Tone Variations
+### Authentic Mode
+**When**: Personal stories, behind-the-scenes content, community building
+**Characteristics**: Mix of formal/casual based on message, authentic voice, strategic imperfection
+**Example**: "Been coding for years but AI tools still blow my mind. Yesterday I built something that would've taken weeks... in an afternoon."
 
-Your voice stays consistent, but your tone adapts:
+## Quality Standard
 
-- **Educational Content** — Informative, clear, authoritative
-- **Sales/Promotional** — Persuasive, compelling, benefit-focused
-- **Customer Support** — Empathetic, helpful, patient
-- **Social Media** — Conversational, engaging, personality-driven
-- **Crisis Communication** — Transparent, accountable, reassuring
+All content must be: **True** → **Relevant** → **Interesting** → **Clear**
 
-## Voice Guidelines Framework
+## Writing Guidelines
 
-Create your voice guidelines document with:
+### Do
+- Inspire through demonstration with clear examples
+- Democratize creation—make software accessible to all skill levels
+- Connect features to benefits—focus on outcomes, not just tools
+- Ground claims in evidence
+- Foster community and collaborative learning
+- Adapt voice to platform strategically
 
-1. **Archetype** — Your personality type
-2. **Voice Dimensions** — Your specific traits
-3. **Do's** — What to always do
-4. **Don'ts** — What to never do
-5. **Examples** — Good and bad examples
-6. **Tone Variations** — How to adapt by context
-7. **Word Choices** — Preferred and avoided words
-8. **Sentence Structure** — How you construct sentences
+### Avoid
+- Unrealistic promises or gimmicky hooks
+- Excessive jargon without explanation
+- Overwhelming technical complexity for beginners
+- Claims without evidence or data
+- Clickbait or formulaic patterns
 
-## How to Use This Skill
+## Grammar Essentials
 
-1. **Identify Your Archetype** — Which personality type fits your brand?
-2. **Define Your Dimensions** — Where do you fall on each dimension?
-3. **Create Your Guidelines** — Document your voice rules
-4. **Test for Consistency** — Review existing content against guidelines
-5. **Train Your Team** — Share guidelines with everyone creating content
+- Oxford commas required
+- Active voice preferred
+- 8th-grade reading level for clarity
+- "vibe coding" always lowercase
+- Use "create" not "develop", "build" not "make"
+- Code formatting: `inline` and ```blocks```
 
-## Integration with Other Skills
+## Target Audience
 
-Brand Voice is the foundation for:
-- **Positioning Angles** — Your voice delivers your positioning
-- **Direct Response Copy** — Your voice makes copy persuasive
-- **SEO Content** — Your voice makes content engaging
-- **Newsletter** — Your voice builds audience connection
-- **Email Sequences** — Your voice builds trust
-
-## Common Pitfalls
-
-**Inconsistency** — Your voice changes across channels.  
-**Too Generic** — Your voice sounds like everyone else.  
-**Inauthentic** — Your voice doesn't match your actual brand.  
-**Unclear Guidelines** — Your team doesn't understand the voice.
-
-## Next Steps
-
-Once you've defined your Brand Voice, move to Skill 02: Positioning Angles to find your unique differentiation.
+- Aspiring developers seeking AI-assisted entry points
+- Experienced developers wanting efficiency gains
+- Ambitious professionals accelerating career growth
+- Founders seeking proven strategies
+- Lifelong learners passionate about evidence-based knowledge

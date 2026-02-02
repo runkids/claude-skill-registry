@@ -1,218 +1,176 @@
 ---
 name: code-quality
-description: Maintain Python code quality using Black formatting, Ruff linting, and mypy type checking. Use when formatting code, running linters, fixing style issues, or adding type hints.
+description: "Code quality improvement: review, refactoring, debugging. Phases: review feedback, systematic refactoring, root cause debugging, verification. Capabilities: SOLID/DRY compliance, code smell detection, complexity reduction, bug investigation, verification gates. Actions: review, refactor, debug, verify, validate code. Keywords: code review, refactor, debug, SOLID, DRY, code smell, bug fix, root cause, verification, technical debt, extract method, test failure, completion claim. Use when: reviewing code changes, improving code quality, fixing bugs, reducing technical debt, validating before merge/commit."
 ---
 
-# Code Quality Skill
+# Code Quality
 
-## When to Activate
+Systematic code improvement through review, refactoring, and debugging with verification gates.
 
-Activate this skill when:
-- Formatting Python code
-- Running linters
-- Adding type annotations
-- Fixing code style issues
-- Setting up quality tools
+## Module Selection
 
-## Quick Commands
+| Need | Module | Reference |
+|------|--------|-----------|
+| **Receive Feedback** | Review | `references/code-review-reception.md` |
+| **Request Review** | Review | `references/requesting-code-review.md` |
+| **Verify Before Claim** | Review | `references/verification-before-completion.md` |
+| **Reduce Complexity** | Refactoring | `references/oop-refactoring-catalog.md` |
+| **Functional Patterns** | Refactoring | `references/functional-refactoring-patterns.md` |
+| **Find Code Smells** | Refactoring | `references/code-smells-reference.md` |
+| **Test Strategies** | Refactoring | `references/testing-strategies.md` |
+| **Investigate Bugs** | Debugging | `references/systematic-debugging.md` |
+| **Trace Root Cause** | Debugging | `references/root-cause-tracing.md` |
+| **Add Validation** | Debugging | `references/defense-in-depth.md` |
+| **Verify Fix** | Debugging | `references/verification.md` |
 
-```bash
-# Format with Black
-uv run black .
-uv run black --check .  # Dry run
+---
 
-# Lint with Ruff
-uv run ruff check .
-uv run ruff check --fix .  # Auto-fix
+## Core Principles
 
-# Type check with mypy
-uv run mypy .
+**YAGNI, KISS, DRY** - Always honor these.
 
-# All checks
-uv run black . && uv run ruff check . && uv run mypy .
+**Be honest, be brutal, straight to the point, and be concise.**
+
+**Technical correctness over social comfort.** Verify before implementing. Ask before assuming. Evidence before claims.
+
+---
+
+## Code Review
+
+### Receiving Feedback
+
+**Pattern:** READ → UNDERSTAND → VERIFY → EVALUATE → RESPOND → IMPLEMENT
+
+**Rules:**
+- ❌ No performative agreement ("You're right!", "Great point!")
+- ❌ No implementation before verification
+- ✅ Restate requirement, ask questions, push back with reasoning
+- ✅ YAGNI check: grep for usage before implementing suggestions
+
+**Sources:**
+- Human partner → Implement after understanding
+- External reviewer → Verify technically before implementing
+
+### Requesting Review
+
+**When:** After major features, before merge, after complex fixes
+
+**Process:**
+1. Get SHAs: `BASE_SHA=$(git rev-parse HEAD~1)`, `HEAD_SHA=$(git rev-parse HEAD)`
+2. Dispatch code-reviewer subagent with: WHAT, PLAN, SHAs, DESCRIPTION
+3. Fix Critical immediately, Important before proceeding, note Minor
+
+### Verification Gates
+
+**Iron Law:** NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+
+**Gate:** IDENTIFY → RUN → READ → VERIFY → THEN claim
+
+Skip any step = lying, not verifying.
+
+---
+
+## Refactoring
+
+### Mindset
+
+Simplify relentlessly. Preserve behavior religiously. Measure everything.
+
+Every refactoring: small and safe, tested immediately, measurably better.
+
+### Protocol
+
+1. **Assessment** - Baseline metrics, identify smells, classify debt
+2. **Safety Net** - Verify test coverage, add characterization tests
+3. **Red-Green-Refactor** - Write failing test, minimal pass, improve design
+4. **Pattern Application** - SOLID, design patterns, functional transforms
+5. **Validation** - Measure improvements, verify behavior preserved
+
+### Code Smells (5 Categories)
+
+1. **Bloaters:** Long Method, Large Class, Long Parameter List
+2. **OO Abusers:** Switch Statements, Temporary Field
+3. **Change Preventers:** Divergent Change, Shotgun Surgery
+4. **Dispensables:** Duplicate Code, Dead Code, Lazy Class
+5. **Couplers:** Feature Envy, Inappropriate Intimacy
+
+### Quick Patterns
+
+**OOP:** Extract Method, Inline, Replace Temp with Query, Guard Clauses
+**Functional:** Map/Filter/Reduce, Pure Functions, Composition, Immutability
+
+---
+
+## Debugging
+
+### Core Principle
+
+**NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST**
+
+Random fixes waste time and create new bugs.
+
+### The Four Techniques
+
+**1. Systematic Debugging** (`references/systematic-debugging.md`)
+- Phase 1: Root Cause Investigation
+- Phase 2: Pattern Analysis
+- Phase 3: Hypothesis Testing
+- Phase 4: Implementation
+
+**2. Root Cause Tracing** (`references/root-cause-tracing.md`)
+Trace backward through call stack to find original trigger.
+
+**3. Defense-in-Depth** (`references/defense-in-depth.md`)
+Validate at every layer: Entry → Business logic → Environment → Debug
+
+**4. Verification** (`references/verification.md`)
+Run command. Read output. Then claim result.
+
+### Quick Reference
+
+```
+Bug → systematic-debugging.md (Phase 1-4)
+  Error deep in stack? → root-cause-tracing.md
+  Found root cause? → defense-in-depth.md
+  About to claim success? → verification.md
 ```
 
-## Tool Overview
+### Red Flags
 
-| Tool | Purpose | Speed | Auto-fix |
-|------|---------|-------|----------|
-| **Black** | Code formatting | Fast | Yes |
-| **Ruff** | Linting & imports | Very Fast | Most rules |
-| **mypy** | Type checking | Moderate | No |
+Stop if thinking:
+- "Quick fix for now, investigate later"
+- "Just try changing X and see"
+- "It's probably X, let me fix that"
+- "Should work now" / "Seems fixed"
 
-## Installation
+---
 
-```bash
-uv add --dev black ruff mypy
-```
+## References
 
-## Black - Code Formatting
+### Code Review
+- `references/code-review-reception.md` - Response protocols
+- `references/requesting-code-review.md` - Request process
+- `references/verification-before-completion.md` - Verification gates
 
-Zero-config formatting with consistent style.
+### Refactoring
+- `references/oop-refactoring-catalog.md` - Martin Fowler's patterns
+- `references/functional-refactoring-patterns.md` - FP transformations
+- `references/code-smells-reference.md` - 23 smells, 5 categories
+- `references/testing-strategies.md` - Characterization tests, TDD
 
-```bash
-uv run black .                # Format all
-uv run black --check .        # Dry run
-uv run black --diff .         # Show changes
-```
+### Debugging
+- `references/systematic-debugging.md` - Four-phase framework
+- `references/root-cause-tracing.md` - Call stack analysis
+- `references/defense-in-depth.md` - Multi-layer validation
+- `references/verification.md` - Verification protocols
 
-### Configuration
-```toml
-[tool.black]
-line-length = 88
-target-version = ['py311']
-```
+---
 
-## Ruff - Fast Linting
+## Bottom Line
 
-Rust-based linter replacing flake8, isort, pylint, and 50+ tools.
+1. **Review:** Technical rigor over social performance
+2. **Refactor:** Small, safe, tested, measurable
+3. **Debug:** Root cause first, fix once
+4. **Always:** Evidence before claims
 
-```bash
-uv run ruff check .               # Check
-uv run ruff check --fix .         # Auto-fix
-uv run ruff check --show-source . # Show context
-```
-
-### Configuration
-```toml
-[tool.ruff]
-line-length = 88
-target-version = "py311"
-select = ["E", "W", "F", "I", "B", "SIM"]
-ignore = ["E501"]  # Black handles line length
-
-[tool.ruff.per-file-ignores]
-"__init__.py" = ["F401"]
-"tests/*" = ["S101"]
-```
-
-### Common Issues
-- **F401**: Unused import (auto-fixable)
-- **F841**: Unused variable
-- **I001**: Import sorting (auto-fixable)
-- **B008**: Mutable default argument
-
-## mypy - Type Checking
-
-Static type checker for Python.
-
-```python
-def greet(name: str) -> str:
-    return f"Hello, {name}"
-
-greet(123)  # mypy error: incompatible type "int"
-```
-
-### Configuration
-```toml
-[tool.mypy]
-python_version = "3.11"
-warn_return_any = true
-disallow_untyped_defs = false  # Enable gradually
-check_untyped_defs = true
-```
-
-### Common Type Hints
-```python
-from typing import Optional, List, Dict
-
-def find_user(user_id: int) -> Optional[Dict[str, str]]:
-    return database.get(user_id)
-
-def process_items(items: List[str]) -> int:
-    return len(items)
-```
-
-## Unified Configuration
-
-```toml
-# pyproject.toml
-[tool.black]
-line-length = 88
-target-version = ['py311']
-
-[tool.ruff]
-line-length = 88
-target-version = "py311"
-select = ["E", "W", "F", "I", "B", "SIM"]
-
-[tool.mypy]
-python_version = "3.11"
-warn_return_any = true
-```
-
-## Skipping Rules
-
-```python
-import os  # noqa: F401       # Ignore Ruff rule
-
-# fmt: off                     # Disable Black
-matrix = [[1, 2, 3], [4, 5, 6]]
-# fmt: on
-```
-
-## Workflow Best Practices
-
-### Development (before commit)
-```bash
-uv run black . && uv run ruff check --fix . && uv run mypy .
-```
-
-### CI/CD (strict, no auto-fix)
-```bash
-uv run black --check . && uv run ruff check . && uv run mypy --strict .
-```
-
-## Gradual Adoption
-
-1. **Start with Black** - Zero config, immediate benefits
-2. **Add Ruff** - Basic rules first, expand gradually
-3. **Introduce mypy** - Lenient initially, increase strictness
-
-## Code Style Principles
-
-### Clarity Over Cleverness
-```python
-# ❌ Clever but unclear
-result = [x for x in range(10) if x % 2 == 0 if x > 5]
-
-# ✅ Clear and readable
-even_numbers = [x for x in range(10) if x % 2 == 0]
-result = [x for x in even_numbers if x > 5]
-```
-
-### Meaningful Names
-```python
-# ❌ Unclear
-def proc(d, x):
-    return d[x] if x in d else None
-
-# ✅ Clear
-def get_user_by_id(users_dict, user_id):
-    return users_dict.get(user_id)
-```
-
-### Early Returns
-```python
-# ❌ Nested
-def process(amount, user):
-    if amount > 0:
-        if user.has_payment():
-            return charge(user, amount)
-
-# ✅ Early returns
-def process(amount, user):
-    if amount <= 0:
-        return "Invalid amount"
-    if not user.has_payment():
-        return "No payment method"
-    return charge(user, amount)
-```
-
-## Related Resources
-
-See `AgentUsage/code_quality.md` and `AgentUsage/code_style_guide.md` for:
-- IDE integration
-- Pre-commit hook setup
-- Comprehensive style guidelines
-- Error handling patterns
+Verify. Question. Then implement. Evidence. Then claim.

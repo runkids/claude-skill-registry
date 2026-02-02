@@ -125,7 +125,7 @@ Use sub-tasks sparingly - mainly for targeted debugging or exploring unfamiliar 
 
 If the plan was created by `plan-agent`, you may be able to resume it for clarification:
 
-1. Check `.maestro/cache/agents/agent-log.jsonl` for the plan-agent entry
+1. Check `.claude/cache/agents/agent-log.jsonl` for the plan-agent entry
 2. Look for the `agentId` field
 3. To clarify or update the plan:
    ```
@@ -139,7 +139,7 @@ The resumed agent retains its full prior context (research, codebase analysis).
 
 Available agents to resume:
 - `plan-agent` - Created the implementation plan
-- `planner` - Researched best practices
+- `oracle` - Researched best practices
 - `debug-agent` - Investigated issues
 
 ## Resuming Work
@@ -179,7 +179,7 @@ Handoffs persist on disk. If compaction happens, you re-read handoffs and contin
 
 2. **Read the implementation agent skill:**
    ```bash
-   cat .maestro/skills/implement_task/SKILL.md
+   cat .claude/skills/implement_task/SKILL.md
    ```
    This defines how agents should behave.
 
@@ -213,9 +213,9 @@ For each task in the plan:
    ```
    Task(
      subagent_type="general-purpose",
-     model="opus",
+     model="claude-opus-4-5-20251101",
      prompt="""
-     [Paste contents of .maestro/skills/implement_task/SKILL.md here]
+     [Paste contents of .claude/skills/implement_task/SKILL.md here]
 
      ---
 

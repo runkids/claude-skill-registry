@@ -1,7 +1,7 @@
 {
   "name": "testing-infrastructure",
-  "repo": "tidemann/st44-home",
+  "repo": "lsst-sqre/squareone",
   "path": ".claude/skills/testing-infrastructure/SKILL.md",
-  "source": "github.com/tidemann/st44-home",
-  "downloaded_at": "2026-02-01T03:54:03.980760Z"
+  "source": "github.com/lsst-sqre/squareone",
+  "downloaded_at": "2026-02-02T01:21:00.562278Z"
 }

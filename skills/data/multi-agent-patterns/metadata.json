@@ -1,7 +1,7 @@
 {
   "name": "multi-agent-patterns",
-  "repo": "vamseeachanta/workspace-hub",
-  "path": ".claude/skills/_core/agents/multi-agent-patterns/SKILL.md",
-  "source": "github.com/vamseeachanta/workspace-hub",
-  "downloaded_at": "2026-02-01T04:29:56.212874Z"
+  "repo": "illogical/InstructionLibrary",
+  "path": "skills/multi-agent-patterns/SKILL.md",
+  "source": "github.com/illogical/InstructionLibrary",
+  "downloaded_at": "2026-02-02T04:15:00.345921Z"
 }

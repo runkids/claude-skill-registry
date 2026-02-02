@@ -1,7 +1,7 @@
 {
   "name": "media-processing",
-  "repo": "NammDev/Goads-Krea",
-  "path": ".claude/skills/media-processing/SKILL.md",
-  "source": "github.com/NammDev/Goads-Krea",
-  "downloaded_at": "2026-02-01T04:54:03.542716Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/video-creator-workflow/.claude/skills/media-processing/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-02-02T05:10:25.740281Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "bump-plugin-version",
   "repo": "sequenzia/claude-alchemy",
-  "path": "claude-tools/dev-tools/skills/bump-plugin-version/SKILL.md",
+  "path": "plugins/tools/skills/bump-plugin-version/SKILL.md",
   "source": "github.com/sequenzia/claude-alchemy",
-  "downloaded_at": "2026-02-01T01:39:53.620134Z"
+  "downloaded_at": "2026-02-02T04:02:25.645764Z"
 }

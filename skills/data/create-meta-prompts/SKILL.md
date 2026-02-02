@@ -13,7 +13,6 @@ Each prompt gets its own folder in `.prompts/` with its output artifacts, enabli
 
 <quick_start>
 <workflow>
-
 1. **Intake**: Determine purpose (Do/Plan/Research/Refine), gather requirements
 2. **Chain detection**: Check for existing research/plan files to reference
 3. **Generate**: Create prompt using purpose-specific patterns
@@ -21,10 +20,9 @@ Each prompt gets its own folder in `.prompts/` with its output artifacts, enabli
 5. **Present**: Show decision tree for running
 6. **Execute**: Run prompt(s) with dependency-aware execution engine
 7. **Summarize**: Create SUMMARY.md for human scanning
-   </workflow>
+</workflow>
 
 <folder_structure>
-
 ```
 .prompts/
 ├── 001-auth-research/
@@ -48,7 +46,6 @@ Each prompt gets its own folder in `.prompts/` with its output artifacts, enabli
 │   │   └── auth-research-v1.md     # Previous version
 │   └── SUMMARY.md
 ```
-
 </folder_structure>
 </quick_start>
 
@@ -61,7 +58,6 @@ Next prompt number: !`ls -d ./.prompts/*/ 2>/dev/null | wc -l | xargs -I {} expr
 <automated_workflow>
 
 <step_0_intake_gate>
-
 <title>Adaptive Requirements Gathering</title>
 
 <critical_first_action>
@@ -82,11 +78,10 @@ After selection, ask: "Describe what you want to accomplish" (they select "Other
 
 IF context was provided:
 → Check if purpose is inferable from keywords:
-
-- `implement`, `build`, `create`, `fix`, `add`, `refactor` → Do
-- `plan`, `roadmap`, `approach`, `strategy`, `decide`, `phases` → Plan
-- `research`, `understand`, `learn`, `gather`, `analyze`, `explore` → Research
-- `refine`, `improve`, `deepen`, `expand`, `iterate`, `update` → Refine
+  - `implement`, `build`, `create`, `fix`, `add`, `refactor` → Do
+  - `plan`, `roadmap`, `approach`, `strategy`, `decide`, `phases` → Plan
+  - `research`, `understand`, `learn`, `gather`, `analyze`, `explore` → Research
+  - `refine`, `improve`, `deepen`, `expand`, `iterate`, `update` → Refine
 
 → If unclear, ask the Purpose question above as first contextual question
 → If clear, proceed to adaptive_analysis with inferred purpose
@@ -102,7 +97,6 @@ Extract and infer:
 - **Target** (Refine only): Which existing output to improve
 
 If topic identifier not obvious, ask:
-
 - header: "Topic"
 - question: "What topic/feature is this for? (used for file naming)"
 - Let user provide via "Other" option
@@ -115,7 +109,6 @@ For Refine purpose, also identify target output from `.prompts/*/` to improve.
 Scan `.prompts/*/` for existing `*-research.md` and `*-plan.md` files.
 
 If found:
-
 1. List them: "Found existing files: auth-research.md (in 001-auth-research/), stripe-plan.md (in 005-stripe-plan/)"
 2. Use AskUserQuestion:
    - header: "Reference"
@@ -132,12 +125,11 @@ Generate 2-4 questions using AskUserQuestion based on purpose and gaps.
 Load questions from: [references/question-bank.md](references/question-bank.md)
 
 Route by purpose:
-
 - Do → artifact type, scope, approach
 - Plan → plan purpose, format, constraints
 - Research → depth, sources, output format
 - Refine → target selection, feedback, preservation
-  </contextual_questioning>
+</contextual_questioning>
 
 <decision_gate>
 After receiving answers, present decision gate using AskUserQuestion:
@@ -164,11 +156,9 @@ Then proceed to generation.
 </step_0_intake_gate>
 
 <step_1_generate>
-
 <title>Generate Prompt</title>
 
 Load purpose-specific patterns:
-
 - Do: [references/do-patterns.md](references/do-patterns.md)
 - Plan: [references/plan-patterns.md](references/plan-patterns.md)
 - Research: [references/research-patterns.md](references/research-patterns.md)
@@ -188,14 +178,12 @@ All generated prompts include:
 7. **Success criteria**: How to know it worked
 
 For Research and Plan prompts, output must include:
-
 - `<confidence>` - How confident in findings
 - `<dependencies>` - What's needed to proceed
 - `<open_questions>` - What remains uncertain
 - `<assumptions>` - What was assumed
 
 All prompts must create `SUMMARY.md` with:
-
 - **One-liner** - Substantive description of outcome
 - **Version** - v1 or iteration info
 - **Key Findings** - Actionable takeaways
@@ -203,25 +191,22 @@ All prompts must create `SUMMARY.md` with:
 - **Decisions Needed** - What requires user input
 - **Blockers** - External impediments
 - **Next Step** - Concrete forward action
-  </prompt_structure>
+</prompt_structure>
 
 <file_creation>
-
 1. Create folder: `.prompts/{number}-{topic}-{purpose}/`
 2. Create `completed/` subfolder
 3. Write prompt to: `.prompts/{number}-{topic}-{purpose}/{number}-{topic}-{purpose}.md`
 4. Prompt instructs output to: `.prompts/{number}-{topic}-{purpose}/{topic}-{purpose}.md`
-   </file_creation>
-   </step_1_generate>
+</file_creation>
+</step_1_generate>
 
 <step_2_present>
-
 <title>Present Decision Tree</title>
 
 After saving prompt(s), present inline (not AskUserQuestion):
 
 <single_prompt_presentation>
-
 ```
 Prompt created: .prompts/{number}-{topic}-{purpose}/{number}-{topic}-{purpose}.md
 
@@ -234,11 +219,9 @@ What's next?
 
 Choose (1-4): _
 ```
-
 </single_prompt_presentation>
 
 <multi_prompt_presentation>
-
 ```
 Prompts created:
 - .prompts/001-auth-research/001-auth-research.md
@@ -256,12 +239,10 @@ What's next?
 
 Choose (1-4): _
 ```
-
 </multi_prompt_presentation>
 </step_2_present>
 
 <step_3_execute>
-
 <title>Execution Engine</title>
 
 <execution_modes>
@@ -277,7 +258,7 @@ Straightforward execution of one prompt.
 5. Validate output (see validation section)
 6. Archive prompt to `completed/` subfolder
 7. Report results with next-step options
-   </single_prompt>
+</single_prompt>
 
 <sequential_execution>
 For chained prompts where each depends on previous output.
@@ -294,13 +275,11 @@ For chained prompts where each depends on previous output.
 
 <progress_reporting>
 Show progress during execution:
-
 ```
 Executing 1/3: 001-auth-research... ✓
 Executing 2/3: 002-auth-plan... ✓
 Executing 3/3: 003-auth-implement... (running)
 ```
-
 </progress_reporting>
 </sequential_execution>
 
@@ -318,13 +297,12 @@ For independent prompts with no dependencies.
 
 <failure_handling>
 Unlike sequential, parallel continues even if some fail:
-
 - Collect all results
 - Archive successful prompts
 - Report failures with details
 - Offer to retry failed prompts
-  </failure_handling>
-  </parallel_execution>
+</failure_handling>
+</parallel_execution>
 
 <mixed_dependencies>
 For complex DAGs (e.g., two parallel research → one plan).
@@ -360,7 +338,6 @@ Scan prompt contents for @ references to determine dependencies:
 
 <inference_rules>
 If no explicit @ references found, infer from purpose:
-
 - Research prompts: No dependencies (can parallel)
 - Plan prompts: Depend on same-topic research
 - Do prompts: Depend on same-topic plan
@@ -377,8 +354,8 @@ If a prompt references output that doesn't exist:
 3. If truly missing:
    - Warn user: "002-auth-plan references auth-research.md which doesn't exist"
    - Offer: Create the missing research prompt first? / Continue anyway? / Cancel?
-     </missing_dependencies>
-     </dependency_detection>
+</missing_dependencies>
+</dependency_detection>
 
 <validation>
 <output_validation>
@@ -397,20 +374,18 @@ After each prompt completes, verify success:
 
 <validation_failure>
 If validation fails:
-
 - Report what's missing
 - Offer options:
   - Retry the prompt
   - Continue anyway (for non-critical issues)
   - Stop and investigate
-    </validation_failure>
-    </output_validation>
-    </validation>
+</validation_failure>
+</output_validation>
+</validation>
 
 <failure_handling>
 <sequential_failure>
 Stop the chain immediately:
-
 ```
 ✗ Failed at 2/3: 002-auth-plan
 
@@ -429,12 +404,10 @@ What's next?
 3. Stop here (keep completed work)
 4. Other
 ```
-
 </sequential_failure>
 
 <parallel_failure>
 Continue others, report all results:
-
 ```
 Parallel execution completed with errors:
 
@@ -448,7 +421,6 @@ What's next?
 3. Continue without 002
 4. Other
 ```
-
 </parallel_failure>
 </failure_handling>
 
@@ -461,7 +433,6 @@ What's next?
 
 <archive_operation>
 Move prompt file to completed subfolder:
-
 ```bash
 mv .prompts/{number}-{topic}-{purpose}/{number}-{topic}-{purpose}.md \
    .prompts/{number}-{topic}-{purpose}/completed/
@@ -473,7 +444,6 @@ Output file stays in place (not moved).
 
 <result_presentation>
 <single_result>
-
 ```
 ✓ Executed: 001-auth-research
 ✓ Created: .prompts/001-auth-research/SUMMARY.md
@@ -509,7 +479,6 @@ Display the actual SUMMARY.md content inline so user sees findings without openi
 </single_result>
 
 <chain_result>
-
 ```
 ✓ Chain completed: auth workflow
 
@@ -549,7 +518,7 @@ If user wants to re-run an already-completed prompt:
 2. Move it back to parent folder
 3. Optionally backup existing output: `{output}.bak`
 4. Execute normally
-   </re_running_completed>
+</re_running_completed>
 
 <output_conflicts>
 If output file already exists:
@@ -557,7 +526,7 @@ If output file already exists:
 1. For re-runs: Backup existing → `{filename}.bak`
 2. For new runs: Should not happen (unique numbering)
 3. If conflict detected: Ask user - Overwrite? / Rename? / Cancel?
-   </output_conflicts>
+</output_conflicts>
 
 <commit_handling>
 After successful execution:
@@ -567,11 +536,10 @@ After successful execution:
 3. User can commit when ready
 
 Exception: If user explicitly requests commit, stage and commit:
-
 - Output files created
 - Prompts archived
 - Any implementation changes (for Do prompts)
-  </commit_handling>
+</commit_handling>
 
 <recursive_prompts>
 If a prompt's output includes instructions to create more prompts:
@@ -580,34 +548,30 @@ If a prompt's output includes instructions to create more prompts:
 2. Present the output to user
 3. User can invoke skill again to create follow-up prompts
 4. Maintains user control over prompt creation
-   </recursive_prompts>
-   </special_cases>
-   </step_3_execute>
+</recursive_prompts>
+</special_cases>
+</step_3_execute>
 
 </automated_workflow>
 
 <reference_guides>
 **Prompt patterns by purpose:**
-
 - [references/do-patterns.md](references/do-patterns.md) - Execution prompts + output structure
 - [references/plan-patterns.md](references/plan-patterns.md) - Planning prompts + plan.md structure
 - [references/research-patterns.md](references/research-patterns.md) - Research prompts + research.md structure
 - [references/refine-patterns.md](references/refine-patterns.md) - Iteration prompts + versioning
 
 **Shared templates:**
-
 - [references/summary-template.md](references/summary-template.md) - SUMMARY.md structure and field requirements
 - [references/metadata-guidelines.md](references/metadata-guidelines.md) - Confidence, dependencies, open questions, assumptions
 
 **Supporting references:**
-
 - [references/question-bank.md](references/question-bank.md) - Intake questions by purpose
 - [references/intelligence-rules.md](references/intelligence-rules.md) - Extended thinking, parallel tools, depth decisions
-  </reference_guides>
+</reference_guides>
 
 <success_criteria>
 **Prompt Creation:**
-
 - Intake gate completed with purpose and topic identified
 - Chain detection performed, relevant files referenced
 - Prompt generated with correct structure for purpose
@@ -615,10 +579,11 @@ If a prompt's output includes instructions to create more prompts:
 - Output file location specified in prompt
 - SUMMARY.md requirement included in prompt
 - Metadata requirements included for Research/Plan outputs
+- Quality controls included for Research outputs (verification checklist, QA, pre-submission)
+- Streaming write instructions included for Research outputs
 - Decision tree presented
 
 **Execution (if user chooses to run):**
-
 - Dependencies correctly detected and ordered
 - Prompts executed in correct order (sequential/parallel/mixed)
 - Output validated after each completion
@@ -628,4 +593,11 @@ If a prompt's output includes instructions to create more prompts:
 - Successful prompts archived to `completed/` subfolder
 - SUMMARY.md displayed inline in results
 - Results presented with decisions/blockers flagged
-  </success_criteria>
+
+**Research Quality (for Research prompts):**
+- Verification checklist completed
+- Quality report distinguishes verified from assumed claims
+- Sources consulted listed with URLs
+- Confidence levels assigned to findings
+- Critical claims verified with official documentation
+</success_criteria>

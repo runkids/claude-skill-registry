@@ -1,367 +1,215 @@
 ---
-description: >-
-  Comprehensive GitHub operations using the gh CLI tool. Supports pull requests,
-  issues, workflows/actions, releases, repositories, gists, and advanced
-  Git operations with full access to GitHub API through gh.
+name: github
+version: 3.1.0
+model: claude-opus-4-5
+description: Execute GitHub operations (PRs, issues, milestones, labels, comments, merges)
+  using PowerShell scripts with structured output and error handling. Use when working
+  with pull requests, issues, review comments, CI checks, or milestones instead of raw gh.
+license: MIT
+metadata:
+  domains:
+    - github
+    - pr
+    - issue
+    - labels
+    - milestones
+    - comments
+    - reactions
+  type: integration
+  complexity: intermediate
+  generator:
+    keep_headings:
+      - Decision Tree
+      - Script Reference
+      - Output Format
+      - See Also
+---
+# GitHub Skill
+
+Use these scripts instead of raw `gh` commands for consistent error handling and structured output.
+
 ---
 
-# GitHub Operations with gh CLI
+## Triggers
 
-You are an expert in GitHub operations using the `gh` CLI tool. You help users manage
-pull requests, issues, workflows, repositories, releases, and other GitHub resources.
+| Phrase | Operation |
+|--------|-----------|
+| `get PR context for #123` | Get-PRContext.ps1 |
+| `respond to review comments` | Post-PRCommentReply.ps1 |
+| `check CI status` | Get-PRChecks.ps1 |
+| `add label to issue` | Set-IssueLabels.ps1 |
+| `assign milestone` | Set-ItemMilestone.ps1 |
 
-## Core Capabilities
+---
 
-### Pull Request Management
+## Decision Tree
 
-```bash
-# List pull requests
-gh pr list                           # List PRs in current repo
-gh pr list --state closed            # List closed PRs
-gh pr list --author @me              # List my PRs
-gh pr list --assignee @me            # List PRs assigned to me
-gh pr list --label bug               # List PRs with specific label
-gh pr list --limit 100               # List more PRs
-gh pr list --search "is:open is:pr"  # Search PRs
-
-# View pull request details
-gh pr view 123                       # View PR #123
-gh pr view                          # View current branch's PR
-gh pr view --json title,body,author  # View specific fields as JSON
-gh pr view --web                     # Open PR in browser
-
-# Create pull request
-gh pr create --title "Fix bug" --body "Description" --base main
-gh pr create --draft                 # Create draft PR
-gh pr create --assignee @me --label "enhancement"
-gh pr create --reviewer user1,user2
-
-# Checkout pull request
-gh pr checkout 123                   # Checkout PR #123
-
-# Edit pull request
-gh pr edit 123 --title "New title"
-gh pr edit 123 --add-label "bug" --remove-label "help wanted"
-
-# Comment on pull request
-gh pr comment 123 --body "LGTM!"
-gh pr review 123 --approve           # Approve PR
-gh pr review 123 --request-changes   # Request changes
-gh pr review 123 --comment -F file.md # Review with comments from file
-
-# Merge pull request
-gh pr merge 123 --merge              # Merge with merge commit
-gh pr merge 123 --squash             # Squash merge
-gh pr merge 123 --rebase             # Rebase merge
-gh pr merge 123 --delete-branch      # Merge and delete branch
-
-# Close/reopen pull request
-gh pr close 123                      # Close PR
-gh pr reopen 123                     # Reopen PR
-
-# Diff and patches
-gh pr diff 123                       # View PR diff
-gh pr diff 123 --color=never         # Diff without color
+```text
+Need GitHub data?
+├─ List PRs (filtered) → Get-PullRequests.ps1
+├─ PR info/diff → Get-PRContext.ps1
+├─ CI check status → Get-PRChecks.ps1
+├─ CI failure logs → Get-PRCheckLogs.ps1
+├─ Review comments → Get-PRReviewComments.ps1
+├─ Review threads → Get-PRReviewThreads.ps1
+├─ Unique reviewers → Get-PRReviewers.ps1
+├─ Unaddressed bot comments → Get-UnaddressedComments.ps1
+├─ PR merged check → Test-PRMerged.ps1
+├─ Copilot follow-up PRs → Detect-CopilotFollowUpPR.ps1
+├─ Issue info → Get-IssueContext.ps1
+├─ Merge readiness check → Test-PRMergeReady.ps1
+├─ Latest milestone → Get-LatestSemanticMilestone.ps1
+└─ Need to take action?
+   ├─ Create issue → New-Issue.ps1
+   ├─ Create PR → New-PR.ps1
+   ├─ Reply to review → Post-PRCommentReply.ps1
+   ├─ Reply to thread (GraphQL) → Add-PRReviewThreadReply.ps1
+   ├─ Comment on issue → Post-IssueComment.ps1
+   ├─ Add reaction → Add-CommentReaction.ps1
+   ├─ Apply labels → Set-IssueLabels.ps1
+   ├─ Set issue milestone → Set-IssueMilestone.ps1
+   ├─ Set PR/issue milestone (auto-detect) → Set-ItemMilestone.ps1
+   ├─ Assign issue → Set-IssueAssignee.ps1
+   ├─ Resolve threads → Resolve-PRReviewThread.ps1
+   ├─ Process AI triage → Invoke-PRCommentProcessing.ps1
+   ├─ Assign Copilot → Invoke-CopilotAssignment.ps1
+   ├─ Enable/disable auto-merge → Set-PRAutoMerge.ps1
+   ├─ Close PR → Close-PR.ps1
+   └─ Merge PR → Merge-PR.ps1
 ```
 
-### Issue Management
+---
 
-```bash
-# List issues
-gh issue list                        # List open issues
-gh issue list --state all            # List all issues
-gh issue list --author @me           # List my issues
-gh issue list --assignee @me         # List issues assigned to me
-gh issue list --label "bug,urgent"   # List with labels
-gh issue list --limit 50
+## Script Reference
 
-# View issue details
-gh issue view 456                    # View issue #456
-gh issue view --json title,body,comments,labels
-gh issue view --web
+### PR Operations (`scripts/pr/`)
 
-# Create issue
-gh issue create --title "Bug found" --body "Steps to reproduce"
-gh issue create --label "bug,high-priority"
-gh issue create --assignee @me
+| Script | Purpose | Key Parameters |
+|--------|---------|----------------|
+| `Get-PullRequests.ps1` | List PRs with filters | `-State`, `-Label`, `-Author`, `-Base`, `-Head`, `-Limit` |
+| `Get-PRContext.ps1` | PR metadata, diff, files | `-PullRequest`, `-IncludeChangedFiles`, `-IncludeDiff` |
+| `Get-PRChecks.ps1` | CI check status, polling | `-PullRequest`, `-Wait`, `-TimeoutSeconds`, `-RequiredOnly` |
+| `Get-PRCheckLogs.ps1` | Fetch logs from failing CI checks | `-PullRequest`, `-MaxLines`, `-ContextLines` |
+| `Get-PRReviewComments.ps1` | Paginated review comments with stale detection | `-PullRequest`, `-IncludeIssueComments`, `-DetectStale`, `-ExcludeStale`, `-OnlyStale` |
+| `Get-PRReviewThreads.ps1` | Thread-level review data | `-PullRequest`, `-UnresolvedOnly` |
+| `Get-PRReviewers.ps1` | Enumerate unique reviewers | `-PullRequest`, `-ExcludeBots` |
+| `Get-UnaddressedComments.ps1` | Bot comments needing attention | `-PullRequest` |
+| `Get-UnresolvedReviewThreads.ps1` | Unresolved thread IDs | `-PullRequest` |
+| `Test-PRMerged.ps1` | Check if PR is merged | `-PullRequest` |
+| `Detect-CopilotFollowUpPR.ps1` | Detect Copilot follow-up PRs | `-PRNumber`, `-Owner`, `-Repo` |
+| `Post-PRCommentReply.ps1` | Thread-preserving replies | `-PullRequest`, `-CommentId`, `-Body` |
+| `Add-PRReviewThreadReply.ps1` | Reply to thread by ID (GraphQL) | `-ThreadId`, `-Body`, `-Resolve` |
+| `Resolve-PRReviewThread.ps1` | Mark threads resolved | `-ThreadId` or `-PullRequest -All` |
+| `Unresolve-PRReviewThread.ps1` | Mark threads unresolved | `-ThreadId` or `-PullRequest -All` |
+| `Get-ThreadById.ps1` | Get single thread by ID | `-ThreadId` |
+| `Get-ThreadConversationHistory.ps1` | Full thread comment history | `-ThreadId`, `-IncludeMinimized` |
+| `Test-PRMergeReady.ps1` | Check merge readiness | `-PullRequest`, `-IgnoreCI`, `-IgnoreThreads` |
+| `Set-PRAutoMerge.ps1` | Enable/disable auto-merge | `-PullRequest`, `-Enable`/`-Disable`, `-MergeMethod` |
+| `Invoke-PRCommentProcessing.ps1` | Process AI triage output | `-PRNumber`, `-Verdict`, `-FindingsJson` |
+| `New-PR.ps1` | Create PR with validation | `-Title`, `-Body`, `-Base` |
+| `Close-PR.ps1` | Close PR with comment | `-PullRequest`, `-Comment` |
+| `Merge-PR.ps1` | Merge with strategy | `-PullRequest`, `-Strategy`, `-DeleteBranch`, `-Auto` |
 
-# Edit issue
-gh issue edit 456 --title "Updated title"
-gh issue edit 456 --add-label "confirmed" --remove-label "needs-triage"
+### Issue Operations (`scripts/issue/`)
 
-# Comment on issue
-gh issue comment 456 --body "Working on this"
+| Script | Purpose | Key Parameters |
+|--------|---------|----------------|
+| `Get-IssueContext.ps1` | Issue metadata | `-Issue` |
+| `New-Issue.ps1` | Create new issue | `-Title`, `-Body`, `-Labels` |
+| `Set-IssueLabels.ps1` | Apply labels (auto-create) | `-Issue`, `-Labels`, `-Priority` |
+| `Set-IssueMilestone.ps1` | Assign milestone | `-Issue`, `-Milestone` |
+| `Post-IssueComment.ps1` | Comments with idempotency | `-Issue`, `-Body`, `-Marker` |
+| `Invoke-CopilotAssignment.ps1` | Synthesize context for Copilot | `-IssueNumber`, `-WhatIf` |
+| `Set-IssueAssignee.ps1` | Assign users to issues | `-Issue`, `-Assignees` |
 
-# Close/reopen issue
-gh issue close 456
-gh issue reopen 456
+### Milestone Operations (`scripts/milestone/`)
 
-# Transfer issue to another repo
-gh issue transfer 456 owner/repo
+| Script | Purpose | Key Parameters |
+|--------|---------|----------------|
+| `Get-LatestSemanticMilestone.ps1` | Detect latest semantic version milestone | `-Owner`, `-Repo` |
+| `Set-ItemMilestone.ps1` | Assign milestone to PR/issue (auto-detect) | `-ItemType`, `-ItemNumber`, `-MilestoneTitle` |
+
+### Reactions (`scripts/reactions/`)
+
+| Script | Purpose | Key Parameters |
+|--------|---------|----------------|
+| `Add-CommentReaction.ps1` | Add emoji reactions (batch support) | `-CommentId[]`, `-Reaction`, `-CommentType` |
+
+---
+
+## Output Format
+
+All scripts output structured JSON with `Success` boolean:
+
+```powershell
+$result = pwsh -NoProfile scripts/pr/Get-PRContext.ps1 -PullRequest 50 | ConvertFrom-Json
+if ($result.Success) { ... }
 ```
 
-### GitHub Actions & Workflows
+---
 
-```bash
-# List workflow runs
-gh run list                          # List recent workflow runs
-gh run list --limit 50               # List more runs
-gh run list --workflow=ci.yml        # List runs for specific workflow
-gh run list --branch main            # List runs for specific branch
+## Process
 
-# View run details
-gh run view 456                      # View specific run
-gh run view --log                    # View run with logs
-gh run view --log-failed             # View only failed logs
-gh run view --web                    # Open in browser
+This skill provides a toolkit of PowerShell scripts for GitHub operations. Use scripts directly or compose them into workflows.
 
-# Watch workflow run (follow logs in real-time)
-gh run watch 456                     # Watch run execution
-gh run watch 456 --interval 2        # Watch with 2s interval
+**Basic Usage:**
 
-# Rerun workflows
-gh run rerun 456                     # Rerun failed run
-gh run rerun 456 --failed            # Rerun only failed jobs
+1. Identify the operation needed using the Decision Tree
+2. Find the corresponding script in the Script Reference
+3. Call the script with required parameters
+4. Parse the JSON output and check `Success` field
 
-# List workflows
-gh workflow list                     # List all workflows
+**Example Flow:**
 
-# View workflow definition
-gh workflow view ci.yml
-gh workflow view ci.yml --web
-gh workflow view ci.yml --yaml
+```powershell
+# Get PR context
+$pr = pwsh scripts/pr/Get-PRContext.ps1 -PullRequest 123 | ConvertFrom-Json
 
-# Run workflow manually
-gh workflow run ci.yml --raw-field delay=10
-gh workflow run deploy.yml --ref main
+# Check CI status
+$checks = pwsh scripts/pr/Get-PRChecks.ps1 -PullRequest 123 | ConvertFrom-Json
 
-# View artifact list
-gh run view 456 --log-failed --json artifacts
+# Add comment if needed
+if ($checks.FailedCount -gt 0) {
+    pwsh scripts/pr/Post-PRCommentReply.ps1 -PullRequest 123 -Body "CI failures detected"
+}
 ```
 
-### Repository Management
+---
 
-```bash
-# View repository info
-gh repo view                         # View current repo
-gh repo view owner/repo              # View specific repo
-gh repo view --json name,description,stars,forks
+## Anti-Patterns
 
-# Create repository
-gh repo create my-new-repo           # Create new repo
-gh repo create my-repo --public      # Create public repo
-gh repo create my-repo --source .    # Create from current dir
-gh repo create my-repo --clone       # Create and clone
+| Avoid | Why | Instead |
+|-------|-----|---------|
+| Raw `gh pr view` commands | No structured output | Use `Get-PRContext.ps1` |
+| Raw `gh api` for comments | Doesn't preserve threading | Use `Post-PRCommentReply.ps1` |
+| Replying to thread expecting auto-resolve | Replies DON'T auto-resolve threads | Use `Resolve-PRReviewThread.ps1` after reply |
+| Inline issue creation | Missing validation | Use `New-Issue.ps1` |
+| Multiple individual reactions | 88% slower | Use batch mode in `Add-CommentReaction.ps1` |
+| Hardcoding owner/repo | Breaks in forks | Let scripts infer from `git remote` |
+| Ignoring exit codes | Missing error handling | Check `$LASTEXITCODE` |
+| Skipping idempotency markers | Duplicate comments | Use `-Marker` parameter |
 
-# Clone repository
-gh repo clone owner/repo             # Clone repo
-gh repo clone owner/repo my-dir      # Clone to specific dir
+---
 
-# Fork repository
-gh repo fork owner/repo              # Fork repo
-gh repo fork owner/repo --clone      # Fork and clone
+## See Also
 
-# View repository settings
-gh repo view --web                   # Open repo in browser
-gh repo settings                     # View repository settings
+| Document | Content |
+|----------|---------|
+| [examples.md](references/examples.md) | Complete script examples |
+| [patterns.md](references/patterns.md) | Reusable workflow patterns |
+| [copilot-prompts.md](references/copilot-prompts.md) | Creating @copilot directives |
+| [copilot-synthesis-guide.md](references/copilot-synthesis-guide.md) | Copilot context synthesis |
+| [api-reference.md](references/api-reference.md) | Exit codes, API endpoints, troubleshooting |
+| `modules/GitHubCore.psm1` | Shared helper functions |
 
-# Archive/delete repository
-gh repo delete owner/repo            # Delete repo (requires confirmation)
-```
+---
 
-### Release Management
+## Verification
 
-```bash
-# List releases
-gh release list                      # List releases
+Before completing a GitHub operation:
 
-# View release
-gh release view v1.0.0               # View specific release
-gh release view latest               # View latest release
-gh release view --web                # Open in browser
-
-# Create release
-gh release create v1.0.0 --notes "Release notes"
-gh release create v1.0.0 --title "Version 1.0.0"
-gh release create v1.0.0 --notes-from-tag
-gh release create v1.0.0 --draft
-
-# Delete release
-gh release delete v1.0.0             # Delete release (requires confirmation)
-
-# Upload assets
-gh release upload v1.0.0 ./file.tar.gz
-```
-
-### Gist Management
-
-```bash
-# List gists
-gh gist list                         # List your gists
-gh gist list --public                # List public gists
-
-# View gist
-gh gist view abc123                  # View specific gist
-gh gist view --web                   # Open in browser
-
-# Create gist
-gh gist create file.py               # Create gist from file
-gh gist create file.py --desc "My gist"
-gh gist create file.py --public      # Create public gist
-
-# Edit gist
-gh gist edit abc123 --desc "Updated description"
-
-# Delete gist
-gh gist delete abc123
-```
-
-### Git Operations via GitHub
-
-```bash
-# Status and info
-gh status                            # Show repo status
-
-# View and create commits
-gh api /repos/owner/repo/commits     # GitHub API call
-gh commit list                       # List recent commits (needs extension)
-
-# Branch operations
-gh repo sync                         # Sync fork with upstream
-gh api /repos/owner/repo/branches    # List branches via API
-```
-
-### Authentication & Configuration
-
-```bash
-# Auth status
-gh auth status                       # Check authentication
-
-# Login
-gh auth login                        # Login to GitHub
-gh auth login --with-token < token.txt
-
-# Logout
-gh auth logout                       # Logout
-
-# Token management
-gh auth token                        # Print auth token
-gh auth refresh                      # Refresh auth token
-
-# Configuration
-gh config set editor vim             # Set editor
-gh config set git_protocol ssh       # Use SSH for git operations
-gh config set prompt disabled        # Disable interactive prompts
-```
-
-### Search & Discovery
-
-```bash
-# Search repositories
-gh search repos                      # Search repositories
-gh search repos --language python    # Search Python repos
-gh search repos --stars >1000        # Search popular repos
-gh search repos "topic:ai"           # Search by topic
-
-# Search issues/PRs
-gh search prs --state open           # Search open PRs
-gh search issues --label "bug"       # Search issues by label
-
-# Search code
-gh search code lambda                # Search code in repos
-```
-
-### Advanced Operations
-
-```bash
-# GitHub API calls
-gh api /user                         # Get user info
-gh api /repos/owner/repo/issues      # Get issues via API
-gh api /repos/owner/repo/issues -f title='New issue' -f body='Description'
-
-# JSON processing
-gh pr view --json title,number,author | jq '.title'
-
-# Set default repository
-gh repo set-default owner/repo       # Set default for current dir
-
-# Template operations
-gh repo create my-repo --template owner/template-repo
-```
-
-## Best Practices
-
-1. **Always check status first**: Use `gh auth status` and `gh repo view` to verify setup
-2. **Use flags for automation**: `--json` output for parsing, `--quiet` to suppress prompts
-3. **Web integration**: Use `--web` flag to open items in browser for visual review
-4. **Workflows**: Use `gh run watch` to monitor CI/CD execution in real-time
-5. **Bulk operations**: Use shell loops with gh for batch operations
-6. **Error handling**: Check exit codes `echo $?` after gh commands
-
-## Common Workflows
-
-### Implement and Create PR (From Main Branch)
-
-When user asks to implement something and create a PR, you MUST detect if on main/master branch and follow proper workflow:
-
-```bash
-# 1. Check current branch
-CURRENT_BRANCH=$(git branch --show-current)
-
-# 2. If on main/master, create feature branch first
-if [ "$CURRENT_BRANCH" = "main" ] || [ "$CURRENT_BRANCH" = "master" ]; then
-  # Generate branch name from feature description
-  BRANCH_NAME="feature/$(echo 'feature description' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/-\+/-/g' | sed 's/^-\|-$//g')"
-  git checkout -b "$BRANCH_NAME"
-fi
-
-# 3. Implement the feature (make code changes)
-
-# 4. Commit changes
-git add .
-git commit -m "feat: descriptive commit message"
-
-# 5. Push branch
-git push -u origin "$BRANCH_NAME"
-
-# 6. Create PR
-gh pr create --title "Feature title" --body "Feature description"
-```
-
-**Important**: Always check current branch before implementing. Never commit directly to main/master when creating a PR.
-
-### PR Management Workflow
-```bash
-# Already on feature branch - proceed with PR
-# ... make changes ...
-git commit -am "Add new feature"
-git push origin feature/new-feature
-gh pr create --title "Add new feature" --body "Implements #123"
-```
-
-### CI/CD Monitoring
-```bash
-# Watch workflow run
-gh run watch --interval 1
-
-# If failed, view logs and rerun
-gh run view --log-failed
-gh run rerun --failed
-```
-
-### Issue Triage
-```bash
-# List issues needing attention
-gh issue list --label "needs-triage" --assignee @me
-
-# Create and link issue to PR
-gh issue create --title "Bug: X fails" --body "..."
-gh pr create --body "Closes #123"
-```
-
-## Notes
-
-- `gh` respects your current Git repository context
-- Use `--help` with any command for detailed options
-- GitHub token can be set via `GH_TOKEN` environment variable
-- For enterprise GitHub, use `gh auth login --hostname enterprise.com`
+- [ ] Correct script selected from Decision Tree
+- [ ] Required parameters provided (PR/issue number)
+- [ ] Response JSON parsed successfully
+- [ ] `Success: true` in response
+- [ ] State change verified (for mutating operations)

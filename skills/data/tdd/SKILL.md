@@ -1,123 +1,267 @@
 ---
 name: tdd
-description: Test-Driven Development methodology and red-green-refactor workflow (formerly test-tdd). This skill should be used when practicing TDD, writing tests first, designing tests before implementation, or reviewing test-first approaches. Triggers on "write tests first", "test before code", "red green refactor", "test driven development". This skill does NOT cover Vitest framework specifics (use vitest skill) or API mocking with MSW (use msw skill).
+description: Detroit-style BDD開発フロー。シナリオテストをメインに据え、振る舞い駆動でテストを設計する。
 ---
 
-# Community Test-Driven Development Best Practices
+# TDD スキル (Detroit-style BDD)
 
-Comprehensive guide to Test-Driven Development practices, designed for AI agents and LLMs. Contains 42 rules across 8 categories, prioritized by impact to guide test writing, refactoring, and code generation.
+振る舞い駆動開発（BDD）をデトロイト派アプローチで実践するスキル。
+シナリオテストを主軸に、ユースケースの振る舞いをGiven-When-Then形式で記述する。
 
-## When to Apply
+## 開発サイクル
 
-Reference these guidelines when:
-- Writing new tests using TDD workflow
-- Implementing the red-green-refactor cycle
-- Designing test structure and organization
-- Creating test data and fixtures
-- Reviewing or refactoring existing test suites
+```
+Plan → Skeleton → Red → Green → Integrate
+```
 
-## TDD Workflow
+| Phase | Agent | 担うもの |
+|-------|-------|----------|
+| Skeleton | `skeleton` | 型・シグネチャ・intent（why） |
+| Red | `red` | シナリオテスト（what） |
+| Green | `green` | 実装 |
 
-1. **RED**: Write a failing test that defines desired behavior
-2. **GREEN**: Write minimal code to make the test pass
-3. **REFACTOR**: Clean up code while keeping tests green
-4. Repeat for each new behavior
+## Detroit School BDD 原則
 
-## Rule Categories by Priority
+### 1. 振る舞い中心
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Red-Green-Refactor Cycle | CRITICAL | `cycle-` |
-| 2 | Test Design Principles | CRITICAL | `design-` |
-| 3 | Test Isolation & Dependencies | HIGH | `isolate-` |
-| 4 | Test Data Management | HIGH | `data-` |
-| 5 | Assertions & Verification | MEDIUM | `assert-` |
-| 6 | Test Organization & Structure | MEDIUM | `org-` |
-| 7 | Test Performance & Reliability | MEDIUM | `perf-` |
-| 8 | Test Pyramid & Strategy | LOW | `strat-` |
+内部実装ではなく、外部から見える振る舞いをテストする。
+「この関数は何をするか」ではなく「ユーザー/システムは何を達成できるか」を記述。
 
-## Quick Reference
+### 2. 実オブジェクト協調
 
-### 1. Red-Green-Refactor Cycle (CRITICAL)
+モックは外部依存（DB、外部API）のみに限定。
+ドメインロジックは実オブジェクトを協調させてテストする。
 
-- `cycle-write-test-first` - Write the Test Before the Implementation
-- `cycle-minimal-code-to-pass` - Write Only Enough Code to Pass the Test
-- `cycle-refactor-after-green` - Refactor Immediately After Green
-- `cycle-verify-test-fails-first` - Verify the Test Fails Before Writing Code
-- `cycle-small-increments` - Take Small Incremental Steps
-- `cycle-maintain-test-list` - Maintain a Test List
+```typescript
+// Good: 実オブジェクト協調
+const state = replay(events, applyTodoEventToAggregate);
+const result = decideTodo(state, command, meta);
 
-### 2. Test Design Principles (CRITICAL)
+// Avoid: 過度なモック
+const mockState = { ...mocked };
+const mockDecide = vi.fn().mockReturnValue(...);
+```
 
-- `design-test-behavior-not-implementation` - Test Behavior Not Implementation
-- `design-one-assertion-per-test` - One Logical Assertion Per Test
-- `design-descriptive-test-names` - Use Descriptive Test Names
-- `design-aaa-pattern` - Follow the Arrange-Act-Assert Pattern
-- `design-test-edge-cases` - Test Edge Cases and Boundaries
-- `design-avoid-logic-in-tests` - Avoid Logic in Tests
+### 3. ユビキタス言語
 
-### 3. Test Isolation & Dependencies (HIGH)
+ドメイン用語でテストを記述する。
+テストは仕様書としても機能する。
 
-- `isolate-mock-external-dependencies` - Mock External Dependencies
-- `isolate-no-shared-state` - Avoid Shared Mutable State Between Tests
-- `isolate-deterministic-tests` - Write Deterministic Tests
-- `isolate-prefer-stubs-over-mocks` - Prefer Stubs Over Mocks for Queries
-- `isolate-use-dependency-injection` - Use Dependency Injection for Testability
+```typescript
+// Good: ドメイン言語
+describe("Scenario: Todoを完了にする", () => {});
 
-### 4. Test Data Management (HIGH)
+// Avoid: 技術的な記述
+describe("decideTodo returns TodoCompleted event", () => {});
+```
 
-- `data-use-factories` - Use Factories for Test Data Creation
-- `data-minimal-setup` - Keep Test Setup Minimal
-- `data-avoid-mystery-guests` - Avoid Mystery Guests
-- `data-unique-identifiers` - Use Unique Identifiers Per Test
-- `data-builder-pattern` - Use Builder Pattern for Complex Objects
+### 4. Given-When-Then
 
-### 5. Assertions & Verification (MEDIUM)
+自然言語に近いシナリオ構造で記述。
 
-- `assert-specific-assertions` - Use Specific Assertions
-- `assert-error-messages` - Assert on Error Messages and Types
-- `assert-no-assertions-antipattern` - Every Test Must Have Assertions
-- `assert-custom-matchers` - Create Custom Matchers for Domain Assertions
-- `assert-snapshot-testing` - Use Snapshot Testing Judiciously
+```typescript
+describe("Scenario: Todoを完了にする", () => {
+  // Given: 前提条件
+  // When: アクション
+  // Then: 期待する結果
+});
+```
 
-### 6. Test Organization & Structure (MEDIUM)
+## テスト階層
 
-- `org-group-by-behavior` - Group Tests by Behavior Not Method
-- `org-file-structure` - Follow Consistent Test File Structure
-- `org-setup-teardown` - Use Setup and Teardown Hooks Appropriately
-- `org-test-utilities` - Extract Reusable Test Utilities
-- `org-parameterized-tests` - Use Parameterized Tests for Variations
+| 層 | 目的 | ファイル形式 | 優先度 |
+|----|------|--------------|--------|
+| **Scenario** | ユースケースの振る舞い | `*.scenario.test.ts` | 主 |
+| **Unit** | 純粋関数の境界値・エッジケース | `*.test.ts` | 従 |
+| **Integration** | 外部依存を含む結合 | `*.integration.test.ts` | 必要時 |
 
-### 7. Test Performance & Reliability (MEDIUM)
+### ファイル配置
 
-- `perf-fast-unit-tests` - Keep Unit Tests Under 100ms
-- `perf-avoid-network-calls` - Eliminate Network Calls in Unit Tests
-- `perf-fix-flaky-tests` - Fix Flaky Tests Immediately
-- `perf-parallelize-tests` - Parallelize Independent Tests
-- `perf-avoid-sleep` - Avoid Arbitrary Sleep Calls
+```
+src/features/{feature}/
+├── __tests__/
+│   ├── {feature}.scenario.test.ts  ← シナリオテスト（メイン）
+│   └── {feature}.test.ts           ← 単体テスト（必要時）
+└── model/
+    └── decide.ts                    ← ビジネスロジックのみ
+```
 
-### 8. Test Pyramid & Strategy (LOW)
+**in-source testingは使用しない**: テストとプロダクションコードを分離し、関心の分離を明確にする。
 
-- `strat-test-pyramid` - Follow the Test Pyramid
-- `strat-mutation-testing` - Use Mutation Testing to Validate Test Quality
-- `strat-coverage-targets` - Set Meaningful Coverage Targets
-- `strat-integration-boundaries` - Test Integration at Service Boundaries
-- `strat-e2e-critical-paths` - Limit E2E Tests to Critical User Paths
+## ES-lite での Given-When-Then パターン
 
-## How to Use
+CQRS + Event Sourcing アーキテクチャでのシナリオテストパターン。
 
-Read individual reference files for detailed explanations and code examples:
+### 基本構造
 
-- [Section definitions](references/_sections.md) - Category structure and impact levels
-- [Rule template](assets/templates/_template.md) - Template for adding new rules
-- [cycle-write-test-first](references/cycle-write-test-first.md) - Write the Test Before the Implementation
-- [design-aaa-pattern](references/design-aaa-pattern.md) - Follow the Arrange-Act-Assert Pattern
+```typescript
+import { replay } from "@/shared/lib/test/scenario";
+import { testMeta, eventHistory } from "@/shared/lib/test/builders";
+import { decideTodo } from "@/entities/todo/model/decide";
+import { applyTodoEventToAggregate } from "@/entities/todo/model/evolve";
 
-## Related Skills
+describe("Feature: Todo管理", () => {
+  describe("Scenario: Todoを完了にする", () => {
+    // Given: 過去のイベントで状態を構築
+    const events = eventHistory()
+      .created({ title: "買い物に行く" })
+      .build();
+    const state = replay(events, applyTodoEventToAggregate);
+    const meta = testMeta({ aggregateId: state!.id, version: state!.version + 1 });
 
-- For Vitest framework specifics, see `vitest` skill
-- For API mocking with MSW, see `msw` skill
+    // When: コマンドを実行
+    const result = decideTodo(
+      state,
+      { type: "CompleteTodo", aggregateId: state!.id, expectedVersion: state!.version },
+      meta
+    );
 
-## Full Compiled Document
+    // Then: 期待するイベントが発生
+    it("TodoCompletedイベントが発生する", () => {
+      expect(result.isOk()).toBe(true);
+      expect(result.value).toHaveLength(1);
+      expect(result.value![0].type).toBe("TodoCompleted");
+    });
 
-For the complete guide with all rules expanded: `AGENTS.md`
+    it("完了時刻が記録される", () => {
+      expect(result.value![0].data.completedAt).toBe(meta.timestamp);
+    });
+  });
+
+  describe("Scenario: 削除済みTodoは更新できない", () => {
+    // Given: 削除済みのTodo
+    const events = eventHistory()
+      .created({ title: "古いTodo" })
+      .thenDeleted()
+      .build();
+    const state = replay(events, applyTodoEventToAggregate);
+    const meta = testMeta({ aggregateId: state!.id, version: state!.version + 1 });
+
+    // When: 更新を試みる
+    const result = decideTodo(
+      state,
+      { type: "UpdateTodo", aggregateId: state!.id, title: "新しいタイトル", expectedVersion: state!.version },
+      meta
+    );
+
+    // Then: エラーが返される
+    it("削除済みエラーが返される", () => {
+      expect(result.isErr()).toBe(true);
+      expect(result.error?.message).toContain("削除済み");
+    });
+  });
+});
+```
+
+### シナリオテストのポイント
+
+1. **Given**: `eventHistory()` と `replay()` で状態を構築
+2. **When**: コマンド実行（`decideTodo`等）
+3. **Then**: イベント発生または状態変化を検証
+
+### 状態遷移の検証
+
+イベント適用後の状態を検証する場合：
+
+```typescript
+describe("Scenario: Todo完了後の状態", () => {
+  const events = eventHistory()
+    .created({ title: "タスク" })
+    .thenCompleted()
+    .build();
+  const state = replay(events, applyTodoEventToAggregate);
+
+  it("isCompletedがtrueになる", () => {
+    expect(state?.isCompleted).toBe(true);
+  });
+
+  it("statusがdoneになる", () => {
+    expect(state?.status).toBe("done");
+  });
+});
+```
+
+## ペアワイズ法
+
+テストケースの組み合わせ爆発を防ぎつつ網羅性を確保。
+**シナリオテストのパラメータ組み合わせ**に適用する。
+
+### 使い方
+
+```bash
+npx tsx .claude/skills/tdd/scripts/generate-pairwise.ts config.json
+```
+
+### 設定ファイル例
+
+```json
+{
+  "parameters": {
+    "todoStatus": ["todo", "in_progress", "done"],
+    "action": ["complete", "delete", "update"],
+    "isDeleted": [false, true]
+  },
+  "boundaries": {
+    "expectedVersion": [0, -1, 999]
+  }
+}
+```
+
+### 出力
+
+```json
+{
+  "stats": {
+    "totalCases": 12,
+    "fullCombinations": 18,
+    "reduction": "33.3%"
+  },
+  "testCases": [
+    { "id": 1, "params": { "todoStatus": "todo", "action": "complete", "isDeleted": false }, "isBoundary": false },
+    ...
+  ]
+}
+```
+
+## テスト設計の原則
+
+1. **シナリオ優先**: ユースケースをシナリオとしてテスト
+2. **ペアワイズ**: パラメータ組み合わせはペアワイズ法で削減
+3. **境界値**: 各パラメータの境界値は必ずテスト
+4. **Intent → Test**: skeletonのintent commentsから直接テストケースを導出
+
+## テストヘルパー
+
+### replay
+
+イベント配列から状態を再構築：
+
+```typescript
+import { replay } from "@/shared/lib/test/scenario";
+
+const state = replay(events, applyTodoEventToAggregate);
+```
+
+### eventHistory
+
+イベント履歴を流暢に構築：
+
+```typescript
+import { eventHistory } from "@/shared/lib/test/builders";
+
+const events = eventHistory()
+  .created({ title: "タスク" })
+  .thenUpdated({ title: "更新後" })
+  .thenCompleted()
+  .build();
+```
+
+### testMeta
+
+テスト用メタデータを生成：
+
+```typescript
+import { testMeta } from "@/shared/lib/test/builders";
+
+const meta = testMeta({ aggregateId: "todo-1", version: 2 });
+```

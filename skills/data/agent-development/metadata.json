@@ -1,7 +1,7 @@
 {
   "name": "agent-development",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/agent-development/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-02-01T05:00:35.301385Z"
+  "repo": "troykelly/claude-skills",
+  "path": "external/skills/agent-development/SKILL.md",
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-02-02T05:04:58.009965Z"
 }

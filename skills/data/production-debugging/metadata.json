@@ -1,7 +1,7 @@
 {
   "name": "production-debugging",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "path": "docs/taskflow-vault/skills/engineering/production-debugging/skill.md",
-  "source": "github.com/mjunaidca/mjs-agent-skills",
-  "downloaded_at": "2026-02-01T02:58:48.993513Z"
+  "repo": "orient-bot/orient",
+  "path": ".claude/skills/production-debugging/SKILL.md",
+  "source": "github.com/orient-bot/orient",
+  "downloaded_at": "2026-02-02T04:53:57.398480Z"
 }

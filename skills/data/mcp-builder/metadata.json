@@ -1,7 +1,7 @@
 {
   "name": "mcp-builder",
-  "repo": "Ven0m0/claude-config",
-  "path": "claude/skills/mcp-builder/SKILL.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-02-01T05:04:58.488842Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/mcp-development/skills/mcp-builder/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-02T05:11:51.651659Z"
 }

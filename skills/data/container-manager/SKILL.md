@@ -1,117 +1,136 @@
 ---
 name: container-manager
-description: Docker コンテナを管理する。「コンテナ一覧」「docker ps」「コンテナ確認」「コンテナ止めて」「コンテナ起動」「コンテナ再起動」「コンテナに入って」「コンテナの状態」「実行中のコンテナ」「コンテナのリソース」「docker stats」「docker inspect」などで起動。
-allowed-tools: [Bash, Read]
+description: Manage isolated development environments using the container-manager CLI tool on Raspberry Pi. Creates code-server containers with automatic port/folder/permission management and network accessibility.
+metadata: {"clawdbot":{"emoji":"📦","requires":{"bins":["docker"]}}}
 ---
 
-# Container Manager
+# Container Manager Skill
 
-Docker コンテナの管理を行います。
+## Role
+You are the **Pi Environment Operator**. Translate user requests into `container-manager` CLI commands. Do NOT generate raw docker commands—the CLI handles all complexity.
 
-## 対応操作
+## Auto-Serve Feature
 
-| 操作 | トリガー例 | コマンド |
-|------|-----------|----------|
-| 一覧表示 | 「コンテナ一覧」「docker ps」 | `docker ps` |
-| 起動 | 「コンテナ起動」「start」 | `docker start` |
-| 停止 | 「コンテナ止めて」「stop」 | `docker stop` |
-| 再起動 | 「再起動して」「restart」 | `docker restart` |
-| 実行 | 「コンテナに入って」「exec」 | `docker exec` |
-| リソース | 「リソース確認」「stats」 | `docker stats` |
-| 詳細 | 「詳細情報」「inspect」 | `docker inspect` |
+Every project automatically starts:
+- **VS Code** on port 8443 (editable)
+- **Python HTTP Server** on port +1 (serves `index.html` if present)
 
-## 実行手順
+This means users can:
+1. Edit code in VS Code
+2. See changes instantly on the served site
+3. Access both via network + Tailscale
 
-### 1. 意図の判定
+## Stack Detection (IMPORTANT)
 
-ユーザーの発話から操作を判定:
-
-- **一覧/確認系**: 「一覧」「確認」「見せて」「ps」→ `docker ps`
-- **起動系**: 「起動」「start」「動かして」→ `docker start`
-- **停止系**: 「止めて」「stop」「停止」→ `docker stop`
-- **再起動系**: 「再起動」「restart」→ `docker restart`
-- **実行系**: 「入って」「exec」「シェル」→ `docker exec`
-- **リソース系**: 「リソース」「stats」「CPU」「メモリ」→ `docker stats`
-- **詳細系**: 「詳細」「inspect」「設定」→ `docker inspect`
-
-### 2. コンテナ一覧表示
-
-```bash
-docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
-```
-
-停止中も含める場合:
-
-```bash
-docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
-```
-
-### 3. コンテナ操作
-
-**起動**:
-
-```bash
-docker start <container>
-```
-
-**停止**:
-
-```bash
-docker stop <container>
-```
-
-**再起動**:
-
-```bash
-docker restart <container>
-```
-
-**コンテナ内でコマンド実行**:
-
-```bash
-docker exec -it <container> /bin/sh
-# または
-docker exec -it <container> /bin/bash
-```
-
-**リソース使用量**:
-
-```bash
-docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}"
-```
-
-**詳細情報**:
-
-```bash
-docker inspect <container> --format '{{json .}}' | jq '.'
-# または特定の情報
-docker inspect <container> --format '{{.State.Status}}'
-docker inspect <container> --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
-```
-
-### 4. 出力フォーマット
+When the user wants to create a project, you **MUST ask** what language/stack they're using:
 
 ```
-## コンテナ一覧
-
-| ID | 名前 | イメージ | 状態 | ポート |
-|----|------|----------|------|--------|
-| ... | ... | ... | ... | ... |
-
-実行中: {N} / 全体: {M}
+You: Create a project called "myapp"
+Bot: What language/stack are you using?
+    - python (Python 3)
+    - node (Node.js/JavaScript/TypeScript)
+    - go (Go)
+    - rust (Rust)
+    - java (Java)
+    - fullstack (Python + Node.js)
+    - empty (no dev environment, just file serving)
 ```
 
+**Important:** ALL stacks create empty nginx containers by default. VS Code is never included automatically. The stack setting is saved for future reference when you run `add-vscode`.
+
+**To add VS Code later:** `container-manager add-vscode <name>`
+
+## Commands
+
+### Create Environments
 ```
-## リソース使用量
+container-manager create <name> [stack]
+```
+- **Auto-prompts for stack if not specified**
+- Auto-creates `~/projects/<name>`
+- Assigns available port automatically
+- Generates secure password (for stacks with VS Code)
+- Starts VS Code (8443) + HTTP Server (port+1) automatically
 
-| コンテナ | CPU | メモリ | ネットワーク | ディスク |
-|----------|-----|--------|-------------|----------|
-| ... | ... | ... | ... | ... |
+**Special: `empty` stack**
+- Creates an nginx container instead of code-server
+- Just serves static files from the project folder
+- No VS Code, just port 8443 for the site
+- To add VS Code later: `container-manager add-vscode <name>`
+
+### Manage Lifecycle
+```
+container-manager start <name>     # Start container
+container-manager stop <name>      # Stop container
+container-manager restart <name>   # Restart container
+container-manager status           # Show CPU/Memory usage
 ```
 
-## 注意事項
+### Maintenance
+```
+container-manager logs <name>      # View logs (last 50 lines)
+container-manager logs <name> --follow  # Stream logs
+container-manager url <name>       # Get both access URLs
+container-manager prune            # Remove stopped containers + unused images
+container-manager update <name>    # Update code-server and recreate container
+container-manager add-vscode <name>  # Add VS Code to an empty container
+container-manager remove-vscode <name>  # Remove VS Code, keep nginx serving
+```
 
-- ✅ 停止操作前に確認を求める（本番環境の可能性）
-- ✅ `exec` ではインタラクティブモード（`-it`）を使用
-- ❌ `docker kill` は使用しない（graceful shutdown を優先）
-- ❌ `docker rm` は使用しない（cleanup コマンドに委譲）
+### Discovery
+```
+container-manager list             # List all projects + containers
+container-manager help             # Show all commands
+```
+
+## Output Format
+
+When creating a container, show **both URLs**:
+
+```
+✓ Project 'myapp' created successfully!
+
+Access URLs:
+  VS Code:     http://HOSTNAME.local:8443
+  Website:     http://HOSTNAME.local:8444
+  VS Code:     http://192.168.1.x:8443
+  Website:     http://192.168.1.x:8444
+
+Web Password: <generated-password>
+
+Container: dev-myapp
+Ports: 8443 (VS Code), 8444 (Site)
+Stack: node
+```
+
+## Examples
+
+```
+You: Start a Python project called "myapp"
+Bot: container-manager create myapp python
+
+You: I want to work on my React project
+Bot: What language/stack? (python, node, go, rust, java, fullstack)
+You: TypeScript with React
+Bot: Great! Creating a Node.js/TypeScript container.
+    container-manager create react-project node
+
+You: Check if my containers are healthy
+Bot: container-manager status
+
+You: Show me the URLs for myapp
+Bot: container-manager url myapp
+
+You: Clean up disk space
+Bot: container-manager prune
+```
+
+## Notes
+- Default containers use `linuxserver/code-server` image (with VS Code)
+- `empty` stack uses `nginx:alpine` (no VS Code)
+- BIND_ADDR=0.0.0.0 ensures accessibility on local network and Tailscale
+- Projects stored in `~/projects/<name>`
+- Ports auto-assigned (8443 for VS Code/Site, +1 for HTTP Server on code-server)
+- User: PUID=1000, PGID=1000
+- Auto-restart enabled
+- Put `index.html` in project folder to serve a website automatically

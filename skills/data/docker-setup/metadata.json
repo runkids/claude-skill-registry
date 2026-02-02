@@ -1,7 +1,7 @@
 {
   "name": "docker-setup",
-  "repo": "maneeshanif/todo-spec-driven",
+  "repo": "nextflow-io/training",
   "path": ".claude/skills/docker-setup/SKILL.md",
-  "source": "github.com/maneeshanif/todo-spec-driven",
-  "downloaded_at": "2026-02-01T03:31:18.426397Z"
+  "source": "github.com/nextflow-io/training",
+  "downloaded_at": "2026-02-02T05:01:32.727905Z"
 }

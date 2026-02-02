@@ -1,7 +1,7 @@
 {
   "name": "prowler-pr",
-  "repo": "prowler-cloud/prowler",
+  "repo": "majiayu000/claude-skill-registry",
   "path": "skills/prowler-pr/SKILL.md",
-  "source": "github.com/prowler-cloud/prowler",
-  "downloaded_at": "2026-02-01T04:35:23.743073Z"
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-02T04:36:16.780226Z"
 }

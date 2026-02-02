@@ -1,7 +1,7 @@
 {
   "name": "skill-review",
-  "repo": "jezweb/claude-skills",
+  "repo": "richtabor/agent-skills",
   "path": "skills/skill-review/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-02-01T05:00:38.692894Z"
+  "source": "github.com/richtabor/agent-skills",
+  "downloaded_at": "2026-02-02T04:53:01.531272Z"
 }

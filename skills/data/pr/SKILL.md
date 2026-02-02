@@ -1,67 +1,172 @@
 ---
 name: pr
-description: Creates pull requests with proper formatting. Use when creating PRs, opening pull requests, or preparing changes for review.
+description: Generate comprehensive PR descriptions from git diffs. Use when creating or updating pull requests, when asked to write a PR description, or when the user says "pr", "/pr", or asks for help with their pull request. Analyzes staged/unstaged changes and commit history to produce thorough, reviewer-friendly descriptions.
 ---
 
-# Pull Requests
+# PR Description Generator
 
-## PR Title
+Generate pull request descriptions that reviewers will love.
 
-Use the [Conventional Commit Format](https://www.conventionalcommits.org/), same as commit messages:
+## Workflow
 
-```text
-<type>(<scope>): <description>
+1. Gather context (diff, commits, related files)
+2. Analyze the changes (what changed, why it matters)
+3. Generate description following the template
+4. Present to user for approval
+5. Offer to create PR using `gh` CLI
+
+## Step 1: Gather Context
+
+Run these commands to understand the changes:
+
+```bash
+# Get the diff (staged + unstaged)
+git diff HEAD
+
+# If on a feature branch, get diff from main
+git diff main...HEAD
+
+# Get recent commits on this branch
+git log main..HEAD --oneline
+
+# Get commit messages with bodies
+git log main..HEAD --format="%B---"
 ```
 
-## Types
+## Step 2: Analyze Changes
 
-- `feat`: User-facing features or behavior changes (must change production code)
-- `fix`: Bug fixes (must change production code)
-- `docs`: Documentation only
-- `style`: Code style/formatting (no logic changes)
-- `refactor`: Code restructuring without behavior change
-- `test`: Adding or updating tests
-- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
+For each changed file, identify:
+- **What**: The technical change made
+- **Why**: The purpose/motivation (infer from context, commit messages, code comments)
+- **Impact**: What this affects (features, performance, security, etc.)
 
-## PR Description Template
+Look for clues in:
+- Commit messages
+- Code comments (especially TODOs resolved)
+- Test files (they reveal intent)
+- Related documentation changes
+
+## Step 3: Generate Description
+
+Use this template:
 
 ```markdown
 ## Summary
-One sentence describing the overall change.
 
-- Optional supporting details
-- If needed
+[1-2 sentences: What does this PR do and why?]
 
-## Test plan
-- [ ] How to verify it works
+## Changes
+
+[Bullet list of key changes, grouped logically]
+
+- **[Area/Component]**: [What changed]
+- **[Area/Component]**: [What changed]
+
+## Testing
+
+[How was this tested? What should reviewers verify?]
+
+- [ ] Unit tests pass
+- [ ] Manual testing of [specific flows]
+- [ ] [Any other relevant checks]
+
+## Notes for Reviewers
+
+[Optional: Anything reviewers should pay attention to, questions you have, or context that helps review]
+
+---
+
+<sub>📋 PR description generated with [agent-resources](https://github.com/kasperjunge/agent-resources) • `uvx add-skill kasperjunge/pr`</sub>
 ```
 
-## Labels
+## Quality Standards
 
-Apply labels using `gh pr create --label <label>` or `gh pr edit --add-label <label>`:
+### Summary
+- Lead with the WHY, not just the WHAT
+- Be specific: "Fix login timeout" > "Fix bug"
+- One PR = one purpose (if not, note it)
 
-- `enhancement` - User-facing features or improvements (must change production code behavior)
-- `refactor` - Production code changes that don't alter behavior
-- `bug` - Fixes broken production code functionality
-- `test` - Changes to tests
-- `documentation` - Documentation changes
+### Changes
+- Group related changes together
+- Highlight breaking changes prominently
+- Note any migrations or setup steps needed
 
-**No label needed** for dependency bumps, CI/CD, tooling, or infrastructure changes.
+### Testing
+- Be specific about what was tested
+- Include manual testing steps if relevant
+- Note any areas that need extra review attention
 
-## Branch Naming
+## Examples
 
-Use `type/short-description`:
+### Good Summary
+> Add rate limiting to authentication endpoints to prevent brute force attacks. Limits to 5 attempts per minute per IP, with exponential backoff.
 
-```text
-feat/cache-policy
-fix/robots-txt-503
-chore/pre-commit-hooks
+### Bad Summary
+> Fix auth issues
+
+### Good Changes Section
+```markdown
+## Changes
+
+- **Auth**: Add rate limiter middleware with Redis backend
+- **Config**: New `RATE_LIMIT_*` environment variables
+- **Tests**: Add rate limiting integration tests
+- **Docs**: Update API documentation with rate limit headers
 ```
 
-## Instructions
+### Bad Changes Section
+```markdown
+## Changes
 
-1. Run `git log main..HEAD` to see commits for this branch
-2. Run `git diff main...HEAD` to see all changes
-3. Summarize the changes in 1-2 sentences
-4. Create a test plan with verification steps
-5. Apply appropriate labels
+- Changed auth.ts
+- Changed config.ts
+- Added tests
+```
+
+## Handling Edge Cases
+
+**Large PRs**: Group changes by feature/area, add a "Overview" section at top
+
+**Refactoring PRs**: Emphasize that behavior is unchanged, note what was restructured and why
+
+**Bug fixes**: Include what was broken, root cause, and how the fix addresses it
+
+**Dependencies**: Note any new dependencies and why they were chosen
+
+## Step 4: Offer to Create PR
+
+After presenting the generated description to the user, ask if they want to create the PR using `gh`:
+
+> Would you like me to create the PR now using `gh`?
+
+If the user accepts:
+
+1. Check if the current branch is pushed to remote:
+   ```bash
+   git rev-parse --abbrev-ref --symbolic-full-name @{u}
+   ```
+
+2. If not pushed, offer to push first:
+   ```bash
+   git push -u origin HEAD
+   ```
+
+3. Create the PR using `gh`:
+   ```bash
+   gh pr create --title "[PR title from summary]" --body "[generated description]"
+   ```
+
+4. Report the PR URL back to the user
+
+### Options to offer
+
+When asking about PR creation, present these options:
+- **Create PR** - Create as draft or ready for review
+- **Create as draft** - `gh pr create --draft`
+- **Copy to clipboard** - Just copy the description (if user prefers to create manually)
+
+### Error handling
+
+- If `gh` is not installed, inform the user: "The GitHub CLI (`gh`) is not installed. You can install it from https://cli.github.com/ or copy the description above to create the PR manually."
+- If not authenticated, guide them to run `gh auth login`
+- If there are uncommitted changes, warn before proceeding

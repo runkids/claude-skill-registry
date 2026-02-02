@@ -1,207 +1,176 @@
 ---
 name: repo-structure-navigate
-description: Navigate the Valibot repository structure. Use when looking for files, understanding the codebase layout, finding schema/action/method implementations, locating tests, API docs, or guide pages. Covers monorepo layout, library architecture, file naming conventions, and quick lookups.
+description: Navigate the Formisch monorepo structure. Use when finding code locations, understanding architecture, locating source files, or implementing features across packages and frameworks.
+metadata:
+  author: formisch
+  version: '1.0'
 ---
 
-# Valibot Repository Structure
+# Repository Navigation
 
-## Monorepo Layout
+Quick reference for understanding and navigating the Formisch repository structure.
+
+## Overview
+
+**Formisch** is a schema-based, headless form library with a framework-agnostic core supporting multiple frameworks (Preact, Qwik, React, Solid, Svelte, Vue). Framework-specific reactivity is injected at build time for native performance.
+
+**Architecture:**
+
+- Monorepo with pnpm workspaces
+- Framework-agnostic core + framework-specific wrappers
+- TypeScript throughout with Valibot schemas
+
+## Directory Structure
 
 ```
-valibot/
-├── library/          # Core valibot package (zero dependencies)
-├── packages/
-│   ├── i18n/         # Translated error messages (25+ languages)
-│   └── to-json-schema/  # JSON Schema converter
-├── codemod/
-│   ├── migrate-to-v0.31.0/  # Version migration
-│   └── zod-to-valibot/      # Zod converter
-├── website/          # valibot.dev (Qwik + Vite)
-├── brand/            # Brand assets
+formisch/
+├── packages/         # Core packages
+│   ├── core/         # Framework-agnostic form logic
+│   └── methods/      # Form manipulation methods
+├── frameworks/       # Framework-specific wrappers (preact, qwik, react, solid, svelte, vue)
+├── playgrounds/      # Testing environments per framework
+├── scripts/          # Automation scripts
+├── website/          # Documentation site
 ├── skills/           # Agent skills (this folder)
-└── prompts/          # Legacy AI agent guides
+└── prompts/          # Legacy AI agent guides (deprecated)
 ```
 
-## Core Library (`/library/src/`)
+## Core Packages
 
-### Directory Structure
+### `/packages/core/` → `@formisch/core`
 
-| Directory   | Purpose                         | Examples                                      |
-| ----------- | ------------------------------- | --------------------------------------------- |
-| `schemas/`  | Data type validators            | `string/`, `object/`, `array/`, `union/`      |
-| `actions/`  | Validation & transformation     | `email/`, `minLength/`, `trim/`, `transform/` |
-| `methods/`  | High-level API                  | `parse/`, `safeParse/`, `pipe/`, `partial/`   |
-| `types/`    | TypeScript definitions          | `schema.ts`, `issue.ts`, `dataset.ts`         |
-| `utils/`    | Internal helpers (prefixed `_`) | `_addIssue/`, `_stringify/`, `ValiError/`     |
-| `storages/` | Global state                    | Config, message storage                       |
+Framework-agnostic form logic. Builds to framework-specific outputs via `tsdown.config.ts`.
 
-### Schema Categories
+**Key directories:**
 
-- **Primitives**: `string`, `number`, `boolean`, `bigint`, `date`, `symbol`, `blob`, `file`
-- **Objects**: `object`, `strictObject`, `looseObject`, `objectWithRest`
-- **Arrays**: `array`, `tuple`, `strictTuple`, `looseTuple`, `tupleWithRest`
-- **Advanced**: `union`, `variant`, `intersect`, `record`, `map`, `set`, `lazy`, `custom`
-- **Modifiers**: `optional`, `nullable`, `nullish`, `nonNullable`, `nonNullish`, `nonOptional`
+- `src/array/` - Array field utilities
+- `src/field/` - Field management
+- `src/form/` - Form state management
+- `src/framework/` - Framework reactivity integration (injected at build time)
+- `src/types/` - TypeScript types
 
-### Action Types
+### `/packages/methods/` → `@formisch/methods`
 
-**Validation** (return issues): `email`, `url`, `uuid`, `regex`, `minLength`, `maxValue`, `check`
+Form manipulation utilities. Each method in its own directory (`src/{method-name}/`).
 
-**Transformation** (modify data): `trim`, `toLowerCase`, `toUpperCase`, `mapItems`, `transform`
+**Available methods:** focus, getAllErrors, getErrors, getInput, handleSubmit, insert, move, remove, replace, reset, setErrors, setInput, submit, swap, validate
 
-**Metadata**: `brand`, `flavor`, `metadata`, `description`, `title`
+## Framework Packages
 
-### File Naming Convention
+### `/frameworks/{framework}/` → `@formisch/{framework}`
 
-Each schema/action/method has its own directory:
+Thin wrappers that:
 
-```
-schemas/string/
-├── string.ts        # Implementation
-├── string.test.ts   # Runtime tests
-├── string.test-d.ts # Type tests
-└── index.ts         # Re-export
-```
+1. Export framework-specific core build
+2. Provide framework-native components/primitives
+3. Re-export methods
 
-### Core Patterns
-
-**Schemas** define data types:
-
-```typescript
-export interface StringSchema<TMessage> extends BaseSchema<...> {
-  readonly kind: 'schema';
-  readonly type: 'string';
-  // ...
-}
-```
-
-**Actions** validate/transform in pipelines:
-
-```typescript
-export interface EmailAction<TInput, TMessage> extends BaseValidation<...> {
-  readonly kind: 'validation';
-  readonly type: 'email';
-  // ...
-}
-```
-
-**Methods** provide API functions:
-
-```typescript
-export function parse<TSchema>(
-  schema: TSchema,
-  input: unknown
-): InferOutput<TSchema>;
-```
-
-### Key Types
-
-- `BaseSchema`, `BaseValidation`, `BaseTransformation` - Base interfaces
-- `InferOutput<T>`, `InferInput<T>`, `InferIssue<T>` - Type inference
-- `Config`, `ErrorMessage<T>`, `BaseIssue<T>` - Configuration and errors
-- `'~standard'` property - [Standard Schema](https://github.com/standard-schema/standard-schema) compatibility
-
-## Website (`/website/src/routes/`)
-
-### API Documentation
+**Structure:**
 
 ```
-routes/api/
-├── (schemas)/string/     # Schema docs
-│   ├── index.mdx         # MDX content
-│   └── properties.ts     # Type definitions
-├── (actions)/email/      # Action docs
-├── (methods)/parse/      # Method docs
-├── (types)/StringSchema/ # Type docs
-└── menu.md               # Navigation
+frameworks/{framework}/
+├── src/
+│   ├── components/    # Form, Field components
+│   ├── primitives/    # createForm/useForm, useField, useFieldArray
+│   ├── types/         # Framework-specific types
+│   └── index.tsx      # Main export
 ```
 
-### Guides
+## Playgrounds
 
-```
-routes/guides/
-├── (get-started)/       # Intro, installation
-├── (main-concepts)/     # Schemas, pipelines, parsing
-├── (schemas)/           # Objects, arrays, unions
-├── (advanced)/          # Async, i18n, JSON Schema
-├── (migration)/         # Version upgrades
-└── menu.md              # Navigation
-```
+### `/playgrounds/{framework}/`
 
-## Development
+Minimal apps for testing. Use workspace dependencies (`workspace:*`). Run with `pnpm dev`.
 
-### Playground
+## Website
 
-Use `library/playground.ts` for quick experimentation.
+### `/website/`
 
-### Adding a Schema/Action
+Documentation site built with Qwik. Update when APIs change.
 
-1. Create directory: `library/src/schemas/yourSchema/`
-2. Create files: `yourSchema.ts`, `yourSchema.test.ts`, `yourSchema.test-d.ts`, `index.ts`
-3. Follow existing patterns (copy similar implementation)
-4. Export from category `index.ts`
-5. Run `pnpm -C library test`
+## Quick Reference
 
-### Modifying Core Types
+### Finding Code
 
-⚠️ Changes to `library/src/types/` affect the entire library. Always run full test suite.
+| Looking for...                | Location                                  |
+| ----------------------------- | ----------------------------------------- |
+| Form state logic              | `/packages/core/src/form/`                |
+| Field management              | `/packages/core/src/field/`               |
+| Array utilities               | `/packages/core/src/array/`               |
+| Methods (submit, reset, etc.) | `/packages/methods/src/{method-name}/`    |
+| Framework components          | `/frameworks/{framework}/src/components/` |
+| Framework primitives          | `/frameworks/{framework}/src/primitives/` |
+| Type definitions              | `/packages/core/src/types/`               |
+| Usage examples                | `/playgrounds/{framework}/src/`           |
+| Documentation                 | `/website/src/routes/`                    |
 
-## Quick Lookups
-
-| Looking for...        | Location                                       |
-| --------------------- | ---------------------------------------------- |
-| Schema implementation | `library/src/schemas/[name]/[name].ts`         |
-| Action implementation | `library/src/actions/[name]/[name].ts`         |
-| Method implementation | `library/src/methods/[name]/[name].ts`         |
-| Type definitions      | `library/src/types/`                           |
-| Internal utilities    | `library/src/utils/`                           |
-| Error messages (i18n) | `packages/i18n/[lang]/`                        |
-| API docs page         | `website/src/routes/api/(category)/[name]/`    |
-| Guide page            | `website/src/routes/guides/(category)/[name]/` |
-| Tests                 | Same directory as source, `.test.ts` suffix    |
-| Type tests            | Same directory as source, `.test-d.ts` suffix  |
-
-## Commands
+### Commands
 
 ```bash
-# Library
-pnpm -C library build      # Build
-pnpm -C library test       # Run tests
-pnpm -C library lint       # Lint
-pnpm -C library format     # Format
-
-# Website
-pnpm -C website dev        # Dev server
-pnpm -C website build      # Production build
-
-# Root
-pnpm install               # Install all
-pnpm format                # Format all
+pnpm install  # Install dependencies
+pnpm build    # Build a package
+pnpm test     # Run tests
+pnpm lint     # Lint and type check
 ```
 
-## Key Principles
+## Common Workflows
 
-1. **Modularity** - Small, focused functions; one per file
-2. **Zero dependencies** - Core library has no runtime deps
-3. **100% test coverage** - Required for library
-4. **Tree-shakable** - Use `// @__NO_SIDE_EFFECTS__` annotation
-5. **Type-safe** - Full TypeScript with strict mode
-6. **ESM only** - Imports include `.ts` extensions
+### Adding a Core Feature
 
-## Do's and Don'ts
+1. Implement in `/packages/core/src/`
+2. Add framework-specific code in `/packages/core/src/framework/`
+3. Update exports in index files
+4. Test in playgrounds
+5. Update docs in `/website/`
 
-**Do:**
+### Adding a Method
 
-- Follow existing code patterns
-- Write runtime and type tests
-- Add JSDoc documentation
-- Keep functions small and focused
-- Check bundle size impact
+1. Create `/packages/methods/src/{method-name}/`
+2. Export from `/packages/methods/src/index.ts`
+3. Test in playground and document on website
 
-**Don't:**
+### Adding Framework Support
 
-- Add external dependencies
-- Modify core types without full test run
-- Skip tests
-- Create large multi-purpose functions
-- Modify generated files (`dist/`, `coverage/`)
+1. Create `/packages/core/src/framework/{framework}.ts`
+2. Configure build in `tsdown.config.ts`
+3. Create `/frameworks/{framework}/` package
+4. Create playground in `/playgrounds/{framework}/`
+
+## Important Rules
+
+### Code Style
+
+- TypeScript throughout
+- Use Prettier and ESLint
+- Add JSDoc for public APIs
+- camelCase for functions/variables, PascalCase for components/types
+
+### Imports
+
+- Relative imports within packages
+- Package imports across packages
+- Prefer named exports
+
+### Testing
+
+- Tests next to implementation (`.test.ts`)
+- Use Vitest
+- Run: `pnpm test`
+
+## Architecture
+
+**Framework-agnostic core** - Written once, compiled to framework-specific versions via `tsdown.config.ts`. Framework reactivity is injected at build time from `/packages/core/src/framework/{framework}.ts`. This ensures:
+
+- Native performance per framework
+- Consistent behavior across frameworks
+- Minimal bundle size
+
+## Best Practices
+
+- Code differs between frameworks - always check the target framework
+- Check playgrounds for real-world usage examples
+- TypeScript types are the source of truth
+- Follow existing patterns in the codebase
+- Test incrementally (build → test → playground)
+- Update website docs when changing APIs
+- Use `workspace:*` dependencies in playgrounds

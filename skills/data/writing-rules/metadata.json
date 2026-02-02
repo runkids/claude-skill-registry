@@ -1,7 +1,7 @@
 {
   "name": "writing-rules",
-  "repo": "akiojin/playfab-mcp-server",
-  "path": ".claude/skills/writing-rules/SKILL.md",
-  "source": "github.com/akiojin/playfab-mcp-server",
-  "downloaded_at": "2026-02-01T03:25:58.699136Z"
+  "repo": "park-kyungchan/palantir",
+  "path": ".claude/plugins/cache/claude-plugins-official/hookify/e30768372b41/skills/writing-rules/SKILL.md",
+  "source": "github.com/park-kyungchan/palantir",
+  "downloaded_at": "2026-02-02T03:03:38.500033Z"
 }

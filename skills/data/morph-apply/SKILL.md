@@ -17,7 +17,7 @@ Fast, AI-powered file editing using the Morph Apply API. Edit files without read
 
 ## Key Pattern: Code Markers
 
-Use `/maestro:/ ... existing code ...` (or language-appropriate comments) to mark where edits go:
+Use `// ... existing code ...` (or language-appropriate comments) to mark where edits go:
 
 ```python
 # ... existing code ...

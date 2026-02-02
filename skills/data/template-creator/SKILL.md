@@ -1,400 +1,877 @@
 ---
 name: template-creator
-description: Create new ChatGPT Enterprise templates for the Kowalah marketing website following the established content collection schema. Use when the user requests to create a new template resource (policy, evaluation guide, deployment checklist, job description, or program framework) for the /resources/templates section.
+description: Creates and manages templates for agents, skills, workflows, hooks, and code patterns. Ensures consistency across the framework. Use when creating new template types or standardizing patterns.
+version: 2.1.0
+model: sonnet
+invoked_by: both
+user_invocable: true
+tools: [Read, Write, Edit, Bash, Glob, Grep]
+# Phase 1 Integration: Template tools validated against .claude/config/tool-manifest.json
+# Templates should reference tools from the manifest for consistency
+# Single source of truth: .claude/config/tool-manifest.json
+assigned_agents: []
+best_practices:
+  - Include all required fields with placeholders
+  - Add documentation comments in templates
+  - Version templates for tracking changes
+  - Include validation examples
+  - Use consistent placeholder format
+error_handling: graceful
+streaming: supported
+output_location: .claude/templates/
 ---
 
-# Template Creator
+# Template Creator Skill
+
+Creates and manages templates for agents, skills, workflows, hooks, and code patterns. Ensures consistency across the multi-agent framework through standardized structures.
+
+## ROUTER UPDATE REQUIRED (CRITICAL - DO NOT SKIP)
+
+**After creating ANY template, you MUST update the appropriate documentation:**
+
+```
+1. Update .claude/templates/README.md with new template type
+2. Update CLAUDE.md Section 8.5 if user-invocable
+3. Update learnings.md with creation summary
+```
+
+**Verification:**
+
+```bash
+grep "<template-name>" .claude/templates/README.md || echo "ERROR: README NOT UPDATED!"
+```
+
+**WHY**: Templates not documented are invisible to other creators and will never be used.
+
+---
 
 ## Overview
 
-Create comprehensive, SEO-optimized templates for the Kowalah marketing website templates collection. This skill guides the creation of templates that follow the established schema, include proper frontmatter, and optimize for Answer Engine Optimization (AEO) through structured FAQs.
+Templates ensure consistency across the multi-agent framework. This skill creates templates for:
 
-## When to Use This Skill
+- **Agent definitions** - Standardized agent structures
+- **Skill definitions** - Reusable capability patterns
+- **Workflow definitions** - Multi-agent orchestration patterns
+- **Hook implementations** - Pre/post execution hooks
+- **Code patterns** - Language-specific scaffolding
 
-Use this skill when the user requests to create:
-- AI policy templates
-- ChatGPT Enterprise evaluation guides
-- Deployment checklists and implementation guides
-- Chief AI Officer or AI-related job descriptions
-- AI program frameworks or templates
-- Any other downloadable template resource for the `/resources/templates` section
+**Core principle:** Templates are the DNA of the system. Consistent templates produce consistent, predictable agents and skills.
 
-## Template Creation Workflow
+## When to Use
 
-### Step 1: Gather Template Requirements
+**Always:**
 
-Before creating the template, understand the following from the user:
+- Creating a new type of artifact that will be replicated
+- Standardizing an existing pattern across the codebase
+- Adding a new template category (hooks, schemas, etc.)
+- Improving existing templates with better patterns
 
-1. **Template Purpose**: What problem does this template solve?
-2. **Target Audience**: Who will use this template (CIOs, CHROs, CTOs, etc.)?
-3. **Template Type**: Which category does it fall into?
-   - `policy` - Governance documents and policies
-   - `evaluation` - Comparison/evaluation guides
-   - `deployment` - Implementation and deployment guides
-   - `job-description` - Role descriptions
-   - `program-template` - Program frameworks
-4. **Content Structure**: What sections should the template include?
-5. **Key Differentiators**: What makes this template valuable?
+**Exceptions:**
 
-### Step 2: Review the Schema
+- One-off files that will never be replicated
+- Temporary/throwaway code
 
-Load the schema reference to understand the complete template structure:
+## Template Types
 
-```bash
-Read: .claude/skills/template-creator/references/template-schema.md
-```
+| Type     | Location                       | Purpose                          | Key Fields                              |
+| -------- | ------------------------------ | -------------------------------- | --------------------------------------- |
+| Agent    | `.claude/templates/agents/`    | Agent definition templates       | name, description, tools, skills, model |
+| Skill    | `.claude/templates/skills/`    | Skill definition templates       | name, version, tools, invoked_by        |
+| Workflow | `.claude/templates/workflows/` | Workflow orchestration templates | phases, agents, dependencies            |
+| Hook     | `.claude/templates/hooks/`     | Hook implementation templates    | trigger, action, validation             |
+| Code     | `.claude/templates/code/`      | Language-specific code patterns  | language, pattern_type                  |
+| Schema   | `.claude/templates/schemas/`   | JSON/YAML schema templates       | properties, required, validation        |
 
-This reference contains:
-- Complete TypeScript schema definition
-- Field descriptions and requirements
-- Template type icon mappings
-- File naming conventions
-- Content structure guidelines
-
-### Step 3: Start with the Template Example
-
-Copy the template example as a starting point:
-
-```bash
-Read: .claude/skills/template-creator/assets/template-example.md
-```
-
-This asset file provides:
-- Complete frontmatter structure with all required fields
-- Placeholder values showing the expected format
-- Example content structure
-- Implementation notes section
-
-### Step 4: Create the Template Frontmatter
-
-Fill in the YAML frontmatter with specific values:
-
-#### Required Fields
-- `title`: Clear, descriptive template name
-- `description`: SEO-optimized description (150-160 characters)
-- `template_type`: Choose from: policy, evaluation, deployment, job-description, program-template
-- `category`: Template category (e.g., "Governance & Risk", "Implementation & Deployment")
-
-#### Hero Section
-- `hero.title`: Template title (can match main title or be variant)
-- `hero.subtitle`: Compelling value proposition
-- `hero.image`: Path to hero image (format: `/images/resources/templates/[slug]-hero.png`)
-- `hero.badge`: Optional badge (Most Popular, New, Updated, Essential)
-
-#### Overview Section
-- `overview.who_its_for`: Specific target audience and roles
-- `overview.when_to_use`: Timing and situations for use
-- `overview.key_benefit`: Primary value proposition
-- `overview.sections_included`: Array of section names (5-10 items)
-
-#### How to Use Steps
-Keep the standard 4-step process:
-1. Copy the template
-2. Customize for organization
-3. Review with stakeholders
-4. Deploy and iterate
-
-Adjust descriptions to match the specific template type.
-
-#### FAQ Section
-Create 5-10 questions optimized for Answer Engine Optimization:
-- Answer common objections
-- Explain key decisions and approaches
-- Provide implementation context
-- Address "how is this different from X" questions
-- Include timing/frequency questions
-
-#### External Resources (Optional)
-Use this field when linking to comprehensive external resources:
-- `external_resources.google_doc.url`: Link to Google Doc with full content
-- `external_resources.google_doc.label`: Button text (default: "Open in Google Docs")
-
-**When to use external_resources:**
-- Multi-tab Google Docs or Sheets that are easier to maintain externally
-- Comprehensive guides that receive frequent updates
-- Resources where collaborative editing is beneficial (easier in Google Docs)
-- Templates where the "source of truth" should remain in an external system
-
-**When NOT to use:**
-- Simple templates that can be fully reproduced in Markdown
-- Static content that doesn't need frequent updates
-- Templates where you want full version control in the repo
-
-**Template approach with external resources:**
-- The template page acts as an overview/landing page
-- Describe what's included in the external resource
-- Provide context through FAQs and implementation notes
-- Link to the comprehensive external resource for full details
-
-#### CTA Section
-- `cta.title`: Call-to-action heading
-- `cta.content`: How Kowalah can help beyond the template
-- `cta.button_label`: Usually "Talk to an Expert"
-- `cta.button_link`: Usually "/contact"
-
-#### Optional Fields
-- `meta_title`: If different from title
-- `related_templates`: Array of related template slugs
-- `draft`: Set to `true` to hide from production
-- `featured`: Set to `true` for homepage featuring
-
-### Step 5: Write the Template Content
-
-After the frontmatter, create the markdown content:
-
-#### Start with Usage Note
-Always begin with:
-```markdown
-***NOTE**: To use this template, copy the content using the "Copy page" button above, then customize for your organization.*
-```
-
-#### Content Structure
-Organize content using clear markdown hierarchy:
-- `# Heading 1` for main title
-- `## Heading 2` for major sections
-- `### Heading 3` for subsections
-- Use lists, tables, and emphasis appropriately
-
-#### Implementation Notes
-End with an Implementation Notes section providing:
-- Customization guidance
-- Contextual factors to consider
-- Industry-specific adaptation tips
-
-### Step 6: Save the Template File
-
-Save the template to the correct location:
-
-**Location**: `src/content/templates/[template-slug].md`
-
-**Naming Convention**: Use kebab-case
-- ✅ `ai-policy-template.md`
-- ✅ `chatgpt-evaluation-guide.md`
-- ✅ `caio-job-description.md`
-- ❌ `AI_Policy_Template.md`
-- ❌ `ChatGPT Evaluation Guide.md`
-
-The filename (without `.md`) becomes the URL slug: `/resources/templates/[filename]`
-
-### Step 7: Generate Hero Image Midjourney Prompt
-
-After saving the template, generate a Midjourney prompt for the hero image:
-
-**Image Requirements:**
-- **Dimensions**: 800×450px (16:9 landscape) for hero sections
-- **Format**: Professional, conceptual business/technology scene
-- **Brand Integration**: Kowalah colors (#fa26a0, #ae10e3) as subtle accents
-- **Style**: Clean, modern, executive-appropriate
-
-**Glassmorphism Optimization** (IMPORTANT):
-The template detail pages use a glassmorphism card overlay on the left side of the hero image. Optimize images for this design:
-
-✅ **Ideal Composition:**
-- **Subject positioning**: Place people/focal points on the **right third** of the frame
-- **Left side atmospheric**: Keep left two-thirds as soft, blurred environment for card overlay
-- **Environmental emphasis**: Prioritize setting and atmosphere over close-up subjects
-- **Wide environmental shots**: Office scenes, boardrooms, strategic settings with depth
-- **Soft bokeh backgrounds**: Create visual texture without competing focal points
-
-❌ **Avoid:**
-- Close-up portraits with faces centered
-- Important details in the center or left third (will be covered by card)
-- Images where the main subject is the primary focal point
-- Busy or detailed left-side content that distracts from card readability
-
-**Purpose**: Hero images provide color, atmosphere, and brand consistency - the glassmorphism card is the visual hero, not the background image.
-
-**Visual Theme by Template Type:**
-
-- **`policy`** - Executive governance scenes: boardroom discussions, compliance frameworks, leadership strategy sessions
-- **`evaluation`** - Analysis and decision-making: comparison matrices, strategic evaluation, vendor assessment contexts
-- **`deployment`** - Implementation and transformation: rollout planning, team enablement, change management scenes
-- **`job-description`** - Leadership and talent: executive interview contexts, strategic hiring, organizational capability building
-- **`program-template`** - Framework and structure: program planning, organizational design, strategic frameworks
-
-**Prompt Generation Template:**
+## The Iron Law
 
 ```
-[Subject/scene description based on template type], [composition details], shot on Fujifilm X-T4 35mm f/1.4, shallow depth of field bokeh, [lighting], natural skin tones, slight film grain, [attire/context], [expressions/mood], [subtle brand color integration], 800×450px landscape, [compositional notes], documentary style, authentic moment, no text, pure photography
+NO TEMPLATE WITHOUT PLACEHOLDER DOCUMENTATION
 ```
 
-**Reference Files:**
-- Read `/docs/context/visual-style-guide.md` for complete Midjourney prompt guidelines
-- Use "Preventing Text Overlays in Midjourney" section to avoid unwanted text generation
-- Follow "Template Addition for Text Prevention" format
+Every `{{PLACEHOLDER}}` must have a corresponding comment explaining:
 
-**Example Midjourney Prompts:**
+1. What value should replace it
+2. Valid options/formats
+3. Example value
 
-**AI Policy Template** (policy type):
-```
-Executive leadership team in modern boardroom reviewing AI governance framework, medium shot with subjects on right third, shot on Fujifilm X-T4 35mm f/1.4, shallow depth of field, warm natural window lighting, natural skin tones, slight film grain, professional business attire, confident collaborative expressions, digital screens with subtle purple glow showing policy frameworks, left side soft bokeh for text overlay, 800×450px landscape composition, atmospheric depth, documentary style, authentic strategy session, no text, pure photography
-```
+**No exceptions:**
 
-**Chief AI Officer Job Description** (job-description type):
-```
-Modern executive office environment with senior leader visible on right edge of frame, wide environmental shot, shot on Fujifilm X-T4 35mm f/1.4, shallow depth of field, warm natural window lighting from left, natural skin tones, slight film grain, executive in sharp business attire partially visible on right third, confident posture, left two-thirds showcases atmospheric office interior with organizational charts and strategic planning boards softly blurred, subtle pink and purple accent lighting (#fa26a0, #ae10e3) on office walls and technology, 800×450px landscape composition, depth and bokeh throughout left side, professional strategic workspace aesthetic, documentary style, environmental atmosphere emphasized over subject, no text, pure photography
-```
+- Every placeholder is documented
+- Every required field is marked
+- Every optional field has a default
 
-**ChatGPT Evaluation Guide** (evaluation type):
-```
-Business team analyzing AI platform comparison, wide shot with subjects on left, shot on Fujifilm X-T4 35mm f/1.4, shallow depth of field bokeh, natural office lighting, natural skin tones, slight film grain, professional casual attire, focused analytical expressions, laptops and tablets showing evaluation matrices with purple screen glow, right side soft focus for overlay space, 800×450px landscape composition, strategic decision context, documentary style, no text, pure photography
-```
+## Workflow
 
-**Output Format:**
+### Step -1: Existence Check and Updater Delegation (MANDATORY - FIRST STEP)
 
-After generating the prompt, present it to the user:
+**BEFORE creating any template file, check if it already exists:**
 
-```
-## Hero Image Midjourney Prompt Generated
+1. **Check if template already exists:**
 
-**Image Path**: `/images/resources/templates/[template-slug]-hero.png`
-**Dimensions**: 800×450px (16:9 landscape)
-**Template Type**: [type] → [visual theme]
+   ```bash
+   test -f .claude/templates/<template-name> && echo "EXISTS" || echo "NEW"
+   ```
 
-**Midjourney Prompt**:
-```
-[Complete generated prompt]
-```
+2. **If template EXISTS:**
+   - **DO NOT proceed with creation**
+   - **Invoke template-updater workflow instead:**
 
-**Next Steps**:
-1. Copy the prompt above into Midjourney
-2. Generate the image and select the best variation
-3. Download and optimize the image
-4. Save to `/public/images/resources/templates/[template-slug]-hero.png`
-5. Verify the image path in the template frontmatter matches
-```
+     ```javascript
+     Skill({
+       skill: 'template-updater',
+       args: {
+         name: '<template-name>',
+         changes: '<description of requested changes>',
+         justification: 'Update requested via template-creator',
+       },
+     });
+     ```
 
-### Step 8: Verify the Template
+   - **Return updater result and STOP**
 
-After creating the template, verify:
-
-1. **Schema Compliance**: All required frontmatter fields present
-2. **Template Type**: Correct `template_type` value (determines icon)
-3. **FAQ Quality**: 5-10 substantive questions with detailed answers
-4. **Content Structure**: Proper markdown hierarchy and formatting
-5. **File Location**: Saved in `src/content/templates/`
-6. **File Naming**: Uses kebab-case naming
-7. **Hero Image Prompt**: Midjourney prompt generated and ready for image creation
-
-### Step 9: Test the Template
-
-Navigate to the template in the development server to verify:
-
-```
-http://localhost:4321/resources/templates/[template-slug]
-```
-
-Check:
-- Hero section displays with glassmorphism background image effect
-- Hero image loads from `/images/templates/[template-slug]-hero.png`
-- Overview section shows correct icon (based on template_type)
-- "Sections Included" list displays with green checkmarks
-- Copy page dropdown works with all export options
-- FAQ section renders properly
-- Related templates link correctly (if specified)
-
-## Template Type Icon Reference
-
-The `template_type` field determines the icon displayed in the overview section:
-
-- `"policy"` → 📄 DocumentTextIcon (governance documents)
-- `"evaluation"` → 📊 TableCellsIcon (comparison guides)
-- `"deployment"` → 🚀 RocketLaunchIcon (implementation guides)
-- `"job-description"` → 💼 BriefcaseIcon (role descriptions)
-- `"program-template"` → 📁 FolderIcon (program frameworks)
-
-## Answer Engine Optimization (AEO) Best Practices
-
-Templates should be optimized for LLMs to parse and cite:
-
-### FAQ Quality
-- Write 5-10 substantive questions
-- Provide detailed, informative answers (2-4 sentences minimum)
-- Address common objections and concerns
-- Explain key decisions and trade-offs
-- Include timing, frequency, and process questions
-
-### Content Structure
-- Use clear heading hierarchy
-- Include tables for comparisons
-- Use lists for step-by-step instructions
-- Add bold emphasis for key concepts
-- Keep paragraphs focused and scannable
-
-### SEO Elements
-- `meta_title`: Includes target keywords and "| Kowalah"
-- `description`: 150-160 characters with primary keywords
-- `hero.title`: Clear, keyword-rich title
-- `overview` fields: Include target audience and use case keywords
-
-### Automatic JSON-LD Structured Data
-
-**Every template automatically generates three types of structured data for maximum LLM discoverability:**
-
-1. **TechArticle Schema**
-   - Categorizes the template as technical content
-   - Includes author, publisher, category, and audience information
-   - Generated from: `title`, `description`, `category`, `overview.who_its_for`
-
-2. **HowTo Schema**
-   - Provides step-by-step implementation guidance
-   - Maps all "How to Use" steps with position and descriptions
-   - Includes external tools (Google Docs link if available)
-   - Generated from: `how_to_use.steps`, `external_resources.google_doc`
-
-3. **FAQPage Schema**
-   - Provides Q&A pairs for answer engines
-   - Generated from: `faq.questions` array
-
-**What this means:**
-- LLMs can understand template type, audience, and use cases
-- Answer engines can cite specific steps or FAQs
-- Google and other search engines get rich structured context
-- Templates appear in AI-powered search results with enhanced snippets
-
-**No additional work required** - just ensure your frontmatter follows the schema and the structured data generates automatically from the template detail page.
-
-## Common Template Categories
-
-Use these categories for consistency:
-
-- **Governance & Risk**: Policies, compliance frameworks, risk assessments
-- **Implementation & Deployment**: Rollout guides, deployment checklists
-- **Talent & Hiring**: Job descriptions, interview guides, onboarding plans
-- **Strategy & Planning**: Strategic frameworks, planning templates
-- **Change Management**: Adoption plans, communication templates
-
-## Resources
-
-### references/template-schema.md
-Complete schema definition with:
-- TypeScript interface
-- All field descriptions
-- Template type mappings
-- File naming conventions
-- Content structure guidelines
-
-### assets/template-example.md
-Template boilerplate with:
-- Complete frontmatter structure
-- All required and optional fields
-- Example content sections
-- Implementation notes template
+3. **If template is NEW:**
+   - Continue with Step 0 below
 
 ---
 
-## Example Usage
+### Step 0: Load Related Skills (FIRST)
 
-**User Request:** "Create a ChatGPT Enterprise Evaluation Guide template"
+Invoke related creator skills for context:
 
-**Workflow:**
-1. Gather requirements about what the evaluation guide should cover
-2. Read `references/template-schema.md` to understand schema
-3. Read `assets/template-example.md` for structure
-4. Create frontmatter with:
-   - `template_type: "evaluation"` (→ TableCellsIcon)
-   - `category: "Implementation & Deployment"`
-   - Comprehensive FAQ about evaluation criteria
-5. Write content covering evaluation framework, comparison matrices, decision criteria
-6. Save as `src/content/templates/chatgpt-evaluation-guide.md`
-7. Verify template displays correctly with table icon in overview
+```javascript
+Skill({ skill: 'agent-creator' }); // For agent template patterns
+Skill({ skill: 'skill-creator' }); // For skill template patterns
+```
+
+### Step 1: Gather Template Requirements
+
+**Analyze the request:**
+
+1. **Template Type**: Which category (agent, skill, workflow, hook, code)?
+2. **Purpose**: What will this template be used for?
+3. **Required Fields**: What fields are mandatory?
+4. **Optional Fields**: What fields are optional with defaults?
+5. **Validation Rules**: What constraints apply?
+
+**Example analysis:**
+
+```
+Template Request: "Create a hook template for pre-execution validation"
+- Type: Hook
+- Purpose: Validate inputs before skill execution
+- Required: trigger, action, validation_schema
+- Optional: error_message, continue_on_failure
+- Rules: trigger must be "pre" or "post"
+```
+
+### Step 2: Analyze Existing Templates for Patterns
+
+Search for existing patterns to ensure consistency:
+
+```bash
+# Find existing templates
+Glob: .claude/templates/**/*.md
+
+# Check agent template patterns
+Read: .claude/templates/agents/agent-template.md
+
+# Check skill template patterns
+Read: .claude/templates/skills/skill-template.md
+
+# Check workflow template patterns
+Read: .claude/templates/workflows/workflow-template.md
+```
+
+**Pattern extraction checklist:**
+
+- [ ] YAML frontmatter format
+- [ ] Section headings style
+- [ ] Placeholder format (`{{UPPER_CASE}}`)
+- [ ] Comment style (`<!-- OPTIONAL: -->`)
+- [ ] Memory Protocol section
+- [ ] Verification commands
+
+### Step 3: Generate Template with Placeholders
+
+**Placeholder Format Standard:**
+
+| Placeholder Type | Format                   | Example                    |
+| ---------------- | ------------------------ | -------------------------- |
+| Required field   | `{{FIELD_NAME}}`         | `{{AGENT_NAME}}`           |
+| Optional field   | `{{FIELD_NAME:default}}` | `{{MODEL:sonnet}}`         |
+| Multi-line       | `{{FIELD_NAME_BLOCK}}`   | `{{DESCRIPTION_BLOCK}}`    |
+| List item        | `{{ITEM_N}}`             | `{{TOOL_1}}`, `{{TOOL_2}}` |
+
+**Template Structure:**
+
+```markdown
+---
+# YAML Frontmatter with all required fields
+name: { { NAME } }
+description: { { DESCRIPTION } }
+# ... other fields
+---
+
+# {{DISPLAY_NAME}}
+
+## POST-CREATION CHECKLIST (BLOCKING - DO NOT SKIP)
+
+<!-- Always include blocking checklist -->
+
+## Overview
+
+{{OVERVIEW_DESCRIPTION}}
+
+## Sections
+
+<!-- Domain-specific sections -->
+
+## Memory Protocol (MANDATORY)
+
+<!-- Always include memory protocol -->
+```
+
+### Step 4: Add Documentation Comments
+
+Add inline documentation for each placeholder:
+
+```markdown
+---
+# [REQUIRED] Unique identifier, lowercase-with-hyphens
+name: { { AGENT_NAME } }
+
+# [REQUIRED] Single line, describes what it does AND when to use it
+# Example: "Reviews mobile app UX against Apple HIG. Use for iOS UX audits."
+description: { { DESCRIPTION } }
+
+# [OPTIONAL] Default: sonnet. Options: haiku, sonnet, opus
+model: { { MODEL:sonnet } }
+---
+
+<!-- SECTION: Core Persona -->
+<!-- Define the agent's identity and working style -->
+
+## Core Persona
+
+**Identity**: {{IDENTITY}}
+
+<!-- Example: "Senior Python Developer", "Security Analyst" -->
+```
+
+### Step 5: Validate Template Structure (BLOCKING)
+
+Before writing the template file, verify ALL requirements:
+
+**Validation Checklist:**
+
+```
+[ ] YAML frontmatter is valid syntax
+[ ] All required fields have placeholders
+[ ] All placeholders follow naming convention
+[ ] All placeholders have documentation comments
+[ ] POST-CREATION CHECKLIST section present
+[ ] Memory Protocol section present
+[ ] Verification commands included
+[ ] Example values provided where helpful
+```
+
+**Verification Commands in Template:**
+
+```bash
+# Include these in the template's POST-CREATION CHECKLIST
+grep "{{" <created-file> && echo "ERROR: Unresolved placeholders!"
+```
+
+### Step 6: Write Template File
+
+Write to appropriate location:
+
+```bash
+# Agent template
+Write: .claude/templates/agents/<template-name>.md
+
+# Skill template
+Write: .claude/templates/skills/<template-name>.md
+
+# Workflow template
+Write: .claude/templates/workflows/<template-name>.md
+
+# Hook template (create directory if needed)
+mkdir -p .claude/templates/hooks/
+Write: .claude/templates/hooks/<template-name>.md
+
+# Code template (create directory if needed)
+mkdir -p .claude/templates/code/
+Write: .claude/templates/code/<template-name>.md
+```
+
+### Step 7: Update Templates README (MANDATORY - BLOCKING)
+
+After writing the template, update `.claude/templates/README.md`:
+
+1. **Add to appropriate section** (or create new section)
+2. **Document usage instructions**
+3. **Add to Quick Reference table**
+
+**Entry format:**
+
+```markdown
+### {{Template Type}} Templates (`{{directory}}/`)
+
+Use when {{use case}}.
+
+**File:** `{{directory}}/{{template-name}}.md`
+
+**Usage:**
+
+1. Copy template to `{{target-path}}`
+2. Replace all `{{PLACEHOLDER}}` values
+3. {{Additional steps}}
+```
+
+**Verification:**
+
+```bash
+grep "<template-name>" .claude/templates/README.md || echo "ERROR: README NOT UPDATED - BLOCKING!"
+```
+
+### Step 8: Post-Creation Template Registration (Phase 1 Integration)
+
+**This step is CRITICAL.** After creating the template artifact, you MUST register it in the template discovery system.
+
+**Phase 1 Context:** Phase 1 is responsible for discovering and cataloging templates for reuse. Templates created without registration are invisible to other creators and will never be used to standardize new artifacts.
+
+After template file is written and validated:
+
+1. **Create/Update Template Registry Entry** in appropriate location:
+
+   If registry doesn't exist, create `.claude/context/artifacts/template-registry.json`:
+
+   ```json
+   {
+     "templates": [
+       {
+         "name": "{template-name}",
+         "id": "{template-name}",
+         "type": "{agent|skill|workflow|hook|code|schema}",
+         "category": "{subcategory if applicable}",
+         "description": "{What this template is for}",
+         "version": "1.0.0",
+         "location": ".claude/templates/{category}/{template-name}.md",
+         "placeholders": ["{PLACEHOLDER_1}", "{PLACEHOLDER_2}"],
+         "usageScenarios": ["{Scenario 1}", "{Scenario 2}"]
+       }
+     ]
+   }
+   ```
+
+2. **Document Placeholders with Usage Guide:**
+
+   For each placeholder in the template, ensure documentation exists:
+
+   ```markdown
+   ## Template Placeholders
+
+   | Placeholder       | Description  | Format   | Example   |
+   | ----------------- | ------------ | -------- | --------- |
+   | {{PLACEHOLDER_1}} | What this is | {format} | {example} |
+   | {{PLACEHOLDER_2}} | What this is | {format} | {example} |
+   ```
+
+3. **Register in `.claude/templates/README.md`:**
+
+   Add comprehensive entry to the templates catalog:
+
+   ```markdown
+   ### {Template Type} Templates (`{directory}/`)
+
+   Use when {describe use case}.
+
+   **File:** `.claude/templates/{directory}/{template-name}.md`
+
+   **Placeholders:**
+
+   - {{PLACEHOLDER_1}}: {Description}
+   - {{PLACEHOLDER_2}}: {Description}
+
+   **Usage:**
+
+   1. Copy template to `{target-path}`
+   2. Replace all `{{PLACEHOLDER_*}}` values with actual values
+   3. Validate with: `grep "{{" {file} && echo "ERROR: Unresolved placeholders!"`
+
+   **Related Templates:**
+
+   - {Related template 1}
+   - {Related template 2}
+
+   **Assigned for use by:**
+
+   - {Creator skill 1}
+   - {Creator skill 2}
+   ```
+
+4. **Update Consumer Skills/Creators:**
+
+   If this template is meant to be used by specific creators, add reference:
+   - In agent-creator.md: Add to Step 2 (Agent Definition)
+   - In skill-creator.md: Add to Step 2 (Skill Definition)
+   - In hook-creator.md: Add to Step 3 (Hook Template)
+   - In workflow-creator.md: Add to Step 4 (Workflow Definition)
+
+   Example:
+
+   ```markdown
+   **Available Templates:**
+
+   - See `.claude/templates/{category}/{template-name}.md` for standardized {type} template
+   ```
+
+5. **Update Memory:**
+
+   Append to `.claude/context/memory/learnings.md`:
+
+   ```markdown
+   ## Template: {template-name}
+
+   - **Type:** {agent|skill|workflow|hook|code|schema}
+   - **Purpose:** {What this template standardizes}
+   - **Placeholders:** {List key placeholders}
+   - **Discovery Path:** {How users find it}
+   - **Related Templates:** {Any related templates}
+   ```
+
+**Why this matters:** Without template registration:
+
+- Other creators cannot discover available templates
+- Artifacts are created inconsistently instead of using standards
+- System loses visibility into template network
+- "Invisible artifact" pattern emerges
+
+**Phase 1 Integration:** Template registry is the discovery mechanism for Phase 1, enabling creators and agents to discover standardized patterns and ensure consistent artifact creation.
+
+### Step 9: System Impact Analysis (MANDATORY)
+
+After creating a template:
+
+1. **README Update (BLOCKING)**
+   - Add to .claude/templates/README.md (Step 8 covers this)
+   - Document template purpose and placeholders
+
+2. **Related Templates**
+   - Check if new template supersedes existing one
+   - Add cross-references if related
+
+3. **Consumer Documentation**
+   - Document which skills/agents should use this template
+   - Update relevant creator skill with template reference
+   - Update CLAUDE.md Section 8.5 if template is user-invocable
+
+**BLOCKING**: Template without README entry may not be discovered.
+
+**Analysis Format:**
+
+```
+[TEMPLATE-CREATOR] System Impact Analysis for: <template-name>
+
+1. README UPDATE (MANDATORY - Step 8)
+   - Added to .claude/templates/README.md
+   - Usage instructions documented
+   - Quick Reference table updated
+   - Template registry entry created
+
+2. RELATED TEMPLATES CHECK
+   - Does this template supersede an existing one?
+   - Are there related templates that need cross-references?
+   - Update related creators if needed
+
+3. CONSUMER DOCUMENTATION
+   - Which skills/agents should use this template?
+   - Is template reference added to relevant creator skill?
+   - Is CLAUDE.md Section 8.5 update needed?
+
+4. MEMORY UPDATE
+   - Record creation in learnings.md
+   - Document any decisions in decisions.md
+```
+
+## Completion Checklist (BLOCKING)
+
+**All items MUST pass before template creation is complete:**
+
+```
+[ ] Template file created at .claude/templates/<name>.md
+[ ] All placeholders use {{PLACEHOLDER_NAME}} format
+[ ] README.md in .claude/templates/ updated
+[ ] No hardcoded values (all configurable via placeholders)
+[ ] Template tested with at least one real usage
+[ ] Memory files updated with learnings
+```
+
+**BLOCKING**: If ANY item fails, template creation is INCOMPLETE. Fix all issues before proceeding.
+
+### Reference Template
+
+**Use `.claude/templates/agent-skill-invocation-section.md` as the canonical reference template.**
+
+Before finalizing any template, compare:
+
+- [ ] Has clear placeholder documentation
+- [ ] Placeholders are UPPERCASE with underscores
+- [ ] Has usage examples section
+- [ ] Has integration notes
+
+## Template Best Practices
+
+### Placeholder Standards
+
+| Practice        | Good                | Bad                        |
+| --------------- | ------------------- | -------------------------- |
+| Naming          | `{{AGENT_NAME}}`    | `{{name}}`, `{AGENT_NAME}` |
+| Required fields | Always present      | Sometimes omitted          |
+| Optional fields | `{{FIELD:default}}` | No default indicator       |
+| Documentation   | Inline comments     | Separate docs file         |
+| Examples        | In comments         | None provided              |
+
+### Structure Standards
+
+1. **YAML Frontmatter First**
+   - All machine-readable metadata
+   - Comments explaining each field
+
+2. **POST-CREATION CHECKLIST Second**
+   - Blocking steps after using template
+   - Verification commands
+
+3. **Content Sections**
+   - Follow existing pattern for type
+   - Include all required sections
+
+4. **Memory Protocol Last**
+   - Standard format across all templates
+   - Always present
+
+### Validation Examples
+
+Include validation examples in templates:
+
+````markdown
+## Validation
+
+After replacing placeholders, validate:
+
+```bash
+# Check YAML is valid
+head -50 <file> | grep -E "^---$" | wc -l  # Should be 2
+
+# Check no unresolved placeholders
+grep "{{" <file> && echo "ERROR: Unresolved placeholders!"
+
+# Check required sections present
+grep -E "^## Memory Protocol" <file> || echo "ERROR: Missing Memory Protocol!"
+```
+````
+
+````
+
+## Workflow Integration
+
+This skill is part of the unified artifact lifecycle. For complete multi-agent orchestration:
+
+**Router Decision:** `.claude/workflows/core/router-decision.md`
+- How the Router discovers and invokes this skill's artifacts
+
+**Artifact Lifecycle:** `.claude/workflows/core/skill-lifecycle.md`
+- Discovery, creation, update, deprecation phases
+- Version management and registry updates
+- CLAUDE.md integration requirements
+
+**External Integration:** `.claude/workflows/core/external-integration.md`
+- Safe integration of external artifacts
+- Security review and validation phases
+
+---
+
+## Cross-Reference: Creator Ecosystem
+
+This skill is part of the **Creator Ecosystem**. Use companion creators when needed:
+
+| Creator | When to Use | Invocation |
+|---------|-------------|------------|
+| **agent-creator** | Template needs agent integration | `Skill({ skill: 'agent-creator' })` |
+| **skill-creator** | Template needs skill integration | `Skill({ skill: 'skill-creator' })` |
+| **workflow-creator** | Template needs workflow patterns | Create in `.claude/workflows/` |
+| **schema-creator** | Template needs JSON schemas | Create in `.claude/schemas/` |
+| **hook-creator** | Template needs hooks | Create in `.claude/hooks/` |
+
+### Integration Workflow
+
+After creating a template that needs additional artifacts:
+
+```javascript
+// 1. Template created for new hook type
+// 2. Need to create example hook using template
+Skill({ skill: 'hook-creator' });
+
+// 3. Template created for new agent category
+// 4. Need to update agent-creator to recognize new category
+// Edit .claude/skills/agent-creator/SKILL.md to add category
+````
+
+## Examples
+
+### Example 1: Creating a Hook Template
+
+**Request:** "Create a template for pre-execution validation hooks"
+
+**Process:**
+
+1. **Analyze**: Hook type, validation focus, pre-execution trigger
+2. **Research**: Check existing hooks in `.claude/hooks/`
+3. **Design**: Structure for validation hooks
+4. **Create**: `.claude/templates/hooks/validation-hook-template.md`
+
+````markdown
+---
+# [REQUIRED] Hook identifier, lowercase-with-hyphens
+name: { { HOOK_NAME } }
+
+# [REQUIRED] What this hook validates
+description: { { VALIDATION_DESCRIPTION } }
+
+# [REQUIRED] Options: pre, post
+trigger: pre
+
+# [REQUIRED] Options: block, warn, log
+on_failure: { { ON_FAILURE:block } }
+---
+
+# {{HOOK_DISPLAY_NAME}} Hook
+
+## POST-CREATION CHECKLIST (BLOCKING)
+
+After creating this hook:
+
+- [ ] Register in `.claude/settings.json`
+- [ ] Test with sample input
+- [ ] Document in hook README
+
+## Validation Logic
+
+```javascript
+// {{VALIDATION_DESCRIPTION}}
+function validate(input) {
+  {
+    {
+      VALIDATION_LOGIC;
+    }
+  }
+}
+```
+````
+
+## Memory Protocol (MANDATORY)
+
+**Before starting:** Read `.claude/context/memory/learnings.md`
+**After completing:** Record patterns to learnings.md
+
+````
+
+5. **Update README**: Add hooks section to templates README
+6. **Update Memory**: Record in learnings.md
+
+### Example 2: Creating a Code Pattern Template
+
+**Request:** "Create a template for TypeScript API endpoint patterns"
+
+**Process:**
+
+1. **Analyze**: TypeScript, API endpoint, code scaffolding
+2. **Research**: Check `.claude/templates/code-styles/typescript.md`
+3. **Design**: Structure for endpoint patterns
+4. **Create**: `.claude/templates/code/typescript-api-endpoint.md`
+
+```markdown
+---
+# [REQUIRED] Pattern identifier
+name: {{PATTERN_NAME}}
+
+# [REQUIRED] Language for this pattern
+language: typescript
+
+# [REQUIRED] Type: endpoint, service, model, utility
+pattern_type: endpoint
+
+# [OPTIONAL] Framework: express, fastify, nestjs
+framework: {{FRAMEWORK:express}}
+---
+
+# {{PATTERN_DISPLAY_NAME}} Pattern
+
+## Usage
+
+Copy this pattern when creating new API endpoints.
+
+## Template
+
+```typescript
+// {{ENDPOINT_DESCRIPTION}}
+// Route: {{HTTP_METHOD}} {{ROUTE_PATH}}
+
+import { Request, Response } from '{{FRAMEWORK}}';
+import { {{SERVICE_NAME}} } from '../services/{{SERVICE_FILE}}';
+
+export async function {{HANDLER_NAME}}(req: Request, res: Response) {
+  try {
+    {{HANDLER_LOGIC}}
+
+    res.json({ success: true, data: result });
+  } catch (error) {
+    {{ERROR_HANDLING}}
+  }
+}
+````
+
+## Validation
+
+After using this pattern:
+
+- [ ] Route registered in router
+- [ ] Input validation added
+- [ ] Error handling implemented
+- [ ] Tests written
+
+```
+
+## Troubleshooting
+
+### Issue: Placeholders Not Rendering
+
+**Symptoms:** `{{PLACEHOLDER}}` appears in final file
+
+**Solution:**
+- Check placeholder format (double braces, UPPER_CASE)
+- Ensure user replaced all placeholders
+- Add validation command to catch unreplaced
+
+### Issue: Template Not Discoverable
+
+**Symptoms:** Template exists but not found by creators
+
+**Solution:**
+- Verify README.md is updated
+- Check file is in correct directory
+- Run grep verification command
+
+### Issue: Inconsistent Template Structure
+
+**Symptoms:** Different templates have different formats
+
+**Solution:**
+- Review existing templates before creating
+- Use this skill's patterns
+- Run consistency check across templates
+
+## Verification Checklist
+
+Before completing template creation:
+
+- [ ] Template file exists at correct path
+- [ ] YAML frontmatter is valid
+- [ ] All placeholders use `{{UPPER_CASE}}` format
+- [ ] All placeholders have documentation comments
+- [ ] POST-CREATION CHECKLIST section present
+- [ ] Memory Protocol section present
+- [ ] README.md updated
+- [ ] Verification with grep passed
+- [ ] learnings.md updated
+
+## File Placement & Standards
+
+### Output Location Rules
+This skill outputs to: `.claude/templates/`
+
+Subdirectories by type:
+- `agents/` - Agent definition templates
+- `skills/` - Skill definition templates
+- `workflows/` - Workflow orchestration templates
+- `hooks/` - Hook implementation templates
+- `code/` - Language-specific code patterns
+- `schemas/` - JSON/YAML schema templates
+
+### Mandatory References
+- **File Placement**: See `.claude/docs/FILE_PLACEMENT_RULES.md`
+- **Developer Workflow**: See `.claude/docs/DEVELOPER_WORKFLOW.md`
+- **Artifact Naming**: See `.claude/docs/ARTIFACT_NAMING.md`
+
+### Enforcement
+File placement is enforced by `file-placement-guard.cjs` hook.
+Invalid placements will be blocked in production mode.
+
+---
+
+## Memory Protocol (MANDATORY)
+
+**Before starting:**
+Read `.claude/context/memory/learnings.md`
+
+**After completing:**
+- New template pattern -> `.claude/context/memory/learnings.md`
+- Issue found -> `.claude/context/memory/issues.md`
+- Decision made -> `.claude/context/memory/decisions.md`
+
+> ASSUME INTERRUPTION: If it's not in memory, it didn't happen.
+
+---
+
+## Iron Laws of Template Creation
+
+These rules are INVIOLABLE. Breaking them causes inconsistency across the framework.
+
+```
+
+1. NO TEMPLATE WITHOUT PLACEHOLDER DOCUMENTATION
+   - Every {{PLACEHOLDER}} must have an inline comment
+   - Comments explain valid values and examples
+
+2. NO TEMPLATE WITHOUT POST-CREATION CHECKLIST
+   - Users must know what to do after using template
+   - Blocking steps prevent incomplete artifacts
+
+3. NO TEMPLATE WITHOUT MEMORY PROTOCOL
+   - All templates must include Memory Protocol section
+   - Ensures artifacts created from template follow memory rules
+
+4. NO TEMPLATE WITHOUT README UPDATE
+   - Templates README must document new template
+   - Undocumented templates are invisible
+
+5. NO PLACEHOLDER WITHOUT NAMING CONVENTION
+   - Use {{UPPER_CASE_WITH_UNDERSCORES}}
+   - Never use lowercase or mixed case
+
+6. NO OPTIONAL FIELD WITHOUT DEFAULT
+   - Format: {{FIELD:default_value}}
+   - Makes templates usable without full customization
+
+7. NO TEMPLATE WITHOUT VERIFICATION COMMANDS
+   - Include commands to validate created artifacts
+   - Users can verify their work is correct
+
+````
+
+## Assigned Agents
+
+This skill is typically invoked by:
+
+| Agent | Role | Assignment Reason |
+|-------|------|-------------------|
+| planner | Planning standardization | Creates templates for new patterns |
+| architect | Architecture patterns | Creates templates for architectural artifacts |
+| developer | Code patterns | Creates code scaffolding templates |
+
+**To invoke this skill:**
+
+```javascript
+Skill({ skill: 'template-creator' });
+````

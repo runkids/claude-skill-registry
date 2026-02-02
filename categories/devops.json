@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3167,
-  "updated_at": "2026-02-01T05:09:23.565165Z",
+  "count": 3161,
+  "updated_at": "2026-02-02T05:16:12.756821Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -11985,18 +11985,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "api-gateway-config",
-      "description": "Api Gateway Config - Auto-activating skill for AWS Skills.Triggers on: api gateway config, api gateway configPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/api-gateway-config",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "api-spectral",
       "description": "API specification linting and security validation using Stoplight's Spectral with support for OpenAPI, AsyncAPI, and Arazzo specifications. Validates API definitions against security best practices, O",
       "repo": "AgentSecOps/SecOpsAgentKit",
@@ -13739,18 +13727,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "bigquery-scheduled-query",
-      "description": "Bigquery Scheduled Query - Auto-activating skill for GCP Skills.Triggers on: bigquery scheduled query, bigquery scheduled queryPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/bigquery-scheduled-query",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "bigquery-table-creator",
       "description": "Bigquery Table Creator - Auto-activating skill for GCP Skills.Triggers on: bigquery table creator, bigquery table creatorPart of the GCP Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -14522,18 +14498,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/11-data-pipelines/cdc-pipeline-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cdc-pipeline-creator",
-      "description": "Cdc Pipeline Creator - Auto-activating skill for Data Pipelines.Triggers on: cdc pipeline creator, cdc pipeline creatorPart of the Data Pipelines skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/cdc-pipeline-creator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17810,18 +17774,6 @@
       "tags": [],
       "stars": 0,
       "install": "cyberkaida/reverse-engineering-assistant/ReVa/skills/ctf-crypto",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ctf-crypto",
-      "description": "Solve CTF cryptography challenges by identifying, analyzing, and exploiting weak crypto implementations in binaries to extract keys or decrypt data. Use for custom ciphers, weak crypto, key extraction",
-      "repo": "cyberkaida/reverse-engineering-assistant",
-      "path": "data/ctf-crypto",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "cyberkaida/reverse-engineering-assistant",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -21763,18 +21715,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/13-aws-skills/eventbridge-rule-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "eventbridge-rule-creator",
-      "description": "Eventbridge Rule Creator - Auto-activating skill for AWS Skills.Triggers on: eventbridge rule creator, eventbridge rule creatorPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/eventbridge-rule-creator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -40372,18 +40312,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/14-gcp-skills/vertex-ai-pipeline-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vertex-ai-pipeline-creator",
-      "description": "Vertex Ai Pipeline Creator - Auto-activating skill for GCP Skills.Triggers on: vertex ai pipeline creator, vertex ai pipeline creatorPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vertex-ai-pipeline-creator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

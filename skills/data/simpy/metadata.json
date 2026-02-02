@@ -1,7 +1,7 @@
 {
   "name": "simpy",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/simpy/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:19.673118Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/simpy/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-02T04:36:11.054404Z"
 }

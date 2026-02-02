@@ -1,7 +1,7 @@
 {
   "name": "standards-typescript",
-  "repo": "b33eep/claude-code-setup",
-  "path": "skills/standards-typescript/SKILL.md",
-  "source": "github.com/b33eep/claude-code-setup",
-  "downloaded_at": "2026-02-01T02:15:34.639959Z"
+  "repo": "maxritter/claude-codepro",
+  "path": ".claude/ccp/skills/standards-typescript/SKILL.md",
+  "source": "github.com/maxritter/claude-codepro",
+  "downloaded_at": "2026-02-02T01:43:50.715660Z"
 }

@@ -1,81 +1,66 @@
 ---
 name: code-review
-description: Perform comprehensive code review with security, performance, and quality checks
-user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash
-argument-hint: '[file-path or directory]'
+description: Reviews code for quality, best practices, and potential issues. Use when asked to review, audit, or check code for problems.
+allowed-tools: Read, Grep, Glob, LS
+context: fork
+agent: Explore
 ---
 
-You are an expert code reviewer performing a comprehensive code review. Your role is to:
+# Code Review Skill
 
-1. **Analyze Code Quality**: Evaluate code structure, readability, and maintainability
-1. **Security Review**: Identify security vulnerabilities and potential risks
-1. **Performance Evaluation**: Check for performance issues and optimization opportunities
-1. **Best Practices**: Ensure adherence to coding standards and best practices
-1. **Testing Assessment**: Verify test coverage and quality
+Perform thorough code reviews following this methodology.
 
-## Review Process
+## Review Checklist
 
-When reviewing code, follow this structured approach:
+### 1. Correctness
+- Does the code do what it's supposed to do?
+- Are there any logic errors?
+- Are edge cases handled?
 
-### 1. Initial Scan
-
-- Understand the purpose and context of the changes
-- Identify the scope and affected components
-- Note any breaking changes or major refactoring
-
-### 2. Detailed Analysis
-
-**Code Quality:**
-
-- Clear, self-documenting code with meaningful names
-- Follows DRY (Don't Repeat Yourself) principle
-- Appropriate design patterns and abstractions
-- Proper error handling and edge cases
-
-**Security:**
-
-- No hardcoded credentials or sensitive data
+### 2. Security
 - Input validation and sanitization
-- Proper authentication and authorization
-- Protection against common vulnerabilities (XSS, SQL injection, etc.)
+- Authentication and authorization
+- Sensitive data handling
+- SQL injection, XSS, and other vulnerabilities
 
-**Performance:**
+### 3. Performance
+- Algorithm complexity
+- Unnecessary computations
+- Memory leaks or inefficient memory usage
+- Database query optimization
 
-- Efficient algorithms and data structures
-- No unnecessary computations or redundant operations
-- Proper resource management (memory, connections, etc.)
-- Optimized database queries and caching where appropriate
+### 4. Maintainability
+- Code readability and clarity
+- Appropriate naming conventions
+- Single responsibility principle
+- DRY (Don't Repeat Yourself)
 
-**Testing:**
+### 5. Testing
+- Test coverage
+- Edge case testing
+- Integration tests where appropriate
 
-- Comprehensive unit test coverage
-- Integration tests for critical flows
-- Edge cases and error scenarios covered
-- Tests are maintainable and well-organized
+## Output Format
 
-**Documentation:**
+Structure your review as:
 
-- Clear code comments for complex logic
-- Updated README and API documentation
-- Inline documentation for public APIs
-- Changelog entries for significant changes
+```
+## Summary
+[One paragraph overview]
 
-## Review Template
+## Critical Issues
+[Must fix before merge]
 
-Use the [code review template](template.md) as a guide for structuring your review.
+## Suggestions
+[Nice to have improvements]
 
-## Target to Review
+## Positive Observations
+[What's done well]
+```
 
-${ARGUMENTS}
+## Guidelines
 
-## Instructions
-
-1. Read and analyze the code at the specified path
-1. Identify strengths and areas for improvement
-1. Categorize issues by severity (Critical, Major, Minor)
-1. Provide specific, actionable feedback with examples
-1. Suggest improvements with code snippets where helpful
-1. Give an overall assessment and recommendation
-
-Remember: Be constructive and specific in your feedback. The goal is to improve code quality while respecting the developer's work.
+- Be constructive, not critical
+- Explain *why* something is an issue
+- Suggest specific fixes when possible
+- Acknowledge good patterns and practices

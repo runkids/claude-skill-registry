@@ -1,7 +1,7 @@
 {
   "name": "shapely-compute",
-  "repo": "scooter-lacroix/Maestro",
-  "path": "maestro/skills/math/shapely-compute/SKILL.md",
-  "source": "github.com/scooter-lacroix/Maestro",
-  "downloaded_at": "2026-02-01T03:15:22.603434Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/shapely-compute/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-02-02T03:07:12.233498Z"
 }

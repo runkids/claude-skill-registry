@@ -1,7 +1,7 @@
 {
   "name": "scvi-tools",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/scvi-tools/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:24.543232Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/scientific-skills/skills/scvi-tools/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-02-02T04:36:34.326067Z"
 }

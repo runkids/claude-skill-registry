@@ -27,23 +27,26 @@ ls -d worktrees 2>/dev/null      # Alternative
 
 **If found:** Use that directory. If both exist, `.worktrees` wins.
 
-### 2. Check CLAUDE.md
+### 2. Check CLAUDE.md and AGENTS.md
 
 ```bash
 grep -i "worktree.*director" CLAUDE.md 2>/dev/null
+grep -i "worktree.*director" AGENTS.md 2>/dev/null
 ```
 
 **If preference specified:** Use it without asking.
 
+**Note:** When you read CLAUDE.md, also read AGENTS.md for comprehensive project context and conventions.
+
 ### 3. Ask User
 
-If no directory exists and no CLAUDE.md preference:
+If no directory exists and no CLAUDE.md/AGENTS.md preference:
 
-```
+```text
 No worktree directory found. Where should I create worktrees?
 
 1. .worktrees/ (project-local, hidden)
-2. ~/.config/gremlins/worktrees/<project-name>/ (global location)
+2. ~/.config/worktrees/<project-name>/ (global location)
 
 Which would you prefer?
 ```
@@ -52,23 +55,24 @@ Which would you prefer?
 
 ### For Project-Local Directories (.worktrees or worktrees)
 
-**MUST verify directory is ignored before creating worktree:**
+**MUST verify .gitignore before creating worktree:**
 
 ```bash
-# Check if directory is ignored (respects local, global, and system gitignore)
-git check-ignore -q .worktrees 2>/dev/null || git check-ignore -q worktrees 2>/dev/null
+# Check if directory pattern in .gitignore
+grep -q "^\\.worktrees/$" .gitignore || grep -q "^worktrees/$" .gitignore
 ```
 
-**If NOT ignored:**
+**If NOT in .gitignore:**
 
 Fix immediately:
+
 1. Add appropriate line to .gitignore
 2. Commit the change
 3. Proceed with worktree creation
 
 **Why critical:** Prevents accidentally committing worktree contents to repository.
 
-### For Global Directory (~/.config/gremlins/worktrees)
+### For Global Directory (~/.config/worktrees)
 
 No .gitignore verification needed - outside project entirely.
 
@@ -88,8 +92,8 @@ case $LOCATION in
   .worktrees|worktrees)
     path="$LOCATION/$BRANCH_NAME"
     ;;
-  ~/.config/gremlins/worktrees/*)
-    path="~/.config/gremlins/worktrees/$project/$BRANCH_NAME"
+  ~/.config/worktrees/*)
+    path="~/.config/worktrees/$project/$BRANCH_NAME"
     ;;
 esac
 
@@ -135,7 +139,7 @@ go test ./...
 
 ### 5. Report Location
 
-```
+```text
 Worktree ready at <full-path>
 Tests passing (<N> tests, 0 failures)
 Ready to implement <feature-name>
@@ -145,35 +149,77 @@ Ready to implement <feature-name>
 
 | Situation | Action |
 |-----------|--------|
-| `.worktrees/` exists | Use it (verify ignored) |
-| `worktrees/` exists | Use it (verify ignored) |
+| `.worktrees/` exists | Use it (verify .gitignore) |
+| `worktrees/` exists | Use it (verify .gitignore) |
 | Both exist | Use `.worktrees/` |
-| Neither exists | Check CLAUDE.md -> Ask user |
-| Directory not ignored | Add to .gitignore + commit |
+| Neither exists | Check CLAUDE.md/AGENTS.md → Ask user |
+| Directory not in .gitignore | Add it immediately + commit |
 | Tests fail during baseline | Report failures + ask |
 | No package.json/Cargo.toml | Skip dependency install |
+
+## Common Mistakes
+
+**Skipping .gitignore verification**
+
+- **Problem:** Worktree contents get tracked, pollute git status
+- **Fix:** Always grep .gitignore before creating project-local worktree
+
+**Assuming directory location**
+
+- **Problem:** Creates inconsistency, violates project conventions
+- **Fix:** Follow priority: existing > CLAUDE.md/AGENTS.md > ask
+
+**Proceeding with failing tests**
+
+- **Problem:** Can't distinguish new bugs from pre-existing issues
+- **Fix:** Report failures, get explicit permission to proceed
+
+**Hardcoding setup commands**
+
+- **Problem:** Breaks on projects using different tools
+- **Fix:** Auto-detect from project files (package.json, etc.)
+
+## Example Workflow
+
+```text
+You: I'm using the using-git-worktrees skill to set up an isolated workspace.
+
+[Check .worktrees/ - exists]
+[Verify .gitignore - contains .worktrees/]
+[Create worktree: git worktree add .worktrees/auth -b feature/auth]
+[Run npm install]
+[Run npm test - 47 passing]
+
+Worktree ready at /home/user/myproject/.worktrees/auth
+Tests passing (47 tests, 0 failures)
+Ready to implement auth feature
+```
 
 ## Red Flags
 
 **Never:**
-- Create worktree without verifying it's ignored (project-local)
+
+- Create worktree without .gitignore verification (project-local)
 - Skip baseline test verification
 - Proceed with failing tests without asking
 - Assume directory location when ambiguous
-- Skip CLAUDE.md check
+- Skip CLAUDE.md/AGENTS.md check
 
 **Always:**
-- Follow directory priority: existing > CLAUDE.md > ask
-- Verify directory is ignored for project-local
+
+- Follow directory priority: existing > CLAUDE.md/AGENTS.md > ask
+- Verify .gitignore for project-local
 - Auto-detect and run project setup
 - Verify clean test baseline
 
 ## Integration
 
 **Called by:**
-- **gremlins:brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
+
+- **brainstorming** - When design is approved and implementation follows
+- **executing-plans** - Before executing implementation plans
 - Any skill needing isolated workspace
 
 **Pairs with:**
-- **gremlins:finishing-a-development-branch** - REQUIRED for cleanup after work complete
-- **gremlins:executing-plans** or **gremlins:subagent-driven-development** - Work happens in this worktree
+
+- **executing-plans** - Work happens in this worktree

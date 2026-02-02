@@ -1,133 +1,113 @@
 ---
 name: academic-research
-description: Search academic papers across arXiv, PubMed, Semantic Scholar, bioRxiv, medRxiv, Google Scholar, and more. Get BibTeX citations, download PDFs, analyze citation networks. Use for literature reviews, finding papers, and academic research.
-version: 1.0.0
+description: |
+  Systematic academic literature search with source prioritization and APA 7th edition citations.
+  Use when the user needs to research a topic with scholarly sources, verify claims with academic
+  backing, find peer-reviewed evidence, compile research findings, or generate properly cited reports.
+  Triggers: "research [topic]", "what does the research say about...", "find studies on...",
+  "verify this claim...", "literature review", "academic sources for...", "peer-reviewed evidence",
+  "scholarly articles about...", "evidence-based", "cite sources for...". This skill provides
+  basic APA citation capabilities; for advanced citation work (complex source types, edge cases,
+  batch formatting), consider the `apa-style-citation` skill which offers enhanced citation expertise.
 ---
 
+# Academic Research Skill
 
-# Academic Research Papers
+Systematic literature search with source prioritization and APA 7th edition citations.
 
-Search and retrieve academic papers via multiple MCP servers.
+## Research Workflow
 
-## Available Servers
+### 1. Search Strategy (Execute in Order)
 
-### paper-search
-Multi-source paper search covering:
-- arXiv, PubMed, bioRxiv, medRxiv
-- Google Scholar, IACR, Semantic Scholar
-- BibTeX export support
+**Phase 1 - Academic databases (Priority 1-2):**
+- `site:scholar.google.com [topic]`
+- `site:pubmed.ncbi.nlm.nih.gov [topic]`
+- `site:semanticscholar.org [topic]`
+- `site:arxiv.org [topic]`
 
-### semantic-scholar  
-Full Semantic Scholar API access:
-- Citation network analysis
-- Author search
-- Paper recommendations
-- BibTeX, APA, MLA, Chicago formats
+**Phase 2 - Institutional (Priority 3-4):**
+- `site:edu [topic] research`
+- `site:gov [topic]`
+- `site:who.int OR site:un.org [topic]`
 
-### arxiv
-arXiv-specific search:
-- Advanced search filters
-- Citation analysis
-- BibTeX, JSON, CSV, Markdown export
+**Phase 3 - General (only if needed):**
+- Verify author credentials before citing
+- Cross-reference with academic sources
 
-## When to Use
+### 2. Classify & Tag Sources
 
-- Literature reviews
-- Finding related papers
-- Getting BibTeX citations
-- Checking who cited a paper
-- Finding papers by author
-- Searching for specific topics
+Classify each source by priority (1=highest, 6=lowest). See [references/source_hierarchy.md](references/source_hierarchy.md) for domain patterns.
 
-## Example Usage
+Apply uncertainty markers to findings:
+- `[UNVERIFIED]` - single source only
+- `[CONFLICTING]` - sources disagree
+- `[INDUSTRY SOURCE]` - potential commercial bias
+- `[PREPRINT]` - not peer-reviewed
+- `[OUTDATED]` - >5 years old in fast-moving field
+- `[SECONDARY]` - primary source not accessed
 
-### Search for Papers
-```
-paper_search(query="transformer attention mechanism", sources=["arxiv", "semantic_scholar"])
-```
+### 3. Generate Report
 
-### Get Citations
-```
-semantic_scholar_citations(paper_id="...")
-```
+```markdown
+# Research Report: [Topic]
 
-### arXiv Specific
-```
-arxiv_search(query="quantum computing", max_results=10)
-```
+**Query:** [question]
+**Date:** [YYYY-MM-DD]
 
-## Other Available Servers (Not Installed)
+## Executive Summary
+[2-3 paragraph synthesis]
 
-From your `/Users/alice/worlds/l/mcp_servers.json`:
-- `research-hub-mcp` - 11 sources + Unpaywall PDF access
-- `zotero-mcp` - Connect to Zotero library
-- `openalex-mcp` - 250M+ works database
-- `crossref-mcp` - DOI metadata
+## Methodology
+- Search queries used
+- Databases searched
+- Inclusion/exclusion criteria
 
-Add more with:
-```json
-"server-name": {
-  "command": "npx",
-  "args": ["-y", "server-package-name"]
-}
+## Findings
+### [Theme 1]
+[Content with inline citations (Author, Year)]
+
+## Source Quality Assessment
+| Source | Type | Priority | Notes |
+|--------|------|----------|-------|
+
+## Uncertainties and Limitations
+- [conflicts, gaps, biases]
+
+## References
+[APA 7th edition, alphabetized]
 ```
 
+## APA Citation Basics
 
+**Inline:** (Smith, 2023) or (Smith et al., 2023) for 3+ authors
 
-## Scientific Skill Interleaving
+**Common reference formats:**
+- **Journal:** Author, A. (Year). Title of article. *Journal Name, Vol*(Issue), pp–pp. https://doi.org/xxx
+- **Website:** Author. (Year, Month Day). Title. Site Name. https://url
+- **Report:** Organization. (Year). *Title of report*. https://url
 
-This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
+For complete APA 7th edition rules, edge cases, and additional source types, see [references/apa_citation.md](references/apa_citation.md).
 
-### Graph Theory
-- **networkx** [○] via bicomodule
-  - Universal graph hub
+> **Note:** For advanced citation work (complex source types, legal/media citations, batch formatting), the `apa-style-citation` skill provides enhanced expertise.
 
-### Bibliography References
+## Quality Checklist
 
-- `algorithms`: 19 citations in bib.duckdb
+Before finalizing:
+- [ ] All claims have citations
+- [ ] Source hierarchy followed (prioritize peer-reviewed)
+- [ ] Conflicts noted with `[CONFLICTING]` marker
+- [ ] Uncertainties section populated
+- [ ] References complete in APA format
 
+## Core Rules
 
+1. **Never fabricate sources** - if no evidence exists, say so
+2. **Acknowledge limitations** - be transparent about gaps
+3. **Maintain objectivity** - present conflicting evidence fairly
+4. **Prioritize recency** - prefer recent sources unless historical context needed
+5. **Weight by priority** - higher priority sources trump lower when conflicting
 
-## SDF Interleaving
+## Scripts
 
-This skill connects to **Software Design for Flexibility** (Hanson & Sussman, 2021):
-
-### Primary Chapter: 6. Layering
-
-**Concepts**: layered data, metadata, provenance, units
-
-### GF(3) Balanced Triad
-
-```
-academic-research (−) + SDF.Ch6 (+) + [balancer] (○) = 0
-```
-
-**Skill Trit**: -1 (MINUS - verification)
-
-### Secondary Chapters
-
-- Ch10: Adventure Game Example
-
-### Connection Pattern
-
-Layering adds metadata. This skill tracks provenance or annotations.
-## Cat# Integration
-
-This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
-
-```
-Trit: 0 (ERGODIC)
-Home: Prof
-Poly Op: ⊗
-Kan Role: Adj
-Color: #26D826
-```
-
-### GF(3) Naturality
-
-The skill participates in triads satisfying:
-```
-(-1) + (0) + (+1) ≡ 0 (mod 3)
-```
-
-This ensures compositional coherence in the Cat# equipment structure.
+Generate search queries: `python scripts/research_agent.py generate-queries "topic"`
+Classify a URL: `python scripts/research_agent.py classify-url "https://..."`

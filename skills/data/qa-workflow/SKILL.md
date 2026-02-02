@@ -1,147 +1,500 @@
 ---
 name: qa-workflow
-description: Complete QA Validator workflow orchestration. References specialized skills for each validation step. Load at session startup for full protocol.
-category: orchestration
+description: 'QA validation and fix loop workflow. Use when implementation is complete and needs quality assurance before sign-off.'
+version: 1.0.0
+model: sonnet
+invoked_by: both
+user_invocable: true
+tools: [Read, Write, Edit, Bash, Glob, Grep]
+best_practices:
+  - Be thorough - you are the last line of defense
+  - Be specific with file paths and line numbers
+  - Fix what QA found, don't add features
+error_handling: graceful
+streaming: supported
+source: auto-claude
 ---
 
-# QA Validator Workflow
+# QA Workflow Skill
 
-> "Orchestration layer for QA validation - delegate to specialized skills for each step."
+## Overview
 
----
+Comprehensive quality assurance workflow that validates implementation completeness and correctness, then iterates through fix cycles until approval. You are the last line of defense before shipping.
 
-## Startup Workflow
+**Core principle:** You are the last line of defense. If you approve, the feature ships. Be thorough.
 
-1. Load `Skill("qa-router")` to understand your skill set
+## When to Use
 
-2. Load `Skill("threejs-builder")` to understand your Three.js skill set
+**Always:**
 
-3. Load `Skill("qa-validation-workflow")` to understand validation loops
+- After implementation is marked complete
+- Before merging or deploying changes
+- When validating acceptance criteria
 
-4. **Process pending messages** - **IMPORTANT**: Messages are in the master branch, accessed via relative path like `../agentic-threejs/.claude/session/messages/qa/`. Consolidate all the .json messages requests and delete the files before continue. Update watchdog status.
+**Exceptions:**
 
-5. **Read current-task-qa.json** - **IMPORTANT**: State file is in the master branch, accessed via relative path like `../agentic-threejs/.claude/session/current-task-qa.json`. Reason about the message request and define your next action
+- Documentation-only changes (may use minimal validation)
+- Trivial fixes with skip_validation flag
 
----
-
-## State File Status Updates
-
-Update `current-task-qa.json` immediately when status changes:
-
-| Event               | Update State File                                               | Send Status Update to Watchdog                                           |
-| ------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Starting validation | `state.status = "working"` + `state.currentTaskId = "{taskId}"` | `Send-StatusUpdate -From "qa" -Status "working" -CurrentTask "{taskId}"` |
-| Validation PASSED   | Include in bug_report message (PM sets passed in prd.json)      | -                                                                        |
-| Validation FAILED   | Include bugs in bug_report message (PM updates prd.json)        | -                                                                        |
-| Finishing           | `state.status = "idle"`                                         | `Send-StatusUpdate -From "qa" -Status "idle"`                            |
-
----
-
-## Validation Workflow
-
-**PRE-REQUISITE: You should already be in the correct worktree directory before starting this workflow!**
-
-1. **UPDATE STATE FILE** (MANDATORY - First step)
-   - Edit `current-task-qa.json`:
-     - `state.status = "working"`
-     - `state.currentTaskId = "{taskId}"`
-     - `state.lastSeen = "{ISO_TIMESTAMP}"`
-   - Send status update to watchdog: `Send-StatusUpdate -From "qa" -Status "working" -CurrentTask "{taskId}"`
-
-2. **RUN VALIDATION FEEDBACK LOOPS**
-   - Follow the guidelines of `qa-validation-workflow` and proceed with steps
-
-3. **TEST COVERAGE CHECK**
-   - `Skill("qa-test-creation")` - Check if tests exist for modified files
-   - If tests missing: MUST invoke `test-creator` sub-agent before proceeding
-4. **IF BLOCKED**
-   - Update state: `state.status = "awaiting_pm"`
-   - Send question to PM using the **Write tool**:
-
-   ```
-   Write to: .claude/session/messages/pm/msg-pm-{timestamp}-001.json
-   Content:
-   {
-     "id": "msg-pm-{timestamp}-001",
-     "from": "qa",
-     "to": "pm",
-     "type": "question",
-     "priority": "high",
-     "payload": {
-       "question": "How should I handle X?",
-       "context": "Current situation..."
-     },
-     "timestamp": "{ISO-8601-timestamp}",
-     "status": "pending"
-   }
-   ```
-
-   - Document blocker in task memory
-   - Exit and wait
-
-5. **TEST PASS** - Commit everything and merge it to the `master` branch
-
-6. **TEST DO NOT PASS** - Check your skills and decision tree
-
-7. **COMMIT** - At the end of the task, commit all changes to the current branch
-
-8. **SEND TO PM**
-
-- Update state: `state.status = "idle"`, `id = null`
-- Send status update to watchdog: `Send-StatusUpdate -From "qa" -Status "idle"`
-- Send completion message using the **Write tool**:
-
-9. **EXIT**
-
-## Quick Decision Tree
+## The Iron Law
 
 ```
+NO SIGN-OFF WITHOUT VERIFICATION OF ALL ACCEPTANCE CRITERIA
+```
 
-START VALIDATION
-│
-├─→ Tests missing? ──► Skill("qa-test-creation")
-│
-├─→ Run tests ─────────► Skill("qa-validation-workflow")
-│ │
-│ └─→ Tests fail? ──► Analyze (see Test Failure Decision Tree below)
-│
-├─→ Code quality check ──► Skill("qa-code-review")
-│
-├─→ Browser testing ────► Skill("qa-browser-testing")
-│ └─► Choose sub-agent based on task type
-│
-└─→ Report result ─────► Skill("qa-reporting-bug-reporting")
+Every acceptance criterion must be verified before approval.
 
+## Part 1: QA Review
+
+### Phase 0: Load Context
+
+```bash
+# Read the spec (your source of truth for requirements)
+cat .claude/context/specs/[task-name]-spec.md
+
+# Read any previous QA reports
+cat .claude/context/reports/qa-report.md 2>/dev/null || echo "No previous report"
+
+# See what files were changed
+git diff main...HEAD --name-status
+
+# Read QA acceptance criteria from spec
+grep -A 100 "## QA Acceptance" spec.md
+```
+
+### Phase 1: Verify All Work Completed
+
+```bash
+# Check git log for implementation commits
+git log --oneline main..HEAD
+
+# Verify expected files were modified
+git diff main...HEAD --name-only
+```
+
+**STOP if implementation is not complete.** QA runs after implementation.
+
+### Phase 2: Start Test Environment
+
+```bash
+# Start services as needed
+npm run dev  # or appropriate command
+
+# Verify services are running
+curl http://localhost:3000/health 2>/dev/null || echo "Service not responding"
+```
+
+Wait for all services to be healthy before proceeding.
+
+### Phase 3: Run Automated Tests
+
+#### Unit Tests
+
+Run all unit tests for affected areas:
+
+```bash
+# Run test suite
+npm test
+# or
+pytest
+# or
+go test ./...
+```
+
+**Document results:**
+
+```
+UNIT TESTS:
+- [area-name]: PASS/FAIL (X/Y tests)
+```
+
+#### Integration Tests
+
+Run integration tests if applicable:
+
+```bash
+# Run integration test suite
+npm run test:integration
+```
+
+**Document results:**
+
+```
+INTEGRATION TESTS:
+- [test-name]: PASS/FAIL
+```
+
+#### End-to-End Tests
+
+If E2E tests exist:
+
+```bash
+# Run E2E test suite
+npm run test:e2e
+```
+
+**Document results:**
+
+```
+E2E TESTS:
+- [flow-name]: PASS/FAIL
+```
+
+### Phase 4: Manual Verification
+
+For each acceptance criterion in the spec:
+
+1. **Navigate** to the relevant area
+2. **Verify** the criterion is met
+3. **Check** for console errors
+4. **Test** edge cases
+5. **Document** findings
+
+```
+MANUAL VERIFICATION:
+- [Criterion 1]: PASS/FAIL
+  - Evidence: [what you observed]
+- [Criterion 2]: PASS/FAIL
+  - Evidence: [what you observed]
+```
+
+### Phase 5: Code Review
+
+#### Security Review
+
+Check for common vulnerabilities:
+
+```bash
+# Look for security issues
+grep -r "eval(" --include="*.js" --include="*.ts" . 2>/dev/null
+grep -r "innerHTML" --include="*.js" --include="*.ts" . 2>/dev/null
+grep -r "dangerouslySetInnerHTML" --include="*.tsx" --include="*.jsx" . 2>/dev/null
+
+# Check for hardcoded secrets
+grep -rE "(password|secret|api_key|token)\s*=\s*['\"][^'\"]+['\"]" . 2>/dev/null
+```
+
+#### Pattern Compliance
+
+Verify code follows established patterns:
+
+```bash
+# Compare new code to existing patterns
+# Read pattern files, compare structure
+```
+
+**Document findings:**
+
+```
+CODE REVIEW:
+- Security issues: [list or "None"]
+- Pattern violations: [list or "None"]
+- Code quality: PASS/FAIL
+```
+
+### Phase 6: Regression Check
+
+Run full test suite to catch regressions:
+
+```bash
+# Run ALL tests, not just new ones
+npm test -- --coverage
+```
+
+Verify key existing functionality still works.
+
+```
+REGRESSION CHECK:
+- Full test suite: PASS/FAIL (X/Y tests)
+- Existing features verified: [list]
+- Regressions found: [list or "None"]
+```
+
+### Phase 7: Generate QA Report
+
+```markdown
+# QA Validation Report
+
+**Task**: [task-name]
+**Date**: [timestamp]
+
+## Summary
+
+| Category            | Status    | Details     |
+| ------------------- | --------- | ----------- |
+| Unit Tests          | PASS/FAIL | X/Y passing |
+| Integration Tests   | PASS/FAIL | X/Y passing |
+| E2E Tests           | PASS/FAIL | X/Y passing |
+| Manual Verification | PASS/FAIL | [summary]   |
+| Security Review     | PASS/FAIL | [summary]   |
+| Pattern Compliance  | PASS/FAIL | [summary]   |
+| Regression Check    | PASS/FAIL | [summary]   |
+
+## Issues Found
+
+### Critical (Blocks Sign-off)
+
+1. [Issue description] - [File/Location]
+
+### Major (Should Fix)
+
+1. [Issue description] - [File/Location]
+
+### Minor (Nice to Fix)
+
+1. [Issue description] - [File/Location]
+
+## Verdict
+
+**SIGN-OFF**: [APPROVED / REJECTED]
+
+**Reason**: [Explanation]
+
+**Next Steps**:
+
+- [If approved: Ready for merge]
+- [If rejected: List of fixes needed]
+```
+
+Save report to `.claude/context/reports/qa-report.md`
+
+### Phase 8: Decision
+
+#### If APPROVED
+
+```
+=== QA VALIDATION COMPLETE ===
+
+Status: APPROVED
+
+All acceptance criteria verified:
+- Unit tests: PASS
+- Integration tests: PASS
+- Manual verification: PASS
+- Security review: PASS
+- Regression check: PASS
+
+The implementation is production-ready.
+Ready for merge.
+```
+
+#### If REJECTED
+
+Create fix request and proceed to Part 2.
+
+---
+
+## Part 2: QA Fix Loop
+
+### Phase 0: Load Fix Request
+
+```bash
+# Read the QA report with issues
+cat .claude/context/reports/qa-report.md
+
+# Identify issues to fix
+grep -A 50 "## Issues Found" .claude/context/reports/qa-report.md
+```
+
+Extract from report:
+
+- Exact issues to fix
+- File locations
+- Required fixes
+- Verification criteria
+
+### Phase 1: Parse Fix Requirements
+
+Create a checklist from the QA report:
+
+```
+FIXES REQUIRED:
+1. [Issue Title]
+   - Location: [file:line]
+   - Problem: [description]
+   - Fix: [what to do]
+   - Verify: [how to check]
+
+2. [Issue Title]
+   ...
+```
+
+You must address EVERY issue.
+
+### Phase 2: Fix Issues One by One
+
+For each issue:
+
+1. **Read** the problem area
+2. **Understand** what's wrong
+3. **Implement** the fix
+4. **Verify** the fix locally
+
+**Follow these rules:**
+
+- Make the MINIMAL change needed
+- Don't refactor surrounding code
+- Don't add features
+- Match existing patterns
+- Test after each fix
+
+### Phase 3: Run Tests
+
+After all fixes are applied:
+
+```bash
+# Run the full test suite
+npm test
+
+# Run specific tests that were failing
+[failed test commands from QA report]
+```
+
+**All tests must pass before proceeding.**
+
+### Phase 4: Self-Verification
+
+Before requesting re-review, verify each fix:
+
+```
+SELF-VERIFICATION:
+[ ] Issue 1: [title] - FIXED
+    - Verified by: [how you verified]
+[ ] Issue 2: [title] - FIXED
+    - Verified by: [how you verified]
+...
+
+ALL ISSUES ADDRESSED: YES/NO
+```
+
+If any issue is not fixed, go back to Phase 2.
+
+### Phase 5: Commit Fixes
+
+```bash
+# Add fixed files
+git add [fixed-files]
+
+# Commit with descriptive message
+git commit -m "fix: Address QA issues
+
+Fixes:
+- [Issue 1 title]
+- [Issue 2 title]
+
+Verified:
+- All tests pass
+- Issues verified locally"
+```
+
+### Phase 6: Signal for Re-Review
+
+```
+=== QA FIXES COMPLETE ===
+
+Issues fixed: [N]
+
+1. [Issue 1] - FIXED
+   Commit: [hash]
+
+2. [Issue 2] - FIXED
+   Commit: [hash]
+
+All tests passing.
+Ready for QA re-validation.
 ```
 
 ---
 
-## Test Failure Decision Tree
+## QA Loop Behavior
 
-```
+The QA → Fix → QA loop continues until:
 
-                    TESTS FAIL
-                        │
-        ┌───────────────┴───────────────┐
-        │                               │
-    Test Code Issue?              Game Code Issue?
-        │ YES                          │ YES
-        ▼                               ▼
+1. **All critical issues resolved**
+2. **All tests pass**
+3. **No regressions**
+4. **QA approves**
 
-Fix and Re-run                  Create Bug Report
-(QA can edit)                  (Return to Developer)
+Maximum iterations: 5
 
-```
+If max iterations reached without approval:
 
-## Exit Conditions
+- Escalate to human review
+- Document all remaining issues
+- Save detailed report
 
-**BEFORE exiting, you MUST:**
+## Severity Guidelines
 
-2. **IF VALIDATION PASSES:** Merge to main and push
-3. **IF VALIDATION FAILS:** Send bug_report to PM (no merge)
-4. Update state file with validation results
-5. Commit with `[ralph] [qa]` prefix
-6. Send result message to PM
-7. **MANDATORY:** Run server cleanup (shared-lifecycle)
+**CRITICAL** - Blocks sign-off:
 
----
+- Failing tests
+- Security vulnerabilities
+- Missing required functionality
+- Data corruption risks
+
+**MAJOR** - Should fix:
+
+- Missing edge case handling
+- Performance issues
+- UX problems
+- Pattern violations
+
+**MINOR** - Nice to fix:
+
+- Style inconsistencies
+- Documentation gaps
+- Minor optimizations
+
+## Verification Checklist
+
+Before approving:
+
+- [ ] All unit tests pass
+- [ ] All integration tests pass
+- [ ] All E2E tests pass (if applicable)
+- [ ] Manual verification of acceptance criteria
+- [ ] Security review complete
+- [ ] Pattern compliance verified
+- [ ] No regressions found
+- [ ] QA report generated
+
+## Common Mistakes
+
+### Approving Too Quickly
+
+**Why it's wrong:** Shipping bugs to users.
+
+**Do this instead:** Check EVERYTHING in the acceptance criteria.
+
+### Vague Issue Reports
+
+**Why it's wrong:** Developer can't fix what they don't understand.
+
+**Do this instead:** Exact file paths, line numbers, reproducible steps.
+
+### Fixing Too Much
+
+**Why it's wrong:** Introducing new bugs while fixing old ones.
+
+**Do this instead:** Minimal changes. Fix only what QA found.
+
+## Integration with Other Skills
+
+This skill works well with:
+
+- **complexity-assessment**: Determines validation depth
+- **tdd**: Use TDD to write tests for fixes
+- **debugging**: Use when investigating test failures
+
+## Memory Protocol
+
+**Before starting:**
+Read `.claude/context/memory/learnings.md`
+
+**After completing:**
+
+- New pattern -> `.claude/context/memory/learnings.md`
+- Issue found -> `.claude/context/memory/issues.md`
+- Decision made -> `.claude/context/memory/decisions.md`
+
+> ASSUME INTERRUPTION: If it's not in memory, it didn't happen.

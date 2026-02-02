@@ -1,7 +1,7 @@
 {
   "name": "security",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/security/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-02-01T04:55:07.911019Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/security/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-02-02T04:55:34.674589Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "django-patterns",
-  "description": "Implement common Django design patterns including managers, querysets, mixins, services, and architectural patterns. Use when refactoring code or implementing standard Django patterns.",
-  "repo": "gizix/cc_projects",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "affaan-m/everything-claude-code",
+  "path": "skills/django-patterns/SKILL.md",
+  "source": "github.com/affaan-m/everything-claude-code",
+  "downloaded_at": "2026-02-02T03:26:33.266042Z"
 }

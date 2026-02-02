@@ -1,7 +1,7 @@
 {
   "name": "gget",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/gget/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:19.127652Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/gget/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-02T04:36:10.768411Z"
 }

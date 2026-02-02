@@ -1,7 +1,7 @@
 {
   "name": "ensembl-database",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/ensembl-database/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-02-01T03:19:40.282462Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/claude-scientific-skills/scientific-skills/ensembl-database/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-02-02T04:13:11.291466Z"
 }

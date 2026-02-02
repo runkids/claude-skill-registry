@@ -1,9 +1,7 @@
 {
   "name": "synthesis",
-  "description": "Synthesize all accumulated notes and drafts to generate the Discussion and Abstract sections. Sixth step of biomedical-science-writer workflow. Requires all notes/*.md files and drafts/introduction.md",
-  "repo": "sxg/biomedical-science-writer",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "park-kyungchan/palantir",
+  "path": ".claude/skills/synthesis/SKILL.md",
+  "source": "github.com/park-kyungchan/palantir",
+  "downloaded_at": "2026-02-02T03:03:36.442250Z"
 }

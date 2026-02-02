@@ -1,553 +1,733 @@
 ---
 name: django-patterns
-description: Implement common Django design patterns including managers, querysets, mixins, services, and architectural patterns. Use when refactoring code or implementing standard Django patterns.
-allowed-tools: Read, Write, Grep
+description: Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.
 ---
 
-You are a Django design patterns expert. You help implement clean, maintainable Django code using established design patterns and best practices.
+# Django Development Patterns
 
-## Patterns You Can Implement
+Production-grade Django architecture patterns for scalable, maintainable applications.
 
-### 1. Custom Model Managers and QuerySets
+## When to Activate
 
-**Purpose**: Encapsulate complex queries and add domain logic to model layer.
+- Building Django web applications
+- Designing Django REST Framework APIs
+- Working with Django ORM and models
+- Setting up Django project structure
+- Implementing caching, signals, middleware
 
-**When to use**:
-- Complex or frequently-used queries
-- Business logic related to data retrieval
-- Chainable query methods
+## Project Structure
 
-**Implementation**:
+### Recommended Layout
 
-```python
-# models.py
-from django.db import models
-from django.utils import timezone
-
-class PublishedQuerySet(models.QuerySet):
-    """Custom queryset with domain methods"""
-
-    def published(self):
-        """Filter published items"""
-        return self.filter(status='published', publish_date__lte=timezone.now())
-
-    def draft(self):
-        """Filter draft items"""
-        return self.filter(status='draft')
-
-    def by_author(self, author):
-        """Filter by specific author"""
-        return self.filter(author=author)
-
-    def recent(self, days=7):
-        """Get recent items"""
-        since = timezone.now() - timezone.timedelta(days=days)
-        return self.filter(created_at__gte=since)
-
-
-class PublishedManager(models.Manager):
-    """Manager that returns custom queryset"""
-
-    def get_queryset(self):
-        return PublishedQuerySet(self.model, using=self._db)
-
-    def published(self):
-        return self.get_queryset().published()
-
-    def draft(self):
-        return self.get_queryset().draft()
-
-
-class Article(models.Model):
-    title = models.CharField(max_length=200)
-    status = models.CharField(max_length=20, choices=[('draft', 'Draft'), ('published', 'Published')])
-    publish_date = models.DateTimeField(null=True, blank=True)
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    objects = PublishedManager()  # Custom manager
-
-    class Meta:
-        ordering = ['-created_at']
-
-# Usage:
-# Article.objects.published()  # Get published articles
-# Article.objects.published().by_author(user)  # Chain methods
-# Article.objects.recent(days=30).published()  # Combine filters
+```
+myproject/
+├── config/
+│   ├── __init__.py
+│   ├── settings/
+│   │   ├── __init__.py
+│   │   ├── base.py          # Base settings
+│   │   ├── development.py   # Dev settings
+│   │   ├── production.py    # Production settings
+│   │   └── test.py          # Test settings
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── manage.py
+└── apps/
+    ├── __init__.py
+    ├── users/
+    │   ├── __init__.py
+    │   ├── models.py
+    │   ├── views.py
+    │   ├── serializers.py
+    │   ├── urls.py
+    │   ├── permissions.py
+    │   ├── filters.py
+    │   ├── services.py
+    │   └── tests/
+    └── products/
+        └── ...
 ```
 
-### 2. Model Mixins
-
-**Purpose**: Reuse common model functionality across multiple models.
-
-**Common mixins**:
+### Split Settings Pattern
 
 ```python
-# models/mixins.py
-from django.db import models
-from django.utils import timezone
-from django.utils.text import slugify
+# config/settings/base.py
+from pathlib import Path
 
-class TimeStampedMixin(models.Model):
-    """Add created_at and updated_at timestamps"""
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+DEBUG = False
+ALLOWED_HOSTS = []
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    # Local apps
+    'apps.users',
+    'apps.products',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'config.urls'
+WSGI_APPLICATION = 'config.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT', default='5432'),
+    }
+}
+
+# config/settings/development.py
+from .base import *
+
+DEBUG = True
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+DATABASES['default']['NAME'] = 'myproject_dev'
+
+INSTALLED_APPS += ['debug_toolbar']
+
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# config/settings/production.py
+from .base import *
+
+DEBUG = False
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/django.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
+```
+
+## Model Design Patterns
+
+### Model Best Practices
+
+```python
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+class User(AbstractUser):
+    """Custom user model extending AbstractUser."""
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=20, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    class Meta:
+        db_table = 'users'
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+        ordering = ['-date_joined']
+
+    def __str__(self):
+        return self.email
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()
+
+class Product(models.Model):
+    """Product model with proper field configuration."""
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, max_length=250)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)]
+    )
+    stock = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    category = models.ForeignKey(
+        'Category',
+        on_delete=models.CASCADE,
+        related_name='products'
+    )
+    tags = models.ManyToManyField('Tag', blank=True, related_name='products')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        abstract = True
+        db_table = 'products'
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['slug']),
+            models.Index(fields=['-created_at']),
+            models.Index(fields=['category', 'is_active']),
+        ]
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(price__gte=0),
+                name='price_non_negative'
+            )
+        ]
 
-
-class SoftDeleteMixin(models.Model):
-    """Soft delete functionality"""
-    deleted_at = models.DateTimeField(null=True, blank=True)
-
-    class Meta:
-        abstract = True
-
-    def delete(self, using=None, keep_parents=False):
-        """Soft delete instead of actual delete"""
-        self.deleted_at = timezone.now()
-        self.save()
-
-    def hard_delete(self):
-        """Actually delete from database"""
-        super().delete()
-
-    def restore(self):
-        """Restore soft-deleted object"""
-        self.deleted_at = None
-        self.save()
-
-
-class SlugMixin(models.Model):
-    """Auto-generate slug from name/title"""
-    slug = models.SlugField(unique=True, max_length=255)
-
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = self.generate_unique_slug()
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-
-    def generate_unique_slug(self):
-        """Generate unique slug from title or name"""
-        base_slug = slugify(getattr(self, 'title', None) or getattr(self, 'name', ''))
-        slug = base_slug
-        counter = 1
-
-        while self.__class__.objects.filter(slug=slug).exists():
-            slug = f"{base_slug}-{counter}"
-            counter += 1
-
-        return slug
-
-
-class PublishableMixin(models.Model):
-    """Add publication status and date"""
-    STATUS_CHOICES = [
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-        ('archived', 'Archived'),
-    ]
-
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-    publish_date = models.DateTimeField(null=True, blank=True)
-
-    class Meta:
-        abstract = True
-
-    def publish(self):
-        """Publish the object"""
-        self.status = 'published'
-        self.publish_date = timezone.now()
-        self.save()
-
-    def unpublish(self):
-        """Revert to draft"""
-        self.status = 'draft'
-        self.publish_date = None
-        self.save()
-
-    @property
-    def is_published(self):
-        return self.status == 'published' and (
-            self.publish_date is None or self.publish_date <= timezone.now()
-        )
-
-
-# Usage: Combine mixins
-class Article(TimeStampedMixin, SlugMixin, PublishableMixin, SoftDeleteMixin):
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ['-created_at']
 ```
 
-### 3. Service Layer Pattern
-
-**Purpose**: Separate business logic from views and models.
-
-**When to use**:
-- Complex business operations
-- Operations spanning multiple models
-- Logic that doesn't belong in models or views
+### QuerySet Best Practices
 
 ```python
-# services/order_service.py
-from django.db import transaction
-from django.core.exceptions import ValidationError
-from decimal import Decimal
-from .models import Order, OrderItem, Product, Payment
+from django.db import models
 
-class OrderService:
-    """Business logic for order processing"""
+class ProductQuerySet(models.QuerySet):
+    """Custom QuerySet for Product model."""
 
-    @transaction.atomic
-    def create_order(self, user, items, shipping_address, payment_method):
-        """
-        Create a new order with items.
+    def active(self):
+        """Return only active products."""
+        return self.filter(is_active=True)
 
-        Args:
-            user: User placing the order
-            items: List of dicts with 'product_id' and 'quantity'
-            shipping_address: Shipping address dict
-            payment_method: Payment method identifier
+    def with_category(self):
+        """Select related category to avoid N+1 queries."""
+        return self.select_related('category')
 
-        Returns:
-            Created Order object
+    def with_tags(self):
+        """Prefetch tags for many-to-many relationship."""
+        return self.prefetch_related('tags')
 
-        Raises:
-            ValidationError: If validation fails
-        """
-        # Validate products and availability
-        self._validate_items(items)
+    def in_stock(self):
+        """Return products with stock > 0."""
+        return self.filter(stock__gt=0)
 
-        # Calculate totals
-        subtotal, tax, total = self._calculate_totals(items)
-
-        # Create order
-        order = Order.objects.create(
-            user=user,
-            subtotal=subtotal,
-            tax=tax,
-            total=total,
-            shipping_address=shipping_address,
-            payment_method=payment_method,
-            status='pending'
+    def search(self, query):
+        """Search products by name or description."""
+        return self.filter(
+            models.Q(name__icontains=query) |
+            models.Q(description__icontains=query)
         )
 
-        # Create order items and update stock
-        self._create_order_items(order, items)
+class Product(models.Model):
+    # ... fields ...
 
-        # Process payment
-        self._process_payment(order)
+    objects = ProductQuerySet.as_manager()  # Use custom QuerySet
 
-        # Send confirmation email
-        self._send_order_confirmation(order)
+# Usage
+Product.objects.active().with_category().in_stock()
+```
+
+### Manager Methods
+
+```python
+class ProductManager(models.Manager):
+    """Custom manager for complex queries."""
+
+    def get_or_none(self, **kwargs):
+        """Return object or None instead of DoesNotExist."""
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
+
+    def create_with_tags(self, name, price, tag_names):
+        """Create product with associated tags."""
+        product = self.create(name=name, price=price)
+        tags = [Tag.objects.get_or_create(name=name)[0] for name in tag_names]
+        product.tags.set(tags)
+        return product
+
+    def bulk_update_stock(self, product_ids, quantity):
+        """Bulk update stock for multiple products."""
+        return self.filter(id__in=product_ids).update(stock=quantity)
+
+# In model
+class Product(models.Model):
+    # ... fields ...
+    custom = ProductManager()
+```
+
+## Django REST Framework Patterns
+
+### Serializer Patterns
+
+```python
+from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
+from .models import Product, User
+
+class ProductSerializer(serializers.ModelSerializer):
+    """Serializer for Product model."""
+
+    category_name = serializers.CharField(source='category.name', read_only=True)
+    average_rating = serializers.FloatField(read_only=True)
+    discount_price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = [
+            'id', 'name', 'slug', 'description', 'price',
+            'discount_price', 'stock', 'category_name',
+            'average_rating', 'created_at'
+        ]
+        read_only_fields = ['id', 'slug', 'created_at']
+
+    def get_discount_price(self, obj):
+        """Calculate discount price if applicable."""
+        if hasattr(obj, 'discount') and obj.discount:
+            return obj.price * (1 - obj.discount.percent / 100)
+        return obj.price
+
+    def validate_price(self, value):
+        """Ensure price is non-negative."""
+        if value < 0:
+            raise serializers.ValidationError("Price cannot be negative.")
+        return value
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating products."""
+
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'price', 'stock', 'category']
+
+    def validate(self, data):
+        """Custom validation for multiple fields."""
+        if data['price'] > 10000 and data['stock'] > 100:
+            raise serializers.ValidationError(
+                "Cannot have high-value products with large stock."
+            )
+        return data
+
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    """Serializer for user registration."""
+
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        validators=[validate_password],
+        style={'input_type': 'password'}
+    )
+    password_confirm = serializers.CharField(write_only=True, style={'input_type': 'password'})
+
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'password', 'password_confirm']
+
+    def validate(self, data):
+        """Validate passwords match."""
+        if data['password'] != data['password_confirm']:
+            raise serializers.ValidationError({
+                "password_confirm": "Password fields didn't match."
+            })
+        return data
+
+    def create(self, validated_data):
+        """Create user with hashed password."""
+        validated_data.pop('password_confirm')
+        password = validated_data.pop('password')
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
+```
+
+### ViewSet Patterns
+
+```python
+from rest_framework import viewsets, status, filters
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Product
+from .serializers import ProductSerializer, ProductCreateSerializer
+from .permissions import IsOwnerOrReadOnly
+from .filters import ProductFilter
+from .services import ProductService
+
+class ProductViewSet(viewsets.ModelViewSet):
+    """ViewSet for Product model."""
+
+    queryset = Product.objects.select_related('category').prefetch_related('tags')
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = ProductFilter
+    search_fields = ['name', 'description']
+    ordering_fields = ['price', 'created_at', 'name']
+    ordering = ['-created_at']
+
+    def get_serializer_class(self):
+        """Return appropriate serializer based on action."""
+        if self.action == 'create':
+            return ProductCreateSerializer
+        return ProductSerializer
+
+    def perform_create(self, serializer):
+        """Save with user context."""
+        serializer.save(created_by=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def featured(self, request):
+        """Return featured products."""
+        featured = self.queryset.filter(is_featured=True)[:10]
+        serializer = self.get_serializer(featured, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['post'])
+    def purchase(self, request, pk=None):
+        """Purchase a product."""
+        product = self.get_object()
+        service = ProductService()
+        result = service.purchase(product, request.user)
+        return Response(result, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def my_products(self, request):
+        """Return products created by current user."""
+        products = self.queryset.filter(created_by=request.user)
+        page = self.paginate_queryset(products)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
+```
+
+### Custom Actions
+
+```python
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_to_cart(request):
+    """Add product to user cart."""
+    product_id = request.data.get('product_id')
+    quantity = request.data.get('quantity', 1)
+
+    try:
+        product = Product.objects.get(id=product_id)
+    except Product.DoesNotExist:
+        return Response(
+            {'error': 'Product not found'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    CartItem.objects.create(
+        cart=cart,
+        product=product,
+        quantity=quantity
+    )
+
+    return Response({'message': 'Added to cart'}, status=status.HTTP_201_CREATED)
+```
+
+## Service Layer Pattern
+
+```python
+# apps/orders/services.py
+from typing import Optional
+from django.db import transaction
+from .models import Order, OrderItem
+
+class OrderService:
+    """Service layer for order-related business logic."""
+
+    @staticmethod
+    @transaction.atomic
+    def create_order(user, cart: Cart) -> Order:
+        """Create order from cart."""
+        order = Order.objects.create(
+            user=user,
+            total_price=cart.total_price
+        )
+
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+
+        # Clear cart
+        cart.items.all().delete()
 
         return order
 
-    def _validate_items(self, items):
-        """Validate all items are available"""
-        for item in items:
-            product = Product.objects.get(id=item['product_id'])
-            if product.stock < item['quantity']:
-                raise ValidationError(f"{product.name} is out of stock")
-            if not product.active:
-                raise ValidationError(f"{product.name} is not available")
-
-    def _calculate_totals(self, items):
-        """Calculate order totals"""
-        subtotal = Decimal('0.00')
-
-        for item in items:
-            product = Product.objects.get(id=item['product_id'])
-            subtotal += product.price * item['quantity']
-
-        tax = subtotal * Decimal('0.10')  # 10% tax
-        total = subtotal + tax
-
-        return subtotal, tax, total
-
-    def _create_order_items(self, order, items):
-        """Create order items and update inventory"""
-        for item in items:
-            product = Product.objects.get(id=item['product_id'])
-
-            OrderItem.objects.create(
-                order=order,
-                product=product,
-                quantity=item['quantity'],
-                price=product.price
-            )
-
-            # Update stock
-            product.stock -= item['quantity']
-            product.save()
-
-    def _process_payment(self, order):
-        """Process payment for order"""
-        # Payment processing logic
-        payment = Payment.objects.create(
-            order=order,
-            amount=order.total,
-            method=order.payment_method,
-            status='completed'
+    @staticmethod
+    def process_payment(order: Order, payment_data: dict) -> bool:
+        """Process payment for order."""
+        # Integration with payment gateway
+        payment = PaymentGateway.charge(
+            amount=order.total_price,
+            token=payment_data['token']
         )
-        order.status = 'confirmed'
-        order.save()
 
-    def _send_order_confirmation(self, order):
-        """Send order confirmation email"""
+        if payment.success:
+            order.status = Order.Status.PAID
+            order.save()
+            # Send confirmation email
+            OrderService.send_confirmation_email(order)
+            return True
+
+        return False
+
+    @staticmethod
+    def send_confirmation_email(order: Order):
+        """Send order confirmation email."""
         # Email sending logic
         pass
-
-    def cancel_order(self, order, reason=None):
-        """Cancel an order and restore inventory"""
-        with transaction.atomic():
-            if order.status in ['shipped', 'delivered']:
-                raise ValidationError("Cannot cancel shipped or delivered orders")
-
-            # Restore inventory
-            for item in order.items.all():
-                item.product.stock += item.quantity
-                item.product.save()
-
-            # Update order
-            order.status = 'cancelled'
-            order.cancellation_reason = reason
-            order.save()
-
-            # Refund payment if needed
-            if hasattr(order, 'payment') and order.payment.status == 'completed':
-                self._process_refund(order.payment)
-
-    def _process_refund(self, payment):
-        """Process refund for payment"""
-        # Refund processing logic
-        payment.status = 'refunded'
-        payment.save()
-
-
-# Usage in views:
-from .services import OrderService
-
-def create_order_view(request):
-    if request.method == 'POST':
-        items = [
-            {'product_id': 1, 'quantity': 2},
-            {'product_id': 3, 'quantity': 1},
-        ]
-
-        order_service = OrderService()
-        try:
-            order = order_service.create_order(
-                user=request.user,
-                items=items,
-                shipping_address=request.POST.get('address'),
-                payment_method=request.POST.get('payment_method')
-            )
-            return redirect('order_confirmation', order_id=order.id)
-        except ValidationError as e:
-            messages.error(request, str(e))
 ```
 
-### 4. View Mixins
+## Caching Strategies
 
-**Purpose**: Reuse view functionality across multiple views.
+### View-Level Caching
 
 ```python
-# views/mixins.py
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-class AuthorRequiredMixin:
-    """Ensure user is the author of the object"""
-
-    def dispatch(self, request, *args, **kwargs):
-        obj = self.get_object()
-        if obj.author != request.user:
-            raise PermissionDenied("You are not the author of this object")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class AjaxRequiredMixin:
-    """Require AJAX requests"""
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            raise PermissionDenied("AJAX request required")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class PaginationMixin:
-    """Add pagination with custom page size"""
-    paginate_by = 20
-
-    def get_paginate_by(self, queryset):
-        """Allow page size override via query param"""
-        page_size = self.request.GET.get('page_size')
-        if page_size:
-            try:
-                return int(page_size)
-            except ValueError:
-                pass
-        return self.paginate_by
-
-
-# Usage:
-class ArticleUpdateView(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
-    model = Article
-    fields = ['title', 'content']
-    template_name = 'articles/edit.html'
+@method_decorator(cache_page(60 * 15), name='dispatch')  # 15 minutes
+class ProductListView(generic.ListView):
+    model = Product
+    template_name = 'products/list.html'
+    context_object_name = 'products'
 ```
 
-### 5. Form Patterns
+### Template Fragment Caching
 
-**Purpose**: Reusable form functionality and validation patterns.
-
-```python
-# forms/mixins.py
-class FormControlMixin:
-    """Add Bootstrap form-control class to all fields"""
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs.update({'class': 'form-control'})
-
-
-class UniqueFieldMixin:
-    """Ensure field is unique while allowing same value for current instance"""
-
-    unique_fields = []  # List of fields to check
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        for field_name in self.unique_fields:
-            value = cleaned_data.get(field_name)
-            if value:
-                queryset = self.Meta.model.objects.filter(**{field_name: value})
-                if self.instance.pk:
-                    queryset = queryset.exclude(pk=self.instance.pk)
-                if queryset.exists():
-                    self.add_error(field_name, f"{field_name.title()} already exists")
-
-        return cleaned_data
+```django
+{% load cache %}
+{% cache 500 sidebar %}
+    ... expensive sidebar content ...
+{% endcache %}
 ```
 
-### 6. Signal Patterns
-
-**Purpose**: Decouple application components through signals.
+### Low-Level Caching
 
 ```python
-# signals.py
-from django.db.models.signals import post_save, pre_delete
-from django.dispatch import receiver, Signal
-from django.contrib.auth.models import User
-from .models import Profile, Order
+from django.core.cache import cache
 
-# Built-in signals
+def get_featured_products():
+    """Get featured products with caching."""
+    cache_key = 'featured_products'
+    products = cache.get(cache_key)
+
+    if products is None:
+        products = list(Product.objects.filter(is_featured=True))
+        cache.set(cache_key, products, timeout=60 * 15)  # 15 minutes
+
+    return products
+```
+
+### QuerySet Caching
+
+```python
+from django.core.cache import cache
+
+def get_popular_categories():
+    cache_key = 'popular_categories'
+    categories = cache.get(cache_key)
+
+    if categories is None:
+        categories = list(Category.objects.annotate(
+            product_count=Count('products')
+        ).filter(product_count__gt=10).order_by('-product_count')[:20])
+        cache.set(cache_key, categories, timeout=60 * 60)  # 1 hour
+
+    return categories
+```
+
+## Signals
+
+### Signal Patterns
+
+```python
+# apps/users/signals.py
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
+from .models import Profile
+
+User = get_user_model()
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    """Create profile when user is created"""
+    """Create profile when user is created."""
     if created:
         Profile.objects.create(user=instance)
 
-
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    """Save profile when user is saved"""
+    """Save profile when user is saved."""
     instance.profile.save()
 
-
-# Custom signals
-order_placed = Signal()  # Custom signal
-
-@receiver(order_placed)
-def send_order_notification(sender, order, **kwargs):
-    """Send notification when order is placed"""
-    # Send email/SMS/push notification
-    pass
-
-@receiver(order_placed)
-def update_inventory(sender, order, **kwargs):
-    """Update inventory when order is placed"""
-    # Update stock levels
-    pass
-
-# Trigger custom signal:
-# order_placed.send(sender=Order, order=order_instance)
-
-# apps.py
+# apps/users/apps.py
 from django.apps import AppConfig
 
-class MyAppConfig(AppConfig):
+class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'myapp'
+    name = 'apps.users'
 
     def ready(self):
-        import myapp.signals  # Import signals when app is ready
+        """Import signals when app is ready."""
+        import apps.users.signals
 ```
 
-## When to Use Each Pattern
+## Middleware
 
-- **Custom Managers/QuerySets**: Complex or repeated queries
-- **Model Mixins**: Shared model functionality
-- **Service Layer**: Complex business logic spanning multiple models
-- **View Mixins**: Shared view behavior and validation
-- **Form Mixins**: Reusable form functionality
-- **Signals**: Loosely coupled event-driven actions
+### Custom Middleware
 
-## Best Practices
+```python
+# middleware/active_user_middleware.py
+import time
+from django.utils.deprecation import MiddlewareMixin
 
-1. Keep models focused on data structure
-2. Put business logic in service layer or managers
-3. Use mixins for truly reusable functionality
-4. Don't overuse signals - they can make code hard to follow
-5. Document your patterns and their purpose
-6. Test patterns thoroughly
+class ActiveUserMiddleware(MiddlewareMixin):
+    """Middleware to track active users."""
 
-## Implementation Process
+    def process_request(self, request):
+        """Process incoming request."""
+        if request.user.is_authenticated:
+            # Update last active time
+            request.user.last_active = timezone.now()
+            request.user.save(update_fields=['last_active'])
 
-When implementing a pattern:
+class RequestLoggingMiddleware(MiddlewareMixin):
+    """Middleware for logging requests."""
 
-1. **Identify the need**: What problem are you solving?
-2. **Choose appropriate pattern**: Match pattern to problem
-3. **Create the abstraction**: Implement the pattern
-4. **Test thoroughly**: Unit tests for pattern logic
-5. **Document usage**: How and when to use it
-6. **Refactor existing code**: Apply pattern to existing code
+    def process_request(self, request):
+        """Log request start time."""
+        request.start_time = time.time()
 
-## Example Project Structure
-
-```
-myproject/
-├── myapp/
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── mixins.py
-│   │   ├── managers.py
-│   │   └── product.py
-│   ├── services/
-│   │   ├── __init__.py
-│   │   ├── order_service.py
-│   │   └── payment_service.py
-│   ├── views/
-│   │   ├── __init__.py
-│   │   ├── mixins.py
-│   │   └── product_views.py
-│   ├── forms/
-│   │   ├── __init__.py
-│   │   ├── mixins.py
-│   │   └── product_forms.py
-│   └── signals.py
+    def process_response(self, request, response):
+        """Log request duration."""
+        if hasattr(request, 'start_time'):
+            duration = time.time() - request.start_time
+            logger.info(f'{request.method} {request.path} - {response.status_code} - {duration:.3f}s')
+        return response
 ```
 
-This skill helps you write clean, maintainable Django code using established patterns and best practices.
+## Performance Optimization
+
+### N+1 Query Prevention
+
+```python
+# Bad - N+1 queries
+products = Product.objects.all()
+for product in products:
+    print(product.category.name)  # Separate query for each product
+
+# Good - Single query with select_related
+products = Product.objects.select_related('category').all()
+for product in products:
+    print(product.category.name)
+
+# Good - Prefetch for many-to-many
+products = Product.objects.prefetch_related('tags').all()
+for product in products:
+    for tag in product.tags.all():
+        print(tag.name)
+```
+
+### Database Indexing
+
+```python
+class Product(models.Model):
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['-created_at']),
+            models.Index(fields=['category', 'created_at']),
+        ]
+```
+
+### Bulk Operations
+
+```python
+# Bulk create
+Product.objects.bulk_create([
+    Product(name=f'Product {i}', price=10.00)
+    for i in range(1000)
+])
+
+# Bulk update
+products = Product.objects.all()[:100]
+for product in products:
+    product.is_active = True
+Product.objects.bulk_update(products, ['is_active'])
+
+# Bulk delete
+Product.objects.filter(stock=0).delete()
+```
+
+## Quick Reference
+
+| Pattern | Description |
+|---------|-------------|
+| Split settings | Separate dev/prod/test settings |
+| Custom QuerySet | Reusable query methods |
+| Service Layer | Business logic separation |
+| ViewSet | REST API endpoints |
+| Serializer validation | Request/response transformation |
+| select_related | Foreign key optimization |
+| prefetch_related | Many-to-many optimization |
+| Cache first | Cache expensive operations |
+| Signals | Event-driven actions |
+| Middleware | Request/response processing |
+
+Remember: Django provides many shortcuts, but for production applications, structure and organization matter more than concise code. Build for maintainability.

@@ -1,7 +1,7 @@
 {
   "name": "terraform-best-practices",
-  "repo": "enuno/claude-command-and-control",
+  "repo": "NickCrew/claude-cortex",
   "path": "skills/terraform-best-practices/SKILL.md",
-  "source": "github.com/enuno/claude-command-and-control",
-  "downloaded_at": "2026-02-01T04:26:07.457998Z"
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-02-02T03:43:50.770359Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "angular-migration",
-  "repo": "wshobson/agents",
-  "path": "plugins/framework-migration/skills/angular-migration/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-02-01T04:51:50.547721Z"
+  "repo": "ccf/claude-code-ccf-marketplace",
+  "path": "plugins/refactoring/skills/angular-migration/SKILL.md",
+  "source": "github.com/ccf/claude-code-ccf-marketplace",
+  "downloaded_at": "2026-02-02T05:11:51.775301Z"
 }

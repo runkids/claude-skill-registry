@@ -1,4 +1,5 @@
 ---
+name: validate-agent
 description: Validation agent that validates plan tech choices against current best practices
 ---
 
@@ -83,7 +84,6 @@ Write your validation to the handoff directory.
 ```markdown
 ---
 date: [ISO timestamp]
-type: validation
 status: [VALIDATED | NEEDS REVIEW]
 plan_file: [path to plan]
 ---
@@ -225,7 +225,7 @@ Task(
   thoughts/shared/plans/PLAN-feature-name.md
 
   ### Handoff Directory:
-  thoughts/handoffs/<session>/
+  thoughts/shared/handoffs/<session>/
 
   ---
 

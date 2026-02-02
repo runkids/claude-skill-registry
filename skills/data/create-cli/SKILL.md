@@ -14,7 +14,7 @@ Design CLI surface area (syntax + behavior), human-first, script-friendly.
 
 ## Do This First
 
-- Read `references/cli-guidelines.md` and apply it as the default rubric.
+- Read `agent-scripts/skills/create-cli/references/cli-guidelines.md` and apply it as the default rubric.
 - Upstream/full guidelines: https://clig.dev/ (propose changes: https://github.com/cli-guidelines/cli-guidelines)
 - Ask only the minimum clarifying questions needed to lock the interface.
 
@@ -91,9 +91,3 @@ Fill these sections, drop anything irrelevant:
 
 - Prefer recommending a parsing library (language-specific) only when asked; otherwise keep this skill language-agnostic.
 - If the request is “design parameters”, do not drift into implementation.
-
-## Attribution
-
-This skill was copied from steipete/agent-scripts.
-Upstream: https://github.com/steipete/agent-scripts
-License: MIT (see LICENSE)

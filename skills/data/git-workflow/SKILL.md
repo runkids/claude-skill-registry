@@ -1,525 +1,506 @@
 ---
-name: git-workflow
-description: "Use when making commits, creating branches, or managing Git operations. Ensures consistent Git practices and proper commit messages."
+description: Common git operations including branch management and status checks
+triggers:
+  - create branch
+  - switch branch
+  - git status summary
+  - new branch
+  - checkout branch
+  - git workflow
+  - branch status
 ---
 
-# Git Workflow
+# Git Workflow Helper
 
-## Core Principle
+Common git operations for working with INAV repositories.
 
-Maintain clean, readable Git history with meaningful commits and consistent branching practices.
+## 🚨 Read Git Guidelines First
 
-## When to Use This Skill
+**Before any git commit operation, read:** `claude/developer/guides/CRITICAL-BEFORE-COMMIT.md`
 
-- Creating new branches
-- Making commits
-- Writing commit messages
-- Merging branches
-- Creating pull/merge requests
-- Any Git operation
+This checklist covers:
+- Never use `git add -A`
+- Human review of commit messages
+- Commit message format and best practices
+- When to use (and not use) `--amend`
+- Hook handling
 
-## The Iron Laws
+**Read it now using the Read tool when performing commit operations.**
 
-### 1. NO AI CO-AUTHOR ATTRIBUTION IN COMMITS
+---
 
-This is a firm policy. Commits represent human accountability.
+## ⚠️ CRITICAL: Git Safety Rules ⚠️
 
-### 2. NO COMMITS WITHOUT VERIFICATION
+### Questions Are Not Commands
 
-**MANDATORY**: Use `verification-before-completion` skill before EVERY commit.
+**When the user asks a question, ONLY answer the question.**
+- Do NOT take any action (delete, push, modify, etc.)
+- Do NOT "fix" things while explaining them
+- Do NOT assume you know what action should follow
+- WAIT for explicit instructions before doing anything
 
-Never commit without:
-- ✅ All tests passing (unit, integration, e2e)
-- ✅ Code quality checks passed
-- ✅ Pre-commit hooks successful
-- ✅ Self-review completed
-- ✅ Verification checklist complete
+### Never Destroy Evidence During Investigation
 
-### 3. SMALL, PRECISE COMMITS
+**When investigating a problem or answering questions about repository state:**
+- Do NOT delete branches, tags, or commits
+- Do NOT push, force-push, or overwrite anything
+- Do NOT "clean up" anything
+- PRESERVE the current state so it can be examined
+- The evidence is needed to understand and fix the problem
 
-**One logical change per commit.**
+### Never Alter the Public Record
 
-✅ **Good commits:**
-- `feat(auth): add email validation to login form`
-- `fix(api): handle null values in user profile endpoint`
-- `test(checkout): add e2e tests for payment flow`
+**Once something is pushed to a public/shared repository:**
+- It becomes part of the permanent record
+- Other developers around the world may have fetched it
+- Altering it (force push, amend+push) creates problems for EVERYONE
+- It breaks other developers' local repositories
+- It corrupts CI/CD pipelines, PR references, and git history
+- The damage is often irreversible and far-reaching
 
-❌ **Bad commits:**
-- `feat: add login, fix bugs, update tests, refactor code`
-- Large commits with multiple unrelated changes
-- Commits without running tests
+**Force pushing after a PR is merged corrupts GitHub's PR display:**
+- GitHub's "Files changed" tab shows the diff between base and the CURRENT branch head
+- If you force push after merge, the PR now shows DIFFERENT code than what was actually merged
+- Example: PR #2496 actually merged an `afterCopy` hook, but after force push GitHub shows `postPackage`
+- Anyone reviewing the PR history sees FALSE information about what was merged
+- This makes debugging, auditing, and understanding project history impossible
+- The merge commit in master contains the ORIGINAL code, but the PR display shows the AMENDED code
+- This is a permanent corruption of the project's historical record
 
-**Why small commits:**
-- 🔍 Easier to review
-- 🐛 Easier to find bugs (git bisect)
-- ⏪ Easier to revert
-- 📖 Clearer history
+### Force Push Rules
 
-### 4. FRONTEND + BACKEND = BOTH TESTS REQUIRED
-
-**When changes affect both frontend and backend:**
-
-```
-MANDATORY before commit:
-1. ✅ Backend tests pass (unit + integration)
-2. ✅ E2E tests pass (full user flow)
-3. ✅ API tests pass (if API changed)
-4. ✅ Frontend tests pass (component + integration)
-```
-
-**Never commit:**
-- ❌ Backend changes without backend tests
-- ❌ Frontend changes without e2e tests
-- ❌ API changes without both backend AND e2e tests
-- ❌ Changes that break existing tests
-
-### 5. PRE-COMMIT HOOKS ARE MANDATORY
-
-**Every project MUST have pre-commit hooks.**
-
-Minimum hooks required:
-- Code formatting (Prettier, Black, PHP CS Fixer)
-- Linting (ESLint, Ruff, PHPStan)
-- Type checking (TypeScript, mypy, Psalm)
-- Test execution (if files changed)
-- No secrets/credentials check
-
-**See**: `.claude/skills/safety/pre-commit-hooks/SKILL.md` for setup
-
-## Git Commit Message Format
-
-### Structure
-
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-### Type
-
-Must be one of:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation only changes
-- `style`: Code style changes (formatting, missing semi-colons, etc)
-- `refactor`: Code refactoring (no functional changes)
-- `perf`: Performance improvements
-- `test`: Adding or updating tests
-- `build`: Build system or dependencies
-- `ci`: CI/CD changes
-- `chore`: Other changes (gitignore, etc)
-
-### Scope (Optional)
-
-Component or module affected:
-- `auth`: Authentication
-- `api`: API endpoints
-- `database`: Database changes
-- `ui`: User interface
-- `tests`: Test files
-
-### Subject
-
-- Use imperative mood: "add" not "added" or "adds"
-- Don't capitalize first letter
-- No period at end
-- Max 50 characters
-- Be specific and concise
-
-### Body (Optional but Recommended)
-
-- Explain WHAT and WHY, not HOW
-- Wrap at 72 characters
-- Separate from subject with blank line
-- Use bullet points if multiple items
-
-### Footer (Optional)
-
-- Breaking changes: `BREAKING CHANGE: description`
-- Issue references: `Closes #123`, `Fixes #456`
-- **NO AI co-author attribution**
-
-## Commit Message Examples
-
-### Good Examples
-
-```
-feat(auth): add JWT token-based authentication
-
-Implement stateless authentication using Laravel Sanctum:
-- User registration with email/password
-- Login returns bearer token
-- Protected routes use auth:sanctum middleware
-- Token revocation on logout
-
-Closes #45
-```
-
-```
-fix(api): resolve N+1 query in user list endpoint
-
-Added eager loading for user relationships to prevent
-multiple database queries per user.
-
-Performance improvement: 50+ queries → 2 queries
-
-Fixes #78
-```
-
-```
-docs: update README with authentication setup
-
-Add step-by-step guide for:
-- Installing Sanctum
-- Configuring .env variables
-- Running migrations
-- Testing authentication
-```
-
-### Bad Examples
-
-```
-❌ Updated stuff
-   - Too vague, no context
-
-❌ Added authentication.
-   - Capitalized, has period, no detail
-
-❌ feat: add auth with JWT and social login and fix bugs and update docs
-   - Too long, multiple unrelated changes
-
-❌ WIP
-   - Meaningless, what is in progress?
-
-❌ fix: fixed the bug
-   - Redundant, no detail about which bug
-```
-
-## Branching Strategy
-
-### Branch Naming Convention
-
-```
-<type>/<short-description>
-```
-
-**Types:**
-- `feature/` - New features
-- `fix/` - Bug fixes
-- `hotfix/` - Urgent production fixes
-- `refactor/` - Code refactoring
-- `docs/` - Documentation
-- `test/` - Test-related work
-
-**Examples:**
-- `feature/jwt-authentication`
-- `fix/login-validation-error`
-- `hotfix/security-patch-xss`
-- `refactor/user-controller`
-- `docs/api-documentation`
-
-### Branch Workflow
-
-#### Creating a New Branch
+**NEVER, EVER force push to master, main, or any shared branch:**
 
 ```bash
-# Ensure you're on main/master and up to date
-git checkout main
-git pull origin main
+# ❌ ABSOLUTELY FORBIDDEN - NEVER DO THIS:
+git push -f origin master
+git push --force origin main
+git push -f upstream master
 
-# Create and switch to new branch
-git checkout -b feature/authentication
-
-# Or create from specific branch
-git checkout -b fix/login-bug develop
+# These commands DESTROY other people's work permanently
+# They rewrite history and can cause unrecoverable data loss
 ```
 
-#### Working on a Branch
+**If a regular push is rejected:**
+1. STOP immediately
+2. Do `git pull` to merge remote changes
+3. Or ask the user what to do
+4. NEVER use force push to "fix" it
+
+**Force push is ONLY acceptable:**
+- On your own feature branches that nobody else uses
+- When explicitly requested by the user
+- NEVER on master/main/shared branches under any circumstances
+
+## 🔒 Sandbox Restrictions
+
+**Claude Code runs in a sandbox that restricts network access:**
+
+- Git operations requiring network (fetch, pull, push) may fail with "Network is unreachable" or "Connection refused"
+- This is NOT a network outage - it's the sandbox blocking unapproved network operations
+- SSH to github.com (port 22) is in the allowed list but may require permission prompts
+- If git fetch/pull/push fails, the user needs to approve the network operation or run it manually
+
+**When you see network errors:**
+1. Don't assume the network is down
+2. Recognize it as a sandbox restriction
+3. Ask the user if they want to approve the operation or handle it manually
+4. The user can run git commands directly (unsandboxed) if needed
+
+## Repository Structure
+
+The INAV project consists of **three standalone repositories**:
+- `inav/` - Flight controller firmware (C/C99)
+- `inav-configurator/` - Desktop GUI (JavaScript/Electron)
+- `inavwiki/` - Documentation (Markdown)
+
+Each repository has its own git history and must be managed independently.
+
+## Creating Branches
+
+### 🚨 CRITICAL: Always Specify Base Branch When Creating Branches
+
+**NEVER create a branch without specifying the base branch:**
 
 ```bash
-# Make changes
-[edit files]
+# ❌ WRONG - branches from current HEAD (may include unrelated changes)
+git checkout -b my-new-branch
 
-# Stage changes
-git add path/to/file.php
-
-# Or stage all changes (careful!)
-git add .
-
-# Commit with good message
-git commit -m "feat(auth): add user registration endpoint
-
-Implement registration with email/password validation.
-Returns JWT token on successful registration.
-
-Closes #23"
-
-# Push to remote
-git push -u origin feature/authentication
+# ✅ CORRECT - explicitly specify base branch
+git checkout -b my-new-branch upstream/maintenance-9.x
 ```
 
-#### Updating Branch with Latest Changes
+**Why this matters:** Creating a branch without specifying the base will branch from whatever you currently have checked out, which may include:
+- Unrelated commits from another feature branch
+- Work-in-progress changes
+- The wrong base branch entirely
+- This leads to PRs contaminated with unrelated changes
+
+### Create a New Branch - Correct Commands
+
+**First, verify you're not on a production branch:**
+```bash
+git branch --show-current
+# Output should NOT be: secure_01, master, main, maintenance-9.x, maintenance-10.x
+```
+
+**For PrivacyLRS (secure_01 base):**
+```bash
+# Branch from secure_01 (the base branch for PrivacyLRS)
+git checkout -b your-branch-name secure_01
+
+# Push branch to remote
+git push -u origin your-branch-name
+
+# Branch naming: NO slashes (use: encryption-test-suite, fix-counter-sync)
+```
+
+**For INAV/inav-configurator (maintains backward compatibility):**
+```bash
+# Branch from maintenance-9.x (most common case)
+git checkout -b your-branch-name upstream/maintenance-9.x
+
+# Push branch to remote
+git push -u origin your-branch-name
+
+# Branch naming: kebab-case (use: fix-telemetry-bug, feature-battery-limit)
+```
+
+**For INAV/inav-configurator (breaking changes):**
+```bash
+# Branch from maintenance-10.x (MSP protocol changes, settings structure changes, etc.)
+git checkout -b your-branch-name upstream/maintenance-10.x
+
+# Push branch to remote
+git push -u origin your-branch-name
+```
+
+**NEVER target PRs to master** - it receives merges only (maintenance-9.x → master → maintenance-10.x).
+
+### Create Branch from Specific Commit
 
 ```bash
-# Option 1: Merge (preserves history)
-git checkout main
-git pull origin main
-git checkout feature/authentication
-git merge main
+# Create branch from specific commit
+git checkout -b bugfix-123 <commit-hash>
 
-# Option 2: Rebase (cleaner history)
-git checkout feature/authentication
-git fetch origin
-git rebase origin/main
+# Or from a tag
+git checkout -b new-feature v9.0.0
 ```
 
-#### Finishing a Branch
+### Branch Naming Conventions
 
-See `finishing-a-development-branch` skill for complete checklist.
+**PrivacyLRS:**
+- Use flat naming WITHOUT slashes
+- ✅ Good: `encryption-test-suite`, `fix-counter-sync`, `add-telemetry`
+- ❌ Bad: `feature/encryption-tests`, `security/fixes`
 
-## Git Best Practices
+**INAV:**
+- Use kebab-case with descriptive names
+- ✅ Good: `fix-telemetry-bug`, `feature-battery-limit`, `update-sitl-binary`
+- Bug fixes: `fix-<description>`
+- Features: `feature-<description>`
 
-### Commit Frequency
+## Switching Branches
 
-- **Commit often**: Small, focused commits
-- **Commit working code**: Each commit should be functional
-- **Commit before major refactors**: So you can rollback if needed
+### Safe Branch Switching
 
-### What to Commit
-
-✅ **DO commit:**
-- Source code
-- Configuration files (without secrets)
-- Tests
-- Documentation
-- Migrations
-- .env.example (template, no secrets)
-
-❌ **DON'T commit:**
-- .env (contains secrets)
-- node_modules/, vendor/
-- Build artifacts (dist/, build/)
-- IDE-specific files (.idea/, .vscode/)
-- Log files
-- Database files (*.sqlite, backups/)
-- Temporary files
-
-### .gitignore
-
-Ensure proper .gitignore for your framework:
-
-**Laravel:**
-```gitignore
-/vendor/
-/node_modules/
-.env
-.env.*.local
-/storage/*.key
-/public/hot
-/public/storage
-/storage/logs/
-/bootstrap/cache/*.php
-backups/
-```
-
-**Node.js:**
-```gitignore
-node_modules/
-.env
-.env.*.local
-dist/
-build/
-*.log
-.DS_Store
-```
-
-**Python:**
-```gitignore
-__pycache__/
-*.pyc
-.env
-.venv/
-venv/
-*.log
-.pytest_cache/
-.coverage
-```
-
-## Commit Workflow Checklist
-
-Before committing:
-- [ ] Run tests (with database backup!)
-- [ ] Verify all changes are intentional
-- [ ] No debugging code (console.log, dd(), var_dump())
-- [ ] No commented-out code
-- [ ] No secrets in files
-- [ ] Files properly formatted (run linter)
-- [ ] Commit message follows format
-
-## Advanced Git Operations
-
-### Amending Last Commit
+Always check for uncommitted changes before switching:
 
 ```bash
-# Add forgotten files to last commit
-git add forgotten-file.php
-git commit --amend --no-edit
+# Check status first
+git status
 
-# Or change commit message
-git commit --amend -m "new commit message"
+# If clean, switch branches
+git checkout <branch-name>
 
-# ⚠️ Only amend commits that haven't been pushed
+# Or use switch
+git switch <branch-name>
 ```
 
-### Undoing Changes
+### Handling Uncommitted Changes
 
+If you have uncommitted changes:
+
+**Option 1: Stash changes**
 ```bash
-# Discard changes in working directory
-git restore path/to/file.php
+git stash save "WIP: description of changes"
+git checkout <branch-name>
 
-# Unstage changes (keep in working directory)
-git restore --staged path/to/file.php
-
-# Undo last commit (keep changes)
-git reset HEAD~1
-
-# Undo last commit (discard changes) ⚠️
-git reset --hard HEAD~1
-```
-
-### Stashing Changes
-
-```bash
-# Save current changes temporarily
-git stash
-
-# List stashes
-git stash list
-
-# Apply most recent stash
+# Later, restore changes
 git stash pop
-
-# Apply specific stash
-git stash apply stash@{0}
 ```
 
-### Cherry-picking Commits
+**Option 2: Commit changes**
+```bash
+git add .
+git commit -m "WIP: save progress"
+git checkout <branch-name>
+```
+
+**Option 3: Discard changes (careful!)**
+```bash
+git checkout -- .  # Discard all changes
+git checkout <branch-name>
+```
+
+## Git Status Summary
+
+### Quick Status Check
 
 ```bash
-# Apply specific commit from another branch
-git cherry-pick <commit-hash>
+# Basic status
+git status
+
+# Short format
+git status -s
+
+# Show branch and tracking info
+git status -sb
 ```
 
-## GitHub/GitLab Integration
+### Comprehensive Status
 
-### Creating Pull/Merge Request
+Get a complete picture of your repository:
 
-**GitHub:**
 ```bash
-# Using GitHub CLI
-gh pr create --title "feat(auth): Add JWT authentication" --body "Implements user authentication with JWT tokens
+# Branch information
+echo "=== Current Branch ==="
+git branch --show-current
 
-- Registration endpoint
-- Login endpoint
-- Protected routes
-- Tests included
+# Status
+echo "=== Working Tree Status ==="
+git status
 
-Closes #45"
+# Commits ahead/behind remote
+echo "=== Remote Tracking ==="
+git status -sb | head -1
+
+# Recent commits
+echo "=== Recent Commits ==="
+git log --oneline -5
+
+# Staged changes
+echo "=== Staged Changes ==="
+git diff --cached --stat
+
+# Unstaged changes
+echo "=== Unstaged Changes ==="
+git diff --stat
 ```
 
-**GitLab:**
+## Branch Management
+
+### List Branches
+
 ```bash
-# Using GitLab CLI
-glab mr create --title "feat(auth): Add JWT authentication" --description "Implements user authentication with JWT tokens
+# Local branches
+git branch
 
-- Registration endpoint
-- Login endpoint
-- Protected routes
-- Tests included
+# Remote branches
+git branch -r
 
-Closes #45"
+# All branches with last commit
+git branch -v
+
+# All branches including remote
+git branch -a
 ```
 
-### Commit Message in PR/MR
+### Delete Branches
 
-Use the same format as commit messages:
+```bash
+# Delete local branch (safe - only if merged)
+git branch -d <branch-name>
 
-```markdown
-## What
+# Force delete local branch
+git branch -D <branch-name>
 
-Implements JWT authentication for API
-
-## Why
-
-Needed stateless authentication for mobile app support
-
-## Changes
-
-- Added Laravel Sanctum
-- User registration endpoint
-- Login/logout endpoints
-- Auth middleware on protected routes
-- 15 tests covering auth flows
-
-## Testing
-
-- All tests pass (127 total)
-- Manual testing completed
-- API documentation updated
-
-Closes #45
+# Delete remote branch
+git push origin --delete <branch-name>
 ```
 
-## Integration with Other Skills
+### Rename Branch
 
-**Use before committing:**
-- `code-review` - Review your changes
-- `verification-before-completion` - Ensure everything works
-- `database-backup` - Before running tests
+```bash
+# Rename current branch
+git branch -m <new-name>
 
-**Related skills:**
-- `finishing-a-development-branch` - Complete checklist before PR/MR
-- `git-worktrees` - Working on multiple branches
+# Rename specific branch
+git branch -m <old-name> <new-name>
 
-## Red Flags (Bad Git Practices)
+# Update remote
+git push origin -u <new-name>
+git push origin --delete <old-name>
+```
 
-- ❌ Committing directly to main/master
-- ❌ Vague commit messages ("fix", "update", "WIP")
-- ❌ Committing secrets (.env file)
-- ❌ Committing broken code
-- ❌ Huge commits with unrelated changes
-- ❌ Not testing before committing
-- ❌ Including AI co-author attribution
+## Checking Branch Status
 
-## Common Rationalizations to Reject
+### Compare with Remote
 
-- ❌ "I'll write a proper message later" → Write it now
-- ❌ "Just a quick fix, doesn't need good message" → All commits need good messages
-- ❌ "I'll clean up history before merging" → Don't rely on it, do it right first time
-- ❌ "Adding AI attribution gives credit" → Humans are accountable, not AI
+```bash
+# Fetch latest from remote
+git fetch origin
 
-## Authority
+# Check if branch is ahead/behind
+git status
 
-**This skill is based on:**
-- Git best practices (Conventional Commits standard)
-- Industry standard: All professional teams use consistent commit practices
-- Legal/accountability: Commits represent human responsibility
-- CodeAssist policy: NO AI attribution in commits
+# See commits not pushed
+git log origin/<branch-name>..<branch-name>
 
-**Social Proof**: Companies like Google, Microsoft, and GitHub use commit message conventions.
+# See commits not pulled
+git log <branch-name>..origin/<branch-name>
+```
 
-## Your Commitment
+### Compare with Other Branches
 
-Before making commits:
-- [ ] I will write clear, meaningful commit messages
-- [ ] I will follow the commit message format
-- [ ] I will NOT include AI co-author attribution
-- [ ] I will test before committing
-- [ ] I will commit small, focused changes
+```bash
+# See commits in current branch not in master
+git log master..HEAD
+
+# See files changed between branches
+git diff master..HEAD --stat
+
+# Show branch divergence
+git log --oneline --graph --all --decorate -10
+```
+
+## Working with Multiple Repositories
+
+Since `inav/`, `inav-configurator/`, and `inavwiki/` are standalone repos:
+
+### Check Status Across All Repos
+
+```bash
+# From project root
+for repo in inav inav-configurator inavwiki; do
+  if [ -d "$repo" ]; then
+    echo "=== $repo ==="
+    cd $repo
+    git status -sb
+    cd ..
+    echo ""
+  fi
+done
+```
+
+### Create Matching Branches
+
+If working on a feature that spans multiple repos:
+
+```bash
+# Firmware
+cd inav
+git checkout -b my-feature
+git push -u origin my-feature
+
+# Configurator
+cd ../inav-configurator
+git checkout -b my-feature
+git push -u origin my-feature
+
+# Documentation
+cd ../inavwiki
+git checkout -b my-feature
+git push -u origin my-feature
+```
+
+## Common Workflows
+
+### Starting New Feature
+
+```bash
+# 1. Ensure you're on master and up to date
+git checkout master
+git pull origin master
+
+# 2. Create feature branch
+git checkout -b my-feature
+
+# 3. Make changes and commit
+git add <files>
+git commit -m "Add: initial implementation"
+
+# 4. Push to remote
+git push -u origin my-feature
+```
+
+### Updating Feature Branch with Latest Master
+
+```bash
+# Option 1: Rebase (cleaner history)
+git checkout my-feature
+git fetch origin
+git rebase origin/master
+
+# Option 2: Merge (preserves history)
+git checkout my-feature
+git fetch origin
+git merge origin/master
+```
+
+### Switching Between Tasks
+
+```bash
+# Save current work
+git stash save "WIP: current task description"
+
+# Switch to other branch
+git checkout other-branch
+
+# Work on other task...
+
+# Return to original branch
+git checkout original-branch
+git stash pop
+```
+
+## Troubleshooting
+
+### Branch is Behind Remote
+
+```bash
+# Pull latest changes
+git pull origin <branch-name>
+
+# Or fetch and merge manually
+git fetch origin
+git merge origin/<branch-name>
+```
+
+### Branch Has Diverged
+
+```bash
+# View divergence
+git status
+
+# Option 1: Rebase your changes
+git pull --rebase origin <branch-name>
+
+# Option 2: Merge
+git pull origin <branch-name>
+```
+
+### Accidentally Committed to Wrong Branch
+
+```bash
+# Move last commit to new branch
+git checkout -b correct-branch
+git checkout wrong-branch
+git reset --hard HEAD~1
+git checkout correct-branch
+```
+
+## Resources
+
+- **Git basics:** `git --help`
+- **Project workflow:** See `claude/manager/README.md` and `claude/developer/README.md`
 
 ---
 
-**Bottom Line**: Git history is documentation. Write it for humans who will read it later (including future you). Clean Git history makes debugging, code review, and collaboration easier.
+## Related Skills
+
+- **create-pr** - Create pull requests after committing changes
+- **pr-review** - Review pull requests and check out PR branches
+- **check-builds** - Check CI build status for branches and PRs
+- **start-task** - Begin tasks with proper branch setup
+- **finish-task** - Complete tasks with commits and cleanup

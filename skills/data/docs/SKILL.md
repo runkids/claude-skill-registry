@@ -1,15 +1,55 @@
-# OptionalEscoOccupationSkill
-
+# ExperienceSkill
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**concept_type** | **str** | This field shows the concept type according with the ESCO classification. | [optional] 
-**preferred_label** | **str** | This field shows the skill preferred label according with the ESCO classification. | [optional] 
-**alt_labels** | **str** | This field shows the skill alternative labels according with the ESCO classification. | [optional] 
-**description** | **str** | This field shows the skill description according with the ESCO classification. | [optional] 
-**isco_group** | **str** | This field shows the ISCO group according with the ESCO classification. | [optional] 
-**code** | **str** | This field shows the ESCO occupation code according with the ESCO classification. | [optional] 
+**ExperienceInMonth** | Pointer to **int32** |  | [optional] [default to 0]
+
+## Methods
+
+### NewExperienceSkill
+
+`func NewExperienceSkill() *ExperienceSkill`
+
+NewExperienceSkill instantiates a new ExperienceSkill object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewExperienceSkillWithDefaults
+
+`func NewExperienceSkillWithDefaults() *ExperienceSkill`
+
+NewExperienceSkillWithDefaults instantiates a new ExperienceSkill object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetExperienceInMonth
+
+`func (o *ExperienceSkill) GetExperienceInMonth() int32`
+
+GetExperienceInMonth returns the ExperienceInMonth field if non-nil, zero value otherwise.
+
+### GetExperienceInMonthOk
+
+`func (o *ExperienceSkill) GetExperienceInMonthOk() (*int32, bool)`
+
+GetExperienceInMonthOk returns a tuple with the ExperienceInMonth field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperienceInMonth
+
+`func (o *ExperienceSkill) SetExperienceInMonth(v int32)`
+
+SetExperienceInMonth sets ExperienceInMonth field to given value.
+
+### HasExperienceInMonth
+
+`func (o *ExperienceSkill) HasExperienceInMonth() bool`
+
+HasExperienceInMonth returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

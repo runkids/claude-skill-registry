@@ -46,16 +46,16 @@ Master React version upgrades, class to hooks migration, concurrent features ado
 // Before: Class component
 class Counter extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       count: 0,
-      name: "",
-    };
+      name: '',
+    }
   }
 
   increment = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+    this.setState({ count: this.state.count + 1 })
+  }
 
   render() {
     return (
@@ -63,25 +63,25 @@ class Counter extends React.Component {
         <p>Count: {this.state.count}</p>
         <button onClick={this.increment}>Increment</button>
       </div>
-    );
+    )
   }
 }
 
 // After: Functional component with hooks
 function Counter() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("");
+  const [count, setCount] = useState(0)
+  const [name, setName] = useState('')
 
   const increment = () => {
-    setCount(count + 1);
-  };
+    setCount(count + 1)
+  }
 
   return (
     <div>
       <p>Count: {count}</p>
       <button onClick={increment}>Increment</button>
     </div>
-  );
+  )
 }
 ```
 
@@ -90,71 +90,71 @@ function Counter() {
 ```javascript
 // Before: Lifecycle methods
 class DataFetcher extends React.Component {
-  state = { data: null, loading: true };
+  state = { data: null, loading: true }
 
   componentDidMount() {
-    this.fetchData();
+    this.fetchData()
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.id !== this.props.id) {
-      this.fetchData();
+      this.fetchData()
     }
   }
 
   componentWillUnmount() {
-    this.cancelRequest();
+    this.cancelRequest()
   }
 
   fetchData = async () => {
-    const data = await fetch(`/api/${this.props.id}`);
-    this.setState({ data, loading: false });
-  };
+    const data = await fetch(`/api/${this.props.id}`)
+    this.setState({ data, loading: false })
+  }
 
   cancelRequest = () => {
     // Cleanup
-  };
+  }
 
   render() {
-    if (this.state.loading) return <div>Loading...</div>;
-    return <div>{this.state.data}</div>;
+    if (this.state.loading) return <div>Loading...</div>
+    return <div>{this.state.data}</div>
   }
 }
 
 // After: useEffect hook
 function DataFetcher({ id }) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let cancelled = false;
+    let cancelled = false
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/${id}`);
-        const result = await response.json();
+        const response = await fetch(`/api/${id}`)
+        const result = await response.json()
 
         if (!cancelled) {
-          setData(result);
-          setLoading(false);
+          setData(result)
+          setLoading(false)
         }
       } catch (error) {
         if (!cancelled) {
-          console.error(error);
+          console.error(error)
         }
       }
-    };
+    }
 
-    fetchData();
+    fetchData()
 
     // Cleanup function
     return () => {
-      cancelled = true;
-    };
-  }, [id]); // Re-run when id changes
+      cancelled = true
+    }
+  }, [id]) // Re-run when id changes
 
-  if (loading) return <div>Loading...</div>;
-  return <div>{data}</div>;
+  if (loading) return <div>Loading...</div>
+  return <div>{data}</div>
 }
 ```
 
@@ -162,57 +162,53 @@ function DataFetcher({ id }) {
 
 ```javascript
 // Before: Context consumer and HOC
-const ThemeContext = React.createContext();
+const ThemeContext = React.createContext()
 
 class ThemedButton extends React.Component {
-  static contextType = ThemeContext;
+  static contextType = ThemeContext
 
   render() {
-    return (
-      <button style={{ background: this.context.theme }}>
-        {this.props.children}
-      </button>
-    );
+    return <button style={{ background: this.context.theme }}>{this.props.children}</button>
   }
 }
 
 // After: useContext hook
 function ThemedButton({ children }) {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)
 
-  return <button style={{ background: theme }}>{children}</button>;
+  return <button style={{ background: theme }}>{children}</button>
 }
 
 // Before: HOC for data fetching
 function withUser(Component) {
   return class extends React.Component {
-    state = { user: null };
+    state = { user: null }
 
     componentDidMount() {
-      fetchUser().then((user) => this.setState({ user }));
+      fetchUser().then((user) => this.setState({ user }))
     }
 
     render() {
-      return <Component {...this.props} user={this.state.user} />;
+      return <Component {...this.props} user={this.state.user} />
     }
-  };
+  }
 }
 
 // After: Custom hook
 function useUser() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    fetchUser().then(setUser);
-  }, []);
+    fetchUser().then(setUser)
+  }, [])
 
-  return user;
+  return user
 }
 
 function UserProfile() {
-  const user = useUser();
-  if (!user) return <div>Loading...</div>;
-  return <div>{user.name}</div>;
+  const user = useUser()
+  if (!user) return <div>Loading...</div>
+  return <div>{user.name}</div>
 }
 ```
 
@@ -222,15 +218,15 @@ function UserProfile() {
 
 ```javascript
 // Before: React 17
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'))
 
 // After: React 18
-import { createRoot } from "react-dom/client";
+import { createRoot } from 'react-dom/client'
 
-const root = createRoot(document.getElementById("root"));
-root.render(<App />);
+const root = createRoot(document.getElementById('root'))
+root.render(<App />)
 ```
 
 ### Automatic Batching
@@ -238,48 +234,48 @@ root.render(<App />);
 ```javascript
 // React 18: All updates are batched
 function handleClick() {
-  setCount((c) => c + 1);
-  setFlag((f) => !f);
+  setCount((c) => c + 1)
+  setFlag((f) => !f)
   // Only one re-render (batched)
 }
 
 // Even in async:
 setTimeout(() => {
-  setCount((c) => c + 1);
-  setFlag((f) => !f);
+  setCount((c) => c + 1)
+  setFlag((f) => !f)
   // Still batched in React 18!
-}, 1000);
+}, 1000)
 
 // Opt out if needed
-import { flushSync } from "react-dom";
+import { flushSync } from 'react-dom'
 
 flushSync(() => {
-  setCount((c) => c + 1);
-});
+  setCount((c) => c + 1)
+})
 // Re-render happens here
-setFlag((f) => !f);
+setFlag((f) => !f)
 // Another re-render
 ```
 
 ### Transitions
 
 ```javascript
-import { useState, useTransition } from "react";
+import { useState, useTransition } from 'react'
 
 function SearchResults() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [isPending, startTransition] = useTransition();
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState([])
+  const [isPending, startTransition] = useTransition()
 
   const handleChange = (e) => {
     // Urgent: Update input immediately
-    setQuery(e.target.value);
+    setQuery(e.target.value)
 
     // Non-urgent: Update results (can be interrupted)
     startTransition(() => {
-      setResults(searchResults(e.target.value));
-    });
-  };
+      setResults(searchResults(e.target.value))
+    })
+  }
 
   return (
     <>
@@ -287,17 +283,17 @@ function SearchResults() {
       {isPending && <Spinner />}
       <Results data={results} />
     </>
-  );
+  )
 }
 ```
 
 ### Suspense for Data Fetching
 
 ```javascript
-import { Suspense } from "react";
+import { Suspense } from 'react'
 
 // Resource-based data fetching (with React 18)
-const resource = fetchProfileData();
+const resource = fetchProfileData()
 
 function ProfilePage() {
   return (
@@ -307,18 +303,18 @@ function ProfilePage() {
         <ProfileTimeline />
       </Suspense>
     </Suspense>
-  );
+  )
 }
 
 function ProfileDetails() {
   // This will suspend if data not ready
-  const user = resource.user.read();
-  return <h1>{user.name}</h1>;
+  const user = resource.user.read()
+  return <h1>{user.name}</h1>
 }
 
 function ProfileTimeline() {
-  const posts = resource.posts.read();
-  return <Timeline posts={posts} />;
+  const posts = resource.posts.read()
+  return <Timeline posts={posts} />
 }
 ```
 
@@ -352,24 +348,24 @@ npx codemod react/hooks/convert-class-to-function src/
 ```javascript
 // custom-codemod.js
 module.exports = function (file, api) {
-  const j = api.jscodeshift;
-  const root = j(file.source);
+  const j = api.jscodeshift
+  const root = j(file.source)
 
   // Find setState calls
   root
     .find(j.CallExpression, {
       callee: {
-        type: "MemberExpression",
-        property: { name: "setState" },
+        type: 'MemberExpression',
+        property: { name: 'setState' },
       },
     })
     .forEach((path) => {
       // Transform to useState
       // ... transformation logic
-    });
+    })
 
-  return root.toSource();
-};
+  return root.toSource()
+}
 
 // Run: jscodeshift -t custom-codemod.js src/
 ```
@@ -382,33 +378,31 @@ module.exports = function (file, api) {
 function ExpensiveComponent({ items, filter }) {
   // Memoize expensive calculation
   const filteredItems = useMemo(() => {
-    return items.filter((item) => item.category === filter);
-  }, [items, filter]);
+    return items.filter((item) => item.category === filter)
+  }, [items, filter])
 
   // Memoize callback to prevent child re-renders
   const handleClick = useCallback((id) => {
-    console.log("Clicked:", id);
-  }, []); // No dependencies, never changes
+    console.log('Clicked:', id)
+  }, []) // No dependencies, never changes
 
-  return <List items={filteredItems} onClick={handleClick} />;
+  return <List items={filteredItems} onClick={handleClick} />
 }
 
 // Child component with memo
 const List = React.memo(({ items, onClick }) => {
-  return items.map((item) => (
-    <Item key={item.id} item={item} onClick={onClick} />
-  ));
-});
+  return items.map((item) => <Item key={item.id} item={item} onClick={onClick} />)
+})
 ```
 
 ### Code Splitting
 
 ```javascript
-import { lazy, Suspense } from "react";
+import { lazy, Suspense } from 'react'
 
 // Lazy load components
-const Dashboard = lazy(() => import("./Dashboard"));
-const Settings = lazy(() => import("./Settings"));
+const Dashboard = lazy(() => import('./Dashboard'))
+const Settings = lazy(() => import('./Settings'))
 
 function App() {
   return (
@@ -418,7 +412,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </Suspense>
-  );
+  )
 }
 ```
 

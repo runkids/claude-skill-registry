@@ -1,7 +1,7 @@
 {
   "name": "brainstorm",
-  "repo": "NammDev/Goads-Krea",
-  "path": ".claude/skills/brainstorm/SKILL.md",
-  "source": "github.com/NammDev/Goads-Krea",
-  "downloaded_at": "2026-02-01T04:54:01.363515Z"
+  "repo": "paxtone-io/openkodo",
+  "path": "plugins/kodo/skills/brainstorm/SKILL.md",
+  "source": "github.com/paxtone-io/openkodo",
+  "downloaded_at": "2026-02-02T05:08:46.575179Z"
 }

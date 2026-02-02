@@ -1,185 +1,134 @@
 ---
 name: implement
-description: Scaffold Cloudflare Workers with Hono, Drizzle ORM, and TypeScript best practices. Use this skill when implementing new Workers, adding endpoints, or setting up database schemas.
+description: 指定されたGitHub Issueをworktree環境で実装する完全ワークフロー。Subtask検出からPRマージまでを統括。
 ---
 
-# Cloudflare Implementation Skill
+# Issue実装ワークフロー (/implement)
 
-Scaffold production-ready Cloudflare Workers following modern patterns with Hono, Drizzle ORM, and TypeScript.
+> **役割**: Sisyphus (Main Agent) が実行する実装のメインループ
+> **環境**: Host環境 + Git Worktree
 
-## Technology Stack
+---
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| Router | Hono v4+ | Lightweight, fast, TypeScript-first |
-| ORM | Drizzle | Type-safe D1 queries, migrations |
-| Validation | Zod | Request/response validation |
-| Runtime | Workers | Edge compute |
+## 🔄 全体フロー
 
-## Project Structure
+1. **Issue分析 & 準備**
+   - 粒度チェック (200行以下?)
+   - Subtask検出 (親Issueの場合 → 再帰的に実行)
+   - 既存実装の確認
 
-```
-worker/
-├── src/
-│   ├── index.ts          # Hono app entry
-│   ├── routes/           # Route handlers
-│   │   ├── api.ts
-│   │   └── health.ts
-│   ├── middleware/       # Hono middleware
-│   │   ├── auth.ts
-│   │   └── errors.ts
-│   ├── services/         # Business logic
-│   │   └── users.ts
-│   ├── db/               # Drizzle schema + queries
-│   │   ├── schema.ts
-│   │   └── queries.ts
-│   └── types.ts          # Shared types
-├── migrations/           # D1 migrations
-│   └── 0001_initial.sql
-├── wrangler.jsonc
-├── drizzle.config.ts
-├── package.json
-└── tsconfig.json
-```
+2. **環境構築 (Phase 1)**
+   - `/create-worktree` で独立環境を作成
+   - 作業ディレクトリへ移動 (`cd .worktrees/issue-XXX`)
 
-## Quick Start Templates
+3. **実装サイクル (Phase 2-3)**
+   - **TDDサイクル**: Red → Green → Refactor
+   - **品質保証**: Lint, Test, 品質レビュー (9点以上)
+   - **客観的基準**: `quality-review-flow` 準拠
 
-### Package.json
+4. **PR作成 (Phase 4)**
+   - ユーザー承認
+   - `/pr-and-cleanup` でPR作成と環境削除
 
-```json
-{
-  "name": "worker-name",
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply DB",
-    "db:migrate:local": "wrangler d1 migrations apply DB --local",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "hono": "^4.0.0",
-    "@hono/zod-validator": "^0.2.0",
-    "drizzle-orm": "^0.29.0",
-    "zod": "^3.22.0"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240000.0",
-    "drizzle-kit": "^0.20.0",
-    "typescript": "^5.3.0",
-    "wrangler": "^3.0.0"
-  }
-}
-```
+5. **CI監視 & 自動マージ (Phase 5)** ← **承認不要・自動実行**
+   - `pr-merge-full.sh` で一括実行
+   - CI完了待機 → 成功で即マージ
+   - CI失敗時は自動修正（最大3回）
+   - 3回失敗でエスカレーション
 
-### TSConfig
+---
 
-```json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "lib": ["ES2022"],
-    "types": ["@cloudflare/workers-types"],
-    "strict": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
-}
-```
+## 📋 Sisyphus 実行ガイド
 
-## Best Practices Summary
+### 1. 準備フェーズ
 
-### D1 Queries
+まず、Issueのサイズと依存関係を確認します。
 
-```typescript
-// GOOD: Batch inserts
-const BATCH_SIZE = 1000;
-for (let i = 0; i < items.length; i += BATCH_SIZE) {
-  await db.insert(table).values(items.slice(i, i + BATCH_SIZE));
-}
+- **粒度チェック**: 200行を超える場合は `/decompose-issue` を提案
+- **Subtask検出**: 親Issueの場合は `/decompose-issue` を実行し、各Subtaskに対してこのワークフローを適用
+- **作業開始**:
+  ```bash
+  /create-worktree <issue_id> <branch_name>
+  ```
 
-// BAD: Per-row inserts (N statements = N x cost)
-for (const item of items) {
-  await db.insert(table).values(item);
-}
-```
+### 2. 実装フェーズ
 
-### Queue Safety
-
-**CRITICAL**: Always configure DLQs and implement idempotency:
-
-```jsonc
-{
-  "queues": {
-    "consumers": [{
-      "queue": "events",
-      "max_retries": 1,           // LOW retries
-      "dead_letter_queue": "events-dlq"  // REQUIRED
-    }]
-  }
-}
-```
-
-### R2 Asset Caching
-
-Always implement edge caching to avoid $0.36/M Class B costs:
-
-```typescript
-// Check cache first
-const cached = await caches.default.match(cacheKey);
-if (cached) return cached;
-
-// Fetch from R2 and cache
-const object = await bucket.get(key);
-const response = new Response(object.body, {
-  headers: { 'Cache-Control': 'public, max-age=31536000' }
-});
-ctx.waitUntil(caches.default.put(cacheKey, response.clone()));
-```
-
-## Commands
+**重要**: すべてのファイル操作・コマンド実行は **Worktreeディレクトリ内** で行います。
 
 ```bash
-# Generate migration from schema changes
-npm run db:generate
-
-# Apply migrations locally
-npm run db:migrate:local
-
-# Apply migrations to remote D1
-npm run db:migrate
-
-# Development
-npm run dev
-
-# Deploy
-npm run deploy
+# 必ず移動してから作業
+cd .worktrees/issue-<id>-<name>
 ```
 
-## Reference Files
+#### TDDの実践
+1. **Red**: テストケースを作成（`write` tool）
+2. **Green**: テストを通す最小限の実装（`write`/`edit` tool）
+3. **Refactor**: コードを整理
 
-For detailed implementation patterns, consult:
+### 3. 品質レビューフェーズ
 
-- **`references/hono-patterns.md`** - Hono entry point, routes, middleware, error handling, auth
-- **`references/drizzle-patterns.md`** - Schema definitions, queries, migrations, batch patterns
-- **`references/queue-safety.md`** - Idempotency, DLQ handlers, circuit breaker, retry budget
-- **`references/r2-caching.md`** - CDN caching, upload headers, IA storage warnings
-- **`references/observability.md`** - Axiom, Better Stack, OTel export patterns
+PR作成前に必ず品質チェックを行います。
 
-## Related Skills
+1. **自己チェック**:
+   ```bash
+   # プロジェクトに応じたコマンド
+   npm run lint && npm test
+   # または
+   cargo clippy && cargo test
+   ```
+2. **専門レビュアーによるレビュー**:
+   - `quality-review-flow` skill を参照
+   - 9点未満の場合は修正して再レビュー
 
-- **architect**: Service selection, wrangler.toml generation
-- **loop-breaker**: Recursion guards for Worker-to-Worker calls
-- **query-optimizer**: D1 query optimization, N+1 detection
-- **patterns**: Architecture patterns (service-bindings, circuit-breaker)
+### 4. PR作成フェーズ
+
+1. **承認ゲート**: ユーザーにPR作成の許可を得る
+2. **PR作成と環境削除**:
+   ```bash
+   /pr-and-cleanup <issue_id>
+   ```
+
+### 5. CI監視&自動マージフェーズ
+
+PR作成後、**承認なしで自動的に**CI監視→マージまで実行します。
+
+#### 一括実行コマンド（推奨）
+
+```bash
+bash .pi/skills/pr-merge-workflow/scripts/pr-merge-full.sh <pr-number>
+```
+
+このスクリプトが以下を自動実行します：
+1. CI完了待機（最大10分）
+2. CI成功 → 自動マージ（`--merge --delete-branch`）
+3. Issueラベル更新（`env:merged`）
+
+#### CI失敗時の自動対応
+
+CI失敗時は `ci-workflow` に従い自動修正を試みます：
+
+| 失敗種別 | 自動対応 |
+|---------|---------|
+| Lint/Format | `--fix` で自動修正 → push → 再待機 |
+| Test/Build | コード修正 → push → 再待機 |
+| 3回失敗 | PRをDraft化してユーザーにエスカレーション |
+
+```bash
+# CI失敗時の手動対応が必要な場合
+gh run view --log-failed  # ログ確認
+# 修正後
+git add . && git commit -m "fix: CI修正" && git push
+# 再度マージ試行
+bash .pi/skills/pr-merge-workflow/scripts/pr-merge-full.sh <pr-number>
+```
+
+> **詳細**: `ci-workflow` skill および `pr-merge-workflow` skill を参照
+
+---
+
+## ⛔ 禁止事項
+
+1. **メインブランチでの直接作業**: 必ずWorktreeを作成すること
+2. **テストなしの実装**: TDDを原則とする
+3. **レビューなしのPR作成**: 必ず品質レビューを通すこと
+4. **Worktree外のファイル操作**: 誤ってルートディレクトリのファイルを書き換えないこと

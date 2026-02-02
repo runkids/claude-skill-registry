@@ -1,7 +1,7 @@
 {
   "name": "serialization",
-  "repo": "a5c-ai/babysitter",
-  "path": "plugins/babysitter/skills/babysit/process/specializations/network-programming/skills/serialization/SKILL.md",
-  "source": "github.com/a5c-ai/babysitter",
-  "downloaded_at": "2026-01-31T01:27:20.219364Z"
+  "repo": "Aaronontheweb/dotnet-skills",
+  "path": "skills/dotnet/serialization/SKILL.md",
+  "source": "github.com/Aaronontheweb/dotnet-skills",
+  "downloaded_at": "2026-02-02T05:01:20.751850Z"
 }

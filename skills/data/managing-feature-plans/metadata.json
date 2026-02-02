@@ -1,9 +1,7 @@
 {
   "name": "managing-feature-plans",
-  "description": "Comprehensive feature plan document, creation, editing, and archiving. When LLM needs to work with feature plan documents for (1) Starting a new feature, (2) Reviewing progress of a feature, (3) Revie",
   "repo": "austinjan/aaagent-rs",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/austinjan/aaagent-rs"
+  "path": ".claude/skills/managing-feature-plans/SKILL.md",
+  "source": "github.com/austinjan/aaagent-rs",
+  "downloaded_at": "2026-02-02T04:53:28.497709Z"
 }

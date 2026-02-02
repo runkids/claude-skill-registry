@@ -1,141 +1,57 @@
 ---
 name: router
-description: Маршрутизация запросов к specialist агентам
-priority: 900
-moltbot:
-  always: true
-  requires:
-    env:
-      - AGENT_SERVICE_URL
+description: Generates src/router/index.ts with Vue Router configuration, hash-based routing, and navigation guards for route protection.
 ---
 
-# Router Skill — Маршрутизация к Specialists
+# Router Skill
 
-Этот skill используется для передачи запросов к specialist агентам после того, как router определил нужного specialist.
+## Purpose
+Generate the `src/router/index.ts` file with Vue Router configuration and navigation guards.
 
-## Инструмент: routeToSpecialist
+## Input Parameters
+- `application_type`: "micro-frontend" or "standalone"
 
-После того как ты определил нужного specialist (через анализ ключевых слов), используй этот инструмент для передачи запроса.
+## Output
+Create the file: `src/router/index.ts`
 
-### Параметры
+## Import Strategy (CRITICAL)
 
-- **specialist** (string, required) — имя specialist агента:
-  - `facebook-ads` — для рекламы Facebook/Instagram
-  - `creatives` — для генерации креативов
-  - `crm` — для работы с лидами и CRM
-  - `tiktok` — для рекламы TikTok
-  - `onboarding` — для регистрации пользователей
-- **message** (string, required) — оригинальное сообщение пользователя
-- **telegramChatId** (string, required) — Telegram Chat ID из контекста
+### Micro-Frontend Applications (`application_type: "micro-frontend"`)
+**MUST use direct imports** - NO lazy loading:
+```typescript
+import Home from '@/views/Home/Home.vue';
+import PageNotFoundView from '@/views/PageNotFoundView/PageNotFoundView.vue';
 
-### Вызов через curl
-
-```bash
-curl -s -X POST http://agent-service:8082/api/moltbot/route \
-  -H "Content-Type: application/json" \
-  -d '{
-    "specialist": "facebook-ads",
-    "message": "Покажи статистику за неделю",
-    "telegramChatId": "313145981"
-  }'
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,  // Direct import
+    meta: { requiresAuth: true },
+  },
+];
 ```
 
-### Пример использования
+**Why**: Micro-frontends require a single bundle file (`app.js`). Lazy loading (`() => import()`) causes code splitting into multiple chunks, breaking single-spa integration.
 
-**Запрос пользователя:**
-```
-Покажи статистику за неделю
-```
-
-**Твои действия:**
-1. Анализируешь запрос → определяешь ключевое слово "статистика"
-2. Определяешь specialist → `facebook-ads`
-3. Вызываешь инструмент:
-
-```bash
-curl -s -X POST http://agent-service:8082/api/moltbot/route \
-  -H "Content-Type: application/json" \
-  -d '{
-    "specialist": "facebook-ads",
-    "message": "Покажи статистику за неделю",
-    "telegramChatId": "313145981"
-  }'
+### Standalone Applications (`application_type: "standalone"`)
+**RECOMMENDED: Use lazy loading** for better performance:
+```typescript
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/views/Home/Home.vue'),  // Lazy loading
+    meta: { requiresAuth: true },
+  },
+];
 ```
 
-### Response format
+**Why**: Standalone apps benefit from code splitting for faster initial load times.
 
-Инструмент возвращает ответ от specialist агента напрямую пользователю.
-
-```json
-{
-  "response": "📊 Статистика за последние 7 дней:\n\nКампания \"Yoga Classes\":\n- Показы: 10,234\n- Клики: 456\n- CTR: 4.45%\n- Потрачено: $123.45"
-}
-```
-
-### Когда НЕ использовать
-
-**НЕ вызывай этот инструмент если:**
-- Пользователь просто поздоровался ("Привет")
-- Запрос неясен и требует уточнения
-- Ты сомневаешься в выборе specialist
-
-**В таких случаях** верни default routing: `ROUTE: facebook-ads`
-
-### Error handling
-
-Если инструмент вернул ошибку:
-1. Проверь правильность написания specialist name
-2. Убедись что передан telegramChatId
-3. Попробуй fallback на `facebook-ads` specialist
-
-### Важно
-
-**ВСЕГДА** передавай оригинальное сообщение пользователя без изменений в параметр `message`. Не добавляй свои комментарии или объяснения.
-
-❌ **Неправильно:**
-```json
-{
-  "message": "Пользователь просит статистику за неделю"
-}
-```
-
-✅ **Правильно:**
-```json
-{
-  "message": "Покажи статистику за неделю"
-}
-```
-
-## Flow маршрутизации
-
-```
-1. Router Agent получает запрос пользователя
-   ↓
-2. Анализирует ключевые слова
-   ↓
-3. Определяет specialist (например, "facebook-ads")
-   ↓
-4. Вызывает routeToSpecialist с specialist + message
-   ↓
-5. Specialist Agent обрабатывает запрос с полными skills
-   ↓
-6. Ответ возвращается пользователю
-```
-
-## Примеры маршрутизации
-
-| Запрос | Specialist | Curl команда |
-|--------|-----------|--------------|
-| "Покажи статистику" | facebook-ads | `curl ... -d '{"specialist": "facebook-ads", "message": "...", "telegramChatId": "..."}` |
-| "Сгенерируй креатив" | creatives | `curl ... -d '{"specialist": "creatives", "message": "...", "telegramChatId": "..."}` |
-| "Новые лиды" | crm | `curl ... -d '{"specialist": "crm", "message": "...", "telegramChatId": "..."}` |
-| "/onboarding" | onboarding | `curl ... -d '{"specialist": "onboarding", "message": "...", "telegramChatId": "..."}` |
-
-## Финальная инструкция
-
-После анализа запроса и определения specialist:
-1. Вызови `routeToSpecialist`
-2. Передай результат пользователю
-3. Всё.
-
-Specialist agent сделает остальную работу.
+## Notes
+- Uses hash-based routing with `createWebHashHistory`
+- Implements navigation guards for example usage
+- Create 2 routes: home screen and page not found screen
+- All pages except page not found should have navigation guards
+- Import strategy differs based on `application_type` parameter

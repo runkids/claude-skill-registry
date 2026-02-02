@@ -1,7 +1,7 @@
 {
   "name": "doc-sync",
-  "repo": "munlucky/code-cafe-manager",
+  "repo": "rjmurillo/ai-agents",
   "path": ".claude/skills/doc-sync/SKILL.md",
-  "source": "github.com/munlucky/code-cafe-manager",
-  "downloaded_at": "2026-02-01T04:42:41.498405Z"
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-02-02T05:12:41.080978Z"
 }

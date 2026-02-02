@@ -1,7 +1,7 @@
 {
   "name": "programmatic-seo",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/programmatic-seo/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:28.578189Z"
+  "repo": "panaversity/agentfactory",
+  "path": "docs/_skills_archive/seo/programmatic-seo/SKILL.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-02-02T04:49:47.056568Z"
 }

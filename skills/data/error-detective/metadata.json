@@ -1,7 +1,7 @@
 {
   "name": "error-detective",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/error-detective/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:27.150562Z"
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "path": "error-detective/SKILL.md",
+  "source": "github.com/AutumnsGrove/ClaudeSkills",
+  "downloaded_at": "2026-02-02T04:42:03.367856Z"
 }

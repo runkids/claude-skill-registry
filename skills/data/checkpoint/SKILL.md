@@ -1,71 +1,35 @@
 ---
-name: checkpoint
-description: Save mid-session state for recovery without clearing context. Use after major milestones, before risky operations, or periodically during long sessions.
-allowed-tools: Read, Write
+name: gsd:workflow:checkpoint
+description: Workflow for managing checkpoints
+version: 1.0.0
+triggers: [checkpoint, approval point]
+tools: [Bash, Glob, Grep, Write]
 ---
 
-# Checkpoint
+# GSD Checkpoint Workflow
 
-Save session state at key points to enable recovery without losing progress. Unlike /compact (clears context), checkpoint preserves everything.
+Workflow for creating and managing checkpoints.
 
 ## When to Use
 
-- After completing significant work
-- Before attempting something risky
-- Every 30-45 minutes in long sessions
-- Before spawning multiple parallel agents
-- When user takes a break
+- Between waves
+- Phase boundaries
+- User interaction points
 
-## Checkpoint Types
+## Phases
 
-| Type | Trigger | Depth |
-|------|---------|-------|
-| **Milestone** | Major work completed | Full |
-| **Periodic** | Time-based (30-45 min) | Standard |
-| **Pre-risk** | About to try uncertain operation | Full + rollback plan |
-| **Quick** | User stepping away | Minimal |
+1. Create checkpoint
+2. Document progress
+3. Request approval
+4. Continue or complete
 
-## What Gets Saved
+## Entry Points
 
-- Current objective and task in progress
-- Position in workflow (which steps complete)
-- Files changed and decisions made
-- Active agents and pending results
-- Docs loaded and key facts established
+- `gsd:create-checkpoint` - Create new checkpoint
+- `gsd:update-checkpoint` - Update checkpoint
+- `gsd:complete-checkpoint` - Complete checkpoint
+- `gsd:continue-phase` - Continue from checkpoint
 
-## Process
+## Success Criteria
 
-1. Determine checkpoint type (milestone/periodic/pre-risk/quick)
-2. Write to `.context/checkpoints/checkpoint-[timestamp].md`
-3. Update `.context/checkpoints/INDEX.md`
-4. Confirm to user and continue work
-
-## Output Location
-
-`.context/checkpoints/checkpoint-[timestamp].md`
-
-## Quick Checkpoint
-
-For rapid saves:
-```markdown
-# Quick Checkpoint - [timestamp]
-**Task**: [current]
-**Position**: [where]
-**Next**: [next action]
-**Files**: [changed]
-```
-
-## Comparison
-
-| Skill | When | Context | Purpose |
-|-------|------|---------|---------|
-| /checkpoint | Mid-session | Preserved | Recovery point |
-| /compact | Context saturated | Cleared | Continue working |
-| /handoff | Session ending | N/A | Pass to next session |
-
-## Related
-
-- Full checkpoint template: See [reference/full-template.md](reference/full-template.md)
-- Pre-risk template: See [reference/pre-risk-template.md](reference/pre-risk-template.md)
-- Recovery instructions: See [reference/recovery.md](reference/recovery.md)
-- To resume: `/session-start --checkpoint [timestamp]`
+Checkpoint approved and phase continues.

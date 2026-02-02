@@ -1,7 +1,7 @@
 {
   "name": "pr-description",
-  "repo": "kis9a/claude-skills-demo",
-  "path": ".claude/skills/pr-description/SKILL.md",
-  "source": "github.com/kis9a/claude-skills-demo",
-  "downloaded_at": "2026-02-01T04:01:52.752915Z"
+  "repo": "Claude-Code-Community-Ireland/claude-code-resources",
+  "path": "plugins/vibeworks-library/skills/pr-description/SKILL.md",
+  "source": "github.com/Claude-Code-Community-Ireland/claude-code-resources",
+  "downloaded_at": "2026-02-02T03:47:23.917975Z"
 }

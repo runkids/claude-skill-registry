@@ -1,7 +1,7 @@
 {
   "name": "arm-cortex-expert",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/arm-cortex-expert/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:28.978758Z"
+  "repo": "Claude-Code-Community-Ireland/claude-code-resources",
+  "path": "skills/general/arm-cortex-expert/skill.md",
+  "source": "github.com/Claude-Code-Community-Ireland/claude-code-resources",
+  "downloaded_at": "2026-02-02T03:47:25.275394Z"
 }

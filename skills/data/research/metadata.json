@@ -1,7 +1,7 @@
 {
   "name": "research",
-  "repo": "shanepadgett/agent-extensions",
-  "path": "skills/research/SKILL.md",
-  "source": "github.com/shanepadgett/agent-extensions",
-  "downloaded_at": "2026-02-01T04:54:17.340895Z"
+  "repo": "binjuhor/shadcn-lar",
+  "path": ".claude/skills/research/SKILL.md",
+  "source": "github.com/binjuhor/shadcn-lar",
+  "downloaded_at": "2026-02-02T05:07:38.854442Z"
 }

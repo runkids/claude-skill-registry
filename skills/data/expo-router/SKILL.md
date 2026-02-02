@@ -1,165 +1,104 @@
 ---
-name: expo-router-expert
-description: Expert on Expo Router for file-based routing in React Native apps. Covers navigation, layouts, dynamic routes, deep linking, and TypeScript integration. Invoke when user mentions Expo Router, file-based routing, navigation, app directory, or routing in Expo.
-allowed-tools: Read, Grep, Glob
-model: sonnet
+name: expo-router
+description: Patterns for Expo Router including Stack configuration, native tabs, and file-based routing best practices. Apply when working with navigation, routing, or screen configuration.
+allowed-tools: Read, Edit, Write, Grep, Glob
 ---
 
-# Expo Router Expert
+# Expo Router Patterns
 
-## Purpose
+## Stack Navigator Configuration
 
-Provide expert guidance on Expo Router, the file-based routing and navigation library for React Native and Expo apps.
+### Root Layout Setup
+Use `screenOptions` on the Stack component to set defaults for all screens. Do NOT explicitly list every screen - routes are auto-discovered from the file structure.
 
-## When to Use
+```tsx
+// app/_layout.tsx
+import { Stack } from 'expo-router';
 
-Auto-invoke when users mention:
-- Expo Router or file-based routing
-- App directory structure
-- Navigation in Expo apps
-- Dynamic routes or route parameters
-- Layouts and nested routes
-- Deep linking
-- Tab navigation or stack navigation
-
-## Knowledge Base
-
-Expo Router documentation in `.claude/skills/frontend/expo/docs/`
-
-Search patterns:
-- `Grep "expo router|router|routing" .claude/skills/frontend/expo/docs/ -i`
-- `Grep "navigation|layout|dynamic route" .claude/skills/frontend/expo/docs/ -i`
-- `Grep "app directory|deep link" .claude/skills/frontend/expo/docs/ -i`
-
-## Coverage Areas
-
-**File-Based Routing**
-- app/ directory structure
-- Route conventions
-- Index routes
-- Dynamic routes ([id].tsx)
-- Catch-all routes ([...slug].tsx)
-
-**Navigation**
-- useRouter hook
-- useLocalSearchParams hook
-- Link component
-- Programmatic navigation
-- Navigation state
-
-**Layouts**
-- Root layout (_layout.tsx)
-- Nested layouts
-- Layout groups (parentheses)
-- Shared UI elements
-- Layout persistence
-
-**Route Types**
-- Stack navigation
-- Tab navigation
-- Drawer navigation
-- Modal routes
-- Web-style navigation
-
-**Advanced Features**
-- Deep linking
-- URL parameters
-- Query strings
-- Route guards
-- TypeScript typed routes
-- SEO (web)
-
-**API Routes**
-- Server endpoints
-- API handlers
-- Request/response
-
-## Response Format
-
-```markdown
-## [Router Topic]
-
-[Overview of routing feature]
-
-### File Structure
-
-```
-app/
-  _layout.tsx          # Root layout
-  index.tsx            # Home screen
-  [id].tsx             # Dynamic route
-  (tabs)/              # Layout group
-    _layout.tsx        # Tab layout
-    home.tsx
-    profile.tsx
-```
-
-### Implementation
-
-```typescript
-// app/[id].tsx
-import { useLocalSearchParams } from 'expo-router';
-
-export default function DetailScreen() {
-  const { id } = useLocalSearchParams();
-  return <View>...</View>;
+export default function RootLayout() {
+  return (
+    <Stack screenOptions={{ headerShown: false }} />
+  );
 }
 ```
 
-### Navigation
+### Per-Screen Configuration
+Individual screens configure their own options using `<Stack.Screen>` within the component file:
 
-```typescript
-import { useRouter, Link } from 'expo-router';
+```tsx
+// app/lesson/[id].tsx
+import { Stack } from 'expo-router';
 
-// Programmatic
-const router = useRouter();
-router.push('/details/123');
-
-// Declarative
-<Link href="/details/123">View Details</Link>
+export default function LessonScreen() {
+  return (
+    <View>
+      <Stack.Screen
+        options={{
+          title: 'Lesson',
+          headerShown: true,
+          headerBackTitle: 'Back',
+        }}
+      />
+      {/* Screen content */}
+    </View>
+  );
+}
 ```
 
-### Key Concepts
+### Dynamic Header Configuration
+Use `useNavigation` with `setOptions` for dynamic header content like buttons:
 
-- File system = route structure
-- Automatic TypeScript types
-- Universal navigation (iOS/Android/Web)
+```tsx
+import { useNavigation } from 'expo-router';
+import { useLayoutEffect } from 'react';
 
-**Source:** `.claude/skills/frontend/expo/docs/[filename].md`
+export default function Screen() {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable onPress={handlePress}>
+          <Ionicons name="add" size={28} />
+        </Pressable>
+      ),
+    });
+  }, [navigation]);
+
+  return <View>{/* content */}</View>;
+}
 ```
 
-## Key Patterns
+## Native Tabs (`expo-router/unstable-native-tabs`)
 
-**Stack Navigation:**
-```
-app/
-  _layout.tsx    # Stack
-  index.tsx
-  details.tsx
-```
+Native tabs provide platform-native tab bar with SF Symbols on iOS:
 
-**Tab Navigation:**
-```
-app/
-  (tabs)/
-    _layout.tsx  # Tab layout
-    home.tsx
-    profile.tsx
-```
+```tsx
+// app/(tabs)/_layout.tsx
+import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 
-**Dynamic Routes:**
-```
-app/
-  posts/
-    [id].tsx     # /posts/123
-    [...slug].tsx # /posts/a/b/c
+export default function TabLayout() {
+  return (
+    <NativeTabs>
+      <NativeTabs.Trigger name="index" options={{ title: 'Home' }}>
+        <Icon sf="house.fill" drawable="custom_android_drawable" />
+        <Label>Home</Label>
+      </NativeTabs.Trigger>
+    </NativeTabs>
+  );
+}
 ```
 
-## Always
+## Key Principles
 
-- Reference Expo documentation
-- Show file structure examples
-- Provide TypeScript examples
-- Explain navigation patterns
-- Include deep linking setup
-- Consider web compatibility
+1. **File-based routing**: Routes are auto-discovered from the `app/` directory structure
+2. **Minimal configuration**: Only configure what you need to override
+3. **Screen-level options**: Screens configure their own headers/options using `<Stack.Screen>` within the component
+4. **Layout files**: `_layout.tsx` files define navigation structure for their directory
+5. **Route groups**: Parentheses like `(tabs)` create route groups without affecting the URL path
+
+## Common Mistakes to Avoid
+
+- Don't list every screen explicitly in Stack - they're auto-discovered
+- Don't use `screenOptions` for route-specific settings - use `<Stack.Screen>` in the route file
+- Don't nest navigators deeply - use file-based routing for cleaner structure

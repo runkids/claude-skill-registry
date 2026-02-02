@@ -1,7 +1,7 @@
 {
   "name": "code-review",
-  "repo": "Ven0m0/claude-config",
-  "path": "plugins/coding-assistant/skills/code-review/SKILL.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-02-01T05:04:59.466954Z"
+  "repo": "Geeksfino/openskills",
+  "path": "examples/skills/code-review/SKILL.md",
+  "source": "github.com/Geeksfino/openskills",
+  "downloaded_at": "2026-02-02T05:11:07.253372Z"
 }

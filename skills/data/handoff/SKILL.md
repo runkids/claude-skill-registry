@@ -1,81 +1,91 @@
 ---
 name: handoff
-description: Writes comprehensive handoff note at session end. Captures work done, files changed, remaining tasks, and next steps. Use before ending any work session or switching contexts.
-allowed-tools: Read, Write, Glob
+description: Use handoff tools for session continuity. Create handoffs at end of session, read handoffs at start, search past handoffs for context. Trigger words - "handoff", "end session", "wrap up", "continue from", "where we left off", "context high", "running low", "before I forget".
 ---
 
-# Handoff
+# Handoff Skill
 
-Make work portable across sessions. Write to `.context/handoff.md`.
+> "Session continuity through structured handoffs"
 
-## When to Use
+## Proactive Triggers
 
-- End of every work session
-- Before switching tasks or contexts
-- Before user leaves
-- When compacting context
+### MUST Create Handoff When:
+- Context > 80% and significant work done
+- User says: "wrap up", "end session", "that's all", "done for now"
+- User says: "before I forget", "note this down"
+- Session has 3+ commits without handoff today
 
-## Process
+### SHOULD Read Handoff When:
+- Session starts and recent handoff exists
+- User says: "where were we", "continue from", "last time"
+- User references previous work
 
-1. **Gather**: What was requested? What did we do? What changed?
-2. **Document**: Files, agents, decisions, docs updated
-3. **Verify**: How to confirm the work is correct
-4. **Remaining**: What's incomplete, issues, blockers
-5. **Prepare**: What does next session need?
+### SHOULD Search Handoffs When:
+- User asks about past work on a topic
+- User says: "did we work on", "when did we", "find the handoff"
 
-## Output Location
+## Tool Usage
 
-Write to: `.context/handoff.md`
-
-## Essential Sections
-
-```markdown
-# Session Handoff — [Date]
-
-## Summary
-[2-3 sentences: what was accomplished]
-
-## Work Completed
-- [Feature/fix]: [description]
-
-## Files Changed
-| File | Change | Description |
-|------|--------|-------------|
-| path | modified | what changed |
-
-## Verification
-[Commands to run, UI to check, tests to execute]
-
-## Remaining
-- [ ] [Incomplete task]
-- **Issue**: [description + workaround]
-
-## Next Session
-1. Run `/session-start`
-2. Load [specific docs]
-3. Start with [first action]
+### handoff_create
+```javascript
+handoff_create({
+  done: ["Completed X", "Fixed Y"],
+  pending: ["Test X", "Review Y"],
+  context: "Branch: feature/x, Issue: #123",
+  title: "Feature X Progress",
+  context_percent: 85
+})
 ```
 
-## Quick Handoff (Short Sessions)
-
-```markdown
-# Quick Handoff — [Date]
-**Did**: [one sentence]
-**Changed**: [file list]
-**Verify**: [one command/action]
-**Next**: [what to do]
+### handoff_read
+```javascript
+handoff_read({ limit: 1 })  // Latest
+handoff_read({ limit: 3 })  // Recent 3
 ```
 
-## Quality Check
+### handoff_search
+```javascript
+handoff_search({
+  query: "authentication",
+  limit: 5
+})
+```
 
-- [ ] Summary is specific, not vague
-- [ ] All changed files listed
-- [ ] Verification steps are actionable
-- [ ] Remaining work is explicit
-- [ ] Next session can start immediately
+## Commands Available
 
-## Related
+| Command | Action |
+|---------|--------|
+| `/handoff` | Create handoff interactively |
+| `/handoff-read` | Read latest handoff |
+| `/handoff-search [query]` | Search past handoffs |
+| `/handoff-help` | Show all options |
 
-- Full template: See [reference/full-template.md](reference/full-template.md)
-- Compaction handoff: See [reference/compact-handoff.md](reference/compact-handoff.md)
-- Consumed by: `/session-start`
+## Integration Map
+
+```
+┌──────────────────────────────────────────┐
+│            Session Lifecycle              │
+├──────────────────────────────────────────┤
+│ START → handoff_read (auto via hook)     │
+│                                          │
+│ WORK  → claude-mem (auto via worker)     │
+│       → Oracle (consult for decisions)   │
+│                                          │
+│ END   → handoff_create (manual/reminder) │
+└──────────────────────────────────────────┘
+```
+
+| System | Question | Auto |
+|--------|----------|------|
+| **handoff** | "Where were we?" | Hook on start |
+| **claude-mem** | "What happened?" | Background worker |
+| **Oracle** | "What should I do?" | On-demand |
+
+## Quick Reference
+
+| Context | Action |
+|---------|--------|
+| High context (>80%) | Prompt to create handoff |
+| No handoff today + commits | Reminder on Stop |
+| User asks about past | Search handoffs |
+| Session start | Auto-show latest handoff |

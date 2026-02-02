@@ -1,7 +1,7 @@
 {
   "name": "cosmic-database",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/cosmic-database/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-02-01T03:19:39.336142Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/scientific-skills/skills/cosmic-database/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-02-02T04:36:32.052315Z"
 }

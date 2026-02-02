@@ -14,39 +14,39 @@ Alembic is a database migration tool for SQLAlchemy projects that provides versi
 
 ```bash
 # Generate migration from model changes
-uv run alembic revision --autogenerate -m "Add user table"
+alembic revision --autogenerate -m "Add user table"
 
 # Check if there are pending changes
-uv run alembic check
+alembic check
 ```
 
 ### Apply Migrations
 
 ```bash
 # Upgrade to latest version
-uv run alembic upgrade head
+alembic upgrade head
 
 # Upgrade to specific revision
-uv run alembic upgrade ae1027a6acf
+alembic upgrade ae1027a6acf
 
 # Downgrade one revision
-uv run alembic downgrade -1
+alembic downgrade -1
 
 # Downgrade to base (empty schema)
-uv run alembic downgrade base
+alembic downgrade base
 ```
 
 ### Check Status
 
 ```bash
 # Show current database revision
-uv run alembic current
+alembic current
 
 # Show all revision history
-uv run alembic history
+alembic history
 
 # Show revision details
-uv run alembic show ae1027a6acf
+alembic show ae1027a6acf
 ```
 
 ## Common Patterns
@@ -251,13 +251,13 @@ def downgrade():
 
 ```bash
 # Create branch
-uv run alembic revision -m "Create feature branch" --head=base --branch-label=feature_x
+alembic revision -m "Create feature branch" --head=base --branch-label=feature_x
 
 # Upgrade specific branch
-uv run alembic upgrade feature_x@head
+alembic upgrade feature_x@head
 
 # Merge branches
-uv run alembic merge -m "Merge feature_x into main" feature_x@head main@head
+alembic merge -m "Merge feature_x into main" feature_x@head main@head
 ```
 
 ## Practical Code Snippets
@@ -343,13 +343,13 @@ context.configure(
 
 ```bash
 # Core dependencies
-uv add alembic sqlalchemy
+pip install alembic sqlalchemy
 
 # For PostgreSQL with async
-uv add asyncpg
+pip install asyncpg
 
 # For MySQL with async
-uv add aiomysql
+pip install aiomysql
 
 # For SQLite (built-in)
 # No additional packages needed
@@ -359,12 +359,12 @@ uv add aiomysql
 
 ```bash
 # Initialize Alembic in existing project
-uv run alembic init alembic
+alembic init alembic
 
 # Configure env.py for your models
 # Edit alembic.ini for database URL
 
 # First migration
-uv run alembic revision --autogenerate -m "Initial schema"
-uv run alembic upgrade head
+alembic revision --autogenerate -m "Initial schema"
+alembic upgrade head
 ```

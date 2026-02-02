@@ -2,7 +2,6 @@
 name: mcp-chaining
 description: Research-to-implement pipeline chaining 5 MCP tools with graceful degradation
 allowed-tools: [Bash, Read]
-user-invocable: false
 ---
 
 # MCP Chaining Pipeline
@@ -59,7 +58,7 @@ The MCP SDK's `get_default_environment()` only includes basic vars (PATH, HOME, 
 full_env = {**os.environ, **(resolved_env or {})}
 ```
 
-This ensures API keys from `~/.maestro/.env` reach subprocesses.
+This ensures API keys from `~/.claude/.env` reach subprocesses.
 
 ## Graceful Degradation Pattern
 

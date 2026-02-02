@@ -1,7 +1,7 @@
 {
   "name": "gepetto",
-  "repo": "NeverSight/skills_feed",
-  "path": "data/skills-md/softaworks/gepetto/gepetto/SKILL.md",
-  "source": "github.com/NeverSight/skills_feed",
-  "downloaded_at": "2026-02-01T04:02:36.687380Z"
+  "repo": "softaworks/agent-toolkit",
+  "path": "skills/gepetto/SKILL.md",
+  "source": "github.com/softaworks/agent-toolkit",
+  "downloaded_at": "2026-02-02T04:46:26.781929Z"
 }

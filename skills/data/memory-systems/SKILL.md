@@ -1,325 +1,221 @@
 ---
 name: memory-systems
-description: Design agent memory architectures for cross-session persistence. Use for building learning systems, maintaining entity consistency, and temporal knowledge tracking. Based on muratcankoylan/Agent-Skills-for-Context-Engineering.
-version: 1.0.0
-category: agents
-last_updated: 2026-01-19
-source: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering
-related_skills:
-  - multi-agent-patterns
-  - context-management
-  - session-memory
+description: This skill should be used when the user asks to "implement agent memory", "persist state across sessions", "build knowledge graph", "track entities", or mentions memory architecture, temporal knowledge graphs, vector stores, entity memory, or cross-session persistence.
 ---
 
-# Memory Systems Skill
+# Memory System Design
 
-## Overview
+Memory provides the persistence layer that allows agents to maintain continuity across sessions and reason over accumulated knowledge. Simple agents rely entirely on context for memory, losing all state when sessions end. Sophisticated agents implement layered memory architectures that balance immediate context needs with long-term knowledge retention. The evolution from vector stores to knowledge graphs to temporal knowledge graphs represents increasing investment in structured memory for improved retrieval and reasoning.
 
-This skill addresses agent persistence across sessions through layered architectures balancing immediate context with long-term knowledge retention. Effective memory systems enable agents to learn, maintain consistency, and reason over accumulated knowledge.
+## When to Activate
 
-## Quick Start
-
-1. **Identify needs** - What must persist? (entities, decisions, patterns)
-2. **Choose architecture** - File-based, vector, graph, or hybrid
-3. **Design retrieval** - How will memory be accessed?
-4. **Implement storage** - With temporal validity
-5. **Monitor growth** - Prune and consolidate regularly
-
-## When to Use
-
-- Building cross-session agents
-- Maintaining entity consistency
+Activate this skill when:
+- Building agents that must persist across sessions
+- Needing to maintain entity consistency across conversations
 - Implementing reasoning over accumulated knowledge
-- Designing learning systems
-- Creating growing knowledge bases
-- Building temporal-aware state tracking
+- Designing systems that learn from past interactions
+- Creating knowledge bases that grow over time
+- Building temporal-aware systems that track state changes
 
-## Memory Spectrum
+## Core Concepts
 
-Memory ranges from volatile to permanent:
+Memory exists on a spectrum from immediate context to permanent storage. At one extreme, working memory in the context window provides zero-latency access but vanishes when sessions end. At the other extreme, permanent storage persists indefinitely but requires retrieval to enter context.
 
-| Layer | Persistence | Latency | Capacity |
-|-------|-------------|---------|----------|
-| Working Memory | Context window | Zero | Limited |
-| Short-term | Session-scoped | Low | Moderate |
-| Long-term | Cross-session | Medium | Large |
-| Archival | Permanent | High | Unlimited |
+Simple vector stores lack relationship and temporal structure. Knowledge graphs preserve relationships for reasoning. Temporal knowledge graphs add validity periods for time-aware queries. Implementation choices depend on query complexity, infrastructure constraints, and accuracy requirements.
 
-Effective systems layer multiple types:
-- **Working memory** - Current context window
-- **Short-term** - Session facts, active tasks
-- **Long-term** - Learned patterns, entity knowledge
-- **Entity-specific** - Per-entity history
-- **Temporal graphs** - Time-aware relationships
+## Detailed Topics
 
-## Architecture Options
+### Memory Architecture Fundamentals
 
-### 1. File-System-as-Memory
+**The Context-Memory Spectrum**
+Memory exists on a spectrum from immediate context to permanent storage. At one extreme, working memory in the context window provides zero-latency access but vanishes when sessions end. At the other extreme, permanent storage persists indefinitely but requires retrieval to enter context. Effective architectures use multiple layers along this spectrum.
 
-**Structure:**
-```
-memory/
-├── entities/
-│   └── {entity_id}.json
-├── sessions/
-│   └── {session_id}/
-├── knowledge/
-│   └── {topic}.md
-└── index.json
-```
+The spectrum includes working memory (context window, zero latency, volatile), short-term memory (session-persistent, searchable, volatile), long-term memory (cross-session persistent, structured, semi-permanent), and permanent memory (archival, queryable, permanent). Each layer has different latency, capacity, and persistence characteristics.
 
-**Pros:** Simple, debuggable, version-controlled
-**Cons:** No semantic search, manual organization
+**Why Simple Vector Stores Fall Short**
+Vector RAG provides semantic retrieval by embedding queries and documents in a shared embedding space. Similarity search retrieves the most semantically similar documents. This works well for document retrieval but lacks structure for agent memory.
 
-**Implementation:**
+Vector stores lose relationship information. If an agent learns that "Customer X purchased Product Y on Date Z," a vector store can retrieve this fact if asked directly. But it cannot answer "What products did customers who purchased Product Y also buy?" because relationship structure is not preserved.
+
+Vector stores also struggle with temporal validity. Facts change over time, but vector stores provide no mechanism to distinguish "current fact" from "outdated fact" except through explicit metadata and filtering.
+
+**The Move to Graph-Based Memory**
+Knowledge graphs preserve relationships between entities. Instead of isolated document chunks, graphs encode that Entity A has Relationship R to Entity B. This enables queries that traverse relationships rather than just similarity.
+
+Temporal knowledge graphs add validity periods to facts. Each fact has a "valid from" and optionally "valid until" timestamp. This enables time-travel queries that reconstruct knowledge at specific points in time.
+
+**Benchmark Performance Comparison**
+The Deep Memory Retrieval (DMR) benchmark provides concrete performance data across memory architectures:
+
+| Memory System | DMR Accuracy | Retrieval Latency | Notes |
+|---------------|--------------|-------------------|-------|
+| Zep (Temporal KG) | 94.8% | 2.58s | Best accuracy, fast retrieval |
+| MemGPT | 93.4% | Variable | Good general performance |
+| GraphRAG | ~75-85% | Variable | 20-35% gains over baseline RAG |
+| Vector RAG | ~60-70% | Fast | Loses relationship structure |
+| Recursive Summarization | 35.3% | Low | Severe information loss |
+
+Zep demonstrated 90% reduction in retrieval latency compared to full-context baselines (2.58s vs 28.9s for GPT-5.2). This efficiency comes from retrieving only relevant subgraphs rather than entire context history.
+
+GraphRAG achieves approximately 20-35% accuracy gains over baseline RAG in complex reasoning tasks and reduces hallucination by up to 30% through community-based summarization.
+
+### Memory Layer Architecture
+
+**Layer 1: Working Memory**
+Working memory is the context window itself. It provides immediate access to information currently being processed but has limited capacity and vanishes when sessions end.
+
+Working memory usage patterns include scratchpad calculations where agents track intermediate results, conversation history that preserves dialogue for current task, current task state that tracks progress on active objectives, and active retrieved documents that hold information currently being used.
+
+Optimize working memory by keeping only active information, summarizing completed work before it falls out of attention, and using attention-favored positions for critical information.
+
+**Layer 2: Short-Term Memory**
+Short-term memory persists across the current session but not across sessions. It provides search and retrieval capabilities without the latency of permanent storage.
+
+Common implementations include session-scoped databases that persist until session end, file-system storage in designated session directories, and in-memory caches keyed by session ID.
+
+Short-term memory use cases include tracking conversation state across turns without stuffing context, storing intermediate results from tool calls that may be needed later, maintaining task checklists and progress tracking, and caching retrieved information within sessions.
+
+**Layer 3: Long-Term Memory**
+Long-term memory persists across sessions indefinitely. It enables agents to learn from past interactions and build knowledge over time.
+
+Long-term memory implementations range from simple key-value stores to sophisticated graph databases. The choice depends on complexity of relationships to model, query patterns required, and acceptable infrastructure complexity.
+
+Long-term memory use cases include learning user preferences across sessions, building domain knowledge bases that grow over time, maintaining entity registries with relationship history, and storing successful patterns that can be reused.
+
+**Layer 4: Entity Memory**
+Entity memory specifically tracks information about entities (people, places, concepts, objects) to maintain consistency. This creates a rudimentary knowledge graph where entities are recognized across multiple interactions.
+
+Entity memory maintains entity identity by tracking that "John Doe" mentioned in one conversation is the same person in another. It maintains entity properties by storing facts discovered about entities over time. It maintains entity relationships by tracking relationships between entities as they are discovered.
+
+**Layer 5: Temporal Knowledge Graphs**
+Temporal knowledge graphs extend entity memory with explicit validity periods. Facts are not just true or false but true during specific time ranges.
+
+This enables queries like "What was the user's address on Date X?" by retrieving facts valid during that date range. It prevents context clash when outdated information contradicts new data. It enables temporal reasoning about how entities changed over time.
+
+### Memory Implementation Patterns
+
+**Pattern 1: File-System-as-Memory**
+The file system itself can serve as a memory layer. This pattern is simple, requires no additional infrastructure, and enables the same just-in-time loading that makes file-system-based context effective.
+
+Implementation uses the file system hierarchy for organization. Use naming conventions that convey meaning. Store facts in structured formats (JSON, YAML). Use timestamps in filenames or metadata for temporal tracking.
+
+Advantages: Simplicity, transparency, portability.
+Disadvantages: No semantic search, no relationship tracking, manual organization required.
+
+**Pattern 2: Vector RAG with Metadata**
+Vector stores enhanced with rich metadata provide semantic search with filtering capabilities.
+
+Implementation embeds facts or documents and stores with metadata including entity tags, temporal validity, source attribution, and confidence scores. Query includes metadata filters alongside semantic search.
+
+**Pattern 3: Knowledge Graph**
+Knowledge graphs explicitly model entities and relationships. Implementation defines entity types and relationship types, uses graph database or property graph storage, and maintains indexes for common query patterns.
+
+**Pattern 4: Temporal Knowledge Graph**
+Temporal knowledge graphs add validity periods to facts, enabling time-travel queries and preventing context clash from outdated information.
+
+### Memory Retrieval Patterns
+
+**Semantic Retrieval**
+Retrieve memories semantically similar to current query using embedding similarity search.
+
+**Entity-Based Retrieval**
+Retrieve all memories related to specific entities by traversing graph relationships.
+
+**Temporal Retrieval**
+Retrieve memories valid at specific time or within time range using validity period filters.
+
+### Memory Consolidation
+
+Memories accumulate over time and require consolidation to prevent unbounded growth and remove outdated information.
+
+**Consolidation Triggers**
+Trigger consolidation after significant memory accumulation, when retrieval returns too many outdated results, periodically on a schedule, or when explicit consolidation is requested.
+
+**Consolidation Process**
+Identify outdated facts, merge related facts, update validity periods, archive or delete obsolete facts, and rebuild indexes.
+
+## Practical Guidance
+
+### Integration with Context
+
+Memories must integrate with context systems to be useful. Use just-in-time memory loading to retrieve relevant memories when needed. Use strategic injection to place memories in attention-favored positions.
+
+### Memory System Selection
+
+Choose memory architecture based on requirements:
+- Simple persistence needs: File-system memory
+- Semantic search needs: Vector RAG with metadata
+- Relationship reasoning needs: Knowledge graph
+- Temporal validity needs: Temporal knowledge graph
+
+## Examples
+
+**Example 1: Entity Tracking**
 ```python
-class FileMemory:
-    def __init__(self, base_path: str):
-        self.base = Path(base_path)
+# Track entity across conversations
+def remember_entity(entity_id, properties):
+    memory.store({
+        "type": "entity",
+        "id": entity_id,
+        "properties": properties,
+        "last_updated": now()
+    })
 
-    def store(self, key: str, value: dict, category: str = "general"):
-        path = self.base / category / f"{key}.json"
-        path.parent.mkdir(parents=True, exist_ok=True)
-        value["_stored_at"] = datetime.utcnow().isoformat()
-        path.write_text(json.dumps(value, indent=2))
-
-    def retrieve(self, key: str, category: str = "general") -> Optional[dict]:
-        path = self.base / category / f"{key}.json"
-        if path.exists():
-            return json.loads(path.read_text())
-        return None
+def get_entity(entity_id):
+    return memory.retrieve_entity(entity_id)
 ```
 
-### 2. Vector RAG with Metadata
-
-**Structure:**
+**Example 2: Temporal Query**
 ```python
-class MemoryEntry:
-    id: str
-    content: str
-    embedding: List[float]
-    metadata: dict  # entity_tags, temporal_validity, confidence
-    created_at: datetime
-    valid_until: Optional[datetime]
+# What was the user's address on January 15, 2024?
+def query_address_at_time(user_id, query_time):
+    return temporal_graph.query("""
+        MATCH (user)-[r:LIVES_AT]->(address)
+        WHERE user.id = $user_id
+        AND r.valid_from <= $query_time
+        AND (r.valid_until IS NULL OR r.valid_until > $query_time)
+        RETURN address
+    """, {"user_id": user_id, "query_time": query_time})
 ```
 
-**Pros:** Semantic search, scalable
-**Cons:** Loses relationship information, no temporal queries
+## Guidelines
 
-**Enhancement with metadata:**
-```python
-def search_with_temporal_filter(
-    query: str,
-    as_of: datetime = None,
-    entity_filter: List[str] = None
-) -> List[MemoryEntry]:
-    results = vector_search(query)
-    return [r for r in results
-            if r.is_valid_at(as_of or datetime.utcnow())
-            and (not entity_filter or r.has_entity(entity_filter))]
-```
-
-### 3. Knowledge Graph
-
-**Structure:**
-```
-Entities: [Person, Project, Decision, Event]
-Relations: [owns, participates_in, decided_by, happened_at]
-```
-
-**Pros:** Preserves relationships, relational queries
-**Cons:** Complex setup, query language learning curve
-
-**Key capability:**
-```cypher
-MATCH (p:Person)-[:PARTICIPATES_IN]->(proj:Project)
-      -[:HAS_DECISION]->(d:Decision)
-WHERE d.date > $since
-RETURN p.name, d.description, d.date
-```
-
-### 4. Temporal Knowledge Graph
-
-**Structure:**
-```python
-class TemporalFact:
-    subject: str
-    predicate: str
-    object: str
-    valid_from: datetime
-    valid_until: Optional[datetime]
-    source: str
-    confidence: float
-```
-
-**Pros:** Time-travel queries, fact evolution tracking
-**Cons:** Most complex, highest overhead
-
-**Capability example:**
-```python
-# What was the project status on date X?
-facts = temporal_graph.query_as_of(
-    subject="project-alpha",
-    predicate="has_status",
-    as_of=datetime(2025, 6, 15)
-)
-```
-
-## Performance Benchmarks
-
-| Architecture | Accuracy | Retrieval Time | Best For |
-|--------------|----------|----------------|----------|
-| Temporal KG | 94.8% | 2.58s | Complex relationships |
-| GraphRAG | 75-85% | Variable | Balanced |
-| Vector RAG | 60-70% | Fast | Simple semantic |
-| File-based | N/A | Fast | Simple persistence |
-
-## Vector Store Limitations
-
-**Problems:**
-- "Vector stores lose relationship information"
-- Cannot answer queries traversing relationships
-- Lack temporal mechanisms for current vs. outdated facts
-
-**Example failure:**
-```
-Query: "Who approved the decision that affected Project X?"
-Vector RAG: Returns documents mentioning approvals and Project X
-            but cannot connect the relationship chain
-```
-
-**Solution:** Combine vector search with graph traversal:
-```python
-def hybrid_query(query: str):
-    # Semantic search for relevant entities
-    entities = vector_search(query)
-
-    # Graph traversal for relationships
-    for entity in entities:
-        related = graph.traverse(entity.id, max_depth=2)
-        entity.relationships = related
-
-    return entities
-```
-
-## Memory Lifecycle
-
-### Writing
-
-```python
-def store_memory(
-    content: str,
-    category: str,
-    entities: List[str],
-    valid_from: datetime = None,
-    valid_until: datetime = None,
-    confidence: float = 1.0
-):
-    entry = MemoryEntry(
-        id=generate_id(),
-        content=content,
-        embedding=embed(content),
-        metadata={
-            "category": category,
-            "entities": entities,
-            "confidence": confidence
-        },
-        valid_from=valid_from or datetime.utcnow(),
-        valid_until=valid_until
-    )
-    storage.save(entry)
-```
-
-### Reading
-
-```python
-def recall_memory(
-    query: str,
-    context: dict,
-    as_of: datetime = None,
-    limit: int = 10
-) -> List[MemoryEntry]:
-    # 1. Semantic search
-    candidates = vector_search(query, limit=limit * 3)
-
-    # 2. Temporal filtering
-    valid = [c for c in candidates if c.is_valid_at(as_of)]
-
-    # 3. Context relevance scoring
-    scored = [(c, relevance_score(c, context)) for c in valid]
-
-    # 4. Return top results
-    return sorted(scored, key=lambda x: x[1], reverse=True)[:limit]
-```
-
-### Consolidation
-
-```python
-def consolidate_memories(category: str, older_than_days: int = 30):
-    """Combine related old memories into summaries."""
-    old_memories = get_memories(
-        category=category,
-        before=datetime.utcnow() - timedelta(days=older_than_days)
-    )
-
-    # Group by entity
-    grouped = group_by_entity(old_memories)
-
-    for entity, memories in grouped.items():
-        if len(memories) > threshold:
-            summary = generate_summary(memories)
-            store_memory(summary, category="consolidated", entities=[entity])
-            archive_memories(memories)
-```
-
-## Best Practices
-
-### Do
-
-1. Match architecture to query requirements
+1. Match memory architecture to query requirements
 2. Implement progressive disclosure for memory access
-3. Use temporal validity to prevent outdated info conflicts
-4. Consolidate periodically to manage growth
-5. Design graceful retrieval failures
-6. Monitor storage size and query performance
+3. Use temporal validity to prevent outdated information conflicts
+4. Consolidate memories periodically to prevent unbounded growth
+5. Design for memory retrieval failures gracefully
+6. Consider privacy implications of persistent memory
+7. Implement backup and recovery for critical memories
+8. Monitor memory growth and performance over time
 
-### Don't
+## Integration
 
-1. Store everything (be selective)
-2. Ignore temporal validity
-3. Mix fact types without categorization
-4. Skip consolidation indefinitely
-5. Trust old memories without verification
-6. Ignore retrieval latency in design
+This skill builds on context-fundamentals. It connects to:
 
-## Error Handling
+- multi-agent-patterns - Shared memory across agents
+- context-optimization - Memory-based context loading
+- evaluation - Evaluating memory quality
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Stale data returned | Missing temporal filter | Add validity checks |
-| Contradictory facts | Multiple sources | Use confidence scoring |
-| Memory bloat | No consolidation | Implement periodic cleanup |
-| Slow retrieval | Index issues | Optimize embeddings/indexes |
-| Lost relationships | Vector-only storage | Add graph layer |
+## References
 
-## Metrics
+Internal reference:
+- [Implementation Reference](./references/implementation.md) - Detailed implementation patterns
 
-| Metric | Target | Description |
-|--------|--------|-------------|
-| Retrieval accuracy | >85% | Relevant results returned |
-| Temporal accuracy | >95% | Correct time-based filtering |
-| Storage efficiency | <100MB/month | Reasonable growth |
-| Query latency | <500ms | P95 retrieval time |
-| Consolidation rate | Monthly | Old memories summarized |
+Related skills in this collection:
+- context-fundamentals - Context basics
+- multi-agent-patterns - Cross-agent memory
 
-## Related Skills
-
-- [multi-agent-patterns](../multi-agent-patterns/SKILL.md) - Agent coordination
-- [context-management](../../context-management/SKILL.md) - Context optimization
-- [session-memory](../../automation/session-memory/SKILL.md) - Session persistence
+External resources:
+- Graph database documentation (Neo4j, etc.)
+- Vector store documentation (Pinecone, Weaviate, etc.)
+- Research on knowledge graphs and reasoning
 
 ---
 
-## Version History
+## Skill Metadata
 
-- **1.0.0** (2026-01-19): Initial release adapted from Agent-Skills-for-Context-Engineering
+**Created**: 2025-12-20
+**Last Updated**: 2025-12-20
+**Author**: Agent Skills for Context Engineering Contributors
+**Version**: 1.0.0

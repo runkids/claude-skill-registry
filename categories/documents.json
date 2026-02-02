@@ -1,7 +1,7 @@
 {
   "category": "documents",
-  "count": 2733,
-  "updated_at": "2026-02-01T05:09:24.037783Z",
+  "count": 2729,
+  "updated_at": "2026-02-02T05:16:13.279856Z",
   "skills": [
     {
       "name": "docs-review",
@@ -2228,22 +2228,6 @@
       ],
       "stars": 26,
       "install": "alonw0/llm-docs-optimizer/skills/llm-docs-optimizer",
-      "source": "local"
-    },
-    {
-      "name": "llm-docs-optimizer",
-      "description": "Optimize documentation for AI coding assistants and LLMs. Improves docs for Claude, Copilot, and other AI tools through c7score optimization, llms.txt generation, question-driven restructuring, and au",
-      "repo": "alonw0/llm-docs-optimizer",
-      "path": "data/llm-docs-optimizer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "llm",
-        "docs",
-        "optimizer"
-      ],
-      "stars": 26,
-      "install": "alonw0/llm-docs-optimizer",
       "source": "local"
     },
     {
@@ -22887,21 +22871,6 @@
       "source": "local"
     },
     {
-      "name": "jules-cli",
-      "description": "docs/tasks.mdに記載されたタスクをJules CLIを使って依頼・管理します。タスクを日本語でフォーマットしてJulesに送信し、進捗を追跡して完了後にtasks.mdを更新します。",
-      "repo": "windschord/claude_skils",
-      "path": "data/jules-cli",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "jules",
-        "cli"
-      ],
-      "stars": 0,
-      "install": "windschord/claude_skils",
-      "source": "local"
-    },
-    {
       "name": "julien-clemence-wordpress-remote",
       "description": "Remote management for clemencefouquet.fr on Hostinger VPS. Covers site architecture, WP-CLI commands, and image uploads via Docker.",
       "repo": "theflysurfer/claude-skills-marketplace",
@@ -30335,18 +30304,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "review-documentation",
-      "description": "Use this skill when asked to review the package documentation of the Go implementation of Feather.",
-      "repo": "feather-lang/feather",
-      "path": "data/review-documentation",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "feather-lang/feather",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "review-script",
       "description": "Review a script for documentation quality, code standards, and reproducibility. Helps ensure code is ready for the methods section. Use when the user types /review_script, after writing a new script, ",
       "repo": "braselog/researchAssistant",
@@ -34977,18 +34934,6 @@
       "tags": [],
       "stars": 0,
       "install": "vrslev/dotfiles/home/.pi/agent/skills/web-content",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "web-content",
-      "description": "Fetch content and search web. Lightweight, no browser required.Use for:- Search for content in the web- Fetching content as easy to read markdown",
-      "repo": "vrslev/dotfiles",
-      "path": "data/web-content",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "vrslev/dotfiles",
       "source": "SkillsMP + GitHub Raw"
     },
     {

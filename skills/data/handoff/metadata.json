@@ -1,7 +1,7 @@
 {
   "name": "handoff",
-  "repo": "RustyLindquist/EnhancedHR",
-  "path": ".claude/skills/handoff/SKILL.md",
-  "source": "github.com/RustyLindquist/EnhancedHR",
-  "downloaded_at": "2026-02-01T04:38:17.350713Z"
+  "repo": "laris-co/nat-agents-core",
+  "path": "bundles/skills/handoff/SKILL.md",
+  "source": "github.com/laris-co/nat-agents-core",
+  "downloaded_at": "2026-02-02T04:46:44.435249Z"
 }

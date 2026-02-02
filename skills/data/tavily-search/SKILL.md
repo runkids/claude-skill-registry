@@ -1,52 +1,38 @@
 ---
-name: tavily-search
-description: Use Tavily Search API for optimized, real-time web search results for RAG. Requires TAVILY_API_KEY.
+name: tavily
+description: AI-optimized web search via Tavily API. Returns concise, relevant results for AI agents.
+homepage: https://tavily.com
+metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":["node"],"env":["TAVILY_API_KEY"]},"primaryEnv":"TAVILY_API_KEY"}}
 ---
 
-# Tavily Search Skill
+# Tavily Search
 
-This skill utilizes the Tavily Search API, providing clean, real-time web search results optimized for LLMs and RAG pipelines.
+AI-optimized web search using Tavily API. Designed for AI agents - returns clean, relevant content.
 
-## Setup
-
-1.  **Dependencies:** Requires `tavily-python`.
-    ```bash
-    pip install tavily-python python-dotenv
-    ```
-
-2.  **API Key Configuration:** Requires `TAVILY_API_KEY`.
-
-    ```bash
-    # If the script fails due to a missing key, run the following:
-    echo "It seems the Tavily API key is not set up."
-    read -p "Enter your Tavily API key: " TAVILY_KEY
-    echo "TAVILY_API_KEY=$TAVILY_KEY" >> .env
-    if [ -f .gitignore ] && ! grep -q ".env" .gitignore; then echo ".env" >> .gitignore; fi
-    echo "API key saved to .env."
-    ```
-
-## Usage
-
-Use the `scripts/tavily_search.py` script.
-
-### Command
+## Search
 
 ```bash
-python3 scripts/tavily_search.py --query "<query>" [--max-results <N>] [--search-depth <basic|advanced>]
+node {baseDir}/scripts/search.mjs "query"
+node {baseDir}/scripts/search.mjs "query" -n 10
+node {baseDir}/scripts/search.mjs "query" --deep
+node {baseDir}/scripts/search.mjs "query" --topic news
 ```
 
-### Parameters
+## Options
 
-* `--query` (Required): The search query.
-* `--search-depth` (Optional): Default `basic`. Use `advanced` for intensive research (higher quality, slower).
-* `--max-results` (Optional): Default 10.
+- `-n <count>`: Number of results (default: 5, max: 20)
+- `--deep`: Use advanced search for deeper research (slower, more comprehensive)
+- `--topic <topic>`: Search topic - `general` (default) or `news`
+- `--days <n>`: For news topic, limit to last n days
 
-### Example
+## Extract content from URL
 
 ```bash
-python3 scripts/tavily_search.py --query "autonomous research agents comparison" --search-depth advanced
+node {baseDir}/scripts/extract.mjs "https://example.com/article"
 ```
 
-## Output
-
-The script outputs JSON containing a synthesized `answer` (if requested by the script) and a list of `results` (URL, title, content snippets).
+Notes:
+- Needs `TAVILY_API_KEY` from https://tavily.com
+- Tavily is optimized for AI - returns clean, relevant snippets
+- Use `--deep` for complex research questions
+- Use `--topic news` for current events

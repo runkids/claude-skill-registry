@@ -1,7 +1,7 @@
 {
   "name": "pyhealth",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/pyhealth/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:22.395042Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/pyhealth/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-02-02T04:19:14.146718Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "team-coordination",
-  "description": "Master team coordination with leadership, communication, conflict resolution, and collaboration techniques for high-performing teams.",
-  "repo": "spjoshis/claude-code-plugins",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/team-coordination/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-02-02T04:29:48.292314Z"
 }

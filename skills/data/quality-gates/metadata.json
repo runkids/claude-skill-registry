@@ -1,7 +1,7 @@
 {
   "name": "quality-gates",
-  "repo": "boreal42/CEI-001-guide-erp",
-  "path": ".claude/skills/quality-gates/SKILL.md",
-  "source": "github.com/boreal42/CEI-001-guide-erp",
-  "downloaded_at": "2026-02-01T04:45:40.480599Z"
+  "repo": "ederheisler/agent-skills",
+  "path": "skills/quality-gates/SKILL.md",
+  "source": "github.com/ederheisler/agent-skills",
+  "downloaded_at": "2026-02-02T05:02:44.363980Z"
 }

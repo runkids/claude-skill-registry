@@ -1,688 +1,85 @@
 ---
-name: shadcn-ui
-description: Guide for implementing shadcn/ui - a collection of beautifully-designed, accessible UI components built with Radix UI and Tailwind CSS. Use when building user interfaces, adding UI components, or implementing design systems in React-based applications.
-license: MIT
-version: 1.0.0
+name: "shadcn/ui Component Integration"
+description: "Install and customize shadcn/ui components with Tailwind CSS theming, variants, and styling. Use when adding UI components or customizing the design system."
+tools: Read, Grep, Glob, Write, Edit, Bash
+model: inherit
 ---
 
-# shadcn/ui Skill
+# Skill: shadcn/ui Component Integration
 
-shadcn/ui is a collection of beautifully-designed, accessible components and a code distribution platform built with TypeScript, Tailwind CSS, and Radix UI primitives. It's not a traditional component library but a collection of reusable components you can copy and paste into your apps.
+Complete guide for installing, customizing, and styling shadcn/ui components with Tailwind CSS theming.
 
-## Reference
+## When to Use
 
-https://ui.shadcn.com/llms.txt
+- Adding new shadcn/ui components to your project
+- Customizing component styles and variants
+- Setting up or modifying theme configuration
+- Troubleshooting component styling issues
+- Creating custom component variants
+- Integrating Tailwind CSS with shadcn/ui
 
-## When to Use This Skill
+## Domain Knowledge
 
-Use this skill when:
-- Building user interfaces with React-based frameworks (Next.js, Vite, Remix, Astro, etc.)
-- Adding pre-built, accessible UI components to applications
-- Implementing design systems with Tailwind CSS
-- Setting up forms with validation (React Hook Form + Zod)
-- Adding data tables, charts, or complex UI patterns
-- Implementing dark mode with consistent theming
-- Customizing component appearance and behavior
+### Critical Patterns
 
-## Core Concepts
+#### Copy-Paste, Not NPM Install (CRITICAL)
 
-### Key Principles
+shadcn/ui is NOT an npm package - it's a collection of reusable components that you copy into your project.
 
-- **Open Code**: Copy components into your project, modify freely
-- **Composition**: Built with composable primitives from Radix UI
-- **Distribution**: Components distributed via CLI, not npm packages
-- **Beautiful Defaults**: Thoughtfully designed with excellent aesthetics
-- **AI-Ready**: Structured for easy integration with AI tools
+**Installation method:**
+```bash
+npx shadcn@latest add [component-name]
+```
 
-### Architecture
+**What this does:**
+1. Downloads component source code
+2. Places it in `components/ui/[component-name].tsx`
+3. You own the code and can modify it directly
 
-shadcn/ui follows a unique distribution model:
-1. **CLI Tool**: Installs and manages components via `npx shadcn@latest`
-2. **Component Registry**: Central repository of components
-3. **Local Components**: Components live in your `components/ui/` directory
-4. **Full Ownership**: You own the code, modify as needed
-
-### Technology Stack
-
-- **TypeScript**: Full type safety
-- **Tailwind CSS**: Utility-first styling (v3 and v4 support)
-- **Radix UI**: Accessible, unstyled primitives
-- **Class Variance Authority**: Component variants
-- **React 19**: Compatible with latest React
-
-## Installation & Setup
-
-### Initial Setup
-
-**Using the CLI (Recommended):**
+**Why this matters:**
+- Components live in YOUR codebase
+- Full control over styling and behavior
+- No hidden abstractions or locked-in APIs
+- Customize directly in the component file
 
 ```bash
-npx shadcn@latest init
+# ❌ Wrong - no npm package exists
+npm install shadcn-ui
+
+# ✅ Correct - copy component into project
+npx shadcn@latest add button
 ```
 
-The CLI will prompt for:
-- Framework preference (Next.js, Vite, etc.)
-- TypeScript or JavaScript
-- Component installation location
-- CSS variables or Tailwind configuration
-- Color theme preferences
-- Global CSS file location
+#### Component Installation Command
 
-**Manual Setup:**
+Use the shadcn CLI to add components:
 
-1. Install dependencies:
-```bash
-npm install tailwindcss-animate class-variance-authority clsx tailwind-merge lucide-react
-```
-
-2. Create `components.json`:
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "app/globals.css",
-    "baseColor": "zinc",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils"
-  }
-}
-```
-
-3. Configure Tailwind:
-```ts
-// tailwind.config.ts
-import type { Config } from "tailwindcss"
-
-const config: Config = {
-  darkMode: ["class"],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("tailwindcss-animate")],
-}
-
-export default config
-```
-
-4. Create utility file:
-```ts
-// lib/utils.ts
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
-
-### Adding Components
-
-**Via CLI:**
 ```bash
 # Add single component
 npx shadcn@latest add button
 
 # Add multiple components
-npx shadcn@latest add button card dialog
+npx shadcn@latest add button input card
 
-# Add all components
+# Add all components (not recommended)
 npx shadcn@latest add --all
 ```
 
-**What happens when you add a component:**
-1. Component files are copied to `components/ui/`
-2. Dependencies are automatically installed
-3. Component is ready to import and use
+Components are copied to `components/ui/` directory.
 
-## Component Categories
+#### CSS Variables for Theming
 
-### Form & Input Components
-
-**Button:**
-```tsx
-import { Button } from "@/components/ui/button"
-
-<Button variant="default">Click me</Button>
-<Button variant="destructive">Delete</Button>
-<Button variant="outline" size="sm">Small</Button>
-<Button variant="ghost" size="icon">
-  <Icon />
-</Button>
-```
-
-**Input:**
-```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-
-<div>
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" type="email" placeholder="you@example.com" />
-</div>
-```
-
-**Form (with validation):**
-```tsx
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  email: z.string().email(),
-})
-
-function ProfileForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      email: "",
-    },
-  })
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-  }
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
-```
-
-**Select:**
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
-<Select>
-  <SelectTrigger className="w-[180px]">
-    <SelectValue placeholder="Theme" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="light">Light</SelectItem>
-    <SelectItem value="dark">Dark</SelectItem>
-    <SelectItem value="system">System</SelectItem>
-  </SelectContent>
-</Select>
-```
-
-**Checkbox:**
-```tsx
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-
-<div className="flex items-center space-x-2">
-  <Checkbox id="terms" />
-  <Label htmlFor="terms">Accept terms and conditions</Label>
-</div>
-```
-
-**Date Picker:**
-```tsx
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-import { CalendarIcon } from "lucide-react"
-import { format } from "date-fns"
-
-const [date, setDate] = useState<Date>()
-
-<Popover>
-  <PopoverTrigger asChild>
-    <Button variant="outline">
-      <CalendarIcon className="mr-2 h-4 w-4" />
-      {date ? format(date, "PPP") : "Pick a date"}
-    </Button>
-  </PopoverTrigger>
-  <PopoverContent className="w-auto p-0">
-    <Calendar mode="single" selected={date} onSelect={setDate} />
-  </PopoverContent>
-</Popover>
-```
-
-### Layout & Navigation
-
-**Card:**
-```tsx
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
-<Card>
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card Description</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Card Content</p>
-  </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
-  </CardFooter>
-</Card>
-```
-
-**Tabs:**
-```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-<Tabs defaultValue="account">
-  <TabsList>
-    <TabsTrigger value="account">Account</TabsTrigger>
-    <TabsTrigger value="password">Password</TabsTrigger>
-  </TabsList>
-  <TabsContent value="account">Account settings</TabsContent>
-  <TabsContent value="password">Password settings</TabsContent>
-</Tabs>
-```
-
-**Accordion:**
-```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-
-<Accordion type="single" collapsible>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-    <AccordionContent>
-      Yes. It adheres to the WAI-ARIA design pattern.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
-```
-
-**Navigation Menu:**
-```tsx
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-
-<NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <NavigationMenuLink>Link</NavigationMenuLink>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-</NavigationMenu>
-```
-
-### Overlays & Dialogs
-
-**Dialog:**
-```tsx
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-
-<Dialog>
-  <DialogTrigger asChild>
-    <Button>Open Dialog</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
-```
-
-**Drawer:**
-```tsx
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-
-<Drawer>
-  <DrawerTrigger>Open</DrawerTrigger>
-  <DrawerContent>
-    <DrawerHeader>
-      <DrawerTitle>Are you sure?</DrawerTitle>
-      <DrawerDescription>This action cannot be undone.</DrawerDescription>
-    </DrawerHeader>
-    <DrawerFooter>
-      <Button>Submit</Button>
-      <DrawerClose>Cancel</DrawerClose>
-    </DrawerFooter>
-  </DrawerContent>
-</Drawer>
-```
-
-**Popover:**
-```tsx
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-
-<Popover>
-  <PopoverTrigger>Open</PopoverTrigger>
-  <PopoverContent>Place content here.</PopoverContent>
-</Popover>
-```
-
-**Toast:**
-```tsx
-import { useToast } from "@/hooks/use-toast"
-import { Button } from "@/components/ui/button"
-
-const { toast } = useToast()
-
-<Button
-  onClick={() => {
-    toast({
-      title: "Scheduled: Catch up",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-    })
-  }}
->
-  Show Toast
-</Button>
-```
-
-**Command:**
-```tsx
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-
-<Command>
-  <CommandInput placeholder="Type a command or search..." />
-  <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
-    <CommandGroup heading="Suggestions">
-      <CommandItem>Calendar</CommandItem>
-      <CommandItem>Search Emoji</CommandItem>
-      <CommandItem>Calculator</CommandItem>
-    </CommandGroup>
-  </CommandList>
-</Command>
-```
-
-### Feedback & Status
-
-**Alert:**
-```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-
-<Alert>
-  <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
-    You can add components to your app using the CLI.
-  </AlertDescription>
-</Alert>
-
-<Alert variant="destructive">
-  <AlertTitle>Error</AlertTitle>
-  <AlertDescription>
-    Your session has expired. Please log in again.
-  </AlertDescription>
-</Alert>
-```
-
-**Progress:**
-```tsx
-import { Progress } from "@/components/ui/progress"
-
-<Progress value={33} />
-```
-
-**Skeleton:**
-```tsx
-import { Skeleton } from "@/components/ui/skeleton"
-
-<div className="flex items-center space-x-4">
-  <Skeleton className="h-12 w-12 rounded-full" />
-  <div className="space-y-2">
-    <Skeleton className="h-4 w-[250px]" />
-    <Skeleton className="h-4 w-[200px]" />
-  </div>
-</div>
-```
-
-### Display Components
-
-**Table:**
-```tsx
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
-<Table>
-  <TableCaption>A list of your recent invoices.</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Invoice</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Amount</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>$250.00</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-```
-
-**Data Table (with sorting/filtering):**
-```bash
-npx shadcn@latest add data-table
-```
-
-**Avatar:**
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-<Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
-</Avatar>
-```
-
-**Badge:**
-```tsx
-import { Badge } from "@/components/ui/badge"
-
-<Badge>Default</Badge>
-<Badge variant="secondary">Secondary</Badge>
-<Badge variant="destructive">Destructive</Badge>
-<Badge variant="outline">Outline</Badge>
-```
-
-## Theming & Customization
-
-### Dark Mode Setup
-
-**Next.js (App Router):**
-
-1. Install next-themes:
-```bash
-npm install next-themes
-```
-
-2. Create theme provider:
-```tsx
-// components/theme-provider.tsx
-"use client"
-
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-
-export function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
-}
-```
-
-3. Wrap app with provider:
-```tsx
-// app/layout.tsx
-import { ThemeProvider } from "@/components/theme-provider"
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  )
-}
-```
-
-4. Add theme toggle:
-```tsx
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
-
-export function ThemeToggle() {
-  const { setTheme, theme } = useTheme()
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-    >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
-  )
-}
-```
-
-### Color Customization
-
-**Using CSS Variables:**
+shadcn/ui uses CSS variables defined in `app/globals.css` for theming:
 
 ```css
-/* globals.css */
+/* app/globals.css */
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    /* ... more variables */
   }
 
   .dark {
@@ -690,59 +87,62 @@ export function ThemeToggle() {
     --foreground: 210 40% 98%;
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-    /* ... */
+    /* ... more variables */
   }
 }
 ```
 
-**Using Tailwind Config:**
+**Format:** HSL values without the `hsl()` wrapper.
 
-```ts
-// tailwind.config.ts
-export default {
-  theme: {
-    extend: {
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        // ...
-      },
-    },
-  },
-}
+**Why**: Allows easy theme switching between light/dark modes by changing CSS classes.
+
+#### Import Path Convention
+
+Always import components from `@/components/ui/[component]`:
+
+```typescript
+// ✅ Correct
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+// ❌ Wrong - relative paths
+import { Button } from "../../components/ui/button";
 ```
 
-### Component Customization
+**Why:** The `@/*` alias is configured in `tsconfig.json` and provides clean imports.
 
-Since components live in your codebase, you can modify them directly:
+### Key Files
 
-```tsx
+- **components/ui/** - All shadcn/ui components live here
+- **app/globals.css** - CSS variables for theming
+- **tailwind.config.ts** - Tailwind configuration
+- **lib/utils.ts** - Utility functions (like `cn()` for class merging)
+- **components.json** - shadcn/ui configuration
+
+### Component Anatomy
+
+All shadcn/ui components follow similar patterns:
+
+```typescript
 // components/ui/button.tsx
-// Modify variants, add new ones, change styles
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground",
-        outline: "border border-input bg-background",
-        // Add custom variant
-        custom: "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
+        outline: "border border-input bg-background hover:bg-accent",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
-        // Add custom size
-        xl: "h-14 rounded-md px-10 text-lg",
       },
     },
     defaultVariants: {
@@ -751,302 +151,507 @@ const buttonVariants = cva(
     },
   }
 )
-```
 
-## Advanced Patterns
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {}
 
-### Server Actions (Next.js)
-
-```tsx
-// app/actions.ts
-"use server"
-
-import { z } from "zod"
-
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-})
-
-export async function createUser(formData: FormData) {
-  const validatedFields = schema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  })
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
-
-  // Create user
-}
-
-// app/signup/page.tsx
-import { createUser } from "@/app/actions"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-
-export default function SignupPage() {
-  return (
-    <form action={createUser}>
-      <Input name="email" type="email" />
-      <Input name="password" type="password" />
-      <Button type="submit">Sign up</Button>
-    </form>
-  )
-}
-```
-
-### Reusable Form Patterns
-
-```tsx
-// lib/form-utils.ts
-import { UseFormReturn } from "react-hook-form"
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-
-export function TextFormField({
-  form,
-  name,
-  label,
-  placeholder,
-  type = "text",
-}: {
-  form: UseFormReturn<any>
-  name: string
-  label: string
-  placeholder?: string
-  type?: string
-}) {
-  return (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-```
-
-### Responsive Component Composition
-
-```tsx
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Drawer, DrawerContent } from "@/components/ui/drawer"
-
-export function ResponsiveDialog({ children, ...props }) {
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-
-  if (isDesktop) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, ...props }, ref) => {
     return (
-      <Dialog {...props}>
-        <DialogContent>{children}</DialogContent>
-      </Dialog>
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
     )
   }
+)
 
-  return (
-    <Drawer {...props}>
-      <DrawerContent>{children}</DrawerContent>
-    </Drawer>
-  )
-}
+export { Button, buttonVariants }
 ```
 
-## Best Practices
+**Key parts:**
+1. `cva()` - Creates variant classes
+2. `cn()` - Merges classes intelligently
+3. `VariantProps` - TypeScript types for variants
+4. Variants system - Predefined style combinations
 
-1. **Use TypeScript**: Leverage full type safety for better DX
-2. **Customize Components**: Modify components directly in your codebase
-3. **Compose Primitives**: Build complex UIs by composing simple components
-4. **Follow Accessibility**: Components are built on accessible Radix UI primitives
-5. **Use Form Validation**: Integrate React Hook Form + Zod for robust forms
-6. **Dark Mode**: Implement theme switching for better UX
-7. **Responsive Design**: Use Tailwind responsive utilities
-8. **Performance**: Use code splitting and lazy loading for large component sets
-9. **Consistent Spacing**: Use Tailwind spacing scale consistently
-10. **Icon Library**: Use lucide-react for consistent icons
+### Theming System
 
-## Framework-Specific Setup
+shadcn/ui uses Tailwind CSS with custom color tokens:
 
-### Next.js
-- Support for App Router and Pages Router
-- Server Components compatibility
-- Server Actions integration
+**Color tokens:**
+- `background` / `foreground` - Base colors
+- `primary` / `primary-foreground` - Primary actions
+- `secondary` / `secondary-foreground` - Secondary actions
+- `muted` / `muted-foreground` - Muted content
+- `accent` / `accent-foreground` - Accent highlights
+- `destructive` / `destructive-foreground` - Destructive actions
+- `border` - Border color
+- `input` - Input border color
+- `ring` - Focus ring color
 
-### Vite
-- Fast development with HMR
-- Easy setup with TypeScript
+Use in Tailwind classes:
+```typescript
+<div className="bg-primary text-primary-foreground">
+  Primary colored section
+</div>
+```
 
-### Remix
-- Route-based architecture
-- Progressive enhancement
+## Workflows
 
-### Astro
-- Static site generation
-- Islands architecture
+### Workflow 1: Add New Component
 
-### Laravel (Inertia.js)
-- Backend integration with Laravel
-- React frontend with Inertia
+**Step 1: Install Component**
 
-## Common Patterns
+```bash
+npx shadcn@latest add button
+```
 
-### Loading States
+This creates `components/ui/button.tsx`.
 
-```tsx
-import { Skeleton } from "@/components/ui/skeleton"
+**Step 2: Import and Use**
 
-export function UserCardSkeleton() {
+```typescript
+// app/page.tsx
+import { Button } from "@/components/ui/button";
+
+export default function Page() {
   return (
-    <div className="flex items-center space-x-4">
-      <Skeleton className="h-12 w-12 rounded-full" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
+    <div>
+      <Button>Click me</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="destructive">Delete</Button>
     </div>
-  )
-}
-
-export function UserCard({ user }: { user?: User }) {
-  if (!user) return <UserCardSkeleton />
-
-  return (
-    <div className="flex items-center space-x-4">
-      <Avatar>
-        <AvatarImage src={user.avatar} />
-        <AvatarFallback>{user.initials}</AvatarFallback>
-      </Avatar>
-      <div>
-        <p className="text-sm font-medium">{user.name}</p>
-        <p className="text-sm text-muted-foreground">{user.email}</p>
-      </div>
-    </div>
-  )
+  );
 }
 ```
 
-### Error Handling
+**Step 3: Verify Styling**
 
-```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+Check that:
+- Component renders correctly
+- Styles are applied
+- Dark mode works (if implemented)
+- Variants work as expected
 
-export function ErrorAlert({ error }: { error: Error }) {
-  return (
-    <Alert variant="destructive">
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>Error</AlertTitle>
-      <AlertDescription>{error.message}</AlertDescription>
-    </Alert>
-  )
+### Workflow 2: Customize Component Theme
+
+**Step 1: Identify CSS Variable**
+
+Find the variable in `app/globals.css`:
+
+```css
+:root {
+  --primary: 222.2 47.4% 11.2%; /* Current primary color */
 }
 ```
 
-### Confirmation Dialogs
+**Step 2: Update Color Value**
 
-```tsx
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+Change to desired color (use HSL format):
 
-export function DeleteConfirmation({ onConfirm }: { onConfirm: () => void }) {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  )
+```css
+:root {
+  --primary: 263 70% 50%; /* New purple primary */
 }
 ```
+
+**Convert colors to HSL:**
+- Use online converter or browser DevTools
+- Format: `hue saturation% lightness%`
+- Example: Purple = `263 70% 50%`
+
+**Step 3: Update Dark Mode (Optional)**
+
+```css
+.dark {
+  --primary: 263 75% 60%; /* Lighter purple for dark mode */
+}
+```
+
+**Step 4: Test Across App**
+
+Verify all primary-colored components look correct.
+
+### Workflow 3: Create Custom Variant
+
+**Step 1: Locate Component File**
+
+```typescript
+// components/ui/button.tsx
+const buttonVariants = cva(
+  "...",
+  {
+    variants: {
+      variant: {
+        default: "...",
+        destructive: "...",
+        outline: "...",
+        // Add custom variant here
+      },
+    },
+  }
+)
+```
+
+**Step 2: Add New Variant**
+
+```typescript
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground",
+        outline: "border border-input bg-background hover:bg-accent",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        // Custom success variant
+        success: "bg-green-600 text-white hover:bg-green-700",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        // Custom extra-large size
+        xl: "h-14 rounded-md px-12 text-lg",
+      },
+    },
+  }
+)
+```
+
+**Step 3: Use Custom Variant**
+
+```typescript
+<Button variant="success">Save Changes</Button>
+<Button size="xl">Large Button</Button>
+```
+
+### Workflow 4: Combine Multiple Components
+
+**Step 1: Install Required Components**
+
+```bash
+npx shadcn@latest add card button input label
+```
+
+**Step 2: Compose Components**
+
+```typescript
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export function LoginCard() {
+  return (
+    <Card className="w-[350px]">
+      <CardHeader>
+        <CardTitle>Login</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" placeholder="you@example.com" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" type="password" />
+          </div>
+          <Button className="w-full">Sign In</Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+**Step 3: Apply Consistent Spacing**
+
+Use Tailwind utility classes for consistent spacing:
+- `space-y-4` - Vertical spacing between children
+- `gap-4` - Grid/flex gap
+- `p-4` - Padding
+- `m-4` - Margin
+
+### Workflow 5: Implement Dark Mode
+
+**Step 1: Ensure Dark Mode Variables Exist**
+
+Check `app/globals.css` has dark mode styles:
+
+```css
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  /* ... all color variables */
+}
+```
+
+**Step 2: Add Theme Provider (if using next-themes)**
+
+```typescript
+// app/layout.tsx
+import { ThemeProvider } from "next-themes";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+**Step 3: Create Theme Toggle**
+
+```typescript
+"use client";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <Button
+      variant="ghost"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+    >
+      Toggle theme
+    </Button>
+  );
+}
+```
+
+**Step 4: Test Both Themes**
+
+Verify all components look good in light and dark modes.
 
 ## Troubleshooting
 
-### Common Issues
+### Issue: Component Not Found After Installation
 
-1. **"Module not found" errors**
-   - Check path aliases in `tsconfig.json`
-   - Verify `components.json` aliases match your project structure
-   - Ensure components are installed in correct directory
+**Symptoms:**
+- Import error: "Cannot find module '@/components/ui/button'"
+- Component file exists but import fails
 
-2. **Styling not applied**
-   - Verify Tailwind CSS is configured correctly
-   - Check `globals.css` imports CSS variables
-   - Ensure `tailwindcss-animate` plugin is installed
+**Cause:** `@/*` import alias not configured
 
-3. **Dark mode not working**
-   - Check ThemeProvider is wrapping your app
-   - Verify `suppressHydrationWarning` on `<html>` tag
-   - Ensure dark mode classes are defined in CSS
+**Solution:**
 
-4. **Form validation issues**
-   - Install required packages: `react-hook-form`, `@hookform/resolvers`, `zod`
-   - Check schema matches form fields
-   - Verify resolver is configured correctly
+Check `tsconfig.json` has the alias:
 
-5. **TypeScript errors**
-   - Update `@types/react` and `@types/react-dom`
-   - Check component prop types
-   - Ensure TypeScript version is compatible (>= 4.5)
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
 
-## Resources
+Also check `next.config.ts` or `vite.config.ts` depending on your setup.
 
-- Documentation: https://ui.shadcn.com
-- GitHub: https://github.com/shadcn-ui/ui
-- Component Registry: https://ui.shadcn.com/docs/components
-- Examples: https://ui.shadcn.com/examples
-- Figma Design Kit: https://ui.shadcn.com/figma
-- v0 (AI UI Generator): https://v0.dev
+**Frequency:** Medium
 
-## Implementation Checklist
+### Issue: Styling Not Applied
 
-When implementing shadcn/ui:
+**Symptoms:**
+- Component renders but has no styling
+- Looks like unstyled HTML
 
-- [ ] Run `npx shadcn@latest init` to set up project
-- [ ] Configure Tailwind CSS and path aliases
-- [ ] Set up dark mode with ThemeProvider
-- [ ] Install required components via CLI
-- [ ] Create utility functions (cn helper)
-- [ ] Set up form handling (React Hook Form + Zod)
-- [ ] Configure icons (lucide-react)
-- [ ] Implement theme toggle component
-- [ ] Test components in both light and dark modes
-- [ ] Customize color palette if needed
-- [ ] Add loading states with Skeleton
-- [ ] Implement error handling patterns
-- [ ] Test accessibility features
-- [ ] Optimize bundle size (tree-shaking)
-- [ ] Add responsive design utilities
+**Possible Causes & Solutions:**
+
+**1. Tailwind not processing component paths**
+
+Check `tailwind.config.ts`:
+
+```typescript
+export default {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}", // Must include this
+  ],
+  // ...
+}
+```
+
+**2. CSS variables missing**
+
+Check `app/globals.css` has all CSS variables:
+
+```css
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    /* ... all required variables */
+  }
+}
+```
+
+**3. Tailwind directives missing**
+
+Ensure `app/globals.css` has:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+**Frequency:** Medium
+
+### Issue: Dark Mode Not Working
+
+**Symptoms:**
+- Theme toggle doesn't change colors
+- Dark class applied but no visual change
+
+**Cause:** Missing dark mode CSS variables
+
+**Solution:**
+
+Ensure `app/globals.css` has complete dark mode section:
+
+```css
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  /* ... all other variables */
+}
+```
+
+Variables must match the light mode variables (same names).
+
+**Frequency:** Low
+
+### Issue: Class Names Not Merging Correctly
+
+**Symptoms:**
+- Custom classes override all styles
+- Variants not working with additional classes
+
+**Cause:** Not using `cn()` utility properly
+
+**Solution:**
+
+Always use `cn()` to merge classes:
+
+```typescript
+// ❌ Wrong - classes override each other
+<Button className="bg-red-500">Delete</Button>
+
+// ✅ Correct - modify component to accept custom classes properly
+import { cn } from "@/lib/utils";
+
+<Button className={cn("bg-red-500")}>Delete</Button>
+```
+
+Or modify the variant instead:
+
+```typescript
+<Button variant="destructive">Delete</Button>
+```
+
+**Frequency:** Low
+
+## Validation Checklist
+
+Before considering shadcn/ui integration complete:
+
+- [ ] Component installed via `npx shadcn@latest add`
+- [ ] Component renders without errors
+- [ ] Styles applied correctly
+- [ ] Variants work as expected
+- [ ] Dark mode works (if implemented)
+- [ ] Import alias (@/*) working
+- [ ] Tailwind config includes component paths
+- [ ] CSS variables defined in globals.css
+- [ ] Component accessible and keyboard-navigable
+- [ ] Responsive on mobile devices
+
+## Best Practices
+
+1. **Install only what you need** - Don't use `--all`, add components as needed
+2. **Customize after installation** - Components are meant to be modified
+3. **Use variants over custom classes** - Prefer variants for consistency
+4. **Maintain the theme system** - Use CSS variables, not hardcoded colors
+5. **Test dark mode early** - Don't wait until the end to implement dark mode
+6. **Keep components/ui clean** - Only shadcn components in this folder
+7. **Create wrapper components** - Build app-specific variants in separate folder
+8. **Use consistent spacing** - Leverage Tailwind's spacing scale
+
+## Advanced Techniques
+
+### Creating Composite Components
+
+Build higher-level components from shadcn primitives:
+
+```typescript
+// components/forms/SearchBox.tsx
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
+
+export function SearchBox() {
+  return (
+    <div className="relative">
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <Input
+        type="search"
+        placeholder="Search..."
+        className="pl-10"
+      />
+      <Button
+        size="sm"
+        className="absolute right-1 top-1/2 -translate-y-1/2"
+      >
+        Search
+      </Button>
+    </div>
+  );
+}
+```
+
+### Theming Multiple Projects
+
+Extract theme to separate file:
+
+```typescript
+// lib/theme.ts
+export const theme = {
+  light: {
+    background: "0 0% 100%",
+    foreground: "222.2 84% 4.9%",
+    // ...
+  },
+  dark: {
+    background: "222.2 84% 4.9%",
+    foreground: "210 40% 98%",
+    // ...
+  },
+};
+```
+
+Generate `globals.css` from theme object for consistency across projects.
+
+## References
+
+- **Previous expertise**: `.claude/experts/shadcn-expert/expertise.yaml`
+- **Agent integration**: `.claude/agents/agent-shadcn.md`
+- **Official docs**: https://ui.shadcn.com
+- **Tailwind docs**: https://tailwindcss.com

@@ -1,7 +1,7 @@
 {
   "name": "context-loader",
-  "repo": "anton-abyzov/specweave",
-  "path": "plugins/specweave/skills/context-loader/SKILL.md",
-  "source": "github.com/anton-abyzov/specweave",
-  "downloaded_at": "2026-02-01T01:48:08.584028Z"
+  "repo": "gaebalai/claude-code-orchestrator",
+  "path": ".codex/skills/context-loader/SKILL.md",
+  "source": "github.com/gaebalai/claude-code-orchestrator",
+  "downloaded_at": "2026-02-02T01:17:25.577814Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "scientific-critical-thinking",
-  "repo": "Victory-Hugo/S2-Agent-Skill",
-  "path": "skills/writing/scientific-critical-thinking/SKILL.md",
-  "source": "github.com/Victory-Hugo/S2-Agent-Skill",
-  "downloaded_at": "2026-01-31T04:16:20.645614Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/scientific-skills/skills/scientific-critical-thinking/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-02-02T04:36:31.756166Z"
 }

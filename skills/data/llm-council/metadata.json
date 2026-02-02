@@ -1,7 +1,7 @@
 {
   "name": "llm-council",
-  "repo": "gcpdev/llm-council-skill",
-  "path": "llm-council/SKILL.md",
-  "source": "github.com/gcpdev/llm-council-skill",
-  "downloaded_at": "2026-02-01T02:50:08.137397Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/llm-council/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-02-02T04:55:33.883704Z"
 }

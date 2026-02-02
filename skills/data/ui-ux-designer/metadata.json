@@ -1,7 +1,7 @@
 {
   "name": "ui-ux-designer",
-  "repo": "MUmerRazzaq/fast-next-todo",
-  "path": ".claude/skills/ui-ux-designer/SKILL.md",
-  "source": "github.com/MUmerRazzaq/fast-next-todo",
-  "downloaded_at": "2026-02-01T04:59:10.487228Z"
+  "repo": "hummbl-dev/hummbl-claude-skills",
+  "path": "ui-ux-designer/SKILL.md",
+  "source": "github.com/hummbl-dev/hummbl-claude-skills",
+  "downloaded_at": "2026-02-02T05:08:40.215299Z"
 }

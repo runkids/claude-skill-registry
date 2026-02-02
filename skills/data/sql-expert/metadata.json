@@ -1,7 +1,7 @@
 {
   "name": "sql-expert",
-  "repo": "traylinx/switchAILocal",
-  "path": "plugins/cortex-router/skills/sql-expert/SKILL.md",
-  "source": "github.com/traylinx/switchAILocal",
-  "downloaded_at": "2026-02-01T04:36:04.506215Z"
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "path": "sql-expert/SKILL.md",
+  "source": "github.com/AutumnsGrove/ClaudeSkills",
+  "downloaded_at": "2026-02-02T04:42:01.183148Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "review-code",
-  "repo": "grahama1970/agent-skills",
-  "path": "skills/review-code/SKILL.md",
-  "source": "github.com/grahama1970/agent-skills",
-  "downloaded_at": "2026-02-01T04:28:50.376896Z"
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".claude/skills/review-code/SKILL.md",
+  "source": "github.com/catlog22/Claude-Code-Workflow",
+  "downloaded_at": "2026-02-02T05:01:36.524969Z"
 }

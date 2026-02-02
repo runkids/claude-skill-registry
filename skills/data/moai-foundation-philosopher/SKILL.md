@@ -1,19 +1,56 @@
 ---
-name: "moai-foundation-philosopher"
-description: "Strategic thinking framework integrating First Principles Analysis, Stanford Design Thinking, and MIT Systems Engineering for deeper problem-solving and decision-making"
-version: 1.1.0
-category: "foundation"
-modularized: true
+name: moai-foundation-philosopher
+description: >
+  Strategic thinking framework integrating First Principles Analysis, Stanford Design Thinking,
+  and MIT Systems Engineering for deeper problem-solving and decision-making
+license: Apache-2.0
+compatibility: Designed for Claude Code
+allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
-tags: ['foundation', 'strategic-thinking', 'first-principles', 'trade-off-analysis', 'cognitive-bias', 'decision-making']
-updated: 2026-01-08
-status: "active"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+metadata:
+  version: "1.1.0"
+  category: "foundation"
+  status: "active"
+  updated: "2026-01-08"
+  modularized: "true"
+  tags: "foundation, strategic-thinking, first-principles, trade-off-analysis, cognitive-bias, decision-making"
+
+# MoAI Extension: Progressive Disclosure
+progressive_disclosure:
+  enabled: true
+  level1_tokens: 100
+  level2_tokens: 5000
+
+# MoAI Extension: Triggers
+triggers:
+  keywords:
+    - "architecture"
+    - "architecture decision"
+    - "technology selection"
+    - "trade-off"
+    - "strategic"
+    - "decision"
+    - "analysis"
+    - "design thinking"
+    - "first principles"
+    - "five whys"
+    - "assumption"
+    - "alternative"
+    - "cognitive bias"
+    - "root cause"
+    - "framework selection"
+    - "library selection"
+    - "database selection"
+    - "performance vs maintainability"
+    - "breaking change"
+  agents:
+    - "manager-strategy"
+    - "manager-spec"
+    - "expert-backend"
+    - "expert-frontend"
+    - "expert-devops"
+  phases:
+    - "plan"
 ---
 
 # MoAI Foundation Philosopher
@@ -93,7 +130,7 @@ The Five Whys Technique:
 - Second Why: Underlying cause investigation
 - Third Why: Systemic driver identification
 - Fourth Why: Organizational or process factor
-- Fifth Why (Root Cause): Fundamental issue to address
+- Fifth Why (Root Cause): Fundamental issue to adddess
 
 Constraint Analysis:
 - Hard Constraints: Non-negotiable (security, compliance, physics, budget)
@@ -160,7 +197,7 @@ Trade-off Documentation:
 - What we gain: Primary benefits of chosen approach
 - What we sacrifice: Explicit costs and limitations accepted
 - Why acceptable: Rationale for accepting these trade-offs
-- Mitigation plan: How to address downsides
+- Mitigation plan: How to adddess downsides
 
 WHY: Implicit trade-offs lead to regret and second-guessing.
 IMPACT: Explicit trade-offs improve stakeholder alignment by 50%.
@@ -205,9 +242,10 @@ SPEC Phase Integration:
 - Include alternative approaches considered in plan.md
 - Define validation criteria in acceptance.md
 
-TDD Phase Integration:
+DDD Phase Integration:
 - Use First Principles to identify core test scenarios
-- Generate test alternatives for edge cases
+- Generate characterization test alternatives for legacy code
+- Generate specification test alternatives for new features
 - Apply Trade-off Analysis for test coverage decisions
 
 Quality Phase Integration:

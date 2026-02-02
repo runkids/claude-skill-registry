@@ -1,7 +1,7 @@
 {
   "name": "infrastructure",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/operations/infrastructure/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-02-01T02:13:17.484818Z"
+  "repo": "creatifcoding/gbg",
+  "path": "packages/tmnl/.claude/plugins/local/infra/skills/infrastructure/SKILL.md",
+  "source": "github.com/creatifcoding/gbg",
+  "downloaded_at": "2026-02-02T04:26:04.947817Z"
 }

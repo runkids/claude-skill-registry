@@ -1,341 +1,244 @@
 ---
 name: synthesis
-description: Synthesize all accumulated notes and drafts to generate the Discussion and Abstract sections. Sixth step of writer workflow. Requires all notes/*.md files and drafts/introduction.md, methods.md, results.md.
+description: |
+  Traceability matrix, quality validation, completion decision.
+  Semantic matching for requirement-deliverable traceability (EFL V4.0).
+  Sub-Orchestrator pattern with convergence detection.
+user-invocable: true
+context: fork
+model: opus
+version: "4.1.0"
+argument-hint: "[--strict | --lenient | --dry-run] [--workload <slug>]"
+allowed-tools:
+  - Read
+  - Write
+  - Grep
+  - Glob
+  - Task
+  - mcp__sequential-thinking__sequentialthinking
+hooks:
+  Setup:
+    - type: command
+      command: "source /home/palantir/.claude/skills/shared/workload-files.sh"
+      timeout: 5000
+
+# EFL Pattern Configuration
+agent_delegation:
+  enabled: true
+  default_mode: true
+  mode: "sub_orchestrator"
+  agents:
+    - type: "explore"
+      role: "Phase 3-A: Semantic requirement-deliverable matching"
+    - type: "explore"
+      role: "Phase 3-B: Quality validation (3C checks)"
+  output_paths:
+    l1: ".agent/prompts/{slug}/synthesis/l1_summary.yaml"
+    l2: ".agent/prompts/{slug}/synthesis/synthesis_report.md"
+    l3: ".agent/prompts/{slug}/synthesis/l3_details/"
+
+parallel_agent_config:
+  enabled: true
+  complexity_detection: "auto"
+  agent_count_by_complexity:
+    simple: 1
+    moderate: 2
+    complex: 3
+
+agent_internal_feedback_loop:
+  enabled: true
+  max_iterations: 3
+  convergence_threshold: "improvement < 5%"
+
+review_gate:
+  enabled: true
+  phase: "3.5"
+  criteria:
+    - requirement_alignment
+    - design_flow_consistency
+    - gap_detection
+    - conclusion_clarity
+
+selective_feedback:
+  enabled: true
+  threshold: "MEDIUM"
 ---
 
-# Synthesis
+# /synthesis - Traceability and Quality Validation
 
-Integrates all accumulated notes and prior drafts to generate the Discussion and Abstract sections, connecting findings to the broader literature.
+> **Version:** 4.1.0 | **EFL Pattern:** P1 + P3 + P5 + P6
+> **Role:** Sub-Orchestrator for semantic traceability and completion decision
+> **Pipeline:** After /collect, before /commit-push-pr or /rsil-plan
 
-## Prerequisites
+## 1. Purpose
 
-Required files:
-- `scope.md` - Research question and key findings
-- `notes/papers/*.md` - Literature notes (from user-provided PDFs)
-- `notes/literature-synthesis.md` - Aggregated themes and findings (key input!)
-- `notes/code-analysis.md` - Methods context
-- `notes/data-analysis.md` - Results context
-- `drafts/introduction.md` - For narrative continuity
-- `drafts/methods.md` - For methodological context
-- `drafts/results.md` - Findings to discuss
+Synthesis Sub-Orchestrator that:
+1. Delegates analysis to specialized agents (P1)
+2. Performs semantic requirement-deliverable matching (P3)
+3. Validates quality (consistency, completeness, coherence)
+4. Executes Phase 3.5 Review Gate (P5)
+5. Tracks convergence across iterations (P6)
+6. Makes COMPLETE or ITERATE decision
 
-## Workflow
-
-```
-[Load all notes and drafts]
-     │
-     ▼
-[Map findings to literature] ─── What supports/contradicts
-     │
-     ▼
-[Draft Discussion] ─── Interpret, compare, contextualize
-     │
-     ▼
-[Draft Abstract] ─── Structured summary
-     │
-     ▼
-[Output] ─── drafts/discussion.md, drafts/abstract.md
-```
-
-## Step 1: Load and Organize Materials
-
-### Read Literature Synthesis (Primary Reference)
-
-Start with `notes/literature-synthesis.md` - this document already contains:
-- **Paper Citation Tracker** — Shows which papers have planned citations and which need review
-- Source inventory with relationships to our work
-- Key themes identified across all papers
-- Findings that support our hypothesis
-- Contradictory findings to address
-- Methodological patterns
-- Gaps our study addresses
-- Citation map showing foundational papers
-- Implications for Discussion section
-
-This synthesis is the primary guide for drafting the Discussion.
-
-### Review Paper Citation Tracker
-
-Check the Paper Citation Tracker table to see which papers have natural fits planned. Use these as your citation guide.
-
-**Important**: Only cite papers where they contribute meaningfully. Do not:
-- Add sentences solely to include a citation
-- Force parenthetical references that interrupt flow
-- Stretch to make a paper seem relevant when it isn't
-
-Papers marked "Not Applicable" in the tracker should remain uncited. A focused manuscript with relevant citations is better than a cluttered one that forces every paper.
-
-### Read All Notes
+## 2. Invocation
 
 ```bash
-ls notes/papers/*.md notes/*.md
+/synthesis                    # Standard (80% threshold)
+/synthesis --strict           # Strict mode (95% threshold)
+/synthesis --lenient          # Lenient mode (60% threshold)
+/synthesis --dry-run          # Analysis only, no decision
+/synthesis --workload <slug>  # Explicit workload
 ```
 
-Use individual paper notes for specific quotes and statistics.
+## 3. Execution Flow
 
-### Mapping from Literature Synthesis
+```
+/synthesis (Sub-Orchestrator)
+    |
+    +-- Phase 0: Context Loading
+    |   +-- Read requirements from /clarify
+    |   +-- Read collection report from /collect
+    |   +-- Load iteration history
+    |
+    +-- Phase 1: Agent Delegation (P1)
+    |   +-- Agent 1: Phase 3-A Semantic Matching
+    |   +-- Agent 2: Phase 3-B Quality Validation
+    |
+    +-- Phase 2: Convergence Detection (P6)
+    |   +-- Compare with previous iteration
+    |   +-- Detect improvement stall
+    |
+    +-- Phase 3.5: Review Gate (P5)
+    |   +-- Holistic verification
+    |
+    +-- Phase 4: Decision
+        +-- COMPLETE -> /commit-push-pr
+        +-- ITERATE -> /rsil-plan
+```
 
-The synthesis document provides:
-- Which sources support our findings
-- Which sources provide contrasting results
-- Which sources explain mechanisms
-- Which sources address limitations
+## 4. L1/L2/L3 Output Format
 
-### Extract Key Results
+### L1 Summary (returned to main context)
 
-From `drafts/results.md` and `notes/data-analysis.md`:
-- Primary finding (statistic and interpretation)
-- Secondary findings
-- Unexpected results
-- Null findings (if any)
+```yaml
+taskId: synthesis-{timestamp}
+agentType: synthesis
+status: success
+summary: "Coverage 85%, Decision: COMPLETE"
 
-### Review Scope
+decision: "COMPLETE"
+coverage: 85.0
+threshold: 80
+criticalIssues: 0
 
-From `scope.md`:
-- Research question being answered
-- Hypothesis (was it supported?)
-- Limitations to address
+l2Path: .agent/prompts/{slug}/synthesis/synthesis_report.md
+requiresL2Read: false
+nextActionHint: "/commit-push-pr"
 
-## Step 2: Map Findings to Literature
+eflMetrics:
+  agentDelegation: true
+  internalIterations: 2
+  reviewGatePassed: true
+  converged: false
+```
 
-Use `notes/literature-synthesis.md` as the starting point - it already contains:
-- "Findings That Support Our Hypothesis" table
-- "Contradictory or Conflicting Findings" table
-- "Implications for Discussion" section
-
-Extend this mapping with our actual results from `drafts/results.md`:
-
-| Our Finding | Supporting Literature | Contrasting Literature | Notes |
-|-------------|----------------------|------------------------|-------|
-| [Primary result] | [from synthesis] | [from synthesis] | [why contrast] |
-| [Secondary result] | [from synthesis] | None | |
-
-For each finding, the synthesis document identifies:
-1. **Agreement**: Papers with similar findings
-2. **Disagreement**: Papers with different findings (explain why)
-3. **Mechanism**: Papers that explain why this occurs
-4. **Clinical relevance**: Papers that contextualize importance
-
-## Step 3: Draft Discussion
-
-Create `drafts/discussion.md` following this structure:
-
-### Discussion Structure (6-7 paragraphs)
+### L2 Report Structure
 
 ```markdown
-# Discussion
+# Synthesis Report
 
-## Principal Findings (Paragraph 1)
+## Summary
+| Metric | Value |
+|--------|-------|
+| Coverage | 85.0% |
+| Threshold | 80% |
+| Decision | COMPLETE |
 
-[Open with main finding - interpret, don't just restate]
+## Traceability Matrix
+| Requirement | Status | Deliverables |
+|-------------|--------|--------------|
+| REQ-001 | covered | file1.py |
 
-This study demonstrates that [interpretation of primary finding]. 
-[Connect to research question from scope.md].
-[One sentence on significance].
+## Quality Validation
+- Consistency: PASSED
+- Completeness: PASSED
+- Coherence: PASSED
 
-## Comparison with Literature (Paragraphs 2-3)
+## Decision
+**COMPLETE** - Proceed to /commit-push-pr
+```
 
-[Compare findings to existing work]
+## 5. Semantic Matching (Phase 3-A)
 
-Our findings are consistent with [Author et al.], who reported [finding] [citation]. 
-Similarly, [Author2 et al.] demonstrated [related finding] [citation].
+Unlike keyword matching, semantic analysis:
+- Understands requirement intent
+- Matches conceptual relationships
+- Assigns confidence scores (0.0-1.0)
+- Considers architectural patterns
 
-[Address any discrepancies]
+**Coverage Classification:**
+- Covered (100%): confidence >= 0.7
+- Partial (50%): 0.4 <= confidence < 0.7
+- Missing (0%): confidence < 0.4
 
-In contrast to [Author3 et al.], who found [different result] [citation], our study suggests [explanation]. 
-This difference may be attributed to [methodological differences, population differences, etc.].
+## 6. Quality Validation (Phase 3-B)
 
-## Mechanistic Interpretation (Paragraph 4)
+**3C Checks:**
+1. **Consistency**: No duplicate/conflicting implementations
+2. **Completeness**: All P0 requirements covered, tests exist
+3. **Coherence**: Components integrate properly
 
-[Explain WHY these results might occur]
+## 7. Convergence Detection (P6)
 
-These findings may reflect [biological/clinical mechanism]. 
-[Author et al.] previously showed that [mechanistic evidence] [citation], 
-which supports the hypothesis that [explanation].
+Tracks iteration progress:
+- Improvement rate < 5% -> converged
+- Critical issues not reducing -> escalate
+- Coverage plateau (3 iterations < 2%) -> manual review
+- Max iterations (5) -> force escalate
 
-[If speculative, use appropriate hedging: "may", "might", "could potentially"]
+## 8. Decision Logic
 
-## Clinical/Practical Implications (Paragraph 5)
+| Condition | Decision | Next Action |
+|-----------|----------|-------------|
+| coverage >= threshold, critical=0 | COMPLETE | /commit-push-pr |
+| coverage >= threshold-20, critical=0 | COMPLETE_WITH_WARNINGS | /commit-push-pr --with-warnings |
+| otherwise | ITERATE | /rsil-plan |
 
-[What does this mean for practice?]
+## 9. Integration Points
 
-These results have several implications for [clinical practice / research / etc.].
-First, [implication 1].
-Second, [implication 2].
-[If applicable: These findings suggest that clinicians should consider...]
+### Input Dependencies
+| Source | Path | Purpose |
+|--------|------|---------|
+| /clarify | `.agent/prompts/{slug}/clarify.yaml` | Requirements |
+| /collect | `.agent/prompts/{slug}/collection_report.md` | Deliverables |
 
-## Limitations (Paragraph 6)
+### Output Destinations
+| Destination | Path | Purpose |
+|-------------|------|---------|
+| /commit-push-pr | synthesis_report.md | Completion evidence |
+| /rsil-plan | Gaps list | Remediation input |
 
-[Honest but constructive discussion of limitations]
+## 10. Handoff Contract
 
-This study has several limitations that should be considered.
-First, [limitation 1 with mitigation if possible].
-Second, [limitation 2].
-[Frame constructively: "While [limitation], [mitigating factor]..."]
-
-Common limitations to address:
-- Sample size
-- Single-center
-- Retrospective design
-- Selection bias
-- Technical limitations
-- Generalizability
-
-## Future Directions (Paragraph 7)
-
-[What should come next?]
-
-Future studies should [specific actionable suggestion].
-Prospective validation in [population] is warranted.
-Additionally, [another future direction].
+```yaml
+handoff:
+  skill: "synthesis"
+  workload_slug: "{slug}"
+  status: "completed"
+  next_action:
+    skill: "/commit-push-pr"  # or "/rsil-plan"
+    arguments: "--workload {slug}"
+    reason: "Coverage {X}% - {COMPLETE|ITERATE}"
+```
 
 ---
 
-## Discussion References
+### Version History
 
-[List all citations used in Discussion with note references]
-```
-
-### Writing Guidelines
-
-- **Present tense**: General truths ("MRI enables...")
-- **Past tense**: Specific studies ("Smith et al. found...")
-- **Hedging**: Match to evidence strength
-- **No new data**: All statistics should be in Results
-
-### Literature Integration Phrases
-
-**Agreement:**
-- "Consistent with prior work [X], we found..."
-- "Our findings support those of [X], who demonstrated..."
-- "In line with [X], our results indicate..."
-
-**Disagreement:**
-- "In contrast to [X], our study suggests..."
-- "Unlike [X], who reported..., we found..."
-- "Our results differ from [X], possibly due to..."
-
-**Extension:**
-- "Our findings extend those of [X] by demonstrating..."
-- "Building on work by [X], we show..."
-- "While [X] established..., our study further demonstrates..."
-
-## Step 4: Draft Abstract
-
-Create `drafts/abstract.md`:
-
-```markdown
-# Abstract
-
-## Background/Purpose
-[2-3 sentences: Gap in knowledge + study objective]
-
-[Clinical/scientific problem]. [What is unknown]. The purpose of this study was to [objective].
-
-## Methods
-[3-4 sentences: Design, population, key methods, statistics]
-
-This [study design] included [n] patients from [setting]. [Key methods]. [Primary outcome measure]. [Statistical approach].
-
-## Results  
-[3-4 sentences: Key findings with numbers]
-
-[Primary finding with statistics]. [Secondary finding]. [Additional notable result].
-
-## Conclusion
-[1-2 sentences: Main takeaway + implication]
-
-[Main conclusion]. [Clinical/research implication].
-
----
-
-**Word Count**: [count]
-**Keywords**: [keyword1], [keyword2], [keyword3], [keyword4], [keyword5]
-```
-
-### Abstract Guidelines
-
-- **Standalone**: Understandable without reading paper
-- **Specific**: Include key numbers (n, primary statistic, p-value)
-- **Consistent**: Match paper content exactly
-- **Past tense**: Throughout (this study was conducted)
-- **No citations**: Never cite in abstract
-- **No abbreviations**: Or define on first use
-
-### Word Count Targets
-
-| Section | Target |
+| Version | Change |
 |---------|--------|
-| Background | 50-75 words |
-| Methods | 75-100 words |
-| Results | 75-100 words |
-| Conclusion | 25-50 words |
-| **Total** | ~250-300 words |
-
-Adjust based on `scope.md` target journal requirements.
-
-## Step 5: Generate Title Options
-
-Based on synthesis, suggest 2-3 title options:
-
-```markdown
-## Suggested Titles
-
-1. [Descriptive]: "[Method/Approach] for [Application]: [Key Finding]"
-   
-2. [Question-answer]: "[Research Question]? A [Study Type]"
-   
-3. [Finding-focused]: "[Key Finding] in [Population] Using [Method]"
-```
-
-Title guidelines:
-- 10-15 words maximum
-- No abbreviations (usually)
-- Informative > clever
-- Include key method and finding if possible
-
-## Step 6: Document Paper Usage
-
-Record which papers were cited and which were not.
-
-### Update Citation Summary
-
-Update `notes/literature-synthesis.md` with final citation status:
-
-```markdown
-## Citation Summary
-
-**Generated**: [timestamp]
-**Total Papers Provided**: [n]
-**Papers Cited**: [n]
-**Papers Not Used**: [n]
-
-### Cited Papers
-
-| # | Citation | Section | Purpose |
-|---|----------|---------|---------|
-| 1 | Smith et al., 2023 | Introduction | Establishes prevalence |
-| 2 | Jones et al., 2022 | Discussion | Comparable methodology |
-
-### Papers Not Used
-
-| Paper | Reason |
-|-------|--------|
-| Brown et al., 2020 | Different population; not directly comparable |
-| Lee et al., 2019 | Tangential to our research question |
-```
-
-**Note**: Not using a paper is acceptable when it doesn't naturally fit. The goal is manuscript quality, not citation count.
-
-## Output
-
-Save to:
-- `drafts/discussion.md` - Discussion section
-- `drafts/abstract.md` - Structured abstract with title options
-- `notes/literature-synthesis.md` - Updated with Citation Summary
-
-Return to parent skill with summary:
-- Discussion word count: [n]
-- Abstract word count: [n]
-- Papers cited: [n] of [n] provided
-- Title options: [n]
+| 4.1.0 | Cleaned duplicate blocks, normalized frontmatter |
+| 4.0.0 | EFL V4.0 integration (P1, P3, P5, P6) |
+| 3.0.0 | Semantic matching, convergence detection |
+| 2.2.0 | /rsil-plan integration |
+| 1.0.0 | Initial traceability matrix |

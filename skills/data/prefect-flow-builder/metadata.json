@@ -1,9 +1,7 @@
 {
   "name": "prefect-flow-builder",
-  "description": "Prefect Flow Builder - Auto-activating skill for Data Pipelines.Triggers on: prefect flow builder, prefect flow builderPart of the Data Pipelines skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/11-data-pipelines/prefect-flow-builder/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:26:52.898332Z"
 }

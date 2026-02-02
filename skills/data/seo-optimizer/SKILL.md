@@ -1,413 +1,232 @@
 ---
-name: SEO Optimizer
-description: Search Engine Optimization specialist for content strategy, technical SEO, keyword research, and ranking improvements. Use when optimizing website content, improving search rankings, conducting keyword analysis, or implementing SEO best practices. Expert in on-page SEO, meta tags, schema markup, and Core Web Vitals.
+name: seo-content-optimizer
+description: Optimize content for search engines with keyword analysis, readability scoring, meta descriptions, and competitor comparison. Use this when users want to improve SEO, optimize blog posts, or analyze content for search performance.
 ---
 
-# SEO Optimizer
+# SEO Content Optimizer
 
-Comprehensive guidance for search engine optimization across content, technical implementation, and strategic planning to improve organic search visibility and rankings.
+Comprehensive SEO analysis and optimization for content creators and marketers.
 
-## When to Use This Skill
+When a user asks you to optimize content for SEO, provide a detailed analysis covering keywords, readability, technical SEO, and actionable recommendations.
 
-Use this skill when:
-- Optimizing website content for search engines
-- Conducting keyword research and analysis
-- Implementing technical SEO improvements
-- Creating SEO-friendly meta tags and descriptions
-- Auditing websites for SEO issues
-- Improving Core Web Vitals and page speed
-- Implementing schema markup (structured data)
-- Planning content strategy for organic traffic
+## Instructions
 
-## SEO Fundamentals
+### 1. Analyze Target Keywords
 
-### 1. Keyword Research & Strategy
+Examine keyword usage and placement:
+- Identify primary keyword(s) from user input or content
+- Check keyword placement (title, H1, first 100 words, subheadings)
+- Calculate keyword density (aim for 1-2%)
+- Identify LSI keywords and semantic variations present
+- Flag keyword stuffing issues
 
-**Primary Keyword Selection:**
-- Focus on search intent (informational, navigational, transactional, commercial)
-- Balance search volume with competition
-- Consider keyword difficulty and ranking potential
-- Target long-tail keywords for quick wins
+### 2. Evaluate Content Structure
 
-**Keyword Research Process:**
-```
-1. Identify seed keywords from business objectives
-2. Use tools to expand keyword list (Google Keyword Planner, Ahrefs, SEMrush)
-3. Analyze search volume and difficulty
-4. Group keywords by topic clusters
-5. Map keywords to content types and pages
-6. Prioritize based on potential ROI
-```
+Assess the organization and hierarchy:
+- Check heading hierarchy (single H1 → multiple H2 → H3)
+- Verify keyword usage in headings
+- Evaluate heading descriptiveness
+- Check paragraph length (aim for <150 words)
+- Assess overall scanability
 
-**Content Optimization Formula:**
-- Primary keyword: 1-2% density (natural placement)
-- Include in: Title tag, H1, first paragraph, URL, meta description
-- Use semantic variations and related terms
-- Maintain natural readability (don't keyword stuff)
+### 3. Readability Analysis
 
-### 2. On-Page SEO
+Calculate readability metrics:
+- Flesch Reading Ease score (aim for 60-70)
+- Grade level estimation
+- Average sentence length (aim for <20 words)
+- Passive voice percentage (minimize)
+- Transition word usage
+- Paragraph structure
 
-**Title Tag Optimization:**
-```html
-<!-- Good: Descriptive, includes keyword, under 60 characters -->
-<title>Ultimate Guide to React Hooks - Learn useEffect & useState</title>
+### 4. Technical SEO Elements
 
-<!-- Bad: Too long, keyword stuffing, generic -->
-<title>React Hooks Guide React Hooks Tutorial React Hooks Examples Learn React</title>
-```
+Generate optimized meta elements:
+- **Meta Title**: 50-60 characters with primary keyword
+- **Meta Description**: 150-160 characters, compelling with keyword
+- **URL Slug**: Short, keyword-rich, hyphen-separated
+- **Image Alt Text**: Descriptive with keywords where natural
+- **Internal Linking**: Opportunities to link to related content
+- **External Links**: Quality of outbound links
 
-**Best Practices:**
-- Keep under 60 characters (displayed in SERPs)
-- Place primary keyword near the beginning
-- Include brand name if space permits
-- Make compelling and click-worthy
-- Unique for every page
+### 5. Content Quality Assessment
 
-**Meta Description:**
-```html
-<!-- Good: Compelling, includes keywords, call-to-action, 150-160 chars -->
-<meta name="description" content="Master React Hooks with our comprehensive guide. Learn useState, useEffect, and custom hooks with practical examples. Start building better React apps today.">
+Evaluate comprehensiveness:
+- Word count (competitive topics need 1500+ words)
+- Content depth and detail level
+- Topic coverage completeness
+- Unique value proposition
+- E-A-T signals (expertise, authority, trust)
+- Content freshness (dates, current examples)
 
-<!-- Bad: Too short, no value proposition -->
-<meta name="description" content="React Hooks guide and tutorial">
-```
+### 6. Provide Actionable Recommendations
 
-**Header Structure:**
-```html
-<!-- Proper hierarchy -->
-<h1>Main Page Title (Primary Keyword)</h1>
-  <h2>Section Heading (Related Keywords)</h2>
-    <h3>Subsection</h3>
-    <h3>Subsection</h3>
-  <h2>Another Section</h2>
-    <h3>Subsection</h3>
-```
+Prioritize improvements by impact:
 
-**URL Structure:**
-```
-✅ Good URLs:
-- /blog/react-hooks-guide
-- /products/running-shoes
-- /learn/javascript-async-await
+**Critical (Fix Immediately)**:
+- Missing or poor meta description
+- No keyword in title or H1
+- Broken internal links
+- Keyword density too high/low
 
-❌ Bad URLs:
-- /blog?p=12345
-- /products/cat-1/subcat-2/item-999
-- /page.php?id=abc&ref=xyz
-```
+**High Priority**:
+- Poor readability score
+- Weak heading structure
+- Missing alt text on images
+- Content too thin
 
-**Image Optimization:**
-```html
-<!-- Optimized image -->
-<img
-  src="/images/react-hooks-diagram-800w.webp"
-  alt="React Hooks lifecycle diagram showing useState and useEffect"
-  width="800"
-  height="600"
-  loading="lazy"
-/>
-```
+**Medium Priority**:
+- Could add related keywords
+- Opportunity for featured snippet
+- Could improve internal linking
 
-**Best Practices:**
-- Use descriptive, keyword-rich alt text
-- Compress images (WebP format preferred)
-- Specify dimensions to prevent layout shift
-- Use lazy loading for below-fold images
-- Include captions when relevant
+Provide specific, actionable fixes with examples.
 
-### 3. Content Quality
+## Output Format
 
-**E-E-A-T Principles (Experience, Expertise, Authoritativeness, Trust):**
-- Demonstrate author expertise with credentials
-- Cite authoritative sources
-- Keep content accurate and up-to-date
-- Show real experience and original insights
-- Include author bios and bylines
-
-**Content Structure for SEO:**
 ```markdown
-# Main Title (H1) - Primary Keyword
+# SEO Analysis Report
 
-Brief introduction with primary keyword in first 100 words.
+## Overall Score: X/100
 
-## What is [Topic]? (H2) - Answer core question
+### Target Keywords
+- Primary: [keyword] (density: X.X%)
+- Secondary: [keyword 1], [keyword 2]
+- LSI Keywords Found: [variations]
 
-Comprehensive explanation with examples.
+## Quick Wins (Implement First) 🚀
+1. [Specific action with exact change needed]
+2. [Specific action with exact change needed]
 
-## Why [Topic] Matters (H2) - Value proposition
+## Keyword Analysis
 
-Benefits and use cases.
+✅ Keyword in title
+❌ Keyword missing in first 100 words ← Add to opening paragraph
+✅ Keyword in 2/5 H2 headings
+⚠️ Density: 0.8% (low - aim for 1-2%)
 
-## How to [Action] (H2) - Practical guide
+## Readability Metrics
 
-Step-by-step instructions with visuals.
+- **Flesch Reading Ease**: XX/100 (Grade level: XX)
+- **Average Sentence Length**: XX words
+- **Passive Voice**: X%
+- **Transition Words**: X%
+- **Assessment**: [Good/Needs improvement]
 
-## Best Practices (H2) - Advanced tips
+## Meta Information
 
-Expert recommendations.
+**Current Meta Title** (X chars): [current title]
+**Suggested Meta Title** (XX chars):
+`[Optimized title with keyword - 50-60 chars]`
 
-## Common Mistakes to Avoid (H2)
+**Current Meta Description**: [current or none]
+**Suggested Meta Description** (XXX chars):
+`[Compelling 150-160 char description with keyword and CTA]`
 
-Troubleshooting and pitfalls.
+**URL Slug**:
+Current: `/current-url-slug`
+Suggested: `/keyword-rich-slug`
 
-## Conclusion
+## Content Structure
 
-Summary and call-to-action.
+- **Word Count**: XXXX words ([sufficient/too short] for this topic)
+- **Heading Hierarchy**: [assessment]
+- **Paragraph Length**: Average XX words [good/too long]
+- **Sections**: [list main sections]
+
+## Critical Issues 🚨
+
+### 1. [Issue Name]
+**Problem**: [Description]
+**Impact**: [SEO impact]
+**Fix**: [Specific instruction]
+
+**Example**:
+```
+Current: [show current problematic text]
+Improved: [show corrected version]
 ```
 
-**Content Length Guidelines:**
-- Blog posts: 1,500-2,500 words (comprehensive topics)
-- Product pages: 300-500 words minimum
-- Category pages: 500-1,000 words
-- Homepage: 500+ words
+## High Priority Recommendations ⚠️
 
-### 4. Technical SEO
+### 1. [Recommendation]
+[Specific actionable instruction]
 
-**Schema Markup (Structured Data):**
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Complete Guide to React Hooks",
-  "image": "https://example.com/images/react-hooks.jpg",
-  "datePublished": "2024-01-15",
-  "dateModified": "2024-02-01",
-  "author": {
-    "@type": "Person",
-    "name": "Jane Developer"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Tech Academy",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://example.com/logo.png"
-    }
-  }
-}
-```
+## Content Gaps
 
-**Common Schema Types:**
-- Article (blog posts)
-- Product (e-commerce)
-- FAQ (question/answer pages)
-- HowTo (tutorials and guides)
-- Organization (company info)
-- LocalBusiness (location-based businesses)
-- BreadcrumbList (navigation paths)
-- Review/AggregateRating (ratings and reviews)
+Missing subtopics to add:
+- **[Subtopic 1]**: [Why it's important] (search volume: XXX)
+- **[Subtopic 2]**: [Why it's important]
 
-**Robots.txt Configuration:**
-```
-User-agent: *
-Disallow: /admin/
-Disallow: /private/
-Disallow: /api/
-Allow: /api/public/
+## Internal Linking Opportunities
 
-Sitemap: https://example.com/sitemap.xml
-```
+- Link to: [page URL] using anchor text: "[keyword phrase]"
+- Link from: [this content] to [related page]
 
-**XML Sitemap Structure:**
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://example.com/</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://example.com/blog/react-hooks-guide</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-</urlset>
-```
+## Featured Snippet Opportunity
 
-**Canonical Tags:**
-```html
-<!-- Prevent duplicate content issues -->
-<link rel="canonical" href="https://example.com/original-page">
+[If applicable, show how to format content for featured snippet]
 
-<!-- Handle URL parameters -->
-<link rel="canonical" href="https://example.com/products/shoes">
-<!-- Even if accessed via: /products/shoes?color=red&size=10 -->
-```
-
-### 5. Core Web Vitals
-
-**Largest Contentful Paint (LCP) - Target: < 2.5s**
-- Optimize images and videos
-- Use CDN for static assets
-- Minimize render-blocking resources
-- Implement lazy loading
-
-**First Input Delay (FID) - Target: < 100ms**
-- Minimize JavaScript execution time
-- Break up long tasks
-- Use web workers for heavy computations
-- Defer non-critical JavaScript
-
-**Cumulative Layout Shift (CLS) - Target: < 0.1**
-- Set size attributes on images and videos
-- Avoid inserting content above existing content
-- Use transform animations instead of layout-triggering properties
-- Reserve space for ads and embeds
-
-**Page Speed Optimization:**
-```html
-<!-- Preload critical resources -->
-<link rel="preload" href="/fonts/main.woff2" as="font" crossorigin>
-
-<!-- Defer non-critical CSS -->
-<link rel="preload" href="/styles/non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-
-<!-- Async/defer JavaScript -->
-<script src="/js/analytics.js" async></script>
-<script src="/js/main.js" defer></script>
-```
-
-### 6. Mobile SEO
-
-**Mobile-First Optimization:**
-- Responsive design (mobile-friendly test passed)
-- Touch-friendly buttons (minimum 48x48px)
-- Readable font sizes (16px minimum)
-- Proper viewport configuration
-- Fast mobile page speed
-
-**Viewport Configuration:**
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1">
-```
-
-### 7. Internal Linking Strategy
-
-**Best Practices:**
-- Use descriptive anchor text (avoid "click here")
-- Link to relevant, contextual pages
-- Maintain logical hierarchy and flow
-- Include 3-5 internal links per 1,000 words
-- Update old content with links to new content
-
-**Example:**
+Example:
 ```markdown
-Learn more about [advanced React patterns](/guides/react-patterns)
-or check out our [useState hook tutorial](/tutorials/usestate-guide).
+## What is [topic]?
+
+[Clear, concise 40-60 word answer]
+
+- Key point 1
+- Key point 2
+- Key point 3
 ```
 
-## SEO Content Checklist
+## Competitor Insights
 
-**Before Publishing:**
-- [ ] Primary keyword in title tag (under 60 chars)
-- [ ] Meta description (150-160 chars, compelling)
-- [ ] H1 tag with primary keyword
-- [ ] URL slug optimized and readable
-- [ ] Images compressed with descriptive alt text
-- [ ] 3-5 internal links to relevant content
-- [ ] External links to authoritative sources
-- [ ] Content length appropriate for topic depth
-- [ ] Schema markup implemented
-- [ ] Mobile-friendly and responsive
-- [ ] Page speed optimized (< 3s load time)
-- [ ] No broken links
-- [ ] Canonical tag set correctly
-- [ ] Social sharing meta tags (Open Graph, Twitter Card)
+[If analysis was done]
+- Top ranking content averages XXXX words
+- Common topics covered: [list]
+- Your advantage: [unique angle]
 
-## Advanced SEO Strategies
+## Implementation Checklist
 
-### Topic Clusters & Pillar Pages
+- [ ] Update meta title and description
+- [ ] Add keyword to first paragraph
+- [ ] Fix heading structure
+- [ ] Add missing alt text (X images)
+- [ ] Add internal links (X opportunities)
+- [ ] Expand [thin section] with XXX words
+- [ ] Add FAQ section for featured snippet
 
-**Structure:**
-```
-Pillar Page: "Complete Guide to React"
-  ├── Cluster: "React Hooks Tutorial"
-  ├── Cluster: "React Context API Guide"
-  ├── Cluster: "React Performance Optimization"
-  └── Cluster: "React Testing Best Practices"
+## Estimated Impact
+
+**Time to Implement**: X hours
+**Expected Improvement**: [Moderate/Significant] ranking boost
+**Priority**: [High/Medium/Low]
 ```
 
-**Implementation:**
-- Create comprehensive pillar content (3,000+ words)
-- Develop 8-12 cluster articles supporting the pillar
-- Link all clusters back to pillar page
-- Link pillar page to all clusters
-- Use consistent keyword themes
+## Best Practices
 
-### Featured Snippet Optimization
+- **Prioritize user experience** over keyword stuffing
+- **Write for humans first**, optimize for search engines second
+- **Provide specific examples**, not vague advice
+- **Consider search intent** behind keywords (informational, commercial, transactional)
+- **Recommend content additions**, not just optimization
+- **Check for E-A-T signals** (author bio, credentials, sources)
+- **Suggest schema markup** where relevant (FAQ, How-To, Review)
+- **Look for featured snippet opportunities** (definition boxes, lists, tables)
 
-**Question-Based Content:**
-```markdown
-## What is React?
+## Example Workflow
 
-React is a JavaScript library for building user interfaces,
-developed by Facebook. It allows developers to create reusable
-UI components and efficiently update the DOM through a virtual
-DOM implementation.
-```
+**User**: "Optimize this blog post for 'best project management tools'"
 
-**List-Based Content:**
-```markdown
-## Top 5 React Best Practices
+**Your analysis**:
+1. Check keyword placement → Found in title but not H1 (fix needed)
+2. Calculate density → 0.5% (too low, needs 8-10 more mentions)
+3. Analyze readability → Flesch score 55 (good), but sentences too long
+4. Generate meta tags → Create compelling meta description
+5. Identify gaps → Missing "pricing comparison" and "team size recommendations"
+6. Find internal links → Link to "project management tips" article
+7. Suggest featured snippet → Format comparison table
+8. Provide prioritized action list
 
-1. Use functional components with hooks
-2. Implement proper state management
-3. Optimize performance with React.memo
-4. Follow component composition patterns
-5. Write comprehensive tests
-```
+---
 
-**Table-Based Content:**
-| Framework | Performance | Learning Curve | Ecosystem |
-|-----------|-------------|----------------|-----------|
-| React     | Excellent   | Moderate       | Extensive |
-| Vue       | Excellent   | Easy           | Growing   |
-| Angular   | Good        | Steep          | Mature    |
-
-## Local SEO (for businesses with physical locations)
-
-**Google Business Profile Optimization:**
-- Complete all business information
-- Regular posts and updates
-- Respond to reviews
-- Add high-quality photos
-- Verify business hours
-
-**Local Schema Markup:**
-```json
-{
-  "@type": "LocalBusiness",
-  "name": "Tech Solutions Inc",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "123 Main St",
-    "addressLocality": "San Francisco",
-    "addressRegion": "CA",
-    "postalCode": "94102"
-  },
-  "telephone": "+1-415-555-0123"
-}
-```
-
-## Monitoring & Analytics
-
-**Key Metrics to Track:**
-- Organic traffic trends
-- Keyword rankings
-- Click-through rates (CTR)
-- Bounce rate and dwell time
-- Core Web Vitals scores
-- Backlink profile growth
-- Conversion rates from organic traffic
-
-**Tools:**
-- Google Search Console (performance, indexing issues)
-- Google Analytics 4 (traffic, behavior, conversions)
-- PageSpeed Insights (Core Web Vitals)
-- Ahrefs/SEMrush (keywords, backlinks, competition)
-- Screaming Frog (technical audits)
-
-When optimizing for SEO, prioritize user experience and value delivery. Search engines increasingly reward content that genuinely helps users and provides authoritative, trustworthy information.
+**Remember**: SEO is about creating valuable, well-optimized content that serves user intent better than competitors.

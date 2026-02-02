@@ -50,4 +50,4 @@ uv run python -m runtime.harness scripts/z3_solve.py prove "series_bounded"
 
 ## Cognitive Tools Reference
 
-See `.maestro/skills/math-mode/SKILL.md` for full tool documentation.
+See `.claude/skills/math-mode/SKILL.md` for full tool documentation.

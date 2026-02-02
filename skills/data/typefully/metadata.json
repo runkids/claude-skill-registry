@@ -1,11 +1,7 @@
 {
   "name": "typefully",
-  "description": "This skill should be used when managing social media content through Typefully, including creating drafts, scheduling posts, cross-posting to multiple accounts, and multi-platform publishing (X, Linke",
-  "repo": "synapz-org/typefully-claude-skill",
-  "category": "productivity",
-  "tags": [
-    "typefully"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "TheSethRose/clawdbot-backup",
+  "path": "skills/typefully/SKILL.md",
+  "source": "github.com/TheSethRose/clawdbot-backup",
+  "downloaded_at": "2026-02-02T04:55:22.160288Z"
 }

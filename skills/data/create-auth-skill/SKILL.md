@@ -1,214 +1,214 @@
 ---
 name: create-auth-skill
-description: 使用 Better Auth 为 TypeScript/JavaScript 应用创建鉴权层的技能。
+description: Skill for creating auth layers in TypeScript/JavaScript apps using Better Auth.
 ---
 
 # Create Auth Skill
 
-使用 Better Auth 为 TypeScript/JavaScript 应用添加鉴权的指南。
+Guide for adding authentication to TypeScript/JavaScript applications using Better Auth.
 
-**代码示例与语法参见 [better-auth.com/docs](https://better-auth.com/docs)。**
+**For code examples and syntax, see [better-auth.com/docs](https://better-auth.com/docs).**
 
 ---
 
-## 决策树
+## Decision Tree
 
 ```
-是否为新项目/空项目？
-├─ 是 → 新项目搭建
-│ 1. 确定框架
-│ 2. 选择数据库
-│ 3. 安装 better-auth
-│ 4. 创建 auth.ts + auth-client.ts
-│ 5. 配置路由处理器
-│ 6. 运行 CLI migrate/generate
-│ 7. 通过插件添加能力
+Is this a new/empty project?
+├─ YES → New project setup
+│   1. Identify framework
+│   2. Choose database
+│   3. Install better-auth
+│   4. Create auth.ts + auth-client.ts
+│   5. Set up route handler
+│   6. Run CLI migrate/generate
+│   7. Add features via plugins
 │
-└─ 否 → 项目是否已有鉴权？
- ├─ 是 → 迁移/增强
- │ • 审计现有鉴权缺口
- │ • 规划渐进式迁移
- │ • 参考文档中的迁移指南
- │
- └─ 否 → 为现有项目添加鉴权
- 1. 分析项目结构
- 2. 安装 better-auth
- 3. 创建 auth 配置
- 4. 添加路由处理器
- 5. 运行 schema 迁移
- 6. 接入现有页面
+└─ NO → Does project have existing auth?
+    ├─ YES → Migration/enhancement
+    │   • Audit current auth for gaps
+    │   • Plan incremental migration
+    │   • See migration guides in docs
+    │
+    └─ NO → Add auth to existing project
+        1. Analyze project structure
+        2. Install better-auth
+        3. Create auth config
+        4. Add route handler
+        5. Run schema migrations
+        6. Integrate into existing pages
 ```
 
 ---
 
-## 安装
+## Installation
 
-**核心：** `npm install better-auth`
+**Core:** `npm install better-auth`
 
-**按需安装的作用域包：**
-| 包 | 用途 |
-|---------|---------|
-| `@better-auth/passkey` | WebAuthn/Passkey 鉴权 |
-| `@better-auth/sso` | SAML/OIDC 企业 SSO |
-| `@better-auth/stripe` | Stripe 支付 |
-| `@better-auth/scim` | SCIM 用户配置 |
+**Scoped packages (as needed):**
+| Package | Use case |
+|---------|----------|
+| `@better-auth/passkey` | WebAuthn/Passkey auth |
+| `@better-auth/sso` | SAML/OIDC enterprise SSO |
+| `@better-auth/stripe` | Stripe payments |
+| `@better-auth/scim` | SCIM user provisioning |
 | `@better-auth/expo` | React Native/Expo |
 
 ---
 
-## 环境变量
+## Environment Variables
 
 ```env
-BETTER_AUTH_SECRET=<32+ 字符，可用 openssl rand -base64 32 生成>
+BETTER_AUTH_SECRET=<32+ chars, generate with: openssl rand -base64 32>
 BETTER_AUTH_URL=http://localhost:3000
-DATABASE_URL= 
+DATABASE_URL=<your database connection string>
 ```
 
-按需添加 OAuth 密钥：`GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`、`GOOGLE_CLIENT_ID` 等。
+Add OAuth secrets as needed: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, etc.
 
 ---
 
-## 服务端配置（auth.ts）
+## Server Config (auth.ts)
 
-**位置：** `lib/auth.ts` 或 `src/lib/auth.ts`
+**Location:** `lib/auth.ts` or `src/lib/auth.ts`
 
-**最小配置需包含：**
-- `database` - 连接或适配器
-- `emailAndPassword: { enabled: true }` - 邮箱/密码鉴权
+**Minimal config needs:**
+- `database` - Connection or adapter
+- `emailAndPassword: { enabled: true }` - For email/password auth
 
-**标准配置可增加：**
-- `socialProviders` - OAuth 提供方（google、github 等）
-- `emailVerification.sendVerificationEmail` - 验证邮件发送
-- `emailAndPassword.sendResetPassword` - 重置密码发送
+**Standard config adds:**
+- `socialProviders` - OAuth providers (google, github, etc.)
+- `emailVerification.sendVerificationEmail` - Email verification handler
+- `emailAndPassword.sendResetPassword` - Password reset handler
 
-**完整配置可增加：**
-- `plugins` - 功能插件数组
-- `session` - 过期、cookie 缓存等
-- `account.accountLinking` - 多提供方账号关联
-- `rateLimit` - 限流配置
+**Full config adds:**
+- `plugins` - Array of feature plugins
+- `session` - Expiry, cookie cache settings
+- `account.accountLinking` - Multi-provider linking
+- `rateLimit` - Rate limiting config
 
-**导出类型：** `export type Session = typeof auth.$Infer.Session`
+**Export types:** `export type Session = typeof auth.$Infer.Session`
 
 ---
 
-## 客户端配置（auth-client.ts）
+## Client Config (auth-client.ts)
 
-**按框架导入：**
-| 框架 | 导入 |
-|-----------|-----------|
+**Import by framework:**
+| Framework | Import |
+|-----------|--------|
 | React/Next.js | `better-auth/react` |
 | Vue | `better-auth/vue` |
 | Svelte | `better-auth/svelte` |
 | Solid | `better-auth/solid` |
 | Vanilla JS | `better-auth/client` |
 
-**客户端插件** 放在 `createAuthClient({ plugins: [...] })` 中。
+**Client plugins** go in `createAuthClient({ plugins: [...] })`.
 
-**常用导出：** `signIn`、`signUp`、`signOut`、`useSession`、`getSession`
+**Common exports:** `signIn`, `signUp`, `signOut`, `useSession`, `getSession`
 
 ---
 
-## 路由处理器配置
+## Route Handler Setup
 
-| 框架 | 文件 | 处理器 |
-|-----------|------|------|
-| Next.js App Router | `app/api/auth/[...all]/route.ts` | `toNextJsHandler(auth)` → 导出 `{ GET, POST }` |
-| Next.js Pages | `pages/api/auth/[...all].ts` | `toNextJsHandler(auth)` → 默认导出 |
-| Express | 任意文件 | `app.all("/api/auth/*", toNodeHandler(auth))` |
+| Framework | File | Handler |
+|-----------|------|---------|
+| Next.js App Router | `app/api/auth/[...all]/route.ts` | `toNextJsHandler(auth)` → export `{ GET, POST }` |
+| Next.js Pages | `pages/api/auth/[...all].ts` | `toNextJsHandler(auth)` → default export |
+| Express | Any file | `app.all("/api/auth/*", toNodeHandler(auth))` |
 | SvelteKit | `src/hooks.server.ts` | `svelteKitHandler(auth)` |
-| SolidStart | 路由文件 | `solidStartHandler(auth)` |
-| Hono | 路由文件 | `auth.handler(c.req.raw)` |
+| SolidStart | Route file | `solidStartHandler(auth)` |
+| Hono | Route file | `auth.handler(c.req.raw)` |
 
-**Next.js Server Components：** 在 auth 配置中添加 `nextCookies()` 插件。
+**Next.js Server Components:** Add `nextCookies()` plugin to auth config.
 
 ---
 
-## 数据库迁移
+## Database Migrations
 
-| 适配器 | 命令 |
+| Adapter | Command |
 |---------|---------|
-| 内置 Kysely | `npx @better-auth/cli@latest migrate`（直接应用） |
-| Prisma | `npx @better-auth/cli@latest generate --output prisma/schema.prisma` 然后 `npx prisma migrate dev` |
-| Drizzle | `npx @better-auth/cli@latest generate --output src/db/auth-schema.ts` 然后 `npx drizzle-kit push` |
+| Built-in Kysely | `npx @better-auth/cli@latest migrate` (applies directly) |
+| Prisma | `npx @better-auth/cli@latest generate --output prisma/schema.prisma` then `npx prisma migrate dev` |
+| Drizzle | `npx @better-auth/cli@latest generate --output src/db/auth-schema.ts` then `npx drizzle-kit push` |
 
-**添加插件后需重新执行。**
-
----
-
-## 数据库适配器
-
-| 数据库 | 配置 |
-|----------|----------|
-| SQLite | 直接传入 `better-sqlite3` 或 `bun:sqlite` 实例 |
-| PostgreSQL | 直接传入 `pg.Pool` 实例 |
-| MySQL | 直接传入 `mysql2` pool |
-| Prisma | `prismaAdapter(prisma, { provider: "postgresql" })`，来自 `better-auth/adapters/prisma` |
-| Drizzle | `drizzleAdapter(db, { provider: "pg" })`，来自 `better-auth/adapters/drizzle` |
-| MongoDB | `mongodbAdapter(db)`，来自 `better-auth/adapters/mongodb` |
+**Re-run after adding plugins.**
 
 ---
 
-## 常用插件
+## Database Adapters
 
-| 插件 | 服务端导入 | 客户端导入 | 用途 |
+| Database | Setup |
+|----------|-------|
+| SQLite | Pass `better-sqlite3` or `bun:sqlite` instance directly |
+| PostgreSQL | Pass `pg.Pool` instance directly |
+| MySQL | Pass `mysql2` pool directly |
+| Prisma | `prismaAdapter(prisma, { provider: "postgresql" })` from `better-auth/adapters/prisma` |
+| Drizzle | `drizzleAdapter(db, { provider: "pg" })` from `better-auth/adapters/drizzle` |
+| MongoDB | `mongodbAdapter(db)` from `better-auth/adapters/mongodb` |
+
+---
+
+## Common Plugins
+
+| Plugin | Server Import | Client Import | Purpose |
 |--------|---------------|---------------|---------|
-| `twoFactor` | `better-auth/plugins` | `twoFactorClient` | TOTP/OTP 双因素 |
-| `organization` | `better-auth/plugins` | `organizationClient` | 团队/组织 |
-| `admin` | `better-auth/plugins` | `adminClient` | 用户管理 |
-| `bearer` | `better-auth/plugins` | - | API Token 鉴权 |
-| `openAPI` | `better-auth/plugins` | - | API 文档 |
+| `twoFactor` | `better-auth/plugins` | `twoFactorClient` | 2FA with TOTP/OTP |
+| `organization` | `better-auth/plugins` | `organizationClient` | Teams/orgs |
+| `admin` | `better-auth/plugins` | `adminClient` | User management |
+| `bearer` | `better-auth/plugins` | - | API token auth |
+| `openAPI` | `better-auth/plugins` | - | API docs |
 | `passkey` | `@better-auth/passkey` | `passkeyClient` | WebAuthn |
-| `sso` | `@better-auth/sso` | - | 企业 SSO |
+| `sso` | `@better-auth/sso` | - | Enterprise SSO |
 
-**插件用法：** 服务端插件 + 客户端插件 + 执行迁移。
-
----
-
-## 鉴权 UI 实现
-
-**登录流程：**
-1. `signIn.email({ email, password })` 或 `signIn.social({ provider, callbackURL })`
-2. 处理返回的 `error`
-3. 成功时重定向
-
-**客户端会话检查：** `useSession()` 返回 `{ data: session, isPending }`
-
-**服务端会话检查：** `auth.api.getSession({ headers: await headers() })`
-
-**受保护路由：** 检查 session，为空则重定向到 `/sign-in`。
+**Plugin pattern:** Server plugin + client plugin + run migrations.
 
 ---
 
-## 安全清单
+## Auth UI Implementation
 
-- [ ] 设置 `BETTER_AUTH_SECRET`（32+ 字符）
-- [ ] 生产环境启用 `advanced.useSecureCookies: true`
-- [ ] 配置 `trustedOrigins`
-- [ ] 启用限流
-- [ ] 启用邮箱验证
-- [ ] 实现密码重置
-- [ ] 敏感应用启用 2FA
-- [ ] 不要关闭 CSRF 防护
-- [ ] 审查 `account.accountLinking`
+**Sign in flow:**
+1. `signIn.email({ email, password })` or `signIn.social({ provider, callbackURL })`
+2. Handle `error` in response
+3. Redirect on success
 
----
+**Session check (client):** `useSession()` hook returns `{ data: session, isPending }`
 
-## 故障排查
+**Session check (server):** `auth.api.getSession({ headers: await headers() })`
 
-| 问题 | 处理 |
-|-------|-------|
-| "Secret not set" | 添加 `BETTER_AUTH_SECRET` 环境变量 |
-| "Invalid Origin" | 在 `trustedOrigins` 中加入域名 |
-| Cookie 不生效 | 检查 `baseURL` 与域名一致；生产启用 secure cookies |
-| OAuth 回调错误 | 在提供方控制台核对 redirect URIs |
-| 添加插件后类型报错 | 重新运行 CLI generate/migrate |
+**Protected routes:** Check session, redirect to `/sign-in` if null.
 
 ---
 
-## 参考
+## Security Checklist
 
-- [文档](https://better-auth.com/docs)
-- [示例](https://github.com/better-auth/examples)
-- [插件](https://better-auth.com/docs/concepts/plugins)
+- [ ] `BETTER_AUTH_SECRET` set (32+ chars)
+- [ ] `advanced.useSecureCookies: true` in production
+- [ ] `trustedOrigins` configured
+- [ ] Rate limits enabled
+- [ ] Email verification enabled
+- [ ] Password reset implemented
+- [ ] 2FA for sensitive apps
+- [ ] CSRF protection NOT disabled
+- [ ] `account.accountLinking` reviewed
+
+---
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| "Secret not set" | Add `BETTER_AUTH_SECRET` env var |
+| "Invalid Origin" | Add domain to `trustedOrigins` |
+| Cookies not setting | Check `baseURL` matches domain; enable secure cookies in prod |
+| OAuth callback errors | Verify redirect URIs in provider dashboard |
+| Type errors after adding plugin | Re-run CLI generate/migrate |
+
+---
+
+## Resources
+
+- [Docs](https://better-auth.com/docs)
+- [Examples](https://github.com/better-auth/examples)
+- [Plugins](https://better-auth.com/docs/concepts/plugins)
 - [CLI](https://better-auth.com/docs/concepts/cli)
-- [迁移指南](https://better-auth.com/docs/guides)
+- [Migration Guides](https://better-auth.com/docs/guides)

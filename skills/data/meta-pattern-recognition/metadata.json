@@ -1,7 +1,7 @@
 {
   "name": "meta-pattern-recognition",
-  "repo": "nodays-off/rack-reserve",
-  "path": ".claude/skills/problem-solving/meta-pattern-recognition/SKILL.md",
-  "source": "github.com/nodays-off/rack-reserve",
-  "downloaded_at": "2026-02-01T04:24:44.321113Z"
+  "repo": "GGPrompts/my-gg-plugins",
+  "path": "plugins/problem-solving/skills/problem-solving/meta-pattern-recognition/SKILL.md",
+  "source": "github.com/GGPrompts/my-gg-plugins",
+  "downloaded_at": "2026-02-02T04:47:37.959669Z"
 }

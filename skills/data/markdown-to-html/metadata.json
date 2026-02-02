@@ -1,14 +1,7 @@
 {
   "name": "markdown-to-html",
-  "description": "Convierte archivos Markdown a HTML single-file con estilos profesionales corporativos",
-  "repo": "mbilbao/Skiller",
-  "category": "data",
-  "tags": [
-    "markdown",
-    "html"
-  ],
-  "stars": 0,
-  "dir_name": "markdown-to-html",
-  "github_path": "skills/markdown-to-html",
-  "github_branch": "main"
+  "repo": "github/awesome-copilot",
+  "path": "skills/markdown-to-html/SKILL.md",
+  "source": "github.com/github/awesome-copilot",
+  "downloaded_at": "2026-02-02T04:05:41.513505Z"
 }

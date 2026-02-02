@@ -1,7 +1,7 @@
 {
   "name": "agent-manager-skill",
-  "repo": "vuongng2212/TalentFlow-AI",
-  "path": ".claude/skills/agent-manager-skill/SKILL.md",
-  "source": "github.com/vuongng2212/TalentFlow-AI",
-  "downloaded_at": "2026-02-01T04:15:31.366450Z"
+  "repo": "claudiodearaujo/IzaCenter",
+  "path": ".gemini/skills/agent-manager-skill/SKILL.md",
+  "source": "github.com/claudiodearaujo/IzaCenter",
+  "downloaded_at": "2026-02-02T04:54:10.617932Z"
 }

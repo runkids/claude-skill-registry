@@ -1,7 +1,7 @@
 {
   "name": "ask-questions-if-underspecified",
-  "repo": "trailofbits/skills",
-  "path": "plugins/ask-questions-if-underspecified/skills/ask-questions-if-underspecified/SKILL.md",
-  "source": "github.com/trailofbits/skills",
-  "downloaded_at": "2026-02-01T04:32:26.135841Z"
+  "repo": "ederheisler/agent-skills",
+  "path": "skills/ask-questions-if-underspecified/SKILL.md",
+  "source": "github.com/ederheisler/agent-skills",
+  "downloaded_at": "2026-02-02T05:02:42.931716Z"
 }

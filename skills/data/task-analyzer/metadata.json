@@ -1,7 +1,7 @@
 {
   "name": "task-analyzer",
-  "repo": "shinpr/claude-code-workflows",
-  "path": "skills/task-analyzer/SKILL.md",
-  "source": "github.com/shinpr/claude-code-workflows",
-  "downloaded_at": "2026-02-01T04:14:05.335285Z"
+  "repo": "shinpr/ai-coding-project-boilerplate",
+  "path": ".claude/skills-ja/task-analyzer/SKILL.md",
+  "source": "github.com/shinpr/ai-coding-project-boilerplate",
+  "downloaded_at": "2026-02-02T02:42:06.649049Z"
 }

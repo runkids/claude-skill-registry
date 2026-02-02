@@ -85,4 +85,4 @@ uv run python scripts/z3_solve.py prove "forall x, |f(x)| <= M implies bounded"
 
 ## Cognitive Tools Reference
 
-See `.maestro/skills/math-mode/SKILL.md` for full tool documentation.
+See `.claude/skills/math-mode/SKILL.md` for full tool documentation.

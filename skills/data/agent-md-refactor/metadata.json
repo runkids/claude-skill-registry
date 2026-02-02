@@ -1,7 +1,7 @@
 {
   "name": "agent-md-refactor",
-  "repo": "maxlogvn/AiCMR",
-  "path": ".claude/skills/agent-md-refactor/SKILL.md",
-  "source": "github.com/maxlogvn/AiCMR",
-  "downloaded_at": "2026-02-01T04:25:00.975931Z"
+  "repo": "softaworks/agent-toolkit",
+  "path": "skills/agent-md-refactor/SKILL.md",
+  "source": "github.com/softaworks/agent-toolkit",
+  "downloaded_at": "2026-02-02T04:46:29.292730Z"
 }

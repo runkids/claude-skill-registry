@@ -1,7 +1,7 @@
 {
   "name": "shopify-apps",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/shopify-apps/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:25.305324Z"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/shopify-apps/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-02-02T04:29:46.413149Z"
 }

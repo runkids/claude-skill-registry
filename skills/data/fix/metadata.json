@@ -1,7 +1,7 @@
 {
   "name": "fix",
-  "repo": "greptileai/react-mirror",
-  "path": ".claude/skills/fix/SKILL.md",
-  "source": "github.com/greptileai/react-mirror",
-  "downloaded_at": "2026-02-01T04:59:07.502715Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/fix/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-02-02T04:55:29.571095Z"
 }

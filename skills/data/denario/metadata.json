@@ -1,7 +1,7 @@
 {
   "name": "denario",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/denario/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:22.081358Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/claude-scientific-skills/scientific-skills/denario/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-02-02T04:13:04.556351Z"
 }

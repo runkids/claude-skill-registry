@@ -1,9 +1,7 @@
 {
   "name": "mcp-tools-as-code",
-  "description": "Convert MCP servers to typed TypeScript APIs for efficient code execution. Reduces token usage by 98%+ by transforming tool calls into programmatic access. Use when building agents that need to intera",
-  "repo": "cameronsjo/claude-marketplace",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/mcp-tools-as-code/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-02-02T04:09:55.742979Z"
 }

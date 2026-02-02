@@ -1,7 +1,7 @@
 {
   "name": "database-optimizer",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/database-optimizer/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:24.052792Z"
+  "repo": "Jeffallan/claude-skills",
+  "path": "skills/database-optimizer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-02-02T04:44:43.685160Z"
 }

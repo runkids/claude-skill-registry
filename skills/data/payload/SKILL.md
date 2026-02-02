@@ -7,20 +7,6 @@ description: Use when working with Payload CMS projects (payload.config.ts, coll
 
 Payload is a Next.js native CMS with TypeScript-first architecture, providing admin panel, database management, REST/GraphQL APIs, authentication, and file storage.
 
-## Installation Note
-
-This is the **standalone version** of the Payload skill for AI coding agents.
-
-**For Claude Code users:**
-- Prefer installing the official [Payload Marketplace plugin](https://github.com/payloadcms/payload) which includes this skill along with MCP tools and additional features
-- Only install this standalone skill if you prefer not to use the full plugin
-
-**For other AI agents (Cursor, OpenCode, GitHub Copilot, etc.):**
-- Install this skill directly:
-  ```bash
-  npx skills add noklip-io/agent-skills --skill payload
-  ```
-
 ## Quick Reference
 
 | Task                     | Solution                                  | Details                                                                                                                          |

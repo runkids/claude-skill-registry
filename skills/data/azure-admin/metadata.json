@@ -1,7 +1,7 @@
 {
   "name": "azure-admin",
-  "repo": "rysweet/amplihack",
-  "path": "worktrees/.claude/skills/azure-admin/SKILL.md",
-  "source": "github.com/rysweet/amplihack",
-  "downloaded_at": "2026-02-01T05:04:49.937424Z"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/azure-admin/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-02-02T05:04:28.352500Z"
 }

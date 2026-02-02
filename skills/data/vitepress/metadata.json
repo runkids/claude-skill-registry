@@ -1,7 +1,7 @@
 {
   "name": "vitepress",
-  "repo": "alexanderop/nuxt-sync-engine",
-  "path": ".claude/skills/vitepress/SKILL.md",
-  "source": "github.com/alexanderop/nuxt-sync-engine",
-  "downloaded_at": "2026-02-01T04:03:31.196937Z"
+  "repo": "antfu/skills",
+  "path": "skills/vitepress/SKILL.md",
+  "source": "github.com/antfu/skills",
+  "downloaded_at": "2026-02-02T03:53:02.511708Z"
 }

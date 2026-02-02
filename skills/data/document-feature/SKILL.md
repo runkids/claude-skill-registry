@@ -20,9 +20,7 @@ Search in: `/components/`, `/app/`, `/lib/`, `/types/`, `/contexts/`
 
 ### Phase 2: Developer Documentation
 
-Create: `/docs/dev/$ARGUMENTS-implementation.md`
-
-**IMPORTANT**: Always use `/docs/` folder (not repository root) for all documentation.
+Create: `docs/dev/$ARGUMENTS-implementation.md`
 
 **Required sections:**
 1. Overview and quick reference
@@ -36,7 +34,7 @@ Create: `/docs/dev/$ARGUMENTS-implementation.md`
 
 ### Phase 3: User Documentation
 
-Create: `/docs/user/how-to-$ARGUMENTS.md`
+Create: `docs/user/how-to-$ARGUMENTS.md`
 
 **Required sections:**
 1. Overview (what it does, benefits)
@@ -50,7 +48,7 @@ Create: `/docs/user/how-to-$ARGUMENTS.md`
 
 ### Phase 4: Screenshot List
 
-Create: `/docs/screenshots/$ARGUMENTS-screenshots-needed.txt`
+Create: `docs/screenshots/$ARGUMENTS-screenshots-needed.txt`
 
 List all screenshots needed with:
 - Filename

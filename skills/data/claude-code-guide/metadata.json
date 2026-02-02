@@ -1,7 +1,7 @@
 {
   "name": "claude-code-guide",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/claude-code-guide/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:29.886667Z"
+  "repo": "claudiodearaujo/IzaCenter",
+  "path": ".cursor/skills/claude-code-guide/SKILL.md",
+  "source": "github.com/claudiodearaujo/IzaCenter",
+  "downloaded_at": "2026-02-02T04:54:12.995398Z"
 }

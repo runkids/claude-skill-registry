@@ -198,4 +198,4 @@ if (rpc.TryCall(request, out var resp))
 ## Reference
 
 - Parent Module: `Devian` (단일 런타임 모듈, `namespace Devian`)
-- Related: `skills/devian/72-network-ws-client/SKILL.md`
+- Related: `skills/devian-core/72-network-ws-client/SKILL.md`

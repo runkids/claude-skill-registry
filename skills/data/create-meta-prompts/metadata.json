@@ -1,7 +1,7 @@
 {
   "name": "create-meta-prompts",
-  "repo": "cedricfressin/claude-config",
-  "path": "skills/create-meta-prompts/SKILL.md",
-  "source": "github.com/cedricfressin/claude-config",
-  "downloaded_at": "2026-02-01T03:23:55.826554Z"
+  "repo": "saxjax/saxjaxTuner",
+  "path": ".claude/skills/create-meta-prompts/SKILL.md",
+  "source": "github.com/saxjax/saxjaxTuner",
+  "downloaded_at": "2026-02-02T04:34:23.780037Z"
 }

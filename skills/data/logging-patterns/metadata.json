@@ -1,9 +1,7 @@
 {
   "name": "logging-patterns",
-  "description": "Use when adding logging to features - structured logging with LoggerService categories",
-  "repo": "andyngdz/exogen_backend",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Dicklesworthstone/meta_skill",
+  "path": "skills/examples/logging-patterns/SKILL.md",
+  "source": "github.com/Dicklesworthstone/meta_skill",
+  "downloaded_at": "2026-02-02T01:28:00.233377Z"
 }

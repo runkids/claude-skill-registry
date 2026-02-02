@@ -1,9 +1,7 @@
 {
   "name": "hk",
-  "description": "Use jdx/hk git hook manager to setup, configure, and manage git hooks and linters. Invoke when user asks to setup hk, configure hooks, add linters, or work with pre-commit/pre-push hooks.",
-  "repo": "KyleKing/vcr-tui",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "technicalpickles/pickled-claude-plugins",
+  "path": "plugins/dev-tools/skills/hk/SKILL.md",
+  "source": "github.com/technicalpickles/pickled-claude-plugins",
+  "downloaded_at": "2026-02-02T03:44:20.415411Z"
 }

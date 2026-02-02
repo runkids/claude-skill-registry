@@ -1,8 +1,6 @@
 ---
-name: packaging-repos-with-repomix
-description: Packages entire repositories into single AI-friendly files using Repomix with multiple output formats. Use when packaging codebases for LLM analysis, creating repository snapshots, or preparing security audits. Triggers include "repomix", "package codebase", "AI-friendly", or "LLM context".
-allowed-tools: Bash, Read, Glob
-user-invocable: true
+name: repomix
+description: Package entire code repositories into single AI-friendly files using Repomix. Capabilities include pack codebases with customizable include/exclude patterns, generate multiple output formats (XML, Markdown, plain text), preserve file structure and context, optimize for AI consumption with token counting, filter by file types and directories, add custom headers and summaries. Use when packaging codebases for AI analysis, creating repository snapshots for LLM context, analyzing third-party libraries, preparing for security audits, generating documentation context, or evaluating unfamiliar codebases.
 ---
 
 # Repomix Skill
@@ -12,7 +10,6 @@ Repomix packs entire repositories into single, AI-friendly files. Perfect for fe
 ## When to Use
 
 Use when:
-
 - Packaging codebases for AI analysis
 - Creating repository snapshots for LLM context
 - Analyzing third-party libraries
@@ -24,23 +21,20 @@ Use when:
 ## Quick Start
 
 ### Check Installation
-
 ```bash
 repomix --version
 ```
 
 ### Install
-
 ```bash
 # npm
-bun install -g repomix
+npm install -g repomix
 
 # Homebrew (macOS/Linux)
 brew install repomix
 ```
 
 ### Basic Usage
-
 ```bash
 # Package current directory (generates repomix-output.xml)
 repomix
@@ -50,7 +44,7 @@ repomix --style markdown
 repomix --style json
 
 # Package remote repository
-bunx repomix --remote owner/repo
+npx repomix --remote owner/repo
 
 # Custom output with filters
 repomix --include "src/**/*.ts" --remove-comments -o output.md
@@ -59,7 +53,6 @@ repomix --include "src/**/*.ts" --remove-comments -o output.md
 ## Core Capabilities
 
 ### Repository Packaging
-
 - AI-optimized formatting with clear separators
 - Multiple output formats: XML, Markdown, JSON, Plain text
 - Git-aware processing (respects .gitignore)
@@ -67,24 +60,20 @@ repomix --include "src/**/*.ts" --remove-comments -o output.md
 - Security checks for sensitive information
 
 ### Remote Repository Support
-
 Process remote repositories without cloning:
-
 ```bash
 # Shorthand
-bunx repomix --remote yamadashy/repomix
+npx repomix --remote yamadashy/repomix
 
 # Full URL
-bunx repomix --remote https://github.com/owner/repo
+npx repomix --remote https://github.com/owner/repo
 
 # Specific commit
-bunx repomix --remote https://github.com/owner/repo/commit/hash
+npx repomix --remote https://github.com/owner/repo/commit/hash
 ```
 
 ### Comment Removal
-
 Strip comments from supported languages (HTML, CSS, JavaScript, TypeScript, Vue, Svelte, Python, PHP, Ruby, C, C#, Java, Go, Rust, Swift, Kotlin, Dart, Shell, YAML):
-
 ```bash
 repomix --remove-comments
 ```
@@ -92,35 +81,30 @@ repomix --remove-comments
 ## Common Use Cases
 
 ### Code Review Preparation
-
 ```bash
 # Package feature branch for AI review
 repomix --include "src/**/*.ts" --remove-comments -o review.md --style markdown
 ```
 
 ### Security Audit
-
 ```bash
 # Package third-party library
-bunx repomix --remote vendor/library --style xml -o audit.xml
+npx repomix --remote vendor/library --style xml -o audit.xml
 ```
 
 ### Documentation Generation
-
 ```bash
 # Package with docs and code
 repomix --include "src/**,docs/**,*.md" --style markdown -o context.md
 ```
 
 ### Bug Investigation
-
 ```bash
 # Package specific modules
 repomix --include "src/auth/**,src/api/**" -o debug-context.xml
 ```
 
 ### Implementation Planning
-
 ```bash
 # Full codebase context
 repomix --remove-comments --copy
@@ -129,7 +113,6 @@ repomix --remove-comments --copy
 ## Command Line Reference
 
 ### File Selection
-
 ```bash
 # Include specific patterns
 repomix --include "src/**/*.ts,*.md"
@@ -142,7 +125,6 @@ repomix --no-gitignore
 ```
 
 ### Output Options
-
 ```bash
 # Output format
 repomix --style markdown  # or xml, json, plain
@@ -158,7 +140,6 @@ repomix --copy
 ```
 
 ### Configuration
-
 ```bash
 # Use custom config file
 repomix -c custom-config.json
@@ -172,25 +153,54 @@ repomix --init  # creates repomix.config.json
 Repomix automatically counts tokens for individual files, total repository, and per-format output.
 
 Typical LLM context limits:
-
 - Claude Sonnet 4.5: ~200K tokens
 - GPT-4: ~128K tokens
 - GPT-3.5: ~16K tokens
+
+### Token Count Optimization
+Understanding your codebase's token distribution is crucial for optimizing AI interactions. Use the --token-count-tree option to visualize token usage across your project:
+
+```bash
+repomix --token-count-tree
+```
+This displays a hierarchical view of your codebase with token counts:
+
+```
+🔢 Token Count Tree:
+────────────────────
+└── src/ (70,925 tokens)
+    ├── cli/ (12,714 tokens)
+    │   ├── actions/ (7,546 tokens)
+    │   └── reporters/ (990 tokens)
+    └── core/ (41,600 tokens)
+        ├── file/ (10,098 tokens)
+        └── output/ (5,808 tokens)
+```
+You can also set a minimum token threshold to focus on larger files:
+
+```bash
+repomix --token-count-tree 1000  # Only show files/directories with 1000+ tokens
+```
+
+This helps you:
+
+- Identify token-heavy files that might exceed AI context limits
+- Optimize file selection using --include and --ignore patterns
+- Plan compression strategies by targeting the largest contributors
+- Balance content vs. context when preparing code for AI analysis
 
 ## Security Considerations
 
 Repomix uses Secretlint to detect sensitive data (API keys, passwords, credentials, private keys, AWS secrets).
 
 Best practices:
-
 1. Always review output before sharing
-1. Use `.repomixignore` for sensitive files
-1. Enable security checks for unknown codebases
-1. Avoid packaging `.env` files
-1. Check for hardcoded credentials
+2. Use `.repomixignore` for sensitive files
+3. Enable security checks for unknown codebases
+4. Avoid packaging `.env` files
+5. Check for hardcoded credentials
 
 Disable security checks if needed:
-
 ```bash
 repomix --no-security-check
 ```
@@ -200,31 +210,26 @@ repomix --no-security-check
 When user requests repository packaging:
 
 1. **Assess Requirements**
-
    - Identify target repository (local/remote)
    - Determine output format needed
    - Check for sensitive data concerns
 
-1. **Configure Filters**
-
+2. **Configure Filters**
    - Set include patterns for relevant files
    - Add ignore patterns for unnecessary files
    - Enable/disable comment removal
 
-1. **Execute Packaging**
-
+3. **Execute Packaging**
    - Run repomix with appropriate options
    - Monitor token counts
    - Verify security checks
 
-1. **Validate Output**
-
+4. **Validate Output**
    - Review generated file
    - Confirm no sensitive data
    - Check token limits for target LLM
 
-1. **Deliver Context**
-
+5. **Deliver Context**
    - Provide packaged file to user
    - Include token count summary
    - Note any warnings or issues
@@ -232,7 +237,6 @@ When user requests repository packaging:
 ## Reference Documentation
 
 For detailed information, see:
-
 - [Configuration Reference](./references/configuration.md) - Config files, include/exclude patterns, output formats, advanced options
 - [Usage Patterns](./references/usage-patterns.md) - AI analysis workflows, security audit preparation, documentation generation, library evaluation
 

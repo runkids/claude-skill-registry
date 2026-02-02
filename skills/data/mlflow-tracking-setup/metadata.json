@@ -1,7 +1,7 @@
 {
   "name": "mlflow-tracking-setup",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/mlflow-tracking-setup/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-27T03:32:37.035809Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "planned-skills/generated/07-ml-training/mlflow-tracking-setup/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-02T03:38:12.680720Z"
 }

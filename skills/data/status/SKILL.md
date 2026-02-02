@@ -1,280 +1,106 @@
 ---
 name: status
-description: Show current workflow progress at a glance.
-version: 1.1.0
-tags: [status, workflow, summary]
-owner: orchestration
-status: active
+description: Display CYNIC's self-status including packages, tests, integrations, and auto-generated roadmap. Use when asked about development status, project health, what's working, or CYNIC v1 completion.
+user-invocable: true
 ---
 
-# Status Skill
+# /status - CYNIC Self-Status
 
-Show current workflow progress at a glance.
+*"Connais-toi toi-même, puis vérifie"* - κυνικός
 
-## Overview
+Auto-tracks CYNIC's own development state. Unlike static ROADMAP.md, this is **live truth**.
 
-A simple status check showing:
-- Current phase
-- Task progress (completed/total)
-- Any blockers
-- Next recommended action
-
-## Usage
+## Quick Start
 
 ```
-/status
+/status           # Full scan (runs tests ~3min)
+/status quick     # Quick scan (cached, no tests)
+/status json      # JSON output for processing
 ```
 
-## Prerequisites
+## What It Shows
 
-- SurrealDB connection configured for the project namespace.
+1. **Packages** - Test status for all 12 packages
+2. **Integrations** - Hooks, skills, agents, MCP status
+3. **Features** - Implemented vs missing (derived from tests)
+4. **Roadmap** - Auto-generated from actual code state
 
-## Purpose
+## Implementation
 
-**Quick progress check** - See where you are and what's next.
+Run the self-monitor module:
 
-This is the go-to command for:
-- Resuming work after a break
-- Checking progress mid-workflow
-- Deciding what to do next
+```bash
+# Full scan (with tests)
+node scripts/lib/self-monitor.cjs
 
-## State Sources
+# Quick scan (no tests, uses cache)
+node scripts/lib/self-monitor.cjs --quick
 
-Check these sources:
-- `workflow_state` in SurrealDB - Overall workflow state
-- `phase_outputs` in SurrealDB - Task breakdown and validation/verification
+# JSON output
+node scripts/lib/self-monitor.cjs --json
 
-## Status Display
-
-### Minimal (No Workflow Started)
-
-```
-## Project Status
-
-No workflow started yet.
-
-Quick start:
-  /discover - Explore the project and create PRODUCT.md
-  /plan     - Create task breakdown (requires PRODUCT.md)
+# Status line only
+node scripts/lib/self-monitor.cjs --status
 ```
 
-### With Active Workflow
+## Output Example
 
 ```
-## Project Status
-
-### Current Phase: Implementation
-
-### Progress
-| Phase | Status |
-|-------|--------|
-| Discovery | completed |
-| Planning | completed |
-| Validation | skipped |
-| Implementation | in_progress (3/6 tasks) |
-| Verification | pending |
-| Completion | pending |
-
-### Task Progress
-
-Completed: 3/6 (50%)
-
-| Task | Title | Status |
-|------|-------|--------|
-| T1 | Create user model | completed |
-| T2 | Password hashing service | completed |
-| T3 | JWT token service | completed |
-| T4 | Login endpoint | in_progress |
-| T5 | Registration endpoint | pending |
-| T6 | Auth middleware | pending |
-
-### Next Action
-
-Continue with: /task T4
-
-Or: /status -v for detailed view
+╔═══════════════════════════════════════════════════════════════════╗
+║            🐕 CYNIC SELF-STATUS (Auto-generated)                  ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                   ║
+║  PACKAGES: 12/12 healthy
+║  TESTS: 1980/1980 passing (100.0%)
+║                                                                   ║
+║  ✅* core         117/117 tests
+║  ✅* protocol     230/230 tests
+║  ✅* persistence  179/179 tests
+║  ✅  anchor        54/54 tests
+║  ✅  burns         75/75 tests
+║  ✅* identity      50/50 tests
+║  ✅  emergence     43/43 tests
+║  ✅* node         614/614 tests
+║  ✅* mcp          492/492 tests
+║  ✅  holdex        44/44 tests
+║  ✅  gasdf         36/36 tests
+║  ✅  zk            46/46 tests
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  HOOKS: 5   SKILLS: 12   AGENTS: 13   LIB: 95
+║  MCP: healthy
+║                                                                   ║
+║  ROADMAP: ✅ Core  🔄 Integration  📋 External
+║                                                                   ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  * = critical package   φ⁻¹ = 61.8% max confidence               ║
+╚═══════════════════════════════════════════════════════════════════╝
 ```
 
-### With Blockers
+## Data Storage
 
-```
-## Project Status
+Results are cached in `~/.cynic/self/`:
+- `packages.json` - Package test results
+- `integrations.json` - Claude Code integration state
+- `features.json` - Feature detection
+- `roadmap.json` - Auto-generated roadmap
 
-### Current Phase: Implementation (BLOCKED)
+## Triggering
 
-### Blocker
-Task T3 failed after 3 attempts:
-  Error: Cannot find module '@prisma/client'
+- **On demand**: Run `/status`
+- **Session start**: Can be added to awaken.cjs for startup check
+- **Post-commit**: Can be triggered by git hooks
 
-Suggested fix:
-  Run: npm install @prisma/client
+## V1 Completion Criteria
 
-### Progress
-Completed: 2/6 tasks (33%)
+CYNIC v1 is complete when:
+- All 6 critical packages healthy (core, protocol, persistence, identity, node, mcp)
+- All hooks operational
+- All skills accessible
+- MCP server healthy
 
-### Next Action
-Fix the blocker, then: /task T3
-```
+## See Also
 
-## Status Levels
-
-### Quick Status (default)
-Shows:
-- Current phase
-- Task progress bar
-- Next action
-
-### Detailed Status (`/status -v`)
-Shows:
-- Full phase breakdown
-- All task details
-- Recent feedback scores
-- Error history
-- File changes
-
-## Reading State
-
-```python
-# Pseudocode
-if not workflow_state_exists():
-    show "No workflow started"
-    return
-
-state = workflow_state_repo.get(project)
-plan = phase_outputs_repo.get_by_type(phase=1, output_type="plan")
-
-current_phase = state.get("current_phase", 0)
-phase_status = state.get("phase_status", {})
-tasks = state.get("tasks", [])  # task statuses tracked in state
-errors = state.get("errors", [])
-```
-
-## Phase Mapping
-
-| Phase | Name | Next Skill |
-|-------|------|------------|
-| 0 | Discovery | `/discover` |
-| 1 | Planning | `/plan` |
-| 2 | Validation | `/validate-plan` |
-| 3 | Implementation | `/task <id>` |
-| 4 | Verification | `/verify-code` |
-| 5 | Completion | (done) |
-
-## Task Status Summary
-
-Calculate and display:
-```
-Total: {total}
-Completed: {completed} ({percentage}%)
-In Progress: {in_progress}
-Pending: {pending}
-Blocked: {blocked}
-Failed: {failed}
-```
-
-## Next Action Logic
-
-Determine recommended action based on state:
-
-```python
-if no_workflow:
-    if exists("PRODUCT.md"):
-        suggest "/plan"
-    else:
-        suggest "/discover"
-elif phase == "implementation":
-    next_task = find_next_pending_task()
-    if next_task:
-        suggest f"/task {next_task.id}"
-    else:
-        suggest "/verify"
-elif phase == "blocked":
-    show blocker and fix suggestion
-else:
-    suggest next phase command
-```
-
-## Example Output: Fresh Project
-
-```
-User: /status
-
-Claude: ## Project Status
-
-No workflow started.
-
-Found:
-  - Documents/ folder with 3 files
-  - No PRODUCT.md
-
-Suggested: /discover to read documents and create PRODUCT.md
-```
-
-## Example Output: Mid-Workflow
-
-```
-User: /status
-
-Claude: ## Project Status
-
-### Current Phase: Implementation
-
-### Progress
-
-[====================----------] 50%
-
-Completed: 3/6 tasks
-
-| Task | Title | Status |
-|------|-------|--------|
-| T1 | User model | done |
-| T2 | Password service | done |
-| T3 | JWT service | done |
-| T4 | Login endpoint | pending |
-| T5 | Register endpoint | pending |
-| T6 | Auth middleware | pending |
-
-### Next
-
-Continue with: /task T4
-```
-
-## Example Output: Completed
-
-```
-User: /status
-
-Claude: ## Project Status
-
-### Workflow Complete!
-
-All 6 tasks implemented and verified.
-
-### Summary
-- Files created: 8
-- Files modified: 2
-- Tests: 24 passing
-- Review scores: Cursor 8.5, Gemini 8.0
-
-### Artifacts
-- phase_outputs: summary
-- logs: uat_document
-
-Ready to commit? The changes are in your working directory.
-```
-
-## Outputs
-
-- Quick or detailed status report for the current project.
-
-## Error Handling
-
-- If SurrealDB is unreachable, show a degraded report and warn about missing data.
-
-## Related Skills
-
-- `/discover` - Start discovery phase
-- `/plan` - Create task breakdown
-- `/task <id>` - Implement a task
-- `/verify` - Run code review
-- `/orchestrate` - Full automated workflow
+- `/health` - CYNIC services health (runtime)
+- `/cockpit` - Ecosystem repos overview
+- `/ecosystem` - Cross-project status

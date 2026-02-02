@@ -1,7 +1,7 @@
 {
   "name": "create-agent",
-  "repo": "cedricfressin/claude-config",
-  "path": "skills/create-agent/SKILL.md",
-  "source": "github.com/cedricfressin/claude-config",
-  "downloaded_at": "2026-02-01T03:23:55.546288Z"
+  "repo": "JoernStoehler/dnd-claude-code",
+  "path": ".claude/skills/create-agent/SKILL.md",
+  "source": "github.com/JoernStoehler/dnd-claude-code",
+  "downloaded_at": "2026-02-02T02:38:49.344777Z"
 }

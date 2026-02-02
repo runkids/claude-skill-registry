@@ -1,11 +1,14 @@
 ---
 name: repo-source-code-review
-description: Review pull requests and source code changes in /library/src/. Use when reviewing PRs, validating implementation patterns, or checking code quality before merging. Covers code quality checks, type safety, documentation review, test coverage, and common issues to watch for.
+description: Review PRs and source code changes in Formisch packages/ and frameworks/. Use when reviewing pull requests, validating implementation patterns, or checking code quality before merging.
+metadata:
+  author: formisch
+  version: '1.0'
 ---
 
 # Reviewing Source Code Changes
 
-Guide for reviewing PRs and source code changes in `/library/src/`.
+Guide for reviewing PRs and source code changes in `packages/` and `frameworks/`.
 
 ## When to Use This Guide
 
@@ -27,17 +30,20 @@ Guide for reviewing PRs and source code changes in `/library/src/`.
 
 | Check             | Requirement                                                           |
 | ----------------- | --------------------------------------------------------------------- |
-| Naming            | Matches existing patterns (`StringSchema`, `minLength`, `_parse`)     |
+| Naming            | Matches existing patterns (`FormStore`, `useField`, `createForm`)     |
 | Purity annotation | `// @__NO_SIDE_EFFECTS__` before pure factory functions               |
 | Import extensions | All imports use `.ts` extension                                       |
 | Interface vs type | Use `interface` for object shapes, `type` for unions/aliases          |
-| Folder structure  | Each API has: `name.ts`, `name.test.ts`, `name.test-d.ts`, `index.ts` |
+| Folder structure  | Methods: `name.ts`, `index.ts`. Primitives/components in their folder |
 
 **Good — purity annotation:**
 
 ```typescript
 // @__NO_SIDE_EFFECTS__
-export function string(message?: ErrorMessage<StringIssue>): StringSchema {
+export function useField<TSchema, TFieldPath>(
+  form: FormStore<TSchema>,
+  config: UseFieldConfig<TSchema, TFieldPath>
+): FieldStore<TSchema, TFieldPath> {
   return {
     /* ... */
   };
@@ -47,7 +53,10 @@ export function string(message?: ErrorMessage<StringIssue>): StringSchema {
 **Bad — missing annotation:**
 
 ```typescript
-export function string(message?: ErrorMessage<StringIssue>): StringSchema {
+export function useField<TSchema, TFieldPath>(
+  form: FormStore<TSchema>,
+  config: UseFieldConfig<TSchema, TFieldPath>
+): FieldStore<TSchema, TFieldPath> {
   return {
     /* ... */
   };
@@ -66,13 +75,13 @@ export function string(message?: ErrorMessage<StringIssue>): StringSchema {
 **Good — constrained generic:**
 
 ```typescript
-export function minLength<
-  TInput extends LengthInput,
-  TRequirement extends number,
+export function useField<
+  TSchema extends Schema,
+  TFieldPath extends RequiredPath<TSchema>,
 >(
-  requirement: TRequirement,
-  message?: ErrorMessage<MinLengthIssue<TInput, TRequirement>>
-): MinLengthAction<TInput, TRequirement>;
+  form: FormStore<TSchema>,
+  config: UseFieldConfig<TSchema, TFieldPath>
+): FieldStore<TSchema, TFieldPath>;
 ```
 
 ### Documentation
@@ -87,16 +96,12 @@ export function minLength<
 
 **First line patterns by category:**
 
-| Category       | Pattern                                        |
-| -------------- | ---------------------------------------------- |
-| Schemas        | `Creates a ... schema.`                        |
-| Actions        | `Creates a ... action.`                        |
-| Parse methods  | `Parses ...`                                   |
-| Type guards    | `Checks if ...`                                |
-| Unwrap methods | `Unwraps ...`                                  |
-| Other methods  | `Creates a ...`, `Returns ...`, `Forwards ...` |
-
-See `repo-source-code-document` skill for full documentation rules.
+| Category   | Pattern                                      |
+| ---------- | -------------------------------------------- |
+| Primitives | `Creates a ...`                              |
+| Methods    | `Focuses ...`, `Resets ...`, `Validates ...` |
+| Components | `Renders a ...`                              |
+| Utilities  | `Returns ...`, `Gets ...`, `Sets ...`        |
 
 ### Tests
 
@@ -104,18 +109,18 @@ See `repo-source-code-document` skill for full documentation rules.
 | -------------- | ---------------------------------------------------------- |
 | Runtime tests  | `.test.ts` covers success cases, failure cases, edge cases |
 | Type tests     | `.test-d.ts` validates type inference with `expectTypeOf`  |
-| Issue messages | Tests verify correct error messages and issue structure    |
+| Error handling | Tests verify correct error messages and validation         |
 
 ## Common Issues
 
-| Issue                     | What to Look For                                             |
-| ------------------------- | ------------------------------------------------------------ |
-| Missing purity annotation | Factory function without `// @__NO_SIDE_EFFECTS__`           |
-| Incomplete JSDoc          | Missing `@param` or `@returns`, wrong description format     |
-| No type tests             | New API without `.test-d.ts` file                            |
-| Wrong import extension    | Imports without `.ts` suffix                                 |
-| Inconsistent naming       | Schema not ending in `Schema`, action not ending in `Action` |
-| Side effects in pure code | Mutations, I/O, or global state in schema/action creation    |
+| Issue                     | What to Look For                                               |
+| ------------------------- | -------------------------------------------------------------- |
+| Missing purity annotation | Factory function without `// @__NO_SIDE_EFFECTS__`             |
+| Incomplete JSDoc          | Missing `@param` or `@returns`, wrong description format       |
+| No type tests             | New API without `.test-d.ts` file                              |
+| Wrong import extension    | Imports without `.ts` suffix                                   |
+| Inconsistent naming       | Primitives not using `create`/`use` prefix, wrong Store suffix |
+| Side effects in pure code | Mutations, I/O, or global state in primitive/method creation   |
 
 ## Checklist
 
@@ -127,6 +132,7 @@ See `repo-source-code-document` skill for full documentation rules.
 - [ ] Runtime tests in `.test.ts`
 - [ ] Type tests in `.test-d.ts`
 - [ ] Naming conventions followed
+- [ ] Cross-framework consistency for shared APIs
 
 ## Related Skills
 

@@ -1,7 +1,7 @@
 {
   "name": "pr-create",
-  "repo": "EtroxTaran/conductor",
-  "path": ".claude/skills/pr-create/SKILL.md",
-  "source": "github.com/EtroxTaran/conductor",
-  "downloaded_at": "2026-02-01T04:14:10.010233Z"
+  "repo": "TravisBumgarner/claude-brain",
+  "path": "skills/pr-create/SKILL.md",
+  "source": "github.com/TravisBumgarner/claude-brain",
+  "downloaded_at": "2026-02-02T04:43:22.755710Z"
 }

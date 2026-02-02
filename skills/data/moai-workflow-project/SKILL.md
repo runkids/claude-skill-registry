@@ -1,59 +1,55 @@
 ---
-name: "moai-workflow-project"
-description: "Integrated project management system with documentation, language initialization, and template optimization modules. Use when setting up projects, generating documentation, configuring multilingual support, or optimizing templates."
+name: moai-workflow-project
+description: Integrated project management system with documentation, language initialization, and template optimization modules
 version: 2.0.0
-category: "workflow"
 modularized: true
-user-invocable: false
-tags: ["workflow", "project", "documentation", "initialization", "templates"]
-updated: 2026-01-08
-status: "active"
-aliases: ["moai-workflow-project"]
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: Read, Write, Bash, Glob, Grep
+last_updated: 2025-11-30
+compliance_score: 85
+auto_trigger_keywords:
+  - project
+  - workflow
+color: red
 ---
 
-# MoAI Workflow Project - Integrated Project Management System
+# MoAI Command Project - Integrated Project Management System
 
-Purpose: Comprehensive project management system that integrates documentation generation, multilingual support, and template optimization into unified architecture with intelligent automation and Claude Code integration.
+**Purpose**: Comprehensive project management system that integrates documentation generation, multilingual support, and template optimization into unified architecture with intelligent automation and Claude Code integration.
 
-Scope: Consolidates documentation management, language initialization, and template optimization into single cohesive system supporting complete project lifecycle from initialization to maintenance.
+**Scope**: Consolidates documentation management, language initialization, and template optimization into single cohesive system supporting complete project lifecycle from initialization to maintenance.
 
-Target: Claude Code agents for project setup, documentation generation, multilingual support, and performance optimization.
+**Target**: Claude Code agents for project setup, documentation generation, multilingual support, and performance optimization.
 
 ---
 
-## Quick Reference
+## Quick Reference (30 seconds)
 
-Core Capabilities:
+**Core Modules**:
+- **DocumentationManager**: Template-based documentation generation with multilingual support
+- **LanguageInitializer**: Language detection, configuration, and localization management  
+- **TemplateOptimizer**: Advanced template analysis and performance optimization
+- **MoaiMenuProject**: Unified interface integrating all modules
 
-- Documentation Management: Template-based documentation generation with multilingual support
-- Language Initialization: Language detection, configuration, and localization management
-- Template Optimization: Advanced template analysis and performance optimization
-- Unified Interface: Single entry point integrating all capabilities
+**Quick Start**:
+```python
+# Complete project initialization
+from moai_menu_project import MoaiMenuProject
 
-Key Features:
+project = MoaiMenuProject("./my-project")
+result = project.initialize_complete_project(
+    language="en",
+    user_name="Developer Name", 
+    domains=["backend", "frontend"],
+    project_type="web_application"
+)
+```
 
+**Key Features**:
 - Automatic project type detection and template selection
-- Multilingual documentation generation supporting English, Korean, Japanese, and Chinese
+- Multilingual documentation generation (en, ko, ja, zh)
 - Intelligent template optimization with performance benchmarking
 - SPEC-driven documentation updates
-- Multi-format export including Markdown, HTML, and PDF
-
-Supported Project Types:
-
-- Web applications
-- Mobile applications
-- Command-line interface tools
-- Libraries and packages
-- Machine learning projects
+- Multi-format export (markdown, HTML, PDF)
 
 ---
 
@@ -61,24 +57,21 @@ Supported Project Types:
 
 ### Module Architecture
 
-Documentation Management Capabilities:
-
+**DocumentationManager**:
 - Template-based documentation generation
-- Project type detection for web, mobile, CLI, library, and ML projects
+- Project type detection (web, mobile, CLI, library, ML)
 - Multilingual support with localized content
 - SPEC data integration for automatic updates
 - Multi-format export capabilities
 
-Language Initialization Capabilities:
-
+**LanguageInitializer**:  
 - Automatic language detection from project content
 - Comprehensive language configuration management
 - Agent prompt localization with cost optimization
 - Domain-specific language support
 - Locale management and cultural adaptation
 
-Template Optimization Capabilities:
-
+**TemplateOptimizer**:
 - Advanced template analysis with complexity metrics
 - Performance optimization with size reduction
 - Intelligent backup and recovery system
@@ -87,201 +80,314 @@ Template Optimization Capabilities:
 
 ### Core Workflows
 
-Complete Project Initialization Workflow:
+**Complete Project Initialization**:
+```python
+# Step 1: Initialize integrated system
+project = MoaiMenuProject("/path/to/project")
 
-Step 1: Initialize the project management system by specifying the project directory path
+# Step 2: Complete setup with all modules
+result = project.initialize_complete_project(
+    language="ko",                    # Korean language support
+    user_name="개발자",
+    domains=["backend", "frontend", "mobile"],
+    project_type="web_application",
+    optimization_enabled=True
+)
 
-Step 2: Execute complete setup with the following configuration parameters:
+# Result includes:
+# - Language configuration with token cost analysis
+# - Documentation structure creation
+# - Template analysis and optimization
+# - Multilingual documentation setup
+```
 
-- Language setting: Specify the primary language code such as "en" for English or "ko" for Korean
-- User name: Provide the developer or team name for personalization
-- Domains: List the project domains such as backend, frontend, and mobile
-- Project type: Specify the project type such as web_application
-- Optimization enabled: Set to true to enable template optimization during initialization
+**Documentation Generation from SPEC**:
+```python
+# SPEC data for feature documentation
+spec_data = {
+    "id": "SPEC-001",
+    "title": "User Authentication System",
+    "description": "Implement secure authentication with JWT",
+    "requirements": [
+        "User registration with email verification",
+        "JWT token generation and validation",
+        "Password reset functionality"
+    ],
+    "status": "Planned",
+    "priority": "High",
+    "api_endpoints": [
+        {
+            "path": "/api/auth/login",
+            "method": "POST",
+            "description": "User login endpoint"
+        }
+    ]
+}
 
-Step 3: Review initialization results which include:
+# Generate comprehensive documentation
+docs_result = project.generate_documentation_from_spec(spec_data)
 
-- Language configuration with token cost analysis
-- Documentation structure creation status
-- Template analysis and optimization report
-- Multilingual documentation setup confirmation
+# Results include:
+# - Feature documentation with requirements
+# - API documentation with endpoint details
+# - Updated project documentation files
+# - Multilingual versions if configured
+```
 
-Documentation Generation from SPEC Workflow:
+**Template Performance Optimization**:
+```python
+# Analyze current templates
+analysis = project.template_optimizer.analyze_project_templates()
 
-Step 1: Prepare SPEC data with the following structure:
+# Apply optimizations with backup
+optimization_options = {
+    "backup_first": True,
+    "apply_size_optimizations": True,
+    "apply_performance_optimizations": True,
+    "apply_complexity_optimizations": True,
+    "preserve_functionality": True
+}
 
-- Identifier: Unique SPEC ID such as SPEC-001
-- Title: Feature or component title
-- Description: Brief description of the implementation
-- Requirements: List of specific requirements
-- Status: Current status such as Planned, In Progress, or Complete
-- Priority: Priority level such as High, Medium, or Low
-- API Endpoints: List of endpoint definitions including path, method, and description
+optimization_result = project.optimize_project_templates(optimization_options)
 
-Step 2: Generate comprehensive documentation from the SPEC data
-
-Step 3: Review generated documentation which includes:
-
-- Feature documentation with requirements
-- API documentation with endpoint details
-- Updated project documentation files
-- Multilingual versions if configured
-
-Template Performance Optimization Workflow:
-
-Step 1: Analyze current templates to gather metrics
-
-Step 2: Configure optimization options:
-
-- Backup first: Set to true to create backup before optimization
-- Apply size optimizations: Enable to reduce file sizes
-- Apply performance optimizations: Enable to improve loading times
-- Apply complexity optimizations: Enable to simplify template structures
-- Preserve functionality: Ensure all features remain intact
-
-Step 3: Execute optimization and review results:
-
-- Size reduction percentage achieved
-- Performance improvement metrics
-- Backup creation confirmation
-- Detailed optimization report
+# Results include:
+# - Size reduction percentage
+# - Performance improvement metrics
+# - Backup creation confirmation
+# - Detailed optimization report
+```
 
 ### Language and Localization
 
-Automatic Language Detection Process:
+**Automatic Language Detection**:
+```python
+# System analyzes project for language indicators
+language = project.language_initializer.detect_project_language()
 
-The system analyzes the project for language indicators using the following methods:
+# Detection methods:
+# - File content analysis (comments, strings)
+# - Configuration file examination
+# - System locale detection
+# - Directory structure patterns
+```
 
-- File content analysis examining comments and strings
-- Configuration file examination for locale settings
-- System locale detection
-- Directory structure patterns
+**Multilingual Documentation**:
+```python
+# Create documentation structure for multiple languages
+multilingual_result = project.language_initializer.create_multilingual_documentation_structure("ko")
 
-Multilingual Documentation Structure:
+# Creates:
+# - /docs/ko/ - Korean documentation
+# - /docs/en/ - English fallback  
+# - Language negotiation configuration
+# - Automatic redirection setup
+```
 
-When creating documentation for multiple languages, the system generates:
+**Agent Prompt Localization**:
+```python
+# Localize agent prompts with cost consideration
+localized_prompt = project.language_initializer.localize_agent_prompts(
+    base_prompt="Generate user authentication system",
+    language="ko"
+)
 
-- Language-specific documentation directories such as docs/ko for Korean and docs/en for English
-- Language negotiation configuration
-- Automatic redirection setup between language versions
-
-Agent Prompt Localization:
-
-The localization system provides:
-
-- Language-specific instructions for agents
-- Cultural context adaptations
-- Token cost optimization recommendations for multilingual prompts
+# Result includes:
+# - Korean language instructions
+# - Cultural context adaptations
+# - Token cost optimization recommendations
+```
 
 ### Template Optimization
 
-Performance Analysis Process:
+**Performance Analysis**:
+```python
+# Comprehensive template analysis
+analysis = project.template_optimizer.analyze_project_templates()
 
-Template analysis provides the following metrics:
+# Analysis includes:
+# - File size and complexity metrics
+# - Performance bottleneck identification
+# - Optimization opportunity scoring
+# - Resource usage patterns
+# - Backup recommendations
+```
 
-- File size and complexity measurements
-- Performance bottleneck identification
-- Optimization opportunity scoring
-- Resource usage patterns
-- Backup recommendations
+**Intelligent Optimization**:
+```python
+# Create optimized versions with backup
+optimization_result = project.template_optimizer.create_optimized_templates({
+    "backup_first": True,
+    "apply_size_optimizations": True,
+    "apply_performance_optimizations": True,
+    "apply_complexity_optimizations": True
+})
 
-Intelligent Optimization Process:
-
-The optimization system applies the following techniques:
-
-- Whitespace and redundancy reduction
-- Template structure optimization
-- Complexity reduction techniques
-- Performance caching improvements
+# Optimizations applied:
+# - Whitespace and redundancy reduction
+# - Template structure optimization
+# - Complexity reduction techniques
+# - Performance caching improvements
+```
 
 ### Configuration Management
 
-Integrated Configuration Status:
+**Integrated Configuration**:
+```python
+# Get comprehensive project status
+status = project.get_project_status()
 
-The project status includes:
+# Status includes:
+# - Project metadata and type
+# - Language configuration and costs
+# - Documentation completion status
+# - Template optimization results
+# - Module initialization states
+```
 
-- Project metadata and type classification
-- Language configuration and associated costs
-- Documentation completion status
-- Template optimization results
-- Module initialization states
+**Language Settings Updates**:
+```python
+# Update language configuration
+update_result = project.update_language_settings({
+    "language.conversation_language": "ja",
+    "language.agent_prompt_language": "english",  # Cost optimization
+    "language.documentation_language": "ja"
+})
 
-Language Settings Update Process:
-
-When updating language settings, configure the following parameters:
-
-- Conversation language: The language for user-facing responses
-- Agent prompt language: The language for internal agent instructions, often kept as English for cost optimization
-- Documentation language: The language for generated documentation
-
-Updates trigger the following automatic changes:
-
-- Configuration file modifications
-- Documentation structure updates
-- Template localization adjustments
-
----
-
-## Advanced Implementation
-
-For advanced patterns including custom template development, performance optimization strategies, and integration workflows, see reference.md which covers:
-
-- Custom Templates: Creating project-type-specific documentation templates
-- Performance Caching: Implementing template caching for improved performance
-- Batch Processing: Efficiently processing multiple templates simultaneously
-- Integration Workflows: Complete project lifecycle and multilingual management
+# Automatic updates:
+# - Configuration file changes
+# - Documentation structure updates
+# - Template localization adjustments
+```
 
 ---
+
+
+## Advanced Implementation (10+ minutes)
+
+For advanced patterns including custom template development, performance optimization strategies, and integration workflows, see:
+
+- **[Advanced Patterns](modules/advanced-patterns.md)**: Custom templates, caching, batch processing
+- **Integration Workflows**: Complete project lifecycle and multilingual management
+- **Performance Optimization**: Template caching and batch optimization strategies
 
 ## Resources
 
-### Configuration Structure
+### Module Files
 
-Project Configuration Fields:
+**Core Implementation**:
+- `modules/documentation_manager.py` - Documentation generation and management
+- `modules/language_initializer.py` - Language detection and configuration
+- `modules/template_optimizer.py` - Template analysis and optimization
+- `__init__.py` - Unified interface and integration logic
 
-- Project name: The display name for the project
-- Project type: Classification such as web_application, mobile_application, or cli_tool
-- Initialization timestamp: When the project was initialized
-- Language configuration: Conversation, agent prompt, and documentation language settings
-- System version: The project management system version
-- Initialization status: Whether all modules are fully initialized
+**Templates and Examples**:
+- `templates/doc-templates/` - Documentation template collection
+- `examples/complete_project_setup.py` - Comprehensive usage examples
+- `examples/quick_start.py` - Quick start guide
 
-Language Configuration Fields for Each Supported Language:
+### Configuration Files
 
-- Name: Display name in English
-- Native name: Display name in the native language
-- Code: Language code such as en, ko, ja, or zh
-- Locale: System locale string
-- Agent prompt language: Whether to use English or localized prompts
-- Token cost impact: Percentage increase in token usage for non-English prompts
+**Project Configuration**:
+```json
+{
+  "project": {
+    "name": "My Project",
+    "type": "web_application",
+    "initialized_at": "2025-11-25T..."
+  },
+  "language": {
+    "conversation_language": "en",
+    "agent_prompt_language": "english",
+    "documentation_language": "en"
+  },
+  "menu_system": {
+    "version": "1.0.0",
+    "fully_initialized": true
+  }
+}
+```
+
+**Language Configuration**:
+```json
+{
+  "en": {
+    "name": "English",
+    "native_name": "English",
+    "code": "en",
+    "locale": "en_US.UTF-8",
+    "agent_prompt_language": "english",
+    "token_cost_impact": 0
+  },
+  "ko": {
+    "name": "Korean",
+    "native_name": "한국어", 
+    "code": "ko",
+    "locale": "ko_KR.UTF-8",
+    "agent_prompt_language": "localized",
+    "token_cost_impact": 20
+  }
+}
+```
+
+### Works Well With
+
+- **moai-project-documentation** - For enhanced documentation patterns and templates
+- **moai-project-language-initializer** - For advanced language configuration workflows
+- **moai-project-template-optimizer** - For template optimization strategies
+- **moai-core-spec-authoring** - For SPEC-driven development workflows
+- **moai-workflow-docs** - For unified documentation management
+
+### Integration Examples
+
+**Command Line Usage**:
+```python
+# CLI interface for project management
+python -m moai_menu_project.cli init --language ko --domains backend,frontend
+python -m moai_menu_project.cli generate-docs --spec-file SPEC-001.json
+python -m moai_menu_project.cli optimize-templates --backup
+python -m moai_menu_project.cli export-docs --format html --language ko
+```
+
+**API Integration**:
+```python
+# REST API integration example
+from moai_menu_project import MoaiMenuProject
+
+app = FastAPI()
+
+@app.post("/projects/{project_id}/initialize")
+async def initialize_project(project_id: str, config: ProjectConfig):
+    project = MoaiMenuProject(f"./projects/{project_id}")
+    result = project.initialize_complete_project(**config.dict())
+    return result
+
+@app.post("/projects/{project_id}/docs")
+async def generate_docs(project_id: str, spec_data: SpecData):
+    project = MoaiMenuProject(f"./projects/{project_id}")
+    result = project.generate_documentation_from_spec(spec_data.dict())
+    return result
+```
 
 ### Performance Metrics
 
-Documentation Generation Performance:
+**Module Performance**:
+- **Documentation Generation**: ~2-5 seconds for complete documentation
+- **Language Detection**: ~500ms for average project analysis  
+- **Template Optimization**: ~10-30 seconds depending on project size
+- **Configuration Updates**: ~100ms for language setting changes
 
-- Complete documentation generation typically completes within 2 to 5 seconds
-- Language detection analysis completes within approximately 500 milliseconds
-- Template optimization duration varies from 10 to 30 seconds depending on project size
-- Configuration updates complete within approximately 100 milliseconds
+**Memory Usage**:
+- **Base System**: ~50MB RAM usage
+- **Large Projects**: Additional ~10-50MB depending on template count
+- **Optimization Cache**: ~5-20MB for performance improvements
 
-Memory Usage Characteristics:
-
-- Base system requires approximately 50MB RAM
-- Large projects may require an additional 10 to 50MB depending on template count
-- Optimization cache uses approximately 5 to 20MB for performance improvements
-
-File Size Impact:
-
-- Documentation files range from 50 to 200KB per project
-- Optimization backups match the size of original templates
-- Configuration files range from 5 to 10KB for complete project setup
+**File Size Impact**:
+- **Documentation**: ~50-200KB per project
+- **Optimization Backups**: Size of original templates
+- **Configuration**: ~5-10KB for complete project setup
 
 ---
 
-## Works Well With
-
-- moai-foundation-core: Core execution patterns and SPEC-driven development workflows
-- moai-foundation-claude: Claude Code integration and configuration
-- moai-workflow-docs: Unified documentation management
-- moai-workflow-templates: Template optimization strategies
-- moai-library-nextra: Advanced documentation architecture
+**Version**: 1.0.0  
+**Last Updated**: 2025-11-25  
+**Integration Status**: ✅ Complete - All modules implemented and tested

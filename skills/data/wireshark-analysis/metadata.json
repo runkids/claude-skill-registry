@@ -1,7 +1,7 @@
 {
   "name": "wireshark-analysis",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/security/wireshark-analysis/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-02-01T03:19:39.956961Z"
+  "repo": "claudiodearaujo/Sistema-de-narra-o-de-livro-front",
+  "path": ".claude/skills/wireshark-analysis/SKILL.md",
+  "source": "github.com/claudiodearaujo/Sistema-de-narra-o-de-livro-front",
+  "downloaded_at": "2026-02-02T02:07:12.794161Z"
 }

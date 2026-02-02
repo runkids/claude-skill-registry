@@ -1,271 +1,154 @@
 ---
-title: 搜索引擎常用语法
-date: 2024-11-17 15:26:25
-tags: 实用
-categories: 好用爱用
-keywords: 搜索引擎, 语法, 常用, 语法速查
-description: 本文介绍了提升搜索引擎使用效率的常用语法，包括精确匹配、排除关键词、搜索特定网站和文件类型等技巧。掌握这些方法有助于快速、准确地找到所需信息，提高搜索效率。希望读者能通过本文更好地利用搜索引擎，高效获取知识。
-ai: 本文介绍了提升搜索引擎使用效率的常用语法，包括精确匹配、排除关键词、搜索特定网站和文件类型等技巧。掌握这些方法有助于快速、准确地找到所需信息，提高搜索效率。希望读者能通过本文更好地利用搜索引擎，高效获取知识。
-cover: https://s1.imagehub.cc/images/2024/11/17/61dfae33dc37c4903a0a27a2fd7fffaa.webp
+layout: post
+title: STL必会
+categories: CPP
 ---
+C++ STL技巧
+==========
+1 使用`copy`算法来输出数组
+`copy(vec.begin(),vec.end(),ostream_iterator<string>(cout," "));`  
+2 使用自定义`split`来分割字符串  
+{% highlight c++ %}
+//字符串分割函数,str表示被分割的字符串,pattern是分隔符  
+vector<std::string> split(std::string str,std::string pattern)  
+{  
+     std::string::size_type pos;  
+     std::vector<std::string> result;  
+     str+=pattern;//扩展字符串以方便操作  
+     int size=str.size();  
+     for(int i=0; i<size; i++)  
+     {  
+         pos=str.find(pattern,i);  
+         if(pos<size)  
+         {  
+             std::string s=str.substr(i,pos-i);  
+             result.push_back(s);  
+             i=pos+pattern.size()-1;  
+         }  
+     }  
+     return result;  
+}  
+{% endhighlight %}
+3 使用`transform`算法转换元素  
+如以下代码将coll中元素转换为负数，并存储到coll2中  
+`transform(coll1.begin(),coll1.end(),coll2.begin(),negate<int>());`  
+4 善用`vector<vector<int>>`形式的二维数组  
+普通new和delete出二维数组，麻烦不易维护，内存泄漏  
+{% highlight c++ %}
+int** ary = new int*[row_num];  
+for(int i = 0; i < row_num; ++i)  
+	ary[i] = new int[col_num];  
+{% endhighlight %}
+而使用`vector<vector<int>>` 则很方便，且内存连续  
+`vector<vector<int> > ary(row_num, vector<int>(col_num, 0))；`  
+5 使用`for_each`算法来作用于容器的每个元素  
+常用于输出打印：  
 
-# 搜索引擎的常用语法：提升你的搜索效率
-
-在信息爆炸的时代，搜索引擎成为了我们获取信息的重要工具。然而，并非每个人都能高效地使用搜索引擎。本文将详细介绍一些常用的搜索引擎语法，帮助你更精确、更快速地找到所需信息。
-
-## 速查表
-
-- [搜索引擎的常用语法：提升你的搜索效率](#搜索引擎的常用语法提升你的搜索效率)
-  - [速查表](#速查表)
-  - [引言](#引言)
-  - [基本搜索](#基本搜索)
-  - [精确匹配](#精确匹配)
-  - [排除关键词](#排除关键词)
-  - [搜索特定网站](#搜索特定网站)
-  - [搜索特定文件类型](#搜索特定文件类型)
-  - [搜索特定时间范围的内容](#搜索特定时间范围的内容)
-  - [使用通配符](#使用通配符)
-  - [使用引号进行精确匹配](#使用引号进行精确匹配)
-  - [使用减号排除关键词](#使用减号排除关键词)
-  - [使用加号包含关键词](#使用加号包含关键词)
-  - [使用OR进行关键词组合](#使用or进行关键词组合)
-  - [使用site:搜索特定站点](#使用site搜索特定站点)
-  - [使用inurl:搜索特定URL结构](#使用inurl搜索特定url结构)
-  - [使用intitle:搜索特定标题](#使用intitle搜索特定标题)
-  - [使用intext:搜索特定文本](#使用intext搜索特定文本)
-  - [使用related:搜索相关网站](#使用related搜索相关网站)
-  - [使用cache:查看网页缓存](#使用cache查看网页缓存)
-  - [使用define:查询定义](#使用define查询定义)
-  - [使用info:获取网页信息](#使用info获取网页信息)
-  - [使用$货币符号搜索价格](#使用货币符号搜索价格)
-  - [使用..搜索数值范围](#使用搜索数值范围)
-  - [总结](#总结)
-    - [参考资料：](#参考资料)
-
-## 引言
-
-搜索引擎优化（SEO）和搜索引擎营销（SEM）是数字营销的重要组成部分。了解搜索引擎的工作原理和搜索语法，可以帮助我们更有效地获取信息。本文将详细介绍一系列搜索引擎的常用语法，让你的搜索更加高效。
-
-## 基本搜索
-
-在搜索引擎中输入关键词进行搜索是最基础的操作。例如，如果你想搜索“前端技术”，只需在搜索框中输入“前端技术”即可。
-
-## 精确匹配
-
-有时候，我们希望搜索结果中包含完整的短语或句子。这时，可以使用双引号（""）来实现精确匹配。
-
-**示例：**
 ```
-"人工智能的发展"
+for_each(coll.begin(),coll.end(), [](const int ele){ cout<<elem<<" ");
 ```
-这样搜索结果中将只包含包含完整短语“前端技术的发展”的网页。
 
-## 排除关键词
-
-在搜索时，如果有些关键词不希望出现在结果中，可以使用减号（-）来排除。
-
-**示例：**
+也可以接受一个操作,该操作可以改变接受的实参，但要求`by reference`方式传递
+如：  
 ```
-前端技术 -HTML
+void square(int &elem)
+{
+	elem = elem*elem;
+}
+....
+for_each(coll.begin(),coll.end(),square);
+```   
+6 `max_element`和`min_element`算法来查找最小值与最大值  
+7 `equal`算法来判断两个区间是否相等  
+如：以下代码将判断coll1,coll2是否相等  
 ```
-这样搜索结果中将排除包含“HTML”的网页。
-
-## 搜索特定网站
-
-如果你只想在某个特定网站内搜索，可以使用`site:`语法。
-
-**示例：**
+equal(coll1.begin(),coll1.end(),coll2.begin(),[](int elem1,int elem2){return elem1 == elem2})
+```  
+8 `lexicographical...`判断字典书序是否小于另一个序列  
+9 `generate_n`对元素赋予新生值  
+如：  
+`genrate(coll.begi(),coll.end(),rand);`使用rand函数来生成随机值，并赋值给coll  
+10 `fill`和`fill_n`对元素进行赋值  
+如：
+`fill_n(coll.begin(),coll.end(),0);` 将coll中所有元素赋值为0  
+`fill_n(coll.begin(),coll.size(),0);` 将coll中所有元素赋值为0  
+11 `iota`将所有元素以一系列的递增值取代  
+如下面代码将coll以10为起点，递增  
+`iota(coll.begin(),iota.end(),10);`  
+12 `merge`合并连个区间  
+13 `remove`将等于某个值的全部元素去除  
+14 `unique`移除毗邻的重复元素,如果需要去除数组中全部重复元素，则应该先排序，且注意返回的是迭代器  
+15 `reverse`将元素的次序逆转  
+16 `rotate`旋转元素次序  
+17 `prev_permutation`和`next_permutation`得到元素的下一个全排列  
+如以下代码将打印coll中的全排列  
+```  
+while(next_permutation(coll.begin(),coll.end()))  
+        PRINT_ELEMENTS(coll," ");//该函数自定义，打印coll中的所有元素  
+```  
+18 `binary_search`判断某个区间是否存在某个元素  
+19 `include`判断一个区间的每个元素是否包含于另一个区间  
+20 `lower_bound`查找第一个“大于等于给定值”的元素  
+21 `upper_bound`查找第一个“大于某给定值”的元素  
+22 `accumulate`结合所有元素，如求和、乘积等操作   
+加法：  
+`accumulate(coll.begin(),coll.end(),0);`  
+乘法：  
+`accumulate(coll.begin(),coll.end(),1,multiplies<int>());`  
+23 `range_based for`循环来打印、操作元素  
+如  
 ```
-site:rhopaper.top 前端技术
+for(const auto& elem : coll)
+	cout<< elem << " ";
 ```
-这样搜索结果将只显示来自`rhopaper.top`网站关于“前端技术”的页面。
+24 `count`和`count_if`用来计算元素个数  
+如以下代码将返回coll中元素大于4的个数  
+{% highlight c++ %}
+num = count_if(coll.cbegin(),coll.cend(),
+				[](int elem){
+				return elem >4;	
+				});
+{% endhighlight %}
+25 `shuffle`对元素重新洗牌  
+26 `heap`相关算法：  
+* `make_heap`将某区间的元素转换为heap  
+* `pop_heap`对heap增加一个元素  
+* `push_heap`对heap取出一个元素  
+* `sort_heap`将heap转换为一个已排序集群，从此后它就不再是heap了  
 
-## 搜索特定文件类型
+27 字符串与数值之间的转换  
+使用`to_string`将数值转换为字符串  
+使用`stoi`,`stof`,`stod`等将字符串转为数值  
+尽量少使用C风格的`atoi(string.c_str())`;  
 
-当你需要查找特定类型的文件时，可以使用`filetype:`语法。
+28 使用`stoi`等函数，来做进制转换  
+stoi函数原型为：int stoi (const string&  str, size_t* idx = 0, int base = 10);其中`base`指定了进制  
 
-**示例：**
 ```
-filetype:pdf 前端技术
+string str_hex = "0xA";  
+int number_dec = stoi(str_hex,nullptr,16);  
 ```
-这样搜索结果将只显示PDF格式的关于“前端技术”的文件。
 
-## 搜索特定时间范围的内容
+29 使用`sstream`来处理C++中字符串分割的问题  
 
-如果你需要查找特定时间段内发布的内容，可以使用`after:`和`before:`语法。
-
-**示例：**
 ```
-after:2023-01-01 before:2024-01-01 前端技术
+#include<string>
+#include<algorithm>
+#include<iostream>
+#include <sstream>
+#include <vector>
+using namespace std;
+int main()
+{
+	string str;
+	getline(cin, str);
+	stringstream ss(str);
+	string temp;
+	vector<string> ret;
+	while (ss>>temp)
+	{
+		ret.push_back(temp);
+	}
+	system("pause");
+}
 ```
-这样搜索结果将只显示2023年1月1日至2024年1月1日之间发布的关于“前端技术”的内容。
-
-## 使用通配符
-
-有时候，我们不确定完整的关键词是什么，可以使用星号（*）作为通配符。
-
-**示例：**
-```
-前端技术 * 技术
-```
-这样搜索结果将包含“前端技术”和“技术”之间任何词汇的网页。
-
-## 使用引号进行精确匹配
-
-使用双引号（""）可以进行短语的精确匹配。
-
-**示例：**
-```
-"前端技术技术"
-```
-这样搜索结果将只包含包含完整短语“前端技术技术”的网页。
-
-## 使用减号排除关键词
-
-使用减号（-）可以排除特定关键词。
-
-**示例：**
-```
-前端技术 -HTML
-```
-这样搜索结果将排除包含“HTML”的网页。
-
-## 使用加号包含关键词
-
-使用加号（+）可以确保搜索结果中包含特定关键词。
-
-**示例：**
-```
-前端技术 +深度学习
-```
-这样搜索结果将只包含同时包含“前端技术”和“深度学习”的网页。
-
-## 使用OR进行关键词组合
-
-使用OR（大写）可以组合多个关键词。
-
-**示例：**
-```
-前端技术 OR HTML
-```
-这样搜索结果将包含包含“前端技术”或“HTML”的网页。
-
-## 使用site:搜索特定站点
-
-使用`site:`可以限制搜索结果只来自特定网站。
-
-**示例：**
-```
-site:rhopaper.top 前端技术
-```
-这样搜索结果将只显示来自`rhopaper.top`网站关于“前端技术”的页面。
-
-## 使用inurl:搜索特定URL结构
-
-使用`inurl:`可以搜索包含特定URL结构的网页。
-
-**示例：**
-```
-inurl:ai 前端技术
-```
-这样搜索结果将只显示URL中包含“ai”的关于“前端技术”的网页。
-
-## 使用intitle:搜索特定标题
-
-使用`intitle:`可以搜索网页标题中包含特定关键词的网页。
-
-**示例：**
-```
-intitle:前端技术 技术
-```
-这样搜索结果将只显示标题中包含“前端技术”和“技术”的网页。
-
-## 使用intext:搜索特定文本
-
-使用`intext:`可以搜索网页正文中包含特定关键词的网页。
-
-**示例：**
-```
-intext:前端技术 应用
-```
-这样搜索结果将只显示正文中包含“前端技术”和“应用”的网页。
-
-## 使用related:搜索相关网站
-
-使用`related:`可以搜索与特定网站内容相关的网页。
-
-**示例：**
-```
-related:rhopaper.top
-```
-这样搜索结果将显示与`rhopaper.top`内容相关的网页。
-
-## 使用cache:查看网页缓存
-
-使用`cache:`可以查看网页的缓存版本。
-
-**示例：**
-```
-cache:rhopaper.top
-```
-这样搜索结果将显示`rhopaper.top`网站的缓存版本。
-
-## 使用define:查询定义
-
-使用`define:`可以查询特定词汇的定义。
-
-**示例：**
-```
-define:前端技术
-```
-这样搜索结果将提供“前端技术”的定义。
-
-## 使用info:获取网页信息
-
-使用`info:`可以获取特定网页的详细信息。
-
-**示例：**
-```
-info:rhopaper.top
-```
-这样搜索结果将显示`rhopaper.top`网站的详细信息。
-
-## 使用$货币符号搜索价格
-
-使用$符号可以搜索特定价格的产品或服务。
-
-**示例：**
-```
-$100 - $200 前端技术书籍
-```
-这样搜索结果将显示价格在100至200美元之间的关于“前端技术”的书籍。
-
-## 使用..搜索数值范围
-
-使用两个点（..）可以搜索数值范围。
-
-**示例：**
-```
-100..200 前端技术书籍
-```
-这样搜索结果将显示价格在100至200美元之间的关于“前端技术”的书籍。
-
-## 总结
-
-掌握搜索引擎的常用语法，可以极大地提高我们的搜索效率。通过精确匹配、排除关键词、搜索特定网站和文件类型等方法，我们可以更快地找到所需的信息。希望本文能够帮助你更好地利用搜索引擎，帮助你在信息的海洋中快速找到所需的宝藏！
-
----
-
-### 参考资料：
-
-1. **Google搜索帮助中心**
-   - [Google搜索帮助](https://support.google.com/websearch/)
-
-2. **Bing帮助文档**
-   - [Bing搜索帮助](https://help.bing.microsoft.com/)
-
-3. **Moz博客**
-   - [Moz Blog](https://moz.com/blog)
-
-4. **Search Engine Journal**
-   - [Search Engine Journal](https://www.searchenginejournal.com/)

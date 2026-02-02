@@ -1,9 +1,7 @@
 {
   "name": "ctf-pwn",
-  "description": "Solve CTF binary exploitation challenges by discovering and exploiting memory corruption vulnerabilities to read flags. Use for buffer overflows, format strings, heap exploits, ROP challenges, or any ",
-  "repo": "cyberkaida/reverse-engineering-assistant",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "ljagiello/ctf-skills",
+  "path": "ctf-pwn/SKILL.md",
+  "source": "github.com/ljagiello/ctf-skills",
+  "downloaded_at": "2026-02-02T02:40:19.289838Z"
 }

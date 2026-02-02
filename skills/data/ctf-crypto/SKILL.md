@@ -1,323 +1,374 @@
 ---
 name: ctf-crypto
-description: Solve CTF cryptography challenges by identifying, analyzing, and exploiting weak crypto implementations in binaries to extract keys or decrypt data. Use for custom ciphers, weak crypto, key extraction, or algorithm identification.
+description: Cryptography techniques for CTF challenges. Use when attacking encryption, hashing, ZKP, signatures, or mathematical crypto problems.
+user-invocable: false
+allowed-tools: ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "Task", "WebFetch", "WebSearch"]
 ---
 
 # CTF Cryptography
 
-## Purpose
+Quick reference for crypto challenges. For detailed techniques, see supporting files.
 
-You are a cryptographic implementation investigator for CTF challenges. Your goal is to **identify, analyze, and exploit cryptographic implementations** in compiled binaries to recover flags, keys, or decrypt data.
+## Additional Resources
 
-Unlike real-world cryptanalysis (attacking mathematical foundations), CTF crypto-in-binaries focuses on:
-- **Implementation weaknesses**: Poor key management, weak RNGs, flawed custom ciphers
-- **Reverse engineering crypto logic**: Understanding what the binary is doing cryptographically
-- **Key extraction**: Finding hardcoded keys, deriving keys from weak sources
-- **Custom cipher analysis**: Breaking non-standard encryption schemes
-- **Crypto primitive identification**: Recognizing standard algorithms (AES, RSA, RC4, etc.)
+- [prng.md](prng.md) - PRNG attacks (Mersenne Twister, LCG, time-based seeds, password cracking)
+- [historical.md](historical.md) - Historical ciphers (Lorenz SZ40/42)
+- [advanced-math.md](advanced-math.md) - Advanced mathematical attacks (isogenies, Pohlig-Hellman, LLL, Coppersmith)
 
-This skill is for **crypto embedded in binaries**, not pure mathematical challenges.
+---
 
-## Conceptual Framework
+## ZKP Attacks
 
-Solving CTF crypto challenges in binaries follows a systematic investigation framework:
+- Look for information leakage in proofs
+- If proving IMPOSSIBLE problem (e.g., 3-coloring K4), you must cheat
+- Find hash collisions to commit to one value but reveal another
+- PRNG state recovery: salts generated from seeded PRNG can be predicted
+- Small domain brute force: if you know `commit(i) = sha256(salt(i), color(i))` and have salt, brute all colors
 
-### Phase 1: Crypto Detection
-**Goal**: Determine if and where cryptography is used
+## Graph 3-Coloring
 
-**Investigation approach:**
-- Search for crypto-related strings and constants
-- Identify mathematical operation patterns (XOR, rotation, substitution)
-- Recognize standard algorithm signatures (S-boxes, key schedules, magic constants)
-- Find crypto API imports (CryptEncrypt, OpenSSL functions, etc.)
-
-**Key question**: "Is there crypto, and if so, what kind?"
-
-### Phase 2: Algorithm Identification
-**Goal**: Determine what cryptographic algorithm is being used
-
-**Investigation approach:**
-- Compare constants to known crypto constants (initialization vectors, S-boxes)
-- Analyze operation patterns (rounds, block sizes, data flow)
-- Match code structure to known algorithm patterns
-- Check for library usage vs. custom implementation
-
-**Key question**: "What algorithm is this, or is it custom?"
-
-### Phase 3: Implementation Analysis
-**Goal**: Understand how the crypto is implemented and find weaknesses
-
-**Investigation approach:**
-- Trace key material sources (hardcoded, derived, user input)
-- Analyze key generation/derivation logic
-- Identify mode of operation (ECB, CBC, CTR, etc.)
-- Look for implementation mistakes (IV reuse, weak RNG, etc.)
-- Check for custom modifications to standard algorithms
-
-**Key question**: "How is it implemented, and where are the weaknesses?"
-
-### Phase 4: Key Extraction or Breaking
-**Goal**: Recover the key or break the implementation to decrypt data
-
-**Investigation approach:**
-- Extract hardcoded keys from binary data
-- Exploit weak key derivation (predictable RNG, poor entropy)
-- Break custom ciphers (frequency analysis, known-plaintext, etc.)
-- Leverage implementation flaws (timing, side channels, logic errors)
-- Reverse engineer decryption routines to understand transformation
-
-**Key question**: "How do I recover the plaintext or key?"
-
-## Core Methodologies
-
-### Methodology 1: String and Constant Analysis
-
-**When to use**: Initial discovery phase
-
-**Approach**:
-1. Search for crypto keywords in strings
-2. Search for URLs, API endpoints that might receive encrypted data
-3. Locate large constant arrays (potential S-boxes, lookup tables)
-4. Compare constants to known crypto constants databases
-5. Follow cross-references from strings/constants to crypto functions
-
-**Tools**:
-- `search-strings-regex` for crypto keywords
-- `get-strings-by-similarity` for algorithm names
-- `read-memory` to inspect constant arrays
-- `find-cross-references` to trace usage
-
-### Methodology 2: Pattern Recognition
-
-**When to use**: Identifying algorithm type
-
-**Approach**:
-1. Look for characteristic loop structures (round counts)
-2. Identify substitution operations (table lookups)
-3. Recognize permutation patterns (bit shuffling)
-4. Spot modular arithmetic (public-key crypto)
-5. Match to known algorithm patterns (see patterns.md)
-
-**Tools**:
-- `get-decompilation` with context to see algorithm structure
-- `search-decompilation` for operation patterns
-- Pattern reference (patterns.md) for recognition
-
-### Methodology 3: Data Flow Analysis
-
-**When to use**: Understanding key management and data flow
-
-**Approach**:
-1. Trace where plaintext/ciphertext enters the system
-2. Follow key material from source to usage
-3. Identify transformation steps (encrypt, decrypt, derive)
-4. Map data dependencies between functions
-5. Find where decrypted output is used or stored
-
-**Tools**:
-- `find-cross-references` with context for data flow
-- `rename-variables` to clarify data roles (plaintext, key, iv)
-- `change-variable-datatypes` to reflect crypto types (uint8_t*, etc.)
-
-### Methodology 4: Weakness Discovery
-
-**When to use**: Finding exploitable flaws in implementation
-
-**Common implementation weaknesses in CTF challenges**:
-- Hardcoded keys in binary (directly extractable)
-- Weak key derivation (time-based seeds, simple XOR)
-- Poor random number generation (predictable, seeded with constant)
-- ECB mode (enables block analysis and manipulation)
-- IV reuse or predictable IVs
-- Custom ciphers with mathematical weaknesses
-- Incomplete key schedules or reduced rounds
-- Debug/test modes that bypass crypto
-
-**Investigation strategy**:
-1. Check if key is hardcoded (read memory at key pointer)
-2. Analyze RNG initialization (is seed predictable?)
-3. Check for mode of operation weaknesses (ECB patterns)
-4. Look for test/debug backdoors
-5. Identify custom modifications to standard algorithms
-
-### Methodology 5: Reverse Engineering Decryption
-
-**When to use**: When you need to understand or replicate crypto logic
-
-**Approach**:
-1. Find decryption routine (may be encryption run backwards)
-2. Rename variables systematically (key, plaintext, ciphertext, state)
-3. Apply correct data types (byte arrays, word arrays)
-4. Document each transformation step with comments
-5. Replicate logic in Python script to test understanding
-6. Use binary's own decryption routine if possible
-
-**Tools**:
-- `rename-variables` for clarity
-- `change-variable-datatypes` for correctness
-- `set-decompilation-comment` to document understanding
-- `set-bookmark` to mark important crypto functions
-
-## Flexible Workflow
-
-CTF crypto challenges vary widely, so adapt this workflow to your specific challenge:
-
-### Quick Triage (5 minutes)
-1. **Detect**: Search for crypto strings, imports, constants
-2. **Identify**: Quick pattern match to known algorithms
-3. **Assess**: Is it standard crypto or custom? Strong or weak?
-
-### Deep Investigation (15-30 minutes)
-4. **Understand**: Decompile crypto functions, trace data flow
-5. **Improve**: Rename variables, fix types, document behavior
-6. **Analyze**: Find key sources, check for weaknesses
-7. **Exploit**: Extract keys, break weak implementations, or replicate logic
-
-### Exploitation (varies)
-8. **Extract**: Pull hardcoded keys from binary data
-9. **Break**: Exploit weak RNG, custom cipher flaws, or poor key derivation
-10. **Decrypt**: Use recovered keys or replicated logic to get flag
-
-### Verification
-11. **Test**: Verify decryption produces readable flag
-12. **Document**: Save findings in bookmarks and comments
-
-## Pattern Recognition
-
-For detailed cryptographic algorithm patterns and recognition techniques, see **patterns.md**.
-
-Key pattern categories:
-- **Block ciphers**: AES, DES, Blowfish (S-boxes, rounds, key schedules)
-- **Stream ciphers**: RC4, ChaCha (state evolution, keystream generation)
-- **Public key**: RSA, ECC (modular arithmetic, large integers)
-- **Hash functions**: MD5, SHA family (compression, magic constants)
-- **Simple schemes**: XOR, substitution, custom ciphers
-
-## CTF-Specific Considerations
-
-### CTF Challenge Design Patterns
-
-**Common CTF crypto scenarios**:
-1. **Weak custom cipher**: Break via cryptanalysis (frequency, known-plaintext)
-2. **Hardcoded key**: Extract from .data section
-3. **Weak RNG**: Predict key from time-based or constant seed
-4. **Standard crypto, weak key**: Brute-force small keyspace
-5. **Implementation bug**: Exploit logic error to bypass crypto
-6. **Obfuscated standard**: Recognize despite code obfuscation
-
-**What CTF crypto is NOT**:
-- Pure mathematical cryptanalysis (breaking AES-256 mathematically)
-- Side-channel attacks on hardware (timing, power analysis)
-- Network protocol attacks (though may combine with binary crypto)
-- Breaking modern TLS/SSL implementations
-
-### Time Management
-
-**Prioritize based on difficulty**:
-1. Hardcoded keys (minutes): Search .data, extract bytes
-2. Weak RNG (10-15 min): Analyze seed, predict sequence
-3. Simple custom cipher (20-30 min): Frequency analysis, known-plaintext
-4. Implementation bugs (15-30 min): Find logic errors, test edge cases
-5. Complex custom cipher (30-60 min): Full reverse engineering and breaking
-
-**Know when to move on**: If you've spent 30 minutes without progress, step back and reassess or try a different challenge.
-
-## Tool Usage Patterns
-
-### Discovery Phase
-```
-search-strings-regex pattern="(AES|RSA|encrypt|decrypt|crypto|cipher|key)"
-get-symbols includeExternal=true  → Check for crypto API imports
-search-decompilation pattern="(xor|sbox|round|block)"
+```python
+import networkx as nx
+nx.coloring.greedy_color(G, strategy='saturation_largest_first')
 ```
 
-### Analysis Phase
-```
-get-decompilation includeIncomingReferences=true includeReferenceContext=true
-find-cross-references direction="both" includeContext=true
-read-memory at suspected key/S-box locations
-```
+## CBC-MAC vs OFB-MAC Vulnerability
 
-### Improvement Phase
-```
-rename-variables: {"var_1": "key", "var_2": "plaintext", "var_3": "sbox"}
-change-variable-datatypes: {"key": "uint8_t*", "block": "uint8_t[16]"}
-apply-data-type: uint8_t[256] to S-box constants
-set-decompilation-comment: Document crypto operations
-```
+- OFB mode creates a keystream that can be XORed for signature forgery
+- If you have signature for known plaintext P1, forge for P2:
+  ```
+  new_sig = known_sig XOR block2_of_P1 XOR block2_of_P2
+  ```
+- Don't forget PKCS#7 padding in calculations!
+- Small bruteforce space? Just try all combinations (e.g., 100 for 2 unknown digits)
 
-### Documentation Phase
-```
-set-bookmark type="Analysis" category="Crypto" → Mark crypto functions
-set-bookmark type="Note" category="Key" → Mark key locations
-set-comment → Document assumptions and findings
-```
+## Weak Hash Functions
 
-## Integration with Other Skills
+- Linear permutations (only XOR, rotations) are algebraically attackable
+- Build transformation matrix and solve over GF(2)
 
-### After Binary Triage
-If binary-triage identified crypto indicators, start investigation at bookmarked locations:
-```
-search-bookmarks type="Warning" category="Crypto"
-search-bookmarks type="TODO" category="Crypto"
-```
+## GF(2) Gaussian Elimination
 
-### With Deep Analysis
-Use deep-analysis investigation loop for systematic crypto function analysis:
-- READ → Get decompilation
-- UNDERSTAND → Match to crypto patterns
-- IMPROVE → Rename/retype for clarity
-- VERIFY → Re-read to confirm
-- FOLLOW → Trace key sources
-- TRACK → Document findings
+```python
+import numpy as np
 
-### Standalone Usage
-User explicitly asks about crypto:
-- "What encryption is used?"
-- "Find the hardcoded key"
-- "How does the custom cipher work?"
-- "Extract the encryption key"
-
-## Output Format
-
-Return structured findings:
-
-```
-Crypto Analysis Summary:
-- Algorithm: [Identified algorithm or "custom cipher"]
-- Confidence: [high/medium/low]
-- Key Size: [bits/bytes]
-- Mode: [ECB, CBC, CTR, etc. if applicable]
-
-Evidence:
-- [Specific addresses, constants, code patterns]
-
-Key Material:
-- Location: [address of key]
-- Source: [hardcoded/derived/user-input]
-- Value: [key bytes if extracted]
-
-Weaknesses Found:
-- [List of exploitable weaknesses]
-
-Exploitation Strategy:
-- [How to break/bypass crypto to get flag]
-
-Database Improvements:
-- [Variables renamed, types fixed, comments added]
-
-Unanswered Questions:
-- [Further investigation needed]
+def solve_gf2(A, b):
+    """Solve Ax = b over GF(2)."""
+    m, n = A.shape
+    Aug = np.hstack([A, b.reshape(-1, 1)]) % 2
+    pivot_cols, row = [], 0
+    for col in range(n):
+        pivot = next((r for r in range(row, m) if Aug[r, col]), None)
+        if pivot is None: continue
+        Aug[[row, pivot]] = Aug[[pivot, row]]
+        for r in range(m):
+            if r != row and Aug[r, col]: Aug[r] = (Aug[r] + Aug[row]) % 2
+        pivot_cols.append((row, col)); row += 1
+    if any(Aug[r, -1] for r in range(row, m)): return None
+    x = np.zeros(n, dtype=np.uint8)
+    for r, c in reversed(pivot_cols):
+        x[c] = Aug[r, -1] ^ sum(Aug[r, c2] * x[c2] for c2 in range(c+1, n)) % 2
+    return x
 ```
 
-## Remember
+## RSA Attacks
 
-- **Generic approach**: Apply conceptual framework to any crypto implementation
-- **Pattern matching**: Use patterns.md for algorithm recognition
-- **Implementation focus**: Look for weaknesses in implementation, not mathematical breaks
-- **Key extraction**: Most CTF challenges have extractable or derivable keys
-- **Document as you go**: Crypto analysis benefits from clear variable naming
-- **Time-box your work**: Don't spend hours on cryptanalysis if key extraction is simpler
-- **Test assumptions**: Verify your understanding by replicating crypto logic
+- Small e with small message: take eth root
+- Common modulus: extended GCD attack
+- Wiener's attack: small d
+- Fermat factorization: p and q close together
+- Pollard's p-1: smooth p-1
+- Hastad's broadcast attack: same message, multiple e=3 encryptions
 
-Your goal is to **extract the flag**, not to become a cryptographer. Use implementation weaknesses, not mathematical attacks.
+## RSA with Consecutive Primes
+
+**Pattern (Loopy Primes):** q = next_prime(p), making p ≈ q ≈ sqrt(N).
+
+**Factorization:** Find first prime below sqrt(N):
+```python
+from sympy import nextprime, prevprime, isqrt
+
+root = isqrt(n)
+p = prevprime(root + 1)
+while n % p != 0:
+    p = prevprime(p)
+q = n // p
+```
+
+**Multi-layer variant:** 1024 nested RSA encryptions, each with consecutive primes of increasing bit size. Decrypt in reverse order.
+
+## Multi-Prime RSA
+
+When N is product of many small primes (not just p*q):
+```python
+# Factor N (easier when many primes)
+from sympy import factorint
+factors = factorint(n)  # Returns {p1: e1, p2: e2, ...}
+
+# Compute phi using all factors
+phi = 1
+for p, e in factors.items():
+    phi *= (p - 1) * (p ** (e - 1))
+
+d = pow(e, -1, phi)
+plaintext = pow(ciphertext, d, n)
+```
+
+## AES Attacks
+
+- ECB mode: block shuffling, byte-at-a-time oracle
+- CBC bit flipping: modify ciphertext to change plaintext
+- Padding oracle: decrypt without key
+
+## AES-CFB-8 Static IV State Forging
+
+**Pattern (Cleverly Forging Breaks):** AES-CFB with 8-bit feedback and reused IV allows state reconstruction.
+
+**Key insight:** After encrypting 16 known bytes, the AES internal shift register state is fully determined by those ciphertext bytes. Forge new ciphertexts by continuing encryption from known state.
+
+## Classic Ciphers
+
+- Caesar: frequency analysis or brute force 26 keys
+- Vigenere: Kasiski examination, index of coincidence
+- Substitution: frequency analysis, known plaintext
+
+### Vigenère Cipher
+
+**Known Plaintext Attack (most common in CTFs):**
+```python
+def vigenere_decrypt(ciphertext, key):
+    result = []
+    key_index = 0
+    for c in ciphertext:
+        if c.isalpha():
+            shift = ord(key[key_index % len(key)].upper()) - ord('A')
+            base = ord('A') if c.isupper() else ord('a')
+            result.append(chr((ord(c) - base - shift) % 26 + base))
+            key_index += 1
+        else:
+            result.append(c)
+    return ''.join(result)
+
+def derive_key(ciphertext, plaintext):
+    """Derive key from known plaintext (e.g., flag format CCOI26{)"""
+    key = []
+    for c, p in zip(ciphertext, plaintext):
+        if c.isalpha() and p.isalpha():
+            c_val = ord(c.upper()) - ord('A')
+            p_val = ord(p.upper()) - ord('A')
+            key.append(chr((c_val - p_val) % 26 + ord('A')))
+    return ''.join(key)
+```
+
+**When standard keys don't work:**
+1. Key may not repeat - could be as long as message
+2. Key derived from challenge theme (character names, phrases)
+3. Key may have "padding" - repeated letters (IICCHHAA instead of ICHA)
+4. Try guessing plaintext words from theme, derive full key
+
+## Elliptic Curve Attacks (General)
+
+**Small subgroup attacks:**
+- Check curve order for small factors
+- Pohlig-Hellman: solve DLP in small subgroups, combine with CRT
+
+**Invalid curve attacks:**
+- If point validation missing, send points on weaker curves
+- Craft points with small-order subgroups
+
+**Singular curves:**
+- If discriminant Δ = 0, curve is singular
+- DLP becomes easy (maps to additive/multiplicative group)
+
+**Smart's attack:**
+- For anomalous curves (order = field size p)
+- Lifts to p-adics, solves DLP in O(1)
+
+```python
+# SageMath ECC basics
+E = EllipticCurve(GF(p), [a, b])
+G = E.gens()[0]  # generator
+order = E.order()
+```
+
+## ECC Fault Injection
+
+**Pattern (Faulty Curves):** Bit flip during ECC computation reveals private key bits.
+
+**Attack:** Compare correct vs faulty ciphertext, recover key bit-by-bit:
+```python
+# For each key bit position:
+# If fault at bit i changes output → key bit i affects computation
+# Binary distinguisher: faulty_output == correct_output → bit is 0
+```
+
+## Useful Tools
+
+```bash
+# Python setup
+pip install pycryptodome z3-solver sympy gmpy2
+
+# SageMath for advanced math (required for ECC)
+sage -python script.py
+```
+
+## Common Patterns
+
+```python
+from Crypto.Util.number import *
+
+# RSA basics
+n = p * q
+phi = (p-1) * (q-1)
+d = inverse(e, phi)
+m = pow(c, d, n)
+
+# XOR
+from pwn import xor
+xor(ct, key)
+```
+
+## Z3 SMT Solver
+
+Z3 solves constraint satisfaction - useful when crypto reduces to finding values satisfying conditions.
+
+**Basic usage:**
+```python
+from z3 import *
+
+# Boolean variables (for bit-level problems)
+bits = [Bool(f'b{i}') for i in range(64)]
+
+# Integer/bitvector variables
+x = BitVec('x', 32)  # 32-bit bitvector
+y = Int('y')         # arbitrary precision int
+
+solver = Solver()
+solver.add(x ^ 0xdeadbeef == 0x12345678)
+solver.add(y > 100, y < 200)
+
+if solver.check() == sat:
+    model = solver.model()
+    print(model.eval(x))
+```
+
+**BPF/SECCOMP filter solving:**
+
+When challenges use BPF bytecode for flag validation (e.g., custom syscall handlers):
+
+```python
+from z3 import *
+
+# Model flag as array of 4-byte chunks (how BPF sees it)
+flag = [BitVec(f'f{i}', 32) for i in range(14)]
+s = Solver()
+
+# Constraint: printable ASCII
+for f in flag:
+    for byte in range(4):
+        b = (f >> (byte * 8)) & 0xff
+        s.add(b >= 0x20, b < 0x7f)
+
+# Extract constraints from BPF dump (seccomp-tools dump ./binary)
+mem = [BitVec(f'm{i}', 32) for i in range(16)]
+
+# Example BPF constraint reconstruction
+s.add(mem[0] == flag[0])
+s.add(mem[1] == mem[0] ^ flag[1])
+s.add(mem[4] == mem[0] + mem[1] + mem[2] + mem[3])
+s.add(mem[8] == 4127179254)  # From BPF if statement
+
+if s.check() == sat:
+    m = s.model()
+    flag_bytes = b''
+    for f in flag:
+        val = m[f].as_long()
+        flag_bytes += val.to_bytes(4, 'little')
+    print(flag_bytes.decode())
+```
+
+**Converting bits to flag:**
+```python
+from Crypto.Util.number import long_to_bytes
+
+if solver.check() == sat:
+    model = solver.model()
+    flag_bits = ''.join('1' if model.eval(b) else '0' for b in bits)
+    print(long_to_bytes(int(flag_bits, 2)))
+```
+
+**When to use Z3:**
+- Type system constraints (OCaml GADTs, Haskell types)
+- Custom hash/cipher with algebraic structure
+- Equation systems over finite fields
+- Boolean satisfiability encoded in challenge
+- Constraint propagation puzzles
+
+## Cascade XOR (First-Byte Brute Force)
+
+**Pattern (Shifty XOR):** Each byte XORed with previous ciphertext byte.
+
+```python
+# c[i] = p[i] ^ c[i-1] (or similar cascade)
+# Brute force first byte, rest follows deterministically
+for first_byte in range(256):
+    flag = [first_byte]
+    for i in range(1, len(ct)):
+        flag.append(ct[i] ^ flag[i-1])
+    if all(32 <= b < 127 for b in flag):
+        print(bytes(flag))
+```
+
+## ECB Pattern Leakage on Images
+
+**Pattern (Electronic Christmas Book):** AES-ECB on BMP/image data preserves visual patterns.
+
+**Exploitation:** Identical plaintext blocks produce identical ciphertext blocks, revealing image structure even when encrypted. Rearrange or identify patterns visually.
+
+## Padding Oracle Attack
+
+**Pattern (The Seer):** Server reveals whether decrypted padding is valid.
+
+**Byte-by-byte decryption:**
+```python
+def decrypt_byte(block, prev_block, position, oracle):
+    for guess in range(256):
+        modified = bytearray(prev_block)
+        # Set known bytes to produce valid padding
+        pad_value = 16 - position
+        for j in range(position + 1, 16):
+            modified[j] = known[j] ^ pad_value
+        modified[position] = guess
+        if oracle(bytes(modified) + block):
+            return guess ^ pad_value
+```
+
+## Atbash Cipher
+
+Simple substitution: A↔Z, B↔Y, C↔X, etc.
+```python
+def atbash(text):
+    return ''.join(
+        chr(ord('Z') - (ord(c.upper()) - ord('A'))) if c.isalpha() else c
+        for c in text
+    )
+```
+
+**Identification:** Challenge name hints ("Abashed" ≈ Atbash), preserves spaces/punctuation, 1-to-1 substitution.
+
+## Substitution Cipher with Rotating Wheel
+
+**Pattern (Wheel of Mystery):** Physical cipher wheel with inner/outer alphabets.
+
+**Brute force all rotations:**
+```python
+outer = "ABCDEFGHIJKLMNOPQRSTUVWXYZ{}"
+inner = "QNFUVWLEZYXPTKMR}ABJICOSDHG{"  # Given
+
+for rotation in range(len(outer)):
+    rotated = inner[rotation:] + inner[:rotation]
+    mapping = {outer[i]: rotated[i] for i in range(len(outer))}
+    decrypted = ''.join(mapping.get(c, c) for c in ciphertext)
+    if decrypted.startswith("METACTF{"):
+        print(decrypted)
+```

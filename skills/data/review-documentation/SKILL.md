@@ -1,109 +1,176 @@
 ---
 name: review-documentation
-description: |
-  Use this skill when asked to review the package documentation of the Go implementation of Feather.
+description: ドキュメントの技術的正確性・事実確認を行う際に使用。記載内容の妥当性検証、事実誤認チェック、Web検索による裏付け確認に役立つ。
 ---
 
-# Review Go Documentation
+# ドキュメントレビューガイド
 
-Review Go package documentation from a user's perspective, identifying gaps and areas for improvement.
+## 概要
 
-## When to Use
+ドキュメントの記載内容が技術的に正確かどうかを確認するスキルです。
 
-Use this skill when:
+---
 
-- A package's public API documentation needs review
-- Preparing documentation for a library release
-- Evaluating whether docs are sufficient for new users
+## レビュー観点
 
-## Process
+### 1. 技術的正確性
 
-1. **Run `go doc .`** to see the package overview
-2. **Run `go doc -all .`** to see all exported symbols
-3. **Adopt the user's perspective**: Imagine you're a developer who just discovered this package and wants to use it
+| チェック項目 | 確認方法 |
+|-------------|---------|
+| 用語の正確性 | 公式ドキュメント、RFC等で確認 |
+| 年代・歴史 | Web検索で複数ソースを確認 |
+| 技術的な仕組み | 公式ドキュメント、ソースコードで確認 |
+| バージョン情報 | 最新の公式情報を確認 |
 
-## Checklist
+### 2. 事実確認が必要な項目
 
-Review documentation against these categories:
-
-### Essential Information
-
-- [ ] **Purpose**: Is the package's purpose clear in one sentence?
-- [ ] **Quick Start**: Can a user get something working in under 5 minutes?
-- [ ] **Core Types**: Are the 2-3 most important types clearly identified?
-- [ ] **Thread Safety**: Is concurrency behavior documented?
-- [ ] **Error Handling**: How do errors propagate? What error types exist?
-- [ ] **Lifecycle**: When to create, when to close, what happens to related objects?
-
-### API Clarity
-
-- [ ] **Similar Functions**: Are distinctions between similar functions clear?
-  - Example: `Register` vs `RegisterType` vs `DefineType`
-- [ ] **Similar Types**: Are related types differentiated?
-  - Example: `TypeDef` vs `ForeignTypeDef`
-- [ ] **Constants**: Are magic constants explained with context for when to use them?
-- [ ] **Unexplained Types**: Does every exported type have a clear use case?
-
-### Practical Guidance
-
-- [ ] **Common Patterns**: Are typical usage patterns shown?
-- [ ] **Anti-patterns**: Are common mistakes warned against?
-- [ ] **Scope/Subset**: If implementing a standard, what subset is covered?
-- [ ] **Limitations**: What can't it do?
-
-### Internal vs Public
-
-- [ ] **Internal Types**: Are internal-but-exported types clearly marked "do not use"?
-- [ ] **Stability**: Is it clear which APIs are stable vs experimental?
-
-## Output Format
-
-Provide findings in these sections:
-
-```markdown
-## Critical (Users will be blocked without this)
-
-- Issue 1
-- Issue 2
-
-## Important (Users will struggle without this)
-
-- Issue 1
-- Issue 2
-
-## Nice to Have (Would improve experience)
-
-- Issue 1
-- Issue 2
-
-## What's Good (Keep these)
-
-- Strength 1
-- Strength 2
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 特に確認が必要な記述                                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ ・年代（「1997年にServlet登場」等）                        │
+│ ・数値（「100倍速い」等の比較）                            │
+│ ・人物・組織（「Sunが開発」等）                            │
+│ ・技術仕様（「HTTPは〜」等）                               │
+│ ・歴史的経緯（「CGIの問題を解決するために」等）            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Example Review
+### 3. 一貫性
 
-For a hypothetical database driver:
+- 同じ概念に異なる用語を使っていないか
+- 図と本文で矛盾していないか
+- 他のドキュメントとの整合性
+
+---
+
+## レビュー手順
+
+### Step 1: ドキュメントを読む
+
+```bash
+# 対象ファイルを読む
+Read <file_path>
+```
+
+### Step 2: 事実確認が必要な箇所を特定
+
+以下のような記述をピックアップ:
+- 具体的な年代
+- 技術的な仕様・仕組み
+- 歴史的な経緯
+- 比較や数値
+
+### Step 3: Web検索で裏付け
+
+```
+WebSearch で以下を確認:
+- 公式ドキュメント
+- RFC/仕様書
+- 複数の信頼できるソース
+```
+
+### Step 4: レビュー結果を報告
 
 ```markdown
-## Critical
+## レビュー結果
 
-- No mention of thread safety - can I share \*DB across goroutines?
-- Close() documented but not what happens to active queries
+### 確認した項目
 
-## Important
+| 記述 | 確認結果 | ソース |
+|------|---------|--------|
+| 「1997年にServlet登場」 | ✅ 正確 | Oracle公式、Wikipedia |
+| 「CGIは1993年頃から」 | ✅ 正確 | NCSA文書 |
 
-- Query vs QueryRow vs QueryContext - when to use each?
-- Error types not documented - how do I detect "connection lost"?
+### 修正が必要な箇所
 
-## Nice to Have
+| 箇所 | 問題 | 修正案 |
+|------|------|--------|
+| 〇〇 | △△が不正確 | □□に修正 |
 
-- Example of connection pooling configuration
-- List of supported database versions
+### 確認できなかった項目
 
-## What's Good
+- 〇〇（ソースが見つからず）
+```
 
-- Quick start example gets to working code fast
-- Transaction API is well-explained with rollback semantics
+---
+
+## よく確認する情報源
+
+### 公式ドキュメント
+
+| 技術 | 公式ソース |
+|------|-----------|
+| Java/Servlet | Oracle、Jakarta EE |
+| Spring Boot | spring.io |
+| HTTP | RFC 7230-7235, MDN |
+| OAuth/OIDC | RFC 6749, openid.net |
+
+### 信頼できる二次ソース
+
+- Wikipedia（ただし一次ソースも確認）
+- MDN Web Docs
+- Stack Overflow（高評価の回答）
+
+---
+
+## レビュー対象の例
+
+### 学習コンテンツ（content_11_learning）
+
+```
+documentation/docs/content_11_learning/
+├── 22-frameworks/
+│   ├── 06-java-servlet.md
+│   ├── 07-spring-boot.md
+│   ├── 08-servlet-container.md
+│   └── 09-cgi-to-servlet.md
+```
+
+これらは技術的な説明が多いため、特に事実確認が重要。
+
+---
+
+## 使用例
+
+```
+/review-documentation documentation/docs/content_11_learning/22-frameworks/09-cgi-to-servlet.md
+```
+
+または
+
+```
+/review-documentation 09-cgi-to-servlet.md
+```
+
+---
+
+## 出力フォーマット
+
+```markdown
+# ドキュメントレビュー: [ファイル名]
+
+## 概要
+- 対象: [ファイルパス]
+- レビュー日: [日付]
+
+## 確認結果
+
+### ✅ 正確な記述
+| 記述 | 確認ソース |
+|------|-----------|
+| ... | ... |
+
+### ⚠️ 要確認・修正推奨
+| 記述 | 問題点 | 修正案 | ソース |
+|------|--------|--------|--------|
+| ... | ... | ... | ... |
+
+### ❓ 確認できなかった項目
+- ...
+
+## 総評
+[全体的な評価コメント]
 ```

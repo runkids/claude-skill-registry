@@ -1,58 +1,52 @@
 ---
 name: test-skill
-description: Test skill for validation purposes
-allowed-tools: Read, Grep
+description: |
+  A test skill for unit testing.
+  Use when: testing the chunker, running unit tests.
+  Helps with: validating skill parsing works correctly.
+author: Memory Forge
+version: 1.0.0
+date: 2025-01-28
 ---
 
 # Test Skill
 
-This is a test skill for validation purposes.
+## Problem
 
-## What This Skill Provides
+This is a sample problem description for testing purposes.
+It explains what issue this skill addresses.
 
-- **Standard 1** - First standard
-- **Standard 2** - Second standard
-- **Standard 3** - Third standard
+## Trigger Conditions
 
-## When to Activate This Skill
+When to activate this skill:
 
-Activate this skill when:
-- Working with test scenarios
-- Validating component structures
-- Learning about skill patterns
+- Error: `Test error message`
+- Error: `Another test error`
+- When running unit tests
 
-## Workflow
+## Solution
 
-### Step 1: Identify Requirements
-Determine what standards are needed for the current task.
+### Step 1: First Action
 
-### Step 2: Load Relevant Standards
-Based on the task:
-- **Testing** → Read standards/testing.md
-- **Validation** → Read standards/validation.md
-- **Patterns** → Read standards/patterns.md
+Do the first thing to solve the problem.
 
-### Step 3: Apply Standards
-Follow guidance from loaded standards.
-
-## Standards Organization
-
-```
-standards/
-├── testing.md          (Testing standards)
-├── validation.md       (Validation standards)
-└── patterns.md         (Pattern standards)
+```typescript
+const example = 'code';
 ```
 
-## Tool Access
+### Step 2: Second Action
 
-**Read**: Load standard files on-demand
-**Grep**: Search for specific patterns in standards
+Continue with the second step.
 
-## Quality Verification
+## Verification
 
-Skills are self-contained when:
-- [ ] All standards in standards/ directory
-- [ ] All paths use relative paths
-- [ ] No external file references
-- [ ] No cross-skill duplication
+How to confirm the solution worked:
+
+1. Run the tests
+2. Check the output
+3. Verify success
+
+## Notes
+
+- This is a test skill
+- Only for testing purposes

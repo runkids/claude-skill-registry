@@ -1,13 +1,12 @@
 ---
 name: mot
 description: System health check (MOT) for skills, agents, hooks, and memory
-model: sonnet
 allowed-tools: [Read, Bash, Glob, Grep]
 ---
 
 # MOT - System Health Check
 
-Run comprehensive health checks on all Maestro components.
+Run comprehensive health checks on all Claude Code components.
 
 ## Usage
 
@@ -27,12 +26,12 @@ Run comprehensive health checks on all Maestro components.
 ```bash
 # Count skills
 echo "=== SKILLS ==="
-SKILL_COUNT=$(find .maestro/skills -name "SKILL.md" | wc -l | xargs)
+SKILL_COUNT=$(find .claude/skills -name "SKILL.md" | wc -l | xargs)
 echo "Found $SKILL_COUNT skill files"
 
 # Check frontmatter parsing
 FAIL=0
-for skill in $(find .maestro/skills -name "SKILL.md"); do
+for skill in $(find .claude/skills -name "SKILL.md"); do
   if ! head -1 "$skill" | grep -q "^---$"; then
     echo "FAIL: No frontmatter: $skill"
     FAIL=$((FAIL+1))
@@ -42,7 +41,7 @@ echo "Frontmatter: $((SKILL_COUNT - FAIL)) pass, $FAIL fail"
 
 # Check name matches directory
 FAIL=0
-for skill in $(find .maestro/skills -name "SKILL.md"); do
+for skill in $(find .claude/skills -name "SKILL.md"); do
   dir=$(basename $(dirname "$skill"))
   name=$(grep "^name:" "$skill" 2>/dev/null | head -1 | cut -d: -f2 | xargs)
   if [ -n "$name" ] && [ "$dir" != "$name" ]; then
@@ -56,12 +55,12 @@ echo "Name consistency: $((SKILL_COUNT - FAIL)) pass, $FAIL fail"
 ### Phase 2: Agents Audit
 ```bash
 echo "=== AGENTS ==="
-AGENT_COUNT=$(ls .maestro/agents/*.md 2>/dev/null | wc -l | xargs)
+AGENT_COUNT=$(ls .claude/agents/*.md 2>/dev/null | wc -l | xargs)
 echo "Found $AGENT_COUNT agent files"
 
 # Check required fields
 FAIL=0
-for agent in .maestro/agents/*.md; do
+for agent in .claude/agents/*.md; do
   [ -f "$agent" ] || continue
 
   # Check name field exists
@@ -82,12 +81,12 @@ echo "Agent validation: $((AGENT_COUNT - FAIL)) pass, $FAIL fail"
 
 # Check for dangling references (agents that reference non-existent agents)
 echo "Checking agent cross-references..."
-for agent in .maestro/agents/*.md; do
+for agent in .claude/agents/*.md; do
   [ -f "$agent" ] || continue
   # Find subagent_type references
   refs=$(grep -oE 'subagent_type[=:]["'\'']*([a-z-]+)' "$agent" 2>/dev/null | sed 's/.*["'\'']//' | sed 's/["'\'']$//')
   for ref in $refs; do
-    if [ ! -f ".maestro/agents/$ref.md" ]; then
+    if [ ! -f ".claude/agents/$ref.md" ]; then
       echo "WARN: $agent references non-existent agent: $ref"
     fi
   done
@@ -99,32 +98,32 @@ done
 echo "=== HOOKS ==="
 
 # Check TypeScript source count
-TS_COUNT=$(ls .maestro/hooks/src/*.ts 2>/dev/null | wc -l | xargs)
+TS_COUNT=$(ls .claude/hooks/src/*.ts 2>/dev/null | wc -l | xargs)
 echo "Found $TS_COUNT TypeScript source files"
 
 # Check bundles exist
-BUNDLE_COUNT=$(ls .maestro/hooks/dist/*.mjs 2>/dev/null | wc -l | xargs)
+BUNDLE_COUNT=$(ls .claude/hooks/dist/*.mjs 2>/dev/null | wc -l | xargs)
 echo "Found $BUNDLE_COUNT built bundles"
 
 # Check shell wrappers are executable
 FAIL=0
-for sh in .maestro/hooks/*.sh; do
+for sh in .claude/hooks/*.sh; do
   [ -f "$sh" ] || continue
   if [ ! -x "$sh" ]; then
     echo "FAIL: Not executable: $sh"
     FAIL=$((FAIL+1))
   fi
 done
-SH_COUNT=$(ls .maestro/hooks/*.sh 2>/dev/null | wc -l | xargs)
+SH_COUNT=$(ls .claude/hooks/*.sh 2>/dev/null | wc -l | xargs)
 echo "Shell wrappers: $((SH_COUNT - FAIL)) executable, $FAIL need chmod +x"
 
 # Check hooks registered in settings.json exist
 echo "Checking registered hooks..."
 FAIL=0
 # Extract hook commands from settings.json and verify files exist
-grep -oE '"command":\s*"[^"]*\.sh"' .maestro/settings.json 2>/dev/null | \
+grep -oE '"command":\s*"[^"]*\.sh"' .claude/settings.json 2>/dev/null | \
   sed 's/.*"\([^"]*\.sh\)".*/\1/' | \
-  sed 's|\$CLAUDE_PROJECT_DIR|.maestro|g' | \
+  sed 's|\$CLAUDE_PROJECT_DIR|.claude|g' | \
   sed "s|\$HOME|$HOME|g" | \
   sort -u | while read hook; do
     # Resolve to actual path
@@ -139,36 +138,42 @@ grep -oE '"command":\s*"[^"]*\.sh"' .maestro/settings.json 2>/dev/null | \
 ```bash
 echo "=== MEMORY SYSTEM ==="
 
-# Check SQLite Database
-DB_PATH="$HOME/.maestro/memory.db"
-if [ ! -f "$DB_PATH" ]; then
-  echo "FAIL: SQLite database not found at $DB_PATH"
+# Check DATABASE_URL
+if [ -z "$DATABASE_URL" ]; then
+  echo "FAIL: DATABASE_URL not set"
 else
-  echo "PASS: SQLite database found"
+  echo "PASS: DATABASE_URL is set"
 
-  # Test connection and WAL mode
-  if sqlite3 "$DB_PATH" "PRAGMA journal_mode;" | grep -q "wal"; then
-    echo "PASS: SQLite reachable and WAL mode enabled"
+  # Test connection
+  if psql "$DATABASE_URL" -c "SELECT 1" > /dev/null 2>&1; then
+    echo "PASS: PostgreSQL reachable"
+
+    # Check pgvector
+    if psql "$DATABASE_URL" -c "SELECT extname FROM pg_extension WHERE extname='vector'" 2>/dev/null | grep -q vector; then
+      echo "PASS: pgvector extension installed"
+    else
+      echo "FAIL: pgvector extension not installed"
+    fi
+
+    # Check table exists
+    if psql "$DATABASE_URL" -c "\d archival_memory" > /dev/null 2>&1; then
+      echo "PASS: archival_memory table exists"
+
+      # Count learnings
+      COUNT=$(psql "$DATABASE_URL" -t -c "SELECT COUNT(*) FROM archival_memory" 2>/dev/null | xargs)
+      echo "INFO: $COUNT learnings stored"
+    else
+      echo "FAIL: archival_memory table missing"
+    fi
   else
-    echo "FAIL: SQLite WAL mode not enabled"
+    echo "FAIL: PostgreSQL not reachable"
   fi
-
-  # Check sqlite-vec
-  # This requires a python check usually
-fi
-
-# Check DuckDB Analytics
-DUCKDB_PATH="$HOME/.maestro/analytics.duckdb"
-if [ ! -f "$DUCKDB_PATH" ]; then
-  echo "WARN: DuckDB analytics not found at $DUCKDB_PATH"
-else
-  echo "PASS: DuckDB analytics found"
 fi
 
 # Check Python dependencies
 echo "Checking Python dependencies..."
-(cd opc && uv run python -c "import sqlite3; import duckdb; import numpy" 2>/dev/null) && \
-  echo "PASS: Python dependencies (sqlite3, duckdb, numpy) available" || \
+(cd opc && uv run python -c "import psycopg2; import pgvector; import sentence_transformers" 2>/dev/null) && \
+  echo "PASS: Python dependencies available" || \
   echo "WARN: Some Python dependencies missing"
 ```
 
@@ -179,10 +184,10 @@ echo "=== CROSS-REFERENCES ==="
 # Check skills reference valid agents
 echo "Checking skill → agent references..."
 FAIL=0
-for skill in $(find .maestro/skills -name "SKILL.md"); do
+for skill in $(find .claude/skills -name "SKILL.md"); do
   refs=$(grep -oE 'subagent_type[=:]["'\'']*([a-z-]+)' "$skill" 2>/dev/null | sed 's/.*["'\'']//' | sed 's/["'\'']$//')
   for ref in $refs; do
-    if [ -n "$ref" ] && [ ! -f ".maestro/agents/$ref.md" ]; then
+    if [ -n "$ref" ] && [ ! -f ".claude/agents/$ref.md" ]; then
       echo "FAIL: $skill references missing agent: $ref"
       FAIL=$((FAIL+1))
     fi
@@ -197,23 +202,23 @@ If `--fix` is specified, automatically fix:
 
 1. **Make shell wrappers executable**
    ```bash
-   chmod +x .maestro/hooks/*.sh
+   chmod +x .claude/hooks/*.sh
    ```
 
 2. **Rebuild hooks if TypeScript newer than bundles**
    ```bash
-   cd .maestro/hooks && npm run build
+   cd .claude/hooks && npm run build
    ```
 
 3. **Create missing cache directories**
    ```bash
-   mkdir -p .maestro/cache/agents/{explorer,implementer,planner,spark}
-   mkdir -p .maestro/cache/mot
+   mkdir -p .claude/cache/agents/{scout,kraken,oracle,spark}
+   mkdir -p .claude/cache/mot
    ```
 
 ## Output Format
 
-Write full report to `.maestro/cache/mot/report-{timestamp}.md`:
+Write full report to `.claude/cache/mot/report-{timestamp}.md`:
 
 ```markdown
 # MOT Health Report
@@ -234,7 +239,7 @@ Generated: {timestamp}
 - [FAIL] Hook build failed: tldr-context-inject.ts
 
 ### P1 - High
-- [FAIL] Agent references missing: scot → explorer (typo)
+- [FAIL] Agent references missing: scot → scout (typo)
 
 ### P2 - Medium
 - [WARN] 3 hooks need rebuild (dist older than src)

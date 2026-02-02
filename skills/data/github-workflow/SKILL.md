@@ -1,496 +1,405 @@
 ---
 name: github-workflow
-description: GitHub issue and progress management for this repo's maintainers - when to create/update issues, how to format updates, and agent identification
+description: This skill should be used when the user asks to "design a feature", "create UI mockup", "create a PR", "address review comments", "resolve review threads", "retrigger Q review", "/q review", "respond to Amazon Q", "/codex review", "respond to Codex", "handle reviewer findings", "merge PR", "push changes", "check CI status", or mentions design canvas, Pencil tool, PR workflow, code review, reviewer bots, or GitHub Actions checks.
 ---
 
-# GitHub Workflow Skill
+# GitHub Development Workflow
 
-## When to Invoke This Skill
+This skill provides standardized guidance for the complete GitHub development workflow, including **design canvas creation using Pencil**, branch management, PR creation, CI monitoring, and reviewer bot interaction.
 
-**Use this skill BEFORE:**
+## Development Workflow Overview
 
-- Creating a GitHub issue for a new feature
-- Posting progress updates to GitHub issues
-- Linking documentation to issues
-- Closing issues after feature completion
+Follow this 12-step workflow for all feature development and bug fixes:
 
-## Core Principle
-
-**GitHub is the coordination hub.** All feature work, progress updates, and PR activity MUST be tracked in GitHub issues with proper agent identification.
-
----
-
-## 1. GitHub Issue Creation (Feature Kickoff)
-
-### When to Create
-
-After plan approval, BEFORE starting implementation.
-
-### Issue Creation Command
-
-```bash
-gh issue create \
-  --title "Feature: {Feature Name}" \
-  --body "$(cat <<'EOF'
-## Overview
-{Brief description from INDEX}
-
-## Documentation
-- INDEX: [docs/system/INDEX-{feature}.md]
-- Design docs: Listed in INDEX
-
-## Phases
-- [ ] Phase 1.1: {Phase name}
-- [ ] Phase 1.2: {Phase name}
-- [ ] Phase 1.3: {Phase name}
-
-## Branch
-`feature/desk-{feature-name}`
-
----
-🤖 Created by {agent-name}
-EOF
-)"
+```
+Step 1: DESIGN CANVAS (Pencil Tool) ← NEW
+  - Open/create .pen file for feature design
+  - Create UI mockups, wireframes, architecture diagrams
+  - Document component structure and data flow
+  - Get user approval before proceeding
+       ↓
+Step 2: CREATE BRANCH
+  git checkout -b feat/<name> or fix/<name>
+       ↓
+Step 3: WRITE TEST CASES (TDD)
+  - Create test case document: docs/test-cases/<feature>.md
+  - Write unit test skeletons
+  - Write E2E test cases if applicable
+       ↓
+Step 4: IMPLEMENT CHANGES
+  - Write code following test cases
+  - Write new unit tests for new functionality
+  - Update existing tests if behavior changed
+       ↓
+Step 5: LOCAL VERIFICATION
+  - npm run build
+  - npm run test
+  - Deploy and verify (if applicable)
+       ↓
+Step 6: CODE SIMPLIFICATION
+  - Run code-simplifier agent
+  - Address simplification suggestions
+  - Mark complete: .claude/hooks/state-manager.sh mark code-simplifier
+       ↓
+Step 7: COMMIT AND CREATE PR
+  - git add && git commit -m "type(scope): description"
+  - git push -u origin <branch-name>
+  - Create PR via GitHub MCP or gh CLI
+  - Include checklist in PR description (see template below)
+       ↓
+Step 8: PR REVIEW AGENT
+  - Run /pr-review-toolkit:review-pr
+  - Address findings by severity
+  - Mark complete: .claude/hooks/state-manager.sh mark pr-review
+       ↓
+Step 9: WAIT FOR PR CHECKS
+  - Monitor GitHub Actions checks
+  - If FAIL → Return to Step 4
+  - If PASS → Update PR checklist, proceed to Step 10
+       ↓
+Step 10: ADDRESS REVIEWER BOT FINDINGS
+  - Review all bot comments (Amazon Q, Codex, etc.)
+  - Fix issues or document design decisions
+  - Reply DIRECTLY to each comment thread
+  - RESOLVE each conversation
+  - Retrigger review: /q review, /codex review
+       ↓
+Step 11: ITERATE UNTIL NO FINDINGS
+  - Check for new bot findings
+  - If new findings → Return to Step 10
+  - If no findings → Update PR checklist, proceed to Step 12
+       ↓
+Step 12: E2E TESTS & READY FOR MERGE
+  - Run E2E tests using Chrome DevTools MCP
+  - Verify on Preview/Staging environment
+  - Mark complete: .claude/hooks/state-manager.sh mark e2e-tests
+  - Update PR checklist to show all items complete
+  - STOP HERE: Report status to user
+  - User decides when to merge
 ```
 
-### After Issue Creation
+## Step 1: Design Canvas (Pencil Tool)
 
-1. **Update INDEX frontmatter** with issue number:
-   ```yaml
-   github_issue: "#123"
-   feature_branch: "feature/desk-{feature-name}"
+**CRITICAL: Always start feature development with a design canvas**
+
+### When to Create Design Canvas
+
+- New UI components or pages
+- Feature implementations with user-facing changes
+- Architecture decisions that benefit from visualization
+- Complex data flows or state management
+
+### Pencil Tool Workflow
+
+1. **Check editor state**:
+   ```
+   Use get_editor_state() to see if a .pen file is open
    ```
 
-2. **Commit and push INDEX update**:
-   ```bash
-   git add docs/system/INDEX-{feature}.md
-   git commit -m "Add GitHub issue tracking to INDEX
-
-   Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
-   git push -u origin feature/desk-{feature-name}
+2. **Open or create design file**:
+   ```
+   Use open_document("docs/designs/<feature>.pen") or open_document("new")
    ```
 
-3. **Post kickoff comment** with agent identification:
-   ```bash
-   gh issue comment {issue-number} --body "🚀 **Feature Kickoff**
-
-   **Agent**: {agent-name}
-   **Status**: Feature branch created and INDEX updated
-   **Next**: Starting Phase 1.1 implementation
-
-   Branch: \`feature/desk-{feature-name}\`"
+3. **Get design guidelines** (if needed):
+   ```
+   Use get_guidelines(topic="landing-page|table|tailwind|code")
    ```
 
----
+4. **Get style guide** for consistent design:
+   ```
+   Use get_style_guide_tags() to discover available tags
+   Use get_style_guide(tags=["modern", "dashboard"]) for inspiration
+   ```
 
-## 2. GitHub Progress Updates (During Execution)
+5. **Create design elements**:
+   ```
+   Use batch_design(operations) to create:
+   - UI mockups and wireframes
+   - Component hierarchy diagrams
+   - Data flow visualizations
+   - Architecture diagrams
+   ```
 
-### Progress Update Checkpoints (MANDATORY)
+6. **Validate design visually**:
+   ```
+   Use get_screenshot() to verify the design looks correct
+   ```
 
-Sub-agents MUST post updates at these points:
+7. **Document design decisions**:
+   - Add text annotations explaining choices
+   - Include component specifications
+   - Note interaction patterns
 
-1. **Phase start**
-2. **Task completion** (every 30-40% progress OR after major task)
-3. **TDD checkpoint** (after invoking /TDD skill)
-4. **Playwright test completion** (WITH screenshots)
-5. **PR creation** (after EVERY task - see section 3)
-6. **PR merge**
-7. **Phase completion**
+### Design Canvas Template Structure
 
-### Template: Phase Start
-
-```bash
-gh issue comment {issue-number} --body "🔨 **Phase {X.Y} Started**: {Phase name}
-
-**Agent**: {agent-name}
-**Status**: Starting implementation
-**Progress**: 0%
-
-**Tasks in this phase**:
-1. {Task 1}
-2. {Task 2}
-3. {Task 3}
-
-See execution log: docs/system/execution/phase{X.Y}-{topic}.md"
+```
+┌─────────────────────────────────────────┐
+│ Feature: <Feature Name>                 │
+│ Date: YYYY-MM-DD                        │
+│ Status: Draft | In Review | Approved    │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │      UI Mockup / Wireframe      │   │
+│  │                                 │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │    Component Architecture       │   │
+│  │    - Component tree             │   │
+│  │    - Props/State flow           │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │    Data Flow Diagram            │   │
+│  │    - API calls                  │   │
+│  │    - State management           │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  Design Notes:                          │
+│  - Key decisions and rationale          │
+│  - Accessibility considerations         │
+│  - Responsive behavior                  │
+└─────────────────────────────────────────┘
 ```
 
-### Template: Task Completion / Progress Milestone
+### Design Approval
 
-```bash
-gh issue comment {issue-number} --body "📊 **Phase {X.Y} Progress Update**
+Before proceeding to implementation:
+1. Present the design canvas to the user
+2. Get explicit approval
+3. Document any feedback or changes
+4. Update design status to "Approved"
 
-**Agent**: {agent-name}
+## PR Description Template
 
-## Completed Tasks
-- ✅ Task {N}: {Task name}
-  - Implementation: {brief description}
-  - Tests: {N} tests created/passing
-  - Files: {list key files created/modified}
-  - Verification: Build ✅, Tests ✅
-
-## In Progress
-- 🚧 Task {N+1}: {Task name}
-  - Status: {specific status}
-  - Blockers: {none or list}
-
-## Next Steps
-- ⏭️ Task {N+2}: {Task name}
-
-## Test Summary
-- Total tests: {N} ({X} passing, {Y} pending)
-- All active tests passing: ✅ {N}/{N}
-- Coverage: {key scenarios}
-
-## Verification Evidence
-\`\`\`bash
-# Most recent verification
-$ npm run build && npm run lint && npm test
-{paste actual output}
-\`\`\`
-
-**Progress**: {percentage}% ({N} of {M} tasks complete)
-
-See detailed log: docs/system/execution/phase{X.Y}-{topic}.md"
-```
-
-### Template: TDD Checkpoint
-
-```bash
-gh issue comment {issue-number} --body "🧪 **TDD Checkpoint - Phase {X.Y}**
-
-**Agent**: {agent-name}
-**Feature**: {Feature being tested}
-
-## Red Phase
-- ✅ Created failing test for {feature}
-- Test file: \`{test-file-path}\`
-- Expected behavior: {description}
-
-## Status
-- Test is watching for implementation
-- Next: Write minimal code to make test pass (Green phase)
-
-See execution log: docs/system/execution/phase{X.Y}-{topic}.md"
-```
-
-### Template: Playwright Tests Complete (WITH Screenshots)
-
-**CRITICAL: Screenshots MUST be committed to repo and referenced via GitHub raw URLs**
-
-```bash
-# Step 1: Commit screenshots to repository FIRST
-mkdir -p screenshots/phase-{X.Y}
-cp ./test-results/screenshots/*.png screenshots/phase-{X.Y}/
-git add screenshots/phase-{X.Y}/
-git commit -m "test: add E2E screenshots for Phase {X.Y}"
-git push
-
-# Step 2: Post update with embedded images
-gh issue comment {issue-number} --body "✅ **E2E Tests Passed - Phase {X.Y}**
-
-**Agent**: {agent-name}
-
-## Test Results
-- ✅ All {N} tests passing
-- Test file: \`tests/{test-file}.spec.js\`
-- Duration: {duration}
-- Coverage: {scenarios}
-
-## Test Execution Output
-\`\`\`
-{paste actual npx playwright test output}
-\`\`\`
-
-## Screenshots
-
-### {Scenario 1}
-![{description}](https://raw.githubusercontent.com/{owner}/{repo}/{branch}/screenshots/phase-{X.Y}/{screenshot1}.png)
-
-### {Scenario 2}
-![{description}](https://raw.githubusercontent.com/{owner}/{repo}/{branch}/screenshots/phase-{X.Y}/{screenshot2}.png)
-
-## Verification Evidence
-- Build: exit 0 ✅
-- Tests: {N}/{N} passed ✅
-
-See full test report: docs/system/execution/phase{X.Y}-{topic}.md"
-```
-
-**Why GitHub raw URLs?**
-- External collaborators viewing GitHub issues CANNOT see local file paths
-- Repository-based approach with raw URLs is the ONLY way to automate screenshot posting via CLI
-- Format: `https://raw.githubusercontent.com/{owner}/{repo}/{branch}/screenshots/{filename}.png`
-
-### Template: Phase Completion
-
-```bash
-gh issue comment {issue-number} --body "✅ **Phase {X.Y} Complete**
-
-**Agent**: {agent-name}
-
-## Verification
-- [x] All tests passing ({N}/{N})
-- [x] Build succeeds
-- [x] Linting clean
-- [x] E2E tests with screenshots posted
-- [x] Documentation updated
-
-**Progress**: 100% of Phase {X.Y}
-**Overall Feature Progress**: {percentage}%
-
-**Next**: {Next phase description or PR creation}
-
-Updated: docs/system/execution/phase{X.Y}-{topic}.md"
-```
-
----
-
-## 3. Task-Level Status Updates
-
-### Critical Rule
-
-After completing a task, you MUST record status and verification evidence. This can be via GitHub issue comments or local execution docs, depending on how the maintainer runs the project.
-
-### Why Task-Level Updates?
-
-- **Continuous visibility**: Keeps maintainers informed
-- **Easier reviews**: Smaller, focused changes
-- **Early feedback**: Catch issues before moving forward
-- **Clear attribution**: Each task tracked in history
-
-### Task Verification Workflow
-
-**Step 1: Verify Task Complete**
-
-```bash
-# Run verification commands (MANDATORY)
-npm run build  # Must exit 0
-npm run lint   # Must show 0 errors
-npm test       # All tests passing (or npx playwright test for E2E)
-
-# Verify screenshots uploaded (for test tasks)
-ls screenshots/phase-{X.Y}/  # Should show all screenshots
-```
-
-**Step 2: Record Task Status**
-
-You can either:
-
-- Post a GitHub issue comment using the templates above, **or**
-- Update the local execution docs (e.g. docs/system/execution/phaseX.Y-topic.md) with the same information.
-
-### Task Status Checklist
-
-**Before marking each task complete:**
-
-- [ ] Task fully implemented
-- [ ] All verification commands pass (build, lint, tests)
-- [ ] Screenshots uploaded (if applicable)
-- [ ] Commits follow message conventions
-- [ ] Changes are focused on THIS task only
-- [ ] Documentation updated for this task
-- [ ] Execution log updated
-
-**After updating status:**
-
-- [ ] Status linked to GitHub issue (if using issues)
-- [ ] Verification evidence included
-- [ ] Links to INDEX and design docs (where applicable)
-- [ ] Agent identification included
-
----
-
-## 4. Feature Completion & Issue Closure
-
-### Pre-Closure Update
-
-Before closing issue, post final verification:
-
-```bash
-gh issue comment {issue-number} --body "🎉 **All Phases Complete**
-
-**Agent**: {agent-name}
-
-## Final Verification
-- [x] All tests passing ({N}/{N})
-- [x] Build succeeds
-- [x] Linting clean
-- [x] E2E tests complete with screenshots
-- [x] Documentation updated
-- [x] As-built documentation generated
-
-**All task updates recorded**: {N}/{N}
-"
-```
-
-### Close Issue After Merge
-
-```bash
-gh issue close {issue-number} --comment "✅ **Feature Completed**
-
-**Agent**: {agent-name}
-## Post-Merge Activities
-- [x] As-built documentation generated
-- [x] User-facing docs updated
--- [x] INDEX status set to 'merged'
-
-## Final Stats
-- Phases completed: {N}/{N}
--- Task updates recorded: {N}
-- Tests added: {N}
-- Files changed: {N}
-
-**As-built doc**: [docs/system/as-builts/{feature}-as-built.md]
-
-Feature complete! 🎉"
-```
-
----
-
-## 5. Agent Identification Requirements
-
-### MANDATORY Rule
-
-**Every GitHub interaction MUST include agent identification.**
-
-### Where to Include Agent Name
-
-1. **Issue creation**: In footer (`🤖 Created by {agent-name}`)
-2. **Issue comments**: In header (`**Agent**: {agent-name}`)
-3. **PR creation**: In footer (`🤖 Generated by {agent-name}`)
-4. **PR merge comments**: In body (`**Agent**: {agent-name}`)
-
-### Agent Name Format
-
-Use the full agent name as defined in your agent configuration:
-
-- `react-mui-frontend-engineer`
-- `wiring-agent`
-- `supabase-database-architect`
-- `playwright-tester`
-- `documentation-expert`
-- `superpowers:code-reviewer`
-- `Claude Code` (for orchestrator-level actions)
-
-### Example with Agent Identification
-
-```bash
-gh issue comment 123 --body "📊 **Phase 1.2 Progress Update**
-
-**Agent**: react-mui-frontend-engineer
-
-## Completed Tasks
-- ✅ Task 1: Created LeadsList component
-...
-"
-```
-
----
-
-## 6. Integration with Documentation Framework
-
-### INDEX File Coordination
-
-GitHub issue number MUST be recorded in INDEX frontmatter:
-
-```yaml
----
-github_issue: "#123"
-feature_branch: "feature/desk-crm-leads"
-pr_number: "#456"  # Filled after PR created
----
-```
-
-### Reading Issue Number from INDEX
-
-Sub-agents should read the INDEX file to get the issue number:
-
-```javascript
-// Example: Read INDEX to get github_issue field
-const indexPath = 'docs/system/INDEX-feature-name.md';
-// Parse frontmatter to extract github_issue value
-// Use that value in gh commands
-```
-
-### Execution Log References
-
-All GitHub comments should reference the execution log:
+When creating a PR, include this checklist in the description. Update it as each step completes:
 
 ```markdown
-See detailed log: docs/system/execution/phase{X.Y}-{topic}.md
+## Summary
+<1-3 bullet points describing the change>
+
+## Design
+- [ ] Design canvas created (`docs/designs/<feature>.pen`)
+- [ ] Design approved by user
+
+## Test Plan
+- [ ] Test cases documented (`docs/test-cases/<feature>.md`)
+- [ ] Build passes (`npm run build`)
+- [ ] Unit tests pass (`npm run test`)
+- [ ] CI checks pass
+- [ ] code-simplifier review passed
+- [ ] pr-review agent review passed
+- [ ] Reviewer bot findings addressed (no new findings)
+- [ ] E2E tests pass
+
+## Checklist
+- [ ] New unit tests written for new functionality
+- [ ] E2E test cases updated if needed
+- [ ] Documentation updated if needed
 ```
 
----
+### Update PR Checklist Command
 
-## 7. Common Pitfalls to Avoid
+After completing each step, update the PR description:
 
-### ❌ Don't:
+```bash
+# Get current PR body
+gh pr view {pr_number} --json body --jq '.body' > /tmp/pr_body.md
 
-- Create issues without agent identification
-- Post updates without agent name in header
-- Skip task-level PRs (they are MANDATORY)
-- Use local file paths for screenshots in issues
-- Forget to commit screenshots before referencing them
-- Close issues without final verification evidence
-- Skip PR → issue linking
-
-### ✅ Do:
-
-- Always include `**Agent**: {agent-name}` in issue comments
-- Create task PR after EVERY task completion
-- Commit screenshots to repo and use GitHub raw URLs
-- Link every PR to the GitHub issue with a comment
-- Post merge confirmation after PR merges
-- Update INDEX with issue/PR numbers
-- Keep feature branch alive for multiple task PRs
-
----
-
-## 8. Workflow Summary (Quick Reference)
-
-```
-Feature Start:
-  1. Create GitHub issue (with agent ID)
-  2. Create feature branch
-  3. Update INDEX with issue number
-  4. Post kickoff comment
-
-During Execution:
-  1. Post phase start comment (with agent ID)
-  2. Post task completion updates (with agent ID)
-  3. Post TDD checkpoints (with agent ID)
-  4. Post Playwright results with screenshots (with agent ID)
-  5. Create PR after EVERY task (with agent ID)
-  6. Link PR to issue with comment (with agent ID)
-  7. Post merge confirmation (with agent ID)
-  8. Repeat for each task
-
-Feature Completion:
-  1. Post final verification to issue (with agent ID)
-  2. Close issue with summary (with agent ID)
-  3. Generate as-built documentation
-  4. Delete feature branch
+# Edit the checklist (mark items as [x])
+# Then update the PR
+gh pr edit {pr_number} --body "$(cat /tmp/pr_body.md)"
 ```
 
----
+Or use the GitHub MCP tool to update the PR body directly.
 
-## 9. Skills Integration
+## PR Check Monitoring
 
-This skill integrates with other skills:
+### Monitor CI Status
 
-- `/TDD` → Post TDD checkpoint to issue after Red phase
-- `/VERIFY-BEFORE-COMPLETE` → Include verification evidence in PRs/comments
-- `/systematic-debugging` → Reference debug document in issue updates
-- `/brainstorming` → Document decisions in issue comments
+```bash
+# Watch all checks until completion
+gh pr checks {pr_number} --watch --interval 30
 
----
+# Quick status check
+gh pr checks {pr_number}
+```
 
-## Skill Type: Rigid
+### Checks to Monitor
 
-This is a **rigid skill** - follow the templates and workflow exactly. GitHub coordination requires consistency for team-wide coordination and traceability.
+| Check | Description | Action if Failed |
+|-------|-------------|------------------|
+| CI / build-and-test | Build + unit tests | Fix code or update snapshots |
+| Security Scan | SAST, npm audit | Fix security issues |
+| Amazon Q Developer | Security review | Address findings, retrigger with `/q review` |
+| Codex | AI code review | Address findings, retrigger with `/codex review` |
+| Other review bots | Various checks | Address findings, retrigger per bot docs |
 
----
+## Reviewer Bot Workflow
 
-**Last Updated**: 2026-01-30
-**Version**: 1.0
-**Skill Type**: Rigid
+Multiple review bots can provide automated code review findings on PRs:
+
+| Bot | Trigger Command | Bot Username |
+|-----|-----------------|--------------|
+| Amazon Q Developer | `/q review` | `amazon-q-developer[bot]` |
+| Codex | `/codex review` | `codex[bot]` |
+| Other bots | See bot documentation | Varies |
+
+### Handling Bot Review Findings
+
+1. **Review all comments** - Read each finding carefully
+2. **Determine action**:
+   - If valid issue → Fix the code and push
+   - If false positive → Reply explaining the design decision
+3. **Reply to each thread** - Use direct reply, not general PR comment
+4. **Resolve each thread** - Mark conversation as resolved
+5. **Retrigger review** - Comment with appropriate trigger (e.g., `/q review`, `/codex review`)
+
+### Retrigger Bot Reviews
+
+After addressing findings, trigger a new scan:
+
+```bash
+# Amazon Q Developer
+gh pr comment {pr_number} --body "/q review"
+
+# Codex
+gh pr comment {pr_number} --body "/codex review"
+```
+
+Wait 60-90 seconds for the review to complete, then check for new comments.
+
+### Iteration Loop (CRITICAL)
+
+**Repeat until review bots find no more issues:**
+
+1. Address findings (fix code or explain design)
+2. Reply to each comment thread
+3. Resolve all threads
+4. Trigger review command (`/q review`, `/codex review`, etc.)
+5. Wait 60-90 seconds
+6. Check for new findings
+7. **If new findings → repeat from step 1**
+8. **Only proceed to merge when no new positive findings appear**
+
+This loop is essential - review bots may find new issues in your fixes.
+
+## Review Thread Management
+
+### Critical Rules
+
+- **Reply DIRECTLY to each comment thread** - NOT a single general PR comment
+- **Resolve each conversation after replying**
+- **Wrong approach**: `gh pr comment {pr} --body "Fixed all issues"` (doesn't close threads)
+
+### Reply to Review Comments
+
+```bash
+# Get comment IDs
+gh api repos/{owner}/{repo}/pulls/{pr}/comments \
+  --jq '.[] | {id: .id, path: .path, body: .body[:50]}'
+
+# Reply to specific comment
+gh api repos/{owner}/{repo}/pulls/{pr}/comments \
+  -X POST \
+  -f body="Addressed in commit abc123 - <description of fix>" \
+  -F in_reply_to=<comment_id>
+```
+
+### Resolve Review Threads
+
+```bash
+# Get unresolved thread IDs
+gh api graphql -f query='
+query {
+  repository(owner: "{owner}", name: "{repo}") {
+    pullRequest(number: {pr}) {
+      reviewThreads(first: 50) {
+        nodes {
+          id
+          isResolved
+          comments(first: 1) {
+            nodes { body }
+          }
+        }
+      }
+    }
+  }
+}' --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved == false) | .id'
+
+# Resolve a thread
+gh api graphql -f query='
+mutation {
+  resolveReviewThread(input: {threadId: "<thread_id>"}) {
+    thread { isResolved }
+  }
+}'
+```
+
+### Batch Resolve All Threads
+
+Use the `scripts/resolve-threads.sh` script to resolve all unresolved threads at once:
+
+```bash
+./.claude/skills/github-workflow/scripts/resolve-threads.sh {owner} {repo} {pr_number}
+```
+
+## Common Response Patterns
+
+### For Valid Issues
+
+```
+Addressed in commit {hash} - {description of fix}
+```
+
+Example:
+```
+Addressed in commit abc123 - Updated Lambda@Edge handler to use external file pattern
+```
+
+### For False Positives
+
+```
+This is by design because {explanation}. The {feature} requires {justification}.
+```
+
+Example:
+```
+This is documentation for authorized operators. The commands require IAM permissions that only administrators have. IAM access controls prevent unauthorized access, not documentation obscurity.
+```
+
+### For Documentation Concerns
+
+```
+The referenced file {filename} exists in the repository at {path}. This is a reference document, not executable code.
+```
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Create design | Pencil MCP tools |
+| Create PR | `gh pr create --title "..." --body "..."` |
+| Watch checks | `gh pr checks {pr} --watch` |
+| Get comments | `gh api repos/{o}/{r}/pulls/{pr}/comments` |
+| Reply to comment | `gh api ... -X POST -F in_reply_to=<id>` |
+| Resolve thread | GraphQL `resolveReviewThread` mutation |
+| Trigger Q review | `gh pr comment {pr} --body "/q review"` |
+| Trigger Codex review | `gh pr comment {pr} --body "/codex review"` |
+| Check thread status | GraphQL query for `reviewThreads` |
+
+## Additional Resources
+
+### Reference Files
+
+For detailed commands and conventions, consult:
+- **`references/review-commands.md`** - Complete gh CLI and GraphQL command reference
+- **`references/commit-conventions.md`** - Branch naming and commit message conventions
+
+### Scripts
+
+Utility scripts in `scripts/`:
+- **`reply-to-comments.sh`** - Reply to a specific review comment
+- **`resolve-threads.sh`** - Batch resolve all unresolved threads

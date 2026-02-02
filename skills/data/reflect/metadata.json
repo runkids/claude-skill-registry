@@ -1,7 +1,7 @@
 {
   "name": "reflect",
-  "repo": "haddock-development/claude-reflect-system",
-  "path": "reflect/SKILL.md",
-  "source": "github.com/haddock-development/claude-reflect-system",
-  "downloaded_at": "2026-02-01T03:51:03.750683Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/reflect/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-02-02T05:12:40.160685Z"
 }

@@ -1,81 +1,125 @@
 ---
 name: quality
-description: "Code quality assurance strategies. Parent skill for quality-related skills: security (security review) and debug (systematic debugging)."
-allowed-tools: Read, Grep, Glob
+description: "Comprehensive code quality assessment in spaces/[project]/. Use before commits, merges, or releases to ensure consistent quality."
+model: claude-sonnet-4-20250514
+allowed-tools: Read, Glob, Grep, Bash, Task
 ---
 
-# 代码质量保障
+# /quality
 
-本技能提供代码质量保障策略，整合安全审查和系统化调试方法。
+Comprehensive quality assessment of code using multi-agent analysis.
 
-## 质量保障维度
+## Usage
 
-```
-┌─────────────────────────────────────────┐
-│            代码质量保障                   │
-├──────────────────┬──────────────────────┤
-│   安全性         │    可靠性             │
-│   (/security)    │    (/debug)          │
-├──────────────────┼──────────────────────┤
-│ • 认证授权       │ • 系统化调试         │
-│ • 输入验证       │ • 日志分析           │
-│ • 密钥管理       │ • 性能诊断           │
-│ • API 安全       │ • 错误追踪           │
-└──────────────────┴──────────────────────┘
+```bash
+/quality yourbench                  # Full assessment
+/quality yourbench --focus security # Security-focused
+/quality coordinatr --focus testing # Test coverage focus
 ```
 
-## 策略选择
+## Focus Areas
 
-| 场景              | 推荐策略   | 子技能      |
-| ----------------- | ---------- | ----------- |
-| 添加认证/授权功能 | 安全审查   | `/security` |
-| 处理用户输入      | 安全审查   | `/security` |
-| 创建 API 端点     | 安全审查   | `/security` |
-| 调试代码问题      | 系统化调试 | `/debug`    |
-| 分析错误日志      | 系统化调试 | `/debug`    |
-| 排查性能问题      | 系统化调试 | `/debug`    |
+| Flag | Analysis | Agent |
+|------|----------|-------|
+| (none) | All dimensions | All specialists |
+| `--focus security` | OWASP, vulnerabilities | security-auditor |
+| `--focus performance` | Bottlenecks, N+1 | performance-optimizer |
+| `--focus testing` | Coverage, test quality | test-engineer |
+| `--focus code` | Maintainability | code-reviewer |
 
-## 子技能
+## Execution Flow
 
-### 1. security（安全审查）
+### 1. Locate Project
 
-**适用场景**：
+```bash
+ls spaces/[project]/
+```
 
-- 认证授权实现
-- 用户输入处理
-- 密钥和敏感数据
-- API 端点设计
+### 2. Run Automated Checks
 
-**使用方式**：`/security` 或参阅 `skills/security/SKILL.md`
+```bash
+cd spaces/[project]
+npm test -- --coverage
+npm run lint
+npm run type-check  # if TypeScript
+```
 
-### 2. debug（调试方法）
+### 3. Agent Analysis
 
-**适用场景**：
+Coordinate specialists via Task tool:
+- **code-reviewer**: Complexity, best practices
+- **security-auditor**: OWASP Top 10
+- **performance-optimizer**: N+1 queries, bottlenecks
+- **test-engineer**: Coverage, test quality
 
-- 代码问题调试
-- 错误日志分析
-- 性能问题诊断
-- 生产事故排查
+### 4. Generate Report
 
-**使用方式**：`/debug` 或参阅 `skills/debug/SKILL.md`
+```markdown
+## Quality Assessment: [project]
 
-## 质量检查清单
+**Overall Score: XX/100** [status]
 
-### 提交前必检
+### Code Quality: XX/100
+- Issues found
+- Recommendations
 
-- [ ] 无硬编码密钥/密码
-- [ ] 用户输入已验证/转义
-- [ ] 错误处理完善
-- [ ] 日志不泄露敏感信息
-- [ ] 测试覆盖关键路径
+### Security: XX/100
+- Critical/High/Medium issues
+- Recommendations
 
-### 定期审查
+### Performance: XX/100
+- Bottlenecks identified
+- Recommendations
 
-- [ ] 依赖安全更新
-- [ ] 权限最小化原则
-- [ ] 日志和监控完善
-- [ ] 错误处理一致性
+### Testing: XX/100
+- Coverage percentage
+- Untested areas
 
----
+### Priority Actions
+1. **CRITICAL**: [action]
+2. **HIGH**: [action]
+3. **MEDIUM**: [action]
+```
 
-**记住**：安全和可靠性不是事后补救，而是设计阶段就要考虑的核心需求。
+## Scoring
+
+| Score | Status | Meaning |
+|-------|--------|---------|
+| 90-100 | Excellent | Ship it |
+| 80-89 | Good | Minor improvements |
+| 70-79 | Acceptable | Address soon |
+| 60-69 | Concerning | Fix before merge |
+| <60 | Critical | Must fix |
+
+## Quality Dimensions
+
+### Code Quality
+- Cyclomatic complexity
+- Code duplication
+- SOLID principles
+- Dead code detection
+
+### Security
+- OWASP Top 10
+- Auth/authz patterns
+- Input validation
+- Secrets in code
+
+### Performance
+- N+1 query detection
+- Inefficient algorithms
+- Bundle size
+- Caching opportunities
+
+### Testing
+- Line/branch coverage
+- Test quality
+- Edge case coverage
+- Integration test gaps
+
+## When to Use
+
+- Before major release
+- Onboarding to new codebase
+- Periodic health checks
+- Before refactoring

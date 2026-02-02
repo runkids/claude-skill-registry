@@ -1,43 +1,51 @@
 ---
 name: build-iphone-apps
-description: Build professional native iPhone apps in Swift with SwiftUI and UIKit. Full lifecycle - build, debug, test, optimize, ship. CLI-only, no Xcode. Targets iOS 26 with iOS 18 compatibility.
+description: Build professional native iPhone apps in Swift with SwiftUI and UIKit. Full lifecycle development - build, debug, test, optimize, ship. CLI-focused workflow. Use when building iOS apps, adding features, debugging, testing, or optimizing iPhone applications.
 ---
 
-<essential_principles>
-## How We Work
+# Build iPhone Apps - Professional iOS Development
 
-**The user is the product owner. Claude is the developer.**
+Expert guidance for building native iPhone apps using Swift, SwiftUI, and UIKit with CLI-first workflow.
 
-The user does not write code. The user does not read code. The user describes what they want and judges whether the result is acceptable. Claude implements, verifies, and reports outcomes.
+## Core Principles
 
 ### 1. Prove, Don't Promise
 
-Never say "this should work." Prove it:
+Never say "this should work." Always verify:
+
 ```bash
-xcodebuild -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | xcsift
-xcodebuild test -destination 'platform=iOS Simulator,name=iPhone 16'
-xcrun simctl boot "iPhone 16" && xcrun simctl launch booted com.app.bundle
+# Build
+xcodebuild -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16' build
+
+# Test
+xcodebuild -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16' test
+
+# Launch
+xcrun simctl boot "iPhone 16"
+xcrun simctl install booted ./build/Build/Products/Debug-iphonesimulator/AppName.app
+xcrun simctl launch booted com.company.AppName
 ```
-If you didn't run it, you don't know it works.
+
+**If you didn't run it, you don't know it works.**
 
 ### 2. Tests for Correctness, Eyes for Quality
 
 | Question | How to Answer |
 |----------|---------------|
 | Does the logic work? | Write test, see it pass |
-| Does it look right? | Launch in simulator, user looks at it |
-| Does it feel right? | User uses it |
-| Does it crash? | Test + launch |
+| Does it look right? | Launch in simulator, visual check |
+| Does it feel right? | User tests interaction |
+| Does it crash? | Test + launch verification |
 | Is it fast enough? | Profiler |
 
-Tests verify *correctness*. The user verifies *desirability*.
+**Tests verify correctness. Users verify desirability.**
 
 ### 3. Report Outcomes, Not Code
 
-**Bad:** "I refactored DataService to use async/await with weak self capture"
-**Good:** "Fixed the memory leak. `leaks` now shows 0 leaks. App tested stable for 5 minutes."
+❌ **Bad**: "I refactored DataService to use async/await with weak self capture"
+✅ **Good**: "Fixed the memory leak. `leaks` now shows 0 leaks. App tested stable for 5 minutes."
 
-The user doesn't care what you changed. The user cares what's different.
+**Users care what's different, not what changed.**
 
 ### 4. Small Steps, Always Verified
 
@@ -45,115 +53,137 @@ The user doesn't care what you changed. The user cares what's different.
 Change → Verify → Report → Next change
 ```
 
-Never batch up work. Never say "I made several changes." Each change is verified before the next. If something breaks, you know exactly what caused it.
+Never batch work. Each change verified before the next. If something breaks, you know exactly what caused it.
 
 ### 5. Ask Before, Not After
 
-Unclear requirement? Ask now.
-Multiple valid approaches? Ask which.
-Scope creep? Ask if wanted.
-Big refactor needed? Ask permission.
+- Unclear requirement? **Ask now**
+- Multiple valid approaches? **Ask which**
+- Scope creep? **Ask if wanted**
+- Big refactor needed? **Ask permission**
 
-Wrong: Build for 30 minutes, then "is this what you wanted?"
-Right: "Before I start, does X mean Y or Z?"
+❌ **Wrong**: Build for 30 minutes, then "is this what you wanted?"
+✅ **Right**: "Before I start, does X mean Y or Z?"
 
 ### 6. Always Leave It Working
 
-Every stopping point = working state. Tests pass, app launches, changes committed. The user can walk away anytime and come back to something that works.
-</essential_principles>
+Every stopping point = working state. Tests pass, app launches, changes committed.
 
-<intake>
-**Ask the user:**
+### 7. Debug Logging Protocol
 
-What would you like to do?
-1. Build a new app
-2. Debug an existing app
-3. Add a feature
-4. Write/run tests
-5. Optimize performance
-6. Ship/release
-7. Something else
+```swift
+// DEBUG: Testing YIN accuracy corrections
+print("YIN Detected: \(frequency) Hz")
+```
 
-**Then read the matching workflow from `workflows/` and follow it.**
-</intake>
+1. **Mark clearly** with `// DEBUG:` prefix
+2. **Gather data** to understand the problem
+3. **Remove before final commit** (unless explicitly requested)
 
-<routing>
-| Response | Workflow |
-|----------|----------|
-| 1, "new", "create", "build", "start" | `workflows/build-new-app.md` |
-| 2, "broken", "fix", "debug", "crash", "bug" | `workflows/debug-app.md` |
-| 3, "add", "feature", "implement", "change" | `workflows/add-feature.md` |
-| 4, "test", "tests", "TDD", "coverage" | `workflows/write-tests.md` |
-| 5, "slow", "optimize", "performance", "fast" | `workflows/optimize-performance.md` |
-| 6, "ship", "release", "TestFlight", "App Store" | `workflows/ship-app.md` |
-| 7, other | Clarify, then select workflow or references |
-</routing>
+**Production code should not have debug prints.** Use `os_log` for production.
 
-<verification_loop>
-## After Every Change
+---
+
+## Verification Loop
+
+After every change:
 
 ```bash
-# 1. Does it build?
-xcodebuild -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | xcsift
+# 1. Build
+xcodebuild -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16' build
 
-# 2. Do tests pass?
+# 2. Test
 xcodebuild -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16' test
 
-# 3. Does it launch? (if UI changed)
-xcrun simctl boot "iPhone 16" 2>/dev/null || true
+# 3. Launch
+xcrun simctl boot "iPhone 16"
 xcrun simctl install booted ./build/Build/Products/Debug-iphonesimulator/AppName.app
 xcrun simctl launch booted com.company.AppName
 ```
 
-Report to the user:
-- "Build: ✓"
-- "Tests: 12 pass, 0 fail"
-- "App launches in simulator, ready for you to check [specific thing]"
-</verification_loop>
+Report: "Build: ✓, Tests: 12 pass 0 fail, App launches"
 
-<when_to_test>
-## Testing Decision
+---
 
-**Write a test when:**
-- Logic that must be correct (calculations, transformations, rules)
-- State changes (add, delete, update operations)
-- Edge cases that could break (nil, empty, boundaries)
-- Bug fix (test reproduces bug, then proves it's fixed)
-- Refactoring (tests prove behavior unchanged)
+## When to Write Tests
 
-**Skip tests when:**
-- Pure UI exploration ("make it blue and see if I like it")
-- Rapid prototyping ("just get something on screen")
-- Subjective quality ("does this feel right?")
-- One-off verification (launch and check manually)
+✅ **Write test when**:
+- Logic must be correct (calculations, transformations)
+- State changes (add, delete, update)
+- Edge cases (nil, empty, boundaries)
+- Bug fixes (reproduce, then fix)
+- Refactoring (prove behavior unchanged)
 
-**The principle:** Tests let the user verify correctness without reading code. If the user needs to verify it works, and it's not purely visual, write a test.
-</when_to_test>
+⏭️ **Skip test when**:
+- UI exploration ("make it blue")
+- Rapid prototyping
+- Subjective quality
+- One-off verification
 
-<reference_index>
-## Domain Knowledge
+**Principle**: Tests verify correctness without reading code.
 
-All in `references/`:
+---
 
-**Architecture:** app-architecture, swiftui-patterns, navigation-patterns
-**Data:** data-persistence, networking
-**Platform Features:** push-notifications, storekit, background-tasks
-**Quality:** polish-and-ux, accessibility, performance
-**Assets & Security:** app-icons, security, app-store
-**Development:** project-scaffolding, cli-workflow, cli-observability, testing, ci-cd
-</reference_index>
+## SwiftUI Patterns
 
-<workflows_index>
-## Workflows
+### State Management
+```swift
+// View-local state
+@State private var isExpanded = false
 
-All in `workflows/`:
+// Shared observable
+@StateObject private var viewModel = MyViewModel()
 
-| File | Purpose |
-|------|---------|
-| build-new-app.md | Create new iOS app from scratch |
-| debug-app.md | Find and fix bugs |
-| add-feature.md | Add to existing app |
-| write-tests.md | Write and run tests |
-| optimize-performance.md | Profile and speed up |
-| ship-app.md | TestFlight, App Store submission |
-</workflows_index>
+// Environment
+@Environment(\.colorScheme) var colorScheme
+```
+
+### Memory Management
+```swift
+// Avoid retain cycles
+service.fetchData { [weak self] result in
+    guard let self = self else { return }
+    self.handle(result)
+}
+
+// UI updates
+@MainActor
+func updateUI() { /* ... */ }
+```
+
+---
+
+## CLI Commands
+
+### Build
+```bash
+xcodebuild -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16' build
+xcodebuild clean -scheme AppName
+```
+
+### Test
+```bash
+xcodebuild test -scheme AppName -destination 'platform=iOS Simulator,name=iPhone 16'
+xcodebuild test -only-testing:AppTests/FeatureTests/test_specific
+```
+
+### Simulator
+```bash
+xcrun simctl list devices
+xcrun simctl boot "iPhone 16"
+xcrun simctl install booted path/to/App.app
+xcrun simctl launch booted com.company.AppName
+xcrun simctl spawn booted log stream
+```
+
+---
+
+## Remember
+
+1. **Prove it works** - Build, test, launch
+2. **Small steps** - Verify each change
+3. **Ask first** - Clarify requirements
+4. **Report outcomes** - What's different
+5. **Leave it working** - Every stop = working state
+6. **Tests for logic, eyes for UI**
+7. **Mark debug logging, remove before commit**

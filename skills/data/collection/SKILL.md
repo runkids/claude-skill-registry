@@ -1,248 +1,237 @@
 ---
-name: sdd-workflow
-description: >
-  SDD(Spec Driven Development) 자동화 워크플로우를 실행합니다.
-  사용자가 "다음 작업 진행해줘", "구현 시작해줘", "SDD 워크플로우 실행" 등을 요청할 때 활성화됩니다.
-  작업 분할, 계획서 작성, 구현, CI 검증까지 자동으로 진행합니다.
+name: skill-creator
+description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.
+license: Complete terms in LICENSE.txt
 ---
 
-# SDD Workflow Skill
+# Skill Creator
 
-이 스킬은 Spec Driven Development 워크플로우를 자동으로 실행합니다.
+This skill provides guidance for creating effective skills.
 
-## 워크플로우 개요
+## About Skills
+
+Skills are modular, self-contained packages that extend Claude's capabilities by providing
+specialized knowledge, workflows, and tools. Think of them as "onboarding guides" for specific
+domains or tasks—they transform Claude from a general-purpose agent into a specialized agent
+equipped with procedural knowledge that no model can fully possess.
+
+### What Skills Provide
+
+1. Specialized workflows - Multi-step procedures for specific domains
+2. Tool integrations - Instructions for working with specific file formats or APIs
+3. Domain expertise - Company-specific knowledge, schemas, business logic
+4. Bundled resources - Scripts, references, and assets for complex and repetitive tasks
+
+### Anatomy of a Skill
+
+Every skill consists of a required SKILL.md file and optional bundled resources:
 
 ```
-1. 분석 → 2. 계획 → 3. 구현 → 4. Push → 5. CI 확인 → 6. 수정(필요시)
+skill-name/
+├── SKILL.md (required)
+│   ├── YAML frontmatter metadata (required)
+│   │   ├── name: (required)
+│   │   └── description: (required)
+│   └── Markdown instructions (required)
+└── Bundled Resources (optional)
+    ├── scripts/          - Executable code (Python/Bash/etc.)
+    ├── references/       - Documentation intended to be loaded into context as needed
+    └── assets/           - Files used in output (templates, icons, fonts, etc.)
 ```
 
----
+#### Requirements (important)
 
-## 환경 요구사항
+- Skill should be combined into specific topics, for example: `cloudflare`, `cloudflare-r2`, `cloudflare-workers`, `docker`, `gcloud` should be combined into `devops`
+- `SKILL.md` should be **less than 200 lines** and include the references of related markdown files and scripts.
+- Each script or referenced markdown file should be also **less than 200 lines**, remember that you can always split them into multiple files (**progressive disclosure** principle).
+- Descriptions in metadata of `SKILL.md` files should be both concise and still contains enough usecases of the references and scripts, this will help skills can be activated automatically during the implementation process of Claude Code.
+- **Referenced markdowns**:
+  - Sacrifice grammar for the sake of concision when writing these files.
+  - Can reference other markdown files or scripts as well.
+- **Referenced scripts**:
+  - Prefer nodejs or python scripts instead of bash script, because bash scripts are not well-supported on Windows.
+  - If you're going to write python scripts, make sure you have `requirements.txt`
+  - Make sure scripts respect `.env` file follow this order: `process.env` > `.claude/skills/${SKILL}/.env` > `.claude/skills/.env` > `.claude/.env` 
+  - Create `.env.example` file to show the required environment variables.
+  - Always write tests for these scripts.
 
-이 워크플로우는 **사용자 개입 없이** 자동으로 실행됩니다.
+**Why?**
+Better **context engineering**: inspired from **progressive disclosure** technique of Agent Skills, when agent skills are activated, Claude Code will consider to load only relevant files into the context, instead of reading all long `SKILL.md` as before.
 
-### GitHub CLI (gh) 자동 설정
+#### SKILL.md (required)
 
-CI 상태 확인을 위해 GitHub CLI가 필요합니다. 스크립트가 자동으로 처리합니다:
+**File name:** `SKILL.md` (uppercase)
+**File size:** Under 200 lines, if you need more, plit it to multiple files in `references` folder.
 
-1. **자동 설치**: `gh` 명령어가 없으면 자동으로 설치
-   - Linux: apt, yum, pacman 또는 바이너리 직접 설치
-   - macOS: brew 또는 바이너리 직접 설치
+**Metadata Quality:** The `name` and `description` in YAML frontmatter determine when Claude will use the skill. Be specific about what the skill does and when to use it. Use the third-person (e.g. "This skill should be used when..." instead of "Use this skill when...").
 
-2. **자동 인증**: 다음 환경변수 중 하나를 사용
-   - `GITHUB_TOKEN`: GitHub Personal Access Token
-   - `GH_TOKEN`: gh CLI 기본 환경변수
+#### Bundled Resources (optional)
 
-### 필수 환경변수
+##### Scripts (`scripts/`)
+
+Executable code (Python/Bash/etc.) for tasks that require deterministic reliability or are repeatedly rewritten.
+
+- **When to include**: When the same code is being rewritten repeatedly or deterministic reliability is needed
+- **Example**: `scripts/rotate_pdf.py` for PDF rotation tasks
+- **Benefits**: Token efficient, deterministic, may be executed without loading into context
+- **Note**: Scripts may still need to be read by Claude for patching or environment-specific adjustments
+
+##### References (`references/`)
+
+Documentation and reference material intended to be loaded as needed into context to inform Claude's process and thinking.
+
+- **When to include**: For documentation that Claude should reference while working
+- **Examples**: `references/finance.md` for financial schemas, `references/mnda.md` for company NDA template, `references/policies.md` for company policies, `references/api_docs.md` for API specifications
+- **Use cases**: Database schemas, API documentation, domain knowledge, company policies, detailed workflow guides
+- **Benefits**: Keeps SKILL.md lean, loaded only when Claude determines it's needed
+- **Best practice**: If files are large (>10k words), include grep search patterns in SKILL.md
+- **Avoid duplication**: Information should live in either SKILL.md or references files, not both. Prefer references files for detailed information unless it's truly core to the skill—this keeps SKILL.md lean while making information discoverable without hogging the context window. Keep only essential procedural instructions and workflow guidance in SKILL.md; move detailed reference material, schemas, and examples to references files.
+
+##### Assets (`assets/`)
+
+Files not intended to be loaded into context, but rather used within the output Claude produces.
+
+- **When to include**: When the skill needs files that will be used in the final output
+- **Examples**: `assets/logo.png` for brand assets, `assets/slides.pptx` for PowerPoint templates, `assets/frontend-template/` for HTML/React boilerplate, `assets/font.ttf` for typography
+- **Use cases**: Templates, images, icons, boilerplate code, fonts, sample documents that get copied or modified
+- **Benefits**: Separates output resources from documentation, enables Claude to use files without loading them into context
+
+### Progressive Disclosure Design Principle
+
+Skills use a three-level loading system to manage context efficiently:
+
+1. **Metadata (name + description)** - Always in context (~100 words)
+2. **SKILL.md body** - When skill triggers (<5k words)
+3. **Bundled resources** - As needed by Claude (Unlimited*)
+
+*Unlimited because scripts can be executed without reading into context window.
+
+## Skill Creation Process
+
+To create a skill, follow the "Skill Creation Process" in order, skipping steps only if there is a clear reason why they are not applicable.
+
+### Step 1: Understanding the Skill with Concrete Examples
+
+Skip this step only when the skill's usage patterns are already clearly understood. It remains valuable even when working with an existing skill.
+
+To create an effective skill, clearly understand concrete examples of how the skill will be used. This understanding can come from either direct user examples or generated examples that are validated with user feedback.
+
+For example, when building an image-editor skill, relevant questions include:
+
+- "What functionality should the image-editor skill support? Editing, rotating, anything else?"
+- "Can you give some examples of how this skill would be used?"
+- "I can imagine users asking for things like 'Remove the red-eye from this image' or 'Rotate this image'. Are there other ways you imagine this skill being used?"
+- "What would a user say that should trigger this skill?"
+
+To avoid overwhelming users, avoid asking too many questions in a single message. Start with the most important questions and follow up as needed for better effectiveness.
+
+Conclude this step when there is a clear sense of the functionality the skill should support.
+
+### Step 2: Planning the Reusable Skill Contents
+
+To turn concrete examples into an effective skill, analyze each example by:
+
+1. Considering how to execute on the example from scratch
+2. Identifying what scripts, references, and assets would be helpful when executing these workflows repeatedly
+
+Example: When building a `pdf-editor` skill to handle queries like "Help me rotate this PDF," the analysis shows:
+
+1. Rotating a PDF requires re-writing the same code each time
+2. A `scripts/rotate_pdf.py` script would be helpful to store in the skill
+
+Example: When designing a `frontend-webapp-builder` skill for queries like "Build me a todo app" or "Build me a dashboard to track my steps," the analysis shows:
+
+1. Writing a frontend webapp requires the same boilerplate HTML/React each time
+2. An `assets/hello-world/` template containing the boilerplate HTML/React project files would be helpful to store in the skill
+
+Example: When building a `big-query` skill to handle queries like "How many users have logged in today?" the analysis shows:
+
+1. Querying BigQuery requires re-discovering the table schemas and relationships each time
+2. A `references/schema.md` file documenting the table schemas would be helpful to store in the skill
+
+To establish the skill's contents, analyze each concrete example to create a list of the reusable resources to include: scripts, references, and assets.
+
+### Step 3: Initializing the Skill
+
+At this point, it is time to actually create the skill.
+
+Skip this step only if the skill being developed already exists, and iteration or packaging is needed. In this case, continue to the next step.
+
+When creating a new skill from scratch, always run the `init_skill.py` script. The script conveniently generates a new template skill directory that automatically includes everything a skill requires, making the skill creation process much more efficient and reliable.
+
+Usage:
 
 ```bash
-# 다음 중 하나 설정 (repo, workflow 권한 필요)
-export GITHUB_TOKEN="ghp_xxxxxxxxxxxx"
-# 또는
-export GH_TOKEN="ghp_xxxxxxxxxxxx"
+scripts/init_skill.py <skill-name> --path <output-directory>
 ```
 
-### 권한 요구사항
+The script:
 
-토큰에 필요한 권한:
-- `repo`: 저장소 접근
-- `workflow`: 워크플로우 실행 조회
+- Creates the skill directory at the specified path
+- Generates a SKILL.md template with proper frontmatter and TODO placeholders
+- Creates example resource directories: `scripts/`, `references/`, and `assets/`
+- Adds example files in each directory that can be customized or deleted
 
----
+After initialization, customize or remove the generated SKILL.md and example files as needed.
 
-## Phase 1: 분석 (Analyze)
+### Step 4: Edit the Skill
 
-### 1.1 추적성 매트릭스 분석
+When editing the (newly-generated or existing) skill, remember that the skill is being created for another instance of Claude to use. Focus on including information that would be beneficial and non-obvious to Claude. Consider what procedural knowledge, domain-specific details, or reusable assets would help another Claude instance execute these tasks more effectively.
 
-`specs/TRACEABILITY.md` 파일을 읽어서 현재 상태를 파악합니다:
+#### Start with Reusable Skill Contents
 
-1. **우선순위 확인**: 구현 우선순위 섹션에서 다음 작업 식별
-2. **상태 확인**: 각 명세의 상태를 확인
-   - `⏳ 대기`: 구현 대기 중 (작업 대상)
-   - `🚧 진행중`: 이미 작업 중
-   - `✅ 완료`: 완료됨
-3. **의존성 확인**: 의존성 그래프에서 선행 조건 확인
+To begin implementation, start with the reusable resources identified above: `scripts/`, `references/`, and `assets/` files. Note that this step may require user input. For example, when implementing a `brand-guidelines` skill, the user may need to provide brand assets or templates to store in `assets/`, or documentation to store in `references/`.
 
-### 1.2 다음 작업 선택 기준
+Also, delete any example files and directories not needed for the skill. The initialization script creates example files in `scripts/`, `references/`, and `assets/` to demonstrate structure, but most skills won't need all of them.
 
-1. 의존성이 해결된 명세 중 가장 높은 우선순위
-2. `⏳ 대기` 상태인 명세
-3. Phase 순서 준수 (Phase 1 → Phase 2 → Phase 3)
+#### Update SKILL.md
 
----
+**Writing Style:** Write the entire skill using **imperative/infinitive form** (verb-first instructions), not second person. Use objective, instructional language (e.g., "To accomplish X, do Y" rather than "You should do X" or "If you need to do X"). This maintains consistency and clarity for AI consumption.
 
-## Phase 2: 계획 (Plan)
+To complete SKILL.md, answer the following questions:
 
-### 2.1 계획서 작성
+1. What is the purpose of the skill, in a few sentences?
+2. When should the skill be used?
+3. In practice, how should Claude use the skill? All reusable skill contents developed above should be referenced so that Claude knows how to use them.
 
-선택한 명세에 대해 `specs/plans/PLAN-XXX.md` 파일을 생성합니다.
+### Step 5: Packaging a Skill
 
-**계획서 ID 규칙:**
-- 관련 명세 ID를 기반으로 생성
-- 예: FEAT-001 구현 → PLAN-001
-
-**계획서 포함 내용:**
-1. 목표 정의
-2. 작업을 적절한 크기로 분할 (각 단계는 1-2시간 분량)
-3. 예상 변경 파일 목록
-4. 검증 방법
-5. 롤백 계획
-
-### 2.2 작업 분할 원칙
-
-- **단일 책임**: 각 단계는 하나의 명확한 목표
-- **테스트 가능**: 각 단계 완료 후 검증 가능
-- **되돌림 가능**: 문제 시 이전 단계로 롤백 가능
-- **적정 크기**: 너무 크지도, 너무 작지도 않게
-
----
-
-## Phase 3: 구현 (Implement)
-
-### 3.1 구현 순서
-
-1. 계획서의 각 단계를 순서대로 실행
-2. 각 단계 완료 시 체크박스 업데이트
-3. 관련 테스트가 있다면 함께 작성
-4. 추적성 매트릭스 상태 업데이트 (`⏳ 대기` → `🚧 진행중`)
-
-### 3.2 코드 작성 규칙
-
-- 명세 ID를 주석으로 포함: `@spec FEAT-001`
-- 기존 패턴과 일관성 유지
-- 에러 처리 포함
-- 필요한 경우 타입 정의 추가
-
-### 3.3 추적성 매트릭스 업데이트
-
-구현 완료 후 `specs/TRACEABILITY.md` 업데이트:
-- 구현 파일 경로 추가
-- 테스트 파일 경로 추가
-- 상태를 `🧪 테스트중` 또는 `✅ 완료`로 변경
-
----
-
-## Phase 4: Push 및 CI 확인
-
-### 4.1 Git 커밋
+Once the skill is ready, it should be packaged into a distributable zip file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:
 
 ```bash
-git add .
-git commit -m "feat(SPEC-ID): 구현 설명"
+scripts/package_skill.py <path/to/skill-folder>
 ```
 
-**커밋 메시지 형식:**
-- `feat(FEAT-001): Add user authentication`
-- `fix(API-002): Fix response format`
-- `docs(PLAN-001): Add implementation plan`
-
-### 4.2 Push
+Optional output directory specification:
 
 ```bash
-git push -u origin <current-branch>
+scripts/package_skill.py <path/to/skill-folder> ./dist
 ```
 
-### 4.3 CI 상태 확인
+The packaging script will:
 
-Push 후 GitHub Actions CI 완료를 자동으로 대기합니다.
+1. **Validate** the skill automatically, checking:
+   - YAML frontmatter format and required fields
+   - Skill naming conventions and directory structure
+   - Description completeness and quality
+   - File organization and resource references
 
-**자동화 스크립트 사용:**
+2. **Package** the skill if validation passes, creating a zip file named after the skill (e.g., `my-skill.zip`) that includes all files and maintains the proper directory structure for distribution.
 
-```bash
-# 스크립트가 gh CLI 설치/인증/모니터링을 모두 처리
-.claude/skills/sdd-workflow/scripts/check-ci.sh
-```
+If validation fails, the script will report the errors and exit without creating a package. Fix any validation errors and run the packaging command again.
 
-**스크립트 동작:**
-1. gh CLI 설치 확인 (없으면 자동 설치)
-2. GITHUB_TOKEN/GH_TOKEN으로 자동 인증
-3. Push 후 10초 대기 (워크플로우 시작 대기)
-4. 30초 간격으로 상태 확인 (최대 10분)
-5. 완료 시 결과 반환
+### Step 6: Iterate
 
-**수동 확인 (필요시):**
+After testing the skill, users may request improvements. Often this happens right after using the skill, with fresh context of how the skill performed.
 
-```bash
-# CI 실행 상태 확인
-gh run list --limit 1
+**Iteration workflow:**
+1. Use the skill on real tasks
+2. Notice struggles or inefficiencies
+3. Identify how SKILL.md or bundled resources should be updated
+4. Implement changes and test again
 
-# CI 완료 대기
-gh run watch
-```
-
----
-
-## Phase 5: CI 실패 시 수정
-
-### 5.1 실패 분석
-
-```bash
-# 실패한 run의 로그 확인
-gh run view <run-id> --log-failed
-```
-
-### 5.2 수정 및 재시도
-
-1. 실패 원인 분석
-2. 코드 수정
-3. 재커밋 및 push
-4. CI 재확인
-
-**최대 재시도 횟수: 3회**
-
-3회 실패 시:
-- 현재까지의 시도 내용 요약
-- 사용자에게 도움 요청
-- 추적성 매트릭스 상태를 `❌ 실패`로 변경
-
----
-
-## Phase 6: 완료
-
-### 6.1 최종 확인
-
-- [ ] CI 통과
-- [ ] 추적성 매트릭스 업데이트
-- [ ] 계획서 체크박스 모두 완료
-
-### 6.2 다음 작업 안내
-
-현재 작업 완료 후:
-1. 완료된 작업 요약 출력
-2. 다음 우선순위 작업 안내
-3. 사용자에게 계속 진행할지 확인
-
----
-
-## 실행 예시
-
-사용자가 "다음 작업 진행해줘"라고 요청하면:
-
-1. `specs/TRACEABILITY.md` 분석
-2. 다음 작업 식별 (예: FEAT-001)
-3. `specs/features/FEAT-001.md` 명세 읽기
-4. `specs/plans/PLAN-001.md` 계획서 작성
-5. 계획대로 구현
-6. 추적성 매트릭스 업데이트
-7. Git commit & push
-8. CI 완료 대기
-9. 결과 보고
-
----
-
-## 주의사항
-
-- **명세 없이 구현 금지**: 항상 명세가 먼저
-- **매트릭스 동기화**: 모든 변경은 즉시 매트릭스에 반영
-- **점진적 진행**: 한 번에 하나의 명세만 구현
-- **실패 시 중단**: 3회 실패 시 사용자 개입 요청
-
----
-
-## 참고 파일
-
-- 계획서 템플릿: `.claude/skills/sdd-workflow/plan-template.md`
-- 추적성 매트릭스: `specs/TRACEABILITY.md`
-- CI 워크플로우: `.github/workflows/ci.yml`
-- CI 상태 확인 스크립트: `.claude/skills/sdd-workflow/scripts/check-ci.sh`
+## References
+- [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills.md)
+- [Agent Skills Spec](.claude/skills/agent_skills_spec.md)
+- [Agent Skills Overview](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview.md)
+- [Best Practices](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices.md)

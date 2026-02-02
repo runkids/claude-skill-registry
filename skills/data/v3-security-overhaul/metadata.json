@@ -1,7 +1,7 @@
 {
   "name": "v3-security-overhaul",
-  "repo": "Geralt1983/Thanos",
-  "path": ".claude/skills/v3-security-overhaul/SKILL.md",
-  "source": "github.com/Geralt1983/Thanos",
-  "downloaded_at": "2026-02-01T04:54:08.377039Z"
+  "repo": "ruvnet/claude-flow",
+  "path": "v3/@claude-flow/cli/.claude/skills/v3-security-overhaul/SKILL.md",
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-02-02T04:56:29.311428Z"
 }

@@ -1,127 +1,261 @@
 ---
 name: coding-rules
-description: "Applies coding standards for clean, maintainable code. Use when: writing functions, handling errors, refactoring, or reviewing code style."
+description: >
+  プロジェクト共通のコーディング規約。TypeScript、命名規則、関数設計、React/Next.js等。
+  使用タイミング: (1) コードレビュー時 (2) 新規ファイル作成時 (3) リファクタリング時
+  (4) コーディングスタイルの確認時 (5) チーム開発のルール確認時。
+  トリガー例: 「コーディング規約」「命名規則は？」「TypeScriptのルール」
+  「インポート順序」「コミットメッセージの書き方」
 ---
 
-# Development Rules
+# coding-rules - コーディング規約
 
-## Language-Specific References
+プロジェクト共通のコーディングルール。
 
-For language-specific rules, also read:
-- **TypeScript**: [references/typescript.md](references/typescript.md)
+---
 
-## Basic Principles
+## 1. TypeScript
 
-✅ **Aggressive Refactoring**
-- Continuously improve code structure and readability
-- Make code changes in small, safe steps
-- Prioritize maintainability over initial implementation speed
+### 型定義
 
-❌ **Unused "Just in Case" Code** - YAGNI principle
-- Don't write code for hypothetical future requirements
-- Delete unused functions, variables, and imports immediately
-- Keep codebase lean and focused on current needs
+```typescript
+// ✅ 明示的な型定義
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  createdAt: Date;
+}
 
-## Comment Writing Rules
+// ✅ 型推論が明確な場合は省略OK
+const users = await repository.findAll(); // 戻り値の型は関数から推論
 
-- **Function Description Focus**: Describe what the code "does", not how it works
-- **No Historical Information**: Do not record development history in comments
-- **Timeless**: Write only content that remains valid whenever read
-- **Conciseness**: Keep explanations to necessary minimum
-- **Explain "Why"**: Comments should explain reasoning, not implementation details
+// ❌ any は使わない
+const data: any = response.json();
 
-## Function Design
+// ✅ unknown を使って安全に処理
+const data: unknown = await response.json();
+if (isUser(data)) {
+  console.log(data.email);
+}
+```
 
-**Parameter Management**
-- **0-2 parameters maximum**: Use structured data (object/struct/dict) for 3+ parameters
-  ```
-  ✅ Good: createUser({name, email, role})
-  ❌ Avoid: createUser(name, email, role, department, startDate)
-  ```
-  *Note: Use your language's idiomatic approach for grouping parameters*
+### Null/Undefined
 
-**Dependency Injection**
-- **Inject external dependencies explicitly**: Ensure testability and modularity
-- Pass dependencies as parameters (functions, constructors, or other language-appropriate mechanisms)
-- Avoid global state, direct instantiation, or implicit dependencies
-- Prefer interfaces/contracts over concrete implementations where applicable
+```typescript
+// ✅ Optional chaining
+const email = user?.profile?.email;
 
-## Error Handling
+// ✅ Nullish coalescing
+const name = user.name ?? 'Anonymous';
 
-**Absolute Rule**: Error suppression prohibited. All errors must have log output and appropriate handling.
+// ❌ 非推奨
+const name = user.name || 'Anonymous'; // 空文字もfalsy
+```
 
-**Layer-Specific Error Handling**
-- **Presentation Layer**: Convert errors to user-friendly messages, log excluding sensitive information
-- **Business Layer**: Detect business rule violations, propagate domain-specific errors
-- **Data Layer**: Convert technical errors to domain errors
+---
 
-**Structured Logging and Sensitive Information Protection**
-Never include sensitive information in logs:
-- Passwords, tokens, API keys, secrets
-- Credit card numbers, personal identification numbers
-- Any personally identifiable information (PII)
+## 2. インポート順序
 
-**Asynchronous Error Handling**
-- Use appropriate error handling mechanisms for your language
-- Always log and appropriately propagate errors
-- Set up global error handlers where applicable
+```typescript
+// 1. 外部ライブラリ
+import { useState } from 'react';
+import { z } from 'zod';
 
-## Clean Code Principles
+// 2. 内部モジュール（エイリアス）
+import { db } from '@/db';
+import { User } from '@/types';
 
-✅ **Recommended Practices**
-- Delete unused code immediately
-- Remove debug statements and temporary logging
-- Use meaningful variable and function names
-- Keep functions small and focused on single responsibility
+// 3. 相対インポート
+import { helper } from './utils';
+import styles from './styles.module.css';
+```
 
-❌ **Avoid These Practices**
-- Commented-out code (use version control for history)
-- Magic numbers without explanation
-- Deep nesting (prefer early returns)
-- Functions that do multiple unrelated things
+---
 
-## Refactoring Techniques
+## 3. 命名規則
 
-**Basic Policy**
-- **Small Steps**: Maintain always-working state through gradual improvements
-- **Safe Changes**: Minimize the scope of changes at once
-- **Behavior Guarantee**: Ensure existing behavior remains unchanged while proceeding
+| 種類 | 規則 | 例 |
+|------|------|-----|
+| 変数・関数 | camelCase | `getUserById`, `isActive` |
+| 定数 | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
+| クラス・型 | PascalCase | `UserService`, `CreateUserInput` |
+| ファイル | kebab-case | `user-service.ts` |
+| Reactコンポーネント | PascalCase | `UserCard.tsx` |
+| 環境変数 | UPPER_SNAKE_CASE | `DATABASE_URL` |
 
-**Implementation Procedure**
-1. Understand Current State
-2. Make Gradual Changes
-3. Verify Behavior
-4. Final Validation
+### Boolean命名
 
-**Priority Order**
-1. Duplicate Code Removal
-2. Large Function Division
-3. Complex Conditional Branch Simplification
-4. Architecture Improvement
+```typescript
+// ✅ is/has/can/should プレフィックス
+const isActive = true;
+const hasPermission = user.role === 'admin';
+const canEdit = isOwner || isAdmin;
+const shouldRefetch = isStale && !isLoading;
+```
 
-## Performance Considerations
+---
 
-**General Principles**
-- Measure before optimizing (avoid premature optimization)
-- Focus on algorithmic complexity over micro-optimizations
-- Consider memory usage, especially with large datasets
-- Use appropriate data structures for the use case
+## 4. 関数
 
-**Resource Management**
-- Properly close files, connections, and other resources
-- Be mindful of memory leaks in long-running applications
-- Use efficient algorithms for data processing
+### 単一責任
 
-## Code Organization
+```typescript
+// ❌ 複数の責任
+async function processUser(userId: string) {
+  const user = await db.select().from(users).where(eq(users.id, userId));
+  await sendEmail(user.email);
+  await updateLastLogin(userId);
+  return user;
+}
 
-**File Structure**
-- Group related functionality together
-- Separate concerns (business logic, data access, presentation)
-- Use consistent naming conventions throughout the project
-- Keep configuration separate from business logic
+// ✅ 分割
+async function getUser(userId: string) {
+  return db.select().from(users).where(eq(users.id, userId));
+}
 
-**Modularity**
-- Write small, focused modules/functions
-- Minimize dependencies between modules
-- Use clear interfaces between components
-- Follow single responsibility principle
+async function notifyUser(email: string) {
+  await sendEmail(email);
+}
+
+async function recordLogin(userId: string) {
+  await updateLastLogin(userId);
+}
+```
+
+### 早期リターン
+
+```typescript
+// ❌ ネスト深い
+function processData(data: Data | null) {
+  if (data) {
+    if (data.isValid) {
+      if (data.items.length > 0) {
+        return data.items.map(process);
+      }
+    }
+  }
+  return [];
+}
+
+// ✅ 早期リターン
+function processData(data: Data | null) {
+  if (!data) return [];
+  if (!data.isValid) return [];
+  if (data.items.length === 0) return [];
+
+  return data.items.map(process);
+}
+```
+
+---
+
+## 5. エラーハンドリング
+
+```typescript
+// ✅ カスタムエラークラス
+class ValidationError extends Error {
+  constructor(
+    message: string,
+    public field: string
+  ) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+
+// ✅ 適切なエラー処理
+try {
+  await riskyOperation();
+} catch (error) {
+  if (error instanceof ValidationError) {
+    return apiError(error.message, { status: 400 });
+  }
+  console.error('Unexpected error:', error);
+  return apiError('Internal error', { status: 500 });
+}
+```
+
+---
+
+## 6. コメント
+
+```typescript
+// ✅ WHYを説明
+// Stripe APIの制限により、100件ずつバッチ処理する必要がある
+const BATCH_SIZE = 100;
+
+// ❌ WHATを説明（コードを読めばわかる）
+// ユーザーを取得する
+const user = await getUser(id);
+
+// ✅ TODO/FIXME は issue番号付き
+// TODO(#123): キャッシュ実装後に削除
+// FIXME(#456): 競合状態の対応が必要
+```
+
+---
+
+## 7. React/Next.js
+
+### Server vs Client Components
+
+```typescript
+// Server Component (デフォルト)
+// - データフェッチ
+// - 機密情報アクセス
+// - バンドルサイズ削減
+
+// Client Component ('use client')
+// - useState, useEffect
+// - イベントハンドラ
+// - ブラウザAPI
+
+// ✅ 最小限のクライアントコンポーネント
+'use client';
+export function LikeButton({ postId }: { postId: string }) {
+  const [liked, setLiked] = useState(false);
+  return <button onClick={() => setLiked(!liked)}>Like</button>;
+}
+```
+
+### Props
+
+```typescript
+// ✅ 型定義
+interface UserCardProps {
+  user: User;
+  onEdit?: (id: string) => void;
+  className?: string;
+}
+
+export function UserCard({ user, onEdit, className }: UserCardProps) {
+  // ...
+}
+```
+
+---
+
+## 8. Git コミット
+
+### Conventional Commits
+
+```
+feat: 新機能追加
+fix: バグ修正
+docs: ドキュメント
+refactor: リファクタリング
+test: テスト
+chore: その他
+```
+
+### 例
+
+```
+feat: add user authentication
+fix: resolve login redirect loop
+docs: update API documentation
+refactor: extract validation logic to separate module
+test: add unit tests for UserService
+chore: update dependencies
+```

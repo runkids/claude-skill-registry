@@ -1,7 +1,7 @@
 {
   "name": "wcag-audit-patterns",
-  "repo": "wshobson/agents",
-  "path": "plugins/accessibility-compliance/skills/wcag-audit-patterns/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-02-01T04:51:53.509229Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/accessibility-compliance/skills/wcag-audit-patterns/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-02-02T04:39:46.561486Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "deep-analysis",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/code-analysis/skills/deep-analysis/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-02-01T03:26:49.346963Z"
+  "repo": "yhvh-chen/Olav",
+  "path": ".olav/skills/deep-analysis/SKILL.md",
+  "source": "github.com/yhvh-chen/Olav",
+  "downloaded_at": "2026-02-02T03:20:46.208329Z"
 }

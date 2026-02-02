@@ -1,8 +1,6 @@
 ---
 name: create-slidev-presentation
 description: This skill should be used when asked to create or edit Slidev (sli.dev) presentation slide decks.
-source: https://github.com/AJBcoding/claude-skill-eval
-author: AJBcoding
 ---
 
 # Slidev
@@ -555,3 +553,38 @@ This skill includes comprehensive documentation:
 - Docs: https://sli.dev/guide/
 - GitHub: https://github.com/slidevjs/slidev
 - Themes: https://sli.dev/resources/theme-gallery
+
+## Workflow Example
+
+**User request**: "Create a technical presentation about TypeScript best practices"
+
+**Step 1**: Choose template from `assets/example-configurations.md` → "Technical/Code-Heavy Presentation"
+
+**Step 2**: Create `slides.md` with appropriate headmatter:
+```yaml
+---
+theme: default
+title: TypeScript Best Practices
+author: Developer Name
+monaco: dev
+lineNumbers: true
+twoslash: true
+---
+```
+
+**Step 3**: Add slides using templates from `assets/slide-templates.md`:
+- Cover slide
+- Section dividers
+- Code demonstration slides
+- Comparison slides
+- End slide
+
+**Step 4**: Start dev server to preview:
+```bash
+slidev
+```
+
+**Step 5**: Export when ready:
+```bash
+slidev export --format pdf
+```

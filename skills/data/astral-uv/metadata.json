@@ -1,9 +1,7 @@
 {
   "name": "astral-uv",
-  "description": "Fast Python package and project management using Astral's uv. Use when installing packages, managing virtual environments, running Python scripts, or initializing Python projects. Triggers on: pyproje",
   "repo": "ianphil/my-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/astral-uv/SKILL.md",
+  "source": "github.com/ianphil/my-skills",
+  "downloaded_at": "2026-02-02T01:25:31.954250Z"
 }

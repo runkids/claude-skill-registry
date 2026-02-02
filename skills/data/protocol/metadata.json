@@ -1,7 +1,7 @@
 {
   "name": "protocol",
-  "repo": "bitwikiorg/skills.md",
-  "path": "sources/langchain/protocol/SKILL.md",
-  "source": "github.com/bitwikiorg/skills.md",
-  "downloaded_at": "2026-01-27T01:51:44.721251Z"
+  "repo": "SimHacker/moollm",
+  "path": "skills/protocol/SKILL.md",
+  "source": "github.com/SimHacker/moollm",
+  "downloaded_at": "2026-02-02T04:06:48.899752Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "security-scanner",
-  "repo": "matteocervelli/llms",
-  "path": ".claude/skills/security-scanner/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-02-01T03:16:18.418886Z"
+  "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+  "path": "plugins/dapr/skills/security-scanner/SKILL.md",
+  "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+  "downloaded_at": "2026-02-02T03:35:32.622531Z"
 }

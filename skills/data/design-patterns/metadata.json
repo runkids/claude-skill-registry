@@ -1,7 +1,7 @@
 {
   "name": "design-patterns",
-  "repo": "NmBoyd/claude_setup",
-  "path": ".claude/skills/design-patterns/SKILL.md",
-  "source": "github.com/NmBoyd/claude_setup",
-  "downloaded_at": "2026-02-01T05:04:45.577280Z"
+  "repo": "Claude-Code-Community-Ireland/claude-code-resources",
+  "path": "plugins/vibeworks-library/skills/design-patterns/SKILL.md",
+  "source": "github.com/Claude-Code-Community-Ireland/claude-code-resources",
+  "downloaded_at": "2026-02-02T03:47:31.918772Z"
 }

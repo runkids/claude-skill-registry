@@ -1,663 +1,168 @@
 ---
 name: jules-cli
-description: docs/tasks.mdに記載されたタスクをJules CLIを使って依頼・管理します。タスクを日本語でフォーマットしてJulesに送信し、進捗を追跡して完了後にtasks.mdを更新します。
+description: Interact with the Jules CLI to manage asynchronous coding sessions. Use this skill to assign tasks, monitor progress, and pull patches from completed sessions.
 ---
 
-# Jules CLI統合スキル
+# Jules CLI Skill
 
-docs/tasks.mdに記載されたタスクをGoogleの非同期コーディングエージェントJulesに依頼・管理するスキルです。SDDで分割したタスクを効率的にJulesに割り当て、進捗を追跡します。
-
-## 概要
-
-このスキルは以下の機能を提供します：
-- docs/tasks.mdからタスクを読み取り、選択可能なリストを表示
-- 選択されたタスクを日本語でフォーマットしてJulesに依頼
-- Julesの進捗状況を確認・管理
-- 完了したタスクをtasks.mdで更新
-- 複数タスクの並行依頼サポート
-
-## このスキルを使用する場面
-
-以下の状況でこのスキルを有効にしてください：
-
-### タスク実行時
-- docs/tasks.mdのタスクをJulesに依頼したい場合
-- 長時間かかるタスクを非同期で実行したい場合
-- 複数のタスクを並行して実行したい場合
-- Jules CLIを使った開発ワークフローを構築する場合
-
-### プロジェクト管理時
-- タスクの進捗をJulesで管理したい場合
-- チーム内でJulesを活用している場合
-- 自動化可能なタスクをJulesに任せたい場合
-
-## 基本的な使い方
-
-### タスクの依頼
-
-「次のタスクをJulesに依頼してください」「タスクをJulesで実行してください」などと依頼されたら：
-
-1. **tasks.mdの読み取り**
-   - docs/tasks.mdの内容を確認
-   - TODO状態のタスクを特定
-   - 依存関係を確認
-
-2. **タスクの選択**
-   - ユーザーにタスクリストを表示
-   - 依頼するタスクを選択してもらう
-   - 複数選択も可能
-
-3. **Jules依頼文の作成**
-   - タスクの説明、受入基準、技術的文脈を日本語でフォーマット
-   - Julesが理解しやすい形式に整形
-   - 必要な参照情報を含める
-
-4. **julesコマンドの実行**
-   - `jules "依頼文"` コマンドを実行
-   - タスクIDを記録
-   - ユーザーに依頼完了を報告
-
-5. **進捗の追跡**
-   - 必要に応じてJulesの進捗を確認
-   - 完了したら結果をレビュー
-   - tasks.mdを更新
-
-## Jules依頼文の原則
-
-### 1. 明確で具体的な指示
-
-Julesが理解しやすい形式で依頼文を作成します：
-
-**基本構造**：
-```
-タスク: [タスクタイトル]
-
-概要:
-[タスクの詳細な説明]
-
-受入基準:
-- [基準1]
-- [基準2]
-- [基準3]
-
-技術的文脈:
-- [フレームワークやライブラリ]
-- [参照すべきファイルやコード]
-- [制約事項]
-
-推定工数: [時間]
-```
-
-**良い例**：
-```
-タスク: ユーザー認証APIエンドポイントの実装
-
-概要:
-POST /api/auth/login と POST /api/auth/logout のエンドポイントを実装してください。
-JWTトークンを使用した認証方式を採用し、パスワードはbcryptでハッシュ化します。
-
-受入基準:
-- src/api/auth.tsが存在し、login/logoutエンドポイントが実装されている
-- すべてのテストが通過する（npm test）
-- ESLintエラーがゼロである
-- JWTトークンが正しく生成・検証される
-
-技術的文脈:
-- フレームワーク: Next.js 14 App Router
-- 認証ライブラリ: jose（JWT）、bcrypt（パスワードハッシュ化）
-- 参照実装: src/api/users.ts
-- データベース: PostgreSQL with Prisma ORM
-
-推定工数: 2時間
-```
-
-**悪い例**：
-```
-ログイン機能を作って
-```
-
-### 2. 日本語での依頼
-
-すべての依頼文は日本語で記述します：
-
-**理由**：
-- ユーザーが日本語での依頼を希望している
-- タスクの内容が日本語で記載されている場合が多い
-- Julesは多言語対応しており、日本語も理解できる
-
-**注意事項**：
-- 技術用語は英語のまま使用（例: JWT, API, bcrypt）
-- ファイルパスやコマンドは英語のまま
-- 説明文や受入基準は日本語で記述
-
-### 3. 文脈の提供
-
-Julesが適切に作業できるよう、必要な文脈を提供します：
-
-**含めるべき情報**：
-- プロジェクトの技術スタック
-- 参照すべき既存コード
-- コーディング規約やスタイルガイド
-- 制約事項や注意点
-- 依存関係のあるタスク
-
-**例**：
-```
-技術的文脈:
-- このプロジェクトはNext.js 14のApp Routerを使用しています
-- 既存の実装パターンはsrc/api/users.tsを参照してください
-- ESLintとPrettierの設定に従ってください
-- データベーススキーマはprisma/schema.prismaで定義されています
-- Task 1.2（データモデルの定義）の完了が前提です
-```
-
-### 4. 受入基準の明確化
-
-検証可能な受入基準を提供します：
-
-**良い受入基準**：
-```
-受入基準:
-- src/components/LoginForm.tsxが存在する
-- npm testを実行してすべてのテストが通過する
-- npm run lintを実行してエラーがゼロである
-- ログイン成功時にJWTトークンが返される
-- ログイン失敗時に適切なエラーメッセージが返される
-- パスワードはbcryptでハッシュ化されている
-```
-
-**悪い受入基準**：
-```
-受入基準:
-- ちゃんと動く
-- きれいなコード
-```
-
-## Jules CLIコマンド
-
-### タスクの作成・依頼
+## Quick Start
 
 ```bash
-# 基本的な依頼
-jules "タスクの説明"
+# 1. Verify available repos (pre-flight check)
+jules remote list --repo
 
-# 長い依頼文の場合はヒアドキュメントを使用
-jules "$(cat <<'EOF'
-タスク: ユーザー認証APIの実装
-
-概要:
-POST /api/auth/login エンドポイントを実装してください。
-
-受入基準:
-- src/api/auth.tsが存在する
-- テストが通過する
-
-技術的文脈:
-- Next.js 14
-- JWT + bcrypt
-EOF
-)"
+# 2. Submit a task and wait for completion
+./scripts/jules_submit.py --repo GITHUB_USERNAME/REPO "Your task description"
 ```
 
-### タスクの状態確認
+**Note:** Use your GitHub username/org, not your local system username (e.g., `octocat/Hello-World`, not `$USER/Hello-World`).
+
+---
+
+## Overview
+
+This skill enables the agent to interact with the `jules` CLI. It supports task assignment, session monitoring, and result integration (pulling patches from completed sessions).
+
+## Before You Start
+
+### Verify Repository Access
+
+Before submitting tasks, verify which repositories are available and confirm the correct format:
 
 ```bash
-# タスクリストの表示
-jules list
-
-# 特定のタスクの状態確認
-jules status <task-id>
-
-# タスクの詳細表示
-jules show <task-id>
+# List available repos to verify access and see correct username format
+jules remote list --repo
 ```
 
-### タスクの管理
+**Important:** The `--repo` flag requires your GitHub username or organization name, not your local system username.
+
+- **Correct:** `octocat/Hello-World` (GitHub username)
+- **Incorrect:** `localuser/Hello-World` (local system username)
+
+If you're unsure of your GitHub username:
+1. Run `jules remote list --repo` to see available repos with correct formatting
+2. Or check your GitHub profile at https://github.com/settings/profile
+
+## Core Capabilities
+
+1. **Automated Submission**: Use `jules_submit.py` to handle the session lifecycle (new session → wait → pull → apply).
+2. **Task Assignment**: Create new coding sessions with `jules remote new`.
+3. **Session Monitoring**: List and parse remote sessions to track progress.
+4. **Result Integration**: Pull and apply patches from completed sessions.
+
+## Workflows
+
+### Option 1: Automated Task Submission (Recommended)
+
+**Why this is recommended:**
+- **Non-blocking**: The script handles polling automatically, freeing up the terminal
+- **TTY-safe**: Automatically handles TTY/input redirection issues common in automation
+- **All-in-one**: Creates session, waits for completion, and applies changes locally
+- **Error handling**: Built-in retry logic and prerequisite checks
+
+The `jules_submit.py` script handles session creation, waiting for completion, and applying results.
 
 ```bash
-# タスクのキャンセル
-jules cancel <task-id>
+# Submit task and wait for completion
+./scripts/jules_submit.py --repo octocat/Hello-World "Implement unit tests for the login module"
 
-# タスクの再実行
-jules retry <task-id>
-
-# 完了したタスクの結果取得
-jules result <task-id>
+# Submit without waiting (fire-and-forget)
+./scripts/jules_submit.py --repo octocat/Hello-World --no-wait "Research API options"
 ```
 
-## ワークフロー
+**Flags:**
+- `--repo <repo>`: Repository in `GITHUB_USERNAME/REPO` format (e.g., `octocat/Hello-World`)
+- `--no-wait`: Exit immediately after creating session (don't wait for completion)
 
-### 基本的な実行フロー
+### Option 2: Manual Workflow
 
-```
-1. tasks.mdを読み取る
-   ↓
-2. TODO状態のタスクをリスト表示
-   ↓
-3. ユーザーがタスクを選択
-   ↓
-4. 依頼文を日本語で作成
-   ↓
-5. ユーザーに依頼文を確認してもらう
-   ↓
-6. julesコマンドを実行
-   ↓
-7. タスクIDを記録
-   ↓
-8. 進捗を定期的に確認（必要に応じて）
-   ↓
-9. 完了したら結果をレビュー
-   ↓
-10. tasks.mdを更新（ステータスをIN_PROGRESSまたはREVIEW）
-   ↓
-11. レビュー完了後、DONEにマーク
+Use this when you need granular control over each step or want to inspect intermediate results.
+
+```bash
+# Step 1: Create session
+jules remote new --repo octocat/Hello-World --session "Task description"
+
+# Step 2: Wait for session (check status until terminal state)
+./scripts/wait_for_session.sh <SESSION_ID>
+
+# Step 3: Pull and apply changes
+jules remote pull --session <SESSION_ID> --apply
 ```
 
-### 詳細な実行手順
+## Common Error Patterns
 
-#### ステップ1: タスクの選択
+### "repo doesn't exist" or "repository not found"
+**Cause:** Using local system username instead of GitHub username
 
-```
-ファシリテーター: docs/tasks.mdから実行可能なタスクを確認しました。
-                  以下のタスクが利用可能です：
+**Solution:** 
+- Verify with `jules remote list --repo` to see correct format
+- Use GitHub username: `octocat/repo` not `localuser/repo`
 
-                  1. Task 1.1: ユーザー認証APIエンドポイントの実装
-                     推定工数: 2時間
-                     依存関係: なし
+### "Login Related" Errors
+If you see `Trying to make a GET request without a valid client (did you forget to login?)` when running from automation:
+1. **Verify HOME**: Ensure the `HOME` environment variable is set to the user's home directory.
+2. **Credentials**: Ensure `~/.jules/cache/oauth_creds.json` exists and is valid. Run `jules login` manually if needed.
 
-                  2. Task 1.2: データモデルの定義
-                     推定工数: 1時間
-                     依存関係: なし
+### TTY Errors
+If you see `could not open a new TTY` or `inappropriate ioctl for device`:
+1. Use redirected input: `echo "task" | jules ... < /dev/null`.
+2. The provided scripts (`jules_submit.py`) handle this automatically.
 
-                  3. Task 2.1: 認証ミドルウェアの実装
-                     推定工数: 1.5時間
-                     依存関係: Task 1.1
+## Testing & Validation
 
-                  どのタスクをJulesに依頼しますか？（番号で選択、複数選択可）
+This skill has been validated with live Jules sessions. Key test scenarios include:
+- ✅ Session creation with various repository formats
+- ✅ TTY-safe automation in non-interactive environments  
+- ✅ HOME environment variable edge cases
+- ✅ Session status polling (Completed, Failed, Cancelled states)
+- ✅ Patch application workflows
 
-ユーザー: 1と2
+All error patterns documented above were discovered and resolved during live testing with the Jules platform.
 
-ファシリテーター: 承知しました。Task 1.1とTask 1.2をJulesに依頼します。
-```
+## Command Reference
 
-#### ステップ2: 依頼文の作成と確認
+### Essential Commands
 
-```
-ファシリテーター: 以下の依頼文でJulesに送信します。確認してください：
+#### `jules remote new`
+Assigns a new session to Jules in a remote VM.
 
-【Task 1.1の依頼文】
-タスク: ユーザー認証APIエンドポイントの実装
-
-概要:
-POST /api/auth/login と POST /api/auth/logout のエンドポイントを実装してください。
-JWTトークンを使用した認証方式を採用し、パスワードはbcryptでハッシュ化します。
-
-受入基準:
-- src/api/auth.tsが存在し、login/logoutエンドポイントが実装されている
-- すべてのテストが通過する（npm test）
-- ESLintエラーがゼロである
-
-技術的文脈:
-- フレームワーク: Next.js 14
-- 認証: JWT + bcrypt
-- 参照実装: src/api/users.ts
-
-推定工数: 2時間
-
-このまま送信してよろしいですか？
-
-ユーザー: はい
-
-ファシリテーター: Julesに依頼を送信します。
+```bash
+jules remote new --repo octocat/Hello-World --session "Task description"
 ```
 
-#### ステップ3: julesコマンドの実行
+**Flags:**
+- `--repo <repo>`: Repository in `GITHUB_USERNAME/REPO` format
+- `--session <task>`: The task description (required)
+- `--parallel <num>`: Number of parallel sessions (1-5)
 
-```
-# Task 1.1の依頼
-jules "$(cat <<'EOF'
-タスク: ユーザー認証APIエンドポイントの実装
+#### `jules remote list`
+Lists remote sessions or repositories.
 
-概要:
-POST /api/auth/login と POST /api/auth/logout のエンドポイントを実装してください。
-JWTトークンを使用した認証方式を採用し、パスワードはbcryptでハッシュ化します。
+```bash
+# List your active sessions
+jules remote list --session
 
-受入基準:
-- src/api/auth.tsが存在し、login/logoutエンドポイントが実装されている
-- すべてのテストが通過する（npm test）
-- ESLintエラーがゼロである
-
-技術的文脈:
-- フレームワーク: Next.js 14
-- 認証: JWT + bcrypt
-- 参照実装: src/api/users.ts
-
-推定工数: 2時間
-EOF
-)"
-
-# Task 1.2の依頼
-jules "$(cat <<'EOF'
-タスク: データモデルの定義
-
-概要:
-Prismaスキーマファイルにユーザーと認証関連のデータモデルを定義してください。
-
-受入基準:
-- prisma/schema.prismaにUserモデルが定義されている
-- prisma migrateが正常に実行できる
-- TypeScript型定義が自動生成される
-
-技術的文脈:
-- ORM: Prisma
-- データベース: PostgreSQL
-- 既存のスキーマを参考にしてください
-
-推定工数: 1時間
-EOF
-)"
+# List available repos (useful for verifying repo format)
+jules remote list --repo
 ```
 
-#### ステップ4: タスクIDの記録とユーザーへの報告
+#### `jules remote pull`
+Pulls the result of a remote session and optionally applies it.
 
-```
-ファシリテーター: Julesへの依頼が完了しました。
-
-                  依頼したタスク:
-                  - Task 1.1: task-abc123（進行中）
-                  - Task 1.2: task-def456（進行中）
-
-                  進捗は以下のコマンドで確認できます：
-                  jules status task-abc123
-                  jules status task-def456
-
-                  完了を待つ間、他の作業を進めることができます。
+```bash
+jules remote pull --session <SESSION_ID> --apply
 ```
 
-#### ステップ5: 進捗の確認
-
-```
-# 定期的に進捗を確認
-jules list
-
-# 特定のタスクの詳細確認
-jules status task-abc123
-```
-
-#### ステップ6: 完了後の処理
-
-```
-ファシリテーター: Task 1.1が完了しました。結果を確認します。
-
-# 結果の取得
-jules result task-abc123
-
-ファシリテーター: 実装内容を確認しました。以下のファイルが作成されています：
-                  - src/api/auth.ts
-                  - src/api/auth/login/route.ts
-                  - src/api/auth/logout/route.ts
-                  - tests/api/auth.test.ts
-
-                  テストが通過し、ESLintエラーもゼロです。
-                  受入基準をすべて満たしています。
-
-                  tasks.mdを更新してTask 1.1をREVIEWステータスにマークします。
-```
-
-#### ステップ7: tasks.mdの更新
-
-```
-# tasks.mdのステータスを更新
-Task 1.1: TODO → IN_PROGRESS（Jules実行中）→ REVIEW（完了、レビュー待ち）→ DONE（承認済み）
-
-更新内容:
-- ステータスをREVIEWに変更
-- Jules task ID（task-abc123）を記録
-- 完了日時を記録
-```
-
-## tasks.md更新の原則
-
-### 1. ステータス管理
-
-Julesに依頼したタスクは以下のステータスで管理します：
-
-**ステータスの遷移**：
-```
-TODO → IN_PROGRESS（Jules実行中）→ REVIEW（完了、レビュー待ち）→ DONE（承認済み）
-```
-
-**各ステータスの意味**：
-- `TODO`: 未着手
-- `IN_PROGRESS`: Julesが作業中
-- `REVIEW`: Julesが完了、レビュー待ち
-- `DONE`: レビュー完了、承認済み
-
-### 2. タスク情報の記録
-
-tasks.mdには以下の情報を記録します：
-
-**追加情報**：
-```markdown
-#### タスク1.1: ユーザー認証APIエンドポイントの実装
-**説明**: POST /api/auth/login と POST /api/auth/logout のエンドポイントを実装
-**受入基準**:
-- src/api/auth.tsが存在する
-- テストが通過する
-**ステータス**: `REVIEW`
-**Jules Task ID**: task-abc123
-**開始日時**: 2024-01-15 10:30
-**完了日時**: 2024-01-15 12:15
-**作業時間**: 1時間45分
-```
-
-### 3. レビューとDONEへの移行
-
-```
-ファシリテーター: Task 1.1のレビューが完了しました。
-                  実装は要件を満たしており、コード品質も良好です。
-                  ステータスをDONEにマークします。
-
-                  完了サマリー:
-                  ユーザー認証APIエンドポイント（login/logout）を実装。
-                  JWTとbcryptを使用した安全な認証を実現。
-                  すべてのテストが通過し、ESLintエラーもゼロ。
-```
-
-## 複数タスクの並行処理
-
-### 並行実行の条件
-
-以下の条件を満たすタスクは並行してJulesに依頼できます：
-
-**条件**：
-- 依存関係が存在しない
-- 異なるファイル・コンポーネントを対象とする
-- 相互に影響を与えない
-
-**例**：
-```
-並行実行可能:
-- Task 1.1: APIエンドポイントの実装
-- Task 1.2: データモデルの定義
-- Task 1.3: 設定ファイルの作成
-
-順次実行が必要:
-- Task 1.1: APIエンドポイントの実装（依存: なし）
-- Task 2.1: 認証ミドルウェアの実装（依存: Task 1.1）
-```
-
-### 並行実行の手順
-
-```
-1. 並行実行可能なタスクを特定
-2. それぞれのタスクについて依頼文を作成
-3. 複数のjulesコマンドを順次実行
-4. すべてのタスクIDを記録
-5. 各タスクの進捗を個別に追跡
-```
-
-## エラーハンドリング
-
-### Julesでエラーが発生した場合
-
-**対処手順**：
-```
-1. エラー内容を確認
-   jules status <task-id>
-
-2. エラーの原因を分析
-   - 依頼文の不明瞭さ
-   - 技術的な問題
-   - 依存関係の問題
-
-3. ユーザーに報告
-   - エラーの詳細
-   - 推定される原因
-   - 推奨される対処方法
-
-4. 必要に応じて再実行
-   - 依頼文を修正
-   - 依存関係を解決
-   - jules retry <task-id>
-
-5. tasks.mdを更新
-   - ステータスをBLOCKEDに変更
-   - エラー内容を記録
-```
-
-**例**：
-```
-ファシリテーター: Task 1.1の実行中にエラーが発生しました。
-
-                  エラー内容:
-                  依存パッケージ'jose'がインストールされていません。
-
-                  推奨される対処:
-                  1. npm install joseを実行
-                  2. Julesのタスクを再実行
-
-                  このまま対処を進めますか？それとも手動で解決しますか？
-```
-
-### タスクが長時間完了しない場合
-
-**対処手順**：
-```
-1. 現在の状態を確認
-   jules status <task-id>
-
-2. 作業内容を確認
-   jules show <task-id>
-
-3. ユーザーに状況を報告
-   - 現在の進捗
-   - 推定残り時間
-   - 次のアクション
-
-4. 必要に応じてキャンセルまたは待機を提案
-```
-
-## 制約事項
-
-### 実行の制限
-
-以下の場合はJulesへの依頼を控えます：
-
-1. **タスクの曖昧性**
-   - 受入基準が不明確
-   - 実装方法が複数考えられる
-   - 技術的文脈が不足している
-
-2. **リスクの高い操作**
-   - 本番環境への直接的な変更
-   - データベースの削除操作
-   - 認証情報の変更
-
-3. **ユーザーの判断が必要な場合**
-   - 技術選択が必要
-   - アーキテクチャの決定が必要
-   - トレードオフの判断が必要
-
-これらの場合は、ユーザーに確認または詳細化を依頼します。
-
-### Jules CLIの制限
-
-**考慮事項**：
-- Jules CLIを利用できる環境が必要
-- julesコマンドがPATHに含まれている必要がある
-- 認証が正しく設定されている必要がある
-- ネットワーク接続が必要
-
-## ベストプラクティス
-
-### 1. 依頼文の品質
-
-**明確で具体的な依頼文を作成**：
-- 曖昧な表現を避ける
-- 具体的な成果物を明示する
-- 検証可能な受入基準を提供する
-- 必要な文脈をすべて含める
-
-### 2. タスクの粒度
-
-**適切な粒度でタスクを依頼**：
-- 1つのタスクは1-3時間程度
-- 1つの明確な目的を持つ
-- 独立して完結する
-- 検証が容易
-
-### 3. 進捗管理
-
-**定期的な進捗確認**：
-- 長時間のタスクは定期的に状態を確認
-- 問題が発生したら早期に対処
-- 完了したらすぐにレビュー
-
-### 4. ドキュメントの同期
-
-**tasks.mdを最新に保つ**：
-- ステータス変更を即座に反映
-- Jules Task IDを記録
-- 作業時間を記録
-- 問題や気づきをメモ
-
-## 絵文字の使用禁止
-
-すべてのメッセージ、依頼文、ドキュメントで絵文字を使用しません：
-
-**禁止事項**：
-- Jules依頼文に絵文字を含めない
-- ユーザーへのメッセージに絵文字を使わない
-- tasks.mdの更新に絵文字を含めない
-- コミットメッセージに絵文字を使わない
-
-## トラブルシューティング
-
-### よくある問題と解決方法
-
-**問題1: julesコマンドが見つからない**
-- 原因: Jules CLIがインストールされていない、またはPATHに含まれていない
-- 解決: Jules CLIのインストールを確認し、PATHを設定
-
-**問題2: 認証エラーが発生する**
-- 原因: Jules CLIの認証が設定されていない
-- 解決: `jules auth login`で認証を設定
-
-**問題3: タスクが失敗する**
-- 原因: 依頼文が不明瞭、または依存関係が不足
-- 解決: 依頼文を詳細化し、必要な前提条件を確認
-
-**問題4: 並行実行で競合が発生する**
-- 原因: 同じファイルを編集するタスクを並行実行した
-- 解決: 依存関係を見直し、順次実行に変更
-
-## 今後の拡張
-
-このスキルは将来的に以下の機能を追加予定です：
-
-- Jules CLIの詳細な状態監視
-- タスクの優先順位付け
-- 自動的なレビュープロセス
-- チームでのタスク共有機能
-- タスク実行時間の分析とレポート
+**Flags:**
+- `--session <id>`: The session ID (required)
+- `--apply`: Apply the patch to the local repository
+
+## Resources
+
+### Scripts (in `scripts/`)
+- `jules_submit.py`: **Primary tool for automation**. Wraps the entire workflow.
+- `parse_sessions.py`: Parses the tabular output of `jules remote list --session` into JSON format.
+- `wait_for_session.sh`: Polls a session status until it reaches a terminal state.
+
+### Full Reference
+- `references/usage.md`: Comprehensive reference of all `jules` commands, flags, and advanced usage patterns.

@@ -1,341 +1,147 @@
 ---
 name: worktree-workflow
-description: Use to orchestrate the full development loop in a worktree - chains plan review, implementation, audit, and optional reach phases with state tracking
+description: Git worktree を使用したホスト環境での並行開発ワークフロー。プラットフォーム固有コード（macOS API等）の開発時に使用。
 ---
 
-# Worktree Workflow
+# Worktree ワークフロー
 
-## Overview
+ホスト環境での開発時に Git Worktree を使用してブランチを分離するワークフローです。
 
-Orchestrate the full development loop: review → implement → audit → finish/reach.
+## 概要
 
-**Core principle:** Guided workflow with state persistence across sessions.
+**用途**: プラットフォーム固有コード（macOS API 等）の開発時に、container-use の代わりにホスト環境で作業する際のブランチ分離。
 
-**Announce at start:** "I'm using the worktree-workflow skill to [start/continue] the development workflow."
+### container-use vs worktree
 
-**State file:** `.claude/workflow-state.json`
+| 方式 | 分離レベル | 用途 |
+|------|----------|------|
+| **container-use** | 完全分離（コンテナ） | 通常の実装作業 |
+| **worktree** | ブランチ分離のみ | プラットフォーム固有コード |
 
-## Invocation Patterns
+### Worktree のメリット
 
-| Command | Behavior |
-|---------|----------|
-| `/worktree-workflow` | Auto-detect phase from state, continue where left off |
-| `/worktree-workflow start {plan}` | Initialize workflow, run readiness review |
-| `/worktree-workflow implement` | Kick off autonomous implementation |
-| `/worktree-workflow audit` | Run implementation review |
-| `/worktree-workflow reach` | Run reach opportunities |
-| `/worktree-workflow status` | Show current state and history |
-| `/worktree-workflow abort` | Abandon workflow, clean up state |
+| メリット | 説明 |
+|---------|------|
+| ブランチ切り替え不要 | 複数機能を並行開発可能 |
+| main ブランチがクリーン | 未完成コードを main に残さない |
+| 即座に切り替え | `cd` するだけで別機能へ |
+| 環境変数自動コピー | `.env` を自動コピー |
 
-## Phase Flow
+## ディレクトリ構成
 
 ```
-start → [plan-readiness-review] → markdown summary
-                                        ↓
-                              User: "looks good" / adjust
-                                        ↓
-implement → [executing-plans autonomous] → markdown summary
-                                        ↓
-audit → [implementation-review] → markdown summary
-                                        ↓
-                    AskUserQuestion: "What next?"
-                         ┌──────────────┴──────────────┐
-                         ↓                             ↓
-                   "Done, finish branch"        "Explore reach opportunities"
-                         ↓                             ↓
-                   [sync-with-base]             reach → [reach-opportunities]
-                         ↓                             ↓
-           [finishing-a-development-branch]    pick items → implement
-                         ↓                             ↓
-                   [plan-complete]             back to audit
+project/                         # メインworktree (main ブランチ)
+├── .worktrees/                  # worktree 格納ディレクトリ
+│   ├── issue-42-auth/           # feature/issue-42-auth ブランチ
+│   │   ├── .env                 # ルートからコピー
+│   │   └── ...
+│   └── issue-43-dashboard/      # feature/issue-43-dashboard ブランチ
+│       └── ...
+└── .opencode/
+    └── skill/
+        ├── create-worktree/
+        │   ├── SKILL.md
+        │   ├── REFERENCE.md
+        │   └── scripts/
+        │       └── create_worktree.sh
+        └── pr-and-cleanup/
+            ├── SKILL.md
+            ├── REFERENCE.md
+            └── scripts/
+                └── pr_and_cleanup.sh
 ```
 
-## State Management
+## 基本フロー
 
-### State File Location
+```
+Issue 受け取り → platform-exception? → YES → worktree 作成 → ホスト環境で開発 → CI で検証 → PR 作成 + worktree 削除 → マージ
+                                    → NO  → container-use
+```
+
+## コマンド
+
+### worktree 作成
 
 ```bash
-mkdir -p .claude
-# State stored in .claude/workflow-state.json
-
-# Ensure state file is gitignored (workflow state is session-specific)
-if ! grep -q "workflow-state.json" .gitignore 2>/dev/null; then
-  echo ".claude/workflow-state.json" >> .gitignore
-fi
+bash .opencode/skill/create-worktree/scripts/create_worktree.sh issue-42-auth
 ```
 
-### State Schema
+**実行結果**:
+- ブランチ: `feature/issue-42-auth` を作成
+- ディレクトリ: `.worktrees/issue-42-auth/` を作成
+- 環境変数: `.env` 等を自動コピー
 
-```json
-{
-  "plan": "plan-name",
-  "phase": "review | implement | audit | reach | complete",
-  "started": "2025-01-31T10:00:00Z",
-  "history": [
-    { "phase": "review", "verdict": "READY", "timestamp": "..." },
-    { "phase": "implement", "tasks": "12/12", "timestamp": "..." }
-  ],
-  "reachIterations": 0
-}
-```
-
-### Reading State
+### PR 作成 + worktree 削除
 
 ```bash
-cat .claude/workflow-state.json 2>/dev/null || echo "No workflow state"
+cd .worktrees/issue-42-auth
+bash ../../.opencode/skill/pr-and-cleanup/scripts/pr_and_cleanup.sh
 ```
 
-### Writing State
+**実行結果**:
+- PR を作成（インタラクティブ or 引数指定）
+- worktree を削除
+- main ブランチに戻る
 
-Use Write tool to update `.claude/workflow-state.json` after each phase.
-
-## The Process
-
-### On Invocation: Detect Current State
-
-1. Check for `.claude/workflow-state.json`
-2. If exists: Resume from recorded phase
-3. If not: Prompt user for plan name to start
-
-### Phase: start
-
-**Trigger:** `/worktree-workflow start {plan-name}` or first run with plan name
-
-1. **Verify not on main branch:**
-   ```bash
-   current=$(git branch --show-current)
-   if [[ "$current" == "main" || "$current" == "master" ]]; then
-     echo "ERROR: Cannot run workflow on $current branch. Use a feature branch in a worktree."
-     exit 1
-   fi
-   ```
-2. Verify plan exists at `plans/active/{plan-name}/`
-3. Initialize state file:
-   ```json
-   {
-     "plan": "{plan-name}",
-     "phase": "review",
-     "started": "{timestamp}",
-     "history": [],
-     "reachIterations": 0
-   }
-   ```
-4. **INVOKE:** gremlins:plan-readiness-review
-5. Present markdown summary
-6. Wait for user to approve or request changes
-
-**If READY:** User says "looks good" → advance to implement phase
-**If NEEDS WORK:** User fixes issues → re-run review
-
-### Phase: implement
-
-**Trigger:** User approves plan review OR `/worktree-workflow implement`
-
-1. Update state to `"phase": "implement"`
-2. **INVOKE:** gremlins:executing-plans (autonomous mode)
-3. On completion, update state with task count
-4. Add history entry
-5. Present completion summary
-6. Advance to audit phase
-
-### Phase: audit
-
-**Trigger:** Implementation complete OR `/worktree-workflow audit`
-
-1. Update state to `"phase": "audit"`
-2. **INVOKE:** gremlins:implementation-review
-3. Add history entry with verdict
-
-**If MERGE READY:**
-
-Present choice using AskUserQuestion:
-
-```
-Implementation passed review. What would you like to do?
-
-1. Done - finish the branch (merge/PR)
-2. Explore reach opportunities first
-```
-
-- Option 1 → Sync with base, then **INVOKE:** gremlins:finishing-a-development-branch, then plan-complete
-- Option 2 → Advance to reach phase
-
-**If NEEDS FIXES:**
-- Present issues
-- User fixes
-- Re-run audit
-
-### Phase: reach
-
-**Trigger:** User chooses "Explore reach opportunities" OR `/worktree-workflow reach`
-
-1. Check iteration count:
-   ```
-   if reachIterations >= 2:
-     Present: "You've done 2 reach cycles. Recommend finishing branch now."
-     Offer: finish anyway OR one more reach cycle
-   ```
-2. Update state: `"phase": "reach"`, increment `reachIterations`
-3. **INVOKE:** gremlins:reach-opportunities
-4. Present opportunities
-5. User picks items to implement (or none)
-
-**If items selected:**
-- Implement selected items
-- Return to audit phase for re-review
-
-**If no items selected:**
-- Sync with base
-- **INVOKE:** gremlins:finishing-a-development-branch
-- **INVOKE:** gremlins:plan-complete
-- Mark complete
-
-### Before Finishing: Sync With Base
-
-**Always run this before invoking finishing-a-development-branch:**
+### オプション
 
 ```bash
-# Fetch latest from remote
-git fetch origin
+# タイトル・本文を事前指定
+bash ../../.opencode/skill/pr-and-cleanup/scripts/pr_and_cleanup.sh \
+  --title "feat: Add macOS notification" \
+  --body "Closes #42"
 
-# Detect base branch
-base_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
-if [ -z "$base_branch" ]; then
-  base_branch=$(git merge-base HEAD main 2>/dev/null && echo main || echo master)
-fi
+# ドラフト PR として作成
+bash ../../.opencode/skill/pr-and-cleanup/scripts/pr_and_cleanup.sh --draft
 
-# Check if base has advanced since we branched
-merge_base=$(git merge-base HEAD "origin/$base_branch")
-if [ "$(git rev-parse origin/$base_branch)" != "$merge_base" ]; then
-  echo "Base branch ($base_branch) has new commits since you started."
-fi
+# PR 作成のみ（worktree は残す）
+bash ../../.opencode/skill/pr-and-cleanup/scripts/pr_and_cleanup.sh --pr-only
+
+# worktree 削除のみ（PR 作成済みの場合）
+bash ../../.opencode/skill/pr-and-cleanup/scripts/pr_and_cleanup.sh --cleanup-only
 ```
 
-**If base has advanced, present options:**
+## トラブルシューティング
 
-```
-Base branch has new commits. How would you like to proceed?
+### worktree が既に存在する
 
-1. Rebase on latest base (recommended - cleaner history)
-2. Merge base into feature branch (preserves history)
-3. Proceed anyway (PR may have conflicts)
-```
-
-**Option 1 (Rebase):**
 ```bash
-git rebase "origin/$base_branch"
-# If conflicts, stop and let user resolve
-# Re-run tests after rebase
+git worktree list
+git worktree remove .worktrees/<feature-name>
 ```
 
-**Option 2 (Merge base in):**
+### ブランチが既に存在する
+
+スクリプトは既存ブランチを再利用します。新規ブランチを作成したい場合:
+
 ```bash
-git merge "origin/$base_branch" -m "Merge $base_branch into $(git branch --show-current)"
-# If conflicts, stop and let user resolve
-# Re-run tests after merge
+git branch -d feature/<feature-name>
 ```
 
-**Option 3:** Proceed without sync (user accepts potential conflicts)
+### 未コミット変更がある
 
-**If base hasn't advanced:** Skip directly to finishing-a-development-branch.
-
-### Phase: complete
-
-1. **INVOKE:** gremlins:plan-complete (moves plan from active/ to complete/)
-
-2. Update state:
-```json
-{
-  "phase": "complete",
-  "history": [..., { "phase": "complete", "timestamp": "..." }]
-}
+```bash
+git status
+git add . && git commit -m "WIP"
+# または
+git stash
 ```
 
-3. Report: "Workflow complete for {plan-name}. Plan moved to complete/."
+## 命名規則
 
-## Abort Command
+| タイプ | 命名パターン | 例 |
+|--------|-------------|-----|
+| Issue 実装 | `issue-{number}-{short-desc}` | `issue-42-auth` |
+| 機能追加 | `feature-{name}` | `feature-dark-mode` |
+| バグ修正 | `fix-{name}` | `fix-memory-leak` |
+| ホットフィックス | `hotfix-{name}` | `hotfix-critical-bug` |
 
-`/worktree-workflow abort` handles workflow abandonment:
+## 関連スキル
 
-1. Read current state
-2. Report what was completed:
-   ```
-   ## Workflow Aborted: {plan-name}
+- [create-worktree](../create-worktree/SKILL.md): worktree 作成の詳細
+- [pr-and-cleanup](../pr-and-cleanup/SKILL.md): PR 作成 + クリーンアップの詳細
 
-   ### Progress Before Abort
-   | Phase | Status |
-   |-------|--------|
-   | review | ✓ READY |
-   | implement | 8/12 tasks |
+## 関連ドキュメント
 
-   ### Branch State
-   - Branch: {branch-name}
-   - Commits since start: {N}
-
-   ### Cleanup
-   - State file removed
-   - Branch preserved (delete manually if needed)
-   ```
-3. Delete `.claude/workflow-state.json`
-4. Do NOT delete the branch or commits (user decides)
-
-## Status Command
-
-`/worktree-workflow status` outputs:
-
-```
-## Workflow Status: {plan-name}
-
-**Current Phase:** {phase}
-**Started:** {started}
-
-### History
-| Phase | Result | Timestamp |
-|-------|--------|-----------|
-| review | READY | 2025-01-31 10:00 |
-| implement | 12/12 tasks | 2025-01-31 11:30 |
-
-### Next Step
-[What to do next based on current phase]
-```
-
-## Key Behaviors
-
-- **State persists:** Pick up where you left off across sessions
-- **Phases are skippable:** Can jump to audit if implemented manually
-- **Reach is opt-in:** Only explore if user chooses after passing audit
-- **Sub-skills do the work:** Orchestrator invokes, doesn't duplicate logic
-- **Sync before finishing:** Always fetch and check base branch before merge/PR
-- **Plan lifecycle:** Invokes plan-complete to move plan from active/ to complete/
-
-## Red Flags
-
-**Never:**
-- Skip phases without user acknowledgment
-- Proceed to implement without plan review passing
-- Proceed to finish without audit passing
-- Force reach opportunities on user
-
-**Always:**
-- Check state on every invocation
-- Update state after every phase transition
-- Present clear options at decision points
-- Invoke sub-skills rather than duplicating their logic
-- Sync with base branch before finishing (fetch + check for divergence)
-- Move plan to complete/ after successful finish
-
-## Integration
-
-**Invokes:**
-- gremlins:plan-readiness-review (start phase)
-- gremlins:executing-plans (implement phase)
-- gremlins:implementation-review (audit phase)
-- gremlins:reach-opportunities (reach phase, opt-in)
-- gremlins:finishing-a-development-branch (completion)
-- gremlins:plan-complete (moves plan to complete/)
-
-**Prerequisite:**
-- gremlins:using-git-worktrees - Creates the worktree first
-
-**Assumption:**
-- Plan committed to repo before worktree created
+- [platform-exception.md](../../instructions/platform-exception.md): 例外適用の判断基準
+- [container-use.md](../../instructions/container-use.md): 通常の実装ワークフロー

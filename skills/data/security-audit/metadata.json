@@ -1,7 +1,7 @@
 {
   "name": "security-audit",
-  "repo": "WhatIfWeDigDeeper/claude-code-coursera",
-  "path": ".claude/skills/security-audit/SKILL.md",
-  "source": "github.com/WhatIfWeDigDeeper/claude-code-coursera",
-  "downloaded_at": "2026-02-01T04:34:04.829980Z"
+  "repo": "eleva-labs/agentic-coding-templates",
+  "path": ".claude/skills/devops/security-audit/SKILL.md",
+  "source": "github.com/eleva-labs/agentic-coding-templates",
+  "downloaded_at": "2026-02-02T03:49:07.935850Z"
 }

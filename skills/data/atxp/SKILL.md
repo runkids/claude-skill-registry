@@ -28,6 +28,10 @@ source ~/.atxp/config
 | `npx atxp video <prompt>` | AI video generation |
 | `npx atxp x <query>` | X/Twitter search |
 
+## PaaS Tools
+
+Deploy serverless applications with functions, databases, object storage, custom domains, and analytics via `paas.mcp.atxp.ai`. See the `atxp-paas` skill for detailed usage.
+
 ## Usage
 
 1. Verify `$ATXP_CONNECTION` is set
@@ -52,10 +56,11 @@ const result = await client.callTool({
 
 ## MCP Servers
 
-| Server | Tool |
-|--------|------|
+| Server | Tools |
+|--------|-------|
 | `search.mcp.atxp.ai` | `search_search` |
 | `image.mcp.atxp.ai` | `image_create_image` |
 | `music.mcp.atxp.ai` | `music_create` |
 | `video.mcp.atxp.ai` | `create_video` |
 | `x-live-search.mcp.atxp.ai` | `x_live_search` |
+| `paas.mcp.atxp.ai` | PaaS tools (see `atxp-paas` skill) |

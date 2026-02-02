@@ -1,140 +1,204 @@
 ---
 name: doc
-description: Use when writing or improving documentation. Applies Diátaxis framework to create user-centered docs (tutorials, how-to guides, reference, explanation).
-argument-hint: "[topic | file | --type tutorial|howto|reference|explanation | --audit]"
-model: sonnet
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  # Write/Edit/MultiEdit intentionally omitted - user reviews documentation before writing
+description: 'This skill should be used when the user asks to "generate documentation", "validate docs", "check doc coverage", "find missing docs", "create code-map", "sync documentation", "update docs", or needs guidance on documentation generation and validation for any repository type. Triggers: doc, documentation, code-map, doc coverage, validate docs.'
 ---
 
-# Documentation Skill (Diátaxis Framework)
+# Doc Skill
 
-Write documentation that serves user needs using the Diátaxis framework.
+**YOU MUST EXECUTE THIS WORKFLOW. Do not just describe it.**
 
-## Arguments
+Generate and validate documentation for any project.
 
-```
-$ARGUMENTS
-```
+## Execution Steps
 
-If no arguments: document the subject currently being discussed in the conversation.
+Given `/doc [command] [target]`:
 
-## Quick Reference
-
-| User Need | Doc Type | User Mode | Content Focus |
-|-----------|----------|-----------|---------------|
-| Learning | [Tutorial](./TUTORIAL.md) | Study | Action (doing) |
-| Goal completion | [How-to Guide](./HOWTO.md) | Work | Action (doing) |
-| Information lookup | [Reference](./REFERENCE.md) | Work | Cognition (knowing) |
-| Understanding | [Explanation](./EXPLANATION.md) | Study | Cognition (knowing) |
-
-## Decision Matrix
-
-Use the [Diátaxis Compass](./COMPASS.md) to determine doc type:
-
-```
-Is the content about ACTION or COGNITION?
-├── ACTION (practical steps, doing)
-│   ├── For ACQUISITION (study/learning) → Tutorial
-│   └── For APPLICATION (work/tasks) → How-to Guide
-└── COGNITION (theoretical knowledge, thinking)
-    ├── For APPLICATION (work/tasks) → Reference
-    └── For ACQUISITION (study/learning) → Explanation
-```
-
-## Instructions
-
-### 1. Determine Documentation Type
-
-**If `--type` specified:** Use that type directly.
-
-**If `--audit` specified:** Analyze existing docs against Diátaxis principles. Report:
-- What type each doc appears to be
-- Whether content matches its apparent type
-- Boundary violations (e.g., explanation bleeding into reference)
-- Gaps in coverage
-
-**Otherwise, ask these questions:**
-1. Does this inform the user's **action** (doing) or **cognition** (knowing)?
-2. Does it serve **acquisition** (study) or **application** (work)?
-
-### 2. Apply Type-Specific Guidelines
-
-Read the detailed guide for your documentation type:
-- [TUTORIAL.md](./TUTORIAL.md) - Learning-oriented lessons
-- [HOWTO.md](./HOWTO.md) - Goal-oriented directions
-- [REFERENCE.md](./REFERENCE.md) - Information-oriented descriptions
-- [EXPLANATION.md](./EXPLANATION.md) - Understanding-oriented discussion
-
-### 3. Key Principles (All Types)
-
-**Do:**
-- Focus on user needs, not product features
-- Keep boundaries clear between doc types
-- Link to other doc types rather than mixing content
-- Use language appropriate to the doc type
-
-**Don't:**
-- Mix learning content with task guidance
-- Add explanation where description is needed
-- Include reference details in tutorials
-- Blur boundaries between doc types
-
-### 4. Structural Guidelines
-
-**Naming conventions:**
-- Tutorials: "Getting started with X", "Learn to X"
-- How-to: "How to X", "Configuring X for Y"
-- Reference: "X API", "X configuration options"
-- Explanation: "About X", "Understanding X", "Why X"
-
-**Landing pages** for each section should:
-- Provide overview of contents
-- Use headings and snippets (not just lists)
-- Group related items (max 7 items per group)
-
-## Common Anti-Patterns
-
-| Problem | Symptom | Fix |
-|---------|---------|-----|
-| Tutorial-as-reference | Lists all options | Remove options, show one path |
-| How-to-as-tutorial | Teaches concepts | Move teaching to tutorial/explanation |
-| Reference-as-explanation | Discusses "why" | Move discussion to explanation |
-| Explanation-in-tutorial | Long digressions | Link to explanation, keep minimal |
-
-## Examples
+### Step 1: Detect Project Type
 
 ```bash
-# Document current discussion topic
-/doc
+# Check for indicators
+ls package.json pyproject.toml go.mod Cargo.toml 2>/dev/null
 
-# Create a tutorial for feature X
-/doc authentication --type tutorial
-
-# Audit existing documentation
-/doc docs/ --audit
-
-# Write reference for an API
-/doc src/api/users.ts --type reference
-
-# Explain a concept
-/doc "database connection pooling" --type explanation
+# Check for existing docs
+ls -d docs/ doc/ documentation/ 2>/dev/null
 ```
 
-## Workflow Summary
+Classify as:
+- **CODING**: Has source code, needs API docs
+- **INFORMATIONAL**: Primarily documentation (wiki, knowledge base)
+- **OPS**: Infrastructure, deployment, runbooks
 
-1. **Identify** the user need (learning/goal/info/understanding)
-2. **Select** doc type using the compass
-3. **Read** the detailed guide for that type
-4. **Write** following type-specific principles
-5. **Review** for boundary violations
-6. **Link** to related docs of other types
+### Step 2: Execute Command
 
-## Further Reading
+**discover** - Find undocumented features:
+```bash
+# Find public functions without docstrings (Python)
+grep -r "^def " --include="*.py" | grep -v '"""' | head -20
 
-- [COMPASS.md](./COMPASS.md) - Decision tool for doc type selection
-- [QUALITY.md](./QUALITY.md) - Functional vs deep quality
-- [WORKFLOW.md](./WORKFLOW.md) - Iterative improvement process
+# Find exported functions without comments (Go)
+grep -r "^func [A-Z]" --include="*.go" | head -20
+```
+
+**coverage** - Check documentation coverage:
+```bash
+# Count documented vs undocumented
+TOTAL=$(grep -r "^def \|^func \|^class " --include="*.py" --include="*.go" | wc -l)
+DOCUMENTED=$(grep -r '"""' --include="*.py" | wc -l)
+echo "Coverage: $DOCUMENTED / $TOTAL"
+```
+
+**gen [feature]** - Generate documentation:
+1. Read the code for the feature
+2. Understand what it does
+3. Generate appropriate documentation
+4. Write to docs/ directory
+
+**all** - Update all documentation:
+1. Run discover to find gaps
+2. Generate docs for each undocumented feature
+3. Validate existing docs are current
+
+### Step 3: Generate Documentation
+
+When generating docs, include:
+
+**For Functions/Methods:**
+```markdown
+## function_name
+
+**Purpose:** What it does
+
+**Parameters:**
+- `param1` (type): Description
+- `param2` (type): Description
+
+**Returns:** What it returns
+
+**Example:**
+```python
+result = function_name(arg1, arg2)
+```
+
+**Notes:** Any important caveats
+```
+
+**For Classes:**
+```markdown
+## ClassName
+
+**Purpose:** What this class represents
+
+**Attributes:**
+- `attr1`: Description
+- `attr2`: Description
+
+**Methods:**
+- `method1()`: What it does
+- `method2()`: What it does
+
+**Usage:**
+```python
+obj = ClassName()
+obj.method1()
+```
+```
+
+### Step 4: Create Code-Map (if requested)
+
+**Write to:** `docs/code-map/`
+
+```markdown
+# Code Map: <Project>
+
+## Overview
+<High-level architecture>
+
+## Directory Structure
+```
+src/
+├── module1/     # Purpose
+├── module2/     # Purpose
+└── utils/       # Shared utilities
+```
+
+## Key Components
+
+### Module 1
+- **Purpose:** What it does
+- **Entry point:** `main.py`
+- **Key files:** `handler.py`, `models.py`
+
+### Module 2
+...
+
+## Data Flow
+<How data moves through the system>
+
+## Dependencies
+<External dependencies and why>
+```
+
+### Step 5: Validate Documentation
+
+Check for:
+- Out-of-date docs (code changed, docs didn't)
+- Missing sections (no examples, no parameters)
+- Broken links
+- Inconsistent formatting
+
+### Step 6: Write Report
+
+**Write to:** `.agents/doc/YYYY-MM-DD-<target>.md`
+
+```markdown
+# Documentation Report: <Target>
+
+**Date:** YYYY-MM-DD
+**Project Type:** <CODING/INFORMATIONAL/OPS>
+
+## Coverage
+- Total documentable items: <count>
+- Documented: <count>
+- Coverage: <percentage>%
+
+## Generated
+- <list of docs generated>
+
+## Gaps Found
+- <undocumented item 1>
+- <undocumented item 2>
+
+## Validation Issues
+- <issue 1>
+- <issue 2>
+
+## Next Steps
+- [ ] Document remaining gaps
+- [ ] Fix validation issues
+```
+
+### Step 7: Report to User
+
+Tell the user:
+1. Documentation coverage percentage
+2. Docs generated/updated
+3. Gaps remaining
+4. Location of report
+
+## Key Rules
+
+- **Detect project type first** - approach varies
+- **Generate meaningful docs** - not just stubs
+- **Include examples** - always show usage
+- **Validate existing** - docs can go stale
+- **Write the report** - track coverage over time
+
+## Commands Summary
+
+| Command | Action |
+|---------|--------|
+| `discover` | Find undocumented features |
+| `coverage` | Check documentation coverage |
+| `gen [feature]` | Generate docs for specific feature |
+| `all` | Update all documentation |
+| `validate` | Check docs match code |

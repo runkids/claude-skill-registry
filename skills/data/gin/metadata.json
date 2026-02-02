@@ -1,9 +1,7 @@
 {
   "name": "gin",
-  "description": "A comprehensive skill for the Go Gin web framework including routing, middleware, binding, and testing",
-  "repo": "bailu2025/CC-Plugins",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/gin/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-02-02T02:12:07.409186Z"
 }

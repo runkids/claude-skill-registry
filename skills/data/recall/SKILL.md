@@ -1,58 +1,62 @@
 ---
 name: recall
-description: Surface relevant learnings from past sessions. Use when starting work in a domain to avoid repeating mistakes. Triggers on "recall learnings", "past failures", "surface insights", "what did I learn".
+description: Query memory system for relevant learnings from past sessions
 ---
 
-# Recall Skill
+# Recall - Semantic Memory Retrieval
 
-Surface relevant learnings from past sessions.
+Query the memory system for relevant learnings from past sessions.
 
-## When This Skill Activates
+## Usage
 
-- Session start (new or resumed)
-- Before substantial work in a domain
-- When soul skill's Silent Audit prompts "Learnings recalled?"
-- Explicitly via `/hope:recall [context]`
+```
+/recall <query>
+```
 
-## Input
+## Examples
 
-Optional context hint (e.g., "hooks", "testing", "typescript"). If empty, infer from current project/conversation.
+```
+/recall hook development patterns
+/recall wizard installation
+/recall TypeScript errors
+```
 
-## Process
+## What It Does
 
-1. **Read learnings files** using the Read tool:
+1. Runs semantic search against stored learnings (PostgreSQL + BGE embeddings)
+2. Returns top 5 results with full content
+3. Shows learning type, confidence, and session context
 
-   - `~/.claude/learnings/failures.jsonl`
-   - `~/.claude/learnings/discoveries.jsonl`
-   - `~/.claude/learnings/constraints.jsonl`
-   - `~/.claude/learnings/delegation.jsonl`
+## Execution
 
-   If files don't exist, skip silently.
+When this skill is invoked, run:
 
-2. **Filter by relevance**:
+```bash
+cd $CLAUDE_PROJECT_DIR/opc && PYTHONPATH=. uv run python scripts/recall_learnings.py --query "<ARGS>" --k 5
+```
 
-   - Match `context` field against provided hint or inferred domain
-   - Match `applies_to` tags against current work
-   - Prioritize recent entries (last 30 days)
-   - Prioritize high-confidence discoveries (>= 0.8)
+Where `<ARGS>` is the query provided by the user.
 
-3. **Output format**:
+## Output Format
 
-### Relevant Failures
+Present results as:
 
-- **[context]**: [failure] → Prevention: [prevention]
+```
+## Memory Recall: "<query>"
 
-### Relevant Discoveries
+### 1. [TYPE] (confidence: high, id: abc123)
+<full content>
 
-- **[context]** (confidence: X): [discovery]
+### 2. [TYPE] (confidence: medium, id: def456)
+<full content>
+```
 
-### Active Constraints
+## Options
 
-- **[context]**: [constraint] (permanent: yes/no)
+The user can specify options after the query:
 
-### Delegation Learnings
+- `--k N` - Return N results (default: 5)
+- `--vector-only` - Use pure vector search (higher precision)
+- `--text-only` - Use text search only (faster)
 
-- **[shape_chosen] → [outcome]**: [root_cause] → Prevention: [prevention]
-  - Fit score: [fit_score], Pattern: [failure_pattern]
-
-4. **If no relevant learnings**: Report "No learnings found for [context]"
+Example: `/recall hook patterns --k 10 --vector-only`

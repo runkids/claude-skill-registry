@@ -155,33 +155,33 @@ Based on gathered info, ask:
 ```typescript
 // Chrome DevTools Debugger
 function processOrder(order: Order) {
-  debugger; // Execution pauses here
+  debugger // Execution pauses here
 
-  const total = calculateTotal(order);
-  console.log("Total:", total);
+  const total = calculateTotal(order)
+  console.log('Total:', total)
 
   // Conditional breakpoint
   if (order.items.length > 10) {
-    debugger; // Only breaks if condition true
+    debugger // Only breaks if condition true
   }
 
-  return total;
+  return total
 }
 
 // Console debugging techniques
-console.log("Value:", value); // Basic
-console.table(arrayOfObjects); // Table format
-console.time("operation");
-/* code */ console.timeEnd("operation"); // Timing
-console.trace(); // Stack trace
-console.assert(value > 0, "Value must be positive"); // Assertion
+console.log('Value:', value) // Basic
+console.table(arrayOfObjects) // Table format
+console.time('operation')
+/* code */ console.timeEnd('operation') // Timing
+console.trace() // Stack trace
+console.assert(value > 0, 'Value must be positive') // Assertion
 
 // Performance profiling
-performance.mark("start-operation");
+performance.mark('start-operation')
 // ... operation code
-performance.mark("end-operation");
-performance.measure("operation", "start-operation", "end-operation");
-console.log(performance.getEntriesByType("measure"));
+performance.mark('end-operation')
+performance.measure('operation', 'start-operation', 'end-operation')
+console.log(performance.getEntriesByType('measure'))
 ```
 
 **VS Code Debugger Configuration:**
@@ -352,27 +352,23 @@ Hypothesis: Time-based issue? Check timezone handling.
 
 ```typescript
 // Function call tracing
-function trace(
-  target: any,
-  propertyKey: string,
-  descriptor: PropertyDescriptor,
-) {
-  const originalMethod = descriptor.value;
+function trace(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value
 
   descriptor.value = function (...args: any[]) {
-    console.log(`Calling ${propertyKey} with args:`, args);
-    const result = originalMethod.apply(this, args);
-    console.log(`${propertyKey} returned:`, result);
-    return result;
-  };
+    console.log(`Calling ${propertyKey} with args:`, args)
+    const result = originalMethod.apply(this, args)
+    console.log(`${propertyKey} returned:`, result)
+    return result
+  }
 
-  return descriptor;
+  return descriptor
 }
 
 class OrderService {
   @trace
   calculateTotal(items: Item[]): number {
-    return items.reduce((sum, item) => sum + item.price, 0);
+    return items.reduce((sum, item) => sum + item.price, 0)
   }
 }
 ```
@@ -388,28 +384,28 @@ class OrderService {
 
 // Node.js memory debugging
 if (process.memoryUsage().heapUsed > 500 * 1024 * 1024) {
-  console.warn("High memory usage:", process.memoryUsage());
+  console.warn('High memory usage:', process.memoryUsage())
 
   // Generate heap dump
-  require("v8").writeHeapSnapshot();
+  require('v8').writeHeapSnapshot()
 }
 
 // Find memory leaks in tests
-let beforeMemory: number;
+let beforeMemory: number
 
 beforeEach(() => {
-  beforeMemory = process.memoryUsage().heapUsed;
-});
+  beforeMemory = process.memoryUsage().heapUsed
+})
 
 afterEach(() => {
-  const afterMemory = process.memoryUsage().heapUsed;
-  const diff = afterMemory - beforeMemory;
+  const afterMemory = process.memoryUsage().heapUsed
+  const diff = afterMemory - beforeMemory
 
   if (diff > 10 * 1024 * 1024) {
     // 10MB threshold
-    console.warn(`Possible memory leak: ${diff / 1024 / 1024}MB`);
+    console.warn(`Possible memory leak: ${diff / 1024 / 1024}MB`)
   }
-});
+})
 ```
 
 ## Debugging Patterns by Issue Type

@@ -14,8 +14,8 @@ AppliesTo: v10
 **NDJSON(Line-delimited JSON) 파일의 저장 포맷(내용/확장자)을 정의한다.**
 
 이 스킬은 "저장 포맷"만 정의한다. 구체적인 폴더 경로/라우팅은 각 도메인 스킬에서 정한다:
-- String Table: `skills/devian/33-string-table/SKILL.md` → `.../string/ndjson/...`
-- 일반 Table: `skills/devian/32-json-row-io/SKILL.md` → `.../ndjson/...`
+- String Table: `skills/devian-data/33-string-table/SKILL.md` → `.../string/ndjson/...`
+- 일반 Table: `skills/devian-data/32-json-row-io/SKILL.md` → `.../ndjson/...`
 
 ---
 
@@ -120,5 +120,5 @@ export function encodeNdjsonFromLines(lines);
 
 ## Reference
 
-- Consumer: `skills/devian/32-json-row-io/SKILL.md` (일반 Table)
-- Consumer: `skills/devian/33-string-table/SKILL.md` (String Table)
+- Consumer: `skills/devian-data/32-json-row-io/SKILL.md` (일반 Table)
+- Consumer: `skills/devian-data/33-string-table/SKILL.md` (String Table)

@@ -1,7 +1,7 @@
 {
   "name": "coding-guidelines",
-  "repo": "tech-leads-club/agent-skills",
-  "path": "skills/(development)/coding-guidelines/SKILL.md",
-  "source": "github.com/tech-leads-club/agent-skills",
-  "downloaded_at": "2026-02-01T03:36:41.636042Z"
+  "repo": "actionbook/rust-skills",
+  "path": "skills/coding-guidelines/SKILL.md",
+  "source": "github.com/actionbook/rust-skills",
+  "downloaded_at": "2026-02-02T03:31:04.377303Z"
 }

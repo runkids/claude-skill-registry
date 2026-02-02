@@ -1,7 +1,7 @@
 {
   "name": "ci-cd",
-  "repo": "spaarke-dev/spaarke",
-  "path": ".claude/skills/ci-cd/SKILL.md",
-  "source": "github.com/spaarke-dev/spaarke",
-  "downloaded_at": "2026-01-29T02:08:00.149155Z"
+  "repo": "bullish0x/paas-ai-stack",
+  "path": "skills/ci-cd/SKILL.md",
+  "source": "github.com/bullish0x/paas-ai-stack",
+  "downloaded_at": "2026-02-02T01:05:24.150437Z"
 }

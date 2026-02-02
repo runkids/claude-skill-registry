@@ -1,7 +1,7 @@
 {
   "name": "workiq-copilot",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".github/skills/workiq-copilot/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:23.630086Z"
+  "repo": "github/awesome-copilot",
+  "path": "skills/workiq-copilot/SKILL.md",
+  "source": "github.com/github/awesome-copilot",
+  "downloaded_at": "2026-02-02T04:05:40.059948Z"
 }

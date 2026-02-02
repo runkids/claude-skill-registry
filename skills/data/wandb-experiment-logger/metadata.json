@@ -1,11 +1,7 @@
 {
   "name": "wandb-experiment-logger",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Wandb Experiment Logger - Auto-activating skill for ML Training.Triggers on: wandb experiment logger, wandb experiment loggerPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:12.852453Z",
-  "dir_name": "wandb-experiment-logger",
-  "github_path": "planned-skills/generated/07-ml-training/wandb-experiment-logger",
-  "github_branch": "main"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/07-ml-training/wandb-experiment-logger/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:26:53.362200Z"
 }

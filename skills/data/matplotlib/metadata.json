@@ -1,7 +1,7 @@
 {
   "name": "matplotlib",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/matplotlib/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-02-01T04:15:24.626804Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/scientific-skills/skills/matplotlib/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-02-02T04:36:35.082888Z"
 }

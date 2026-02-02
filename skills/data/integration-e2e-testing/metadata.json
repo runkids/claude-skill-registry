@@ -1,7 +1,7 @@
 {
   "name": "integration-e2e-testing",
-  "repo": "shinpr/claude-code-workflows",
-  "path": "skills/integration-e2e-testing/SKILL.md",
-  "source": "github.com/shinpr/claude-code-workflows",
-  "downloaded_at": "2026-02-01T04:14:05.969746Z"
+  "repo": "shinpr/ai-coding-project-boilerplate",
+  "path": ".claude/skills-en/integration-e2e-testing/SKILL.md",
+  "source": "github.com/shinpr/ai-coding-project-boilerplate",
+  "downloaded_at": "2026-02-02T02:42:05.201428Z"
 }

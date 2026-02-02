@@ -1,91 +1,334 @@
 ---
 name: parallel-explore
-description: Launch four Explore agents in parallel to simultaneously investigate multiple areas of a codebase. Use this skill when multiple independent exploration tasks need to be performed concurrently, such as searching for different patterns, examining various file types, or investigating multiple architectural components at once.
+description: "Guides parallel exploration of multiple implementation approaches using git worktrees. Use when facing decisions with multiple valid paths. Triggers on: explore options, compare approaches, parallel exploration."
 ---
 
-# Parallel Explore
+# Parallel Exploration Skill
 
-## Overview
+Guide the process of exploring multiple implementation approaches simultaneously using git worktrees.
 
-This skill enables launching four Explore agents in parallel to perform concurrent codebase exploration tasks. By running multiple agents simultaneously, significantly reduce the time required to gather comprehensive information across different areas of a codebase.
+---
 
-## When to Use This Skill
+## The Job
 
-Use this skill when:
-- Multiple independent search patterns need investigation simultaneously
-- Different areas of the codebase require exploration at the same time
-- Time-sensitive exploration requires faster results through parallelization
-- Comprehensive codebase analysis benefits from concurrent investigation of multiple aspects
+1. Identify when parallel exploration would be valuable
+2. Define distinct approaches to explore
+3. Create isolated worktrees for each approach
+4. Execute exploration in parallel
+5. Evaluate and compare results
+6. Merge the best solution
 
-## How to Use
+---
 
-### Basic Usage
+## When to Use Parallel Exploration
 
-To launch four parallel Explore agents, use the Task tool with subagent_type=Explore four times in a single message. Each agent should have a distinct exploration focus.
+### Good Candidates
 
-**Example: Comprehensive codebase exploration**
+- **Architecture decisions** - Different patterns (e.g., microservices vs monolith)
+- **Library selection** - Comparing similar libraries hands-on
+- **Algorithm choices** - Different approaches to the same problem
+- **API design** - Different interface designs
+- **Performance optimization** - Multiple optimization strategies
 
-Launch four agents to explore different aspects:
+### Not Worth Parallelizing
 
-1. **Authentication patterns**: Search for login flows, token management, session handling
-2. **API endpoints**: Find route handlers, REST endpoints, GraphQL resolvers
-3. **Database models**: Locate ORM models, migrations, schema definitions
-4. **Testing infrastructure**: Find unit tests, integration tests, test utilities
+- Simple, clear-cut decisions
+- Tasks with obvious single approach
+- Very small changes
+- Changes that don't warrant the overhead
 
-**Implementation:**
+---
 
+## Exploration Process
+
+### Step 1: Identify the Decision Point
+
+When you encounter a significant decision:
+
+```markdown
+## Decision Point Identified
+
+**Question:** [What needs to be decided]
+**Context:** [Why this matters]
+**Approaches to Explore:**
+1. [Approach A] - [Brief description]
+2. [Approach B] - [Brief description]
+3. [Approach C] - [Brief description]
+
+**Exploration Value:** [Why parallel exploration helps here]
 ```
-Send a single message with four Task tool calls:
-- Task 1: Explore authentication code (thoroughness: medium)
-- Task 2: Explore API endpoints (thoroughness: medium)
-- Task 3: Explore database models (thoroughness: medium)
-- Task 4: Explore test files (thoroughness: medium)
+
+### Step 2: Start Exploration
+
+Use the parallel explorer script:
+
+```bash
+./scripts/aha-loop/parallel-explorer.sh explore "task description" --approaches "approach1,approach2,approach3"
 ```
 
-### Thoroughness Levels
+Or let AI suggest approaches:
 
-Specify the thoroughness level for each agent based on exploration depth needed:
-- **quick**: Basic search, fast results
-- **medium**: Moderate exploration with reasonable depth (recommended default)
-- **very thorough**: Comprehensive analysis across multiple locations and patterns
+```bash
+./scripts/aha-loop/parallel-explorer.sh explore "task description"
+# AI will suggest approaches automatically
+```
 
-### Example Scenarios
+### Step 3: Work in Each Worktree
 
-**Scenario 1: Architecture Investigation**
-- Agent 1: Frontend components and UI structure
-- Agent 2: Backend services and business logic
-- Agent 3: Database and data layer
-- Agent 4: Configuration and deployment files
+In each worktree, the AI should:
 
-**Scenario 2: Feature Implementation Research**
-- Agent 1: Similar existing features in the codebase
-- Agent 2: Relevant utility functions and helpers
-- Agent 3: Related test patterns
-- Agent 4: Documentation and comments about the feature area
+1. **Implement fully** - Not just a stub, but working code
+2. **Write tests** - Validate the approach works
+3. **Document findings** - Create EXPLORATION_RESULT.md
 
-**Scenario 3: Dependency Analysis**
-- Agent 1: External package imports and usage
-- Agent 2: Internal module dependencies
-- Agent 3: Type definitions and interfaces
-- Agent 4: Build and bundling configuration
+### Step 4: Create Exploration Result
 
-**Scenario 4: Error Investigation**
-- Agent 1: Error handling patterns
-- Agent 2: Logging and monitoring code
-- Agent 3: Validation and error messages
-- Agent 4: Related bug fixes in git history
+Each worktree must have `EXPLORATION_RESULT.md`:
 
-## Best Practices
+```markdown
+# Exploration Result: [Approach Name]
 
-1. **Independent Tasks**: Ensure each agent's task is independent to maximize parallelization benefits
-2. **Clear Focus**: Give each agent a specific, well-defined exploration area
-3. **Balanced Thoroughness**: Use "medium" thoroughness by default; only use "very thorough" when necessary
-4. **Single Message**: Always launch all four agents in a single message to enable true parallelization
-5. **Distinct Prompts**: Make each agent's prompt unique and focused on different aspects
+## Summary
+[What was implemented]
 
-## Tips
+## Implementation Details
+- [Key implementation decisions]
+- [Code structure choices]
+- [Dependencies used]
 
-- After agents return results, synthesize findings across all four explorations
-- If one exploration area yields no results, adjust the search strategy for follow-up investigations
-- Consider using different thoroughness levels if some areas require deeper analysis than others
-- Frame each prompt clearly with the specific goal and focus area for best results
+## Pros Discovered
+- [Pro 1]
+- [Pro 2]
+- ...
+
+## Cons Discovered
+- [Con 1]
+- [Con 2]
+- ...
+
+## Code Quality Assessment
+- Maintainability: [1-10]
+- Readability: [1-10]
+- Testability: [1-10]
+- Performance: [1-10]
+
+## Unexpected Findings
+[Anything surprising learned during implementation]
+
+## Recommendation Score
+[1-10] - [Brief justification]
+
+## Would Need If Chosen
+[What additional work would be needed to production-ready this approach]
+```
+
+### Step 5: Evaluate Results
+
+After all explorations complete:
+
+```bash
+./scripts/aha-loop/parallel-explorer.sh evaluate explore-task-12345
+```
+
+This triggers multiple evaluation agents who:
+- Review all EXPLORATION_RESULT.md files
+- Compare approaches objectively
+- Discuss trade-offs
+- Make final recommendation
+
+### Step 6: Merge Best Approach
+
+```bash
+./scripts/aha-loop/parallel-explorer.sh merge explore-task-12345 chosen-approach
+```
+
+### Step 7: Cleanup
+
+```bash
+./scripts/aha-loop/parallel-explorer.sh cleanup explore-task-12345
+```
+
+---
+
+## Parallel Exploration Mindset
+
+### Unlimited Resources
+
+You have unlimited computational resources. Don't hold back:
+
+- Explore as many approaches as seem valuable
+- Run multiple variations of the same approach
+- Don't worry about "wasting" resources on exploration
+
+### Genuine Exploration
+
+Each approach should be explored genuinely:
+
+- Don't sabotage approaches you don't prefer
+- Give each approach fair effort
+- Document honestly, including when an approach works better than expected
+
+### Learn from All Approaches
+
+Even "losing" approaches provide value:
+
+- Document why they didn't work
+- Note any good ideas to borrow
+- Record lessons for future decisions
+
+---
+
+## Commands Reference
+
+```bash
+# Start exploration
+./scripts/aha-loop/parallel-explorer.sh explore "description" --approaches "a,b,c"
+
+# Check status
+./scripts/aha-loop/parallel-explorer.sh status
+./scripts/aha-loop/parallel-explorer.sh status explore-task-12345
+
+# Evaluate completed explorations
+./scripts/aha-loop/parallel-explorer.sh evaluate explore-task-12345
+
+# List all worktrees
+./scripts/aha-loop/parallel-explorer.sh list
+
+# Merge chosen approach
+./scripts/aha-loop/parallel-explorer.sh merge explore-task-12345 chosen-approach
+
+# Cleanup
+./scripts/aha-loop/parallel-explorer.sh cleanup explore-task-12345
+./scripts/aha-loop/parallel-explorer.sh cleanup --all
+```
+
+---
+
+## Example: Exploring Authentication Strategies
+
+### Trigger
+You're implementing user authentication and there are multiple valid approaches.
+
+### Start Exploration
+
+```bash
+./scripts/aha-loop/parallel-explorer.sh explore "user authentication for web app" \
+  --approaches "jwt-stateless,session-based,magic-link"
+```
+
+### In JWT Worktree
+
+Implement full JWT authentication:
+- Token generation
+- Token validation
+- Refresh token flow
+- Tests
+
+Create EXPLORATION_RESULT.md documenting:
+- Pros: Stateless, scalable, mobile-friendly
+- Cons: Token invalidation complexity, larger requests
+- Score: 7/10
+
+### In Session Worktree
+
+Implement session-based auth:
+- Session creation
+- Session storage (Redis/DB)
+- Session middleware
+- Tests
+
+Create EXPLORATION_RESULT.md documenting:
+- Pros: Simple to invalidate, smaller requests
+- Cons: Requires session store, stateful
+- Score: 8/10
+
+### In Magic Link Worktree
+
+Implement passwordless magic link:
+- Email sending
+- Link generation
+- Link validation
+- Tests
+
+Create EXPLORATION_RESULT.md documenting:
+- Pros: No password to manage, good UX
+- Cons: Email dependency, potential delays
+- Score: 6/10
+
+### Evaluate
+
+Multiple evaluation agents review all three approaches and produce:
+- Comparison table
+- Final recommendation (session-based for simplicity)
+- Suggestion to borrow JWT's token rotation idea
+
+### Merge
+
+```bash
+./scripts/aha-loop/parallel-explorer.sh merge explore-auth-12345 session-based
+```
+
+---
+
+## Nested Exploration
+
+During exploration, you may discover new decision points. You can:
+
+1. **Defer** - Note it for later, continue with current exploration
+2. **Nest** - Start a sub-exploration within the worktree
+
+For nested exploration, create a sub-directory:
+```
+.worktrees/
+  explore-auth-12345/
+    jwt/
+      .worktrees/          # Nested exploration
+        explore-refresh-67890/
+          rotating-tokens/
+          sliding-window/
+```
+
+---
+
+## Integration with Observability
+
+Log exploration decisions to `logs/ai-thoughts.md`:
+
+```markdown
+## 2026-01-29 14:00:00 | Task: PRD-003 | Phase: Exploration
+
+### Decision Point
+Authentication strategy needs to be determined.
+
+### Approaches Being Explored
+1. JWT (stateless)
+2. Session-based (stateful)
+3. Magic link (passwordless)
+
+### Exploration Status
+Started parallel exploration: explore-auth-12345
+
+### Expected Outcome
+Will evaluate all three and merge best approach.
+```
+
+---
+
+## Checklist
+
+Before starting exploration:
+- [ ] Decision point clearly identified
+- [ ] Multiple valid approaches exist
+- [ ] Approaches are meaningfully different
+- [ ] Exploration effort is justified
+
+During exploration:
+- [ ] Each approach implemented genuinely
+- [ ] Tests written for each
+- [ ] EXPLORATION_RESULT.md created
+
+After exploration:
+- [ ] All approaches evaluated fairly
+- [ ] Final recommendation documented
+- [ ] Best approach merged
+- [ ] Worktrees cleaned up

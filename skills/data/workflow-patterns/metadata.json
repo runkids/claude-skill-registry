@@ -1,7 +1,7 @@
 {
   "name": "workflow-patterns",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/workflow-patterns/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:29.116130Z"
+  "repo": "ma1orek/replay",
+  "path": "skills/workflow-patterns/SKILL.md",
+  "source": "github.com/ma1orek/replay",
+  "downloaded_at": "2026-02-02T03:16:21.457725Z"
 }

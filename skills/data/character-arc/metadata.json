@@ -1,9 +1,7 @@
 {
   "name": "character-arc",
-  "description": "Design and troubleshoot character transformation arcs. Use when characters feel static, when transformation feels unearned or abrupt, when you can't articulate what false belief needs to die, or when ",
-  "repo": "jwynia/agent-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/jwynia/agent-skills"
+  "repo": "mikkelkrogsholm/bookstrap",
+  "path": ".claude/skills/character-arc/SKILL.md",
+  "source": "github.com/mikkelkrogsholm/bookstrap",
+  "downloaded_at": "2026-02-02T01:06:42.580382Z"
 }

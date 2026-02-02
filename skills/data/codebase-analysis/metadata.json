@@ -1,7 +1,7 @@
 {
   "name": "codebase-analysis",
-  "repo": "mehdic/bazinga",
-  "path": ".claude/skills/codebase-analysis/SKILL.md",
-  "source": "github.com/mehdic/bazinga",
-  "downloaded_at": "2026-01-29T03:52:09.445089Z"
+  "repo": "sequenzia/claude-alchemy",
+  "path": "plugins/tools/skills/codebase-analysis/SKILL.md",
+  "source": "github.com/sequenzia/claude-alchemy",
+  "downloaded_at": "2026-02-02T04:02:26.576817Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "task-completion-verify",
-  "description": "Evidence-based completion claims. Use before claiming work is complete, fixed, or passing - requires running verification commands and confirming output before any success claims.",
   "repo": "srnnkls/tropos",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/srnnkls/tropos"
+  "path": "skills/task-completion-verify/SKILL.md",
+  "source": "github.com/srnnkls/tropos",
+  "downloaded_at": "2026-02-02T03:29:53.142717Z"
 }

@@ -1,348 +1,271 @@
 ---
 name: repo-website-api-create
-description: Create new API reference pages for the Valibot website at website/src/routes/api/. Use when adding documentation for new schemas, actions, methods, or types. Covers reading source code, creating properties.ts and index.mdx files, updating menu.md, and cross-referencing related APIs.
+description: Create new API documentation routes for the Formisch website. Use when adding documentation for new exported functions, types, components, or methods that don't yet have website documentation.
+metadata:
+  author: formisch
+  version: '1.0'
 ---
 
-# Adding API Documentation to Website
+# Adding New API Documentation
 
-Guide for creating new API reference pages at `website/src/routes/api/`.
+This skill provides instructions for adding new API reference routes to the Formisch website. Consistency and uniformity across all API documentation is critical.
 
-## Process Overview
+**Key Principle**: Source code is the single source of truth. All documentation is derived directly from the source code.
 
-1. Read source code in `/library/src/`
-2. Create folder in `/website/src/routes/api/(category)/[name]/`
-3. Create `properties.ts` with type definitions
-4. Create `index.mdx` with documentation
-5. Update `menu.md`
-6. Create type documentation if needed (Issue, Schema/Action interfaces)
+## Quick Overview
 
-## File Structure
+Each API function or type needs its own folder containing:
+
+- `index.mdx` - The main documentation file with MDX content
+- `properties.ts` - TypeScript definitions that map to the Property component
+
+## Step-by-Step Process
+
+### Step 1: Identify the API
+
+Before creating documentation:
+
+1. **Category**: Is it a core type, framework primitive/hook/composable/rune, framework type, component, or method?
+2. **Name**: The exact function/type name (camelCase for functions, PascalCase for types/components)
+3. **Source file**: Path to the source code in the monorepo
+4. **Dependencies**: Related types, primitives, or methods
+
+### Step 2: Read the Source Code
+
+**This is the most critical step.** Read the entire source file and extract:
+
+1. **Interfaces and Types** - Exported type definitions with generic parameters
+2. **Function Signatures** - All overloads (not implementations)
+3. **JSDoc Comments** - Descriptions, param tags, hints
+4. **Generic Constraints** - `extends` clauses
+5. **Return Types** - Interface names with generics
+
+### Step 3: Create the Documentation Folder
+
+Create folder in the appropriate category:
 
 ```
-website/src/routes/api/
-├── (schemas)/string/
-│   ├── index.mdx        # Documentation content
-│   └── properties.ts    # Type definitions for Property component
-├── (actions)/email/
-├── (methods)/parse/
-├── (types)/StringSchema/
-└── menu.md              # Navigation (alphabetical order)
+/website/src/routes/(docs)/{framework}/api/(category)/{ApiName}/
+├── index.mdx
+└── properties.ts
 ```
 
-Categories: `(schemas)`, `(actions)`, `(methods)`, `(types)`, `(utils)`, `(async)`, `(storages)`
+**Categories by framework:**
 
-## Reading Source Code
+- `core/api/(types)` - Core/shared type definitions
+- `methods/api/` - Global methods (focus, validate, reset, etc.)
+- `solid/api/(primitives)` - SolidJS primitives (createForm, useField)
+- `solid/api/(components)` - SolidJS components (Field, Form)
+- `solid/api/(types)` - SolidJS-specific types
+- `qwik/api/(hooks)` - Qwik hooks (useForm$, useField)
+- `preact/api/(hooks)` - Preact hooks
+- `svelte/api/(runes)` - Svelte 5 runes
+- `vue/api/(composables)` - Vue composables
 
-### What to Extract
+### Step 4: Create properties.ts
 
-From `/library/src/schemas/string/string.ts`:
-
-```typescript
-// 1. Issue interface → Document in (types)/StringIssue/
-export interface StringIssue extends BaseIssue<unknown> { ... }
-
-// 2. Schema interface → Document in (types)/StringSchema/
-export interface StringSchema<TMessage extends ErrorMessage<StringIssue> | undefined>
-  extends BaseSchema<string, string, StringIssue> { ... }
-
-// 3. Function overloads → Main documentation
-export function string(): StringSchema<undefined>;
-export function string<const TMessage>(message: TMessage): StringSchema<TMessage>;
-
-// 4. JSDoc → Description, hints, parameter docs
-/**
- * Creates a string schema.
- *
- * Hint: This is an example hint.
- *
- * @param message The error message.
- *
- * @returns A string schema.
- */
-```
-
-**JSDoc hints** become blockquotes in the Explanation section:
-
-```mdx
-> This is an example hint.
-```
-
-### Extract for properties.ts
-
-- Generic parameters and constraints (e.g., `TMessage extends ErrorMessage<...> | undefined`)
-- Function parameters and types
-- Return type
-
-## properties.ts
-
-Import and define properties matching source code:
+See [references/property-component.md](references/property-component.md) for the Property component specification and type mapping patterns.
 
 ```typescript
 import type { PropertyProps } from '~/components';
 
 export const properties: Record<string, PropertyProps> = {
-  // Generics (use modifier: 'extends')
-  TMessage: {
+  // 1. GENERICS - with modifier: 'extends'
+  TSchema: {
     modifier: 'extends',
     type: {
-      type: 'union',
-      options: [
-        {
-          type: 'custom',
-          name: 'ErrorMessage',
-          href: '../ErrorMessage/',
-          generics: [
-            { type: 'custom', name: 'StringIssue', href: '../StringIssue/' },
-          ],
-        },
-        'undefined',
-      ],
+      type: 'custom',
+      name: 'Schema',
+      href: '/core/api/Schema/',
     },
   },
 
-  // Parameters (reference generic or direct type)
-  message: {
-    type: { type: 'custom', name: 'TMessage' },
-  },
-
-  // Return type
-  Schema: {
+  // 2. PARAMETERS - matching function signature
+  config: {
     type: {
       type: 'custom',
-      name: 'StringSchema',
-      href: '../StringSchema/',
-      generics: [{ type: 'custom', name: 'TMessage' }],
+      name: 'FormConfig',
+      href: '../FormConfig/',
+      generics: [{ type: 'custom', name: 'TSchema' }],
+    },
+  },
+
+  // 3. RETURN TYPE
+  Store: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore/',
+      generics: [{ type: 'custom', name: 'TSchema' }],
     },
   },
 };
 ```
 
-### DefinitionData Types
+### Step 5: Create index.mdx
 
-| Type            | Syntax                                                                         |
-| --------------- | ------------------------------------------------------------------------------ |
-| Primitive       | `'string'`, `'number'`, `'boolean'`, `'unknown'`, etc.                         |
-| Literal string  | `{ type: 'string', value: 'email' }`                                           |
-| Literal number  | `{ type: 'number', value: 5 }`                                                 |
-| Custom/Named    | `{ type: 'custom', name: 'TypeName', href: '../TypeName/', generics: [...] }`  |
-| Custom+modifier | `{ type: 'custom', modifier: 'typeof', name: 'string', href: '../string/' }`   |
-| Union           | `{ type: 'union', options: [type1, type2] }`                                   |
-| Intersect       | `{ type: 'intersect', options: [type1, type2] }`                               |
-| Array           | `{ type: 'array', item: elementType }`                                         |
-| Tuple           | `{ type: 'tuple', items: [type1, type2] }`                                     |
-| Object          | `{ type: 'object', entries: [{ key: 'name', optional?: true, value: type }] }` |
-| Function        | `{ type: 'function', params: [{ name: 'x', type: t }], return: retType }`      |
-| Template        | `{ type: 'template', parts: [{ type: 'string', value: '>=' }, otherType] }`    |
-
-## index.mdx Template
+See [references/mdx-patterns.md](references/mdx-patterns.md) for detailed MDX structure and patterns.
 
 ```mdx
 ---
-title: functionName
-description: One-line description from JSDoc.
-source: /schemas/string/string.ts
+title: createForm
+description: Creates a reactive form store from a form configuration.
+source: /frameworks/solid/src/primitives/createForm/createForm.ts
 contributors:
-  - github-username
+  - fabian-hiller
 ---
 
 import { ApiList, Property } from '~/components';
 import { properties } from './properties';
 
-# functionName
+# createForm
 
-Creates a string schema.
+Creates a reactive form store from a form configuration.
 
 \`\`\`ts
-const Schema = v.functionName<TMessage>(message);
+const form = createForm<TSchema>(config);
 \`\`\`
 
 ## Generics
 
-- \`TMessage\` <Property {...properties.TMessage} />
+- `TSchema` <Property {...properties.TSchema} />
 
 ## Parameters
 
-- \`message\` <Property {...properties.message} />
+- `config` <Property {...properties.config} />
 
 ### Explanation
 
-With \`functionName\` you can validate... If the input does not match, you can use \`message\` to customize the error message.
+With `createForm` you can create a reactive form store...
 
 ## Returns
 
-- \`Schema\` <Property {...properties.Schema} />
+- `form` <Property {...properties.Store} />
 
 ## Examples
 
-The following examples show how \`functionName\` can be used.
+The following examples show how `createForm` can be used.
 
-### Email schema
-
-Schema to validate an email.
+### Basic form
 
 \`\`\`ts
-const EmailSchema = v.pipe(
-v.string(),
-v.nonEmpty('Please enter your email.'),
-v.email('The email is badly formatted.')
-);
+import { createForm } from '@formisch/solid';
+import \* as v from 'valibot';
+
+const LoginSchema = v.object({
+email: v.pipe(v.string(), v.email()),
+password: v.pipe(v.string(), v.minLength(8)),
+});
+
+const loginForm = createForm({ schema: LoginSchema });
 \`\`\`
 
 ## Related
 
-The following APIs can be combined with \`functionName\`.
+### Primitives
 
-### Schemas
+<ApiList
+  items={[
+    { text: 'useField', href: '../useField/' },
+    { text: 'useFieldArray', href: '../useFieldArray/' },
+  ]}
+/>
 
-<ApiList items={['array', 'object', 'string']} />
+### Components
 
-### Methods
-
-<ApiList items={['parse', 'pipe', 'safeParse']} />
-
-### Actions
-
-<ApiList items={['email', 'minLength']} />
-
-### Utils
-
-<ApiList items={['isOfKind', 'isOfType']} />
+<ApiList
+  items={[
+    { text: 'Form', href: '../Form/' },
+    { text: 'Field', href: '../Field/' },
+  ]}
+/>
 ```
 
-**Related section order:** Schemas → Methods → Actions → Utils (omit empty sections)
+### Step 6: Update menu.md
 
-## Key Conventions
-
-### Naming
-
-- Schema variables: `PascalCase` + `Schema` suffix: `EmailSchema`, `UserSchema`
-- Action variables: `PascalCase` + `Action`: `MinLengthAction`
-- Parse output: `output` or descriptive name
-
-### Examples
-
-- Always include error messages for validation actions
-- Progress from simple to complex
-- Use realistic, practical scenarios
-- Start with `import * as v from 'valibot';` pattern
-
-### Error Messages
-
-Use friendly, actionable messages:
-
-- ✅ "Your password is too short."
-- ✅ "Please enter your email."
-- ❌ "Invalid" or "Error"
-
-### Links
-
-- Use `href: '../TypeName/'` for type references (with trailing slash)
-- Use `<Link href="/api/parse/">\`parse\`</Link>`in MDX prose (import from`~/components`)
-- Link to related guides when relevant: `<Link href="/guides/objects/">object guide</Link>`
-
-## Update Related Files
-
-### menu.md
-
-Add alphabetically to `/website/src/routes/api/menu.md`:
+Add to the appropriate `menu.md` file in alphabetical order:
 
 ```markdown
-## Schemas
+## Primitives
 
-- [any](/api/any/)
-- [newSchema](/api/newSchema/) ← Add here
-- [string](/api/string/)
+- [createForm](/solid/api/createForm/)
+- [useField](/solid/api/useField/)
 ```
 
-### Related Sections of Other API Docs
+## Documentation Types
 
-Existing API pages have a `## Related` section with `<ApiList>` components. When adding a new API, update related APIs to include the new one.
+### Function Documentation
 
-**Rule:** An API is "related" if:
+- Function signature code block
+- Generics section (if applicable)
+- **Parameters section** (use "Parameters" heading)
+- Explanation section (required)
+- **Returns section** (if not void)
+- Examples section (required, 2-4 progressive examples)
+- Related section
 
-- It makes sense to use it as an argument of the other API, or vice versa
-- It makes sense to use them together in the same `pipe` (e.g., `v.pipe(v.string(), v.email())` → `string` and `email` are related)
+### Component Documentation
 
-Examples:
-
-- `string` schema lists `email` action because they work together in a pipe
-- `email` action lists `string` schema because it validates string input
-- `pipe` method lists all schemas because any schema can be piped
-- `minLength` action lists `string`, `array`, `tuple` because it validates their length
-
-**Process:**
-
-1. Review a few existing API docs in the same category to understand the pattern
-2. Check `menu.md` to identify potentially related APIs
-3. For each related API, edit its `index.mdx` and add the new API to the appropriate `<ApiList>`
-
-**Shortcut:** If your new API is very similar to an existing one (e.g., `guard` is similar to `check`), add it everywhere the similar API appears. This ensures consistent coverage across all related docs.
-
-### Concept Guides
-
-Add the new API to the appropriate guide in `/website/src/routes/guides/`:
-
-| API Category | Guide to Update                       |
-| ------------ | ------------------------------------- |
-| Schema       | `(main-concepts)/schemas/index.mdx`   |
-| Action       | `(main-concepts)/pipelines/index.mdx` |
-| Method       | `(main-concepts)/methods/index.mdx`   |
-
-Also update topic-specific guides if relevant (e.g., `(schemas)/objects/`, `(schemas)/arrays/`, `(advanced)/async/`).
+- Component signature code block
+- Generics section (if applicable)
+- **Properties section** (use "Properties" heading)
+- Explanation section (required)
+- **NO Returns section**
+- **NO Examples section**
+- Related section
 
 ### Type Documentation
 
-Create pages for new types in `(types)/`:
+- Type name and description
+- Generics section (if applicable)
+- Definition section listing properties
+- Explanation section (only if semantically important)
+- NO Examples section
+- Related section (Primitives/Components/Methods only, never Types)
 
-- Issue interfaces (e.g., `StringIssue`)
-- Schema/Action interfaces (e.g., `StringSchema`)
+## Important Rules
 
-Type pages differ from function docs:
+### URL Patterns
 
-- **No `source` field** in frontmatter
-- **No Examples or Related sections**
-- Use `## Definition` instead of `## Returns`
+Parentheses folders don't appear in URLs:
 
-Type page structure:
+- `/solid/api/createForm/` (not `/solid/api/(primitives)/createForm/`)
 
-```mdx
----
-title: StringSchema
-description: String schema interface.
-contributors:
-  - github-username
----
+### Link Patterns
 
-import { Property } from '~/components';
-import { properties } from './properties';
+- **Relative paths within same section**: `../FormStore/`
+- **Absolute paths for cross-package**: `/core/api/Schema/`
+- **External links for Valibot**: `https://valibot.dev/api/InferInput/`
 
-# StringSchema
+### Framework-Specific Terminology
 
-String schema interface.
+| Framework | Category Term | Example API          |
+| --------- | ------------- | -------------------- |
+| Solid     | Primitives    | createForm, useField |
+| Qwik      | Hooks         | useForm$, useField   |
+| Preact    | Hooks         | useForm, useField    |
+| Vue       | Composables   | useForm, useField    |
+| Svelte    | Runes         | createForm, useField |
 
-## Generics
+## References
 
-- \`TMessage\` <Property {...properties.TMessage} />
+For detailed patterns and examples, see:
 
-## Definition
-
-- \`StringSchema\` <Property {...properties.BaseSchema} />
-  - \`type\` <Property {...properties.type} />
-  - \`reference\` <Property {...properties.reference} />
-  - \`expects\` <Property {...properties.expects} />
-  - \`message\` <Property {...properties.message} />
-```
+- [references/property-component.md](references/property-component.md) - Property component and type mapping
+- [references/mdx-patterns.md](references/mdx-patterns.md) - MDX structure and patterns
+- [references/examples.md](references/examples.md) - Code example conventions
 
 ## Checklist
 
+Before submitting:
+
 - [ ] Read source file completely
-- [ ] `properties.ts` matches source types exactly
-- [ ] `index.mdx` signature matches source
-- [ ] All generics documented
-- [ ] All parameters documented
-- [ ] Examples are realistic with error messages
-- [ ] `menu.md` updated (alphabetically)
-- [ ] Related type pages created if needed
-- [ ] Related API docs updated (add new API to their `## Related` sections)
-- [ ] Concept guide updated (schemas/pipelines/methods)
-- [ ] All `href` links valid with trailing slashes
+- [ ] All generics documented with correct constraints
+- [ ] All parameters documented with correct types
+- [ ] Return type documented
+- [ ] Custom types link to their documentation (href)
+- [ ] Function signature matches source exactly
+- [ ] Examples are realistic and follow naming conventions
+- [ ] Related section uses correct framework terminology
+- [ ] `menu.md` updated in alphabetical order
+- [ ] No typos or grammatical errors

@@ -1,7 +1,7 @@
 {
   "name": "arxiv-search",
-  "repo": "agentgptsmith/MonadFramework",
-  "path": ".claude/skills/arxiv-search/SKILL.md",
-  "source": "github.com/agentgptsmith/MonadFramework",
-  "downloaded_at": "2026-02-01T04:08:55.084072Z"
+  "repo": "DougTrajano/pydantic-ai-skills",
+  "path": "examples/skills/arxiv-search/SKILL.md",
+  "source": "github.com/DougTrajano/pydantic-ai-skills",
+  "downloaded_at": "2026-02-02T04:59:22.400246Z"
 }

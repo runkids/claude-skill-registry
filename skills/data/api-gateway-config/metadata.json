@@ -1,9 +1,7 @@
 {
   "name": "api-gateway-config",
-  "description": "Api Gateway Config - Auto-activating skill for AWS Skills.Triggers on: api gateway config, api gateway configPart of the AWS Skills skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "planned-skills/generated/13-aws-skills/api-gateway-config/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-02-02T03:38:07.163308Z"
 }

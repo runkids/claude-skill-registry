@@ -1,7 +1,7 @@
 {
   "name": "red-team-tactics",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/red-team-tactics/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:27.698221Z"
+  "repo": "claudiodearaujo/IzaCenter",
+  "path": ".claude/skills/red-team-tactics/SKILL.md",
+  "source": "github.com/claudiodearaujo/IzaCenter",
+  "downloaded_at": "2026-02-02T04:54:12.640816Z"
 }

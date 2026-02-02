@@ -1,144 +1,168 @@
 ---
 name: research
-description: When and how to research the codebase via the librarian agent
+description: Use when you need to research, analyze, and plan technical solutions that are scalable, secure, and maintainable.
+license: MIT
 ---
 
-# Research - Codebase Discovery via Librarian
+# Research
 
-This skill covers when and how to use the librarian agent for codebase research and discovery.
+## Research Methodology
 
-## When to Research
+Always honoring **YAGNI**, **KISS**, and **DRY** principles.
+**Be honest, be brutal, straight to the point, and be concise.**
 
-Research the codebase when you need to:
+### Phase 1: Scope Definition
 
-- **Understand existing patterns** before proposing new ones
-- **Find integration points** for new functionality
-- **Locate relevant files** for a change
-- **Understand how something works** before modifying it
-- **Verify assumptions** about codebase structure
-- **Find similar implementations** to follow established patterns
+First, you will clearly define the research scope by:
+- Identifying key terms and concepts to investigate
+- Determining the recency requirements (how current must information be)
+- Establishing evaluation criteria for sources
+- Setting boundaries for the research depth
 
-## The Librarian
+### Phase 2: Systematic Information Gathering
 
-The `librarian` agent is the universal research agent. It:
+You will employ a multi-source research strategy:
 
-- Clarifies what you're looking for
-- Performs fast reconnaissance and deep codebase analysis exhaustively
-- Returns structured, comprehensive findings
-- Determines when research is complete
+1. **Search Strategy**:
+   - Check if `gemini` bash command is available, if so, execute `gemini -m gemini-2.5-flash -p "...your search prompt..."` bash command (timeout: 10 minutes) and save the output to `./plans/<plan-name>/reports/{date}-<your-research-topic>.md` file (including all citations).
+   - If `gemini` bash command is not available, fallback to `WebSearch` tool.
+   - Run multiple `gemini` bash commands or `WebSearch` tools in parallel to search for relevant information.
+   - Craft precise search queries with relevant keywords
+   - Include terms like "best practices", "2024", "latest", "security", "performance"
+   - Search for official documentation, GitHub repositories, and authoritative blogs
+   - Prioritize results from recognized authorities (official docs, major tech companies, respected developers)
+   - **IMPORTANT:** You are allowed to perform at most **5 researches (max 5 tool calls)**, user might request less than this amount, **strictly respect it**, think carefully based on the task before performing each related research topic.
 
-When doing SDD work, prefer using the `librarian` agent for codebase research so you follow existing patterns and avoid missed context.
+2. **Deep Content Analysis**:
+   - When you found a potential Github repository URL, use `docs-seeker` skill to find read it.
+   - Focus on official documentation, API references, and technical specifications
+   - Analyze README files from popular GitHub repositories
+   - Review changelog and release notes for version-specific information
 
-## How to Consult Librarian
+3. **Video Content Research**:
+   - Prioritize content from official channels, recognized experts, and major conferences
+   - Focus on practical demonstrations and real-world implementations
 
-Consult the `librarian` agent with a clear research prompt (the runtime will route this appropriately):
+4. **Cross-Reference Validation**:
+   - Verify information across multiple independent sources
+   - Check publication dates to ensure currency
+   - Identify consensus vs. controversial approaches
+   - Note any conflicting information or debates in the community
 
+### Phase 3: Analysis and Synthesis
+
+You will analyze gathered information by:
+- Identifying common patterns and best practices
+- Evaluating pros and cons of different approaches
+- Assessing maturity and stability of technologies
+- Recognizing security implications and performance considerations
+- Determining compatibility and integration requirements
+
+### Phase 4: Report Generation
+
+**Notes:** 
+- Research reports are saved in `./plans/<plan-name>/reports/{date}-<your-research-topic>.md`.
+- If you are not given a plan name, ask main agent to provide it and continue the process.
+
+You will create a comprehensive markdown report with the following structure:
+
+```markdown
+# Research Report: [Topic]
+
+## Executive Summary
+[2-3 paragraph overview of key findings and recommendations]
+
+## Research Methodology
+- Sources consulted: [number]
+- Date range of materials: [earliest to most recent]
+- Key search terms used: [list]
+
+## Key Findings
+
+### 1. Technology Overview
+[Comprehensive description of the technology/topic]
+
+### 2. Current State & Trends
+[Latest developments, version information, adoption trends]
+
+### 3. Best Practices
+[Detailed list of recommended practices with explanations]
+
+### 4. Security Considerations
+[Security implications, vulnerabilities, and mitigation strategies]
+
+### 5. Performance Insights
+[Performance characteristics, optimization techniques, benchmarks]
+
+## Comparative Analysis
+[If applicable, comparison of different solutions/approaches]
+
+## Implementation Recommendations
+
+### Quick Start Guide
+[Step-by-step getting started instructions]
+
+### Code Examples
+[Relevant code snippets with explanations]
+
+### Common Pitfalls
+[Mistakes to avoid and their solutions]
+
+## Resources & References
+
+### Official Documentation
+- [Linked list of official docs]
+
+### Recommended Tutorials
+- [Curated list with descriptions]
+
+### Community Resources
+- [Forums, Discord servers, Stack Overflow tags]
+
+### Further Reading
+- [Advanced topics and deep dives]
+
+## Appendices
+
+### A. Glossary
+[Technical terms and definitions]
+
+### B. Version Compatibility Matrix
+[If applicable]
+
+### C. Raw Research Notes
+[Optional: detailed notes from research process]
 ```
-<your research question>
-```
 
-### Good Research Prompts
+## Quality Standards
 
-Be specific about what you need:
+You will ensure all research meets these criteria:
+- **Accuracy**: Information is verified across multiple sources
+- **Currency**: Prioritize information from the last 12 months unless historical context is needed
+- **Completeness**: Cover all aspects requested by the user
+- **Actionability**: Provide practical, implementable recommendations
+- **Clarity**: Use clear language, define technical terms, provide examples
+- **Attribution**: Always cite sources and provide links for verification
 
-```
-# Finding files/locations
-"Where are the authentication handlers in this codebase?"
+## Special Considerations
 
-# Understanding patterns
-"How does this codebase handle error responses? Show me the pattern."
+- When researching security topics, always check for recent CVEs and security advisories
+- For performance-related research, look for benchmarks and real-world case studies
+- When investigating new technologies, assess community adoption and support levels
+- For API documentation, verify endpoint availability and authentication requirements
+- Always note deprecation warnings and migration paths for older technologies
 
-# Finding integration points
-"I need to add a new API endpoint for user preferences. Where should it go and what patterns should it follow?"
+## Output Requirements
 
-# Understanding flows
-"Trace how a request flows from the API route to the database for user creation."
+Your final report must:
+1. Be saved as a markdown file with a descriptive filename in `./plans/<plan-name>/reports/{date}-<your-research-topic>.md`
+2. Include a timestamp of when the research was conducted
+3. Provide clear section navigation with a table of contents for longer reports
+4. Use code blocks with appropriate syntax highlighting
+5. Include diagrams or architecture descriptions where helpful (in mermaid or ASCII art)
+6. Conclude with specific, actionable next steps
 
-# Finding similar implementations
-"Find examples of form validation in this codebase so I can follow the same pattern."
-```
+**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
 
-### What Librarian Returns
-
-Librarian provides:
-
-1. **Summary** - Direct answer to your question
-2. **Key Sources** - Important file paths with annotations
-3. **Explanation** - How pieces connect
-4. **Evidence** - Specific citations (`path/file:line`)
-5. **Next Steps** - What to investigate further (if needed)
-
-## Research Patterns by Phase
-
-### During Proposal
-
-Research to understand:
-- Does similar functionality exist?
-- What would this change interact with?
-- Are there patterns to follow or constraints to respect?
-
-### During Specs
-
-Research to understand:
-- Where do existing specs live?
-- What's the current spec taxonomy?
-- Are there related capabilities already specified?
-
-### During Discovery
-
-Research to understand:
-- How does the proposed change fit existing architecture?
-- What code will be affected?
-- Are there conflicts with existing patterns?
-
-### During Planning
-
-Research to understand:
-- Exact file paths for changes
-- Current implementation details
-- Test patterns to follow
-- Integration points
-
-### During Implementation
-
-Research when you encounter:
-- Unexpected code structure
-- Need to understand a dependency
-- Unclear how to integrate with existing code
-
-## Iterating with Librarian
-
-If librarian's first response doesn't fully answer your question:
-
-1. **Ask a follow-up** - Be more specific about what's missing
-2. **Narrow the scope** - Focus on one aspect at a time
-3. **Provide context** - Share what you learned so far
-
-Example iteration:
-
-```
-# First query
-"How does authentication work in this codebase?"
-
-# Librarian returns high-level overview
-
-# Follow-up query
-"Thanks. Now specifically, how are JWT tokens validated? I need to add a new claim check."
-```
-
-## When NOT to Research
-
-Skip librarian when:
-
-- You already know the file paths and patterns
-- The change is isolated and well-understood
-- You're following an existing plan that already did the research
-- The task is purely about SDD artifacts (state.md, proposal.md, etc.)
-
-## Research First, Then Act
-
-For any non-trivial codebase change:
-
-1. **Research first** - Understand before modifying
-2. **Document findings** - Capture relevant paths and patterns in your plan
-3. **Then implement** - With confidence about where and how
+**Remember:** You are not just collecting information, but providing strategic technical intelligence that enables informed decision-making. Your research should anticipate follow-up questions and provide comprehensive coverage of the topic while remaining focused and practical.

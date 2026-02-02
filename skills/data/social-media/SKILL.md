@@ -1,136 +1,228 @@
 ---
 name: social-media
-description: Add or update social media posting integrations (Discord, LinkedIn, Telegram, Twitter) in workflows. Use when adding new platforms, debugging posting failures, modifying message templates, or configuring webhook URLs.
-allowed-tools: Read, Edit, Grep, Glob
+description: Create social media content for Twitter/X, LinkedIn, Facebook, Instagram including posts, threads, carousels, and engagement strategies. Use when writing social posts, planning content calendars, or creating viral content.
 ---
 
-# Social Media Integration Skill
+# Social Media Marketing Skill
 
-Integrations live in `apps/web/src/lib/workflows/social/`.
+## Writing Style Guidelines
 
-**Supported Platforms:** Discord (webhook), LinkedIn (OAuth), Telegram (Bot API), Twitter (API v2)
+**Be Human, Not AI:**
+- Write like a real person, not a marketing bot
+- Use natural language and conversational tone
+- Avoid buzzwords: "revolutionary", "game-changing", "seamless", "leverage"
+- Skip filler words: "basically", "essentially", "simply", "just"
 
-## Integration Patterns
+**Emoji Policy:**
+- Maximum ONE emoji per post (or none)
+- Use only when it genuinely adds clarity or warmth
+- Never pile up emojis (no "Check this out! 🚀🔥💥🎉")
+- Professional platforms (LinkedIn): prefer no emoji
 
-### Telegram
-
-```typescript
-export async function postToTelegram(message: string) {
-  const url = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
-  await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: process.env.TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: "Markdown",
-    }),
-  });
-}
+**What to Avoid:**
+```
+❌ "🚀🔥 This GAME-CHANGING plugin will REVOLUTIONIZE your workflow!! 💥✨🎉"
+✅ "Tired of manually syncing your forms? This plugin does it automatically."
 ```
 
-### Twitter
+## Instructions
 
-```typescript
-export async function postToTwitter(message: string) {
-  await fetch("https://api.twitter.com/2/tweets", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text: message }),
-  });
-}
+When creating social media content:
+
+### 1. Twitter/X Posts
+
+**Single Tweet (280 chars):**
+```
+Hook line that grabs attention
+
+Key point or benefit
+
+Call-to-action or question
+
+#relevanthashtag
 ```
 
-### LinkedIn
+**Thread Format:**
+```
+Thread: [Topic] - Everything you need to know
 
-```typescript
-export async function postToLinkedIn(message: string) {
-  await fetch("https://api.linkedin.com/v2/ugcPosts", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.LINKEDIN_ACCESS_TOKEN}`,
-      "Content-Type": "application/json",
-      "X-Restli-Protocol-Version": "2.0.0",
-    },
-    body: JSON.stringify({
-      author: `urn:li:organization:${process.env.LINKEDIN_ORG_ID}`,
-      lifecycleState: "PUBLISHED",
-      specificContent: {
-        "com.linkedin.ugc.ShareContent": {
-          shareCommentary: { text: message },
-          shareMediaCategory: "NONE",
-        },
-      },
-      visibility: { "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC" },
-    }),
-  });
-}
+1/ Hook that promises value
+
+2/ First key point with example
+
+3/ Second key point with data
+
+4/ Third key point with tip
+
+5/ Summary + CTA
+
+Like & RT if helpful! Follow for more.
 ```
 
-## Message Templates
+**Engagement Tweets:**
+- Ask genuine questions
+- Share honest takes (not hot takes for engagement)
+- Create polls
+- Reply to trends (only if relevant)
 
-```typescript
-export function createCarDataMessage(data: CarRegistrationData) {
-  return `🚗 Car Registration Update - ${data.month} ${data.year}
+### 2. LinkedIn Posts
 
-📊 Total Registrations: ${data.total.toLocaleString()}
-🏆 Top Makes: ${data.topMakes.slice(0, 3).join(", ")}
+**Structure:**
+```
+Hook line (stops the scroll)
 
-📈 View: https://sgcarstrends.com/data/${data.year}/${data.month}
+Problem or pain point
 
-#SingaporeCars #CarRegistration`;
-}
+Story or insight (2-3 short paragraphs)
+
+Key takeaway or lesson
+
+Call-to-action + question for engagement
+
+---
+#hashtag1 #hashtag2 #hashtag3
 ```
 
-## Character Limits
+**Content Types:**
+- Personal stories with lessons
+- Industry insights and trends
+- How-to and practical tips
+- Behind-the-scenes
+- Achievements (genuine, not humble-brag)
+- Thoughtful opinions (not controversial for engagement)
 
-| Platform | Limit |
-|----------|-------|
-| Twitter | 280 |
-| LinkedIn | 3,000 |
-| Telegram | 4,096 |
-| Discord | 2,000 (message), 6,000 (embed) |
+### 3. Instagram
 
-## Environment Variables
+**Caption Structure:**
+```
+Hook (first line visible)
+.
+.
+.
+Value content or story (after "more")
 
-```env
-TELEGRAM_BOT_TOKEN=...
-TELEGRAM_CHAT_ID=...
-TWITTER_BEARER_TOKEN=...
-LINKEDIN_ACCESS_TOKEN=...
-LINKEDIN_ORG_ID=...
+Call-to-action
+
+.
+.
+.
+#hashtag1 #hashtag2 ... (up to 30)
 ```
 
-## Error Handling
+**Carousel Ideas:**
+1. Step-by-step tutorials
+2. Before/after transformations
+3. Tips and tricks lists
+4. Product features
+5. Customer testimonials
 
-```typescript
-export async function postToAllPlatforms(message: string) {
-  const results = await Promise.allSettled([
-    postToTelegram(message),
-    postToTwitter(message),
-    postToLinkedIn(message),
-  ]);
-  const failures = results.filter(r => r.status === "rejected");
-  if (failures.length > 0) console.error("Posting failures:", failures);
-}
-```
+**Reels/Stories:**
+- Hook in first 3 seconds
+- Quick value delivery
+- Trending audio (if appropriate)
+- Text overlays for accessibility
+- Clear CTA at end
 
-## Debugging
+### 4. Facebook
 
-1. **Auth errors**: Verify env vars, check token expiration
-2. **Rate limits**: Implement retry with backoff
-3. **Format issues**: Check char limits, test markdown support
+**Post Types:**
+- Long-form stories
+- Questions for engagement
+- Live videos
+- Group discussions
+- Event promotions
 
-## Best Practices
+**Best Practices:**
+- Native video over YouTube links
+- Engage in comments quickly
+- Use Facebook-specific features
+- Post when audience is active
 
-1. **Error Handling**: Handle API failures gracefully
-2. **Rate Limiting**: Implement limits to avoid bans
-3. **Testing**: Test on dev/sandbox accounts first
-4. **Credentials**: Never commit tokens
+### 5. Content Calendar Template
 
-## References
+| Day | Platform | Content Type | Topic | CTA |
+|-----|----------|--------------|-------|-----|
+| Mon | Twitter | Thread | How-to | Follow |
+| Tue | LinkedIn | Story | Lesson | Comment |
+| Wed | Instagram | Carousel | Tips | Save |
+| Thu | Twitter | Poll | Opinion | Vote |
+| Fri | All | Promo | Product | Link |
 
-- `apps/web/CLAUDE.md` for workflow integration details
+### 6. Hashtag Strategy
+
+**Twitter:** 1-2 relevant hashtags (less is more)
+**LinkedIn:** 3-5 industry hashtags
+**Instagram:** 20-30 mixed hashtags
+  - 10 broad (1M+ posts)
+  - 10 medium (100K-1M)
+  - 10 niche (<100K)
+
+### 7. Engagement Tactics
+
+**Boost Reach:**
+- Post consistently
+- Engage with others first (genuinely, not for algorithm)
+- Reply to every comment
+- Use platform features (polls, lives)
+- Collaborate with others
+
+**Build Community:**
+- Ask genuine questions
+- Share user content (with credit)
+- Be authentic and consistent
+- Celebrate followers
+- Respond like a human, not a brand
+
+### 8. Analytics Focus
+
+Track:
+- Impressions/reach
+- Engagement rate
+- Click-through rate
+- Follower growth
+- Best posting times
+- Top performing content types
+
+### 9. Platform-Specific Tips
+
+**Twitter/X:**
+- Tweet 3-5x daily
+- Best times: 8-10am, 12-1pm
+- Use threads for long content
+- Quote tweet for commentary
+
+**LinkedIn:**
+- Post 1x daily max
+- Best times: Tue-Thu, 7-8am
+- Comment on others' posts
+- Use document posts for carousels
+
+**Instagram:**
+- Post 1-2x daily
+- Best times: 11am-1pm, 7-9pm
+- Stories multiple times daily
+- Reels for growth
+
+## Quality Checklist
+
+Before posting, verify:
+
+### Content
+- [ ] Clear hook in first line
+- [ ] Value provided (not just promotion)
+- [ ] One clear CTA
+- [ ] Appropriate hashtags
+- [ ] Links work (if any)
+
+### Tone
+- [ ] Human, conversational tone
+- [ ] Maximum one emoji (if any)
+- [ ] No buzzwords or filler words
+- [ ] Not salesy or pushy
+- [ ] Authentic to brand voice
+
+### Visual (if applicable)
+- [ ] Real screenshots (not mockups)
+- [ ] Alt text for accessibility
+- [ ] No sensitive data visible
+- [ ] Properly sized for platform

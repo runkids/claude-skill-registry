@@ -33,7 +33,7 @@ leann list
 leann search rigg "how do providers handle streaming" --top-k 5
 ```
 
-## MCP Tool (in Maestro)
+## MCP Tool (in Claude Code)
 
 ```
 leann_search(index_name="rigg", query="your semantic query", top_k=5)

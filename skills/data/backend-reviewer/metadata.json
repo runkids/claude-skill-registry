@@ -1,7 +1,7 @@
 {
   "name": "backend-reviewer",
-  "repo": "shaul1991/shaul-agents-plugin",
-  "path": "skills/backend-reviewer/SKILL.md",
-  "source": "github.com/shaul1991/shaul-agents-plugin",
-  "downloaded_at": "2026-02-01T03:31:07.946215Z"
+  "repo": "takemo101/compose-workflow",
+  "path": ".pi/skills/backend-reviewer/SKILL.md",
+  "source": "github.com/takemo101/compose-workflow",
+  "downloaded_at": "2026-02-02T03:53:09.864473Z"
 }

@@ -1,316 +1,180 @@
 ---
 name: plugin-development
-description: Claude Code plugin development - plugin structure, slash commands, skills, sub-agents, YAML frontmatter. Use when creating plugins.
+description: Create and manage Claude Code plugins including commands, agents, skills, hooks, and MCP servers. This skill should be used when building new plugins, debugging plugin issues, understanding plugin structure, or working with plugin marketplaces.
 ---
 
-# Plugin Development Expert
+# Plugin Development
 
-Expert guidance for creating production-ready Claude Code plugins.
-
-## Critical Structure Rules
-
-**Directory Hierarchy**:
-```
-~/.claude/plugins/my-plugin/    ← Plugin root
-├── .claude-plugin/
-│   └── plugin.json            ← Manifest (REQUIRED)
-├── commands/
-│   └── command-name.md        ← Slash commands
-├── skills/
-│   └── skill-name/            ← MUST be subdirectory
-│       └── SKILL.md           ← MUST be uppercase
-└── agents/
-    └── agent-name/
-        └── AGENT.md
-```
-
-**Common Mistakes**:
-```
-# ❌ WRONG
-skills/SKILL.md                # Missing subdirectory
-skills/my-skill.md             # Wrong filename
-skills/My-Skill/SKILL.md       # CamelCase not allowed
-
-# ✅ CORRECT
-skills/my-skill/SKILL.md       # kebab-case subdirectory + SKILL.md
-```
-
-## plugin.json Format
-
-**Minimum Required**:
-```json
-{
-  "name": "my-plugin",
-  "description": "Clear description with activation keywords",
-  "version": "1.0.0"
-}
-```
-
-**Full Example**:
-```json
-{
-  "name": "my-awesome-plugin",
-  "description": "Expert cost optimization for AWS, Azure, GCP. Activates for reduce costs, cloud costs, finops, save money, cost analysis.",
-  "version": "1.0.0",
-  "author": {
-    "name": "Your Name",
-    "email": "you@example.com"
-  },
-  "homepage": "https://github.com/user/my-plugin",
-  "repository": "https://github.com/user/my-plugin",
-  "license": "MIT",
-  "keywords": ["cost", "finops", "aws", "azure", "gcp"]
-}
-```
-
-## Command Format (Slash Commands)
-
-**Header Format** (CRITICAL):
-```markdown
-# /my-plugin:command-name
-```
-
-**Rules**:
-- MUST start with `# /`
-- Plugin name: `kebab-case`
-- Command name: `kebab-case`
-- NO YAML frontmatter (only skills use YAML)
-
-**Full Template**:
-```markdown
-# /my-plugin:analyze-costs
-
-Analyze cloud costs and provide optimization recommendations.
-
-You are an expert FinOps engineer.
-
-## Your Task
-
-1. Collect cost data
-2. Analyze usage patterns
-3. Identify optimization opportunities
-4. Generate report
-
-### 1. Data Collection
-
-\```bash
-aws ce get-cost-and-usage --time-period...
-\```
-
-## Example Usage
-
-**User**: "Analyze our AWS costs"
-
-**Response**:
-- Pulls Cost Explorer data
-- Identifies $5K/month in savings
-- Provides implementation plan
+This skill provides guidance for creating, structuring, and debugging Claude Code plugins.
 
 ## When to Use
 
-- Monthly cost reviews
-- Budget overruns
-- Pre-purchase planning
+This skill should be used when:
+- Creating a new Claude Code plugin from scratch
+- Adding components (commands, agents, skills, hooks, MCP servers) to an existing plugin
+- Debugging plugin loading or configuration issues
+- Understanding plugin directory structure and manifest format
+- Preparing plugins for distribution via marketplaces
+
+## Plugin Overview
+
+A Claude Code plugin is a directory containing:
+1. **`.claude-plugin/plugin.json`** (required) - Plugin manifest with metadata
+2. **Component directories** (optional) - `commands/`, `agents/`, `skills/`, `hooks/`, `.mcp.json`
+3. **Scripts and assets** - Supporting files for hooks and utilities
+
+## Creating a Plugin
+
+### Step 1: Create Directory Structure
+
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json       # REQUIRED - manifest
+├── commands/             # Slash commands (.md files)
+├── agents/               # Subagents (.md files)
+├── skills/               # Agent skills (dirs with SKILL.md)
+├── hooks/
+│   └── hooks.json        # Hook configurations
+├── .mcp.json             # MCP server definitions
+└── scripts/              # Utility scripts for hooks
 ```
 
-## Skill Format (Auto-Activating)
+### Step 2: Create plugin.json
 
-**YAML Frontmatter** (REQUIRED):
-```yaml
----
-name: cost-optimization
-description: Expert cloud cost optimization for AWS, Azure, GCP. Covers FinOps, reserved instances, spot instances, right-sizing, storage optimization. Activates for reduce costs, save money, cloud costs, aws costs, finops, cost optimization, budget overrun, expensive bill.
----
+Minimal manifest:
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "What this plugin does"
+}
 ```
 
-**Activation Keywords**:
-```yaml
-# ✅ GOOD: Specific, varied keywords
-description: Expert Python optimization. Activates for python performance, optimize python code, speed up python, profiling, cProfile, pypy, numba.
+Full manifest - see `references/manifest-schema.md`.
 
-# ❌ BAD: Too generic
-description: Python expert.
+### Step 3: Add Components
 
-# ❌ BAD: No activation keywords
-description: Expert Python optimization covering performance tuning.
-```
-
-**Full Template**:
+**Commands** - Create `commands/name.md`:
 ```markdown
 ---
-name: my-skill
-description: Expert [domain] covering [topics]. Activates for keyword1, keyword2, phrase3, action4.
+description: Brief description for autocomplete
 ---
 
-# Skill Title
+# Command Name
 
-You are an expert [role] with deep knowledge of [domain].
-
-## Core Expertise
-
-### 1. Topic Area
-
-Content here...
-
-### 2. Code Examples
-
-\```typescript
-// Working examples
-\```
-
-## Best Practices
-
-- Practice 1
-- Practice 2
-
-You are ready to help with [domain]!
+Instructions for the command...
 ```
 
-## Agent Format (Sub-Agents)
-
-**File Location**:
-```
-agents/agent-name/AGENT.md
-```
-
-**Template**:
+**Agents** - Create `agents/name.md`:
 ```markdown
 ---
-name: specialist-agent
-description: Specialized agent for [specific task]
+description: What this agent specializes in
+capabilities: ["task1", "task2"]
 ---
 
-# Agent Title
+# Agent Name
 
-You are a specialized agent for [purpose].
-
-## Capabilities
-
-1. Capability 1
-2. Capability 2
-
-## Workflow
-
-1. Analyze input
-2. Execute specialized task
-3. Return results
+Agent instructions...
 ```
 
-**Invocation**:
-```typescript
-Task({
-  subagent_type: "plugin-name:folder-name:yaml-name",
-  prompt: "Task description"
-});
+**Skills** - Create `skills/name/SKILL.md`:
+```markdown
+---
+name: skill-name
+description: What the skill does
+---
 
-// Example
-Task({
-  subagent_type: "my-plugin:specialist-agent:specialist-agent",
-  prompt: "Analyze this code for security vulnerabilities"
-});
+# Skill Name
+
+Skill instructions...
 ```
 
-## Testing Workflow
-
-**1. Install Plugin**:
-```bash
-cp -r my-plugin ~/.claude/plugins/
-# OR
-claude plugin add github:username/my-plugin
+**Hooks** - Create `hooks/hooks.json` or inline in plugin.json:
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Write|Edit",
+      "hooks": [{
+        "type": "command",
+        "command": "${CLAUDE_PLUGIN_ROOT}/scripts/lint.sh"
+      }]
+    }]
+  }
+}
 ```
 
-**2. Restart Claude Code**:
-```bash
-# Required after:
-- Adding new plugin
-- Modifying plugin.json
-- Adding/removing commands
-- Changing YAML frontmatter
+**MCP Servers** - Create `.mcp.json` or inline in plugin.json:
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "npx",
+      "args": ["@company/mcp-server"],
+      "cwd": "${CLAUDE_PLUGIN_ROOT}"
+    }
+  }
+}
 ```
 
-**3. Test Commands**:
-```bash
-# Type "/" in Claude Code
-# Verify command appears: /my-plugin:command-name
-# Execute command
-# Verify behavior
+## Publishing as a Marketplace
+
+To make your plugin installable via `github:` or `local:` sources, add `.claude-plugin/marketplace.json`:
+
+```json
+{
+  "name": "my-marketplace",
+  "plugins": [
+    {
+      "name": "my-skill",
+      "description": "What it does",
+      "source": "./skills/my-skill"
+    },
+    {
+      "name": "full-plugin",
+      "description": "Everything in this plugin",
+      "source": "./"
+    }
+  ]
+}
 ```
 
-**4. Test Skills**:
-```bash
-# Ask trigger question: "How do I reduce costs?"
-# Verify skill activates
-# Check response uses skill knowledge
-```
+**Critical:** All `source` paths must start with `./` (e.g., `"./"` not `"."`).
 
-**5. Check Logs**:
-```bash
-tail -f ~/.claude/logs/claude.log | grep my-plugin
+See `references/marketplace-schema.md` for complete schema.
 
-# Expected:
-# ✅ "Loaded plugin: my-plugin"
-# ✅ "Registered command: /my-plugin:analyze"
-# ✅ "Registered skill: cost-optimization"
+## Critical Rules
 
-# Errors:
-# ❌ "Failed to parse plugin.json"
-# ❌ "YAML parsing error in SKILL.md"
-# ❌ "Command header malformed"
-```
+1. **`.claude-plugin/` contains ONLY `plugin.json` and `marketplace.json`** - All component directories go at plugin root
+2. **All paths are relative** - Must start with `./`
+3. **Use `${CLAUDE_PLUGIN_ROOT}`** - For absolute paths in hooks/MCP configs
+4. **Scripts must be executable** - Run `chmod +x script.sh`
 
-## Common Issues
+## Debugging
 
-**Issue: Skill not activating**
-```
-Checklist:
-1. ✅ YAML frontmatter present? (---...---)
-2. ✅ Activation keywords in description?
-3. ✅ SKILL.md in subdirectory? (skills/name/SKILL.md)
-4. ✅ File named SKILL.md (uppercase)?
-5. ✅ Claude Code restarted?
-```
+Run `claude --debug` to see:
+- Which plugins are loading
+- Errors in plugin manifests
+- Command, agent, and hook registration
+- MCP server initialization
 
-**Issue: Command not found**
-```
-Checklist:
-1. ✅ Header format: # /plugin-name:command-name
-2. ✅ File in commands/ directory?
-3. ✅ Plugin name matches plugin.json?
-4. ✅ Claude Code restarted?
-```
+### Common Issues
 
-**Issue: YAML parsing error**
-```
-Common causes:
-- Unclosed quotes: description: "Missing end
-- Invalid characters: name: my_skill (use hyphens)
-- Missing closing ---
-- Incorrect indentation
-```
+| Issue                  | Cause                      | Solution                              |
+|------------------------|----------------------------|---------------------------------------|
+| Plugin not loading     | Invalid plugin.json        | Validate JSON syntax                  |
+| Commands not appearing | Wrong directory structure  | Ensure `commands/` at root, not in `.claude-plugin/` |
+| Hooks not firing       | Script not executable      | Run `chmod +x script.sh`              |
+| MCP server fails       | Missing CLAUDE_PLUGIN_ROOT | Use variable for all plugin paths     |
+| Path errors            | Absolute paths used        | All paths must be relative with `./`  |
+| "marketplace not found" | Missing marketplace.json   | Add `.claude-plugin/marketplace.json` |
+| "source must start with ./" | Source path is `"."` not `"./"` | Change to `"./"` for root plugin |
 
-## Best Practices
+## Resources
 
-**Naming**:
-- Plugin: `my-awesome-plugin` (kebab-case)
-- Commands: `analyze-costs` (kebab-case)
-- Skills: `cost-optimization` (kebab-case)
-- NO underscores, NO CamelCase
-
-**Activation Keywords**:
-- Include 5-10 trigger keywords
-- Mix specific terms and common phrases
-- Think about what users will ask
-- Test with real questions
-
-**Documentation**:
-- Clear "Your Task" section
-- Code examples with syntax highlighting
-- "Example Usage" section
-- "When to Use" section
-
-**Performance**:
-- Keep SKILL.md under 50KB
-- Optimize command prompts
-- Avoid expensive operations
-
-Create production-ready Claude Code plugins!
+- `references/plugin-structure.md` - Complete directory layout and file locations
+- `references/manifest-schema.md` - Full plugin.json schema with all fields
+- `references/marketplace-schema.md` - Marketplace.json schema for github/local sources
+- `references/components.md` - Detailed specs for commands, agents, skills, hooks, MCP
+- `assets/templates/` - Template files for creating new plugins

@@ -1,7 +1,7 @@
 {
   "name": "create-tasks",
   "repo": "sequenzia/claude-alchemy",
-  "path": "claude-tools/sdd-tools/skills/create-tasks/SKILL.md",
+  "path": "plugins/sdd/skills/create-tasks/SKILL.md",
   "source": "github.com/sequenzia/claude-alchemy",
-  "downloaded_at": "2026-02-01T01:39:53.870783Z"
+  "downloaded_at": "2026-02-02T04:02:25.921583Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "claude-md-improver",
-  "repo": "kgadek/kgadek-claude-plugin",
-  "path": "ai-spec/2026-01-21-sdd-inspirations/references/anthropics-claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/SKILL.md",
-  "source": "github.com/kgadek/kgadek-claude-plugin",
-  "downloaded_at": "2026-01-30T01:06:52.388902Z"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/claude-md-improver/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-02-02T03:34:32.750238Z"
 }

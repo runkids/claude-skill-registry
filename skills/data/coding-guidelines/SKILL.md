@@ -1,74 +1,95 @@
 ---
 name: coding-guidelines
-description: Apply when writing, modifying, or reviewing code. Behavioral guidelines to reduce common LLM coding mistakes. Triggers on implementation tasks, code changes, refactoring, bug fixes, or feature development.
-metadata:
-  author: ale
-  version: "1.0.0"
-  source: "Karpathy Guidelines"
+description: "Use when asking about Rust code style or best practices. Keywords: naming, formatting, comment, clippy, rustfmt, lint, code style, best practice, P.NAM, G.FMT, code review, naming convention, variable naming, function naming, type naming, 命名规范, 代码风格, 格式化, 最佳实践, 代码审查, 怎么命名"
+source: https://rust-coding-guidelines.github.io/rust-coding-guidelines-zh/
+user-invocable: false
 ---
 
-# Coding Guidelines
+# Rust Coding Guidelines (50 Core Rules)
 
-Behavioral guidelines to reduce common LLM coding mistakes. These principles bias toward caution over speed—for trivial tasks, use judgment.
+## Naming (Rust-Specific)
 
-## 1. Think Before Coding
+| Rule | Guideline |
+|------|-----------|
+| No `get_` prefix | `fn name()` not `fn get_name()` |
+| Iterator convention | `iter()` / `iter_mut()` / `into_iter()` |
+| Conversion naming | `as_` (cheap &), `to_` (expensive), `into_` (ownership) |
+| Static var prefix | `G_CONFIG` for `static`, no prefix for `const` |
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Data Types
 
-Before implementing:
+| Rule | Guideline |
+|------|-----------|
+| Use newtypes | `struct Email(String)` for domain semantics |
+| Prefer slice patterns | `if let [first, .., last] = slice` |
+| Pre-allocate | `Vec::with_capacity()`, `String::with_capacity()` |
+| Avoid Vec abuse | Use arrays for fixed sizes |
 
-- State assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them—don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-- Disagree honestly. If the user's approach seems wrong, say so—don't be sycophantic.
+## Strings
 
-## 2. Simplicity First
+| Rule | Guideline |
+|------|-----------|
+| Prefer bytes | `s.bytes()` over `s.chars()` when ASCII |
+| Use `Cow<str>` | When might modify borrowed data |
+| Use `format!` | Over string concatenation with `+` |
+| Avoid nested iteration | `contains()` on string is O(n*m) |
 
-**Minimum code that solves the problem. Nothing speculative.**
+## Error Handling
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+| Rule | Guideline |
+|------|-----------|
+| Use `?` propagation | Not `try!()` macro |
+| `expect()` over `unwrap()` | When value guaranteed |
+| Assertions for invariants | `assert!` at function entry |
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+## Memory
 
-## 3. Surgical Changes
+| Rule | Guideline |
+|------|-----------|
+| Meaningful lifetimes | `'src`, `'ctx` not just `'a` |
+| `try_borrow()` for RefCell | Avoid panic |
+| Shadowing for transformation | `let x = x.parse()?` |
 
-**Touch only what you must. Clean up only your own mess.**
+## Concurrency
 
-When editing existing code:
+| Rule | Guideline |
+|------|-----------|
+| Identify lock ordering | Prevent deadlocks |
+| Atomics for primitives | Not Mutex for bool/usize |
+| Choose memory order carefully | Relaxed/Acquire/Release/SeqCst |
 
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it—don't delete it.
+## Async
 
-When your changes create orphans:
+| Rule | Guideline |
+|------|-----------|
+| Sync for CPU-bound | Async is for I/O |
+| Don't hold locks across await | Use scoped guards |
 
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+## Macros
 
-**The test:** Every changed line should trace directly to the user's request.
+| Rule | Guideline |
+|------|-----------|
+| Avoid unless necessary | Prefer functions/generics |
+| Follow Rust syntax | Macro input should look like Rust |
 
-## 4. Goal-Driven Execution
+## Deprecated → Better
 
-**Define success criteria. Loop until verified.**
+| Deprecated | Better | Since |
+|------------|--------|-------|
+| `lazy_static!` | `std::sync::OnceLock` | 1.70 |
+| `once_cell::Lazy` | `std::sync::LazyLock` | 1.80 |
+| `std::sync::mpsc` | `crossbeam::channel` | - |
+| `std::sync::Mutex` | `parking_lot::Mutex` | - |
+| `failure`/`error-chain` | `thiserror`/`anyhow` | - |
+| `try!()` | `?` operator | 2018 |
 
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
+## Quick Reference
 
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+Naming: snake_case (fn/var), CamelCase (type), SCREAMING_CASE (const)
+Format: rustfmt (just use it)
+Docs: /// for public items, //! for module docs
+Lint: #![warn(clippy::all)]
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+Claude knows Rust conventions well. These are the non-obvious Rust-specific rules.

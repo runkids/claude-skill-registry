@@ -1,369 +1,592 @@
 ---
-name: server-actions
-description: This skill should be used when the user asks about "Server Actions", "form handling in Next.js", "mutations", "useFormState", "useFormStatus", "revalidatePath", "revalidateTag", or needs guidance on data mutations and form submissions in Next.js App Router.
-version: 1.0.0
+name: Server Actions Generator
+description: Génère des Next.js Server Actions comme couche d'orchestration mince entre frontend et backend NestJS. À utiliser lors de la création d'actions, mutations, ou quand l'utilisateur mentionne "server action", "mutation", "form action", "useTransition", "revalidatePath".
+allowed-tools: [Read, Write, Edit, Glob, Grep]
 ---
 
-# Next.js Server Actions
+# Server Actions Generator
 
-## Overview
+## 🎯 Mission
 
-Server Actions are asynchronous functions that execute on the server. They can be called from Client and Server Components for data mutations, form submissions, and other server-side operations.
+Créer des **Server Actions Next.js** comme **couche d'orchestration mince** entre le frontend et le backend NestJS, avec gestion du cache et des erreurs.
 
-## Defining Server Actions
+## 🏗️ Philosophie Server Actions
 
-### In Server Components
+### Qu'est-ce qu'une Server Action ?
 
-Use the `'use server'` directive inside an async function:
+Une **Server Action** est une fonction serveur Next.js (`'use server'`) qui :
+- ✅ Exécute côté serveur (Next.js server, pas client)
+- ✅ Peut être appelée directement depuis un composant client
+- ✅ Simplifie les mutations (pas besoin d'API route)
+- ✅ Intègre avec les forms HTML natifs
 
-```tsx
-// app/page.tsx (Server Component)
-export default function Page() {
-  async function createPost(formData: FormData) {
-    'use server'
-    const title = formData.get('title') as string
-    await db.post.create({ data: { title } })
+### Architecture Flow
+
+```
+Component (Client)
+  ↓ useTransition() ou form action
+Server Action (Next.js Server) [THIN LAYER]
+  ↓ Validation Zod
+  ↓ fetch/axios
+Backend NestJS API
+  ↓ Command Handler (CQRS)
+  ↓ Domain Entity
+  ↓ Repository
+Database (Prisma)
+```
+
+### Responsabilités d'une Server Action
+
+**✅ CE QU'ELLE FAIT** :
+1. Valider les inputs (Zod)
+2. Appeler l'API backend NestJS
+3. Gérer le cache Next.js (`revalidatePath`, `revalidateTag`)
+4. Formatter les erreurs pour l'UI
+5. Retourner un résultat typé
+
+**❌ CE QU'ELLE NE FAIT PAS** :
+- ❌ **JAMAIS** de logique métier (dans le backend)
+- ❌ **JAMAIS** d'accès direct à la DB (utiliser backend)
+- ❌ **JAMAIS** dupliquer la validation backend
+
+## 📝 Template Server Action
+
+### Structure de Fichier
+
+```
+features/
+└── club-management/
+    └── actions/
+        ├── create-club.action.ts
+        ├── update-club.action.ts
+        ├── delete-club.action.ts
+        ├── subscribe-to-plan.action.ts
+        └── index.ts                  # Barrel export
+```
+
+### Template Complet
+
+```typescript
+// features/club-management/actions/create-club.action.ts
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
+import { clubsApi } from '../api/clubs.api';
+
+// 1. Schema de validation (synchronisé avec backend DTO)
+const createClubSchema = z.object({
+  name: z
+    .string()
+    .min(3, 'Le nom doit contenir au moins 3 caractères')
+    .max(100, 'Le nom ne peut pas dépasser 100 caractères'),
+  description: z
+    .string()
+    .max(500, 'La description ne peut pas dépasser 500 caractères')
+    .optional(),
+});
+
+// 2. Type d'input (inféré depuis schema)
+export type CreateClubInput = z.infer<typeof createClubSchema>;
+
+// 3. Type de résultat
+export type CreateClubResult =
+  | { success: true; data: { id: string } }
+  | { success: false; error: { code: string; message: string; details?: any } };
+
+// 4. Server Action
+export async function createClubAction(input: CreateClubInput): Promise<CreateClubResult> {
+  try {
+    // Validate input
+    const validated = createClubSchema.parse(input);
+
+    // Call backend API
+    const response = await clubsApi.create(validated);
+
+    // Revalidate cache
+    revalidatePath('/dashboard/coach');
+    revalidatePath('/clubs');
+
+    // Return success
+    return {
+      success: true,
+      data: response,
+    };
+  } catch (error) {
+    // Handle validation errors
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Les données fournies sont invalides',
+          details: error.errors,
+        },
+      };
+    }
+
+    // Handle API errors
+    if (error instanceof ApiError) {
+      return {
+        success: false,
+        error: {
+          code: error.code,
+          message: error.getUserMessage(),
+        },
+      };
+    }
+
+    // Handle unknown errors
+    return {
+      success: false,
+      error: {
+        code: 'UNKNOWN_ERROR',
+        message: 'Une erreur est survenue. Veuillez réessayer.',
+      },
+    };
   }
-
-  return (
-    <form action={createPost}>
-      <input name="title" />
-      <button type="submit">Create</button>
-    </form>
-  )
 }
 ```
 
-### In Separate Files
-
-Mark the entire file with `'use server'`:
-
-```tsx
-// app/actions.ts
-'use server'
-
-export async function createPost(formData: FormData) {
-  const title = formData.get('title') as string
-  await db.post.create({ data: { title } })
-}
-
-export async function deletePost(id: string) {
-  await db.post.delete({ where: { id } })
-}
-```
-
-## Form Handling
-
-### Basic Form
-
-```tsx
-// app/actions.ts
-'use server'
-
-export async function submitContact(formData: FormData) {
-  const name = formData.get('name') as string
-  const email = formData.get('email') as string
-  const message = formData.get('message') as string
-
-  await db.contact.create({
-    data: { name, email, message }
-  })
-}
-
-// app/contact/page.tsx
-import { submitContact } from '@/app/actions'
-
-export default function ContactPage() {
-  return (
-    <form action={submitContact}>
-      <input name="name" required />
-      <input name="email" type="email" required />
-      <textarea name="message" required />
-      <button type="submit">Send</button>
-    </form>
-  )
-}
-```
-
-### With Validation (Zod)
-
-```tsx
-// app/actions.ts
-'use server'
-
-import { z } from 'zod'
-
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-})
-
-export async function signup(formData: FormData) {
-  const parsed = schema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-
-  if (!parsed.success) {
-    return { error: parsed.error.flatten() }
-  }
-
-  await createUser(parsed.data)
-  return { success: true }
-}
-```
-
-## useFormState Hook
-
-Handle form state and errors:
-
-```tsx
-// app/signup/page.tsx
-'use client'
-
-import { useFormState } from 'react-dom'
-import { signup } from '@/app/actions'
-
-const initialState = {
-  error: null,
-  success: false,
-}
-
-export default function SignupPage() {
-  const [state, formAction] = useFormState(signup, initialState)
-
-  return (
-    <form action={formAction}>
-      <input name="email" type="email" />
-      <input name="password" type="password" />
-      {state.error && (
-        <p className="text-red-500">{state.error}</p>
-      )}
-      <button type="submit">Sign Up</button>
-    </form>
-  )
-}
-
-// app/actions.ts
-'use server'
-
-export async function signup(prevState: any, formData: FormData) {
-  const email = formData.get('email') as string
-
-  if (!email.includes('@')) {
-    return { error: 'Invalid email', success: false }
-  }
-
-  await createUser({ email })
-  return { error: null, success: true }
-}
-```
-
-## useFormStatus Hook
-
-Show loading states during submission:
-
-```tsx
-// components/submit-button.tsx
-'use client'
-
-import { useFormStatus } from 'react-dom'
-
-export function SubmitButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <button type="submit" disabled={pending}>
-      {pending ? 'Submitting...' : 'Submit'}
-    </button>
-  )
-}
-
-// Usage in form
-import { SubmitButton } from '@/components/submit-button'
-
-export default function Form() {
-  return (
-    <form action={submitAction}>
-      <input name="title" />
-      <SubmitButton />
-    </form>
-  )
-}
-```
-
-## Revalidation
+## 🔄 Cache Management
 
 ### revalidatePath
 
-Revalidate a specific path:
+Invalide le cache pour un chemin spécifique.
 
-```tsx
-'use server'
+```typescript
+'use server';
 
-import { revalidatePath } from 'next/cache'
+export async function createClubAction(input: CreateClubInput) {
+  const response = await clubsApi.create(input);
 
-export async function createPost(formData: FormData) {
-  await db.post.create({ data: { ... } })
+  // Revalidate specific paths
+  revalidatePath('/dashboard/coach'); // Coach dashboard
+  revalidatePath('/clubs'); // Clubs list page
+  revalidatePath(`/clubs/${response.id}`); // Club detail page
 
-  // Revalidate the posts list page
-  revalidatePath('/posts')
-
-  // Revalidate a dynamic route
-  revalidatePath('/posts/[slug]', 'page')
-
-  // Revalidate all paths under /posts
-  revalidatePath('/posts', 'layout')
+  return { success: true, data: response };
 }
 ```
+
+**Quand utiliser** :
+- ✅ Après création/modification/suppression de données
+- ✅ Pour forcer le re-fetch des Server Components
+- ✅ Pour mettre à jour l'UI après mutation
 
 ### revalidateTag
 
-Revalidate by cache tag:
+Invalide le cache par tag (plus flexible).
 
-```tsx
-// Fetching with tags
-const posts = await fetch('https://api.example.com/posts', {
-  next: { tags: ['posts'] }
-})
+```typescript
+'use server';
 
-// Server Action
-'use server'
+export async function createClubAction(input: CreateClubInput) {
+  const response = await clubsApi.create(input);
 
-import { revalidateTag } from 'next/cache'
+  // Revalidate by tags
+  revalidateTag('clubs'); // All clubs-related data
+  revalidateTag(`club-${response.id}`); // Specific club
 
-export async function createPost(formData: FormData) {
-  await db.post.create({ data: { ... } })
-  revalidateTag('posts')
+  return { success: true, data: response };
 }
+
+// Dans Server Component ou API route
+fetch('/api/clubs', {
+  next: { tags: ['clubs'] }
+});
+
+fetch(`/api/clubs/${id}`, {
+  next: { tags: [`club-${id}`, 'clubs'] }
+});
 ```
 
-## Redirects After Actions
+**Quand utiliser** :
+- ✅ Gestion fine du cache
+- ✅ Invalidation groupée (ex: tous les "clubs")
+- ✅ Avec `fetch` et Next.js cache
 
-```tsx
-'use server'
+## 🎨 Intégration avec Composants
 
-import { redirect } from 'next/navigation'
+### Avec useTransition (Recommended)
 
-export async function createPost(formData: FormData) {
-  const post = await db.post.create({ data: { ... } })
+```typescript
+// components/ClubCreationForm.tsx
+'use client';
 
-  // Redirect to the new post
-  redirect(`/posts/${post.slug}`)
-}
-```
+import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClubAction, CreateClubInput } from '../actions/create-club.action';
+import { toast } from 'sonner';
 
-## Optimistic Updates
+export function ClubCreationForm() {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
-Update UI immediately while action completes:
+  const handleSubmit = async (formData: FormData) => {
+    setError(null);
 
-```tsx
-'use client'
+    const input: CreateClubInput = {
+      name: formData.get('name') as string,
+      description: formData.get('description') as string,
+    };
 
-import { useOptimistic } from 'react'
-import { addTodo } from '@/app/actions'
+    startTransition(async () => {
+      const result = await createClubAction(input);
 
-export function TodoList({ todos }: { todos: Todo[] }) {
-  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
-    todos,
-    (state, newTodo: string) => [
-      ...state,
-      { id: 'temp', title: newTodo, completed: false }
-    ]
-  )
-
-  async function handleSubmit(formData: FormData) {
-    const title = formData.get('title') as string
-    addOptimisticTodo(title) // Update UI immediately
-    await addTodo(formData)  // Server action
-  }
-
-  return (
-    <>
-      <form action={handleSubmit}>
-        <input name="title" />
-        <button>Add</button>
-      </form>
-      <ul>
-        {optimisticTodos.map(todo => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
-    </>
-  )
-}
-```
-
-## Non-Form Usage
-
-Call Server Actions programmatically:
-
-```tsx
-'use client'
-
-import { deletePost } from '@/app/actions'
-
-export function DeleteButton({ id }: { id: string }) {
-  return (
-    <button onClick={() => deletePost(id)}>
-      Delete
-    </button>
-  )
-}
-```
-
-## Error Handling
-
-```tsx
-'use server'
-
-export async function createPost(formData: FormData) {
-  try {
-    await db.post.create({ data: { ... } })
-    return { success: true }
-  } catch (error) {
-    if (error instanceof PrismaClientKnownRequestError) {
-      if (error.code === 'P2002') {
-        return { error: 'A post with this title already exists' }
+      if (result.success) {
+        toast.success('Club créé avec succès !');
+        router.push(`/clubs/${result.data.id}`);
+      } else {
+        setError(result.error.message);
+        toast.error(result.error.message);
       }
+    });
+  };
+
+  return (
+    <form action={handleSubmit} className="space-y-4">
+      <input name="name" placeholder="Nom du club" required />
+      <textarea name="description" placeholder="Description" />
+
+      {error && (
+        <div className="text-red-500 text-sm">{error}</div>
+      )}
+
+      <button
+        type="submit"
+        disabled={isPending}
+        className="btn btn-primary"
+      >
+        {isPending ? 'Création...' : 'Créer le club'}
+      </button>
+    </form>
+  );
+}
+```
+
+### Avec Form Action (HTML Native)
+
+```typescript
+// components/QuickClubForm.tsx
+'use client';
+
+import { useFormStatus } from 'react-dom';
+import { createClubAction } from '../actions/create-club.action';
+
+export function QuickClubForm() {
+  return (
+    <form action={createClubAction}>
+      <input name="name" placeholder="Nom du club" required />
+      <SubmitButton />
+    </form>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Création...' : 'Créer'}
+    </button>
+  );
+}
+```
+
+### Avec useActionState (React 19)
+
+```typescript
+'use client';
+
+import { useActionState } from 'react';
+import { createClubAction } from '../actions/create-club.action';
+
+export function ClubForm() {
+  const [state, formAction, isPending] = useActionState(
+    createClubAction,
+    { success: false, error: null }
+  );
+
+  return (
+    <form action={formAction}>
+      <input name="name" />
+
+      {state.error && (
+        <div className="error">{state.error.message}</div>
+      )}
+
+      <button disabled={isPending}>
+        {isPending ? 'Envoi...' : 'Envoyer'}
+      </button>
+    </form>
+  );
+}
+```
+
+## 🚨 Error Handling
+
+### Types d'Erreurs
+
+```typescript
+// lib/errors.ts
+
+export class ApiError extends Error {
+  constructor(
+    public code: string,
+    message: string,
+    public status?: number,
+  ) {
+    super(message);
+    this.name = 'ApiError';
+  }
+
+  getUserMessage(): string {
+    const messages: Record<string, string> = {
+      VALIDATION_ERROR: 'Les données fournies sont invalides',
+      NOT_FOUND: 'La ressource demandée n\'existe pas',
+      UNAUTHORIZED: 'Vous devez être connecté',
+      FORBIDDEN: 'Vous n\'avez pas les permissions nécessaires',
+      INTERNAL_SERVER_ERROR: 'Une erreur interne est survenue',
+    };
+
+    return messages[this.code] || this.message;
+  }
+}
+```
+
+### Gestion dans Server Action
+
+```typescript
+'use server';
+
+export async function updateClubAction(id: string, input: UpdateClubInput) {
+  try {
+    const validated = updateClubSchema.parse(input);
+    const response = await clubsApi.update(id, validated);
+
+    revalidatePath(`/clubs/${id}`);
+
+    return { success: true, data: response };
+  } catch (error) {
+    // Zod validation errors
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Données invalides',
+          details: error.errors.map(e => ({
+            field: e.path.join('.'),
+            message: e.message,
+          })),
+        },
+      };
     }
-    return { error: 'Failed to create post' }
+
+    // API errors (404, 403, etc.)
+    if (error instanceof ApiError) {
+      return {
+        success: false,
+        error: {
+          code: error.code,
+          message: error.getUserMessage(),
+        },
+      };
+    }
+
+    // Network errors
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      return {
+        success: false,
+        error: {
+          code: 'NETWORK_ERROR',
+          message: 'Impossible de contacter le serveur',
+        },
+      };
+    }
+
+    // Unknown errors
+    console.error('Server Action Error:', error);
+    return {
+      success: false,
+      error: {
+        code: 'UNKNOWN_ERROR',
+        message: 'Une erreur est survenue',
+      },
+    };
   }
 }
 ```
 
-## Security Considerations
+## 📋 Exemples Complets
 
-1. **Always validate input** - Never trust client data
-2. **Check authentication** - Verify user is authorized
-3. **Use CSRF protection** - Built-in with Server Actions
-4. **Sanitize output** - Prevent XSS attacks
+### Create (POST)
 
-```tsx
-'use server'
+```typescript
+'use server';
 
-import { auth } from '@/lib/auth'
+export async function createClubAction(input: CreateClubInput) {
+  const validated = createClubSchema.parse(input);
+  const response = await clubsApi.create(validated);
 
-export async function deletePost(id: string) {
-  const session = await auth()
+  revalidatePath('/dashboard/coach');
 
-  if (!session) {
-    throw new Error('Unauthorized')
-  }
-
-  const post = await db.post.findUnique({ where: { id } })
-
-  if (post.authorId !== session.user.id) {
-    throw new Error('Forbidden')
-  }
-
-  await db.post.delete({ where: { id } })
+  return { success: true, data: response };
 }
 ```
 
-## Resources
+### Update (PUT/PATCH)
 
-For detailed patterns, see:
-- `references/form-handling.md` - Advanced form patterns
-- `references/revalidation.md` - Cache revalidation strategies
-- `examples/mutation-patterns.md` - Complete mutation examples
+```typescript
+'use server';
+
+export async function updateClubAction(id: string, input: UpdateClubInput) {
+  const validated = updateClubSchema.parse(input);
+  const response = await clubsApi.update(id, validated);
+
+  revalidatePath(`/clubs/${id}`);
+  revalidatePath('/dashboard/coach');
+
+  return { success: true, data: response };
+}
+```
+
+### Delete (DELETE)
+
+```typescript
+'use server';
+
+export async function deleteClubAction(id: string) {
+  await clubsApi.delete(id);
+
+  revalidatePath('/dashboard/coach');
+  revalidatePath('/clubs');
+
+  return { success: true };
+}
+```
+
+### Batch Operation
+
+```typescript
+'use server';
+
+export async function removeMembersAction(clubId: string, memberIds: string[]) {
+  const results = await Promise.allSettled(
+    memberIds.map(id => clubsApi.removeMember(clubId, id))
+  );
+
+  const successful = results.filter(r => r.status === 'fulfilled').length;
+  const failed = results.filter(r => r.status === 'rejected').length;
+
+  revalidatePath(`/clubs/${clubId}/members`);
+
+  return {
+    success: failed === 0,
+    data: { successful, failed },
+  };
+}
+```
+
+## ✅ Checklist Server Actions
+
+- [ ] `'use server'` directive en première ligne
+- [ ] Schema Zod pour validation
+- [ ] Types inférés depuis schema (`z.infer<>`)
+- [ ] Type de résultat (success/error pattern)
+- [ ] Appel API backend (pas de logique métier)
+- [ ] `revalidatePath()` ou `revalidateTag()` après mutation
+- [ ] Error handling exhaustif (Zod, API, Network, Unknown)
+- [ ] Messages d'erreur traduits pour utilisateur
+- [ ] Fichier nommé `*.action.ts`
+- [ ] Export dans barrel `index.ts`
+
+## 🚨 Erreurs Courantes
+
+### 1. Logique Métier dans Server Action
+
+```typescript
+// ❌ MAUVAIS - Logique métier dans Server Action
+export async function createClubAction(input: CreateClubInput) {
+  // Validation métier (devrait être dans backend)
+  if (input.name.includes('bad_word')) {
+    return { success: false, error: 'Name invalid' };
+  }
+
+  // Calculs métier (devrait être dans backend)
+  const price = input.plan === 'PRO' ? 9.99 : 0;
+
+  // ...
+}
+
+// ✅ BON - Délégation au backend
+export async function createClubAction(input: CreateClubInput) {
+  // Validation simple
+  const validated = createClubSchema.parse(input);
+
+  // Backend fait toute la logique
+  const response = await clubsApi.create(validated);
+
+  revalidatePath('/clubs');
+  return { success: true, data: response };
+}
+```
+
+### 2. Oublier revalidatePath
+
+```typescript
+// ❌ MAUVAIS - Cache pas invalidé
+export async function createClubAction(input: CreateClubInput) {
+  const response = await clubsApi.create(input);
+  return { success: true, data: response };
+  // UI ne se met pas à jour !
+}
+
+// ✅ BON - Cache invalidé
+export async function createClubAction(input: CreateClubInput) {
+  const response = await clubsApi.create(input);
+
+  revalidatePath('/clubs'); // Important !
+
+  return { success: true, data: response };
+}
+```
+
+### 3. Erreurs Non Gérées
+
+```typescript
+// ❌ MAUVAIS - Erreurs non gérées
+export async function createClubAction(input: CreateClubInput) {
+  const response = await clubsApi.create(input); // Peut throw
+  return { success: true, data: response };
+}
+
+// ✅ BON - Toutes les erreurs gérées
+export async function createClubAction(input: CreateClubInput) {
+  try {
+    const response = await clubsApi.create(input);
+    return { success: true, data: response };
+  } catch (error) {
+    // Gestion complète des erreurs
+    return {
+      success: false,
+      error: {
+        code: 'ERROR',
+        message: 'Une erreur est survenue',
+      },
+    };
+  }
+}
+```
+
+## 📚 Skills Complémentaires
+
+- **api-contracts** : DTOs, Types, Validation frontend/backend
+- **use-optimistic** : Optimistic updates avec Server Actions
+- **atomic-component** : Composants utilisant Server Actions
+
+---
+
+**Rappel** : Server Actions = **Couche mince** d'orchestration. Toute la logique métier est dans le **backend NestJS**.

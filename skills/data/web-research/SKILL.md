@@ -1,15 +1,18 @@
 ---
 name: web-research
-description: Use this skill for requests related to web research; it provides a structured approach to conducting comprehensive web research 
+description: Use this skill for requests related to web research; it provides a structured approach to conducting comprehensive web research.
 ---
 
 # Web Research Skill
 
-This skill provides a structured approach to conducting comprehensive web research using the `task` tool to spawn research subagents. It emphasizes planning, efficient delegation, and systematic synthesis of findings.
+This skill provides guidance on conducting comprehensive web research. It emphasizes planning, efficient information gathering, and systematic synthesis of findings.
+
+**Note:** This skill provides a methodology and best practices for web research. It does not include executable scripts or tools beyond what's available in your agent's toolset.
 
 ## When to Use This Skill
 
 Use this skill when you need to:
+
 - Research complex topics requiring multiple information sources
 - Gather and synthesize current information from the web
 - Conduct comparative analysis across multiple subjects
@@ -19,84 +22,48 @@ Use this skill when you need to:
 
 ### Step 1: Create and Save Research Plan
 
-Before delegating to subagents, you MUST:
+Before conducting research:
 
-1. **Create a research folder** - Organize all research files in a dedicated folder relative to the current working directory:
-   ```
-   mkdir research_[topic_name]
-   ```
-   This keeps files organized and prevents clutter in the working directory.
+1. **Analyze the research question** - Break it down into distinct, non-overlapping subtopics
 
-2. **Analyze the research question** - Break it down into distinct, non-overlapping subtopics
-
-3. **Write a research plan file** - Use the `write_file` tool to create `research_[topic_name]/research_plan.md` containing:
+2. **Create a research plan** - Determine:
    - The main research question
    - 2-5 specific subtopics to investigate
    - Expected information from each subtopic
    - How results will be synthesized
 
 **Planning Guidelines:**
+
 - **Simple fact-finding**: 1-2 subtopics
 - **Comparative analysis**: 1 subtopic per comparison element (max 3)
 - **Complex investigations**: 3-5 subtopics
 
-### Step 2: Delegate to Research Subagents
+### Step 2: Gather Information
 
 For each subtopic in your plan:
 
-1. **Use the `task` tool** to spawn a research subagent with:
-   - Clear, specific research question (no acronyms)
-   - Instructions to write findings to a file: `research_[topic_name]/findings_[subtopic].md`
-   - Budget: 3-5 web searches maximum
+1. **Use available web search tools** to gather information with:
+   - Clear, specific search queries
+   - Target: 3-5 searches per subtopic maximum
 
-2. **Run up to 3 subagents in parallel** for efficient research
-
-**Subagent Instructions Template:**
-```
-Research [SPECIFIC TOPIC]. Use the web_search tool to gather information.
-After completing your research, use write_file to save your findings to research_[topic_name]/findings_[subtopic].md.
-Include key facts, relevant quotes, and source URLs.
-Use 3-5 web searches maximum.
-```
+2. **Organize findings** as you gather them
 
 ### Step 3: Synthesize Findings
 
-After all subagents complete:
+After gathering information:
 
-1. **Review the findings files** that were saved locally:
-   - First run `list_files research_[topic_name]` to see what files were created
-   - Then use `read_file` with the **file paths** (e.g., `research_[topic_name]/findings_*.md`)
-   - **Important**: Use `read_file` for LOCAL files only, not URLs
+1. **Review all collected information** from your searches
 
 2. **Synthesize the information** - Create a comprehensive response that:
    - Directly answers the original question
    - Integrates insights from all subtopics
-   - Cites specific sources with URLs (from the findings files)
+   - Cites specific sources with URLs
    - Identifies any gaps or limitations
-
-3. **Write final report** (optional) - Use `write_file` to create `research_[topic_name]/research_report.md` if requested
-
-**Note**: If you need to fetch additional information from URLs, use the `fetch_url` tool, not `read_file`.
-
-## Available Tools
-
-You have access to:
-- **write_file**: Save research plans and findings to local files
-- **read_file**: Read local files (e.g., findings saved by subagents)
-- **list_files**: See what local files exist in a directory
-- **fetch_url**: Fetch content from URLs and convert to markdown (use this for web pages, not read_file)
-- **task**: Spawn research subagents with web_search access
-
-## Research Subagent Configuration
-
-Each subagent you spawn will have access to:
-- **web_search**: Search the web using Tavily (parameters: query, max_results, topic, include_raw_content)
-- **write_file**: Save their findings to the filesystem
 
 ## Best Practices
 
-- **Plan before delegating** - Always write research_plan.md first
-- **Clear subtopics** - Ensure each subagent has distinct, non-overlapping scope
-- **File-based communication** - Have subagents save findings to files, not return them directly
-- **Systematic synthesis** - Read all findings files before creating final response
+- **Plan before searching** - Understand what you need to find and organize your approach
+- **Clear subtopics** - Ensure each search has a distinct, non-overlapping scope
+- **Systematic synthesis** - Review all findings before creating final response
 - **Stop appropriately** - Don't over-research; 3-5 searches per subtopic is usually sufficient
+- **Cite sources** - Always include URLs to sources in your final response

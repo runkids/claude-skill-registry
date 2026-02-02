@@ -1,257 +1,230 @@
 ---
 name: security
-description: Security auditing for code vulnerabilities (OWASP Top 10, XSS, SQL injection) and dependency scanning (pnpm audit, Snyk). Use when handling user input, adding authentication, before deployments, or resolving CVEs.
-allowed-tools: Read, Edit, Bash, Grep, Glob
+description: Security audit workflow - vulnerability scan → verification
 ---
 
-# Security Skill
+# /security - Security Audit Workflow
 
-## Dependency Scanning
+Dedicated security analysis for sensitive code.
 
-### pnpm audit
+## When to Use
 
-```bash
-# Run audit
-pnpm audit
+- "Security audit"
+- "Check for vulnerabilities"
+- "Is this secure?"
+- "Review authentication code"
+- "Check for injection attacks"
+- Before handling auth, payments, user data
+- After adding security-sensitive features
 
-# Only high/critical
-pnpm audit --audit-level=high
+## Workflow Overview
 
-# Auto-fix
-pnpm audit --fix
-
-# JSON report
-pnpm audit --json > audit.json
+```
+┌─────────┐    ┌───────────┐
+│  aegis  │───▶│ arbiter  │
+│         │    │           │
+└─────────┘    └───────────┘
+  Security       Verify
+  audit          fixes
 ```
 
-### Fix Vulnerabilities
+## Agent Sequence
 
-**Direct dependencies:** Update version in `pnpm-workspace.yaml` catalog
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **aegis** | Comprehensive security scan | Vulnerability report |
+| 2 | **arbiter** | Verify fixes, run security tests | Verification report |
 
-**Transitive dependencies:**
-```bash
-# Find dependency chain
-pnpm why vulnerable-package
+## Why Dedicated Security?
 
-# Use overrides as last resort
-# package.json
-{
-  "pnpm": {
-    "overrides": {
-      "vulnerable-package": "^3.1.0"
-    }
-  }
-}
+The `/review` workflow focuses on code quality. Security needs:
+- Specialized vulnerability patterns
+- Dependency scanning
+- Secret detection
+- OWASP Top 10 checks
+- Authentication/authorization review
+
+## Execution
+
+### Phase 1: Security Audit
+
+```
+Task(
+  subagent_type="aegis",
+  prompt="""
+  Security audit: [SCOPE]
+
+  Scan for:
+
+  **Injection Attacks:**
+  - SQL injection
+  - Command injection
+  - XSS (Cross-Site Scripting)
+  - LDAP injection
+
+  **Authentication/Authorization:**
+  - Broken authentication
+  - Session management issues
+  - Privilege escalation
+  - Insecure direct object references
+
+  **Data Protection:**
+  - Sensitive data exposure
+  - Hardcoded secrets/credentials
+  - Insecure cryptography
+  - Missing encryption
+
+  **Configuration:**
+  - Security misconfigurations
+  - Default credentials
+  - Verbose error messages
+  - Missing security headers
+
+  **Dependencies:**
+  - Known vulnerable packages
+  - Outdated dependencies
+  - Supply chain risks
+
+  Output: Detailed report with:
+  - Severity (CRITICAL/HIGH/MEDIUM/LOW)
+  - Location (file:line)
+  - Description
+  - Remediation steps
+  """
+)
 ```
 
-### Snyk
+### Phase 2: Verification (After Fixes)
 
-```bash
-snyk auth          # Authenticate
-snyk test          # Test for vulnerabilities
-snyk monitor       # Monitor for new vulnerabilities
-snyk fix           # Auto-fix
+```
+Task(
+  subagent_type="arbiter",
+  prompt="""
+  Verify security fixes: [SCOPE]
+
+  Run:
+  - Security-focused tests
+  - Dependency audit (npm audit, pip audit)
+  - Re-check reported vulnerabilities
+  - Verify fixes don't introduce regressions
+
+  Output: Verification report
+  """
+)
 ```
 
-## OWASP Top 10 Checks
+## Security Scopes
 
-### 1. Broken Access Control
-
-```typescript
-// ❌ No authorization
-export async function deletePost(postId: string) {
-  await db.delete(posts).where(eq(posts.id, postId));
-}
-
-// ✅ With authorization
-export async function deletePost(postId: string, userId: string) {
-  const post = await db.query.posts.findFirst({ where: eq(posts.id, postId) });
-  if (post.authorId !== userId) throw new Error("Unauthorized");
-  await db.delete(posts).where(eq(posts.id, postId));
-}
+### Full Codebase
+```
+User: /security
+→ Scan entire codebase
 ```
 
-### 2. Injection Prevention
-
-```typescript
-// ❌ SQL Injection
-const query = `SELECT * FROM users WHERE id = ${userId}`;
-
-// ✅ Parameterized query (Drizzle ORM)
-const user = await db.query.users.findFirst({ where: eq(users.id, userId) });
+### Specific Area
+```
+User: /security authentication
+→ Focus on auth-related code
 ```
 
-### 3. XSS Prevention
-
-React escapes content by default. When rendering HTML:
-- Sanitize with `sanitize-html` library before rendering
-- Never render untrusted content directly
-
-### 4. Rate Limiting
-
-```typescript
-import { Ratelimit } from "@upstash/ratelimit";
-import { redis } from "@sgcarstrends/utils";
-
-const ratelimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(5, "15 m"),
-});
-
-export async function login(email: string, password: string, ip: string) {
-  const { success } = await ratelimit.limit(ip);
-  if (!success) throw new Error("Too many login attempts");
-  return verifyCredentials(email, password);
-}
+### Single File
+```
+User: /security src/api/auth.py
+→ Deep dive on one file
 ```
 
-### 5. Password Security
-
-```typescript
-import bcrypt from "bcrypt";
-
-// ✅ Hash passwords
-const hashedPassword = await bcrypt.hash(password, 10);
-
-// ✅ Strong password validation
-const passwordSchema = z.string()
-  .min(12)
-  .regex(/[A-Z]/, "Must contain uppercase")
-  .regex(/[a-z]/, "Must contain lowercase")
-  .regex(/[0-9]/, "Must contain number")
-  .regex(/[^A-Za-z0-9]/, "Must contain special character");
+### Dependencies Only
+```
+User: /security --deps
+→ Only dependency vulnerabilities
 ```
 
-### 6. SSRF Prevention
+## Example
 
-```typescript
-// ❌ SSRF vulnerability
-export async function fetchUrl(url: string) {
-  return await fetch(url);
-}
+```
+User: /security the payment processing code
 
-// ✅ Whitelist approach
-const ALLOWED_DOMAINS = ["api.example.com", "data.gov.sg"];
+Claude: Starting /security audit for payment code...
 
-export async function fetchUrl(url: string) {
-  const parsedUrl = new URL(url);
-  if (!ALLOWED_DOMAINS.includes(parsedUrl.hostname)) {
-    throw new Error("Domain not allowed");
-  }
-  return await fetch(url);
-}
+Phase 1: Security audit...
+[Spawns aegis]
+
+┌─────────────────────────────────────────────────────────────┐
+│ Security Audit Report                                       │
+├─────────────────────────────────────────────────────────────┤
+│ Scope: src/services/payment/                                │
+│ Files scanned: 12                                           │
+│ Lines analyzed: 2,847                                       │
+├─────────────────────────────────────────────────────────────┤
+│ CRITICAL (1)                                                │
+│ ──────────                                                  │
+│ [C1] SQL Injection in payment.py:89                         │
+│      query = f"SELECT * FROM orders WHERE id = {order_id}"  │
+│      Fix: Use parameterized queries                         │
+│                                                             │
+│ HIGH (2)                                                    │
+│ ────────                                                    │
+│ [H1] Hardcoded API key in stripe_client.py:12               │
+│      STRIPE_KEY = "sk_live_..."                             │
+│      Fix: Move to environment variable                      │
+│                                                             │
+│ [H2] Missing input validation in refund.py:45               │
+│      amount = request.json['amount']  # No validation       │
+│      Fix: Validate amount is positive number                │
+│                                                             │
+│ MEDIUM (1)                                                  │
+│ ──────────                                                  │
+│ [M1] Verbose error messages in error_handler.py:23          │
+│      return {"error": str(e)}  # Leaks internal details     │
+│      Fix: Return generic message, log details internally    │
+│                                                             │
+│ LOW (0)                                                     │
+│ ───────                                                     │
+│ None                                                        │
+├─────────────────────────────────────────────────────────────┤
+│ Summary: 1 critical, 2 high, 1 medium, 0 low                │
+│ Status: BLOCKING - Fix critical issues before release       │
+└─────────────────────────────────────────────────────────────┘
+
+Fix the critical and high issues, then run:
+/security --verify
 ```
 
-## Input Validation
+### After Fixes
 
-```typescript
-import { z } from "zod";
+```
+User: /security --verify
 
-const userInputSchema = z.object({
-  name: z.string().min(1).max(100),
-  email: z.string().email(),
-  age: z.number().int().min(0).max(150),
-});
+Claude: Phase 2: Verifying fixes...
+[Spawns arbiter]
 
-export async function createUser(data: unknown) {
-  const validated = userInputSchema.parse(data);
-  // Now safe to use
-}
+✅ C1: SQL injection fixed - using parameterized queries
+✅ H1: API key moved to environment variable
+✅ H2: Input validation added
+✅ M1: Error messages sanitized
+
+All security tests passing.
+Security audit: PASSED
 ```
 
-## CORS Configuration
+## OWASP Top 10 Coverage
 
-```typescript
-// ❌ Too permissive
-app.use(cors({ origin: "*" }));
+| Risk | Checked |
+|------|---------|
+| A01 Broken Access Control | ✅ |
+| A02 Cryptographic Failures | ✅ |
+| A03 Injection | ✅ |
+| A04 Insecure Design | ✅ |
+| A05 Security Misconfiguration | ✅ |
+| A06 Vulnerable Components | ✅ |
+| A07 Auth Failures | ✅ |
+| A08 Data Integrity Failures | ✅ |
+| A09 Logging Failures | ✅ |
+| A10 SSRF | ✅ |
 
-// ✅ Whitelist specific origins
-app.use(cors({
-  origin: [
-    "https://sgcarstrends.com",
-    "https://staging.sgcarstrends.com",
-    process.env.NODE_ENV === "development" ? "http://localhost:3001" : "",
-  ].filter(Boolean),
-  credentials: true,
-}));
-```
+## Flags
 
-## Security Headers
-
-```typescript
-// next.config.js
-const securityHeaders = [
-  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-XSS-Protection", value: "1; mode=block" },
-  { key: "Referrer-Policy", value: "origin-when-cross-origin" },
-];
-
-module.exports = {
-  async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
-  },
-};
-```
-
-## Environment Variables
-
-```typescript
-// ❌ Hardcoded secret
-const apiKey = "sk_live_EXAMPLE_NOT_REAL";
-
-// ✅ From environment with validation
-import { z } from "zod";
-
-const envSchema = z.object({
-  API_KEY: z.string().min(1),
-  DATABASE_URL: z.string().url(),
-});
-
-const env = envSchema.parse(process.env);
-```
-
-## CI Integration
-
-```yaml
-# .github/workflows/security.yml
-name: Security Audit
-
-on:
-  push:
-    branches: [main]
-  schedule:
-    - cron: '0 0 * * 1'  # Weekly
-
-jobs:
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - run: pnpm install
-      - run: pnpm audit --audit-level=high
-```
-
-## Security Checklist
-
-- [ ] All user input validated (Zod schemas)
-- [ ] SQL injection prevented (using ORM)
-- [ ] XSS prevented (React escaping, sanitization)
-- [ ] Authentication implemented correctly
-- [ ] Authorization checks in place
-- [ ] Passwords hashed (bcrypt/argon2)
-- [ ] Rate limiting configured
-- [ ] Security headers set
-- [ ] CORS configured properly
-- [ ] HTTPS enforced
-- [ ] Dependencies audited (pnpm audit)
-- [ ] Secrets in environment variables
-- [ ] Error messages don't leak info
-
-## References
-
-- OWASP Top 10: https://owasp.org/www-project-top-ten
-- pnpm Audit: https://pnpm.io/cli/audit
-- Snyk: https://snyk.io
+- `--deps`: Dependencies only
+- `--verify`: Re-run after fixes
+- `--owasp`: Explicit OWASP Top 10 report
+- `--secrets`: Focus on secret detection

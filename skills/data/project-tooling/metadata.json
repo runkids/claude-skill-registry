@@ -1,9 +1,7 @@
 {
   "name": "project-tooling",
-  "description": "gh, vercel, supabase, render CLI and deployment platform setup",
-  "repo": "alinaqi/claude-bootstrap",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/alinaqi/claude-bootstrap"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/project-tooling/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-02-02T04:29:47.449020Z"
 }

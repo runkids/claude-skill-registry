@@ -1,7 +1,7 @@
 {
   "name": "feature-flags",
-  "repo": "greptileai/react-mirror",
-  "path": ".claude/skills/feature-flags/SKILL.md",
-  "source": "github.com/greptileai/react-mirror",
-  "downloaded_at": "2026-02-01T04:59:07.776782Z"
+  "repo": "dadbodgeoff/drift",
+  "path": "skills/feature-flags/SKILL.md",
+  "source": "github.com/dadbodgeoff/drift",
+  "downloaded_at": "2026-02-02T04:59:34.612041Z"
 }

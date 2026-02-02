@@ -1,7 +1,7 @@
 {
   "name": "gemini-imagegen",
-  "repo": "jayteealao/gitt-gaff",
-  "path": ".claude/skills/gemini-imagegen/SKILL.md",
-  "source": "github.com/jayteealao/gitt-gaff",
-  "downloaded_at": "2026-02-01T04:17:16.810705Z"
+  "repo": "davekilleen/Dex",
+  "path": ".claude/plugins/compound-engineering/skills/gemini-imagegen/SKILL.md",
+  "source": "github.com/davekilleen/Dex",
+  "downloaded_at": "2026-02-02T02:06:50.697415Z"
 }

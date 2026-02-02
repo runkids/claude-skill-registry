@@ -1,142 +1,80 @@
 ---
 name: update-changelog
-description: Update CHANGELOG.md with recent changes, optionally scoped to a sub-project. Use for changelog updates, pre-release prep, or documenting recent work.
-argument-hint: "[scope]"
-model: haiku
-user-invocable: true
-disable-model-invocation: true
-allowed-tools: Read, Bash, Task, AskUserQuestion
+description: "Read this skill before updating changelogs"
 ---
 
-# Update Changelog
+Update the repository changelog with changes between the last release and the current version (`main`) that are not yet incorporated. If `CHANGELOG.md` does not exist, use `CHANGELOG` instead.
 
-Orchestrate changelog updates with optional sub-project scoping. Handles pre-checks and scope selection, then delegates to the changelog-agent for git analysis and entry generation.
+## Step-by-Step Process
 
-## Arguments
+### 1. Determine baseline version
+If no baseline version is provided, use the most recent git tag. You can find it with `git describe --tags --abbrev=0`.
 
-- `$ARGUMENTS` - Optional scope: `all`, `sdd-tools`, `dev-tools`, `task-manager`, or `project`. If not provided, prompts for selection.
+### 2. Find the commits from git
 
-## Workflow
-
-Execute these 5 steps in order.
-
----
-
-### Step 1: Pre-flight Checks
-
-Verify the environment is ready:
+Use the following commands to gather commit information:
 
 ```bash
-git rev-parse --is-inside-work-tree
-```
-- If not a git repo, stop and report: "Not inside a git repository."
+# Get the baseline version (if not provided)
+git describe --tags --abbrev=0
 
-```bash
-git log --oneline -1
-```
-- If no commits exist, stop and report: "No commits found in this repository."
-
-```bash
-ls CHANGELOG.md 2>/dev/null
-```
-- Note whether CHANGELOG.md exists. If it does not, inform the user: "No CHANGELOG.md found. The changelog-agent will offer to create one."
-
----
-
-### Step 2: Load Context
-
-Read the changelog-format skill for formatting guidelines:
-
-```
-${CLAUDE_PLUGIN_ROOT}/skills/changelog-format/SKILL.md
+# Get all commits since the baseline version
+git log <baseline-version>..HEAD
 ```
 
-This provides Keep a Changelog conventions that the changelog-agent will follow.
+### 3. Update the changelog
+Read the existing changelog file (`CHANGELOG.md`, or `CHANGELOG` if missing) and check if there are changes not yet incorporated, then add them. Always add them to the "Unreleased" section only. If there is none yet, add it at the top in the same style as the existing changelog (for example, `## Unreleased` vs `## [Unreleased]`).
 
----
+## Ground Rules When Writing Changelogs
 
-### Step 3: Determine Scope
+### Content Guidelines
+* Focus on **notable changes** that affect users (features, fixes, breaking changes)
+* Mention pull requests (`#NUMBER`) when available, but not raw commit hashes
+* Ignore insignificant changes (typo fixes, internal refactoring, minor documentation updates)
+* Group related changes together when appropriate
+* Order entries by importance: breaking changes first, then features, then fixes
 
-**If `$ARGUMENTS` is provided and matches a known scope**, use it directly.
+### Style Guidelines
+* Use valid markdown syntax
+* Start each entry with a past-tense verb or descriptive phrase
+* Keep entries concise but descriptive enough to understand the change
+* Use bullet points (`*` or `-`) for individual changes
+* Format code references with backticks (e.g., `` `foo.cleanup` ``)
 
-**Known scopes:**
+### Example Format
 
-| Scope | Description | Git path filter |
-|-------|-------------|----------------|
-| `sdd-tools` | SDD tools plugin | `-- claude-tools/sdd-tools/` |
-| `dev-tools` | Dev tools plugin | `-- claude-tools/dev-tools/` |
-| `task-manager` | Task manager app | `-- claude-apps/task-manager/` |
-| `project` | Root project files only | `-- . ':!claude-tools' ':!claude-apps'` |
-| `all` | Entire repository | *(no filter)* |
+```markdown
+## 2.13.0
 
-**If `$ARGUMENTS` is empty or does not match a known scope**, use `AskUserQuestion` to ask:
+* Added multi-key support to the `|sort` filter.  #827
+* Fix `not undefined` with strict undefined behavior.  #838
+* Added support for free threading Python.  #841
 
-```
-Which scope should the changelog update cover?
-```
+## 2.12.0
 
-Options:
-1. "All changes (Recommended)" - Entire repository, auto-detects sub-projects
-2. "sdd-tools" - Only claude-tools/sdd-tools/ changes
-3. "dev-tools" - Only claude-tools/dev-tools/ changes
-4. "task-manager" - Only claude-apps/task-manager/ changes
-
-*(User can also type "project" for root-only files.)*
-
----
-
-### Step 4: Launch Changelog Agent
-
-Use the `Task` tool to spawn the changelog-agent with the determined scope.
-
-**Agent configuration:**
-- `subagent_type`: `dev-tools:changelog-agent`
-
-**Prompt construction:**
-
-For **scoped** updates (sdd-tools, dev-tools, task-manager, project):
-```
-Analyze commits since the last release and update the CHANGELOG.md [Unreleased] section.
-
-SCOPE: {scope}
-PATH FILTER: {path_filter}
-
-Append the path filter to all git log, git diff --name-status, and git diff --dirstat commands.
-For example: git log v{version}..HEAD --format="%H|%s|%b" --no-merges {path_filter}
-
-When writing entries, place them under a sub-project heading:
-### {scope}
-Use #### for categories (Added, Changed, Fixed, etc.) within the sub-project heading.
+* Item or attribute lookup will no longer swallow all errors in Python.  #814
+* Added `|zip` filter.  #818
+* Fix `break_on_hyphens` for the `|wordwrap` filter.  #823
+* Prefer error message from `unknown_method_callback`.  #824
+* Ignore `.jinja` and `.jinja2` as extensions in auto escape.  #832
 ```
 
-For **all** (no filter):
-```
-Analyze commits since the last release and update the CHANGELOG.md [Unreleased] section.
+### Good vs. Bad Examples
 
-SCOPE: all
+**Good:**
+* `Fixed an issue with the TypeScript SDK which caused an incorrect config for CJS.`
+* `Added support for claim timeout extension on checkpoint writes.`
+* `Improved error reporting when task claim expires.`
 
-No path filter — analyze all commits. When changes span multiple sub-projects, group entries under sub-project headings:
-### sdd-tools
-### dev-tools
-### task-manager
-### project
+**Bad:**
+* `Fixed bug` (too vague)
+* `Updated dependencies` (insignificant unless it fixes a security issue)
+* `Refactored internal code structure` (internal change, not user-facing)
+* `Fixed typo in comment` (insignificant)
 
-Use #### for categories (Added, Changed, Fixed, etc.) within each sub-project heading.
-Determine sub-projects from the file paths in each commit. Commits touching only root files (not under claude-tools/ or claude-apps/) belong under "project".
-If all changes belong to a single area, you may omit sub-project headings and use ### for categories directly.
-```
+## Notes
 
-Wait for the agent to complete before proceeding.
-
----
-
-### Step 5: Report Completion
-
-After the changelog-agent finishes, report to the user:
-
-```
-Changelog updated. Suggested next steps:
-- Review the diff: git diff CHANGELOG.md
-- Commit: /dev-tools:git-commit
-- Push: /dev-tools:git-push
-```
+* If the current changelog already has an "Unreleased" section with content, append to it rather than replacing it
+* Preserve the existing changelog style and formatting (headings, bullet style, ordering, and spacing)
+* If the repo uses a different default branch name, treat that as the "current version" instead of `main`
+* When in doubt about whether a change is significant, err on the side of including it

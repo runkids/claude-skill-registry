@@ -1,7 +1,7 @@
 {
   "name": "testing-strategy",
-  "repo": "jr2804/prompts",
-  "path": "skills/python/testing-strategy/SKILL.md",
-  "source": "github.com/jr2804/prompts",
-  "downloaded_at": "2026-02-01T04:20:42.794369Z"
+  "repo": "orient-bot/orient",
+  "path": ".claude/skills/testing-strategy/SKILL.md",
+  "source": "github.com/orient-bot/orient",
+  "downloaded_at": "2026-02-02T04:53:56.327848Z"
 }

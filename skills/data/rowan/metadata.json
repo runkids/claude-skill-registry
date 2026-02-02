@@ -1,7 +1,7 @@
 {
   "name": "rowan",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/rowan/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-01T02:18:54.226817Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/rowan/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-02-02T01:35:01.354988Z"
 }

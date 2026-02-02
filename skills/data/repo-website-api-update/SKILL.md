@@ -1,63 +1,144 @@
 ---
 name: repo-website-api-update
-description: Update existing API documentation pages after source code changes. Use when syncing docs with library changes like new parameters, type constraint changes, interface updates, or function renames. Covers common change patterns and verification steps.
+description: Update existing API documentation when Formisch source code changes. Use when function signatures, types, interfaces, or JSDoc comments change in the library source.
+metadata:
+  author: formisch
+  version: '1.0'
 ---
 
 # Updating API Documentation
 
-Guide for syncing API docs with source code changes.
+API documentation must stay synchronized with source code. When functions, types, or interfaces change in the Formisch packages, update the corresponding documentation.
 
-**Prerequisite:** Read the `repo-website-api-create` skill for `properties.ts` and `index.mdx` patterns.
+**Key Principle**: Source code is the single source of truth. Documentation must never deviate from what's actually implemented.
 
 ## When to Update
 
-Update documentation when source code changes:
+Update documentation when:
 
-- Function signatures (parameters, generics, return types)
-- Interface properties
-- JSDoc descriptions or hints
-- Behavior changes affecting examples
+- **Function signatures change** - New/removed parameters, type changes, generic constraints
+- **Interfaces change** - New/modified/removed properties
+- **JSDoc comments change** - Descriptions, param docs, hints
+- **Behavior changes** - Validation logic, error messages, defaults
+- **Deprecations or renames** - Functions deprecated or renamed
 
-**Do NOT update for:** Internal implementation changes (`~run` method), test changes, non-JSDoc comments.
+**Do NOT update when**:
 
-## Process
+- Only internal implementation changes
+- Private/internal functions change
+- Test files change
+- Non-JSDoc comments change
 
-1. **Read full source file** - Don't just look at diff; understand complete current state
-2. **Identify changes** - Categorize as addition, removal, or modification
-3. **Update `properties.ts`** - Match types exactly to source
-4. **Update `index.mdx`** - Signature, generics, parameters, examples
-5. **Update related files** - Type docs, `menu.md` if renamed
+## Update Process
 
-## Common Change Types
+### Step 1: Understand the Changes
 
-### New Parameter Added
+Compare source code changes:
 
-```typescript
-// Before: one overload
-export function action<TInput>(requirement: TRequirement): Action<...>;
-
-// After: two overloads (message is optional)
-export function action<TInput>(requirement: TRequirement): Action<..., undefined>;
-export function action<TInput, TMessage>(requirement: TRequirement, message: TMessage): Action<..., TMessage>;
+```bash
+git diff HEAD~1 packages/core/src/path/to/file.ts
 ```
 
-Update:
+Categorize changes:
 
-1. Add `TMessage` generic to `properties.ts`
-2. Add `message` parameter to `properties.ts`
-3. Update signature in `index.mdx`
-4. Add generic and parameter documentation
-5. Update examples to show new parameter
+- **Breaking changes**: Signature changes, removed parameters
+- **Additions**: New parameters, overloads, properties
+- **Documentation changes**: JSDoc updates
+- **Behavioral changes**: Logic affecting usage
 
-### Parameter Removed (Breaking)
+### Step 2: Find Affected Documentation
 
-1. Remove from `properties.ts`
-2. Update signature in `index.mdx`
+Locate files to update:
+
+```
+/website/src/routes/(docs)/{framework}/api/{category}/{ApiName}/
+├── index.mdx
+└── properties.ts
+```
+
+### Step 3: Update properties.ts
+
+Ensure types match new source code:
+
+```typescript
+// If generic constraint changed from:
+TInput
+// To:
+TInput extends string | number
+
+// Update properties.ts:
+TInput: {
+  modifier: 'extends',
+  type: {
+    type: 'union',
+    options: ['string', 'number'],
+  },
+},
+```
+
+### Step 4: Update index.mdx
+
+1. **Front matter**: Update `source` path if file moved
+2. **Function signature**: Match new signature exactly
+3. **Generics section**: Add/remove/update generics
+4. **Parameters section**: Add/remove/update parameters
+5. **Explanation**: Update if behavior changed
+6. **Examples**: Update to use new API correctly
+7. **Related section**: Update cross-references
+
+### Step 5: Update Related Files
+
+- **Type documentation**: If interfaces changed
+- **menu.md**: If function renamed/moved
+- **Guide files**: If usage patterns changed
+
+## Common Change Scenarios
+
+### Adding a Parameter
+
+**Source change**:
+
+```typescript
+// Before
+export function validate(form: FormStore): void;
+
+// After (added config)
+export function validate(form: FormStore, config?: ValidateConfig): void;
+```
+
+**properties.ts update**:
+
+```typescript
+// Add new parameter
+config: {
+  type: {
+    type: 'union',
+    options: [
+      { type: 'custom', name: 'ValidateConfig', href: '../ValidateConfig/' },
+      'undefined',
+    ],
+  },
+},
+```
+
+**index.mdx update**:
+
+- Update function signature
+- Add to Parameters section
+- Update Explanation to mention new parameter
+- Add examples using new parameter
+
+### Removing a Parameter (Breaking)
+
+1. Remove from properties.ts
+2. Update function signature in index.mdx
 3. Remove from Parameters section
 4. Update all examples
-5. Consider adding migration note in Explanation
+5. Consider adding migration note
 
-### Type Constraint Changed
+### Changing Types
+
+**Source change**:
 
 ```typescript
 // Before
@@ -67,100 +148,148 @@ TRequirement extends number
 TRequirement extends number | string
 ```
 
-Update:
+**properties.ts update**:
 
-1. Update type in `properties.ts`
-2. Update Explanation to mention both types
-3. Add examples for new type usage
+```typescript
+TRequirement: {
+  modifier: 'extends',
+  type: {
+    type: 'union',
+    options: ['number', 'string'],
+  },
+},
+```
 
-### Interface Property Added
+### Adding Interface Properties
 
-1. Update type documentation in `(types)/TypeName/`
-2. Add new property to `properties.ts`
-3. Document in Definition section
+Update type documentation:
+
+```typescript
+// In properties.ts, add new property
+received: {
+  type: 'string',
+},
+```
+
+Update index.mdx Definition section:
+
+```mdx
+- `StringIssue` <Property {...properties.BaseIssue} />
+  - `kind` <Property {...properties.kind} />
+  - `type` <Property {...properties.type} />
+  - `received` <Property {...properties.received} /> <!-- Added -->
+```
 
 ### Function Renamed
 
-1. Rename folder
-2. Update all references in files
-3. Update `menu.md` (maintain alphabetical order)
-4. Update cross-references in related API docs
-5. Consider redirect if widely used
+1. Rename folder: `mv /api/oldName /api/newName`
+2. Update properties.ts references
+3. Update all occurrences in index.mdx
+4. Update menu.md (maintain alphabetical order)
+5. Update guide files
+6. Update related API docs that reference this function
 
 ### Deprecation
 
-Add notice at top of `index.mdx` (import `Link` from `~/components`):
+Add deprecation notice after description:
 
 ```mdx
-> **⚠️ Deprecated**: Use <Link href="../newFunction/">\`newFunction\`</Link> instead. Will be removed in v2.0.
+# oldFunction
+
+Creates a form store.
+
+> **⚠️ Deprecated**: Use <Link href="../newFunction/">`newFunction`</Link> instead. This function will be removed in v2.0.
 ```
 
-### New Helper Type Introduced
+## Link Updates
 
-When source introduces a type alias:
+### Cross-Package Links (Use Absolute)
 
 ```typescript
-// Before: TInput extends string | unknown[]
-// After: TInput extends LengthInput
+// ✅ Correct
+href: '/core/api/Schema/';
+
+// ❌ Wrong - relative won't work across packages
+href: '../../../core/api/Schema/';
 ```
 
-1. Update `properties.ts` to reference new type with `href`
-2. Create documentation for the new type in `(types)/`
-3. Update explanation if supported types changed
+### Qwik Routing (Exclude Parentheses)
 
-### Multiple Overloads Added (Sync/Async)
+```typescript
+// ✅ Correct
+href: '../FormStore/';
 
-When sync and async variants are added:
+// ❌ Wrong - Qwik ignores (types) segment
+href: '../(types)/FormStore/';
+```
 
-1. Update signature to show general pattern or both overloads
-2. Add explanation about sync vs async usage
-3. Add examples for both use cases
-4. Update Related section for async schemas if relevant
+## Verification Checklist
 
-## Related Files to Update
+### Source Code Accuracy
 
-When a function changes, check:
+- [ ] All generic constraints match source exactly
+- [ ] All parameter types match source exactly
+- [ ] Return type matches source exactly
+- [ ] Function signature identical to source
 
-- **Type docs** - If interfaces changed (`(types)/TypeName/`)
-- **Related API docs** - Other APIs that reference this function in their Related section
-- **Guide files** - If usage patterns changed significantly
-- **menu.md** - If function renamed or moved
+### Type Links
 
-## Verification
+- [ ] All `href` links point to existing documentation
+- [ ] Generic references use correct names
+- [ ] No broken links to removed types
 
-After updating, verify:
+### Examples
 
-- [ ] All types match source exactly
-- [ ] Function signature matches source
-- [ ] All examples work with new API
-- [ ] All `href` links are valid
-- [ ] Related type docs updated if interfaces changed
-- [ ] `menu.md` updated if renamed
-- [ ] Related API docs updated (their Related sections)
+- [ ] All examples use updated API correctly
+- [ ] Examples compile with new signature
+- [ ] New features demonstrated in examples
 
-## Best Practices
+### Consistency
 
-- **Read full source file** - Don't just look at diff
-- **Update incrementally** - `properties.ts` → `index.mdx` → related files
-- **Don't over-document internals** - Only user-facing changes need docs
-- **Preserve example quality** - Keep realistic, demonstrate best practices
-- **Check related APIs** - They may reference the changed function
+- [ ] Tone and style match existing docs
+- [ ] Naming conventions maintained
+- [ ] Related section accurate
 
-## When to Ask for Help
+### Cleanup
 
-- Major breaking changes (complete signature overhaul)
-- Complex generic constraint changes
-- Unclear intent from source changes
-- Many related files affected
-- Need to document migration path
+- [ ] All properties in properties.ts are actually used
+- [ ] Remove any unused properties
+- [ ] No orphaned references
 
 ## Quick Reference
 
-| Change            | Files to Update                                                      |
-| ----------------- | -------------------------------------------------------------------- |
-| New parameter     | `properties.ts`, `index.mdx` (signature, generics, params, examples) |
-| Removed parameter | `properties.ts`, `index.mdx`                                         |
-| Type change       | `properties.ts`, `index.mdx` (explanation, examples)                 |
-| Interface change  | `(types)/TypeName/properties.ts`, `(types)/TypeName/index.mdx`       |
-| Renamed function  | Folder name, all files, `menu.md`, cross-references                  |
-| Deprecation       | `index.mdx` (add warning)                                            |
+### Properties.ts Pattern for Optional Parameter
+
+```typescript
+// Optional = union with undefined
+config: {
+  type: {
+    type: 'union',
+    options: [
+      { type: 'custom', name: 'Config', href: '../Config/' },
+      'undefined',
+    ],
+  },
+},
+```
+
+### Multiple Overloads in Signature
+
+```mdx
+\`\`\`ts
+const result = fn<TSchema>(form);
+const result = fn<TSchema, TPath>(form, config);
+\`\`\`
+```
+
+### Type Reference Rules
+
+Reference generic parameter names, not base types:
+
+```typescript
+// ✅ Correct - use parameter name
+generics: [{ type: 'custom', name: 'TFieldPath' }];
+
+// ❌ Wrong - using constraint type
+generics: [{ type: 'custom', name: 'RequiredPath' }];
+```

@@ -1,9 +1,7 @@
 {
   "name": "plan-executor",
-  "description": "Execute and coordinate work on PLAN files with phased breakdown. Tracks progress via JSON state, coordinates worker sub-agents in worker mode, and manages commits. Use when user references a PLAN file",
-  "repo": "bfreis/claude-mart",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "orient-bot/orient",
+  "path": ".claude/skills/plan-executor/SKILL.md",
+  "source": "github.com/orient-bot/orient",
+  "downloaded_at": "2026-02-02T04:53:54.547612Z"
 }

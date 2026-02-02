@@ -1,9 +1,7 @@
 {
   "name": "vertex-ai-pipeline-creator",
-  "description": "Vertex Ai Pipeline Creator - Auto-activating skill for GCP Skills.Triggers on: vertex ai pipeline creator, vertex ai pipeline creatorPart of the GCP Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/14-gcp-skills/vertex-ai-pipeline-creator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:27:04.610660Z"
 }

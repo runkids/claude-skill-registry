@@ -14,7 +14,7 @@ description: |
   Activation trigger: [ACTIVATE:PRD_TO_TASKS_V1]
 ---
 
-# PRD-to-Tasks Skill
+# prd-to-tasks Skill
 
 ## Activation Method
 
@@ -757,7 +757,7 @@ Integration tasks are SEPARATE master tasks (not subtasks of a parent). They sho
 
 ## TaskMaster Schema Requirements
 
-**CRITICAL: PRD-to-Tasks generates MASTER TASKS ONLY (no subtasks):**
+**CRITICAL: prd-to-tasks generates MASTER TASKS ONLY (no subtasks):**
 
 ```json
 {
@@ -790,7 +790,7 @@ Integration tasks are SEPARATE master tasks (not subtasks of a parent). They sho
 
 **Subtasks added LATER by task-master:**
 ```bash
-# After PRD-to-Tasks creates master tasks:
+# After prd-to-tasks creates master tasks:
 task-master analyze-complexity --research
 task-master expand --id=5 --research  # For complex tasks
 ```
@@ -827,7 +827,7 @@ task-master expand --id=5 --research  # For complex tasks
 }
 ```
 
-**Note:** This shows the task AFTER Phase 2 `task-master expand` has been run. The PRD-to-Tasks skill in Phase 1 would have generated this task with `"subtasks": []`.
+**Note:** This shows the task AFTER Phase 2 `task-master expand` has been run. The prd-to-tasks skill in Phase 1 would have generated this task with `"subtasks": []`.
 
 ## OpenSpec Mapping Strategy
 

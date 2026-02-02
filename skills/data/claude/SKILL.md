@@ -1,36 +1,39 @@
 ---
-description: Imported skill claude from agentskills
-name: claude
-signature: 3b7644e1732327259961039aaaaff41c5d8e773daa9994ab23a80c4377e46428
-source: /a0/tmp/skills_research/agentskills/docs/CLAUDE.md
+name: get-shit-done
+description: Structured spec-driven workflow for planning and executing software projects with Claude Code.
 ---
 
-# CLAUDE.md
+# Get Shit Done (GSD) Skill for Claude Code
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. The project defines an open format for teaching AI agents specialized workflows through SKILL.md files.
+## When to use
+- Use this skill when the user asks for GSD or uses a `{{COMMAND_PREFIX}}*` command.
+- Use it for structured planning, phase execution, verification, or roadmap work.
 
-## Documentation
 
-The Agent Skills documentation site, defined in the `docs/` directory, is built with [Mintlify](https://mintlify.com). 
+## How to run commands
+Claude Code supports custom slash commands. Commands starting with `{{COMMAND_PREFIX}}` are custom skills.
 
-### Quick Start Commands
+Commands are installed as individual skills in `{{PLATFORM_ROOT}}/skills/`. Load the corresponding skill:
 
-```bash
-# Install Mintlify CLI (required for local development)
-npm i -g mint
+`{{PLATFORM_ROOT}}/skills/gsd-<command>/SKILL.md`
 
-# Run local development server (run from /docs directory)
-cd docs && mint dev
+Example:
+- `{{COMMAND_PREFIX}}new-project` -> `{{PLATFORM_ROOT}}/skills/gsd-new-project/SKILL.md`
+- `{{COMMAND_PREFIX}}help` -> `{{PLATFORM_ROOT}}/skills/gsd-help/SKILL.md`
 
-# Update Mintlify CLI if dev server issues occur
-mint update
-```
 
-Local preview available at `http://localhost:3000`
+## File references
+Command files and workflows include `@path` references. These are mandatory context. Use the Read tool to load each referenced file before proceeding.
 
-### Development Notes
+## Tool mapping
+- "Bash tool" → use the Bash tool
+- "Read/Write" → use Read/Write tools
+- "AskUserQuestion" → ask directly in chat and provide explicit numbered options
+- "Task/subagent" → prefer a matching custom agent from `{{PLATFORM_ROOT}}/agents` when available; otherwise adopt that role in-place
 
-- **Navigation**: Defined in `docs/docs.json` under `navigation.pages` array
-- **Adding pages**: Create new `.mdx` file in `/docs`, add filename (without extension) to navigation
-- **Deployment**: Automatic on push to `main` branch
-- **Troubleshooting**: If page shows 404, ensure you're running `mint dev` from directory containing `docs.json`
+
+## Output expectations
+Follow the XML or markdown formats defined in the command and template files exactly. These files are operational prompts, not documentation.
+
+## Paths
+Resources are installed under `{{PLATFORM_ROOT}}/get-shit-done`. Individual skills are under `{{PLATFORM_ROOT}}/skills/gsd-*/`. Use those paths when command content references platform paths.

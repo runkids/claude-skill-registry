@@ -1,7 +1,7 @@
 {
   "name": "update-deps",
-  "repo": "WhatIfWeDigDeeper/claude-template",
+  "repo": "WhatIfWeDigDeeper/application-tracker",
   "path": ".claude/skills/update-deps/SKILL.md",
-  "source": "github.com/WhatIfWeDigDeeper/claude-template",
-  "downloaded_at": "2026-02-01T03:18:19.749997Z"
+  "source": "github.com/WhatIfWeDigDeeper/application-tracker",
+  "downloaded_at": "2026-02-02T01:44:41.243455Z"
 }

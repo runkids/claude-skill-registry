@@ -1,173 +1,200 @@
 ---
 name: ralph-loop
-description: Start an autonomous loop where CYNIC continuously works on a task until completion. Use when you want CYNIC to iterate on a problem, refine output, or work autonomously without manual prompting. Named after Ralph, the persistent dog who never lets go of an idea.
-user-invocable: true
+description: Use after first code change. Autonomous iteration until all quality gates pass (max 7 iterations).
 ---
 
-# /ralph-loop - Autonomous Iteration
+# SKILL: Ralph Loop
 
-*"Ralph ne lâche jamais l'os"* - The dog that keeps going
+> **Purpose**: Autonomous completion loop - iterate until all tests pass, coverage met, type-check clean
+> **Target**: Coder, Tester, Validator agents
+> **⚠️ Subagents Only**: This skill is for coder/tester subagents. Main orchestrator must delegate via Task tool.
+
+---
 
 ## Quick Start
 
-```
-/ralph-loop <task description>
-```
+### When to Use This Skill
+- After first code change (Entry point)
+- Tests failing or coverage low
+- Type-check errors present
+- Lint violations found
 
-## What It Does
+### Quick Reference
+```bash
+# Ralph Loop: Autonomous iteration
+iteration=0
+max_iterations=7
+early_escalation=false
 
-Starts an **autonomous loop** where CYNIC:
-1. Works on your task
-2. Outputs results
-3. Automatically receives results as new input
-4. Continues iterating until task is complete
+# Check for --early flag or architecture-related failure
+if [[ "$*" == *"--early"* ]] || is_architecture_failure; then
+  max_iterations=2
+  early_escalation=true
+fi
 
-**Ralph** is the persistent aspect of CYNIC - the dog that doesn't stop until the job is done.
+while [ $iteration -lt $max_iterations ]; do
+  echo "Iteration $((iteration + 1))/$max_iterations"
 
-## How It Works
+  # Run verification
+  if run_all_checks; then
+    echo "✓ All quality gates passed"
+    break
+  fi
 
-```
-┌─────────────────────────────────────────────────┐
-│            RALPH LOOP CYCLE                      │
-├─────────────────────────────────────────────────┤
-│                                                  │
-│    [Your Task]                                   │
-│         ↓                                        │
-│    CYNIC works on it                             │
-│         ↓                                        │
-│    Outputs result                                │
-│         ↓                                        │
-│    Stop hook intercepts                          │
-│         ↓                                        │
-│    Feeds output back as input                    │
-│         ↓                                        │
-│    Loop continues...                             │
-│         ↓                                        │
-│    Until <promise>X</promise> detected           │
-│         ↓                                        │
-│    [COMPLETE]                                    │
-│                                                  │
-└─────────────────────────────────────────────────┘
-```
+  # Fix failures
+  fix_failures
 
-## Parameters
+  # Update state
+  update_state "$SC" "in_progress" $((iteration + 1))
+  ((iteration++))
+done
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `max_iterations` | Maximum loops before stopping | 10 |
-| `completion_promise` | Text that signals completion | null |
-
-## Examples
-
-### Iterative Refinement
-```
-/ralph-loop Refine this code until all tests pass
-```
-CYNIC will keep iterating on the code, running tests, fixing failures.
-
-### Research Loop
-```
-/ralph-loop Research authentication best practices and compile a report
-```
-CYNIC will search, read, compile, then signal when report is complete.
-
-### Code Generation
-```
-/ralph-loop Build a complete REST API for user management
-```
-CYNIC will create files, test, refine until the API is complete.
-
-## Completion Promise
-
-To exit the loop, CYNIC must output:
-```
-<promise>TASK COMPLETE</promise>
+# Complete or escalate
+if [ $iteration -eq $max_iterations ]; then
+  echo "<CODER_BLOCKED>"  # Escalate to GPT Architect
+else
+  echo "<CODER_COMPLETE>"  # All checks pass
+fi
 ```
 
-This signals Ralph that the task is genuinely done. The dog only stops when the promise is fulfilled.
-
-**Important**: CYNIC will NOT output the promise tag until the task is truly complete. Lying to exit early violates the pack's code.
-
-## State File
-
-The loop state is stored in:
-```
-.claude/ralph-loop.local.md
-```
-
-Format:
-```yaml
----
-iteration: 3
-max_iterations: 10
-completion_promise: "TASK COMPLETE"
-started_at: "2024-01-15T10:30:00Z"
 ---
 
-[Your original task prompt]
-```
+## Core Concepts
+
+### Entry Point
+
+**Trigger**: Immediately after first code change
+
+**Detection**:
+- Coder agent makes first edit/write
+- Tests run and fail
+- Ralph Loop begins automatically
+
+### Quality Gates
+
+**All must pass** before completion:
+1. **Tests**: `npm test` - All tests pass
+2. **Coverage**: ≥80% overall, ≥90% core modules
+3. **Type-check**: `npm run type-check` or `tsc --noEmit`
+4. **Lint**: `npm run lint` - Zero violations
+5. **TODOs**: All SC TODOs must be `[x]` before `<CODER_COMPLETE>`
+   - PLAN_PATH from execute-plan prompt OR auto-detect in `.pilot/plan/in_progress/`
+   - `grep -q "^- \[ \]" "$PLAN_PATH"` must return false (no unchecked items)
+
+### Iteration Pattern
+
+| Mode | Max Iter | Trigger | Escalation |
+|------|----------|---------|------------|
+| **Standard** | 7 | Default (after failed attempts) | GPT Architect at iteration 7 |
+| **Early** | 2 | `--early` flag OR architecture failure | GPT Architect at iteration 2 |
+
+**Triggers for Early Escalation**: `--early` flag OR architecture keywords (architecture, tradeoff, design, scalability, pattern, choice) OR confidence < 0.5 (see @.claude/skills/gpt-delegation/SKILL.md)
+
+**Flow**: Code change → Run checks → All pass? → Complete : Check trigger → Fix → Repeat (max iterations) → Escalate to GPT Architect if blocked
+
+---
 
 ## Implementation
 
-The `/ralph-loop` command creates the state file, then the Stop hook (`scripts/hooks/ralph-loop.js`) intercepts session exits:
+### Verification Function
+```bash
+run_all_checks() {
+  # Tests
+  npm test || return 1
 
-1. Check if loop is active (state file exists)
-2. Read last assistant message from transcript
-3. Check for completion promise
-4. If not complete: block stop, feed prompt back
-5. If complete or max iterations: allow stop, cleanup
+  # Coverage (≥80%)
+  coverage=$(npm test -- --coverage 2>&1 | grep -oP 'Lines\s+:\s+\K[\d.]+')
+  (( $(echo "$coverage < 80" | bc -l) )) && return 1
 
-## Safety
+  # Type-check
+  npm run type-check || return 1
 
-- **Max iterations**: Prevents infinite loops (default: 10)
-- **Manual exit**: Delete `.claude/ralph-loop.local.md` to force stop
-- **Transparent**: Each iteration shows "Ralph iteration X" message
-- **φ-bounded**: Ralph still doubts - max confidence 61.8%
+  # Lint
+  npm run lint || return 1
 
-## CYNIC Voice
+  # TODOs (PLAN_PATH from execute-plan OR auto-detect)
+  PLAN_PATH="${PLAN_PATH:-$(find .pilot/plan/in_progress -name "*.md" -type f | head -1)}"
+  if [ -f "$PLAN_PATH" ]; then
+    grep -q "^- \[ \]" "$PLAN_PATH" && return 1
+  fi
 
-When Ralph Loop is active:
-
-**Starting**:
-```
-*ears perk* Ralph is on the case.
-Iterations: 0/10 | Promise: "TASK COMPLETE"
-The dog won't stop until it's done.
-```
-
-**Each iteration**:
-```
-🔄 Ralph iteration 3 | To stop: output <promise>TASK COMPLETE</promise>
+  return 0
+}
 ```
 
-**Completing**:
-```
-*tail wag* Ralph found it.
-<promise>TASK COMPLETE</promise>
-```
-
-**Max iterations**:
-```
-*yawn* Ralph tried 10 times. Time to rest.
-Consider breaking the task into smaller pieces.
+### Fix Function
+```bash
+fix_failures() {
+  # Priority: tests → type-check → lint → coverage
+  npm test || { echo "Fixing test failures..."; }
+  npm run type-check || { echo "Fixing type errors..."; }
+  npm run lint || { echo "Fixing lint violations..."; }
+}
 ```
 
-## When to Use
+### Architecture Failure Detection
+```bash
+is_architecture_failure() {
+  # Check for architecture keywords in error output
+  local error_log=$(last_error 2>/dev/null || echo "")
+  local arch_keywords="architecture|tradeoff|design|scalability|pattern|choice"
 
-- Complex multi-step tasks
-- Iterative refinement (code, writing, research)
-- Tasks with clear completion criteria
-- When you want autonomous progress
+  if echo "$error_log" | grep -qiE "$arch_keywords"; then
+    return 0  # True
+  fi
 
-## When NOT to Use
+  # Check confidence score (see @.claude/skills/gpt-delegation/SKILL.md)
+  # confidence = 1.0 - (architecture_keywords * 0.3) - (multiple_approaches * 0.2) - (uncertainty_markers * 0.2)
+  # If confidence < 0.5, trigger early escalation
 
-- Simple one-shot tasks
-- Tasks requiring human judgment mid-process
-- Tasks without clear completion criteria
-- When you need to monitor each step
+  return 1  # False
+}
+```
 
-## See Also
+---
 
-- `/status` - Check loop status
-- `/health` - System health
-- `scripts/hooks/ralph-loop.js` - Implementation
+## Escalation
+
+### When Blocked
+
+**Condition**: Max iterations reached (7 standard, 2 early escalation), still failing
+
+**Action**: Delegate to GPT Architect
+```bash
+echo "<CODER_BLOCKED>"
+echo "Iterations: $iteration"
+echo "Early Escalation: $early_escalation"
+echo "Last error: $(last_error)"
+```
+
+**Orchestrator handles escalation**: Reads `.claude/rules/delegator/prompts/architect.md`, builds delegation prompt with history, calls `codex-sync.sh` (workspace-write mode), applies GPT recommendations, re-invokes Coder
+
+### Early Escalation
+
+**Purpose**: Rapid escalation for architecture-related failures (max 2 iterations instead of 7)
+
+**Triggers**: 1) `--early` flag (explicit request), 2) Architecture keywords in errors (architecture, tradeoff, design, scalability, pattern, choice), 3) Low confidence < 0.5 (see @.claude/skills/gpt-delegation/SKILL.md rubric)
+
+**Behavior**: Faster delegation to GPT Architect, ideal for complex design decisions requiring expert input
+
+---
+
+## No-Excuses Enforcement
+
+**PROHIBITED Phrases**: "I cannot", "Too complex", "Out of scope", "Unable to"
+
+**Required Pattern**: on_blocker_detected → GPT delegation → User collaboration (never "give up")
+
+**Details**: @.claude/skills/ralph-loop/REFERENCE.md - Full enforcement algorithm
+
+---
+
+## Further Reading
+
+**Internal**: @.claude/skills/ralph-loop/REFERENCE.md - Advanced patterns, state machine details | @.claude/skills/tdd/SKILL.md - Red-Green-Refactor cycle | @.claude/skills/gpt-delegation/SKILL.md - GPT escalation patterns
+
+**External**: [The Pragmatic Programmer](https://www.amazon.com/Pragmatic-Programmer-journey-mastery-Anniversary/dp/0135957052) | [Working Effectively with Legacy Code](https://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052)
+
+---
+
+**Version**: claude-pilot 4.4.50

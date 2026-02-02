@@ -1,7 +1,7 @@
 {
   "name": "threat-modeling",
-  "repo": "proflead/codex-skills-library",
-  "path": "skills/security/threat-modeling/SKILL.md",
-  "source": "github.com/proflead/codex-skills-library",
-  "downloaded_at": "2026-02-01T03:31:59.413862Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/threat-modeling/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-02-02T05:12:42.220661Z"
 }

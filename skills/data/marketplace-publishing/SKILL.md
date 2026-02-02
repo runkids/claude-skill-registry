@@ -1,263 +1,263 @@
 ---
 name: marketplace-publishing
-description: Claude Code marketplace publishing - npm publish, GitHub releases, semantic versioning, plugin packaging. Use when publishing plugins.
+description: Workflow for publishing skills and agents to the dotnet-skills Claude Code marketplace. Covers adding new content, updating plugin.json, validation, and release tagging.
+invocable: true
 ---
 
-# Marketplace Publishing Expert
+# Marketplace Publishing Workflow
 
-Expert guidance for publishing Claude Code plugins to npm and marketplace.
+This skill documents how to publish skills and agents to the dotnet-skills Claude Code marketplace.
 
-## Publishing Platforms
+## Repository Structure
 
-**1. GitHub** (Recommended):
-```bash
-# Install from GitHub
-claude plugin add github:username/plugin-name
-
-# Pros:
-- Free hosting
-- Version control
-- Issue tracking
-- Easy updates
-
-# Requirements:
-- Public repository
-- Proper directory structure
-- README with installation
+```
+dotnet-skills/
+├── .claude-plugin/
+│   ├── marketplace.json      # Marketplace catalog
+│   └── plugin.json           # Plugin metadata + skill/agent registry
+├── .github/workflows/
+│   └── release.yml           # Release automation
+├── skills/
+│   ├── akka/                 # Akka.NET skills
+│   │   ├── best-practices/SKILL.md
+│   │   ├── testing-patterns/SKILL.md
+│   │   └── ...
+│   ├── aspire/               # .NET Aspire skills
+│   ├── csharp/               # C# language skills
+│   ├── testing/              # Testing framework skills
+│   └── meta/                 # Meta skills
+├── agents/
+│   └── *.md                  # Agent definitions
+└── scripts/
+    └── validate-marketplace.sh
 ```
 
-**2. npm**:
-```bash
-# Install from npm
-claude plugin add plugin-name
+## Adding a New Skill
 
-# Pros:
-- Centralized registry
-- Semantic versioning
-- Easy discovery
+### Step 1: Choose a Category
 
-# Requirements:
-- npm account
-- package.json
-- Unique name (prefix: claude-plugin-)
+Skills are organized by domain:
+
+| Category | Purpose |
+|----------|---------|
+| `akka/` | Akka.NET actor patterns, testing, clustering |
+| `aspire/` | .NET Aspire orchestration, testing, configuration |
+| `csharp/` | C# language features, coding standards |
+| `testing/` | Testing frameworks (xUnit, Playwright, Testcontainers) |
+| `meta/` | Meta skills about this marketplace |
+
+Create a new category folder if none fits.
+
+### Step 2: Create the Skill Folder
+
+Create a folder with `SKILL.md` inside:
+
+```
+skills/<category>/<skill-name>/SKILL.md
 ```
 
-**3. Marketplace**:
-```bash
-# Official Claude Code marketplace
-# PR to marketplace repository
+Example: `skills/akka/cluster-sharding/SKILL.md`
 
-# Requirements:
-- Quality standards
-- Complete documentation
-- No security issues
-- Proper licensing
+### Step 3: Write the SKILL.md
+
+```markdown
+---
+name: my-new-skill
+description: Brief description of what this skill does and when to use it.
+---
+
+# My New Skill
+
+## When to Use This Skill
+
+Use this skill when:
+- [List specific scenarios]
+
+---
+
+## Content
+
+[Comprehensive guide with examples, patterns, and anti-patterns]
 ```
 
-## Semantic Versioning
+**Requirements:**
+- `name` must be lowercase with hyphens (e.g., `cluster-sharding`)
+- `description` should be 1-2 sentences explaining when Claude should use this skill
+- Content should be 10-40KB covering the topic comprehensively
+- Include concrete code examples with modern C# patterns
 
-**Version Format**: `MAJOR.MINOR.PATCH`
+### Step 4: Register in plugin.json
 
-**Rules**:
-```yaml
-MAJOR (1.0.0 → 2.0.0):
-  - Breaking changes
-  - Remove commands
-  - Change skill keywords
-  - Incompatible API changes
+Add the skill path to `.claude-plugin/plugin.json` in the `skills` array:
 
-MINOR (1.0.0 → 1.1.0):
-  - New features
-  - Add commands
-  - Add skills
-  - Backward compatible
-
-PATCH (1.0.0 → 1.0.1):
-  - Bug fixes
-  - Documentation updates
-  - Performance improvements
-  - No API changes
-```
-
-**Examples**:
-```bash
-# Bug fix
-npm version patch  # 1.0.0 → 1.0.1
-
-# New feature
-npm version minor  # 1.0.1 → 1.1.0
-
-# Breaking change
-npm version major  # 1.1.0 → 2.0.0
-```
-
-## package.json Setup
-
-**Minimum**:
 ```json
 {
-  "name": "claude-plugin-my-plugin",
-  "version": "1.0.0",
-  "description": "Expert [domain] plugin for Claude Code",
-  "keywords": ["claude-code", "plugin", "keyword1"],
-  "author": "Your Name",
-  "license": "MIT",
-  "files": [
-    ".claude-plugin",
-    "commands",
-    "skills",
-    "agents",
-    "README.md",
-    "LICENSE"
+  "skills": [
+    "./skills/akka/best-practices",
+    "./skills/akka/cluster-sharding"  // Add new skill here
   ]
 }
 ```
 
-**Full**:
+### Step 5: Validate
+
+Run the validation script:
+
+```bash
+./scripts/validate-marketplace.sh
+```
+
+### Step 6: Commit Together
+
+```bash
+git add skills/akka/cluster-sharding/ .claude-plugin/plugin.json
+git commit -m "Add cluster-sharding skill for Akka.NET Cluster Sharding patterns"
+```
+
+---
+
+## Adding a New Agent
+
+### Step 1: Create the Agent File
+
+Create a markdown file in `/agents/`:
+
+```markdown
+---
+name: my-agent-name
+description: Expert in [domain]. Specializes in [specific areas]. Use for [scenarios].
+model: sonnet
+color: blue
+---
+
+You are a [domain] specialist with deep expertise in [areas].
+
+**Reference Materials:**
+- [Official docs and resources]
+
+**Core Expertise Areas:**
+[List expertise areas]
+
+**Diagnostic Approach:**
+[How the agent analyzes problems]
+```
+
+**Requirements:**
+- `name` must be lowercase with hyphens
+- `model` must be one of: `haiku`, `sonnet`, `opus`
+- `color` is optional (used for UI display)
+
+### Step 2: Register in plugin.json
+
+Add to the `agents` array:
+
 ```json
 {
-  "name": "claude-plugin-my-plugin",
-  "version": "1.0.0",
-  "description": "Expert [domain] plugin with [features]",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"No tests yet\"",
-    "validate": "bash validate.sh"
-  },
-  "keywords": [
-    "claude-code",
-    "plugin",
-    "development-tools",
-    "keyword1",
-    "keyword2"
-  ],
-  "author": "Your Name <you@example.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/username/my-plugin"
-  },
-  "homepage": "https://github.com/username/my-plugin#readme",
-  "bugs": {
-    "url": "https://github.com/username/my-plugin/issues"
-  },
-  "files": [
-    ".claude-plugin/**/*",
-    "commands/**/*",
-    "skills/**/*",
-    "agents/**/*",
-    "README.md",
-    "LICENSE"
+  "agents": [
+    "./agents/akka-net-specialist",
+    "./agents/my-agent-name"  // Add new agent here
   ]
 }
 ```
 
-## Publishing Workflow
+### Step 3: Commit Together
 
-**GitHub Release**:
 ```bash
-# 1. Update version
-npm version patch
-
-# 2. Commit changes
-git add .
-git commit -m "Release v1.0.1"
-
-# 3. Create tag
-git tag v1.0.1
-
-# 4. Push
-git push && git push --tags
-
-# 5. Create GitHub release
-gh release create v1.0.1 \
-  --title "v1.0.1" \
-  --notes "Bug fixes and improvements"
+git add agents/my-agent-name.md .claude-plugin/plugin.json
+git commit -m "Add my-agent-name agent for [domain] expertise"
 ```
 
-**npm Publish**:
+---
+
+## Publishing a Release
+
+### Versioning
+
+Update the version in `.claude-plugin/plugin.json`:
+
+```json
+{
+  "version": "1.1.0"
+}
+```
+
+Use semantic versioning (`MAJOR.MINOR.PATCH`):
+- **MAJOR**: Breaking changes (renamed/removed skills)
+- **MINOR**: New skills or agents added
+- **PATCH**: Fixes or improvements to existing content
+
+### Release Process
+
+1. **Update version in plugin.json**
+
+2. **Validate**
+   ```bash
+   ./scripts/validate-marketplace.sh
+   ```
+
+3. **Commit version bump**
+   ```bash
+   git add .claude-plugin/plugin.json
+   git commit -m "Bump version to 1.1.0"
+   ```
+
+4. **Create and push tag**
+   ```bash
+   git tag v1.1.0
+   git push origin master --tags
+   ```
+
+5. **GitHub Actions will automatically:**
+   - Validate the marketplace structure
+   - Create a GitHub release with auto-generated notes
+
+---
+
+## User Installation
+
+Users install the complete plugin (all skills and agents):
+
 ```bash
-# 1. Login
-npm login
+# Add the marketplace (one-time)
+/plugin marketplace add Aaronontheweb/dotnet-skills
 
-# 2. Validate package
-npm pack --dry-run
+# Install the plugin (gets everything)
+/plugin install dotnet-skills
 
-# 3. Publish
-npm publish
-
-# 4. Verify
-npm view claude-plugin-my-plugin
+# Update to latest version
+/plugin marketplace update
 ```
 
-## Documentation Requirements
+---
 
-**README.md**:
-```markdown
-# Plugin Name
+## Validation Checklist
 
-> One-line tagline
+Before committing:
 
-Brief description.
+- [ ] SKILL.md has valid YAML frontmatter with `name` and `description`
+- [ ] Skill folder is under appropriate category
+- [ ] Path added to `plugin.json` skills array
+- [ ] For agents: `model` is specified (haiku/sonnet/opus)
+- [ ] `./scripts/validate-marketplace.sh` passes
 
-## Features
+---
 
-- Feature 1
-- Feature 2
+## Troubleshooting
 
-## Installation
+### Skill not appearing after install
 
-\```bash
-claude plugin add github:user/plugin
-\```
+- Verify the path in plugin.json matches the folder structure
+- Check that SKILL.md exists in the folder
+- Try reinstalling: `/plugin uninstall dotnet-skills && /plugin install dotnet-skills`
 
-## Commands
+### Validation errors
 
-### /plugin:command
+- Ensure JSON is valid: `jq . .claude-plugin/plugin.json`
+- Check for trailing commas in arrays
+- Verify all referenced folders contain SKILL.md
 
-Description.
+### Release not created
 
-## Examples
-
-[Working examples]
-
-## License
-
-MIT
-```
-
-**CHANGELOG.md**:
-```markdown
-# Changelog
-
-## [1.0.1] - 2025-01-15
-
-### Fixed
-- Bug fix 1
-- Bug fix 2
-
-## [1.0.0] - 2025-01-01
-
-### Added
-- Initial release
-```
-
-## Quality Checklist
-
-**Pre-publish**:
-- ✅ All commands working
-- ✅ Skills activate correctly
-- ✅ No hardcoded secrets
-- ✅ README with examples
-- ✅ LICENSE file
-- ✅ Semantic versioning
-- ✅ CHANGELOG updated
-- ✅ Git tag created
-
-**Post-publish**:
-- ✅ Test installation
-- ✅ Verify on npm (if published)
-- ✅ Check GitHub release
-- ✅ Update marketplace (if applicable)
-
-Publish professional Claude Code plugins!
+- Ensure tag follows semver format (`v1.0.0`)
+- Check GitHub Actions logs for errors
+- Verify plugin.json version matches the tag

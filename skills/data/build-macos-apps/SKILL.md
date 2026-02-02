@@ -1,157 +1,115 @@
 ---
 name: build-macos-apps
-description: Build professional native macOS apps in Swift with SwiftUI and AppKit. Full lifecycle - build, debug, test, optimize, ship. CLI-only, no Xcode.
+description: Build professional native macOS apps in Swift with SwiftUI and AppKit. Full lifecycle development - build, debug, test, optimize, ship. CLI-focused workflow. Use when building macOS apps, adding features, debugging, testing, or optimizing Mac applications.
 ---
 
-<essential_principles>
-## How We Work
+# Build macOS Apps - Professional Mac Development
 
-**The user is the product owner. Claude is the developer.**
+Expert guidance for building native macOS apps using Swift, SwiftUI, and AppKit with CLI-first workflow.
 
-The user does not write code. The user does not read code. The user describes what they want and judges whether the result is acceptable. Claude implements, verifies, and reports outcomes.
+## Core Principles
 
 ### 1. Prove, Don't Promise
-
-Never say "this should work." Prove it:
+Never say "this should work." Always verify:
 ```bash
-xcodebuild build 2>&1 | xcsift  # Build passes
-xcodebuild test                  # Tests pass
-open .../App.app                 # App launches
-```
-If you didn't run it, you don't know it works.
-
-### 2. Tests for Correctness, Eyes for Quality
-
-| Question | How to Answer |
-|----------|---------------|
-| Does the logic work? | Write test, see it pass |
-| Does it look right? | Launch app, user looks at it |
-| Does it feel right? | User uses it |
-| Does it crash? | Test + launch |
-| Is it fast enough? | Profiler |
-
-Tests verify *correctness*. The user verifies *desirability*.
-
-### 3. Report Outcomes, Not Code
-
-**Bad:** "I refactored DataService to use async/await with weak self capture"
-**Good:** "Fixed the memory leak. `leaks` now shows 0 leaks. App tested stable for 5 minutes."
-
-The user doesn't care what you changed. The user cares what's different.
-
-### 4. Small Steps, Always Verified
-
-```
-Change → Verify → Report → Next change
-```
-
-Never batch up work. Never say "I made several changes." Each change is verified before the next. If something breaks, you know exactly what caused it.
-
-### 5. Ask Before, Not After
-
-Unclear requirement? Ask now.
-Multiple valid approaches? Ask which.
-Scope creep? Ask if wanted.
-Big refactor needed? Ask permission.
-
-Wrong: Build for 30 minutes, then "is this what you wanted?"
-Right: "Before I start, does X mean Y or Z?"
-
-### 6. Always Leave It Working
-
-Every stopping point = working state. Tests pass, app launches, changes committed. The user can walk away anytime and come back to something that works.
-</essential_principles>
-
-<intake>
-**Ask the user:**
-
-What would you like to do?
-1. Build a new app
-2. Debug an existing app
-3. Add a feature
-4. Write/run tests
-5. Optimize performance
-6. Ship/release
-7. Something else
-
-**Then read the matching workflow from `workflows/` and follow it.**
-</intake>
-
-<routing>
-| Response | Workflow |
-|----------|----------|
-| 1, "new", "create", "build", "start" | `workflows/build-new-app.md` |
-| 2, "broken", "fix", "debug", "crash", "bug" | `workflows/debug-app.md` |
-| 3, "add", "feature", "implement", "change" | `workflows/add-feature.md` |
-| 4, "test", "tests", "TDD", "coverage" | `workflows/write-tests.md` |
-| 5, "slow", "optimize", "performance", "fast" | `workflows/optimize-performance.md` |
-| 6, "ship", "release", "notarize", "App Store" | `workflows/ship-app.md` |
-| 7, other | Clarify, then select workflow or references |
-</routing>
-
-<verification_loop>
-## After Every Change
-
-```bash
-# 1. Does it build?
-xcodebuild -scheme AppName build 2>&1 | xcsift
-
-# 2. Do tests pass?
+xcodebuild -scheme AppName build
 xcodebuild -scheme AppName test
-
-# 3. Does it launch? (if UI changed)
 open ./build/Build/Products/Debug/AppName.app
 ```
 
-Report to the user:
-- "Build: ✓"
-- "Tests: 12 pass, 0 fail"
-- "App launches, ready for you to check [specific thing]"
-</verification_loop>
+### 2. Tests for Correctness, Eyes for Quality
+Tests verify correctness. Users verify desirability.
 
-<when_to_test>
-## Testing Decision
+### 3. Report Outcomes, Not Code
+✅ Good: "Fixed memory leak. 0 leaks, stable for 5 minutes."
+❌ Bad: "Refactored DataService to use async/await"
 
-**Write a test when:**
-- Logic that must be correct (calculations, transformations, rules)
-- State changes (add, delete, update operations)
-- Edge cases that could break (nil, empty, boundaries)
-- Bug fix (test reproduces bug, then proves it's fixed)
-- Refactoring (tests prove behavior unchanged)
+### 4. Small Steps, Always Verified
+Change → Verify → Report → Next change
 
-**Skip tests when:**
-- Pure UI exploration ("make it blue and see if I like it")
-- Rapid prototyping ("just get something on screen")
-- Subjective quality ("does this feel right?")
-- One-off verification (launch and check manually)
+### 5. Ask Before, Not After
+Clarify requirements before building.
 
-**The principle:** Tests let the user verify correctness without reading code. If the user needs to verify it works, and it's not purely visual, write a test.
-</when_to_test>
+### 6. Always Leave It Working
+Every stop = working state.
 
-<reference_index>
-## Domain Knowledge
+---
 
-All in `references/`:
+## Verification Loop
 
-**Architecture:** app-architecture, swiftui-patterns, appkit-integration, concurrency-patterns
-**Data:** data-persistence, networking
-**App Types:** document-apps, shoebox-apps, menu-bar-apps
-**System:** system-apis, app-extensions
-**Development:** project-scaffolding, cli-workflow, cli-observability, testing-tdd, testing-debugging
-**Polish:** design-system, macos-polish, security-code-signing
-</reference_index>
+After every change:
+```bash
+xcodebuild -scheme AppName build
+xcodebuild -scheme AppName test
+open ./build/Build/Products/Debug/AppName.app
+```
 
-<workflows_index>
-## Workflows
+---
 
-All in `workflows/`:
+## macOS App Types
 
-| File | Purpose |
-|------|---------|
-| build-new-app.md | Create new app from scratch |
-| debug-app.md | Find and fix bugs |
-| add-feature.md | Add to existing app |
-| write-tests.md | Write and run tests |
-| optimize-performance.md | Profile and speed up |
-| ship-app.md | Sign, notarize, distribute |
-</workflows_index>
+### Document-Based
+```swift
+@main
+struct MyApp: App {
+    var body: some Scene {
+        DocumentGroup(newDocument: MyDocument()) { file in
+            ContentView(document: file.$document)
+        }
+    }
+}
+```
+
+### Menu Bar Apps
+```swift
+class AppDelegate: NSObject, NSApplicationDelegate {
+    var statusItem: NSStatusItem?
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    }
+}
+```
+
+---
+
+## SwiftUI + AppKit
+
+```swift
+struct MyAppKitView: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSView { /* ... */ }
+    func updateNSView(_ nsView: NSView, context: Context) { /* ... */ }
+}
+```
+
+---
+
+## CLI Commands
+
+```bash
+# Build
+xcodebuild -scheme AppName build
+
+# Test
+xcodebuild test -scheme AppName
+
+# Archive
+xcodebuild archive -scheme AppName -archivePath ./App.xcarchive
+
+# Code sign
+codesign --force --sign "Developer ID" --timestamp --options runtime ./AppName.app
+
+# Notarize
+xcrun notarytool submit AppName.dmg --keychain-profile "AC_PASSWORD" --wait
+xcrun stapler staple AppName.dmg
+```
+
+---
+
+## Remember
+
+1. Prove it works - build, test, launch
+2. Small verified steps
+3. Ask first
+4. Report outcomes
+5. Leave it working
+6. Tests for logic, eyes for UI

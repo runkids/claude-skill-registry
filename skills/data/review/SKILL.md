@@ -1,164 +1,162 @@
 ---
 name: review
-description: Quick code review for files or recent changes, checking for bugs, best practices, and potential improvements
+description: >
+  Code review with confidence-based filtering.
+  Use to review code for bugs, security issues, and quality problems.
+  Only reports issues with high confidence to reduce noise.
 ---
 
-# Review Skill
+# Code Review with Confidence Filtering
 
-Perform a quick, focused code review on specified files or recent git changes.
+## Overview
 
-## Instructions
+Review code thoroughly but only report issues you're confident about.
+Filter out noise - stylistic preferences and uncertain concerns don't belong in reviews.
+Focus on bugs, security issues, and clear violations.
 
-### 1. Determine Review Scope
+**Core principle:** Only report issues with >= 80% confidence.
 
-Parse the user's request to determine what to review:
-- **Specific file(s)**: `/review src/main/java/.../MyService.java`
-- **Recent changes**: `/review changes` or `/review diff`
-- **Staged changes**: `/review staged`
-- **Last commit**: `/review last-commit`
-- **Feature/component**: `/review ForecastService` (find and review related files)
+**Announce at start:** "I'm using the review skill to review this code."
 
-### 2. Gather Code to Review
+## When to Request Review
 
-Based on scope:
+**Mandatory:**
+- After completing a feature
+- Before merging to main
+- After fixing complex bugs
 
-**For specific files:**
-- Use `Read` to load the file content
+**Optional but valuable:**
+- When stuck (fresh perspective helps)
+- Before major refactoring
+- After implementing unfamiliar patterns
 
-**For git changes:**
-- Use `Bash` with `git diff` for unstaged changes
-- Use `Bash` with `git diff --cached` for staged changes
-- Use `Bash` with `git show HEAD` for last commit
-- Use `Bash` with `git diff HEAD~N` for recent N commits
+## The Review Process
 
-**For component/feature:**
-- Use `Glob` and `Grep` to find relevant files
-- Read the main files involved
+### Step 1: Gather Context
 
-### 3. Review Checklist
+**Get the diff:**
+```bash
+BASE_SHA=$(git merge-base HEAD main)  # or specific commit
+HEAD_SHA=$(git rev-parse HEAD)
+git diff $BASE_SHA..$HEAD_SHA
+```
 
-Analyze the code for:
+**Check existing patterns:**
+```bash
+kodo query "code style"      # Project conventions
+kodo query "error handling"  # Error patterns used
+```
 
-#### Correctness
-- Logic errors or bugs
-- Off-by-one errors
-- Null/undefined handling
-- Edge cases not covered
-- Incorrect assumptions
+### Step 2: Review for Issues
 
-#### Security
-- Input validation issues
-- Injection vulnerabilities (SQL, command, XSS)
-- Hardcoded secrets or credentials
-- Unsafe data handling
+**Priority categories:**
 
-#### Performance
-- Inefficient algorithms (O(n²) when O(n) possible)
-- Unnecessary iterations or allocations
-- Missing caching opportunities
-- Blocking calls in reactive code
+| Priority | Confidence | Action | Examples |
+|----------|------------|--------|----------|
+| Critical | >= 90% | Must fix before merge | Security holes, data loss, crashes |
+| Important | >= 80% | Should fix | Logic bugs, missing error handling |
+| Minor | >= 80% | Nice to fix | Performance, readability |
 
-#### Best Practices
-- Code style consistency
-- Naming conventions
-- Error handling patterns
-- Resource cleanup (try-with-resources, close())
-- Thread safety in concurrent code
+**DO report (>= 80% confidence):**
+- Clear bugs with specific line numbers
+- Obvious security issues
+- Missing error handling that will cause failures
+- Logic errors you can prove with example input
 
-#### Maintainability
-- Code duplication
-- Overly complex methods (consider splitting)
-- Missing or misleading comments
-- Dead code
+**DO NOT report (< 80% confidence):**
+- Stylistic preferences ("I would have done X")
+- Uncertain concerns ("This might cause issues")
+- Opinions without evidence
+- Things that "feel wrong" but you can't explain why
 
-#### Project-Specific (varun.surf)
-- Reactive patterns (WebFlux compliance)
-- Proper use of virtual threads/StructuredTaskScope
-- Cache invalidation concerns
-- External API error handling
+### Step 3: Document Findings
 
-### 4. Severity Levels
-
-Categorize findings:
-
-- **Critical**: Bugs, security issues, data loss risks
-- **Warning**: Performance issues, bad practices, potential bugs
-- **Suggestion**: Style improvements, minor optimizations, readability
-
-## Output Format
+**Report format:**
 
 ```markdown
-## Code Review: [File/Scope]
+## Code Review: [Feature/PR Name]
 
-### Summary
-- Files reviewed: X
-- Lines analyzed: Y
-- Issues found: Z (X critical, Y warnings, Z suggestions)
+**Commits reviewed:** `BASE_SHA..HEAD_SHA`
+**Files changed:** X files, +Y/-Z lines
 
-### Critical Issues
+### Strengths
+- [What's done well - acknowledge good work]
 
-#### [Issue Title]
-**File**: `path/to/file.java:line`
-**Problem**: [Description]
-**Fix**: [Suggested solution]
-```java
-// Before
-problematic code
+### Issues
 
-// After
-fixed code
+#### Critical: [Title] (Confidence: XX%)
+**File:** `path/to/file.rs:42`
+**Problem:** [Specific description]
+**Evidence:** [Why you're confident this is wrong]
+**Fix:**
+```rust
+// Suggested fix
 ```
 
-### Warnings
+#### Important: [Title] (Confidence: XX%)
+...
 
-#### [Issue Title]
-**File**: `path/to/file.java:line`
-**Problem**: [Description]
-**Suggestion**: [How to improve]
-
-### Suggestions
-
-- `file.java:42` - Consider extracting this to a method
-- `file.java:78` - Variable name could be more descriptive
-
-### What Looks Good
-
-- Proper error handling in [location]
-- Good use of [pattern/practice]
-- Clean separation of concerns
-
-### Files Reviewed
-- `path/to/file1.java` - [brief note]
-- `path/to/file2.java` - [brief note]
+### Assessment
+[ ] APPROVE - Ready to merge
+[ ] REQUEST CHANGES - Fix critical/important issues first
 ```
 
-## Examples
+### Step 4: Handle Feedback
 
+**If reviewer feedback is disputed:**
+- Push back with technical reasoning
+- Show code or tests that prove it works
+- Ask for clarification on vague feedback
+
+**If you're the reviewer and author disagrees:**
+- Listen to their reasoning
+- Verify your concern is valid (>= 80% confidence)
+- Accept that you might be wrong
+
+## Integration with Kodo
+
+**Capture review insights:**
 ```bash
-# Review a specific file
-/review src/main/java/com/github/pwittchen/varun/service/ForecastService.java
-
-# Review recent uncommitted changes
-/review changes
-
-# Review staged changes before commit
-/review staged
-
-# Review the last commit
-/review last-commit
-
-# Review a component by name
-/review AggregatorService
-
-# Review multiple files
-/review src/main/java/.../controller/*.java
+kodo reflect --signal "Found common bug pattern: missing null check in X"
+kodo reflect --signal "Project uses Y pattern for error handling"
 ```
 
-## Notes
+**Check if similar issues were caught before:**
+```bash
+kodo query "review bugs"     # Past review findings
+kodo query "common mistakes" # Known pitfalls
+```
 
-- Keep reviews focused and actionable
-- Prioritize critical issues over style nitpicks
-- Provide concrete fix suggestions, not just problem descriptions
-- Reference project patterns from CLAUDE.md when relevant
-- For large diffs, focus on the most impactful changes
-- Don't repeat issues that appear multiple times; note "X similar occurrences"
+## Confidence Calibration
+
+**90%+ confidence means:**
+- You can explain exactly why it's wrong
+- You can show an input that triggers the bug
+- The issue violates documented requirements
+
+**80%+ confidence means:**
+- You're fairly certain but can't prove it
+- The code contradicts established patterns
+- The behavior is clearly unintended
+
+**< 80% means:**
+- Don't report it
+- Or preface with "Question:" not "Issue:"
+
+## Key Principles
+
+- **High confidence only** - Filter noise, report signal
+- **Be specific** - Line numbers, exact problems, concrete fixes
+- **Acknowledge strengths** - Reviews aren't just criticism
+- **Push back respectfully** - If reviewer is wrong, say so with evidence
+- **Learn from reviews** - Capture patterns with `kodo reflect`
+
+## Red Flags
+
+**You're doing it wrong if:**
+- Reporting "I would have done it differently"
+- No line numbers or specific locations
+- Confidence below 80% on reported issues
+- Only criticism, no acknowledgment of strengths
+- Accepting invalid feedback without pushback
+- Not capturing insights for future sessions

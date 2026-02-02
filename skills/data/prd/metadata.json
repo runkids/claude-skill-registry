@@ -1,7 +1,7 @@
 {
   "name": "prd",
-  "repo": "Ven0m0/claude-config",
-  "path": "claude/skills/prd/SKILL.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-02-01T05:04:57.869201Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/docs/prd/PRD-002-skillmeat-cli-skill.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-02-02T04:59:17.338923Z"
 }

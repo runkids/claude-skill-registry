@@ -1,435 +1,205 @@
 ---
 name: checkpointing
-description: How checkpointing works for tracking file changes and rewinding to previous states. Use when user asks about checkpoints, rewinding, rollback, undo, or restoring previous states.
+description: |
+  Save session context to agent configuration files or create full checkpoint files.
+  Supports three modes: session history (default), full checkpoint (--full),
+  and skill analysis (--full --analyze) for extracting reusable patterns.
+metadata:
+  short-description: Checkpoint session context with skill extraction support
 ---
 
-# Claude Code Checkpointing
+# Checkpointing — 세션 컨텍스트 지속성
 
-## Overview
+**세션 중 작업 기록을 저장하고 재사용 가능한 스킬 패턴을 찾는다.**
 
-Claude Code includes an automatic checkpointing system that tracks file edits and allows users to recover from unwanted changes during development sessions.
+## 모드
 
-## How Checkpointing Works
+### Mode 1: Session History(기본값)
 
-### Automatic Tracking
-
-The system captures code states before each modification.
-
-**Key features:**
-- Every user prompt creates a new checkpoint
-- Checkpoints persist across resumed conversations
-- Automatic cleanup occurs after 30 days (configurable)
-
-### What Gets Tracked
-
-**Tracked:**
-- Direct file edits via Edit tool
-- File creations via Write tool
-- File modifications by Claude
-
-**Not tracked:**
-- Files modified by bash commands (`rm`, `mv`, `cp`)
-- Manual file modifications outside Claude Code
-- Changes from concurrent sessions (unless they affect files the current session modified)
-
-## Rewinding Changes
-
-### Access Rewind Menu
-
-**Keyboard shortcut:**
-Press `Esc` twice (quickly)
-
-**Slash command:**
-```
-/rewind
-```
-
-### Restoration Options
-
-When you open the rewind menu, you have three options:
-
-#### 1. Conversation Only
-**Keeps:** All code changes
-**Reverts:** Conversation history to selected checkpoint
-
-**Use when:**
-- You want to start conversation over
-- Code changes are good
-- You want to try different approach in conversation
-
-#### 2. Code Only
-**Keeps:** Conversation history
-**Reverts:** Files to selected checkpoint
-
-**Use when:**
-- Recent changes broke something
-- Want to undo code changes
-- Conversation context is valuable
-
-#### 3. Both Code and Conversation
-**Reverts:** Everything to selected checkpoint (full rollback)
-
-**Use when:**
-- Complete do-over needed
-- Both code and conversation went wrong
-- Want to return to known good state
-
-### Selecting a Checkpoint
-
-Checkpoints are displayed with:
-- Timestamp
-- User prompt that created it
-- Files affected
-- Changes summary
-
-Navigate with arrow keys and select with Enter.
-
-## Use Cases
-
-### Testing Different Approaches
-
-**Scenario:** Try multiple implementation strategies without losing starting point.
+CLI 상담 이력을 각 에이전트의 구성 파일에 추가한다.
 
 ```
-# Approach 1
-"implement feature using strategy A"
-# Review, not ideal
-
-# Rewind
-Esc Esc → Select checkpoint → Code only
-
-# Approach 2
-"implement feature using strategy B"
-# Better!
+┌─────────────────────────────────────────────────────────────┐
+│  .claude/logs/cli-tools.jsonl                               │
+│                      ↓                                      │
+│  /checkpointing                                             │
+│                      ↓                                      │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────────┐ │
+│  │  CLAUDE.md   │ │ AGENTS.md    │ │ GEMINI.md            │ │
+│  │ ## Session   │ │ ## Session   │ │ ## Session           │ │
+│  │ History      │ │ History      │ │ History              │ │
+│  └──────────────┘ └──────────────┘ └──────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Quick Bug Recovery
+### Mode 2: Full Checkpoint（--full）
 
-**Scenario:** Recent changes introduced a bug.
-
-```
-# Make changes
-"refactor the authentication module"
-# Oops, broke login
-
-# Rewind
-Esc Esc → Select checkpoint before refactor → Code only
-
-# Try again differently
-"refactor authentication but keep existing login flow"
-```
-
-### Iterative Development
-
-**Scenario:** Preserve working states while iterating.
+전체 작업의 포괄적인 스냅 샷을 만든다.
 
 ```
-# Working state 1
-"add basic user validation"
-# Works ✓
-
-# Iterate
-"add more complex validation rules"
-# Issues found
-
-# Return to working state
-Esc Esc → Code only
-
-# Try different iteration
-"add regex-based validation"
+┌─────────────────────────────────────────────────────────────┐
+│  Data Sources:                                              │
+│  ├─ git log (commits)                                       │
+│  ├─ git diff (file changes)                                 │
+│  └─ cli-tools.jsonl (Codex/Gemini logs)                     │
+│                      ↓                                      │
+│  /checkpointing --full                                      │
+│                      ↓                                      │
+│  .claude/checkpoints/2026-01-28-153000.md                   │
+│  ├─ Summary (commits, files, consultations)                 │
+│  ├─ Git History (commits list)                              │
+│  ├─ File Changes (created, modified, deleted)               │
+│  └─ CLI Consultations (Codex/Gemini)                        │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Conversation Reset
+### Mode 3: Skill Analysis（--full --analyze）
 
-**Scenario:** Conversation got confused or went off track.
-
-```
-# Good code changes made
-"add user profile endpoint"
-"add user settings endpoint"
-
-# Conversation gets confusing
-# Want to restart conversation but keep code
-
-# Rewind conversation only
-Esc Esc → Conversation only → Select early checkpoint
-
-# Fresh conversation start with code intact
-```
-
-## Important Limitations
-
-### Bash Command Changes Not Tracked
-
-**Not captured:**
-```
-!rm file.txt
-!mv old.txt new.txt
-!cp source.txt dest.txt
-!git checkout -b new-branch
-```
-
-**Why:** Bash commands run outside Claude's file tracking system.
-
-**Workaround:**
-- Use Claude's Edit/Write tools instead when possible
-- Manually track bash file operations
-- Use git for version control of important changes
-
-### External Changes Not Tracked
-
-**Not captured:**
-- Manual edits in your text editor
-- IDE refactorings
-- File system operations outside Claude Code
-- Changes from other tools
-
-**Workaround:**
-- Use git to track all changes
-- Create manual checkpoints with git commits
-- Be aware of what Claude modified vs what you modified
-
-### Concurrent Session Caveats
-
-**Limited tracking:**
-If multiple Claude Code sessions modify the same files, only changes from the current session are tracked for checkpointing.
-
-**Best practice:**
-Use one Claude Code session at a time per project.
-
-## Not a Version Control Replacement
-
-### Checkpointing vs Git
-
-| Feature | Checkpointing | Git |
-|---------|--------------|-----|
-| **Scope** | Session-level | Repository-wide |
-| **Duration** | 30 days | Permanent |
-| **Granularity** | Per prompt | Per commit |
-| **Collaboration** | Single user | Team |
-| **Purpose** | Session recovery | Version control |
-| **Bash tracking** | No | Yes |
-
-### Use Both Together
-
-**Git for:**
-- Permanent history
-- Collaboration
-- Branch management
-- All file changes (including bash)
-- Release management
-
-**Checkpointing for:**
-- Quick session rollback
-- Trying different approaches
-- Recovering from mistakes
-- Conversation management
-- Rapid iteration
-
-**Recommended workflow:**
-```
-# Regular git commits for milestones
-git commit -m "Working authentication"
-
-# Use checkpointing for rapid iteration
-"try optimization A"
-Esc Esc → rewind if not good
-"try optimization B"
-Esc Esc → rewind if not good
-"try optimization C"
-# This one works!
-
-# Commit the winner
-git add .
-git commit -m "Optimized authentication"
-```
-
-## Configuration
-
-### Checkpoint Retention
-
-**Default:** 30 days
-
-**Configure retention:**
-Edit `.claude/settings.json`:
-```json
-{
-  "checkpointRetentionDays": 60
-}
-```
-
-### Disable Checkpointing
-
-**Not recommended**, but possible:
-```json
-{
-  "enableCheckpointing": false
-}
-```
-
-## Best Practices
-
-### 1. Review Before Rewinding
-
-**Look at:**
-- What checkpoint contains
-- What will be lost
-- What will be kept
-
-**Avoid:**
-- Blindly selecting checkpoints
-- Rewinding without understanding impact
-
-### 2. Use Descriptive Prompts
-
-**Good (easy to identify):**
-```
-"add email validation to user registration"
-"refactor database queries for performance"
-```
-
-**Bad (hard to identify):**
-```
-"make changes"
-"fix it"
-```
-
-Checkpoints show your prompts, so descriptive prompts make checkpoint selection easier.
-
-### 3. Combine with Git
+체크포인트에서 스킬화할 수 있는 패턴을 발견한다.
 
 ```
-# Checkpoint for rapid iteration
-Try approach → rewind → try approach → rewind
-
-# Git for confirmed changes
-git add .
-git commit -m "Final implementation"
+┌─────────────────────────────────────────────────────────────┐
+│  /checkpointing --full --analyze                            │
+│                      ↓                                      │
+│  1. Full Checkpoint 생성                                   │
+│  2. 분석용 프롬프트 생성                                    │
+│     → .claude/checkpoints/YYYY-MM-DD-HHMMSS.analyze-prompt.md│
+│                      ↓                                      │
+│  3. 서브에이전트에서 AI 분석 수행                            │
+│     → 작업 패턴 발견                                      │
+│     → 스킬 후보 제안                                        │
+│                      ↓                                      │
+│  4. 새로운 스킬을 .claude/skills/에 추가                         │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### 4. Rewind Code, Not Conversation
+**발견할 패턴 예시:**
+- 테스트 → 구현 반복(TDD 워크플로우)
+- 연구 → 설계 → 실장 흐름
+- 특정 파일 세트의 동시 변경
+- CLI 상담 → 코드 변경 순서
 
-**Often better:**
-Rewind code only and keep conversation history.
+## 사용법
 
-**Why:**
-- Maintains context
-- Claude learns from mistakes
-- Can explain what went wrong
-- Better for iterative improvement
+```bash
+# Session History 모드(기본값)
+/checkpointing
 
-### 5. Regular Git Commits
+# Full Checkpoint 모드
+/checkpointing --full
 
-Don't rely solely on checkpoints:
-```
-# After significant progress
-git add .
-git commit -m "Checkpoint: working user authentication"
+# Skill Analysis 모드(권장)
+/checkpointing --full --analyze
 
-# Continue with Claude Code
-# Checkpointing handles rapid iteration
-# Git handles permanent milestones
-```
-
-## Troubleshooting
-
-### Checkpoint Not Showing Expected State
-
-**Possible causes:**
-- Changes made via bash commands (not tracked)
-- External file modifications
-- Concurrent session changes
-- Checkpoint expired (>30 days)
-
-**Solution:**
-- Use git for those scenarios
-- Check git history: `git log`
-- Review git diff: `git diff`
-
-### Can't Find Recent Checkpoint
-
-**Check:**
-- Are you in the right directory?
-- Is this the same session?
-- Did checkpoint expire?
-
-**Solution:**
-- Use `/rewind` command instead of Esc Esc
-- Check session history
-- Verify working directory
-
-### Rewind Not Working
-
-**Check:**
-- Are files write-protected?
-- Do you have filesystem permissions?
-- Are files open in another program?
-
-**Solution:**
-- Close files in editors
-- Check file permissions
-- Ensure no file locks
-
-## Example Workflows
-
-### Refactoring Safely
-
-```
-# Current working state
-git commit -m "Pre-refactor checkpoint"
-
-# Try refactoring
-"refactor user controller for better error handling"
-
-# Test
-!npm test
-
-# If tests fail
-Esc Esc → Code only → Return to pre-refactor
-
-# Try different approach
-"refactor user controller with focus on backward compatibility"
-
-# If tests pass
-git commit -m "Refactored user controller"
+# 기간 지정
+/checkpointing --since "2026-01-26"
+/checkpointing --full --analyze --since "2026-01-26"
 ```
 
-### Feature Experimentation
+### Skill Analysis 실행 흐름
 
-```
-# Baseline working
-git commit -m "Baseline"
+```bash
+# Step 1: 체크포인트 + 분석 프롬프트 생성
+python checkpoint.py --full --analyze
 
-# Experiment 1
-"add feature using approach A"
-# Review, note pros/cons
-
-# Rewind
-Esc Esc → Code only
-
-# Experiment 2
-"add feature using approach B"
-# Compare, choose better
-
-# If experiment 2 is better
-git commit -m "Added feature using approach B"
-
-# If neither was good
-Esc Esc → Code only → Back to baseline
+# Step 2: 서브에이전트에서 분석(Claude 자동 실행)
+# → 분석 프롬프트 로드
+# → 스킬 후보 제안
+# → 사용자가 승인하면 스킬 생성
 ```
 
-### Conversation Management
+## 처리 내용
 
+### Session History 모드
+
+1. `.claude/logs/cli-tools.jsonl` 구문 분석
+2. Codex/Gemini에 상담 내용을 날짜별로 정리
+3. 각 에이전트 구성 파일에 `## Session History` 추가
+
+### Full Checkpoint 모드
+
+1. **Git 정보 수집**
+   - `git log`로 커밋 내역
+   - `git diff --name-status`로 파일 변경
+   - `git diff --numstat`로 행 수 변경
+
+2. **CLI 상담 로그 분석**
+   - Codex상담 내용 및 상태
+   - Gemini조사 내용 및 상태
+
+3. **체크포인트 파일 생성**
+   - `.claude/checkpoints/YYYY-MM-DD-HHMMSS.md`
+
+## Full Checkpoint 형식
+
+```markdown
+# Checkpoint: 2026-01-28 15:30:00 UTC
+
+## Summary
+- **Commits**: 5
+- **Files changed**: 12 (8 modified, 3 created, 1 deleted)
+- **Codex consultations**: 3
+- **Gemini researches**: 2
+
+## Git History
+
+### Commits
+- `abc1234` Add checkpointing enhancement
+- `def5678` Update documentation
+
+### File Changes
+
+**Created:**
+- `new_feature.py` (+120)
+
+**Modified:**
+- `checkpoint.py` (+80, -20)
+- `SKILL.md` (+45, -10)
+
+**Deleted:**
+- `old_script.py`
+
+## CLI Tool Consultations
+
+### Codex (3 consultations)
+- ✓ 설계: 체크포인트 확장 아키텍처
+- ✓ 디버깅: Git log parsing issue
+
+### Gemini (2 researches)
+- ✓ 조사: Git integration best practices
 ```
-# Making good progress
-"implement auth"
-"add user roles"
-"add permissions"
 
-# Conversation gets complex/confused
-Esc Esc → Conversation only → Select first checkpoint
+## Session History 형식
 
-# Start fresh conversation
-"explain the architecture we just built"
-# Code intact, conversation reset
+```markdown
+## Session History
+
+### 2026-01-26
+
+**Codex상담:**
+- ✓ 하위 에이전트 패턴으로 Codex / Gemini 호출 권장...
+
+**Gemini조사:**
+- ✓ MCP vs CLI 비교 조사...
 ```
+
+## 실행 타이밍
+
+| 타이밍 | 권장 모드 |
+|-----------|-----------|
+| 세션 종료 전 | `--full --analyze` |
+| 중요한 설계 결정 후 | `--full` |
+| 큰 기능 구현 완료 후 | `--full --analyze` |
+| 장시간 작업 구분 |`--full` |
+| 반복 패턴을 느꼈을 때 | `--full --analyze` |
+| 일일 가벼운 기록 | 기본 |
+
+## 주의사항
+
+- 로그가 비어 있으면 아무 것도 추가되지 않는다.
+- 기존 '## Session History'섹션은 덮어 쓴다.
+- 로그 파일 자체는 변경되지 않는다 (읽기 전용)
+- Full Checkpoint는 `.claude/checkpoints/`에 축적된다.
+- Git 초기화되지 않은 프로젝트에서도 CLI 로그 부분이 작동한다.
+-`--analyze` 로 생성된 스킬 제안은 인간이 검토하고 나서 채용하는 것이다.
+- 스킬 분석은 패턴을 고정하지 않고 AI가 자유롭게 발견하는 설계를 한다.

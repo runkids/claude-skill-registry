@@ -1,357 +1,159 @@
 ---
 name: standards-typescript
-description: This skill provides TypeScript coding standards and is automatically loaded for TypeScript projects. It includes naming conventions, best practices, and recommended tooling.
-type: context
-applies_to: [typescript, nodejs, express, nestjs, nextjs, react, vue, angular, deno, bun, zod]
+description: Apply TypeScript development standards including package manager detection (npm/yarn/pnpm/bun), explicit return types on exports, ESLint/Prettier code quality, one-line JSDoc, and self-documenting code practices. Use this skill when working with TypeScript or JavaScript code, managing dependencies, running tests, or ensuring code quality. Apply when installing packages, writing tests, formatting code, type checking, adding type annotations, organizing imports, or deciding whether to create new files vs. extending existing ones. Use for any TypeScript/JavaScript development task requiring adherence to tooling standards and best practices.
 ---
 
-# TypeScript Coding Standards
+# TypeScript Standards
 
-## Core Principles
+**Core Rule:** Detect and use the project's package manager. Write self-documenting TypeScript with explicit types on exports.
 
-1. **Simplicity**: Simple, understandable code
-2. **Readability**: Readability over cleverness
-3. **Maintainability**: Code that's easy to maintain
-4. **Testability**: Code that's easy to test
-5. **DRY**: Don't Repeat Yourself - but don't overdo it
+## When to use this skill
 
-## General Rules
+- When installing packages or running scripts in a TypeScript project
+- When writing or modifying TypeScript code
+- When adding type annotations or organizing imports in a TypeScript project
+- When writing tests or running code quality tools in a TypeScript project
 
-- **Early Returns**: Use early returns to avoid nesting
-- **Descriptive Names**: Meaningful names for variables and functions
-- **Minimal Changes**: Only change relevant code parts
-- **No Over-Engineering**: No unnecessary complexity
-- **Minimal Comments**: Code should be self-explanatory. No redundant comments!
+## Package Manager Detection
 
-## Naming Conventions
+**CRITICAL: Always detect and use the project's existing package manager. NEVER mix package managers.**
 
-| Element | Convention | Example |
-|---------|------------|---------|
-| Variables/Functions | camelCase | `getUserById`, `isActive` |
-| Classes/Interfaces/Types | PascalCase | `UserService`, `ApiClient` |
-| Constants | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
-| Private | Prefix with `_` or `#` | `_internalMethod`, `#privateField` |
-| Files | kebab-case or camelCase | `user-service.ts`, `userService.ts` |
-| Interfaces | No `I` prefix | `User` not `IUser` |
-| Type aliases | PascalCase | `UserId`, `HttpMethod` |
-| Event Handlers | Prefix with `handle` | `handleClick`, `handleSubmit` |
+Check the project root for lock files:
+- `bun.lockb` → use **bun**
+- `pnpm-lock.yaml` → use **pnpm**
+- `yarn.lock` → use **yarn**
+- `package-lock.json` → use **npm**
 
-## Project Structure
+If no lock file exists, check `packageManager` field in `package.json`, or default to npm.
 
+**Quick command mapping:**
+
+| Action           | npm                  | yarn              | pnpm              | bun              |
+| ---------------- | -------------------- | ----------------- | ----------------- | ---------------- |
+| Install all      | `npm install`        | `yarn`            | `pnpm install`    | `bun install`    |
+| Add package      | `npm install pkg`    | `yarn add pkg`    | `pnpm add pkg`    | `bun add pkg`    |
+| Add dev dep      | `npm install -D pkg` | `yarn add -D pkg` | `pnpm add -D pkg` | `bun add -D pkg` |
+| Run script       | `npm run script`     | `yarn script`     | `pnpm script`     | `bun script`     |
+| Execute binary   | `npx cmd`            | `yarn cmd`        | `pnpm cmd`        | `bunx cmd`       |
+
+## Type Annotations
+
+**Add explicit return types to all exported functions:**
+
+```typescript
+// Required for exports
+export function processOrder(orderId: string, userId: number): Order {
+  // implementation
+}
+
+// Required for async functions
+export async function fetchUser(id: string): Promise<User> {
+  // implementation
+}
+
+// Optional for internal functions (inference is fine)
+function formatPrice(amount: number) {
+  return `$${amount.toFixed(2)}`;
+}
 ```
-myproject/
-├── src/
-│   ├── index.ts              # Entry point
-│   ├── config.ts             # Settings, env vars
-│   ├── types/
-│   │   └── index.ts          # Shared types
-│   ├── models/
-│   │   └── user.ts           # Domain models
-│   ├── services/
-│   │   └── user-service.ts   # Business logic
-│   ├── repositories/
-│   │   └── user-repo.ts      # Data access
-│   └── utils/
-│       └── helpers.ts        # Utility functions
-├── tests/
-│   ├── services/
-│   │   └── user-service.test.ts
-│   └── setup.ts
-├── package.json
-├── tsconfig.json
-└── README.md
+
+**Prefer interfaces for object shapes, types for unions:**
+```typescript
+interface User {
+  id: string;
+  email: string;
+  createdAt: Date;
+}
+
+type Status = 'pending' | 'active' | 'suspended';
+type Handler = (req: Request, res: Response) => Promise<void>;
 ```
 
 ## Code Style
 
-```typescript
-// Use explicit types for function parameters and return values
-function getUserById(userId: string): User | undefined {
-  if (!userId) {
-    throw new Error("userId cannot be empty");
-  }
-  // implementation...
-}
-
-// Prefer interfaces for object shapes
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  age?: number;
-}
-
-// Use type aliases for unions, intersections, or primitives
-type UserId = string;
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
-type Result<T> = { success: true; data: T } | { success: false; error: string };
-```
-
-## Best Practices
+**Write self-documenting code. Minimize comments.**
 
 ```typescript
-// Prefer const over let
-const users: User[] = [];
+// BAD - comment explains unclear code
+if (u.r === 'admin' || u.r === 'moderator') {
 
-// Use nullish coalescing and optional chaining
-const name = user?.profile?.name ?? "Anonymous";
+// GOOD - code explains itself
+if (user.isAdmin() || user.isModerator()) {
+```
 
-// Prefer template literals
-const message = `Hello, ${user.name}!`;
-
-// Use destructuring
-const { id, name, email } = user;
-function processUser({ id, name }: User): void { }
-
-// Prefer array methods over loops
-const activeUsers = users.filter(u => u.isActive);
-const userNames = users.map(u => u.name);
-const totalAge = users.reduce((sum, u) => sum + u.age, 0);
-
-// Use readonly for immutable data
-interface Config {
-  readonly apiUrl: string;
-  readonly maxRetries: number;
-}
-
-// Use as const for literal types
-const DIRECTIONS = ["north", "south", "east", "west"] as const;
-type Direction = typeof DIRECTIONS[number];
-
-// Prefer unknown over any
-function parseJson(input: string): unknown {
-  return JSON.parse(input);
-}
-
-// Type guards for type narrowing
-function isUser(value: unknown): value is User {
-  return typeof value === "object" && value !== null && "id" in value;
+**Use concise one-line JSDoc for exported functions:**
+```typescript
+/** Calculate discounted price by applying rate. */
+export function calculateDiscount(price: number, rate: number): number {
+  return price * (1 - rate);
 }
 ```
 
-## Utility Types
+**Import organization:** Node built-ins → External packages → Internal modules → Relative imports
 
 ```typescript
-// Partial<T> - Make all properties optional
-type UserUpdate = Partial<User>;
-// { id?: string; name?: string; email?: string; age?: number }
-
-// Pick<T, K> - Select specific properties
-type UserPreview = Pick<User, "id" | "name">;
-// { id: string; name: string }
-
-// Omit<T, K> - Exclude specific properties
-type UserWithoutEmail = Omit<User, "email">;
-// { id: string; name: string; age?: number }
-
-// Record<K, T> - Object with specific keys and value type
-type RolePermissions = Record<"admin" | "user" | "guest", string[]>;
-// { admin: string[]; user: string[]; guest: string[] }
-
-// ReturnType<F> - Extract return type of function
-type FetchResult = ReturnType<typeof fetchUser>;
-// Promise<User | undefined>
-
-// Parameters<F> - Extract parameter types
-type FetchParams = Parameters<typeof fetchUser>;
-// [userId: string]
-
-// Awaited<T> - Unwrap Promise type
-type ResolvedUser = Awaited<ReturnType<typeof fetchUser>>;
-// User | undefined
+import { readFile } from 'node:fs/promises';
+import express from 'express';
+import { User } from '@/models/user';
+import { formatPrice } from './utils';
 ```
 
-## Discriminated Unions
+## Common Patterns
 
+**Use async/await, optional chaining, and nullish coalescing:**
 ```typescript
-// Use a common "type" or "status" field as discriminator
-type ApiResponse<T> =
-  | { status: "success"; data: T }
-  | { status: "error"; error: string }
-  | { status: "loading" };
+const email = user?.profile?.email ?? 'default@example.com';
 
-function handleResponse(response: ApiResponse<User>) {
-  switch (response.status) {
-    case "success":
-      console.log(response.data.name); // TypeScript knows data exists
-      break;
-    case "error":
-      console.error(response.error); // TypeScript knows error exists
-      break;
-    case "loading":
-      console.log("Loading...");
-      break;
-  }
+async function fetchData(): Promise<Data> {
+  const response = await fetch(url);
+  return response.json();
 }
-
-// State machines with discriminated unions
-type AuthState =
-  | { state: "idle" }
-  | { state: "loading" }
-  | { state: "authenticated"; user: User }
-  | { state: "error"; message: string };
-
-// Action types for reducers
-type UserAction =
-  | { type: "SET_USER"; payload: User }
-  | { type: "CLEAR_USER" }
-  | { type: "UPDATE_NAME"; payload: string };
 ```
 
-## Runtime Validation with Zod
-
+**Prefer `node:` prefix for built-in modules:**
 ```typescript
-import { z } from "zod";
-
-// Define schema
-const UserSchema = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(1).max(100),
-  email: z.string().email(),
-  age: z.number().int().min(0).max(150).optional(),
-});
-
-// Infer TypeScript type from schema
-type User = z.infer<typeof UserSchema>;
-
-// Validate data (throws on error)
-const user = UserSchema.parse(untrustedData);
-
-// Safe validation (returns result object)
-const result = UserSchema.safeParse(untrustedData);
-if (result.success) {
-  console.log(result.data); // User
-} else {
-  console.error(result.error.issues);
-}
-
-// Common patterns
-const ConfigSchema = z.object({
-  apiUrl: z.string().url(),
-  timeout: z.number().default(5000),
-  retries: z.number().min(0).max(10).default(3),
-});
-
-// Transform and validate
-const EmailSchema = z.string().email().transform((val) => val.toLowerCase());
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 ```
 
-## Async/Await
-
+**Use `const` assertions for literal types:**
 ```typescript
-// Async function with proper typing
-async function fetchUser(userId: string): Promise<User | undefined> {
-  const response = await fetch(`/api/users/${userId}`);
-  if (!response.ok) return undefined;
-  return response.json() as Promise<User>;
-}
-
-// Use Promise.all for concurrent operations
-async function fetchAllUsers(userIds: string[]): Promise<User[]> {
-  const users = await Promise.all(userIds.map(fetchUser));
-  return users.filter((user): user is User => user !== undefined);
-}
-
-// Handle errors with try/catch
-async function safeFetch<T>(url: string): Promise<Result<T>> {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return { success: true, data };
-  } catch (error) {
-    return { success: false, error: String(error) };
-  }
-}
+const ROLES = ['admin', 'user', 'guest'] as const;
+type Role = typeof ROLES[number]; // 'admin' | 'user' | 'guest'
 ```
 
-## Error Handling
-
+**Don't swallow errors:**
 ```typescript
-// Custom error classes for domain errors
-class UserNotFoundError extends Error {
-  constructor(public readonly userId: string) {
-    super(`User not found: ${userId}`);
-    this.name = "UserNotFoundError";
-  }
-}
-
-// Strict vs optional returns
-function getUserStrict(userId: string): User {
-  const user = repository.get(userId);
-  if (!user) throw new UserNotFoundError(userId);
-  return user;
-}
-
-function getUserOptional(userId: string): User | undefined {
-  return repository.get(userId);
-}
-
-// Result type for explicit error handling
-type Result<T, E = Error> =
-  | { ok: true; value: T }
-  | { ok: false; error: E };
-```
-
-## Comments - Less is More
-
-```typescript
-// BAD - redundant comment
-// Get the user from database
-const user = repository.getUser(userId);
-
-// GOOD - self-explanatory code, no comment needed
-const user = repository.getUser(userId);
-
-// GOOD - comment explains WHY (not obvious)
-// Rate limit: API allows max 1000 requests/min
-await rateLimiter.acquire();
-```
-
-## Recommended Tooling
-
-| Tool | Purpose |
-|------|---------|
-| `pnpm` or `bun` | Package manager (faster than npm) |
-| `eslint` | Linting with TypeScript rules |
-| `prettier` | Code formatting |
-| `vitest` or `jest` | Testing framework |
-| `tsx` or `ts-node` | TypeScript execution |
-| `zod` | Runtime validation with type inference |
-
-## tsconfig.json Recommendations
-
-> **Note:** These are strict settings for new projects. For existing codebases, enable incrementally.
-
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "exactOptionalPropertyTypes": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": true
-  }
+try {
+  await process();
+} catch (error) {
+  logger.error('Processing failed', { error });
+  throw error;
 }
 ```
 
-## Production Best Practices
+## File Organization
 
-1. **Strict mode** - Enable `strict: true` in tsconfig.json
-2. **Explicit return types** - Always declare return types for public functions
-3. **Avoid any** - Use `unknown` and type guards instead
-4. **Readonly by default** - Use `readonly` and `as const` for immutable data
-5. **Discriminated unions** - For state management and result types
-6. **Dependency injection** - Pass dependencies explicitly
-7. **Custom errors** - Domain-specific error classes
-8. **Environment variables** - Type-safe config with validation (zod, env-var)
-9. **Barrel exports** - Use index.ts for clean imports
-10. **Path aliases** - Configure `@/` paths in tsconfig for cleaner imports
+**Prefer editing existing files over creating new ones.**
 
----
+Before creating a new file, ask:
+1. Can this fit in an existing module?
+2. Is there a related file to extend?
 
-## References
+**Naming:** kebab-case for files (`user-service.ts`), `.test.ts` or `.spec.ts` for tests.
 
-- Utility Types, Discriminated Unions, and Zod sections inspired by [moai-lang-typescript](https://github.com/AJBcoding/claude-skill-eval/tree/main/skills/moai-lang-typescript) by AJBcoding
+## Verification
+
+Before marking work complete, **always run these checks** (using the detected package manager):
+
+1. **Format code:** Check `package.json` scripts for `format` or `prettier`. Otherwise: `prettier --write .` or `biome format --write .`
+2. **Lint code:** Check `package.json` scripts for `lint`. Otherwise: `eslint . --fix` or `biome check --fix .`
+3. **Type check:** Check `package.json` scripts for `typecheck` or `tsc`. Otherwise: `tsc --noEmit`
+4. **Run tests:** Check `package.json` scripts for `test`
+
+**Tip:** Look at `package.json` scripts first — projects often have custom configurations. Use what's already defined.
+
+Then verify:
+- [ ] All commands pass without errors
+- [ ] Explicit return types on exports
+- [ ] Lock file committed (if dependencies changed)

@@ -1,9 +1,7 @@
 {
   "name": "superpowers-lab",
-  "description": "Experimental Claude Code skills extending capabilities with new techniques for interactive CLI tools, tmux automation, and advanced workflows.",
-  "repo": "Microck/ordinary-claude-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/superpowers-lab/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-02-02T04:28:49.262508Z"
 }

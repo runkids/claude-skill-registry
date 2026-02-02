@@ -164,7 +164,7 @@ Before pushing changes, always verify locally:
 pnpm run test:ci
 
 # Run Docker validation tests
-pnpm turbo test --filter @orient/core...
+pnpm turbo test --filter @orientbot/core...
 
 # Validate Docker compose syntax
 cd docker
@@ -175,12 +175,14 @@ docker compose -f docker-compose.v2.yml -f docker-compose.prod.yml -f docker-com
 
 The v2 compose uses specific service names:
 
-| Service   | V2 Service Name | Container Name        |
-| --------- | --------------- | --------------------- |
-| WhatsApp  | bot-whatsapp    | orienter-bot-whatsapp |
-| Slack     | bot-slack       | orienter-bot-slack    |
-| OpenCode  | opencode        | orienter-opencode     |
-| Dashboard | dashboard       | orienter-dashboard    |
+| Service   | V2 Service Name | Container Name     | Notes                         |
+| --------- | --------------- | ------------------ | ----------------------------- |
+| Dashboard | dashboard       | orienter-dashboard | Includes WhatsApp integration |
+| OpenCode  | opencode        | orienter-opencode  |                               |
+| Slack     | bot-slack       | orienter-bot-slack | Optional                      |
+| Nginx     | nginx           | orienter-nginx     |                               |
+
+**v0.2.0 Architecture Change**: WhatsApp is now integrated into the dashboard service. There is no separate `bot-whatsapp` service in v0.2.0.
 
 ### 3. Environment Variables & GitHub Secrets
 
@@ -207,8 +209,8 @@ done
 Required for production:
 
 ```bash
-# Database
-DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+# Database (SQLite)
+SQLITE_DB_PATH=/app/data/orient.db
 
 # Dashboard Security (REQUIRED - causes crash loop if missing)
 DASHBOARD_JWT_SECRET="<32+ character secure string>"
@@ -360,10 +362,8 @@ curl -sf https://app.orient.bot/dashboard/api/health    # Dashboard
 ### Expected Container Names
 
 - `orienter-nginx`
-- `orienter-bot-whatsapp`
 - `orienter-opencode`
 - `orienter-dashboard`
-- `orienter-postgres`
 
 ## Rollback Procedure
 
@@ -514,28 +514,100 @@ cat ~/.ssh/id_rsa | pbcopy
    gh auth token | sudo docker login ghcr.io -u orient-bot --password-stdin
    ```
 
-### Database Migration Failures
+### SQLite Database (v0.2.0+)
 
-#### Role/User Not Found
+Orient v0.2.0 uses SQLite instead of PostgreSQL, which simplifies deployment significantly.
 
-**Error**: `FATAL: role "orient" does not exist`
+#### How Migrations Work
 
-**Cause**: Migration script uses hardcoded database user instead of actual configured user.
+1. **Automatic on startup**: The dashboard container automatically applies Drizzle migrations when it starts
+2. **Migration files**: Located in `packages/database/drizzle/sqlite/`
+3. **Migrations table**: Drizzle creates `__drizzle_migrations` to track applied migrations
 
-**Fix**: The workflow now dynamically reads credentials from server `.env`:
+#### Database Location
 
-```bash
-DB_USER=$(grep '^POSTGRES_USER=' ~/orient/.env | cut -d= -f2 | tr -d '"')
-DB_NAME=$(grep '^POSTGRES_DB=' ~/orient/.env | cut -d= -f2 | tr -d '"')
+- **In container**: `/app/data/orient.db`
+- **On host**: `~/orient/data/orient.db`
+- **Volume mount**: `~/orient/data` → `/app/data`
+
+#### Common SQLite Issues
+
+**Read-only database error**:
+
+```
+SqliteError: attempt to write a readonly database
 ```
 
-If migrations still fail, verify server `.env` has correct values:
+**Cause**: The database file isn't writable by the nodejs user (UID 1001).
+
+**Fix**:
 
 ```bash
-ssh opc@152.70.172.33 "grep POSTGRES ~/orient/.env"
-# Expected:
-# POSTGRES_USER=aibot
-# POSTGRES_DB=whatsapp_bot
+ssh opc@152.70.172.33 "sudo chown 1001:1001 ~/orient/data/orient.db ~/orient/data/"
+sudo docker restart orienter-dashboard
+```
+
+**No such table error**:
+
+```
+SqliteError: no such table: scheduled_jobs
+```
+
+**Cause**: Drizzle auto-migration failed. This can happen if the migrations table syntax is incompatible.
+
+**Manual Migration Recovery**:
+
+```bash
+ssh opc@152.70.172.33 '
+# Get migration SQL from container
+sudo docker run --rm ghcr.io/orient-core/orient/dashboard:latest \
+  cat /app/packages/database/drizzle/sqlite/0000_many_william_stryker.sql > /tmp/migration.sql
+
+# Apply using alpine container with sqlite
+sudo docker run --rm -v ~/orient/data:/data -v /tmp/migration.sql:/tmp/migration.sql alpine sh -c "
+  apk add --no-cache sqlite > /dev/null 2>&1
+  cd /data
+
+  # Create migrations tracking table
+  sqlite3 orient.db \"CREATE TABLE IF NOT EXISTS __drizzle_migrations (id INTEGER PRIMARY KEY AUTOINCREMENT, hash TEXT NOT NULL, created_at INTEGER);\"
+
+  # Apply the migration
+  grep -v \"^-->\" /tmp/migration.sql | sqlite3 orient.db
+
+  # Mark migration as applied
+  sqlite3 orient.db \"INSERT OR IGNORE INTO __drizzle_migrations (hash, created_at) VALUES ('\''0000_many_william_stryker'\'', strftime('\''%s'\'', '\''now'\''));\"
+
+  echo \"Tables created:\"
+  sqlite3 orient.db \".tables\"
+"
+
+# Fix permissions and restart
+sudo chown 1001:1001 ~/orient/data/orient.db
+sudo docker restart orienter-dashboard
+'
+```
+
+#### Verifying Database Health
+
+```bash
+# Check database file exists and has correct permissions
+ssh opc@152.70.172.33 "ls -la ~/orient/data/orient.db"
+
+# List tables in database
+ssh opc@152.70.172.33 "sudo docker run --rm -v ~/orient/data:/data alpine sh -c 'apk add sqlite > /dev/null; sqlite3 /data/orient.db .tables'"
+
+# Check migration status
+ssh opc@152.70.172.33 "sudo docker run --rm -v ~/orient/data:/data alpine sh -c 'apk add sqlite > /dev/null; sqlite3 /data/orient.db \"SELECT * FROM __drizzle_migrations\"'"
+```
+
+### Database Migration Failures (Legacy PostgreSQL)
+
+**Note**: v0.2.0+ uses SQLite. This section is for legacy PostgreSQL deployments only.
+
+**If migrations fail**, check the logs:
+
+```bash
+ssh opc@152.70.172.33 "docker logs orienter-dashboard --tail 100 | grep -i migration"
 ```
 
 #### Production Down After Failed Deploy
@@ -601,12 +673,8 @@ ORIENT_CODE_DOMAIN=code.orient.bot
 ORIENT_STAGING_DOMAIN=staging.orient.bot
 ORIENT_CODE_STAGING_DOMAIN=code-staging.orient.bot
 
-# REQUIRED - Database (generates crash loop if missing)
-POSTGRES_USER=aibot
-POSTGRES_PASSWORD=<secure-password>
-POSTGRES_DB=whatsapp_bot
-# IMPORTANT: Use container name 'orienter-postgres' not 'postgres' to avoid DNS conflicts with staging
-DATABASE_URL=postgresql://aibot:<password>@orienter-postgres:5432/whatsapp_bot
+# REQUIRED - Database (SQLite)
+SQLITE_DB_PATH=/app/data/orient.db
 
 # REQUIRED - Dashboard Security (crash loop if missing)
 DASHBOARD_JWT_SECRET=<openssl rand -hex 32>
@@ -631,24 +699,6 @@ R2_SECRET_ACCESS_KEY=
 # Generate secure values
 openssl rand -hex 32  # For DASHBOARD_JWT_SECRET
 openssl rand -hex 32  # For ORIENT_MASTER_KEY
-openssl rand -base64 24 | tr -d '/+=' | head -c 24  # For POSTGRES_PASSWORD
-```
-
-### PostgreSQL Authentication Failures
-
-**Error**: `password authentication failed for user "aibot"`
-
-**Cause**: PostgreSQL was initialized with a different password than what's in `.env`
-
-**Fix**: Reset the PostgreSQL data volume (WARNING: deletes all data):
-
-```bash
-ssh opc@152.70.172.33
-cd ~/orient/docker
-sudo docker compose --env-file ../.env \
-  -f docker-compose.v2.yml -f docker-compose.prod.yml -f docker-compose.r2.yml down -v
-sudo docker compose --env-file ../.env \
-  -f docker-compose.v2.yml -f docker-compose.prod.yml -f docker-compose.r2.yml up -d
 ```
 
 ### Nginx Upstream Errors
@@ -700,40 +750,12 @@ docker exec orienter-nginx ls -la /etc/nginx/ssl/
 ### Database Connection Failed
 
 ```bash
-# Check database health
-docker exec orienter-postgres pg_isready -U aibot -d whatsapp_bot
+# Check SQLite database file exists
+docker exec orienter-dashboard ls -la /app/data/orient.db
 
-# Check DATABASE_URL in container
-docker exec orienter-dashboard env | grep DATABASE_URL
+# Check SQLITE_DB_PATH in container
+docker exec orienter-dashboard env | grep SQLITE_DB_PATH
 ```
-
-### DNS Conflict: Database Does Not Exist
-
-**Error**: `error: database "whatsapp_bot" does not exist` even though the database clearly exists
-
-**Cause**: When production and staging share the same Docker network, both postgres containers have the DNS alias `postgres`. Docker DNS may resolve to the wrong container.
-
-**Diagnosis**:
-
-```bash
-# Check both postgres containers have the same alias
-docker inspect orienter-postgres --format '{{json .NetworkSettings.Networks}}' | jq '.[] | .DNSNames'
-docker inspect orienter-postgres-staging --format '{{json .NetworkSettings.Networks}}' | jq '.[] | .DNSNames'
-
-# If both show "postgres" as an alias, that's the conflict
-```
-
-**Fix**: Use container names instead of service aliases in DATABASE_URL:
-
-```bash
-# In docker-compose.v2.yml, change:
-DATABASE_URL=postgresql://user:pass@postgres:5432/db
-
-# To:
-DATABASE_URL=postgresql://user:pass@orienter-postgres:5432/db
-```
-
-The compose file (`docker-compose.v2.yml`) should already use `orienter-postgres` (container name) instead of `postgres` (service alias).
 
 ### Health Check Race Conditions
 
@@ -771,31 +793,37 @@ cd ~/orient/docker
 # Start services in stages manually
 COMPOSE="docker compose --env-file ../.env -f docker-compose.v2.yml -f docker-compose.prod.yml -f docker-compose.r2.yml"
 
-# 1. Ensure postgres is running
-sudo $COMPOSE up -d postgres
-sleep 5
-
-# 2. Start dashboard and opencode
+# 1. Start dashboard and opencode
 sudo $COMPOSE up -d dashboard opencode
 sleep 15
 
-# 3. Check health
+# 2. Check health
 docker ps --format 'table {{.Names}}\t{{.Status}}' | grep -E 'dashboard|opencode'
 
-# 4. If healthy, start remaining services
+# 3. If healthy, start remaining services
 sudo $COMPOSE up -d
 ```
 
 ### WhatsApp Pairing Issues After Deploy
 
+**v0.2.0+**: WhatsApp is integrated into the dashboard service.
+
 ```bash
 # Container restart usually fixes pairing issues
-docker restart orienter-bot-whatsapp
+docker restart orienter-dashboard
 
 # Full reset if needed (clears session)
 rm -rf ~/orient/data/whatsapp-auth/*
-docker restart orienter-bot-whatsapp
+docker restart orienter-dashboard
+
+# Check WhatsApp logs within dashboard
+docker logs orienter-dashboard --tail 100 | grep -i whatsapp
 ```
+
+**Access QR code for pairing**:
+
+- URL: https://app.orient.bot/qr/
+- Or via API: https://app.orient.bot/api/whatsapp/qr
 
 ### Health Endpoint Testing
 
@@ -818,10 +846,8 @@ Expected output - all containers should show "(healthy)":
 ```
 NAMES                   STATUS
 orienter-nginx          Up X minutes (healthy)
-orienter-bot-whatsapp   Up X minutes (healthy)
 orienter-opencode       Up X minutes (healthy)
 orienter-dashboard      Up X minutes (healthy)
-orienter-postgres       Up X minutes (healthy)
 ```
 
 ### ESM Module Import Resolution Issues
@@ -830,18 +856,18 @@ When running tests in CI or locally, you may encounter module resolution errors 
 
 #### Subpath Export Resolution Failures
 
-**Error**: `Cannot find package '@orient/integrations/google' imported from '...'`
+**Error**: `Cannot find package '@orientbot/integrations/google' imported from '...'`
 
-**Cause**: Vitest/tsx may not correctly resolve package subpath exports (e.g., `@orient/integrations/google`) even when the `exports` field in package.json is properly configured.
+**Cause**: Vitest/tsx may not correctly resolve package subpath exports (e.g., `@orientbot/integrations/google`) even when the `exports` field in package.json is properly configured.
 
 **Fix**: Use the main export instead of subpath exports:
 
 ```typescript
 // BROKEN - subpath export may not resolve in vitest
-import { getGoogleOAuthService } from '@orient/integrations/google';
+import { getGoogleOAuthService } from '@orientbot/integrations/google';
 
 // FIXED - use main export (re-exports all submodules)
-import { getGoogleOAuthService } from '@orient/integrations';
+import { getGoogleOAuthService } from '@orientbot/integrations';
 ```
 
 **Why This Happens**: The package.json exports field specifies `./dist/...` paths for subpath exports. While Node.js resolves these correctly at runtime, vitest/tsx running TypeScript directly may fail to resolve them during tests.
@@ -904,7 +930,7 @@ When CI tests fail with import errors across multiple service files:
 
 4. **Rebuild after fixing**:
    ```bash
-   pnpm turbo build --filter=@orient/dashboard
+   pnpm turbo build --filter=@orientbot/dashboard
    pnpm test:ci
    ```
 

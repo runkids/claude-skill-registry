@@ -1,7 +1,7 @@
 {
   "name": "feature-planning",
-  "repo": "mhattingpete/claude-skills-marketplace",
-  "path": "engineering-workflow-plugin/skills/feature-planning/SKILL.md",
-  "source": "github.com/mhattingpete/claude-skills-marketplace",
-  "downloaded_at": "2026-02-01T04:36:01.657473Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/product-manager-workflow/.claude/skills/feature-planning/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-02-02T05:10:26.934469Z"
 }

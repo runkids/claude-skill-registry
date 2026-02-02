@@ -1,7 +1,7 @@
 {
   "name": "docker-expert",
-  "repo": "hueyjeong/ForkLore",
-  "path": ".claude/skills/docker-expert/SKILL.md",
-  "source": "github.com/hueyjeong/ForkLore",
-  "downloaded_at": "2026-02-01T04:57:18.695407Z"
+  "repo": "claudiodearaujo/IzaCenter",
+  "path": ".gemini/skills/docker-expert/SKILL.md",
+  "source": "github.com/claudiodearaujo/IzaCenter",
+  "downloaded_at": "2026-02-02T04:54:18.192918Z"
 }

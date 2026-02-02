@@ -1,7 +1,7 @@
 {
   "name": "last30days",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/last30days/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:24.647662Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/last30days/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-02-02T04:36:18.131034Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "documentation-specialist",
-  "repo": "SpillwaveSolutions/code_agent_context_hooks",
-  "path": ".opencode/skill/documentation-specialist/SKILL.md",
-  "source": "github.com/SpillwaveSolutions/code_agent_context_hooks",
-  "downloaded_at": "2026-02-01T04:27:06.893072Z"
+  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+  "path": ".claude/skills/documentation-specialist/SKILL.md",
+  "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
+  "downloaded_at": "2026-02-02T05:03:48.078376Z"
 }

@@ -52,7 +52,7 @@ AppliesTo: v10
 ```
 
 - `<LOC>`는 기본적으로 `<file><jsonPath>` 형태
-  - 예: `devian/input/input_common.json$.domains[1].name`
+  - 예: `devian/{buildInputJson}$.domains[1].name` (예: `devian/input/input_common.json$.domains[1].name`)
 - `<MESSAGE>`는 1줄, **줄바꿈 금지**
 
 #### 기계용 NDJSON 1줄
@@ -83,7 +83,7 @@ AppliesTo: v10
 | `code` | string | 에러 코드 문자열 | `"E_JSON_PARSE"` |
 | `kind` | string | 분류 문자열 | `"CONFIG_JSON"` |
 | `message` | string | 한 줄 메시지 (개행 금지) | `"Invalid JSON syntax"` |
-| `file` | string | 입력 파일 경로 (레포 기준 상대경로) | `"devian/input/input_common.json"` |
+| `file` | string | 입력 파일 경로 (레포 기준 상대경로) | `"devian/{buildInputJson}"` (예: `"devian/input/input_common.json"`) |
 | `jsonPath` | string | JSONPath 문자열 (없으면 `"$"`) | `"$.domains[1].name"` |
 
 ### 4.2 권장 필드
@@ -172,7 +172,7 @@ build-{yyyyMMdd-HHmmss}-{pid}.ndjson
 
 | KIND | 설명 |
 |------|------|
-| `CONFIG_JSON` | 설정 JSON (`input_common.json` 등) |
+| `CONFIG_JSON` | 설정 JSON (`{buildInputJson}` 등) |
 | `PROTO_JSON` | 프로토콜 JSON |
 | `TABLE_JSON` | 테이블 JSON |
 | `XLSX` | 엑셀 파일 |
@@ -237,15 +237,15 @@ build-{yyyyMMdd-HHmmss}-{pid}.ndjson
 
 ### 이 스킬
 
-- `skills/devian/21-build-error-reporting/SKILL.md`
+- `skills/devian-tools/21-build-error-reporting/SKILL.md`
 
 ### 빌드 관련
 
-- `skills/devian/20-build-domain/SKILL.md`
-- `skills/devian/03-ssot/SKILL.md`
+- `skills/devian-tools/20-build-domain/SKILL.md`
+- `skills/devian-core/03-ssot/SKILL.md`
 
 ### 입력 규약 (연결 후보)
 
 - `skills/devian-unity/20-packages/com.devian.domain.template/SKILL.md` — 도메인 패키지 생성 규칙
-- `skills/devian-unity-samples/00-samples-policy/SKILL.md`
-- `skills/devian-examples/00-examples-policy/SKILL.md`
+- `skills/devian-unity-samples/01-policy/SKILL.md`
+- `skills/devian-examples/01-policy/SKILL.md`

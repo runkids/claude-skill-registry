@@ -1,7 +1,7 @@
 {
   "name": "notebooklm",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/notebooklm/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:24.871632Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/skills/notebooklm/SKILL.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-02-02T04:59:17.856380Z"
 }

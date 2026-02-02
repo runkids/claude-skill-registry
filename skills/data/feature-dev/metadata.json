@@ -1,7 +1,7 @@
 {
   "name": "feature-dev",
-  "repo": "sd0xdev/sd0x-dev-flow",
-  "path": "skills/feature-dev/SKILL.md",
-  "source": "github.com/sd0xdev/sd0x-dev-flow",
-  "downloaded_at": "2026-02-01T02:26:14.490719Z"
+  "repo": "sequenzia/claude-alchemy",
+  "path": "plugins/tools/skills/feature-dev/SKILL.md",
+  "source": "github.com/sequenzia/claude-alchemy",
+  "downloaded_at": "2026-02-02T04:02:25.516428Z"
 }

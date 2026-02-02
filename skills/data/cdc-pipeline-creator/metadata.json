@@ -1,9 +1,7 @@
 {
   "name": "cdc-pipeline-creator",
-  "description": "Cdc Pipeline Creator - Auto-activating skill for Data Pipelines.Triggers on: cdc pipeline creator, cdc pipeline creatorPart of the Data Pipelines skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/skills/11-data-pipelines/cdc-pipeline-creator/SKILL.md",
+  "source": "github.com/Brmbobo/Web2podcast",
+  "downloaded_at": "2026-02-02T04:26:54.093579Z"
 }

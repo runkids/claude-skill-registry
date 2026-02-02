@@ -1,7 +1,7 @@
 {
   "name": "literature-review",
-  "repo": "u9401066/med-paper-assistant",
-  "path": "vscode-extension/skills/literature-review/SKILL.md",
-  "source": "github.com/u9401066/med-paper-assistant",
-  "downloaded_at": "2026-02-01T03:56:32.001625Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/claude-scientific-skills/scientific-skills/literature-review/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-02-02T04:13:11.944077Z"
 }

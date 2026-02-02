@@ -1,7 +1,7 @@
 {
   "name": "slash-commands",
-  "repo": "horuz-ai/claude-plugins",
-  "path": "plugins/core/skills/slash-commands/SKILL.md",
-  "source": "github.com/horuz-ai/claude-plugins",
-  "downloaded_at": "2026-02-01T03:42:36.418542Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/slash-commands/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-02-02T04:55:42.613660Z"
 }

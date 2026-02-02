@@ -1,262 +1,233 @@
 ---
 name: clarify
-version: "1.0.0"
-description: "This skill should be used when the user asks to 'clarify requirements', 'resolve uncertainties', 'answer spec questions', or when auto-triggered by /specify with >3 NEEDS CLARIFICATION markers. Systematically surfaces and resolves ambiguities in specifications."
+description: "Identify and resolve ambiguities in feature specifications. Use when spec has unclear requirements. Triggers on: clarify spec, resolve ambiguities, clarify requirements."
 ---
 
-# Clarify - Systematic Uncertainty Resolution
+# Specification Clarification Tool
 
-Scan specifications for ambiguities and resolve them through structured questioning. Produces cleaner specs that feed into architecture and planning.
-
-**Triggers:**
-- Auto-triggered by `/specify` when >3 `[NEEDS CLARIFICATION]` markers
-- Manual: `/clarify` to review current spec
-- Manual: `/clarify path/to/spec.md` for specific spec
+Systematically identify and resolve ambiguities in feature specifications.
 
 ---
 
-## Process
+## SpecKit Workflow
 
-### 1. Load Specification
+Clarify can be invoked at any stage when ambiguities arise:
 
-Find active spec:
-```bash
-# Most recent spec
-ls -t .claude/specs/*/spec.md | head -1
-```
+specify ↔ **clarify** ↔ plan ↔ **clarify** ↔ tasks
 
-Or use provided path.
+The skill helps resolve ambiguities that could affect:
+- **Test design** (unclear acceptance criteria)
+- **Routing decisions** (unclear complexity)
+- **Implementation choices** (unclear requirements)
 
-### 2. Extract Markers
+---
 
-```bash
-grep -n "NEEDS CLARIFICATION" .claude/specs/*/spec.md
-```
+## Testability Requirements
 
-Parse each marker:
-- Line number
-- Requirement ID (FR-xxx, SC-xxx, etc.)
-- Context (what section)
-- Question text
+When clarifying requirements, ensure answers are:
+- **Specific enough to write tests against**
+- **Measurable** (can verify with automated tests)
+- **Unambiguous** (no multiple interpretations)
 
-### 3. Scan for Implicit Ambiguities
+### Good vs Bad Clarifications
 
-Beyond explicit markers, scan for:
+| Bad (vague) | Good (testable) |
+|-------------|-----------------|
+| "How should validation work?" | "Should email validation reject 'user@localhost'?" |
+| "What about error handling?" | "Should invalid password show 'Invalid credentials' or 'Password too short'?" |
+| "How secure should it be?" | "Should we require 2FA for admin users?" |
 
-| Pattern | Example | Issue |
-|---------|---------|-------|
-| Vague adjectives | "fast", "reliable", "user-friendly" | Not measurable |
-| Undefined terms | "admin user", "valid input" | Domain-specific |
-| Missing edge cases | Only happy path defined | Incomplete |
-| Passive voice | "data is validated" | Who validates? When? |
-| Unbounded lists | "users can upload files" | What types? Size limits? |
+**Every clarification should result in a testable requirement.**
 
-Add discovered ambiguities to question queue.
+---
 
-### 4. Categorize Uncertainties
+## The Job
 
-Group by taxonomy:
+1. Read spec.md
+2. Scan for 10 types of ambiguities (including testability)
+3. Present clarification questions to user
+4. Update spec with answers
+5. Save clarification log
 
-| Category | Examples |
-|----------|----------|
-| **Functional scope** | What features? What's excluded? |
-| **Data model** | What entities? Relationships? |
-| **UX flows** | User journey? Error states? |
-| **Performance** | Latency? Throughput? Scale? |
-| **Integration** | External systems? APIs? |
-| **Edge cases** | Limits? Errors? Recovery? |
-| **Constraints** | Budget? Timeline? Tech restrictions? |
-| **Terminology** | Domain-specific definitions? |
-| **Completion** | Definition of done? |
+---
 
-### 5. Prioritize Questions
+## Step 1: Load Specification
 
-Score each: `Impact × Uncertainty`
+Read `relentless/features/NNN-feature/spec.md`
 
-- **Impact:** How much does this affect architecture, data model, task breakdown, or testing?
-- **Uncertainty:** How unclear is this currently?
+---
 
-Take top 5 questions maximum per clarify session.
+## Step 2: Scan for Ambiguities
 
-### 6. Generate Questions
+Check for these 10 types:
 
-**Format rules:**
-- Multiple choice (2-5 options) preferred
-- If open-ended: constrain to ≤5 word answer
-- One question at a time
-- Include context from spec
+**1. Behavioral Ambiguities**
+- What happens when [action]?
+- How should system respond to [event]?
+- Example: "What happens when user enters wrong password 5 times?"
 
-**Question template:**
+**2. Data Ambiguities**
+- What are required vs optional fields?
+- What validation rules apply?
+- Example: "What email format validation should we use?"
+
+**3. UI/UX Ambiguities**
+- Where should this be displayed?
+- How should user interact?
+- What visual style?
+- Example: "Should password field show/hide toggle?"
+
+**4. Integration Ambiguities**
+- Which external API/service?
+- What happens if service unavailable?
+- Example: "Which email provider: SendGrid, Mailgun, or AWS SES?"
+
+**5. Permission Ambiguities**
+- Who can perform this action?
+- What authorization rules?
+- Example: "Can unconfirmed users log in or should we block them?"
+
+**6. Performance Ambiguities**
+- What are acceptable response times?
+- Pagination requirements?
+- Example: "How many login attempts allowed per minute?"
+
+**7. Error Handling Ambiguities**
+- What errors can occur?
+- How should errors be displayed?
+- Example: "What message for duplicate email: '409 Conflict' or custom message?"
+
+**8. State Management Ambiguities**
+- How is data persisted?
+- What about caching?
+- Example: "Should we remember failed login attempts across sessions?"
+
+**9. Edge Case Ambiguities**
+- What about empty data?
+- Race conditions?
+- Example: "What if two users register with same email simultaneously?"
+
+**10. Testability Ambiguities (NEW)**
+- Are acceptance criteria specific enough to test?
+- What edge cases need test coverage?
+- What test data/fixtures are required?
+- What should unit vs integration tests cover?
+- Example: "Should we test with unicode characters in email addresses?"
+
+---
+
+## Optional: Clarify Routing Preference
+
+If routing preference is unclear or missing from spec, ask:
+- "Is this feature simple, medium, complex, or expert-level?"
+- "Should it use free/cheap/good/genius models?"
+- "Any specific AI model requirements?"
+
+Record the answer and update spec.md metadata.
+
+---
+
+## Step 3: Present Questions
+
+For each ambiguity found (max 5 most critical):
+
 ```markdown
-## Question 1 of 5
+## Question N: [Topic]
 
-**Context:** FR-003 states "System MUST validate user input"
+**Context:** [Quote relevant spec section]
 
-**Question:** What validation rules apply to email addresses?
+**What we need to know:** [Specific question]
+
+**Testability Impact:** [How this affects test design]
 
 **Options:**
-A) RFC 5322 strict validation
-B) Simple format check (contains @ and .)
-C) Format check + DNS MX record verification
-D) Custom business rules (please specify)
+A. [Option 1] - [Implications + how to test]
+B. [Option 2] - [Implications + how to test]
+C. [Option 3] - [Implications + how to test]
+D. Custom - [Your answer]
 
-**Impact:** Affects error messages, test cases, and integration complexity.
-```
-
-### 7. Apply Answers Immediately
-
-After each answer:
-
-1. Update spec.md - replace marker with resolved requirement
-2. Log to `.claude/specs/{slug}/clarifications/log.md`
-
-**Before:**
-```markdown
-- FR-003: System MUST validate email [NEEDS CLARIFICATION: validation rules]
-```
-
-**After:**
-```markdown
-- FR-003: System MUST validate email format (RFC 5322) and verify domain has MX record
-```
-
-**Clarification log entry:**
-```markdown
-## 2025-01-29: Email Validation Rules
-
-**Question:** What validation rules apply to email addresses?
-**Answer:** RFC 5322 + MX verification (Option C)
-**Updated:** FR-003
-**Rationale:** Balance strictness with user experience, catch typos in domain
-```
-
-### 8. Track Coverage
-
-After all questions answered, report coverage:
-
-```markdown
-## Clarification Summary
-
-| Category | Status |
-|----------|--------|
-| Functional scope | Resolved |
-| Data model | Resolved |
-| UX flows | Outstanding (1 marker) |
-| Performance | Clear |
-| Integration | Deferred |
-| Edge cases | Resolved |
-| Constraints | Clear |
-| Terminology | Resolved |
-| Completion | Clear |
-
-**Remaining markers:** 1
-**Ready for architecture:** Yes (≤3 markers)
+**Your choice:** _
 ```
 
 ---
 
-## Question Patterns
+## Step 4: Update Specification
 
-### Multiple Choice (Preferred)
+After receiving answers:
+1. Update spec.md with clarifications
+2. Remove `[NEEDS CLARIFICATION]` markers
+3. Add concrete details based on answers
+4. **Ensure updated requirements are testable (Given/When/Then)**
 
-```markdown
-**Question:** How should the system handle failed payment attempts?
+---
 
-A) Retry automatically up to 3 times
-B) Notify user immediately, no retry
-C) Queue for manual review
-D) Combination (specify)
-```
+## Step 5: Save Clarification Log
 
-### Constrained Open-Ended
-
-```markdown
-**Question:** Maximum file upload size? (≤5 words)
-
-Example answers: "10MB", "50MB per file", "No limit"
-```
-
-### Binary with Justification
+Create `relentless/features/NNN-feature/clarification-log.md`:
 
 ```markdown
-**Question:** Should inactive users be auto-deleted?
+# Clarification Log: Feature Name
 
-A) Yes - after [specify duration]
-B) No - keep indefinitely
+## Q1: [Topic] - RESOLVED
+**Date:** 2026-01-11
+**Question:** [Question]
+**Answer:** [User's choice]
+**Updated Sections:** [List spec sections updated]
+**Test Impact:** [What tests can now be written]
 
-If yes, what defines "inactive"?
+## Q2: [Topic] - DEFERRED
+**Date:** 2026-01-11
+**Question:** [Question]
+**Reason:** Can be decided during implementation
 ```
 
 ---
 
-## Handling Technical Uncertainties
-
-Some markers are technical (HOW, not WHAT). Don't resolve these in clarify.
-
-**Technical markers → arch-lead:**
-```
-[NEEDS CLARIFICATION: which database?]
-[NEEDS CLARIFICATION: sync or async processing?]
-[NEEDS CLARIFICATION: API design]
-```
-
-**Flag for arch-lead:**
-```markdown
-## Technical Uncertainties (for Architecture)
-
-These require technical research, not stakeholder input:
-
-1. FR-015: Processing approach (sync/async) - arch-lead to evaluate
-2. NFR-003: Database selection based on scale requirements
-```
-
----
-
-## Deferral
-
-Some questions can't be answered yet. Mark as deferred:
+## Example
 
 ```markdown
-- FR-020: System MUST integrate with payment provider [DEFERRED: vendor selection pending]
+## Question 1: Password Requirements
+
+**Context:** Spec says "password must be secure" but doesn't define requirements.
+
+**What we need to know:** What are the specific password requirements?
+
+**Testability Impact:** Need exact rules to write validation tests.
+
+**Options:**
+A. Basic (min 8 characters) - Simple, user-friendly. Test: reject 7 chars, accept 8.
+B. Moderate (min 8 chars + number + symbol) - Balanced security. Test: reject "password", accept "Pass1!"
+C. Strict (min 12 chars + number + symbol + upper/lower) - High security. Test: comprehensive regex.
+D. Custom - Define your own rules
+
+**Your choice:** B
+
+---
+
+## Question 2: Failed Login Handling
+
+**Context:** Spec doesn't mention what happens after failed login attempts.
+
+**What we need to know:** How should we handle repeated failed logins?
+
+**Testability Impact:** Need exact limits to write rate limiting tests.
+
+**Options:**
+A. No limit - Allow unlimited attempts. Test: N/A (no limit to test)
+B. Rate limit - Max 5 attempts per minute per IP. Test: 6th attempt in 60s fails.
+C. Account lockout - Lock account after 5 failed attempts for 30 minutes. Test: verify lockout and unlock timing.
+D. Custom - Define your own approach
+
+**Your choice:** C
 ```
 
-Deferred items:
-- Don't block spec completion
-- Must have clear unblock condition
-- Tracked in clarification log
-
 ---
 
-## Completion Criteria
+## Notes
 
-Clarify session complete when:
-
-1. All explicit markers addressed (resolved or deferred)
-2. No implicit ambiguities in P1 scenarios
-3. Coverage summary shows no Outstanding in critical categories
-4. Remaining markers ≤ 3 (threshold for arch-lead handoff)
-
----
-
-## Output
-
-Updates to:
-- `.claude/specs/{slug}/spec.md` - markers replaced with answers
-- `.claude/specs/{slug}/clarifications/log.md` - decision history
-
-Commit changes:
-```bash
-git add .claude/specs/{slug}/
-git commit -m "clarify: resolve {N} uncertainties in {slug}"
-```
-
----
-
-## Constraints
-
-- Maximum 5 questions per session (avoid fatigue)
-- Multiple choice whenever possible
-- Open-ended answers ≤5 words
-- Update spec immediately after each answer
-- Never resolve technical uncertainties (arch-lead's job)
-- Always log decisions with rationale
+- Prioritize by impact: security > scope > UX > technical
+- Maximum 5 questions per session
+- Some ambiguities can be deferred to implementation
+- Update spec immediately after clarification
+- Keep clarification log for future reference
+- **Every resolved ambiguity should enable writing tests**

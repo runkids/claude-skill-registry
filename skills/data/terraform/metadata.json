@@ -1,7 +1,7 @@
 {
   "name": "terraform",
-  "repo": "enuno/claude-command-and-control",
-  "path": "skills-templates/infrastructure/terraform/SKILL.md",
-  "source": "github.com/enuno/claude-command-and-control",
-  "downloaded_at": "2026-02-01T04:26:08.626935Z"
+  "repo": "jyasuu/cheat-sheet",
+  "path": "skills/terraform/SKILL.md",
+  "source": "github.com/jyasuu/cheat-sheet",
+  "downloaded_at": "2026-02-02T03:19:48.396764Z"
 }

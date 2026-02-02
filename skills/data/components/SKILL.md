@@ -1,37 +1,35 @@
 ---
-name: Components
-description: Standards for Standalone Components, Signals inputs, and Control Flow.
-metadata:
-  labels: [angular, components, standalone, signals, control-flow]
-  triggers:
-    files: ['**/*.component.ts', '**/*.html']
-    keywords: [angular component, standalone, input signal, output, @if, @for]
+name: components
+description: UI component patterns for React 19, shadcn/ui, and Tailwind. Use when working on files in src/components/.
 ---
 
-# Angular Components
+# Components Guidelines
 
-## **Priority: P0 (CRITICAL)**
+## Patterns
 
-## Principles
+- `"use client"` only if using hooks/interactivity
+- Export interface with `Props` suffix, document props with JSDoc
+- Always include optional `className` prop, use `cn()` for merging
 
-- **Standalone**: `standalone: true`. Import dependencies directly in `imports` array.
-- **Signal Inputs**: Use `input()` and `input.required()` instead of `@Input()`.
-- **Signal Outputs**: Use `output()` (from v17.3+) instead of `@Output() EventEmitter`.
-- **Control Flow**: Use `@if`, `@for`, `@switch` block syntax instead of `*ngIf`, `*ngFor`.
-- **View Encapsulation**: Default `Emulated`. Use `None` carefully.
+## Styling
 
-## Signals Integration
+- Tailwind only - no CSS modules or styled-components
+- Use shadcn/ui tokens: `text-muted-foreground`, `bg-background`, etc.
+- All components must support dark mode via `dark:` prefix
 
-- Use `computed()` for derived state.
-- Use `effect()` strictly for side effects (logging, manual DOM manipulation), NEVER for state propagation.
+## State
 
-## Anti-Patterns
+- **Local**: `useState` for UI-only state (dropdowns, modals)
+- **CRDT**: `useVaultAction`/`useActiveTransactions` for data mutations
+- **URL**: `useSearchParams` for filters that should persist
 
-- **Complex Logic in Template**: Call a method or use a `computed` signal.
-- **Direct DOM Access**: Avoid `ElementRef.nativeElement` modification. Use Directives or Renderer2.
-- **Component Inheritance**: Prefer Composition (Directives, Services) over Class Inheritance.
+## Performance
 
-## References
+- `useMemo`/`useCallback` for expensive computations and callbacks to memoized children
+- Virtualize long lists (TransactionTable already does this)
+- Avoid inline object/array literals in JSX props
 
-- [Standalone Pattern](references/standalone-pattern.md)
-- [Control Flow](references/control-flow.md)
+## Accessibility
+
+- Semantic HTML, aria-labels on icon-only buttons
+- Keyboard navigation, focus management in modals

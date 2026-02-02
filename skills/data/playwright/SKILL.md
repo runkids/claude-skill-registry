@@ -1,326 +1,619 @@
 ---
 name: playwright
-description: >
-  Playwright E2E testing patterns.
-  Trigger: When writing Playwright E2E tests (Page Object Model, selectors, MCP exploration workflow). For Prowler-specific UI conventions under ui/tests, also use prowler-test-ui.
-license: Apache-2.0
-metadata:
-  author: prowler-cloud
-  version: "1.0"
-  scope: [root, ui]
-  auto_invoke: "Writing Playwright E2E tests"
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
+description: General-purpose browser automation skill for Playwright. Use this skill when the user wants to automate browser tasks like testing login flows, scraping data, taking screenshots, filling forms, clicking elements, or any interactive web automation. This skill provides smart utilities for session management, error handling, and development server detection. NOT for scheduled monitoring (use web-monitor-bot instead).
 ---
 
-## MCP Workflow (MANDATORY If Available)
+# Playwright Browser Automation
 
-**⚠️ If you have Playwright MCP tools, ALWAYS use them BEFORE creating any test:**
+## Overview
 
-1. **Navigate** to target page
-2. **Take snapshot** to see page structure and elements
-3. **Interact** with forms/elements to verify exact user flow
-4. **Take screenshots** to document expected states
-5. **Verify page transitions** through complete flow (loading, success, error)
-6. **Document actual selectors** from snapshots (use real refs and labels)
-7. **Only after exploring** create test code with verified selectors
+This skill enables general-purpose browser automation using Playwright. It's designed for one-off automation tasks, interactive testing, and ad-hoc browser scripting. The skill includes intelligent utilities for session persistence, error handling, server detection, and common automation patterns extracted from production bots.
 
-**If MCP NOT available:** Proceed with test creation based on docs and code analysis.
+## When to Use This Skill
 
-**Why This Matters:**
-- ✅ Precise tests - exact steps needed, no assumptions
-- ✅ Accurate selectors - real DOM structure, not imagined
-- ✅ Real flow validation - verify journey actually works
-- ✅ Avoid over-engineering - minimal tests for what exists
-- ✅ Prevent flaky tests - real exploration = stable tests
-- ❌ Never assume how UI "should" work
+Invoke this skill when the user requests:
+- "Automate logging into this website"
+- "Take screenshots of this page"
+- "Fill out this form automatically"
+- "Test this login flow"
+- "Extract data from this website"
+- "Click through this multi-step process"
+- Any interactive browser automation task
 
-## File Structure
+**DO NOT use for scheduled monitoring** - use the `web-monitor-bot` skill instead for cron-based periodic checks with analytics.
 
-```
-tests/
-├── base-page.ts              # Parent class for ALL pages
-├── helpers.ts                # Shared utilities
-└── {page-name}/
-    ├── {page-name}-page.ts   # Page Object Model
-    ├── {page-name}.spec.ts   # ALL tests here (NO separate files!)
-    └── {page-name}.md        # Test documentation
-```
+## Quick Start
 
-**File Naming:**
-- ✅ `sign-up.spec.ts` (all sign-up tests)
-- ✅ `sign-up-page.ts` (page object)
-- ✅ `sign-up.md` (documentation)
-- ❌ `sign-up-critical-path.spec.ts` (WRONG - no separate files)
-- ❌ `sign-up-validation.spec.ts` (WRONG)
+### 1. Installation
 
-## Selector Priority (REQUIRED)
-
-```typescript
-// 1. BEST - getByRole for interactive elements
-this.submitButton = page.getByRole("button", { name: "Submit" });
-this.navLink = page.getByRole("link", { name: "Dashboard" });
-
-// 2. BEST - getByLabel for form controls
-this.emailInput = page.getByLabel("Email");
-this.passwordInput = page.getByLabel("Password");
-
-// 3. SPARINGLY - getByText for static content only
-this.errorMessage = page.getByText("Invalid credentials");
-this.pageTitle = page.getByText("Welcome");
-
-// 4. LAST RESORT - getByTestId when above fail
-this.customWidget = page.getByTestId("date-picker");
-
-// ❌ AVOID fragile selectors
-this.button = page.locator(".btn-primary");  // NO
-this.input = page.locator("#email");         // NO
-```
-
-## Scope Detection (ASK IF AMBIGUOUS)
-
-| User Says | Action |
-|-----------|--------|
-| "a test", "one test", "new test", "add test" | Create ONE test() in existing spec |
-| "comprehensive tests", "all tests", "test suite", "generate tests" | Create full suite |
-
-**Examples:**
-- "Create a test for user sign-up" → ONE test only
-- "Generate E2E tests for login page" → Full suite
-- "Add a test to verify form validation" → ONE test to existing spec
-
-## Page Object Pattern
-
-```typescript
-import { Page, Locator, expect } from "@playwright/test";
-
-// BasePage - ALL pages extend this
-export class BasePage {
-  constructor(protected page: Page) {}
-
-  async goto(path: string): Promise<void> {
-    await this.page.goto(path);
-    await this.page.waitForLoadState("networkidle");
-  }
-
-  // Common methods go here (see Refactoring Guidelines)
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');
-  }
-
-  async verifyNotificationMessage(message: string): Promise<void> {
-    const notification = this.page.locator('[role="status"]');
-    await expect(notification).toContainText(message);
-  }
-}
-
-// Page-specific implementation
-export interface LoginData {
-  email: string;
-  password: string;
-}
-
-export class LoginPage extends BasePage {
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly submitButton: Locator;
-
-  constructor(page: Page) {
-    super(page);
-    this.emailInput = page.getByLabel("Email");
-    this.passwordInput = page.getByLabel("Password");
-    this.submitButton = page.getByRole("button", { name: "Sign in" });
-  }
-
-  async goto(): Promise<void> {
-    await super.goto("/login");
-  }
-
-  async login(data: LoginData): Promise<void> {
-    await this.emailInput.fill(data.email);
-    await this.passwordInput.fill(data.password);
-    await this.submitButton.click();
-  }
-
-  async verifyCriticalOutcome(): Promise<void> {
-    await expect(this.page).toHaveURL("/dashboard");
-  }
-}
-```
-
-## Page Object Reuse (CRITICAL)
-
-**Always check existing page objects before creating new ones!**
-
-```typescript
-// ✅ GOOD: Reuse existing page objects
-import { SignInPage } from "../sign-in/sign-in-page";
-import { HomePage } from "../home/home-page";
-
-test("User can sign up and login", async ({ page }) => {
-  const signUpPage = new SignUpPage(page);
-  const signInPage = new SignInPage(page);  // REUSE
-  const homePage = new HomePage(page);      // REUSE
-
-  await signUpPage.signUp(userData);
-  await homePage.verifyPageLoaded();  // REUSE method
-  await homePage.signOut();           // REUSE method
-  await signInPage.login(credentials); // REUSE method
-});
-
-// ❌ BAD: Recreating existing functionality
-export class SignUpPage extends BasePage {
-  async logout() { /* ... */ }  // ❌ HomePage already has this
-  async login() { /* ... */ }   // ❌ SignInPage already has this
-}
-```
-
-**Guidelines:**
-- Check `tests/` for existing page objects first
-- Import and reuse existing pages
-- Create page objects only when page doesn't exist
-- If test requires multiple pages, ensure all page objects exist (create if needed)
-
-## Refactoring Guidelines
-
-### Move to `BasePage` when:
-- ✅ Navigation helpers used by multiple pages (`waitForPageLoad()`, `getCurrentUrl()`)
-- ✅ Common UI interactions (notifications, modals, theme toggles)
-- ✅ Verification patterns repeated across pages (`isVisible()`, `waitForVisible()`)
-- ✅ Error handling that applies to all pages
-- ✅ Screenshot utilities for debugging
-
-### Move to `helpers.ts` when:
-- ✅ Test data generation (`generateUniqueEmail()`, `generateTestUser()`)
-- ✅ Setup/teardown utilities (`createTestUser()`, `cleanupTestData()`)
-- ✅ Custom assertions (`expectNotificationToContain()`)
-- ✅ API helpers for test setup (`seedDatabase()`, `resetState()`)
-- ✅ Time utilities (`waitForCondition()`, `retryAction()`)
-
-**Before (BAD):**
-```typescript
-// Repeated in multiple page objects
-export class SignUpPage extends BasePage {
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');
-  }
-}
-export class SignInPage extends BasePage {
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');  // DUPLICATED!
-  }
-}
-```
-
-**After (GOOD):**
-```typescript
-// BasePage - shared across all pages
-export class BasePage {
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');
-  }
-}
-
-// helpers.ts - data generation
-export function generateUniqueEmail(): string {
-  return `test.${Date.now()}@example.com`;
-}
-
-export function generateTestUser() {
-  return {
-    name: "Test User",
-    email: generateUniqueEmail(),
-    password: "TestPassword123!",
-  };
-}
-```
-
-## Test Pattern with Tags
-
-```typescript
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "./login-page";
-
-test.describe("Login", () => {
-  test("User can login successfully",
-    { tag: ["@critical", "@e2e", "@login", "@LOGIN-E2E-001"] },
-    async ({ page }) => {
-      const loginPage = new LoginPage(page);
-
-      await loginPage.goto();
-      await loginPage.login({ email: "user@test.com", password: "pass123" });
-
-      await expect(page).toHaveURL("/dashboard");
-    }
-  );
-});
-```
-
-**Tag Categories:**
-- Priority: `@critical`, `@high`, `@medium`, `@low`
-- Type: `@e2e`
-- Feature: `@signup`, `@signin`, `@dashboard`
-- Test ID: `@SIGNUP-E2E-001`, `@LOGIN-E2E-002`
-
-## Test Documentation Format ({page-name}.md)
-
-```markdown
-### E2E Tests: {Feature Name}
-
-**Suite ID:** `{SUITE-ID}`
-**Feature:** {Feature description}
-
----
-
-## Test Case: `{TEST-ID}` - {Test case title}
-
-**Priority:** `{critical|high|medium|low}`
-
-**Tags:**
-- type → @e2e
-- feature → @{feature-name}
-
-**Description/Objective:** {Brief description}
-
-**Preconditions:**
-- {Prerequisites for test to run}
-- {Required data or state}
-
-### Flow Steps:
-1. {Step 1}
-2. {Step 2}
-3. {Step 3}
-
-### Expected Result:
-- {Expected outcome 1}
-- {Expected outcome 2}
-
-### Key verification points:
-- {Assertion 1}
-- {Assertion 2}
-
-### Notes:
-- {Additional considerations}
-```
-
-**Documentation Rules:**
-- ❌ NO general test running instructions
-- ❌ NO file structure explanations
-- ❌ NO code examples or tutorials
-- ❌ NO troubleshooting sections
-- ✅ Focus ONLY on specific test case
-- ✅ Keep under 60 lines when possible
-
-## Commands
+Install dependencies in your project or test directory:
 
 ```bash
-npx playwright test                    # Run all
-npx playwright test --grep "login"     # Filter by name
-npx playwright test --ui               # Interactive UI
-npx playwright test --debug            # Debug mode
-npx playwright test tests/login/       # Run specific folder
+npm install playwright playwright-extra puppeteer-extra-plugin-stealth dotenv
+npx playwright install chromium
 ```
 
-## Prowler-Specific Patterns
+### 2. Run a Script
 
-For Prowler UI E2E testing with authentication setup, environment variables, and test IDs, see:
-- **Documentation**: [references/prowler-e2e.md](references/prowler-e2e.md)
+Execute automation scripts using the provided runner:
+
+```bash
+node run.js path/to/your-script.js
+```
+
+Or run inline code:
+
+```bash
+node run.js "await page.goto('https://example.com'); await page.screenshot({ path: 'screenshot.png' });"
+```
+
+Or pipe code via stdin:
+
+```bash
+cat script.js | node run.js
+```
+
+### 3. Use Helper Utilities
+
+Import the utilities library for advanced patterns:
+
+```javascript
+const utils = require('./lib/utils.js');
+
+// Safe click with retry
+await utils.safeClick(page, 'button.submit', { retries: 3 });
+
+// Type with human-like delays
+await utils.humanType(page, '#email', 'user@example.com');
+
+// Session management
+await utils.saveCookies(context, 'session.json');
+await utils.loadCookies(context, 'session.json');
+
+// Screenshot with error handling
+await utils.captureScreenshot(page, 'step-1.png');
+```
+
+## Core Features
+
+### Session Persistence
+
+Save and restore browser sessions to avoid repeated logins:
+
+```javascript
+const { saveCookies, loadCookies } = require('./lib/utils.js');
+
+// After successful login
+await saveCookies(context, 'my-session.json');
+
+// On subsequent runs
+const hasCookies = await loadCookies(context, 'my-session.json');
+if (hasCookies) {
+  console.log('Session restored!');
+  await page.goto(protectedUrl);
+} else {
+  // Perform login
+}
+```
+
+**Benefits:**
+- Skip login flows on repeated runs
+- Maintain authentication state
+- Avoid rate limiting from frequent logins
+- Faster execution times
+
+### Development Server Detection
+
+Automatically detect running development servers before executing scripts:
+
+```javascript
+const { detectDevServers } = require('./lib/utils.js');
+
+const servers = await detectDevServers();
+if (servers.length > 0) {
+  console.log('Found servers:', servers);
+  // Use detected server URLs in your automation
+}
+```
+
+### Stealth Mode
+
+Built-in stealth plugin to bypass basic bot detection:
+
+```javascript
+const { chromium } = require('playwright-extra');
+const stealth = require('puppeteer-extra-plugin-stealth')();
+
+chromium.use(stealth);
+
+const browser = await chromium.launch({
+  headless: false,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
+```
+
+### Error Handling & Retries
+
+Robust error handling with automatic retries:
+
+```javascript
+const { retryWithBackoff } = require('./lib/utils.js');
+
+// Retry an operation up to 3 times with exponential backoff
+const result = await retryWithBackoff(async () => {
+  await page.waitForSelector('.dynamic-content', { timeout: 10000 });
+  return await page.textContent('.dynamic-content');
+}, { maxRetries: 3, initialDelay: 1000 });
+```
+
+## Common Automation Patterns
+
+### Pattern 1: Login Flow Automation
+
+```javascript
+const { chromium } = require('playwright-extra');
+const stealth = require('puppeteer-extra-plugin-stealth')();
+const { saveCookies, loadCookies, humanType, safeClick } = require('./lib/utils.js');
+
+chromium.use(stealth);
+
+const browser = await chromium.launch({ headless: false });
+const context = await browser.newContext();
+const page = await context.newPage();
+
+// Try to load saved session
+const hasCookies = await loadCookies(context, 'session.json');
+
+if (!hasCookies) {
+  // Perform login
+  await page.goto('https://example.com/login');
+  await humanType(page, '#email', 'user@example.com');
+  await humanType(page, '#password', 'password123');
+  await safeClick(page, 'button[type="submit"]');
+
+  await page.waitForNavigation();
+
+  // Save session for next time
+  await saveCookies(context, 'session.json');
+  console.log('Login successful, session saved!');
+} else {
+  console.log('Using saved session');
+  await page.goto('https://example.com/dashboard');
+}
+
+await browser.close();
+```
+
+### Pattern 2: Form Filling & Submission
+
+```javascript
+const { humanType, safeClick, captureScreenshot } = require('./lib/utils.js');
+
+await page.goto('https://example.com/form');
+
+// Fill form fields with human-like typing
+await humanType(page, '#name', 'John Doe');
+await humanType(page, '#email', 'john@example.com', { delay: 50 });
+await page.selectOption('#country', 'US');
+await page.check('#terms');
+
+// Screenshot before submission
+await captureScreenshot(page, 'before-submit.png');
+
+// Submit with retry logic
+await safeClick(page, 'button#submit', { retries: 3 });
+
+// Wait for success
+await page.waitForSelector('.success-message', { timeout: 15000 });
+await captureScreenshot(page, 'after-submit.png');
+```
+
+### Pattern 3: Data Extraction
+
+```javascript
+const { retryWithBackoff } = require('./lib/utils.js');
+
+await page.goto('https://example.com/data');
+
+// Extract data with retry logic
+const data = await retryWithBackoff(async () => {
+  await page.waitForSelector('.data-table', { timeout: 10000 });
+
+  const rows = await page.$$('.data-table tr');
+  const results = [];
+
+  for (const row of rows) {
+    const cells = await row.$$('td');
+    const rowData = await Promise.all(cells.map(cell => cell.textContent()));
+    results.push(rowData);
+  }
+
+  return results;
+}, { maxRetries: 3 });
+
+console.log('Extracted data:', data);
+```
+
+### Pattern 4: Multi-Step Workflow
+
+```javascript
+const { safeClick, humanType, captureScreenshot } = require('./lib/utils.js');
+
+// Step 1: Search
+await page.goto('https://example.com');
+await humanType(page, '#search', 'playwright automation');
+await safeClick(page, 'button.search');
+await page.waitForTimeout(2000);
+await captureScreenshot(page, 'step-1-search.png');
+
+// Step 2: Filter results
+await safeClick(page, '.filter-option[data-filter="recent"]');
+await page.waitForTimeout(1000);
+await captureScreenshot(page, 'step-2-filtered.png');
+
+// Step 3: Select item
+await safeClick(page, '.result-item:first-child');
+await page.waitForNavigation();
+await captureScreenshot(page, 'step-3-details.png');
+
+// Step 4: Complete action
+await safeClick(page, 'button.add-to-cart');
+await page.waitForSelector('.cart-notification', { timeout: 5000 });
+await captureScreenshot(page, 'step-4-added.png');
+```
+
+### Pattern 5: Screenshot Capture with Responsive Testing
+
+```javascript
+const { captureScreenshot } = require('./lib/utils.js');
+
+const viewports = [
+  { width: 1920, height: 1080, name: 'desktop' },
+  { width: 768, height: 1024, name: 'tablet' },
+  { width: 375, height: 667, name: 'mobile' }
+];
+
+for (const viewport of viewports) {
+  await page.setViewportSize({ width: viewport.width, height: viewport.height });
+  await page.goto('https://example.com');
+  await captureScreenshot(page, `screenshot-${viewport.name}.png`);
+}
+```
+
+### Pattern 6: Cloudflare Challenge Handling (Production-Ready)
+
+```javascript
+const { detectCloudflare, saveCookies } = require('./lib/utils.js');
+
+await page.goto('https://protected-site.com');
+
+// Intelligent Cloudflare detection with 90s polling
+try {
+  const wasBlocked = await detectCloudflare(page, context, 'initial page load', {
+    maxWaitSeconds: 90,        // Poll for up to 90 seconds
+    pollIntervalSeconds: 10,   // Check every 10 seconds
+    cookiePath: 'session.json' // Save cookies immediately after solve
+  });
+
+  if (wasBlocked) {
+    console.log('Cloudflare challenge auto-solved! Proceeding...');
+  } else {
+    console.log('No Cloudflare challenge detected');
+  }
+
+  // Continue with automation
+  await page.click('.protected-button');
+
+} catch (error) {
+  // Challenge not solved after 90s
+  console.error('Cloudflare blocked:', error.message);
+  // Screenshots auto-saved: cloudflare-detected.png, cloudflare-timeout.png
+  process.exit(1);
+}
+```
+
+**Features:**
+- **Smart polling**: Checks every 10s for up to 90s (not single wait)
+- **Block tracking**: Tracks consecutive/total blocks in `cloudflare-blocks.json`
+- **Auto-screenshots**: `cloudflare-detected.png` (when detected), `cloudflare-cleared.png` (when solved), `cloudflare-timeout.png` (if fails)
+- **Cookie persistence**: Saves session immediately after challenge clears
+- **Progress updates**: Console logs every 30s during wait
+
+**Block Tracking:**
+```javascript
+const { getCloudflareBlocks } = require('./lib/utils.js');
+
+const blocks = getCloudflareBlocks();
+console.log(`Consecutive blocks: ${blocks.consecutive}`);
+console.log(`Total blocks: ${blocks.total}`);
+console.log(`Last 10 events:`, blocks.history.slice(-10));
+```
+
+## Utility Functions Reference
+
+### Session Management
+
+```javascript
+// Save browser cookies to file
+await saveCookies(context, filepath);
+
+// Load browser cookies from file
+const restored = await loadCookies(context, filepath);
+// Returns: true if cookies were loaded, false if file doesn't exist
+```
+
+### Safe Interactions
+
+```javascript
+// Click with automatic retry and error handling
+await safeClick(page, selector, { retries: 3, timeout: 10000 });
+
+// Click with human-like mouse movement (curved path + random position)
+await humanClick(page, selector, { timeout: 10000 });
+
+// Type with human-like delays (randomized between chars)
+await humanType(page, selector, text, { delay: 100 });
+
+// Generate random delay for timing variation
+const delay = randomDelay(1000, 2500); // Returns random ms between 1000-2500
+await page.waitForTimeout(delay);
+```
+
+### Screenshots
+
+```javascript
+// Capture screenshot with automatic error handling
+await captureScreenshot(page, filepath);
+```
+
+### Retry Logic
+
+```javascript
+// Retry async operation with exponential backoff
+const result = await retryWithBackoff(asyncFunction, {
+  maxRetries: 3,
+  initialDelay: 1000,
+  backoffMultiplier: 2
+});
+```
+
+### Server Detection
+
+```javascript
+// Detect running development servers on localhost
+const servers = await detectDevServers();
+// Returns: Array of { port, url } objects
+```
+
+## Advanced Configuration
+
+### Timeout Strategies
+
+Implement dynamic timeouts based on conditions:
+
+```javascript
+const isPeakTime = new Date().getHours() === 17; // 5 PM
+const timeout = isPeakTime ? 60000 : 30000;
+
+await page.goto(url, { timeout });
+await page.waitForSelector(selector, { timeout });
+```
+
+### Headless vs. Headed Mode
+
+```javascript
+// Headed (visible browser) - useful for debugging
+const browser = await chromium.launch({ headless: false });
+
+// Headless (background) - useful for production/CI
+const browser = await chromium.launch({ headless: true });
+```
+
+### Custom User Agents
+
+```javascript
+const context = await browser.newContext({
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+});
+```
+
+### Browser Arguments
+
+```javascript
+const browser = await chromium.launch({
+  headless: false,
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-blink-features=AutomationControlled'
+  ]
+});
+```
+
+## Best Practices
+
+### 1. Use Session Persistence
+
+Always save cookies after authentication to speed up subsequent runs:
+
+```javascript
+// After login
+await saveCookies(context, 'session.json');
+
+// Before automation
+const hasCookies = await loadCookies(context, 'session.json');
+```
+
+### 2. Implement Retry Logic
+
+Use retries for flaky network requests or dynamic content:
+
+```javascript
+await retryWithBackoff(async () => {
+  await page.waitForSelector('.dynamic-element', { timeout: 10000 });
+  return await page.textContent('.dynamic-element');
+}, { maxRetries: 3 });
+```
+
+### 3. Capture Screenshots on Errors
+
+Always save evidence when things go wrong:
+
+```javascript
+try {
+  await page.click('.submit-button');
+} catch (error) {
+  await captureScreenshot(page, 'error.png');
+  throw error;
+}
+```
+
+### 4. Use Human-Like Interactions
+
+Avoid detection by simulating natural human behavior:
+
+```javascript
+const { humanClick, humanType, randomDelay } = require('./lib/utils.js');
+
+// Bad: Instant, robotic interactions
+await page.fill('#input', text);
+await page.click('button');
+
+// Good: Human-like behavior
+await humanType(page, '#input', text, { delay: 50 });
+await page.waitForTimeout(randomDelay(500, 1500)); // Random pause
+await humanClick(page, 'button'); // Mouse movement + random click position
+```
+
+**Anti-Detection Checklist:**
+- ✅ Use `humanClick()` instead of `.click()` (adds mouse movement)
+- ✅ Use `humanType()` instead of `.fill()` (adds typing delays)
+- ✅ Use `randomDelay()` for all `waitForTimeout()` calls (avoid fixed timing)
+- ✅ Add random pauses between actions (humans don't act instantly)
+- ✅ Handle Cloudflare with `detectCloudflare()` (smart polling + tracking)
+
+### 5. Clean Up Resources
+
+Always close browsers and remove temporary files:
+
+```javascript
+try {
+  // ... automation code ...
+} finally {
+  await browser.close();
+  // Clean up lock files, temp files, etc.
+}
+```
+
+## File Organization
+
+Recommended structure for automation projects:
+
+```
+my-automation/
+├── run.js              # Script runner
+├── lib/
+│   └── utils.js        # Utility functions
+├── scripts/
+│   ├── login.js        # Login automation
+│   ├── scrape.js       # Data extraction
+│   └── test-flow.js    # Test workflows
+├── sessions/
+│   └── cookies.json    # Saved sessions
+├── screenshots/        # Captured images
+├── .env                # Environment variables
+└── package.json
+```
+
+## Environment Variables
+
+Use `.env` files for configuration:
+
+```bash
+# .env
+TARGET_URL=https://example.com
+LOGIN_EMAIL=user@example.com
+LOGIN_PASSWORD=secretpass
+HEADLESS=false
+TIMEOUT=30000
+```
+
+Load in scripts:
+
+```javascript
+require('dotenv').config();
+
+const targetUrl = process.env.TARGET_URL;
+const headless = process.env.HEADLESS === 'true';
+const timeout = parseInt(process.env.TIMEOUT) || 30000;
+```
+
+## Troubleshooting
+
+### Script not finding elements
+
+1. Use `page.waitForSelector()` before interactions
+2. Increase timeout values for slow-loading pages
+3. Verify selectors in browser DevTools
+4. Use `captureScreenshot()` to see page state
+
+### Bot detection issues
+
+1. Enable stealth mode with `playwright-extra`
+2. Use `humanType()` instead of `fill()`
+3. Add random delays: `await page.waitForTimeout(Math.random() * 2000 + 1000)`
+4. Use realistic user agents
+5. Handle Cloudflare challenges with manual intervention pattern
+
+### Session not persisting
+
+1. Ensure cookies are saved after successful login
+2. Check file permissions on cookie file
+3. Verify cookie expiration times
+4. Re-login and save fresh cookies
+
+### Timeouts on slow pages
+
+1. Increase timeout values: `{ timeout: 60000 }`
+2. Use `waitUntil: 'domcontentloaded'` instead of `'load'`
+3. Implement retry logic with backoff
+4. Check network tab for slow requests
+
+## Comparison with web-monitor-bot
+
+| Feature | playwright (this skill) | web-monitor-bot |
+|---------|------------------------|-----------------|
+| **Use Case** | One-off automation tasks | Scheduled monitoring |
+| **Execution** | Manual/on-demand | Cron-based periodic |
+| **Analytics** | No | Yes (built-in dashboard) |
+| **Notifications** | Manual implementation | Slack/webhook integration |
+| **Session Management** | Yes (utilities) | Yes (built-in) |
+| **Concurrency Control** | Manual | Lock files (built-in) |
+| **Best For** | Testing, scraping, workflows | Availability tracking, alerts |
+
+## Examples
+
+See the `examples/` directory for complete working scripts:
+
+- `examples/login-flow.js` - Full login automation with session persistence
+- `examples/form-submission.js` - Multi-step form filling
+- `examples/data-extraction.js` - Scraping with retry logic
+- `examples/screenshot-tool.js` - Responsive screenshot capture
+- `examples/cloudflare-handler.js` - Handling bot protection
+
+## Resources
+
+### Dependencies
+- [Playwright](https://playwright.dev/) - Browser automation framework
+- [playwright-extra](https://github.com/berstend/puppeteer-extra/tree/master/packages/playwright-extra) - Plugin support
+- [puppeteer-extra-plugin-stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) - Bot detection bypass
+
+### Documentation
+- [Playwright API Docs](https://playwright.dev/docs/api/class-playwright)
+- [Selectors Guide](https://playwright.dev/docs/selectors)
+- [Best Practices](https://playwright.dev/docs/best-practices)
+
+## License
+
+MIT

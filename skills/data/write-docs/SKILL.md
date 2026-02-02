@@ -3,35 +3,66 @@ name: write-docs
 description: Writing SDK documentation for tldraw. Use when creating new documentation articles, updating existing docs, or when documentation writing guidance is needed. Applies to docs in apps/docs/content/.
 ---
 
-# Write documentation
+# Writing tldraw SDK documentation
 
-This skill covers how to write and update tldraw SDK documentation.
+## The tldraw voice
 
-## Location
+Write like a colleague walking someone through code they know well. Confident, casual, code-first.
 
-All documentation lives in `apps/docs/content/`. The main categories are:
+**Characteristic patterns:**
 
-| Directory          | Purpose                                       |
-| ------------------ | --------------------------------------------- |
-| `docs/`            | SDK documentation articles                    |
-| `releases/`        | Release notes (see write-release-notes skill) |
-| `examples/`        | Example documentation                         |
-| `getting-started/` | Quickstart and setup guides                   |
+> Have five minutes? Run this command...
 
-## Process
+> That's pretty much it!
 
-### 1. Understand the scope
+> Let's add local persistence by passing a `persistenceKey` prop...
 
-Before writing:
+> Need to create some shapes? Use [Editor#createShapes](?). Need to delete them? Use [Editor#deleteShapes](?).
 
-- Identify the target audience (new users, experienced developers, API reference)
-- Check existing docs that cover related topics
-- Look at relevant examples in `apps/examples/`
-- Read the API types and comments in the source code
+**What makes it work:**
 
-### 2. Create the file
+- Direct address with "you" and "let's"
+- Questions as transitions ("Need to create some shapes?")
+- Exclamations that feel natural, not forced ("That's pretty much it!")
+- Jump straight to code, explain around it
+- Short sentences between code blocks
 
-Create a new `.mdx` file in the appropriate directory with frontmatter:
+### Confidence without hedging
+
+State facts. Don't soften them.
+
+```
+// Good
+The Editor class is the main way of controlling tldraw's editor.
+
+// Bad
+The Editor class can be used to control tldraw's editor.
+```
+
+### Density over exposition
+
+Real tldraw docs are code-heavy. A section might be 20 lines of code with 2 sentences of explanation. Don't pad with prose.
+
+## Avoid AI tells
+
+These break trust instantly:
+
+- **Hollow claims**: "plays a crucial role", "serves as a testament to"
+- **Trailing gerunds**: "...ensuring optimal performance"
+- **Formulaic transitions**: "Moreover,", "Furthermore,", "It's important to note"
+- **Promotional language**: "robust", "seamless", "empowers developers"
+- **Three-item lists**: Real writing has 2, 4, 7 items
+- **Passive voice**: "can be achieved by" — just show how
+- **Conversational asides**: "(or whatever)", "(if you want)", "(just saying)"
+
+## Mechanics
+
+- **Sentence case headings**: "Custom shapes" not "Custom Shapes"
+- **Active voice**: "The store validates records"
+- **Present tense**: "The migration system transforms"
+- **Contractions**: it's, we've, you'll, don't
+
+## Frontmatter
 
 ```yaml
 ---
@@ -46,19 +77,9 @@ keywords:
 ---
 ```
 
-### 3. Write the content
+## MDX components
 
-Follow the structure:
-
-1. **Overview** — 1-2 paragraphs on what and why
-2. **Basic usage** — The simplest working example
-3. **Details** — Deeper explanation with more examples
-4. **Edge cases** — Advanced patterns, gotchas
-5. **Links** — Related docs and examples
-
-### 4. Use MDX components
-
-#### API links
+### API links
 
 Use `[ClassName](?)` or `[ClassName#methodName](?)` for API references:
 
@@ -66,7 +87,7 @@ Use `[ClassName](?)` or `[ClassName#methodName](?)` for API references:
 The [Editor](?) class has many methods. Use [Editor#createShapes](?) to create shapes.
 ```
 
-#### Code highlighting
+### Code highlighting
 
 Use `<FocusLines>` to highlight specific lines:
 
@@ -81,7 +102,7 @@ import { useSyncDemo } from '@tldraw/sync'
 </FocusLines>
 ```
 
-#### Images
+### Images
 
 ```markdown
 <Image
@@ -91,7 +112,7 @@ import { useSyncDemo } from '@tldraw/sync'
 />
 ```
 
-#### Tables for API documentation
+### Tables for API documentation
 
 Use tables for listing methods, options, or properties:
 
@@ -109,16 +130,76 @@ Use tables for listing methods, options, or properties:
 | `fit-x`   | The x axis will completely fill the viewport bounds. |
 ```
 
-### 5. Verify
+## Code examples
 
-Check that:
+Show code early, explain around it. Don't build up to code with paragraphs of context.
 
-- Code examples actually work
-- API links resolve correctly
-- Images have alt text
-- Headings use sentence case
-- No AI tells (see style guide)
+### Realistic, minimal
 
-## References
+```tsx
+// Good: Real shape, real values
+editor.createShapes([
+	{
+		type: 'geo',
+		x: 0,
+		y: 0,
+		props: { geo: 'rectangle', w: 100, h: 100 },
+	},
+])
 
-- **Style guide**: See `../shared/docs-guide.md` for voice, tone, and formatting conventions.
+// Bad: Placeholder nonsense
+editor.createShape({ type: 'example-type', props: { prop1: 'value1' } })
+```
+
+### Context when needed
+
+Full components are fine when showing integration patterns:
+
+```tsx
+export default function App() {
+	return (
+		<div style={{ position: 'fixed', inset: 0 }}>
+			<Tldraw persistenceKey="example" />
+		</div>
+	)
+}
+```
+
+Minimal snippets when showing a single API:
+
+```tsx
+editor.setFocusedGroup(groupId)
+```
+
+## Structure
+
+### Overview first
+
+1-2 paragraphs establishing what and why before diving into how.
+
+### Progressive complexity
+
+Start with the common case. Add complexity incrementally. Put edge cases later.
+
+### Link to examples
+
+End sections with links to relevant examples:
+
+```markdown
+> For an example of how to create custom shapes, see our [custom shapes example](/examples/shapes/tools/custom-shape).
+```
+
+Or in a section:
+
+```markdown
+---
+
+See the [tldraw repository](https://github.com/tldraw/tldraw/tree/main/apps/examples) for examples of how to use tldraw's Editor API.
+```
+
+## Priorities
+
+1. **Accuracy** — Code must work. API refs must be correct.
+2. **Clarity** — Understand on first read.
+3. **Brevity** — Say it once, move on.
+4. **Scannability** — Short paragraphs, clear headers, lots of code.

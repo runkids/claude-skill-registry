@@ -1,7 +1,7 @@
 {
   "name": "memory-systems",
-  "repo": "vamseeachanta/workspace-hub",
-  "path": ".claude/skills/_core/agents/memory-systems/SKILL.md",
-  "source": "github.com/vamseeachanta/workspace-hub",
-  "downloaded_at": "2026-02-01T04:29:57.270199Z"
+  "repo": "illogical/InstructionLibrary",
+  "path": "skills/memory-systems/SKILL.md",
+  "source": "github.com/illogical/InstructionLibrary",
+  "downloaded_at": "2026-02-02T04:14:59.313458Z"
 }

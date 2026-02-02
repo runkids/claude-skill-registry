@@ -1,7 +1,7 @@
 {
   "name": "review",
-  "repo": "pwittchen/varun.surf",
-  "path": ".claude/skills/review/SKILL.md",
-  "source": "github.com/pwittchen/varun.surf",
-  "downloaded_at": "2026-02-01T04:41:27.723458Z"
+  "repo": "paxtone-io/openkodo",
+  "path": "plugins/kodo/skills/review/SKILL.md",
+  "source": "github.com/paxtone-io/openkodo",
+  "downloaded_at": "2026-02-02T05:08:46.267891Z"
 }

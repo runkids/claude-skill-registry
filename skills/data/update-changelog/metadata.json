@@ -1,7 +1,7 @@
 {
   "name": "update-changelog",
-  "repo": "sequenzia/claude-alchemy",
-  "path": "claude-tools/dev-tools/skills/update-changelog/SKILL.md",
-  "source": "github.com/sequenzia/claude-alchemy",
-  "downloaded_at": "2026-02-01T01:39:54.075437Z"
+  "repo": "mitsuhiko/agent-stuff",
+  "path": "skills/update-changelog/SKILL.md",
+  "source": "github.com/mitsuhiko/agent-stuff",
+  "downloaded_at": "2026-02-02T04:22:21.214608Z"
 }

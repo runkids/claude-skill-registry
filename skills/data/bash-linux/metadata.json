@@ -1,7 +1,7 @@
 {
   "name": "bash-linux",
-  "repo": "yunaamelia/vps-rdp-workstation",
-  "path": ".agent/skills/bash-linux/SKILL.md",
-  "source": "github.com/yunaamelia/vps-rdp-workstation",
-  "downloaded_at": "2026-02-01T04:34:24.713884Z"
+  "repo": "GrupoUS/gpus",
+  "path": ".claude/skills/bash-linux/SKILL.md",
+  "source": "github.com/GrupoUS/gpus",
+  "downloaded_at": "2026-02-02T04:48:37.699729Z"
 }

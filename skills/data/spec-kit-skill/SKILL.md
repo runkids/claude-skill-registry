@@ -1,6 +1,7 @@
 ---
 name: spec-kit-skill
-description: 'GitHub Spec-Kit integration for constitution-based spec-driven development. 7-phase workflow (constitution, specify, clarify, plan, tasks, analyze, implement). Use when working with spec-kit CLI, .specify/ directories, or creating specifications with constitution-driven development. Triggered by "spec-kit", "speckit", "constitution", "specify", references to .specify/ directory, or spec-kit commands.'
+description: 'GitHub Spec-Kit integration for constitution-based spec-driven development. 7-phase workflow. Triggers: "spec-kit", "speckit", "constitution", "specify", ".specify/", "规格驱动开发", "需求规格".'
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash(specify:*), Bash(ls:*), Bash(cat:*), Bash(grep:*), Bash(mkdir:*), Bash(git:*)
 ---
 
 # Spec-Kit: Constitution-Based Spec-Driven Development
@@ -20,11 +21,6 @@ This skill works with the [GitHub Spec-Kit CLI](https://github.com/github/spec-k
 7. **Implement** → Execute implementation
 
 **Storage**: Creates files in `.specify/specs/NNN-feature-name/` directory with numbered features
-
-## References
-
-- For detailed detection logic and status checks, see `helpers/detection-logic.md`.
-- For a runnable status report, use `scripts/detect-phase.sh`.
 
 ## When to Use
 
@@ -69,10 +65,10 @@ If CLI is installed but project not initialized:
 
 ```bash
 # Initialize in current directory
-specify init . --ai codex
+specify init . --ai claude
 
 # Initialize new project
-specify init <project-name> --ai codex
+specify init <project-name> --ai claude
 
 # Options:
 # --force: Overwrite non-empty directories
@@ -897,3 +893,8 @@ Feature is complete when:
 ## Summary
 
 Spec-Kit provides a rigorous, constitution-based approach to feature development with clear phases, explicit dependencies, and comprehensive documentation at every step. The workflow ensures alignment from principles through implementation.
+
+## Supporting Files
+
+For advanced detection logic and automation scripts, see:
+- [Detection Logic](helpers/detection-logic.md) - Comprehensive state detection algorithms

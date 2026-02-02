@@ -1,147 +1,354 @@
 ---
 name: nextjs-app-router
-description: Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
-version: 1.1.0
-tokens: ~950
-confidence: high
-sources:
-  - https://nextjs.org/docs/app/building-your-application/routing
-  - https://nextjs.org/docs/app/building-your-application/data-fetching
-  - https://nextjs.org/docs/messages/sync-dynamic-apis
-last_validated: 2025-12-10
-next_review: 2025-12-24
-tags: [nextjs, routing, frontend, ssr]
-nextjs_version: "13-16 (App Router)"
+description: Next.js 16 App Router patterns including server components, client components, server actions, route handlers, layouts, metadata API, dynamic routes, file conventions, data fetching, caching strategies, and Next.js best practices for building modern React applications
+model: sonnet
 ---
 
-## When to Use
+# Next.js App Router Patterns
 
-Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
+## When to Use This Skill
 
-## Patterns
+Activate this skill when working on:
 
-### Pattern 1: Route Structure
-```
-app/
-├── layout.tsx          # Root layout (required)
-├── page.tsx            # Home page (/)
-├── loading.tsx         # Loading UI
-├── error.tsx           # Error boundary
-├── dashboard/
-│   ├── layout.tsx      # Nested layout
-│   ├── page.tsx        # /dashboard
-│   └── [id]/
-│       └── page.tsx    # /dashboard/:id
-└── api/
-    └── users/
-        └── route.ts    # API route /api/users
-```
-Source: https://nextjs.org/docs/app/building-your-application/routing
+- Creating new pages, routes, or layouts
+- Implementing server or client components
+- Building server actions for data mutations
+- Setting up route handlers (API endpoints)
+- Configuring metadata and SEO
+- Implementing dynamic routes
+- Organizing app directory structure
+- Data fetching and caching strategies
 
-### Pattern 2: Server Component (Default)
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/data-fetching
-// app/posts/page.tsx - Server Component (no 'use client')
-async function PostsPage() {
-  const posts = await db.posts.findMany(); // Direct DB access
+## Core Patterns
 
-  return (
-    <ul>
-      {posts.map(post => <li key={post.id}>{post.title}</li>)}
-    </ul>
-  );
-}
-export default PostsPage;
-```
+### Server vs Client Components Decision Tree
 
-### Pattern 3: Client Component
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/rendering/client-components
-'use client'; // Mark as client component
+**Use Server Components (default) when:**
 
-import { useState } from 'react';
+- Fetching data from databases or APIs
+- Accessing backend resources directly
+- Keeping sensitive information secure (API keys, tokens)
+- Reducing client-side JavaScript bundle
+- No interactivity required
 
-export function Counter() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
-}
-```
+**Use Client Components (`'use client'`) when:**
 
-### Pattern 4: Dynamic Routes with Params
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
-// app/posts/[id]/page.tsx
-// Note: In Next.js 15+, params is a Promise and must be awaited.
-// Earlier versions used synchronous access (deprecated pattern).
-interface Props {
+- Using React hooks (`useState`, `useEffect`, `useContext`)
+- Handling browser events (onClick, onChange)
+- Using browser-only APIs (localStorage, window)
+- Using third-party libraries that depend on React hooks
+- Implementing real-time features with Ably
+
+**Example:**
+
+```tsx
+// app/board/[id]/page.tsx - Server Component (default)
+import { getBoard } from "@/lib/actions/board/getBoard";
+
+export default async function BoardPage({
+  params,
+}: {
   params: Promise<{ id: string }>;
-}
-
-export default async function PostPage({ params }: Props) {
+}) {
   const { id } = await params;
-  const post = await getPost(id);
-  return <article>{post.content}</article>;
+  const board = await getBoard(id);
+
+  return <BoardView board={board} />;
 }
 ```
 
-### Pattern 5: Search Params (Query Strings)
-```typescript
-// Source: https://nextjs.org/docs/messages/sync-dynamic-apis
-// app/shop/page.tsx
-// Note: In Next.js 15+, searchParams is a Promise and must be awaited.
-interface Props {
-  searchParams: Promise<{ sort?: string; page?: string }>;
-}
+```tsx
+// components/board/BoardView.tsx - Client Component
+"use client";
 
-export default async function ShopPage({ searchParams }: Props) {
-  const { sort, page } = await searchParams;
-  const products = await getProducts({ sort, page: Number(page) || 1 });
-  return <ProductList products={products} />;
+import { useState } from "react";
+import { PostProvider } from "@/components/board/PostProvider";
+
+export function BoardView({ board }) {
+  const [filter, setFilter] = useState("all");
+
+  return <PostProvider boardId={board.id}>{/* Interactive UI */}</PostProvider>;
 }
 ```
 
-### Pattern 6: API Route Handler
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
-// app/api/users/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+### Server Actions with Authentication
 
-export async function GET(request: NextRequest) {
-  const users = await db.users.findMany();
-  return NextResponse.json(users);
-}
+**CRITICAL:** All server actions MUST use `actionWithAuth` or `rbacWithAuth` wrappers (see [rbac-security](../rbac-security/SKILL.md) skill).
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const user = await db.users.create({ data: body });
-  return NextResponse.json(user, { status: 201 });
+**Pattern:**
+
+```tsx
+// lib/actions/post/createPost.ts
+"use server";
+
+import { rbacWithAuth } from "@/lib/actions/actionWithAuth";
+import { db } from "@/db";
+import { postTable } from "@/db/schema";
+
+export const createPost = async (
+  boardId: string,
+  content: string,
+  type: PostType
+) =>
+  rbacWithAuth(boardId, async (userId) => {
+    const post = await db
+      .insert(postTable)
+      .values({
+        id: nanoid(),
+        boardId,
+        userId,
+        content,
+        type,
+        createdAt: new Date(),
+      })
+      .returning();
+
+    return post[0];
+  });
+```
+
+**Usage in Client Components:**
+
+```tsx
+"use client";
+
+import { createPost } from "@/lib/actions/post/createPost";
+import { useTransition } from "react";
+
+export function CreatePostForm({ boardId }) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = async (formData: FormData) => {
+    startTransition(async () => {
+      await createPost(boardId, formData.get("content") as string, "went_well");
+    });
+  };
+
+  return <form action={handleSubmit}>...</form>;
 }
 ```
 
-### Pattern 7: Metadata for SEO
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
-// app/posts/[id]/page.tsx
-export async function generateMetadata({ params }: Props) {
+### File-Based Routing Conventions
+
+**Special Files:**
+
+- `page.tsx` - Unique UI for a route
+- `layout.tsx` - Shared UI for segments and children
+- `loading.tsx` - Loading UI (Suspense boundary)
+- `error.tsx` - Error UI (Error boundary)
+- `not-found.tsx` - Not found UI
+- `route.ts` - API endpoint (Route Handler)
+
+**Route Organization:**
+
+```text
+app/
+├── layout.tsx                    # Root layout
+├── page.tsx                      # Home page
+├── board/
+│   ├── layout.tsx               # Board layout
+│   ├── page.tsx                 # Board list
+│   └── [id]/
+│       ├── page.tsx             # Board detail (dynamic route)
+│       ├── loading.tsx          # Loading state
+│       └── error.tsx            # Error handling
+└── api/
+    └── webhooks/
+        └── route.ts             # API route handler
+```
+
+### Metadata API for SEO
+
+**Static Metadata:**
+
+```tsx
+// app/board/[id]/page.tsx
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Board Details",
+  description: "View and manage your retrospective board",
+};
+```
+
+**Dynamic Metadata:**
+
+```tsx
+// app/board/[id]/page.tsx
+import { getBoard } from "@/lib/actions/board/getBoard";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
   const { id } = await params;
-  const post = await getPost(id);
-  return { title: post.title, description: post.excerpt };
+  const board = await getBoard(id);
+
+  return {
+    title: `${board.name} - Ree Board`,
+    description: board.description,
+    openGraph: {
+      title: board.name,
+      description: board.description,
+    },
+  };
 }
+```
+
+### Dynamic Imports for Code Splitting
+
+**Lazy Load Heavy Components:**
+
+```tsx
+import dynamic from "next/dynamic";
+
+// Drag-and-drop is lazy loaded in the project
+const PostDragDrop = dynamic(() => import("@/components/board/PostDragDrop"), {
+  ssr: false,
+  loading: () => <LoadingSkeleton />,
+});
 ```
 
 ## Anti-Patterns
 
-- **'use client' everywhere** - Default to server, add client only when needed
-- **Fetching in client components** - Fetch in server components, pass as props
-- **Direct DB in client** - Use API routes or server actions
-- **Missing loading.tsx** - Always add for async pages
-- **Accessing params/searchParams without await** - Next.js 15+ requires async access
+### ❌ Using 'use client' at the Top Level Unnecessarily
 
-## Verification Checklist
+**Bad:**
 
-- [ ] Server components for data fetching (no 'use client')
-- [ ] Client components only for interactivity
-- [ ] Dynamic routes use params correctly (awaited in Next.js 15+)
-- [ ] searchParams awaited for query string access
-- [ ] loading.tsx exists for async pages
-- [ ] Metadata defined for SEO
+```tsx
+"use client"; // ❌ Unnecessary - no hooks or interactivity
+
+export default function Page() {
+  return <div>Static content</div>;
+}
+```
+
+**Good:**
+
+```tsx
+// ✅ Server component by default
+export default function Page() {
+  return <div>Static content</div>;
+}
+```
+
+### ❌ Fetching Data in Client Components
+
+**Bad:**
+
+```tsx
+"use client";
+
+export default function Page() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/data")
+      .then((r) => r.json())
+      .then(setData); // ❌
+  }, []);
+}
+```
+
+**Good:**
+
+```tsx
+// ✅ Server component fetches data
+export default async function Page() {
+  const data = await getData();
+  return <ClientView data={data} />;
+}
+```
+
+### ❌ Server Actions Without Authentication
+
+**Bad:**
+
+```tsx
+"use server";
+
+export async function deleteBoard(id: string) {
+  // ❌ No auth check - security vulnerability
+  await db.delete(boardTable).where(eq(boardTable.id, id));
+}
+```
+
+**Good:**
+
+```tsx
+"use server";
+
+export const deleteBoard = async (id: string) =>
+  rbacWithAuth(id, async (userId) => {
+    // ✅ Authentication and RBAC enforced
+    await db.delete(boardTable).where(eq(boardTable.id, id));
+  });
+```
+
+### ❌ Not Using Suspense Boundaries
+
+**Bad:**
+
+```tsx
+export default async function Page() {
+  const data = await slowDataFetch(); // ❌ Blocks entire page
+  return <div>{data}</div>;
+}
+```
+
+**Good:**
+
+```tsx
+import { Suspense } from "react";
+
+export default function Page() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <DataComponent />
+    </Suspense>
+  );
+}
+
+async function DataComponent() {
+  const data = await slowDataFetch();
+  return <div>{data}</div>;
+}
+```
+
+## Integration with Other Skills
+
+- **[rbac-security](../rbac-security/SKILL.md):** Server actions require authentication wrappers
+- **[drizzle-patterns](../drizzle-patterns/SKILL.md):** Data fetching in server components
+- **[signal-state-management](../signal-state-management/SKILL.md):** Client-side state in 'use client' components
+- **[ably-realtime](../ably-realtime/SKILL.md):** Real-time features require client components
+- **[testing-patterns](../testing-patterns/SKILL.md):** Test both server and client components
+
+## Project-Specific Context
+
+### Key Files
+
+- `app/` - Next.js App Router directory
+- `app/layout.tsx` - Root layout with providers
+- `app/board/[id]/page.tsx` - Dynamic board page
+- `lib/actions/` - Server actions by domain
+- `proxy.ts` - Supabase authentication proxy (Next.js 16)
+- `next.config.js` - Next.js configuration
+
+### Project Conventions
+
+1. Server actions live in `lib/actions/[entity]/`
+2. All server actions use `actionWithAuth` or `rbacWithAuth`
+3. Client components prefixed with 'use client'
+4. Heavy components lazy-loaded (drag-and-drop)
+5. Metadata configured for all public pages
+
+### Environment-Specific Behavior
+
+- Development: Local Turso database
+- Production: Turso Cloud with auth tokens
+- Both: Supabase authentication required
+
+---
+
+**Last Updated:** 2026-01-10

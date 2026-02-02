@@ -1,7 +1,7 @@
 {
   "name": "pull-requests",
-  "repo": "coder/mux",
-  "path": ".mux/skills/pull-requests/SKILL.md",
-  "source": "github.com/coder/mux",
-  "downloaded_at": "2026-01-29T03:55:21.527341Z"
+  "repo": "gannonh/kata-agents",
+  "path": "skills/pull-requests/SKILL.md",
+  "source": "github.com/gannonh/kata-agents",
+  "downloaded_at": "2026-02-02T03:27:03.831295Z"
 }

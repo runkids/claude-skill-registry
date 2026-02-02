@@ -56,6 +56,7 @@ This skill provides comprehensive Azure administration capabilities, covering id
 - **Cost & Governance**: Budget management, policy enforcement, compliance
 
 **Target Audience:**
+
 - Cloud administrators managing Azure environments
 - DevOps engineers automating Azure deployments
 - Security teams implementing RBAC and compliance
@@ -68,21 +69,21 @@ This skill follows amplihack principles: ruthless simplicity, working code only,
 
 ### Common Task Mapping
 
-| Task | Primary Tool | Secondary Tools | Skill Doc Reference |
-|------|--------------|----------------|---------------------|
-| Create user account | az cli | Entra ID Portal | @docs/user-management.md |
-| Assign RBAC role | az cli | Azure Portal | @docs/role-assignments.md |
-| Deploy resource group | az cli, Bicep | ARM templates | @docs/resource-management.md |
-| Setup service principal | az cli | Portal | @docs/user-management.md#service-principals |
-| Enable managed identity | az cli | Portal | @docs/user-management.md#managed-identities |
-| Create resource | az cli, azd | Portal, Terraform | @docs/resource-management.md |
-| Query resources | az cli --query | JMESPath | @docs/cli-patterns.md#querying |
-| Bulk user operations | az cli + bash | PowerShell | @examples/bulk-user-onboarding.md |
-| Environment provisioning | azd | az cli, Bicep | @examples/environment-setup.md |
-| Audit role assignments | az cli | Azure Policy | @examples/role-audit.md |
-| Cost analysis | az cli, Portal | Cost Management API | @docs/cost-optimization.md |
-| MCP integration | Azure MCP | az cli | @docs/mcp-integration.md |
-| CI/CD pipeline | Azure DevOps | GitHub Actions | @docs/devops-automation.md |
+| Task                     | Primary Tool   | Secondary Tools     | Skill Doc Reference                         |
+| ------------------------ | -------------- | ------------------- | ------------------------------------------- |
+| Create user account      | az cli         | Entra ID Portal     | @docs/user-management.md                    |
+| Assign RBAC role         | az cli         | Azure Portal        | @docs/role-assignments.md                   |
+| Deploy resource group    | az cli, Bicep  | ARM templates       | @docs/resource-management.md                |
+| Setup service principal  | az cli         | Portal              | @docs/user-management.md#service-principals |
+| Enable managed identity  | az cli         | Portal              | @docs/user-management.md#managed-identities |
+| Create resource          | az cli, azd    | Portal, Terraform   | @docs/resource-management.md                |
+| Query resources          | az cli --query | JMESPath            | @docs/cli-patterns.md#querying              |
+| Bulk user operations     | az cli + bash  | PowerShell          | @examples/bulk-user-onboarding.md           |
+| Environment provisioning | azd            | az cli, Bicep       | @examples/environment-setup.md              |
+| Audit role assignments   | az cli         | Azure Policy        | @examples/role-audit.md                     |
+| Cost analysis            | az cli, Portal | Cost Management API | @docs/cost-optimization.md                  |
+| MCP integration          | Azure MCP      | az cli              | @docs/mcp-integration.md                    |
+| CI/CD pipeline           | Azure DevOps   | GitHub Actions      | @docs/devops-automation.md                  |
 
 ### Command Pattern Reference
 
@@ -105,7 +106,7 @@ az resource list --resource-type "Microsoft.Compute/virtualMachines" --query "[]
 
 # Cost management
 az consumption usage list --start-date 2025-01-01 --end-date 2025-01-31
-az cost-management query --type Usage --dataset-aggregation totalCost=sum(PreTaxCost)
+az costmanagement query --type ActualCost --dataset-aggregation name=Cost,function=Sum
 
 # Azure Developer CLI (azd)
 azd init --template todo-nodejs-mongo
@@ -116,460 +117,139 @@ azd down
 
 ## Topic 1: Identity & Access Management
 
-### Overview
+Manage Azure identities through Entra ID: users, groups, service principals, managed identities, and RBAC.
 
-Azure identity management centers on Entra ID (formerly Azure AD) for authentication and authorization. Key components include users, groups, service principals, managed identities, and RBAC (Role-Based Access Control).
+**Common operations:** User creation, group management, role assignment, service principal setup, managed identity configuration, RBAC auditing
 
-### Users and Groups
+**See:** @docs/user-management.md and @docs/role-assignments.md for complete guides
 
-**User Lifecycle:**
-1. **Creation**: Provision users via az CLI, Portal, or bulk CSV import
-2. **Authentication**: Configure MFA, conditional access, password policies
-3. **Authorization**: Assign roles and permissions via RBAC
-4. **Offboarding**: Disable accounts, revoke tokens, remove assignments
-
-**Best Practices:**
-- Use groups for role assignments (not individual users)
-- Implement least privilege principle
-- Enable MFA for all administrative accounts
-- Regular access reviews and audits
-
-**Common Operations:**
+**Quick example:**
 
 ```bash
 # Create user
-az ad user create \
-  --display-name "Jane Doe" \
-  --user-principal-name jane@contoso.com \
-  --password "SecureP@ssw0rd!" \
-  --force-change-password-next-sign-in true
+az ad user create --display-name "Jane Doe" --user-principal-name jane@contoso.com --password "SecureP@ssw0rd!"
 
-# Create security group
-az ad group create \
-  --display-name "Engineering Team" \
-  --mail-nickname "engineering"
+# Create group and add member
+az ad group create --display-name "Engineering Team" --mail-nickname "engineering"
+az ad group member add --group "Engineering Team" --member-id $(az ad user show --id jane@contoso.com --query id -o tsv)
 
-# Add user to group
-az ad group member add \
-  --group "Engineering Team" \
-  --member-id $(az ad user show --id jane@contoso.com --query id -o tsv)
+# Create service principal
+az ad sp create-for-rbac --name "myAppSP" --role Contributor --scopes /subscriptions/{sub-id}
 
-# List group members
-az ad group member list --group "Engineering Team" --query "[].userPrincipalName"
-```
-
-### Service Principals
-
-Service principals enable applications and services to authenticate to Azure. Two types:
-1. **Application service principal**: Represents an app registration
-2. **Managed identity**: Azure-managed service principal (no credential management)
-
-**Creating Service Principals:**
-
-```bash
-# Create with Contributor role at subscription scope
-az ad sp create-for-rbac \
-  --name "myAppServicePrincipal" \
-  --role Contributor \
-  --scopes /subscriptions/{subscription-id}
-
-# Create with custom role at resource group scope
-az ad sp create-for-rbac \
-  --name "myCustomSP" \
-  --role "Custom Role Name" \
-  --scopes /subscriptions/{sub-id}/resourceGroups/{rg-name}
-
-# Create without role assignment (assign later)
-az ad sp create-for-rbac --name "myBasicSP" --skip-assignment
-```
-
-**Security Best Practices:**
-- Use managed identities instead of service principals when possible
-- Rotate credentials regularly (90 days maximum)
-- Store credentials in Azure Key Vault
-- Use certificate-based authentication over secrets
-- Limit scope to minimum required resources
-
-### Managed Identities
-
-Managed identities eliminate credential management by providing Azure resources with an identity in Entra ID.
-
-**Types:**
-1. **System-assigned**: Tied to resource lifecycle, deleted with resource
-2. **User-assigned**: Independent lifecycle, can be shared across resources
-
-**Common Use Cases:**
-- VM accessing Key Vault secrets
-- Function App connecting to Azure SQL
-- Container instance pulling from Container Registry
-- Logic App calling Azure APIs
-
-**Enabling Managed Identity:**
-
-```bash
-# Enable system-assigned identity on VM
+# Enable managed identity
 az vm identity assign --name myVM --resource-group myRG
 
-# Create user-assigned identity
-az identity create --name myManagedIdentity --resource-group myRG
-
-# Assign user-assigned identity to VM
-az vm identity assign \
-  --name myVM \
-  --resource-group myRG \
-  --identities /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myManagedIdentity
-
-# Grant Key Vault access to managed identity
-az keyvault set-policy \
-  --name myKeyVault \
-  --object-id $(az vm show --name myVM --resource-group myRG --query identity.principalId -o tsv) \
-  --secret-permissions get list
+# Assign RBAC role
+az role assignment create --assignee jane@contoso.com --role Reader --scope /subscriptions/{sub-id}
 ```
 
-### RBAC Fundamentals
+**Key concepts:**
 
-Azure RBAC controls access to Azure resources through role assignments. The model consists of:
-- **Security principal**: User, group, service principal, or managed identity
-- **Role definition**: Collection of permissions (Owner, Contributor, Reader, custom)
-- **Scope**: Resource, resource group, subscription, or management group
+- **Users & Groups**: Entra ID accounts, group-based permissions
+- **Service Principals**: App authentication, certificate-based auth preferred
+- **Managed Identities**: Azure-managed credentials, no secret rotation needed
+- **RBAC**: Owner, Contributor, Reader, custom roles at multiple scopes
+- **Security**: MFA enforcement, least privilege, regular access reviews
 
-**Key Built-in Roles:**
-- **Owner**: Full access including ability to assign roles
-- **Contributor**: Create and manage resources, cannot assign roles
-- **Reader**: View resources only
-- **User Access Administrator**: Manage user access, cannot manage resources
+**Best practices:**
 
-See @docs/role-assignments.md for detailed role assignment patterns and custom role creation.
+- Use groups for role assignments (not individual users)
+- Prefer managed identities over service principals
+- Rotate service principal credentials every 90 days
+- Store credentials in Azure Key Vault
+- Enable MFA for all administrative accounts
 
 ## Topic 2: Resource Management
 
-### Resource Hierarchy
+Organize and deploy Azure resources through subscriptions, resource groups, and infrastructure as code.
 
-Azure organizes resources in a hierarchical structure:
+**Common operations:** Resource group creation, tagging strategy, ARM/Bicep deployment, resource locks, multi-region management
 
-```
-Management Groups (optional)
-└── Subscriptions
-    └── Resource Groups
-        └── Resources (VMs, databases, storage, etc.)
-```
+**See:** @docs/resource-management.md for advanced patterns
 
-**Scope Levels:**
-- **Management Group**: Organize multiple subscriptions, apply policies at scale
-- **Subscription**: Billing boundary, service limits, access control boundary
-- **Resource Group**: Logical container, lifecycle management, shared location
-- **Resource**: Individual service instance
-
-### Resource Groups
-
-Resource groups are fundamental containers for managing related resources.
-
-**Best Practices:**
-- Group resources by lifecycle (e.g., dev/test/prod)
-- One resource group per application or workload
-- All resources in a group should share the same lifecycle
-- Use consistent naming conventions
-- Apply tags for cost tracking and organization
-
-**Common Operations:**
+**Quick example:**
 
 ```bash
-# Create resource group
+# Create resource group with tags
 az group create --name myResourceGroup --location eastus
+az group update --name myResourceGroup --tags Environment=Production CostCenter=IT
 
-# List resource groups
-az group list --query "[].{Name:name, Location:location, State:properties.provisioningState}"
-
-# Show resources in group
-az resource list --resource-group myResourceGroup --output table
-
-# Delete resource group (deletes all resources)
-az group delete --name myResourceGroup --yes --no-wait
+# Deploy Bicep template with validation
+az deployment group validate --resource-group myRG --template-file main.bicep
+az deployment group create --resource-group myRG --template-file main.bicep --parameters vmName=myVM
 
 # Lock resource group to prevent deletion
 az lock create --name DontDelete --resource-group myResourceGroup --lock-type CanNotDelete
 
-# Tag resource group
-az group update --name myResourceGroup --tags Environment=Production CostCenter=IT Department=Engineering
-```
-
-### ARM Templates and Bicep
-
-Azure Resource Manager (ARM) templates and Bicep enable infrastructure as code.
-
-**ARM Templates** (JSON):
-- Declarative syntax
-- Native Azure format
-- Verbose but comprehensive
-
-**Bicep** (DSL):
-- Cleaner syntax, easier to read
-- Transpiles to ARM templates
-- Recommended for new projects
-
-**Bicep Example:**
-
-```bicep
-param location string = resourceGroup().location
-param vmName string = 'myVM'
-param vmSize string = 'Standard_B2s'
-
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-05-01' = {
-  name: '${vmName}-vnet'
-  location: location
-  properties: {
-    addressSpace: {
-      addressPrefixes: ['10.0.0.0/16']
-    }
-    subnets: [
-      {
-        name: 'default'
-        properties: {
-          addressPrefix: '10.0.1.0/24'
-        }
-      }
-    ]
-  }
-}
-
-resource vm 'Microsoft.Compute/virtualMachines@2023-07-01' = {
-  name: vmName
-  location: location
-  properties: {
-    hardwareProfile: {
-      vmSize: vmSize
-    }
-    // ... additional configuration
-  }
-}
-```
-
-**Deployment Commands:**
-
-```bash
-# Deploy Bicep template
-az deployment group create \
-  --resource-group myRG \
-  --template-file main.bicep \
-  --parameters vmName=myVM vmSize=Standard_B2s
-
-# Validate template before deployment
-az deployment group validate \
-  --resource-group myRG \
-  --template-file main.bicep
-
-# What-if analysis (preview changes)
-az deployment group what-if \
-  --resource-group myRG \
-  --template-file main.bicep
-```
-
-### Resource Tagging Strategy
-
-Tags enable organization, cost tracking, and automation.
-
-**Common Tag Schemas:**
-```json
-{
-  "Environment": "Production",
-  "CostCenter": "Engineering",
-  "Owner": "jane@contoso.com",
-  "Application": "CustomerPortal",
-  "Criticality": "High",
-  "Compliance": "PCI-DSS",
-  "BackupPolicy": "Daily",
-  "ExpirationDate": "2025-12-31"
-}
-```
-
-**Tagging Operations:**
-
-```bash
-# Tag resource
-az resource tag \
-  --tags Environment=Production CostCenter=Engineering \
-  --ids /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Compute/virtualMachines/myVM
-
 # Query resources by tag
-az resource list --tag Environment=Production --query "[].{Name:name, Type:type, Location:location}"
-
-# Apply tags at resource group level (inherited by resources)
-az group update --name myRG --tags Department=IT Owner=admin@contoso.com
+az resource list --tag Environment=Production --query "[].{Name:name, Type:type}"
 ```
 
-See @docs/resource-management.md for advanced patterns including move operations, locks, and multi-region deployments.
+**Resource hierarchy:**
+
+```
+Management Groups (optional)
+└── Subscriptions (billing boundary)
+    └── Resource Groups (logical container)
+        └── Resources (VMs, databases, storage, etc.)
+```
+
+**Bicep basics:** Declarative IaC with cleaner syntax than ARM templates, transpiles to ARM JSON, modular and reusable.
+
+**Tagging strategy:** Environment, CostCenter, Owner, Application, Criticality, BackupPolicy
 
 ## Topic 3: CLI & Tooling
 
-### Azure CLI (az)
+Master Azure CLI (az), Azure Developer CLI (azd), and query patterns for automation.
 
-The Azure CLI is the primary command-line tool for Azure management.
+**Common operations:** Authentication, JMESPath queries, batch operations, azd workflows, PowerShell integration
 
-**Installation:**
+**See:** @docs/cli-patterns.md for advanced scripting
+
+**Quick example:**
+
 ```bash
-# macOS (Homebrew)
-brew install azure-cli
-
-# Linux
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-# Verify installation
-az --version
-```
-
-**Authentication:**
-```bash
-# Interactive login
+# Azure CLI authentication
 az login
-
-# Login with service principal
-az login --service-principal \
-  --username {app-id} \
-  --password {password-or-cert} \
-  --tenant {tenant-id}
-
-# Login with managed identity (from Azure VM/Container)
-az login --identity
-
-# Set active subscription
 az account set --subscription "My Subscription Name"
-
-# Show current context
 az account show
-```
 
-### Query Patterns with JMESPath
-
-Azure CLI uses JMESPath for output filtering and transformation.
-
-**Essential Query Patterns:**
-
-```bash
-# Basic filtering
-az vm list --query "[?powerState=='VM running']"
-
-# Projection (select specific fields)
-az vm list --query "[].{Name:name, RG:resourceGroup, Location:location}"
-
-# Sorting
-az vm list --query "sort_by([],&name)"
-
-# Contains filter
+# JMESPath query patterns
+az vm list --query "[?powerState=='VM running'].{Name:name, RG:resourceGroup}"
 az resource list --query "[?contains(name, 'prod')]"
+az vm list --query "sort_by([],&name)[0:5]"  # Top 5 by name
 
-# Multiple conditions
-az vm list --query "[?powerState=='VM running' && location=='eastus']"
-
-# Nested queries
-az vm list --query "[].{Name:name, OS:storageProfile.osDisk.osType}"
-
-# Count results
-az vm list --query "length([])"
-```
-
-See @docs/cli-patterns.md for advanced query patterns, batch operations, and scripting best practices.
-
-### Azure Developer CLI (azd)
-
-The Azure Developer CLI (azd) streamlines development workflows and environment management.
-
-**Core Concepts:**
-- **Templates**: Pre-built application architectures
-- **Environments**: Named deployment targets (dev, test, prod)
-- **Infrastructure**: Bicep files in `infra/` directory
-- **Services**: Application code in `src/` directory
-
-**Common Workflows:**
-
-```bash
-# Initialize new project from template
+# Azure Developer CLI (azd)
 azd init --template todo-nodejs-mongo
-
-# Provision infrastructure and deploy code
-azd up
-
-# Deploy code only (skip infrastructure)
-azd deploy
-
-# Provision infrastructure only
-azd provision
-
-# Manage environments
+azd up  # provision + deploy in one command
 azd env new development
-azd env select production
-azd env list
-azd env get-values
-
-# Monitor application
-azd monitor --overview
 azd monitor --logs
-
-# Clean up resources
-azd down
+azd down  # cleanup
 ```
 
-**Custom Templates:**
-Create your own azd templates with this structure:
-```
-my-template/
-├── azure.yaml           # azd configuration
-├── infra/
-│   ├── main.bicep      # Infrastructure definition
-│   └── main.parameters.json
-└── src/
-    └── [application code]
-```
+**JMESPath essentials:** Filter `[?condition]`, Project `[].{Name:name}`, Sort `sort_by([],&field)`, Contains `contains(name, 'str')`
 
-### PowerShell Integration
+**azd structure:** azure.yaml, infra/ (main.bicep), src/ (application code)
 
-Azure PowerShell provides cmdlet-based management.
-
-```powershell
-# Install Azure PowerShell module
-Install-Module -Name Az -Repository PSGallery -Force
-
-# Connect to Azure
-Connect-AzAccount
-
-# Get VMs
-Get-AzVM | Select-Object Name, ResourceGroupName, Location
-
-# Create resource group
-New-AzResourceGroup -Name "myRG" -Location "eastus"
-```
+**PowerShell:** `Install-Module -Name Az`, `Connect-AzAccount`, `Get-AzVM`
 
 ## Topic 4: MCP Integration
 
-### Azure MCP Overview
+Use Azure MCP (Model Context Protocol) to enable AI-powered Azure operations through Claude Code and other AI workflows.
 
-Azure MCP (Model Context Protocol) enables AI applications to interact with Azure services through a standardized interface. The Azure MCP server provides tools for resource management, identity operations, and data retrieval.
+**Common operations:** List resources via MCP, query resource properties, execute az commands through MCP, AI-driven automation
 
-**Key Capabilities:**
-- List and manage Azure resources
-- Query resource properties and metadata
-- Execute Azure CLI commands through MCP
-- Integrate with Claude Code and other AI workflows
+**See:** @docs/mcp-integration.md for complete tool reference
 
-### Installation and Setup
+**Quick setup:**
 
-**Prerequisites:**
-- Node.js 18+ installed
-- Azure CLI installed and authenticated
-- Active Azure subscription
-
-**Installation:**
+Install and configure:
 
 ```bash
-# Install Azure MCP server
 npm install -g @modelcontextprotocol/server-azure
-
-# Or install locally in project
-npm install @modelcontextprotocol/server-azure
 ```
 
-**Configuration for Claude Code:**
-
-Add to your MCP settings file (`~/.config/claude-code/mcp.json`):
+Add to `~/.config/claude-code/mcp.json`:
 
 ```json
 {
@@ -585,35 +265,21 @@ Add to your MCP settings file (`~/.config/claude-code/mcp.json`):
 }
 ```
 
-### MCP Tools Reference
+**Available MCP tools:**
 
-The Azure MCP server exposes these tools:
-
-**Resource Management:**
-- `azure_list_resources`: List resources in subscription or resource group
-- `azure_get_resource`: Get detailed information about a specific resource
-- `azure_create_resource`: Create a new Azure resource
-- `azure_delete_resource`: Delete an existing resource
-
-**Identity Operations:**
+- `azure_list_resources`: List resources by type/filter
+- `azure_get_resource`: Get detailed resource info
 - `azure_list_users`: List Entra ID users
-- `azure_get_user`: Get user details
-- `azure_list_service_principals`: List service principals
 - `azure_list_role_assignments`: List RBAC assignments
-
-**Query Operations:**
 - `azure_query`: Execute Azure Resource Graph queries
 - `azure_cli`: Execute arbitrary az CLI commands
 
-### Usage Patterns
+**Usage example:**
 
-**Example: List VMs through MCP**
+Ask Claude Code: "Show me all running VMs in my subscription"
 
-When Azure MCP is configured, you can ask Claude Code:
+Claude Code uses MCP tool:
 
-"Show me all running VMs in my subscription"
-
-Claude Code will use the `azure_list_resources` MCP tool:
 ```json
 {
   "tool": "azure_list_resources",
@@ -624,57 +290,28 @@ Claude Code will use the `azure_list_resources` MCP tool:
 }
 ```
 
-**Example: Query cost information**
-
-"What are my top 5 most expensive resources this month?"
-
-Claude Code combines MCP tools to:
-1. Query cost data with `azure_query`
-2. Aggregate and sort results
-3. Present formatted output
-
-See @docs/mcp-integration.md for complete MCP tool reference and integration patterns.
-
 ## Topic 5: DevOps Automation
 
-### CI/CD with Azure DevOps
+Automate Azure deployments through CI/CD pipelines, infrastructure as code, and GitOps workflows.
 
-Azure DevOps provides end-to-end DevOps capabilities including pipelines, repos, boards, and artifacts.
+**Common operations:** Azure DevOps pipelines, GitHub Actions integration, Bicep deployments, blue-green deployments, testing
 
-**Pipeline Types:**
-- **Build pipelines**: Compile code, run tests, create artifacts
-- **Release pipelines**: Deploy artifacts to environments
-- **YAML pipelines**: Infrastructure as code for CI/CD
+**See:** @docs/devops-automation.md for advanced patterns
 
-**Basic YAML Pipeline:**
+**Quick example - Azure DevOps YAML:**
 
 ```yaml
 trigger:
   - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: "ubuntu-latest"
 
 variables:
-  azureSubscription: 'myServiceConnection'
-  resourceGroup: 'myRG'
+  azureSubscription: "myServiceConnection"
 
 stages:
-  - stage: Build
-    jobs:
-      - job: BuildJob
-        steps:
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: $(azureSubscription)
-              scriptType: bash
-              scriptLocation: inlineScript
-              inlineScript: |
-                az --version
-                az group list
-
   - stage: Deploy
-    dependsOn: Build
     jobs:
       - deployment: DeployInfra
         environment: production
@@ -685,15 +322,12 @@ stages:
                 - task: AzureResourceManagerTemplateDeployment@3
                   inputs:
                     azureResourceManagerConnection: $(azureSubscription)
-                    resourceGroupName: $(resourceGroup)
-                    location: eastus
+                    resourceGroupName: myRG
                     templateLocation: Linked artifact
-                    csmFile: $(Pipeline.Workspace)/infra/main.bicep
+                    csmFile: main.bicep
 ```
 
-### GitHub Actions Integration
-
-GitHub Actions can deploy to Azure using service principal authentication.
+**Quick example - GitHub Actions:**
 
 ```yaml
 name: Deploy to Azure
@@ -716,30 +350,27 @@ jobs:
       - name: Deploy Bicep
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: myRG
           template: ./infra/main.bicep
-          parameters: environment=production
 ```
 
-### Infrastructure as Code Best Practices
+**Best practices:**
 
-1. **Version Control**: Store all IaC in Git
-2. **Modularity**: Create reusable Bicep modules
-3. **Parameter Files**: Separate config per environment
-4. **State Management**: Use Azure or Terraform state backends
-5. **Testing**: Validate templates before deployment
-6. **Documentation**: Document architecture decisions
-
-See @docs/devops-automation.md for advanced pipeline patterns, blue-green deployments, and GitOps workflows.
+- Version control all IaC in Git
+- Create reusable Bicep modules
+- Separate parameter files per environment
+- Validate templates before deployment (what-if)
+- Document architecture decisions
 
 ## Topic 6: Cost & Governance
 
-### Cost Management
+Monitor and optimize Azure spending through cost management, budgets, and policy enforcement.
 
-Azure Cost Management provides visibility into spending and optimization recommendations.
+**Common operations:** Cost analysis, budget alerts, policy assignment, quota management, resource optimization
 
-**Cost Analysis Commands:**
+**See:** @docs/cost-optimization.md for detailed strategies
+
+**Quick example:**
 
 ```bash
 # View current month costs by resource group
@@ -749,96 +380,89 @@ az costmanagement query \
   --dataset-grouping name=ResourceGroup,type=Dimension \
   --timeframe MonthToDate
 
-# Get consumption usage
+# Get consumption usage details
 az consumption usage list \
   --start-date 2025-01-01 \
   --end-date 2025-01-31 \
   --query "[].{Date:usageStart, Service:meterName, Cost:pretaxCost}"
-```
 
-**Cost Optimization Strategies:**
-1. **Right-size resources**: Use appropriate VM sizes
-2. **Reserved instances**: Commit to 1-3 year terms for 30-70% savings
-3. **Spot instances**: Use for fault-tolerant workloads
-4. **Auto-shutdown**: Schedule VM shutdowns during off-hours
-5. **Storage tiering**: Move cold data to Archive tier
-6. **Delete unused resources**: Regular cleanup audits
-
-### Azure Policy
-
-Azure Policy enforces organizational standards and compliance.
-
-**Built-in Policies:**
-- Require tags on resources
-- Allowed resource locations
-- Allowed VM SKUs
-- Require encryption at rest
-
-**Assigning Policies:**
-
-```bash
-# List built-in policies
-az policy definition list --query "[?policyType=='BuiltIn'].{Name:displayName, ID:name}" --output table
-
-# Assign policy to resource group
+# Assign policy to enforce tagging
 az policy assignment create \
   --name "require-tag-environment" \
   --policy "require-tag-on-resources" \
   --params '{"tagName":{"value":"Environment"}}' \
   --resource-group myRG
+
+# Check VM quota usage
+az vm list-usage --location eastus --output table
 ```
 
-See @docs/cost-optimization.md for budgets, alerts, and detailed optimization patterns.
+**Cost optimization strategies:**
+
+1. Right-size resources (use appropriate VM sizes)
+2. Reserved instances (30-70% savings for 1-3 year commits)
+3. Spot instances for fault-tolerant workloads
+4. Auto-shutdown schedules for non-production
+5. Storage tiering (move cold data to Archive)
+6. Regular cleanup of unused resources
+
+**Azure Policy use cases:**
+
+- Require tags on resources
+- Restrict resource locations
+- Limit allowed VM SKUs
+- Enforce encryption at rest
+- Audit compliance
 
 ## Troubleshooting
 
-### Common Issues and Solutions
+### Common Issues
 
 **Authentication Errors:**
-```bash
-# Clear cached credentials
-az logout
-az login --use-device-code
 
-# Verify tenant and subscription
-az account show
-az account tenant list
+```bash
+az logout && az login --use-device-code
+az account show  # Verify tenant and subscription
 ```
 
 **Permission Denied:**
-- Verify RBAC role assignments: `az role assignment list --assignee {user-or-sp}`
-- Check resource provider registration: `az provider list --query "[?registrationState=='NotRegistered']"`
-- Ensure proper scope (subscription vs resource group)
+
+- Check RBAC: `az role assignment list --assignee {user-or-sp}`
+- Verify resource provider: `az provider list --query "[?registrationState=='NotRegistered']"`
+- Confirm proper scope (subscription vs resource group)
 
 **Resource Not Found:**
+
 - Verify subscription context: `az account show`
-- Check resource group: `az group exists --name {rg-name}`
+- Check resource group exists: `az group exists --name {rg-name}`
 - Search across subscriptions: `az resource list --name {resource-name}`
 
 **Quota Exceeded:**
-```bash
-# Check current quotas
-az vm list-usage --location eastus --output table
 
-# Request quota increase through portal or support ticket
+```bash
+az vm list-usage --location eastus --output table
+# Request quota increase through Azure Portal or support ticket
 ```
 
 **CLI Tool Issues:**
-- Update to latest version: `az upgrade`
+
+- Update to latest: `az upgrade`
 - Clear cache: `rm -rf ~/.azure/`
 - Reinstall extensions: `az extension list-available`
 
-See @docs/troubleshooting.md for comprehensive debugging guide including network issues, deployment failures, and performance problems.
+**See:** @docs/troubleshooting.md for comprehensive debugging guide
 
 ## Certification Path
 
 **Azure Administrator Associate (AZ-104):**
+
 - Prerequisites: 6 months hands-on Azure experience
 - Domains: Identity, governance, storage, compute, networking, monitoring
 - Study Resources: @references/az-104-guide.md
-- Hands-on Practice: Azure free account, Microsoft Learn labs
+- Practice: Azure free account, Microsoft Learn labs
 
 **Next Steps:**
+
 - Azure Solutions Architect Expert (AZ-305)
 - Azure DevOps Engineer Expert (AZ-400)
 - Azure Security Engineer Associate (AZ-500)
@@ -846,6 +470,7 @@ See @docs/troubleshooting.md for comprehensive debugging guide including network
 ## Further Learning
 
 **Documentation:**
+
 - @docs/user-management.md - Complete user and identity operations
 - @docs/role-assignments.md - RBAC patterns and custom roles
 - @docs/resource-management.md - Advanced resource operations
@@ -856,12 +481,14 @@ See @docs/troubleshooting.md for comprehensive debugging guide including network
 - @docs/troubleshooting.md - Debugging and resolution
 
 **Examples:**
+
 - @examples/bulk-user-onboarding.md - Automated user provisioning
 - @examples/environment-setup.md - Complete environment deployment
 - @examples/role-audit.md - RBAC compliance auditing
 - @examples/mcp-workflow.md - AI-powered Azure operations
 
 **References:**
+
 - @references/microsoft-learn.md - Official learning paths
 - @references/az-104-guide.md - Certification preparation
 - @references/api-references.md - API and SDK documentation

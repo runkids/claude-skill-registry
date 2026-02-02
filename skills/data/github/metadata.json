@@ -1,7 +1,7 @@
 {
   "name": "github",
-  "repo": "Ven0m0/claude-config",
-  "path": "claude/skills/github/SKILL.md",
-  "source": "github.com/Ven0m0/claude-config",
-  "downloaded_at": "2026-02-01T05:04:58.050461Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/github/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-02-02T05:12:38.864505Z"
 }

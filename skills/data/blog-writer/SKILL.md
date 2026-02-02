@@ -302,7 +302,7 @@ img.save(f'{OUTPUT_DIR}/cover.webp', 'WEBP', quality=85)
 
 ### Step 4: 撰写文章
 
-#### 4.1 Front Matter（TOML 格式）
+#### 4.1 Front Matter + 封面图引用（TOML 格式）
 
 ```toml
 +++
@@ -315,7 +315,11 @@ tags = ['标签1', '标签2', '标签3']
 categories = ['AI实战']
 keywords = ['搜索关键词1', '搜索关键词2']
 +++
+
+![封面图 ALT 文本，包含核心关键词的描述](cover.webp)
 ```
+
+⚠️ **封面图必须在正文中引用**：在 Front Matter（`+++`）结束后的**第一行**，必须用 `![ALT 文本](cover.webp)` 引用封面图。不引用则封面图不会显示在文章中。ALT 文本应包含核心关键词，描述图片内容。
 
 | 字段 | 必填 | 说明 |
 |------|------|------|
@@ -428,6 +432,7 @@ print("Hello World")
 
 #### 内容质量检查
 
+- [ ] **封面图已在正文中引用**：Front Matter 后第一行为 `![ALT](cover.webp)`
 - [ ] 开头三要素齐全：背景、定义、价值
 - [ ] 每个核心概念都配了实际案例
 - [ ] 复杂概念有通俗类比

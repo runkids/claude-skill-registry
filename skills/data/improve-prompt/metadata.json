@@ -1,12 +1,7 @@
 {
   "name": "improve-prompt",
-  "description": "Analyzes prompts and produces improved versions using Anthropic's prompt engineering best practices. Use when asked to improve, optimize, or review a prompt. Works with standalone prompts or prompts e",
-  "repo": "christabone/claude-prompt-improvement",
-  "category": "development",
-  "tags": [
-    "improve",
-    "prompt"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Agentient/vibekit",
+  "path": "plugins/prompt-tools/skills/improve-prompt/SKILL.md",
+  "source": "github.com/Agentient/vibekit",
+  "downloaded_at": "2026-02-02T03:05:00.744851Z"
 }
