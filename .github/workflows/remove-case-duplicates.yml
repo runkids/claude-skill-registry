@@ -3,6 +3,9 @@ name: Remove Case Duplicate Files
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   remove-duplicates:
     runs-on: ubuntu-latest
