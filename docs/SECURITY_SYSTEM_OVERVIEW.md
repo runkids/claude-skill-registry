@@ -145,10 +145,11 @@ skill-registry/
 │   ├── reputation_system.py        # 声誉系统
 │   └── test_discovery.py           # 测试脚本
 ├── .github/workflows/
-│   ├── security-scan.yml           # 安全扫描工作流
+│   ├── update.yml                  # 日更：发现/下载/重建 registry
 │   ├── discover-topics.yml         # 发现新 skills
 │   ├── crawl-github.yml            # GitHub 爬取
-│   └── crawl.yml                   # SkillsMP 同步
+│   ├── build-index.yml             # 构建 docs 搜索索引
+│   └── security-scan.yml           # 安全扫描工作流
 ├── docs/
 │   ├── SECURITY_GUIDE.md           # 使用指南
 │   └── SECURITY_SYSTEM_OVERVIEW.md # 系统概览
