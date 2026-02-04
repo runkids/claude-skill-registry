@@ -1,13 +1,13 @@
 # Claude Skills Registry
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Skills-74%2C648-purple?style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fskills-registry-web.vercel.app%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   <a href="https://skills-registry-web.vercel.app"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
-> The most comprehensive Claude Code skills registry - **74,648 unique skills indexed**
+> The most comprehensive Claude Code skills registry — updated daily with the latest skills
 
 ## What is this?
 
@@ -20,7 +20,7 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 
 ## Highlights
 
-- **74,648 Unique Skills** - Deduplicated, quality collection
+- **Massive Skill Index** - Deduplicated, quality collection (see badge for live count)
 - **12 Categories** - Development, Testing, DevOps, Design, and more
 - **Daily Updates** - Automated crawling and validation
 - **Quality Indexed** - Metadata, descriptions, and star counts
@@ -158,7 +158,7 @@ claude-skill-registry/
 
 ### Current Status
 
-- [x] **74,648 unique skills indexed** (deduplicated)
+- [x] **90,000+ unique skills indexed** (deduplicated, growing daily)
 - [x] **Daily auto-update** via GitHub Actions
 - [x] **Security scanning** for all skills
 - [x] **sk CLI** for installation
