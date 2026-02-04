@@ -42,9 +42,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-org/claude-skill-registry"
-Repository = "https://github.com/your-org/claude-skill-registry"
-Issues = "https://github.com/your-org/claude-skill-registry/issues"
+Homepage = "https://github.com/majiayu000/claude-skill-registry"
+Repository = "https://github.com/majiayu000/claude-skill-registry"
+Issues = "https://github.com/majiayu000/claude-skill-registry/issues"
 
 [tool.ruff]
 line-length = 100

@@ -16,6 +16,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,23 +47,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "🔍 Discovering new skills via GitHub API..."
-          python scripts/discover_by_topic.py --output skills/data --json sources/discovered.json 2>&1 | tee discover.log
+          python scripts/discover_by_topic.py --json sources/discovered.json
 
           if [ -f "sources/discovered.json" ]; then
             DISCOVERED=$(python3 -c "import json; d=json.load(open('sources/discovered.json')); print(d.get('total_skills', 0))")
             echo "✨ Discovered: $DISCOVERED new skill files"
           fi
 
-      - name: Download skills from registry
+      - name: Download skills (sources + registry)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "⬇️ Downloading skills from existing registry..."
-          python scripts/sync_and_download.py --download-only 2>&1 | tee download.log
+          echo "⬇️ Downloading skills via downloader v2..."
+          python scripts/download_v2.py
 
       - name: Rebuild Registry from all skills
         run: |
-          echo "🔄 Rebuilding registry from skills/data/..."
+          echo "🔄 Rebuilding registry from canonical skills/ tree..."
           python scripts/rebuild_registry.py
 
       - name: Count skills after update
@@ -119,7 +120,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add -A
+          git add -A registry.json categories skills/data sources/discovered.json CHANGELOG.md
 
           if git diff --staged --quiet; then
             echo "✅ No changes to commit"
@@ -138,6 +139,15 @@ jobs:
             fi
 
             git commit -m "$MSG"
+
+            # Pull remote changes, auto-resolve conflicts by keeping ours
+            # (our rebuilt registry/skills are the authoritative source)
+            git fetch origin main
+            git rebase -X theirs origin/main || {
+              echo "Rebase conflict, aborting and retrying with strategy"
+              git rebase --abort
+              git pull -X theirs --no-rebase origin main
+            }
             git push
             echo "✅ Pushed: $MSG"
           fi

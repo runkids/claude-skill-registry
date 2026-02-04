@@ -18,7 +18,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 GITHUB_API = "https://api.github.com"
-GITHUB_RAW = "https://raw.githubusercontent.com"
 
 # Topics to search for
 SKILL_TOPICS = [
@@ -53,8 +52,8 @@ class GitHubTopicDiscovery:
         self.skills = []
 
     def _request(self, url, params=None):
-        """Make rate-limited request"""
-        time.sleep(2)  # Be nice to API
+        """Make rate-limited request (search API: 30 req/min for authenticated)"""
+        time.sleep(2)
         try:
             resp = self.session.get(url, params=params, timeout=30)
 
@@ -185,58 +184,19 @@ class GitHubTopicDiscovery:
 
         return skills
 
-    def download_skill(self, repo, path, output_dir):
-        """Download a SKILL.md file"""
-        # Extract skill name from path
-        parts = path.rsplit('/', 1)
-        if len(parts) == 2:
-            skill_dir = parts[0].split('/')[-1] if '/' in parts[0] else parts[0]
-        else:
-            skill_dir = repo.split('/')[-1]
+    def run(self, output_json: str = 'sources/discovered.json'):
+        """Run discovery pipeline and write `sources/discovered.json`."""
 
-        # Normalize to lowercase to prevent case conflicts on macOS/Windows
-        skill_dir = normalize_name(skill_dir)
-
-        # Try to fetch content
-        for branch in ['main', 'master']:
-            url = f"{GITHUB_RAW}/{repo}/{branch}/{path}"
+        # Load previously discovered repos to skip
+        existing_repos = set()
+        if Path(output_json).exists():
             try:
-                resp = self.session.get(url, timeout=15)
-                if resp.status_code == 200:
-                    content = resp.text
-
-                    # Validate it's a skill file
-                    if '---' not in content[:100] and 'name:' not in content[:500]:
-                        continue
-
-                    # Save skill
-                    skill_path = output_dir / skill_dir
-                    skill_path.mkdir(parents=True, exist_ok=True)
-
-                    (skill_path / 'SKILL.md').write_text(content, encoding='utf-8')
-
-                    # Save metadata
-                    metadata = {
-                        'name': skill_dir,
-                        'repo': repo,
-                        'path': path,
-                        'source': f'github.com/{repo}',
-                        'downloaded_at': datetime.utcnow().isoformat() + 'Z',
-                    }
-                    (skill_path / 'metadata.json').write_text(
-                        json.dumps(metadata, indent=2), encoding='utf-8'
-                    )
-
-                    return True
-            except Exception as e:
-                logger.debug(f"Failed to fetch {url}: {e}")
-
-        return False
-
-    def run(self, output_dir='skills', output_json='sources/discovered.json'):
-        """Run full discovery pipeline"""
-        output_dir = Path(output_dir)
-        output_dir.mkdir(parents=True, exist_ok=True)
+                with open(output_json) as f:
+                    prev = json.load(f)
+                existing_repos = set(prev.get('repos', []))
+                logger.info(f"Skipping {len(existing_repos)} previously discovered repos")
+            except Exception:
+                pass
 
         # Phase 1: Discover by topics
         logger.info("=== Phase 1: Topic Discovery ===")
@@ -246,22 +206,42 @@ class GitHubTopicDiscovery:
         logger.info("\n=== Phase 2: Code Search ===")
         self.discover_by_code_search()
 
-        # Phase 3: Download skills from discovered repos
-        logger.info("\n=== Phase 3: Download Skills ===")
-        downloaded = 0
+        # Filter to only new repos
+        new_repos = self.discovered_repos - existing_repos
+        logger.info(f"New repos to scan: {len(new_repos)} (total discovered: {len(self.discovered_repos)})")
 
-        for repo in self.discovered_repos:
+        # Phase 3: Download skills from new repos (concurrent)
+        logger.info("\n=== Phase 3: Collect SKILL.md paths ===")
+
+        # Collect all skill files to download
+        download_tasks = []
+        for repo in new_repos:
             logger.info(f"Scanning {repo}...")
             skill_files = self.get_skill_files_from_repo(repo)
-
             for skill in skill_files:
-                if self.download_skill(repo, skill['path'], output_dir):
-                    downloaded += 1
-                    self.skills.append({
-                        'repo': repo,
-                        'path': skill['path'],
-                    })
-                    logger.info(f"  ✓ Downloaded: {skill['path']}")
+                download_tasks.append((repo, skill['path']))
+
+        logger.info(f"Skills to download: {len(download_tasks)}")
+
+        for repo, path in download_tasks:
+            skill_name = repo.split("/")[-1]
+            if path and path != "SKILL.md":
+                skill_name = path.replace("\\", "/").rsplit("/", 1)[0].split("/")[-1]
+
+            self.skills.append(
+                {
+                    "name": normalize_name(skill_name),
+                    "repo": repo,
+                    "path": path,  # repo-relative file path to SKILL.md (preferred)
+                    "category": "other",
+                    "tags": [],
+                    "stars": 0,
+                    "source": f"github.com/{repo}",
+                }
+            )
+
+        # Merge with existing repos for the output
+        self.discovered_repos |= existing_repos
 
         # Save discovery results
         Path(output_json).parent.mkdir(parents=True, exist_ok=True)
@@ -276,7 +256,7 @@ class GitHubTopicDiscovery:
 
         logger.info(f"\n=== Summary ===")
         logger.info(f"Repositories discovered: {len(self.discovered_repos)}")
-        logger.info(f"Skills downloaded: {downloaded}")
+        logger.info(f"Skill references collected: {len(self.skills)}")
         logger.info(f"Results saved to: {output_json}")
 
         return self.skills
@@ -287,13 +267,12 @@ def main():
 
     parser = argparse.ArgumentParser(description='Discover skills from GitHub')
     parser.add_argument('--token', help='GitHub token (or set GITHUB_TOKEN env)')
-    parser.add_argument('--output', default='skills', help='Output directory')
     parser.add_argument('--json', default='sources/discovered.json', help='JSON output')
 
     args = parser.parse_args()
 
     discoverer = GitHubTopicDiscovery(token=args.token)
-    discoverer.run(output_dir=args.output, output_json=args.json)
+    discoverer.run(output_json=args.json)
 
 
 if __name__ == '__main__':

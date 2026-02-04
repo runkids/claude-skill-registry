@@ -12,6 +12,7 @@ permissions:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,15 +23,19 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests aiohttp pyyaml
 
       - name: Discover skills by GitHub topics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python scripts/discover_by_topic.py \
-            --output skills \
-            --json sources/discovered.json
+          python scripts/discover_by_topic.py --json sources/discovered.json
+
+      - name: Download skills (sources + registry)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/download_v2.py
 
       - name: Build Registry
         run: python scripts/rebuild_registry.py
@@ -39,11 +44,17 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add -A
+          git add -A registry.json categories skills/data sources/discovered.json CHANGELOG.md
           if git diff --staged --quiet; then
             echo "No new skills discovered"
           else
             NEW_COUNT=$(git status --porcelain | grep -c "^??" || echo "0")
             git commit -m "feat: Discover ${NEW_COUNT} new skills via GitHub Topics $(date -u +%Y-%m-%d)"
+
+            git fetch origin main
+            git rebase -X theirs origin/main || {
+              git rebase --abort
+              git pull -X theirs --no-rebase origin main
+            }
             git push
           fi

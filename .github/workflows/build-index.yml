@@ -42,7 +42,7 @@ jobs:
       - name: Build search index
         run: |
           echo "Building search index from registry.json (deduplicated)..."
-          python scripts/build_search_index.py --use-registry --registry registry.json --output docs
+          python scripts/build_search_index.py --registry registry.json --output docs
 
           echo ""
           echo "Index files generated:"
@@ -58,12 +58,18 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          git add docs/
+          git add -A docs/
 
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "chore: rebuild search index"
+
+            git fetch origin main
+            git rebase -X theirs origin/main || {
+              git rebase --abort
+              git pull -X theirs --no-rebase origin main
+            }
             git push
           fi
 

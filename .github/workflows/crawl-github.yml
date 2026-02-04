@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pyyaml
+          pip install requests pyyaml aiohttp
 
       - name: Crawl GitHub for SKILL.md
         env:
@@ -43,9 +43,11 @@ jobs:
             --max ${{ github.event.inputs.max_skills || '10000' }} \
             --min-stars ${{ github.event.inputs.min_stars || '0' }}
 
-      - name: Download new skills
+      - name: Download skills (sources + registry)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python scripts/download_sources.py
+          python scripts/download_v2.py
 
       - name: Build Registry
         run: python scripts/rebuild_registry.py
@@ -54,7 +56,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add -A
+          git add -A registry.json categories skills/data sources/crawled.json CHANGELOG.md
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

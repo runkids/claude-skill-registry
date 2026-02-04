@@ -14,8 +14,53 @@ from pathlib import Path
 from collections import defaultdict
 import yaml
 
+from registry_normalization import CANONICAL_CATEGORIES, canonicalize_category, extract_github_location, normalize_repo
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+
+def infer_category_from_rel_parts(rel_parts: tuple[str, ...]) -> str | None:
+    """
+    Infer category from the path under `skills/`.
+
+    This repo historically stored many skills under `skills/data/` (a legacy container
+    directory) and also has a mix of flat and categorized layouts. We only infer a
+    category when the directory structure clearly indicates it.
+    """
+    if not rel_parts:
+        return None
+
+    # Legacy storage container (NOT the canonical "data" category).
+    if rel_parts[0] in {"data", "_legacy_data"}:
+        return None
+
+    if rel_parts[0] in CANONICAL_CATEGORIES:
+        return rel_parts[0]
+
+    return None
+
+
+def extract_repo_from_frontmatter(frontmatter: dict) -> str:
+    """Best-effort repo extraction from frontmatter fields."""
+    if not frontmatter:
+        return ""
+    repo = frontmatter.get("repo") or frontmatter.get("repository") or ""
+    if not repo:
+        return ""
+    return normalize_repo(str(repo))
+
+
+def extract_repo_from_source(source_value: str) -> str:
+    """Parse `github.com/{owner}/{repo}` style strings."""
+    if not source_value:
+        return ""
+    source_value = str(source_value).strip()
+    if source_value.startswith("github.com/"):
+        return normalize_repo(source_value[len("github.com/"):])
+    if "github.com/" in source_value:
+        return normalize_repo(source_value.split("github.com/", 1)[1])
+    return ""
 
 
 def extract_frontmatter(content: str) -> dict:
@@ -30,7 +75,8 @@ def extract_frontmatter(content: str) -> dict:
             return {}
 
         frontmatter = content[3:end_idx].strip()
-        return yaml.safe_load(frontmatter) or {}
+        data = yaml.safe_load(frontmatter)
+        return data if isinstance(data, dict) else {}
     except Exception:
         return {}
 
@@ -86,14 +132,7 @@ def safe_write_registry(registry_path: Path, registry: dict) -> bool:
         with open(temp_path, "w", encoding="utf-8") as f:
             json.dump(registry, f, indent=2, ensure_ascii=False)
 
-        # Backup original file
-        if registry_path.exists():
-            backup_path = registry_path.with_suffix('.json.bak')
-            if backup_path.exists():
-                backup_path.unlink()
-            registry_path.rename(backup_path)
-
-        temp_path.rename(registry_path)
+        os.replace(temp_path, registry_path)
         return True
     except Exception as e:
         logger.error(f"Failed to write registry: {e}")
@@ -103,65 +142,87 @@ def safe_write_registry(registry_path: Path, registry: dict) -> bool:
 
 
 def scan_skills(skills_dir: Path) -> list:
-    """Scan all skills and build index."""
+    """Scan all SKILL.md files under skills/ and build a normalized index."""
     skills = []
 
     for skill_md in skills_dir.rglob("SKILL.md"):
-        rel_path = skill_md.relative_to(skills_dir)
-        parts = rel_path.parts
-
-        if len(parts) < 2:
+        if not skill_md.is_file():
             continue
-
-        category = parts[0]
-        name = parts[1]
-
-        # Skip if category is 'data' (flat structure)
-        if category == "data":
-            # In data/, structure is data/{name}/SKILL.md
-            pass
+        skill_dir = skill_md.parent
+        rel_dir = skill_dir.relative_to(skills_dir)
+        rel_parts = rel_dir.parts
 
         # Read metadata.json if exists
-        metadata_path = skill_md.parent / "metadata.json"
+        metadata_path = skill_dir / "metadata.json"
         metadata = safe_load_metadata(metadata_path)
 
-        # Read SKILL.md for description
+        repo = normalize_repo(metadata.get("repo", "")) or extract_repo_from_source(metadata.get("source", ""))
+
+        # Read SKILL.md for frontmatter + description
+        frontmatter = {}
+        description = metadata.get("description", "")
+        tags = metadata.get("tags", [])
+        category_hint = infer_category_from_rel_parts(rel_parts)
+
         try:
+            # Full file read is expensive but gives most accurate description.
             content = skill_md.read_text(encoding="utf-8")
-            description = metadata.get("description") or extract_description(content)
+            frontmatter = extract_frontmatter(content)
+            if not description:
+                description = extract_description(content)
+            if not tags and isinstance(frontmatter.get("tags"), list):
+                tags = frontmatter.get("tags", [])
         except UnicodeDecodeError as e:
             logger.warning(f"Encoding error reading {skill_md}: {e}")
-            description = ""
         except Exception as e:
             logger.warning(f"Error reading {skill_md}: {e}")
-            description = ""
 
-        # Build install path
-        repo = metadata.get("repo", "")
-        github_path = metadata.get("github_path", "")
-        github_branch = metadata.get("github_branch", "main")
+        if not repo:
+            repo = extract_repo_from_frontmatter(frontmatter)
 
-        if github_path and repo:
-            install = f"{repo}/{github_path}"
+        location = extract_github_location(metadata)
+
+        # If metadata lacks github_path/path, try to use frontmatter "path" as fallback.
+        if not location.path and frontmatter.get("path"):
+            location = extract_github_location({"path": frontmatter.get("path"), "branch": frontmatter.get("branch")})
+
+        raw_category = metadata.get("category") or frontmatter.get("category") or category_hint or "other"
+        cat = canonicalize_category(str(raw_category), repo=repo)
+
+        # Name selection: metadata > frontmatter > directory name
+        name = metadata.get("name") or frontmatter.get("name") or skill_dir.name
+        name = str(name).strip() if name is not None else skill_dir.name
+        if not name:
+            name = skill_dir.name
+
+        stars = metadata.get("stars", 0)
+        try:
+            stars = int(stars) if stars is not None else 0
+        except Exception:
+            stars = 0
+
+        if location.path and repo:
+            install = f"{repo}/{location.path}"
         elif repo:
             install = repo
         else:
-            install = f"unknown/{name}"
+            # Must not look like a GitHub owner/repo path (the web UI builds links from this).
+            install = f"local:{rel_dir.as_posix().replace('/', '~')}"
 
-        skill_entry = {
+        skill_entry_data = {
             "name": name,
             "description": description[:200] if description else f"Skill: {name}",
             "repo": repo,
-            "path": github_path or str(rel_path.parent),
-            "branch": github_branch,
-            "category": metadata.get("category", category),
-            "tags": metadata.get("tags", []),
-            "stars": metadata.get("stars", 0),
+            "path": location.path,
+            "branch": location.branch,
+            "category": cat,
+            "tags": tags or [],
+            "stars": stars,
             "install": install,
             "source": metadata.get("source", "local"),
         }
 
-        skills.append(skill_entry)
+        skills.append(skill_entry_data)
 
     return skills
 
@@ -174,6 +235,15 @@ def sanitize_category(category: str) -> str:
 
 def build_category_indexes(skills: list, output_dir: Path):
     """Build category-based indexes."""
+    # This is intentionally destructive: categories are derived artifacts.
+    # Keeping stale files makes the API and repo size explode.
+    if output_dir.exists():
+        for p in output_dir.glob("*.json"):
+            try:
+                p.unlink()
+            except OSError:
+                pass
+
     categories = defaultdict(list)
 
     for skill in skills:
@@ -238,10 +308,11 @@ def main():
         if repo and path:
             key = f"{repo}:{path}"
         elif repo:
-            key = repo
+            # Avoid collapsing multiple skills in one repo when path is unknown.
+            key = f"{repo}::{s.get('name', '')}"
         else:
-            # Fallback to category:name for local skills without repo
-            key = f"{s.get('category', 'other')}:{s['name']}"
+            # Fallback to install (guaranteed not to look like owner/repo).
+            key = s.get("install", "") or f"local::{s.get('name', '')}"
 
         if key not in seen:
             seen.add(key)
@@ -273,7 +344,7 @@ def main():
         return
     print()
 
-    # Build category indexes
+    # Build category indexes (canonical categories only)
     print("Building category indexes...")
     build_category_indexes(unique_skills, categories_dir)
     print()

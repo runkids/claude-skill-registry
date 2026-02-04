@@ -17,6 +17,8 @@ import logging
 import argparse
 from collections import defaultdict
 
+from registry_normalization import normalize_github_path, normalize_repo
+
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
 
@@ -171,14 +173,30 @@ async def main():
     logger.info("Scanning for skills missing github_path...")
     repo_skills: Dict[str, List[tuple]] = defaultdict(list)
 
+    # Fast-path: if metadata already has a repo-relative path, normalize it without API calls.
+    local_filled = 0
+
     for metadata_path in skills_dir.rglob("metadata.json"):
         try:
             m = json.loads(metadata_path.read_text())
             if m.get("github_path"):
                 continue
-            repo = m.get("repo", "")
+            repo = normalize_repo(m.get("repo", ""))
             if not repo or "/" not in repo:
                 continue
+
+            # If we already have a concrete repo-relative path, just normalize it and skip the API.
+            if m.get("path"):
+                m["github_path"] = normalize_github_path(m.get("path"))
+                m.setdefault("github_branch", "main")
+                if not args.dry_run:
+                    metadata_path.write_text(
+                        json.dumps(m, indent=2, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                local_filled += 1
+                continue
+
             name = m.get("name", metadata_path.parent.name)
             repo_skills[repo].append((name, metadata_path))
         except:
@@ -186,6 +204,8 @@ async def main():
 
     total_skills = sum(len(v) for v in repo_skills.values())
     logger.info(f"Found {total_skills} skills in {len(repo_skills)} unique repos missing github_path")
+    if local_filled:
+        logger.info(f"Locally normalized github_path for {local_filled} skills (no API calls)")
 
     if args.limit > 0:
         limited_repos = dict(list(repo_skills.items())[:args.limit])

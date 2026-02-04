@@ -1,13 +1,13 @@
 # Claude Skills Registry
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Skills-43,284-purple?style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/Skills-70k%2B-purple?style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   <a href="https://skills-registry-web.vercel.app"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
-> The most comprehensive Claude Code skills registry - **43,284 unique skills indexed**
+> The most comprehensive Claude Code skills registry - **70,000+ unique skills indexed**
 
 ## What is this?
 
@@ -20,11 +20,11 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 
 ## Highlights
 
-- **44,000+ Unique Skills** - Deduplicated, quality collection
+- **70,000+ Unique Skills** - Deduplicated, quality collection
 - **12 Categories** - Development, Testing, DevOps, Design, and more
 - **Daily Updates** - Automated crawling and validation
 - **Quality Indexed** - Metadata, descriptions, and star counts
-- **Lightweight Search** - ~1MB index for fast client-side search
+- **Fast Client-Side Search** - Small index for fast search
 
 ## Quick Start
 
@@ -44,7 +44,7 @@ sk search pdf
 sk search --popular
 
 # Install a skill
-sk install anthropics/skills/docx
+sk install anthropics/skills/skills/docx
 ```
 
 ### Option 3: Direct API
@@ -69,7 +69,7 @@ curl https://skills-registry-web.vercel.app/categories/development.json
 │  Layer 1: Data Collection                                       │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
 │  │ GitHub Crawl │→ │ Download     │→ │ Security     │          │
-│  │ (discover)   │  │ (sync)       │  │ (scanner)    │          │
+│  │ (discover)   │  │ (download_v2)│  │ (scanner)    │          │
 │  └──────────────┘  └──────────────┘  └──────────────┘          │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
@@ -107,6 +107,7 @@ interface SkillMini {
   g: string[];         // tags (max 5)
   r: number;           // stars
   i: string;           // install path
+  b: string;           // branch (for GitHub URL)
 }
 ```
 

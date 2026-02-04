@@ -103,14 +103,15 @@ class SecurityScanner:
 
         # 2. Extract and validate frontmatter
         frontmatter = self._extract_frontmatter(content)
-        if frontmatter:
-            self._validate_schema(frontmatter)
-        else:
+        if frontmatter is None:
+            # Frontmatter is recommended but not required (many upstream skills omit it).
             self.issues.append({
-                'severity': 'error',
+                'severity': 'warning',
                 'type': 'no_frontmatter',
-                'message': 'SKILL.md must have YAML frontmatter'
+                'message': 'SKILL.md has no YAML frontmatter'
             })
+        else:
+            self._validate_schema(frontmatter)
 
         # 3. Scan for dangerous patterns
         self._scan_dangerous_patterns(content, skill_path)
@@ -148,14 +149,15 @@ class SecurityScanner:
 
         try:
             # Use safe_load to prevent YAML deserialization attacks
-            return yaml.safe_load(parts[1])
+            return yaml.safe_load(parts[1]) or {}
         except yaml.YAMLError as e:
             self.issues.append({
                 'severity': 'error',
                 'type': 'yaml_parse_error',
                 'message': f'Invalid YAML frontmatter: {e}'
             })
-            return None
+            # Frontmatter exists but is broken; return empty dict to avoid double-reporting.
+            return {}
 
     def _validate_schema(self, frontmatter: dict):
         """Validate frontmatter against JSON Schema"""
@@ -346,7 +348,10 @@ def main():
             with open(args.output, 'w') as f:
                 json.dump({'safe': is_safe, 'issues': issues}, f, indent=2)
 
-        exit(0 if is_safe or not args.strict else 1)
+        if args.strict:
+            has_warnings = any(i.get('severity') == 'warning' for i in issues)
+            exit(0 if (is_safe and not has_warnings) else 1)
+        exit(0 if is_safe else 1)
 
     elif path.is_dir():
         # Scan directory
@@ -356,6 +361,13 @@ def main():
         print(f"Total: {results['total']}")
         print(f"Passed: {results['passed']}")
         print(f"Failed: {results['failed']}")
+
+        if args.strict:
+            has_warnings = any(
+                any(i.get('severity') == 'warning' for i in s.get('issues', []))
+                for s in results.get('skills', [])
+            )
+            exit(0 if (results['failed'] == 0 and not has_warnings) else 1)
 
         exit(0 if results['failed'] == 0 else 1)
 
