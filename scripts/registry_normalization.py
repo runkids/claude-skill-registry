@@ -42,7 +42,13 @@ def normalize_repo(repo: str) -> str:
     if repo.startswith("https://github.com/"):
         repo = repo.replace("https://github.com/", "", 1)
     repo = repo.split("/tree/")[0]
-    return repo.strip("/")
+    repo = repo.strip("/")
+
+    # Keep only "owner/repo". Anything else is either invalid or belongs in "path".
+    parts = [p for p in repo.split("/") if p]
+    if len(parts) < 2:
+        return ""
+    return f"{parts[0]}/{parts[1]}"
 
 
 def _contains_any(value: str, needles: tuple[str, ...]) -> bool:
@@ -142,4 +148,3 @@ def extract_github_location(metadata: dict) -> GitHubLocation:
         branch = "main"
 
     return GitHubLocation(path=github_path, branch=branch)
-
