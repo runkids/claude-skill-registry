@@ -142,18 +142,40 @@ def safe_write_registry(registry_path: Path, registry: dict) -> bool:
 
 
 def scan_skills(skills_dir: Path) -> list:
-    """Scan all SKILL.md files under skills/ and build a normalized index."""
+    """
+    Scan archived skills and build a normalized index.
+
+    Supports mixed layouts seen in the archive:
+    - <root>/<skill>/SKILL.md
+    - <root>/data/<skill>/SKILL.md
+    - <root>/<category>/<skill>/SKILL.md
+
+    We detect a "skill directory" by the presence of both SKILL.md and metadata.json
+    in the same folder, which avoids mis-parsing category folders.
+    """
     skills = []
 
-    for skill_md in skills_dir.rglob("SKILL.md"):
-        if not skill_md.is_file():
+    if not skills_dir.exists():
+        logger.warning(f"Skills directory not found: {skills_dir}")
+        return skills
+
+    for metadata_path in skills_dir.rglob("metadata.json"):
+        skill_dir = metadata_path.parent
+        skill_md = skill_dir / "SKILL.md"
+        if not skill_md.exists():
             continue
-        skill_dir = skill_md.parent
+
         rel_dir = skill_dir.relative_to(skills_dir)
         rel_parts = rel_dir.parts
 
-        # Read metadata.json if exists
-        metadata_path = skill_dir / "metadata.json"
+        # Skip "category root" folders that also contain many sub-skill folders.
+        try:
+            has_subskills = any((p / "SKILL.md").exists() for p in skill_dir.iterdir() if p.is_dir())
+        except Exception:
+            has_subskills = False
+        if has_subskills:
+            continue
+
         metadata = safe_load_metadata(metadata_path)
 
         repo = normalize_repo(metadata.get("repo", "")) or extract_repo_from_source(metadata.get("source", ""))
