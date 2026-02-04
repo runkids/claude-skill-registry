@@ -171,8 +171,8 @@ claude-skill-registry/
 ### In Progress
 
 - [x] **Lightweight search index** (~1MB vs 17MB)
-- [x] **Web search UI** (GitHub Pages)
-- [ ] **GitHub Pages deployment** (pending)
+- [x] **Web search UI** (Vercel + GitHub Pages)
+- [x] **GitHub Pages deployment** (enabled)
 
 ### Planned
 
