@@ -1,43 +1,37 @@
 #!/usr/bin/env python3
 """
-Skill Downloader v2 - Download missing SKILL.md files from GitHub.
+Skill Downloader v2.0 - Category-based organization with smart conflict resolution
 
-Storage:
-  - Downloaded skills are stored under `skills/data/<dir_name>/SKILL.md`.
+Directory structure:
+    skills/{category}/{skill-name}/SKILL.md
 
-Inputs:
-  - By default, reads all `sources/*.json` files that contain a top-level `skills` array.
-  - Optionally can also include `registry.json` entries via `--include-registry`.
+Conflict resolution (Option A):
+    - First skill with a name gets the simple name
+    - Conflicts get repo suffix: {name}-{owner}-{repo}
+    - Priority: official (anthropics) > higher stars > first-come
 
-This script intentionally does not try to reorganize the existing `skills/` tree. It
-only ensures missing skills are downloaded, and writes/updates `metadata.json` next
-to each downloaded SKILL.md with normalized `repo`, `github_path`, `github_branch`,
-and canonical `category`.
+Example:
+    skills/
+    ├── documents/
+    │   ├── pdf/                              # First one
+    │   └── pdf-other-owner-other-repo/       # Conflict
+    ├── development/
+    │   ├── doc-sync/                         # Highest stars
+    │   └── doc-sync-rjmurillo-ai-agents/     # Lower stars
 """
 
-from __future__ import annotations
-
-import argparse
 import asyncio
-import json
-import logging
-import os
-import re
-import time
-from collections import defaultdict
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
-
 import aiohttp
+import json
+import os
+from pathlib import Path
+from typing import Dict, List, Set, Tuple, Optional
+from datetime import datetime
+from collections import defaultdict
+import time
+import logging
 
-from utils import normalize_name, ensure_unique_dir, build_skill_key
-
-from registry_normalization import (
-    canonicalize_category,
-    normalize_github_path,
-    normalize_repo,
-)
+from utils import normalize_name, ensure_unique_dir, build_skill_key, get_repo_suffix, short_hash
 
 # Configuration
 MAX_CONCURRENT = 50
@@ -48,90 +42,170 @@ BATCH_SIZE = 200
 GITHUB_RAW_BASE = "https://raw.githubusercontent.com"
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+# Official repos get priority
+OFFICIAL_REPOS = {"anthropics/skills", "anthropics/claude-code"}
+
+# Logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('download_v2.log'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
 
-def get_repo_suffix(repo: str) -> str:
-    """Get a short suffix from repo: owner-repo."""
-    repo = normalize_repo(repo)
-    if not repo or "/" not in repo:
-        return "unknown"
-    owner, repo_name = repo.split("/", 1)
-    owner = normalize_name(owner)[:20]
-    repo_name = normalize_name(repo_name)[:20]
-    return f"{owner}-{repo_name}"
-
-
-def derive_name(skill: dict) -> str:
-    """Best-effort name derivation when sources omit it."""
-    name = skill.get("name")
-    if name:
-        return str(name)
-    path = skill.get("path") or skill.get("github_path") or ""
-    path = str(path).strip()
-    if path:
-        # Use directory name of provided path
-        path = path.replace("\\", "/")
-        if path.endswith("SKILL.md"):
-            path = path[: -len("SKILL.md")].rstrip("/")
-        if path:
-            return path.split("/")[-1]
-    repo = normalize_repo(skill.get("repo", "") or "")
-    if repo:
-        return repo.split("/")[-1]
-    return "unknown"
-
-
-class ExistingSkillIndex:
-    """Index existing skills (repo + github_path) across the entire skills tree."""
+class SkillRegistry:
+    """Track downloaded skills to handle conflicts."""
 
     def __init__(self, skills_dir: Path):
-        self.keys: Set[str] = set()
-        self.by_repo: Dict[str, Set[str]] = defaultdict(set)
-        self._scan(skills_dir)
+        self.skills_dir = skills_dir
+        # {category: {base_name: {dir_name: skill_info}}}
+        self.registry: Dict[str, Dict[str, Dict[str, dict]]] = defaultdict(lambda: defaultdict(dict))
+        self._scan_existing()
 
-    def _scan(self, skills_dir: Path) -> None:
-        if not skills_dir.exists():
+    def _scan_existing(self):
+        """Scan existing skills directory."""
+        if not self.skills_dir.exists():
             return
 
-        scanned = 0
-        for metadata_path in skills_dir.rglob("metadata.json"):
-            scanned += 1
+        for category_dir in self.skills_dir.iterdir():
+            if not category_dir.is_dir() or category_dir.name.startswith('.'):
+                continue
+
+            category = category_dir.name
+
+            for skill_dir in category_dir.iterdir():
+                if not skill_dir.is_dir():
+                    continue
+
+                skill_md = skill_dir / "SKILL.md"
+                metadata_file = skill_dir / "metadata.json"
+
+                if not skill_md.exists():
+                    continue
+
+                dir_name = skill_dir.name
+
+                # Extract base name (remove repo suffix if present)
+                # e.g., "doc-sync-owner-repo" -> "doc-sync"
+                base_name = self._extract_base_name(dir_name, metadata_file)
+
+                # Load metadata
+                metadata = {}
+                if metadata_file.exists():
+                    try:
+                        metadata = json.loads(metadata_file.read_text())
+                    except Exception:
+                        pass
+
+                self.registry[category][base_name][dir_name] = {
+                    "repo": metadata.get("repo", ""),
+                    "stars": metadata.get("stars", 0),
+                    "path": str(skill_dir),
+                }
+
+        logger.info(f"Scanned existing skills: {sum(len(names) for names in self.registry.values())} unique names")
+
+    def _extract_base_name(self, dir_name: str, metadata_file: Path) -> str:
+        """Extract base name from directory name."""
+        if metadata_file.exists():
             try:
-                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                metadata = json.loads(metadata_file.read_text())
+                if metadata.get("name"):
+                    return normalize_name(metadata["name"])
+                repo = metadata.get("repo", "")
+                suffix = get_repo_suffix(repo)
+                if suffix and dir_name.endswith(f"-{suffix}"):
+                    return dir_name[: -(len(suffix) + 1)]
             except Exception:
-                continue
+                pass
 
-            repo = normalize_repo(metadata.get("repo", ""))
-            if not repo or "/" not in repo:
-                continue
+        return dir_name
 
-            path = normalize_github_path(metadata.get("github_path") or metadata.get("path"))
-            key = f"{repo}:{path}"
-            self.keys.add(key)
-            self.by_repo[repo].add(path)
+    def get_dir_name(self, name: str, repo: str, category: str, stars: int) -> str:
+        """
+        Determine directory name for a skill, handling conflicts.
 
-        logger.info(f"Indexed existing skills: {len(self.keys)} unique repo:path keys (metadata scanned: {scanned})")
+        Returns the directory name to use (may include repo suffix).
+        """
+        base_name = normalize_name(name)
+        category = normalize_name(category) or "other"
 
-    def has(self, repo: str, path: str) -> bool:
-        return f"{repo}:{path}" in self.keys
+        existing = self.registry[category].get(base_name, {})
 
-    def add(self, repo: str, path: str) -> None:
-        key = f"{repo}:{path}"
-        self.keys.add(key)
-        self.by_repo.setdefault(repo, set()).add(path)
+        if not existing:
+            # No conflict - use simple name
+            return base_name
+
+        # Check if this exact repo already downloaded
+        for dir_name, info in existing.items():
+            if info.get("repo") == repo:
+                return dir_name  # Already exists
+
+        # Conflict! Determine if this skill should get the base name
+        # Priority: official > higher stars > existing keeps base name
+
+        is_official = repo in OFFICIAL_REPOS
+
+        # Check if any existing has the base name
+        if base_name in existing:
+            existing_info = existing[base_name]
+            existing_is_official = existing_info.get("repo") in OFFICIAL_REPOS
+            existing_stars = existing_info.get("stars", 0)
+
+            # Should this new skill take over the base name?
+            should_take_base = False
+
+            if is_official and not existing_is_official:
+                should_take_base = True
+            elif not existing_is_official and not is_official and stars > existing_stars:
+                should_take_base = True
+
+            if should_take_base:
+                # Rename existing to have suffix
+                old_path = Path(existing_info["path"])
+                existing_suffix = get_repo_suffix(existing_info.get("repo", ""))
+                if not existing_suffix:
+                    existing_suffix = short_hash(existing_info.get("repo", "") or base_name)
+                new_dir_name = f"{base_name}-{existing_suffix}"
+                new_path = old_path.parent / new_dir_name
+
+                if old_path.exists() and not new_path.exists():
+                    old_path.rename(new_path)
+                    logger.info(f"Renamed {base_name} -> {new_dir_name} (priority override)")
+
+                    # Update registry
+                    self.registry[category][base_name][new_dir_name] = existing_info
+                    self.registry[category][base_name][new_dir_name]["path"] = str(new_path)
+                    del self.registry[category][base_name][base_name]
+
+                return base_name  # New skill gets base name
+
+        # This skill gets a suffix
+        suffix = get_repo_suffix(repo) or short_hash(repo or base_name)
+        return f"{base_name}-{suffix}"
+
+    def register(self, name: str, repo: str, category: str, stars: int, dir_name: str, path: Path):
+        """Register a downloaded skill."""
+        base_name = normalize_name(name)
+        category = normalize_name(category) or "other"
+
+        self.registry[category][base_name][dir_name] = {
+            "repo": repo,
+            "stars": stars,
+            "path": str(path),
+        }
 
 
 def get_url_patterns(repo: str, skill_name: str, skill_path: str = "") -> List[str]:
     """Generate URL patterns to try for downloading SKILL.md."""
-    patterns: List[str] = []
+    patterns = []
     branches = ["main", "master"]
 
-    repo = normalize_repo(repo)
-    skill_name = normalize_name(skill_name)
-    skill_path = str(skill_path or "").strip().lstrip("/")
-
+    # If explicit path provided, try it first
     if skill_path:
         for branch in branches:
             if skill_path.endswith("SKILL.md"):
@@ -140,33 +214,22 @@ def get_url_patterns(repo: str, skill_name: str, skill_path: str = "") -> List[s
                 patterns.append(f"{GITHUB_RAW_BASE}/{repo}/{branch}/{skill_path}/SKILL.md")
 
     for branch in branches:
-        patterns.extend(
-            [
-                f"{GITHUB_RAW_BASE}/{repo}/{branch}/.claude/skills/{skill_name}/SKILL.md",
-                f"{GITHUB_RAW_BASE}/{repo}/{branch}/.claude/{skill_name}/SKILL.md",
-                f"{GITHUB_RAW_BASE}/{repo}/{branch}/.claude/SKILL.md",
-                f"{GITHUB_RAW_BASE}/{repo}/{branch}/skills/{skill_name}/SKILL.md",
-                f"{GITHUB_RAW_BASE}/{repo}/{branch}/{skill_name}/SKILL.md",
-                f"{GITHUB_RAW_BASE}/{repo}/{branch}/SKILL.md",
-            ]
-        )
+        # Standard Claude Code locations
+        patterns.extend([
+            f"{GITHUB_RAW_BASE}/{repo}/{branch}/.claude/skills/{skill_name}/SKILL.md",
+            f"{GITHUB_RAW_BASE}/{repo}/{branch}/.claude/{skill_name}/SKILL.md",
+            f"{GITHUB_RAW_BASE}/{repo}/{branch}/.claude/SKILL.md",
+            f"{GITHUB_RAW_BASE}/{repo}/{branch}/skills/{skill_name}/SKILL.md",
+            f"{GITHUB_RAW_BASE}/{repo}/{branch}/{skill_name}/SKILL.md",
+            f"{GITHUB_RAW_BASE}/{repo}/{branch}/SKILL.md",
+        ])
 
     # Remove duplicates while preserving order
-    seen: Set[str] = set()
-    out: List[str] = []
-    for p in patterns:
-        if p in seen:
-            continue
-        seen.add(p)
-        out.append(p)
-    return out
+    seen = set()
+    return [p for p in patterns if not (p in seen or seen.add(p))]
 
 
-async def fetch_url(
-    session: aiohttp.ClientSession,
-    url: str,
-    semaphore: asyncio.Semaphore,
-) -> Tuple[Optional[str], int]:
+async def fetch_url(session: aiohttp.ClientSession, url: str, semaphore: asyncio.Semaphore) -> Tuple[Optional[str], int]:
     """Fetch URL with status code."""
     async with semaphore:
         for attempt in range(RETRY_ATTEMPTS):
@@ -174,10 +237,10 @@ async def fetch_url(
                 async with session.get(url, timeout=aiohttp.ClientTimeout(total=TIMEOUT)) as resp:
                     if resp.status == 200:
                         return await resp.text(), 200
-                    if resp.status == 404:
+                    elif resp.status == 404:
                         return None, 404
-                    if resp.status in (403, 429):
-                        await asyncio.sleep(2**attempt)
+                    elif resp.status in (403, 429):
+                        await asyncio.sleep(2 ** attempt)
                         continue
                     return None, resp.status
             except Exception:
@@ -187,103 +250,107 @@ async def fetch_url(
 
 
 def is_valid_skill_content(content: str) -> bool:
-    """Validate that content looks like a SKILL.md file."""
+    """Validate that content is a proper SKILL.md file."""
     if not content or len(content) < 50:
         return False
-    head = content[:800].lower()
-    return content.strip().startswith("---") or "description:" in head or "# " in content[:200] or "skill" in head
 
-
-def extract_location_from_raw_url(url: str) -> tuple[str, str]:
-    """
-    Extract (branch, github_path_dir) from a raw.githubusercontent.com URL.
-
-    Returns ("main", "") on failure.
-    """
-    try:
-        url_parts = url.replace(GITHUB_RAW_BASE + "/", "").split("/")
-        if len(url_parts) <= 3:
-            return "main", ""
-        branch = url_parts[2] or "main"
-        raw_path = "/".join(url_parts[3:])
-        github_path_dir = normalize_github_path(raw_path)
-        return branch, github_path_dir
-    except Exception:
-        return "main", ""
-
-
-def choose_dir_name(base_name: str, repo: str, output_dir: Path, key: str) -> str:
-    """Pick a case-safe directory name under skills/data."""
-    base_name = normalize_name(base_name)
-    return ensure_unique_dir(output_dir, base_name, key).name
+    indicators = [
+        content.strip().startswith("---"),
+        "description:" in content[:500].lower(),
+        "# " in content[:200],
+        "skill" in content[:500].lower(),
+    ]
+    return any(indicators)
 
 
 async def download_skill(
     session: aiohttp.ClientSession,
     skill: dict,
-    output_dir: Path,
+    skills_dir: Path,
+    registry: SkillRegistry,
     semaphore: asyncio.Semaphore,
-    existing: ExistingSkillIndex,
     stats: dict,
 ) -> bool:
-    """Download a single skill if missing."""
-    repo = normalize_repo(skill.get("repo", "") or skill.get("install", "") or "")
-    if not repo or "/" not in repo:
+    """Download a single skill with conflict resolution."""
+
+    name = skill.get("name", "")
+    repo = skill.get("repo", "")
+    path = skill.get("path", "")
+    category = skill.get("category", "other")
+    stars = skill.get("stars", 0)
+
+    if not name or not repo:
         stats["skipped"] += 1
         return False
 
-    name = derive_name(skill)
-    provided_path = skill.get("path") or skill.get("github_path") or ""
-    normalized_path = normalize_github_path(provided_path)
+    # Clean repo path
+    repo = repo.split("/tree/")[0]
+    if repo.startswith("https://github.com/"):
+        repo = repo.replace("https://github.com/", "")
+    repo = repo.rstrip("/")
 
-    # Skip if already present anywhere in skills/
-    if existing.has(repo, normalized_path):
-        stats["skipped"] += 1
-        return False
+    # Get directory name (handles conflicts)
+    category_normalized = normalize_name(category) or "other"
+    dir_name = registry.get_dir_name(name, repo, category_normalized, stars)
 
-    base_name = normalize_name(name)
-    key = build_skill_key(repo, normalized_path, name=base_name, category=skill.get("category", ""))
-    dir_name = choose_dir_name(base_name, repo, output_dir, key)
-    skill_dir = output_dir / dir_name
+    key = build_skill_key(repo, path, name=name, category=category_normalized)
+    case_safe_dir = ensure_unique_dir(skills_dir / category_normalized, dir_name, key, repo=repo)
+
+    # Target path (case-safe)
+    dir_name = case_safe_dir.name
+    skill_dir = case_safe_dir
     skill_file = skill_dir / "SKILL.md"
 
+    # Already exists?
     if skill_file.exists():
         stats["skipped"] += 1
         return False
 
-    patterns = get_url_patterns(repo, base_name, provided_path)
+    # Try to download
+    patterns = get_url_patterns(repo, normalize_name(name), path)
 
-    for url in patterns[:10]:
+    for url in patterns[:8]:
         content, status = await fetch_url(session, url, semaphore)
 
         if content and is_valid_skill_content(content):
-            branch, github_path_dir = extract_location_from_raw_url(url)
+            # Extract github_path from URL
+            github_path = ""
+            try:
+                url_parts = url.replace(GITHUB_RAW_BASE + "/", "").split("/")
+                if len(url_parts) > 3:
+                    github_path = "/".join(url_parts[3:])
+                    if github_path.endswith("/SKILL.md"):
+                        github_path = github_path[:-9]
+                    elif github_path == "SKILL.md":
+                        github_path = ""
+            except Exception:
+                pass
 
             # Create directory and save
             skill_dir.mkdir(parents=True, exist_ok=True)
             skill_file.write_text(content, encoding="utf-8")
 
-            # Save metadata (normalized)
-            category = canonicalize_category(skill.get("category", "other"), repo=repo)
+            # Save metadata
             metadata = {
-                "name": normalize_name(name),
-                "description": str(skill.get("description", "") or "")[:200],
+                "name": name,
+                "description": skill.get("description", "")[:200],
                 "repo": repo,
                 "category": category,
-                "tags": skill.get("tags", []) or [],
-                "stars": int(skill.get("stars", 0) or 0),
+                "tags": skill.get("tags", []),
+                "stars": stars,
                 "source": skill.get("source", ""),
-                "github_path": github_path_dir,
-                "github_branch": branch,
+                "github_path": github_path,
                 "dir_name": dir_name,
                 "downloaded_at": datetime.utcnow().isoformat() + "Z",
             }
             (skill_dir / "metadata.json").write_text(
                 json.dumps(metadata, indent=2, ensure_ascii=False),
-                encoding="utf-8",
+                encoding="utf-8"
             )
 
-            existing.add(repo, github_path_dir)
+            # Register
+            registry.register(name, repo, category_normalized, stars, dir_name, skill_dir)
+
             stats["downloaded"] += 1
             return True
 
@@ -295,134 +362,112 @@ async def download_skill(
     return False
 
 
-def load_skill_sources(sources_dir: Path) -> List[dict]:
-    skills: List[dict] = []
-    if not sources_dir.exists():
-        return skills
-    for source_file in sorted(sources_dir.glob("*.json")):
-        try:
-            data = json.loads(source_file.read_text(encoding="utf-8"))
-        except Exception as e:
-            logger.warning(f"Failed to load {source_file}: {e}")
-            continue
-        skills.extend(data.get("skills", []))
-    return skills
+async def main():
+    """Main entry point."""
+    script_dir = Path(__file__).parent
+    registry_dir = script_dir.parent
+    skills_dir = registry_dir / "skills"
 
+    # Load skills from sources
+    skills = []
 
-def load_registry_entries(registry_path: Path) -> List[dict]:
-    if not registry_path.exists():
-        return []
-    try:
-        data = json.loads(registry_path.read_text(encoding="utf-8"))
-        return data.get("skills", [])
-    except Exception as e:
-        logger.warning(f"Failed to load {registry_path}: {e}")
-        return []
+    # Load from registry.json
+    registry_file = registry_dir / "registry.json"
+    if registry_file.exists():
+        with open(registry_file, 'r') as f:
+            data = json.load(f)
+            skills.extend(data.get("skills", []))
 
+    # Load from sources
+    sources_dir = registry_dir / "sources"
+    if sources_dir.exists():
+        for source_file in sources_dir.glob("*.json"):
+            try:
+                with open(source_file, 'r') as f:
+                    data = json.load(f)
+                    skills.extend(data.get("skills", []))
+            except Exception as e:
+                logger.warning(f"Failed to load {source_file}: {e}")
 
-def dedupe_skills(skills: List[dict]) -> List[dict]:
-    """Deduplicate by repo + normalized path (preferred), else repo+name."""
-    seen: Set[str] = set()
-    out: List[dict] = []
-
+    # Deduplicate by repo+name
+    seen = set()
+    unique_skills = []
     for s in skills:
-        repo = normalize_repo(s.get("repo", "") or s.get("install", "") or "")
-        if not repo:
-            continue
-        path = normalize_github_path(s.get("path") or s.get("github_path") or "")
-        name = normalize_name(s.get("name") or derive_name(s))
-        key = f"{repo}:{path}" if path else f"{repo}::{name}"
-        if key in seen:
-            continue
-        seen.add(key)
-        out.append(s)
+        key = f"{s.get('repo', '')}:{s.get('name', '')}"
+        if key not in seen:
+            seen.add(key)
+            unique_skills.append(s)
 
-    return out
+    # Sort by stars (download high-star skills first for priority)
+    unique_skills.sort(key=lambda x: x.get("stars", 0), reverse=True)
 
+    logger.info(f"Total skills to process: {len(unique_skills)}")
 
-async def main_async(args: argparse.Namespace) -> int:
-    repo_root = Path(__file__).parent.parent
-    skills_dir = repo_root / args.skills_dir
-    output_dir = skills_dir / "data"
+    # Initialize registry
+    registry = SkillRegistry(skills_dir)
 
-    # Load inputs
-    skills: List[dict] = []
-    skills.extend(load_skill_sources(repo_root / args.sources_dir))
-    if args.include_registry:
-        skills.extend(load_registry_entries(repo_root / args.registry))
+    # Stats
+    stats = {
+        "downloaded": 0,
+        "skipped": 0,
+        "not_found": 0,
+        "rate_limited": 0,
+    }
 
-    skills = dedupe_skills(skills)
-
-    logger.info(f"Total skill refs to process: {len(skills)}")
-
-    # Index existing
-    existing = ExistingSkillIndex(skills_dir)
-
-    # Ensure output directory exists
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    stats = {"downloaded": 0, "skipped": 0, "not_found": 0, "rate_limited": 0}
-
+    # Headers
     headers = {"User-Agent": "Claude-Skills-Registry/2.0"}
     if GITHUB_TOKEN:
         headers["Authorization"] = f"token {GITHUB_TOKEN}"
         logger.info("Using GitHub token")
 
+    # Download
     semaphore = asyncio.Semaphore(MAX_CONCURRENT)
     connector = aiohttp.TCPConnector(limit=MAX_CONCURRENT * 2)
 
     start_time = time.time()
 
     async with aiohttp.ClientSession(connector=connector, headers=headers) as session:
-        for i in range(0, len(skills), BATCH_SIZE):
-            batch = skills[i : i + BATCH_SIZE]
+        for i in range(0, len(unique_skills), BATCH_SIZE):
+            batch = unique_skills[i:i + BATCH_SIZE]
             batch_num = i // BATCH_SIZE + 1
-            total_batches = (len(skills) + BATCH_SIZE - 1) // BATCH_SIZE
+            total_batches = (len(unique_skills) + BATCH_SIZE - 1) // BATCH_SIZE
 
             logger.info(f"Batch {batch_num}/{total_batches} ({len(batch)} skills)")
 
             tasks = [
-                download_skill(session, skill, output_dir, semaphore, existing, stats)
+                download_skill(session, skill, skills_dir, registry, semaphore, stats)
                 for skill in batch
             ]
+
             await asyncio.gather(*tasks, return_exceptions=True)
 
             elapsed = time.time() - start_time
-            done = stats["downloaded"] + stats["skipped"] + stats["not_found"]
-            rate = done / elapsed if elapsed > 0 else 0
+            rate = (stats["downloaded"] + stats["skipped"]) / elapsed if elapsed > 0 else 0
 
             logger.info(
                 f"Progress: ✅ {stats['downloaded']} | ⏭️ {stats['skipped']} | "
                 f"❌ {stats['not_found']} | ⚡ {rate:.1f}/s"
             )
 
-            await asyncio.sleep(0.2)
+            await asyncio.sleep(0.3)
 
+    # Summary
     elapsed = time.time() - start_time
-    logger.info("DOWNLOAD COMPLETE")
-    logger.info(f"  Downloaded:   {stats['downloaded']}")
-    logger.info(f"  Skipped:      {stats['skipped']}")
-    logger.info(f"  Not found:    {stats['not_found']}")
-    logger.info(f"  Rate limited: {stats['rate_limited']}")
-    logger.info(f"  Time:         {elapsed:.1f}s")
+    print()
+    print("=" * 60)
+    print("DOWNLOAD COMPLETE")
+    print("=" * 60)
+    print(f"  Downloaded:    {stats['downloaded']}")
+    print(f"  Skipped:       {stats['skipped']}")
+    print(f"  Not found:     {stats['not_found']}")
+    print(f"  Rate limited:  {stats['rate_limited']}")
+    print(f"  Time:          {elapsed:.1f}s")
+    print("=" * 60)
 
-    return 0
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Download missing SKILL.md files")
-    parser.add_argument("--skills-dir", default="skills", help="Skills directory (default: skills)")
-    parser.add_argument("--sources-dir", default="sources", help="Sources directory (default: sources)")
-    parser.add_argument("--registry", default="registry.json", help="Registry path (default: registry.json)")
-    parser.add_argument(
-        "--include-registry",
-        action="store_true",
-        help="Also process entries from registry.json (default: off)",
-    )
-
-    args = parser.parse_args()
-    return asyncio.run(main_async(args))
+    # Count final skills
+    total = sum(1 for _ in skills_dir.rglob("SKILL.md"))
+    print(f"  Total skills:  {total}")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    asyncio.run(main())

@@ -1,9 +1,9 @@
 ---
 name: tooling
-description: Flutter Tooling - Herramientas y Comandos. Use when working with tooling.
+description: Flutter Tooling - Tools and Commands. Use when working with tooling.
 ---
 
-# Flutter Tooling - Herramientas y Comandos
+# Flutter Tooling - Tools and Commands
 
 This skill provides guidelines and best practices.
 

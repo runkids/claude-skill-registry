@@ -1,13 +1,9 @@
 {
   "name": "tsqlapp-navigator",
-  "description": "",
   "repo": "rhodelta66/tsqlapp-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "tsqlapp-navigator/SKILL.md",
   "source": "github.com/rhodelta66/tsqlapp-skills",
-  "github_path": "tsqlapp-navigator",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:10:44.620477Z",
   "dir_name": "tsqlapp-navigator",
-  "downloaded_at": "2026-02-05T01:45:03.857043Z"
+  "category": "data"
 }

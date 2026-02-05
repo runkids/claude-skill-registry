@@ -88,7 +88,7 @@ def download_skill(repo, skill_path, skill_name, output_dir, category="community
 
     # Save skill (case-safe)
     key = build_skill_key(repo, skill_path, name=skill_name, category=category)
-    skill_dir = ensure_unique_dir(output_dir / "data", skill_name, key)
+    skill_dir = ensure_unique_dir(output_dir / category, skill_name, key, repo=repo)
     skill_dir.mkdir(parents=True, exist_ok=True)
 
     (skill_dir / "SKILL.md").write_text(content, encoding="utf-8")
@@ -98,6 +98,7 @@ def download_skill(repo, skill_path, skill_name, output_dir, category="community
         "repo": repo,
         "category": category,
         "source": f"github.com/{repo}",
+        "path": skill_path,
         "dir_name": skill_dir.name,
     }
     (skill_dir / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")

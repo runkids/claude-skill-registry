@@ -1,7 +1,9 @@
 {
   "name": "pyopenms",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/pyopenms/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-02T04:36:32.999348Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/pyopenms/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:17.642508Z",
+  "dir_name": "pyopenms",
+  "category": "data"
 }

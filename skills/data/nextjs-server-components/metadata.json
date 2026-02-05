@@ -1,7 +1,9 @@
 {
   "name": "nextjs-server-components",
-  "repo": "CoderMariusz/MonoPilot",
-  "path": ".claude/skills/nextjs-server-components/SKILL.md",
-  "source": "github.com/CoderMariusz/MonoPilot",
-  "downloaded_at": "2026-02-02T02:41:55.918377Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/nextjs-server-components/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T08:54:56.134404Z",
+  "dir_name": "nextjs-server-components",
+  "category": "data"
 }

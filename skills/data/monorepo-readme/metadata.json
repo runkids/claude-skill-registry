@@ -1,13 +1,9 @@
 {
   "name": "monorepo-readme",
-  "description": "",
   "repo": "4meta5/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/monorepo-readme/SKILL.md",
   "source": "github.com/4meta5/skills",
-  "github_path": "skills/monorepo-readme",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:56:27.775849Z",
   "dir_name": "monorepo-readme",
-  "downloaded_at": "2026-02-05T01:44:44.591397Z"
+  "category": "data"
 }

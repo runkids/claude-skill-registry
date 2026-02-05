@@ -1,7 +1,9 @@
 {
   "name": "iterate-pr",
-  "repo": "sickn33/antigravity-awesome-skills",
-  "path": "skills/iterate-pr/SKILL.md",
-  "source": "github.com/sickn33/antigravity-awesome-skills",
-  "downloaded_at": "2026-02-02T04:28:39.840803Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/iterate-pr/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T07:36:19.026512Z",
+  "dir_name": "iterate-pr",
+  "category": "data"
 }

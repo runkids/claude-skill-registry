@@ -1,13 +1,9 @@
 {
   "name": "bocha-search",
-  "description": "",
   "repo": "zhayujie/chatgpt-on-wechat",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/bocha-search/SKILL.md",
   "source": "github.com/zhayujie/chatgpt-on-wechat",
-  "github_path": "skills/bocha-search",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T01:13:32.767624Z",
   "dir_name": "bocha-search",
-  "downloaded_at": "2026-02-05T01:45:06.457262Z"
+  "category": "data"
 }

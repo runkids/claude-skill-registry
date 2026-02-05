@@ -1,13 +1,9 @@
 {
   "name": "video-research",
-  "description": "",
   "repo": "az9713/whatsapp-claude-old",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/video-research/SKILL.md",
   "source": "github.com/az9713/whatsapp-claude-old",
-  "github_path": ".claude/skills/video-research",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:30:07.250267Z",
   "dir_name": "video-research",
-  "downloaded_at": "2026-02-05T01:44:37.783356Z"
+  "category": "data"
 }

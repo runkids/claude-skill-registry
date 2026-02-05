@@ -1,7 +1,9 @@
 {
   "name": "slidev",
-  "repo": "slidevjs/slidev",
-  "path": "skills/slidev/SKILL.md",
-  "source": "github.com/slidevjs/slidev",
-  "downloaded_at": "2026-02-02T05:12:59.578768Z"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/slidev/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-01-29T08:32:38.489632Z",
+  "dir_name": "slidev",
+  "category": "data"
 }

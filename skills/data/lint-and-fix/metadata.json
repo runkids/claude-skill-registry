@@ -3,5 +3,7 @@
   "repo": "yu-iskw/skill-inspector",
   "path": ".claude/skills/lint-and-fix/SKILL.md",
   "source": "github.com/yu-iskw/skill-inspector",
-  "downloaded_at": "2026-02-02T01:38:17.025731Z"
+  "downloaded_at": "2026-01-29T05:54:38.216628Z",
+  "dir_name": "lint-and-fix",
+  "category": "data"
 }

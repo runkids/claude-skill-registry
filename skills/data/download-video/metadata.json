@@ -1,13 +1,9 @@
 {
   "name": "download-video",
-  "description": "",
   "repo": "glwlg/X-bot",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/builtin/download_video/SKILL.md",
   "source": "github.com/glwlg/X-bot",
-  "github_path": "skills/builtin/download_video",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:00:26.844447Z",
   "dir_name": "download-video",
-  "downloaded_at": "2026-02-05T05:41:55.498365Z"
+  "category": "data"
 }

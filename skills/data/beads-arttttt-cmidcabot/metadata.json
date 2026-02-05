@@ -1,13 +1,9 @@
 {
   "name": "beads",
-  "description": "",
   "repo": "arttttt/CMIDCABot",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "",
-  "github_path": ".codex/skills/beads",
-  "github_branch": "main",
+  "path": ".antigravity/skills/beads/SKILL.md",
+  "source": "github.com/arttttt/CMIDCABot",
+  "downloaded_at": "2026-01-29T08:14:06.369589Z",
   "dir_name": "beads-arttttt-cmidcabot",
-  "downloaded_at": "2026-02-05T01:45:35.370469Z"
+  "category": "data"
 }

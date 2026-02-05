@@ -1,13 +1,9 @@
 {
   "name": "react-flow-node-ts",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/react-flow-node-ts",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/react-flow-node-ts/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:42.394199Z",
   "dir_name": "react-flow-node-ts",
-  "downloaded_at": "2026-02-05T01:44:52.339211Z"
+  "category": "data"
 }

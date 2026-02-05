@@ -1,9 +1,9 @@
 {
-  "name": "iteration-04",
-  "description": "Iteration 4 of Multiplicity Cascade - Detects cage boundaries and system limits",
+  "name": "iteration_04",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/agentgptsmith/MonadFramework"
+  "path": ".claude/skills/multiplicity/iteration_04/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-02-02T01:17:48.489374Z",
+  "dir_name": "iteration-04",
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "skill-creator-anthropic",
-  "repo": "ederheisler/agent-skills",
-  "path": ".claude/skills/skill-creator-anthropic/SKILL.md",
-  "source": "github.com/ederheisler/agent-skills",
-  "downloaded_at": "2026-02-02T05:02:45.363028Z"
+  "repo": "lawvable/awesome-legal-skills",
+  "path": "🛠️/skill-creator-anthropic/SKILL.md",
+  "source": "github.com/lawvable/awesome-legal-skills",
+  "downloaded_at": "2026-01-29T05:22:04.873347Z",
+  "dir_name": "skill-creator-anthropic",
+  "category": "data"
 }

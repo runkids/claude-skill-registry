@@ -1,9 +1,9 @@
 {
-  "name": "implement-plan-micro",
-  "description": "Implement technical plans from thoughts/shared/plans with verification",
-  "repo": "namesreallyblank/Clorch",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/namesreallyblank/Clorch"
+  "name": "implement_plan_micro",
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/implement_plan_micro/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-02-02T03:07:13.526785Z",
+  "dir_name": "implement-plan-micro",
+  "category": "data"
 }

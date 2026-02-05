@@ -1,13 +1,9 @@
 {
   "name": "json-canvas",
-  "description": "",
   "repo": "northseadl/skillwisp",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/@obsidian/json-canvas/SKILL.md",
   "source": "github.com/northseadl/skillwisp",
-  "github_path": "skills/@obsidian/json-canvas",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:56:08.665633Z",
   "dir_name": "json-canvas-northseadl-skillwisp",
-  "downloaded_at": "2026-02-05T01:44:58.705948Z"
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "claude-code-audit-plugin",
-  "description": "",
   "repo": "blueraai/bluera-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/claude-code-audit-plugin/SKILL.md",
   "source": "github.com/blueraai/bluera-base",
-  "github_path": "skills/claude-code-audit-plugin",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:17:42.154749Z",
   "dir_name": "claude-code-audit-plugin",
-  "downloaded_at": "2026-02-05T06:27:17.704623Z"
+  "category": "data"
 }

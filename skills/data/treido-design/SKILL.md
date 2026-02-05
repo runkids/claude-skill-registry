@@ -1,149 +1,164 @@
 ---
 name: treido-design
-description: UI/UX design specialist for Treido (Next.js + shadcn/ui + Tailwind v4 tokens). Use for layout, hierarchy, component specs, states, and native-app-feel reviews. Not for DB/auth/Stripe implementation.
+description: Create UI specifications and review designs for Treido marketplace. Use when planning new UI features, reviewing existing designs for consistency, or when something "looks off" or "feels wrong" in the interface. Triggers include design reviews, mobile layout issues, spacing problems, visual hierarchy questions, or requests for UI specs before implementation.
+deprecated: true
 ---
 
-# treido-design
+# Treido Design
 
-Senior product designer expertise for marketplace UX. Produces clean, premium UI that avoids generic “AI demo” aesthetics and feels good on mobile.
+> Deprecated (2026-01-29). Use `treido-orchestrator` Phase 2 planning; implement via `treido-impl-frontend`.
 
-## When to Apply
+## Quick Start
 
-- Designing new screens or components (especially mobile-first)
-- Defining hierarchy, spacing, and composition rules
-- Specifying component states (loading/empty/error/etc.)
-- Reviewing UI for “native app feel” and polish
-- Accessibility and interaction review (without changing business logic)
+1. Identify the surface (route, component, or flow)
+2. Define the user goal and viewport priority (mobile-first)
+3. Create a UI spec with layout, states, and acceptance criteria
+4. Hand off to treido-frontend for implementation
 
-## Treido Constraints (Non-Negotiable)
+## Design Philosophy
 
-- **Tailwind v4 tokens only** (no palette classes, no gradients, no arbitrary values)
-- **All copy must be i18n-ready** (keys via `next-intl`, no hardcoded user-facing strings)
-- Prefer shadcn/ui primitives + composable patterns (no bespoke one-off widgets unless required)
-- **One accent only**: `primary` (blue) for CTAs/links/active/focus; no rainbow status UI
-- **Destructive red only** for discounts + error states
-- **Minimal elevation**: cards/list rows are border-only; shadows are for overlays only (`shadow-modal`, `shadow-dropdown`)
-- **Dense but tappable**: listing grids use `gap-(--product-grid-gap)`, product cards default to `p-2.5`, and tap targets are ≥44px (`h-11`+)
+Treido follows a **clean marketplace aesthetic**:
 
-## Domain Expertise
+- **Mobile-first**: Design for phones, enhance for desktop
+- **Clear hierarchy**: One primary action per screen
+- **Whitespace**: Generous spacing, avoid dense grids
+- **Consistency**: Reuse existing patterns before inventing new ones
+- **No decoration**: No gradients, glows, or animations
 
-### Visual Hierarchy (AUTHORITATIVE)
+## UI Spec Template
 
-| Layer | Treatment | Example |
-|-------|-----------|---------|
-| Primary action | Most visual weight | Large button, high contrast |
-| Secondary action | Clearly subordinate | Smaller, outline variant |
-| Tertiary action | Minimal presence | Text link, muted color |
-
-**Rule**: Maximum 1-2 emphasis levers per element (size OR weight OR color, rarely all).
-
-### Spacing Rhythm (AUTHORITATIVE)
-
-Base unit: **4px**. Scale: 4, 8, 12, 16, 24, 32, 48, 64.
-
-| Relationship | Gap | Example |
-|--------------|-----|---------|
-| Tightly coupled | 4-8px | Label + input |
-| Related items | 12-16px | Cards in a grid |
-| Section break | 24-32px | Header → content |
-| Major section | 48-64px | Page sections |
-
-### Component States (EXHAUSTIVE)
-
-Every interactive component needs:
-- **Default**: Normal appearance
-- **Hover**: Subtle feedback (not dramatic)
-- **Focus**: Visible outline (accessibility)
-- **Active/Pressed**: Slight depression
-- **Disabled**: Reduced opacity, no pointer
-- **Loading**: Spinner or skeleton
-- **Empty**: Helpful guidance
-- **Error**: Clear problem indication
-
-### Anti-Slop Checklist
-
-| ❌ Never | ✅ Always |
-|----------|----------|
-| Gradients on white/black | Deliberate typography |
-| Neon glows, dramatic shadows | Consistent token usage |
-| Decoration without meaning | Restraint in decoration |
-| Rainbow color schemes | Clear information hierarchy |
-| "AI demo" aesthetic | Accessible contrast ratios |
-
-## Deliverable Format (Use This)
-
-When asked to “design” a component/screen, output a short spec like:
-
-```md
-## Component: <Name>
-
-**Purpose**: <what it’s for>
-**Primary user action**: <tap/click>
-
-### Layout
-- <structure + spacing rhythm>
-
-### Hierarchy
-1. <primary>
-2. <secondary>
-3. <tertiary>
-
-### Tokens
-- Surfaces: <bg-*>
-- Text: <text-*> 
-- Borders/Dividers: <border-*> 
-- States: <hover/active/focus tokens>
-
-### States
-- Default / Hover / Focus / Pressed / Disabled / Loading / Empty / Error
-
-### Mobile Feel
-- Touch targets ≥ 44×44
-- Tap feedback (`tap-highlight`-style)
-- No layout shift on press/hover
-
-### A11y
-- Keyboard focus visible
-- Labels for inputs
-- Contrast meets WCAG AA
-```
-
-## ✅ Do
+When creating a spec, use this format:
 
 ```markdown
-## Component: ProductCard
+## Surface
+- Route/component: `/products/[id]`
+- Primary user goal: View product details and add to cart
 
-**Purpose**: Display product in grid
+## Layout (Mobile-First)
 
-**Hierarchy**:
-1. Primary: Product image + price
-2. Secondary: Title
-3. Tertiary: Seller info
+### Mobile (< 768px)
+- Single column
+- Image carousel: full width, 1:1 aspect
+- Title + price: sticky bottom bar
+- CTA: Full-width "Add to Cart" button
 
-**Tokens**: bg-card, text-foreground, text-muted-foreground, border-border
+### Desktop (≥ 1024px)
+- Two columns: image (60%) | details (40%)
+- Image gallery: thumbnail strip below main
+- CTA: Standard button width
 
-**States**: Default, Hover (bg-hover), Focus (ring-2 ring-ring), Loading (skeleton)
+## Component Map
 
-**Spacing**: p-2.5 internal, grid uses gap-(--product-grid-gap)
+| Component | Location | Notes |
+|-----------|----------|-------|
+| ImageCarousel | components/shared/ | Existing |
+| ProductDetails | _components/ | Route-private |
+| AddToCartButton | components/shared/ | Existing |
+| PriceDisplay | components/shared/ | Existing |
+
+## States
+
+| State | UI |
+|-------|-----|
+| Loading | Skeleton: image placeholder + text lines |
+| Empty | N/A (product always exists or 404) |
+| Error | Error card with retry button |
+| Success | Full product display |
+
+## Accessibility
+
+- Image carousel: keyboard navigable, alt text required
+- Price: announced to screen readers
+- Add to Cart: clear button label, loading state announced
+
+## i18n Keys (if new copy needed)
+
+```json
+{
+  "ProductPage": {
+    "addToCart": { "en": "Add to Cart", "bg": "Добави в кошницата" },
+    "outOfStock": { "en": "Out of Stock", "bg": "Няма наличност" }
+  }
+}
 ```
 
-## ❌ Don't
+## Acceptance Criteria
 
-- Skip state definitions
-- Use arbitrary spacing values
-- Add decoration without purpose
-- Mix multiple emphasis techniques
-- Forget accessibility requirements
+- [ ] Mobile: single column, full-width CTA
+- [ ] Desktop: two-column layout
+- [ ] Loading state shows skeleton
+- [ ] All text uses semantic tokens (no hardcoded colors)
+- [ ] Passes `pnpm -s styles:gate`
+```
+
+## Design Constraints (Non-Negotiable)
+
+### Tailwind v4 Only
+- No gradients
+- No arbitrary values (`[13px]`, `[#ff0000]`)
+- No palette colors (`blue-500`, `red-600`)
+- Use semantic tokens only (`bg-primary`, `text-foreground`)
+
+### No New Animations
+- Keep UX stable and fast
+- Use existing transitions (hover states, focus rings)
+- No page transitions, no skeleton shimmer, no loading spinners beyond existing
+
+### Reuse Before Creating
+```
+Priority order:
+1. Existing shadcn primitive (components/ui/)
+2. Existing shared composite (components/shared/)
+3. Adapt existing pattern
+4. Create new (rare, needs justification)
+```
+
+## Common Patterns
+
+### Mobile Navigation
+- Bottom tab bar for primary nav
+- Hamburger menu for secondary nav
+- Back button in header for drill-down
+
+### Card Layouts
+- Mobile: single column, full-width cards
+- Tablet: 2 columns
+- Desktop: 3-4 columns with max-width container
+
+### Form Patterns
+- Labels above inputs (not floating)
+- Error messages below input
+- Submit button at bottom, full-width on mobile
+
+### Modal/Sheet Usage
+- **Mobile**: Bottom sheet (slides up)
+- **Desktop**: Centered dialog or side panel
 
 ## Review Checklist
 
-- Touch target ≥ 44×44px
-- Text contrast ≥ 4.5:1 (AA)
-- Focus states visible
-- Dark mode works
+When reviewing existing UI:
 
-## References (SSOT)
+- [ ] Mobile-first: works on 320px width?
+- [ ] Touch targets: ≥44px tap areas?
+- [ ] Hierarchy: one clear primary CTA?
+- [ ] Spacing: uses standard tokens (p-4, gap-4)?
+- [ ] Colors: semantic tokens only?
+- [ ] Loading state: has skeleton or spinner?
+- [ ] Error state: clear message + action?
+- [ ] i18n: no hardcoded strings?
 
-- `docs/04-DESIGN.md`
-- `docs/APP-FEEL-GUIDE.md`
-- `docs/APP-FEEL-CHECKLIST.md`
+## Handoff to Implementation
+
+After creating a spec:
+
+```
+Use treido-frontend to implement:
+- Surface: [route/component]
+- Files to create/modify: [list 1-3 files]
+- Run verification: pnpm -s typecheck && pnpm -s lint && pnpm -s styles:gate
+```
+
+## References
+
+**For component patterns:** See [references/patterns.md](references/patterns.md)
+**For spacing/typography scale:** See [references/tokens.md](references/tokens.md)

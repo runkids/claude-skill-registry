@@ -1,13 +1,9 @@
 {
   "name": "design-split",
-  "description": "",
   "repo": "mae616/ai-template",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/design-split/SKILL.md",
   "source": "github.com/mae616/ai-template",
-  "github_path": ".claude/skills/design-split",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:17:59.892666Z",
   "dir_name": "design-split",
-  "downloaded_at": "2026-02-05T01:45:08.010621Z"
+  "category": "data"
 }

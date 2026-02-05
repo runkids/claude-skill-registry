@@ -1,13 +1,9 @@
 {
   "name": "agent-guardrails",
-  "description": "",
   "repo": "jzOcb/agent-guardrails",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "SKILL.md",
   "source": "github.com/jzOcb/agent-guardrails",
-  "github_path": "",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:44:11.696829Z",
   "dir_name": "agent-guardrails",
-  "downloaded_at": "2026-02-05T01:44:29.589441Z"
+  "category": "data"
 }

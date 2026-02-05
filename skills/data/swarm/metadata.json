@@ -1,7 +1,9 @@
 {
   "name": "swarm",
-  "repo": "boshu2/agentops",
-  "path": "skills/swarm/SKILL.md",
-  "source": "github.com/boshu2/agentops",
-  "downloaded_at": "2026-02-02T03:07:43.086638Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/swarm/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T07:36:12.011398Z",
+  "dir_name": "swarm",
+  "category": "data"
 }

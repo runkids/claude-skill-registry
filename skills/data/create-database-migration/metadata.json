@@ -1,7 +1,9 @@
 {
   "name": "create-database-migration",
-  "repo": "GregBaron/ghost-mysandbox",
+  "repo": "iBoostAI/Ghost",
   "path": ".claude/skills/create-database-migration/SKILL.md",
-  "source": "github.com/GregBaron/ghost-mysandbox",
-  "downloaded_at": "2026-02-02T04:45:23.512375Z"
+  "source": "github.com/iBoostAI/Ghost",
+  "downloaded_at": "2026-01-29T08:47:40.281512Z",
+  "dir_name": "create-database-migration",
+  "category": "data"
 }

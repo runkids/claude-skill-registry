@@ -1,13 +1,9 @@
 {
   "name": "differential-review",
-  "description": "",
   "repo": "4meta5/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/differential-review/SKILL.md",
   "source": "github.com/4meta5/skills",
-  "github_path": "skills/differential-review",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:56:30.135419Z",
   "dir_name": "differential-review-4meta5-skills",
-  "downloaded_at": "2026-02-05T01:44:44.680474Z"
+  "category": "data"
 }

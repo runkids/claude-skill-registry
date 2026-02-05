@@ -1,13 +1,9 @@
 {
   "name": "interactor-agents",
-  "description": "",
   "repo": "pulzze/interactor-docs",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/i/interactor-agents/SKILL.md",
   "source": "github.com/pulzze/interactor-docs",
-  "github_path": ".claude/skills/i/interactor-agents",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:55:40.589650Z",
   "dir_name": "interactor-agents",
-  "downloaded_at": "2026-02-05T01:44:53.836310Z"
+  "category": "data"
 }

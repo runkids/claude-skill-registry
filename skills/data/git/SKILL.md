@@ -1,224 +1,100 @@
 ---
 name: git
-description: Git workflow and commit standards for SignalRoom. Use when committing changes, creating PRs, or managing branches. Ensures consistent commit messages and safe git operations.
+description: Git operations with conventional commits. Use for staging, committing, pushing, PRs, merges. Auto-splits commits by type/scope. Security scans for secrets.
+version: 1.0.0
 ---
 
-# Git Workflow
+# Git Operations
 
-## Branch Strategy
+Execute git workflows via `git-manager` subagent to isolate verbose output.
+Activate `context-engineering` skill.
 
-```
-main (production)
-  │
-  └── feature/* or fix/* (development)
-```
+**IMPORTANT:**
+- Sacrifice grammar for the sake of concision.
+- Ensure token efficiency while maintaining high quality.
+- Pass these rules to subagents.
 
-- `main` is production, always deployable
-- Feature branches for development
-- Merge to main via PR or direct push (small changes)
+## Arguments
+- `cm`: Stage files & create commits
+- `cp`: Stage files, create commits and push
+- `pr`: Create Pull Request [to-branch] [from-branch]
+  - `to-branch`: Target branch (default: main)
+  - `from-branch`: Source branch (default: current branch)
+- `merge`: Merge [to-branch] [from-branch]
+  - `to-branch`: Target branch (default: main)
+  - `from-branch`: Source branch (default: current branch)
 
-## Commit Message Format
+## Quick Reference
 
-```
-<type>: <short summary>
+| Task | Reference |
+|------|-----------|
+| Commit | `references/workflow-commit.md` |
+| Push | `references/workflow-push.md` |
+| Pull Request | `references/workflow-pr.md` |
+| Merge | `references/workflow-merge.md` |
+| Standards | `references/commit-standards.md` |
+| Safety | `references/safety-protocols.md` |
+| Branches | `references/branch-management.md` |
+| GitHub CLI | `references/gh-cli-guide.md` |
 
-<optional body with details>
+## Core Workflow
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
-```
-
-### Types
-
-| Type | Use For |
-|------|---------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
-| `refactor` | Code change that doesn't fix bug or add feature |
-| `test` | Adding or updating tests |
-| `chore` | Maintenance, dependencies, config |
-
-### Examples
-
-```
-feat: Add Redtrack daily spend source
-
-fix: Correct Supabase pooler port to 6543
-
-docs: Update ROADMAP with Phase 4 completion
-
-refactor: Extract retry policy to temporal/config.py
-
-chore: Update dlt to 0.4.0
-```
-
-## Safe Git Commands
-
-### Before Committing
-
+### Step 1: Stage + Analyze
 ```bash
-# See what changed
-git status
-git diff
-
-# Stage specific files
-git add path/to/file.py
-
-# Stage all changes
-git add -A
+git add -A && git diff --cached --stat && git diff --cached --name-only
 ```
 
-### Committing
-
+### Step 2: Security Check
+Scan for secrets before commit:
 ```bash
-# Commit with message
-git commit -m "feat: Add new source"
-
-# Commit with multi-line message (use heredoc)
-git commit -m "$(cat <<'EOF'
-feat: Add Redtrack source
-
-- Implements daily_spend resource
-- Uses merge disposition with date+source_id key
-- Adds to pipeline runner registry
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
-EOF
-)"
+git diff --cached | grep -iE "(api[_-]?key|token|password|secret|credential)"
 ```
+**If secrets found:** STOP, warn user, suggest `.gitignore`.
 
-### Pushing
+### Step 3: Split Decision
 
+**NOTE:**
+- Search for related issues on GitHub and add to body.
+- Only use `feat`, `fix`, or `perf` prefixes for files in `.claude` directory (do not use `docs`).
+
+**Split commits if:**
+- Different types mixed (feat + fix, code + docs)
+- Multiple scopes (auth + payments)
+- Config/deps + code mixed
+- FILES > 10 unrelated
+
+**Single commit if:**
+- Same type/scope, FILES ≤ 3, LINES ≤ 50
+
+### Step 4: Commit
 ```bash
-# Push to origin
-git push origin main
-
-# Push new branch
-git push -u origin feature/my-feature
+git commit -m "type(scope): description"
 ```
 
-## Dangerous Commands (Avoid)
-
-| Command | Risk | Alternative |
-|---------|------|-------------|
-| `git push --force` | Destroys remote history | `git push` (fix conflicts first) |
-| `git reset --hard` | Loses uncommitted work | `git stash` then `git reset` |
-| `git rebase -i` | Rewrites history | Only on unpushed commits |
-| `git commit --amend` | Rewrites last commit | Only if not pushed |
-
-## Pull Request Template
-
-```markdown
-## Summary
-- Brief description of changes
-
-## Changes
-- Specific change 1
-- Specific change 2
-
-## Test Plan
-- [ ] Tested locally with `python scripts/run_pipeline.py`
-- [ ] Verified no type errors with `make typecheck`
-- [ ] Ran `make ci` successfully
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+## Output Format
+```
+✓ staged: N files (+X/-Y lines)
+✓ security: passed
+✓ commit: HASH type(scope): description
+✓ pushed: yes/no
 ```
 
-## Pre-Commit Checklist
+## Error Handling
 
-Before any commit:
+| Error | Action |
+|-------|--------|
+| Secrets detected | Block commit, show files |
+| No changes | Exit cleanly |
+| Push rejected | Suggest `git pull --rebase` |
+| Merge conflicts | Suggest manual resolution |
 
-```bash
-# 1. Check what you're committing
-git diff --staged
+## References
 
-# 2. Run linter
-make lint
-
-# 3. Run type checker
-make typecheck
-
-# 4. Run tests (if applicable)
-make test
-```
-
-## Common Scenarios
-
-### Undo Last Commit (Not Pushed)
-
-```bash
-# Keep changes, undo commit
-git reset --soft HEAD~1
-
-# Discard changes entirely
-git reset --hard HEAD~1
-```
-
-### Discard Local Changes
-
-```bash
-# Discard changes to specific file
-git checkout -- path/to/file.py
-
-# Discard all local changes
-git checkout -- .
-```
-
-### See What Changed Recently
-
-```bash
-# Recent commits
-git log --oneline -10
-
-# Changes in last commit
-git show --stat
-
-# Diff between commits
-git diff abc123..def456
-```
-
-### Stash Work in Progress
-
-```bash
-# Save current changes
-git stash
-
-# List stashes
-git stash list
-
-# Restore stashed changes
-git stash pop
-```
-
-## Files to Never Commit
-
-Already in `.gitignore`:
-- `.env` — secrets
-- `*.pem`, `*.key` — certificates
-- `.dlt/secrets.toml` — dlt credentials
-- `credentials.json` — service accounts
-
-If accidentally staged:
-```bash
-git reset HEAD path/to/secret/file
-```
-
-## Commit Hygiene
-
-### Good Commits
-
-- One logical change per commit
-- Descriptive message explaining WHY
-- Tests pass before commit
-- No debug code or print statements
-
-### Bad Commits
-
-- "WIP" or "fix" with no context
-- Multiple unrelated changes
-- Broken tests
-- Secrets or credentials
+- `references/workflow-commit.md` - Commit workflow with split logic
+- `references/workflow-push.md` - Push workflow with error handling
+- `references/workflow-pr.md` - PR creation with remote diff analysis
+- `references/workflow-merge.md` - Branch merge workflow
+- `references/commit-standards.md` - Conventional commit format rules
+- `references/safety-protocols.md` - Secret detection, branch protection
+- `references/branch-management.md` - Naming, lifecycle, strategies
+- `references/gh-cli-guide.md` - GitHub CLI commands reference

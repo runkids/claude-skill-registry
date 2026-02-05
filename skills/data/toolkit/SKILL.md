@@ -40,7 +40,7 @@ Do NOT use when:
 **Running Detection**:
 ```bash
 # Text file detection
-$ python3 scripts/detect_slop.py report.md --verbose
+$ python scripts/detect_slop.py report.md --verbose
 
 Analyzing: report.md
 Overall Slop Score: 45/100
@@ -75,14 +75,14 @@ Recommendations:
 **Running Cleanup**:
 ```bash
 # Preview changes
-$ python3 scripts/clean_slop.py report.md
+$ python scripts/clean_slop.py report.md
 
 Would remove:
   Line 12: "delve into the complexities" → "examine"
   Line 34: "in today's fast-paced world" → [deleted]
 
 # Apply changes (creates backup)
-$ python3 scripts/clean_slop.py report.md --save
+$ python scripts/clean_slop.py report.md --save
 
 Backup created: report.md.backup
 Cleaned: report.md
@@ -107,10 +107,10 @@ Removed 15 slop patterns
 1. **Run detection to assess scope**
    ```bash
    # Single file
-   python3 scripts/detect_slop.py document.md --verbose
+   python scripts/detect_slop.py document.md --verbose
 
    # Multiple files
-   find . -name "*.md" -exec python3 scripts/detect_slop.py {} \;
+   find . -name "*.md" -exec python scripts/detect_slop.py {} \;
    ```
 
 2. **Review findings and set thresholds**
@@ -123,10 +123,10 @@ Removed 15 slop patterns
 3. **Apply automated cleanup where safe**
    ```bash
    # Conservative cleanup (preserves meaning)
-   python3 scripts/clean_slop.py document.md --save
+   python scripts/clean_slop.py document.md --save
 
    # Aggressive cleanup (may change nuance)
-   python3 scripts/clean_slop.py document.md --save --aggressive
+   python scripts/clean_slop.py document.md --save --aggressive
    ```
 
 ## Quick Reference Checklist
@@ -163,7 +163,7 @@ For manual use:
 
    echo "=== Text Files ==="
    find . -name "*.md" -o -name "*.txt" | while read file; do
-     score=$(python3 scripts/detect_slop.py "$file" | grep "Score:" | awk '{print $3}')
+     score=$(python scripts/detect_slop.py "$file" | grep "Score:" | awk '{print $3}')
      echo "$file: $score"
    done
 
@@ -196,7 +196,7 @@ For manual use:
    # Clean files with score > 50
    while read line; do
      file=$(echo $line | cut -d: -f1)
-     python3 scripts/clean_slop.py "$file" --save
+     python scripts/clean_slop.py "$file" --save
    done < high_priority.txt
    ```
 
@@ -205,7 +205,7 @@ For manual use:
    # Re-run detection on cleaned files
    while read line; do
      file=$(echo $line | cut -d: -f1)
-     python3 scripts/detect_slop.py "$file"
+     python scripts/detect_slop.py "$file"
    done < high_priority.txt
    ```
 
@@ -229,7 +229,7 @@ For manual use:
 
    # Check markdown files
    for file in $(find . -name "*.md"); do
-     score=$(python3 scripts/detect_slop.py "$file" | grep -oP "Score: \K\d+")
+     score=$(python scripts/detect_slop.py "$file" | grep -oP "Score: \K\d+")
      if [ "$score" -gt "$THRESHOLD" ]; then
        echo "FAIL: $file (score: $score, threshold: $THRESHOLD)"
        FAILED=1
@@ -331,7 +331,7 @@ For manual use:
    # Check markdown files
    for file in $STAGED_MD; do
      if [ -f "$file" ]; then
-       score=$(python3 scripts/detect_slop.py "$file" | grep -oP "Score: \K\d+")
+       score=$(python scripts/detect_slop.py "$file" | grep -oP "Score: \K\d+")
        if [ "$score" -gt "$THRESHOLD" ]; then
          echo "ERROR: $file has slop score $score (threshold: $THRESHOLD)"
          ISSUES=1
@@ -353,7 +353,7 @@ For manual use:
    if [ $ISSUES -ne 0 ]; then
      echo ""
      echo "Commit rejected: Files exceed slop threshold"
-     echo "Run 'python3 scripts/clean_slop.py <file> --save' to clean"
+     echo "Run 'python scripts/clean_slop.py <file> --save' to clean"
      echo "Or use 'git commit --no-verify' to bypass (not recommended)"
      exit 1
    fi
@@ -383,7 +383,7 @@ For manual use:
    read -r response
    if [ "$response" = "y" ]; then
      for file in $STAGED_MD; do
-       python3 scripts/clean_slop.py "$file" --save
+       python scripts/clean_slop.py "$file" --save
        git add "$file"
      done
      echo "Files cleaned and re-staged"

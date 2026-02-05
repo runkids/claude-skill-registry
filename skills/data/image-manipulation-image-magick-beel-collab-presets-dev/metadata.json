@@ -1,13 +1,9 @@
 {
   "name": "image-manipulation-image-magick",
-  "description": "",
   "repo": "beel-collab/presets.dev",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/image-manipulation-image-magick/SKILL.md",
   "source": "github.com/beel-collab/presets.dev",
-  "github_path": "skills/image-manipulation-image-magick",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:14:57.426480Z",
   "dir_name": "image-manipulation-image-magick-beel-collab-presets-dev",
-  "downloaded_at": "2026-02-05T01:44:51.419748Z"
+  "category": "data"
 }

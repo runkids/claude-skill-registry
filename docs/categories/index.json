@@ -1,65 +1,245 @@
 {
-  "updated_at": "2026-02-05T06:39:03.755730Z",
+  "updated_at": "2026-02-05T08:28:01.181856Z",
   "categories": [
     {
-      "name": "Development",
-      "code": "dev",
-      "count": 17925
-    },
-    {
-      "name": "DevOps",
-      "code": "ops",
-      "count": 2859
-    },
-    {
-      "name": "Security",
-      "code": "sec",
-      "count": 741
-    },
-    {
-      "name": "Documents",
-      "code": "doc",
-      "count": 2603
-    },
-    {
-      "name": "Design",
-      "code": "des",
-      "count": 5707
-    },
-    {
-      "name": "Testing",
-      "code": "tst",
-      "count": 3790
-    },
-    {
-      "name": "Product",
-      "code": "prd",
-      "count": 1047
-    },
-    {
-      "name": "Marketing",
-      "code": "mkt",
-      "count": 434
-    },
-    {
-      "name": "Productivity",
-      "code": "pro",
-      "count": 1498
-    },
-    {
-      "name": "Data",
-      "code": "dat",
-      "count": 2571
-    },
-    {
-      "name": "Official",
-      "code": "off",
-      "count": 30
-    },
-    {
-      "name": "Other",
+      "name": "adb-meta-automation",
       "code": "oth",
-      "count": 46571
+      "count": 2
+    },
+    {
+      "name": "agent",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "ai-llm",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "ai-ml",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "analysis-methods",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "applied",
+      "code": "oth",
+      "count": 5
+    },
+    {
+      "name": "artifact-generation",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "business-monetization",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "business-productivity",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "c-level",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "data",
+      "code": "dat",
+      "count": 46560
+    },
+    {
+      "name": "data-access",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "design",
+      "code": "des",
+      "count": 1916
+    },
+    {
+      "name": "development",
+      "code": "dev",
+      "count": 5756
+    },
+    {
+      "name": "development-code",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "development-tools",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "devops",
+      "code": "ops",
+      "count": 1025
+    },
+    {
+      "name": "document-processing",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "documents",
+      "code": "doc",
+      "count": 3269
+    },
+    {
+      "name": "domains",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "extended",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "forensics",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "foundation",
+      "code": "oth",
+      "count": 5
+    },
+    {
+      "name": "gaming",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "generation",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "language",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "local-ai-infrastructure",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "marketing",
+      "code": "mkt",
+      "count": 169
+    },
+    {
+      "name": "meta",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "other",
+      "code": "oth",
+      "count": 67248
+    },
+    {
+      "name": "product",
+      "code": "prd",
+      "count": 381
+    },
+    {
+      "name": "productivity",
+      "code": "pro",
+      "count": 1905
+    },
+    {
+      "name": "programming-languages",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "research-analysis",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "security",
+      "code": "sec",
+      "count": 240
+    },
+    {
+      "name": "security-operations",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "specialized",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "specialized-testing",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "story-analysis",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "string",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "system",
+      "code": "oth",
+      "count": 7
+    },
+    {
+      "name": "technical-integration",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "testing",
+      "code": "tst",
+      "count": 1361
+    },
+    {
+      "name": "testing-methodologies",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "travel",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "utility",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "war-room",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "wix-extensions",
+      "code": "oth",
+      "count": 1
     }
   ]
 }

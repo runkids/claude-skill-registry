@@ -1,13 +1,9 @@
 {
   "name": "start-specification",
-  "description": "",
   "repo": "leeovery/claude-technical-workflows",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/start-specification/SKILL.md",
   "source": "github.com/leeovery/claude-technical-workflows",
-  "github_path": "skills/start-specification",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:32:33.357701Z",
   "dir_name": "start-specification",
-  "downloaded_at": "2026-02-05T01:44:14.527010Z"
+  "category": "data"
 }

@@ -7,7 +7,7 @@ context: fork
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`
+`~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -63,6 +63,7 @@ Thread 1: USER CONTEXT           Thread 2: SOURCE COLLECTION
 |----------|---------|------|
 | **Upgrade** | "check for upgrades", "check sources", "any updates", "check Anthropic", "check YouTube", "upgrade", "pai upgrade" | `Workflows/Upgrade.md` |
 | **ResearchUpgrade** | "research this upgrade", "deep dive on [feature]", "further research" | `Workflows/ResearchUpgrade.md` |
+| **FindSources** | "find upgrade sources", "find new sources", "discover channels" | `Workflows/FindSources.md` |
 
 **Default workflow:** If user says "upgrade" or "check for upgrades" without specifics, run the **Upgrade** workflow.
 
@@ -145,7 +146,7 @@ These are SPECIFIC techniques pulled from actual content. Each one maps to your 
 **The Technique:**
 > [Exact documentation excerpt showing the capability]
 
-**Applies To:** `skills/CORE/SKILL.md`, agent spawning
+**Applies To:** `skills/PAI/SKILL.md`, agent spawning
 **Implementation:**
 [Specific changes needed]
 
@@ -224,7 +225,7 @@ Launch **parallel agents** to analyze:
 
 | Agent | Focus | Sources |
 |-------|-------|---------|
-| **TELOS Agent** | User's goals, challenges, current focus | `skills/CORE/USER/TELOS/*.md` |
+| **TELOS Agent** | User's goals, challenges, current focus | `skills/PAI/USER/TELOS/*.md` |
 | **Project Agent** | Active projects, tech stacks, dependencies | TELOS/PROJECTS.md, recent work context |
 | **History Agent** | Recent work patterns, what's been done | `MEMORY/WORK/`, `MEMORY/STATE/current-work.json` |
 | **PAI State Agent** | System capabilities, installed skills, gaps | `skills/`, `hooks/`, `settings.json` |
@@ -265,11 +266,11 @@ Using BACKGROUNDDELEGATION, spawn both analysis threads simultaneously:
 
 ### Agent 1: TELOS Analysis
 Read and analyze:
-- ~/.claude/skills/CORE/USER/TELOS/TELOS.md
-- ~/.claude/skills/CORE/USER/TELOS/GOALS.md
-- ~/.claude/skills/CORE/USER/TELOS/PROJECTS.md
-- ~/.claude/skills/CORE/USER/TELOS/CHALLENGES.md
-- ~/.claude/skills/CORE/USER/TELOS/STATUS.md
+- ~/.claude/skills/PAI/USER/TELOS/TELOS.md
+- ~/.claude/skills/PAI/USER/TELOS/GOALS.md
+- ~/.claude/skills/PAI/USER/TELOS/PROJECTS.md
+- ~/.claude/skills/PAI/USER/TELOS/CHALLENGES.md
+- ~/.claude/skills/PAI/USER/TELOS/STATUS.md
 
 Extract: Current focus, priorities, active goals, project themes
 
@@ -342,7 +343,7 @@ Generate the prioritized recommendations report (see format above).
 - `State/last-check.json` - Anthropic state
 - `State/youtube-videos.json` - YouTube state
 
-**User Customizations** (`~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`):
+**User Customizations** (`~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`):
 - `EXTEND.yaml` - Extension manifest
 - `youtube-channels.json` - User's personal YouTube channels
 - Additional source definitions
@@ -396,6 +397,7 @@ User: "check Anthropic only"
 
 - **Upgrade.md** - Primary workflow: full two-thread analysis with prioritized recommendations
 - **ResearchUpgrade.md** - Deep dive on a specific upgrade opportunity
+- **FindSources.md** - Discover and evaluate new sources to monitor
 
 ---
 

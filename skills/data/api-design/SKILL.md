@@ -1,367 +1,725 @@
 ---
 name: api-design
-description: Design stable, compatible public APIs using extend-only design principles. Manage API compatibility, wire compatibility, and versioning for NuGet packages and distributed systems.
-invocable: false
+description: Design clean, scalable, and maintainable REST and GraphQL APIs following industry best practices. Use when designing public or internal APIs, planning endpoint structures, defining request/response contracts, establishing versioning strategies, implementing authentication patterns, designing data models, creating API documentation, ensuring consistent error handling, optimizing for performance, or establishing service contracts between microservices.
 ---
 
-# Public API Design and Compatibility
+# API Design - Building Clean, Scalable REST & GraphQL APIs
 
-## When to Use This Skill
+## When to use this skill
 
-Use this skill when:
-- Designing public APIs for NuGet packages or libraries
-- Making changes to existing public APIs
-- Planning wire format changes for distributed systems
-- Implementing versioning strategies
-- Reviewing pull requests for breaking changes
+- Designing new REST or GraphQL APIs from scratch
+- Planning endpoint structures and URL patterns
+- Defining request/response contracts and data schemas
+- Establishing API versioning and deprecation strategies
+- Implementing authentication and authorization patterns
+- Creating API documentation (OpenAPI/Swagger)
+- Designing error response formats and status codes
+- Planning pagination, filtering, and sorting strategies
+- Establishing rate limiting and throttling policies
+- Designing webhooks or event-driven integrations
+- Creating service contracts for microservices
+- Optimizing API performance and caching strategies
 
----
+## When to use this skill
 
-## The Three Types of Compatibility
+- Designing public or internal APIs, planning endpoints, defining contracts between services.
+- When working on related tasks or features
+- During development that requires this expertise
 
-| Type | Definition | Scope |
-|------|------------|-------|
-| **API/Source** | Code compiles against newer version | Public method signatures, types |
-| **Binary** | Compiled code runs against newer version | Assembly layout, method tokens |
-| **Wire** | Serialized data readable by other versions | Network protocols, persistence formats |
+**Use when**: Designing public or internal APIs, planning endpoints, defining contracts between services.
 
-Breaking any of these creates upgrade friction for users.
+## Core Principles
 
----
+1. **Consistency** - Predictable patterns across endpoints
+2. **Simplicity** - Easy to understand and use
+3. **Versioning** - Support evolution without breaking clients
+4. **Security** - Authentication, authorization, rate limiting
+5. **Documentation** - Clear, up-to-date API specs
 
-## Extend-Only Design
+## REST API Design
 
-The foundation of stable APIs: **never remove or modify, only extend**.
+### 1. **Resource-Based URLs**
 
-### Three Pillars
+```
+✅ Good - Nouns, not verbs
+GET    /users              - List users
+GET    /users/:id          - Get specific user
+POST   /users              - Create user
+PUT    /users/:id          - Update user (full replace)
+PATCH  /users/:id          - Update user (partial)
+DELETE /users/:id          - Delete user
 
-1. **Previous functionality is immutable** - Once released, behavior and signatures are locked
-2. **New functionality through new constructs** - Add overloads, new types, opt-in features
-3. **Removal only after deprecation period** - Years, not releases
+GET    /users/:id/posts    - Get user's posts
+POST   /users/:id/posts    - Create post for user
 
-### Benefits
+❌ Bad - Verbs in URLs
+GET    /getUsers
+POST   /createUser
+POST   /users/delete/:id
+```
 
-- Old code continues working in new versions
-- New and old pathways coexist
-- Upgrades are non-breaking by default
-- Users upgrade on their schedule
+### 2. **HTTP Methods & Status Codes**
 
-**Resources:**
-- [Extend-Only Design](https://aaronstannard.com/extend-only-design/)
-- [OSS Compatibility Standards](https://aaronstannard.com/oss-compatibility-standards/)
+```typescript
+// ✅ Proper HTTP method usage
+app.get('/users', async (req, res) => {
+  const users = await db.users.findAll();
+  res.json(users); // 200 OK
+});
 
----
+app.post('/users', async (req, res) => {
+  const user = await db.users.create(req.body);
+  res.status(201) // 201 Created
+     .location(`/users/${user.id}`)
+     .json(user);
+});
 
-## API Change Guidelines
+app.put('/users/:id', async (req, res) => {
+  const user = await db.users.update(req.params.id, req.body);
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+  res.json(user); // 200 OK
+});
 
-### Safe Changes (Any Release)
+app.delete('/users/:id', async (req, res) => {
+  await db.users.delete(req.params.id);
+  res.status(204).send(); // 204 No Content
+});
 
-```csharp
-// ADD new overloads with default parameters
-public void Process(Order order, CancellationToken ct = default);
+// ✅ Common status codes
+// 2xx Success
+200 OK                  - Request succeeded
+201 Created             - Resource created
+204 No Content          - Succeeded, no response body
 
-// ADD new optional parameters to existing methods
-public void Send(Message msg, Priority priority = Priority.Normal);
+// 4xx Client Errors
+400 Bad Request         - Invalid input
+401 Unauthorized        - Not authenticated
+403 Forbidden           - Authenticated but no permission
+404 Not Found           - Resource doesn't exist
+409 Conflict            - Duplicate or conflicting state
+422 Unprocessable       - Validation failed
+429 Too Many Requests   - Rate limited
 
-// ADD new types, interfaces, enums
-public interface IOrderValidator { }
-public enum OrderStatus { Pending, Complete, Cancelled }
+// 5xx Server Errors
+500 Internal Error      - Something broke on server
+503 Service Unavailable - Temporarily down
+```
 
-// ADD new members to existing types
-public class Order
+### 3. **Request/Response Format**
+
+```typescript
+// ✅ Consistent response structure
+interface ApiResponse<T> {
+  data: T;
+  meta?: {
+    page?: number;
+    limit?: number;
+    total?: number;
+  };
+  links?: {
+    self: string;
+    next?: string;
+    prev?: string;
+  };
+}
+
+// Success response
 {
-    public DateTimeOffset? ShippedAt { get; init; }  // NEW
+  "data": {
+    "id": "123",
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+
+// List response with pagination
+{
+  "data": [
+    { "id": "1", "name": "User 1" },
+    { "id": "2", "name": "User 2" }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 20,
+    "total": 100
+  },
+  "links": {
+    "self": "/users?page=1",
+    "next": "/users?page=2"
+  }
+}
+
+// Error response
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid email format",
+    "details": [
+      {
+        "field": "email",
+        "message": "Must be valid email"
+      }
+    ]
+  }
 }
 ```
 
-### Unsafe Changes (Never or Major Version Only)
+### 4. **Filtering, Sorting, Pagination**
 
-```csharp
-// REMOVE or RENAME public members
-public void ProcessOrder(Order order);  // Was: Process()
+```typescript
+// ✅ Query parameters for filtering
+GET /users?status=active&role=admin
+GET /posts?author=john&tags=tech,programming
+GET /products?minPrice=10&maxPrice=100
 
-// CHANGE parameter types or order
-public void Process(int orderId);  // Was: Process(Order order)
-
-// CHANGE return types
-public Order? GetOrder(string id);  // Was: public Order GetOrder()
-
-// CHANGE access modifiers
-internal class OrderProcessor { }  // Was: public
-
-// ADD required parameters without defaults
-public void Process(Order order, ILogger logger);  // Breaks callers!
-```
-
-### Deprecation Pattern
-
-```csharp
-// Step 1: Mark as obsolete with version (any release)
-[Obsolete("Obsolete since v1.5.0. Use ProcessAsync instead.")]
-public void Process(Order order) { }
-
-// Step 2: Add new recommended API (same release)
-public Task ProcessAsync(Order order, CancellationToken ct = default);
-
-// Step 3: Remove in next major version (v2.0+)
-// Only after users have had time to migrate
-```
-
----
-
-## API Approval Testing
-
-Prevent accidental breaking changes with automated API surface testing.
-
-### Using ApiApprover + Verify
-
-```bash
-dotnet add package PublicApiGenerator
-dotnet add package Verify.Xunit
-```
-
-```csharp
-[Fact]
-public Task ApprovePublicApi()
-{
-    var api = typeof(MyLibrary.PublicClass).Assembly.GeneratePublicApi();
-    return Verify(api);
-}
-```
-
-Creates `ApprovePublicApi.verified.txt`:
-
-```csharp
-namespace MyLibrary
-{
-    public class OrderProcessor
-    {
-        public OrderProcessor() { }
-        public void Process(Order order) { }
-        public Task ProcessAsync(Order order, CancellationToken ct = default) { }
+app.get('/users', async (req, res) => {
+  const { status, role, page = 1, limit = 20, sort = 'createdAt' } = req.query;
+  
+  const query = {};
+  if (status) query.status = status;
+  if (role) query.role = role;
+  
+  const users = await db.users.findMany({
+    where: query,
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: { [sort]: 'desc' }
+  });
+  
+  const total = await db.users.count({ where: query });
+  
+  res.json({
+    data: users,
+    meta: { page, limit, total },
+    links: {
+      self: `/users?page=${page}`,
+      next: page * limit < total ? `/users?page=${page + 1}` : null
     }
+  });
+});
+
+// ✅ Sorting
+GET /users?sort=name           - Sort by name ascending
+GET /users?sort=-createdAt     - Sort by createdAt descending
+GET /users?sort=role,-createdAt - Multiple sort fields
+
+// ✅ Field selection (sparse fieldsets)
+GET /users?fields=id,name,email - Only return specified fields
+```
+
+### 5. **Versioning**
+
+```typescript
+// ✅ URL versioning (most common)
+GET /api/v1/users
+GET /api/v2/users
+
+app.use('/api/v1', v1Router);
+app.use('/api/v2', v2Router);
+
+// ✅ Header versioning
+GET /api/users
+Headers: { "Accept-Version": "v2" }
+
+// ✅ Deprecation warnings
+app.use('/api/v1', (req, res, next) => {
+  res.set('X-API-Deprecation', 'v1 will be deprecated on 2024-12-31');
+  res.set('X-API-Upgrade', 'See /api/v2 for latest version');
+  next();
+});
+```
+
+### 6. **Authentication & Authorization**
+
+```typescript
+// ✅ Bearer token authentication
+GET /api/users
+Headers: { "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+
+function authenticate(req, res, next) {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+  
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+}
+
+// ✅ Rate limiting
+import rateLimit from 'express-rate-limit';
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100
+});
+
+app.use('/api/', limiter);
+
+// ✅ API keys for service-to-service
+GET /api/users
+Headers: { "X-API-Key": "sk_live_abc123..." }
+
+function requireApiKey(req, res, next) {
+  const apiKey = req.get('X-API-Key');
+  
+  if (!isValidApiKey(apiKey)) {
+    return res.status(401).json({ error: 'Invalid API key' });
+  }
+  
+  next();
 }
 ```
 
-**Any API change fails the test** - reviewer must explicitly approve changes.
+### 7. **HATEOAS (Hypermedia)**
 
-### PR Review Process
-
-1. PR includes changes to `*.verified.txt` files
-2. Reviewers see exact API surface changes in diff
-3. Breaking changes are immediately visible
-4. Conscious decision required to approve
-
----
-
-## Wire Compatibility
-
-For distributed systems, serialized data must be readable across versions.
-
-### Requirements
-
-| Direction | Requirement |
-|-----------|-------------|
-| **Backward** | Old writers → New readers (current version reads old data) |
-| **Forward** | New writers → Old readers (old version reads new data) |
-
-Both are required for zero-downtime rolling upgrades.
-
-### Safely Evolving Wire Formats
-
-**Phase 1: Add read-side support (opt-in)**
-
-```csharp
-// New message type - readers deployed first
-public sealed record HeartbeatV2(
-    Address From,
-    long SequenceNr,
-    long CreationTimeMs);  // NEW field
-
-// Deserializer handles both old and new
-public object Deserialize(byte[] data, string manifest) => manifest switch
+```typescript
+// ✅ Include related resource links
 {
-    "Heartbeat" => DeserializeHeartbeatV1(data),   // Old format
-    "HeartbeatV2" => DeserializeHeartbeatV2(data), // New format
-    _ => throw new NotSupportedException()
+  "data": {
+    "id": "123",
+    "name": "John Doe",
+    "email": "john@example.com"
+  },
+  "links": {
+    "self": "/users/123",
+    "posts": "/users/123/posts",
+    "followers": "/users/123/followers"
+  }
+}
+
+// ✅ Action links for state transitions
+{
+  "data": {
+    "id": "456",
+    "status": "pending",
+    "amount": 100
+  },
+  "actions": {
+    "approve": {
+      "method": "POST",
+      "href": "/orders/456/approve"
+    },
+    "cancel": {
+      "method": "DELETE",
+      "href": "/orders/456"
+    }
+  }
+}
+```
+
+## GraphQL API Design
+
+### 1. **Schema Definition**
+
+```graphql
+# ✅ Clear, typed schema
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+  createdAt: DateTime!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  author: User!
+  published: Boolean!
+}
+
+type Query {
+  user(id: ID!): User
+  users(limit: Int, offset: Int): [User!]!
+  post(id: ID!): Post
+  posts(authorId: ID, published: Boolean): [Post!]!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+  
+  createPost(input: CreatePostInput!): Post!
+  publishPost(id: ID!): Post!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+  authorId: ID!
+}
+```
+
+### 2. **Resolvers**
+
+```typescript
+// ✅ Efficient resolvers with DataLoader
+import DataLoader from 'dataloader';
+
+const userLoader = new DataLoader(async (ids) => {
+  const users = await db.users.findMany({
+    where: { id: { in: ids } }
+  });
+  
+  // Return in same order as input IDs
+  return ids.map(id => users.find(u => u.id === id));
+});
+
+const resolvers = {
+  Query: {
+    user: async (_, { id }) => {
+      return await userLoader.load(id);
+    },
+    
+    users: async (_, { limit = 20, offset = 0 }) => {
+      return await db.users.findMany({
+        take: limit,
+        skip: offset
+      });
+    }
+  },
+  
+  Mutation: {
+    createUser: async (_, { input }) => {
+      return await db.users.create(input);
+    },
+    
+    updateUser: async (_, { id, input }) => {
+      return await db.users.update(id, input);
+    }
+  },
+  
+  User: {
+    // Resolver for User.posts field
+    posts: async (user) => {
+      return await db.posts.findMany({
+        where: { authorId: user.id }
+      });
+    }
+  }
 };
 ```
 
-**Phase 2: Enable write-side (opt-out, next minor version)**
+### 3. **Error Handling**
 
-```csharp
-// Config to enable new format (off by default initially)
-akka.cluster.use-heartbeat-v2 = on
+```typescript
+// ✅ GraphQL error handling
+import { GraphQLError } from 'graphql';
+
+const resolvers = {
+  Query: {
+    user: async (_, { id }) => {
+      const user = await db.users.findById(id);
+      
+      if (!user) {
+        throw new GraphQLError('User not found', {
+          extensions: {
+            code: 'USER_NOT_FOUND',
+            id
+          }
+        });
+      }
+      
+      return user;
+    }
+  },
+  
+  Mutation: {
+    createUser: async (_, { input }) => {
+      try {
+        return await db.users.create(input);
+      } catch (error) {
+        if (error.code === 'P2002') { // Unique constraint
+          throw new GraphQLError('Email already exists', {
+            extensions: {
+              code: 'DUPLICATE_EMAIL',
+              field: 'email'
+            }
+          });
+        }
+        throw error;
+      }
+    }
+  }
+};
 ```
 
-**Phase 3: Make default (future version)**
+## API Documentation
 
-After install base has absorbed read-side code.
+### 1. **OpenAPI/Swagger (REST)**
 
-### Schema-Based Serialization
+```typescript
+// ✅ OpenAPI specification
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: List all users
+ *     tags: [Users]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ */
+app.get('/users', async (req, res) => {
+  // Implementation
+});
 
-Prefer schema-based formats over reflection-based:
-
-| Format | Type | Wire Compatibility |
-|--------|------|-------------------|
-| **Protocol Buffers** | Schema-based | Excellent - explicit field numbers |
-| **MessagePack** | Schema-based | Good - with contracts |
-| **System.Text.Json** | Schema-based (with source gen) | Good - explicit properties |
-| Newtonsoft.Json | Reflection-based | Poor - type names in payload |
-| BinaryFormatter | Reflection-based | Terrible - never use |
-
-See `dotnet/serialization` skill for details.
-
----
-
-## Encapsulation Patterns
-
-### Internal APIs
-
-Mark non-public APIs explicitly:
-
-```csharp
-// Attribute for documentation
-[InternalApi]
-public class ActorSystemImpl { }
-
-// Namespace convention
-namespace MyLibrary.Internal
-{
-    public class InternalHelper { }  // Public for extensibility, not for users
-}
+// components/schemas/User
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - id
+ *         - email
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: "123"
+ *         name:
+ *           type: string
+ *           example: "John Doe"
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: "john@example.com"
+ */
 ```
 
-Document clearly:
+### 2. **GraphQL Documentation**
 
-> Types in `.Internal` namespaces or marked with `[InternalApi]` may change between any releases without notice.
-
-### Sealing Classes
-
-```csharp
-// DO: Seal classes not designed for inheritance
-public sealed class OrderProcessor { }
-
-// DON'T: Leave unsealed by accident
-public class OrderProcessor { }  // Users might inherit, blocking changes
-```
-
-### Interface Segregation
-
-```csharp
-// DO: Small, focused interfaces
-public interface IOrderReader
-{
-    Order? GetById(OrderId id);
-}
-
-public interface IOrderWriter
-{
-    Task SaveAsync(Order order);
-}
-
-// DON'T: Monolithic interfaces (can't add methods without breaking)
-public interface IOrderRepository
-{
-    Order? GetById(OrderId id);
-    Task SaveAsync(Order order);
-    // Adding new methods breaks all implementations!
-}
-```
-
----
-
-## Versioning Strategy
-
-### Semantic Versioning (Practical)
-
-| Version | Changes Allowed |
-|---------|----------------|
-| **Patch** (1.0.x) | Bug fixes, security patches |
-| **Minor** (1.x.0) | New features, deprecations, obsolete removal |
-| **Major** (x.0.0) | Breaking changes, old API removal |
-
-### Key Principles
-
-1. **No surprise breaks** - Even major versions should be announced and planned
-2. **Extensions anytime** - New APIs can ship in any release
-3. **Deprecate before remove** - `[Obsolete]` for at least one minor version
-4. **Communicate timelines** - Users need to plan upgrades
-
-### Chesterton's Fence
-
-> Before removing or changing something, understand why it exists.
-
-Assume every public API is used by someone. If you want to change it:
-1. Socialize the proposal on GitHub
-2. Document migration path
-3. Provide deprecation period
-4. Ship in planned release
-
----
-
-## Pull Request Checklist
-
-When reviewing PRs that touch public APIs:
-
-- [ ] **No removed public members** (use `[Obsolete]` instead)
-- [ ] **No changed signatures** (add overloads instead)
-- [ ] **No new required parameters** (use defaults)
-- [ ] **API approval test updated** (`.verified.txt` changes reviewed)
-- [ ] **Wire format changes are opt-in** (read-side first)
-- [ ] **Breaking changes documented** (release notes, migration guide)
-
----
-
-## Anti-Patterns
-
-### Breaking Changes Disguised as Fixes
-
-```csharp
-// "Bug fix" that breaks users
-public async Task<Order> GetOrderAsync(OrderId id)  // Was sync!
-{
-    // "Fixed" to be async - but breaks all callers
+```graphql
+# ✅ Descriptions in schema (auto-documented)
+"""
+Represents a user in the system
+"""
+type User {
+  """Unique identifier"""
+  id: ID!
+  
+  """User's full name"""
+  name: String!
+  
+  """User's email address"""
+  email: String!
+  
+  """Posts authored by this user"""
+  posts: [Post!]!
 }
 
-// Correct: Add new method, deprecate old
-[Obsolete("Use GetOrderAsync instead")]
-public Order GetOrder(OrderId id) => GetOrderAsync(id).Result;
-
-public async Task<Order> GetOrderAsync(OrderId id) { }
+"""
+Create a new user
+"""
+createUser(
+  """User details"""
+  input: CreateUserInput!
+): User!
 ```
 
-### Silent Behavior Changes
+## API Best Practices
 
-```csharp
-// Changing defaults breaks users who relied on old behavior
-public void Configure(bool enableCaching = true)  // Was: false!
+### 1. **Idempotency**
 
-// Correct: New parameter with new name
-public void Configure(
-    bool enableCaching = false,  // Original default preserved
-    bool enableNewCaching = true)  // New behavior opt-in
+```typescript
+// ✅ Idempotent operations (safe to retry)
+app.put('/users/:id', async (req, res) => {
+  // PUT is idempotent - same result on repeat
+  const user = await db.users.upsert({
+    where: { id: req.params.id },
+    create: req.body,
+    update: req.body
+  });
+  res.json(user);
+});
+
+// ✅ Idempotency keys for POST
+app.post('/payments', async (req, res) => {
+  const idempotencyKey = req.get('Idempotency-Key');
+  
+  if (!idempotencyKey) {
+    return res.status(400).json({ error: 'Idempotency-Key required' });
+  }
+  
+  // Check if already processed
+  const existing = await cache.get(`payment:${idempotencyKey}`);
+  if (existing) {
+    return res.json(existing); // Return cached result
+  }
+  
+  const payment = await processPayment(req.body);
+  await cache.set(`payment:${idempotencyKey}`, payment, 24 * 60 * 60);
+  
+  res.status(201).json(payment);
+});
 ```
 
-### Polymorphic Serialization
+### 2. **Caching**
 
-```csharp
-// AVOID: Type names in wire format
-{ "$type": "MyApp.Order, MyApp", "Id": 123 }
-
-// Renaming Order class = wire break!
-
-// PREFER: Explicit discriminators
-{ "type": "order", "id": 123 }
+```typescript
+// ✅ HTTP caching headers
+app.get('/products/:id', async (req, res) => {
+  const product = await db.products.findById(req.params.id);
+  
+  // Generate ETag from content
+  const etag = generateETag(product);
+  
+  // Check if client has current version
+  if (req.get('If-None-Match') === etag) {
+    return res.status(304).send(); // Not Modified
+  }
+  
+  res.set({
+    'ETag': etag,
+    'Cache-Control': 'public, max-age=300', // 5 minutes
+    'Last-Modified': product.updatedAt.toUTCString()
+  });
+  
+  res.json(product);
+});
 ```
 
----
+### 3. **Webhooks**
+
+```typescript
+// ✅ Webhook system for async events
+interface WebhookPayload {
+  event: string;
+  data: any;
+  timestamp: string;
+  signature: string; // HMAC for verification
+}
+
+async function sendWebhook(url: string, event: string, data: any) {
+  const payload = {
+    event,
+    data,
+    timestamp: new Date().toISOString()
+  };
+  
+  // Sign payload
+  const signature = crypto
+    .createHmac('sha256', process.env.WEBHOOK_SECRET)
+    .update(JSON.stringify(payload))
+    .digest('hex');
+  
+  await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Webhook-Signature': signature
+    },
+    body: JSON.stringify({ ...payload, signature })
+  });
+}
+
+// Trigger webhooks on events
+app.post('/users', async (req, res) => {
+  const user = await db.users.create(req.body);
+  
+  // Send webhook asynchronously
+  sendWebhook(
+    'https://customer.com/webhooks',
+    'user.created',
+    user
+  ).catch(console.error);
+  
+  res.status(201).json(user);
+});
+```
+
+## API Design Checklist
+
+```
+REST:
+□ Resource-based URLs (nouns, not verbs)
+□ Proper HTTP methods and status codes
+□ Consistent response format
+□ Pagination for lists
+□ Filtering, sorting, field selection
+□ API versioning strategy
+□ Authentication (Bearer tokens, API keys)
+□ Rate limiting configured
+□ CORS properly configured
+□ Error responses standardized
+
+GraphQL:
+□ Clear, typed schema
+□ Efficient resolvers (DataLoader)
+□ Pagination implemented (cursor or offset)
+□ Error handling with codes
+□ Authentication & authorization
+□ Query complexity limits
+□ Depth limiting
+□ Introspection disabled in production
+
+Documentation:
+□ OpenAPI/GraphQL schema published
+□ Example requests/responses
+□ Authentication docs
+□ Error codes documented
+□ Changelog maintained
+□ Migration guides for breaking changes
+
+Performance:
+□ Database queries optimized
+□ N+1 queries eliminated
+□ Response caching
+□ Compression enabled (gzip)
+□ CDN for static responses
+
+Security:
+□ Input validation on all endpoints
+□ SQL injection prevention
+□ Rate limiting per endpoint
+□ API key rotation supported
+□ Audit logging for sensitive operations
+```
 
 ## Resources
 
-- [Making Public API Changes](https://getakka.net/community/contributing/api-changes-compatibility.html)
-- [Wire Format Changes](https://getakka.net/community/contributing/wire-compatibility.html)
-- [Extend-Only Design](https://aaronstannard.com/extend-only-design/)
-- [OSS Compatibility Standards](https://aaronstannard.com/oss-compatibility-standards/)
-- [Semantic Versioning](https://semver.org/)
-- [PublicApiGenerator](https://github.com/PublicApiGenerator/PublicApiGenerator)
+- [REST API Tutorial](https://restfulapi.net/)
+- [GraphQL Best Practices](https://graphql.org/learn/best-practices/)
+- [OpenAPI Specification](https://swagger.io/specification/)
+- [API Design Patterns](https://cloud.google.com/apis/design)
+
+---
+
+**Remember**: Great APIs are predictable, well-documented, and easy to use. Design for your API consumers, not just your implementation.

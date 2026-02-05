@@ -1,13 +1,9 @@
 {
   "name": "communicate-with-c-d",
-  "description": "",
   "repo": "crystal-project-inc/personality-ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "communicate-with-c-d/SKILL.md",
   "source": "github.com/crystal-project-inc/personality-ai",
-  "github_path": "communicate-with-c-d",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:28:31.327056Z",
   "dir_name": "communicate-with-c-d",
-  "downloaded_at": "2026-02-05T01:44:36.428919Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "scala-pro",
-  "repo": "vjrivmon/Setup-Software-IA",
-  "path": ".agents/skills/scala-pro/SKILL.md",
-  "source": "github.com/vjrivmon/Setup-Software-IA",
-  "downloaded_at": "2026-02-02T02:41:38.698175Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/scala-pro/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T08:59:57.595315Z",
+  "dir_name": "scala-pro",
+  "category": "data"
 }

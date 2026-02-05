@@ -1,0 +1,13 @@
+{
+  "name": "patterns",
+  "description": "Practical productivity tools for Claude Code, Codex-CLI, and similar CLI coding agents.",
+  "repo": "pchalasani/claude-code-tools",
+  "category": "other",
+  "tags": [],
+  "stars": 1179,
+  "source": "",
+  "github_path": "plugins/langroid/skills/patterns",
+  "github_branch": "main",
+  "dir_name": "patterns",
+  "downloaded_at": "2026-02-05T01:45:12.181059Z"
+}

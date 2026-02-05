@@ -1,7 +1,9 @@
 {
   "name": "pdb-database",
-  "repo": "ricable/ultimate-ai-agent",
-  "path": "sources/ricable/claude-scientific-skills/scientific-skills/pdb-database/SKILL.md",
-  "source": "github.com/ricable/ultimate-ai-agent",
-  "downloaded_at": "2026-02-02T04:13:08.015560Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/pdb-database/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:19.866141Z",
+  "dir_name": "pdb-database",
+  "category": "data"
 }

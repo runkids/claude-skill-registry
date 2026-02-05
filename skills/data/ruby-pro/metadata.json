@@ -1,7 +1,9 @@
 {
   "name": "ruby-pro",
-  "repo": "vjrivmon/Setup-Software-IA",
-  "path": ".agents/skills/ruby-pro/SKILL.md",
-  "source": "github.com/vjrivmon/Setup-Software-IA",
-  "downloaded_at": "2026-02-02T02:41:37.253079Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/ruby-pro/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T08:59:57.414914Z",
+  "dir_name": "ruby-pro",
+  "category": "data"
 }

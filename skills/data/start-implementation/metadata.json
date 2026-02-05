@@ -1,13 +1,9 @@
 {
   "name": "start-implementation",
-  "description": "",
   "repo": "leeovery/claude-technical-workflows",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/start-implementation/SKILL.md",
   "source": "github.com/leeovery/claude-technical-workflows",
-  "github_path": "skills/start-implementation",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:32:35.030598Z",
   "dir_name": "start-implementation",
-  "downloaded_at": "2026-02-05T01:44:14.515627Z"
+  "category": "data"
 }

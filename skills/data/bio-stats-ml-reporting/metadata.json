@@ -1,13 +1,9 @@
 {
   "name": "bio-stats-ml-reporting",
-  "description": "",
   "repo": "fmschulz/omics-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/bio-stats-ml-reporting/SKILL.md",
   "source": "github.com/fmschulz/omics-skills",
-  "github_path": "skills/bio-stats-ml-reporting",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:54:14.860408Z",
   "dir_name": "bio-stats-ml-reporting",
-  "downloaded_at": "2026-02-05T01:44:22.821925Z"
+  "category": "data"
 }

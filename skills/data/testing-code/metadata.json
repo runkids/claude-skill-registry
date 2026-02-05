@@ -1,7 +1,9 @@
 {
   "name": "testing-code",
-  "repo": "rysweet/azlin",
-  "path": ".claude/skills/quality/testing-code/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-02-02T05:04:24.560781Z"
+  "repo": "TheeCoderAhmed/Skills-Master",
+  "path": ".agent/skills/testing-code/SKILL.md",
+  "source": "github.com/TheeCoderAhmed/Skills-Master",
+  "downloaded_at": "2026-01-29T07:52:53.400678Z",
+  "dir_name": "testing-code",
+  "category": "data"
 }

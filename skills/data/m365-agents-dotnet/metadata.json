@@ -1,13 +1,9 @@
 {
   "name": "m365-agents-dotnet",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/m365-agents-dotnet",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/m365-agents-dotnet/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:54.647334Z",
   "dir_name": "m365-agents-dotnet",
-  "downloaded_at": "2026-02-05T01:44:52.500679Z"
+  "category": "data"
 }

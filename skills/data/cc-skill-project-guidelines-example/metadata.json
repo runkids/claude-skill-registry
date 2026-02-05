@@ -1,7 +1,9 @@
 {
   "name": "cc-skill-project-guidelines-example",
-  "repo": "claudiodearaujo/IzaCenter",
-  "path": ".gemini/skills/cc-skill-project-guidelines-example/SKILL.md",
-  "source": "github.com/claudiodearaujo/IzaCenter",
-  "downloaded_at": "2026-02-02T04:54:18.723990Z"
+  "repo": "chrissargent48/weekly_report",
+  "path": ".claude/skills/external-skills/skills/cc-skill-project-guidelines-example/SKILL.md",
+  "source": "github.com/chrissargent48/weekly_report",
+  "downloaded_at": "2026-01-29T06:38:27.433505Z",
+  "dir_name": "cc-skill-project-guidelines-example",
+  "category": "data"
 }

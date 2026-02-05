@@ -1,13 +1,9 @@
 {
   "name": "playwright-mcp",
-  "description": "",
   "repo": "HouseGarofalo/claude-code-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/playwright-mcp/SKILL.md",
   "source": "github.com/HouseGarofalo/claude-code-base",
-  "github_path": ".claude/skills/playwright-mcp",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:55:11.770226Z",
   "dir_name": "playwright-mcp-housegarofalo-claude-code-base",
-  "downloaded_at": "2026-02-05T01:44:39.073392Z"
+  "category": "data"
 }

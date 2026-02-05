@@ -1,13 +1,9 @@
 {
   "name": "azure-ai-voicelive-dotnet",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-ai-voicelive-dotnet",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-ai-voicelive-dotnet/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:43.621343Z",
   "dir_name": "azure-ai-voicelive-dotnet",
-  "downloaded_at": "2026-02-05T01:44:52.448403Z"
+  "category": "data"
 }

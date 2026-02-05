@@ -1,9 +1,0 @@
-{
-  "name": "claude-code-bash-patterns",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/claude-code-bash-patterns/skills/claude-code-bash-patterns/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-29T07:59:28.658648Z",
-  "dir_name": "claude-code-bash-patterns__dup-182dc3d8",
-  "category": "other"
-}

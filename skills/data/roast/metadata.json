@@ -1,13 +1,9 @@
 {
   "name": "roast",
-  "description": "",
   "repo": "muspelheim/claude-roaster",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/roast/SKILL.md",
   "source": "github.com/muspelheim/claude-roaster",
-  "github_path": "skills/roast",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:02:40.912546Z",
   "dir_name": "roast",
-  "downloaded_at": "2026-02-05T05:40:33.212610Z"
+  "category": "data"
 }

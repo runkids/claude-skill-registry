@@ -1,7 +1,9 @@
 {
   "name": "claude-code",
-  "repo": "binjuhor/shadcn-lar",
-  "path": ".claude/skills/claude-code/skill.md",
-  "source": "github.com/binjuhor/shadcn-lar",
-  "downloaded_at": "2026-02-02T05:07:36.236912Z"
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/anthropic/claude-code/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-01-29T08:58:04.308383Z",
+  "dir_name": "claude-code",
+  "category": "data"
 }

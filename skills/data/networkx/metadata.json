@@ -1,7 +1,9 @@
 {
   "name": "networkx",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/networkx/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-02-02T04:19:14.542522Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/networkx/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:17.795425Z",
+  "dir_name": "networkx",
+  "category": "data"
 }

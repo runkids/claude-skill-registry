@@ -1,9 +1,9 @@
 {
-  "name": "metric-review",
-  "description": "Conduct a metric review that contextualizes performance trends, flags anomalies, and recommends actions.",
+  "name": "metric_review",
   "repo": "edwardmonteiro/Aiskillinpractice",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/edwardmonteiro/Aiskillinpractice"
+  "path": "skills/optimization/metric_review/SKILL.md",
+  "source": "github.com/edwardmonteiro/Aiskillinpractice",
+  "downloaded_at": "2026-01-29T01:29:08.693234Z",
+  "dir_name": "metric-review",
+  "category": "data"
 }

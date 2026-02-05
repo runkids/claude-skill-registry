@@ -1,222 +1,499 @@
 ---
 name: documentation-sync
-description: Use when creating or modifying skills - enforces documentation consistency across 6 system files to maintain alignment between Cursor and Claude Code agents
+description: Synchronize version numbers across any project type using version file adapters
+user-invocable: false
 ---
 
 # Documentation Sync
 
 ## Purpose
 
-Ensure all system documentation remains consistent when skills, workflows, quality gates, or context assembly patterns are created or modified. This quality gate enforces updates across 6 critical documentation files that support both Cursor (rules-based) and Claude Code (skills-based) agents.
+Updates version numbers in version files (using appropriate adapters) and documentation files for any project type. Supports Node.js, Python, Rust, Go, Java, generic projects, and Claude Code plugins. Handles multiple version files and documentation references.
 
-## The Iron Law
+## Input Context
 
-**NO SKILL COMPLETE WITHOUT DOCUMENTATION SYNC**
+Requires:
+- **Project Configuration**: Output from `detect-project-type` skill
+- **Old Version**: Previous version string (e.g., "1.1.0")
+- **New Version**: New version string (e.g., "1.2.0")
 
-This applies to:
-- New skills ✓
-- Modified skills ✓
-- New workflows ✓
-- Modified workflows ✓
-- New quality gates ✓
-- New context assembly patterns ✓
-- Any change affecting system capabilities ✓
+## Workflow
 
-No exceptions. No rationalizations. Documentation sync is mandatory.
+### 1. Load Project Configuration
 
-## When to Use This Skill
+Use configuration from `detect-project-type`:
+- `version_files` - List of version files with adapters
+- `documentation_files` - Files to search for version references
+- `project_type` - Determines file update strategy
 
-Activate when:
-- Creating any new skill (meta, quality-gate, context-assembly, workflow)
-- Modifying existing skill that changes capabilities or interfaces
-- Adding new slash commands that invoke skills
-- Changing skill categories or organizational structure
-- The `create-skill` meta-skill is being executed
-- The `refine-workflow` meta-skill extracts new skills
+### 2. Update Version Files
 
-**When NOT to use:**
-- Minor typo fixes that don't affect functionality
-- Internal comment updates
-- Refactoring that doesn't change external interface
+For each version file, use the appropriate adapter to update the version.
 
-## The 6 Documentation Files
+See [Version Adapters Reference](../../docs/version-adapters.md) for implementation details.
 
-### 1. `.claude/CLAUDE.md` (Cursor-specific, primary)
-**Purpose**: Instructions for Cursor AI agents
-**Update when**: Any skill/workflow change
-**Key sections**:
-- Skills System (line ~65-136)
-- Commands Index (line ~138-202)
+**JSON files (package.json, plugin.json, etc.):**
+```bash
+file="package.json"
+old_version="1.1.0"
+new_version="1.2.0"
 
-### 2. `CLAUDE.md` (Root-level, Claude Code-specific)
-**Purpose**: Instructions for Claude Code agents
-**Update when**: Any skill/workflow change
-**Key sections**:
-- Skills System (line ~9-46)
-- Core Commands (line ~48-133)
+# Update using jq
+jq --indent 2 ".version = \"$new_version\"" "$file" > tmp.json && mv tmp.json "$file"
 
-### 3. `CURSOR-PM-SYSTEM.md` (Architecture)
-**Purpose**: System architecture documentation
-**Update when**: New workflow categories, major capability additions
-**Key sections**:
-- Rules/Workflow descriptions (line ~27-38)
-- Key Workflows (line ~40-104)
+# Verify update
+updated_version=$(jq -r '.version' "$file")
+if [ "$updated_version" = "$new_version" ]; then
+  echo "✓ Updated $file: $old_version → $new_version"
+else
+  echo "✗ Failed to update $file"
+fi
+```
 
-### 4. `AGENTS.md` (Agent capabilities)
-**Purpose**: Agent/mode capability reference
-**Update when**: New user-facing capabilities
-**Key sections**:
-- Agent Capabilities (line ~13-20)
-- Example Prompts (line ~30-54)
-- Task Routing (line ~187-206)
-- Quality Standards (line ~210-234)
+**TOML files (Cargo.toml, pyproject.toml):**
+```bash
+file="Cargo.toml"
 
-### 5. `README.md` (Main entry)
-**Purpose**: User-facing documentation and getting started guide
-**Update when**: New workflows, capabilities, or major features
-**Key sections**:
-- Agent descriptions (line ~14-37)
-- Key Workflows (line ~56-94)
-- Example Prompts (line ~147-168)
-- Documentation links (line ~170-177)
+# Update version in [package] section
+sed -i '/^\[package\]/,/^\[/ s/^version = ".*"/version = "'"$new_version"'"/' "$file"
 
-### 6. `.cursor/rules/*.mdc` (Cursor rules)
-**Purpose**: Cursor-specific workflow definitions
-**Update when**: Creating/modifying workflows in specific domains
-**Files**:
-- `core-system.mdc` — System-wide behavior
-- `product-workflows.mdc` — Product management workflows
-- `metrics-workflows.mdc` — Metrics analysis workflows
-- `strategy-workflows.mdc` — Strategy session workflows
-- `research-workflows.mdc` — Research processing workflows
-- `quality-gates.mdc` — Quality gate definitions
-- `context-assembly.mdc` — Context assembly patterns
+# For pyproject.toml [project] section
+sed -i '/^\[project\]/,/^\[/ s/^version = ".*"/version = "'"$new_version"'"/' pyproject.toml
 
-## Documentation Update Matrix
+# For pyproject.toml [tool.poetry] section
+sed -i '/^\[tool.poetry\]/,/^\[/ s/^version = ".*"/version = "'"$new_version"'"/' pyproject.toml
 
-### For Meta Skills
-- ✓ `.claude/CLAUDE.md` — Add to Meta Skills list
-- ✓ `CLAUDE.md` — Add to Meta Skills category
-- ✓ `.cursor/rules/quality-gates.mdc` — If it's a quality gate
-- ⚬ `CURSOR-PM-SYSTEM.md` — Only if architecture-significant
-- ⚬ `AGENTS.md` — Only if user-facing
-- ⚬ `README.md` — Only if user needs to know
+# Verify
+updated_version=$(grep '^version = ' "$file" | head -1 | sed 's/version = "\(.*\)"/\1/')
+```
 
-### For Quality Gates
-- ✓ `.claude/CLAUDE.md` — Add to Quality Gates list
-- ✓ `CLAUDE.md` — Add to Quality Gates category
-- ✓ `.cursor/rules/quality-gates.mdc` — Add full description
-- ✓ `AGENTS.md` — Add to Quality Standards section
-- ⚬ `CURSOR-PM-SYSTEM.md` — Only if architecture-significant
-- ⚬ `README.md` — Brief mention in quality standards
+**Python __version__.py files:**
+```bash
+file="src/mypackage/__version__.py"
 
-### For Context Assembly Skills
-- ✓ `.claude/CLAUDE.md` — Add to Context Assembly list
-- ✓ `CLAUDE.md` — Add to Context Assembly category
-- ✓ `.cursor/rules/context-assembly.mdc` — Add full description
-- ⚬ `CURSOR-PM-SYSTEM.md` — Only if architecture-significant
-- ⚬ `AGENTS.md` — Only if user-facing
-- ⚬ `README.md` — Only if user needs to know
+# Update __version__ variable
+sed -i 's/^__version__ = ".*"/__version__ = "'"$new_version"'"/' "$file"
 
-### For Workflow Skills
-- ✓ `.claude/CLAUDE.md` — Add to Workflows list and Commands Index
-- ✓ `CLAUDE.md` — Add to Workflows category and Core Commands
-- ✓ `.cursor/rules/{domain}-workflows.mdc` — Add full workflow description
-- ✓ `CURSOR-PM-SYSTEM.md` — Add to Key Workflows section
-- ✓ `AGENTS.md` — Add to relevant agent's Capabilities and Example Prompts
-- ✓ `README.md` — Add to agent description, workflow diagram, example prompts
+# Verify
+updated_version=$(grep '^__version__ = ' "$file" | sed 's/__version__ = "\(.*\)"/\1/')
+```
 
-### For Metrics Analysis Skills
-- ✓ All workflow documentation (as above)
-- ✓ `.cursor/rules/metrics-workflows.mdc` — Complete workflow documentation
-- ✓ Special attention to integration with existing metrics workflows
+**Text files (VERSION, version.txt):**
+```bash
+file="VERSION"
 
-## Validation Procedure
+# Simply write new version
+echo "$new_version" > "$file"
 
-### Step 1: Identify Skill Type
-Determine which category applies: meta, quality-gate, context-assembly, or workflow.
+# Verify
+updated_version=$(cat "$file" | tr -d '[:space:]')
+```
 
-### Step 2: Apply Documentation Matrix
-Use the matrix above to determine which files require updates.
+**Gradle files:**
+```bash
+# gradle.properties
+sed -i 's/^version=.*/version='"$new_version"'/' gradle.properties
 
-### Step 3: Update Each Required File
-For each file marked with ✓:
-1. Read the file to understand current structure
-2. Identify the correct section for the update
-3. Add skill name, description, and relevant details
-4. Maintain consistent formatting with existing entries
-5. Verify line numbers match plan expectations
+# build.gradle (single quotes)
+sed -i "s/^version = '.*'/version = '${new_version}'/" build.gradle
 
-### Step 4: Cross-Reference Validation
-After updating all files, verify:
-- [ ] Skill name appears consistently across all files
-- [ ] Description is consistent (or appropriately adapted per context)
-- [ ] All files reference the same skill location
-- [ ] Slash command mappings are consistent (if applicable)
-- [ ] Example prompts are aligned (for workflows)
-- [ ] No broken cross-references
+# build.gradle (double quotes)
+sed -i 's/^version = ".*"/version = "'"$new_version"'"/' build.gradle
+```
 
-### Step 5: Completeness Check
-Ask these questions:
-- If a user reads only `.claude/CLAUDE.md`, would they know this skill exists?
-- If a user reads only `CLAUDE.md`, would they know how to use it?
-- If a user reads only `README.md`, would they discover the capability?
-- If a user reads `AGENTS.md`, would they know which agent to use?
-- If a Cursor agent loads the relevant `.mdc` file, would it have complete instructions?
-- Is `CURSOR-PM-SYSTEM.md` accurately describing the system architecture?
+**Maven pom.xml:**
+```bash
+# Replace first <version> tag (project version)
+sed -i '0,/<version>.*<\/version>/s//<version>'"$new_version"'<\/version>/' pom.xml
+```
 
-All must be "yes" to pass.
+**Multiple version files:**
+Update all files in sequence, tracking successes and failures:
 
-## Common Rationalizations (ALL REJECTED)
+```bash
+updated_files=()
+failed_files=()
 
-| Rationalization | Reality |
-|-----------------|---------|
-| "This skill is too minor to document" | All skills must be documented for discoverability |
-| "I'll update docs later" | Documentation sync happens NOW, not later |
-| "Only one file needs updating" | Matrix determines requirements, not convenience |
-| "Users won't use this directly" | System documentation serves multiple purposes |
-| "The description is obvious" | Consistency matters more than obviousness |
-| "I'm just fixing a bug" | If behavior changes, documentation updates |
+for version_file_config in "${version_files[@]}"; do
+  file_path="${version_file_config[path]}"
+  adapter="${version_file_config[adapter]}"
 
-## Anti-Rationalization Blocks
+  # Update using appropriate adapter
+  case "$adapter" in
+    "json")
+      jq --indent 2 ".version = \"$new_version\"" "$file_path" > tmp.json && mv tmp.json "$file_path"
+      ;;
+    "toml")
+      # ... toml update logic
+      ;;
+    "python-file")
+      # ... python file update logic
+      ;;
+    # ... other adapters
+  esac
 
-**Time Pressure:**
-"I know you're in a hurry, but documentation sync is not optional. The system depends on consistency between Cursor and Claude Code agents. Taking 10 extra minutes now prevents hours of confusion later."
+  # Verify update succeeded
+  if verify_version_updated "$file_path" "$new_version"; then
+    updated_files+=("$file_path")
+  else
+    failed_files+=("$file_path")
+  fi
+done
+```
 
-**Sunk Cost:**
-"I know you've already written the skill, but documentation is part of skill completion. An undocumented skill is an incomplete skill."
+### 3. Update Documentation Files
 
-**Authority:**
-"Even if this seems like bureaucratic overhead, the Iron Law applies to everyone: NO SKILL COMPLETE WITHOUT DOCUMENTATION SYNC."
+Search documentation files for version references and update them.
 
-**Scope Creep:**
-"Documenting feels like extra work beyond the original task, but it's actually a core requirement of the create-skill workflow. Not optional."
+Use `documentation_files` from configuration (default: `["README.md"]`, supports globs).
 
-## Success Criteria
+**Find all documentation files:**
+```bash
+doc_files=()
 
-Documentation sync passes when:
-- All required files identified via matrix have been updated
-- Skill name appears consistently across all files
-- Descriptions are contextually appropriate for each file
-- Cross-references are valid and non-broken
-- Example prompts align (for user-facing workflows)
-- Completeness check questions all answered "yes"
-- No rationalization attempted or accepted
+for pattern in "${documentation_files[@]}"; do
+  # Expand glob patterns
+  if [[ "$pattern" == *"*"* ]]; then
+    # Use find for glob patterns like "docs/**/*.md"
+    while IFS= read -r file; do
+      doc_files+=("$file")
+    done < <(find . -path "./$pattern" -type f)
+  else
+    # Direct file path
+    if [ -f "$pattern" ]; then
+      doc_files+=("$pattern")
+    fi
+  done
+done
+```
 
-## Related Skills
+**For each documentation file, perform context-aware version replacement:**
 
-- **create-skill**: Must invoke documentation-sync before completion
-- **refine-workflow**: Must invoke documentation-sync when extracting skills
-- **skill-discovery**: Benefits from accurate documentation
+```bash
+for doc_file in "${doc_files[@]}"; do
+  echo "Processing $doc_file..."
 
-## Common Mistakes
+  # Create backup
+  cp "$doc_file" "${doc_file}.bak"
 
-| Mistake | Fix |
-|---------|-----|
-| Updating only 1-2 files | Apply full documentation matrix |
-| Inconsistent skill names | Use exact same name across all files |
-| Skipping `.mdc` files | Cursor agents need these files updated |
-| Forgetting example prompts | User-facing workflows need examples |
-| Not checking line numbers | Verify updates in correct sections |
-| Skipping completeness check | Run all 6 validation questions |
+  # Perform replacements (context-aware)
 
+  # 1. Version badges (shields.io, etc.)
+  sed -i "s/version-${old_version//./-}/version-${new_version//./-}/g" "$doc_file"
+  sed -i "s/v${old_version}-/v${new_version}-/g" "$doc_file"
+
+  # 2. Installation commands
+  # npm install package@1.1.0 → package@1.2.0
+  sed -i "s/@${old_version}/@${new_version}/g" "$doc_file"
+
+  # pip install package==1.1.0 → package==1.2.0
+  sed -i "s/==${old_version}/==${new_version}/g" "$doc_file"
+
+  # cargo add package@1.1.0 → package@1.2.0
+  # (already covered by @version pattern)
+
+  # 3. Git tag references
+  # v1.1.0 → v1.2.0 (when followed by space, ), or end of line)
+  sed -i "s/v${old_version}\([^0-9]\)/v${new_version}\1/g" "$doc_file"
+  sed -i "s/v${old_version}$/v${new_version}/g" "$doc_file"
+
+  # 4. Standalone version numbers in specific contexts
+  # "Version 1.1.0" → "Version 1.2.0"
+  sed -i "s/Version ${old_version}/Version ${new_version}/g" "$doc_file"
+  sed -i "s/version ${old_version}/version ${new_version}/g" "$doc_file"
+
+  # 5. In code blocks (more conservative - only in known safe contexts)
+  # Only replace if part of package reference
+  sed -i "s/\"${old_version}\"/\"${new_version}\"/g" "$doc_file"
+  sed -i "s/'${old_version}'/'${new_version}'/g" "$doc_file"
+
+  # Count changes
+  changes=$(diff -u "${doc_file}.bak" "$doc_file" | grep '^[-+]' | wc -l)
+
+  if [ $changes -gt 0 ]; then
+    echo "✓ Updated $doc_file ($changes lines changed)"
+    rm "${doc_file}.bak"
+  else
+    echo "  No version references found in $doc_file"
+    mv "${doc_file}.bak" "$doc_file"  # Restore original
+  fi
+done
+```
+
+**Conservative replacement strategy:**
+- Only replace version strings in known safe contexts
+- Avoid replacing arbitrary numbers (could be dates, IDs, etc.)
+- Use word boundaries and context markers
+- Verify replacements made sense (count changes, show diff)
+
+### 4. Project-Specific Updates
+
+Some project types have additional files to update:
+
+**Node.js (package-lock.json):**
+```bash
+if [ -f "package-lock.json" ]; then
+  # Update version in lockfile (both root and package entry)
+  jq ".version = \"$new_version\"" package-lock.json > tmp.json && mv tmp.json package-lock.json
+  jq ".packages[\"\"].version = \"$new_version\"" package-lock.json > tmp.json && mv tmp.json package-lock.json
+fi
+```
+
+**Python (setuptools-scm):**
+If using setuptools-scm, version is managed by git tags - no file updates needed.
+
+**Rust (Cargo.lock):**
+If exists, update with:
+```bash
+cargo update --workspace
+```
+
+**Go:**
+No files to update - versions managed by git tags only.
+
+### 5. Generate Git Diff
+
+Create a summary of all changes:
+
+```bash
+# Stage all modified files
+git add -u
+
+# Generate diff
+git diff --cached > /tmp/release-diff.patch
+
+# Display summary
+echo "Files modified:"
+git diff --cached --name-only
+
+echo ""
+echo "Diff summary:"
+git diff --cached --stat
+```
+
+### 6. Validation
+
+Verify all updates were successful:
+
+```bash
+validation_errors=()
+
+# Check each version file
+for file in "${updated_files[@]}"; do
+  actual_version=$(read_version_from_file "$file")
+
+  if [ "$actual_version" != "$new_version" ]; then
+    validation_errors+=("$file: expected $new_version, got $actual_version")
+  fi
+done
+
+# If any errors, return them
+if [ ${#validation_errors[@]} -gt 0 ]; then
+  echo "✗ Validation failed:"
+  printf '%s\n' "${validation_errors[@]}"
+  exit 1
+fi
+```
+
+## Output Format
+
+Return:
+
+```json
+{
+  "files_updated": [
+    "package.json",
+    "README.md",
+    "docs/installation.md"
+  ],
+  "version_files": [
+    {
+      "path": "package.json",
+      "old_version": "1.1.0",
+      "new_version": "1.2.0",
+      "adapter": "json",
+      "success": true
+    }
+  ],
+  "documentation_files": [
+    {
+      "path": "README.md",
+      "changes": 5,
+      "patterns_matched": ["version badge", "installation command", "git tag reference"]
+    },
+    {
+      "path": "docs/installation.md",
+      "changes": 2,
+      "patterns_matched": ["installation command"]
+    }
+  ],
+  "warnings": [],
+  "git_diff_summary": {
+    "files_changed": 3,
+    "insertions": 8,
+    "deletions": 8
+  }
+}
+```
+
+## Examples
+
+### Example 1: Node.js Project
+
+**Input:**
+- Project type: `nodejs`
+- Old version: `1.1.0`
+- New version: `1.2.0`
+- Version files: `["package.json"]`
+- Documentation files: `["README.md"]`
+
+**Operations:**
+1. Update `package.json`: `"version": "1.1.0"` → `"version": "1.2.0"`
+2. Update `package-lock.json` (if exists)
+3. Update `README.md`: version badge, install command
+
+**Output:**
+```json
+{
+  "files_updated": ["package.json", "package-lock.json", "README.md"],
+  "version_files": [
+    {
+      "path": "package.json",
+      "old_version": "1.1.0",
+      "new_version": "1.2.0",
+      "success": true
+    }
+  ],
+  "documentation_files": [
+    {
+      "path": "README.md",
+      "changes": 3,
+      "patterns_matched": ["version badge", "npm install"]
+    }
+  ]
+}
+```
+
+### Example 2: Python Project with Multiple Version Files
+
+**Input:**
+- Project type: `python`
+- Old version: `2.1.0`
+- New version: `3.0.0`
+- Version files:
+  - `pyproject.toml`
+  - `src/mypackage/__version__.py`
+
+**Operations:**
+1. Update `pyproject.toml` [project] section
+2. Update `src/mypackage/__version__.py`
+3. Update `README.md` references
+
+**Output:**
+```json
+{
+  "version_files": [
+    {
+      "path": "pyproject.toml",
+      "old_version": "2.1.0",
+      "new_version": "3.0.0",
+      "adapter": "toml",
+      "success": true
+    },
+    {
+      "path": "src/mypackage/__version__.py",
+      "old_version": "2.1.0",
+      "new_version": "3.0.0",
+      "adapter": "python-file",
+      "success": true
+    }
+  ]
+}
+```
+
+### Example 3: Rust Crate
+
+**Input:**
+- Project type: `rust`
+- Old version: `0.3.1`
+- New version: `0.3.2`
+- Version files: `["Cargo.toml"]`
+
+**Operations:**
+1. Update `Cargo.toml` [package].version
+2. Run `cargo update` to update `Cargo.lock`
+3. Update documentation
+
+### Example 4: Go Module
+
+**Input:**
+- Project type: `go`
+- Old version: `1.5.0`
+- New version: `1.6.0`
+- Version files: `[]` (versions via tags only)
+
+**Operations:**
+1. No version files to update (Go uses git tags)
+2. Update README.md and docs with new version references
+
+**Output:**
+```json
+{
+  "version_files": [],
+  "documentation_files": [
+    {
+      "path": "README.md",
+      "changes": 2,
+      "patterns_matched": ["version reference", "go get command"]
+    }
+  ],
+  "notes": ["Go project: version managed via git tags only"]
+}
+```
+
+## Error Handling
+
+**File update failure:**
+```json
+{
+  "version_files": [
+    {
+      "path": "package.json",
+      "success": false,
+      "error": "Permission denied"
+    }
+  ]
+}
+```
+
+**Version mismatch after update:**
+```json
+{
+  "warnings": [
+    "package.json: expected 1.2.0 after update, but still reads 1.1.0",
+    "File may need manual review"
+  ]
+}
+```
+
+**Documentation file not found:**
+```json
+{
+  "warnings": [
+    "Documentation file not found: docs/installation.md",
+    "Specified in configuration but does not exist"
+  ]
+}
+```
+
+## Integration Notes
+
+This skill is invoked by the `/release` command in Phase 4. The command will:
+1. Display git diff of all changes
+2. Allow user to review before proceeding
+3. Stage all modified files for commit in Phase 6
+
+## Reference Documentation
+
+- [Version Adapters Reference](../../docs/version-adapters.md) - Adapter implementation details
+- [Configuration Reference](../../docs/configuration.md) - Configuring version and documentation files

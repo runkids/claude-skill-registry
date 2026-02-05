@@ -1,0 +1,19 @@
+{
+  "category": "examples",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.241110Z",
+  "skills": [
+    {
+      "name": "safe-agent-selective",
+      "description": "Agent with selective Gemini safety settings for specific categories",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "skills/testing/safe-agent-selective/SKILL.md",
+      "branch": "main",
+      "category": "examples",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry/skills/testing/safe-agent-selective/SKILL.md",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

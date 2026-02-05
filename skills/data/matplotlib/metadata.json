@@ -1,7 +1,9 @@
 {
   "name": "matplotlib",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/matplotlib/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-02T04:36:35.082888Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/matplotlib/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:19.246579Z",
+  "dir_name": "matplotlib",
+  "category": "data"
 }

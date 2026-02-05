@@ -1,13 +1,9 @@
 {
   "name": "skillsmith",
-  "description": "",
   "repo": "smith-horn/skillsmith",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "packages/mcp-server/src/assets/skills/skillsmith/SKILL.md",
   "source": "github.com/smith-horn/skillsmith",
-  "github_path": "packages/mcp-server/src/assets/skills/skillsmith",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:36:03.648031Z",
   "dir_name": "skillsmith",
-  "downloaded_at": "2026-02-05T01:44:48.379702Z"
+  "category": "data"
 }

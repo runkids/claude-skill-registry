@@ -1,7 +1,9 @@
 {
-  "name": "describing-PRs",
+  "name": "describing-prs",
   "repo": "aspiers/ai-config",
   "path": ".claude/skills/describing-PRs/SKILL.md",
   "source": "github.com/aspiers/ai-config",
-  "downloaded_at": "2026-02-02T04:50:54.414255Z"
+  "downloaded_at": "2026-02-04T04:06:38.935058Z",
+  "dir_name": "describing-prs",
+  "category": "data"
 }

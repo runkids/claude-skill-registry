@@ -1,43 +1,22 @@
 ---
 name: terraform
-description: Infrastructure as Code tool with installation, initialization, and provisioning workflow commands.
+description: Provides comprehensive guidance for Terraform infrastructure as code including resource definition, state management, modules, and cloud provider integration. Use when the user asks about Terraform, needs to define infrastructure as code, manage cloud resources, or work with Terraform modules.
+license: Complete terms in LICENSE.txt
 ---
 
-# Terraform — Provisioning
+## When to use this skill
 
-**Install Script**
+Use this skill whenever the user wants to:
+- [待完善：根据具体工具添加使用场景]
 
-```bash
-echo "⚙️ Installing Terraform..."
-if command -v terraform &> /dev/null
-then
-    echo "✅ Terraform is already installed."
-    terraform version
-else
-    wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-    sudo apt update && sudo apt install -y terraform
-    if [ $? -eq 0 ]; then
-        echo "✅ Terraform installed successfully."
-        terraform version
-    else
-        echo "❌ Error installing Terraform. Please check the output above."
-        exit 1
-    fi
-fi
+## How to use this skill
 
-```
+[待完善：根据具体工具添加使用指南]
 
-**Workflow**
+## Best Practices
 
-```bash
-terraform init
-terraform plan
-terraform apply -auto-approve -var key=value
-terraform destroy
-terraform fmt
-terraform validate
-terraform version
+[待完善：根据具体工具添加最佳实践]
 
-terraform state rm $RESOURCE
-```
+## Keywords
+
+[待完善：根据具体工具添加关键词]

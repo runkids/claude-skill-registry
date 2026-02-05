@@ -1,13 +1,9 @@
 {
   "name": "new-task",
-  "description": "",
   "repo": "gpaura/claude_plugins",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/new-task/SKILL.md",
   "source": "github.com/gpaura/claude_plugins",
-  "github_path": "skills/new-task",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:13:47.014994Z",
   "dir_name": "new-task",
-  "downloaded_at": "2026-02-05T01:44:19.721222Z"
+  "category": "data"
 }

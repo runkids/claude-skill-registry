@@ -1,13 +1,9 @@
 {
   "name": "azure-ai-projects-java",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-ai-projects-java",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-ai-projects-java/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:51.256704Z",
   "dir_name": "azure-ai-projects-java",
-  "downloaded_at": "2026-02-05T01:44:52.800244Z"
+  "category": "data"
 }

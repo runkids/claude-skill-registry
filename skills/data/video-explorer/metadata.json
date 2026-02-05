@@ -1,13 +1,9 @@
 {
   "name": "video-explorer",
-  "description": "",
   "repo": "Cygnusfear/claude-stuff",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/video-explorer/SKILL.md",
   "source": "github.com/Cygnusfear/claude-stuff",
-  "github_path": "skills/video-explorer",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:52:29.109980Z",
   "dir_name": "video-explorer",
-  "downloaded_at": "2026-02-05T06:19:37.872020Z"
+  "category": "data"
 }

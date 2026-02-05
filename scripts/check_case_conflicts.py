@@ -19,32 +19,20 @@ def find_case_conflicts(skills_dir: Path) -> dict:
     """Find directories that differ only in case."""
     conflicts = defaultdict(list)
 
-    # Detect flat layout: skills_dir/<skill>/SKILL.md
-    flat_layout = False
-    for child in skills_dir.iterdir():
-        if child.is_dir() and (child / "SKILL.md").exists():
-            flat_layout = True
-            break
+    # Scan all directories
+    for category_dir in skills_dir.iterdir():
+        if not category_dir.is_dir() or category_dir.name.startswith('.'):
+            continue
 
-    if flat_layout:
-        for skill_dir in skills_dir.iterdir():
-            if not skill_dir.is_dir() or skill_dir.name.startswith('.'):
+        for skill_dir in category_dir.iterdir():
+            if not skill_dir.is_dir():
                 continue
-            key = skill_dir.name.lower()
+
+            # Group by lowercase name
+            key = f"{category_dir.name}/{skill_dir.name.lower()}"
             conflicts[key].append(str(skill_dir.relative_to(skills_dir)))
-    else:
-        # Category layout: skills_dir/<category>/<skill>/SKILL.md
-        for category_dir in skills_dir.iterdir():
-            if not category_dir.is_dir() or category_dir.name.startswith('.'):
-                continue
 
-            for skill_dir in category_dir.iterdir():
-                if not skill_dir.is_dir():
-                    continue
-
-                key = f"{category_dir.name}/{skill_dir.name.lower()}"
-                conflicts[key].append(str(skill_dir.relative_to(skills_dir)))
-
+    # Filter to only actual conflicts (more than one with same lowercase name)
     return {k: v for k, v in conflicts.items() if len(v) > 1}
 
 

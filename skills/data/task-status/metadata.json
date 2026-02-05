@@ -1,13 +1,9 @@
 {
   "name": "task-status",
-  "description": "",
   "repo": "cooper538/eshop-demo",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/task-status/SKILL.md",
   "source": "github.com/cooper538/eshop-demo",
-  "github_path": ".claude/skills/task-status",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:24:36.832376Z",
   "dir_name": "task-status",
-  "downloaded_at": "2026-02-05T01:44:26.626729Z"
+  "category": "data"
 }

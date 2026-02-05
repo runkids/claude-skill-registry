@@ -1,0 +1,32 @@
+{
+  "category": "analysis-methods",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-02-05T08:28:01.182613Z",
+  "skills": [
+    {
+      "name": "diff-analysis",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "analysis-methods",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "diff-analysis",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "analysis-methods",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "development-tools",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.245846Z",
+  "skills": [
+    {
+      "name": "claude-agent-ts-sdk",
+      "description": "Build Claude agents using TypeScript with the @anthropic-ai/claude-agent-sdk. Use this skill when implementing conversational agents, building tools for agents, setting up streaming responses, or debu",
+      "repo": "szweibel/claude-skills",
+      "path": "claude-agent-ts-sdk/SKILL.md.backup",
+      "branch": "main",
+      "category": "development-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "szweibel/claude-skills/claude-agent-ts-sdk/SKILL.md.backup",
+      "source": "github.com/szweibel/claude-skills"
+    }
+  ]
+}

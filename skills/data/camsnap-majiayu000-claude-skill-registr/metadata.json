@@ -1,13 +1,9 @@
 {
   "name": "camsnap",
-  "description": "The most comprehensive Claude Code skills registry - 50,000+ skills indexed",
   "repo": "majiayu000/claude-skill-registry",
-  "category": "other",
-  "tags": [],
-  "stars": 48,
-  "source": "",
-  "github_path": "skills/camsnap",
-  "github_branch": "main",
+  "path": "skills/data/camsnap/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T07:36:13.367968Z",
   "dir_name": "camsnap-majiayu000-claude-skill-registr",
-  "downloaded_at": "2026-02-05T01:45:19.625532Z"
+  "category": "data"
 }

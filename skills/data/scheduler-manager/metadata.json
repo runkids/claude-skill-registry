@@ -1,13 +1,9 @@
 {
   "name": "scheduler-manager",
-  "description": "",
   "repo": "glwlg/X-bot",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/builtin/scheduler_manager/SKILL.md",
   "source": "github.com/glwlg/X-bot",
-  "github_path": "skills/builtin/scheduler_manager",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:00:28.402311Z",
   "dir_name": "scheduler-manager",
-  "downloaded_at": "2026-02-05T05:41:55.515088Z"
+  "category": "data"
 }

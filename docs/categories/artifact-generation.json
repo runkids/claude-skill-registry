@@ -1,0 +1,32 @@
+{
+  "category": "artifact-generation",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-02-05T08:28:01.183305Z",
+  "skills": [
+    {
+      "name": "doc-updates",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "artifact-generation",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "doc-updates",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "artifact-generation",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

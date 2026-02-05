@@ -1,13 +1,9 @@
 {
   "name": "bioinformatician",
-  "description": "",
   "repo": "dangeles/claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "claude-config/skills/bioinformatician/SKILL.md",
   "source": "github.com/dangeles/claude",
-  "github_path": "claude-config/skills/bioinformatician",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:23:34.061270Z",
   "dir_name": "bioinformatician",
-  "downloaded_at": "2026-02-05T01:45:07.828331Z"
+  "category": "data"
 }

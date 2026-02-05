@@ -1,7 +1,9 @@
 {
   "name": "azure-static-web-apps",
-  "repo": "github/awesome-copilot",
-  "path": "skills/azure-static-web-apps/SKILL.md",
-  "source": "github.com/github/awesome-copilot",
-  "downloaded_at": "2026-02-02T04:05:41.634780Z"
+  "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "path": ".github/skills/azure-static-web-apps/SKILL.md",
+  "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "downloaded_at": "2026-01-29T07:13:25.175915Z",
+  "dir_name": "azure-static-web-apps",
+  "category": "data"
 }

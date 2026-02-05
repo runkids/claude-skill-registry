@@ -1,13 +1,9 @@
 {
   "name": "oauth2-oidc-implementer",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/oauth2-oidc-implementer/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/oauth2-oidc-implementer",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:33.006507Z",
   "dir_name": "oauth2-oidc-implementer",
-  "downloaded_at": "2026-02-05T01:44:14.891670Z"
+  "category": "data"
 }

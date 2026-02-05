@@ -1,7 +1,9 @@
 {
   "name": "mcp-cli",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/mcp-cli/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-02-02T04:36:12.044097Z"
+  "repo": "dhar174/langgraph_system_generator",
+  "path": ".github/skills/mcp-cli/SKILL.md",
+  "source": "github.com/dhar174/langgraph_system_generator",
+  "downloaded_at": "2026-01-29T07:44:31.657587Z",
+  "dir_name": "mcp-cli",
+  "category": "data"
 }

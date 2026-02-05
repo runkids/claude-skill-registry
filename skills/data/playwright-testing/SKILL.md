@@ -1,958 +1,391 @@
 ---
 name: playwright-testing
-description: E2E testing with Playwright - Page Objects, cross-browser, CI/CD
+description: Use when writing, debugging, or reviewing Playwright tests for web apps; before writing test code; when tests are flaky, slow, or brittle; when seeing timeout errors, element not found, or race conditions; when using getByRole, locators, or assertions
 ---
 
-# Playwright E2E Testing Skill
+# Playwright Testing
 
-*Load with: base.md + [framework].md*
+Write reliable, fast, maintainable Playwright tests for SPAs.
 
-For end-to-end testing of web applications with Playwright - cross-browser, fast, reliable.
+## Contents
+- Core Concepts (Locators, Waiting, Assertions)
+- Test Structure → See [reference/structure.md](reference/structure.md)
+- Performance → See [reference/performance.md](reference/performance.md)
+- Debugging → See [reference/debugging.md](reference/debugging.md)
+- CI Configuration → See [reference/ci.md](reference/ci.md)
 
-**Sources:** [Playwright Best Practices](https://playwright.dev/docs/best-practices) | [Playwright Docs](https://playwright.dev/docs/intro) | [Better Stack Guide](https://betterstack.com/community/guides/testing/playwright-best-practices/)
+**Core principle:** Test what users see and do. If a user can't find an element by its role or text, neither should your test.
 
----
+**Quality layers:** Reliable (no flakes) → Fast (parallel, minimal waits) → Maintainable (survives refactors)
 
-## Setup
+**Philosophy:** User-centric locators by default. Implementation details (test-ids, CSS selectors) are escape hatches, not first choices.
 
-### Installation
+## The Process
 
-```bash
-# New project
-npm init playwright@latest
+1. **Identify:** What user behavior are we testing?
+2. **Locate:** Find elements the way users would (role, label, text)
+3. **Act:** Perform user actions (click, fill, navigate)
+4. **Assert:** Verify visible outcomes, not internal state
+5. **Stabilize:** Handle async, add appropriate waits
 
-# Existing project
-npm install -D @playwright/test
-npx playwright install
-```
+## Red Flags - STOP
 
-### Configuration
+- `page.locator('.btn-primary')` - CSS class selectors
+- `page.waitForTimeout(1000)` - arbitrary sleeps
+- `page.locator('[data-testid="x"]')` as first choice
+- Testing component internals instead of user outcomes
+- Long test files with no page objects or fixtures
 
-```typescript
-// playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
+## Locator Priority
 
-export default defineConfig({
-  testDir: './e2e',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [
-    ['html'],
-    ['list'],
-    process.env.CI ? ['github'] : ['line'],
-  ],
+```dot
+digraph locator_priority {
+    rankdir=TB;
+    node [shape=box];
 
-  use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-  },
+    "Need to find element" [shape=diamond];
+    "Has accessible role?" [shape=diamond];
+    "Has label/placeholder?" [shape=diamond];
+    "Has visible text?" [shape=diamond];
+    "getByRole" [style=filled fillcolor=lightgreen];
+    "getByLabel/getByPlaceholder" [style=filled fillcolor=lightgreen];
+    "getByText" [style=filled fillcolor=lightgreen];
+    "getByTestId" [style=filled fillcolor=lightyellow];
 
-  projects: [
-    // Auth setup - runs once before all tests
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
-
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-      dependencies: ['setup'],
-    },
-    // Mobile viewports
-    {
-      name: 'mobile-chrome',
-      use: { ...devices['Pixel 5'] },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'mobile-safari',
-      use: { ...devices['iPhone 12'] },
-      dependencies: ['setup'],
-    },
-  ],
-
-  // Start dev server before tests
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
-  },
-});
-```
-
----
-
-## Project Structure
-
-```
-project/
-├── e2e/
-│   ├── fixtures/
-│   │   ├── auth.fixture.ts      # Auth fixtures
-│   │   └── test.fixture.ts      # Extended test with fixtures
-│   ├── pages/
-│   │   ├── base.page.ts         # Base page object
-│   │   ├── login.page.ts        # Login page object
-│   │   ├── dashboard.page.ts    # Dashboard page object
-│   │   └── index.ts             # Export all pages
-│   ├── tests/
-│   │   ├── auth.spec.ts         # Auth tests
-│   │   ├── dashboard.spec.ts    # Dashboard tests
-│   │   └── checkout.spec.ts     # Checkout flow tests
-│   ├── utils/
-│   │   ├── helpers.ts           # Test helpers
-│   │   └── test-data.ts         # Test data factories
-│   └── auth.setup.ts            # Global auth setup
-├── playwright.config.ts
-└── .auth/                        # Stored auth state (gitignored)
-```
-
----
-
-## Locator Strategy (Priority Order)
-
-Use locators that mirror how users interact with the page:
-
-```typescript
-// ✅ BEST: Role-based (accessible, resilient)
-page.getByRole('button', { name: 'Submit' })
-page.getByRole('textbox', { name: 'Email' })
-page.getByRole('link', { name: 'Sign up' })
-page.getByRole('heading', { name: 'Welcome' })
-
-// ✅ GOOD: User-facing text
-page.getByLabel('Email address')
-page.getByPlaceholder('Enter your email')
-page.getByText('Welcome back')
-page.getByTitle('Profile settings')
-
-// ✅ GOOD: Test IDs (stable, explicit)
-page.getByTestId('submit-button')
-page.getByTestId('user-avatar')
-
-// ⚠️ AVOID: CSS selectors (brittle)
-page.locator('.btn-primary')
-page.locator('#submit')
-
-// ❌ NEVER: XPath (extremely brittle)
-page.locator('//div[@class="container"]/button[1]')
-```
-
-### Chaining Locators
-
-```typescript
-// Narrow down to specific section
-const form = page.getByRole('form', { name: 'Login' });
-await form.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
-await form.getByRole('button', { name: 'Submit' }).click();
-
-// Filter within a list
-const productCard = page.getByTestId('product-card')
-  .filter({ hasText: 'Pro Plan' });
-await productCard.getByRole('button', { name: 'Buy' }).click();
-```
-
----
-
-## Page Object Model
-
-### Base Page
-
-```typescript
-// e2e/pages/base.page.ts
-import { Page, Locator } from '@playwright/test';
-
-export abstract class BasePage {
-  constructor(protected page: Page) {}
-
-  async navigate(path: string = '/') {
-    await this.page.goto(path);
-  }
-
-  async waitForPageLoad() {
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  // Common elements
-  get header() {
-    return this.page.getByRole('banner');
-  }
-
-  get footer() {
-    return this.page.getByRole('contentinfo');
-  }
-
-  // Common actions
-  async clickNavLink(name: string) {
-    await this.header.getByRole('link', { name }).click();
-  }
+    "Need to find element" -> "Has accessible role?";
+    "Has accessible role?" -> "getByRole" [label="yes"];
+    "Has accessible role?" -> "Has label/placeholder?" [label="no"];
+    "Has label/placeholder?" -> "getByLabel/getByPlaceholder" [label="yes"];
+    "Has label/placeholder?" -> "Has visible text?" [label="no"];
+    "Has visible text?" -> "getByText" [label="yes"];
+    "Has visible text?" -> "getByTestId" [label="no (last resort)"];
 }
 ```
 
-### Page Implementation
+| Priority | Locator | When to Use | Example |
+|----------|---------|-------------|---------|
+| 1st | `getByRole` | Buttons, links, inputs, headings, lists | `getByRole('button', { name: 'Submit' })` |
+| 2nd | `getByLabel` | Form inputs with labels | `getByLabel('Email address')` |
+| 3rd | `getByPlaceholder` | Inputs with placeholder text | `getByPlaceholder('Search...')` |
+| 4th | `getByText` | Static text content, paragraphs | `getByText('Welcome back')` |
+| 5th | `getByAltText` | Images | `getByAltText('Company logo')` |
+| Last | `getByTestId` | Dynamic content, no semantic meaning | `getByTestId('total-price')` |
+
+### Role Examples
 
 ```typescript
-// e2e/pages/login.page.ts
-import { Page, expect } from '@playwright/test';
-import { BasePage } from './base.page';
+// Buttons
+page.getByRole('button', { name: 'Save changes' })
+page.getByRole('button', { name: /submit/i })  // regex for flexibility
 
-export class LoginPage extends BasePage {
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly submitButton: Locator;
-  readonly errorMessage: Locator;
+// Links
+page.getByRole('link', { name: 'View profile' })
 
-  constructor(page: Page) {
-    super(page);
-    this.emailInput = page.getByLabel('Email');
-    this.passwordInput = page.getByLabel('Password');
-    this.submitButton = page.getByRole('button', { name: 'Sign in' });
-    this.errorMessage = page.getByRole('alert');
-  }
+// Form inputs
+page.getByRole('textbox', { name: 'Username' })
+page.getByRole('checkbox', { name: 'Remember me' })
+page.getByRole('combobox', { name: 'Country' })
 
-  async goto() {
-    await this.navigate('/login');
-  }
+// Structure
+page.getByRole('heading', { name: 'Dashboard', level: 1 })
+page.getByRole('list').getByRole('listitem')
+page.getByRole('dialog', { name: 'Confirm deletion' })
 
-  async login(email: string, password: string) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
-    await this.submitButton.click();
-  }
+// Tables
+page.getByRole('table').getByRole('row', { name: /john/i })
+```
 
-  async expectError(message: string) {
-    await expect(this.errorMessage).toContainText(message);
-  }
+### Disambiguating Multiple Matches
 
-  async expectLoggedIn() {
-    await expect(this.page).toHaveURL(/.*dashboard/);
-  }
+```typescript
+// Specify which match you want
+await page.getByRole('button', { name: 'Delete' }).first().click();
+await page.getByRole('listitem').last().click();
+await page.getByRole('row').nth(2).click();  // 0-indexed
+
+// Filter by content or child elements
+await page.getByRole('listitem').filter({ hasText: 'John' }).click();
+await page.getByRole('listitem').filter({
+    has: page.getByRole('button', { name: 'Edit' })
+}).click();
+
+// Chain locators to scope
+await page.getByRole('dialog').getByRole('button', { name: 'Confirm' }).click();
+```
+
+### Locator Anti-patterns
+
+| Bad | Why | Good |
+|-----|-----|------|
+| `.locator('.submit-btn')` | Breaks on class rename | `getByRole('button', { name: 'Submit' })` |
+| `.locator('#email-input')` | Coupled to implementation | `getByLabel('Email')` |
+| `.locator('div > span:nth-child(2)')` | Extremely brittle | `getByText('...')` or add test-id |
+| `getByTestId` everywhere | Misses accessibility bugs | Use semantic locators first |
+| Unscoped locator with multiple matches | Flaky, might click wrong element | Use `.first()`, `.filter()`, or scope with parent |
+
+## Waiting & Async
+
+**Playwright auto-waits for most actions.** Don't add manual waits unless you have a specific reason.
+
+```dot
+digraph waiting {
+    rankdir=TB;
+    node [shape=box];
+
+    "What are you waiting for?" [shape=diamond];
+    "Element to appear" [shape=diamond];
+    "Auto-wait (built-in)" [style=filled fillcolor=lightgreen];
+    "expect + toBeVisible" [style=filled fillcolor=lightgreen];
+    "waitForResponse" [style=filled fillcolor=lightyellow];
+    "waitForURL" [style=filled fillcolor=lightyellow];
+    "NEVER waitForTimeout" [style=filled fillcolor=lightpink];
+
+    "What are you waiting for?" -> "Auto-wait (built-in)" [label="clicking/filling"];
+    "What are you waiting for?" -> "Element to appear" [label="element"];
+    "What are you waiting for?" -> "waitForResponse" [label="API call"];
+    "What are you waiting for?" -> "waitForURL" [label="navigation"];
+    "Element to appear" -> "expect + toBeVisible" [label="use assertion"];
+    "Element to appear" -> "NEVER waitForTimeout" [label="don't guess"];
 }
 ```
 
+### Built-in Auto-Waiting
+
+These actions auto-wait - no manual wait needed:
+
 ```typescript
-// e2e/pages/dashboard.page.ts
-import { Page, Locator, expect } from '@playwright/test';
-import { BasePage } from './base.page';
-
-export class DashboardPage extends BasePage {
-  readonly welcomeHeading: Locator;
-  readonly userMenu: Locator;
-  readonly logoutButton: Locator;
-
-  constructor(page: Page) {
-    super(page);
-    this.welcomeHeading = page.getByRole('heading', { name: /welcome/i });
-    this.userMenu = page.getByTestId('user-menu');
-    this.logoutButton = page.getByRole('button', { name: 'Logout' });
-  }
-
-  async goto() {
-    await this.navigate('/dashboard');
-  }
-
-  async logout() {
-    await this.userMenu.click();
-    await this.logoutButton.click();
-  }
-
-  async expectWelcome(name: string) {
-    await expect(this.welcomeHeading).toContainText(name);
-  }
-}
+// All of these wait automatically for element to be actionable
+await page.getByRole('button', { name: 'Submit' }).click();
+await page.getByLabel('Email').fill('test@example.com');
+await page.getByRole('checkbox').check();
+await page.getByRole('combobox').selectOption('US');
 ```
 
-### Export All Pages
+### Explicit Waits (When Needed)
 
 ```typescript
-// e2e/pages/index.ts
-export { BasePage } from './base.page';
-export { LoginPage } from './login.page';
-export { DashboardPage } from './dashboard.page';
-```
-
----
-
-## Authentication
-
-### Global Auth Setup
-
-```typescript
-// e2e/auth.setup.ts
-import { test as setup, expect } from '@playwright/test';
-import path from 'path';
-
-const authFile = path.join(__dirname, '../.auth/user.json');
-
-setup('authenticate', async ({ page }) => {
-  // Go to login page
-  await page.goto('/login');
-
-  // Login with test credentials
-  await page.getByLabel('Email').fill(process.env.TEST_USER_EMAIL!);
-  await page.getByLabel('Password').fill(process.env.TEST_USER_PASSWORD!);
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  // Wait for auth to complete
-  await expect(page).toHaveURL(/.*dashboard/);
-
-  // Save auth state for reuse
-  await page.context().storageState({ path: authFile });
-});
-```
-
-### Using Auth in Tests
-
-```typescript
-// playwright.config.ts
-export default defineConfig({
-  projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: '.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
-  ],
-});
-```
-
-### Tests Without Auth
-
-```typescript
-// e2e/tests/public.spec.ts
-import { test } from '@playwright/test';
-
-// Override to skip auth
-test.use({ storageState: { cookies: [], origins: [] } });
-
-test('homepage loads for anonymous users', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Welcome' })).toBeVisible();
-});
-```
-
----
-
-## Writing Tests
-
-### Basic Test Structure
-
-```typescript
-// e2e/tests/auth.spec.ts
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages';
-
-test.describe('Authentication', () => {
-  test.beforeEach(async ({ page }) => {
-    // Skip stored auth for login tests
-    await page.context().clearCookies();
-  });
-
-  test('successful login redirects to dashboard', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-
-    await loginPage.goto();
-    await loginPage.login('user@example.com', 'password123');
-    await loginPage.expectLoggedIn();
-  });
-
-  test('invalid credentials show error', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-
-    await loginPage.goto();
-    await loginPage.login('wrong@example.com', 'wrongpass');
-    await loginPage.expectError('Invalid email or password');
-  });
-
-  test('empty form shows validation errors', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-
-    await loginPage.goto();
-    await loginPage.submitButton.click();
-
-    await expect(page.getByText('Email is required')).toBeVisible();
-    await expect(page.getByText('Password is required')).toBeVisible();
-  });
-});
-```
-
-### User Flow Tests
-
-```typescript
-// e2e/tests/checkout.spec.ts
-import { test, expect } from '@playwright/test';
-
-test.describe('Checkout Flow', () => {
-  test('complete purchase flow', async ({ page }) => {
-    // 1. Browse products
-    await page.goto('/products');
-    await page.getByTestId('product-card')
-      .filter({ hasText: 'Pro Plan' })
-      .getByRole('button', { name: 'Add to cart' })
-      .click();
-
-    // 2. View cart
-    await page.getByRole('link', { name: 'Cart' }).click();
-    await expect(page.getByText('Pro Plan')).toBeVisible();
-    await expect(page.getByTestId('cart-total')).toContainText('$29.99');
-
-    // 3. Checkout
-    await page.getByRole('button', { name: 'Checkout' }).click();
-
-    // 4. Fill payment (use Stripe test card)
-    const stripeFrame = page.frameLocator('iframe[name*="stripe"]');
-    await stripeFrame.getByPlaceholder('Card number').fill('4242424242424242');
-    await stripeFrame.getByPlaceholder('MM / YY').fill('12/30');
-    await stripeFrame.getByPlaceholder('CVC').fill('123');
-
-    // 5. Complete purchase
-    await page.getByRole('button', { name: 'Pay now' }).click();
-
-    // 6. Verify success
-    await expect(page).toHaveURL(/.*success/);
-    await expect(page.getByRole('heading', { name: 'Thank you' })).toBeVisible();
-  });
-});
-```
-
----
-
-## Assertions
-
-### Web-First Assertions (Auto-Wait)
-
-```typescript
-// ✅ These wait and retry automatically
-await expect(page.getByRole('button')).toBeVisible();
+// Wait for element state (prefer assertions)
+await expect(page.getByText('Success')).toBeVisible();
 await expect(page.getByRole('button')).toBeEnabled();
-await expect(page.getByRole('button')).toHaveText('Submit');
-await expect(page).toHaveURL('/dashboard');
-await expect(page).toHaveTitle(/Dashboard/);
+await expect(page.getByRole('list')).not.toBeEmpty();
 
-// ❌ Avoid manual waits
-await page.waitForTimeout(3000);  // NEVER do this
+// Wait for navigation
+await page.waitForURL('**/dashboard');
+await page.waitForURL(url => url.searchParams.has('token'));
+
+// Wait for API response (useful for loading states)
+await page.getByRole('button', { name: 'Load data' }).click();
+await page.waitForResponse(resp =>
+    resp.url().includes('/api/data') && resp.status() === 200
+);
+
+// Wait for network idle (use sparingly - can be slow)
+await page.waitForLoadState('networkidle');
+
+// Wait for specific request to complete before asserting
+const responsePromise = page.waitForResponse('/api/users');
+await page.getByRole('button', { name: 'Refresh' }).click();
+await responsePromise;
+await expect(page.getByRole('list')).toContainText('John');
+
+// Promise.all pattern - click and wait simultaneously
+await Promise.all([
+    page.waitForResponse(resp => resp.url().includes('/api/data')),
+    page.getByRole('button', { name: 'Submit' }).click()
+]);
+```
+
+### Waiting Anti-patterns
+
+| Bad | Why | Good |
+|-----|-----|------|
+| `waitForTimeout(2000)` | Arbitrary, slow, still flaky | Wait for specific condition |
+| `waitForTimeout(100)` in loop | Polling manually | Use `expect` with auto-retry |
+| `waitForLoadState('networkidle')` everywhere | Slow, unreliable with polling | Wait for specific response |
+| No wait + immediate assert | Race condition | `expect` auto-retries assertions |
+
+### Assertion Auto-Retry
+
+Playwright assertions auto-retry until timeout. Use this instead of manual waits:
+
+```typescript
+// BAD: manual wait then check
+await page.waitForTimeout(1000);
+const text = await page.getByTestId('status').textContent();
+expect(text).toBe('Complete');
+
+// GOOD: auto-retrying assertion
+await expect(page.getByText('Complete')).toBeVisible();
 ```
 
 ### Soft Assertions
 
-```typescript
-// Continue test even if assertion fails
-await expect.soft(page.getByTestId('price')).toHaveText('$29.99');
-await expect.soft(page.getByTestId('stock')).toHaveText('In Stock');
-
-// Fail at end if any soft assertions failed
-```
-
-### Common Assertions
+Use `expect.soft()` to continue testing after assertion failure (collect multiple failures):
 
 ```typescript
-// Visibility
-await expect(locator).toBeVisible();
-await expect(locator).toBeHidden();
-await expect(locator).toBeAttached();
+test('validates all form fields', async ({ page }) => {
+    await page.goto('/profile');
 
-// Text content
-await expect(locator).toHaveText('exact text');
-await expect(locator).toContainText('partial');
-await expect(locator).toHaveValue('input value');
+    // Soft assertions don't stop the test - useful for checking multiple things
+    await expect.soft(page.getByLabel('Name')).toHaveValue('John');
+    await expect.soft(page.getByLabel('Email')).toHaveValue('john@example.com');
+    await expect.soft(page.getByLabel('Phone')).toHaveValue('555-1234');
 
-// State
-await expect(locator).toBeEnabled();
-await expect(locator).toBeDisabled();
-await expect(locator).toBeChecked();
-await expect(locator).toBeFocused();
-
-// Count
-await expect(locator).toHaveCount(5);
-
-// Page
-await expect(page).toHaveURL('/dashboard');
-await expect(page).toHaveTitle('Dashboard | App');
-await expect(page).toHaveScreenshot('dashboard.png');
-```
-
----
-
-## Mocking & Network
-
-### Mock API Responses
-
-```typescript
-test('shows error when API fails', async ({ page }) => {
-  // Mock API to return error
-  await page.route('**/api/users', (route) => {
-    route.fulfill({
-      status: 500,
-      body: JSON.stringify({ error: 'Server error' }),
-    });
-  });
-
-  await page.goto('/users');
-  await expect(page.getByText('Failed to load users')).toBeVisible();
-});
-
-test('displays user data from API', async ({ page }) => {
-  // Mock successful response
-  await page.route('**/api/users', (route) => {
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify([
-        { id: 1, name: 'John Doe', email: 'john@example.com' },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
-      ]),
-    });
-  });
-
-  await page.goto('/users');
-  await expect(page.getByText('John Doe')).toBeVisible();
-  await expect(page.getByText('Jane Doe')).toBeVisible();
+    // Test continues even if some assertions fail
+    // All failures reported at end
 });
 ```
 
-### Wait for API Calls
+### Handling Overlays and Popups
+
+Use `addLocatorHandler` when overlays might interfere with test actions:
 
 ```typescript
-test('submits form and shows success', async ({ page }) => {
-  await page.goto('/contact');
+// Setup handler for cookie consent popup
+await page.addLocatorHandler(
+    page.getByRole('dialog', { name: 'Cookie consent' }),
+    async () => {
+        await page.getByRole('button', { name: 'Accept' }).click();
+    }
+);
 
-  // Fill form
-  await page.getByLabel('Name').fill('John');
-  await page.getByLabel('Email').fill('john@example.com');
-  await page.getByLabel('Message').fill('Hello!');
-
-  // Wait for API call on submit
-  const responsePromise = page.waitForResponse('**/api/contact');
-  await page.getByRole('button', { name: 'Send' }).click();
-
-  const response = await responsePromise;
-  expect(response.status()).toBe(200);
-
-  await expect(page.getByText('Message sent!')).toBeVisible();
-});
+// Now write test normally - handler auto-dismisses popup if it appears
+await page.goto('/dashboard');
+await page.getByRole('button', { name: 'Settings' }).click();
 ```
 
----
+## Test Structure
 
-## Visual Testing
+For page objects, fixtures, and test organization, see [reference/structure.md](reference/structure.md).
+
+**Quick tips:**
+- Page objects encapsulate interactions, not assertions
+- Fixtures handle common setup/teardown
+- One behavior per test
+- Use `test.describe` for grouping related tests
+
+## Performance
+
+For parallel execution, auth optimization, and API shortcuts, see [reference/performance.md](reference/performance.md).
+
+**Quick tips:**
+- Reuse auth state via `storageState`
+- Create test data via API, not UI
+- Use `fullyParallel: true`
+- Avoid `waitForLoadState('networkidle')`
+
+## Debugging
+
+For debug mode, traces, and common scenarios, see [reference/debugging.md](reference/debugging.md).
+
+**Quick tips:**
+- `npx playwright test --debug` for local debugging
+- View traces for CI failures: `npx playwright show-trace trace.zip`
+- Use `await page.pause()` to stop and inspect
+
+## CI Configuration
+
+For GitHub Actions, sharding, and CI-specific config, see [reference/ci.md](reference/ci.md).
+
+**Quick tips:**
+- `forbidOnly: !!process.env.CI` prevents test.only in CI
+- `retries: 2` for CI to handle transient failures
+- Upload artifacts for debugging failures
+
+## Quality Checklist
+
+**Create TodoWrite items for each applicable check before finalizing tests.**
+
+### Layer 1: Reliable (No Flakes)
+
+- [ ] No `waitForTimeout()` calls - using condition-based waits
+- [ ] Assertions use `expect()` with auto-retry, not manual checks
+- [ ] Tests are independent - no shared state between tests
+- [ ] Waiting for specific API responses, not `networkidle`
+- [ ] Locators are specific enough (single element match)
+- [ ] Tests pass consistently (run 5x locally before committing)
+
+### Layer 2: Fast
+
+- [ ] Authentication reused via `storageState`
+- [ ] Test data created via API, not UI
+- [ ] Tests run in parallel (`fullyParallel: true`)
+- [ ] No unnecessary `waitForLoadState('networkidle')`
+- [ ] Heavy setup in fixtures, not repeated per test
+- [ ] Sharding configured for large test suites
+
+### Layer 3: Maintainable
+
+- [ ] Locators use roles/labels, not CSS selectors
+- [ ] Page objects encapsulate interactions
+- [ ] Test names describe user action + expected outcome
+- [ ] One behavior per test - not testing multiple things
+- [ ] Fixtures handle common setup/teardown
+- [ ] No magic strings - constants for repeated values
+
+## Common Patterns Reference
+
+| Need | Pattern |
+|------|---------|
+| Authenticated user | `storageState` fixture |
+| Test data setup | API calls in `beforeEach` or fixture |
+| Wait for data load | `waitForResponse('/api/...')` |
+| Click + wait for response | `Promise.all([waitForResponse(...), click()])` |
+| Multiple similar tests | `test.describe` + parameterized data |
+| Slow operation | Increase timeout for specific test |
+| Modal/dialog | `getByRole('dialog')` then scope within |
+| Dropdown selection | `getByRole('combobox').selectOption()` |
+| File upload | `setInputFiles()` on file input |
+| Hover menu | `locator.hover()` then click revealed item |
+| Drag and drop | `locator.dragTo(target)` |
+| iframes | `frameLocator()` then scope within |
+| New tab/window | `page.waitForEvent('popup')` |
+| Multiple matches | `.first()`, `.last()`, `.nth(n)`, `.filter()` |
+| Check multiple things | `expect.soft()` for non-blocking assertions |
+| Dismiss popups/overlays | `addLocatorHandler()` |
+
+## When to Add data-testid
+
+Use `data-testid` as escape hatch when:
+
+- Element has no semantic role (decorative container)
+- Dynamic content with no stable text (generated IDs, prices)
+- Multiple identical elements where position matters
+- Third-party components without accessible markup
 
 ```typescript
-// Full page screenshot
-await expect(page).toHaveScreenshot('homepage.png');
+// Acceptable: price that changes dynamically
+<span data-testid="cart-total">{formatCurrency(total)}</span>
+page.getByTestId('cart-total')
 
-// Element screenshot
-await expect(page.getByTestId('chart')).toHaveScreenshot('chart.png');
-
-// With options
-await expect(page).toHaveScreenshot('dashboard.png', {
-  maxDiffPixels: 100,
-  mask: [page.getByTestId('timestamp')], // Ignore dynamic content
-});
+// Still prefer scoping with semantic locators
+page.getByRole('region', { name: 'Cart' }).getByTestId('total')
 ```
 
----
-
-## CI/CD Integration
-
-### GitHub Actions
-
-```yaml
-# .github/workflows/e2e.yml
-name: E2E Tests
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: Run E2E tests
-        run: npx playwright test --project=chromium
-        env:
-          BASE_URL: ${{ secrets.STAGING_URL }}
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
-
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
-```
-
-### Run Specific Tests
+## Quick Reference Commands
 
 ```bash
 # Run all tests
 npx playwright test
 
 # Run specific file
-npx playwright test e2e/tests/auth.spec.ts
+npx playwright test login.spec.ts
 
-# Run tests with tag
-npx playwright test --grep @critical
+# Run tests matching name
+npx playwright test -g "login"
 
-# Run in headed mode (debug)
+# Run in headed mode
 npx playwright test --headed
 
-# Run specific browser
-npx playwright test --project=chromium
-
-# Debug mode
+# Debug mode with inspector
 npx playwright test --debug
 
-# Show HTML report
-npx playwright show-report
-```
+# Update snapshots
+npx playwright test --update-snapshots
 
----
-
-## Test Data
-
-### Factories
-
-```typescript
-// e2e/utils/test-data.ts
-import { faker } from '@faker-js/faker';
-
-export const createUser = (overrides = {}) => ({
-  email: faker.internet.email(),
-  password: faker.internet.password({ length: 12 }),
-  name: faker.person.fullName(),
-  ...overrides,
-});
-
-export const createProduct = (overrides = {}) => ({
-  name: faker.commerce.productName(),
-  price: faker.commerce.price({ min: 10, max: 100 }),
-  description: faker.commerce.productDescription(),
-  ...overrides,
-});
-```
-
-### Environment Variables
-
-```bash
-# .env.test
-BASE_URL=http://localhost:3000
-TEST_USER_EMAIL=test@example.com
-TEST_USER_PASSWORD=testpassword123
-```
-
----
-
-## Debugging
-
-### Trace Viewer
-
-```typescript
-// Enable in config for failures
-use: {
-  trace: 'on-first-retry',
-}
-
-// View traces
-npx playwright show-trace trace.zip
-```
-
-### Debug Mode
-
-```bash
-# Step through test
-npx playwright test --debug
-
-# Pause at specific point
-await page.pause();  // In test code
-```
-
-### VS Code Extension
-
-Install "Playwright Test for VS Code" for:
-- Run tests from editor
-- Debug with breakpoints
-- Pick locators visually
-- Watch mode
-
----
-
-## Dead Link Detection (REQUIRED)
-
-**Every project MUST include dead link detection tests.** Run these on every deployment.
-
-### Link Validator Test
-
-```typescript
-// e2e/tests/links.spec.ts
-import { test, expect } from '@playwright/test';
-
-const PAGES_TO_CHECK = ['/', '/about', '/pricing', '/blog', '/contact'];
-
-test.describe('Dead Link Detection', () => {
-  for (const pagePath of PAGES_TO_CHECK) {
-    test(`no dead links on ${pagePath}`, async ({ page, request }) => {
-      await page.goto(pagePath);
-
-      // Get all links on the page
-      const links = await page.locator('a[href]').all();
-      const hrefs = await Promise.all(
-        links.map(link => link.getAttribute('href'))
-      );
-
-      // Filter to internal and absolute external links
-      const uniqueLinks = [...new Set(hrefs.filter(Boolean))] as string[];
-
-      for (const href of uniqueLinks) {
-        // Skip mailto, tel, and anchor links
-        if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) {
-          continue;
-        }
-
-        // Build full URL
-        const url = href.startsWith('http') ? href : new URL(href, page.url()).href;
-
-        // Check link status
-        const response = await request.get(url, {
-          timeout: 10000,
-          ignoreHTTPSErrors: true,
-        });
-
-        expect(
-          response.ok(),
-          `Dead link found on ${pagePath}: ${href} returned ${response.status()}`
-        ).toBeTruthy();
-      }
-    });
-  }
-});
-```
-
-### Comprehensive Link Crawler
-
-```typescript
-// e2e/tests/site-links.spec.ts
-import { test, expect, Page, APIRequestContext } from '@playwright/test';
-
-interface LinkResult {
-  url: string;
-  status: number;
-  foundOn: string;
-}
-
-async function checkAllLinks(
-  page: Page,
-  request: APIRequestContext,
-  startUrl: string
-): Promise<LinkResult[]> {
-  const visited = new Set<string>();
-  const results: LinkResult[] = [];
-  const toVisit = [startUrl];
-  const baseUrl = new URL(startUrl).origin;
-
-  while (toVisit.length > 0) {
-    const currentUrl = toVisit.pop()!;
-    if (visited.has(currentUrl)) continue;
-    visited.add(currentUrl);
-
-    try {
-      await page.goto(currentUrl);
-      const links = await page.locator('a[href]').all();
-
-      for (const link of links) {
-        const href = await link.getAttribute('href');
-        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) {
-          continue;
-        }
-
-        const fullUrl = href.startsWith('http') ? href : new URL(href, currentUrl).href;
-
-        // Check link
-        const response = await request.get(fullUrl, {
-          timeout: 10000,
-          ignoreHTTPSErrors: true,
-        });
-
-        results.push({
-          url: fullUrl,
-          status: response.status(),
-          foundOn: currentUrl,
-        });
-
-        // Add internal links to queue
-        if (fullUrl.startsWith(baseUrl) && !visited.has(fullUrl)) {
-          toVisit.push(fullUrl);
-        }
-      }
-    } catch (error) {
-      results.push({
-        url: currentUrl,
-        status: 0,
-        foundOn: 'navigation',
-      });
-    }
-  }
-
-  return results;
-}
-
-test('no dead links on entire site', async ({ page, request, baseURL }) => {
-  const results = await checkAllLinks(page, request, baseURL!);
-  const deadLinks = results.filter(r => r.status >= 400 || r.status === 0);
-
-  if (deadLinks.length > 0) {
-    console.error('Dead links found:');
-    deadLinks.forEach(link => {
-      console.error(`  ${link.url} (${link.status}) - found on ${link.foundOn}`);
-    });
-  }
-
-  expect(deadLinks, `Found ${deadLinks.length} dead links`).toHaveLength(0);
-});
-```
-
-### Image Link Validation
-
-```typescript
-// e2e/tests/images.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('no broken images on homepage', async ({ page, request }) => {
-  await page.goto('/');
-
-  const images = await page.locator('img[src]').all();
-
-  for (const img of images) {
-    const src = await img.getAttribute('src');
-    if (!src) continue;
-
-    const url = src.startsWith('http') ? src : new URL(src, page.url()).href;
-
-    // Skip data URLs
-    if (url.startsWith('data:')) continue;
-
-    const response = await request.get(url);
-    expect(
-      response.ok(),
-      `Broken image: ${src}`
-    ).toBeTruthy();
-
-    // Verify it's actually an image
-    const contentType = response.headers()['content-type'];
-    expect(
-      contentType?.startsWith('image/'),
-      `${src} is not an image (${contentType})`
-    ).toBeTruthy();
-  }
-});
-```
-
-### CI Integration for Link Checking
-
-```yaml
-# .github/workflows/link-check.yml
-name: Link Check
-
-on:
-  schedule:
-    - cron: '0 6 * * 1'  # Weekly on Monday
-  push:
-    branches: [main]
-
-jobs:
-  link-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npx playwright install chromium
-      - run: npx playwright test e2e/tests/links.spec.ts --project=chromium
-        env:
-          BASE_URL: ${{ secrets.PRODUCTION_URL }}
-```
-
----
-
-## Anti-Patterns
-
-- **Hardcoded waits** - Use auto-waiting assertions instead
-- **CSS/XPath selectors** - Use role/text/testid locators
-- **Testing third-party sites** - Mock external dependencies
-- **Shared state between tests** - Each test must be isolated
-- **Missing awaits** - Use ESLint rule `no-floating-promises`
-- **Flaky time-based tests** - Mock dates/times
-- **Testing implementation details** - Test user-visible behavior
-- **Huge test files** - Split by feature/page
-
----
-
-## Quick Reference
-
-```bash
-# Install
-npm init playwright@latest
-
-# Run tests
-npx playwright test
-npx playwright test --headed
-npx playwright test --project=chromium
-npx playwright test --grep @smoke
-
-# Debug
-npx playwright test --debug
-npx playwright show-report
-npx playwright show-trace trace.zip
-
-# Generate tests
+# Generate test from recording
 npx playwright codegen localhost:3000
-```
 
-### Package.json Scripts
-
-```json
-{
-  "scripts": {
-    "test:e2e": "playwright test",
-    "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug",
-    "test:e2e:report": "playwright show-report",
-    "test:e2e:codegen": "playwright codegen"
-  }
-}
+# Show last HTML report
+npx playwright show-report
 ```

@@ -1,0 +1,19 @@
+{
+  "category": "test",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.245159Z",
+  "skills": [
+    {
+      "name": "test-skill",
+      "description": "Valid skills element",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "skills/skill.md",
+      "branch": "main",
+      "category": "test",
+      "tags": [],
+      "stars": 1,
+      "install": "mickdarling/dollhouse-portfolio/skills/skill.md",
+      "source": "github.com/mickdarling/dollhouse-portfolio"
+    }
+  ]
+}

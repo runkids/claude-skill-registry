@@ -1,13 +1,9 @@
 {
   "name": "azure-messaging-webpubsub-java",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-messaging-webpubsub-java",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-messaging-webpubsub-java/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:47.181489Z",
   "dir_name": "azure-messaging-webpubsub-java",
-  "downloaded_at": "2026-02-05T01:44:52.586937Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "scvi-tools",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/scvi-tools/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-02T04:36:34.326067Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/scvi-tools/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-29T07:27:43.483728Z",
+  "dir_name": "scvi-tools",
+  "category": "data"
 }

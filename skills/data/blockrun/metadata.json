@@ -1,7 +1,9 @@
 {
   "name": "blockrun",
-  "repo": "claudiodearaujo/IzaCenter",
-  "path": ".claude/skills/blockrun/SKILL.md",
-  "source": "github.com/claudiodearaujo/IzaCenter",
-  "downloaded_at": "2026-02-02T04:54:07.635852Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/blockrun/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T08:59:57.489095Z",
+  "dir_name": "blockrun",
+  "category": "data"
 }

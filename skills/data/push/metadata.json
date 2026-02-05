@@ -1,7 +1,9 @@
 {
   "name": "push",
-  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
-  "path": ".claude/skills/github-specialist/push/SKILL.md",
-  "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
-  "downloaded_at": "2026-02-02T05:03:34.808932Z"
+  "repo": "sasamuku/dotfiles",
+  "path": ".claude/skills/push/SKILL.md",
+  "source": "github.com/sasamuku/dotfiles",
+  "downloaded_at": "2026-01-29T08:44:13.501387Z",
+  "dir_name": "push",
+  "category": "data"
 }

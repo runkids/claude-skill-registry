@@ -1,13 +1,9 @@
 {
   "name": "policy-document-parser",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/toolathlon/policy-document-parser/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/toolathlon/policy-document-parser",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:44.619681Z",
   "dir_name": "policy-document-parser",
-  "downloaded_at": "2026-02-05T01:44:59.167820Z"
+  "category": "data"
 }

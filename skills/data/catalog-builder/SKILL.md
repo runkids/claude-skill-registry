@@ -1401,47 +1401,15 @@ echo "  3. Create PR: git push origin $current_branch && gh pr create --fill"
 
 Q: What is the path to your Showroom repository?
 
-   💡 TIP: Use local paths to avoid GitHub API rate limits
-
-   If you provide a GitHub URL, I'll need to clone it first.
-   Local paths are faster and don't hit GitHub rate limits.
+   Just provide the path or URL - I'll use it as-is.
+   Press Enter to use current directory.
 
    Examples:
-   - /Users/you/work/my-workshop-showroom (Recommended - local path)
-   - ~/work/showroom-content/my-workshop (Recommended - local path)
+   - /Users/you/work/my-workshop-showroom
+   - https://github.com/rhpds/my-workshop-showroom
    - . (current directory)
-   - https://github.com/rhpds/my-workshop-showroom (Will clone locally first)
 
 Path:
-```
-
-**If user provides GitHub URL:**
-```
-⚠️  GitHub URL Detected
-
-You provided: <github-url>
-
-GitHub API rate limits can cause issues. I'll clone this repository locally first.
-
-Clone to: /tmp/showroom-<random>/
-
-Proceed? [Y/n]
-```
-
-**If Yes:**
-```bash
-temp_dir=$(mktemp -d "/tmp/showroom-XXXXX")
-git clone <github-url> "$temp_dir"
-
-# Use temp_dir as path for rest of workflow
-path="$temp_dir"
-```
-
-**If No:**
-```
-Q: Please provide a local path to your Showroom repository instead:
-
-Local path:
 ```
 
 **Validate:**
@@ -1642,18 +1610,9 @@ author_email="$author_email_input"
 
 **Only run this step if HAS_SHOWROOM=true (skip if manual entry)**
 
-**IMPORTANT: Read ALL modules locally from filesystem to avoid GitHub rate limits**
-
-GitHub API can hit rate limits when fetching files. Instead, we read all modules directly from the local filesystem, which is:
-- ✅ Faster (no network calls)
-- ✅ No rate limits
-- ✅ Works offline
-- ✅ Reads ALL modules comprehensively
-
 **Read ALL modules and extract comprehensive information:**
 ```bash
-# Get ALL modules from local filesystem (ensure we don't miss any)
-# This reads files directly - NO GitHub API calls, NO rate limits
+# Get ALL modules (ensure we don't miss any)
 modules=$(find "$path/content/modules/ROOT/pages" -type f -name "*.adoc" \
   -not -name "index.adoc" \
   -not -name "*nav.adoc" \
@@ -1675,11 +1634,9 @@ done <<< "$modules"
 
 # Read ALL modules for comprehensive content extraction
 echo ""
-echo "📖 Analyzing all module content from local files..."
-echo "   (Reading from filesystem - no GitHub API, no rate limits)"
+echo "📖 Analyzing all module content..."
 
-# Combine all module content from local files (excluding index/nav)
-# Direct file reading - fast, no network, no API limits
+# Combine all module content (excluding index/nav)
 all_content=$(cat "$path/content/modules/ROOT/pages"/*.adoc 2>/dev/null | grep -v "^include::" | grep -v "^::")
 
 # Extract overview from index.adoc first
@@ -1723,8 +1680,8 @@ else
 fi
 
 echo ""
-echo "📊 Extracted from ALL modules (read from local filesystem):"
-echo "  ✓ Modules analyzed: $module_count (all read locally - no GitHub API used)"
+echo "📊 Extracted from ALL modules:"
+echo "  ✓ Modules analyzed: $module_count"
 echo "  ✓ Module titles:"
 for title in "${module_titles[@]}"; do
   echo "    - $title"
@@ -1757,7 +1714,7 @@ fi
 ```
 📝 Description Content Review
 
-I've read ALL $module_count modules locally (from filesystem - no GitHub API, no rate limits) and extracted the following:
+I've read ALL $module_count modules and extracted the following:
 
 Module Structure:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

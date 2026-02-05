@@ -1,0 +1,19 @@
+{
+  "category": "specialized",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.240998Z",
+  "skills": [
+    {
+      "name": "reviewer-agent",
+      "description": "Code review and audit agent for pull requests and code quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "skills/development/reviewer-agent/SKILL.md",
+      "branch": "main",
+      "category": "specialized",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry/skills/development/reviewer-agent/SKILL.md",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

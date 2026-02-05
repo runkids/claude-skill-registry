@@ -1,7 +1,9 @@
 {
   "name": "effect-streams-pipelines",
-  "repo": "mepuka/effect-ontology",
+  "repo": "mepuka/crate",
   "path": ".claude/skills/effect-streams-pipelines/SKILL.md",
-  "source": "github.com/mepuka/effect-ontology",
-  "downloaded_at": "2026-02-02T04:44:30.527112Z"
+  "source": "github.com/mepuka/crate",
+  "downloaded_at": "2026-01-29T07:39:32.901657Z",
+  "dir_name": "effect-streams-pipelines",
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "ts-agent-sdk",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/ts-agent-sdk/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-02-02T04:19:19.501408Z"
+  "repo": "dennislee928/Smart_Zone",
+  "path": ".claude/skills/ts-agent-sdk/SKILL.md",
+  "source": "github.com/dennislee928/Smart_Zone",
+  "downloaded_at": "2026-01-29T08:39:26.304516Z",
+  "dir_name": "ts-agent-sdk",
+  "category": "data"
 }

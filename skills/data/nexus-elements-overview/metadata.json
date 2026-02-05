@@ -1,13 +1,9 @@
 {
   "name": "nexus-elements-overview",
-  "description": "",
   "repo": "availproject/nexus-elements",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/nexus-elements-overview/SKILL.md",
   "source": "github.com/availproject/nexus-elements",
-  "github_path": "skills/nexus-elements-overview",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:06:32.653740Z",
   "dir_name": "nexus-elements-overview",
-  "downloaded_at": "2026-02-05T01:44:59.732212Z"
+  "category": "data"
 }

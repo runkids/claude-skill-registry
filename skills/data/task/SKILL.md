@@ -1,94 +1,62 @@
 ---
 name: task
-description: Quick task creation for MASTER_PLAN.md with auto-generated IDs. This skill should be used when the user wants to add a new task, bug, feature, or inquiry to the project's master plan. Triggers on "/task", "add task", "new task", "create task", "track this", "investigate".
+description: Manage Contextium tasks - create, update, complete, and list tasks
+allowed-tools: Bash, Read, Write, Edit
+argument-hint: [create|complete|list|status] [task-id]
 ---
 
-# Task Creator
+# Task Management
 
-Quickly add new tasks to `docs/MASTER_PLAN.md` with automatic ID generation.
+Manage tasks in `.contextium/tasks.json`.
+
+## Commands
+
+Based on `$ARGUMENTS`:
+
+### `task create <id> <description>`
+Create a new task:
+```bash
+# Read current tasks
+cat .contextium/tasks.json
+
+# Add new task using jq (or edit manually)
+```
+
+### `task complete <id>`
+Mark a task as completed.
+
+### `task list`
+Show all tasks and their status.
+
+### `task status`
+Show current task and progress summary.
+
+## Task Structure
+
+Each task in `tasks.json`:
+```json
+{
+  "id": "unique-task-id",
+  "description": "What needs to be done",
+  "status": "pending|in_progress|completed",
+  "priority": "low|normal|high",
+  "scope": ["src/path/*", "tests/path/*"],
+  "dependencies": ["other-task-id"],
+  "created": "2024-01-15T10:00:00Z",
+  "completed": null
+}
+```
 
 ## Workflow
 
-### Step 1: Generate and Announce Task ID (FIRST!)
+1. **Create tasks** when starting new work
+2. **Set scope** to define which files/modules
+3. **Update status** as you work
+4. **Complete tasks** when done and verified
 
-**CRITICAL**: Before doing ANYTHING else, run the ID generator and tell the user:
+## Integration
 
-```bash
-node ./scripts/utils/get-next-task-id.cjs
-```
-
-**Immediately output to user:**
-```
-Using task number: [ID]
-```
-
-This must happen BEFORE asking any questions or gathering details.
-
-### Step 2: Gather Task Information
-
-Use `AskUserQuestion` tool to collect task details in a SINGLE question with multiple parts:
-
-**Questions to ask:**
-
-1. **Task Type** (header: "Type")
-   - `TASK` - New feature or improvement
-   - `BUG` - Bug fix
-   - `FEATURE` - Major new feature
-   - `INQUIRY` - Investigation to understand behavior, errors, or unexpected results (not a bug fix)
-
-2. **Priority** (header: "Priority")
-   - `P0` - Critical/Blocker
-   - `P1` - High priority
-   - `P2` - Medium priority (Recommended)
-   - `P3` - Low priority
-
-Then ask for the task title and optional description via the "Other" free-text option or follow-up.
-
-### Step 3: Add to MASTER_PLAN.md
-
-Read `docs/MASTER_PLAN.md` and insert the new task in the Roadmap table:
-
-```markdown
-| **[TYPE]-[ID]** | **[Title]** | **[Priority]** | IN PROGRESS | [Dependencies or -] |
-```
-
-**Example:**
-```markdown
-| **TASK-301** | **Implement Dark Mode Toggle** | **P2** | IN PROGRESS | - |
-```
-
-### Step 4: Add Active Work Section (P0/P1 only)
-
-For P0 or P1 tasks, also add under "## Active Work (Summary)":
-
-```markdown
-### [TYPE]-[ID]: [Title] (IN PROGRESS)
-**Priority**: [Priority]
-**Status**: IN PROGRESS (YYYY-MM-DD)
-
-[Description from user]
-
-**Tasks**:
-- [ ] [First step]
-- [ ] [Additional steps as needed]
-```
-
-### Step 5: Confirm
-
-Report to user:
-```
-Task added to MASTER_PLAN.md:
-- ID: [TYPE]-[ID]
-- Title: [Title]
-- Priority: [Priority]
-- Status: IN PROGRESS
-
-Ready to begin work.
-```
-
-## Important Rules
-
-- **NEVER reuse existing task IDs** - Always run get-next-task-id.cjs first
-- **Use strikethrough** (~~ID~~) only when marking tasks DONE
-- **Keep titles concise** - Under 50 characters when possible
-- **P0 tasks always need** an Active Work section
+Tasks integrate with:
+- **Task Determiner** - Selects next task automatically
+- **Context Fetcher** - Loads context based on task scope
+- **Harness Pattern** - Works with `claude-progress.txt`

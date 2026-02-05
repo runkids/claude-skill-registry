@@ -1,13 +1,9 @@
 {
   "name": "api-new",
-  "description": "",
   "repo": "gpaura/claude_plugins",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/api-new/SKILL.md",
   "source": "github.com/gpaura/claude_plugins",
-  "github_path": "skills/api-new",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:13:46.887876Z",
   "dir_name": "api-new",
-  "downloaded_at": "2026-02-05T01:44:19.721627Z"
+  "category": "data"
 }

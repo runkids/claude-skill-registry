@@ -1,13 +1,9 @@
 {
   "name": "idea-brainstorm",
-  "description": "",
   "repo": "elsolal/Skillz-Claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/idea-brainstorm/SKILL.md",
   "source": "github.com/elsolal/Skillz-Claude",
-  "github_path": ".claude/skills/idea-brainstorm",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:28:05.931059Z",
   "dir_name": "idea-brainstorm",
-  "downloaded_at": "2026-02-05T01:45:01.856474Z"
+  "category": "data"
 }

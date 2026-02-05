@@ -1,7 +1,9 @@
 {
   "name": "using-git-worktrees",
-  "repo": "alexanderop/second-brain-nuxt",
-  "path": ".claude/skills/using-git-worktrees/SKILL.md",
-  "source": "github.com/alexanderop/second-brain-nuxt",
-  "downloaded_at": "2026-02-02T05:13:08.004602Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/superpowers-collaboration/using-git-worktrees/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:09.534977Z",
+  "dir_name": "using-git-worktrees",
+  "category": "data"
 }

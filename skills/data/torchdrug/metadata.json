@@ -1,7 +1,9 @@
 {
   "name": "torchdrug",
-  "repo": "ricable/ultimate-ai-agent",
-  "path": "sources/ricable/claude-scientific-skills/scientific-skills/torchdrug/SKILL.md",
-  "source": "github.com/ricable/ultimate-ai-agent",
-  "downloaded_at": "2026-02-02T04:13:05.769422Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/torchdrug/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:18.464548Z",
+  "dir_name": "torchdrug",
+  "category": "data"
 }

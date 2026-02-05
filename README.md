@@ -1,10 +1,10 @@
 # Claude Skills Registry
 
 > **Notice (2026‑02‑05):** Split in progress — **main repo stays full** (scripts + complete skills archive).  
-> **Core repo (index + site):** https://github.com/majiayu000/claude-skill-registry-core  
-> **Data repo (dedup archive):** https://github.com/majiayu000/claude-skill-registry-data  
-> **Counts (2026‑02‑05):** main repo **104,172** `SKILL.md` files (统一到 `skills/data`); data repo **74,219**.  
-> **Why not ~90k?** the ~90k number came from index/registry entries + legacy duplicates, not a 1:1 count of archived files.
+> **Core repo (logic + index + site):** https://github.com/majiayu000/claude-skill-registry-core  
+> **Data repo (skills archive):** https://github.com/majiayu000/claude-skill-registry-data  
+> **Counts (2026‑02‑05):** main repo **162,168** `SKILL.md` files (`skills/{category}`); data repo **162,168** (visible).  
+> **Layout:** `skills/{category}/{name}` with conflicts as `{name}-{owner}-{repo}`.
 
 <p align="center">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmajiayu000.github.io%2Fclaude-skill-registry-core%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
@@ -122,8 +122,8 @@ interface SkillMini {
 ## Split Layout (Current)
 
 ```
-claude-skill-registry/           # Entry point (this repo)
-claude-skill-registry-core/      # registry.json + docs/ + scripts/
+claude-skill-registry/           # Entry point (this repo, merged artifact)
+claude-skill-registry-core/      # scripts + index + site
 claude-skill-registry-data/      # <category>/<skill>/SKILL.md
 ```
 
@@ -153,7 +153,7 @@ Category counts are published in the core index (`categories/*.json`). Here are 
 ### Current Status
 
 - [x] **Index count** tracked by the badge (core `registry.json`)
-- [x] **Archive size:** 74,213 `SKILL.md` files (data repo, 2026‑02‑05)
+- [x] **Archive size:** 162,168 `SKILL.md` files (data repo, 2026‑02‑05)
 - [x] **Daily auto-update** via GitHub Actions
 - [x] **Security scanning** for all skills
 - [x] **sk CLI** for installation

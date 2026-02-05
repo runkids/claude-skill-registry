@@ -1,7 +1,9 @@
 {
   "name": "cobrapy",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/cobrapy/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-02-02T04:19:13.752671Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/cobrapy/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:17.330184Z",
+  "dir_name": "cobrapy",
+  "category": "data"
 }

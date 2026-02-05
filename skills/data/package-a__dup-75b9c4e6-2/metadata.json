@@ -1,9 +1,0 @@
-{
-  "name": "package-a",
-  "repo": "netresearch/composer-agent-skill-plugin",
-  "path": "tests/Fixtures/duplicate-names/package-a/SKILL.md",
-  "source": "github.com/netresearch/composer-agent-skill-plugin",
-  "downloaded_at": "2026-01-29T08:57:07.726864Z",
-  "dir_name": "package-a__dup-75b9c4e6-2",
-  "category": "other"
-}

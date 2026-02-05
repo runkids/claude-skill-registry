@@ -1,13 +1,9 @@
 {
   "name": "codex-readiness-unit-test",
-  "description": "",
   "repo": "openai/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/.experimental/codex-readiness-unit-test/SKILL.md",
   "source": "github.com/openai/skills",
-  "github_path": "skills/.experimental/codex-readiness-unit-test",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:04:49.375557Z",
   "dir_name": "codex-readiness-unit-test",
-  "downloaded_at": "2026-02-05T01:45:09.651731Z"
+  "category": "data"
 }

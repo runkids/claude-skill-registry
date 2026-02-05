@@ -1,13 +1,9 @@
 {
   "name": "azure-security-keyvault-secrets-java",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-security-keyvault-secrets-java",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-security-keyvault-secrets-java/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:53.846666Z",
   "dir_name": "azure-security-keyvault-secrets-java",
-  "downloaded_at": "2026-02-05T01:44:52.461012Z"
+  "category": "data"
 }

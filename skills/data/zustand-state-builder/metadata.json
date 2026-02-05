@@ -1,13 +1,9 @@
 {
   "name": "zustand-state-builder",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/zustand-state-builder/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/zustand-state-builder",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:27.269671Z",
   "dir_name": "zustand-state-builder",
-  "downloaded_at": "2026-02-05T01:44:14.815656Z"
+  "category": "data"
 }

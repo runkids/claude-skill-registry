@@ -1,147 +1,91 @@
 ---
 name: parallel-task
 description: >
-  Only to be triggered by explicit /parallel-task commands. 
+  복잡한 작업을 depth 분석 후 병렬 서브에이전트로 분해하여 실행.
+  대규모 탐색, 다중 파일 분석, 리서치 작업 시 사용.
+  "병렬로", "동시에", "여러 개를" 키워드 시 자동 활성화.
 ---
 
 # Parallel Task Executor
 
-You are an Orchestrator for subagents. Use orchestration mode to parse plan files and delegate tasks to parallel subagents using task dependencies, in a loop, until all tasks are completed. Your role is to ensure that subagents are launched in the correct order (in waves), and that they complete their tasks correctly, as well as ensure the plan docs are updated with logs after each task is completed.
+복잡한 작업을 분석하여 최적의 병렬 실행 전략을 결정하고, 서브에이전트로 위임합니다.
 
-## Process
-
-### Step 1: Parse Request
-
-Extract from user request:
-1. **Plan file**: The markdown plan to read
-2. **Task subset** (optional): Specific task IDs to run
-
-If no subset provided, run the full plan.
-
-### Step 2: Read & Parse Plan
-
-1. Find task subsections (e.g., `### T1:` or `### Task 1.1:`)
-2. For each task, extract:
-   - Task ID and name
-   - **depends_on** list (from `- **depends_on**: [...]`)
-   - Full content (description, location, acceptance criteria, validation)
-3. Build task list
-4. If a task subset was requested, filter the task list to only those IDs and their required dependencies.
-
-### Step 3: Launch Subagents
-
-For each **unblocked** task, launch subagent with:
-- **description**: "Implement task [ID]: [name]"
-- **prompt**: Use template below
-
-Launch all unblocked tasks in parallel. A task is unblocked if all IDs in its depends_on list are complete.
-
-### Task Prompt Template
+## 실행 흐름
 
 ```
-You are implementing a specific task from a development plan.
-
-## Context
-- Plan: [filename]
-- Goals: [relevant overview from plan]
-- Dependencies: [prerequisites for this task]
-- Related tasks: [tasks that depend on or are depended on by this task]
-- Constraints: [risks from plan]
-
-## Your Task
-**Task [ID]: [Name]**
-
-Location: [File paths]
-Description: [Full description]
-
-Acceptance Criteria:
-[List from plan]
-
-Validation:
-[Tests or verification from plan]
-
-## Instructions
-1. Examine working plan and any relevant or dependent files
-2. Implement changes for all acceptance criteria
-3. Keep work **atomic and committable**
-4. For each file: read first, edit carefully, preserve formatting
-5. Run validation if feasible
-6. **ALWAYS mark completed tasks IN THE *-plan.md file AS SOON AS YOU COMPLETE IT!** and update with:
-    - Concise work log
-    - Files modified/created
-    - Errors or gotchas encountered
-7. Commit your work
-   - Note: There are other agents working in parallel to you, so only stage and commit the files you worked on. NEVER PUSH. ONLY COMMIT.
-8. Double Check that you updated the *-plan.md file and committed your work before yielding
-9. Return summary of:
-   - Files modified/created
-   - Changes made
-   - How criteria are satisfied
-   - Validation performed or deferred
-
-## Important
-- Be careful with paths
-- Stop and describe blockers if encountered
-- Focus on this specific task
+[요청 분석] → [Depth 판단] → [작업 분해] → [병렬 위임] → [결과 통합]
 ```
 
-Ensure that the agent marked its task complete before moving on to the next task or set of tasks.
+## 1. Depth 분석 기준
 
-### Step 4: Check and Validate.
+| Depth | 조건 | 전략 |
+|-------|------|------|
+| 0 | 단일 파일/간단한 질문 | 직접 처리 |
+| 1 | 2-5개 독립 작업 | 병렬 에이전트 1회 |
+| 2 | 각 작업이 하위 작업 포함 | 재귀적 분해 |
+| 3+ | 대규모 탐색/분석 | 단계별 병렬화 |
 
-After a wave of subagents complete their work:
-1. Inspect their outputs for correctness and completeness.
-2. Validate the results against the expected outcomes.
-3. If the task is truly completed correctly, ENSURE THAT TASK WAS MARKED COMPLETE WITH LOGS.
-4. If a task was not successful, have the agent retry or escalate the issue.
-5. Ensure that that wave of work has been committed to github before moving on to the next wave of tasks.
+## 2. 작업 분해 원칙
 
-### Step 5: Repeat
+### 분해 가능 조건
+- 작업 간 의존성 없음
+- 각 작업이 독립적으로 완료 가능
+- 결과 통합이 단순함
 
-1. Review the plan again to see what new set of unblocked tasks are available.
-2. Continue launching unblocked tasks in parallel until plan is done.
-3. Repeat the process until *all** tasks are both complete, validated, and working without errors. 
+### 분해 불가 조건
+- 순차적 의존성 (A 결과가 B 입력)
+- 공유 상태 변경
+- 트랜잭션 필요
 
-
-## Error Handling
-
-- Task subset not found: List available task IDs
-- Parse failure: Show what was tried, ask for clarification
-
-## Example Usage
+## 3. 병렬 위임 패턴
 
 ```
-/parallel-task plan.md
-/parallel-task ./plans/auth-plan.md T1 T2 T4
-/parallel-task user-profile-plan.md --tasks T3 T7
+# 독립 작업 → 동시 실행
+Task tool 호출 시:
+- 단일 메시지에 여러 Task tool 포함
+- 각 서브에이전트는 독립적으로 실행
+- model: haiku (빠른 탐색) 또는 sonnet (분석)
 ```
 
-## Execution Summary Template
+### 에이전트 선택 기준
 
-```markdown
-# Execution Summary
+| 작업 유형 | subagent_type | model |
+|----------|---------------|-------|
+| 파일 탐색 | Explore | haiku |
+| 코드 분석 | general-purpose | sonnet |
+| 계획 수립 | Plan | sonnet |
+| 단순 명령 | Bash | haiku |
 
-## Tasks Assigned: [N]
+## 4. 결과 통합
 
-### Completed
-- Task [ID]: [Name] - [Brief summary]
+각 서브에이전트 결과를 수집하여:
+1. 중복 제거
+2. 관련성 순 정렬
+3. 사용자에게 요약 제공
 
-### Issues
-- Task [ID]: [Name]
-  - Issue: [What went wrong]
-  - Resolution: [How resolved or what's needed]
+## 예제
 
-### Blocked
-- Task [ID]: [Name]
-  - Blocker: [What's preventing completion]
-  - Next Steps: [What needs to happen]
-
-## Overall Status
-[Completion summary]
-
-## Files Modified
-[List of changed files]
-
-## Next Steps
-[Recommendations]
+### 입력
 ```
+"프로젝트의 모든 API 엔드포인트를 찾아서 각각의 인증 방식을 분석해줘"
+```
+
+### Depth 분석
+- Depth 2: (1) 엔드포인트 탐색 → (2) 각 엔드포인트별 인증 분석
+
+### 실행 계획
+```
+1단계 (Depth 1): Explore 에이전트로 엔드포인트 목록 수집
+2단계 (Depth 2): 각 엔드포인트에 대해 병렬로 분석 에이전트 실행
+```
+
+## 제약 사항
+
+- 최대 동시 에이전트: 5개 권장
+- Depth 3 이상은 사용자 확인 후 진행
+- 부작용 있는 작업은 병렬화 금지
+
+## 상세 가이드
+
+- [분해 전략](references/decomposition.md) - 작업 분해 상세 패턴
+- [통합 패턴](references/aggregation.md) - 결과 통합 방법

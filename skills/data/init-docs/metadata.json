@@ -1,13 +1,9 @@
 {
   "name": "init-docs",
-  "description": "",
   "repo": "renato0307/rocha",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/init-docs/SKILL.md",
   "source": "github.com/renato0307/rocha",
-  "github_path": ".claude/skills/init-docs",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:23:04.421791Z",
   "dir_name": "init-docs",
-  "downloaded_at": "2026-02-05T01:44:16.165013Z"
+  "category": "data"
 }

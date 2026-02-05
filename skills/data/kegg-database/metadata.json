@@ -1,7 +1,9 @@
 {
   "name": "kegg-database",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/kegg-database/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-02T04:36:35.208785Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/kegg-database/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:20.475881Z",
+  "dir_name": "kegg-database",
+  "category": "data"
 }

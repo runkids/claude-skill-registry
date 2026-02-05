@@ -1,7 +1,9 @@
 {
   "name": "skill-maker",
-  "repo": "alijilani-dev/Claude",
-  "path": "skills/study_system/.claude/skills/skill-maker/SKILL.md",
-  "source": "github.com/alijilani-dev/Claude",
-  "downloaded_at": "2026-01-27T01:28:44.506100Z"
+  "repo": "plurigrid/asi",
+  "path": "ies/music-topos/.cursor/skills/skill-maker/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-29T07:42:17.770928Z",
+  "dir_name": "skill-maker",
+  "category": "data"
 }

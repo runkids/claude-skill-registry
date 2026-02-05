@@ -1,13 +1,9 @@
 {
   "name": "nexus-elements-unified-balance",
-  "description": "",
   "repo": "availproject/nexus-elements",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/nexus-elements-unified-balance/SKILL.md",
   "source": "github.com/availproject/nexus-elements",
-  "github_path": "skills/nexus-elements-unified-balance",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:06:33.532252Z",
   "dir_name": "nexus-elements-unified-balance",
-  "downloaded_at": "2026-02-05T01:44:59.734566Z"
+  "category": "data"
 }

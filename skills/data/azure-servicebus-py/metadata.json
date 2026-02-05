@@ -1,13 +1,9 @@
 {
   "name": "azure-servicebus-py",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-servicebus-py",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-servicebus-py/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:50.515316Z",
   "dir_name": "azure-servicebus-py",
-  "downloaded_at": "2026-02-05T01:44:52.442388Z"
+  "category": "data"
 }

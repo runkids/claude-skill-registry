@@ -1,7 +1,9 @@
 {
   "name": "seaborn",
-  "repo": "sanand0/scientific-research",
-  "path": ".claude/skills/seaborn/SKILL.md",
-  "source": "github.com/sanand0/scientific-research",
-  "downloaded_at": "2026-02-02T03:46:46.871022Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/seaborn/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:16.916929Z",
+  "dir_name": "seaborn",
+  "category": "data"
 }

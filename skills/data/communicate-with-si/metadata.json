@@ -1,13 +1,9 @@
 {
   "name": "communicate-with-si",
-  "description": "",
   "repo": "crystal-project-inc/personality-ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "communicate-with-si/SKILL.md",
   "source": "github.com/crystal-project-inc/personality-ai",
-  "github_path": "communicate-with-si",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:28:30.834922Z",
   "dir_name": "communicate-with-si",
-  "downloaded_at": "2026-02-05T01:44:36.411104Z"
+  "category": "data"
 }

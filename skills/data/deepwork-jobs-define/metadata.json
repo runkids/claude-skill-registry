@@ -1,9 +1,9 @@
 {
-  "name": "deepwork-jobs-define",
-  "description": "Creates a job.yml specification by gathering workflow requirements through structured questions. Use when starting a new multi-step workflow.",
-  "repo": "Unsupervisedcom/deepwork",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Unsupervisedcom/deepwork"
+  "name": "deepwork_jobs.define",
+  "repo": "ncrmro/deepwork-permanent-portfolio",
+  "path": ".claude/skills/deepwork_jobs.define/SKILL.md",
+  "source": "github.com/ncrmro/deepwork-permanent-portfolio",
+  "downloaded_at": "2026-02-02T01:32:45.439567Z",
+  "dir_name": "deepwork-jobs-define",
+  "category": "data"
 }

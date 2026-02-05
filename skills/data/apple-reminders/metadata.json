@@ -1,7 +1,9 @@
 {
   "name": "apple-reminders",
-  "repo": "yoyo99/openclaw",
-  "path": "skills/apple-reminders/SKILL.md",
-  "source": "github.com/yoyo99/openclaw",
-  "downloaded_at": "2026-02-02T05:00:29.616812Z"
+  "repo": "stericishere/Obsidian-notes",
+  "path": ".claude/skills/apple-reminders/SKILL.md",
+  "source": "github.com/stericishere/Obsidian-notes",
+  "downloaded_at": "2026-01-29T07:15:16.385943Z",
+  "dir_name": "apple-reminders",
+  "category": "data"
 }

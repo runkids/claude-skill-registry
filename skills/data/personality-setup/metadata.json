@@ -1,13 +1,9 @@
 {
   "name": "personality-setup",
-  "description": "",
   "repo": "crystal-project-inc/personality-ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "personality-setup/SKILL.md",
   "source": "github.com/crystal-project-inc/personality-ai",
-  "github_path": "personality-setup",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:28:27.487752Z",
   "dir_name": "personality-setup",
-  "downloaded_at": "2026-02-05T01:44:36.332335Z"
+  "category": "data"
 }

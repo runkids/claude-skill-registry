@@ -1,13 +1,9 @@
 {
   "name": "dogfood-skills",
-  "description": "",
   "repo": "4meta5/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/dogfood-skills/dogfood-skills/SKILL.md",
   "source": "github.com/4meta5/skills",
-  "github_path": "skills/dogfood-skills/dogfood-skills",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:56:33.061424Z",
   "dir_name": "dogfood-skills",
-  "downloaded_at": "2026-02-05T01:44:44.711680Z"
+  "category": "data"
 }

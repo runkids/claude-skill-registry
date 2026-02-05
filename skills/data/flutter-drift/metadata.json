@@ -1,13 +1,9 @@
 {
   "name": "flutter-drift",
-  "description": "",
   "repo": "MADTeacher/mad-agents-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "flutter-drift/SKILL.md",
   "source": "github.com/MADTeacher/mad-agents-skills",
-  "github_path": "flutter-drift",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:07:57.196023Z",
   "dir_name": "flutter-drift",
-  "downloaded_at": "2026-02-05T01:45:03.764615Z"
+  "category": "data"
 }

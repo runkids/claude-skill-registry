@@ -1,7 +1,9 @@
 {
   "name": "clinical-decision-support",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/clinical-decision-support/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-02-02T01:34:58.696828Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/clinical-decision-support/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-29T07:27:51.045373Z",
+  "dir_name": "clinical-decision-support",
+  "category": "data"
 }

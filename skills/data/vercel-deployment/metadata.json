@@ -1,7 +1,9 @@
 {
   "name": "vercel-deployment",
-  "repo": "MUmerRazzaq/fast-next-todo",
-  "path": ".claude/skills/vercel-deployment/SKILL.md",
-  "source": "github.com/MUmerRazzaq/fast-next-todo",
-  "downloaded_at": "2026-02-02T02:27:47.232553Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/vercel-deployment/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T08:54:53.479395Z",
+  "dir_name": "vercel-deployment",
+  "category": "data"
 }

@@ -36,10 +36,3 @@ Every `treido-*` skill should have:
 
 - Delete vendor/third-party skills from `.codex/skills` once their content is materialized into `treido-*`
 - Keep `.agents` out of the critical path (skills must not depend on junction targets)
-
-## FORBIDDEN — Never Create These Folders
-
-**DO NOT create, copy, or mirror skills to:**
-- `.agent/`, `.agents/`, `.cursor/`, `.gemini/`, `.kiro/`, `.qoder/`, `.qwen/`, `.trae/`, `.windsurf/`
-
-This repo uses `.claude/` and `.codex/` ONLY. Do not "support other AI tools" by creating their folders.

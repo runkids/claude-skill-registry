@@ -1,13 +1,9 @@
 {
   "name": "chargebee-webhooks",
-  "description": "",
   "repo": "hookdeck/webhook-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/chargebee-webhooks/SKILL.md",
   "source": "github.com/hookdeck/webhook-skills",
-  "github_path": "skills/chargebee-webhooks",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:37:11.377701Z",
   "dir_name": "chargebee-webhooks",
-  "downloaded_at": "2026-02-05T01:44:14.506138Z"
+  "category": "data"
 }

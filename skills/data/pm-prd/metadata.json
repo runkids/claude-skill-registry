@@ -1,13 +1,9 @@
 {
   "name": "pm-prd",
-  "description": "",
   "repo": "elsolal/Skillz-Claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/pm-prd/SKILL.md",
   "source": "github.com/elsolal/Skillz-Claude",
-  "github_path": ".claude/skills/pm-prd",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:28:04.772671Z",
   "dir_name": "pm-prd",
-  "downloaded_at": "2026-02-05T01:45:01.869258Z"
+  "category": "data"
 }

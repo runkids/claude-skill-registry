@@ -1,210 +1,527 @@
+# Technique Skill Template
+
+Use this template for cross-cutting techniques that apply to multiple tools (harness writing, coverage analysis, sanitizers, dictionaries, etc.).
+
+## Template Structure
+
+```markdown
 ---
-name: {{SKILL_ID}}
-description: {{DESCRIPTION}}
-category: {{CATEGORY}}
-tags: [{{TAGS}}]
-icon: "{{ICON}}"
-version: "1.0.0"
-author: "Canifi"
-authType: {{AUTH_TYPE}}
-requiresBrowser: {{REQUIRES_BROWSER}}
+name: {technique-name-lowercase}
+type: technique
+description: >
+  {Summary of what this technique does}. Use when {trigger conditions}.
 ---
 
-# {{SKILL_NAME}} Skill
+# {Technique Name}
+
+{Brief introduction - what this technique is and why it matters}
 
 ## Overview
-Claude can interact with {{SKILL_NAME}} to help you manage and automate tasks. {{DESCRIPTION}}
 
-## Capabilities
-- Connect to {{SKILL_NAME}} and authenticate
-- Read and retrieve data from your account
-- Create, update, and delete records
-- Search and filter content
-- Automate common workflows
-- Handle errors gracefully with retry logic
+{High-level explanation of the technique}
 
-## Required Environment Variables
+### Key Concepts
 
-Add to `~/.claude/canifi-env`:
-```bash
-{{ENV_VARS}}
-```
+| Concept | Description |
+|---------|-------------|
+| {Concept 1} | {Brief explanation} |
+| {Concept 2} | {Brief explanation} |
 
-## Usage Examples
+## When to Apply
 
-### Example 1: Basic Connection
-```
-User: "Connect to {{SKILL_NAME}} and show me my recent activity"
-Claude: Navigates to {{SKILL_NAME}}, authenticates using stored credentials,
-        and retrieves recent activity. Provides a summary of findings.
-```
+**Apply this technique when:**
+- {Trigger 1}
+- {Trigger 2}
+- {Trigger 3}
 
-### Example 2: Search
-```
-User: "Search for [query] in {{SKILL_NAME}}"
-Claude: Uses {{SKILL_NAME}}'s search functionality to find matching results.
-        Returns relevant items with key details.
-```
+**Skip this technique when:**
+- {Skip condition 1}
+- {Skip condition 2}
 
-### Example 3: Create New Item
-```
-User: "Create a new [item type] in {{SKILL_NAME}} with [details]"
-Claude: Creates the requested item with the provided details.
-        Confirms successful creation with link/reference.
-```
+## Quick Reference
 
-### Example 4: Update Existing Item
-```
-User: "Update [item] in {{SKILL_NAME}} to [new values]"
-Claude: Locates the specified item, makes the requested changes,
-        and confirms the update was successful.
-```
+{Essential commands or patterns in one place}
 
-### Example 5: Batch Operations
-```
-User: "Archive all [items] from [time period] in {{SKILL_NAME}}"
-Claude: Searches for matching items, processes them in batches,
-        and reports the total number of items archived.
-```
+| Task | Command/Pattern |
+|------|-----------------|
+| {Task 1} | `{command or pattern}` |
+| {Task 2} | `{command or pattern}` |
+| {Task 3} | `{command or pattern}` |
 
-## Authentication Flow
+## Step-by-Step
 
-{{#if AUTH_TYPE_BROWSER}}
-1. Claude navigates to {{SKILL_NAME}} via Playwright MCP
-2. If not already logged in:
-   - Enters email/username from canifi-env
-   - Handles password entry if stored
-   - Handles 2FA if prompted (notifies user via iMessage)
-3. Maintains session cookies for subsequent requests
-4. Re-authenticates automatically when session expires
-{{/if}}
+{Detailed workflow for applying this technique}
 
-{{#if AUTH_TYPE_API_KEY}}
-1. Claude reads API credentials from canifi-env
-2. Adds authentication header to all API requests
-3. Handles token refresh if applicable
-4. Falls back to browser auth if API fails
-{{/if}}
+### Step 1: {First Step}
 
-{{#if AUTH_TYPE_OAUTH}}
-1. Claude initiates OAuth flow via browser
-2. Redirects user to {{SKILL_NAME}} authorization page
-3. User approves access in the popup
-4. Claude captures and stores access/refresh tokens
-5. Automatically refreshes tokens before expiration
-{{/if}}
+{Instructions with code examples}
 
-{{#if AUTH_TYPE_NONE}}
-1. No authentication required for this skill
-2. Claude can access {{SKILL_NAME}} directly
-{{/if}}
+\```{language}
+{Example code}
+\```
 
-## Selectors Reference
-```javascript
-// Common selectors for {{SKILL_NAME}}
-// Update these as the UI changes
+### Step 2: {Second Step}
 
-// Login elements
-const loginButton = '[data-testid="login-button"]';
-const emailInput = 'input[type="email"]';
-const passwordInput = 'input[type="password"]';
+{Instructions}
 
-// Navigation
-const mainNav = '[role="navigation"]';
-const searchInput = 'input[type="search"]';
+### Step 3: {Third Step}
 
-// Content areas
-const mainContent = '[role="main"]';
-const listItems = '[role="listitem"]';
+{Instructions}
 
-// Action buttons
-const createButton = '[data-testid="create-button"]';
-const saveButton = '[data-testid="save-button"]';
-const deleteButton = '[data-testid="delete-button"]';
-```
+## Common Patterns
 
-## API Reference
-```javascript
-// If {{SKILL_NAME}} has an API, document key endpoints here
+{Code patterns that demonstrate this technique}
 
-// Base URL
-const API_BASE = 'https://api.{{SKILL_ID}}.com/v1';
+### Pattern: {Pattern Name 1}
 
-// Common endpoints
-// GET /items - List all items
-// POST /items - Create new item
-// GET /items/:id - Get single item
-// PUT /items/:id - Update item
-// DELETE /items/:id - Delete item
-// GET /search?q=query - Search items
-```
+**Use Case:** {When to use this pattern}
 
-## Error Handling
+**Before:**
+\```{language}
+{Code before applying technique}
+\```
 
-| Error | Cause | Solution |
+**After:**
+\```{language}
+{Code after applying technique}
+\```
+
+### Pattern: {Pattern Name 2}
+
+**Use Case:** {When to use this pattern}
+
+**Before:**
+\```{language}
+{Code before}
+\```
+
+**After:**
+\```{language}
+{Code after}
+\```
+
+## Advanced Usage
+
+### Tips and Tricks
+
+{Practical tips from experienced practitioners}
+
+| Tip | Why It Helps |
+|-----|--------------|
+| {Tip 1} | {Explanation} |
+| {Tip 2} | {Explanation} |
+| {Tip 3} | {Explanation} |
+
+### {Advanced Topic 1}
+
+{Details}
+
+### {Advanced Topic 2}
+
+{Details}
+
+## Anti-Patterns
+
+{What NOT to do}
+
+| Anti-Pattern | Problem | Correct Approach |
+|--------------|---------|------------------|
+| {Bad practice 1} | {Why it's bad} | {What to do instead} |
+| {Bad practice 2} | {Why it's bad} | {What to do instead} |
+| {Bad practice 3} | {Why it's bad} | {What to do instead} |
+
+## Tool-Specific Guidance
+
+{How this technique applies to specific fuzzers/tools - this is KEY for discoverability}
+
+### libFuzzer
+
+{Specific guidance for libFuzzer}
+
+\```bash
+{libFuzzer-specific command}
+\```
+
+**Integration tips:**
+- {Tip specific to libFuzzer}
+- {Tip specific to libFuzzer}
+
+### AFL++
+
+{Specific guidance for AFL++}
+
+\```bash
+{AFL++-specific command}
+\```
+
+**Integration tips:**
+- {Tip specific to AFL++}
+- {Tip specific to AFL++}
+
+### cargo-fuzz (Rust)
+
+{Specific guidance for Rust fuzzing}
+
+\```bash
+{cargo-fuzz command}
+\```
+
+**Integration tips:**
+- {Tip specific to cargo-fuzz}
+
+### go-fuzz (Go)
+
+{Specific guidance for Go fuzzing}
+
+\```bash
+{go-fuzz command}
+\```
+
+### {Other Tool}
+
+{Add sections for other relevant tools from handbook}
+
+## Troubleshooting
+
+| Issue | Cause | Solution |
 |-------|-------|----------|
-| **Authentication Failed** | Invalid credentials or expired session | Retry 3 times, then notify user to check credentials |
-| **Rate Limited** | Too many requests | Wait 60 seconds, retry with exponential backoff |
-| **Not Found** | Item doesn't exist | Confirm query with user, suggest alternatives |
-| **Permission Denied** | Insufficient access | Notify user to check account permissions |
-| **Network Error** | Connection issues | Retry with increasing delays (1s, 2s, 4s, 8s) |
-| **Timeout** | Page load too slow | Increase timeout, retry once, then notify user |
-| **2FA Required** | Two-factor auth needed | Send iMessage: "{{SKILL_NAME}} requires 2FA approval" |
-| **Account Locked** | Too many failed attempts | Notify user immediately, do not retry |
-
-## Rate Limits
-- **API Requests**: [X] requests per minute/hour
-- **Batch Operations**: Process in groups of [Y]
-- **Wait Between Actions**: [Z] seconds minimum
-
-## Self-Improvement Instructions
-
-When you discover a better approach for {{SKILL_NAME}}:
-
-1. **Document the improvement** in your response to the user
-2. **Suggest an update** to this skill file with specific changes
-3. **Include working selectors** or API endpoints that performed better
-4. **Note any UI/API changes** that broke previous functionality
-5. **Record successful patterns** for future reference
-
-### Update Format
-When suggesting updates, use this format:
-```
-SKILL_UPDATE: {{SKILL_NAME}}
-Section: [section name]
-Change: [description of change]
-New Content:
-[new content to add/replace]
-Reason: [why this is better]
-```
-
-## Known Issues & Workarounds
-
-<!-- Document any known issues and their workarounds here -->
-
-1. **Issue**: [Description of known issue]
-   **Workaround**: [How to work around it]
-
-## Changelog
-
-### Version 1.0.0 ({{DATE}})
-- Initial skill implementation
-- Basic CRUD operations
-- Authentication flow
-- Error handling
-
-## Notes
-
-- This skill was generated from a template and may need customization
-- Selectors should be verified against the current UI
-- API endpoints should be confirmed with official documentation
-- Test all operations in a safe environment before production use
-- Report any issues to the Canifi community
+| {Issue 1} | {Cause} | {Fix} |
+| {Issue 2} | {Cause} | {Fix} |
+| {Issue 3} | {Cause} | {Fix} |
 
 ## Related Skills
 
-<!-- List related skills that work well with this one -->
+{Links to tools and other techniques - bidirectional references}
 
-- [Related Skill 1]
-- [Related Skill 2]
-- [Related Skill 3]
+### Tools That Use This Technique
+
+| Skill | How It Applies |
+|-------|----------------|
+| **{fuzzer-skill-1}** | {How this technique is used with this fuzzer} |
+| **{fuzzer-skill-2}** | {How this technique is used with this fuzzer} |
+| **{tool-skill-1}** | {How this technique applies to this tool} |
+
+### Related Techniques
+
+| Skill | Relationship |
+|-------|--------------|
+| **{technique-skill-1}** | {How they work together - e.g., "Use coverage to identify where harness improvements are needed"} |
+| **{technique-skill-2}** | {Complementary relationship} |
+
+## Resources
+
+### Key External Resources
+
+{For each non-video URL: fetch with WebFetch, summarize key insights}
+
+**[{Title 1}]({URL})**
+{Summarized insights from fetched content}
+
+### Video Resources
+
+{Videos - title and URL only, no fetching}
+
+- [{Video Title}]({YouTube/Vimeo URL}) - {Brief description}
+```
+
+## Field Extraction Guide
+
+| Template Field | Handbook Source |
+|----------------|-----------------|
+| `{technique-name-lowercase}` | Slugified from directory/title |
+| `{Summary}` | From `_index.md` frontmatter or intro |
+| Key Concepts | Extract definitions from handbook |
+| Step-by-Step | Main workflow from handbook |
+| Common Patterns | Code examples from handbook |
+| Tool Integration | From tool-specific subsections |
+| Related Skills | Map to fuzzer and tool skills |
+
+## Tool-Specific Section Guide
+
+Include tool-specific guidance for tools covered in the handbook:
+
+| Language | Tools to Include |
+|----------|------------------|
+| C/C++ | libFuzzer, AFL++, honggfuzz |
+| Rust | cargo-fuzz, libFuzzer |
+| Go | go-fuzz, native fuzzing |
+| Python | Atheris, Hypothesis |
+| JavaScript | jsfuzz |
+
+## Related Skills Mapping
+
+When generating a technique skill, create bidirectional links:
+
+| If Technique Is About | Link To These Skills |
+|-----------------------|---------------------|
+| Harness writing | All fuzzer skills that use harnesses |
+| Sanitizers | All fuzzer skills (they all use sanitizers) |
+| Coverage | Fuzzer skills, static analysis tools |
+| Corpus/dictionaries | All fuzzer skills |
+
+## Example: Writing Fuzzing Harnesses
+
+```markdown
+---
+name: fuzz-harness-writing
+type: technique
+description: >
+  Techniques for writing effective fuzzing harnesses. Use when creating
+  new fuzz targets or improving existing harness code.
+---
+
+# Writing Fuzzing Harnesses
+
+A harness is the entrypoint for your fuzz test. The fuzzer calls this function
+with random data, and the harness routes that data to your code under test.
+
+## Overview
+
+### Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| Harness | Function that receives fuzzer input and calls target code |
+| SUT | System Under Test - the code being fuzzed |
+| Entry point | Function signature required by the fuzzer |
+
+## When to Apply
+
+**Apply this technique when:**
+- Creating a new fuzz target
+- Fuzz campaign has low coverage
+- Crashes are not reproducible
+
+**Skip this technique when:**
+- Using existing well-tested harnesses
+- Tool provides automatic harness generation
+
+## Quick Reference
+
+| Task | Pattern |
+|------|---------|
+| Minimal C++ harness | `extern "C" int LLVMFuzzerTestOneInput(const uint8_t*, size_t)` |
+| Minimal Rust harness | `fuzz_target!(|data: &[u8]| { ... })` |
+| Minimal Go harness | `func Fuzz(data []byte) int { ... }` |
+| Size validation | `if (size < MIN) return 0;` |
+
+## Step-by-Step
+
+### Step 1: Identify Entry Points
+
+Find functions that:
+- Accept external input
+- Parse data formats
+- Perform validation
+
+### Step 2: Write Minimal Harness
+
+\```c++
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+    target_function(data, size);
+    return 0;
+}
+\```
+
+### Step 3: Add Input Validation
+
+\```c++
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+    if (size < MIN_SIZE || size > MAX_SIZE) return 0;
+    target_function(data, size);
+    return 0;
+}
+\```
+
+## Common Patterns
+
+### Pattern: Size-Bounded Input
+
+**Use Case:** When target expects minimum input size
+
+**Before:**
+\```c++
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+    parse_message(data, size);  // May crash on tiny inputs
+    return 0;
+}
+\```
+
+**After:**
+\```c++
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+    if (size < sizeof(header_t)) return 0;  // Skip invalid sizes
+    parse_message(data, size);
+    return 0;
+}
+\```
+
+## Advanced Usage
+
+### Tips and Tricks
+
+| Tip | Why It Helps |
+|-----|--------------|
+| Start with parsers | High bug density, clear entry points |
+| Use FuzzedDataProvider | Structured data extraction from fuzz input |
+| Mock I/O operations | Prevents hangs, enables determinism |
+
+### Structure-Aware Fuzzing
+
+{How to use proto definitions, grammars, etc.}
+
+## Anti-Patterns
+
+| Anti-Pattern | Problem | Correct Approach |
+|--------------|---------|------------------|
+| Global state | Non-deterministic | Reset state in harness |
+| Blocking I/O | Hangs fuzzer | Mock or skip I/O |
+| Memory leaks | Resource exhaustion | Free in harness |
+
+## Tool-Specific Guidance
+
+### libFuzzer
+
+\```c++
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+    // Your code here
+    return 0;
+}
+\```
+
+**Integration tips:**
+- Use `FuzzedDataProvider` for structured extraction
+- Compile with `-fsanitize=fuzzer`
+
+### AFL++
+
+\```c++
+int main(int argc, char **argv) {
+    #ifdef __AFL_HAVE_MANUAL_CONTROL
+        __AFL_INIT();
+    #endif
+
+    unsigned char *buf = NULL;
+    size_t len = 0;
+    while (__AFL_LOOP(10000)) {
+        // Read from stdin, call target
+    }
+    return 0;
+}
+\```
+
+**Integration tips:**
+- Use persistent mode for performance
+- Consider deferred initialization
+
+### cargo-fuzz (Rust)
+
+\```rust
+#![no_main]
+use libfuzzer_sys::fuzz_target;
+
+fuzz_target!(|data: &[u8]| {
+    // Your code here
+});
+\```
+
+## Related Skills
+
+### Tools That Use This Technique
+
+| Skill | How It Applies |
+|-------|----------------|
+| **libfuzzer** | Uses LLVMFuzzerTestOneInput harness signature |
+| **aflpp** | Supports persistent mode harnesses |
+| **cargo-fuzz** | Uses Rust-specific harness macros |
+| **go-fuzz** | Uses Go-specific harness signature |
+
+### Related Techniques
+
+| Skill | Relationship |
+|-------|--------------|
+| **coverage-analysis** | Measure harness effectiveness |
+| **address-sanitizer** | Detect bugs found by harness |
+| **fuzzing-corpus** | Provide seed inputs to harness |
+
+...
+```
+
+## Example: AddressSanitizer
+
+```markdown
+---
+name: address-sanitizer
+type: technique
+description: >
+  Memory error detection for C/C++ fuzzing. Use when fuzzing C/C++ code
+  to detect memory corruption bugs like buffer overflows and use-after-free.
+---
+
+# AddressSanitizer (ASan)
+
+AddressSanitizer is a fast memory error detector for C/C++. It finds buffer
+overflows, use-after-free, and other memory bugs with ~2x slowdown.
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Enable ASan (Clang) | `-fsanitize=address` |
+| Enable ASan (GCC) | `-fsanitize=address` |
+| Disable leak detection | `ASAN_OPTIONS=detect_leaks=0` |
+| Increase stack size | `ASAN_OPTIONS=stack_size=...` |
+
+## Tool-Specific Guidance
+
+### libFuzzer
+
+\```bash
+clang++ -fsanitize=fuzzer,address -g harness.cc -o fuzz
+\```
+
+**Integration tips:**
+- Always combine with fuzzer sanitizer
+- Use `-g` for better stack traces
+
+### AFL++
+
+\```bash
+AFL_USE_ASAN=1 afl-clang-fast++ -g harness.cc -o fuzz
+\```
+
+**Integration tips:**
+- Use `AFL_USE_ASAN` environment variable
+- Consider memory limits with `AFL_MAP_SIZE`
+
+## Related Skills
+
+### Tools That Use This Technique
+
+| Skill | How It Applies |
+|-------|----------------|
+| **libfuzzer** | Compile with `-fsanitize=fuzzer,address` |
+| **aflpp** | Use `AFL_USE_ASAN=1` |
+| **honggfuzz** | Compile with `-fsanitize=address` |
+
+### Related Techniques
+
+| Skill | Relationship |
+|-------|--------------|
+| **undefined-behavior-sanitizer** | Often used together for comprehensive detection |
+| **fuzz-harness-writing** | Harness must handle ASan-detected crashes |
+| **coverage-analysis** | Coverage guides fuzzer to trigger ASan errors |
+
+...
+```
+
+## Notes
+
+- Technique skills should be tool-agnostic in overview, tool-specific in guidance
+- ALWAYS include Tool-Specific Guidance section for major tools
+- ALWAYS include Related Skills with bidirectional links
+- Include Tips and Tricks in Advanced Usage section
+- Link to related technique skills
+- Keep under 500 lines
+- Fetch non-video external resources with WebFetch, extract key insights
+- For videos (YouTube, Vimeo): include title/URL only, do not fetch

@@ -1,7 +1,9 @@
 {
   "name": "summarize",
-  "repo": "yoyo99/openclaw",
+  "repo": "rdsthomas/mission-control",
   "path": "skills/summarize/SKILL.md",
-  "source": "github.com/yoyo99/openclaw",
-  "downloaded_at": "2026-02-02T05:00:31.168316Z"
+  "source": "github.com/rdsthomas/mission-control",
+  "downloaded_at": "2026-01-29T07:00:16.965404Z",
+  "dir_name": "summarize",
+  "category": "data"
 }

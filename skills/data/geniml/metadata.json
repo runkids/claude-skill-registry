@@ -1,7 +1,9 @@
 {
   "name": "geniml",
-  "repo": "ricable/ultimate-ai-agent",
-  "path": "sources/ricable/claude-scientific-skills/scientific-skills/geniml/SKILL.md",
-  "source": "github.com/ricable/ultimate-ai-agent",
-  "downloaded_at": "2026-02-02T04:13:02.729001Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/geniml/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:16.289561Z",
+  "dir_name": "geniml",
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "azure-ai",
-  "description": "",
   "repo": "HouseGarofalo/claude-code-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/azure-ai/SKILL.md",
   "source": "github.com/HouseGarofalo/claude-code-base",
-  "github_path": ".claude/skills/azure-ai",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:54:57.128031Z",
   "dir_name": "azure-ai-housegarofalo-claude-code-base",
-  "downloaded_at": "2026-02-05T01:44:38.156410Z"
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "auto-deploy",
-  "description": "",
   "repo": "chanhee-kang/oh-my-gemini",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/auto-deploy/SKILL.md",
   "source": "github.com/chanhee-kang/oh-my-gemini",
-  "github_path": "skills/auto-deploy",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:17:55.141195Z",
   "dir_name": "auto-deploy",
-  "downloaded_at": "2026-02-05T01:44:16.149349Z"
+  "category": "data"
 }

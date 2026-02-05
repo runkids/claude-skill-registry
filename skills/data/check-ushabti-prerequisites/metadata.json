@@ -1,13 +1,9 @@
 {
   "name": "check-ushabti-prerequisites",
-  "description": "",
   "repo": "adamrdrew/ushabti",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/check-ushabti-prerequisites/SKILL.md",
   "source": "github.com/adamrdrew/ushabti",
-  "github_path": "skills/check-ushabti-prerequisites",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:35:26.803603Z",
   "dir_name": "check-ushabti-prerequisites",
-  "downloaded_at": "2026-02-05T05:43:12.559408Z"
+  "category": "data"
 }

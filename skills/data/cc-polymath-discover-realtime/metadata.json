@@ -1,13 +1,9 @@
 {
   "name": "cc-polymath-discover-realtime",
-  "description": "",
   "repo": "emraher/eerskills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/skills/cc-polymath-discover-realtime/SKILL.md",
   "source": "github.com/emraher/eerskills",
-  "github_path": ".codex/skills/cc-polymath-discover-realtime",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:58:21.910838Z",
   "dir_name": "cc-polymath-discover-realtime",
-  "downloaded_at": "2026-02-05T01:45:01.601912Z"
+  "category": "data"
 }

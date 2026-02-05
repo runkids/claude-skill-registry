@@ -1,13 +1,9 @@
 {
   "name": "nexus-elements-swaps",
-  "description": "",
   "repo": "availproject/nexus-elements",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/nexus-elements-swaps/SKILL.md",
   "source": "github.com/availproject/nexus-elements",
-  "github_path": "skills/nexus-elements-swaps",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:06:32.227571Z",
   "dir_name": "nexus-elements-swaps",
-  "downloaded_at": "2026-02-05T01:44:59.746799Z"
+  "category": "data"
 }

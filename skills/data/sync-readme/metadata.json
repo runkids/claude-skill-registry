@@ -1,13 +1,9 @@
 {
   "name": "sync-readme",
-  "description": "",
   "repo": "lbb00/ai-rules-sync",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/sync-readme/SKILL.md",
   "source": "github.com/lbb00/ai-rules-sync",
-  "github_path": ".claude/skills/sync-readme",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:40:26.763505Z",
   "dir_name": "sync-readme",
-  "downloaded_at": "2026-02-05T01:44:21.335674Z"
+  "category": "data"
 }

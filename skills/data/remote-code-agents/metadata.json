@@ -1,7 +1,9 @@
 {
   "name": "remote-code-agents",
-  "repo": "Smooth-Operation/household-expense-tracker",
+  "repo": "liauw-media/household-expense-tracker",
   "path": ".claude/skills/workflow/remote-code-agents/SKILL.md",
-  "source": "github.com/Smooth-Operation/household-expense-tracker",
-  "downloaded_at": "2026-02-02T03:56:27.834218Z"
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-29T07:43:23.842053Z",
+  "dir_name": "remote-code-agents",
+  "category": "data"
 }

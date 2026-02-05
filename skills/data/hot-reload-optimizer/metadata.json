@@ -1,13 +1,9 @@
 {
   "name": "hot-reload-optimizer",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/hot-reload-optimizer/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/hot-reload-optimizer",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:25.256030Z",
   "dir_name": "hot-reload-optimizer",
-  "downloaded_at": "2026-02-05T01:44:14.795099Z"
+  "category": "data"
 }

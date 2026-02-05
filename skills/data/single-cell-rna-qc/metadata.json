@@ -1,13 +1,9 @@
 {
   "name": "single-cell-rna-qc",
-  "description": "",
-  "repo": "mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
-  "github_path": "Skills/Genomics/Single_Cell_RNA_QC",
-  "github_branch": "main",
+  "repo": "vamseeachanta/workspace-hub",
+  "path": ".claude/skills/science/bio-research/single-cell-rna-qc/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-02-04T01:38:10.131492Z",
   "dir_name": "single-cell-rna-qc",
-  "downloaded_at": "2026-02-05T01:44:38.693680Z"
+  "category": "data"
 }

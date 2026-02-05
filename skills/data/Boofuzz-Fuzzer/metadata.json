@@ -1,7 +1,9 @@
 {
-  "name": "Boofuzz-Fuzzer",
-  "repo": "lawless-m/Earwig",
+  "name": "boofuzz-fuzzer",
+  "repo": "lawless-m/claude-skills",
   "path": ".claude/skills/Boofuzz-Fuzzer/SKILL.md",
-  "source": "github.com/lawless-m/Earwig",
-  "downloaded_at": "2026-02-02T03:59:23.066963Z"
+  "source": "github.com/lawless-m/claude-skills",
+  "downloaded_at": "2026-02-04T04:45:16.511810Z",
+  "dir_name": "boofuzz-fuzzer",
+  "category": "data"
 }

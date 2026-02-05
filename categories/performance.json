@@ -1,0 +1,19 @@
+{
+  "category": "performance",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.246246Z",
+  "skills": [
+    {
+      "name": "database-optimizer",
+      "description": "Analyze and improve database performance through safe, measurable query, index, and configuration optimizations.",
+      "repo": "Masked-Kunsiquat/crm-orbit2",
+      "path": ".codex/skills/database-optimizer/SKILL.md",
+      "branch": "main",
+      "category": "performance",
+      "tags": [],
+      "stars": 0,
+      "install": "Masked-Kunsiquat/crm-orbit2/.codex/skills/database-optimizer/SKILL.md",
+      "source": "github.com/Masked-Kunsiquat/crm-orbit2"
+    }
+  ]
+}

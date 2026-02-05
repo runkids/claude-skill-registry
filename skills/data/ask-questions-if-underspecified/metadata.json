@@ -1,7 +1,9 @@
 {
   "name": "ask-questions-if-underspecified",
-  "repo": "ederheisler/agent-skills",
-  "path": "skills/ask-questions-if-underspecified/SKILL.md",
-  "source": "github.com/ederheisler/agent-skills",
-  "downloaded_at": "2026-02-02T05:02:42.931716Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/trailofbits-ask-questions-if-underspecified/skills/ask-questions-if-underspecified/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:14.830679Z",
+  "dir_name": "ask-questions-if-underspecified",
+  "category": "data"
 }

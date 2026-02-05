@@ -1,7 +1,9 @@
 {
   "name": "angular-migration",
-  "repo": "ccf/claude-code-ccf-marketplace",
-  "path": "plugins/refactoring/skills/angular-migration/SKILL.md",
-  "source": "github.com/ccf/claude-code-ccf-marketplace",
-  "downloaded_at": "2026-02-02T05:11:51.775301Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/angular-migration/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T09:00:02.230710Z",
+  "dir_name": "angular-migration",
+  "category": "data"
 }

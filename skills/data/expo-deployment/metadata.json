@@ -1,7 +1,9 @@
 {
   "name": "expo-deployment",
-  "repo": "sickn33/antigravity-awesome-skills",
-  "path": "skills/expo-deployment/SKILL.md",
-  "source": "github.com/sickn33/antigravity-awesome-skills",
-  "downloaded_at": "2026-02-02T04:28:49.037570Z"
+  "repo": "luthebao/expo-template",
+  "path": ".claude/skills/expo-deployment/SKILL.md",
+  "source": "github.com/luthebao/expo-template",
+  "downloaded_at": "2026-01-29T08:53:43.128738Z",
+  "dir_name": "expo-deployment",
+  "category": "data"
 }

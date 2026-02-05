@@ -1,13 +1,9 @@
 {
   "name": "rss-subscribe",
-  "description": "",
   "repo": "glwlg/X-bot",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/builtin/rss_subscribe/SKILL.md",
   "source": "github.com/glwlg/X-bot",
-  "github_path": "skills/builtin/rss_subscribe",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:00:26.055071Z",
   "dir_name": "rss-subscribe",
-  "downloaded_at": "2026-02-05T05:41:55.490149Z"
+  "category": "data"
 }

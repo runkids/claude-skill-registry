@@ -1,13 +1,9 @@
 {
-  "name": "qa-testing",
-  "description": "",
-  "repo": "laurenceputra/goal-portfolio-viewer",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/laurenceputra/goal-portfolio-viewer",
-  "github_path": ".agents/skills/qa-testing",
-  "github_branch": "main",
+  "name": "🧪 qa-testing",
+  "repo": "endlessblink/flow-state",
+  "path": ".claude/skills/🧪 qa-testing/SKILL.md",
+  "source": "github.com/endlessblink/flow-state",
+  "downloaded_at": "2026-02-02T04:41:26.531511Z",
   "dir_name": "qa-testing",
-  "downloaded_at": "2026-02-05T05:35:15.493157Z"
+  "category": "data"
 }

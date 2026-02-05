@@ -1,13 +1,9 @@
 {
   "name": "create-dataflow",
-  "description": "",
   "repo": "PabloLION/bmad-plugin",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "plugins/bmad/skills/create-dataflow/SKILL.md",
   "source": "github.com/PabloLION/bmad-plugin",
-  "github_path": "plugins/bmad/skills/create-dataflow",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:30:54.676359Z",
   "dir_name": "create-dataflow",
-  "downloaded_at": "2026-02-05T01:44:26.508699Z"
+  "category": "data"
 }

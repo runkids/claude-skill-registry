@@ -1,0 +1,20 @@
+{
+  "category": "data-access",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-02-05T08:28:01.625809Z",
+  "skills": [
+    {
+      "name": "deduplication",
+      "description": "Event deduplication with canonical selection, reputation scoring, and hash-based grouping for multi-source data aggregation. Handles both ID-based and content-based deduplication.",
+      "repo": "dadbodgeoff/drift",
+      "path": "",
+      "branch": "main",
+      "category": "data-access",
+      "tags": [],
+      "stars": 169,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

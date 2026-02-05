@@ -1,13 +1,9 @@
 {
   "name": "edge-function-new",
-  "description": "",
   "repo": "gpaura/claude_plugins",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/edge-function-new/SKILL.md",
   "source": "github.com/gpaura/claude_plugins",
-  "github_path": "skills/edge-function-new",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:13:48.478288Z",
   "dir_name": "edge-function-new",
-  "downloaded_at": "2026-02-05T01:44:19.714576Z"
+  "category": "data"
 }

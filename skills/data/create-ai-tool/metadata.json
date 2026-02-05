@@ -1,13 +1,9 @@
 {
   "name": "create-ai-tool",
-  "description": "",
   "repo": "khw1031/ai-library",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/create-ai-tool/SKILL.md",
   "source": "github.com/khw1031/ai-library",
-  "github_path": ".claude/skills/create-ai-tool",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:46:53.660526Z",
   "dir_name": "create-ai-tool",
-  "downloaded_at": "2026-02-05T06:23:04.904012Z"
+  "category": "data"
 }

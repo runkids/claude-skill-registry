@@ -1,13 +1,9 @@
 {
   "name": "scienceworld-room-scanner",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/scienceworld/scienceworld-room-scanner/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/scienceworld/scienceworld-room-scanner",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:31.030534Z",
   "dir_name": "scienceworld-room-scanner",
-  "downloaded_at": "2026-02-05T01:44:58.892635Z"
+  "category": "data"
 }

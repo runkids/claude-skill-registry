@@ -1,13 +1,9 @@
 {
   "name": "implementing-agent-skills",
-  "description": "",
-  "repo": "yu-iskw/coding-agent-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/yu-iskw/coding-agent-skills",
-  "github_path": ".cursor/skills/implementing-agent-skills",
-  "github_branch": "main",
+  "repo": "yu-iskw/github-project-skills",
+  "path": ".cursor/skills/implementing-agent-skills/SKILL.md",
+  "source": "github.com/yu-iskw/github-project-skills",
+  "downloaded_at": "2026-02-04T04:52:47.790823Z",
   "dir_name": "implementing-agent-skills",
-  "downloaded_at": "2026-02-05T01:44:37.912133Z"
+  "category": "data"
 }

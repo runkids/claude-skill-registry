@@ -1,13 +1,9 @@
 {
   "name": "vscode-workspace-setup",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/vscode-workspace-setup/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/vscode-workspace-setup",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:30.589065Z",
   "dir_name": "vscode-workspace-setup",
-  "downloaded_at": "2026-02-05T01:44:14.875261Z"
+  "category": "data"
 }

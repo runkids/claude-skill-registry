@@ -1,7 +1,9 @@
 {
   "name": "aws",
-  "repo": "Lobbi-Docs/claude",
-  "path": ".claude/skills/aws/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-02-02T01:56:12.235119Z"
+  "repo": "slappforge/sigma",
+  "path": "docs/components/aws/alexa_skill.md",
+  "source": "github.com/slappforge/sigma",
+  "downloaded_at": "2026-01-29T06:28:13.140702Z",
+  "dir_name": "aws",
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "alfworld-object-state-modifier",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/alfworld/alfworld-object-state-modifier/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/alfworld/alfworld-object-state-modifier",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:42.387540Z",
   "dir_name": "alfworld-object-state-modifier",
-  "downloaded_at": "2026-02-05T01:44:59.136189Z"
+  "category": "data"
 }

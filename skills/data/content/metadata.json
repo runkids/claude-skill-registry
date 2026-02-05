@@ -1,7 +1,9 @@
 {
   "name": "content",
-  "repo": "alexanderop/second-brain-nuxt",
-  "path": "content/claude-code-continuous-learning-skill.md",
-  "source": "github.com/alexanderop/second-brain-nuxt",
-  "downloaded_at": "2026-02-02T05:13:04.955481Z"
+  "repo": "frankxai/agentic-creator-os",
+  "path": "departments/content/skill.md",
+  "source": "github.com/frankxai/agentic-creator-os",
+  "downloaded_at": "2026-01-29T05:51:14.441999Z",
+  "dir_name": "content",
+  "category": "data"
 }

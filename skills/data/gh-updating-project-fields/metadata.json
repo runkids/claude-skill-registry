@@ -1,13 +1,9 @@
 {
   "name": "gh-updating-project-fields",
-  "description": "",
   "repo": "yu-iskw/github-project-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/gh-updating-project-fields/SKILL.md",
   "source": "github.com/yu-iskw/github-project-skills",
-  "github_path": "skills/gh-updating-project-fields",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:52:47.307027Z",
   "dir_name": "gh-updating-project-fields",
-  "downloaded_at": "2026-02-05T01:44:42.600626Z"
+  "category": "data"
 }

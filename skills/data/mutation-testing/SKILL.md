@@ -1,303 +1,192 @@
 ---
 name: mutation-testing
-description: |
-  Mutation testing patterns for verifying test effectiveness. Use when analyzing branch code
-  to find weak or missing tests. Triggers: "mutation testing", "test effectiveness",
-  "would tests catch this bug", "weak tests", "are my tests good enough", "surviving mutants".
+description: Validate test effectiveness with mutation testing using Stryker (TypeScript/JavaScript) and mutmut (Python). Find weak tests that pass despite code mutations. Use to improve test quality.
+allowed-tools: Bash, Read, Edit, Write, Grep, Glob, TodoWrite
 ---
 
 # Mutation Testing
 
-Mutation testing answers: **"Would my tests catch this bug?"** by actually introducing bugs and running tests.
+Expert knowledge for mutation testing - validating that your tests actually catch bugs by introducing deliberate code mutations.
 
----
+## Core Concept
 
-## Execution Workflow
+- **Mutants**: Small code changes introduced automatically
+- **Killed**: Test fails with mutation (good - test caught the bug)
+- **Survived**: Test passes with mutation (bad - weak test)
+- **Score**: Percentage of mutants killed (aim for 80%+)
 
-**CRITICAL**: This skill actually mutates code and runs tests. Follow this exact process:
+## TypeScript/JavaScript (Stryker)
 
-### Step 1: Identify Target Code
+### Installation
 
 ```bash
-# Get changed files on the branch
-git diff main...HEAD --name-only | grep -E '\.(ts|js|tsx|jsx|vue)$' | grep -v '\.test\.' | grep -v '\.spec\.'
+# Using Bun
+bun add -d @stryker-mutator/core @stryker-mutator/vitest-runner
+
+# Using npm
+npm install -D @stryker-mutator/core @stryker-mutator/vitest-runner
 ```
 
-### Step 2: For Each Function to Test
+### Configuration
 
-Execute this loop for each mutation:
-
-```
-1. READ the original file and note exact content
-2. APPLY one mutation (edit the code)
-3. RUN tests: pnpm test --run (or specific test file)
-4. RECORD result: KILLED (test failed) or SURVIVED (test passed)
-5. RESTORE original code immediately
-6. Repeat for next mutation
-```
-
-### Step 3: Report Results
-
-After all mutations, provide a summary table:
-
-```
-| Mutation | Location | Result | Action Needed |
-|----------|----------|--------|---------------|
-| `>` → `>=` | file.ts:42 | SURVIVED | Add boundary test |
-| `&&` → `||` | file.ts:58 | KILLED | None |
-```
-
----
-
-## Mutation Operators to Apply
-
-### Priority 1: Boundary Mutations (Most Likely to Survive)
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `<` | `<=` | Boundary not tested |
-| `>` | `>=` | Boundary not tested |
-| `<=` | `<` | Equality case missed |
-| `>=` | `>` | Equality case missed |
-
-### Priority 2: Boolean Logic Mutations
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `&&` | `\|\|` | Only tested when both true |
-| `\|\|` | `&&` | Only tested when both false |
-| `!condition` | `condition` | Negation not verified |
-
-### Priority 3: Arithmetic Mutations
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `+` | `-` | Tested with 0 only |
-| `-` | `+` | Tested with 0 only |
-| `*` | `/` | Tested with 1 only |
-
-### Priority 4: Return/Early Exit Mutations
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `return x` | `return null` | Return value not asserted |
-| `return true` | `return false` | Boolean return not checked |
-| `if (cond) return` | `// removed` | Early exit not tested |
-
-### Priority 5: Statement Removal
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `array.push(x)` | `// removed` | Side effect not verified |
-| `await save(x)` | `// removed` | Async operation not verified |
-| `emit('event')` | `// removed` | Event emission not tested |
-
----
-
-## Practical Execution Example
-
-### Example: Testing a Validation Function
-
-**Original code** (`src/utils/validation.ts:15`):
 ```typescript
-export function isValidAge(age: number): boolean {
-  return age >= 18 && age <= 120;
+// stryker.config.mjs
+export default {
+  packageManager: 'bun',
+  reporters: ['html', 'clear-text', 'progress'],
+  testRunner: 'vitest',
+  coverageAnalysis: 'perTest',
+  mutate: ['src/**/*.ts', '!src/**/*.test.ts'],
+  thresholds: { high: 80, low: 60, break: 60 },
+  incremental: true,
 }
 ```
 
-**Mutation 1**: Change `>=` to `>`
-```typescript
-export function isValidAge(age: number): boolean {
-  return age > 18 && age <= 120;  // MUTATED
-}
-```
+### Running Stryker
 
-**Run tests**:
 ```bash
-pnpm test --run src/__tests__/validation.test.ts
+# Run mutation testing
+bunx stryker run
+
+# Incremental mode (only changed files)
+bunx stryker run --incremental
+
+# Specific files
+bunx stryker run --mutate "src/utils/**/*.ts"
+
+# Open HTML report
+open reports/mutation/html/index.html
 ```
 
-**Result**: Tests PASS → **SURVIVED** (Bad! Need test for `isValidAge(18)`)
+### Example: Weak Test
 
-**Restore original code immediately**
-
-**Mutation 2**: Change `&&` to `||`
 ```typescript
-export function isValidAge(age: number): boolean {
-  return age >= 18 || age <= 120;  // MUTATED
+// Source code
+function calculateDiscount(price: number, percentage: number): number {
+  return price - (price * percentage / 100)
 }
+
+// ❌ WEAK: Test passes even if we mutate calculation
+test('applies discount', () => {
+  expect(calculateDiscount(100, 10)).toBeDefined() // Too weak!
+})
+
+// ✅ STRONG: Test catches mutation
+test('applies discount correctly', () => {
+  expect(calculateDiscount(100, 10)).toBe(90)
+  expect(calculateDiscount(100, 20)).toBe(80)
+  expect(calculateDiscount(50, 10)).toBe(45)
+})
 ```
 
-**Run tests**:
+## Python (mutmut)
+
+### Installation
+
 ```bash
-pnpm test --run src/__tests__/validation.test.ts
+uv add --dev mutmut
 ```
 
-**Result**: Tests FAIL → **KILLED** (Good! Tests catch this bug)
+### Running mutmut
 
-**Restore original code immediately**
+```bash
+# Run mutation testing
+uv run mutmut run
 
----
+# Show results
+uv run mutmut results
 
-## Results Interpretation
+# Show specific mutant
+uv run mutmut show 1
 
-### Mutant States
+# Generate HTML report
+uv run mutmut html
+open html/index.html
+```
 
-| State | Meaning | Action |
+## Common Mutation Types
+
+```typescript
+// Arithmetic Operator
+// Original: a + b → a - b, a * b, a / b
+
+// Relational Operator
+// Original: a > b → a >= b, a < b, a <= b
+
+// Logical Operator
+// Original: a && b → a || b
+
+// Boolean Literal
+// Original: true → false
+```
+
+## Mutation Score Targets
+
+| Score | Quality | Action |
 |-------|---------|--------|
-| **KILLED** | Test failed with mutant | Tests are effective |
-| **SURVIVED** | Tests passed with mutant | **Add or strengthen test** |
-| **TIMEOUT** | Tests hung (infinite loop) | Counts as detected |
+| 90%+ | Excellent | Maintain quality |
+| 80-89% | Good | Small improvements |
+| 70-79% | Acceptable | Focus on weak areas |
+| < 60% | Poor | Major improvements needed |
 
-### Mutation Score
+## Improving Weak Tests
 
-```
-Score = (Killed + Timeout) / Total Mutations * 100
-```
-
-| Score | Quality |
-|-------|---------|
-| < 60% | Weak - significant test gaps |
-| 60-80% | Moderate - improvements needed |
-| 80-90% | Good - minor gaps |
-| > 90% | Strong test suite |
-
----
-
-## Fixing Surviving Mutants
-
-When a mutant survives, add a test that would catch it:
-
-### Surviving: Boundary mutation (`>=` → `>`)
+### Pattern: Insufficient Assertions
 
 ```typescript
-// Add boundary test
-it('accepts exactly 18 years old', () => {
-  expect(isValidAge(18)).toBe(true);  // Would fail if >= became >
-});
+// Before: Mutation survives
+test('calculates sum', () => {
+  expect(sum([1, 2, 3])).toBeGreaterThan(0) // Weak!
+})
+
+// After: Mutation killed
+test('calculates sum correctly', () => {
+  expect(sum([1, 2, 3])).toBe(6)
+  expect(sum([0, 0, 0])).toBe(0)
+  expect(sum([])).toBe(0)
+})
 ```
 
-### Surviving: Logic mutation (`&&` → `||`)
+### Pattern: Boundary Conditions
 
 ```typescript
-// Add test with mixed conditions
-it('rejects when only one condition met', () => {
-  expect(isValidAge(15)).toBe(false);  // Would pass if && became ||
-});
+// After: Tests boundaries
+test('validates age boundaries', () => {
+  expect(isValidAge(18)).toBe(true)   // Min valid
+  expect(isValidAge(17)).toBe(false)  // Just below
+  expect(isValidAge(100)).toBe(true)  // Max valid
+  expect(isValidAge(101)).toBe(false) // Just above
+})
 ```
 
-### Surviving: Statement removal
+## Best Practices
 
-```typescript
-// Add side effect verification
-it('saves to database', async () => {
-  await processOrder(order);
-  expect(db.save).toHaveBeenCalledWith(order);  // Would fail if save removed
-});
+- Start with core business logic modules
+- Ensure 80%+ coverage before mutation testing
+- Run incrementally (only changed files)
+- Focus on important files first
+- Don't expect 100% mutation score (equivalent mutants exist)
+
+## Workflow
+
+```bash
+# 1. Ensure good coverage first
+bun test --coverage
+# Target: 80%+ coverage
+
+# 2. Run mutation testing
+bunx stryker run
+
+# 3. Check report
+open reports/mutation/html/index.html
+
+# 4. Fix survived mutants
+# 5. Re-run incrementally
+bunx stryker run --incremental
+# or: npx stryker run --incremental
 ```
 
----
+## See Also
 
-## Quick Checklist During Mutation
-
-For each mutation, ask:
-
-1. **Before mutating**: Does a test exist for this code path?
-2. **After running tests**: Did any test actually fail?
-3. **If survived**: What specific test would catch this?
-4. **After fixing**: Re-run mutation to confirm killed
-
----
-
-## Common Surviving Mutation Patterns
-
-### Tests Only Check Happy Path
-
-```typescript
-// WEAK: Only tests success case
-it('validates', () => {
-  expect(validate(goodInput)).toBe(true);
-});
-
-// STRONG: Tests both cases
-it('validates good input', () => {
-  expect(validate(goodInput)).toBe(true);
-});
-it('rejects bad input', () => {
-  expect(validate(badInput)).toBe(false);
-});
-```
-
-### Tests Use Identity Values
-
-```typescript
-// WEAK: Mutation survives
-expect(multiply(5, 1)).toBe(5);  // 5*1 = 5/1 = 5
-
-// STRONG: Mutation detected
-expect(multiply(5, 3)).toBe(15);  // 5*3 ≠ 5/3
-```
-
-### Tests Don't Assert Return Values
-
-```typescript
-// WEAK: No return value check
-it('processes', () => {
-  process(data);  // No assertion!
-});
-
-// STRONG: Asserts outcome
-it('processes', () => {
-  const result = process(data);
-  expect(result).toEqual(expected);
-});
-```
-
----
-
-## Important Rules
-
-1. **ALWAYS restore original code** after each mutation
-2. **Run tests immediately** after applying mutation
-3. **One mutation at a time** - don't combine mutations
-4. **Focus on changed code** - prioritize branch diff
-5. **Track all results** - report full mutation summary
-
----
-
-## Summary Report Template
-
-After completing mutation testing, provide:
-
-```markdown
-## Mutation Testing Results
-
-**Target**: `src/features/workout/utils.ts` (functions: X, Y, Z)
-**Total Mutations**: 12
-**Killed**: 9
-**Survived**: 3
-**Score**: 75%
-
-### Surviving Mutants (Action Required)
-
-| # | Location | Original | Mutated | Suggested Test |
-|---|----------|----------|---------|----------------|
-| 1 | line 42 | `>=` | `>` | Test boundary value |
-| 2 | line 58 | `&&` | `\|\|` | Test mixed conditions |
-| 3 | line 71 | `emit()` | removed | Verify event emission |
-
-### Killed Mutants (Tests Effective)
-
-- Line 35: `+` → `-` killed by `calculation.test.ts`
-- Line 48: `true` → `false` killed by `validate.test.ts`
-- ...
-```
-
----
-
-## Related Skills
-
-- `systematic-debugging` - Root cause analysis
-- `testing-conventions` - Query priority, expect.poll()
-- `vue-integration-testing` - Page objects, browser mode
-- `vitest-mocking` - Test doubles and mocking patterns
+- `vitest-testing` - Unit testing framework
+- `test-quality-analysis` - Detecting test smells

@@ -1,7 +1,9 @@
 {
   "name": "handoff",
-  "repo": "laris-co/nat-agents-core",
-  "path": "bundles/skills/handoff/SKILL.md",
-  "source": "github.com/laris-co/nat-agents-core",
-  "downloaded_at": "2026-02-02T04:46:44.435249Z"
+  "repo": "robertguss/claude-code-toolkit",
+  "path": "skills/handoff/SKILL.md",
+  "source": "github.com/robertguss/claude-code-toolkit",
+  "downloaded_at": "2026-01-29T08:51:41.353338Z",
+  "dir_name": "handoff",
+  "category": "data"
 }

@@ -1,312 +1,236 @@
 ---
-name: mcp
-description: "Model Context Protocol (MCP) server development and tool management. Languages: Python, TypeScript. Capabilities: build MCP servers, integrate external APIs, discover/execute MCP tools, manage multi-server configs, design agent-centric tools. Actions: create, build, integrate, discover, execute, configure MCP servers/tools. Keywords: MCP, Model Context Protocol, MCP server, MCP tool, stdio transport, SSE transport, tool discovery, resource provider, prompt template, external API integration, Gemini CLI MCP, Claude MCP, agent tools, tool execution, server config. Use when: building MCP servers, integrating external APIs as MCP tools, discovering available MCP tools, executing MCP capabilities, configuring multi-server setups, designing tools for AI agents."
+name: MCP构建器
+description: 创建高质量 MCP（Model Context Protocol）服务器的指南，使大型语言模型能够通过设计良好的工具与外部服务交互。当构建 MCP 服务器以集成外部 API 或服务时使用，无论使用 Python（FastMCP）还是 Node/TypeScript（MCP SDK）。
 license: Complete terms in LICENSE.txt
 ---
 
-# MCP: Build & Manage Protocol Servers
+# MCP Server Development Guide
 
-Build MCP servers that integrate APIs, and execute tools from configured servers.
+## Overview
 
-## When to Use
-
-**Building**: Create MCP servers (Python/TypeScript), integrate APIs, design agent-centric tools, implement validation/error handling, create evaluations
-
-**Managing**: Discover/execute tools via Gemini CLI, filter tools for tasks, manage multi-server configs
-
-## Core Concepts
-
-MCP = standardized protocol for AI agents to access external tools/data.
-
-**Components**: Tools (executable functions), Resources (read-only data), Prompts (templates)
-**Transports**: Stdio (local), HTTP (remote), SSE (real-time)
-
-**Load**: `references/protocol-basics.md` for full protocol details
+Create MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP server is measured by how well it enables LLMs to accomplish real-world tasks.
 
 ---
 
-## Part 1: Building MCP Servers
+# Process
 
-Build high-quality MCP servers that enable LLMs to accomplish real-world tasks.
+## 🚀 High-Level Workflow
 
-### Development Workflow
+Creating a high-quality MCP server involves four main phases:
 
-**Phase 1: Research & Planning**
-1. Study agent-centric design principles (workflows over endpoints)
-2. Research target API documentation exhaustively
-3. Load framework documentation (Python SDK or TypeScript SDK)
-4. Plan tool selection, shared utilities, input/output design, error handling
+### Phase 1: Deep Research and Planning
 
-**Phase 2: Implementation**
-1. Set up project structure (single file for Python, full structure for TypeScript)
-2. Implement core infrastructure (API clients, error handlers, formatters)
-3. Register tools with proper schemas and annotations
-4. Follow language-specific best practices
+#### 1.1 Understand Modern MCP Design
 
-**Phase 3: Testing & Quality**
-1. Code quality review (DRY, composability, consistency)
-2. Run builds and syntax checks
-3. Use quality checklists
+**API Coverage vs. Workflow Tools:**
+Balance comprehensive API endpoint coverage with specialized workflow tools. Workflow tools can be more convenient for specific tasks, while comprehensive coverage gives agents flexibility to compose operations. Performance varies by client—some clients benefit from code execution that combines basic tools, while others work better with higher-level workflows. When uncertain, prioritize comprehensive API coverage.
 
-**Phase 4: Evaluation**
-1. Create 10 complex, realistic evaluation questions
-2. Questions must be read-only, independent, and verifiable
-3. Test LLM's ability to use your server effectively
+**Tool Naming and Discoverability:**
+Clear, descriptive tool names help agents find the right tools quickly. Use consistent prefixes (e.g., `github_create_issue`, `github_list_repos`) and action-oriented naming.
 
-**Reference**: `references/building-servers.md` - Load for complete development guide with:
-- Agent-centric design principles
-- Python (FastMCP) implementation guide with Pydantic models
-- TypeScript (MCP SDK) implementation guide with Zod schemas
-- Tool naming conventions, response formats, pagination patterns
-- Character limits, error handling, security best practices
-- Complete working examples and quality checklists
-- Evaluation creation and testing methodology
+**Context Management:**
+Agents benefit from concise tool descriptions and the ability to filter/paginate results. Design tools that return focused, relevant data. Some clients support code execution which can help agents filter and process data efficiently.
 
-### Key Best Practices
+**Actionable Error Messages:**
+Error messages should guide agents toward solutions with specific suggestions and next steps.
 
-**Tool Design**:
-- Use service-prefixed names (`slack_send_message`, not `send_message`)
-- Support both JSON and Markdown response formats
-- Implement pagination with `limit`, `offset`, `has_more`
-- Set CHARACTER_LIMIT constant (typically 25,000)
-- Provide actionable error messages that guide agents
+#### 1.2 Study MCP Protocol Documentation
 
-**Code Quality**:
-- Extract common functionality into reusable functions
-- Use async/await for all I/O operations
-- Type hints (Python) or strict TypeScript throughout
-- Comprehensive docstrings with explicit schemas
+**Navigate the MCP specification:**
 
-**Reference**: `references/best-practices.md` - Load for comprehensive guidelines
+Start with the sitemap to find relevant pages: `https://modelcontextprotocol.io/sitemap.xml`
 
----
+Then fetch specific pages with `.md` suffix for markdown format (e.g., `https://modelcontextprotocol.io/specification/draft.md`).
 
-## Part 2: Using MCP Tools
+Key pages to review:
+- Specification overview and architecture
+- Transport mechanisms (streamable HTTP, stdio)
+- Tool, resource, and prompt definitions
 
-Execute and manage tools from configured MCP servers efficiently.
+#### 1.3 Study Framework Documentation
 
-### Configuration
+**Recommended stack:**
+- **Language**: TypeScript (high-quality SDK support and good compatibility in many execution environments e.g. MCPB. Plus AI models are good at generating TypeScript code, benefiting from its broad usage, static typing and good linting tools)
+- **Transport**: Streamable HTTP for remote servers, using stateless JSON (simpler to scale and maintain, as opposed to stateful sessions and streaming responses). stdio for local servers.
 
-MCP servers configured in `.claude/.mcp.json`:
+**Load framework documentation:**
 
-```json
-{
-  "mcpServers": {
-    "server-name": {
-      "command": "npx",
-      "args": ["-y", "package-name"],
-      "env": {"API_KEY": "${ENV_VAR}"}
-    }
-  }
-}
-```
+- **MCP Best Practices**: [📋 View Best Practices](./reference/mcp_best_practices.md) - Core guidelines
 
-**Gemini CLI Integration**: Create symlink for shared config:
-```bash
-mkdir -p .gemini && ln -sf .claude/.mcp.json .gemini/settings.json
-```
+**For TypeScript (recommended):**
+- **TypeScript SDK**: Use WebFetch to load `https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md`
+- [⚡ TypeScript Guide](./reference/node_mcp_server.md) - TypeScript patterns and examples
 
-**Reference**: `references/using-tools.md` - Load for complete configuration and usage guide
+**For Python:**
+- **Python SDK**: Use WebFetch to load `https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/README.md`
+- [🐍 Python Guide](./reference/python_mcp_server.md) - Python patterns and examples
 
-### Execution Methods (Priority Order)
+#### 1.4 Plan Your Implementation
 
-**1. Gemini CLI (Primary)**
+**Understand the API:**
+Review the service's API documentation to identify key endpoints, authentication requirements, and data models. Use web search and WebFetch as needed.
 
-Automatic tool discovery and execution via natural language.
-
-```bash
-# CRITICAL: Use stdin piping, NOT -p flag (deprecated, skips MCP init)
-echo "Take a screenshot of https://example.com" | gemini -y -m gemini-2.5-flash
-```
-
-**Benefits**:
-- Automatic tool discovery and selection
-- Structured JSON responses (if `GEMINI.md` configured)
-- Fastest execution
-- No manual tool specification needed
-
-**GEMINI.md Response Format**: Place in project root to enforce JSON-only responses:
-```markdown
-# Gemini CLI Instructions
-Always respond in this exact JSON format:
-{"server":"name","tool":"name","success":true,"result":<data>,"error":null}
-Maximum 500 characters. No markdown, no explanations.
-```
-
-**2. Direct CLI Scripts (Secondary)**
-
-Manual tool specification when you know exact server/tool needed:
-
-```bash
-npx tsx scripts/cli.ts call-tool memory create_entities '{"entities":[...]}'
-```
-
-**3. mcp-manager Subagent (Fallback)**
-
-Delegate to subagent when Gemini unavailable or for complex multi-tool workflows.
-
-**Reference**: `references/using-tools.md` - Load for:
-- Complete Gemini CLI guide with examples
-- Direct script usage and options
-- Subagent delegation patterns
-- Tool discovery and filtering strategies
-- Multi-server orchestration
-- Troubleshooting and debugging
-
-### Tool Discovery
-
-List available tools to understand capabilities:
-
-```bash
-# Saves to assets/tools.json for offline reference
-npx tsx scripts/cli.ts list-tools
-
-# List prompts and resources
-npx tsx scripts/cli.ts list-prompts
-npx tsx scripts/cli.ts list-resources
-```
-
-**Intelligent Selection**: LLM reads `assets/tools.json` directly for context-aware tool filtering (better than keyword matching).
+**Tool Selection:**
+Prioritize comprehensive API coverage. List endpoints to implement, starting with the most common operations.
 
 ---
 
-## Quick Start Examples
+### Phase 2: Implementation
 
-### Building a Server
+#### 2.1 Set Up Project Structure
 
-**Python**:
-```python
-from mcp.server.fastmcp import FastMCP
-from pydantic import BaseModel, Field
+See language-specific guides for project setup:
+- [⚡ TypeScript Guide](./reference/node_mcp_server.md) - Project structure, package.json, tsconfig.json
+- [🐍 Python Guide](./reference/python_mcp_server.md) - Module organization, dependencies
 
-mcp = FastMCP("github_mcp")
+#### 2.2 Implement Core Infrastructure
 
-class SearchInput(BaseModel):
-    query: str = Field(..., min_length=2, max_length=200)
-    limit: int = Field(default=20, ge=1, le=100)
+Create shared utilities:
+- API client with authentication
+- Error handling helpers
+- Response formatting (JSON/Markdown)
+- Pagination support
 
-@mcp.tool(name="github_search_repos", annotations={"readOnlyHint": True})
-async def search_repos(params: SearchInput) -> str:
-    # Implementation
-    pass
+#### 2.3 Implement Tools
 
-if __name__ == "__main__":
-    mcp.run()
-```
+For each tool:
 
-**TypeScript**:
-```typescript
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
+**Input Schema:**
+- Use Zod (TypeScript) or Pydantic (Python)
+- Include constraints and clear descriptions
+- Add examples in field descriptions
 
-const server = new McpServer({name: "github-mcp-server", version: "1.0.0"});
+**Output Schema:**
+- Define `outputSchema` where possible for structured data
+- Use `structuredContent` in tool responses (TypeScript SDK feature)
+- Helps clients understand and process tool outputs
 
-const SearchSchema = z.object({
-  query: z.string().min(2).max(200),
-  limit: z.number().int().min(1).max(100).default(20)
-}).strict();
+**Tool Description:**
+- Concise summary of functionality
+- Parameter descriptions
+- Return type schema
 
-server.registerTool("github_search_repos", {
-  description: "Search GitHub repositories",
-  inputSchema: SearchSchema,
-  annotations: {readOnlyHint: true}
-}, async (params) => {
-  // Implementation
-});
-```
+**Implementation:**
+- Async/await for I/O operations
+- Proper error handling with actionable messages
+- Support pagination where applicable
+- Return both text content and structured data when using modern SDKs
 
-**Load** `references/building-servers.md` for complete implementation guides.
-
-### Using Tools
-
-**Gemini CLI**:
-```bash
-# IMPORTANT: Use stdin piping, NOT -p flag
-echo "Search GitHub for MCP servers and summarize top 3" | gemini -y -m gemini-2.5-flash
-```
-
-**Direct Script**:
-```bash
-npx tsx scripts/cli.ts call-tool github search_repos '{"query":"mcp","limit":3}'
-```
-
-**Load** `references/using-tools.md` for complete usage patterns.
+**Annotations:**
+- `readOnlyHint`: true/false
+- `destructiveHint`: true/false
+- `idempotentHint`: true/false
+- `openWorldHint`: true/false
 
 ---
 
-## Reference Files
+### Phase 3: Review and Test
 
-Load these as needed during your work:
+#### 3.1 Code Quality
 
-### Core References
-- **`references/building-servers.md`** - Complete MCP server development guide
-  - Agent-centric design principles
-  - Python (FastMCP) and TypeScript (MCP SDK) implementation
-  - Tool patterns, response formats, pagination, error handling
-  - Complete examples and quality checklists
-  - Evaluation creation methodology
+Review for:
+- No duplicated code (DRY principle)
+- Consistent error handling
+- Full type coverage
+- Clear tool descriptions
 
-- **`references/using-tools.md`** - Complete MCP tool execution guide
-  - Gemini CLI integration and configuration
-  - Direct script execution patterns
-  - Subagent delegation strategies
-  - Tool discovery and filtering
-  - Multi-server orchestration
+#### 3.2 Build and Test
 
-- **`references/best-practices.md`** - Universal MCP guidelines
+**TypeScript:**
+- Run `npm run build` to verify compilation
+- Test with MCP Inspector: `npx @modelcontextprotocol/inspector`
+
+**Python:**
+- Verify syntax: `python -m py_compile your_server.py`
+- Test with MCP Inspector
+
+See language-specific guides for detailed testing approaches and quality checklists.
+
+---
+
+### Phase 4: Create Evaluations
+
+After implementing your MCP server, create comprehensive evaluations to test its effectiveness.
+
+**Load [✅ Evaluation Guide](./reference/evaluation.md) for complete evaluation guidelines.**
+
+#### 4.1 Understand Evaluation Purpose
+
+Use evaluations to test whether LLMs can effectively use your MCP server to answer realistic, complex questions.
+
+#### 4.2 Create 10 Evaluation Questions
+
+To create effective evaluations, follow the process outlined in the evaluation guide:
+
+1. **Tool Inspection**: List available tools and understand their capabilities
+2. **Content Exploration**: Use READ-ONLY operations to explore available data
+3. **Question Generation**: Create 10 complex, realistic questions
+4. **Answer Verification**: Solve each question yourself to verify answers
+
+#### 4.3 Evaluation Requirements
+
+Ensure each question is:
+- **Independent**: Not dependent on other questions
+- **Read-only**: Only non-destructive operations required
+- **Complex**: Requiring multiple tool calls and deep exploration
+- **Realistic**: Based on real use cases humans would care about
+- **Verifiable**: Single, clear answer that can be verified by string comparison
+- **Stable**: Answer won't change over time
+
+#### 4.4 Output Format
+
+Create an XML file with this structure:
+
+```xml
+<evaluation>
+  <qa_pair>
+    <question>Find discussions about AI model launches with animal codenames. One model needed a specific safety designation that uses the format ASL-X. What number X was being determined for the model named after a spotted wild cat?</question>
+    <answer>3</answer>
+  </qa_pair>
+<!-- More qa_pairs... -->
+</evaluation>
+```
+
+---
+
+# Reference Files
+
+## 📚 Documentation Library
+
+Load these resources as needed during development:
+
+### Core MCP Documentation (Load First)
+- **MCP Protocol**: Start with sitemap at `https://modelcontextprotocol.io/sitemap.xml`, then fetch specific pages with `.md` suffix
+- [📋 MCP Best Practices](./reference/mcp_best_practices.md) - Universal MCP guidelines including:
   - Server and tool naming conventions
-  - Response format standards (JSON vs Markdown)
-  - Pagination, character limits, truncation
-  - Security and privacy considerations
-  - Testing and compliance requirements
+  - Response format guidelines (JSON vs Markdown)
+  - Pagination best practices
+  - Transport selection (streamable HTTP vs stdio)
+  - Security and error handling standards
 
-### Supporting References
-- **`references/protocol-basics.md`** - JSON-RPC protocol details
-- **`references/python-guide.md`** - Python/FastMCP specifics (Pydantic models, async patterns)
-- **`references/typescript-guide.md`** - TypeScript/Zod specifics (strict types, project structure)
-- **`references/evaluation-guide.md`** - Creating effective MCP server evaluations
+### SDK Documentation (Load During Phase 1/2)
+- **Python SDK**: Fetch from `https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/README.md`
+- **TypeScript SDK**: Fetch from `https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md`
 
----
+### Language-Specific Implementation Guides (Load During Phase 2)
+- [🐍 Python Implementation Guide](./reference/python_mcp_server.md) - Complete Python/FastMCP guide with:
+  - Server initialization patterns
+  - Pydantic model examples
+  - Tool registration with `@mcp.tool`
+  - Complete working examples
+  - Quality checklist
 
-## Progressive Disclosure
+- [⚡ TypeScript Implementation Guide](./reference/node_mcp_server.md) - Complete TypeScript guide with:
+  - Project structure
+  - Zod schema patterns
+  - Tool registration with `server.registerTool`
+  - Complete working examples
+  - Quality checklist
 
-This SKILL.md provides high-level overview. Load reference files when:
-
-**Building Servers**:
-- Starting implementation → Load `references/building-servers.md`
-- Need language-specific details → Load `references/python-guide.md` or `references/typescript-guide.md`
-- Creating evaluations → Load `references/evaluation-guide.md`
-
-**Using Tools**:
-- Setting up Gemini CLI → Load `references/using-tools.md`
-- Debugging tool execution → Load `references/using-tools.md`
-- Multi-server configuration → Load `references/using-tools.md`
-
-**Best Practices**:
-- Reviewing standards → Load `references/best-practices.md`
-- Security considerations → Load `references/best-practices.md`
-
----
-
-## Integration Patterns
-
-**Build + Use**: Create MCP server, then test with Gemini CLI
-**Multi-Server**: Configure multiple servers, orchestrate via Gemini CLI
-**Evaluation-Driven**: Build server, create evaluations, iterate based on LLM feedback
-
----
-
-## Boundaries
-
-**Will**:
-- Guide MCP server development in Python or TypeScript
-- Provide tool execution strategies via Gemini CLI or scripts
-- Ensure best practices for agent-centric design
-- Help create effective evaluations
-- Configure multi-server setups
-
-**Will Not**:
-- Run long-running server processes in main thread (use tmux or evaluation harness)
-- Skip input validation or error handling
-- Create tools without comprehensive documentation
-- Build servers without considering agent context limits
+### Evaluation Guide (Load During Phase 4)
+- [✅ Evaluation Guide](./reference/evaluation.md) - Complete evaluation creation guide with:
+  - Question creation guidelines
+  - Answer verification strategies
+  - XML format specifications
+  - Example questions and answers
+  - Running an evaluation with the provided scripts

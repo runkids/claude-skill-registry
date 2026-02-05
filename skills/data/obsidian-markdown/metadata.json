@@ -1,7 +1,9 @@
 {
   "name": "obsidian-markdown",
-  "repo": "davepoon/buildwithclaude",
-  "path": "plugins/obsidian-skills/skills/obsidian-markdown/SKILL.md",
-  "source": "github.com/davepoon/buildwithclaude",
-  "downloaded_at": "2026-02-02T03:28:19.095132Z"
+  "repo": "stericishere/Obsidian-notes",
+  "path": ".claude/skills/obsidian-skills-main/skills/obsidian-markdown/SKILL.md",
+  "source": "github.com/stericishere/Obsidian-notes",
+  "downloaded_at": "2026-01-29T07:15:17.460481Z",
+  "dir_name": "obsidian-markdown",
+  "category": "data"
 }

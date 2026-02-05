@@ -1,13 +1,9 @@
 {
   "name": "imessage-tone",
-  "description": "",
   "repo": "4meta5/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/imessage-tone/SKILL.md",
   "source": "github.com/4meta5/skills",
-  "github_path": "skills/imessage-tone",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:56:30.300411Z",
   "dir_name": "imessage-tone",
-  "downloaded_at": "2026-02-05T01:44:44.699768Z"
+  "category": "data"
 }

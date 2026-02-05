@@ -1,112 +1,165 @@
 ---
 name: performance
-description: Analyzes performance, identifies bottlenecks, suggests and implements optimizations
-triggers:
-  - optimize
-  - performance
-  - slow
-  - speed up
-  - bottleneck
-  - profile
+description: Apply performance optimization patterns for game loop, rendering, and state updates. Use when discussing frame rate, optimization, profiling, or when editing core game loop code. Auto-apply when user mentions "slow", "fps", "lag", or "performance".
 ---
 
-# Performance Skill
+# Performance Optimization Skill
 
-You are the **Performance Agent** specialized in performance analysis and optimization.
+This is a real-time game requiring 60fps. Apply these patterns for performance-critical code.
 
-## Capabilities
-- Performance bottleneck identification
-- Algorithm complexity analysis
-- Memory usage optimization
-- I/O and network optimization
-- Caching strategy design
-- Profiling and benchmarking
+## Performance Budget
 
-## When to Activate
-Activate this skill when the user reports:
-- "Optimize this code"
-- "Performance is slow"
-- "Speed up the X function"
-- "Find the bottleneck in Y"
-- "Profile the Z module"
+| Operation | Budget | Notes |
+|-----------|--------|-------|
+| Full frame | 16ms | 60fps target |
+| Physics update | 2-4ms | Wave simulation |
+| Rendering | 8-10ms | Canvas draw calls |
+| UI updates | 2-3ms | React reconciliation |
+| Overhead | 2ms | GC, browser, etc. |
 
-## Process
+## Game Loop Patterns
 
-1. **Analyze**: Review code for performance issues
-2. **Identify**: Find bottlenecks and anti-patterns
-3. **Measure**: Profile if tools available
-4. **Optimize**: Implement targeted improvements
-5. **Verify**: Measure improvement impact
-6. **Document**: Explain trade-offs made
+### RequestAnimationFrame
+```javascript
+function gameLoop(timestamp) {
+  const deltaTime = timestamp - lastTimestamp;
+  lastTimestamp = timestamp;
 
-## Performance Analysis Areas
+  update(deltaTime);
+  render();
 
-### Algorithm Complexity
-- Time complexity (Big O)
-- Space complexity
-- Unnecessary iterations
-- Inefficient data structures
+  requestAnimationFrame(gameLoop);
+}
+```
 
-### Memory
-- Memory leaks
-- Excessive allocations
-- Large object retention
-- Garbage collection pressure
+### Fixed Time Step (for physics)
+```javascript
+const PHYSICS_STEP = 1000 / 60; // 16.67ms
+let accumulator = 0;
 
-### I/O Operations
-- Blocking I/O
-- Unnecessary disk operations
-- Network call overhead
-- Database query efficiency
+function update(deltaTime) {
+  accumulator += deltaTime;
+  while (accumulator >= PHYSICS_STEP) {
+    physicsUpdate(PHYSICS_STEP);
+    accumulator -= PHYSICS_STEP;
+  }
+}
+```
 
-### Concurrency
-- Parallelization opportunities
-- Async/await optimization
-- Thread pool usage
-- Lock contention
+## Memory Optimization
 
-### Caching
-- Missing cache opportunities
-- Cache invalidation issues
-- Cache size and eviction
-- Memoization candidates
+### Object Pooling
+```javascript
+// Pre-allocate reusable objects
+const foamRowPool = [];
+function getFoamRow() {
+  return foamRowPool.pop() || createFoamRow();
+}
+function releaseFoamRow(row) {
+  foamRowPool.push(row);
+}
+```
 
-## Common Anti-Patterns
-- N+1 query problems
-- Synchronous operations that could be async
-- Repeated calculations
-- Unnecessary object creation in loops
-- String concatenation in loops
-- Missing indexes on database queries
+### Typed Arrays
+```javascript
+// Use for numeric data
+const grid = new Float32Array(width * height);
+const indices = new Uint16Array(count);
+```
 
-## Output Format
+### Avoid Allocation in Hot Paths
+```javascript
+// Bad - creates new object every frame
+function update() {
+  const vec = { x: 0, y: 0 };
+}
 
-Present performance analysis clearly:
+// Good - reuse scratch objects
+const scratchVec = { x: 0, y: 0 };
+function update() {
+  scratchVec.x = 0;
+  scratchVec.y = 0;
+}
+```
 
-### Current Performance Issues
-List identified bottlenecks with `file:line` references
+## Canvas Rendering Optimization
 
-### Complexity Analysis
-Analyze time/space complexity of key operations
+### Batch Draw Calls
+```javascript
+// Bad - many small paths
+for (const segment of segments) {
+  ctx.beginPath();
+  ctx.moveTo(segment.x1, segment.y1);
+  ctx.lineTo(segment.x2, segment.y2);
+  ctx.stroke();
+}
 
-### Optimization Opportunities
-Specific suggestions with expected impact
+// Good - single path
+ctx.beginPath();
+for (const segment of segments) {
+  ctx.moveTo(segment.x1, segment.y1);
+  ctx.lineTo(segment.x2, segment.y2);
+}
+ctx.stroke();
+```
 
-### Implemented Optimizations
-Describe changes made
+### Layer Canvases
+```javascript
+// Static background on separate canvas
+const bgCanvas = document.createElement('canvas');
+// Only redraw when needed, composite over game canvas
+```
 
-### Performance Impact
-Estimate or measure improvement
+### Avoid State Changes
+```javascript
+// Bad - changes style every iteration
+for (const item of items) {
+  ctx.fillStyle = item.color;
+  ctx.fillRect(item.x, item.y, item.w, item.h);
+}
 
-### Trade-offs
-Discuss any compromises (readability vs performance)
+// Good - group by style
+const byColor = groupBy(items, 'color');
+for (const [color, items] of byColor) {
+  ctx.fillStyle = color;
+  for (const item of items) {
+    ctx.fillRect(item.x, item.y, item.w, item.h);
+  }
+}
+```
 
-### Recommendations
-Additional optimization suggestions
+## Profiling
 
-## Optimization Priorities
-1. Algorithmic improvements (biggest impact)
-2. I/O and database optimizations
-3. Caching and memoization
-4. Memory optimizations
-5. Micro-optimizations (last resort)
+### Browser DevTools
+- Performance tab: flame chart, frame timing
+- Memory tab: heap snapshots, allocation timeline
+
+### In-Code Timing
+```javascript
+const start = performance.now();
+expensiveOperation();
+console.log(`Operation: ${performance.now() - start}ms`);
+```
+
+### Performance Tests
+```javascript
+// src/render/foamRendering.perf.test.js
+it('renders under 16ms budget', () => {
+  const start = performance.now();
+  renderFoam(testData);
+  expect(performance.now() - start).toBeLessThan(16);
+});
+```
+
+## Common Pitfalls
+
+1. **GC Pressure**: Creating objects in game loop
+2. **Layout Thrashing**: Reading/writing DOM in alternation
+3. **Unthrottled Events**: Mouse/touch events firing faster than frames
+4. **Unnecessary Work**: Recalculating unchanged values
+
+## Reference Plans
+
+- `plans/tooling/128-react-performance-optimization.md`
+- `plans/bugfixes/130-bathymetry-heatmap-performance.md`
+- `plans/perf-test-separation.md`

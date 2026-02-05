@@ -1,13 +1,9 @@
 {
   "name": "treido-i18n",
-  "description": "",
   "repo": "w3bsuki/amazong",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/skills/treido-i18n/SKILL.md",
   "source": "github.com/w3bsuki/amazong",
-  "github_path": ".codex/skills/treido-i18n",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:37:58.797800Z",
   "dir_name": "treido-i18n",
-  "downloaded_at": "2026-02-05T01:44:39.851088Z"
+  "category": "data"
 }

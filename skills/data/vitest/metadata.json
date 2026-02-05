@@ -1,7 +1,9 @@
 {
   "name": "vitest",
-  "repo": "pproenca/dot-skills",
-  "path": "skills/.curated/vitest/SKILL.md",
-  "source": "github.com/pproenca/dot-skills",
-  "downloaded_at": "2026-02-02T04:40:37.475051Z"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/vitest/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-01-29T08:32:38.627313Z",
+  "dir_name": "vitest",
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "test-changes",
-  "description": "",
   "repo": "mysticaltech/terraform-hcloud-kube-hetzner",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/test-changes/SKILL.md",
   "source": "github.com/mysticaltech/terraform-hcloud-kube-hetzner",
-  "github_path": ".claude/skills/test-changes",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:21:04.803968Z",
   "dir_name": "test-changes",
-  "downloaded_at": "2026-02-05T01:44:46.998485Z"
+  "category": "data"
 }

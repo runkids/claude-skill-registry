@@ -1,13 +1,9 @@
 {
   "name": "priority-classification",
-  "description": "",
   "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/priority-classification/SKILL.md",
   "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
-  "github_path": ".claude/skills/priority-classification",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:07:40.222683Z",
   "dir_name": "priority-classification-sofia-asif-taskflow-todo-app",
-  "downloaded_at": "2026-02-05T01:44:22.929180Z"
+  "category": "data"
 }

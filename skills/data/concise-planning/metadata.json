@@ -1,7 +1,9 @@
 {
   "name": "concise-planning",
-  "repo": "claudiodearaujo/Sistema-de-narra-o-de-livro",
-  "path": ".agent/skills/concise-planning/SKILL.md",
-  "source": "github.com/claudiodearaujo/Sistema-de-narra-o-de-livro",
-  "downloaded_at": "2026-02-02T04:45:47.188003Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/concise-planning/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T09:00:01.069748Z",
+  "dir_name": "concise-planning",
+  "category": "data"
 }

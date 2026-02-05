@@ -1,7 +1,9 @@
 {
   "name": "skill-validator",
-  "repo": "HasnainCodeHub/todo-evaluation",
-  "path": ".claude/skills/skill-validator/SKILL.md",
-  "source": "github.com/HasnainCodeHub/todo-evaluation",
-  "downloaded_at": "2026-02-02T04:18:37.037058Z"
+  "repo": "adaptationio/Skrillz",
+  "path": "skills/skill-validator/SKILL.md",
+  "source": "github.com/adaptationio/Skrillz",
+  "downloaded_at": "2026-01-29T07:45:48.703011Z",
+  "dir_name": "skill-validator",
+  "category": "data"
 }

@@ -7,7 +7,6 @@ import os
 import json
 import asyncio
 import aiohttp
-import re
 from pathlib import Path
 from datetime import datetime
 import logging
@@ -101,10 +100,11 @@ async def download_skill(session, skill, skills_dir, semaphore, stats):
                         if not category or category == "unknown":
                             category = guess_category(path + " " + content[:500])
 
-                        # Target path (case-safe, unified layout under skills/data)
+                        # Target path (case-safe)
                         key = build_skill_key(repo, path, name=skill_name, category=category)
-                        target_dir = ensure_unique_dir(skills_dir / "data", skill_name, key)
+                        target_dir = ensure_unique_dir(skills_dir / category, skill_name, key, repo=repo)
                         target_file = target_dir / "SKILL.md"
+
                         if target_file.exists():
                             stats["skipped"] += 1
                             return

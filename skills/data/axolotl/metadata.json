@@ -1,7 +1,9 @@
 {
   "name": "axolotl",
-  "repo": "Orchestra-Research/AI-research-SKILLs",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
   "path": "03-fine-tuning/axolotl/SKILL.md",
-  "source": "github.com/Orchestra-Research/AI-research-SKILLs",
-  "downloaded_at": "2026-02-02T03:05:29.541273Z"
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-29T08:55:11.399711Z",
+  "dir_name": "axolotl",
+  "category": "data"
 }

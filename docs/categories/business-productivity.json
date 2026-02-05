@@ -1,0 +1,32 @@
+{
+  "category": "business-productivity",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-02-05T08:28:01.183631Z",
+  "skills": [
+    {
+      "name": "content-research-writer",
+      "description": "Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing proc",
+      "repo": "davepoon/buildwithclaude",
+      "path": "",
+      "branch": "main",
+      "category": "business-productivity",
+      "tags": [],
+      "stars": 2299,
+      "install": "davepoon/buildwithclaude",
+      "source": "github.com/davepoon/buildwithclaude"
+    },
+    {
+      "name": "content-research-writer",
+      "description": "Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing proc",
+      "repo": "davepoon/buildwithclaude",
+      "path": "",
+      "branch": "main",
+      "category": "business-productivity",
+      "tags": [],
+      "stars": 2299,
+      "install": "davepoon/buildwithclaude",
+      "source": "github.com/davepoon/buildwithclaude"
+    }
+  ]
+}

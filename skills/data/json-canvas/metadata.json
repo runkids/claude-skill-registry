@@ -1,7 +1,9 @@
 {
   "name": "json-canvas",
-  "repo": "davepoon/buildwithclaude",
-  "path": "plugins/obsidian-skills/skills/json-canvas/SKILL.md",
-  "source": "github.com/davepoon/buildwithclaude",
-  "downloaded_at": "2026-02-02T03:28:18.845984Z"
+  "repo": "stericishere/Obsidian-notes",
+  "path": ".claude/skills/obsidian-skills-main/skills/json-canvas/SKILL.md",
+  "source": "github.com/stericishere/Obsidian-notes",
+  "downloaded_at": "2026-01-29T07:15:17.326517Z",
+  "dir_name": "json-canvas",
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "posit-r-lib-lifecycle",
-  "description": "",
   "repo": "emraher/eerskills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/skills/posit-r-lib-lifecycle/SKILL.md",
   "source": "github.com/emraher/eerskills",
-  "github_path": ".codex/skills/posit-r-lib-lifecycle",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:58:23.272152Z",
   "dir_name": "posit-r-lib-lifecycle",
-  "downloaded_at": "2026-02-05T01:45:01.595925Z"
+  "category": "data"
 }

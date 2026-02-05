@@ -1,15 +1,9 @@
 {
-  "name": "experiment-analysis",
-  "description": "Analyze GRPO training runs for learning dynamics and pipeline performance. Use when diagnosing training issues, reviewing Elo progression, checking throughput, or updating experiment results.",
-  "repo": "bglick13/diplomacy-v2",
-  "category": "data",
-  "tags": [
-    "experiment",
-    "analysis"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills",
+  "name": "experiment_analysis",
+  "repo": "edwardmonteiro/Aiskillinpractice",
+  "path": "skills/optimization/experiment_analysis/SKILL.md",
+  "source": "github.com/edwardmonteiro/Aiskillinpractice",
+  "downloaded_at": "2026-01-29T01:29:08.557460Z",
   "dir_name": "experiment-analysis",
-  "github_path": ".claude/skills/experiment-analysis",
-  "github_branch": "main"
+  "category": "data"
 }

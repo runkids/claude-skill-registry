@@ -1,9 +1,0 @@
-{
-  "name": "sql-injection-prevention",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/sql-injection-prevention/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-29T07:43:46.358291Z",
-  "dir_name": "sql-injection-prevention__dup-d3486a0f-2",
-  "category": "other"
-}

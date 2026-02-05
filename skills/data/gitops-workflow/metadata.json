@@ -1,7 +1,9 @@
 {
   "name": "gitops-workflow",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/kubernetes-operations/skills/gitops-workflow/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-02-02T04:39:39.244284Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/gitops-workflow/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T09:00:00.084847Z",
+  "dir_name": "gitops-workflow",
+  "category": "data"
 }

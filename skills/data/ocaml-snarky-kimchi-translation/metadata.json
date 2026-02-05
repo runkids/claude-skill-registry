@@ -1,13 +1,9 @@
 {
   "name": "ocaml-snarky-kimchi-translation",
-  "description": "",
   "repo": "l-adic/snarky",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/ocaml-snarky-kimchi-translation/SKILL.md",
   "source": "github.com/l-adic/snarky",
-  "github_path": ".claude/skills/ocaml-snarky-kimchi-translation",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:17:51.245439Z",
   "dir_name": "ocaml-snarky-kimchi-translation",
-  "downloaded_at": "2026-02-05T01:44:09.827565Z"
+  "category": "data"
 }

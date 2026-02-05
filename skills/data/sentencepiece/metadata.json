@@ -1,7 +1,9 @@
 {
   "name": "sentencepiece",
-  "repo": "Orchestra-Research/AI-research-SKILLs",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
   "path": "02-tokenization/sentencepiece/SKILL.md",
-  "source": "github.com/Orchestra-Research/AI-research-SKILLs",
-  "downloaded_at": "2026-02-02T03:05:32.484467Z"
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-29T08:55:12.398388Z",
+  "dir_name": "sentencepiece",
+  "category": "data"
 }

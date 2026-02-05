@@ -1,13 +1,9 @@
 {
   "name": "azure-ai-document-intelligence-ts",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-ai-document-intelligence-ts",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-ai-document-intelligence-ts/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:53.706285Z",
   "dir_name": "azure-ai-document-intelligence-ts",
-  "downloaded_at": "2026-02-05T01:44:52.577661Z"
+  "category": "data"
 }

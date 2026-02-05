@@ -1,7 +1,9 @@
 {
   "name": "inversion-exercise",
-  "repo": "GGPrompts/my-gg-plugins",
-  "path": "plugins/problem-solving/skills/problem-solving/inversion-exercise/SKILL.md",
-  "source": "github.com/GGPrompts/my-gg-plugins",
-  "downloaded_at": "2026-02-02T04:47:36.932288Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/superpowers-problem-solving/inversion-exercise/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:09.678671Z",
+  "dir_name": "inversion-exercise",
+  "category": "data"
 }

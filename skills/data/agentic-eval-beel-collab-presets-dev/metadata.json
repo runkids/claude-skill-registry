@@ -1,13 +1,9 @@
 {
   "name": "agentic-eval",
-  "description": "",
   "repo": "beel-collab/presets.dev",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/agentic-eval/SKILL.md",
   "source": "github.com/beel-collab/presets.dev",
-  "github_path": "skills/agentic-eval",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:14:59.430988Z",
   "dir_name": "agentic-eval-beel-collab-presets-dev",
-  "downloaded_at": "2026-02-05T01:44:51.394293Z"
+  "category": "data"
 }

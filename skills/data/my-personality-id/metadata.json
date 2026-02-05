@@ -1,13 +1,9 @@
 {
   "name": "my-personality-id",
-  "description": "",
   "repo": "crystal-project-inc/personality-ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "my-personality-id/SKILL.md",
   "source": "github.com/crystal-project-inc/personality-ai",
-  "github_path": "my-personality-id",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:28:27.036339Z",
   "dir_name": "my-personality-id",
-  "downloaded_at": "2026-02-05T01:44:36.330115Z"
+  "category": "data"
 }

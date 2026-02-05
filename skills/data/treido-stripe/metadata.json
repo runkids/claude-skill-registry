@@ -1,13 +1,9 @@
 {
   "name": "treido-stripe",
-  "description": "",
   "repo": "w3bsuki/amazong",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/skills/treido-stripe/SKILL.md",
   "source": "github.com/w3bsuki/amazong",
-  "github_path": ".codex/skills/treido-stripe",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:37:59.351192Z",
   "dir_name": "treido-stripe",
-  "downloaded_at": "2026-02-05T01:44:39.716274Z"
+  "category": "data"
 }

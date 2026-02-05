@@ -1,13 +1,9 @@
 {
   "name": "mcm-c-modeler",
-  "description": "",
   "repo": "twj0/2026mcm",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".windsurf/skills/mcm-c-modeler/SKILL.md",
   "source": "github.com/twj0/2026mcm",
-  "github_path": ".windsurf/skills/mcm-c-modeler",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:58:51.008473Z",
   "dir_name": "mcm-c-modeler",
-  "downloaded_at": "2026-02-05T01:44:28.925855Z"
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "create-demo",
-  "description": "",
   "repo": "rhpds/rhdp-skills-marketplace",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "showroom/skills/create-demo/SKILL.md",
   "source": "github.com/rhpds/rhdp-skills-marketplace",
-  "github_path": "showroom/skills/create-demo",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:50:54.325897Z",
   "dir_name": "create-demo",
-  "downloaded_at": "2026-02-05T01:44:13.203605Z"
+  "category": "data"
 }

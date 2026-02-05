@@ -1,7 +1,9 @@
 {
   "name": "update-docs",
-  "repo": "maxlogvn/AiCMR",
-  "path": ".agents/skills/update-docs/SKILL.md",
-  "source": "github.com/maxlogvn/AiCMR",
-  "downloaded_at": "2026-02-02T04:22:38.835626Z"
+  "repo": "kreas/ship-it",
+  "path": ".claude/skills/update-docs/SKILL.md",
+  "source": "github.com/kreas/ship-it",
+  "downloaded_at": "2026-01-29T07:54:14.724718Z",
+  "dir_name": "update-docs",
+  "category": "data"
 }

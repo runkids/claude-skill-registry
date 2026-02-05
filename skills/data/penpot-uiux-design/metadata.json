@@ -1,13 +1,9 @@
 {
   "name": "penpot-uiux-design",
-  "description": "",
-  "repo": "beel-collab/presets.dev",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/beel-collab/presets.dev",
-  "github_path": "skills/penpot-uiux-design",
-  "github_branch": "main",
+  "repo": "github/awesome-copilot",
+  "path": "skills/penpot-uiux-design/SKILL.md",
+  "source": "github.com/github/awesome-copilot",
+  "downloaded_at": "2026-02-04T01:25:11.093716Z",
   "dir_name": "penpot-uiux-design",
-  "downloaded_at": "2026-02-05T01:44:51.419116Z"
+  "category": "data"
 }

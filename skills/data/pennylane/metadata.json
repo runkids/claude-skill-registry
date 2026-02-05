@@ -1,7 +1,9 @@
 {
   "name": "pennylane",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/scientific-skills/skills/pennylane/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-02T04:36:41.875936Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/pennylane/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:18.544902Z",
+  "dir_name": "pennylane",
+  "category": "data"
 }

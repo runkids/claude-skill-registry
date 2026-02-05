@@ -1,13 +1,9 @@
 {
   "name": "sprint",
-  "description": "",
   "repo": "djnsty23/claude-auto-dev",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/sprint/SKILL.md",
   "source": "github.com/djnsty23/claude-auto-dev",
-  "github_path": "skills/sprint",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:47:34.060205Z",
   "dir_name": "sprint",
-  "downloaded_at": "2026-02-05T06:28:51.114645Z"
+  "category": "data"
 }

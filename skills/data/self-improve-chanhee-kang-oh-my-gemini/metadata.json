@@ -1,13 +1,9 @@
 {
   "name": "self-improve",
-  "description": "",
   "repo": "chanhee-kang/oh-my-gemini",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/self-improve/SKILL.md",
   "source": "github.com/chanhee-kang/oh-my-gemini",
-  "github_path": "skills/self-improve",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:17:55.528243Z",
   "dir_name": "self-improve-chanhee-kang-oh-my-gemini",
-  "downloaded_at": "2026-02-05T01:44:16.154585Z"
+  "category": "data"
 }

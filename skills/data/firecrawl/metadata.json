@@ -1,11 +1,9 @@
 {
   "name": "firecrawl",
-  "repo": "5dlabs/cto",
-  "path": "templates/skills/tools/firecrawl/SKILL.md",
-  "source": "github.com/5dlabs/cto",
-  "downloaded_at": "2026-01-22T03:27:07.079866Z",
+  "repo": "ninehills/skills",
+  "path": "skills/firecrawl/SKILL.md",
+  "source": "github.com/ninehills/skills",
+  "downloaded_at": "2026-02-04T03:29:14.360776Z",
   "dir_name": "firecrawl",
-  "category": "other",
-  "github_path": "templates/skills/tools/firecrawl",
-  "github_branch": "main"
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "model-fallback",
-  "description": "",
   "repo": "aAAaqwq/AGI-Super-Skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "model-fallback/SKILL.md",
   "source": "github.com/aAAaqwq/AGI-Super-Skills",
-  "github_path": "model-fallback",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T04:43:06.800581Z",
   "dir_name": "model-fallback",
-  "downloaded_at": "2026-02-05T01:45:00.249870Z"
+  "category": "data"
 }

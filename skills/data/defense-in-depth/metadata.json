@@ -1,7 +1,9 @@
 {
   "name": "defense-in-depth",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/superpowers-skills/skills/debugging/defense-in-depth/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-02-02T05:09:41.751049Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/superpowers-debugging/defense-in-depth/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:08.990789Z",
+  "dir_name": "defense-in-depth",
+  "category": "data"
 }

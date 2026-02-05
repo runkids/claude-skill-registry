@@ -1,13 +1,9 @@
 {
   "name": "healthcheck",
-  "description": "",
   "repo": "kavia-common/moltbot-311196",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/healthcheck/SKILL.md",
   "source": "github.com/kavia-common/moltbot-311196",
-  "github_path": "skills/healthcheck",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T01:45:45.351343Z",
   "dir_name": "healthcheck",
-  "downloaded_at": "2026-02-05T01:44:16.544351Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "cc-skill-security-review",
-  "repo": "AxelMrak/ai",
+  "repo": "cgyudistira/code-agents",
   "path": "skills/cc-skill-security-review/SKILL.md",
-  "source": "github.com/AxelMrak/ai",
-  "downloaded_at": "2026-02-02T03:09:29.617292Z"
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-29T05:42:55.987412Z",
+  "dir_name": "cc-skill-security-review",
+  "category": "data"
 }

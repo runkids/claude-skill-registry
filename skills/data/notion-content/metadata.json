@@ -1,13 +1,9 @@
 {
   "name": "notion-content",
-  "description": "",
   "repo": "Alexu0317-FATHER/notion-content-skill",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/notion-content/SKILL.md",
   "source": "github.com/Alexu0317-FATHER/notion-content-skill",
-  "github_path": "skills/notion-content",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:36:41.271759Z",
   "dir_name": "notion-content",
-  "downloaded_at": "2026-02-05T01:45:10.694043Z"
+  "category": "data"
 }

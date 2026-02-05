@@ -1,13 +1,9 @@
 {
   "name": "prediction-explanation",
-  "description": "",
-  "repo": "mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
-  "github_path": "Skills/Machine_Learning/machine-learning/prediction-explanation",
-  "github_branch": "main",
+  "repo": "GPTomics/bioSkills",
+  "path": "machine-learning/prediction-explanation/SKILL.md",
+  "source": "github.com/GPTomics/bioSkills",
+  "downloaded_at": "2026-02-04T02:48:43.388687Z",
   "dir_name": "prediction-explanation",
-  "downloaded_at": "2026-02-05T01:44:38.714480Z"
+  "category": "data"
 }

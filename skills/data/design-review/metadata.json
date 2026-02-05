@@ -1,7 +1,9 @@
 {
   "name": "design-review",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/design-review/skills/design-review/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-02-02T02:14:05.410103Z"
+  "repo": "spencerbeggs/claude-design-coordinator",
+  "path": ".claude/skills/design-review/SKILL.md",
+  "source": "github.com/spencerbeggs/claude-design-coordinator",
+  "downloaded_at": "2026-01-29T07:47:42.778593Z",
+  "dir_name": "design-review",
+  "category": "data"
 }

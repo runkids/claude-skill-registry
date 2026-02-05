@@ -1,7 +1,9 @@
 {
-  "name": "aI-agent-implementation-skill",
+  "name": "ai-agent-implementation-skill",
   "repo": "omerakben/omer-akben",
   "path": ".claude/skills/aI-agent-implementation-skill/SKILL.md",
   "source": "github.com/omerakben/omer-akben",
-  "downloaded_at": "2026-02-02T04:04:50.614518Z"
+  "downloaded_at": "2026-02-04T02:33:55.518678Z",
+  "dir_name": "ai-agent-implementation-skill",
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
-  "name": "documentation-standards",
-  "repo": "pr-pm/prpm",
-  "path": ".claude/skills/documentation-standards/SKILL.md",
-  "source": "github.com/pr-pm/prpm",
-  "downloaded_at": "2026-02-02T04:17:19.534725Z"
+  "name": "documentation_standards",
+  "repo": "jr2804/prompts",
+  "path": "skills/documentation/documentation_standards/SKILL.md",
+  "source": "github.com/jr2804/prompts",
+  "downloaded_at": "2026-02-01T04:20:42.926910Z",
+  "dir_name": "documentation-standards",
+  "category": "data"
 }

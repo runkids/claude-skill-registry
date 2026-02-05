@@ -1,13 +1,9 @@
 {
   "name": "web-automation",
-  "description": "",
   "repo": "HouseGarofalo/claude-code-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/web-automation/SKILL.md",
   "source": "github.com/HouseGarofalo/claude-code-base",
-  "github_path": ".claude/skills/web-automation",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:55:10.727196Z",
   "dir_name": "web-automation-housegarofalo-claude-code-base",
-  "downloaded_at": "2026-02-05T01:44:39.068923Z"
+  "category": "data"
 }

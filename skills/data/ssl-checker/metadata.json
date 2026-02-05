@@ -1,13 +1,9 @@
 {
   "name": "ssl-checker",
-  "description": "",
   "repo": "glwlg/X-bot",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/learned/ssl_checker/SKILL.md",
   "source": "github.com/glwlg/X-bot",
-  "github_path": "skills/learned/ssl_checker",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:00:24.499686Z",
   "dir_name": "ssl-checker",
-  "downloaded_at": "2026-02-05T05:41:55.571178Z"
+  "category": "data"
 }

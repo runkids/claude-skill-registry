@@ -1,7 +1,9 @@
 {
-  "name": "hook-development",
-  "repo": "troykelly/claude-skills",
-  "path": "external/skills/hook-development/SKILL.md",
-  "source": "github.com/troykelly/claude-skills",
-  "downloaded_at": "2026-02-02T05:04:57.764779Z"
+  "name": "Hook Development",
+  "repo": "turkbil/bee",
+  "path": ".agents/skills/Hook Development/SKILL.md",
+  "source": "github.com/turkbil/bee",
+  "downloaded_at": "2026-02-01T04:18:17.297538Z",
+  "dir_name": "hook-development",
+  "category": "data"
 }

@@ -1,0 +1,19 @@
+{
+  "category": "skills",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.244853Z",
+  "skills": [
+    {
+      "name": "skills",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": ".claude/skills/api-documentation.skill.md",
+      "branch": "main",
+      "category": "skills",
+      "tags": [],
+      "stars": 1,
+      "install": "plannededge/codebook/.claude/skills/api-documentation.skill.md",
+      "source": "github.com/plannededge/codebook"
+    }
+  ]
+}

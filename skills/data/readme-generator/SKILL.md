@@ -1,480 +1,259 @@
 ---
 name: readme-generator
-description: Эксперт по README файлам. Используй для создания документации проектов, badges, installation guides и usage examples.
+description: Auto-activates when user mentions README, project documentation, getting started guide, or creating project docs. Generates comprehensive README.md.
+category: documentation
 ---
 
 # README Generator
 
-Expert in creating comprehensive, well-structured README files with proper formatting, sections, badges, and documentation best practices.
+Generates professional, comprehensive README.md for any project.
+
+## When This Activates
+
+- User says: "create README", "generate README", "project documentation"
+- New project initialization
+- Missing or outdated README
 
 ## README Template
 
 ```markdown
 # Project Name
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/owner/repo/ci.yml?branch=main)](https://github.com/owner/repo/actions)
-[![npm version](https://img.shields.io/npm/v/package-name.svg)](https://www.npmjs.com/package/package-name)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Coverage](https://img.shields.io/codecov/c/github/owner/repo)](https://codecov.io/gh/owner/repo)
+Brief one-sentence description of what this project does.
 
-> Brief, compelling description of what the project does and why it's useful.
+## 🚀 Features
 
-## Features
+- Feature 1 - Brief description
+- Feature 2 - Brief description  
+- Feature 3 - Brief description
 
-- ✅ Feature one with brief explanation
-- ✅ Feature two with brief explanation
-- ✅ Feature three with brief explanation
-- 🚧 Upcoming feature (in development)
-
-## Quick Start
-
-\`\`\`bash
-# Install
-npm install package-name
-
-# Run
-npx package-name init
-\`\`\`
-
-## Installation
+## 📦 Installation
 
 ### Prerequisites
 
-- Node.js 18+
-- npm 9+ or yarn 1.22+
+- Node.js 18+ (or Python 3.11+, etc.)
+- Database (PostgreSQL, MongoDB, etc.)
+- Other requirements
 
-### npm
-
-\`\`\`bash
-npm install package-name
-\`\`\`
-
-### yarn
+### Quick Start
 
 \`\`\`bash
-yarn add package-name
+# Clone repository
+git clone https://github.com/username/project.git
+cd project
+
+# Install dependencies
+npm install  # or: bun install, pip install -r requirements.txt
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Run database migrations
+npm run db:migrate
+
+# Start development server
+npm run dev
 \`\`\`
 
-### pnpm
+Visit `http://localhost:3000` to see the app.
 
-\`\`\`bash
-pnpm add package-name
-\`\`\`
-
-## Usage
+## 🛠️ Usage
 
 ### Basic Example
 
 \`\`\`javascript
-import { Client } from 'package-name';
+import { someFunction } from 'project';
 
-const client = new Client({
-  apiKey: process.env.API_KEY
-});
-
-const result = await client.doSomething({
-  input: 'Hello, World!'
-});
-
+const result = someFunction({ param: 'value' });
 console.log(result);
 \`\`\`
 
-### Advanced Configuration
+### Advanced Example
 
 \`\`\`javascript
-const client = new Client({
-  apiKey: process.env.API_KEY,
-  timeout: 30000,
-  retries: 3,
-  debug: process.env.NODE_ENV === 'development'
-});
+// More complex usage example
 \`\`\`
 
-## API Reference
+## 📖 API Reference
 
-### `Client(options)`
+### Main Functions
 
-Creates a new client instance.
+#### \`functionName(param1, param2)\`
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `apiKey` | `string` | Yes | - | Your API key |
-| `timeout` | `number` | No | `10000` | Request timeout in ms |
-| `retries` | `number` | No | `0` | Number of retry attempts |
-
-### `client.doSomething(params)`
-
-Performs the main operation.
+Description of what the function does.
 
 **Parameters:**
+- \`param1\` (string): Description
+- \`param2\` (number): Description
 
-- `input` (string, required): The input to process
-- `options` (object, optional): Additional options
-
-**Returns:** `Promise<Result>`
+**Returns:** Description of return value
 
 **Example:**
-
 \`\`\`javascript
-const result = await client.doSomething({
-  input: 'test',
-  options: { format: 'json' }
-});
+const result = functionName('value', 42);
 \`\`\`
 
-## Configuration
+## 🏗️ Project Structure
 
-Create a `config.json` file in your project root:
-
-\`\`\`json
-{
-  "apiKey": "${API_KEY}",
-  "environment": "production",
-  "features": {
-    "caching": true,
-    "logging": false
-  }
-}
 \`\`\`
+project/
+├── src/               # Source code
+│   ├── components/    # React components
+│   ├── lib/          # Utility libraries
+│   └── app/          # Main application
+├── tests/            # Test files
+├── docs/             # Documentation
+└── scripts/          # Build/deployment scripts
+\`\`\`
+
+## 🧪 Testing
+
+\`\`\`bash
+# Run all tests
+npm test
+
+# Run specific test file
+npm test path/to/test.test.ts
+
+# Run with coverage
+npm run test:coverage
+
+# Run in watch mode
+npm run test:watch
+\`\`\`
+
+## 🚢 Deployment
+
+### Production Build
+
+\`\`\`bash
+npm run build
+npm start
+\`\`\`
+
+### Docker
+
+\`\`\`bash
+docker build -t project-name .
+docker run -p 3000:3000 project-name
+\`\`\`
+
+### Deploy to Vercel/Netlify/etc.
+
+\`\`\`bash
+# Platform-specific deployment commands
+\`\`\`
+
+## ⚙️ Configuration
 
 ### Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `API_KEY` | Your API key | Yes |
-| `DEBUG` | Enable debug mode | No |
-| `LOG_LEVEL` | Logging level (info, warn, error) | No |
+Create a \`.env\` file in the root directory:
 
-## Examples
-
-See the [examples](./examples) directory for more detailed examples:
-
-- [Basic Usage](./examples/basic.js)
-- [With TypeScript](./examples/typescript.ts)
-- [Error Handling](./examples/error-handling.js)
-- [Custom Configuration](./examples/custom-config.js)
-
-## Troubleshooting
-
-### Common Issues
-
-**"Authentication failed" error**
-
-Ensure your API key is valid and has the required permissions.
-
-\`\`\`bash
-# Verify your API key
-curl -H "Authorization: Bearer $API_KEY" https://api.example.com/verify
+\`\`\`env
+DATABASE_URL=postgresql://user:pass@localhost:5432/dbname
+API_KEY=your_api_key_here
+NODE_ENV=development
 \`\`\`
 
-**"Module not found" error**
+See \`.env.example\` for all available options.
 
-Make sure you have installed all dependencies:
+## 🤝 Contributing
 
-\`\`\`bash
-rm -rf node_modules package-lock.json
-npm install
-\`\`\`
-
-## Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+Contributions are welcome! Please follow these steps:
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (\`git checkout -b feature/amazing-feature\`)
+3. Commit your changes (\`git commit -m 'feat: add amazing feature'\`)
+4. Push to the branch (\`git push origin feature/amazing-feature\`)
 5. Open a Pull Request
 
-## Development
+Please ensure:
+- All tests pass
+- Code follows project style guide
+- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/)
 
-\`\`\`bash
-# Clone the repo
-git clone https://github.com/owner/repo.git
-cd repo
-
-# Install dependencies
-npm install
-
-# Run tests
-npm test
-
-# Run in development mode
-npm run dev
-\`\`\`
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
-
-## License
+## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## 👥 Authors
 
-- [Library Name](https://example.com) - For providing X functionality
-- [Person Name](https://github.com/person) - For their contributions
+- **Your Name** - [GitHub](https://github.com/username)
+
+## 🙏 Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration sources
+- Libraries/tools used
+
+## 📞 Support
+
+- 📧 Email: support@example.com
+- 💬 Discord: [Join our server](https://discord.gg/xyz)
+- 🐛 Issues: [GitHub Issues](https://github.com/username/project/issues)
+
+## 📚 Additional Resources
+
+- [Documentation](https://docs.example.com)
+- [Changelog](CHANGELOG.md)
+- [API Reference](https://api.example.com)
+- [Contributing Guide](CONTRIBUTING.md)
 
 ---
 
-Made with ❤️ by [Your Name](https://github.com/yourname)
+Made with ❤️ by [Your Name](https://github.com/username)
 ```
 
-## Badge Reference
+## Auto-Detection
 
-```yaml
-badges:
-  build_status:
-    github_actions: "[![Build](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/WORKFLOW.yml?branch=BRANCH)](URL)"
-    travis: "[![Build Status](https://img.shields.io/travis/OWNER/REPO.svg)](URL)"
-    circleci: "[![CircleCI](https://img.shields.io/circleci/build/github/OWNER/REPO)](URL)"
+Analyze project to auto-fill:
 
-  package_version:
-    npm: "[![npm](https://img.shields.io/npm/v/PACKAGE.svg)](URL)"
-    pypi: "[![PyPI](https://img.shields.io/pypi/v/PACKAGE.svg)](URL)"
-    gem: "[![Gem](https://img.shields.io/gem/v/PACKAGE.svg)](URL)"
+1. **Language/Framework:**
+   - package.json → Node.js/TypeScript
+   - requirements.txt → Python
+   - Cargo.toml → Rust
+   - go.mod → Go
 
-  coverage:
-    codecov: "[![codecov](https://img.shields.io/codecov/c/github/OWNER/REPO)](URL)"
-    coveralls: "[![Coverage](https://img.shields.io/coveralls/github/OWNER/REPO)](URL)"
+2. **Scripts:**
+   - Extract from package.json scripts
+   - Detect test commands
+   - Find build commands
 
-  license:
-    mit: "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
-    apache: "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
-    gpl: "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)"
+3. **Dependencies:**
+   - List major dependencies
+   - Mention notable libraries
 
-  downloads:
-    npm: "[![Downloads](https://img.shields.io/npm/dm/PACKAGE.svg)](URL)"
-    pypi: "[![Downloads](https://img.shields.io/pypi/dm/PACKAGE.svg)](URL)"
+4. **Project Structure:**
+   - Scan directories
+   - Identify patterns (Next.js, React, etc.)
 
-  quality:
-    codacy: "[![Codacy Badge](https://img.shields.io/codacy/grade/PROJECT_ID)](URL)"
-    code_climate: "[![Maintainability](https://img.shields.io/codeclimate/maintainability/OWNER/REPO)](URL)"
+## Badges
 
-  social:
-    stars: "[![GitHub stars](https://img.shields.io/github/stars/OWNER/REPO)](URL)"
-    forks: "[![GitHub forks](https://img.shields.io/github/forks/OWNER/REPO)](URL)"
-    watchers: "[![GitHub watchers](https://img.shields.io/github/watchers/OWNER/REPO)](URL)"
+Add relevant badges:
+
+```markdown
+![Build Status](https://github.com/user/repo/workflows/CI/badge.svg)
+![Coverage](https://codecov.io/gh/user/repo/branch/main/graph/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Version](https://img.shields.io/npm/v/package-name.svg)
 ```
 
-## Section Guidelines
+## Best Practices
 
-```yaml
-essential_sections:
-  title_and_badges:
-    purpose: "Immediate project identification"
-    elements:
-      - "Project name (H1)"
-      - "Key status badges"
-      - "One-line description"
+✅ **DO:**
+- Keep it concise (aim for 1-2 screen lengths)
+- Include working examples
+- Add badges for status/coverage
+- Update regularly with changes
+- Include troubleshooting section
 
-  features:
-    purpose: "Highlight key capabilities"
-    format: "Bullet list with checkmarks"
-    length: "5-8 items maximum"
+❌ **DON'T:**
+- Write a novel (keep it scannable)
+- Use outdated examples
+- Forget installation steps
+- Skip configuration details
+- Miss contributor guidelines
 
-  quick_start:
-    purpose: "Fastest path to running code"
-    requirements:
-      - "Copy-pasteable commands"
-      - "Under 5 steps"
-      - "Working example"
-
-  installation:
-    purpose: "Complete setup instructions"
-    include:
-      - "Prerequisites with versions"
-      - "Multiple package managers"
-      - "Platform-specific notes"
-
-  usage:
-    purpose: "Demonstrate core functionality"
-    include:
-      - "Basic example"
-      - "Advanced configuration"
-      - "Real-world use case"
-
-  api_reference:
-    purpose: "Complete function documentation"
-    format:
-      - "Function signature"
-      - "Parameter table"
-      - "Return type"
-      - "Code example"
-
-optional_sections:
-  - "Architecture diagram"
-  - "Benchmarks/Performance"
-  - "FAQ"
-  - "Roadmap"
-  - "Security policy"
-  - "Code of conduct"
-```
-
-## Writing Guidelines
-
-```yaml
-tone:
-  - "Clear and concise"
-  - "Action-oriented"
-  - "Beginner-friendly"
-  - "Scannable"
-
-structure:
-  headings: "Use H2 for main sections, H3 for subsections"
-  lists: "Prefer bullet points over paragraphs"
-  code: "Always include language identifier"
-  tables: "Use for structured data (parameters, options)"
-
-code_blocks:
-  requirements:
-    - "Always specify language"
-    - "Include necessary imports"
-    - "Show expected output when helpful"
-    - "Use realistic values, not 'foo/bar'"
-
-  example:
-    good: |
-      ```javascript
-      import { Client } from 'my-package';
-
-      const client = new Client({ apiKey: process.env.API_KEY });
-      const result = await client.search('nodejs tutorials');
-      console.log(result.items);
-      ```
-    bad: |
-      ```
-      const x = new X();
-      x.foo();
-      ```
-
-anti_patterns:
-  - "Wall of text without headings"
-  - "Missing installation instructions"
-  - "Outdated badges or broken links"
-  - "Code examples that don't work"
-  - "Assuming reader knowledge"
-  - "Missing license information"
-```
-
-## Project Type Templates
-
-```yaml
-templates:
-  library:
-    sections:
-      - "Title + Badges"
-      - "Features"
-      - "Installation"
-      - "Quick Start"
-      - "API Reference"
-      - "Examples"
-      - "Contributing"
-      - "License"
-
-  cli_tool:
-    sections:
-      - "Title + Badges"
-      - "Features"
-      - "Installation"
-      - "Usage (with commands)"
-      - "Configuration"
-      - "Examples"
-      - "Contributing"
-      - "License"
-
-  api_service:
-    sections:
-      - "Title + Badges"
-      - "Features"
-      - "Getting Started"
-      - "Authentication"
-      - "API Reference"
-      - "Rate Limits"
-      - "Error Handling"
-      - "SDKs"
-      - "Support"
-
-  framework:
-    sections:
-      - "Title + Badges"
-      - "Why This Framework"
-      - "Features"
-      - "Quick Start"
-      - "Documentation"
-      - "Examples"
-      - "Ecosystem"
-      - "Migration Guide"
-      - "Contributing"
-      - "License"
-```
-
-## Visual Elements
-
-```yaml
-diagrams:
-  architecture: |
-    ```
-    ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-    │   Client    │────▶│   Server    │────▶│  Database   │
-    └─────────────┘     └─────────────┘     └─────────────┘
-    ```
-
-  flow: |
-    ```
-    Input ──▶ Validate ──▶ Process ──▶ Output
-                │
-                ▼
-              Error
-    ```
-
-tables:
-  comparison: |
-    | Feature | This Project | Alternative A | Alternative B |
-    |---------|--------------|---------------|---------------|
-    | Speed   | ⚡ Fast      | 🐢 Slow       | 🚀 Fastest    |
-    | Size    | 📦 Small     | 📦 Medium     | 📦 Large      |
-
-  features: |
-    | Feature | Free | Pro | Enterprise |
-    |---------|:----:|:---:|:----------:|
-    | Basic   | ✅   | ✅  | ✅         |
-    | Advanced| ❌   | ✅  | ✅         |
-    | Support | ❌   | ❌  | ✅         |
-```
-
-## Checklist
-
-```yaml
-validation_checklist:
-  structure:
-    - "[ ] Title and description present"
-    - "[ ] Badges are current and working"
-    - "[ ] Installation instructions complete"
-    - "[ ] Quick start works on fresh clone"
-    - "[ ] API documentation accurate"
-    - "[ ] License file present"
-
-  quality:
-    - "[ ] No broken links"
-    - "[ ] Code examples tested and working"
-    - "[ ] Screenshots/GIFs current"
-    - "[ ] No typos or grammar issues"
-    - "[ ] Consistent formatting"
-
-  accessibility:
-    - "[ ] Alt text for images"
-    - "[ ] Proper heading hierarchy"
-    - "[ ] Code blocks have language specified"
-    - "[ ] Tables have headers"
-```
-
-## Лучшие практики
-
-1. **Start with Quick Start** — пользователи хотят результат быстро
-2. **Show, don't tell** — код важнее объяснений
-3. **Keep it current** — обновляй при каждом релизе
-4. **Test everything** — все примеры должны работать
-5. **Use badges wisely** — только релевантные, рабочие
-6. **Structure for scanning** — заголовки, списки, таблицы
+**Generate README, present to user, write file with approval.**

@@ -1,13 +1,9 @@
 {
   "name": "auto-fix-bug",
-  "description": "",
   "repo": "pekral/cursor-rules",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/auto-fix-bug/SKILL.md",
   "source": "github.com/pekral/cursor-rules",
-  "github_path": "skills/auto-fix-bug",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T03:05:43.460809Z",
   "dir_name": "auto-fix-bug",
-  "downloaded_at": "2026-02-05T01:44:36.525115Z"
+  "category": "data"
 }

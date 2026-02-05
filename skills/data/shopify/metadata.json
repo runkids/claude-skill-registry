@@ -1,7 +1,9 @@
 {
   "name": "shopify",
-  "repo": "binjuhor/shadcn-lar",
-  "path": ".claude/skills/shopify/SKILL.md",
-  "source": "github.com/binjuhor/shadcn-lar",
-  "downloaded_at": "2026-02-02T05:07:36.393780Z"
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/shopify/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-01-29T08:58:02.659283Z",
+  "dir_name": "shopify",
+  "category": "data"
 }

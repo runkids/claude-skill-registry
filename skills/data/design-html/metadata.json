@@ -1,13 +1,9 @@
 {
   "name": "design-html",
-  "description": "",
   "repo": "mae616/ai-template",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/design-html/SKILL.md",
   "source": "github.com/mae616/ai-template",
-  "github_path": ".claude/skills/design-html",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:17:58.377238Z",
   "dir_name": "design-html",
-  "downloaded_at": "2026-02-05T01:45:07.938864Z"
+  "category": "data"
 }

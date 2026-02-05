@@ -1,13 +1,9 @@
 {
   "name": "treido-accessibility",
-  "description": "",
   "repo": "w3bsuki/amazong",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/skills/treido-accessibility/SKILL.md",
   "source": "github.com/w3bsuki/amazong",
-  "github_path": ".codex/skills/treido-accessibility",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:38:01.750587Z",
   "dir_name": "treido-accessibility",
-  "downloaded_at": "2026-02-05T01:44:39.712524Z"
+  "category": "data"
 }

@@ -2,9 +2,12 @@
 """
 Build Search Index v2.0 - Generate lightweight search index
 
+Supports directory structure:
+- skills/{category}/{skill-name}/SKILL.md
+
 Output files:
 - search-index.json - Minimal index (~1-2MB gzip)
-- categories/*.json - Canonical category indexes (12 files)
+- categories/*.json - Category-based indexes
 - featured.json - Top 100 skills by stars
 """
 
@@ -17,6 +20,8 @@ import argparse
 import logging
 import re
 import yaml
+
+from utils import get_repo_suffix
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
@@ -37,20 +42,8 @@ CATEGORY_CODES = {
     "other": "oth",
 }
 
-CODE_TO_NAME = {
-    "dev": "Development",
-    "ops": "DevOps",
-    "sec": "Security",
-    "doc": "Documents",
-    "des": "Design",
-    "tst": "Testing",
-    "prd": "Product",
-    "mkt": "Marketing",
-    "pro": "Productivity",
-    "dat": "Data",
-    "off": "Official",
-    "oth": "Other",
-}
+# Known category directories (for scanning)
+KNOWN_CATEGORIES = set(CATEGORY_CODES.keys()) | {"data", "other"}
 
 
 def truncate_text(text: Any, max_length: int) -> str:
@@ -107,6 +100,97 @@ def extract_description(skill_content: str) -> str:
     return ""
 
 
+def scan_skills_v2(skills_dir: Path) -> List[Dict]:
+    """Scan skills directory with structure: skills/{category}/{skill-name}/"""
+    skills = []
+
+    if not skills_dir.exists():
+        logger.warning(f"Skills directory not found: {skills_dir}")
+        return skills
+
+    for category_dir in skills_dir.iterdir():
+        if not category_dir.is_dir():
+            continue
+        if category_dir.name.startswith('.'):
+            continue
+
+        category_name = category_dir.name
+
+        for skill_dir in category_dir.iterdir():
+            if not skill_dir.is_dir():
+                continue
+
+            skill_md = skill_dir / "SKILL.md"
+            metadata_file = skill_dir / "metadata.json"
+
+            if not skill_md.exists():
+                continue
+
+            dir_name = skill_dir.name
+
+            # Load metadata
+            metadata = {}
+            if metadata_file.exists():
+                try:
+                    metadata = json.loads(metadata_file.read_text(encoding='utf-8'))
+                except Exception:
+                    pass
+
+            # Get skill name (from metadata or directory)
+            name = metadata.get("name") or dir_name
+
+            # Remove repo suffix from dir_name if metadata repo is available
+            if name == dir_name:
+                repo = metadata.get("repo", "")
+                suffix = get_repo_suffix(repo)
+                if suffix and dir_name.endswith(f"-{suffix}"):
+                    name = dir_name[: -(len(suffix) + 1)]
+
+            # Get description
+            description = metadata.get("description", "")
+            if not description:
+                try:
+                    content = skill_md.read_text(encoding='utf-8')
+                    description = extract_description(content)
+                except Exception:
+                    pass
+            if not description:
+                description = f"Skill: {name}"
+
+            # Get category
+            category = metadata.get("category", category_name)
+
+            # Build install path
+            repo = metadata.get("repo", "")
+            github_path = metadata.get("github_path", "")
+            github_branch = metadata.get("github_branch", "main")  # Default to main
+
+            if github_path and repo:
+                install = f"{repo}/{github_path}"
+            elif repo:
+                install = repo
+            else:
+                install = f"unknown/{name}"
+
+            skill_entry = {
+                "name": name,
+                "dir_name": dir_name,
+                "description": description,
+                "repo": repo,
+                "path": github_path,
+                "branch": github_branch,
+                "category": category,
+                "tags": metadata.get("tags", []),
+                "stars": metadata.get("stars", 0),
+                "source": metadata.get("source", "downloaded"),
+                "install": install,
+            }
+
+            skills.append(skill_entry)
+
+    return skills
+
+
 def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = "skills") -> Dict[str, Any]:
     """Build the lightweight search index."""
     logger.info(f"Building index from {len(skills)} {source_name}...")
@@ -118,9 +202,8 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
         "s": []
     }
 
-    # Category indexes (canonical category names)
+    # Category indexes
     categories: Dict[str, List[Dict]] = {}
-    code_counts: Dict[str, int] = {}
 
     # Featured skills
     featured_skills = []
@@ -128,20 +211,18 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
     for skill in skills:
         name = skill.get('name', '')
         description = skill.get('description', '')
-        category = (skill.get('category') or 'other').lower()
+        category = skill.get('category', 'other')
         tags = skill.get('tags', [])
         stars = skill.get('stars', 0)
         repo = skill.get('repo', '')
-        path = skill.get('path', '')
-        install = skill.get('install') or (f"{repo}/{path}" if repo and path else repo)
+        install = skill.get('install', repo)
         branch = skill.get('branch', 'main')
-        code = get_category_code(category)
 
         # Minimal record
         mini_record = {
             "n": name,
             "d": truncate_text(description, 80),
-            "c": code,
+            "c": get_category_code(category),
             "g": tags[:5] if tags else [],
             "r": stars,
             "i": install,
@@ -154,7 +235,7 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
             "name": name,
             "description": truncate_text(description, 200),
             "repo": repo,
-            "path": path,
+            "path": skill.get('path', ''),
             "branch": branch,
             "category": category,
             "tags": tags[:10] if tags else [],
@@ -164,11 +245,9 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
         }
 
         # Add to category
-        canonical_category = category if category in CATEGORY_CODES else "other"
-        if canonical_category not in categories:
-            categories[canonical_category] = []
-        categories[canonical_category].append(full_record)
-        code_counts[code] = code_counts.get(code, 0) + 1
+        if category not in categories:
+            categories[category] = []
+        categories[category].append(full_record)
 
         # Track for featured
         if stars > 0:
@@ -197,19 +276,13 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
     logger.info(f"  search-index.json: {search_index_path.stat().st_size / 1024 / 1024:.2f} MB")
     logger.info(f"  search-index.json.gz: {search_index_gz_path.stat().st_size / 1024 / 1024:.2f} MB")
 
-    # Write category indexes (clean old derived files)
-    category_index = {"updated_at": datetime.utcnow().isoformat() + "Z", "categories": []}
+    # Write category indexes
+    category_index = {
+        "updated_at": datetime.utcnow().isoformat() + "Z",
+        "categories": []
+    }
 
-    for p in categories_dir.glob("*.json"):
-        try:
-            p.unlink()
-        except OSError:
-            pass
-
-    for category in CATEGORY_CODES.keys():
-        cat_skills = categories.get(category, [])
-        if not cat_skills:
-            continue
+    for category, cat_skills in sorted(categories.items()):
         cat_skills.sort(key=lambda x: x.get("stars", 0), reverse=True)
 
         cat_data = {
@@ -225,7 +298,7 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
             json.dump(cat_data, f, ensure_ascii=False, indent=2)
 
         category_index["categories"].append({
-            "name": CODE_TO_NAME[get_category_code(category)],
+            "name": category,
             "code": get_category_code(category),
             "count": len(cat_skills)
         })
@@ -267,26 +340,39 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
 
 
 def load_from_registry(registry_path: Path) -> List[Dict]:
-    """Load skills from registry.json."""
+    """Load skills from registry.json (fallback mode)."""
     with open(registry_path, 'r', encoding='utf-8') as f:
         registry = json.load(f)
 
     skills = registry.get('skills', [])
+
+    for skill in skills:
+        repo = skill.get('repo', '')
+        path = skill.get('path', '')
+        skill['install'] = f"{repo}/{path}" if path else repo
 
     return skills
 
 
 def main():
     parser = argparse.ArgumentParser(description='Build search index for skill registry')
-    parser.add_argument('--registry', '-r', default='registry.json', help='Registry.json input')
+    parser.add_argument('--skills-dir', '-s', default='skills', help='Skills directory')
+    parser.add_argument('--registry', '-r', default='registry.json', help='Registry.json (fallback)')
     parser.add_argument('--output', '-o', default='docs', help='Output directory')
+    parser.add_argument('--use-registry', action='store_true', help='Force use registry.json')
 
     args = parser.parse_args()
 
+    skills_dir = Path(args.skills_dir)
     registry_path = Path(args.registry)
     output_dir = Path(args.output)
 
-    if registry_path.exists():
+    # Prefer scanning skills directory
+    if not args.use_registry and skills_dir.exists():
+        logger.info(f"Scanning skills from {skills_dir}")
+        skills = scan_skills_v2(skills_dir)
+        source_name = "verified downloaded skills"
+    elif registry_path.exists():
         logger.info(f"Loading from registry: {registry_path}")
         skills = load_from_registry(registry_path)
         source_name = "registry entries"

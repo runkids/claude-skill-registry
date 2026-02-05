@@ -1,194 +1,131 @@
 ---
-name: Validate Training Materials
-description: Run comprehensive validation and review checks including heading numbering, TODO/FIXME comments, Nextflow script conventions, orphaned files, admonition syntax, lesson structure, formatting, content accuracy, and teaching effectiveness. Use when validating, reviewing, or checking training materials quality, lesson quality, or before committing changes.
+name: validate
+description: Validate iPlug2 plugin builds using format-specific validators (auval, pluginval, vstvalidator, clap-validator) (project)
 ---
 
-# Validate Training Materials
+# Validate iPlug2 Plugin
 
-Run comprehensive validation checks on training materials. Execute from repository root.
+Validate a built plugin using format-specific validation tools. Plugin must have been built prior to using this skill.
 
-See [../shared/repo-conventions.md](../shared/repo-conventions.md) for directory mapping and file conventions.
+## Arguments
 
-## Skill Dependencies (MANDATORY)
+- `PROJECT_NAME` (required): Name of the project (e.g., `IPlugEffect`)
+- `FORMAT` (optional): Specific format to validate (`AU`, `AUv3`, `VST3`, `CLAP`, `all`). Default: `all`
 
-This skill MUST invoke other skills during validation. **Do not skip these.**
+## Validation Workflow
 
-| Task | Skill | When |
-|------|-------|------|
-| Check code block highlights | `/check-highlights` | Always |
-| Check inline code formatting | `/check-inline-code` | Always |
+### Step 1: Read config.h to extract plugin identifiers
 
-## Scope
+Read `Examples/[PROJECT_NAME]/config.h` or `Tests/[PROJECT_NAME]/config.h` and extract:
+- `PLUG_NAME` - Plugin display name
+- `PLUG_UNIQUE_ID` - 4-char subtype (e.g., `'Ipef'` → `Ipef`)
+- `PLUG_MFR_ID` - 4-char manufacturer code (e.g., `'Acme'` → `Acme`)
+- `PLUG_MFR` - Manufacturer display name
+- `PLUG_TYPE` - 0=effect (aufx), 1=instrument (aumu), 2=MIDI effect (aumf)
 
-Ask user to specify what to validate if not clear:
-- Specific side quest (e.g., "debugging")
-- Specific module (e.g., "hello_nextflow")
-- Entire repository (only if explicitly requested)
-
-## Determining Scope
-
-Based on the user's request, determine the scope:
-
-1. **Specific side quest** (e.g., "debugging"):
-
-   - Documentation file: `docs/side_quests/{name}.md`
-   - Example scripts: `side-quests/{name}/**/*.nf`
-   - Solution files: `side-quests/solutions/{name}/**/*.nf`
-
-2. **Specific module** (e.g., "hello_nextflow"):
-
-   - Documentation files: `docs/{module}/**/*.md`
-   - Example scripts: `{module}/**/*.nf` or `hello-nextflow/**/*.nf`
-   - Solution files: `{module}/solutions/**/*.nf`
-
-3. **Entire repository** (only if explicitly requested):
-   - All files: `docs/**/*.md`, `**/*.nf`
-
-## Tasks to Perform
-
-Perform the following checks **only on files within the determined scope**:
-
-1. **Check Heading Numbering**
-
-   - Run: `uv run .github/check_headings.py [scoped-path]/**/*.md`
-   - Report any heading numbering issues found
-   - If errors exist, ask if user wants to auto-fix with `--fix` flag
-
-2. **Find TODO/FIXME Comments**
-
-   - Search markdown files in scope
-   - Search Nextflow scripts in scope
-   - Categorize by priority (high, medium, low)
-   - Report files with most TODOs
-
-3. **Check Nextflow Script Conventions**
-
-   - Find .nf files in scope
-   - Verify they start with `#!/usr/bin/env nextflow`
-   - Check for DSL2 syntax
-   - Report any that don't follow conventions
-
-4. **Find Orphaned Files**
-
-   - Check if main documentation file is referenced in mkdocs.yml
-   - Look for solution files without corresponding exercise documentation
-   - Report any orphaned files within scope
-
-5. **Verify Admonition Syntax**
-
-   - Search for common admonition formatting errors in scoped files
-   - Check for proper indentation (4 spaces)
-   - Report any malformed admonitions
-
-6. **Check Code Block Highlights**
-
-   ```
-   >>> STOP. INVOKE /check-highlights on the scoped files NOW.
-
-   Record results before continuing.
-   ```
-
-7. **Check Inline Code Formatting**
-
-   ```
-   >>> STOP. INVOKE /check-inline-code on the scoped files NOW.
-
-   Record results before continuing.
-   ```
-
-8. **Check Writing Style**
-
-   - Search for LLM-style patterns that should be avoided:
-     - `Let's` or `let's` at start of sentences
-     - `Remember when` or `Remember that` callbacks
-     - `Don't worry` reassurances
-     - `worth mentioning` or `important to note` padding
-     - Exclamation marks used for emphasis (not in code/output)
-   - Check for em-dash elaborations (space-hyphen-space followed by lowercase) that could be periods
-   - Flag any issues found for manual review
-
-9. **Deep Lesson Review** (when reviewing a specific lesson file)
-
-   If the user asks to review a specific lesson, perform this comprehensive checklist:
-
-   a. **Structure Check**:
-
-   - [ ] Proper heading numbering with trailing periods
-   - [ ] Heading levels match numbering depth (## for 1., ### for 1.1.)
-   - [ ] Each major section has "### Takeaway"
-   - [ ] Each major section has "### What's next?"
-   - [ ] Logical flow from simple to complex
-   - [ ] Clear learning objectives stated or implied
-
-   b. **Formatting Check**:
-
-   - [ ] Code blocks have proper titles, line numbers, and highlighting
-   - [ ] Console output properly formatted with `console title="Output"`
-   - [ ] File paths use proper markdown formatting
-   - [ ] Before/After comparisons use tabbed blocks
-   - [ ] Admonitions properly formatted and indented
-   - [ ] Each sentence on new line (for clean diffs)
-
-   c. **Content Check**:
-
-   - [ ] Technical accuracy of Nextflow code
-   - [ ] Commands are correct and runnable
-   - [ ] Parameter syntax correct (-- for pipeline, - for Nextflow)
-   - [ ] Examples progress logically
-   - [ ] Common pitfalls addressed
-   - [ ] Edge cases explained
-
-   d. **Teaching Effectiveness**:
-
-   - [ ] Clear explanations for beginners
-   - [ ] Concepts introduced before use
-   - [ ] Examples are relevant and motivating
-   - [ ] Exercises appropriate for skill level
-   - [ ] Solutions available for exercises
-   - [ ] Good use of tips and warnings
-
-   e. **Cross-References**:
-
-   - [ ] Links to related lessons work
-   - [ ] References to files/scripts are correct
-   - [ ] External links are valid
-   - [ ] Prerequisites clearly stated
-
-   f. **Examples & Code**:
-
-   - [ ] All Nextflow examples are syntactically correct
-   - [ ] Variable names are clear and consistent
-   - [ ] Comments explain non-obvious code
-   - [ ] Examples can be run as shown
-   - [ ] Output examples match what code produces
-
-   g. **Writing Style** (see CLAUDE.md for full guidelines):
-
-   - [ ] No LLM-style interjections ("Let's", "Remember when...?", "Don't worry")
-   - [ ] No exclamation-based emphasis ("Much faster!", "So powerful!")
-   - [ ] Em-dash elaborations replaced with periods or semicolons
-   - [ ] List explanations use colons, not hyphens
-   - [ ] Single clear explanation per concept (not multiple phrasings)
-   - [ ] Professional, direct tone throughout
-
-## Output Format
-
-Structure your report with these sections:
+### Step 2: Determine AU type from PLUG_TYPE
 
 ```
-# Validation Report
-
-## Heading Numbering
-## TODO/FIXME Comments (count by priority, list top files)
-## Nextflow Scripts (conventions check)
-## Orphaned Files
-## Admonitions
-## Code Block Highlights (from /check-highlights)
-## Inline Code Formatting (from /check-inline-code)
-## Writing Style
-## Summary
+PLUG_TYPE 0 → aufx
+PLUG_TYPE 1 → aumu
+PLUG_TYPE 2 → aumf
 ```
 
-For deep lesson reviews, add sections for: Structure, Formatting, Content Accuracy, Teaching Effectiveness, Cross-References, Examples & Code, Writing Style, Overall Assessment, Positive Aspects.
+### Step 3: Validate each format
 
-**Important**: Always provide actionable next steps for any issues found. If no issues found, give clear confirmation.
+#### AUv2 (macOS) - auval
+
+```bash
+# Restart audio server first to pick up changes
+sudo killall -9 AudioComponentRegistrar 2>/dev/null; sleep 1
+
+# Run validation
+auval -v [AU_TYPE] [PLUG_UNIQUE_ID] [PLUG_MFR_ID]
+```
+
+Example: `auval -v aufx Ipef Acme`
+
+Look for `AU VALIDATION SUCCEEDED` at the end.
+
+**Useful auval options:**
+- `-strict` - Enforce strict checks (recommended for release)
+- `-r N` - Repeat validation N times
+- `-o` - Quick open/init test only (faster debugging)
+- `-q` - Quiet mode (errors/warnings only)
+
+#### AUv3 (macOS) - auval
+
+**Note:** The host app must be built codesigned and launched at least once to register the AUv3 extension. AUv2 plugin should be removed to avoid conflict. Auval usage the same as AUv2, but should see "This AudioUnit is a version 3 implementation." 
+
+#### VST3 - vstvalidator
+
+**Build vstvalidator if not present:**
+```bash
+# macOS/Linux
+cd Dependencies/IPlug && ./download-vst3-sdk.sh master build-validator
+
+# Windows (use Git Bash or WSL)
+cd Dependencies/IPlug && ./download-vst3-sdk.sh master build-validator
+```
+
+The validator binary will be at `Dependencies/IPlug/VST3_SDK/validator` (or `validator.exe` on Windows).
+
+**Run validation:**
+```bash
+# macOS
+Dependencies/IPlug/VST3_SDK/validator ~/Library/Audio/Plug-Ins/VST3/[PLUG_NAME].vst3
+
+# Windows
+Dependencies\IPlug\VST3_SDK\validator.exe "C:\Program Files\Common Files\VST3\[PLUG_NAME].vst3"
+```
+
+#### CLAP - clap-validator
+
+**Install clap-validator:**
+Download from https://github.com/free-audio/clap-validator/releases
+
+**Run validation:**
+```bash
+# macOS
+clap-validator validate ~/Library/Audio/Plug-Ins/CLAP/[PLUG_NAME].clap
+
+# Windows
+clap-validator.exe validate "C:\Program Files\Common Files\CLAP\[PLUG_NAME].clap"
+```
+
+Look for `X tests run, Y passed, 0 failed` at the end.
+
+**Useful options:**
+- `--in-process` - Run in-process (faster)
+- `--only-failed` - Show only failed tests
+
+#### Multi-format: pluginval
+
+```bash
+# macOS
+brew install --cask pluginval
+/Applications/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate ~/Library/Audio/Plug-Ins/VST3/[PLUG_NAME].vst3
+
+# Windows (download from https://github.com/Tracktion/pluginval/releases)
+pluginval.exe --strictness-level 5 --validate "C:\Program Files\Common Files\VST3\[PLUG_NAME].vst3"
+```
+
+## Plugin Locations
+
+| Format | macOS | Windows |
+|--------|-------|---------|
+| AUv2 | `~/Library/Audio/Plug-Ins/Components/[NAME].component` | N/A |
+| AUv3 | `~/Applications/[NAME].app/Contents/PlugIns/[NAME].appex` | N/A |
+| VST3 | `~/Library/Audio/Plug-Ins/VST3/[NAME].vst3` | `C:\Program Files\Common Files\VST3\[NAME].vst3` |
+| CLAP | `~/Library/Audio/Plug-Ins/CLAP/[NAME].clap` | `C:\Program Files\Common Files\CLAP\[NAME].clap` |
+
+## Expected Output
+
+Report validation results in a table:
+
+| Format | Status | Details |
+|--------|--------|---------|
+| AUv2 | PASS/FAIL | Brief summary |
+| AUv3 | PASS/FAIL/SKIP | Reason if skipped |
+| VST3 | PASS/FAIL/SKIP | Reason if skipped |
+| CLAP | PASS/FAIL/SKIP | Reason if skipped |

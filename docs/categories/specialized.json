@@ -1,0 +1,32 @@
+{
+  "category": "specialized",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-02-05T08:28:02.404337Z",
+  "skills": [
+    {
+      "name": "reviewer-agent",
+      "description": "Code review and audit agent for pull requests and code quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "specialized",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "reviewer-agent",
+      "description": "Code review and audit agent for pull requests and code quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "specialized",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,13 +1,9 @@
 {
   "name": "task-run",
-  "description": "",
   "repo": "mae616/ai-template",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/task-run/SKILL.md",
   "source": "github.com/mae616/ai-template",
-  "github_path": ".claude/skills/task-run",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:18:00.599266Z",
   "dir_name": "task-run",
-  "downloaded_at": "2026-02-05T01:45:07.972984Z"
+  "category": "data"
 }

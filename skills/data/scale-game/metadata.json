@@ -1,7 +1,9 @@
 {
   "name": "scale-game",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/superpowers-skills/skills/problem-solving/scale-game/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-02-02T05:09:41.889278Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/superpowers-problem-solving/scale-game/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:09.124956Z",
+  "dir_name": "scale-game",
+  "category": "data"
 }

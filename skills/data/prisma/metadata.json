@@ -1,7 +1,9 @@
 {
   "name": "prisma",
-  "repo": "omer-metin/skills-for-antigravity",
-  "path": "skills/prisma/SKILL.md",
-  "source": "github.com/omer-metin/skills-for-antigravity",
-  "downloaded_at": "2026-02-02T03:38:24.573435Z"
+  "repo": "kaxuna1/ecomsite",
+  "path": ".claude/skills/prisma/SKILL.md",
+  "source": "github.com/kaxuna1/ecomsite",
+  "downloaded_at": "2026-01-29T06:27:15.352919Z",
+  "dir_name": "prisma",
+  "category": "data"
 }

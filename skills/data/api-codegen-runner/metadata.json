@@ -1,13 +1,9 @@
 {
   "name": "api-codegen-runner",
-  "description": "",
   "repo": "XSIJIE975/agents-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/api-codegen-runner/SKILL.md",
   "source": "github.com/XSIJIE975/agents-skills",
-  "github_path": "skills/api-codegen-runner",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:07:07.438275Z",
   "dir_name": "api-codegen-runner",
-  "downloaded_at": "2026-02-05T05:43:57.402339Z"
+  "category": "data"
 }

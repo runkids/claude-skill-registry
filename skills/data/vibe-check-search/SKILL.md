@@ -5,32 +5,110 @@ description: Search through Claude Code conversation history. Use when user says
 
 # Search Claude Conversations
 
-**Purpose:** Search through Claude Code conversation history using the vibe-check MCP server
+**Purpose:** Search through Claude Code conversation history stored in the local vibe-check database
 
 ---
 
-## Using the MCP Tool
+## Database Location
 
-The vibe-check MCP server provides a `vibe_search` tool that handles all database queries automatically.
+To find the database location, run:
 
-### Tool: `mcp__vibe-check__vibe_search`
+```bash
+vibe-check status
+```
 
-**Parameters:**
-- `query` (required): Search term with FTS5 syntax support (see below)
-- `repo` (optional): Filter to specific repository name
-- `days` (optional): Limit to last N days
-- `session_id` (optional): Search within specific session
-- `limit` (optional): Maximum results (default: 20)
+The default location is: `~/.vibe-check/vibe_check.db`
 
-**FTS5 Query Syntax** (powerful full-text search with relevance ranking):
-- **Simple**: `authentication` - finds messages containing this word
-- **Phrase**: `"user authentication"` - exact phrase match
-- **Boolean**: `auth AND oauth` - both terms must be present
-- **Exclude**: `login NOT password` - exclude certain terms
-- **Prefix**: `auth*` - matches authentication, authorize, etc.
-- **Multiple terms**: `database schema` - OR search (either term)
+**Note:** If the status shows no PID, vibe-check is not running and the database may be stale. Start it with `vibe-check start`.
 
-Results are automatically ranked by relevance with star indicators (⭐⭐⭐ = most relevant).
+## Important: Use Read-Only Mode
+
+To avoid database locks when the monitor is running, always use read-only mode:
+
+```bash
+sqlite3 "file:/path/to/vibe_check.db?mode=ro" "SELECT ..."
+```
+
+---
+
+## Search Queries
+
+### Search Messages by Content
+
+```sql
+SELECT
+    event_session_id,
+    event_type,
+    SUBSTR(event_message, 1, 150) as message_preview,
+    inserted_at,
+    git_remote_url,
+    file_name
+FROM conversation_events
+WHERE event_message LIKE '%{search_term}%'
+    AND event_message IS NOT NULL
+ORDER BY inserted_at DESC
+LIMIT 20;
+```
+
+### Search by Repository
+
+```sql
+SELECT
+    event_session_id,
+    event_type,
+    SUBSTR(event_message, 1, 150) as message_preview,
+    inserted_at,
+    file_name
+FROM conversation_events
+WHERE git_remote_url LIKE '%{repo_name}%'
+ORDER BY inserted_at DESC
+LIMIT 20;
+```
+
+### Search by Date Range
+
+```sql
+SELECT
+    event_session_id,
+    event_type,
+    SUBSTR(event_message, 1, 150) as message_preview,
+    inserted_at,
+    git_remote_url
+FROM conversation_events
+WHERE DATE(inserted_at) BETWEEN '{start_date}' AND '{end_date}'
+    AND event_message IS NOT NULL
+ORDER BY inserted_at DESC
+LIMIT 50;
+```
+
+### Search by Session ID
+
+```sql
+SELECT
+    event_type,
+    event_message,
+    inserted_at,
+    line_number
+FROM conversation_events
+WHERE event_session_id = '{session_id}'
+ORDER BY line_number ASC;
+```
+
+### Find Sessions About a Topic
+
+```sql
+SELECT
+    event_session_id,
+    COUNT(*) as mentions,
+    MIN(inserted_at) as first_mention,
+    MAX(inserted_at) as last_mention,
+    MAX(git_remote_url) as repository
+FROM conversation_events
+WHERE event_message LIKE '%{topic}%'
+GROUP BY event_session_id
+ORDER BY mentions DESC
+LIMIT 10;
+```
 
 ---
 
@@ -40,143 +118,108 @@ When user requests a search:
 
 1. **Extract search criteria** from user's question:
    - Search term/keyword
-   - Date range (if specified) → convert to `days` parameter
-   - Repository (if specified) → use `repo` parameter
-   - Session ID (if specified) → use `session_id` parameter
+   - Date range (if specified)
+   - Repository (if specified)
+   - Session ID (if specified)
 
-2. **Call the MCP tool** with appropriate parameters
+2. **Construct appropriate query** based on criteria
 
-3. **Present results** to user - the tool already formats them nicely
+3. **Execute query** using Bash with sqlite3
 
-4. **Offer follow-up actions**:
-   - View full session (use `vibe_session` tool)
-   - Narrow search (call `vibe_search` again with more filters)
-   - Open in browser (use `vibe_view` tool)
+4. **Format results** in readable form:
+   - Show context (date, repo, session)
+   - Limit message previews to ~150 chars
+   - Provide session IDs for deeper exploration
+   - Provide URL to explore session in browser: https://vibecheck.wanderingstan.com/messages?session_id=SESSION_ID
+
+5. **Offer follow-up actions**:
+   - "View full session"
+   - "Narrow search"
+   - "Export results"
 
 ---
 
 ## Example Interactions
 
-### Example 1: Simple Keyword Search
+### Example 1: Keyword Search
 
 ```
 User: "search my conversations for 'authentication'"
 
-Claude: [Calls mcp__vibe-check__vibe_search with query="authentication"]
+Claude:
+Found 12 messages mentioning 'authentication':
 
-[Tool returns formatted results showing sessions and message previews]
+Session a4b2c (2026-01-10, vibe-check repo) https://vibecheck.wanderingstan.com/messages?session_id=a4b2c :
+  [user]: "How do I implement authentication in..."
+  [assistant]: "For authentication, you should consider..."
+
+Session f7d3e (2026-01-05, my-app repo) https://vibecheck.wanderingstan.com/messages?session_id=f7d3e :
+  [assistant]: "The authentication flow uses JWT tokens..."
 
 Would you like to:
-- View full details of a specific session
-- Open a session in your browser
+- View full session details
 - Search for related terms
+- Export results
 ```
 
-### Example 2: Search with Repository Filter
-
-```
-User: "find when I worked on API endpoints in the vibe-check repo"
-
-Claude: [Calls mcp__vibe-check__vibe_search with query="API endpoints", repo="vibe-check"]
-
-[Tool returns filtered results]
-```
-
-### Example 3: Recent Search
+### Example 2: Recent Work
 
 ```
 User: "what did I work on yesterday?"
 
-Claude: [Note: For "recent work" queries, use the vibe_recent tool instead]
-        [Calls mcp__vibe-check__vibe_recent with period="yesterday"]
-```
+Claude: [Searches for date = yesterday]
 
-### Example 4: Search Within Session
+Yesterday (2026-01-12) you had 3 sessions:
+1. Session abc123 (vibe-check): Worked on database skills - https://vibecheck.wanderingstan.com/messages?session_id=abc123
+2. Session def456 (my-app): Fixed authentication bug - https://vibecheck.wanderingstan.com/messages?session_id=def456
+3. Session ghi789 (website): Updated landing page - https://vibecheck.wanderingstan.com/messages?session_id=ghi789
 
-```
-User: "search for 'database' in session abc123"
-
-Claude: [Calls mcp__vibe-check__vibe_search with query="database", session_id="abc123"]
-```
-
-### Example 5: Advanced FTS5 Phrase Search
-
-```
-User: "find conversations about 'full text search'"
-
-Claude: [Calls mcp__vibe-check__vibe_search with query='"full text search"']
-
-[Tool returns exact phrase matches, ranked by relevance with star indicators]
-```
-
-### Example 6: FTS5 Boolean Search
-
-```
-User: "find conversations about authentication but not OAuth"
-
-Claude: [Calls mcp__vibe-check__vibe_search with query="authentication NOT oauth"]
-
-[Tool returns results containing 'authentication' but excluding 'oauth']
-```
-
-### Example 7: FTS5 Prefix Search
-
-```
-User: "find conversations mentioning anything related to auth"
-
-Claude: [Calls mcp__vibe-check__vibe_search with query="auth*"]
-
-[Tool returns results matching auth, authentication, authorize, authorized, etc.]
+Which session would you like to explore?
 ```
 
 ---
 
-## Related Tools
+## Advanced Features
 
-Use these complementary MCP tools:
+### Get Full Conversation Context
 
-- **`mcp__vibe-check__vibe_recent`**: Show recent sessions by time period (today, yesterday, week, month)
-- **`mcp__vibe-check__vibe_session`**: Get detailed info about a specific session
-- **`mcp__vibe-check__vibe_view`**: Open a session in the local web viewer
-- **`mcp__vibe-check__vibe_stats`**: Show overall usage statistics
+When user wants to see full session:
+
+```sql
+SELECT
+    event_type,
+    event_message,
+    inserted_at,
+    JSON_EXTRACT(event_data, '$.message.content[0].type') as content_type
+FROM conversation_events
+WHERE event_session_id = '{session_id}'
+ORDER BY line_number ASC;
+```
+
+### Find Similar Sessions
+
+Based on git repo and search term:
+
+```sql
+SELECT
+    event_session_id,
+    COUNT(*) as relevance_score,
+    MIN(inserted_at) as session_date,
+    git_remote_url
+FROM conversation_events
+WHERE git_remote_url = '{current_repo}'
+    AND event_message LIKE '%{search_term}%'
+GROUP BY event_session_id
+ORDER BY relevance_score DESC
+LIMIT 5;
+```
 
 ---
 
 ## Error Handling
 
-The MCP tool handles errors automatically and provides helpful messages:
-
-- If no results found, it suggests broader search terms and checking if monitor was running
-- If database not accessible, it provides file path information
-- All database locking is handled internally with read-only mode
-
----
-
-## Tips
-
-- For broad exploration of recent work, use `vibe_recent` first
-- For targeted keyword searches, use `vibe_search` with FTS5 syntax
-- **Use FTS5 features** for better results:
-  - Phrase search (`"exact phrase"`) for precise matches
-  - Prefix search (`term*`) to find variations
-  - Boolean operators (`AND`, `OR`, `NOT`) for complex queries
-- Combine filters (repo + days) to narrow results
-- Results are ranked by relevance - most relevant appear first with more stars
-- Use `vibe_view` to open interesting sessions in browser for full context
-
----
-
-## Advanced: Custom SQL Queries
-
-For complex queries not covered by `vibe_search`, use the `mcp__vibe-check__vibe_sql` tool:
-
-```python
-mcp__vibe-check__vibe_sql(
-    query="SELECT ... FROM conversation_events WHERE ...",
-    limit=100  # optional, max 1000
-)
-```
-
-This provides read-only access to the full database with custom SQL. See the vibe-check-sql skill for more examples.
-
-For schema information, see `~/.vibe-check/SCHEMA.md` (auto-generated) or use the Read tool.
+- If no results found, suggest:
+  - Broader search terms
+  - Different date range
+  - Checking if monitor captured that period
+- If database not accessible, guide user to check installation

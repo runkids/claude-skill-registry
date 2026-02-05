@@ -1,13 +1,9 @@
 {
   "name": "nexus-elements-nexus-provider",
-  "description": "",
   "repo": "availproject/nexus-elements",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/nexus-elements-nexus-provider/SKILL.md",
   "source": "github.com/availproject/nexus-elements",
-  "github_path": "skills/nexus-elements-nexus-provider",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:06:33.371078Z",
   "dir_name": "nexus-elements-nexus-provider",
-  "downloaded_at": "2026-02-05T01:44:59.730897Z"
+  "category": "data"
 }

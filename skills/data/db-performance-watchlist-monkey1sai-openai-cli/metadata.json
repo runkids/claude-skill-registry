@@ -1,13 +1,9 @@
 {
   "name": "db-performance-watchlist",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/db-performance-watchlist/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/db-performance-watchlist",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:35.638555Z",
   "dir_name": "db-performance-watchlist-monkey1sai-openai-cli",
-  "downloaded_at": "2026-02-05T01:44:14.925377Z"
+  "category": "data"
 }

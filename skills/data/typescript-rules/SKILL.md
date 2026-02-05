@@ -1,97 +1,184 @@
 ---
 name: typescript-rules
-description: 型安全性とエラーハンドリングルールを適用。any禁止、型ガード必須。TypeScript実装、型定義レビュー時に使用。
+description: React/TypeScript frontend development rules including type safety, component design, state management, and error handling. Use when implementing React components, TypeScript code, or frontend features.
 ---
 
-# TypeScript 開発ルール
+# TypeScript Development Rules (Frontend)
 
-## Backend実装における型安全性
+## Basic Principles
 
-**データフローでの型安全性**
-入力層（`unknown`） → 型ガード → ビジネス層（型保証） → 出力層（シリアライズ）
+✅ **Aggressive Refactoring** - Prevent technical debt and maintain health
+❌ **Unused "Just in Case" Code** - Violates YAGNI principle (Kent Beck)
 
-**Backend固有の型シナリオ**:
-- **API通信**: レスポンスは必ず`unknown`で受け、型ガードで検証
-- **フォーム入力**: 外部入力は`unknown`、バリデーション後に型確定
-- **レガシー統合**: `window as unknown as LegacyWindow`のように段階的アサーション
-- **テストコード**: モックも必ず型定義、`Partial<T>`や`vi.fn<[Args], Return>()`活用
+## Comment Writing Rules
+- **Function Description Focus**: Describe what the code "does"
+- **No Historical Information**: Do not record development history
+- **Timeless**: Write only content that remains valid whenever read
+- **Conciseness**: Keep explanations to necessary minimum
 
-## コーディング規約
+## Type Safety
 
-**クラス使用の判断基準**
-- **推奨：関数とinterfaceでの実装**
-  - 背景: テスタビリティと関数合成の柔軟性が向上
-- **クラス使用を許可**:
-  - フレームワーク要求時（NestJSのController/Service、TypeORMのEntity等）
-  - カスタムエラークラス定義時
-  - 状態とビジネスロジックが密結合している場合（例: ShoppingCart、Session、StateMachine）
-- **判断基準**: 「このデータは振る舞いを持つか？」がYesならクラス検討
-  ```typescript
-  // 関数とinterface
-  interface UserService { create(data: UserData): User }
-  const userService: UserService = { create: (data) => {...} }
-  ```
+**Absolute Rule**: any type is completely prohibited. It disables type checking and becomes a source of runtime errors.
 
-**関数設計**
-- **引数は0-2個まで**: 3個以上はオブジェクト化
-  ```typescript
-  // オブジェクト引数
-  function createUser({ name, email, role }: CreateUserParams) {}
-  ```
+**any Type Alternatives (Priority Order)**
+1. **unknown Type + Type Guards**: Use for validating external input (API responses, localStorage, URL parameters)
+2. **Generics**: When type flexibility is needed
+3. **Union Types・Intersection Types**: Combinations of multiple types
+4. **Type Assertions (Last Resort)**: Only when type is certain
 
-**依存性注入**
-- **外部依存は引数で注入**: テスト可能性とモジュール性確保
-  ```typescript
-  // 依存性を引数で受け取る
-  function createService(repository: Repository) { return {...} }
-  ```
-
-**非同期処理**
-- Promise処理: 必ず`async/await`を使用
-- エラーハンドリング: 必ず`try-catch`でハンドリング
-- 型定義: 戻り値の型は明示的に定義（例: `Promise<Result>`）
-
-**フォーマット規則**
-- セミコロン省略（Biomeの設定に従う）
-- 型は`PascalCase`、変数・関数は`camelCase`
-- インポートは絶対パス（`src/`）
-
-**クリーンコード原則**
-- 使用されていないコードは即座に削除
-- デバッグ用`console.log()`は削除
-- コメントアウトされたコード禁止（バージョン管理で履歴管理）
-- コメントは「なぜ」を説明（「何」ではなく）
-
-## エラーハンドリング
-
-**絶対ルール**: エラーの握りつぶし禁止。すべてのエラーは必ずログ出力と適切な処理を行う。
-
-**Fail-Fast原則**: エラー時は速やかに失敗させ、不正な状態での処理継続を防ぐ
+**Type Guard Implementation Pattern**
 ```typescript
-// 禁止: 無条件フォールバック
-catch (error) {
-  return defaultValue // エラーを隠蔽
-}
-
-// 必須: 明示的な失敗
-catch (error) {
-  logger.error('処理失敗', error)
-  throw error // 上位層で適切に処理
+function isUser(value: unknown): value is User {
+  return typeof value === 'object' && value !== null && 'id' in value && 'name' in value
 }
 ```
 
-**Result型パターン**: エラーを型で表現し、明示的に処理
+**Modern Type Features**
+- **satisfies Operator**: `const config = { apiUrl: '/api' } satisfies Config` - Preserves inference
+- **const Assertion**: `const ROUTES = { HOME: '/' } as const satisfies Routes` - Immutable and type-safe
+- **Branded Types**: `type UserId = string & { __brand: 'UserId' }` - Distinguish meaning
+- **Template Literal Types**: `type EventName = \`on\${Capitalize<string>}\`` - Express string patterns with types
+
+**Type Safety in Frontend Implementation**
+- **React Props/State**: TypeScript manages types, unknown unnecessary
+- **External API Responses**: Always receive as `unknown`, validate with type guards
+- **localStorage/sessionStorage**: Treat as `unknown`, validate
+- **URL Parameters**: Treat as `unknown`, validate
+- **Form Input (Controlled Components)**: Type-safe with React synthetic events
+
+**Type Safety in Data Flow**
+- **Frontend → Backend**: Props/State (Type Guaranteed) → API Request (Serialization)
+- **Backend → Frontend**: API Response (`unknown`) → Type Guard → State (Type Guaranteed)
+
+**Type Complexity Management**
+- **Props Design**:
+  - Props count: 3-7 props ideal (consider component splitting if exceeds 10)
+  - Optional Props: 50% or less (consider default values or Context if excessive)
+  - Nesting: Up to 2 levels (flatten deeper structures)
+- Type Assertions: Review design if used 3+ times
+- **External API Types**: Relax constraints and define according to reality (convert appropriately internally)
+
+## Coding Conventions
+
+**Component Design Criteria**
+- **Function Components (Mandatory)**: Official React recommendation, optimizable by modern tooling
+- **Classes Prohibited**: Class components completely deprecated (Exception: Error Boundary)
+- **Custom Hooks**: Standard pattern for logic reuse and dependency injection
+- **Component Hierarchy**: Atoms → Molecules → Organisms → Templates → Pages
+- **Co-location**: Place tests, styles, and related files alongside components
+
+**State Management Patterns**
+- **Local State**: `useState` for component-specific state
+- **Context API**: For sharing state across component tree (theme, auth, etc.)
+- **Custom Hooks**: Encapsulate state logic and side effects
+- **Server State**: React Query or SWR for API data caching
+
+**Data Flow Principles**
+- **Single Source of Truth**: Each piece of state has one authoritative source
+- **Unidirectional Flow**: Data flows top-down via props
+- **Immutable Updates**: Use immutable patterns for state updates
+
+```typescript
+// ✅ Immutable state update
+setUsers(prev => [...prev, newUser])
+
+// ❌ Mutable state update
+users.push(newUser)
+setUsers(users)
+```
+
+**Function Design**
+- **0-2 parameters maximum**: Use object for 3+ parameters
+  ```typescript
+  // ✅ Object parameter
+  function createUser({ name, email, role }: CreateUserParams) {}
+  ```
+
+**Props Design (Props-driven Approach)**
+- Props are the interface: Define all necessary information as props
+- Avoid implicit dependencies: Do not depend on global state or context without necessity
+- Type-safe: Always define Props type explicitly
+
+**Environment Variables**
+- **Use build tool's environment variable system**: `process.env` does not work in browsers
+- Centrally manage environment variables through configuration layer
+- Implement proper type safety and default value handling
+
+```typescript
+// ✅ Build tool environment variables (public values only)
+const config = {
+  apiUrl: import.meta.env.API_URL || 'http://localhost:3000',
+  appName: import.meta.env.APP_NAME || 'My App'
+}
+
+// ❌ Does not work in frontend
+const apiUrl = process.env.API_URL
+```
+
+**Security (Client-side Constraints)**
+- **CRITICAL**: All frontend code is public and visible in browser
+- **Never store secrets client-side**: No API keys, tokens, or secrets in environment variables
+- Do not include `.env` files in Git
+- Do not include sensitive information in error messages
+
+```typescript
+// ❌ Security risk: API key exposed in browser
+const apiKey = import.meta.env.API_KEY
+const response = await fetch(`https://api.example.com/data?key=${apiKey}`)
+
+// ✅ Correct: Backend manages secrets, frontend accesses via proxy
+const response = await fetch('/api/data') // Backend handles API key authentication
+```
+
+**Dependency Injection**
+- **Custom Hooks for dependency injection**: Ensure testability and modularity
+
+**Asynchronous Processing**
+- Promise Handling: Always use `async/await`
+- Error Handling: Always handle with `try-catch` or Error Boundary
+- Type Definition: Explicitly define return value types (e.g., `Promise<Result>`)
+
+**Format Rules**
+- Semicolon omission (follow Biome settings)
+- Types in `PascalCase`, variables/functions in `camelCase`
+- Imports use absolute paths (`src/`)
+
+**Clean Code Principles**
+- ✅ Delete unused code immediately
+- ✅ Delete debug `console.log()`
+- ❌ Commented-out code (manage history with version control)
+- ✅ Comments explain "why" (not "what")
+
+## Error Handling
+
+**Absolute Rule**: Error suppression prohibited. All errors must have log output and appropriate handling.
+
+**Fail-Fast Principle**: Fail quickly on errors to prevent continued processing in invalid states
+```typescript
+// ❌ Prohibited: Unconditional fallback
+catch (error) {
+  return defaultValue // Hides error
+}
+
+// ✅ Required: Explicit failure
+catch (error) {
+  logger.error('Processing failed', error)
+  throw error // Handle with Error Boundary or higher layer
+}
+```
+
+**Result Type Pattern**: Express errors with types for explicit handling
 ```typescript
 type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
 
-// 使用例：エラーの可能性を型で表現
+// Example: Express error possibility with types
 function parseUser(data: unknown): Result<User, ValidationError> {
   if (!isValid(data)) return { ok: false, error: new ValidationError() }
   return { ok: true, value: data as User }
 }
 ```
 
-**カスタムエラークラス**
+**Custom Error Classes**
 ```typescript
 export class AppError extends Error {
   constructor(message: string, public readonly code: string, public readonly statusCode = 500) {
@@ -99,23 +186,41 @@ export class AppError extends Error {
     this.name = this.constructor.name
   }
 }
-// 用途別: ValidationError(400), BusinessRuleError(400), DatabaseError(500), ExternalServiceError(502)
+// Purpose-specific: ValidationError(400), ApiError(502), NotFoundError(404)
 ```
 
-**層別エラー処理**
-- API層: HTTPレスポンスに変換、機密情報を除外してログ出力
-- サービス層: ビジネスルール違反を検出、AppErrorはそのまま伝播
-- リポジトリ層: 技術的エラーをドメインエラーに変換
+**Layer-Specific Error Handling (React)**
+- Error Boundary: Catch React component errors, display fallback UI
+- Custom Hook: Detect business rule violations, propagate AppError as-is
+- API Layer: Convert fetch errors to domain errors
 
-**構造化ログと機密情報保護**
-機密情報（password, token, apiKey, secret, creditCard）は絶対にログに含めない
+**Structured Logging and Sensitive Information Protection**
+Never include sensitive information (password, token, apiKey, secret, creditCard) in logs
 
-**非同期エラーハンドリング**
-- グローバルハンドラー設定必須: `unhandledRejection`, `uncaughtException`
-- すべてのasync/awaitでtry-catch使用
-- エラーは必ずログと再スロー
+**Asynchronous Error Handling in React**
+- Error Boundary setup mandatory: Catch rendering errors
+- Use try-catch with all async/await in event handlers
+- Always log and re-throw errors or display error state
 
-## パフォーマンス最適化
+## Refactoring Techniques
 
-- ストリーミング処理: 大きなデータセットはストリームで処理
-- メモリリーク防止: 不要なオブジェクトは明示的に解放
+**Basic Policy**
+- Small Steps: Maintain always-working state through gradual improvements
+- Safe Changes: Minimize the scope of changes at once
+- Behavior Guarantee: Ensure existing behavior remains unchanged while proceeding
+
+**Implementation Procedure**: Understand Current State → Gradual Changes → Behavior Verification → Final Validation
+
+**Priority**: Duplicate Code Removal > Large Function Division > Complex Conditional Branch Simplification > Type Safety Improvement
+
+## Performance Optimization
+
+- Component Memoization: Use React.memo for expensive components
+- State Optimization: Minimize re-renders with proper state structure
+- Lazy Loading: Use React.lazy and Suspense for code splitting
+- Bundle Size: Monitor with the `build` script and keep under 500KB
+
+## Non-functional Requirements
+
+- **Browser Compatibility**: Chrome/Firefox/Safari/Edge (latest 2 versions)
+- **Rendering Time**: Within 5 seconds for major pages

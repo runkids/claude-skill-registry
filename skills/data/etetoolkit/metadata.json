@@ -1,7 +1,9 @@
 {
   "name": "etetoolkit",
-  "repo": "sanand0/scientific-research",
-  "path": ".claude/skills/etetoolkit/SKILL.md",
-  "source": "github.com/sanand0/scientific-research",
-  "downloaded_at": "2026-02-02T03:46:50.486175Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/etetoolkit/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:19.102632Z",
+  "dir_name": "etetoolkit",
+  "category": "data"
 }

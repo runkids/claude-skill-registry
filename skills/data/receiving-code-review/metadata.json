@@ -1,7 +1,9 @@
 {
   "name": "receiving-code-review",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/superpowers/skills/receiving-code-review/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-02-02T05:09:35.218338Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/superpowers-collaboration/receiving-code-review/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:09.825604Z",
+  "dir_name": "receiving-code-review",
+  "category": "data"
 }

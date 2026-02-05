@@ -1,13 +1,9 @@
 {
   "name": "gpui",
-  "description": "",
   "repo": "johnlindquist/script-kit-next",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".opencode/skill/gpui/SKILL.md",
   "source": "github.com/johnlindquist/script-kit-next",
-  "github_path": ".opencode/skill/gpui",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:27:54.167451Z",
   "dir_name": "gpui",
-  "downloaded_at": "2026-02-05T01:44:28.392260Z"
+  "category": "data"
 }

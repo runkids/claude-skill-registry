@@ -1,13 +1,9 @@
 {
   "name": "data-to-ui",
-  "description": "",
   "repo": "dralgorhythm/claude-agentic-framework",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/core-engineering/data-to-ui/SKILL.md",
   "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "github_path": ".claude/skills/core-engineering/data-to-ui",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:33:01.023593Z",
   "dir_name": "data-to-ui",
-  "downloaded_at": "2026-02-05T01:44:48.493808Z"
+  "category": "data"
 }

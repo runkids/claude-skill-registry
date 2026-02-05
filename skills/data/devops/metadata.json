@@ -1,7 +1,9 @@
 {
   "name": "devops",
-  "repo": "binjuhor/shadcn-lar",
-  "path": ".claude/skills/devops/SKILL.md",
-  "source": "github.com/binjuhor/shadcn-lar",
-  "downloaded_at": "2026-02-02T05:07:36.111399Z"
+  "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+  "path": ".opencode/skills/devops/SKILL.md",
+  "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh",
+  "downloaded_at": "2026-01-29T08:43:38.149581Z",
+  "dir_name": "devops",
+  "category": "data"
 }

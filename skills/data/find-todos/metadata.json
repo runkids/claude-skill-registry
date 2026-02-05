@@ -3,5 +3,7 @@
   "repo": "nextflow-io/training",
   "path": ".claude/skills/find-todos/SKILL.md",
   "source": "github.com/nextflow-io/training",
-  "downloaded_at": "2026-02-02T05:01:32.507253Z"
+  "downloaded_at": "2026-01-29T06:16:23.033555Z",
+  "dir_name": "find-todos",
+  "category": "data"
 }

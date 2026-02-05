@@ -1,13 +1,9 @@
 {
   "name": "claude-code-statusline",
-  "description": "",
   "repo": "blueraai/bluera-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/claude-code-statusline/SKILL.md",
   "source": "github.com/blueraai/bluera-base",
-  "github_path": "skills/claude-code-statusline",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:17:41.439197Z",
   "dir_name": "claude-code-statusline",
-  "downloaded_at": "2026-02-05T06:27:17.567696Z"
+  "category": "data"
 }

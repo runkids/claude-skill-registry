@@ -1,13 +1,9 @@
 {
   "name": "git-crypt",
-  "description": "",
   "repo": "smith-horn/skillsmith",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/git-crypt/SKILL.md",
   "source": "github.com/smith-horn/skillsmith",
-  "github_path": ".claude/skills/git-crypt",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:36:04.840390Z",
   "dir_name": "git-crypt",
-  "downloaded_at": "2026-02-05T01:44:48.383536Z"
+  "category": "data"
 }

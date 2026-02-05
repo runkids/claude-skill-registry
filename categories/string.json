@@ -1,0 +1,19 @@
+{
+  "category": "string",
+  "count": 1,
+  "updated_at": "2026-02-05T08:24:39.244169Z",
+  "skills": [
+    {
+      "name": "string",
+      "description": "string",
+      "repo": "dot-do/mdx",
+      "path": "schema/schema.org.ai/Skill.mdx",
+      "branch": "main",
+      "category": "string",
+      "tags": [],
+      "stars": 3,
+      "install": "dot-do/mdx/schema/schema.org.ai/Skill.mdx",
+      "source": "github.com/dot-do/mdx"
+    }
+  ]
+}

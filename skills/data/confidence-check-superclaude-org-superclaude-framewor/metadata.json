@@ -1,13 +1,9 @@
 {
   "name": "confidence-check",
-  "description": "",
   "repo": "SuperClaude-Org/SuperClaude_Framework",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "plugins/superclaude/skills/confidence-check/SKILL.md",
   "source": "github.com/SuperClaude-Org/SuperClaude_Framework",
-  "github_path": "src/superclaude/skills/confidence-check",
-  "github_branch": "master",
+  "downloaded_at": "2026-01-29T08:29:54.743860Z",
   "dir_name": "confidence-check-superclaude-org-superclaude-framewor",
-  "downloaded_at": "2026-02-05T01:44:28.910478Z"
+  "category": "data"
 }

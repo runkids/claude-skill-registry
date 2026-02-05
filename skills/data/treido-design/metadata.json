@@ -1,13 +1,9 @@
 {
   "name": "treido-design",
-  "description": "",
   "repo": "w3bsuki/amazong",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/audit/archive/OBSOLETE_claude_skills_2026-01-30/treido-design/SKILL.md",
   "source": "github.com/w3bsuki/amazong",
-  "github_path": ".codex/skills/treido-design",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:38:02.880269Z",
   "dir_name": "treido-design",
-  "downloaded_at": "2026-02-05T01:44:39.911735Z"
+  "category": "data"
 }

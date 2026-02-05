@@ -1,13 +1,9 @@
 {
   "name": "jsdoc-typescript-docs",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/jsdoc-typescript-docs/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/jsdoc-typescript-docs",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:26.673479Z",
   "dir_name": "jsdoc-typescript-docs",
-  "downloaded_at": "2026-02-05T01:44:14.803692Z"
+  "category": "data"
 }

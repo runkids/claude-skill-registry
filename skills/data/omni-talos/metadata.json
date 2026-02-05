@@ -1,13 +1,9 @@
 {
   "name": "omni-talos",
-  "description": "",
   "repo": "basher83/lunar-claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "plugins/homelab/omni-scale/skills/omni-talos/SKILL.md",
   "source": "github.com/basher83/lunar-claude",
-  "github_path": "plugins/homelab/omni-scale/skills/omni-talos",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:26:29.327961Z",
   "dir_name": "omni-talos",
-  "downloaded_at": "2026-02-05T01:44:37.892848Z"
+  "category": "data"
 }

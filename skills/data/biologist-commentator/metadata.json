@@ -1,13 +1,9 @@
 {
   "name": "biologist-commentator",
-  "description": "",
   "repo": "dangeles/claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "claude-config/skills/biologist-commentator/SKILL.md",
   "source": "github.com/dangeles/claude",
-  "github_path": "claude-config/skills/biologist-commentator",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:23:33.250545Z",
   "dir_name": "biologist-commentator",
-  "downloaded_at": "2026-02-05T01:45:07.847757Z"
+  "category": "data"
 }

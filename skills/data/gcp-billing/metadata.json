@@ -1,13 +1,9 @@
 {
   "name": "gcp-billing",
-  "description": "",
   "repo": "kubony/openclaw-gcp-setup",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/gcp-billing/SKILL.md",
   "source": "github.com/kubony/openclaw-gcp-setup",
-  "github_path": ".claude/skills/gcp-billing",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:05:16.341319Z",
   "dir_name": "gcp-billing",
-  "downloaded_at": "2026-02-05T01:45:01.743786Z"
+  "category": "data"
 }

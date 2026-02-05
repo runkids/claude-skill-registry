@@ -1,13 +1,9 @@
 {
   "name": "azure-communication-callautomation-java",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-communication-callautomation-java",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-communication-callautomation-java/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:53.278827Z",
   "dir_name": "azure-communication-callautomation-java",
-  "downloaded_at": "2026-02-05T01:44:53.794806Z"
+  "category": "data"
 }

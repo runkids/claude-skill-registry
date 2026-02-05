@@ -1,7 +1,9 @@
 {
   "name": "onboarding",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/onboarding/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-02-02T04:19:16.165006Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/melodic-software/skills/onboarding/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-29T06:56:06.714050Z",
+  "dir_name": "onboarding",
+  "category": "data"
 }

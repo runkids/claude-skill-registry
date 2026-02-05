@@ -1,7 +1,9 @@
 {
   "name": "repoprompt",
-  "repo": "carmandale/agent-config",
-  "path": "skills/cc3/repoprompt/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-02-02T04:55:38.437091Z"
+  "repo": "tfunk1030/vibe",
+  "path": ".claude/skills/repoprompt/SKILL.md",
+  "source": "github.com/tfunk1030/vibe",
+  "downloaded_at": "2026-01-29T08:44:32.169148Z",
+  "dir_name": "repoprompt",
+  "category": "data"
 }

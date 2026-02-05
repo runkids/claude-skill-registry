@@ -1,13 +1,9 @@
 {
   "name": "cc-polymath-discover-containers",
-  "description": "",
   "repo": "emraher/eerskills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".codex/skills/cc-polymath-discover-containers/SKILL.md",
   "source": "github.com/emraher/eerskills",
-  "github_path": ".codex/skills/cc-polymath-discover-containers",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:58:25.139868Z",
   "dir_name": "cc-polymath-discover-containers",
-  "downloaded_at": "2026-02-05T01:45:01.586877Z"
+  "category": "data"
 }

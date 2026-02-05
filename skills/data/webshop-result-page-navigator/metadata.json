@@ -1,13 +1,9 @@
 {
   "name": "webshop-result-page-navigator",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/webshop/webshop-result-page-navigator/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/webshop/webshop-result-page-navigator",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:29.689636Z",
   "dir_name": "webshop-result-page-navigator",
-  "downloaded_at": "2026-02-05T01:44:58.898799Z"
+  "category": "data"
 }

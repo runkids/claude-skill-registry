@@ -1,13 +1,9 @@
 {
   "name": "place-locator",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/toolathlon/place-locator/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/toolathlon/place-locator",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:28.490972Z",
   "dir_name": "place-locator",
-  "downloaded_at": "2026-02-05T01:44:58.894101Z"
+  "category": "data"
 }

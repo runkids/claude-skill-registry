@@ -1,527 +1,247 @@
 ---
 name: posthog
 description: >
-  Comprehensive product analytics skill for PostHog implementation and management.
-  Auto-triggers on phrases like "add analytics", "track event", "feature flag", "A/B test",
-  "experiment", "session recording", "product analytics", "user tracking", "posthog",
-  "conversion funnel", "user behavior", "engagement metrics", "rollout", "percentage rollout".
-  Provides slash commands /kodo ph-event (event tracking setup), /kodo ph-flag (feature flag management),
-  /kodo ph-experiment (A/B testing), /kodo ph-sync (Notion documentation sync).
-  Ensures full instrumentation from Day 1 with autocapture, custom events, feature flags,
-  experiments, and maintains comprehensive documentation in Notion.
+  Implement PostHog analytics for PhotoVault with dual tracking (client + server).
+  Use when working with event tracking, funnel analysis, user identification,
+  TypeScript event schemas, ad-blocker-proof server-side tracking, or debugging
+  missing analytics data. Includes PhotoVault event definitions and privacy defaults.
 ---
 
-# Kodo PostHog Analytics Skill
+# ⚠️ MANDATORY WORKFLOW - DO NOT SKIP
 
-Ultimate product analytics assistant for PostHog implementation, event tracking, feature flags, experiments, and analytics documentation.
+**When this skill activates, you MUST follow the expert workflow before writing any code:**
 
-## Commands
+1. **Spawn Domain Expert** using the Task tool with this prompt:
+   ```
+   Read the expert prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\posthog-expert.md
 
-All commands support inline context: `/kodo ph-event {event description}` or `/kodo ph-flag {feature context}`
+   Then research the codebase and write an implementation plan to: docs/claude/plans/posthog-[task-name]-plan.md
 
-| Command | Purpose |
-|---------|---------|
-| `/kodo ph-event [context]` | Plan and implement event tracking (autocapture + custom events) |
-| `/kodo ph-flag [feature]` | Create, manage, and document feature flags |
-| `/kodo ph-experiment [hypothesis]` | Design and implement A/B tests/experiments |
-| `/kodo ph-sync [direction]` | Sync analytics documentation with Notion (push/pull/both) |
-| `/kodo ph-dashboard [focus]` | Create and manage PostHog dashboards and insights |
+   Task: [describe the user's request]
+   ```
 
-## Workflow Overview
+2. **Spawn QA Critic** after expert returns, using Task tool:
+   ```
+   Read the QA critic prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\qa-critic-expert.md
 
-1. **Trigger detection** -> Identify analytics/tracking need
-2. **Check config** -> Load `.kodo/config.json` for PostHog settings
-3. **Discovery** -> Ask targeted questions about tracking requirements
-4. **Implementation** -> Generate SDK code for frontend/backend
-5. **Documentation** -> Create/update Notion docs with event catalog
-6. **Validation** -> Verify instrumentation via PostHog MCP tools
+   Review the plan at: docs/claude/plans/posthog-[task-name]-plan.md
+   Write critique to: docs/claude/plans/posthog-[task-name]-critique.md
+   ```
 
-## Project Configuration
+3. **Present BOTH plan and critique to user** - wait for approval before implementing
 
-Expects PostHog configuration in `.kodo/config.json`:
+**DO NOT read files and start coding. DO NOT rationalize that "this is simple." Follow the workflow.**
 
-```json
-{
-  "stack": {
-    "workspaces": {
-      "server": {
-        "analytics": {
-          "provider": "posthog",
-          "packages": {
-            "server": "posthog-node",
-            "client": "posthog-js"
-          }
-        }
-      }
-    }
-  },
-  "features": {
-    "analytics": {
-      "enabled": true,
-      "provider": "posthog"
-    }
-  },
-  "notion": {
-    "teamspace": "MyTeamspace",
-    "idPrefix": "KODO",
-    "_populated_by_init": {
-      "databases": {
-        "events": { "dataSourceId": "collection://..." },
-        "eventProperties": { "dataSourceId": "collection://..." },
-        "featureFlags": { "dataSourceId": "collection://..." },
-        "experiments": { "dataSourceId": "collection://..." },
-        "dashboards": { "dataSourceId": "collection://..." }
-      }
-    }
-  },
-  "posthog": {
-    "projectId": "",
-    "organizationSlug": "",
-    "environments": {
-      "development": {
-        "apiKey": "phc_dev_...",
-        "host": "https://app.posthog.com"
-      },
-      "production": {
-        "apiKey": "phc_prod_...",
-        "host": "https://app.posthog.com"
-      }
-    }
-  }
-}
-```
+---
 
-**Important:** Run `/kodo notion-init` first to create all Notion databases with proper Relations.
+# PostHog Analytics Integration
 
-## Quick Decision Matrix
+## Core Principles
 
-| Scenario | Approach |
-|----------|----------|
-| User actions (clicks, form submits) | Autocapture + semantic naming |
-| Business events (purchase, signup) | Custom events with properties |
-| Feature adoption tracking | Feature flag + usage events |
-| Conversion optimization | Experiments with funnel metrics |
-| Performance monitoring | Custom events with timing data |
-| Error tracking | Custom events with error properties |
-| User segmentation | Person properties + cohorts |
-| Real-time metrics | PostHog dashboards |
+### Dual Tracking is Non-Negotiable
 
-## Event Tracking Strategy
-
-### Autocapture vs Custom Events
-
-**Use Autocapture for:**
-```
-- General user interactions (clicks, pageviews)
-- Form interactions
-- Link clicks and navigation
-- Rapid prototyping/MVP analytics
-```
-
-**Use Custom Events for:**
-```
-- Business-critical actions (purchase, signup, subscription)
-- Feature-specific tracking with custom properties
-- Backend events (API calls, webhooks, jobs)
-- Events requiring precise timing or context
-- Cross-platform consistency
-```
-
-### Event Naming Convention
-
-Follow snake_case naming with clear hierarchy:
-
-```
-{domain}_{action}_{object}
-
-Examples:
-- user_signed_up
-- subscription_created
-- payment_completed
-- feature_flag_evaluated
-- experiment_variant_assigned
-- dashboard_viewed
-- report_exported
-```
-
-### Standard Event Properties
-
-Always include these properties where applicable:
+Ad blockers block PostHog's client-side library in 30%+ of browsers. Critical funnel events MUST use server-side tracking.
 
 ```typescript
-interface StandardEventProperties {
-  // Identity
-  $user_id?: string;
-  $session_id?: string;
+// CRITICAL EVENTS → Server-side (can't be blocked)
+// - Signup, payment, churn, subscription changes
+// - Anything that affects revenue attribution
 
-  // Context
-  $current_url?: string;
-  $pathname?: string;
-  $referrer?: string;
-
-  // Custom context
-  feature_area?: string;
-  component?: string;
-  action_source?: 'button' | 'keyboard' | 'api' | 'automated';
-
-  // Business context
-  plan_type?: string;
-  organization_id?: string;
-
-  // Technical
-  client_timestamp?: string;
-  sdk_version?: string;
-}
+// ENGAGEMENT EVENTS → Client-side (okay if some are blocked)
+// - Page views, button clicks, gallery browsing
 ```
 
-## SDK Implementation Patterns
+**Rule of thumb:** If losing 30% of this event would break your funnel analysis, it MUST be server-side.
 
-### Frontend (React + posthog-js)
+### TypeScript Event Schemas Prevent Chaos
+
+Without strict types, you'll end up with `gallery_id`, `galleryId`, `gallery-id`, and `GalleryId` in your data.
 
 ```typescript
-// lib/posthog.ts
-import posthog from 'posthog-js';
+// src/types/analytics.ts - EVERY event name and properties defined here
+import { GalleryViewedEvent } from '@/types/analytics'
+trackEvent<GalleryViewedEvent>('gallery_viewed', {
+  gallery_id: '123',  // Type error if wrong name
+})
+```
 
-const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
-const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com';
+### Identify Users Early and Consistently
+
+```typescript
+posthog.identify(user.id, {
+  user_type: 'photographer' | 'client',
+  signup_date: user.created_at,
+})
+```
+
+## Anti-Patterns
+
+**Only client-side tracking for critical events**
+```typescript
+// WRONG: 30%+ blocked by ad blockers
+posthog.capture('payment_completed', { amount: 100 })
+
+// RIGHT: Server-side for critical funnel events
+await posthog.capture({
+  distinctId: userId,
+  event: 'payment_completed',
+  properties: { amount: 100, $source: 'server' }
+})
+```
+
+**Inconsistent property naming**
+```typescript
+// WRONG: Different properties in PostHog
+{ gallery_id: '123' }
+{ galleryId: '123' }
+{ GalleryId: '123' }
+
+// RIGHT: Use TypeScript types
+trackEvent<GalleryViewedEvent>('gallery_viewed', { gallery_id: '123' })
+```
+
+**Forgetting to flush server-side events**
+```typescript
+// WRONG: Events lost if process exits
+posthog.capture({ distinctId, event, properties })
+
+// RIGHT: Flush in serverless
+posthog.capture({ distinctId, event, properties })
+await posthog.flush()
+```
+
+**Blocking user actions on analytics**
+```typescript
+// WRONG: User waits
+await posthog.capture('form_submitted')
+router.push('/success')
+
+// RIGHT: Fire and forget
+posthog.capture('form_submitted')
+router.push('/success')
+```
+
+## Client-Side Setup
+
+```typescript
+// src/lib/analytics/client.ts
+import posthog from 'posthog-js'
 
 export function initPostHog() {
-  if (typeof window !== 'undefined' && POSTHOG_KEY) {
-    posthog.init(POSTHOG_KEY, {
-      api_host: POSTHOG_HOST,
-      capture_pageview: true,
-      capture_pageleave: true,
-      autocapture: true,
-      persistence: 'localStorage+cookie',
+  if (typeof window === 'undefined') return
 
-      // Session recording
-      session_recording: {
-        maskAllInputs: true,
-        maskTextSelector: '[data-mask]',
-      },
-
-      // Performance
-      loaded: (posthog) => {
-        if (import.meta.env.DEV) {
-          posthog.debug();
-        }
-      },
-    });
-  }
+  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+    capture_pageviews: true,
+    respect_dnt: true,
+    disable_session_recording: true,
+    persistence: 'localStorage',
+  })
 }
 
-// Custom event helper with type safety
-export function trackEvent<T extends Record<string, unknown>>(
-  eventName: string,
-  properties?: T
-) {
-  posthog.capture(eventName, {
-    ...properties,
-    client_timestamp: new Date().toISOString(),
-  });
+export function identifyUser(userId: string, properties: Record<string, unknown>) {
+  posthog.identify(userId, properties)
 }
 
-// Feature flag helper
-export function isFeatureEnabled(flagKey: string): boolean {
-  return posthog.isFeatureEnabled(flagKey) ?? false;
-}
-
-// Get feature flag payload
-export function getFeatureFlagPayload<T>(flagKey: string): T | undefined {
-  return posthog.getFeatureFlagPayload(flagKey) as T | undefined;
-}
-
-// Identify user
-export function identifyUser(
-  userId: string,
-  properties?: Record<string, unknown>
-) {
-  posthog.identify(userId, properties);
-}
-
-// Reset on logout
 export function resetAnalytics() {
-  posthog.reset();
+  posthog.reset()
+}
+
+export function trackEvent(eventName: string, properties?: Record<string, unknown>) {
+  posthog.capture(eventName, properties)
 }
 ```
 
-### Backend (Node.js + posthog-node)
+## Server-Side Setup
 
 ```typescript
-// lib/posthog-server.ts
-import { PostHog } from 'posthog-node';
+// src/lib/analytics/server.ts
+import { PostHog } from 'posthog-node'
 
-const client = new PostHog(process.env.POSTHOG_API_KEY!, {
-  host: process.env.POSTHOG_HOST || 'https://app.posthog.com',
-  flushAt: 20,
-  flushInterval: 10000,
-});
+let posthogClient: PostHog | null = null
 
-// Graceful shutdown
-process.on('SIGTERM', async () => {
-  await client.shutdown();
-});
+function getPostHogClient(): PostHog {
+  if (!posthogClient) {
+    posthogClient = new PostHog(process.env.POSTHOG_API_KEY!, {
+      host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+      flushAt: 1,
+      flushInterval: 0,
+    })
+  }
+  return posthogClient
+}
 
-export function trackServerEvent(
-  distinctId: string,
+export async function trackServerEvent(
+  userId: string,
   eventName: string,
   properties?: Record<string, unknown>
 ) {
+  const client = getPostHogClient()
   client.capture({
-    distinctId,
+    distinctId: userId,
     event: eventName,
-    properties: {
-      ...properties,
-      $lib: 'posthog-node',
-      server_timestamp: new Date().toISOString(),
-    },
-  });
+    properties: { ...properties, $source: 'server' },
+  })
+  await client.flush()
 }
-
-export function identifyServerUser(
-  distinctId: string,
-  properties: Record<string, unknown>
-) {
-  client.identify({
-    distinctId,
-    properties,
-  });
-}
-
-export async function getFeatureFlag(
-  flagKey: string,
-  distinctId: string,
-  options?: {
-    personProperties?: Record<string, unknown>;
-    groupProperties?: Record<string, Record<string, unknown>>;
-  }
-): Promise<boolean | string | undefined> {
-  return client.getFeatureFlag(flagKey, distinctId, options);
-}
-
-export async function getAllFlags(
-  distinctId: string
-): Promise<Record<string, boolean | string>> {
-  return client.getAllFlags(distinctId);
-}
-
-export { client as posthog };
 ```
 
-## Feature Flag Patterns
-
-### Flag Naming Convention
-
-```
-{scope}_{feature}_{variant_type}
-
-Examples:
-- release_new_dashboard_enabled
-- experiment_pricing_page_variant
-- ops_maintenance_mode_enabled
-- beta_ai_assistant_enabled
-```
-
-### Flag Types and Use Cases
-
-| Type | Use Case | Example |
-|------|----------|---------|
-| Boolean | Simple on/off | `release_dark_mode_enabled` |
-| Multivariate | A/B/n testing | `experiment_checkout_flow_variant` |
-| Percentage rollout | Gradual release | `release_new_editor_rollout` |
-| User targeting | Beta users | `beta_advanced_analytics_enabled` |
-
-### Implementation Pattern
+## usePageView Hook
 
 ```typescript
-// hooks/useFeatureFlag.ts
-import { useEffect, useState } from 'react';
-import { isFeatureEnabled, getFeatureFlagPayload } from '@/lib/posthog';
+// src/hooks/useAnalytics.ts
+'use client'
 
-export function useFeatureFlag(flagKey: string): boolean {
-  const [enabled, setEnabled] = useState(false);
+import { useEffect, useRef } from 'react'
+import { trackEvent } from '@/lib/analytics/client'
 
-  useEffect(() => {
-    setEnabled(isFeatureEnabled(flagKey));
-  }, [flagKey]);
-
-  return enabled;
-}
-
-export function useFeatureFlagPayload<T>(flagKey: string): T | undefined {
-  const [payload, setPayload] = useState<T | undefined>();
+export function usePageView(pageName: string, properties?: Record<string, unknown>) {
+  const startTimeRef = useRef<number>(Date.now())
+  const hasTrackedRef = useRef<boolean>(false)
 
   useEffect(() => {
-    setPayload(getFeatureFlagPayload<T>(flagKey));
-  }, [flagKey]);
+    if (!hasTrackedRef.current) {
+      trackEvent(`${pageName}_viewed`, properties)
+      hasTrackedRef.current = true
+      startTimeRef.current = Date.now()
+    }
 
-  return payload;
-}
-
-// Usage
-function MyComponent() {
-  const showNewFeature = useFeatureFlag('release_new_feature_enabled');
-  const experimentVariant = useFeatureFlagPayload<{ variant: 'A' | 'B' }>('experiment_checkout');
-
-  if (!showNewFeature) return <LegacyComponent />;
-
-  return experimentVariant?.variant === 'B'
-    ? <NewCheckoutB />
-    : <NewCheckoutA />;
+    return () => {
+      const durationSeconds = Math.round((Date.now() - startTimeRef.current) / 1000)
+      trackEvent(`${pageName}_left`, { ...properties, duration_seconds: durationSeconds })
+    }
+  }, [pageName])
 }
 ```
 
-## Experiment Design
+## PhotoVault Configuration
 
-### Experiment Workflow
+### Critical Server-Side Events
 
-1. **Hypothesis** -> Define what you're testing and expected outcome
-2. **Metrics** -> Choose primary and secondary metrics
-3. **Variants** -> Design control and treatment(s)
-4. **Targeting** -> Define user segments
-5. **Duration** -> Calculate required sample size
-6. **Implementation** -> Code the variants
-7. **Analysis** -> Evaluate results with statistical significance
+| Event | Trigger | Why Critical |
+|-------|---------|--------------|
+| `photographer_signed_up` | Signup API | Top of funnel |
+| `photographer_connected_stripe` | Connect callback | Conversion milestone |
+| `client_payment_completed` | Stripe webhook | Revenue event |
+| `client_payment_failed` | Stripe webhook | Churn risk signal |
+| `photographer_churned` | Cancel subscription | Retention metric |
 
-### Metric Types
+### Environment Variables
 
-| Type | Use For | Example |
-|------|---------|---------|
-| Funnel | Conversion flows | Signup -> Activation -> Purchase |
-| Trend | Engagement metrics | Daily active users |
-| Retention | Long-term impact | Week 1 retention |
-| Mean | Quantitative measures | Average session duration |
-
-### Creating Experiments via MCP
-
-Use PostHog MCP tools for experiment management:
-
-```
-# List existing experiments
-mcp__posthog__experiment-get-all
-
-# Create new experiment
-mcp__posthog__experiment-create with:
-- name: Descriptive experiment name
-- feature_flag_key: experiment_feature_key
-- primary_metrics: [{ metric_type: 'funnel', event_name: 'purchase_completed' }]
-- variants: [{ key: 'control', rollout_percentage: 50 }, { key: 'test', rollout_percentage: 50 }]
-
-# Get experiment results
-mcp__posthog__experiment-results-get with experimentId
-```
-
-## Dashboard Management
-
-### Standard Dashboards to Create
-
-1. **Product Overview**
-   - DAU/WAU/MAU
-   - Core feature usage
-   - Conversion funnels
-   - Retention cohorts
-
-2. **Feature Adoption**
-   - Feature flag usage
-   - New feature engagement
-   - Feature discovery metrics
-
-3. **Experiments**
-   - Active experiments status
-   - Historical results
-   - Statistical significance tracking
-
-4. **Technical Health**
-   - Error rates by feature
-   - Performance metrics
-   - SDK versions in use
-
-### Creating Dashboards via MCP
-
-```
-# List dashboards
-mcp__posthog__dashboards-get-all
-
-# Create dashboard
-mcp__posthog__dashboard-create with:
-- name: Dashboard name
-- description: Purpose and audience
-- pinned: true/false
-
-# Add insights to dashboard
-mcp__posthog__add-insight-to-dashboard with:
-- insightId: ID from insight creation
-- dashboardId: Target dashboard ID
-```
-
-## Notion Documentation Sync
-
-### Documentation Structure
-
-All analytics databases are created by `/kodo notion-init` under a centralized "Docs Hub" page:
-
-1. **Event Properties** (`notion._populated_by_init.databases.eventProperties`)
-   - Shared property definitions across events
-   - Type, required flag, validation rules
-   - Bidirectional relation to Events
-
-2. **Events Catalog** (`notion._populated_by_init.databases.events`)
-   - Event name, description, implementation status
-   - Properties captured (relation to Event Properties)
-   - Relation to Features, Feature Flags
-
-3. **Feature Flags** (`notion._populated_by_init.databases.featureFlags`)
-   - Flag key, type, status, rollout %
-   - Targeting rules documentation
-   - Relation to Features, Events, Experiments
-
-4. **Experiments** (`notion._populated_by_init.databases.experiments`)
-   - Hypothesis, primary/secondary metrics
-   - Start/end dates, results
-   - Relation to Features, Feature Flags
-
-5. **Dashboards** (`notion._populated_by_init.databases.dashboards`)
-   - Dashboard name, purpose, category
-   - PostHog ID and direct URL
-   - Relation to Features
-
-### Sync Workflow
-
-**Prerequisites:**
-- Run `/kodo notion-init` to create databases with proper Relations
-- Config contains dataSourceIds for all databases
-
-See [references/notion-sync.md](references/notion-sync.md) for detailed sync patterns.
-
-## Reference Documentation
-
-- **Event Tracking**: See [references/events.md](references/events.md) for event schemas, naming, properties
-- **Feature Flags**: See [references/feature-flags.md](references/feature-flags.md) for flag patterns, targeting
-- **Experiments**: See [references/experiments.md](references/experiments.md) for A/B testing methodology
-- **Dashboards**: See [references/dashboards.md](references/dashboards.md) for insight types, dashboard design
-- **Session Recording**: See [references/session-recording.md](references/session-recording.md) for privacy, masking
-- **Notion Sync**: See [references/notion-sync.md](references/notion-sync.md) for documentation sync
-
-## Integration with OpenKodo
-
-Before implementing analytics:
 ```bash
-kodo query "analytics events"
-kodo query "feature flags"
+NEXT_PUBLIC_POSTHOG_KEY=phc_...
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+POSTHOG_API_KEY=phc_...  # Same key, server-side
 ```
 
-After implementation:
-```bash
-kodo reflect  # Capture tracking decisions as learnings
-```
+### Free Tier Limit
 
-## Key Principles
+PostHog free tier: **1 million events/month**. Set alert at 800K.
 
-1. **Instrument early** -> Set up tracking before features ship
-2. **Name consistently** -> Follow naming conventions strictly
-3. **Document everything** -> Keep Notion docs in sync
-4. **Test tracking** -> Verify events in PostHog before deploy
-5. **Privacy first** -> Mask sensitive data, respect consent
-6. **Measure what matters** -> Focus on actionable metrics
-7. **Iterate experiments** -> Use data to drive product decisions
-8. **Automate sync** -> Keep documentation current via MCP tools
+## Debugging Checklist
+
+1. Check PostHog Dashboard → Activity → Live Events
+2. Verify user identification with `posthog.debug()` in dev
+3. Check server-side events have `$source: 'server'` property
+4. Verify flush is called in serverless functions
+5. Test with ad blocker enabled (server events should still work)

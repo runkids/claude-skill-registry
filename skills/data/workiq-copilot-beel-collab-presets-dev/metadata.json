@@ -1,13 +1,9 @@
 {
   "name": "workiq-copilot",
-  "description": "",
   "repo": "beel-collab/presets.dev",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/workiq-copilot/SKILL.md",
   "source": "github.com/beel-collab/presets.dev",
-  "github_path": "skills/workiq-copilot",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:14:55.954153Z",
   "dir_name": "workiq-copilot-beel-collab-presets-dev",
-  "downloaded_at": "2026-02-05T01:44:51.396856Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "git-commit",
-  "repo": "motoki317/dotfiles",
-  "path": ".claude/skills/git-commit/SKILL.md",
-  "source": "github.com/motoki317/dotfiles",
-  "downloaded_at": "2026-02-02T04:59:44.062432Z"
+  "repo": "staticWagomU/dotfiles",
+  "path": "config/claude/skills/git-commit/SKILL.md",
+  "source": "github.com/staticWagomU/dotfiles",
+  "downloaded_at": "2026-01-29T08:54:06.957044Z",
+  "dir_name": "git-commit",
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "npm-publish",
-  "repo": "toilahuongg/Shopify-Agents-Kit",
+  "repo": "AutumnsGrove/GroveScout",
   "path": ".claude/skills/npm-publish/SKILL.md",
-  "source": "github.com/toilahuongg/Shopify-Agents-Kit",
-  "downloaded_at": "2026-02-02T04:25:03.575352Z"
+  "source": "github.com/AutumnsGrove/GroveScout",
+  "downloaded_at": "2026-01-29T08:31:58.636985Z",
+  "dir_name": "npm-publish",
+  "category": "data"
 }

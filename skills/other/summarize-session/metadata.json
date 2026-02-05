@@ -1,0 +1,13 @@
+{
+  "name": "summarize-session",
+  "description": "",
+  "repo": "lbb00/ai-rules-sync",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/lbb00/ai-rules-sync",
+  "github_path": ".claude/skills/summarize-session",
+  "github_branch": "main",
+  "dir_name": "summarize-session",
+  "downloaded_at": "2026-02-05T01:44:21.363613Z"
+}

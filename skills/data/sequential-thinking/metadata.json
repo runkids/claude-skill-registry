@@ -1,7 +1,9 @@
 {
   "name": "sequential-thinking",
-  "repo": "binjuhor/shadcn-lar",
-  "path": ".claude/skills/sequential-thinking/SKILL.md",
-  "source": "github.com/binjuhor/shadcn-lar",
-  "downloaded_at": "2026-02-02T05:07:40.779626Z"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/sequential-thinking/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-01-29T08:50:38.236444Z",
+  "dir_name": "sequential-thinking",
+  "category": "data"
 }

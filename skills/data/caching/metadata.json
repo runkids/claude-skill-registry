@@ -1,7 +1,9 @@
 {
   "name": "caching",
-  "repo": "BerryKuipers/claude-code-toolkit",
-  "path": ".claude/skills/gemini-api/caching/SKILL.md",
-  "source": "github.com/BerryKuipers/claude-code-toolkit",
-  "downloaded_at": "2026-02-02T03:48:05.789790Z"
+  "repo": "JasonPaff/head-shakers",
+  "path": ".claude/skills/caching/SKILL.md",
+  "source": "github.com/JasonPaff/head-shakers",
+  "downloaded_at": "2026-01-29T07:24:42.069598Z",
+  "dir_name": "caching",
+  "category": "data"
 }

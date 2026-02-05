@@ -1,0 +1,9 @@
+{
+  "name": "youtube-transcript",
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/talk-to-slidev-workflow/.claude/skills/youtube-transcript/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-02-02T05:10:28.546402Z",
+  "dir_name": "youtube-transcript",
+  "category": "other"
+}

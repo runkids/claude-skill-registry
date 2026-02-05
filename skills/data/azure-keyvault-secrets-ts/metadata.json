@@ -1,13 +1,9 @@
 {
   "name": "azure-keyvault-secrets-ts",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-keyvault-secrets-ts",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-keyvault-secrets-ts/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:44.860019Z",
   "dir_name": "azure-keyvault-secrets-ts",
-  "downloaded_at": "2026-02-05T01:44:52.357159Z"
+  "category": "data"
 }

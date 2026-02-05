@@ -1,13 +1,9 @@
 {
   "name": "typescript-review",
-  "description": "Metabase fork with MySandbox iframe auto-login support",
   "repo": "GregBaron/metabase-mysandbox",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "",
-  "github_path": ".claude/skills/typescript-review",
-  "github_branch": "master",
+  "path": ".claude/skills/typescript-review/SKILL.md",
+  "source": "github.com/GregBaron/metabase-mysandbox",
+  "downloaded_at": "2026-02-04T05:09:16.963205Z",
   "dir_name": "typescript-review-gregbaron-metabase-mysandbox",
-  "downloaded_at": "2026-02-05T01:45:38.988373Z"
+  "category": "data"
 }

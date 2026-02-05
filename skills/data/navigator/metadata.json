@@ -1,7 +1,9 @@
 {
   "name": "navigator",
-  "repo": "rubys/showcase",
+  "repo": "srbhr/Resume-Matcher",
   "path": ".claude/skills/navigator/SKILL.md",
-  "source": "github.com/rubys/showcase",
-  "downloaded_at": "2026-02-02T03:54:33.209159Z"
+  "source": "github.com/srbhr/Resume-Matcher",
+  "downloaded_at": "2026-01-29T08:39:04.283717Z",
+  "dir_name": "navigator",
+  "category": "data"
 }

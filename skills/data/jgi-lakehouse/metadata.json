@@ -1,13 +1,9 @@
 {
   "name": "jgi-lakehouse",
-  "description": "",
   "repo": "fmschulz/omics-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/jgi-lakehouse/SKILL.md",
   "source": "github.com/fmschulz/omics-skills",
-  "github_path": "skills/jgi-lakehouse",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:54:13.479332Z",
   "dir_name": "jgi-lakehouse",
-  "downloaded_at": "2026-02-05T01:44:22.833708Z"
+  "category": "data"
 }

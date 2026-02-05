@@ -3,5 +3,7 @@
   "repo": "anthropics/claude-cookbooks",
   "path": "skills/custom_skills/analyzing-financial-statements/SKILL.md",
   "source": "github.com/anthropics/claude-cookbooks",
-  "downloaded_at": "2026-02-02T04:40:52.976679Z"
+  "downloaded_at": "2026-01-29T08:16:15.849295Z",
+  "dir_name": "analyzing-financial-statements",
+  "category": "data"
 }

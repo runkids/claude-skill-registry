@@ -1,13 +1,9 @@
 {
   "name": "parallel-task",
-  "description": "",
-  "repo": "am-will/codex-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/am-will/codex-skills",
-  "github_path": "skills/parallel-task",
-  "github_branch": "main",
+  "repo": "khw1031/ai-library",
+  "path": "skills/parallel-task/SKILL.md",
+  "source": "github.com/khw1031/ai-library",
+  "downloaded_at": "2026-02-04T02:46:51.027649Z",
   "dir_name": "parallel-task",
-  "downloaded_at": "2026-02-05T01:44:56.918078Z"
+  "category": "data"
 }

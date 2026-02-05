@@ -1,7 +1,9 @@
 {
   "name": "claude-agent-sdk",
-  "repo": "jezweb/claude-skills",
+  "repo": "ovachiever/droid-tings",
   "path": "skills/claude-agent-sdk/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-02-02T04:09:06.147465Z"
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-29T07:27:44.595227Z",
+  "dir_name": "claude-agent-sdk",
+  "category": "data"
 }

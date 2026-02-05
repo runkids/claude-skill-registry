@@ -1,13 +1,9 @@
 {
   "name": "script-kit-logging",
-  "description": "",
   "repo": "johnlindquist/script-kit-next",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/script-kit-logging/SKILL.md",
   "source": "github.com/johnlindquist/script-kit-next",
-  "github_path": ".claude/skills/script-kit-logging",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:27:59.321328Z",
   "dir_name": "script-kit-logging",
-  "downloaded_at": "2026-02-05T01:44:28.507323Z"
+  "category": "data"
 }

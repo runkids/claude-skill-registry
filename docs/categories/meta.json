@@ -1,0 +1,32 @@
+{
+  "category": "meta",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-02-05T08:28:01.750137Z",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": "Guides the creation of high-quality Claude Skills following established best practices, ensuring discoverability, actionability, and maintainability from the start.",
+      "repo": "enuno/claude-command-and-control",
+      "path": "",
+      "branch": "main",
+      "category": "meta",
+      "tags": [],
+      "stars": 6,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Guides the creation of high-quality Claude Skills following established best practices, ensuring discoverability, actionability, and maintainability from the start.",
+      "repo": "enuno/claude-command-and-control",
+      "path": "",
+      "branch": "main",
+      "category": "meta",
+      "tags": [],
+      "stars": 6,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

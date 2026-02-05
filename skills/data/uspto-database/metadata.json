@@ -1,7 +1,9 @@
 {
   "name": "uspto-database",
-  "repo": "ricable/ultimate-ai-agent",
-  "path": "sources/ricable/claude-scientific-skills/scientific-skills/uspto-database/SKILL.md",
-  "source": "github.com/ricable/ultimate-ai-agent",
-  "downloaded_at": "2026-02-02T04:13:09.539906Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/uspto-database/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:20.823407Z",
+  "dir_name": "uspto-database",
+  "category": "data"
 }

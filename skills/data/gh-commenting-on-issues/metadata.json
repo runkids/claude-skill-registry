@@ -1,13 +1,9 @@
 {
   "name": "gh-commenting-on-issues",
-  "description": "",
   "repo": "yu-iskw/github-project-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/gh-commenting-on-issues/SKILL.md",
   "source": "github.com/yu-iskw/github-project-skills",
-  "github_path": "skills/gh-commenting-on-issues",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:52:46.415673Z",
   "dir_name": "gh-commenting-on-issues",
-  "downloaded_at": "2026-02-05T01:44:42.573415Z"
+  "category": "data"
 }

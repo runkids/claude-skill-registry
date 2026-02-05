@@ -1,13 +1,9 @@
 {
   "name": "kh-assistant",
-  "description": "",
   "repo": "mysticaltech/terraform-hcloud-kube-hetzner",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/kh-assistant/SKILL.md",
   "source": "github.com/mysticaltech/terraform-hcloud-kube-hetzner",
-  "github_path": ".claude/skills/kh-assistant",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:21:04.038520Z",
   "dir_name": "kh-assistant",
-  "downloaded_at": "2026-02-05T01:44:47.021158Z"
+  "category": "data"
 }

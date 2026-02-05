@@ -1,7 +1,9 @@
 {
   "name": "refactor",
-  "repo": "carmandale/agent-config",
-  "path": "skills/cc3/refactor/SKILL.md",
-  "source": "github.com/carmandale/agent-config",
-  "downloaded_at": "2026-02-02T04:55:35.184167Z"
+  "repo": "luongnv89/claude-howto",
+  "path": "03-skills/refactor/SKILL.md",
+  "source": "github.com/luongnv89/claude-howto",
+  "downloaded_at": "2026-01-29T08:52:54.226039Z",
+  "dir_name": "refactor",
+  "category": "data"
 }

@@ -3,5 +3,7 @@
   "repo": "softaworks/agent-toolkit",
   "path": "skills/jira/SKILL.md",
   "source": "github.com/softaworks/agent-toolkit",
-  "downloaded_at": "2026-02-02T04:46:26.902394Z"
+  "downloaded_at": "2026-01-29T08:26:20.686912Z",
+  "dir_name": "jira",
+  "category": "data"
 }

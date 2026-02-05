@@ -1,13 +1,9 @@
 {
   "name": "writing-hookify-rules",
-  "description": "AesopIDE with Antigravity-inspired UI\"",
-  "repo": "Dknight203/AesopIDE",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "",
-  "github_path": ".cursor/skills/Writing Hookify Rules",
-  "github_branch": "main",
+  "repo": "haxllo/repolens",
+  "path": ".codex/skills/Writing Hookify Rules/SKILL.md",
+  "source": "github.com/haxllo/repolens",
+  "downloaded_at": "2026-02-04T04:50:34.541202Z",
   "dir_name": "writing-hookify-rules",
-  "downloaded_at": "2026-02-05T01:45:36.978269Z"
+  "category": "data"
 }

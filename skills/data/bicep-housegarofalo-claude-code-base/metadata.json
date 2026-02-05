@@ -1,13 +1,9 @@
 {
   "name": "bicep",
-  "description": "",
   "repo": "HouseGarofalo/claude-code-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/bicep/SKILL.md",
   "source": "github.com/HouseGarofalo/claude-code-base",
-  "github_path": ".claude/skills/bicep",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:54:53.277906Z",
   "dir_name": "bicep-housegarofalo-claude-code-base",
-  "downloaded_at": "2026-02-05T01:44:38.069309Z"
+  "category": "data"
 }

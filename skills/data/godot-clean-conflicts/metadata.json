@@ -1,13 +1,9 @@
 {
   "name": "godot-clean-conflicts",
-  "description": "",
   "repo": "Asreonn/godot-superpowers",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "mini-skills/godot-clean-conflicts/SKILL.md",
   "source": "github.com/Asreonn/godot-superpowers",
-  "github_path": "mini-skills/godot-clean-conflicts",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:17:18.186657Z",
   "dir_name": "godot-clean-conflicts",
-  "downloaded_at": "2026-02-05T01:44:49.715595Z"
+  "category": "data"
 }

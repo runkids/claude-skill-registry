@@ -1,0 +1,56 @@
+{
+  "category": "document-processing",
+  "code": "oth",
+  "count": 4,
+  "updated_at": "2026-02-05T08:28:01.706382Z",
+  "skills": [
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "davepoon/buildwithclaude",
+      "path": "",
+      "branch": "main",
+      "category": "document-processing",
+      "tags": [],
+      "stars": 2299,
+      "install": "davepoon/buildwithclaude",
+      "source": "github.com/davepoon/buildwithclaude"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "davepoon/buildwithclaude",
+      "path": "",
+      "branch": "main",
+      "category": "document-processing",
+      "tags": [],
+      "stars": 2299,
+      "install": "davepoon/buildwithclaude",
+      "source": "github.com/davepoon/buildwithclaude"
+    },
+    {
+      "name": "xlsx",
+      "description": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv",
+      "repo": "szweibel/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "document-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "szweibel/claude-skills",
+      "source": "github.com/szweibel/claude-skills"
+    },
+    {
+      "name": "xlsx",
+      "description": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv",
+      "repo": "szweibel/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "document-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "szweibel/claude-skills",
+      "source": "github.com/szweibel/claude-skills"
+    }
+  ]
+}

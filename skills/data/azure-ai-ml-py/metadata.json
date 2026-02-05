@@ -1,13 +1,9 @@
 {
   "name": "azure-ai-ml-py",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-ai-ml-py",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-ai-ml-py/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:43.485997Z",
   "dir_name": "azure-ai-ml-py",
-  "downloaded_at": "2026-02-05T01:44:52.475648Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "bioservices",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/bioservices/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-02-02T04:19:18.459697Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/bioservices/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:19.658393Z",
+  "dir_name": "bioservices",
+  "category": "data"
 }

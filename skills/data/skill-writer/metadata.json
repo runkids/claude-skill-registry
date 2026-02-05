@@ -1,7 +1,9 @@
 {
   "name": "skill-writer",
-  "repo": "biobenkj/torch-semimarkov",
+  "repo": "sskim91/dotfiles",
   "path": ".claude/skills/skill-writer/SKILL.md",
-  "source": "github.com/biobenkj/torch-semimarkov",
-  "downloaded_at": "2026-02-02T05:04:49.005275Z"
+  "source": "github.com/sskim91/dotfiles",
+  "downloaded_at": "2026-01-29T07:03:46.254595Z",
+  "dir_name": "skill-writer",
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "curl-command-generator",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/curl-command-generator/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/curl-command-generator",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:30.956492Z",
   "dir_name": "curl-command-generator",
-  "downloaded_at": "2026-02-05T01:44:14.886614Z"
+  "category": "data"
 }

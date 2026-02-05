@@ -1,191 +1,507 @@
 ---
 name: rest-api-design
-description: |
-  RESTful API design and OpenAPI specification generation. Use when: (1) Designing new REST API endpoints, (2) Creating OpenAPI/Swagger specifications, (3) Choosing HTTP methods, status codes, or URL patterns, (4) Implementing pagination, filtering, or sorting, (5) Planning API versioning strategy, (6) Reviewing API design for best practices, (7) Generating API documentation templates.
+description: Design REST API endpoints with Zod validation and OpenAPI documentation. Use when creating new API routes, validating request/response schemas, or updating API documentation. Activates for endpoint design, schema validation, error handling, and API docs.
+allowed-tools: Read,Write,Edit,Bash(npm:*,npx:*)
+category: Code Quality & Testing
+tags:
+  - api
+  - code
+  - validation
+  - documentation
 ---
 
 # REST API Design
 
-Design RESTful APIs following industry standards and generate OpenAPI 3.0 specifications.
+This skill helps you design and implement REST API endpoints following project patterns with Zod validation and OpenAPI documentation.
 
-## Quick Reference
+## When to Use
 
-### Endpoint Pattern
+✅ **USE this skill for:**
+- Creating new REST API endpoints with Next.js App Router
+- Designing request/response schemas with Zod
+- Implementing proper error handling and status codes
+- Adding rate limiting and authentication
+- Generating OpenAPI documentation
+
+❌ **DO NOT use for:**
+- GraphQL APIs → different paradigm entirely
+- Cloudflare Workers → use `cloudflare-worker-dev` skill
+- Supabase Edge Functions → use Supabase docs
+- WebSocket/real-time APIs → different patterns
+
+## API Route Structure
+
 ```
-GET    /resources           # List
-POST   /resources           # Create
-GET    /resources/{id}      # Read
-PUT    /resources/{id}      # Replace
-PATCH  /resources/{id}      # Update
-DELETE /resources/{id}      # Delete
+src/app/api/
+├── auth/           # Authentication endpoints
+├── check-in/       # Daily check-in CRUD
+├── chat/           # AI coaching chat
+├── journal/        # Journal entries
+├── admin/          # Admin-only endpoints
+└── health/         # Health check
 ```
 
-### Status Code Selection
+## Standard Route Template
+
+```typescript
+// src/app/api/[feature]/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { getSession } from '@/lib/auth';
+import { createRateLimiter } from '@/lib/rate-limit';
+import { logPHIAccess } from '@/lib/hipaa/audit';
+import { db } from '@/db';
+
+// 1. Define schemas
+const RequestSchema = z.object({
+  field: z.string().min(1).max(1000),
+  optional: z.string().optional(),
+  enumField: z.enum(['option1', 'option2']),
+  number: z.number().int().positive(),
+});
+
+const ResponseSchema = z.object({
+  id: z.string(),
+  createdAt: z.string().datetime(),
+});
+
+// 2. Configure rate limiter
+const rateLimiter = createRateLimiter({
+  windowMs: 60000,    // 1 minute
+  maxRequests: 30,    // 30 requests per window
+  keyPrefix: 'api:feature',
+});
+
+// 3. Implement handlers
+export async function GET(request: NextRequest) {
+  // Auth check
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    );
+  }
+
+  // Rate limit
+  const rateLimitResult = await rateLimiter.check(session.userId);
+  if (!rateLimitResult.allowed) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded' },
+      { status: 429, headers: rateLimitResult.headers }
+    );
+  }
+
+  // Query data
+  const data = await db.query.features.findMany({
+    where: eq(features.userId, session.userId),
+  });
+
+  // Audit log (if PHI)
+  await logPHIAccess(session.userId, 'feature', null, 'LIST');
+
+  return NextResponse.json(data);
+}
+
+export async function POST(request: NextRequest) {
+  // Auth check
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    );
+  }
+
+  // Rate limit
+  const rateLimitResult = await rateLimiter.check(session.userId);
+  if (!rateLimitResult.allowed) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded' },
+      { status: 429, headers: rateLimitResult.headers }
+    );
+  }
+
+  // Parse and validate body
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { error: 'Invalid JSON' },
+      { status: 400 }
+    );
+  }
+
+  const parsed = RequestSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      {
+        error: 'Validation failed',
+        details: parsed.error.issues.map(i => ({
+          path: i.path.join('.'),
+          message: i.message,
+        })),
+      },
+      { status: 400 }
+    );
+  }
+
+  // Create resource
+  const [created] = await db.insert(features).values({
+    id: generateId(),
+    userId: session.userId,
+    ...parsed.data,
+    createdAt: new Date(),
+  }).returning();
+
+  // Audit log
+  await logPHIAccess(session.userId, 'feature', created.id, 'CREATE');
+
+  return NextResponse.json(created, { status: 201 });
+}
 ```
-Success:  200 OK | 201 Created | 204 No Content
-Client:   400 Bad Request | 401 Unauthorized | 403 Forbidden
-          404 Not Found | 409 Conflict | 422 Validation Error
-Server:   500 Internal Error | 503 Unavailable
+
+## Zod Schema Patterns
+
+### Basic Types
+
+```typescript
+import { z } from 'zod';
+
+const Schema = z.object({
+  // Strings
+  name: z.string().min(1).max(100),
+  email: z.string().email(),
+  url: z.string().url(),
+  uuid: z.string().uuid(),
+
+  // Numbers
+  count: z.number().int().positive(),
+  rating: z.number().min(1).max(5),
+  price: z.number().nonnegative(),
+
+  // Booleans
+  isActive: z.boolean(),
+
+  // Dates
+  date: z.string().datetime(),
+  dateOnly: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+
+  // Enums
+  status: z.enum(['pending', 'approved', 'denied']),
+
+  // Arrays
+  tags: z.array(z.string()).min(1).max(10),
+
+  // Optional fields
+  notes: z.string().optional(),
+  metadata: z.record(z.string()).optional(),
+
+  // Nullable
+  deletedAt: z.string().datetime().nullable(),
+});
 ```
 
-### URL Naming Rules
-- Plural nouns: `/users`, `/products`
-- Lowercase with hyphens: `/user-profiles`
-- No verbs in paths (HTTP methods are verbs)
-- Max 2-3 nesting levels
+### Advanced Patterns
 
-## Workflow
+```typescript
+// Discriminated unions
+const EventSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('click'), x: z.number(), y: z.number() }),
+  z.object({ type: z.literal('keypress'), key: z.string() }),
+]);
 
-### 1. Design Endpoints
-Define resources and their relationships:
+// Refinements
+const PasswordSchema = z.string()
+  .min(12, 'Password must be at least 12 characters')
+  .regex(/[A-Z]/, 'Must contain uppercase')
+  .regex(/[a-z]/, 'Must contain lowercase')
+  .regex(/[0-9]/, 'Must contain number')
+  .regex(/[^A-Za-z0-9]/, 'Must contain special character');
+
+// Transform
+const DateSchema = z.string()
+  .datetime()
+  .transform(str => new Date(str));
+
+// Preprocess (coerce types)
+const NumberFromString = z.preprocess(
+  val => typeof val === 'string' ? parseInt(val, 10) : val,
+  z.number()
+);
+```
+
+### Query Parameter Validation
+
+```typescript
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+
+  const QuerySchema = z.object({
+    page: z.coerce.number().int().positive().default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(20),
+    sort: z.enum(['asc', 'desc']).default('desc'),
+    status: z.enum(['all', 'active', 'archived']).optional(),
+  });
+
+  const query = QuerySchema.safeParse({
+    page: searchParams.get('page'),
+    limit: searchParams.get('limit'),
+    sort: searchParams.get('sort'),
+    status: searchParams.get('status'),
+  });
+
+  if (!query.success) {
+    return NextResponse.json(
+      { error: 'Invalid query parameters', details: query.error.issues },
+      { status: 400 }
+    );
+  }
+
+  const { page, limit, sort, status } = query.data;
+  // Use validated params...
+}
+```
+
+## Error Response Format
+
+```typescript
+// Standard error response
+interface APIError {
+  error: string;           // Human-readable message
+  code?: string;           // Machine-readable code
+  details?: ErrorDetail[]; // Validation details
+}
+
+interface ErrorDetail {
+  path: string;
+  message: string;
+}
+
+// Error responses
+return NextResponse.json(
+  { error: 'Not found', code: 'NOT_FOUND' },
+  { status: 404 }
+);
+
+return NextResponse.json(
+  {
+    error: 'Validation failed',
+    code: 'VALIDATION_ERROR',
+    details: [
+      { path: 'email', message: 'Invalid email format' },
+    ],
+  },
+  { status: 400 }
+);
+```
+
+## HTTP Status Codes
+
+| Code | Use Case |
+|------|----------|
+| 200 | Successful GET, PUT, PATCH |
+| 201 | Successful POST (created) |
+| 204 | Successful DELETE (no content) |
+| 400 | Invalid request/validation error |
+| 401 | Not authenticated |
+| 403 | Not authorized (authenticated but forbidden) |
+| 404 | Resource not found |
+| 409 | Conflict (duplicate, etc.) |
+| 429 | Rate limit exceeded |
+| 500 | Server error |
+
+## OpenAPI Documentation
+
+Update `docs/openapi.yaml` when adding endpoints:
+
 ```yaml
-# Core resource
-/items                    # Collection
-/items/{itemId}           # Instance
+paths:
+  /api/feature:
+    get:
+      summary: List features
+      tags: [Features]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feature'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
-# Sub-resources (if tightly coupled)
-/items/{itemId}/comments  # Nested collection
-```
+    post:
+      summary: Create feature
+      tags: [Features]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeatureRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
-See [naming-conventions.md](references/naming-conventions.md) for complete patterns.
-
-### 2. Select HTTP Methods
-Choose based on operation semantics:
-
-| Operation | Method | Idempotent |
-|-----------|--------|------------|
-| Fetch data | GET | Yes |
-| Create new | POST | No |
-| Replace all | PUT | Yes |
-| Update partial | PATCH | No |
-| Remove | DELETE | Yes |
-
-See [http-methods.md](references/http-methods.md) for decision tree.
-
-### 3. Define Status Codes
-Match response to outcome:
-
-```
-Creating resource?     → 201 + Location header
-Deleting resource?     → 204 (no body)
-Validation failed?     → 422 + error details
-Auth missing?          → 401
-Auth insufficient?     → 403
-Not found?             → 404
-```
-
-See [status-codes.md](references/status-codes.md) for complete decision tree.
-
-### 4. Add Pagination & Filtering
-For collection endpoints:
-
-```yaml
-parameters:
-  - name: page
-    in: query
-    schema: { type: integer, default: 1 }
-  - name: limit
-    in: query
-    schema: { type: integer, default: 20, maximum: 100 }
-  - name: sort
-    in: query
-    schema: { type: string }
-    description: "field:direction (e.g., created_at:desc)"
-```
-
-See [pagination-filtering-sorting.md](references/pagination-filtering-sorting.md) for patterns.
-
-### 5. Choose Versioning Strategy
-Recommended: URI path versioning
-
-```
-https://api.example.com/v1/users
-https://api.example.com/v2/users
-```
-
-See [versioning.md](references/versioning.md) for alternatives.
-
-### 6. Generate OpenAPI Spec
-Use the template at [assets/openapi-template.yaml](assets/openapi-template.yaml).
-
-Replace placeholders:
-- `${API_TITLE}` - Your API name
-- `${API_DESCRIPTION}` - API overview
-- `${API_VERSION}` - Semantic version
-
-### 7. Validate Design
-Run through [validation-checklist.md](references/validation-checklist.md).
-
-## Common Patterns
-
-### Error Response
-```yaml
-Error:
-  type: object
-  required: [code, message]
-  properties:
-    code:
-      type: string
-      example: VALIDATION_ERROR
-    message:
-      type: string
-      example: Validation failed
-    details:
-      type: array
-      items:
-        type: object
-        properties:
-          field: { type: string }
-          message: { type: string }
-    requestId:
-      type: string
-```
-
-### Pagination Response
-```yaml
-ListResponse:
-  type: object
-  properties:
-    data:
-      type: array
-      items: { $ref: '#/components/schemas/Resource' }
-    pagination:
+components:
+  schemas:
+    Feature:
       type: object
       properties:
-        page: { type: integer }
-        limit: { type: integer }
-        totalItems: { type: integer }
-        totalPages: { type: integer }
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, name, createdAt]
+
+    CreateFeatureRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required: [name]
+
+  responses:
+    Unauthorized:
+      description: Not authenticated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Unauthorized
+
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    message:
+                      type: string
 ```
 
-### Resource with Timestamps
-```yaml
-Resource:
-  type: object
-  required: [id, createdAt, updatedAt]
-  properties:
-    id:
-      type: string
-      format: uuid
-      readOnly: true
-    createdAt:
-      type: string
-      format: date-time
-      readOnly: true
-    updatedAt:
-      type: string
-      format: date-time
-      readOnly: true
+## Route Handler Patterns
+
+### Dynamic Routes
+
+```typescript
+// src/app/api/feature/[id]/route.ts
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
+  // Validate ID format
+  if (!isValidUUID(id)) {
+    return NextResponse.json(
+      { error: 'Invalid ID format' },
+      { status: 400 }
+    );
+  }
+
+  const item = await db.query.features.findFirst({
+    where: eq(features.id, id),
+  });
+
+  if (!item) {
+    return NextResponse.json(
+      { error: 'Not found' },
+      { status: 404 }
+    );
+  }
+
+  return NextResponse.json(item);
+}
 ```
 
-## Resources
+### Pagination
 
-| File | Purpose |
-|------|---------|
-| [openapi-template.yaml](assets/openapi-template.yaml) | Complete OpenAPI 3.0 template with sample CRUD API |
-| [naming-conventions.md](references/naming-conventions.md) | URL patterns, resource naming, query parameters |
-| [http-methods.md](references/http-methods.md) | Method selection guide, PUT vs PATCH |
-| [status-codes.md](references/status-codes.md) | Status code decision tree, error format |
-| [pagination-filtering-sorting.md](references/pagination-filtering-sorting.md) | Collection query patterns |
-| [versioning.md](references/versioning.md) | API versioning strategies |
-| [validation-checklist.md](references/validation-checklist.md) | Pre-implementation review checklist |
+```typescript
+interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+async function getPaginated(page: number, limit: number) {
+  const offset = (page - 1) * limit;
+
+  const [data, [{ count }]] = await Promise.all([
+    db.query.features.findMany({
+      limit,
+      offset,
+      orderBy: desc(features.createdAt),
+    }),
+    db.select({ count: count() }).from(features),
+  ]);
+
+  return {
+    data,
+    pagination: {
+      page,
+      limit,
+      total: count,
+      totalPages: Math.ceil(count / limit),
+    },
+  };
+}
+```
+
+## References
+
+- [Zod Documentation](https://zod.dev)
+- [Next.js Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
+- [OpenAPI Specification](https://swagger.io/specification/)
+- [Dub.co Zod Validation](https://dub.co/blog/zod-api-validation)

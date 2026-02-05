@@ -1,13 +1,9 @@
 {
   "name": "azure-data-tables-java",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-data-tables-java",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-data-tables-java/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:55.060759Z",
   "dir_name": "azure-data-tables-java",
-  "downloaded_at": "2026-02-05T01:44:52.347429Z"
+  "category": "data"
 }

@@ -1,217 +1,76 @@
 ---
-name: doc-generator
-description: Generates comprehensive documentation from code, APIs, and specifications. Creates API documentation, developer guides, architecture docs, and user manuals with examples and tutorials.
-version: 1.0
-model: sonnet
-invoked_by: both
-user_invocable: true
-tools: [Read, Write, Glob, Grep]
-best_practices:
-  - Extract documentation from code comments
-  - Generate OpenAPI/Swagger specs from code
-  - Create comprehensive examples
-  - Include troubleshooting guides
-  - Follow documentation standards
-error_handling: graceful
-streaming: supported
-templates: [api-docs, developer-guide, architecture-docs, user-manual]
+name: api-documentation-generator
+description: Generate comprehensive, accurate API documentation from source code. Use when creating or updating API documentation, generating OpenAPI specs, or when users mention API docs, endpoints, or documentation.
 ---
 
-**Mode: Cognitive/Prompt-Driven** — No standalone utility script; use via agent context.
+# API Documentation Generator Skill
 
-<identity>
-Documentation Generator Skill - Generates comprehensive documentation from code, APIs, and specifications including API docs, developer guides, architecture documentation, and user manuals.
-</identity>
+## Generates
 
-<capabilities>
-- Generating API documentation
-- Creating developer guides
-- Documenting architecture
-- Creating user manuals
-- Generating OpenAPI/Swagger specs
-- Updating existing documentation
-</capabilities>
+- OpenAPI/Swagger specifications
+- API endpoint documentation
+- SDK usage examples
+- Integration guides
+- Error code references
+- Authentication guides
 
-<instructions>
-<execution_process>
+## Documentation Structure
 
-### Step 1: Identify Documentation Type
-
-Determine documentation type:
-
-- **API Documentation**: Endpoint references
-- **Developer Guide**: Setup and usage
-- **Architecture Docs**: System overview
-- **User Manual**: Feature guides
-
-### Step 2: Extract Information
-
-Gather documentation content:
-
-- Read code and comments
-- Analyze API endpoints
-- Extract examples
-- Understand architecture
-
-### Step 3: Generate Documentation
-
-Create documentation:
-
-- Follow documentation templates
-- Include examples
-- Add troubleshooting
-- Create clear structure
-
-### Step 4: Validate Documentation
-
-Validate quality:
-
-- Check completeness
-- Verify examples work
-- Ensure clarity
-- Validate links
-  </execution_process>
-
-<integration>
-**Integration with Technical Writer Agent**:
-- Uses this skill for documentation generation
-- Ensures documentation quality
-- Validates completeness
-
-**Integration with Developer Agent**:
-
-- Generates API documentation
-- Creates inline documentation
-- Updates docs with code changes
-  </integration>
-
-<best_practices>
-
-1. **Extract from Code**: Use code as source of truth
-2. **Include Examples**: Provide working examples
-3. **Keep Updated**: Sync docs with code
-4. **Clear Structure**: Organize logically
-5. **User-Focused**: Write for users, not system
-   </best_practices>
-   </instructions>
-
-<examples>
-<formatting_example>
-**API Documentation**
-
-````markdown
-# Users API
-
-## Endpoints
-
-### GET /api/users
-
-List all users with pagination.
-
-**Query Parameters:**
-
-- `page` (number): Page number (default: 1)
-- `limit` (number): Items per page (default: 10)
-
-**Response:**
-
-```json
-{
-  "data": [
-    {
-      "id": "uuid",
-      "email": "user@example.com",
-      "name": "User Name"
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 10,
-    "total": 100
-  }
-}
-```
-````
-
-**Example:**
-
-```bash
-curl -X GET "http://localhost:3000/api/users?page=1&limit=10"
-```
-
-````
-</formatting_example>
-
-<formatting_example>
-**Developer Guide**
+### For Each Endpoint
 
 ```markdown
-# Developer Guide
+## GET /api/v1/users/:id
 
-## Getting Started
+### Description
+Brief explanation of what this endpoint does
 
-### Prerequisites
-- Node.js 18+
-- pnpm 8+
+### Parameters
 
-### Installation
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| id | string | Yes | User ID |
+
+### Response
+
+**200 Success**
+```json
+{
+  "id": "usr_123",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "created_at": "2025-01-15T10:30:00Z"
+}
+```
+
+**404 Not Found**
+```json
+{
+  "error": "USER_NOT_FOUND",
+  "message": "User does not exist"
+}
+```
+
+### Examples
+
+**cURL**
 ```bash
-pnpm install
-````
-
-### Development
-
-```bash
-pnpm dev
+curl -X GET "https://api.example.com/api/v1/users/usr_123" \
+  -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-## Architecture
-
-[Architecture overview]
-
-## Development Workflow
-
-[Development process]
-
-```
-</formatting_example>
-</examples>
-
-<examples>
-<usage_example>
-**Example Commands**:
-
+**JavaScript**
+```javascript
+const user = await fetch('/api/v1/users/usr_123', {
+  headers: { 'Authorization': 'Bearer token' }
+}).then(r => r.json());
 ```
 
-# Generate API documentation
-
-Generate API documentation for app/api/users
-
-# Generate developer guide
-
-Generate developer guide for this project
-
-# Generate architecture docs
-
-Generate architecture documentation
-
-# Generate OpenAPI spec
-
-Generate OpenAPI specification from API routes
-
+**Python**
+```python
+response = requests.get(
+    'https://api.example.com/api/v1/users/usr_123',
+    headers={'Authorization': 'Bearer token'}
+)
+user = response.json()
 ```
-</usage_example>
-</examples>
-
-## Memory Protocol (MANDATORY)
-
-**Before starting:**
-Read `.claude/context/memory/learnings.md`
-
-**After completing:**
-- New pattern -> `.claude/context/memory/learnings.md`
-- Issue found -> `.claude/context/memory/issues.md`
-- Decision made -> `.claude/context/memory/decisions.md`
-
-> ASSUME INTERRUPTION: If it's not in memory, it didn't happen.
 ```

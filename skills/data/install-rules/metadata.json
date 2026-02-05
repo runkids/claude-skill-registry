@@ -1,13 +1,9 @@
 {
   "name": "install-rules",
-  "description": "",
   "repo": "blueraai/bluera-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/install-rules/SKILL.md",
   "source": "github.com/blueraai/bluera-base",
-  "github_path": "skills/install-rules",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:17:42.726025Z",
   "dir_name": "install-rules",
-  "downloaded_at": "2026-02-05T06:27:17.636679Z"
+  "category": "data"
 }

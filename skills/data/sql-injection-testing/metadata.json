@@ -1,7 +1,9 @@
 {
-  "name": "sql-injection-testing",
-  "repo": "claudiodearaujo/IzaCenter",
-  "path": ".gemini/skills/sql-injection-testing/SKILL.md",
-  "source": "github.com/claudiodearaujo/IzaCenter",
-  "downloaded_at": "2026-02-02T04:54:14.036641Z"
+  "name": "SQL Injection Testing",
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/SQL Injection Testing/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:45.913892Z",
+  "dir_name": "sql-injection-testing",
+  "category": "data"
 }

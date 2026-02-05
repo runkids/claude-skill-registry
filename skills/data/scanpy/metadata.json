@@ -1,7 +1,9 @@
 {
   "name": "scanpy",
-  "repo": "ricable/ultimate-ai-agent",
-  "path": "sources/ricable/claude-scientific-skills/scientific-skills/scanpy/SKILL.md",
-  "source": "github.com/ricable/ultimate-ai-agent",
-  "downloaded_at": "2026-02-02T04:13:03.490444Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/scanpy/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:14.929383Z",
+  "dir_name": "scanpy",
+  "category": "data"
 }

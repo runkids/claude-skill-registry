@@ -1,7 +1,9 @@
 {
   "name": "vercel",
-  "repo": "Andrejones92/canifi-life-os",
-  "path": "skills/vercel/SKILL.md",
-  "source": "github.com/Andrejones92/canifi-life-os",
-  "downloaded_at": "2026-02-02T05:10:01.365219Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/vercel/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T08:54:49.706008Z",
+  "dir_name": "vercel",
+  "category": "data"
 }

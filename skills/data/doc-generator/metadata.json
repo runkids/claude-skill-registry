@@ -1,7 +1,9 @@
 {
   "name": "doc-generator",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/doc-generator/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-02-02T04:36:36.645759Z"
+  "repo": "luongnv89/claude-howto",
+  "path": "03-skills/doc-generator/SKILL.md",
+  "source": "github.com/luongnv89/claude-howto",
+  "downloaded_at": "2026-01-29T08:52:54.459036Z",
+  "dir_name": "doc-generator",
+  "category": "data"
 }

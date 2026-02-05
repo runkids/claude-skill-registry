@@ -14,53 +14,8 @@ from pathlib import Path
 from collections import defaultdict
 import yaml
 
-from registry_normalization import CANONICAL_CATEGORIES, canonicalize_category, extract_github_location, normalize_repo
-
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-
-def infer_category_from_rel_parts(rel_parts: tuple[str, ...]) -> str | None:
-    """
-    Infer category from the path under `skills/`.
-
-    This repo historically stored many skills under `skills/data/` (a legacy container
-    directory) and also has a mix of flat and categorized layouts. We only infer a
-    category when the directory structure clearly indicates it.
-    """
-    if not rel_parts:
-        return None
-
-    # Legacy storage container (NOT the canonical "data" category).
-    if rel_parts[0] in {"data", "_legacy_data"}:
-        return None
-
-    if rel_parts[0] in CANONICAL_CATEGORIES:
-        return rel_parts[0]
-
-    return None
-
-
-def extract_repo_from_frontmatter(frontmatter: dict) -> str:
-    """Best-effort repo extraction from frontmatter fields."""
-    if not frontmatter:
-        return ""
-    repo = frontmatter.get("repo") or frontmatter.get("repository") or ""
-    if not repo:
-        return ""
-    return normalize_repo(str(repo))
-
-
-def extract_repo_from_source(source_value: str) -> str:
-    """Parse `github.com/{owner}/{repo}` style strings."""
-    if not source_value:
-        return ""
-    source_value = str(source_value).strip()
-    if source_value.startswith("github.com/"):
-        return normalize_repo(source_value[len("github.com/"):])
-    if "github.com/" in source_value:
-        return normalize_repo(source_value.split("github.com/", 1)[1])
-    return ""
 
 
 def extract_frontmatter(content: str) -> dict:
@@ -132,7 +87,14 @@ def safe_write_registry(registry_path: Path, registry: dict) -> bool:
         with open(temp_path, "w", encoding="utf-8") as f:
             json.dump(registry, f, indent=2, ensure_ascii=False)
 
-        os.replace(temp_path, registry_path)
+        # Backup original file
+        if registry_path.exists():
+            backup_path = registry_path.with_suffix('.json.bak')
+            if backup_path.exists():
+                backup_path.unlink()
+            registry_path.rename(backup_path)
+
+        temp_path.rename(registry_path)
         return True
     except Exception as e:
         logger.error(f"Failed to write registry: {e}")
@@ -143,17 +105,15 @@ def safe_write_registry(registry_path: Path, registry: dict) -> bool:
 
 def scan_skills(skills_dir: Path) -> list:
     """
-    Scan archived skills and build a normalized index.
+    Scan archived skills and build index.
 
-    Supports mixed layouts seen in the archive:
-    - <root>/<skill>/SKILL.md
-    - <root>/data/<skill>/SKILL.md
+    Supports category layout:
     - <root>/<category>/<skill>/SKILL.md
 
     We detect a "skill directory" by the presence of both SKILL.md and metadata.json
     in the same folder, which avoids mis-parsing category folders.
     """
-    skills = []
+    skills: list[dict] = []
 
     if not skills_dir.exists():
         logger.warning(f"Skills directory not found: {skills_dir}")
@@ -169,6 +129,7 @@ def scan_skills(skills_dir: Path) -> list:
         rel_parts = rel_dir.parts
 
         # Skip "category root" folders that also contain many sub-skill folders.
+        # Example: development/ has SKILL.md + metadata.json but also development/<skill>/...
         try:
             has_subskills = any((p / "SKILL.md").exists() for p in skill_dir.iterdir() if p.is_dir())
         except Exception:
@@ -178,73 +139,55 @@ def scan_skills(skills_dir: Path) -> list:
 
         metadata = safe_load_metadata(metadata_path)
 
-        repo = normalize_repo(metadata.get("repo", "")) or extract_repo_from_source(metadata.get("source", ""))
+        # Determine name
+        name = metadata.get("name") or (rel_parts[-1] if rel_parts else skill_dir.name)
 
-        # Read SKILL.md for frontmatter + description
-        frontmatter = {}
-        description = metadata.get("description", "")
-        tags = metadata.get("tags", [])
-        category_hint = infer_category_from_rel_parts(rel_parts)
+        # Determine category (prefer explicit metadata, then infer from path)
+        inferred_category = "other"
+        if len(rel_parts) >= 2:
+            inferred_category = rel_parts[0]
+        category = metadata.get("category") or inferred_category
 
+        # Read SKILL.md for description
         try:
-            # Full file read is expensive but gives most accurate description.
             content = skill_md.read_text(encoding="utf-8")
-            frontmatter = extract_frontmatter(content)
-            if not description:
-                description = extract_description(content)
-            if not tags and isinstance(frontmatter.get("tags"), list):
-                tags = frontmatter.get("tags", [])
+            description = metadata.get("description") or extract_description(content)
         except UnicodeDecodeError as e:
             logger.warning(f"Encoding error reading {skill_md}: {e}")
+            description = ""
         except Exception as e:
             logger.warning(f"Error reading {skill_md}: {e}")
+            description = ""
 
-        if not repo:
-            repo = extract_repo_from_frontmatter(frontmatter)
+        # Repo/path/branch normalization across different metadata formats
+        repo = metadata.get("repo", "")
+        github_path = (
+            metadata.get("github_path")
+            or metadata.get("path")
+            or ""
+        )
+        github_branch = (
+            metadata.get("github_branch")
+            or metadata.get("branch")
+            or "main"
+        )
 
-        location = extract_github_location(metadata)
+        install = f"{repo}/{github_path}" if (repo and github_path) else (repo or f"unknown/{name}")
 
-        # If metadata lacks github_path/path, try to use frontmatter "path" as fallback.
-        if not location.path and frontmatter.get("path"):
-            location = extract_github_location({"path": frontmatter.get("path"), "branch": frontmatter.get("branch")})
-
-        raw_category = metadata.get("category") or frontmatter.get("category") or category_hint or "other"
-        cat = canonicalize_category(str(raw_category), repo=repo)
-
-        # Name selection: metadata > frontmatter > directory name
-        name = metadata.get("name") or frontmatter.get("name") or skill_dir.name
-        name = str(name).strip() if name is not None else skill_dir.name
-        if not name:
-            name = skill_dir.name
-
-        stars = metadata.get("stars", 0)
-        try:
-            stars = int(stars) if stars is not None else 0
-        except Exception:
-            stars = 0
-
-        if location.path and repo:
-            install = f"{repo}/{location.path}"
-        elif repo:
-            install = repo
-        else:
-            # Must not look like a GitHub owner/repo path (the web UI builds links from this).
-            install = f"local:{rel_dir.as_posix().replace('/', '~')}"
-
-        skill_entry_data = {
+        skill_entry = {
             "name": name,
             "description": description[:200] if description else f"Skill: {name}",
             "repo": repo,
-            "path": location.path,
-            "branch": location.branch,
-            "category": cat,
-            "tags": tags or [],
-            "stars": stars,
+            "path": github_path,
+            "branch": github_branch,
+            "category": category,
+            "tags": metadata.get("tags", []),
+            "stars": metadata.get("stars", 0),
             "install": install,
             "source": metadata.get("source", "local"),
         }
 
-        skills.append(skill_entry_data)
+        skills.append(skill_entry)
 
     return skills
 
@@ -257,15 +200,6 @@ def sanitize_category(category: str) -> str:
 
 def build_category_indexes(skills: list, output_dir: Path):
     """Build category-based indexes."""
-    # This is intentionally destructive: categories are derived artifacts.
-    # Keeping stale files makes the API and repo size explode.
-    if output_dir.exists():
-        for p in output_dir.glob("*.json"):
-            try:
-                p.unlink()
-            except OSError:
-                pass
-
     categories = defaultdict(list)
 
     for skill in skills:
@@ -300,95 +234,104 @@ def build_category_indexes(skills: list, output_dir: Path):
         json.dump(index, f, indent=2)
 
 
-def main():
-    script_dir = Path(__file__).parent
-    registry_dir = script_dir.parent
-    skills_dir = registry_dir / "skills"
-    categories_dir = registry_dir / "categories"
-
-    print("=" * 60)
-    print("REBUILDING REGISTRY FROM DOWNLOADED SKILLS")
-    print("=" * 60)
-    print()
-
-    print("Scanning skills directory...")
-    skills = scan_skills(skills_dir)
-    print(f"Found {len(skills)} skills")
-    print()
-
-    # Remove duplicates by repo:path (more accurate than name-only)
-    # This prevents losing skills with same name but different sources
-    seen = set()
-    unique_skills = []
-    duplicates_removed = 0
-
-    for s in skills:
-        # Use repo:path as unique key (most accurate)
-        repo = s.get("repo", "")
-        path = s.get("path", "")
-
-        if repo and path:
-            key = f"{repo}:{path}"
-        elif repo:
-            # Avoid collapsing multiple skills in one repo when path is unknown.
-            key = f"{repo}::{s.get('name', '')}"
-        else:
-            # Fallback to install (guaranteed not to look like owner/repo).
-            key = s.get("install", "") or f"local::{s.get('name', '')}"
-
-        if key not in seen:
-            seen.add(key)
-            unique_skills.append(s)
-        else:
-            duplicates_removed += 1
-
-    print(f"Duplicates removed: {duplicates_removed}")
-
-    print(f"Unique skills: {len(unique_skills)}")
-    print()
-
-    # Sort by stars then name
-    unique_skills.sort(key=lambda x: (-x.get("stars", 0), x["name"].lower()))
-
-    # Build registry
-    registry = {
-        "version": "2.0.0",
-        "updated_at": datetime.utcnow().isoformat() + "Z",
-        "total_count": len(unique_skills),
-        "skills": unique_skills,
-    }
-
-    registry_path = registry_dir / "registry.json"
-    if safe_write_registry(registry_path, registry):
-        print(f"Written registry.json with {len(unique_skills)} skills")
-    else:
-        print(f"Failed to write registry.json!")
-        return
-    print()
-
-    # Build category indexes (canonical categories only)
-    print("Building category indexes...")
-    build_category_indexes(unique_skills, categories_dir)
-    print()
-
-    # Stats
-    print("=" * 60)
-    print("CATEGORY DISTRIBUTION")
-    print("=" * 60)
-    cat_counts = defaultdict(int)
-    for s in unique_skills:
-        cat_counts[s.get("category", "other")] += 1
-
-    for cat, count in sorted(cat_counts.items(), key=lambda x: -x[1]):
-        pct = count / len(unique_skills) * 100 if unique_skills else 0
-        bar = "█" * int(pct / 2)
-        print(f"  {cat:15} {count:6} ({pct:5.1f}%) {bar}")
-
-    print()
-    print("=" * 60)
-    print("DONE!")
-    print("=" * 60)
-
-
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Rebuild registry.json from downloaded skills")
+    parser.add_argument("--skills-dir", default="skills", help="Skills directory to scan")
+    parser.add_argument("--registry", default="registry.json", help="Output registry.json path")
+    parser.add_argument("--categories-dir", default="categories", help="Output categories directory")
+    parser.add_argument("--skip-categories", action="store_true", help="Do not write category index files")
+
+    args = parser.parse_args()
+
+    def _main_from_args() -> None:
+        script_dir = Path(__file__).parent
+        registry_dir = script_dir.parent
+
+        skills_dir = (registry_dir / args.skills_dir).resolve()
+        registry_path = (registry_dir / args.registry).resolve()
+        categories_dir = (registry_dir / args.categories_dir).resolve()
+
+        print("=" * 60)
+        print("REBUILDING REGISTRY FROM DOWNLOADED SKILLS")
+        print("=" * 60)
+        print()
+
+        print(f"Scanning skills directory: {skills_dir}")
+        skills = scan_skills(skills_dir)
+        print(f"Found {len(skills)} skills")
+        print()
+
+        # Remove duplicates by repo:path (more accurate than name-only)
+        # This prevents losing skills with same name but different sources
+        seen = set()
+        unique_skills = []
+        duplicates_removed = 0
+
+        for s in skills:
+            # Use repo:path as unique key (most accurate)
+            repo = s.get("repo", "")
+            path = s.get("path", "")
+
+            if repo and path:
+                key = f"{repo}:{path}"
+            elif repo:
+                key = repo
+            else:
+                # Fallback to category:name for local skills without repo
+                key = f"{s.get('category', 'other')}:{s['name']}"
+
+            if key not in seen:
+                seen.add(key)
+                unique_skills.append(s)
+            else:
+                duplicates_removed += 1
+
+        print(f"Duplicates removed: {duplicates_removed}")
+        print(f"Unique skills: {len(unique_skills)}")
+        print()
+
+        # Sort by stars then name
+        unique_skills.sort(key=lambda x: (-x.get("stars", 0), x["name"].lower()))
+
+        # Build registry
+        registry = {
+            "version": "2.0.0",
+            "updated_at": datetime.utcnow().isoformat() + "Z",
+            "total_count": len(unique_skills),
+            "skills": unique_skills,
+        }
+
+        if safe_write_registry(registry_path, registry):
+            print(f"Written {registry_path} with {len(unique_skills)} skills")
+        else:
+            print("Failed to write registry!")
+            return
+        print()
+
+        if not args.skip_categories:
+            print(f"Building category indexes: {categories_dir}")
+            build_category_indexes(unique_skills, categories_dir)
+            print()
+
+            # Stats
+            print("=" * 60)
+            print("CATEGORY DISTRIBUTION")
+            print("=" * 60)
+            cat_counts = defaultdict(int)
+            for s in unique_skills:
+                cat_counts[s.get("category", "other")] += 1
+
+            for cat, count in sorted(cat_counts.items(), key=lambda x: -x[1]):
+                pct = count / len(unique_skills) * 100 if unique_skills else 0
+                bar = "█" * int(pct / 2)
+                print(f"  {cat:15} {count:6} ({pct:5.1f}%) {bar}")
+
+            print()
+
+        print("=" * 60)
+        print("DONE!")
+        print("=" * 60)
+
+    _main_from_args()

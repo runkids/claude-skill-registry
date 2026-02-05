@@ -1,7 +1,9 @@
 {
   "name": "gemini-deep-research",
-  "repo": "uuta/dotfiles",
+  "repo": "rdsthomas/mission-control",
   "path": "skills/gemini-deep-research/SKILL.md",
-  "source": "github.com/uuta/dotfiles",
-  "downloaded_at": "2026-02-02T05:05:28.039991Z"
+  "source": "github.com/rdsthomas/mission-control",
+  "downloaded_at": "2026-01-29T07:00:17.531877Z",
+  "dir_name": "gemini-deep-research",
+  "category": "data"
 }

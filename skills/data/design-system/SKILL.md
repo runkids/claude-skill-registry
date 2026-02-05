@@ -1,240 +1,375 @@
 ---
 name: design-system
-description: Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.
-license: MIT
+description: StepLeague design system, theme configuration, CSS variables, badge styling, and UI patterns. Use when working with colors, themes, styling, badges, buttons, cards, or any visual UI changes. Keywords: CSS, theme, colors, dark mode, light mode, variables, styling, UI, design.
+compatibility: Antigravity, Claude Code, Cursor
+metadata:
+  version: "1.1"
+  project: "stepleague"
 ---
 
-# Design System
+# Design System Skill
 
-Token architecture, component specifications, systematic design, slide generation.
+## Core Rule
 
-## When to Use
+**NEVER use hardcoded Tailwind colors. ALWAYS use semantic CSS variables.**
 
-- Design token creation
-- Component state definitions
-- CSS variable systems
-- Spacing/typography scales
-- Design-to-code handoff
-- Tailwind theme configuration
-- **Slide/presentation generation**
+```tsx
+// ❌ WRONG
+<div className="bg-slate-900 text-slate-300 border-slate-700">
 
-## Token Architecture
-
-Load: `references/token-architecture.md`
-
-### Three-Layer Structure
-
-```
-Primitive (raw values)
-       ↓
-Semantic (purpose aliases)
-       ↓
-Component (component-specific)
+// ✅ CORRECT
+<div className="bg-card text-foreground border-border">
 ```
 
-**Example:**
+---
+
+## Full Documentation
+
+**MUST READ:** [docs/THEME_SYSTEM.md](file:///docs/THEME_SYSTEM.md)
+
+This skill is a quick reference. The full theme documentation contains:
+- Complete CSS variable reference
+- Light/dark mode implementation
+- Accessibility requirements
+- Common pitfalls and solutions
+
+---
+
+## Quick Reference: CSS Variables
+
+### Backgrounds
+
+| Variable | Usage |
+|----------|-------|
+| `bg-background` | Page background |
+| `bg-card` | Card/container background |
+| `bg-muted` | Muted/subtle background |
+| `bg-primary` | Primary action background |
+| `bg-secondary` | Secondary background |
+
+### Text
+
+| Variable | Usage |
+|----------|-------|
+| `text-foreground` | Primary text |
+| `text-muted-foreground` | Secondary/muted text |
+| `text-primary` | Emphasised text (brand color) |
+
+### Status Colors
+
+```tsx
+// Use HSL syntax for status colors
+className="text-[hsl(var(--success))]"  // Green
+className="text-[hsl(var(--warning))]"  // Amber
+className="text-[hsl(var(--info))]"     // Blue
+className="text-destructive"             // Red
+```
+
+### With Opacity
+
+```tsx
+className="bg-primary/90"                    // 90% opacity
+className="bg-[hsl(var(--success)/0.1)]"     // 10% opacity
+```
+
+---
+
+## Badge Components
+
+### Two Distinct Systems
+
+| Component | Import | Use Case |
+|-----------|--------|----------|
+| `Badge` | `@/components/ui/badge` | General UI (variant prop) |
+| `SystemBadge` | `@/components/ui/SystemBadge` | Category-based (Kanban, Roadmap) |
+
+### shadcn Badge
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+
+<Badge variant="default">Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="destructive">Error</Badge>
+<Badge variant="outline">Outline</Badge>
+```
+
+### SystemBadge
+
+```tsx
+import { SystemBadge } from "@/components/ui/SystemBadge";
+
+<SystemBadge category="status" value="verified" />
+<SystemBadge category="type" value="bug" size="sm" />
+<SystemBadge category="release" value="now" />
+```
+
+### Central Badge Configuration
+
+All badge colors are in `src/lib/badges.ts`:
+
+```typescript
+import { getBadgeClass, getBadgeConfig } from '@/lib/badges';
+
+const statusClass = getBadgeClass('status', 'verified');
+const badgeConfig = getBadgeConfig('type', 'bug');
+```
+
+---
+
+## Critical Patterns
+
+### Text Truncation
+
+**CRITICAL:** `truncate` won't work without `min-w-0`!
+
+```tsx
+// ✅ CORRECT
+<div className="flex items-center gap-3">
+  <Icon className="flex-shrink-0" />        // Prevent icon shrinking
+  <div className="flex-1 min-w-0">          // Enable truncation
+    <div className="truncate">Long text...</div>
+  </div>
+</div>
+
+// ❌ WRONG - truncate won't work
+<div className="flex-1">
+  <div className="truncate">Long text...</div>
+</div>
+```
+
+### Hover States
+
+```tsx
+className="hover:bg-secondary"
+className="hover:border-primary/50"
+className="hover:bg-[hsl(var(--success)/0.1)]"
+```
+
+### Focus States
+
+```tsx
+className="focus:outline-none focus:ring-1 focus:ring-primary"
+```
+
+---
+
+## ⚠️ Light/Dark Mode (CRITICAL)
+
+### The Rule
+
+**Every color MUST work in BOTH light AND dark mode. No exceptions.**
+
+### How It Works
+
+| Property | Value |
+|----------|-------|
+| Framework | `next-themes` |
+| Attribute | `data-theme="light"` (NOT class-based) |
+| Default | Dark mode |
+| Toggle | User preference via settings |
+
+### CSS Variable Pattern
+
+**ALWAYS define BOTH variants:**
+
 ```css
-/* Primitive */
---color-blue-600: #2563EB;
+/* In globals.css */
+:root {
+  /* Dark mode (default) */
+  --custom-color: 200 50% 50%;
+}
 
-/* Semantic */
---color-primary: var(--color-blue-600);
-
-/* Component */
---button-bg: var(--color-primary);
+[data-theme="light"] {
+  /* Light mode - MUST be defined! */
+  --custom-color: 200 60% 30%;  /* Darker for light bg */
+}
 ```
 
-## Quick Start
+### Common Mistakes
 
-**Generate tokens:**
+```tsx
+// ❌ WRONG - Hardcoded, breaks in one theme
+<div className="bg-slate-900 text-white">
+
+// ❌ WRONG - Only works in dark mode
+<div className="bg-gray-800">
+
+// ❌ WRONG - Custom inline color
+<div style={{ backgroundColor: '#1e293b' }}>
+
+// ✅ CORRECT - Uses semantic variables
+<div className="bg-card text-foreground">
+
+// ✅ CORRECT - With opacity
+<div className="bg-muted/50">
+```
+
+### Testing Requirement
+
+> **ALWAYS test in BOTH themes before considering work complete.**
+> Toggle to light mode via user settings or browser dev tools.
+
+---
+
+## ⚠️ Contrast Requirements (CRITICAL)
+
+### WCAG 2.1 AA Standard
+
+| Text Type | Minimum Ratio |
+|-----------|---------------|
+| Body text | **4.5:1** |
+| Large text (18px+ or 14px bold) | **3:1** |
+| UI components | **3:1** |
+
+### How to Check
+
+1. Use browser DevTools color picker
+2. Or use [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+
+### Common Problem: Muted Text
+
+```tsx
+// ❌ RISKY - muted-foreground may have low contrast
+<p className="text-muted-foreground text-sm">Small muted text</p>
+
+// ✅ SAFER - use for secondary info only, not critical content
+<p className="text-muted-foreground">Secondary description</p>
+<p className="text-foreground">Important content here</p>
+```
+
+### Status Colors Must Have Contrast
+
+```tsx
+// ✅ Status on dark background - use appropriate contrast
+<span className="text-[hsl(var(--success))]">Verified</span>
+<span className="text-destructive">Error occurred</span>
+
+// ✅ Status as background - ensure text contrast
+<Badge variant="success">Verified</Badge>  // Uses pre-defined contrast
+```
+
+---
+
+## Hardcoded Colors = FORBIDDEN
+
+### Zero Tolerance Policy
+
+| Forbidden | Why |
+|-----------|-----|
+| `bg-slate-*` | Breaks light mode |
+| `text-gray-*` | Inconsistent theming |
+| `border-zinc-*` | Not semantic |
+| `#1e293b`, `rgb(...)` | Hardcoded |
+| `dark:` prefix | Use `data-theme` instead |
+
+### Allowed Patterns
+
+| Pattern | Example |
+|---------|---------|
+| Semantic variables | `bg-card`, `text-foreground` |
+| Status colors (HSL) | `text-[hsl(var(--success))]` |
+| With opacity | `bg-primary/90` |
+| Custom vars in globals.css | After defining light/dark variants |
+
+### Finding Violations
+
+Search for hardcoded colors in codebase:
+
 ```bash
-node scripts/generate-tokens.cjs --config tokens.json -o tokens.css
+# Find Tailwind color classes (potential violations)
+grep -r "bg-slate\|bg-gray\|text-slate\|text-gray" src/
+grep -r "border-zinc\|bg-zinc" src/
 ```
 
-**Validate usage:**
-```bash
-node scripts/validate-tokens.cjs --dir src/
+---
+
+## Accessibility
+
+### Screen Reader Support
+
+```tsx
+<button aria-label="Close modal">
+  <X className="h-5 w-5" />
+</button>
+
+// Always add aria-label for icon-only buttons
+<button aria-label="Delete item" className="text-destructive">
+  <Trash2 className="h-4 w-4" />
+</button>
 ```
 
-## References
+### Focus Indicators
 
-| Topic | File |
-|-------|------|
-| Token Architecture | `references/token-architecture.md` |
-| Primitive Tokens | `references/primitive-tokens.md` |
-| Semantic Tokens | `references/semantic-tokens.md` |
-| Component Tokens | `references/component-tokens.md` |
-| Component Specs | `references/component-specs.md` |
-| States & Variants | `references/states-and-variants.md` |
-| Tailwind Integration | `references/tailwind-integration.md` |
+All interactive elements must have visible focus:
 
-## Component Spec Pattern
+```tsx
+className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+```
 
-| Property | Default | Hover | Active | Disabled |
-|----------|---------|-------|--------|----------|
-| Background | primary | primary-dark | primary-darker | muted |
-| Text | white | white | white | muted-fg |
-| Border | none | none | none | muted-border |
-| Shadow | sm | md | none | none |
+---
 
-## Scripts
+## shadcn/ui Components
 
-| Script | Purpose |
-|--------|---------|
-| `generate-tokens.cjs` | Generate CSS from JSON token config |
-| `validate-tokens.cjs` | Check for hardcoded values in code |
-| `search-slides.py` | BM25 search + contextual recommendations |
-| `slide-token-validator.py` | Validate slide HTML for token compliance |
-| `fetch-background.py` | Fetch images from Pexels/Unsplash |
+### Installed Components
 
-## Templates
+| Component | Location |
+|-----------|----------|
+| `toast`, `toaster` | Notifications |
+| `dialog` | Modals |
+| `dropdown-menu` | Dropdowns |
+| `input`, `label`, `textarea` | Form fields |
+| `select`, `checkbox` | Form controls |
+| `tooltip` | Tooltips |
+| `confirm-dialog` | Confirmation prompts |
 
-| Template | Purpose |
-|----------|---------|
-| `design-tokens-starter.json` | Starter JSON with three-layer structure |
+### Usage
 
-## Integration
+```tsx
+// Toasts
+import { toast } from "@/hooks/use-toast";
+toast({ title: "Success!", description: "Saved" });
+toast({ title: "Error", variant: "destructive" });
 
-**With brand-guidelines:** Extract primitives from brand colors/typography
-**With ui-styling:** Component tokens → Tailwind config
+// Confirmation
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+<ConfirmDialog
+  open={showDelete}
+  onOpenChange={setShowDelete}
+  title="Delete?"
+  variant="destructive"
+  onConfirm={handleDelete}
+/>
+```
 
-**Skill Dependencies:** brand-guidelines, ui-styling
-**Primary Agents:** ui-ux-designer, frontend-developer
+---
 
-## Slide System
-
-Brand-compliant presentations using design tokens + Chart.js + contextual decision system.
-
-### Source of Truth
+## Reference Files
 
 | File | Purpose |
 |------|---------|
-| `docs/brand-guidelines.md` | Brand identity, voice, colors |
-| `assets/design-tokens.json` | Token definitions (primitive→semantic→component) |
-| `assets/design-tokens.css` | CSS variables (import in slides) |
-| `assets/css/slide-animations.css` | CSS animation library |
+| `docs/THEME_SYSTEM.md` | **Full documentation** |
+| `src/app/globals.css` | CSS variable definitions |
+| `src/lib/badges.ts` | Badge color configuration |
+| `/admin/design-system` | Live component examples |
 
-### Slide Search (BM25)
+---
 
-```bash
-# Basic search (auto-detect domain)
-python scripts/search-slides.py "investor pitch"
+## Checklist
 
-# Domain-specific search
-python scripts/search-slides.py "problem agitation" -d copy
-python scripts/search-slides.py "revenue growth" -d chart
+Before completing any UI work:
 
-# Contextual search (Premium System)
-python scripts/search-slides.py "problem slide" --context --position 2 --total 9
-python scripts/search-slides.py "cta" --context --position 9 --prev-emotion frustration
-```
+- [ ] Using semantic CSS variables (not hardcoded colors)
+- [ ] Tested in BOTH light and dark themes
+- [ ] Used `min-w-0` for flex containers needing truncation
+- [ ] Used `flex-shrink-0` on icons in flex layouts
+- [ ] Added focus indicators to interactive elements
+- [ ] Text contrast meets 4.5:1 ratio
+- [ ] Updated design system page if adding new patterns
 
-### Decision System CSVs
+---
 
-| File | Purpose |
-|------|---------|
-| `data/slide-strategies.csv` | 15 deck structures + emotion arcs + sparkline beats |
-| `data/slide-layouts.csv` | 25 layouts + component variants + animations |
-| `data/slide-layout-logic.csv` | Goal → Layout + break_pattern flag |
-| `data/slide-typography.csv` | Content type → Typography scale |
-| `data/slide-color-logic.csv` | Emotion → Color treatment |
-| `data/slide-backgrounds.csv` | Slide type → Image category (Pexels/Unsplash) |
-| `data/slide-copy.csv` | 25 copywriting formulas (PAS, AIDA, FAB) |
-| `data/slide-charts.csv` | 25 chart types with Chart.js config |
+## Related Skills
 
-### Contextual Decision Flow
-
-```
-1. Parse goal/context
-        ↓
-2. Search slide-strategies.csv → Get strategy + emotion beats
-        ↓
-3. For each slide:
-   a. Query slide-layout-logic.csv → layout + break_pattern
-   b. Query slide-typography.csv → type scale
-   c. Query slide-color-logic.csv → color treatment
-   d. Query slide-backgrounds.csv → image if needed
-   e. Apply animation class from slide-animations.css
-        ↓
-4. Generate HTML with design tokens
-        ↓
-5. Validate with slide-token-validator.py
-```
-
-### Pattern Breaking (Duarte Sparkline)
-
-Premium decks alternate between emotions for engagement:
-```
-"What Is" (frustration) ↔ "What Could Be" (hope)
-```
-
-System calculates pattern breaks at 1/3 and 2/3 positions.
-
-### Slide Requirements
-
-**ALL slides MUST:**
-1. Import `assets/design-tokens.css` - single source of truth
-2. Use CSS variables: `var(--color-primary)`, `var(--slide-bg)`, etc.
-3. Use Chart.js for charts (NOT CSS-only bars)
-4. Include navigation (keyboard arrows, click, progress bar)
-5. Center align content
-6. Focus on persuasion/conversion
-
-### Chart.js Integration
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-
-<canvas id="revenueChart"></canvas>
-<script>
-new Chart(document.getElementById('revenueChart'), {
-    type: 'line',
-    data: {
-        labels: ['Sep', 'Oct', 'Nov', 'Dec'],
-        datasets: [{
-            data: [5, 12, 28, 45],
-            borderColor: '#FF6B6B',  // Use brand coral
-            backgroundColor: 'rgba(255, 107, 107, 0.1)',
-            fill: true,
-            tension: 0.4
-        }]
-    }
-});
-</script>
-```
-
-### Token Compliance
-
-```css
-/* CORRECT - uses token */
-background: var(--slide-bg);
-color: var(--color-primary);
-font-family: var(--typography-font-heading);
-
-/* WRONG - hardcoded */
-background: #0D0D0D;
-color: #FF6B6B;
-font-family: 'Space Grotesk';
-```
-
-### Reference Implementation
-
-Working example with all features:
-```
-assets/designs/slides/claudekit-pitch-251223.html
-```
-
-### Command
-
-```bash
-/slides:create "10-slide investor pitch for ClaudeKit Marketing"
-```
-
-## Best Practices
-
-1. Never use raw hex in components - always reference tokens
-2. Semantic layer enables theme switching (light/dark)
-3. Component tokens enable per-component customization
-4. Use HSL format for opacity control
-5. Document every token's purpose
-6. **Slides must import design-tokens.css and use var() exclusively**
+- `form-components` - Form field styling
+- `architecture-philosophy` - Use shadcn over custom components

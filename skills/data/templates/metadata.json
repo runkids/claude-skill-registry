@@ -1,7 +1,9 @@
 {
   "name": "templates",
-  "repo": "Andrejones92/canifi-life-os",
-  "path": "templates/SKILL.md.template",
-  "source": "github.com/Andrejones92/canifi-life-os",
-  "downloaded_at": "2026-02-02T05:09:48.912272Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/trailofbits-testing-handbook-skills/skills/testing-handbook-generator/templates/technique-skill.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:04.634816Z",
+  "dir_name": "templates",
+  "category": "data"
 }

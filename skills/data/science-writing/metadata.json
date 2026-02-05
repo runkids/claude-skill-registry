@@ -1,13 +1,9 @@
 {
   "name": "science-writing",
-  "description": "",
   "repo": "fmschulz/omics-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/science-writing/SKILL.md",
   "source": "github.com/fmschulz/omics-skills",
-  "github_path": "skills/science-writing",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:54:14.203956Z",
   "dir_name": "science-writing",
-  "downloaded_at": "2026-02-05T01:44:22.856200Z"
+  "category": "data"
 }

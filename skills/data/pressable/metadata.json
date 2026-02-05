@@ -1,13 +1,9 @@
 {
   "name": "pressable",
-  "description": "",
   "repo": "shaunandrews/agent-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/pressable/SKILL.md",
   "source": "github.com/shaunandrews/agent-skills",
-  "github_path": "skills/pressable",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:06:35.849804Z",
   "dir_name": "pressable",
-  "downloaded_at": "2026-02-05T05:36:35.895701Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "architect",
-  "repo": "Geralt1983/Thanos",
-  "path": ".gemini/skills/architect/SKILL.md",
-  "source": "github.com/Geralt1983/Thanos",
-  "downloaded_at": "2026-02-02T04:52:56.474678Z"
+  "repo": "hnabyz-bot/fpga-work",
+  "path": ".claude/skills/architect/SKILL.md",
+  "source": "github.com/hnabyz-bot/fpga-work",
+  "downloaded_at": "2026-01-29T08:47:27.588643Z",
+  "dir_name": "architect",
+  "category": "data"
 }

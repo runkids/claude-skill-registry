@@ -1,13 +1,9 @@
 {
   "name": "preserve-ui",
-  "description": "",
   "repo": "djnsty23/claude-auto-dev",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/preserve-ui/SKILL.md",
   "source": "github.com/djnsty23/claude-auto-dev",
-  "github_path": "skills/preserve-ui",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:47:34.445418Z",
   "dir_name": "preserve-ui",
-  "downloaded_at": "2026-02-05T06:28:50.972343Z"
+  "category": "data"
 }

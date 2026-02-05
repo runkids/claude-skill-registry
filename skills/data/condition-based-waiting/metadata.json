@@ -1,7 +1,9 @@
 {
   "name": "condition-based-waiting",
-  "repo": "nodays-off/Hogans-Alley",
-  "path": "skills/development-workflow/condition-based-waiting/SKILL.md",
-  "source": "github.com/nodays-off/Hogans-Alley",
-  "downloaded_at": "2026-02-02T04:13:43.165101Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/superpowers-testing/condition-based-waiting/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-29T09:01:09.403168Z",
+  "dir_name": "condition-based-waiting",
+  "category": "data"
 }

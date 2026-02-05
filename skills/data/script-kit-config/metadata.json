@@ -1,13 +1,9 @@
 {
   "name": "script-kit-config",
-  "description": "",
   "repo": "johnlindquist/script-kit-next",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".opencode/skill/script-kit-config/SKILL.md",
   "source": "github.com/johnlindquist/script-kit-next",
-  "github_path": ".opencode/skill/script-kit-config",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:27:58.994180Z",
   "dir_name": "script-kit-config",
-  "downloaded_at": "2026-02-05T01:44:28.479424Z"
+  "category": "data"
 }

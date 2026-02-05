@@ -1,13 +1,9 @@
 {
   "name": "file-cleaner",
-  "description": "",
   "repo": "aAAaqwq/AGI-Super-Skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "file-cleaner/SKILL.md",
   "source": "github.com/aAAaqwq/AGI-Super-Skills",
-  "github_path": "file-cleaner",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T04:43:03.963199Z",
   "dir_name": "file-cleaner",
-  "downloaded_at": "2026-02-05T01:45:00.228354Z"
+  "category": "data"
 }

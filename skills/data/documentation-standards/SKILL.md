@@ -1,303 +1,233 @@
 ---
 name: documentation-standards
-description: Standards and guidelines for organizing, structuring, and maintaining documentation in the PRPM repository - ensures consistency across user docs, development docs, and internal references
+description: Universal documentation standards and best practices for software projects
+license: MIT
+compatibility: opencode
+metadata:
+  related_coding_principles: For overall development standards, use skill `coding-principles`
+  related_python_guidelines: For Python-specific documentation, use skill `python-guidelines`
 ---
 
-# PRPM Documentation Standards
+# Documentation Standards
 
-## Documentation Organization
+## What I Do
 
-### Internal Documentation (development/docs/)
-**Purpose:** Documentation for developers working on PRPM itself
+Provide universal documentation standards and best practices that apply across different projects and domains.
 
-**Location:** `development/docs/`
+## Universal Documentation Structure
 
-**Files:**
-- `GITHUB_WORKFLOWS.md` - GitHub Actions workflows reference
-- `PUBLISHING.md` - NPM package publishing process and order
-- `DEVELOPMENT.md` - Development setup, environment, and workflows
-- `DOCKER.md` - Docker setup, services, and troubleshooting
+### Documentation Organization
 
-**Audience:** PRPM contributors, maintainers, CI/CD systems
-
----
-
-### User-Facing Documentation (docs/)
-**Purpose:** Documentation for PRPM users and package authors
-
-**Location:** `docs/` (at project root)
-
-**Files:**
-- User guides
-- API documentation
-- Package authoring guides
-- CLI command reference
-- Examples and tutorials
-
-**Audience:** PRPM end users, package authors, integrators
-
----
-
-### Project-Level Documentation (root)
-**Purpose:** Standard project files that belong at repository root
-
-**Location:** Project root `/`
-
-**Files:**
-- `README.md` - Project overview, quick start, installation
-- `CONTRIBUTING.md` - Contribution guidelines
-- `CHANGELOG.md` - Version history and changes
-- `LICENSE` - License information
-- `ROADMAP.md` - Project roadmap and future plans
-
-**Audience:** Everyone (first impression)
-
----
-
-### Claude Skills (.claude/skills/)
-**Purpose:** Knowledge base and reference materials for AI assistants
-
-**Location:** `.claude/skills/`
-
-**Files:**
-- `postgres-migrations-skill.md` - PostgreSQL migrations guidance
-- `pulumi-troubleshooting-skill.md` - Pulumi troubleshooting
-- `NEW_SKILLS.md` - How to create new skills
-- `documentation-standards.md` - This file
-
-**Subdirectories:**
-- `prpm-development/` - PRPM-specific development knowledge
-- `self-improving/` - Self-improvement patterns
-- `thoroughness/` - Thoroughness and quality guidelines
-
-**Audience:** AI assistants (Claude, etc.)
-
----
-
-## Rules for Documentation Placement
-
-### When to use development/docs/
-✅ GitHub Actions workflows and CI/CD
-✅ Internal build/release processes
-✅ Development environment setup
-✅ Architecture decision records
-✅ Internal troubleshooting guides
-✅ Database schema documentation
-✅ Infrastructure documentation
-
-❌ User-facing tutorials
-❌ CLI usage guides
-❌ API reference for end users
-
-### When to use docs/
-✅ User guides and tutorials
-✅ CLI command reference
-✅ Package authoring guides
-✅ API documentation for users
-✅ Integration examples
-✅ FAQ for users
-
-❌ Internal development workflows
-❌ CI/CD documentation
-❌ Build/release processes
-
-### When to use .claude/skills/
-✅ Specialized knowledge for AI assistants
-✅ Domain-specific best practices
-✅ Troubleshooting patterns
-✅ Code review guidelines
-✅ Project-specific conventions
-
-❌ General documentation
-❌ User guides
-❌ API references
-
----
-
-## Documentation Standards
-
-### Markdown Files
-- Use clear, descriptive filenames (kebab-case)
-- Include table of contents for docs > 200 lines
-- Use proper heading hierarchy (# → ## → ###)
-- Include code examples with syntax highlighting
-- Add frontmatter if using a static site generator
-
-### Example Structure
-```markdown
-# Title
-
-Brief description (1-2 sentences)
-
-## Table of Contents
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-
-## Section 1
-Content...
-
-### Subsection 1.1
-Details...
-
-## Examples
-\`\`\`bash
-# Example command
-prpm install @username/package-name
-\`\`\`
-
-## See Also
-- [Related Doc](./related.md)
-```
-
-### Cross-References
-- Use relative paths for links
-- Keep links within same category when possible
-- Update links when moving files
-
-**Internal → Internal:**
-```markdown
-See [Publishing Guide](./PUBLISHING.md)
-```
-
-**Internal → User:**
-```markdown
-See [User Guide](../../docs/user-guide.md)
-```
-
----
-
-## Migration Checklist
-
-When reorganizing documentation:
-
-1. ✅ Move file to correct location
-2. ✅ Update all references to moved file
-3. ✅ Update README.md links if needed
-4. ✅ Update .gitignore if needed
-5. ✅ Test that all links work
-6. ✅ Commit with clear message explaining move
-
----
-
-## Package-Specific Documentation
-
-Each package should have its own README:
-
-```
-packages/
-├── cli/
-│   └── README.md          # CLI package overview
-├── registry/
-│   └── README.md          # Registry server docs
-├── registry-client/
-│   └── README.md          # Client library docs
-├── types/
-│   └── README.md          # Type definitions docs
-└── webapp/
-    └── README.md          # WebApp docs
-```
-
----
-
-## Maintenance
-
-### Regular Reviews
-- Quarterly review of docs/ for accuracy
-- Remove outdated documentation
-- Update examples to use latest version
-- Check for broken links
-
-### When Adding Features
-- Update relevant user docs in `docs/`
-- Update internal docs in `development/docs/` if needed
-- Add examples
-- Update CHANGELOG.md
-
-### When Deprecating Features
-- Add deprecation notice to docs
-- Provide migration guide
-- Keep docs until feature is removed
-- Update CHANGELOG.md
-
----
-
-## Quick Reference
-
-| Documentation Type | Location | Audience | Examples |
-|--------------------|----------|----------|----------|
-| Internal Dev | `development/docs/` | Contributors | CI/CD, publishing |
-| User-Facing | `docs/` | Users | Guides, tutorials |
-| Project Root | `/` | Everyone | README, LICENSE |
-| AI Skills | `.claude/skills/` | AI assistants | Troubleshooting |
-| Package Docs | `packages/*/README.md` | Package users | API reference |
-
----
-
-## Tools
-
-### Documentation Generators
-- **TypeDoc** - For TypeScript API docs (future)
-- **VitePress** or **Docusaurus** - For docs/ site (future)
-
-### Linting
-```bash
-# Check markdown
-markdownlint docs/
-
-# Check links
-markdown-link-check docs/**/*.md
-```
-
-### Building Docs Site (Future)
-```bash
-cd docs/
-npm run build
-```
-
----
-
-## Examples
-
-### Good Documentation Structure
-```
-prpm/
+```text
+# Universal documentation structure
+docs/
 ├── README.md                    # Project overview
-├── CONTRIBUTING.md              # How to contribute
-├── CHANGELOG.md                 # Version history
-├── ROADMAP.md                   # Future plans
-├── development/
-│   └── docs/
-│       ├── GITHUB_WORKFLOWS.md  # CI/CD reference
-│       ├── PUBLISHING.md        # Release process
-│       ├── DEVELOPMENT.md       # Dev setup
-│       └── DOCKER.md            # Services setup
-├── docs/
-│   ├── getting-started.md       # User onboarding
-│   ├── cli-reference.md         # Command reference
-│   ├── package-authoring.md     # Creating packages
-│   └── api/
-│       └── registry-client.md   # API docs
-└── .claude/
-    └── skills/
-        ├── documentation-standards.md
-        ├── postgres-migrations-skill.md
-        └── pulumi-troubleshooting-skill.md
+├── architecture/                # System architecture
+│   ├── overview.md              # High-level architecture
+│   └── components/              # Component details
+├── development/                 # Development guidelines
+│   ├── setup.md                 # Development environment
+│   ├── workflow.md              # Development workflow
+│   └── standards.md             # Coding standards
+├── api/                         # API documentation
+│   ├── reference.md             # API reference
+│   └── examples.md              # Usage examples
+└── user/                        # User documentation
+    ├── getting-started.md       # Quick start guide
+    ├── tutorials/               # Step-by-step tutorials
+    └── reference/               # Detailed reference
+````
+
+### Documentation Formats
+
+**Universal Documentation Standards:**
+
+- **Markdown**: For most documentation (`.md` files)
+- **Google Docstrings**: For Python code documentation
+- **JSDoc**: For JavaScript/TypeScript documentation
+- **Swagger/OpenAPI**: For API documentation
+
+````markdown
+# Universal Markdown Standards
+
+## Headings
+- Use ATX-style headings (#, ##, ###)
+- Maintain consistent heading hierarchy
+- Limit to 3-4 heading levels
+
+## Code Blocks
+```python
+# Always specify language for syntax highlighting
+def example_function():
+    """Example with proper formatting"""
+    return "formatted code"
 ```
 
-### Bad Documentation Structure ❌
+## Lists
+- Use consistent list formatting
+- Prefer hyphens for bullet points
+- Use numbered lists for sequential steps
+
+## Links
+- Use relative links for internal references
+- Use absolute links for external references
+- Include link descriptions
+````
+
+## When to Use Me
+
+Use this skill when:
+
+- Setting up documentation for new projects
+- Standardizing documentation across teams
+- Creating reusable documentation patterns
+- Implementing maintainable documentation processes
+
+## Universal Documentation Examples
+
+### API Documentation
+
+````markdown
+# Universal API Documentation Template
+
+## Endpoint: `/api/v1/resource`
+
+**Method:** `GET`
+
+**Description:** Retrieve resource information
+
+**Parameters:**
+- `id` (string, required): Resource identifier
+- `format` (string, optional): Response format (json, xml)
+
+**Response:**
+```json
+{
+  "id": "string",
+  "name": "string",
+  "created_at": "datetime",
+  "status": "string"
+}
 ```
-prpm/
-├── README.md
-├── WORKFLOWS.md                 # Should be in development/docs/
-├── USER_GUIDE.md                # Should be in docs/
-├── dev-setup.md                 # Should be in development/docs/
-└── troubleshooting.md           # Unclear audience/location
+
+**Examples:**
+```bash
+# Request example
+curl -X GET "https://api.example.com/v1/resource?id=123&format=json"
+
+# Response example
+{
+  "id": "123",
+  "name": "Sample Resource",
+  "created_at": "2023-01-01T00:00:00Z",
+  "status": "active"
+}
+````
+
 ```
 
----
+### Code Documentation
 
-## Version
+```python
+# Universal Python docstring template
+class DataProcessor:
+    """Process and transform data for analysis.
 
-**Last Updated:** 2025-10-21
-**Applies To:** PRPM v2+
-**Review Date:** 2026-01-21
+    This class provides methods for cleaning, normalizing, and
+    transforming raw data into analysis-ready formats.
+
+    Attributes:
+        config (dict): Configuration parameters for processing
+        logger (Logger): Logger instance for tracking operations
+    """
+
+    def __init__(self, config=None):
+        """Initialize DataProcessor with configuration.
+
+        Args:
+            config (dict, optional): Processing configuration.
+                Defaults to default configuration.
+
+        Raises:
+            ValueError: If configuration is invalid
+        """
+        self.config = config or self._get_default_config()
+        self.logger = self._setup_logger()
+        self._validate_config()
+```
+
+### Tutorial Documentation
+
+````markdown
+# Universal Tutorial Template
+
+## Tutorial: Getting Started with [Feature]
+
+### Prerequisites
+
+- Basic understanding of [related concept]
+- [Software] version [version] installed
+- Access to [required resources]
+
+### Step 1: Setup
+1. Install required dependencies
+
+  ```bash
+  pip install required-package
+  ```
+
+2. Configure your environment
+
+  ```bash
+  export ENV_VAR=value
+  ```
+
+### Step 2: Basic Usage
+1. Import the module
+
+  ```python
+  from package import Module
+  ```
+
+2. Create an instance
+
+  ```python
+  processor = Module(config)
+  ```
+
+### Step 3: Advanced Features
+1. Configure advanced options
+
+  ```python
+  processor.configure_advanced(option=value)
+  ```
+
+2. Process data
+
+  ```python
+  result = processor.process(data)
+  ```
+
+### Troubleshooting
+
+- **Issue**: Common problem description
+  **Solution**: Step-by-step resolution
+- **Issue**: Another common problem
+  **Solution**: Alternative approach
+````
+
+## Best Practices
+
+1. **Consistency**: Apply same documentation standards across projects
+2. **Maintainability**: Keep documentation up-to-date with code
+3. **Accessibility**: Make documentation easy to find and navigate
+4. **Completeness**: Document all public APIs and user-facing features
+
+## Compatibility
+
+Applies to:
+
+- All software projects
+- Any documentation system
+- Cross-project standardization
+- Organizational knowledge management

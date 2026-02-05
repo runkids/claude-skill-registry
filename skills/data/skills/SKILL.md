@@ -1,98 +1,209 @@
 ---
-name: black-box-architecture
-description: Apply Eskil Steenberg's black box architecture principles to build modular, maintainable software. Automatically refactors code into replaceable components, designs system architectures with clean boundaries, and debugs with modular isolation.
+name: senior-fullstack
+description: Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architecture patterns, and complete tech stack guidance. Use when building new projects, analyzing code quality, implementing design patterns, or setting up development workflows.
 ---
 
-# Black Box Architecture Skill
+# Senior Fullstack
 
-This skill teaches Claude to apply Eskil Steenberg's battle-tested black box architecture principles for building modular, maintainable software systems.
+Complete toolkit for senior fullstack with modern tools and best practices.
 
-## Philosophy
+## Quick Start
 
-"It's faster to write 5 lines of code today than to write 1 line today and then have to edit it in the future." — Eskil Steenberg
+### Main Capabilities
 
-Optimize for:
-- **Human cognitive load** over algorithmic efficiency
-- **Long-term maintainability** over short-term cleverness
-- **Team scalability** (one person per module)
-- **Constant developer velocity** regardless of project size
+This skill provides three core capabilities through automated scripts:
 
-## Core Principles
+```bash
+# Script 1: Fullstack Scaffolder
+python scripts/fullstack_scaffolder.py [options]
 
-1. **Primitive-First Design** - Identify core data types that flow through your system
-2. **Black Box Boundaries** - Modules communicate only through documented interfaces
-3. **Replaceable Components** - Any module can be rewritten using only its interface
-4. **Single Responsibility** - One module = one person can own it
-5. **Wrap Dependencies** - Never depend directly on code you don't control
+# Script 2: Project Scaffolder
+python scripts/project_scaffolder.py [options]
 
-## Variants
-
-This skill has three specialized variants that are automatically selected based on your request:
-
-### Refactor Variant
-**When to use:** Code refactoring, breaking apart monoliths, creating module boundaries
-
-**Triggers:**
-- "Refactor [code/class/module]"
-- "Break apart this monolith"
-- "Create black box modules"
-- "Analyze [component] and suggest modular refactoring"
-
-**File:** `refactor.md`
-
-### Plan Variant
-**When to use:** Strategic architecture planning, designing new systems
-
-**Triggers:**
-- "Design architecture for [system]"
-- "Plan the module structure"
-- "How should I architect [feature]"
-- "Design a [type] system"
-
-**File:** `plan.md`
-
-### Debug Variant
-**When to use:** Systematic debugging, testing strategies, integration issues
-
-**Triggers:**
-- "Debug [issue]"
-- "Fix this bug"
-- "Why is [component] failing"
-- "Test strategy for [feature]"
-
-**File:** `debug.md`
-
-## Output Format
-
-All variants follow a structured 4-phase protocol and produce consistent output:
-
-```markdown
-## 🔍 Current Architecture
-[Primitives, modules, coupling issues, violations]
-
-## 🎯 Proposed Black Box Design
-[Module designs with interfaces]
-
-## 📝 Implementation Steps
-[Specific, actionable steps]
-
-## ⚠️ Risks & Mitigation
-[What could go wrong + how to prevent]
-
-## ✅ Quality Gates
-[Validation checklist]
+# Script 3: Code Quality Analyzer
+python scripts/code_quality_analyzer.py [options]
 ```
 
-## Supported Languages
+## Core Capabilities
 
-- Python
-- TypeScript/JavaScript
-- Go
-- Rust
-- C
-- PHP
-- Java
+### 1. Fullstack Scaffolder
 
-## Learn More
+Automated tool for fullstack scaffolder tasks.
 
-Based on Eskil Steenberg's lecture: [Architecting LARGE Software Projects](https://www.youtube.com/watch?v=sSpULGNHyoI)
+**Features:**
+- Automated scaffolding
+- Best practices built-in
+- Configurable templates
+- Quality checks
+
+**Usage:**
+```bash
+python scripts/fullstack_scaffolder.py <project-path> [options]
+```
+
+### 2. Project Scaffolder
+
+Comprehensive analysis and optimization tool.
+
+**Features:**
+- Deep analysis
+- Performance metrics
+- Recommendations
+- Automated fixes
+
+**Usage:**
+```bash
+python scripts/project_scaffolder.py <target-path> [--verbose]
+```
+
+### 3. Code Quality Analyzer
+
+Advanced tooling for specialized tasks.
+
+**Features:**
+- Expert-level automation
+- Custom configurations
+- Integration ready
+- Production-grade output
+
+**Usage:**
+```bash
+python scripts/code_quality_analyzer.py [arguments] [options]
+```
+
+## Reference Documentation
+
+### Tech Stack Guide
+
+Comprehensive guide available in `references/tech_stack_guide.md`:
+
+- Detailed patterns and practices
+- Code examples
+- Best practices
+- Anti-patterns to avoid
+- Real-world scenarios
+
+### Architecture Patterns
+
+Complete workflow documentation in `references/architecture_patterns.md`:
+
+- Step-by-step processes
+- Optimization strategies
+- Tool integrations
+- Performance tuning
+- Troubleshooting guide
+
+### Development Workflows
+
+Technical reference guide in `references/development_workflows.md`:
+
+- Technology stack details
+- Configuration examples
+- Integration patterns
+- Security considerations
+- Scalability guidelines
+
+## Tech Stack
+
+**Languages:** TypeScript, JavaScript, Python, Go, Swift, Kotlin
+**Frontend:** React, Next.js, React Native, Flutter
+**Backend:** Node.js, Express, GraphQL, REST APIs
+**Database:** PostgreSQL, Prisma, NeonDB, Supabase
+**DevOps:** Docker, Kubernetes, Terraform, GitHub Actions, CircleCI
+**Cloud:** AWS, GCP, Azure
+
+## Development Workflow
+
+### 1. Setup and Configuration
+
+```bash
+# Install dependencies
+npm install
+# or
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+```
+
+### 2. Run Quality Checks
+
+```bash
+# Use the analyzer script
+python scripts/project_scaffolder.py .
+
+# Review recommendations
+# Apply fixes
+```
+
+### 3. Implement Best Practices
+
+Follow the patterns and practices documented in:
+- `references/tech_stack_guide.md`
+- `references/architecture_patterns.md`
+- `references/development_workflows.md`
+
+## Best Practices Summary
+
+### Code Quality
+- Follow established patterns
+- Write comprehensive tests
+- Document decisions
+- Review regularly
+
+### Performance
+- Measure before optimizing
+- Use appropriate caching
+- Optimize critical paths
+- Monitor in production
+
+### Security
+- Validate all inputs
+- Use parameterized queries
+- Implement proper authentication
+- Keep dependencies updated
+
+### Maintainability
+- Write clear code
+- Use consistent naming
+- Add helpful comments
+- Keep it simple
+
+## Common Commands
+
+```bash
+# Development
+npm run dev
+npm run build
+npm run test
+npm run lint
+
+# Analysis
+python scripts/project_scaffolder.py .
+python scripts/code_quality_analyzer.py --analyze
+
+# Deployment
+docker build -t app:latest .
+docker-compose up -d
+kubectl apply -f k8s/
+```
+
+## Troubleshooting
+
+### Common Issues
+
+Check the comprehensive troubleshooting section in `references/development_workflows.md`.
+
+### Getting Help
+
+- Review reference documentation
+- Check script output messages
+- Consult tech stack documentation
+- Review error logs
+
+## Resources
+
+- Pattern Reference: `references/tech_stack_guide.md`
+- Workflow Guide: `references/architecture_patterns.md`
+- Technical Guide: `references/development_workflows.md`
+- Tool Scripts: `scripts/` directory

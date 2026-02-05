@@ -1,13 +1,9 @@
 {
   "name": "workspace-file-discovery-manager",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/toolathlon/workspace-file-discovery-manager/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/toolathlon/workspace-file-discovery-manager",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:42.698021Z",
   "dir_name": "workspace-file-discovery-manager",
-  "downloaded_at": "2026-02-05T01:44:59.151231Z"
+  "category": "data"
 }

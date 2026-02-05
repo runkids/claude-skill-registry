@@ -1,13 +1,9 @@
 {
   "name": "gcp-cloudrun",
-  "description": "",
   "repo": "kubony/openclaw-gcp-setup",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/gcp-cloudrun/SKILL.md",
   "source": "github.com/kubony/openclaw-gcp-setup",
-  "github_path": ".claude/skills/gcp-cloudrun",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:05:17.043236Z",
   "dir_name": "gcp-cloudrun",
-  "downloaded_at": "2026-02-05T01:45:01.759445Z"
+  "category": "data"
 }

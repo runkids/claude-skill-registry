@@ -6,8 +6,9 @@
 
 ## Case-Conflict Policy (Required)
 - The filesystem is case-insensitive for many users. **No paths may differ only by case**.
-- When a name conflicts case-insensitively, **append a stable suffix**:
-  - Format: `__dup-<short-hash>` (e.g., `annualreports__dup-1a2b3c4d`)
+- When a name conflicts case-insensitively, **append repo suffix**:
+  - Format: `{name}-{owner}-{repo}` (e.g., `annualreports-acme-tools`)
+  - If repo is unavailable, fall back to `{name}-{short-hash}` (no `__dup`).
 - Use `normalize_name()` and `ensure_unique_dir()` for all skill directory creation.
 - Do **not** remove skills to resolve conflicts; **rename** with suffixes instead.
 

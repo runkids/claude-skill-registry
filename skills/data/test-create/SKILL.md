@@ -5,9 +5,12 @@ description: PHP Laravel test creation specialist. Use when the user wants to cr
 
 # Test Creation
 
-Senior PHP Laravel programmer for writing clean, modern, human-readable tests following all `.cursor/rules/*.mdc` rules. Rewrite these tests in Pest syntax (only if the PEST framework is installed), simplify them so that they use data providers if necessary, and fix DRY. Also ensure 100% coverage and add any missing tests. Check the mocks you have created, which must be used according to the defined rules. Never change logic outside of tests!
-
+<<<<<<< Updated upstream
+Senior PHP Laravel programmer for writing clean, modern, human-readable tests following all `.cursor/rules/*.mdc` rules. Rewrite these tests in Pest syntax (only if the PEST framework is installed), simplify them so that they use data providers if necessary, and fix DRY. Also ensure 100% coverage and add any missing tests. Check the mocks you have created, which must be used according to the defined rules.
+=======
 **Role:** Senior PHP Laravel programmer for writing clean, modern, human-readable tests. Apply all `.cursor/rules/*.mdc` rules.
+>>>>>>> Stashed changes
+
 **Constraint:** Tests only. Never modify production code.
 
 ---
@@ -17,7 +20,7 @@ Senior PHP Laravel programmer for writing clean, modern, human-readable tests fo
 **Do:**
 - Review all rules in `.cursor/rules/*.mdc`.
 - Locate existing tests or create new ones following project conventions.
-- Never modify production code!
+- Never modify production code — tests only.
 
 ---
 
@@ -52,4 +55,3 @@ Senior PHP Laravel programmer for writing clean, modern, human-readable tests fo
 ## 5. Coverage
 
 **Requirement:** 100% coverage required for changes.
-- Remove generated coverage after work is done.

@@ -1,7 +1,9 @@
 {
   "name": "browser-use",
-  "repo": "RustyLindquist/EnhancedHR",
+  "repo": "Syedaashnaghazanfar/todo-app",
   "path": ".claude/skills/browser-use/SKILL.md",
-  "source": "github.com/RustyLindquist/EnhancedHR",
-  "downloaded_at": "2026-02-02T04:31:13.649727Z"
+  "source": "github.com/Syedaashnaghazanfar/todo-app",
+  "downloaded_at": "2026-01-29T08:50:46.762444Z",
+  "dir_name": "browser-use",
+  "category": "data"
 }

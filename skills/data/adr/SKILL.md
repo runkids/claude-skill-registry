@@ -1,112 +1,62 @@
 ---
 name: adr
-description: Use when writing Architecture Decision Records. Engages as a thought partner to pressure-test assumptions and surface trade-offs before drafting.
-argument-hint: "[decision topic or question]"
-model: opus
-allowed-tools:
-  - Read
-  - Glob
-  - Grep
+description: Manage Architecture Decision Records and ADR-aligned development. Use when user says "we should use", "let's go with", asks "why did we choose X?", implements a feature that may have an ADR, updates ADR status, or needs to check alignment with existing decisions.
 ---
 
-# ADR Thought Partner
+# INSTRUCTIONS
 
-Write Architecture Decision Records through collaborative exploration, not transcription.
+Manage Architecture Decision Records (ADRs) throughout their lifecycle: read existing decisions, write new ones, and ensure development aligns with documented decisions.
 
-## Arguments
+- **Template**: See `template.md` for the MADR structure (status, context, drivers, options, consequences)
+- **Operations**: See `operations.md` for directory discovery, naming conventions, commit integration, deprecation (`_` prefix), and ADR-aligned development workflow
+- **Queries**: See `queries.md` for finding ADRs by topic, status, or relationship
 
-```
-[decision topic or question]
-```
+## Modes
 
-Examples:
-- `Use PostgreSQL for persistence`
-- `Which message queue should we use?`
-- `gRPC vs REST for internal APIs`
+### Read Mode
+**Trigger**: "why did we choose X?", "what's our approach to Y?", "is there an ADR for Z?"
 
-## Instructions
+1. Discover ADR directory (see `operations.md`)
+2. Search for relevant ADRs by keyword/topic
+3. Summarize the decision and its rationale
+4. Note if the ADR is active, deprecated, or superseded
 
-### 1. Establish Context
+### Write Mode
+**Trigger**: "we should use", "let's go with", "I've decided to", trade-off discussions
 
-Before writing anything, understand:
-- What problem does this decision solve?
-- What constraints exist (time, budget, team skills, compliance, existing systems)?
-- What does success look like?
+1. Check for existing ADRs on the topic (may need to supersede)
+2. Gather information through clarifying questions
+3. Draft ADR using `template.md`
+4. Save and commit (amend later if needed)
 
-If key information is missing, ask the **minimum** questions needed. Don't interrogate.
+### ADR-Aligned Development Mode
+**Trigger**: Implementing features, making architectural changes, deviating from existing patterns
 
-### 2. Pressure-Test Through Questions
+1. **Before implementation**: Check for relevant ADRs
+2. **During implementation**: Reference ADR in commits
+3. **On completion**: Update ADR status (proposed → accepted)
+4. **On deviation**: Create superseding ADR, deprecate old one with `_` prefix
 
-Ask 1-3 probing questions to:
-- Surface hidden assumptions
-- Identify unstated constraints
-- Expose trade-offs the user hasn't considered
-- Challenge "obvious" choices that may not be
+## Quality Checklist
 
-Good questions:
-- "What happens if X changes in 6 months?"
-- "Have you considered Y as an alternative?"
-- "What's the cost of being wrong here?"
+Before finalizing an ADR:
 
-### 3. Explore Options Together
+- [ ] Title clearly states the decision (not the problem)
+- [ ] Context explains WHY this decision is needed now
+- [ ] At least 2 options were genuinely considered
+- [ ] Decision drivers link to actual project constraints
+- [ ] Consequences include both positive AND negative impacts
+- [ ] Confirmation section describes how to validate the decision
 
-For each candidate approach, call out:
-- **Costs**: Implementation effort, operational burden, learning curve
-- **Risks**: What could go wrong? Vendor lock-in? Scalability limits?
-- **Second-order effects**: How does this constrain future decisions?
+## Anti-Patterns
 
-Be direct. No unnecessary affirmation. Match confidence to evidence.
+- **Decision without options**: Always document alternatives considered
+- **Vague consequences**: Be specific about trade-offs
+- **Missing "why"**: The ADR should answer "why this, why now"
+- **Orphan ADRs**: Link to related ADRs when relevant
+- **Stale ADRs**: Update status when implemented or superseded
+- **Undocumented deviation**: If you deviate from an ADR, create a new one
 
-### 4. Find the Template
+## Reference
 
-Look for an ADR template in the project:
-```
-docs/adrs/000-adr-template.md
-docs/adr/template.md
-.github/ADR_TEMPLATE.md
-```
-
-If no template exists, use @TEMPLATE.md from this skill's directory.
-
-If no ADR directory exists, suggest creating `docs/adrs/` and confirm with the user.
-
-### 5. Draft the ADR
-
-Once alignment is reached:
-1. Determine the next ADR number from existing files in the ADR directory
-2. Write the ADR using the template structure
-3. Use RFC 2119 language (MUST, SHOULD, MAY) for requirements
-4. Be honest about trade-offs in Consequences—include the bad
-
-### 6. Iterate
-
-Present the draft and ask if anything needs adjustment. The ADR should capture the decision rationale accurately, not just document a conclusion.
-
-## Anti-patterns
-
-- Writing the ADR immediately without discussion
-- Agreeing with everything the user says
-- Hiding downsides of the chosen option
-- Treating the template as rigid (sections are optional)
-- Asking too many questions upfront instead of iterating
-
-## Example Session
-
-**User:** `/adr Use Kafka for event streaming`
-
-**Claude:** Before I draft this, a few questions to make sure we capture the right rationale:
-
-1. What's the expected message volume? Kafka shines at scale but adds operational complexity for smaller workloads.
-2. Are you already running Kafka, or would this be new infrastructure?
-3. What are the consumers—internal services, external partners, or both?
-
-**User:** ~10k msgs/day, new infra, internal only for now
-
-**Claude:** At 10k/day, Kafka is likely overkill. Have you considered:
-- **Redis Streams**: Simpler ops, sufficient throughput, you may already have Redis
-- **SQS/SNS**: Zero ops if you're on AWS
-- **Kafka**: Right choice if you're planning for 100x growth or need replay/compaction
-
-What's driving the Kafka preference—specific features, team familiarity, or future-proofing?
-
-[... continues until alignment is reached, then drafts ADR ...]
+Based on [MADR - Markdown Architectural Decision Records](https://adr.github.io/madr/) (Version 4.0, 2024)

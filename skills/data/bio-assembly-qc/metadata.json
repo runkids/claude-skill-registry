@@ -1,13 +1,9 @@
 {
   "name": "bio-assembly-qc",
-  "description": "",
   "repo": "fmschulz/omics-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/bio-assembly-qc/SKILL.md",
   "source": "github.com/fmschulz/omics-skills",
-  "github_path": "skills/bio-assembly-qc",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:54:14.071505Z",
   "dir_name": "bio-assembly-qc",
-  "downloaded_at": "2026-02-05T01:44:22.833074Z"
+  "category": "data"
 }

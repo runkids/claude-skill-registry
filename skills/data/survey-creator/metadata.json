@@ -1,9 +1,9 @@
 {
   "name": "survey-creator",
-  "description": "Survey Creator - Auto-activating skill for Business Automation.Triggers on: survey creator, survey creatorPart of the Business Automation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/survey-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T07:14:08.517230Z",
+  "dir_name": "survey-creator",
+  "category": "data"
 }

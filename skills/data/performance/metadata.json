@@ -1,7 +1,9 @@
 {
   "name": "performance",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
+  "repo": "joshribakoff/surfsim",
   "path": ".claude/skills/performance/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-02-02T04:18:16.521059Z"
+  "source": "github.com/joshribakoff/surfsim",
+  "downloaded_at": "2026-01-29T08:56:11.833116Z",
+  "dir_name": "performance",
+  "category": "data"
 }

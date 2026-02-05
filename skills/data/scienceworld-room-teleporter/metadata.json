@@ -1,13 +1,9 @@
 {
   "name": "scienceworld-room-teleporter",
-  "description": "",
   "repo": "zjunlp/SkillNet",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/benchmark_skills/scienceworld/scienceworld-room-teleporter/SKILL.md",
   "source": "github.com/zjunlp/SkillNet",
-  "github_path": "skills/benchmark_skills/scienceworld/scienceworld-room-teleporter",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:27:39.994338Z",
   "dir_name": "scienceworld-room-teleporter",
-  "downloaded_at": "2026-02-05T01:44:59.119789Z"
+  "category": "data"
 }

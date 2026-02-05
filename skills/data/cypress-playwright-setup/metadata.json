@@ -1,13 +1,9 @@
 {
   "name": "cypress-playwright-setup",
-  "description": "",
   "repo": "monkey1sai/openai-cli",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/cypress-playwright-setup/SKILL.md",
   "source": "github.com/monkey1sai/openai-cli",
-  "github_path": ".claude/skills/cypress-playwright-setup",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:06:36.050632Z",
   "dir_name": "cypress-playwright-setup",
-  "downloaded_at": "2026-02-05T01:44:14.931214Z"
+  "category": "data"
 }

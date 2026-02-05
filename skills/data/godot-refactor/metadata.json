@@ -1,13 +1,9 @@
 {
   "name": "godot-refactor",
-  "description": "",
   "repo": "Asreonn/godot-superpowers",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "orchestrators/godot-refactor/SKILL.md",
   "source": "github.com/Asreonn/godot-superpowers",
-  "github_path": "orchestrators/godot-refactor",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T05:17:17.141935Z",
   "dir_name": "godot-refactor",
-  "downloaded_at": "2026-02-05T01:44:49.728851Z"
+  "category": "data"
 }

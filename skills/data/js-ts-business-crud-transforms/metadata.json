@@ -1,13 +1,9 @@
 {
   "name": "js-ts-business-crud-transforms",
-  "description": "",
   "repo": "icyJoseph/agent-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/js-ts-business-crud-transforms/SKILL.md",
   "source": "github.com/icyJoseph/agent-skills",
-  "github_path": "skills/js-ts-business-crud-transforms",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:11:09.162905Z",
   "dir_name": "js-ts-business-crud-transforms",
-  "downloaded_at": "2026-02-05T01:44:59.701847Z"
+  "category": "data"
 }

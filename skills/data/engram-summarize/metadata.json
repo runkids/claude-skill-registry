@@ -1,13 +1,9 @@
 {
   "name": "engram-summarize",
-  "description": "",
   "repo": "4meta5/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/engram-summarize/SKILL.md",
   "source": "github.com/4meta5/skills",
-  "github_path": "skills/engram-summarize",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:56:28.625373Z",
   "dir_name": "engram-summarize",
-  "downloaded_at": "2026-02-05T01:44:44.590228Z"
+  "category": "data"
 }

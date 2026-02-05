@@ -1,13 +1,9 @@
 {
   "name": "azure-compute-batch-java",
-  "description": "",
-  "repo": "microsoft/skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/microsoft/skills",
-  "github_path": ".github/skills/azure-compute-batch-java",
-  "github_branch": "main",
+  "repo": "microsoft/agent-skills",
+  "path": ".github/skills/azure-compute-batch-java/SKILL.md",
+  "source": "github.com/microsoft/agent-skills",
+  "downloaded_at": "2026-02-04T01:23:46.771162Z",
   "dir_name": "azure-compute-batch-java",
-  "downloaded_at": "2026-02-05T01:44:52.461281Z"
+  "category": "data"
 }

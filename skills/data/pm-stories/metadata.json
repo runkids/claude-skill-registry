@@ -1,13 +1,9 @@
 {
   "name": "pm-stories",
-  "description": "",
   "repo": "elsolal/Skillz-Claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/pm-stories/SKILL.md",
   "source": "github.com/elsolal/Skillz-Claude",
-  "github_path": ".claude/skills/pm-stories",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T02:28:05.070763Z",
   "dir_name": "pm-stories",
-  "downloaded_at": "2026-02-05T01:45:01.865041Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "qutip",
-  "repo": "merllinsbeard/ai-claude-skills-collection",
-  "path": "development/qutip/SKILL.md",
-  "source": "github.com/merllinsbeard/ai-claude-skills-collection",
-  "downloaded_at": "2026-02-02T02:59:56.184502Z"
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/qutip/SKILL.md",
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-29T06:36:16.062577Z",
+  "dir_name": "qutip",
+  "category": "data"
 }

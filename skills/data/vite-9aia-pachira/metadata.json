@@ -1,13 +1,9 @@
 {
   "name": "vite",
-  "description": "",
   "repo": "9aia/pachira",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/vite/SKILL.md",
   "source": "github.com/9aia/pachira",
-  "github_path": ".claude/skills/vite",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T04:39:10.759232Z",
   "dir_name": "vite-9aia-pachira",
-  "downloaded_at": "2026-02-05T01:44:40.080324Z"
+  "category": "data"
 }

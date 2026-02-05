@@ -1,7 +1,9 @@
 {
   "name": "playwright-mcp",
-  "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "path": ".claude/skills/playwright-mcp/SKILL.md",
-  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
-  "downloaded_at": "2026-02-02T02:11:26.155820Z"
+  "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "path": ".github/skills/web-automation/playwright-mcp/SKILL.md",
+  "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "downloaded_at": "2026-01-29T07:13:26.026270Z",
+  "dir_name": "playwright-mcp",
+  "category": "data"
 }

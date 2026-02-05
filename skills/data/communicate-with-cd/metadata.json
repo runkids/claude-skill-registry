@@ -1,13 +1,9 @@
 {
   "name": "communicate-with-cd",
-  "description": "",
   "repo": "crystal-project-inc/personality-ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "communicate-with-cd/SKILL.md",
   "source": "github.com/crystal-project-inc/personality-ai",
-  "github_path": "communicate-with-cd",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T01:28:30.493577Z",
   "dir_name": "communicate-with-cd",
-  "downloaded_at": "2026-02-05T01:44:36.396526Z"
+  "category": "data"
 }

@@ -1,13 +1,9 @@
 {
   "name": "github-webhooks",
-  "description": "",
   "repo": "hookdeck/webhook-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": "skills/github-webhooks/SKILL.md",
   "source": "github.com/hookdeck/webhook-skills",
-  "github_path": "skills/github-webhooks",
-  "github_branch": "main",
+  "downloaded_at": "2026-02-04T03:37:10.468027Z",
   "dir_name": "github-webhooks",
-  "downloaded_at": "2026-02-05T01:44:14.500314Z"
+  "category": "data"
 }

@@ -1,7 +1,9 @@
 {
   "name": "deployment",
-  "repo": "rubys/showcase",
-  "path": ".claude/skills/deployment/SKILL.md",
-  "source": "github.com/rubys/showcase",
-  "downloaded_at": "2026-02-02T03:54:33.343763Z"
+  "repo": "saknarinZ/agent_skills_gemini",
+  "path": ".agent/skills/deployment/SKILL.md",
+  "source": "github.com/saknarinZ/agent_skills_gemini",
+  "downloaded_at": "2026-01-29T08:41:26.209809Z",
+  "dir_name": "deployment",
+  "category": "data"
 }

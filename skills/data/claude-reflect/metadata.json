@@ -1,7 +1,9 @@
 {
   "name": "claude-reflect",
-  "repo": "Brmbobo/Web2podcast",
-  "path": ".claude/agents/enterprise-frontend-design/agents/community/claude-reflect/SKILL.md",
-  "source": "github.com/Brmbobo/Web2podcast",
-  "downloaded_at": "2026-02-02T04:26:46.485479Z"
+  "repo": "HelixDevelopment/HelixAgent",
+  "path": "skills/plugins/community/claude-reflect/claude-reflect/SKILL.md",
+  "source": "github.com/HelixDevelopment/HelixAgent",
+  "downloaded_at": "2026-01-29T08:59:13.591506Z",
+  "dir_name": "claude-reflect",
+  "category": "data"
 }

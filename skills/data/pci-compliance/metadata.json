@@ -1,7 +1,9 @@
 {
   "name": "pci-compliance",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/payment-processing/skills/pci-compliance/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-02-02T04:39:37.147274Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/pci-compliance/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-29T08:59:59.389900Z",
+  "dir_name": "pci-compliance",
+  "category": "data"
 }

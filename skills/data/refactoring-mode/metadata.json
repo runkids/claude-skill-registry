@@ -1,13 +1,9 @@
 {
   "name": "refactoring-mode",
-  "description": "",
   "repo": "HouseGarofalo/claude-code-base",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
+  "path": ".claude/skills/refactoring-mode/SKILL.md",
   "source": "github.com/HouseGarofalo/claude-code-base",
-  "github_path": ".claude/skills/refactoring-mode",
-  "github_branch": "master",
+  "downloaded_at": "2026-02-04T02:55:17.225728Z",
   "dir_name": "refactoring-mode",
-  "downloaded_at": "2026-02-05T01:44:39.113813Z"
+  "category": "data"
 }
