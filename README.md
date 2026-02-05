@@ -1,10 +1,10 @@
 # Claude Skills Registry
 
-> **Notice (2026‑02‑05):** Split in progress — **main repo stays full** (scripts + complete skills archive).  
-> **Core repo (logic + index + site):** https://github.com/majiayu000/claude-skill-registry-core  
+> **Core repo:** logic + index + site.  
+> **Main repo (merged artifact):** https://github.com/majiayu000/claude-skill-registry  
 > **Data repo (skills archive):** https://github.com/majiayu000/claude-skill-registry-data  
-> **Counts (2026‑02‑05):** main repo **162,168** `SKILL.md` files (`skills/{category}`); data repo **162,168** (visible).  
-> **Layout:** `skills/{category}/{name}` with conflicts as `{name}-{owner}-{repo}`.
+> **Counts (2026‑02‑05):** badge shows live index count; data repo **162,170** `SKILL.md`; main repo **162,170**.  
+> **Note:** `registry.json` is deduplicated (**82,569** entries); archive counts are raw files.
 
 <p align="center">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmajiayu000.github.io%2Fclaude-skill-registry-core%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
@@ -24,13 +24,15 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 2. **[sk CLI](https://github.com/majiayu000/caude-skill-manager)** - Terminal package manager
 3. **API** - Direct JSON access
 
+**Repo layout note:** the `skills/**` archive lives in the **data repo**; the **main repo** is a merged artifact of core + data. See `SCHEME2_SPLIT.md`.
+
 ## Highlights
 
 - **Massive Skill Index** - Deduplicated, quality collection (see badge for live count)
 - **Rich Categories** - Development, Testing, DevOps, Design, and more
 - **Daily Updates** - Automated crawling and validation
 - **Quality Indexed** - Metadata, descriptions, and star counts
-- **Fast Client-Side Search** - Small index for fast search
+- **Lightweight Search** - Gzip-compressed index for fast client-side search
 
 ## Quick Start
 
@@ -75,7 +77,7 @@ curl https://majiayu000.github.io/claude-skill-registry-core/categories/developm
 │  Layer 1: Data Collection                                       │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
 │  │ GitHub Crawl │→ │ Download     │→ │ Security     │          │
-│  │ (discover)   │  │ (download_v2)│  │ (scanner)    │          │
+│  │ (discover)   │  │ (sync)       │  │ (scanner)    │          │
 │  └──────────────┘  └──────────────┘  └──────────────┘          │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
@@ -113,25 +115,38 @@ interface SkillMini {
   g: string[];         // tags (max 5)
   r: number;           // stars
   i: string;           // install path
-  b: string;           // branch (for GitHub URL)
 }
 ```
 
 ---
 
-## Split Layout (Current)
+## Directory Structure
 
 ```
-claude-skill-registry/           # Entry point (this repo, merged artifact)
-claude-skill-registry-core/      # scripts + index + site
-claude-skill-registry-data/      # <category>/<skill>/SKILL.md
+claude-skill-registry/
+├── registry.json           # Full registry (all skills)
+├── docs/                   # GitHub Pages
+│   ├── index.html          # Web search UI
+│   ├── search-index.json   # Lightweight search index
+│   ├── featured.json       # Top 100 skills
+│   └── categories/         # Category indexes
+├── sources/                # Data sources
+│   ├── anthropic.json
+│   ├── community.json
+│   └── skillsmp.json
+├── scripts/                # Build scripts
+│   ├── build_search_index.py
+│   ├── discover_by_topic.py
+│   ├── security_scanner.py
+│   └── ...
+└── skills/                 # Skill archive (moved to registry-data repo)
 ```
 
 ---
 
 ## Categories
 
-Category counts are published in the core index (`categories/*.json`). Here are the standard codes:
+Category counts are published in the index (`categories/*.json`). Here are the standard codes:
 
 | Category | Code | Description |
 |----------|------|-------------|
@@ -153,7 +168,7 @@ Category counts are published in the core index (`categories/*.json`). Here are 
 ### Current Status
 
 - [x] **Index count** tracked by the badge (core `registry.json`)
-- [x] **Archive size:** 162,168 `SKILL.md` files (data repo, 2026‑02‑05)
+- [x] **Archive size:** 162,170 `SKILL.md` files (data repo, 2026‑02‑05)
 - [x] **Daily auto-update** via GitHub Actions
 - [x] **Security scanning** for all skills
 - [x] **sk CLI** for installation
@@ -161,8 +176,8 @@ Category counts are published in the core index (`categories/*.json`). Here are 
 ### In Progress
 
 - [x] **Lightweight search index** (gzip-compressed; see stats.json)
-- [x] **Web search UI** (GitHub Pages, core)
-- [x] **GitHub Pages deployment** (enabled)
+- [x] **Web search UI** (GitHub Pages)
+- [x] **GitHub Pages deployment** (https://majiayu000.github.io/claude-skill-registry-core/)
 
 ### Planned
 
@@ -179,7 +194,7 @@ Category counts are published in the core index (`categories/*.json`). Here are 
 ### Add Your Skill
 
 **Option 1: Submit via Issue**
-1. Open an [issue](https://github.com/majiayu000/claude-skill-registry/issues/new)
+1. Open an [issue](https://github.com/majiayu000/claude-skill-registry-core/issues/new)
 2. Use the "Add Skill" template
 3. Provide: repo URL, name, description, category
 
@@ -208,14 +223,17 @@ We welcome feedback! Please open an issue for:
 - **UX improvements** - Web UI, CLI enhancements
 - **Data quality** - Duplicate skills, wrong categories
 
-👉 [Open an Issue](https://github.com/majiayu000/claude-skill-registry/issues/new)
+👉 [Open an Issue](https://github.com/majiayu000/claude-skill-registry-core/issues/new)
 
 ### Contribute Code
 
 ```bash
-# Clone the repo
-git clone https://github.com/majiayu000/claude-skill-registry.git
+# Clone the repo (recommended: partial + sparse checkout to avoid 200k+ files)
+git clone --filter=blob:none --sparse https://github.com/majiayu000/claude-skill-registry.git
 cd claude-skill-registry
+
+# Pull only what you need (add more paths later if needed, e.g. skills/development)
+git sparse-checkout set --cone docs scripts sources schema
 
 # Install dependencies
 pip install -r requirements.txt
@@ -227,6 +245,8 @@ python scripts/build_search_index.py --registry registry.json --output docs
 cd docs && python -m http.server 8000
 # Visit http://localhost:8000
 ```
+
+See `docs/FAST_CLONE.md` for more options (existing clones, getting full checkout, Windows notes).
 
 ---
 

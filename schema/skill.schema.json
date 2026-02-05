@@ -44,18 +44,9 @@
     "category": {
       "type": "string",
       "enum": [
-        "development",
-        "devops",
-        "security",
-        "documents",
-        "design",
-        "testing",
-        "product",
-        "marketing",
-        "productivity",
-        "data",
-        "official",
-        "other"
+        "development", "testing", "data", "design",
+        "documents", "productivity", "devops", "security",
+        "marketing", "product", "communication", "creative"
       ],
       "description": "Primary category"
     },

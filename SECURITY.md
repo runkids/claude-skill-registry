@@ -154,8 +154,9 @@ Even with high-trust skills:
 If you discover a security vulnerability:
 
 1. **DO NOT** open a public issue
-2. Open a **private security advisory** on GitHub
-3. Include:
+2. Email: security@[your-domain] (if available)
+3. Or open a private security advisory on GitHub
+4. Include:
    - Skill name and repo
    - Description of the vulnerability
    - Proof of concept (if possible)

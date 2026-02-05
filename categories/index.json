@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-05T08:24:39.247178Z",
+  "updated_at": "2026-02-05T10:56:43.851762Z",
   "categories": [
     {
       "name": "adb-meta-automation",
@@ -63,15 +63,19 @@
     },
     {
       "name": "data",
-      "count": 10397
+      "count": 10391
     },
     {
       "name": "design",
-      "count": 4220
+      "count": 4540
+    },
+    {
+      "name": "design-principles",
+      "count": 1
     },
     {
       "name": "development",
-      "count": 12994
+      "count": 13109
     },
     {
       "name": "development-code",
@@ -83,7 +87,7 @@
     },
     {
       "name": "devops",
-      "count": 2177
+      "count": 2291
     },
     {
       "name": "docs",
@@ -134,6 +138,10 @@
       "count": 1
     },
     {
+      "name": "github-skills",
+      "count": 1
+    },
+    {
       "name": "integration",
       "count": 2
     },
@@ -147,7 +155,7 @@
     },
     {
       "name": "marketing",
-      "count": 274
+      "count": 273
     },
     {
       "name": "meta",
@@ -159,7 +167,7 @@
     },
     {
       "name": "other",
-      "count": 46292
+      "count": 46056
     },
     {
       "name": "performance",
@@ -175,7 +183,7 @@
     },
     {
       "name": "product",
-      "count": 655
+      "count": 591
     },
     {
       "name": "productivity",
@@ -199,7 +207,7 @@
     },
     {
       "name": "security",
-      "count": 520
+      "count": 513
     },
     {
       "name": "security-compliance",
@@ -243,7 +251,7 @@
     },
     {
       "name": "testing",
-      "count": 2453
+      "count": 2426
     },
     {
       "name": "testing-methodologies",

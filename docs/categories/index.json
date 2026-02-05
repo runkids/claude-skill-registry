@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-05T08:28:01.181856Z",
+  "updated_at": "2026-02-05T10:58:52.054089Z",
   "categories": [
     {
       "name": "adb-meta-automation",
@@ -8,6 +8,11 @@
     },
     {
       "name": "agent",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "agent-coordination",
       "code": "oth",
       "count": 2
     },
@@ -22,7 +27,17 @@
       "count": 2
     },
     {
+      "name": "analysis",
+      "code": "oth",
+      "count": 3
+    },
+    {
       "name": "analysis-methods",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "api",
       "code": "oth",
       "count": 2
     },
@@ -33,6 +48,11 @@
     },
     {
       "name": "artifact-generation",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "bash",
       "code": "oth",
       "count": 2
     },
@@ -52,9 +72,19 @@
       "count": 4
     },
     {
+      "name": "context-management",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "core",
+      "code": "oth",
+      "count": 6
+    },
+    {
       "name": "data",
       "code": "dat",
-      "count": 46560
+      "count": 46561
     },
     {
       "name": "data-access",
@@ -64,12 +94,17 @@
     {
       "name": "design",
       "code": "des",
-      "count": 1916
+      "count": 9478
+    },
+    {
+      "name": "design-principles",
+      "code": "oth",
+      "count": 1
     },
     {
       "name": "development",
       "code": "dev",
-      "count": 5756
+      "count": 18547
     },
     {
       "name": "development-code",
@@ -84,7 +119,12 @@
     {
       "name": "devops",
       "code": "ops",
-      "count": 1025
+      "count": 5307
+    },
+    {
+      "name": "docs",
+      "code": "oth",
+      "count": 1
     },
     {
       "name": "document-processing",
@@ -102,6 +142,11 @@
       "count": 2
     },
     {
+      "name": "examples",
+      "code": "oth",
+      "count": 1
+    },
+    {
       "name": "extended",
       "code": "oth",
       "count": 4
@@ -117,12 +162,32 @@
       "count": 5
     },
     {
+      "name": "framework",
+      "code": "oth",
+      "count": 2
+    },
+    {
       "name": "gaming",
       "code": "oth",
       "count": 1
     },
     {
       "name": "generation",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "github-integration",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "github-skills",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "integration",
       "code": "oth",
       "count": 2
     },
@@ -139,7 +204,7 @@
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 169
+      "count": 453
     },
     {
       "name": "meta",
@@ -147,14 +212,34 @@
       "count": 2
     },
     {
+      "name": "orchestration",
+      "code": "oth",
+      "count": 6
+    },
+    {
       "name": "other",
       "code": "oth",
-      "count": 67248
+      "count": 67452
+    },
+    {
+      "name": "performance",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "planning",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "platform",
+      "code": "oth",
+      "count": 1
     },
     {
       "name": "product",
       "code": "prd",
-      "count": 381
+      "count": 1073
     },
     {
       "name": "productivity",
@@ -167,6 +252,16 @@
       "count": 2
     },
     {
+      "name": "project",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "quality",
+      "code": "oth",
+      "count": 4
+    },
+    {
       "name": "research-analysis",
       "code": "oth",
       "count": 2
@@ -174,12 +269,22 @@
     {
       "name": "security",
       "code": "sec",
-      "count": 240
+      "count": 1284
+    },
+    {
+      "name": "security-compliance",
+      "code": "oth",
+      "count": 2
     },
     {
       "name": "security-operations",
       "code": "oth",
       "count": 1
+    },
+    {
+      "name": "skills",
+      "code": "oth",
+      "count": 2
     },
     {
       "name": "specialized",
@@ -212,9 +317,19 @@
       "count": 2
     },
     {
+      "name": "template",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "test",
+      "code": "oth",
+      "count": 2
+    },
+    {
       "name": "testing",
       "code": "tst",
-      "count": 1361
+      "count": 6699
     },
     {
       "name": "testing-methodologies",
@@ -238,6 +353,16 @@
     },
     {
       "name": "wix-extensions",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "workflow",
+      "code": "oth",
+      "count": 6
+    },
+    {
+      "name": "writing",
       "code": "oth",
       "count": 1
     }

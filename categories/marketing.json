@@ -1,7 +1,7 @@
 {
   "category": "marketing",
-  "count": 274,
-  "updated_at": "2026-02-05T08:24:39.222666Z",
+  "count": 273,
+  "updated_at": "2026-02-05T10:56:43.831085Z",
   "skills": [
     {
       "name": "social-media",
@@ -81,21 +81,6 @@
       "name": "reddit-fetch",
       "description": "Fetch content from Reddit using Gemini CLI when WebFetch is blocked. Use when accessing Reddit URLs, researching topics on Reddit, or when Reddit returns 403/blocked errors. (user)",
       "repo": "ykdojo/claude-code-tips",
-      "path": "skills/reddit-fetch",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "reddit",
-        "fetch"
-      ],
-      "stars": 374,
-      "install": "ykdojo/claude-code-tips/skills/reddit-fetch",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "reddit-fetch",
-      "description": "Fetch content from Reddit using Gemini CLI when WebFetch is blocked. Use when accessing Reddit URLs, researching topics on Reddit, or when Reddit returns 403/blocked errors. (user)",
-      "repo": "ykdojo/claude-code-tips",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -105,6 +90,21 @@
       ],
       "stars": 374,
       "install": "ykdojo/claude-code-tips",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "reddit-fetch",
+      "description": "Fetch content from Reddit using Gemini CLI when WebFetch is blocked. Use when accessing Reddit URLs, researching topics on Reddit, or when Reddit returns 403/blocked errors. (user)",
+      "repo": "ykdojo/claude-code-tips",
+      "path": "skills/reddit-fetch",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "reddit",
+        "fetch"
+      ],
+      "stars": 374,
+      "install": "ykdojo/claude-code-tips/skills/reddit-fetch",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -874,22 +874,6 @@
       "name": "study-notes-creator",
       "description": "Creates well-organized study notes from any content. Use when the user asks for study notes, learning summaries, revision materials, or wants to understand a topic for studying.",
       "repo": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
-      "path": ".claude/skills/study-notes-creator",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "study",
-        "notes",
-        "creator"
-      ],
-      "stars": 2,
-      "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics/.claude/skills/study-notes-creator",
-      "source": "local"
-    },
-    {
-      "name": "study-notes-creator",
-      "description": "Creates well-organized study notes from any content. Use when the user asks for study notes, learning summaries, revision materials, or wants to understand a topic for studying.",
-      "repo": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -900,6 +884,22 @@
       ],
       "stars": 2,
       "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
+      "source": "local"
+    },
+    {
+      "name": "study-notes-creator",
+      "description": "Creates well-organized study notes from any content. Use when the user asks for study notes, learning summaries, revision materials, or wants to understand a topic for studying.",
+      "repo": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
+      "path": ".claude/skills/study-notes-creator",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "study",
+        "notes",
+        "creator"
+      ],
+      "stars": 2,
+      "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics/.claude/skills/study-notes-creator",
       "source": "local"
     },
     {
@@ -1059,20 +1059,6 @@
       "name": "podcast",
       "description": "Creates audio podcasts from text using browser text-to-speech. Use when user mentions podcast, audio conversation, dialogue, spoken content, voice narration, audio book, or text-to-speech generation. ",
       "repo": "sgasser/claude-skill-podcast",
-      "path": "podcast",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "podcast"
-      ],
-      "stars": 1,
-      "install": "sgasser/claude-skill-podcast/podcast",
-      "source": "local"
-    },
-    {
-      "name": "podcast",
-      "description": "Creates audio podcasts from text using browser text-to-speech. Use when user mentions podcast, audio conversation, dialogue, spoken content, voice narration, audio book, or text-to-speech generation. ",
-      "repo": "sgasser/claude-skill-podcast",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -1081,6 +1067,20 @@
       ],
       "stars": 1,
       "install": "sgasser/claude-skill-podcast",
+      "source": "local"
+    },
+    {
+      "name": "podcast",
+      "description": "Creates audio podcasts from text using browser text-to-speech. Use when user mentions podcast, audio conversation, dialogue, spoken content, voice narration, audio book, or text-to-speech generation. ",
+      "repo": "sgasser/claude-skill-podcast",
+      "path": "podcast",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "podcast"
+      ],
+      "stars": 1,
+      "install": "sgasser/claude-skill-podcast/podcast",
       "source": "local"
     },
     {
@@ -1163,21 +1163,6 @@
       "name": "seo-mastery-jp",
       "description": "包括的なSEO最適化スキル（日本語版）。Googleの公式ガイドラインに基づく技術SEO、コンテンツSEO、構造化データ、Core Web Vitals、E-E-A-T対策を網羅し、実践的なコード生成とサイト監査ワークフローを提供",
       "repo": "kpab/seo-mastery-agent-skills",
-      "path": ".claude/skills/seo-mastery-jp",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "seo",
-        "mastery"
-      ],
-      "stars": 1,
-      "install": "kpab/seo-mastery-agent-skills/.claude/skills/seo-mastery-jp",
-      "source": "local"
-    },
-    {
-      "name": "seo-mastery-jp",
-      "description": "包括的なSEO最適化スキル（日本語版）。Googleの公式ガイドラインに基づく技術SEO、コンテンツSEO、構造化データ、Core Web Vitals、E-E-A-T対策を網羅し、実践的なコード生成とサイト監査ワークフローを提供",
-      "repo": "kpab/seo-mastery-agent-skills",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -1187,6 +1172,21 @@
       ],
       "stars": 1,
       "install": "kpab/seo-mastery-agent-skills",
+      "source": "local"
+    },
+    {
+      "name": "seo-mastery-jp",
+      "description": "包括的なSEO最適化スキル（日本語版）。Googleの公式ガイドラインに基づく技術SEO、コンテンツSEO、構造化データ、Core Web Vitals、E-E-A-T対策を網羅し、実践的なコード生成とサイト監査ワークフローを提供",
+      "repo": "kpab/seo-mastery-agent-skills",
+      "path": ".claude/skills/seo-mastery-jp",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "seo",
+        "mastery"
+      ],
+      "stars": 1,
+      "install": "kpab/seo-mastery-agent-skills/.claude/skills/seo-mastery-jp",
       "source": "local"
     },
     {
@@ -1471,24 +1471,24 @@
       "name": "auditing-shareable-content",
       "description": "Use when reviewing website copy, SEO titles/descriptions, marketing content, or public messaging - applies Anil Dash's shareability framework to ensure others can authentically talk about your work wi",
       "repo": "oalders/dot-files",
-      "path": "claude/skills/auditing-shareable-content",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "oalders/dot-files/claude/skills/auditing-shareable-content",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "auditing-shareable-content",
-      "description": "Use when reviewing website copy, SEO titles/descriptions, marketing content, or public messaging - applies Anil Dash's shareability framework to ensure others can authentically talk about your work wi",
-      "repo": "oalders/dot-files",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "oalders/dot-files",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "auditing-shareable-content",
+      "description": "Use when reviewing website copy, SEO titles/descriptions, marketing content, or public messaging - applies Anil Dash's shareability framework to ensure others can authentically talk about your work wi",
+      "repo": "oalders/dot-files",
+      "path": "claude/skills/auditing-shareable-content",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "oalders/dot-files/claude/skills/auditing-shareable-content",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1510,18 +1510,6 @@
       "name": "bible-tools",
       "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
       "repo": "cevr/bible-tools",
-      "path": ".claude/skills/bible-tools",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "cevr/bible-tools/.claude/skills/bible-tools",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bible-tools",
-      "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
-      "repo": "cevr/bible-tools",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -1531,15 +1519,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "blog-commenter",
-      "description": "Automated blog comment posting for marketing and outreach",
-      "repo": "hekmon8/mybacklinks-tools",
-      "path": "skills/blog-commenter-skill",
+      "name": "bible-tools",
+      "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
+      "repo": "cevr/bible-tools",
+      "path": ".claude/skills/bible-tools",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
-      "install": "hekmon8/mybacklinks-tools/skills/blog-commenter-skill",
+      "install": "cevr/bible-tools/.claude/skills/bible-tools",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1552,6 +1540,18 @@
       "tags": [],
       "stars": 0,
       "install": "hekmon8/mybacklinks-tools",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "blog-commenter",
+      "description": "Automated blog comment posting for marketing and outreach",
+      "repo": "hekmon8/mybacklinks-tools",
+      "path": "skills/blog-commenter-skill",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "hekmon8/mybacklinks-tools/skills/blog-commenter-skill",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1802,21 +1802,6 @@
       "name": "content-editing",
       "description": "Comprehensive editing checklist and procedures covering grammar and style rules, fact-checking, consistency verification, and readability metrics. Use when reviewing drafts, ensuring quality, or prepa",
       "repo": "Azeem-2/final-docusarus",
-      "path": ".claude/skills/content-editing",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "content",
-        "editing"
-      ],
-      "stars": 0,
-      "install": "Azeem-2/final-docusarus/.claude/skills/content-editing",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "content-editing",
-      "description": "Comprehensive editing checklist and procedures covering grammar and style rules, fact-checking, consistency verification, and readability metrics. Use when reviewing drafts, ensuring quality, or prepa",
-      "repo": "Azeem-2/final-docusarus",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -1826,6 +1811,21 @@
       ],
       "stars": 0,
       "install": "Azeem-2/final-docusarus",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "content-editing",
+      "description": "Comprehensive editing checklist and procedures covering grammar and style rules, fact-checking, consistency verification, and readability metrics. Use when reviewing drafts, ensuring quality, or prepa",
+      "repo": "Azeem-2/final-docusarus",
+      "path": ".claude/skills/content-editing",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "content",
+        "editing"
+      ],
+      "stars": 0,
+      "install": "Azeem-2/final-docusarus/.claude/skills/content-editing",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1983,21 +1983,6 @@
       "name": "create-content",
       "description": "Create new pages or notes in the readme-pages project. Use when the user asks to create, add, or write a new page, note, article, or blog post. This skill handles file creation with proper frontmatter",
       "repo": "ThomasRohde/readme-pages",
-      "path": ".claude/skills/create-content",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "create",
-        "content"
-      ],
-      "stars": 0,
-      "install": "ThomasRohde/readme-pages/.claude/skills/create-content",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "create-content",
-      "description": "Create new pages or notes in the readme-pages project. Use when the user asks to create, add, or write a new page, note, article, or blog post. This skill handles file creation with proper frontmatter",
-      "repo": "ThomasRohde/readme-pages",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -2007,6 +1992,21 @@
       ],
       "stars": 0,
       "install": "ThomasRohde/readme-pages",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "create-content",
+      "description": "Create new pages or notes in the readme-pages project. Use when the user asks to create, add, or write a new page, note, article, or blog post. This skill handles file creation with proper frontmatter",
+      "repo": "ThomasRohde/readme-pages",
+      "path": ".claude/skills/create-content",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "create",
+        "content"
+      ],
+      "stars": 0,
+      "install": "ThomasRohde/readme-pages/.claude/skills/create-content",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2158,16 +2158,19 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "fetch-web",
-      "description": "Fetch web pages, scrape content, fill forms, take screenshots.",
-      "repo": "michalvavra/agents",
+      "name": "focus-ai-brand",
+      "description": "Apply Focus.AI brand guidelines to documents, presentations, websites, and other materials. Supports two sub-brands - Focus.AI Client (services, proposals, client work) and Focus.AI Labs (research, ex",
+      "repo": "The-Focus-AI/focus-ai-brand",
       "path": "",
       "branch": "main",
       "category": "marketing",
-      "tags": [],
+      "tags": [
+        "focus",
+        "brand"
+      ],
       "stars": 0,
-      "install": "michalvavra/agents",
-      "source": "SkillsMP + GitHub Raw"
+      "install": "The-Focus-AI/focus-ai-brand",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "focus-ai-brand",
@@ -2182,21 +2185,6 @@
       ],
       "stars": 0,
       "install": "The-Focus-AI/focus-ai-brand/skills/focus-ai-brand",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "focus-ai-brand",
-      "description": "Apply Focus.AI brand guidelines to documents, presentations, websites, and other materials. Supports two sub-brands - Focus.AI Client (services, proposals, client work) and Focus.AI Labs (research, ex",
-      "repo": "The-Focus-AI/focus-ai-brand",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "focus",
-        "brand"
-      ],
-      "stars": 0,
-      "install": "The-Focus-AI/focus-ai-brand",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2303,24 +2291,24 @@
       "name": "hn-filter",
       "description": "Filter and analyze Hacker News top stories based on user interests. Use when the user wants to browse, filter, or get personalized Hacker News content, find interesting tech articles, or get a curated",
       "repo": "haibchen/configs",
-      "path": "dotfiles/.claude/skills/hacker_news",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "haibchen/configs/dotfiles/.claude/skills/hacker_news",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hn-filter",
-      "description": "Filter and analyze Hacker News top stories based on user interests. Use when the user wants to browse, filter, or get personalized Hacker News content, find interesting tech articles, or get a curated",
-      "repo": "haibchen/configs",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "haibchen/configs",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "hn-filter",
+      "description": "Filter and analyze Hacker News top stories based on user interests. Use when the user wants to browse, filter, or get personalized Hacker News content, find interesting tech articles, or get a curated",
+      "repo": "haibchen/configs",
+      "path": "dotfiles/.claude/skills/hacker_news",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "haibchen/configs/dotfiles/.claude/skills/hacker_news",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2737,21 +2725,6 @@
       "name": "nestmind-marketing",
       "description": "Marketing strategy and copywriting guidance for NestMind, a privacy-first iOS knowledge management app. Use when creating website copy, landing pages, App Store descriptions, marketing materials, soci",
       "repo": "nestmind-app/docs",
-      "path": ".claude/skills/nestmind-marketing",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "nestmind",
-        "marketing"
-      ],
-      "stars": 0,
-      "install": "nestmind-app/docs/.claude/skills/nestmind-marketing",
-      "source": "local"
-    },
-    {
-      "name": "nestmind-marketing",
-      "description": "Marketing strategy and copywriting guidance for NestMind, a privacy-first iOS knowledge management app. Use when creating website copy, landing pages, App Store descriptions, marketing materials, soci",
-      "repo": "nestmind-app/docs",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -2761,6 +2734,21 @@
       ],
       "stars": 0,
       "install": "nestmind-app/docs",
+      "source": "local"
+    },
+    {
+      "name": "nestmind-marketing",
+      "description": "Marketing strategy and copywriting guidance for NestMind, a privacy-first iOS knowledge management app. Use when creating website copy, landing pages, App Store descriptions, marketing materials, soci",
+      "repo": "nestmind-app/docs",
+      "path": ".claude/skills/nestmind-marketing",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "nestmind",
+        "marketing"
+      ],
+      "stars": 0,
+      "install": "nestmind-app/docs/.claude/skills/nestmind-marketing",
       "source": "local"
     },
     {
@@ -2845,24 +2833,24 @@
       "name": "pakkt-product-expert",
       "description": "Expert knowledge about the Pakkt social accountability app, including product vision, branding, marketing strategy, monetization, and FAQ. Use when discussing or developing features for Pakkt, answeri",
       "repo": "Rinshin-Jalal/pakkt",
-      "path": ".claude/skills/pakkt-expert",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "Rinshin-Jalal/pakkt/.claude/skills/pakkt-expert",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pakkt-product-expert",
-      "description": "Expert knowledge about the Pakkt social accountability app, including product vision, branding, marketing strategy, monetization, and FAQ. Use when discussing or developing features for Pakkt, answeri",
-      "repo": "Rinshin-Jalal/pakkt",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "Rinshin-Jalal/pakkt",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pakkt-product-expert",
+      "description": "Expert knowledge about the Pakkt social accountability app, including product vision, branding, marketing strategy, monetization, and FAQ. Use when discussing or developing features for Pakkt, answeri",
+      "repo": "Rinshin-Jalal/pakkt",
+      "path": ".claude/skills/pakkt-expert",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Rinshin-Jalal/pakkt/.claude/skills/pakkt-expert",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3319,24 +3307,24 @@
       "name": "smart-content-creator",
       "description": "Transform reading notes and insights into polished, authentic content (blogs, social media, visualizations) that preserves your unique voice and avoids AI-style writing. Creates content that sounds un",
       "repo": "ginobefun/smart-content-creator-skill",
-      "path": "src/smart-content-creator",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "ginobefun/smart-content-creator-skill/src/smart-content-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "smart-content-creator",
-      "description": "Transform reading notes and insights into polished, authentic content (blogs, social media, visualizations) that preserves your unique voice and avoids AI-style writing. Creates content that sounds un",
-      "repo": "ginobefun/smart-content-creator-skill",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "ginobefun/smart-content-creator-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "smart-content-creator",
+      "description": "Transform reading notes and insights into polished, authentic content (blogs, social media, visualizations) that preserves your unique voice and avoids AI-style writing. Creates content that sounds un",
+      "repo": "ginobefun/smart-content-creator-skill",
+      "path": "src/smart-content-creator",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "ginobefun/smart-content-creator-skill/src/smart-content-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3463,24 +3451,24 @@
       "name": "tech",
       "description": "Research, validate, and set up technology profiles in content/technologies. Handles both new entries and updates to existing ones.",
       "repo": "rawkode-academy/rawkode-academy",
-      "path": ".claude/skills/tech",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "rawkode-academy/rawkode-academy/.claude/skills/tech",
-      "source": "GitHub Search API"
-    },
-    {
-      "name": "tech",
-      "description": "Research, validate, and set up technology profiles in content/technologies. Handles both new entries and updates to existing ones.",
-      "repo": "rawkode-academy/rawkode-academy",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "rawkode-academy/rawkode-academy",
+      "source": "GitHub Search API"
+    },
+    {
+      "name": "tech",
+      "description": "Research, validate, and set up technology profiles in content/technologies. Handles both new entries and updates to existing ones.",
+      "repo": "rawkode-academy/rawkode-academy",
+      "path": ".claude/skills/tech",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "rawkode-academy/rawkode-academy/.claude/skills/tech",
       "source": "GitHub Search API"
     },
     {
@@ -3529,24 +3517,24 @@
       "name": "thymer-capture",
       "description": "Capture notes, logs, and journal entries to Thymer. Use when user says \"note this\", \"log this\", \"capture this\", \"add to journal\", \"inbox this\", \"save this conversation\", or wants to save content to th",
       "repo": "riclib/thymer-inbox",
-      "path": "skill",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "riclib/thymer-inbox/skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "thymer-capture",
-      "description": "Capture notes, logs, and journal entries to Thymer. Use when user says \"note this\", \"log this\", \"capture this\", \"add to journal\", \"inbox this\", \"save this conversation\", or wants to save content to th",
-      "repo": "riclib/thymer-inbox",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "riclib/thymer-inbox",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "thymer-capture",
+      "description": "Capture notes, logs, and journal entries to Thymer. Use when user says \"note this\", \"log this\", \"capture this\", \"add to journal\", \"inbox this\", \"save this conversation\", or wants to save content to th",
+      "repo": "riclib/thymer-inbox",
+      "path": "skill",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "riclib/thymer-inbox/skill",
       "source": "SkillsMP + GitHub Raw"
     },
     {

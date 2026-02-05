@@ -1,7 +1,7 @@
 {
   "category": "product",
-  "count": 655,
-  "updated_at": "2026-02-05T08:24:39.226857Z",
+  "count": 591,
+  "updated_at": "2026-02-05T10:56:43.835486Z",
   "skills": [
     {
       "name": "product-requirements",
@@ -170,21 +170,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "create-prd",
-      "description": "Generate Product Requirements Document (PRD) through interactive Q&A.Use when: clarifying feature requirements, defining user stories, establishing acceptance criteria, starting a new feature.Keywords",
-      "repo": "yurenju/eyerolling-skills",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "create",
-        "prd"
-      ],
-      "stars": 13,
-      "install": "yurenju/eyerolling-skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "prd-generator-for-taskmaster",
       "description": "Smart PRD generator with TaskMaster integration. Detects existing PRDs and offers execute/update/replace options. Generates comprehensive technical PRDs optimized for task breakdown, validates with 13",
       "repo": "anombyte93/prd-taskmaster",
@@ -235,22 +220,6 @@
       "name": "incident-log-analyzer",
       "description": "Analyze incident logs, extract error patterns, identify root causes, generate insights and metrics. Use when user mentions logs, incidents, errors, failures, debugging, troubleshooting, log analysis, ",
       "repo": "mverab/claude-beyond-code",
-      "path": ".claude/skills/incident-log-analyzer",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "incident",
-        "log",
-        "analyzer"
-      ],
-      "stars": 9,
-      "install": "mverab/claude-beyond-code/.claude/skills/incident-log-analyzer",
-      "source": "local"
-    },
-    {
-      "name": "incident-log-analyzer",
-      "description": "Analyze incident logs, extract error patterns, identify root causes, generate insights and metrics. Use when user mentions logs, incidents, errors, failures, debugging, troubleshooting, log analysis, ",
-      "repo": "mverab/claude-beyond-code",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -261,6 +230,22 @@
       ],
       "stars": 9,
       "install": "mverab/claude-beyond-code",
+      "source": "local"
+    },
+    {
+      "name": "incident-log-analyzer",
+      "description": "Analyze incident logs, extract error patterns, identify root causes, generate insights and metrics. Use when user mentions logs, incidents, errors, failures, debugging, troubleshooting, log analysis, ",
+      "repo": "mverab/claude-beyond-code",
+      "path": ".claude/skills/incident-log-analyzer",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "incident",
+        "log",
+        "analyzer"
+      ],
+      "stars": 9,
+      "install": "mverab/claude-beyond-code/.claude/skills/incident-log-analyzer",
       "source": "local"
     },
     {
@@ -434,21 +419,6 @@
       "source": "local"
     },
     {
-      "name": "role-product-pm",
-      "description": "顶级通信产品经理。负责内网穿透产品规划、用户场景分析、竞品研究、商业化策略、需求优先级。专注企业级隧道产品的市场定位和用户体验。关键词：产品、需求、场景、商业化、PRD、用户。",
-      "repo": "tunnox-net/tunnox-core",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "role",
-        "product"
-      ],
-      "stars": 4,
-      "install": "tunnox-net/tunnox-core",
-      "source": "local"
-    },
-    {
       "name": "shipany-quick-start",
       "description": "Automate first-pass customization of a new ShipAny (ShipAny Two) project from a short project brief (app name, domain/app URL, product description/features, reference links, and branding preferences).",
       "repo": "joey-goodjob/shipanytwo",
@@ -513,21 +483,6 @@
       "name": "plan-implementation",
       "description": "Break down feature specifications into manageable implementation phases with TDD vertical slices. Creates actionable task lists for immediate development. Use when you have a feature spec and need a c",
       "repo": "ovation22/TripleDerby",
-      "path": ".claude/skills/plan-implementation",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "plan",
-        "implementation"
-      ],
-      "stars": 3,
-      "install": "ovation22/TripleDerby/.claude/skills/plan-implementation",
-      "source": "local"
-    },
-    {
-      "name": "plan-implementation",
-      "description": "Break down feature specifications into manageable implementation phases with TDD vertical slices. Creates actionable task lists for immediate development. Use when you have a feature spec and need a c",
-      "repo": "ovation22/TripleDerby",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -537,6 +492,21 @@
       ],
       "stars": 3,
       "install": "ovation22/TripleDerby",
+      "source": "local"
+    },
+    {
+      "name": "plan-implementation",
+      "description": "Break down feature specifications into manageable implementation phases with TDD vertical slices. Creates actionable task lists for immediate development. Use when you have a feature spec and need a c",
+      "repo": "ovation22/TripleDerby",
+      "path": ".claude/skills/plan-implementation",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "plan",
+        "implementation"
+      ],
+      "stars": 3,
+      "install": "ovation22/TripleDerby/.claude/skills/plan-implementation",
       "source": "local"
     },
     {
@@ -591,21 +561,6 @@
       "name": "implement-issue",
       "description": "Implement a feature or fix based on an issue. Use when given an issue URL to work on, or when implementing changes described in a tracked issue. Supports GitHub, Linear, and GitLab.",
       "repo": "bendrucker/claude",
-      "path": "plugins/implement-issue/skills/implement-issue",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "implement",
-        "issue"
-      ],
-      "stars": 2,
-      "install": "bendrucker/claude/plugins/implement-issue/skills/implement-issue",
-      "source": "local"
-    },
-    {
-      "name": "implement-issue",
-      "description": "Implement a feature or fix based on an issue. Use when given an issue URL to work on, or when implementing changes described in a tracked issue. Supports GitHub, Linear, and GitLab.",
-      "repo": "bendrucker/claude",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -615,6 +570,21 @@
       ],
       "stars": 2,
       "install": "bendrucker/claude",
+      "source": "local"
+    },
+    {
+      "name": "implement-issue",
+      "description": "Implement a feature or fix based on an issue. Use when given an issue URL to work on, or when implementing changes described in a tracked issue. Supports GitHub, Linear, and GitLab.",
+      "repo": "bendrucker/claude",
+      "path": "plugins/implement-issue/skills/implement-issue",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "implement",
+        "issue"
+      ],
+      "stars": 2,
+      "install": "bendrucker/claude/plugins/implement-issue/skills/implement-issue",
       "source": "local"
     },
     {
@@ -1238,21 +1208,6 @@
       "source": "local"
     },
     {
-      "name": "tg-character-templates",
-      "description": "Character template system for World of Darkness character creation. Use when implementing template selection in character creation flows, creating/managing CharacterTemplate objects, adding template s",
-      "repo": "charlesmsiegel/tg",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "character",
-        "templates"
-      ],
-      "stars": 1,
-      "install": "charlesmsiegel/tg",
-      "source": "local"
-    },
-    {
       "name": "us-market-bubble-detector",
       "description": "Evaluates market bubble risk through quantitative data-driven analysis using the revised Minsky/Kindleberger framework v2.1. Prioritizes objective metrics (Put/Call, VIX, margin debt, breadth, IPO dat",
       "repo": "tradermonty/claude-trading-skills",
@@ -1305,22 +1260,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "add-keyboard-nav",
-      "description": "Add keyboard navigation to a feature using CommandRegistryService. Use when implementing keyboard shortcuts, vim-style navigation, or hotkeys for a page or component.",
-      "repo": "alysson-souza/hnews",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "add",
-        "keyboard",
-        "nav"
-      ],
-      "stars": 0,
-      "install": "alysson-souza/hnews",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "add-url",
       "description": "Add source URLs to workdesk/sources.md one-by-one with validation and duplication checking. Use when user provides links to add to the journal. Does NOT generate summaries.",
       "repo": "beijaflor/gen-ai-journal",
@@ -1342,18 +1281,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-ado/skills/ado-mapper",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "advanced-features-2025",
-      "description": "Complete guide to 2025 Claude Code plugin features: Agent Skills, Hooks, MCP integration, and repository-level configuration. PROACTIVELY activate for: (1) Agent Skills implementation, (2) Hook automa",
-      "repo": "JosiahSiegel/claude-plugin-marketplace",
-      "path": "plugins/plugin-master/skills/advanced-features-2025",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "JosiahSiegel/claude-plugin-marketplace/plugins/plugin-master/skills/advanced-features-2025",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1437,18 +1364,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "amplitude-navigator",
-      "description": "Comprehensive guide for Amplitude MCP queries. Use when analyzing product analytics, user behavior, funnels, retention, experiments, or metrics. Reduces context overhead by documenting query patterns,",
-      "repo": "MoveRDC/claude-skills-marketing",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "MoveRDC/claude-skills-marketing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "amplitude-user-lookup",
       "description": "Amplitude user behavior queries",
       "repo": "jongwony/cc-plugin",
@@ -1495,21 +1410,6 @@
       "stars": 0,
       "install": "ewurch/bragger/templates/skills/applications",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "architecture-review",
-      "description": "Use after implementing features to verify architecture compliance. Checks for layer violations, missing interfaces, and tight coupling.",
-      "repo": "ZainRizvi/ClaudeSettings",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "architecture",
-        "review"
-      ],
-      "stars": 0,
-      "install": "ZainRizvi/ClaudeSettings",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "arduino-code-generator",
@@ -1695,18 +1595,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "backlog-awareness",
-      "description": "Check project backlog when discussing feature ideas or priorities. Use when user mentions adding features, asks what's planned, discusses priorities, or proposes new functionality. Silently reads back",
-      "repo": "schuettc/claude-code-plugins",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "schuettc/claude-code-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "backlog-management",
       "description": "プロダクトバックログの作成・整理・優先順位付けを行うためのスキル。ユーザーストーリー作成、DEEP原則の適用、健全性分析を通じて実装可能な状態を維持します。Anchors:• Agile Estimating and Planning / 適用: 見積もりと優先度 / 目的: 計画精度の向上• User Stories Applied / 適用: ストーリー作成 / 目的: 要件の明確化• The",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -1782,18 +1670,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "bigcommerce",
-      "description": "BigCommerce API patterns and enterprise features",
-      "repo": "violetio/violet-ai-plugins",
-      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "billing-reporter",
       "description": "Use this skill when users need help analyzing LimaCharlie billing, investigating usage costs, comparing trends across organizations, or understanding what's driving their expenses.",
       "repo": "tekgrunt/boot-test",
@@ -1803,18 +1679,6 @@
       "tags": [],
       "stars": 0,
       "install": "tekgrunt/boot-test/.claude-plugin/plugins/limacharlie-skills/skills/billing-reporter",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bio-igv",
-      "description": "This skill should be used when the user needs to visualize BAM alignment files in IGV (Integrative Genomics Viewer). Triggers include requests to generate IGV screenshots, visualize genomic regions wi",
-      "repo": "dakesan/cc-dnawork-plugin",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "dakesan/cc-dnawork-plugin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1866,18 +1730,6 @@
       "tags": [],
       "stars": 0,
       "install": "shiiman/claude-code-plugins/plugins/shiiman-git/skills/branch-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "brand-name-comparison",
-      "description": "Use this skill when the user wants to compare multiple brand name fates side-by-side to divine which is destined for success.",
-      "repo": "MaxGhenis/namecast",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "MaxGhenis/namecast",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1960,15 +1812,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "business-news-research-coordinator",
-      "description": "Lead coordinator that orchestrates 5 news scraper agents in parallel to gather headlines from 15 top business news websites",
-      "repo": "rkreddyp/investrecipes",
+      "name": "calculator-utils",
+      "description": "Performs basic arithmetic calculations including addition, subtraction, multiplication, and division. Use when the user needs to calculate numbers, perform math operations, or compute arithmetic expre",
+      "repo": "thangchung/agent-engineering-experiment",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
-      "install": "rkreddyp/investrecipes",
+      "install": "thangchung/agent-engineering-experiment",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1981,18 +1833,6 @@
       "tags": [],
       "stars": 0,
       "install": "thangchung/agent-engineering-experiment/agent-skills/.github/skills/calculator-utils",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "calculator-utils",
-      "description": "Performs basic arithmetic calculations including addition, subtraction, multiplication, and division. Use when the user needs to calculate numbers, perform math operations, or compute arithmetic expre",
-      "repo": "thangchung/agent-engineering-experiment",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "thangchung/agent-engineering-experiment",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2074,18 +1914,6 @@
       "source": "GitHub Search API"
     },
     {
-      "name": "check-health",
-      "description": "Comprehensive vault diagnostics and health report. Triggers when user mentions \"vault health\", \"health report\", \"vault diagnostics\".",
-      "repo": "bencassie/flywheel",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "bencassie/flywheel",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "check-links",
       "description": "Analyze and validate links and buttons on web pages. Use when users ask to check links, verify button hrefs, find empty links, detect javascript:void links, find broken navigation, or audit clickable ",
       "repo": "leobrival/serum-plugins-official",
@@ -2107,18 +1935,6 @@
       "tags": [],
       "stars": 0,
       "install": "fohte/dotfiles/config/claude/skills/check-pr-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "christmas-bundle-order-counter",
-      "description": "Count and report on Christmas bundle orders (XMAS prefix AND Status='Processed' only). Includes day-of-week analysis. Use when user asks about Christmas bundle orders, holiday bundles, XMAS orders, mo",
-      "repo": "ErikM1974/pricing-indexfile-2025",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "ErikM1974/pricing-indexfile-2025",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2149,24 +1965,24 @@
       "name": "claude-optimization",
       "description": "Maximizing Claude Code capabilities and efficiency.Use when helping users discover features, optimize workflows, or improve their Claude Code experience.",
       "repo": "Phauks/Grimbound",
-      "path": ".claude/skills/claude-optimization",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Phauks/Grimbound/.claude/skills/claude-optimization",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "claude-optimization",
-      "description": "Maximizing Claude Code capabilities and efficiency.Use when helping users discover features, optimize workflows, or improve their Claude Code experience.",
-      "repo": "Phauks/Grimbound",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "Phauks/Grimbound",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "claude-optimization",
+      "description": "Maximizing Claude Code capabilities and efficiency.Use when helping users discover features, optimize workflows, or improve their Claude Code experience.",
+      "repo": "Phauks/Grimbound",
+      "path": ".claude/skills/claude-optimization",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "Phauks/Grimbound/.claude/skills/claude-optimization",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2369,6 +2185,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "compare-tech",
+      "description": "Compare technologies with weighted scoring matrix. Use when evaluating libraries, frameworks, SaaS products, or infrastructure options.",
+      "repo": "michalvavra/agents",
+      "path": "",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "michalvavra/agents",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "comparing-branches",
       "description": "Use when user wants to compare two autonomy branches to see different approaches, metrics, and outcomes",
       "repo": "tilmon-engineering/claude-skills",
@@ -2420,18 +2248,6 @@
       "source": "local"
     },
     {
-      "name": "competitive-positioning",
-      "description": "Analyze competitors, identify positioning weaknesses, and craft sharp differentiators with taglines and tweet-length pitches. Use when entering competitive markets or refining product positioning.",
-      "repo": "majesticlabs-dev/majestic-marketplace",
-      "path": "plugins/majestic-sales/skills/competitive-positioning",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-sales/skills/competitive-positioning",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "competitive-research",
       "description": "Research competitors, analyze market positioning, identify differentiators, and understand competitive landscape to inform product strategy and positioning. Use when researching competitors, analyzing",
       "repo": "korallis/Droidz",
@@ -2447,24 +2263,24 @@
       "name": "competitive-research-brightdata",
       "description": "Enterprise-grade company research, competitive analysis, and market intelligence using Bright Data's professional web scraping and search capabilities. Use this skill when asked to research companies,",
       "repo": "SeanECurrie/MaiaLearningResearch",
-      "path": "archive/skill-artifacts/temp_skill_extract/competitive-research-brightdata",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "SeanECurrie/MaiaLearningResearch/archive/skill-artifacts/temp_skill_extract/competitive-research-brightdata",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "competitive-research-brightdata",
-      "description": "Enterprise-grade company research, competitive analysis, and market intelligence using Bright Data's professional web scraping and search capabilities. Use this skill when asked to research companies,",
-      "repo": "SeanECurrie/MaiaLearningResearch",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "SeanECurrie/MaiaLearningResearch",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "competitive-research-brightdata",
+      "description": "Enterprise-grade company research, competitive analysis, and market intelligence using Bright Data's professional web scraping and search capabilities. Use this skill when asked to research companies,",
+      "repo": "SeanECurrie/MaiaLearningResearch",
+      "path": "archive/skill-artifacts/temp_skill_extract/competitive-research-brightdata",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "SeanECurrie/MaiaLearningResearch/archive/skill-artifacts/temp_skill_extract/competitive-research-brightdata",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2651,18 +2467,6 @@
       "source": "local"
     },
     {
-      "name": "createskill",
-      "description": "Skill creation framework for creating, validating, updating, or canonicalizing skills. USE WHEN user wants to create a new skill, validate skill structure, update existing skill, or fix skill complian",
-      "repo": "vdemeester/home",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "vdemeester/home",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "creating-implementation-plans",
       "description": "Creates structured implementation plans from feature requirements. Use when planning new features, multi-phase projects, or when the user asks for an implementation plan, build plan, or development ro",
       "repo": "lwndev/ai-skills-manager",
@@ -2675,18 +2479,6 @@
       "source": "GitHub Search API"
     },
     {
-      "name": "creating-service-scaffolds",
-      "description": "Creates standardized directory structure and boilerplate files for new microservices or feature modules, ensuring compliance with repository standards and development best practices. Use when creating",
-      "repo": "kynoptic/markdownlint-trap",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "kynoptic/markdownlint-trap",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "creative-intelligence",
       "description": "Facilitates structured brainstorming sessions, conducts comprehensive research, and generates creative solutions using proven frameworks. Trigger keywords - brainstorm, ideate, research, SCAMPER, SWOT",
       "repo": "aj-geddes/claude-code-bmad-skills",
@@ -2696,18 +2488,6 @@
       "tags": [],
       "stars": 0,
       "install": "aj-geddes/claude-code-bmad-skills/bmad-v6/skills/cis/creative-intelligence",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "customer-feedback-taxonomy",
-      "description": "Standardized tagging schema for personas, lifecycle stages, drivers, and sentiment.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/voice-of-customer/skills/customer-feedback-taxonomy",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/voice-of-customer/skills/customer-feedback-taxonomy",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2783,18 +2563,6 @@
       "tags": [],
       "stars": 0,
       "install": "princespaghetti/claude-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "deployment-config",
-      "description": "Vercel deployment configuration and optimization for Next.js applications including vercel.json setup, environment variables, build optimization, edge functions, and deployment troubleshooting. Use wh",
-      "repo": "vanman2024/ai-dev-marketplace",
-      "path": "plugins/redis/skills/deployment-configs",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "vanman2024/ai-dev-marketplace/plugins/redis/skills/deployment-configs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2950,18 +2718,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "discoveryuser-research",
-      "description": "Plan and structure moderated or unmoderated user research sessions that target the given persona and objectives.",
-      "repo": "edwardmonteiro/Aiskillinpractice",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "edwardmonteiro/Aiskillinpractice",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "disk-cleaner",
       "description": "Mac 智能磁盘清理助手，基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器",
       "repo": "crazynomad/skills",
@@ -2972,18 +2728,6 @@
       "stars": 0,
       "install": "crazynomad/skills/disk-cleaner/SKILL.md",
       "source": "github.com/crazynomad/skills"
-    },
-    {
-      "name": "divi-5-compatibility",
-      "description": "Use this skill when validating CSS for Divi 5 compatibility, checking for unsupported features, troubleshooting Divi CSS issues, or when the user mentions CSS not working in Divi. Provides compatibili",
-      "repo": "cjsimon2/Divi5-ToolKit",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "cjsimon2/Divi5-ToolKit",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "documentation-lookup",
@@ -3064,18 +2808,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "energize-denver",
-      "description": "Use when working with Denver's Energize Denver Article XIV building performance regulations. Provides compliance requirements, pathways, deadlines, penalties, MAI production efficiency metrics, benchm",
-      "repo": "mbcoalson/skills",
-      "path": ".claude/skills/energize-denver",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "mbcoalson/skills/.claude/skills/energize-denver",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "engineering-features-for-machine-learning",
       "description": "Create, select, and transform features to improve machine learning model performance. Handles feature scaling, encoding, and importance analysis. Use when asked to \"engineer features\" or \"select featu",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -3100,18 +2832,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "error-handling-gate",
-      "description": "Verify errors are handled gracefully with meaningful user feedback. Issues result in WARNINGS.",
-      "repo": "DanielPodolsky/mentor-spec",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "DanielPodolsky/mentor-spec",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "evaluation-quality",
       "description": "Instrument evaluation metrics, quality scores, and feedback loops",
       "repo": "nexus-labs-automation/agent-observability",
@@ -3130,24 +2850,24 @@
       "name": "evryg-kbarticle-review",
       "description": "Review French articles and translate them to English. Use when the user asks to review, check, or translate KB articles.",
       "repo": "evryg-org/evryg",
-      "path": ".claude/skills/article-review",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "evryg-org/evryg/.claude/skills/article-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "evryg-kbarticle-review",
-      "description": "Review French articles and translate them to English. Use when the user asks to review, check, or translate KB articles.",
-      "repo": "evryg-org/evryg",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "evryg-org/evryg",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "evryg-kbarticle-review",
+      "description": "Review French articles and translate them to English. Use when the user asks to review, check, or translate KB articles.",
+      "repo": "evryg-org/evryg",
+      "path": ".claude/skills/article-review",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "evryg-org/evryg/.claude/skills/article-review",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3166,24 +2886,24 @@
       "name": "excalidraw-diagram",
       "description": "Generate Excalidraw diagrams. Use when the user asks to create a diagram, visualize a concept, or illustrate technical architectures.",
       "repo": "Infatoshi/excalidraw-renderer",
-      "path": "claude-skill",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Infatoshi/excalidraw-renderer/claude-skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "excalidraw-diagram",
-      "description": "Generate Excalidraw diagrams. Use when the user asks to create a diagram, visualize a concept, or illustrate technical architectures.",
-      "repo": "Infatoshi/excalidraw-renderer",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "Infatoshi/excalidraw-renderer",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "excalidraw-diagram",
+      "description": "Generate Excalidraw diagrams. Use when the user asks to create a diagram, visualize a concept, or illustrate technical architectures.",
+      "repo": "Infatoshi/excalidraw-renderer",
+      "path": "claude-skill",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "Infatoshi/excalidraw-renderer/claude-skill",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3202,24 +2922,24 @@
       "name": "executive-briefing",
       "description": "Transforms research findings into executive-ready briefings. Automatically activated when user mentions 'executive', 'briefing', 'C-suite', 'board', 'leadership', or 'presentation'.",
       "repo": "anthropics/claude-agent-sdk-demos",
-      "path": "research-agent/.claude/skills/executive-briefing",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "anthropics/claude-agent-sdk-demos/research-agent/.claude/skills/executive-briefing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "executive-briefing",
-      "description": "Transforms research findings into executive-ready briefings. Automatically activated when user mentions 'executive', 'briefing', 'C-suite', 'board', 'leadership', or 'presentation'.",
-      "repo": "anthropics/claude-agent-sdk-demos",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "anthropics/claude-agent-sdk-demos",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "executive-briefing",
+      "description": "Transforms research findings into executive-ready briefings. Automatically activated when user mentions 'executive', 'briefing', 'C-suite', 'board', 'leadership', or 'presentation'.",
+      "repo": "anthropics/claude-agent-sdk-demos",
+      "path": "research-agent/.claude/skills/executive-briefing",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "anthropics/claude-agent-sdk-demos/research-agent/.claude/skills/executive-briefing",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3233,18 +2953,6 @@
       "stars": 0,
       "install": "prateek/dotfiles/.codex/skills/experiment-scaffold",
       "source": "GitHub Search API"
-    },
-    {
-      "name": "explaining-machine-learning-models",
-      "description": "This skill enables AI assistant to provide interpretability and explainability for machine learning models. it is triggered when the user requests explanations for model predictions, insights into fea",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/ai-ml/model-explainability-tool/skills/explaining-machine-learning-models",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/model-explainability-tool/skills/explaining-machine-learning-models",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "external-docs",
@@ -3272,18 +2980,6 @@
       "stars": 0,
       "install": "omanjaya/attendancedev/.claude/skills/face-recognition",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "factory-status",
-      "description": "Get comprehensive factory status - research progress, drill status, inventory, production overview. Use when checking progress or deciding what to do next.",
-      "repo": "golergka/claude-code-plays-factorio",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "golergka/claude-code-plays-factorio",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "fastapi-project-structure",
@@ -3325,21 +3021,6 @@
       "name": "feature-orchestration",
       "description": "Story orchestration with progress tracking, standardized directory structure, and validation",
       "repo": "vineethsoma/agent-packages",
-      "path": "skills/feature-orchestration",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "feature",
-        "orchestration"
-      ],
-      "stars": 0,
-      "install": "vineethsoma/agent-packages/skills/feature-orchestration",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "feature-orchestration",
-      "description": "Story orchestration with progress tracking, standardized directory structure, and validation",
-      "repo": "vineethsoma/agent-packages",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -3352,6 +3033,21 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "feature-orchestration",
+      "description": "Story orchestration with progress tracking, standardized directory structure, and validation",
+      "repo": "vineethsoma/agent-packages",
+      "path": "skills/feature-orchestration",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "feature",
+        "orchestration"
+      ],
+      "stars": 0,
+      "install": "vineethsoma/agent-packages/skills/feature-orchestration",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "feature-plan",
       "description": "Create implementation plans for Next.js features. Use when breaking down user stories into tasks, planning feature implementation, or decomposing complex requirements.",
       "repo": "xmark168/VibeSDLC",
@@ -3361,18 +3057,6 @@
       "tags": [],
       "stars": 0,
       "install": "xmark168/VibeSDLC/backend/app/agents/developer/src/skills/nextjs/feature-plan",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "feature-review",
-      "description": "Feature review and prioritization with RICE/WSJF/Kano scoring. Creates GitHub issues for suggestions.Triggers: feature review, prioritization, RICE, WSJF, roadmap, backlogUse when: reviewing features ",
-      "repo": "athola/claude-night-market",
-      "path": "plugins/imbue/skills/feature-review",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "athola/claude-night-market/plugins/imbue/skills/feature-review",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3391,34 +3075,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "feature-spec-author",
-      "description": "Draft detailed engineering specs from an approved PRD. Use when generating or updating the engineering specification for a feature, before implementation begins.",
-      "repo": "pcortes/swarm-attack",
-      "path": ".claude/skills/feature-spec-author",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "feature",
-        "spec",
-        "author"
-      ],
-      "stars": 0,
-      "install": "pcortes/swarm-attack/.claude/skills/feature-spec-author",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "fedify-activitypub",
-      "description": "Guide for building and maintaining ActivityPub/fediverse applications using Fedify. This skill should be used when users want to create federated social applications, implement ActivityPub protocols, ",
-      "repo": "malkoG/dotfiles",
-      "path": "dot_claude/skills/fedify-activitypub",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "malkoG/dotfiles/dot_claude/skills/fedify-activitypub",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "fedify-activitypub",
       "description": "Guide for building and maintaining ActivityPub/fediverse applications using Fedify. This skill should be used when users want to create federated social applications, implement ActivityPub protocols, ",
       "repo": "malkoG/dotfiles",
@@ -3431,15 +3087,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "feedback-auto-detection",
-      "description": "ユーザーの会話から「こうしてほしい」「これが足りない」などの要望を自動検出し、適切な場所に記録する。専門知識不要。Claude専用（/user-feedbackコマンドはユーザーが直接利用可能）。",
-      "repo": "customer-cloud-club/meeting-visualizer",
-      "path": "",
+      "name": "fedify-activitypub",
+      "description": "Guide for building and maintaining ActivityPub/fediverse applications using Fedify. This skill should be used when users want to create federated social applications, implement ActivityPub protocols, ",
+      "repo": "malkoG/dotfiles",
+      "path": "dot_claude/skills/fedify-activitypub",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
-      "install": "customer-cloud-club/meeting-visualizer",
+      "install": "malkoG/dotfiles/dot_claude/skills/fedify-activitypub",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3551,18 +3207,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "formily-core-fundamentals",
-      "description": "This skill should be used when the user asks to \"learn formily basics\", \"setup formily\", \"formily core concepts\", \"formily getting started\", \"formily fundamentals\", \"how to use formily\", \"formily inst",
-      "repo": "whinc/my-claude-plugins",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "whinc/my-claude-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "forms-inputs",
       "description": "Use when animating form fields, inputs, textareas, selects, or interactive form elements to improve usability and feedback",
       "repo": "dylantarre/animation-principles",
@@ -3578,24 +3222,24 @@
       "name": "fp-planning",
       "description": "This skill should be used when the user asks to \"create a plan\", \"break down feature\", \"design implementation\", \"structure this work\", \"plan out\", \"decompose task\", or \"create roadmap\". Provides plan ",
       "repo": "fiberplane/claude-code-plugins",
-      "path": "fp/skills/fp-planning",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "fiberplane/claude-code-plugins/fp/skills/fp-planning",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "fp-planning",
-      "description": "This skill should be used when the user asks to \"create a plan\", \"break down feature\", \"design implementation\", \"structure this work\", \"plan out\", \"decompose task\", or \"create roadmap\". Provides plan ",
-      "repo": "fiberplane/claude-code-plugins",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "fiberplane/claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "fp-planning",
+      "description": "This skill should be used when the user asks to \"create a plan\", \"break down feature\", \"design implementation\", \"structure this work\", \"plan out\", \"decompose task\", or \"create roadmap\". Provides plan ",
+      "repo": "fiberplane/claude-code-plugins",
+      "path": "fp/skills/fp-planning",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "fiberplane/claude-code-plugins/fp/skills/fp-planning",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3635,18 +3279,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "gemini-batch",
-      "description": "This skill should be used when the user asks to \"use Gemini Batch API\", \"process documents at scale\", \"submit a batch job\", \"upload files to Gemini\", or needs large-scale LLM processing. Includes prod",
-      "repo": "edwinhu/workflows",
-      "path": "skills/gemini-batch",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "edwinhu/workflows/skills/gemini-batch",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "generate-feature-spec",
       "description": "Generates features_spec.txt files for use with auto-code extension mode. Analyzes existing codebase and creates structured feature specifications based on user requirements.",
       "repo": "AhamSammich/auto-code",
@@ -3657,21 +3289,6 @@
       "stars": 0,
       "install": "AhamSammich/auto-code/skill/generate-feature-spec",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "generate-prd",
-      "description": "Generate or update PRD documents interactively with the user. Use this skill when the user wants to create new product requirements, refine existing PRD docs, or document a new feature. Asks clarifyin",
-      "repo": "jayprimer/ppt",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "generate",
-        "prd"
-      ],
-      "stars": 0,
-      "install": "jayprimer/ppt",
-      "source": "local"
     },
     {
       "name": "generate-stock-reports",
@@ -3686,18 +3303,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "generic-phase-planning",
-      "description": "Template-based phase planning for any project. Use when user requests to start a new phase, create implementation plan, or begin major feature development. Ensures master plan consultation and structu",
-      "repo": "Ingramml/racial-terror-map",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Ingramml/racial-terror-map",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "gesture-responses",
       "description": "Use when responding to touch or click interactions - button presses, drag feedback, swipe responses, tap ripples, or any direct manipulation animation.",
       "repo": "dylantarre/animation-principles",
@@ -3707,18 +3312,6 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles/skills/05-by-animation-type/gesture-responses",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "get-last-frame",
-      "description": "Extract the last frame of an MP4 file into an image using OpenCV. Use when the user needs the final frame of a generated video saved as a still image.",
-      "repo": "jacwu/demo-skill-sora2",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "jacwu/demo-skill-sora2",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3848,24 +3441,24 @@
       "name": "greet-user",
       "description": "템플릿을 사용하여 사용자에게 맞춤형 인사를 건넵니다.",
       "repo": "pjt3591oo/claude-code-advanced-guide",
-      "path": ".claude/skills/greet_user",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "pjt3591oo/claude-code-advanced-guide/.claude/skills/greet_user",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "greet-user",
-      "description": "템플릿을 사용하여 사용자에게 맞춤형 인사를 건넵니다.",
-      "repo": "pjt3591oo/claude-code-advanced-guide",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "pjt3591oo/claude-code-advanced-guide",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "greet-user",
+      "description": "템플릿을 사용하여 사용자에게 맞춤형 인사를 건넵니다.",
+      "repo": "pjt3591oo/claude-code-advanced-guide",
+      "path": ".claude/skills/greet_user",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "pjt3591oo/claude-code-advanced-guide/.claude/skills/greet_user",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3878,18 +3471,6 @@
       "tags": [],
       "stars": 0,
       "install": "Lobbi-Docs/claude-2/examples/hello-world/skills/greeting",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "grey-haven-evaluation",
-      "description": "Evaluate LLM outputs with multi-dimensional rubrics, handle non-determinism, and implement LLM-as-judge patterns. Essential for production LLM systems. Use when testing prompts, validating outputs, co",
-      "repo": "greyhaven-ai/claude-code-config",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "greyhaven-ai/claude-code-config",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3920,24 +3501,24 @@
       "name": "hookify-writing-rules",
       "description": "This skill should be used when the user asks to",
       "repo": "akiojin/llm-router",
-      "path": ".claude/skills/hookify-writing-rules",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "akiojin/llm-router/.claude/skills/hookify-writing-rules",
-      "source": "GitHub Search API"
-    },
-    {
-      "name": "hookify-writing-rules",
-      "description": "This skill should be used when the user asks to",
-      "repo": "akiojin/llm-router",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "akiojin/llm-router",
+      "source": "GitHub Search API"
+    },
+    {
+      "name": "hookify-writing-rules",
+      "description": "This skill should be used when the user asks to",
+      "repo": "akiojin/llm-router",
+      "path": ".claude/skills/hookify-writing-rules",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "akiojin/llm-router/.claude/skills/hookify-writing-rules",
       "source": "GitHub Search API"
     },
     {
@@ -4049,18 +3630,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ideating-ideas",
-      "description": "Facilitates creative ideation through collaborative conversation to develop and explore new project ideas, evolve existing concepts, and brainstorm features in depth. Use when user wants to discuss, d",
-      "repo": "nickpending/momentum",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "nickpending/momentum",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "identify-core-need",
       "description": "This skill should be used when the user asks to \"identify core need\", \"clarify requirements\", \"extract user intent\", \"validate distinctions\", or when starting any research or analysis task that requir",
       "repo": "rafaelcalleja/claude-market-place",
@@ -4106,18 +3675,6 @@
       "tags": [],
       "stars": 0,
       "install": "davidmatousek/product-led-spec-kit/.claude/skills/implementation-checkpoint",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "implementing-vr-productivity",
-      "description": "Implementing VR productivity features with cross-platform input handling. Use when the user asks about VR productivity apps, cross-platform XR input, gaze-and-pinch, controller abstraction, floating p",
-      "repo": "hkcm91/StickerNestV3",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "hkcm91/StickerNestV3",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4242,21 +3799,6 @@
       ],
       "stars": 0,
       "install": "ehtbanton/ClaudeSkillsRepo/issue-template-generator",
-      "source": "local"
-    },
-    {
-      "name": "issue-tracking",
-      "description": "Creates and manages issues via tissue for tracking work items, bugs, and features. Use for organizing work, checking ready issues, or updating status.",
-      "repo": "evil-mind-evil-sword/idle",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "issue",
-        "tracking"
-      ],
-      "stars": 0,
-      "install": "evil-mind-evil-sword/idle",
       "source": "local"
     },
     {
@@ -4407,18 +3949,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "knowledge-base-sync",
-      "description": "Automatically detect when features change and remind to update the feedback assistant knowledge base. CRITICAL for keeping the AI assistant accurate and preventing user frustration from outdated infor",
-      "repo": "ziouzitsou/fossapp",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "ziouzitsou/fossapp",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "lagoon-risk-expert",
       "description": "Deep risk analysis for advanced users seeking comprehensive understanding of vault risk factors",
       "repo": "hopperlabsxyz/lagoon-mcp",
@@ -4440,18 +3970,6 @@
       "tags": [],
       "stars": 0,
       "install": "mberto10/web_research_agent/.claude/skills/langfuse-feedback-analyst",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "langgraph-human-in-loop",
-      "description": "LangGraph human-in-the-loop patterns. Use when implementing approval workflows, manual review gates, user feedback integration, or interactive agent supervision.",
-      "repo": "yonatangross/skillforge-claude-plugin",
-      "path": "skills/langgraph-human-in-loop",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "yonatangross/skillforge-claude-plugin/skills/langgraph-human-in-loop",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4587,18 +4105,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "leaflink-wholesale",
-      "description": "Manage wholesale inventory, products, and orders via LeafLink API.",
-      "repo": "admin-baked/bakedbot-for-brands",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "admin-baked/bakedbot-for-brands",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "learner",
       "description": "Auto-discover patterns from reflexion episodes. Run post-feature to consolidate successful approaches into reusable patterns and skills.",
       "repo": "dug-21/neural-data-platform",
@@ -4626,24 +4132,24 @@
       "name": "library-research",
       "description": "Research library documentation and API references using Context7 integration. Use when users ask about libraries, frameworks, packages, APIs, or need documentation for third-party code.",
       "repo": "pwarnock/liaison-toolkit",
-      "path": ".skills/library-research",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "pwarnock/liaison-toolkit/.skills/library-research",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "library-research",
-      "description": "Research library documentation and API references using Context7 integration. Use when users ask about libraries, frameworks, packages, APIs, or need documentation for third-party code.",
-      "repo": "pwarnock/liaison-toolkit",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "pwarnock/liaison-toolkit",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "library-research",
+      "description": "Research library documentation and API references using Context7 integration. Use when users ask about libraries, frameworks, packages, APIs, or need documentation for third-party code.",
+      "repo": "pwarnock/liaison-toolkit",
+      "path": ".skills/library-research",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "pwarnock/liaison-toolkit/.skills/library-research",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4656,18 +4162,6 @@
       "tags": [],
       "stars": 0,
       "install": "coalesce-labs/catalyst",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "linux-production-shell-scripts",
-      "description": "This skill should be used when the user asks to \"create bash scripts\", \"automate Linux tasks\", \"monitor system resources\", \"backup files\", \"manage users\", or \"write production shell scripts\". It provi",
-      "repo": "zebbern/claude-code-guide",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4707,30 +4201,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "lms-grades",
-      "description": "LMS gradebook system for LT/IT (English Language Arts) and KCFS (Kang Chiao Future Skill) courses. Use this skill when implementing grade calculation, gradebook features, expectations system, or asses",
-      "repo": "geonook/learning-management-system-esid",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "geonook/learning-management-system-esid",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "location-services",
-      "description": "Location services, GPS tracking, and geolocation features using Expo Location. Use when implementing location-based functionality like finding nearby stations.",
-      "repo": "k002bill2/LiveMetro",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "k002bill2/LiveMetro",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "logging-patterns",
       "description": "Use when adding logging to features - structured logging with LoggerService categories",
       "repo": "andyngdz/exogen_backend",
@@ -4767,18 +4237,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "maintaining-changelog",
-      "description": "Updates or creates CHANGELOG.md files for pull request changes. Use when users request changelog updates, or when adding entries for new features, fixes, or breaking changes.",
-      "repo": "srtab/daiv",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "srtab/daiv",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "man-config",
       "description": "Reads man pages to find configuration options. Use when the user asks to configure an application, needs to find a config option, or asks \"how do I make X do Y\" for a CLI tool or system program.",
       "repo": "austinpray/dotfiles",
@@ -4812,18 +4270,6 @@
       "tags": [],
       "stars": 0,
       "install": "builtby-win/skills/plugins/blog/skills/manage-blog",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "manage-planning",
-      "description": "MUST INVOKE this skill when creating executable plans in .prompts/planning/ with Brief → Roadmap → Phases structure. Expert patterns for hierarchical project plans.",
-      "repo": "Git-Fg/thecattoolkit",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Git-Fg/thecattoolkit",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4976,30 +4422,6 @@
       "source": "local"
     },
     {
-      "name": "mediamulti-speaker-orchestrator",
-      "description": "Orchestrate multi-voice TTS production: assign speakers, chunk dialogue, dispatch to voices, sync timing, and mix into a final track. Use after dialogue-dramatizer produces script turns.",
-      "repo": "Cloudhabil/AGI-Server",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Cloudhabil/AGI-Server",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "memory-playbook",
-      "description": "Cross-session persistence for user preferences, implementation guide for Memory feature.",
-      "repo": "sigridjineth/interview-copilot-with-skills",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "sigridjineth/interview-copilot-with-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "message",
       "description": "Send iMessages via macOS Messages app. Use when the user asks to send a text message or iMessage.",
       "repo": "caidish/cAI-tools",
@@ -5063,21 +4485,6 @@
       "name": "module-scaffold",
       "description": "Use when creating a new feature module in libs/. Triggers on \"create a module\", \"add a feature module\", \"scaffold module for X\", or \"new library for Y\"",
       "repo": "hmcts/expressjs-monorepo-template",
-      "path": ".claude/skills/module-scaffold",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "module",
-        "scaffold"
-      ],
-      "stars": 0,
-      "install": "hmcts/expressjs-monorepo-template/.claude/skills/module-scaffold",
-      "source": "local"
-    },
-    {
-      "name": "module-scaffold",
-      "description": "Use when creating a new feature module in libs/. Triggers on \"create a module\", \"add a feature module\", \"scaffold module for X\", or \"new library for Y\"",
-      "repo": "hmcts/expressjs-monorepo-template",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -5090,16 +4497,19 @@
       "source": "local"
     },
     {
-      "name": "mozilla-probe-discovery",
-      "description": "Find Mozilla telemetry probes and Glean metrics. Use when user asks about: Firefox metrics, Glean probes, telemetry data, accessibility probes, search metrics, or any Mozilla product instrumentation.",
-      "repo": "akkomar/mozdata-claude-plugin",
-      "path": "",
+      "name": "module-scaffold",
+      "description": "Use when creating a new feature module in libs/. Triggers on \"create a module\", \"add a feature module\", \"scaffold module for X\", or \"new library for Y\"",
+      "repo": "hmcts/expressjs-monorepo-template",
+      "path": ".claude/skills/module-scaffold",
       "branch": "main",
       "category": "product",
-      "tags": [],
+      "tags": [
+        "module",
+        "scaffold"
+      ],
       "stars": 0,
-      "install": "akkomar/mozdata-claude-plugin",
-      "source": "SkillsMP + GitHub Raw"
+      "install": "hmcts/expressjs-monorepo-template/.claude/skills/module-scaffold",
+      "source": "local"
     },
     {
       "name": "multiperiod",
@@ -5297,18 +4707,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "next-steps-planner",
-      "description": "Intelligent planning for what to do next after completing a task in Dashboard Link SaaS development. Use when user asks \"what next?\", \"what should I do now?\", \"what's the next step?\", after completing",
-      "repo": "SlySlayer32/dashboard-link-saas",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "SlySlayer32/dashboard-link-saas",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nextjs-optimization",
       "description": "Optimize Next.js 15 applications for performance, Core Web Vitals, and production best practices using App Router patterns",
       "repo": "Atman36/AI-Vibe-Prompts",
@@ -5481,18 +4879,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "openwebf-release-versioning-rollback",
-      "description": "Design versioning, cache busting, progressive rollout, and rollback for remote WebF bundles. Use when the user mentions version pinning, cache busting, force update, rollback, feature flags, or staged",
-      "repo": "archview-ai/webf-plugin",
-      "path": "webf-plugin/skills/openwebf-release-versioning-rollback",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-release-versioning-rollback",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "opinion-critic",
       "description": "Provides critical feedback and alternative architectural perspectives on code changes. Use when you want to explore different ways to implement a feature or find potential flaws in the current plan.",
       "repo": "dtsvetkov1/agent-rules",
@@ -5508,24 +4894,24 @@
       "name": "opportunity-solution-tree",
       "description": "Guide for creating Opportunity Solution Trees (OST) for pre-PMF startups. Use when discussing product discovery, problem validation, customer research, or when helping startups identify problems worth",
       "repo": "kasperjunge/30-minute-vibe-coding-challenge",
-      "path": "plugins/opportunity-solution-tree/skills/opportunity-solution-tree",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "kasperjunge/30-minute-vibe-coding-challenge/plugins/opportunity-solution-tree/skills/opportunity-solution-tree",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "opportunity-solution-tree",
-      "description": "Guide for creating Opportunity Solution Trees (OST) for pre-PMF startups. Use when discussing product discovery, problem validation, customer research, or when helping startups identify problems worth",
-      "repo": "kasperjunge/30-minute-vibe-coding-challenge",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "kasperjunge/30-minute-vibe-coding-challenge",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "opportunity-solution-tree",
+      "description": "Guide for creating Opportunity Solution Trees (OST) for pre-PMF startups. Use when discussing product discovery, problem validation, customer research, or when helping startups identify problems worth",
+      "repo": "kasperjunge/30-minute-vibe-coding-challenge",
+      "path": "plugins/opportunity-solution-tree/skills/opportunity-solution-tree",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/30-minute-vibe-coding-challenge/plugins/opportunity-solution-tree/skills/opportunity-solution-tree",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5598,18 +4984,6 @@
       "tags": [],
       "stars": 0,
       "install": "outfitter-dev/agents/baselayer/skills/pathfinding",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pdp-image-strategy",
-      "description": "Strategic planning for high-converting e-commerce product images - Amazon, Shopify, website listings",
-      "repo": "chufeng-huang-sipaway/sip-videogen",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "chufeng-huang-sipaway/sip-videogen",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5835,18 +5209,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pr-comment-responder",
-      "description": "PR review coordinator who gathers comment context, acknowledges every piece of feedback, and ensures all reviewer comments are addressed systematically. Triages by actionability, tracks thread convers",
-      "repo": "rjmurillo/ai-agents",
-      "path": ".claude/skills/pr-comment-responder",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "rjmurillo/ai-agents/.claude/skills/pr-comment-responder",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pr-workflow-manager",
       "description": "Manages complete PR workflow from start to finish - creates feature branch, commits changes, pushes to remote, and opens pull request. Use when user wants to create a PR (e.g., \"create a PR for these ",
       "repo": "ryoppippi/dotfiles",
@@ -5963,18 +5325,6 @@
       "tags": [],
       "stars": 0,
       "install": "daishiman/AIWorkflowOrchestrator/docs/99-claude/skills/prioritization-frameworks",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "prioritize-story-nodes",
-      "description": "Use when user says \"prioritize stories\", \"what should I work on next\", \"find next story\", \"review approved stories\", \"plan next feature\" - generates deterministic priority list via script, then semant",
-      "repo": "Mharbulous/SyncoPaid",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Mharbulous/SyncoPaid",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6168,24 +5518,24 @@
       "name": "progress-tracker",
       "description": "This skill should be used when the user asks to \"track feature completion\", \"check progress\", \"verify all features pass\", \"count passing tests\", \"show completion status\", or \"update feature_list.json\"",
       "repo": "adlsdztony/claude-marketplace",
-      "path": "web-clone/skills/progress-tracker",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "adlsdztony/claude-marketplace/web-clone/skills/progress-tracker",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "progress-tracker",
-      "description": "This skill should be used when the user asks to \"track feature completion\", \"check progress\", \"verify all features pass\", \"count passing tests\", \"show completion status\", or \"update feature_list.json\"",
-      "repo": "adlsdztony/claude-marketplace",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "adlsdztony/claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "progress-tracker",
+      "description": "This skill should be used when the user asks to \"track feature completion\", \"check progress\", \"verify all features pass\", \"count passing tests\", \"show completion status\", or \"update feature_list.json\"",
+      "repo": "adlsdztony/claude-marketplace",
+      "path": "web-clone/skills/progress-tracker",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "adlsdztony/claude-marketplace/web-clone/skills/progress-tracker",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6291,24 +5641,24 @@
       "name": "python-nix-uv",
       "description": "Set up Python projects using nix/direnv with uv for environment management. Use when creating new Python projects, initializing Python environments, or when the user wants automatic Python virtual env",
       "repo": "kazamatzuri/claude-settings",
-      "path": "skills/python-nix-uv",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "kazamatzuri/claude-settings/skills/python-nix-uv",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "python-nix-uv",
-      "description": "Set up Python projects using nix/direnv with uv for environment management. Use when creating new Python projects, initializing Python environments, or when the user wants automatic Python virtual env",
-      "repo": "kazamatzuri/claude-settings",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "kazamatzuri/claude-settings",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "python-nix-uv",
+      "description": "Set up Python projects using nix/direnv with uv for environment management. Use when creating new Python projects, initializing Python environments, or when the user wants automatic Python virtual env",
+      "repo": "kazamatzuri/claude-settings",
+      "path": "skills/python-nix-uv",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "kazamatzuri/claude-settings/skills/python-nix-uv",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6396,18 +5746,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "qwen-pqn-research-coordinator",
-      "description": "Qwen PQN Research Coordinator",
-      "repo": "Foundup/Foundups-Agent",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Foundup/Foundups-Agent",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "rabbit-feedback-resolver",
       "description": "Process and resolve CodeRabbit automated PR review comments. Use when the user says \"check rabbit review\", \"handle coderabbit comments\", \"resolve rabbit feedback\", or mentions CodeRabbit PR comments. ",
       "repo": "fx/cc",
@@ -6417,18 +5755,6 @@
       "tags": [],
       "stars": 0,
       "install": "fx/cc/plugins/fx-dev/skills/rabbit-feedback-resolver",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "rag-expert",
-      "description": "Expert in Retrieval-Augmented Generation systems - knowledge bases, chunking strategies, embedding optimization, and production RAG architectures",
-      "repo": "frankxai/ai-architect",
-      "path": "skills/rag-expert",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "frankxai/ai-architect/skills/rag-expert",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6453,18 +5779,6 @@
       "tags": [],
       "stars": 0,
       "install": "betamatt/claude-plugins/ruby-on-rails/skills/rails-conventions",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reactree-agent-coordination-patterns",
-      "description": "\"Hierarchical task decomposition with control flow nodes and dual memory systems from ReAcTree research. Trigger keywords: ReAcTree, parallel execution, working memory, episodic memory, LOOP, CONDITIO",
-      "repo": "Kaakati/rails-enterprise-dev",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Kaakati/rails-enterprise-dev",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6525,18 +5839,6 @@
       "tags": [],
       "stars": 0,
       "install": "kedbin/relearning-flow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "removing-a-feature-of-a-microservice",
-      "description": "Removes a configuration property, functional endpoint, event source, event sink, web handler endpoint, ticker or metric, from a microservice. Use when explicitly asked by the user to remove a feature ",
-      "repo": "microbus-io/fabric",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "microbus-io/fabric",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6684,18 +5986,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "research-publication",
-      "description": "Prepare research outputs for publication with compliance to venue rules, evidence integrity, and confidence ceilings.",
-      "repo": "DNYoussef/context-cascade",
-      "path": "skills/research/research-publication",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "DNYoussef/context-cascade/skills/research/research-publication",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "research-synthesis-guidelines",
       "description": "Research documentation and evidence synthesis framework for MYCURE healthcare products using HIGH/MEDIUM/LOW confidence grading, triangulation methodology, and rigorous citation standards. Auto-activa",
       "repo": "mycurelabs/easyjoey.com",
@@ -6771,24 +6061,24 @@
       "name": "reviews-aggregator",
       "description": "Aggregates user reviews from Amazon/Reddit and expert reviews from specialized sites with sentiment analysis. Use when user asks to 'get reviews', 'what do users say', 'aggregate reviews', 'user feedb",
       "repo": "lola69160/claude-product-comparison",
-      "path": "skills/reviews-aggregator",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "lola69160/claude-product-comparison/skills/reviews-aggregator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reviews-aggregator",
-      "description": "Aggregates user reviews from Amazon/Reddit and expert reviews from specialized sites with sentiment analysis. Use when user asks to 'get reviews', 'what do users say', 'aggregate reviews', 'user feedb",
-      "repo": "lola69160/claude-product-comparison",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "lola69160/claude-product-comparison",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "reviews-aggregator",
+      "description": "Aggregates user reviews from Amazon/Reddit and expert reviews from specialized sites with sentiment analysis. Use when user asks to 'get reviews', 'what do users say', 'aggregate reviews', 'user feedb",
+      "repo": "lola69160/claude-product-comparison",
+      "path": "skills/reviews-aggregator",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "lola69160/claude-product-comparison/skills/reviews-aggregator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6843,18 +6133,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "save-prd",
-      "description": "Save PRD artifacts to project directory after approval. Creates docs/projects/{prefix}{NNN}-{name}/ with prd.md, user-stories/, execution-plan.md, innovations-selected.md, and architecture-notes.md. U",
-      "repo": "metasaver/metasaver-marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "metasaver/metasaver-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "scanning-input-validation-practices",
       "description": "Scan for input validation vulnerabilities and injection risks. Use when reviewing user input handling. Trigger with 'scan input validation', 'check injection vulnerabilities', or 'validate sanitizatio",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -6865,18 +6143,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/input-validation-scanner/skills/scanning-input-validation-practices",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "scanning-tools",
-      "description": "This skill should be used when the user asks to",
-      "repo": "zebbern/claude-code-guide",
-      "path": "skills/scanning-tools",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide/skills/scanning-tools",
-      "source": "GitHub Search API"
     },
     {
       "name": "scoping",
@@ -7368,24 +6634,24 @@
       "name": "stickies",
       "description": "Display and read Stickies notes on macOS. Use when the user asks to show notes, create stickies, or read existing stickies.",
       "repo": "caidish/cAI-tools",
-      "path": "plugins/mac/skills/stickies",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "caidish/cAI-tools/plugins/mac/skills/stickies",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "stickies",
-      "description": "Display and read Stickies notes on macOS. Use when the user asks to show notes, create stickies, or read existing stickies.",
-      "repo": "caidish/cAI-tools",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "caidish/cAI-tools",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "stickies",
+      "description": "Display and read Stickies notes on macOS. Use when the user asks to show notes, create stickies, or read existing stickies.",
+      "repo": "caidish/cAI-tools",
+      "path": "plugins/mac/skills/stickies",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "caidish/cAI-tools/plugins/mac/skills/stickies",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7499,18 +6765,6 @@
       "tags": [],
       "stars": 0,
       "install": "multicam/qara/.claude/skills/system-create-cli",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "task-implementation",
-      "description": "Execute next task from Implementation Plan. Use when user asks to implement next task, start next feature, or continue implementation.",
-      "repo": "doraemonkeys/sloc-guard",
-      "path": ".cursor/skills/task-implementation",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "doraemonkeys/sloc-guard/.cursor/skills/task-implementation",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7658,18 +6912,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "topic-manager",
-      "description": "Expert in managing professional topics stored as structured Google Drive folders and Google Docs. **Use this skill whenever the user mentions \"topic\", \"topics\", \"update topic\", \"create topic\", \"open t",
-      "repo": "smorand/claude-config",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "smorand/claude-config",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "trace-production-issue",
       "description": "Trace production alerts and issues back through REQ-* to original intent, creating new intent for remediation. Closes feedback loop from Runtime → Intent. Use when production alerts fire or issues dis",
       "repo": "foolishimp/ai_sdlc_method",
@@ -7760,24 +7002,24 @@
       "name": "user-activity",
       "description": "Pull trading activity from Polymarket for any user",
       "repo": "unarmedpuppy/polyjuiced",
-      "path": "agents/skills/user-activity",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "unarmedpuppy/polyjuiced/agents/skills/user-activity",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "user-activity",
-      "description": "Pull trading activity from Polymarket for any user",
-      "repo": "unarmedpuppy/polyjuiced",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "unarmedpuppy/polyjuiced",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "user-activity",
+      "description": "Pull trading activity from Polymarket for any user",
+      "repo": "unarmedpuppy/polyjuiced",
+      "path": "agents/skills/user-activity",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "unarmedpuppy/polyjuiced/agents/skills/user-activity",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7841,18 +7083,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "users-request-understanding-capabillity",
-      "description": "Understand exactly and surgically the user's request by following this skill. Use it when you have doubts about how to implement features, and need some clarification from the user.",
-      "repo": "Rafael-Rueda/sardius",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Rafael-Rueda/sardius",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "uvicorn",
       "description": "ASGI server for Python web applications - Fast, production-ready server for async frameworks",
       "repo": "bossjones/logging-lab",
@@ -7862,18 +7092,6 @@
       "tags": [],
       "stars": 0,
       "install": "bossjones/logging-lab/.claude/skills/uvicorn",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-researcher",
-      "description": "Expert in user research, usability testing, feedback analysis, and user-centered design",
-      "repo": "viamin/aidp",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "viamin/aidp",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7925,18 +7143,6 @@
       "tags": [],
       "stars": 0,
       "install": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-/.claude/skills/video-research-skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "violetconnect",
-      "description": "VioletConnect core features - merchant onboarding application architecture",
-      "repo": "violetio/violet-ai-plugins",
-      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-patterns",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-patterns",
       "source": "SkillsMP + GitHub Raw"
     },
     {
