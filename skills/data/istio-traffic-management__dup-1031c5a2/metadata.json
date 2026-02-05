@@ -1,0 +1,13 @@
+{
+  "name": "istio-traffic-management",
+  "description": "",
+  "repo": "ACGSpgp/ACGS",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/ACGSpgp/ACGS",
+  "github_path": ".agent/workflows/cloud-infrastructure/1.2.1/skills/istio-traffic-management",
+  "github_branch": "main",
+  "dir_name": "istio-traffic-management__dup-1031c5a2",
+  "downloaded_at": "2026-02-05T05:14:18.879376Z"
+}

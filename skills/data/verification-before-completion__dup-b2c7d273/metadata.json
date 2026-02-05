@@ -1,0 +1,17 @@
+{
+  "name": "verification-before-completion",
+  "description": "Confirms fixes are effective before marking complete",
+  "repo": "obra/superpowers",
+  "category": "development",
+  "tags": [
+    "verification",
+    "quality",
+    "testing"
+  ],
+  "stars": 0,
+  "source": "",
+  "github_path": "skills/verification-before-completion",
+  "github_branch": "main",
+  "dir_name": "verification-before-completion__dup-b2c7d273",
+  "downloaded_at": "2026-02-05T05:03:05.777047Z"
+}

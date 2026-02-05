@@ -1,0 +1,17 @@
+{
+  "name": "subagent-driven-development",
+  "description": "Two-stage review process - spec compliance then code quality",
+  "repo": "obra/superpowers",
+  "category": "development",
+  "tags": [
+    "subagents",
+    "review",
+    "quality"
+  ],
+  "stars": 0,
+  "source": "",
+  "github_path": "skills/subagent-driven-development",
+  "github_branch": "main",
+  "dir_name": "subagent-driven-development__dup-f9590819",
+  "downloaded_at": "2026-02-05T05:03:05.726056Z"
+}
