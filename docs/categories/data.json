@@ -1,8 +1,8 @@
 {
   "category": "data",
   "code": "dat",
-  "count": 2619,
-  "updated_at": "2026-02-05T06:04:01.271683Z",
+  "count": 2571,
+  "updated_at": "2026-02-05T06:39:04.192938Z",
   "skills": [
     {
       "name": "electron-chromium-upgrade-electron-electron",
@@ -522,18 +522,6 @@
       "stars": 191,
       "install": "mbruhler/claude-orchestration/skills/using-templates",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "deduplication-dadbodgeoff-drift",
-      "description": "Event deduplication with canonical selection, reputation scoring, and hash-based grouping for multi-source data aggregation. Handles both ID-based and content-based deduplication.",
-      "repo": "dadbodgeoff/drift",
-      "path": "skills/deduplication",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 169,
-      "install": "dadbodgeoff/drift/skills/deduplication",
-      "source": "github.com/dadbodgeoff/drift"
     },
     {
       "name": "adapter-factory",
@@ -1110,18 +1098,6 @@
       "tags": [],
       "stars": 48,
       "install": "majiayu000/claude-skill-registry/skills/other/extract-elf",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "himalaya-majiayu000-claude-skill-regist",
-      "description": "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIM",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "skills/data/himalaya",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry/skills/data/himalaya",
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
@@ -2392,6 +2368,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "sf-ai-agentforce",
+      "description": "Creates Agentforce agents using Agent Script syntax with 100-point scoring. Use when building AI agents, defining topics and actions, or deploying AiAuthoringBundle (v65+) or GenAiPlannerBundle (v65+)",
+      "repo": "Jaganpro/sf-skills",
+      "path": "sf-ai-agentforce-testing",
+      "branch": "main",
+      "category": "data",
+      "tags": [
+        "agentforce"
+      ],
+      "stars": 16,
+      "install": "Jaganpro/sf-skills/sf-ai-agentforce-testing",
+      "source": "local"
+    },
+    {
       "name": "sf-diagram",
       "description": "Creates Salesforce architecture diagrams using Mermaid with ASCII fallback. Use when visualizing OAuth flows, data models (ERDs), integration sequences, system landscapes, role hierarchies, or Agentfo",
       "repo": "Jaganpro/sf-skills",
@@ -2854,20 +2844,6 @@
       ],
       "stars": 11,
       "install": "ruchernchong/dotfiles/.claude/skills/sync-checker",
-      "source": "local"
-    },
-    {
-      "name": "tidbx",
-      "description": "Provision TiDB Cloud Serverless clusters and related resources. Use when creating, deleting, or listing clusters/branches, or managing SQL users via the console.",
-      "repo": "pingcap/agent-rules",
-      "path": "skills/tidbx-kysely",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "tidbx"
-      ],
-      "stars": 11,
-      "install": "pingcap/agent-rules/skills/tidbx-kysely",
       "source": "local"
     },
     {
@@ -4856,21 +4832,6 @@
       ],
       "stars": 4,
       "install": "thomasholknielsen/claude-code-config/skills/json-formatter",
-      "source": "local"
-    },
-    {
-      "name": "microsim-generator",
-      "description": "Creates interactive educational MicroSims using the best-matched JavaScript library (p5.js, Chart.js, Plotly, Mermaid, vis-network, vis-timeline, Leaflet, Venn.js). Analyzes user requirements to route",
-      "repo": "dmccreary/claude-skills",
-      "path": "skills/archived/causal-loop-microsim-generator",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "microsim",
-        "generator"
-      ],
-      "stars": 4,
-      "install": "dmccreary/claude-skills/skills/archived/causal-loop-microsim-generator",
       "source": "local"
     },
     {
@@ -9476,42 +9437,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "agent-ops-api-review",
-      "description": "Platform/Language agnostic API delivery and correctness auditor. Use when project contains API endpoints to verify contract alignment, endpoint behavior, and test coverage.",
-      "repo": "weholt/script-cast",
-      "path": ".github/skills/agent-ops-api-review",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "weholt/script-cast/.github/skills/agent-ops-api-review",
-      "source": "github.com/weholt/script-cast"
-    },
-    {
-      "name": "agent-ops-context-map",
-      "description": "Analyze the codebase to create a concise, LLM-optimized structured overview in .agent/map.md.",
-      "repo": "weholt/script-cast",
-      "path": ".github/skills/agent-ops-context-map",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "weholt/script-cast/.github/skills/agent-ops-context-map",
-      "source": "github.com/weholt/script-cast"
-    },
-    {
-      "name": "agent-ops-dogfood",
-      "description": "Dogfooding discovery agent — establish human-approved project baseline from public docs without code inspection",
-      "repo": "weholt/script-cast",
-      "path": ".github/skills/agent-ops-dogfood",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "weholt/script-cast/.github/skills/agent-ops-dogfood",
-      "source": "github.com/weholt/script-cast"
-    },
-    {
       "name": "agent-ops-prove-your-worth",
       "description": "Ruthlessly audit project features for justification. Challenge every feature to prove its value with evidence or face removal. Uses MCP tools for research.",
       "repo": "weholt/script-cast",
@@ -10066,25 +9991,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "airflow-expert",
-      "description": "Expert-level Apache Airflow orchestration, DAGs, operators, sensors, XComs, task dependencies, and scheduling",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/airflow-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "airflow",
-        "orchestration",
-        "dag",
-        "workflow",
-        "scheduling",
-        "data-pipeline"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/airflow-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "airparser-api",
       "description": "Guia para integrar con el servicio de parsing de documentos Airparser via API, webhooks y Make.com. Usar cuando se configuren inboxes, esquemas de extraccion, o flujos de automatizacion para procesami",
       "repo": "guillempuche/transports-pau-automatizaciones",
@@ -10199,30 +10105,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "amplitude",
-      "description": "Analyze product analytics with Amplitude's digital analytics platform.",
-      "repo": "Andrejones92/canifi-life-os",
-      "path": "skills/amplitude",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "Andrejones92/canifi-life-os/skills/amplitude",
-      "source": "github.com/Andrejones92/canifi-life-os"
-    },
-    {
-      "name": "analytics-dashboard-generator",
-      "description": "Create dashboards with KPIs and real-time metrics.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/analytics-dashboard-generator",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/analytics-dashboard-generator",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
       "name": "analytics-frameworks",
       "description": "Load when analyzing performance metrics, creating reports, setting up tracking,evaluating growth experiments, or any task involving data-driven decision makingfor content and audience growth. Contains",
       "repo": "chekos/bns-marketplace",
@@ -10284,18 +10166,6 @@
       "stars": 0,
       "install": "kaushikgopal/dotfiles/.ai/skills/analyze-changes",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "analyze-code-structure",
-      "description": "Examine code organization and identify structural patterns. Use when reviewing module design.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-1/analyze-code-structure",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-1/analyze-code-structure",
-      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "analyze-email",
@@ -12038,26 +11908,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "bsee-sodir-extraction",
-      "description": "Extract and process energy data from BSEE (Gulf of Mexico) and SODIR (Norway) regulatory databases",
-      "repo": "vamseeachanta/digitalmodel",
-      "path": ".claude/skills/data-analysis/bsee-sodir-extraction",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "bsee",
-        "sodir",
-        "energy-data",
-        "oil-gas",
-        "offshore",
-        "web-scraping",
-        "api"
-      ],
-      "stars": 0,
-      "install": "vamseeachanta/digitalmodel/.claude/skills/data-analysis/bsee-sodir-extraction",
-      "source": "github.com/vamseeachanta/digitalmodel"
-    },
-    {
       "name": "bsl-model-builder",
       "description": "Build BSL semantic models with dimensions, measures, joins, and YAML config. Use for creating/modifying data models.",
       "repo": "boringdata/boring-semantic-layer",
@@ -12341,6 +12191,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "calculate-coverage",
+      "description": "Measure test coverage and identify untested code. Use when assessing test completeness.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/calculate-coverage",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/calculate-coverage",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "calibre",
       "description": "Search and query Calibre library databases. Use when the user asks about books, TBR (to-be-read), reading lists, Calibre library queries, book searches, or mentions Calibre. Also use for queries about",
       "repo": "stbenjam/claude-nine",
@@ -12460,18 +12322,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "case-analyzer",
-      "description": "Analyzes legal case facts and identifies viable legal theories, causes of action, and evidentiary requirements. Use when conducting case intake, strategy development, or initial legal analysis.",
-      "repo": "enuno/claude-command-and-control",
-      "path": "skills/case-analyzer",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "enuno/claude-command-and-control/skills/case-analyzer",
-      "source": "github.com/enuno/claude-command-and-control"
-    },
-    {
       "name": "cass-search",
       "description": "Search past AI sessions with CASS. Use when looking for past solutions, searching session history, finding how something was done before, or when the user mentions \"cass\", \"history\", or \"past sessions",
       "repo": "eaasxt/Farmhand",
@@ -12499,6 +12349,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "causal-loop-microsim-generator",
+      "description": "This skill generates interactive Causal Loop Diagram (CLD) MicroSims using the vis-network JavaScript library. Use this skill when users need to create causal loop diagrams for systems thinking educat",
+      "repo": "dmccreary/claude-skills",
+      "path": "skills/archived/causal-loop-microsim-generator",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "dmccreary/claude-skills/skills/archived/causal-loop-microsim-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "cbdb-api",
       "description": "Query the China Biographical Database (CBDB) API to retrieve comprehensive biographical data about historical Chinese figures. Use this skill when searching for information about Chinese historical fi",
       "repo": "kltng/humanities-skills",
@@ -12512,18 +12374,6 @@
       "stars": 0,
       "install": "kltng/humanities-skills/cbdb-api",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "cdc-pipeline",
-      "description": "Implement change data capture and event-driven sync.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/cdc-pipeline",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/cdc-pipeline",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "changelog-app",
@@ -12687,22 +12537,6 @@
       "stars": 0,
       "install": "meicanhong/meicanhong.github.io/.claude/skills/chat2blog",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "chatbot-analytics",
-      "description": "Implement AI chatbot analytics and conversation monitoring. Use when adding conversation metrics, tracking AI usage, measuring user engagement with chat, or building conversation dashboards. Activates",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/chatbot-analytics",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "analytics",
-        "chatbot",
-        "ai-metrics"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/chatbot-analytics",
-      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "chatbot-api",
@@ -13818,24 +13652,6 @@
       "stars": 0,
       "install": "nategarelik/composition",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "computer-vision-helper",
-      "description": "Assist with image analysis, object detection, and visual AI tasks",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/computer-vision-helper",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "computer-vision",
-        "image-analysis",
-        "object-detection",
-        "visual-AI",
-        "deep-learning"
-      ],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/computer-vision-helper",
-      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "conceptual-modeling",
@@ -15056,27 +14872,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "dash",
-      "description": "Build production-grade interactive dashboards with Plotly Dash - enterprise features, callbacks, and scalable deployment",
-      "repo": "vamseeachanta/digitalmodel",
-      "path": ".claude/skills/data-analysis/dash",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "dash",
-        "dashboard",
-        "plotly",
-        "callbacks",
-        "enterprise",
-        "production",
-        "interactive",
-        "visualization"
-      ],
-      "stars": 0,
-      "install": "vamseeachanta/digitalmodel/.claude/skills/data-analysis/dash",
-      "source": "github.com/vamseeachanta/digitalmodel"
-    },
-    {
       "name": "dashboard-layout-planner",
       "description": "Dashboard Layout Planner - Auto-activating skill for Data Analytics.Triggers on: dashboard layout planner, dashboard layout plannerPart of the Data Analytics skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -15384,18 +15179,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "data-integrity-auditor",
-      "description": "Detects data integrity issues including orphaned records, broken foreign key relationships, constraint violations, and provides automated fix migrations. Use for \"data integrity\", \"orphaned records\",",
-      "repo": "patricio0312rev/skillset",
-      "path": "templates/db-management/data-integrity-auditor",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "patricio0312rev/skillset/templates/db-management/data-integrity-auditor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "data-lake-architecture",
       "description": "Organize object storage with lifecycle policies.",
       "repo": "cornmanwtf/ABANG-COLEK",
@@ -15446,25 +15229,6 @@
       "stars": 0,
       "install": "YL08140921/unson-os-market-research/.skills/data-manager",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "data-mesh-expert",
-      "description": "Expert-level data mesh architecture, domain-oriented ownership, data products, federated governance, and self-serve platforms",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/data-mesh-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "data-mesh",
-        "architecture",
-        "domain-driven",
-        "data-products",
-        "governance",
-        "platform"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/data-mesh-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "data-migration-agent",
@@ -15552,36 +15316,6 @@
       "stars": 0,
       "install": "huifer/skill-security-scan",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "data-pipeline-builder",
-      "description": "Build orchestration pipelines with idempotency.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/data-pipeline-builder",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/data-pipeline-builder",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
-      "name": "data-pipeline-engineer",
-      "description": "Expert data engineer for ETL/ELT pipelines, streaming, data warehousing. Activate on: data pipeline, ETL, ELT, data warehouse, Spark, Kafka, Airflow, dbt, data modeling, star schema, streaming data, b",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/data-pipeline-engineer",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "etl",
-        "spark",
-        "kafka",
-        "airflow",
-        "data-warehouse"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/data-pipeline-engineer",
-      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "data-processing-workflows",
@@ -15739,18 +15473,6 @@
       "stars": 0,
       "install": "DanSnow/data-visualize/.claude/skills/data-viz-insight",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "data-warehouse-designer",
-      "description": "Design dimensional models and fact tables.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/data-warehouse-designer",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/data-warehouse-designer",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "data-warehousing",
@@ -15933,18 +15655,6 @@
       "stars": 0,
       "install": "manutej/luxor-claude-marketplace/plugins/luxor-database-pro/skills/database-management-patterns",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "database-migration-orchestrator",
-      "description": "Plan zero-downtime migrations and rollback.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/database-migration-orchestrator",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/database-migration-orchestrator",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "database-migration-patterns",
@@ -16196,25 +15906,6 @@
       "stars": 0,
       "install": "Nice-Wolf-Studio/wolf-skills-marketplace/databento",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "databricks-expert",
-      "description": "Expert-level Databricks platform, Apache Spark, Delta Lake, MLflow, notebooks, and cluster management",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/databricks-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "databricks",
-        "spark",
-        "delta-lake",
-        "mlflow",
-        "lakehouse",
-        "pyspark"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/databricks-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "databricks-query",
@@ -16609,25 +16300,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "dbt-expert",
-      "description": "Expert-level dbt (data build tool), models, tests, documentation, incremental models, macros, and Jinja templating",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/dbt-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "dbt",
-        "analytics-engineering",
-        "sql",
-        "data-transformation",
-        "jinja",
-        "testing"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/dbt-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "dbt-model-builder",
       "description": "Create dbt models following FF Analytics Kimball patterns and 2×2 stat model. This skill should be used when creating staging models, core facts/dimensions, or analytical marts. Guides through model c",
       "repo": "zazu-22/ff_data_analytics",
@@ -16799,24 +16471,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "design-archivist",
-      "description": "Long-running design anthropologist that builds comprehensive visual databases from 500-1000 real-world examples, extracting color palettes, typography patterns, layout systems, and interaction design",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/design-archivist",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "design-research",
-        "patterns",
-        "analysis",
-        "visual-database",
-        "trends"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/design-archivist",
-      "source": "github.com/erichowens/some_claude_skills"
-    },
-    {
       "name": "design-schema",
       "description": "Design complete database schemas with tables, relationships, constraints, and indexes for Supabase. Triggers when user describes data models, entities, or requests schema design.",
       "repo": "rdimascio/supabase-marketplace",
@@ -16867,18 +16521,6 @@
       "stars": 0,
       "install": "swapkats/robin/skills/designing-dynamodb-tables",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "detect-code-smells",
-      "description": "Identify code quality issues and anti-patterns. Use when reviewing code for maintainability problems.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/detect-code-smells",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/detect-code-smells",
-      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "detect-n-plus-one",
@@ -16961,6 +16603,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/performance/bottleneck-detector/skills/detecting-performance-bottlenecks",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "detecting-suspicious-assert",
+      "description": "Detects suspicious use of assertions for security checks that can be disabled in production builds. Use when analyzing assertion usage, security checks, or investigating assert-related vulnerabilities",
+      "repo": "waiwai24/BinaryX-Agent",
+      "path": "",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/sql-injection-detector/skills/detecting-sql-injection-vulnerabilities",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17545,22 +17199,6 @@
       "stars": 0,
       "install": "Fawwaz-2009/tally/.claude/skills/drizzle-db",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "drizzle-migrations",
-      "description": "Manage database schema with Drizzle ORM and SQLite migrations. Use when adding tables, modifying columns, creating indexes, or running migrations. Activates for database schema changes, migration gene",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/drizzle-migrations",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "database",
-        "drizzle",
-        "migrations"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/drizzle-migrations",
-      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "ds-star",
@@ -18338,6 +17976,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "evaluate-model",
+      "description": "Measure model performance on test datasets. Use when assessing accuracy, precision, recall, and other metrics.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/evaluate-model",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/evaluate-model",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "evaluation-harness",
       "description": "Builds repeatable evaluation systems with golden datasets, scoring rubrics, pass/fail thresholds, and regression reports. Use for \"LLM evaluation\", \"testing AI systems\", \"quality assurance\", or \"model",
       "repo": "patricio0312rev/skillset",
@@ -18558,6 +18208,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "extract-dependencies",
+      "description": "Analyze imports and identify all module dependencies. Use when mapping project structure.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/extract-dependencies",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/extract-dependencies",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "extract-from-pdfs",
       "description": "This skill should be used when extracting structured data from scientific PDFs for systematic reviews, meta-analyses, or database creation. Use when working with collections of research papers that ne",
       "repo": "brunoasm/my_claude_skills",
@@ -18568,6 +18230,18 @@
       "stars": 0,
       "install": "brunoasm/my_claude_skills",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "extract-hyperparameters",
+      "description": "Identify and document model hyperparameters from papers. Use when setting up training configurations.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/extract-hyperparameters",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/extract-hyperparameters",
+      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "extract-videos",
@@ -18782,18 +18456,6 @@
       "stars": 0,
       "install": "pcortes/swarm-attack",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "feature-store-builder",
-      "description": "Version features for offline and online serving.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/feature-store-builder",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/feature-store-builder",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "fetch-favicons",
@@ -19128,25 +18790,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/11-data-pipelines/flink-job-creator",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "flow-nexus-neural",
-      "description": "Train and deploy neural networks in distributed E2B sandboxes with Flow Nexus",
-      "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/flow-nexus-neural",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "neural-networks",
-        "distributed-training",
-        "machine-learning",
-        "deep-learning",
-        "flow-nexus",
-        "e2b-sandboxes"
-      ],
-      "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/flow-nexus-neural",
-      "source": "github.com/DNYoussef/ai-chrome-extension"
     },
     {
       "name": "flow-nexus-neural",
@@ -20380,28 +20023,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "great-tables",
-      "description": "Publication-quality tables in Python with rich styling, formatting, conditional formatting, and export to HTML/images - inspired by R's gt package",
-      "repo": "vamseeachanta/digitalmodel",
-      "path": ".claude/skills/data-analysis/great-tables",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "great-tables",
-        "tables",
-        "formatting",
-        "publication",
-        "styling",
-        "conditional-formatting",
-        "html-tables",
-        "data-presentation",
-        "reporting"
-      ],
-      "stars": 0,
-      "install": "vamseeachanta/digitalmodel/.claude/skills/data-analysis/great-tables",
-      "source": "github.com/vamseeachanta/digitalmodel"
-    },
-    {
       "name": "grey-haven-data-modeling",
       "description": "Design database schemas for Grey Haven multi-tenant SaaS - SQLModel models, Drizzle schema, multi-tenant isolation with tenant_id and RLS, timestamp fields, foreign keys, indexes, migrations, and rela",
       "repo": "greyhaven-ai/claude-code-config",
@@ -20646,18 +20267,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "heap",
-      "description": "Track user behavior automatically with Heap's auto-capture analytics platform.",
-      "repo": "Andrejones92/canifi-life-os",
-      "path": "skills/heap",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "Andrejones92/canifi-life-os/skills/heap",
-      "source": "github.com/Andrejones92/canifi-life-os"
-    },
-    {
       "name": "helix-memory",
       "description": "Long-term memory system for Claude Code using HelixDB graph-vector database. Store and retrieve facts, preferences, context, and relationships across sessions using semantic search, reasoning chains,",
       "repo": "MarcinDudekDev/helix-memory",
@@ -20816,24 +20425,6 @@
       "stars": 0,
       "install": "ChinchillaEnterprises/ChillSkills/housekeeping",
       "source": "local"
-    },
-    {
-      "name": "hr-network-analyst",
-      "description": "Professional network graph analyst identifying Gladwellian superconnectors, mavens, and influence brokers using betweenness centrality, structural holes theory, and multi-source network reconstruction",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/hr-network-analyst",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "network",
-        "superconnectors",
-        "influence",
-        "graph-theory",
-        "hr"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/hr-network-analyst",
-      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "hti-fallback-guard",
@@ -21001,18 +20592,6 @@
       "stars": 0,
       "install": "ItamarS3917/ict-mnq-trading-system",
       "source": "local"
-    },
-    {
-      "name": "identify-architecture",
-      "description": "Analyze ML model architecture from papers and code. Use when understanding model structure for implementation.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/identify-architecture",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/identify-architecture",
-      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "imggen",
@@ -22094,24 +21673,6 @@
       "source": "local"
     },
     {
-      "name": "kafka-expert",
-      "description": "Expert-level Apache Kafka, event streaming, Kafka Streams, and distributed messaging",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/kafka-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "kafka",
-        "streaming",
-        "messaging",
-        "event-driven",
-        "kafka-streams"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/kafka-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "kamal",
       "description": "Deploy containerized web applications to any Linux server using Kamal. Use when users need to deploy, configure, debug, or manage Kamal deployments including initial setup, configuration of deploy.yml",
       "repo": "el-feo/ai-context",
@@ -22792,18 +22353,6 @@
       "source": "local"
     },
     {
-      "name": "lint-code",
-      "description": "Check code for style and quality issues. Use when validating code before commits.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-1/lint-code",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-1/lint-code",
-      "source": "github.com/mvillmow/ProjectOdyssey"
-    },
-    {
       "name": "list-skills",
       "description": "List all available skills in Nexus with descriptions. Load when user says \"list skills\", \"show skills\", \"what skills\", \"available skills\", \"skill list\", \"all skills\", or asks what they can do with Nex",
       "repo": "abdullahbeam/nexus-design-abdullah",
@@ -22881,24 +22430,6 @@
       "stars": 0,
       "install": "Soborbo/claudeskills/llm-optimization",
       "source": "local"
-    },
-    {
-      "name": "llm-prompt-optimizer",
-      "description": "Optimize prompts for better LLM outputs through systematic analysis and refinement",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/llm-prompt-optimizer",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "prompt-engineering",
-        "optimization",
-        "LLM",
-        "AI",
-        "performance"
-      ],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/llm-prompt-optimizer",
-      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "llmn",
@@ -24141,6 +23672,30 @@
       "source": "local"
     },
     {
+      "name": "microcalibrate",
+      "description": "Survey weight calibration to match population targets - used in policyengine-us-data for enhanced microdata",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "skills/data-science/microcalibrate-skill",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/skills/data-science/microcalibrate-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "microimpute",
+      "description": "ML-based variable imputation for survey data - used in policyengine-us-data to fill missing values",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "skills/data-science/microimpute-skill",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/skills/data-science/microimpute-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "microsim-p5",
       "description": "Create an interactive educational MicroSim using the p5.js JavaScript library with distinct regions for drawing and interactive controls.  Each MicroSim is a directory located in the /docs/sims folder",
       "repo": "dmccreary/claude-skills",
@@ -24405,18 +23960,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ml-model-deployment",
-      "description": "Serve models with A/B testing, monitoring, retraining.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/ml-model-deployment",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/ml-model-deployment",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
       "name": "ml-project-lifecycle",
       "description": "Plan ML projects using CRISP-DM, TDSP, and MLOps methodologies with proper phase gates and deliverables.",
       "repo": "melodic-software/claude-code-plugins",
@@ -24539,18 +24082,6 @@
       "tags": [],
       "stars": 0,
       "install": "ferdousbhai/cloud-fullstack-skills/plugins/modal-deployment/skills/modal-deployment",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "model-compare",
-      "description": "Compare 3D CAD models using boolean operations (IoU, Dice, precision/recall). Use when evaluating generated models against gold references, diffing CAD revisions, or computing similarity metrics for M",
-      "repo": "rawwerks/VibeCAD",
-      "path": "plugins/build123d/skills/model-compare",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "rawwerks/VibeCAD/plugins/build123d/skills/model-compare",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -24799,24 +24330,6 @@
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-mongodb/skills/mongodb-atlas-setup",
       "source": "local"
-    },
-    {
-      "name": "mongodb-expert",
-      "description": "Expert-level MongoDB database design, aggregation pipelines, indexing, replication, and production operations",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/mongodb-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "mongodb",
-        "nosql",
-        "database",
-        "aggregation",
-        "performance"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/mongodb-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "mongodb-find-queries",
@@ -25240,18 +24753,6 @@
       "stars": 0,
       "install": "donbr/graphiti-fastmcp/migration/skills",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "neon",
-      "description": "Auto-activates when user mentions Neon, serverless Postgres, or database branching. Expert in Neon Postgres including branching, connection pooling, and performance optimization.",
-      "repo": "pascallammers/mylo-travel-concierge-v2",
-      "path": ".factory/skills/neon",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "pascallammers/mylo-travel-concierge-v2/.factory/skills/neon",
-      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
     },
     {
       "name": "neon-drizzle",
@@ -26029,18 +25530,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "op-db",
-      "description": "提供通用的SQL查询方法和数据库查询基础。使用 exec_sql 工具执行查询。",
-      "repo": "SeSiTing/siti-claude-marketplace",
-      "path": "plugins/op-plugin/skills/op-db-metadata",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "SeSiTing/siti-claude-marketplace/plugins/op-plugin/skills/op-db-metadata",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "op-db-e-report",
       "description": "提供v3_e-report数据库的SQL查询模板，包括数据分析告警配置等表的查询。查询分析告警配置时使用。使用 exec_sql 工具执行查询。",
       "repo": "SeSiTing/siti-claude-marketplace",
@@ -26050,6 +25539,18 @@
       "tags": [],
       "stars": 0,
       "install": "SeSiTing/siti-claude-marketplace/plugins/op-plugin/skills/op-db-e-report",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "op-db-metadata",
+      "description": "提供v3_metadata数据库的SQL查询模板，包括对象编码（object_code）、对象名称、事件、按钮配置、自定义字段、元数据字段、插件中心等表的查询。查询对象编码、对象名称、自定义对象时使用。使用 exec_sql 工具执行查询。",
+      "repo": "SeSiTing/siti-claude-marketplace",
+      "path": "plugins/op-plugin/skills/op-db-metadata",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "SeSiTing/siti-claude-marketplace/plugins/op-plugin/skills/op-db-metadata",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26173,6 +25674,18 @@
       "tags": [],
       "stars": 0,
       "install": "rayk/lucid-toolkit/plugins/luc/skills/operation-tracker",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "opportunityiq-mvp-scanner",
+      "description": "Scans client data against revenue opportunity scenarios to identify and rank the top sales opportunities. Matches clients to scenarios like FIA replacements approaching surrender, cash drag opportunit",
+      "repo": "Generative-Bricks/claude-code-agent",
+      "path": "docs/ideas/opportunityiq-mvp-scanner",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "Generative-Bricks/claude-code-agent/docs/ideas/opportunityiq-mvp-scanner",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27032,6 +26545,30 @@
       "source": "local"
     },
     {
+      "name": "policyengine-parameter-patterns",
+      "description": "PolicyEngine parameter patterns - YAML structure, naming conventions, metadata requirements, federal/state separation",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "skills/technical-patterns/policyengine-parameter-patterns-skill",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/skills/technical-patterns/policyengine-parameter-patterns-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "policyengine-vectorization",
+      "description": "PolicyEngine vectorization patterns - NumPy operations, where/select usage, avoiding scalar logic with arrays",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "skills/technical-patterns/policyengine-vectorization-skill",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/skills/technical-patterns/policyengine-vectorization-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "polish-transcripts",
       "description": "Polish raw interview transcripts into searchable, well-structured markdown with metadata, dynamic headers, and full fidelity to technical content. Designed for Ray Peat interview podcasts and similar",
       "repo": "cdeistopened/peat-sandbox",
@@ -27251,24 +26788,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "postgresql-expert",
-      "description": "Expert-level PostgreSQL database administration, advanced queries, performance tuning, and production operations",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/postgresql-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "postgresql",
-        "postgres",
-        "database",
-        "sql",
-        "performance"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/postgresql-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "postgresql-integration",
       "description": "Guide developers through PostgreSQL setup, connection configuration, query patterns, and best practices",
       "repo": "rubrical-studios/idpf-praxis-dist",
@@ -27439,18 +26958,6 @@
       "stars": 0,
       "install": "wordflowlab/novelweave/templates/skills/quality-assurance/pre-write-checklist",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "prepare-dataset",
-      "description": "Process and validate datasets for training. Use when setting up data pipelines.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/prepare-dataset",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/prepare-dataset",
-      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "preprocessing-data-with-automated-pipelines",
@@ -27672,25 +27179,6 @@
       "stars": 0,
       "install": "Poll-The-People/customgpt-claude-code/.claude/skills/producing-innovation-demos",
       "source": "local"
-    },
-    {
-      "name": "product-appeal-analyzer",
-      "description": "Evaluate product desirability, market positioning, and emotional resonance—the complement to friction analysis. Assess whether users will WANT a product (not just use it), identity fit, trust signals,",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/product-appeal-analyzer",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "product-strategy",
-        "marketing",
-        "positioning",
-        "value-proposition",
-        "conversion",
-        "user-research"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/product-appeal-analyzer",
-      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "product-market-fit",
@@ -28650,18 +28138,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "reasoningbank-with-agentdb",
-      "description": "Implement ReasoningBank adaptive learning with AgentDB's 150x faster vector database. Includes trajectory tracking, verdict judgment, memory distillation, and pattern recognition. Use when building se",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "reasoningsystem-definition",
       "description": "Draft and enforce system-level persona/rules for Ollama SYSTEM blocks. Use to translate role/constraints into Modelfile SYSTEM text.",
       "repo": "Cloudhabil/AGI-Server",
@@ -28735,25 +28211,6 @@
       "stars": 0,
       "install": "CharlesKozel/Pentest-Agent-Evalulator",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "redis-expert",
-      "description": "Expert-level Redis for caching, pub/sub, data structures, and high-performance applications",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/redis-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "redis",
-        "cache",
-        "pubsub",
-        "inmemory",
-        "keyvalue",
-        "nosql"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/redis-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "redpanda-migrator",
@@ -29011,24 +28468,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "research-analyst",
-      "description": "Conducts thorough landscape research, competitive analysis, best practices evaluation, and evidence-based recommendations. Expert in market research and trend analysis.",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/research-analyst",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "research",
-        "analysis",
-        "landscape",
-        "competitive",
-        "evidence-based"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/research-analyst",
-      "source": "github.com/erichowens/some_claude_skills"
-    },
-    {
       "name": "research-reproduction",
       "description": "Reproduce research papers into working code. Use when user wants to implement ML/AI papers, reproduce experiments, extract algorithms from PDFs, or convert research into executable code. Handles multi",
       "repo": "aryateja2106/neural-memory-reproduction",
@@ -29248,18 +28687,6 @@
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/customer-success/skills/risk-scoring-framework",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "rlm-context-manager",
-      "description": "Recursive Language Model context management for processing documents exceeding context window limits. Enables Claude to match Gemini's 2M token context capability through chunking, sub-LLM delegation,",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "skills/rlm-context-manager",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "starwreckntx/IRP__METHODOLOGIES-/skills/rlm-context-manager",
-      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
     },
     {
       "name": "rls-templates",
@@ -30172,18 +29599,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "sentry",
-      "description": "Monitor application errors, performance, and issues on Sentry",
-      "repo": "Andrejones92/canifi-life-os",
-      "path": "skills/sentry",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "Andrejones92/canifi-life-os/skills/sentry",
-      "source": "github.com/Andrejones92/canifi-life-os"
-    },
-    {
       "name": "seo-2025-expert",
       "description": "Modern Search Engine Optimization with GEO, AI Overviews optimization, and industry-specific strategies for E-commerce, SaaS, Healthcare, Real Estate, Restaurant, Law Firm, Finance, Travel, and Educat",
       "repo": "PPmai/SAO-Auditor",
@@ -30856,24 +30271,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "snowflake-expert",
-      "description": "Expert-level Snowflake data warehouse platform, virtual warehouses, data sharing, streams, tasks, and SQL optimization",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/snowflake-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "snowflake",
-        "data-warehouse",
-        "sql",
-        "analytics",
-        "cloud"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/snowflake-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "snowflake-query",
       "description": "Execute SQL queries against Snowflake data warehouse using Python connector. Supports password, key-pair, and SSO/OAuth authentication. Use for ad-hoc queries, data extraction, and schema exploration.",
       "repo": "haggler09/claude-haggler-skills",
@@ -30950,20 +30347,6 @@
       "stars": 0,
       "install": "SpillwaveSolutions/spacy-nlp-agentic-skill/skills/using-spacy-nlp",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "spatialdata",
-      "description": "SpatialData framework for handling spatial multi-modal and multi-scale data. Use this skill for questions about spatial omics data analysis, visualization, and the SpatialData Python ecosystem.",
-      "repo": "Ketomihine/my_skills",
-      "path": "spatialdata-io-docs-local",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "spatialdata"
-      ],
-      "stars": 0,
-      "install": "Ketomihine/my_skills/spatialdata-io-docs-local",
-      "source": "local"
     },
     {
       "name": "spatialdata-docs-local",
@@ -31314,18 +30697,6 @@
       "tags": [],
       "stars": 0,
       "install": "smorand/claude-config",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sql-injection-detector",
-      "description": "Sql Injection Detector - Auto-activating skill for Security Fundamentals.Triggers on: sql injection detector, sql injection detectorPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/security/sql-injection-detector/skills/detecting-sql-injection-vulnerabilities",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/sql-injection-detector/skills/detecting-sql-injection-vulnerabilities",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31757,6 +31128,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "startup-portrait",
+      "description": "Transform team photos into professional startup portraits using fal.ai Nano Banana Pro image-to-image API.",
+      "repo": "vm0-ai/vm0-cookbooks",
+      "path": "210-startup-portrait/startup-portrait-volume/skills/brightdata-instagram",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0-cookbooks/210-startup-portrait/startup-portrait-volume/skills/brightdata-instagram",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "state-flow-visualizer",
       "description": "Analyze and visualize state flow in LangGraph pipelines. Use when debugging state mutations, tracing data flow between nodes, identifying orphan state keys, detecting read/write dependencies, or gener",
       "repo": "KeepitSimpleAnalytics/tic_dashboard",
@@ -31942,18 +31325,6 @@
       "stars": 0,
       "install": "windowh1/wbl_residency/papers/skills-vs-mcp/experiment2/claude_agent/extensions/skills/strategic-search",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "stream-processing",
-      "description": "Design real-time processing with windowing and watermarks.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/stream-processing",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/stream-processing",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "streamable-http-mcp-server",
@@ -32147,36 +31518,6 @@
       "stars": 0,
       "install": "k002bill2/LiveMetro",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "suggest-optimizations",
-      "description": "Identify performance optimization opportunities. Use when improving code efficiency.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/suggest-optimizations",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/suggest-optimizations",
-      "source": "github.com/mvillmow/ProjectOdyssey"
-    },
-    {
-      "name": "summarization-engine",
-      "description": "Generate accurate summaries of long documents and text collections",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/summarization-engine",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "summarization",
-        "NLP",
-        "document-processing",
-        "text-generation",
-        "content"
-      ],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/summarization-engine",
-      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "supabase-artifact-connection",
@@ -32501,28 +31842,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "sweetviz",
-      "description": "Automated EDA comparison reports with target analysis, feature comparison, and HTML report generation for pandas DataFrames",
-      "repo": "vamseeachanta/digitalmodel",
-      "path": ".claude/skills/data-analysis/sweetviz",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "sweetviz",
-        "eda",
-        "data-analysis",
-        "comparison",
-        "target-analysis",
-        "html-report",
-        "feature-comparison",
-        "visualization",
-        "profiling"
-      ],
-      "stars": 0,
-      "install": "vamseeachanta/digitalmodel/.claude/skills/data-analysis/sweetviz",
-      "source": "github.com/vamseeachanta/digitalmodel"
-    },
-    {
       "name": "symbol-selection-asset-filters",
       "description": "Fix symbol selection failing due to asset-type filter mismatch. Trigger when: (1) '0/N passed hard filter' error, (2) crypto selection fails unexpectedly, (3) assets filtered by wrong price/volume thr",
       "repo": "smith6jt-cop/Skills_Registry",
@@ -32713,22 +32032,6 @@
       "source": "local"
     },
     {
-      "name": "system-diagnostician",
-      "description": "Performs Codex-assisted project health diagnostics, identifies capability gaps, and produces prioritized improvement plans.",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "skills/system-diagnostician",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "diagnostics",
-        "capability-planning",
-        "project-health"
-      ],
-      "stars": 0,
-      "install": "daffy0208/ai-dev-standards/skills/system-diagnostician",
-      "source": "github.com/daffy0208/ai-dev-standards"
-    },
-    {
       "name": "system-health-skill",
       "description": "Packaged Skill providing system health summary and detail tools",
       "repo": "oalles/skills-engine",
@@ -32765,25 +32068,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "tableau-expert",
-      "description": "Expert-level Tableau Desktop/Server, calculated fields, LOD expressions, dashboards, data blending, and performance optimization",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/tableau-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "tableau",
-        "bi",
-        "visualization",
-        "dashboards",
-        "lod",
-        "analytics"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/tableau-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "tai-calculator",
       "description": "台灣麻將台數計算器。當用戶提供手牌要計算台數、詢問特定台型的台數（如清一色、碰碰胡、自摸）、需要分析胡牌牌型、計算得分、或驗證台數計算是否正確時使用此技能。",
       "repo": "tedmax100/mahjong",
@@ -32806,24 +32090,6 @@
       "stars": 0,
       "install": "tedmax100/mahjong/.claude/skills/taiwan-mahjong-expert",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "taiyo-analyzer",
-      "description": "太陽スタイル分析・スコアリングエンジン - 176パターンに基づくコンテンツ品質分析と改善提案",
-      "repo": "taiyousan15/taisun_agent",
-      "path": ".claude/skills/taiyo-analyzer/skill.md",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "copywriting",
-        "analysis",
-        "scoring",
-        "taiyo-style",
-        "optimization"
-      ],
-      "stars": 0,
-      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-analyzer/skill.md",
-      "source": "github.com/taiyousan15/taisun_agent"
     },
     {
       "name": "tam-calculator",
@@ -33370,18 +32636,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "time-series-database",
-      "description": "Configure retention and downsampling.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/time-series-database",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/time-series-database",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
       "name": "timeline-generator",
       "description": "This skill generates interactive timeline visualizations using the vis-timeline JavaScript library. Use this skill when users need to create historical timelines, project timelines, event sequences, o",
       "repo": "dmccreary/claude-skills",
@@ -33589,18 +32843,6 @@
       "source": "local"
     },
     {
-      "name": "train-model",
-      "description": "Execute model training with optimization algorithms. Use when running training loops on datasets.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/train-model",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/train-model",
-      "source": "github.com/mvillmow/ProjectOdyssey"
-    },
-    {
       "name": "train-test-splitter",
       "description": "Train Test Splitter - Auto-activating skill for ML Training.Triggers on: train test splitter, train test splitterPart of the ML Training skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -33770,24 +33012,6 @@
       "stars": 0,
       "install": "huangwb8/ChineseResearchLaTeX",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "translation-assistant",
-      "description": "Handle multilingual translation tasks with quality and cultural sensitivity",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/translation-assistant",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "translation",
-        "multilingual",
-        "NLP",
-        "localization",
-        "language"
-      ],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/translation-assistant",
-      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "translation-glossary",
@@ -34413,6 +33637,18 @@
       "stars": 0,
       "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/validate-inputs",
       "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
+      "name": "validate-journey",
+      "description": "Validates CDP journey YAML configurations against tdx schema requirements. Use when reviewing journey structure, checking step types and parameters, verifying segment references, or troubleshooting jo",
+      "repo": "treasure-data/td-skills",
+      "path": "tdx-skills/validate-journey",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "treasure-data/td-skills/tdx-skills/validate-journey",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "validate-md",
@@ -35160,24 +34396,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "when-mapping-dependencies-use-dependency-mapper",
-      "description": "Comprehensive dependency mapping, analysis, and visualization tool for software projects",
-      "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/dependencies/when-mapping-dependencies-use-dependency-mapper",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "dependencies",
-        "graph-analysis",
-        "security",
-        "visualization",
-        "mece"
-      ],
-      "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/dependencies/when-mapping-dependencies-use-dependency-mapper",
-      "source": "github.com/DNYoussef/ai-chrome-extension"
-    },
-    {
       "name": "whisper-lolo-transcription-jobs",
       "description": "Implement or adjust background transcription jobs for whisper-lolo. Use when wiring Inngest events, handling long-running jobs, chunking before transcription, persisting transcripts, or maintaining th",
       "repo": "Lofp34/whisper-lolo",
@@ -35328,6 +34546,20 @@
       ],
       "stars": 0,
       "install": "manx/PomodoroTimeTracker/.claude/skills/winui-patterns",
+      "source": "local"
+    },
+    {
+      "name": "wolf",
+      "description": "Master skill for Wolf Agents institutional knowledge and behavioral patterns (v1.1.0 with skill-chaining)",
+      "repo": "Nice-Wolf-Studio/wolf-skills-marketplace",
+      "path": "wolf-adr",
+      "branch": "main",
+      "category": "data",
+      "tags": [
+        "wolf"
+      ],
+      "stars": 0,
+      "install": "Nice-Wolf-Studio/wolf-skills-marketplace/wolf-adr",
       "source": "local"
     },
     {
