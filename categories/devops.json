@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3198,
-  "updated_at": "2026-02-04T09:01:40.936061Z",
+  "count": 3196,
+  "updated_at": "2026-02-05T01:47:17.970125Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -177,6 +177,21 @@
       "stars": 2257,
       "install": "Yeachan-Heo/oh-my-claudecode/skills/ecomode",
       "source": "github.com/Yeachan-Heo/oh-my-claudecode"
+    },
+    {
+      "name": "setup-deps",
+      "description": "Download iPlug2 dependencies including plugin format SDKs (VST3, CLAP, WAM) and optional Skia graphics backend libraries",
+      "repo": "iPlug2/iPlug2",
+      "path": ".claude/skills/setup-deps",
+      "branch": "master",
+      "category": "devops",
+      "tags": [
+        "setup",
+        "deps"
+      ],
+      "stars": 2209,
+      "install": "iPlug2/iPlug2/.claude/skills/setup-deps",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "create-skill",
@@ -532,18 +547,6 @@
       "stars": 253,
       "install": "AojdevStudio/Finance-Guru",
       "source": "github.com/AojdevStudio/Finance-Guru"
-    },
-    {
-      "name": "resolve-issues-fradser-dotclaude",
-      "description": "Resolve GitHub issues using isolated worktrees and TDD",
-      "repo": "FradSer/dotclaude",
-      "path": "github/skills/resolve-issues",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 192,
-      "install": "FradSer/dotclaude/github/skills/resolve-issues",
-      "source": "github.com/FradSer/dotclaude"
     },
     {
       "name": "managing-agents",
@@ -962,21 +965,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "beanstalk-deploy",
-      "description": "Robust deployment patterns for Elastic Beanstalk with GitHub Actions, Pulumi, and edge case handling",
-      "repo": "pr-pm/prpm",
-      "path": ".claude/skills/beanstalk-deploy",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "beanstalk",
-        "deploy"
-      ],
-      "stars": 70,
-      "install": "pr-pm/prpm/.claude/skills/beanstalk-deploy",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "creating-claude-rules",
       "description": "Use when creating or fixing .claude/rules/ files - provides correct paths frontmatter (not globs), glob patterns, and avoids Cursor-specific fields like alwaysApply",
       "repo": "pr-pm/prpm",
@@ -990,22 +978,6 @@
       ],
       "stars": 70,
       "install": "pr-pm/prpm/.claude/skills/creating-claude-rules",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "elastic-beanstalk-deployment",
-      "description": "Use when deploying Node.js applications to AWS Elastic Beanstalk or troubleshooting deployment issues - provides dependency installation strategies, monorepo handling, and deployment best practices",
-      "repo": "pr-pm/prpm",
-      "path": ".claude/skills/elastic-beanstalk-deployment",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "elastic",
-        "beanstalk",
-        "deployment"
-      ],
-      "stars": 70,
-      "install": "pr-pm/prpm/.claude/skills/elastic-beanstalk-deployment",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1891,21 +1863,6 @@
       "source": "local"
     },
     {
-      "name": "fly-ssh",
-      "description": "Use when asked to run \"fly ssh console\", SSH into Fly.io machines, inspect files on production machines, check processes on Fly.io, or examine deployed machine state. Covers critical pitfalls like no ",
-      "repo": "rubys/showcase",
-      "path": ".claude/skills/fly-ssh",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "fly",
-        "ssh"
-      ],
-      "stars": 34,
-      "install": "rubys/showcase/.claude/skills/fly-ssh",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "discover-infrastructure",
       "description": "Automatically discover infrastructure and DevOps skills when working with infrastructure. Activates for infrastructure development tasks.",
       "repo": "rand/cc-polymath",
@@ -2080,21 +2037,6 @@
       "source": "github.com/MyPureCloud/platform-client-sdk-python"
     },
     {
-      "name": "octave-literacy",
-      "description": "Fundamental reading and writing capability for the OCTAVE format. Inject this to give an agent basic structural competence without the overhead of full architectural specifications. Triggers on: octav",
-      "repo": "elevanaltd/octave-mcp",
-      "path": "src/octave_mcp/resources/skills/octave-literacy",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "octave",
-        "literacy"
-      ],
-      "stars": 26,
-      "install": "elevanaltd/octave-mcp/src/octave_mcp/resources/skills/octave-literacy",
-      "source": "local"
-    },
-    {
       "name": "alert-management",
       "description": "Implement comprehensive alert management with PagerDuty, escalation policies, and incident coordination. Use when setting up alerting systems, managing on-call schedules, or coordinating incident resp",
       "repo": "aj-geddes/useful-ai-prompts",
@@ -2107,6 +2049,21 @@
       ],
       "stars": 25,
       "install": "aj-geddes/useful-ai-prompts/skills/alert-management",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "ansible-automation",
+      "description": "Infrastructure automation and configuration management using Ansible playbooks, roles, and inventory. Use for deploying applications, patching, and managing servers.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "skills/ansible-automation",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "ansible",
+        "automation"
+      ],
+      "stars": 25,
+      "install": "aj-geddes/useful-ai-prompts/skills/ansible-automation",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2264,22 +2221,6 @@
       "stars": 25,
       "install": "aj-geddes/useful-ai-prompts/skills/canary-deployment",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "cicd-pipeline-setup",
-      "description": "Design and implement CI/CD pipelines with GitHub Actions, GitLab CI, Jenkins, or CircleCI. Use for automated testing, building, and deployment workflows.",
-      "repo": "aj-geddes/useful-ai-prompts",
-      "path": "skills/cicd-pipeline-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "cicd",
-        "pipeline",
-        "setup"
-      ],
-      "stars": 25,
-      "install": "aj-geddes/useful-ai-prompts/skills/cicd-pipeline-setup",
-      "source": "local"
     },
     {
       "name": "cloud-cost-management",
@@ -3530,18 +3471,6 @@
       "source": "local"
     },
     {
-      "name": "video-processing-editing",
-      "description": "FFmpeg automation for cutting, trimming, concatenating videos. Audio mixing, timeline editing, transitions, effects. Export optimization for YouTube, social media. Subtitle handling, color grading, ba",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/video-processing-editing",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 13,
-      "install": "erichowens/some_claude_skills/.claude/skills/video-processing-editing",
-      "source": "github.com/erichowens/some_claude_skills"
-    },
-    {
       "name": "workspace-management",
       "description": "Manage pnpm workspaces, add packages, configure dependencies, and organize monorepo structure. Use when adding new packages, restructuring workspace, or managing cross-package dependencies.",
       "repo": "sgcarstrends/sgcarstrends",
@@ -3571,21 +3500,6 @@
       "stars": 12,
       "install": "hacket/AICodingGuide/.claude/skills/deep-reading-analyst",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "kubernetes-specialist",
-      "description": "Use when deploying or managing Kubernetes workloads requiring cluster configuration, security hardening, or troubleshooting. Invoke for Helm charts, RBAC policies, NetworkPolicies, storage configurati",
-      "repo": "Jeffallan/claude-skills",
-      "path": "skills/kubernetes-specialist",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "kubernetes",
-        "specialist"
-      ],
-      "stars": 12,
-      "install": "Jeffallan/claude-skills/skills/kubernetes-specialist",
-      "source": "local"
     },
     {
       "name": "legacy-modernizer",
@@ -3977,22 +3891,6 @@
       ],
       "stars": 10,
       "install": "Tony363/SuperClaude",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agent-sales-engineer",
-      "description": "Expert sales engineer specializing in technical pre-sales, solution architecture, and proof of concepts. Masters technical demonstrations, competitive positioning, and translating complex technology i",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-sales-engineer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "agent",
-        "sales",
-        "engineer"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-sales-engineer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5075,6 +4973,21 @@
       "source": "local"
     },
     {
+      "name": "tzurot-deployment",
+      "description": "Railway deployment operations for Tzurot v3 - Service management, log analysis, environment variables, health checks, and troubleshooting. Use when deploying, debugging production issues, or managing ",
+      "repo": "lbds137/tzurot",
+      "path": ".claude/skills/tzurot-deployment",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "tzurot",
+        "deployment"
+      ],
+      "stars": 7,
+      "install": "lbds137/tzurot/.claude/skills/tzurot-deployment",
+      "source": "local"
+    },
+    {
       "name": "adding-stacks",
       "description": "Use when adding a new framework/stack to create-faster CLI tool - addresses copy-first mentality, incomplete implementations, and missing dependencies",
       "repo": "plvo/create-faster",
@@ -5234,22 +5147,6 @@
       ],
       "stars": 6,
       "install": "fernandobandeira/djinn/.claude/skills/root-cause",
-      "source": "local"
-    },
-    {
-      "name": "vscode-test-setup",
-      "description": "This skill provides comprehensive guidance for setting up and configuring test environments for VS Code extension projects. Use when initializing a new test infrastructure, configuring test runners (M",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": ".claude/skills/vscode-test-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "vscode",
-        "test",
-        "setup"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal/.claude/skills/vscode-test-setup",
       "source": "local"
     },
     {
@@ -5656,6 +5553,22 @@
       "source": "local"
     },
     {
+      "name": "commercial-lease-expert",
+      "description": "Expert in commercial real estate lease agreements for industrial and office properties. Use when reviewing lease terms, negotiating base rent/operating expenses, analyzing tenant improvements and free",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": ".claude/skills/commercial-lease-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "commercial",
+        "lease",
+        "expert"
+      ],
+      "stars": 4,
+      "install": "reggiechan74/vp-real-estate/.claude/skills/commercial-lease-expert",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "commitlint",
       "description": "When setting up commit message validation for a project. When project has commitlint.config.js or .commitlintrc files. When configuring CI/CD to enforce commit format. When extracting commit rules for",
       "repo": "Jamie-BitFlight/claude_skills",
@@ -6004,6 +5917,21 @@
       ],
       "stars": 3,
       "install": "vapvarun/claude-backup/skills/customer-support",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "decision-critic",
+      "description": "(user)",
+      "repo": "rjmurillo/ai-agents",
+      "path": ".claude/skills/decision-critic",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "decision",
+        "critic"
+      ],
+      "stars": 3,
+      "install": "rjmurillo/ai-agents/.claude/skills/decision-critic",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6646,21 +6574,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "backend-deployment",
-      "description": "Your approach to handling backend deployment. Use this skill when working on files where backend deployment comes into play.",
-      "repo": "jaypaulb/CanvusAPI-LLMDemo",
-      "path": ".claude/skills/backend-deployment",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "backend",
-        "deployment"
-      ],
-      "stars": 2,
-      "install": "jaypaulb/CanvusAPI-LLMDemo/.claude/skills/backend-deployment",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "bellog-hooks",
       "description": "Provides custom React hooks patterns and best practices specific to Bellog. Triggers when creating custom hooks or implementing interactive features.",
       "repo": "whddltjdwhd/bellog",
@@ -6673,6 +6586,21 @@
       ],
       "stars": 2,
       "install": "whddltjdwhd/bellog/.claude/skills/bellog-hooks",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "bundle-analyzer",
+      "description": "Analyzes JavaScript bundle sizes, identifies large dependencies, and suggests optimizations for webpack, vite, rollup. Use when user asks to \"analyze bundle\", \"optimize bundle size\", \"reduce bundle\", ",
+      "repo": "Dexploarer/hyper-forge",
+      "path": ".claude/skills/bundle-analyzer",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "bundle",
+        "analyzer"
+      ],
+      "stars": 2,
+      "install": "Dexploarer/hyper-forge/.claude/skills/bundle-analyzer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6957,21 +6885,6 @@
       ],
       "stars": 2,
       "install": "lsst-sqre/squareone/.claude/skills/docker-version-validation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dpo-specialist",
-      "description": "Expert Data Protection Officer (Datenschutzbeauftragter) with deep knowledge of EU GDPR (DSGVO), German BDSG, and ISO 27701:2025/2019 (PIMS). Specializes in smart integration with existing ISMS infras",
-      "repo": "moag1000/Little-ISMS-Helper",
-      "path": ".claude/skills/dpo-specialist",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "dpo",
-        "specialist"
-      ],
-      "stars": 2,
-      "install": "moag1000/Little-ISMS-Helper/.claude/skills/dpo-specialist",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -7360,21 +7273,6 @@
       "source": "local"
     },
     {
-      "name": "schedule-validator",
-      "description": "Validate generated schedules for ACGME compliance, coverage gaps, and operational viability. Use when verifying schedule integrity before deployment or investigating schedule issues.",
-      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-      "path": ".claude/skills/schedule-validator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "schedule",
-        "validator"
-      ],
-      "stars": 2,
-      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/schedule-validator",
-      "source": "local"
-    },
-    {
       "name": "scripting",
       "description": "DevOps scripting with Bash, Python, and Go for automation, tooling, and infrastructure management",
       "repo": "pluginagentmarketplace/custom-plugin-devops",
@@ -7490,21 +7388,6 @@
       ],
       "stars": 1,
       "install": "X-McKay/kubani",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "address-parser",
-      "description": "Parse unstructured addresses into structured components - street, city, state, zip, country with validation.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "address-parser",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "address",
-        "parser"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/address-parser",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -7629,22 +7512,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "architectural-amendment-protocol",
-      "description": "Amend architectural specifications through formal protocol.",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "skills/architectural-amendment-protocol",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "architectural",
-        "amendment",
-        "protocol"
-      ],
-      "stars": 1,
-      "install": "starwreckntx/IRP__METHODOLOGIES-/skills/architectural-amendment-protocol",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "aws-diagram",
       "description": "Generate AWS architecture diagrams from infrastructure JSON. Use when user asks to \"generate diagram\", \"create AWS diagram\", \"visualize infrastructure\", or \"draw architecture\".",
       "repo": "mpuig/claude-cloud-diagrams",
@@ -7657,21 +7524,6 @@
       ],
       "stars": 1,
       "install": "mpuig/claude-cloud-diagrams/skills/aws-diagram",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "aws-discover",
-      "description": "Discover AWS infrastructure and save to JSON. Use when user asks to \"discover AWS\", \"explore AWS account\", \"scan AWS infrastructure\", or \"create infrastructure JSON\".",
-      "repo": "mpuig/claude-cloud-diagrams",
-      "path": "skills/aws-discover",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "aws",
-        "discover"
-      ],
-      "stars": 1,
-      "install": "mpuig/claude-cloud-diagrams/skills/aws-discover",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -8619,6 +8471,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "functional-caas-provision",
+      "description": "Provision functional consciousness-as-a-service capabilities.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "skills/functional-caas-provision",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "functional",
+        "caas",
+        "provision"
+      ],
+      "stars": 1,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/skills/functional-caas-provision",
+      "source": "local"
+    },
+    {
       "name": "functional-introspection-principle",
       "description": "Apply functional introspection principles to self-analysis.",
       "repo": "starwreckntx/IRP__METHODOLOGIES-",
@@ -8950,6 +8818,18 @@
       "source": "local"
     },
     {
+      "name": "landing-page-marketing",
+      "description": "Automate landing page updates and marketing asset capture following established patterns",
+      "repo": "vitorsilva/saberloop",
+      "path": ".claude/skills/landing-page-marketing",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 1,
+      "install": "vitorsilva/saberloop/.claude/skills/landing-page-marketing",
+      "source": "github.com/vitorsilva/saberloop"
+    },
+    {
       "name": "learning-graph-generator",
       "description": "Generates a comprehensive learning graph from a course description, including 200 concepts with dependencies, taxonomy categorization, and quality validation reports. Use this when the user wants to c",
       "repo": "dmccreary/signal-processing",
@@ -8979,22 +8859,6 @@
       ],
       "stars": 1,
       "install": "dmccreary/signal-processing",
-      "source": "local"
-    },
-    {
-      "name": "linking-hms-to-hecras",
-      "description": "Links HEC-HMS watershed models to HEC-RAS river models by extracting HMS DSS resultsand preparing them for RAS boundary condition import. Handles flow hydrograph export,spatial referencing (HMS outlet",
-      "repo": "gpt-cmdr/hms-commander",
-      "path": ".claude/skills/linking-hms-to-hecras",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "linking",
-        "hms",
-        "hecras"
-      ],
-      "stars": 1,
-      "install": "gpt-cmdr/hms-commander/.claude/skills/linking-hms-to-hecras",
       "source": "local"
     },
     {
@@ -9288,22 +9152,6 @@
       "source": "local"
     },
     {
-      "name": "project-status-sync",
-      "description": "Use to keep GitHub Project fields synchronized with actual work state - updates status, verification, criteria counts, and other project-specific fields",
-      "repo": "troykelly/claude-skills",
-      "path": "skills/project-status-sync",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "project",
-        "status",
-        "sync"
-      ],
-      "stars": 1,
-      "install": "troykelly/claude-skills/skills/project-status-sync",
-      "source": "local"
-    },
-    {
       "name": "proof-weighted-optimization",
       "description": "Optimize decisions using proof-weighted scoring.",
       "repo": "starwreckntx/IRP__METHODOLOGIES-",
@@ -9553,23 +9401,6 @@
       ],
       "stars": 1,
       "install": "erichowens/some_claude_skills/.claude/skills/site-reliability-engineer",
-      "source": "local"
-    },
-    {
-      "name": "social-media-bio-generator",
-      "description": "Create compelling social media bios for any platform. Use when the user needs bios for Twitter/X, Instagram, LinkedIn, TikTok, YouTube, or any social platform.",
-      "repo": "az9713/ai-co-writing-claude-skills",
-      "path": ".claude/skills/social-media-bio-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "social",
-        "media",
-        "bio",
-        "generator"
-      ],
-      "stars": 1,
-      "install": "az9713/ai-co-writing-claude-skills/.claude/skills/social-media-bio-generator",
       "source": "local"
     },
     {
@@ -10308,6 +10139,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "adf-master",
+      "description": "Comprehensive Azure Data Factory knowledge base with official documentation sources, CI/CD methods, deployment patterns, and troubleshooting resources",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "plugins/adf-master/skills/adf-validation-rules",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/plugins/adf-master/skills/adf-validation-rules",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "adk-deployment-specialist",
       "description": "Deploy and orchestrate Vertex AI ADK agents using A2A protocol. Manages AgentCard discovery, task submission, Code Execution Sandbox, and Memory Bank. Use when asked to \"deploy ADK agent\" or \"orchestr",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -11017,6 +10860,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "agentuity-cli-cloud-deployment-remove",
+      "description": "Remove a specific deployment. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/examples",
+      "path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-remove",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/examples/training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-remove",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "agentuity-cli-cloud-deployment-show",
       "description": "Show details about a specific deployment. Requires authentication. Use for Agentuity cloud platform operations",
       "repo": "agentuity/examples",
@@ -11270,6 +11125,18 @@
       "stars": 0,
       "install": "ecolonco/skill",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "analyze-ci-failure-logs",
+      "description": "Parse and analyze CI failure logs to identify root causes and error patterns. Use when CI builds fail to understand what broke.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/analyze-ci-failure-logs",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/analyze-ci-failure-logs",
+      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "analyze-thread",
@@ -12230,6 +12097,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "architecture-paradigm-modular-monolith",
+      "description": "Single deployable with enforced module boundaries for team autonomy without distributed complexity.Triggers: modular monolith, module boundaries, single deployment, team autonomyUse when: teams need a",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/archetypes/skills/architecture-paradigm-modular-monolith",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "architecture",
+        "modular-monolith",
+        "monolith",
+        "internal-boundaries",
+        "team-autonomy"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/archetypes/skills/architecture-paradigm-modular-monolith",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "architecture-paradigm-service-based",
       "description": "Coarse-grained service architecture for deployment independence without microservices complexity.Triggers: service-based, SOA, coarse-grained services, domain servicesUse when: teams need deployment i",
       "repo": "athola/claude-night-market",
@@ -12297,6 +12182,25 @@
       "stars": 0,
       "install": "Matchpoint-AI/matchpoint-github-runners-helm/.claude/skills/argocd-bootstrap",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "argocd-expert",
+      "description": "Expert-level ArgoCD GitOps deployment, application management, sync strategies, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/argocd-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "argocd",
+        "gitops",
+        "kubernetes",
+        "continuous-deployment",
+        "declarative",
+        "automation"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/argocd-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "argocd-generator",
@@ -13195,27 +13099,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "aws-sdk-java-v2-s3",
-      "description": "Amazon S3 patterns and examples using AWS SDK for Java 2.x. Use when working with S3 buckets, uploading/downloading objects, multipart uploads, presigned URLs, S3 Transfer Manager, object operations, ",
-      "repo": "giuseppe-trisciuoglio/developer-kit",
-      "path": "skills/aws-java/aws-sdk-java-v2-s3",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "aws",
-        "s3",
-        "java",
-        "sdk",
-        "storage",
-        "objects",
-        "transfer-manager",
-        "presigned-urls"
-      ],
-      "stars": 0,
-      "install": "giuseppe-trisciuoglio/developer-kit/skills/aws-java/aws-sdk-java-v2-s3",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "aws-specialist",
       "description": "Deliver AWS-first architectures with secure, cost-aware operations",
       "repo": "DNYoussef/context-cascade",
@@ -13225,6 +13108,18 @@
       "tags": [],
       "stars": 0,
       "install": "DNYoussef/context-cascade/skills/operations/cloud-platforms/aws-specialist",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "aws-strands-agents-agentcore",
+      "description": "Use when working with AWS Strands Agents SDK or Amazon Bedrock AgentCore platform for building AI agents. Provides architecture guidance, implementation patterns, deployment strategies, observability,",
+      "repo": "sammcj/agentic-coding",
+      "path": "Claude/skills/aws-strands-agents-agentcore",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding/Claude/skills/aws-strands-agents-agentcore",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13348,22 +13243,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "azure-artifacts-manager",
-      "description": "Manage Azure Artifacts including package feeds, versions, and dependencies. Use when publishing or managing artifact packages.",
-      "repo": "ntaksh42/agents",
-      "path": ".claude/skills/azure-artifacts-manager",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "azure",
-        "artifacts",
-        "manager"
-      ],
-      "stars": 0,
-      "install": "ntaksh42/agents/.claude/skills/azure-artifacts-manager",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "azure-env-builder",
       "description": "エンタープライズ Azure 環境構築スキル。AVM 活用、VM アプリ初期化、App Service/AKS/Container Apps へのアプリデプロイ、サービス間設定連携、CI/CD 生成をサポート。Hub-Spoke, AKS, AI Foundry 等の複合アーキテクチャに対応。Bicep MCP と Microsoft Learn Docs MCP で最新スキーマを取得。",
       "repo": "aktsmm/Agent-Skills",
@@ -13418,22 +13297,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "azure-pipelines-generator",
-      "description": "Generate Azure Pipelines YAML for CI/CD with multi-stage builds and deployments. Use when creating Azure DevOps pipelines or automating builds.",
-      "repo": "ntaksh42/agents",
-      "path": ".claude/skills/azure-pipelines-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "azure",
-        "pipelines",
-        "generator"
-      ],
-      "stars": 0,
-      "install": "ntaksh42/agents/.claude/skills/azure-pipelines-generator",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "azure-service-connections",
@@ -13491,18 +13354,6 @@
       "tags": [],
       "stars": 0,
       "install": "fcakyon/claude-codex-settings/plugins/azure-tools/skills/azure-usage",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "backlog-moderator",
-      "description": "Business moderator for backlog prioritization debates. Synthesizes Champion and Critic views into final rankings. Optimizes for team productivity and sustainable velocity.",
-      "repo": "pcortes/swarm-attack",
-      "path": ".claude/skills/backlog-moderator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "pcortes/swarm-attack/.claude/skills/backlog-moderator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13800,6 +13651,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "biological-expert",
+      "description": "Expert-level biology, biotechnology, genetics, bioinformatics, and computational biology",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/scientific/biological-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "biology",
+        "biotechnology",
+        "genetics",
+        "bioinformatics",
+        "genomics"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/scientific/biological-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    },
+    {
       "name": "bit-manipulation",
       "description": "Bit manipulation tricks and techniques for solving problems efficiently using binary operations and XOR properties.",
       "repo": "pluginagentmarketplace/custom-plugin-data-structures-algorithms",
@@ -13919,18 +13788,6 @@
       "tags": [],
       "stars": 0,
       "install": "delorenj/skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "blueprint-skill-creator",
-      "description": "Creates blueprint-driven skills for infrastructure and deployment tasks. This skill should be used when creating new skills that require templates, patterns, or reference configurations (e.g., Dockerf",
-      "repo": "mjunaidca/mjs-agent-skills",
-      "path": "docs/taskflow-vault/skills/engineering/blueprint-skill-creator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "mjunaidca/mjs-agent-skills/docs/taskflow-vault/skills/engineering/blueprint-skill-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -14134,6 +13991,18 @@
       "stars": 0,
       "install": "cornmanwtf/ABANG-COLEK/skills/devops-infra/build-optimization",
       "source": "github.com/cornmanwtf/ABANG-COLEK"
+    },
+    {
+      "name": "build-run-local",
+      "description": "Run local builds with proper environment setup. Use when building code locally to verify changes before pushing.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/build-run-local",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/build-run-local",
+      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "building-cicd-pipelines",
@@ -14414,18 +14283,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "call-review-kit",
-      "description": "Use to facilitate structured call review sessions with agendas, scorecards, and follow-ups.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/sales-calls/skills/call-review-kit",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/sales-calls/skills/call-review-kit",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "canary-deployment-setup",
       "description": "Canary Deployment Setup - Auto-activating skill for ML Deployment.Triggers on: canary deployment setup, canary deployment setupPart of the ML Deployment skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -14496,18 +14353,6 @@
       "stars": 0,
       "install": "vishalsachdev/learning-design-pillars",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "capacity-modeling",
-      "description": "Use to model bookings targets vs headcount, ramp, and productivity assumptions.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/sales-operations/skills/capacity-modeling",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/sales-operations/skills/capacity-modeling",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "career-strategy",
@@ -14887,6 +14732,24 @@
       "stars": 0,
       "install": "nikhilvallishayee/universal-pattern-space",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "chunking-strategy",
+      "description": "Implement optimal chunking strategies in RAG systems and document processing pipelines. Use when building retrieval-augmented generation systems, vector databases, or processing large documents that r",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/ai/chunking-strategy",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "rag",
+        "chunking",
+        "vector-search",
+        "embeddings",
+        "document-processing"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/ai/chunking-strategy",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
       "name": "ci-cd-agent",
@@ -15722,18 +15585,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "clojure-trove",
-      "description": "Trove is a minimal logging facade for Clojure/Script supporting both traditional and structured logging. Use when writing libraries that need logging without forcing a backend choice, or when you need",
-      "repo": "Ramblurr/nix-devenv",
-      "path": "prompts/skills/clojure-trove",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Ramblurr/nix-devenv/prompts/skills/clojure-trove",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cloud-alignment",
       "description": "Align with cloud architecture frameworks (Microsoft CAF, AWS Well-Architected). Check alignment with pillars, identify gaps.",
       "repo": "melodic-software/claude-code-plugins",
@@ -16139,6 +15990,22 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "cloudflare-ci-cd-github-actions",
+      "description": "\"Use this skill whenever the user wants to set up, refactor, or maintain a GitHub Actions CI/CD pipeline for deploying Cloudflare Workers/Pages apps (e.g. Hono + TypeScript) with D1/R2, including test",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": ".claude/skills/cloudflare-ci-cd-github-actions",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "cloudflare",
+        "github",
+        "actions"
+      ],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/.claude/skills/cloudflare-ci-cd-github-actions",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "cloudflare-deploy",
       "description": "Deploy the resume app to Cloudflare Pages using the documented build and wrangler steps. Use when deploying, troubleshooting deploys, or updating Pages-related CI configuration.",
       "repo": "salieri/resume",
@@ -16319,6 +16186,18 @@
       "stars": 0,
       "install": "olivenet-iot/olivenet-social-bot/.claude/skills/cloudinary-cdn",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "clubhouse",
+      "description": "Enables Claude to manage Clubhouse rooms and audio social interactions",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/clubhouse",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/clubhouse",
+      "source": "github.com/Andrejones92/canifi-life-os"
     },
     {
       "name": "cluster-admin",
@@ -16884,6 +16763,18 @@
       "stars": 0,
       "install": "cornmanwtf/ABANG-COLEK/skills/devops-infra/configuration-management",
       "source": "github.com/cornmanwtf/ABANG-COLEK"
+    },
+    {
+      "name": "configuration-patterns",
+      "description": "Enforce Nix + Pixi + direnv + Home-manager configuration patterns",
+      "repo": "FlexNetOS/ripple-env",
+      "path": ".claude/skills/configuration-patterns",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "FlexNetOS/ripple-env/.claude/skills/configuration-patterns",
+      "source": "github.com/FlexNetOS/ripple-env"
     },
     {
       "name": "configuring-github-actions",
@@ -17730,6 +17621,18 @@
       "name": "creating-kubernetes-deployments",
       "description": "Use when generating Kubernetes deployment manifests and services. Trigger with phrases like \"create kubernetes deployment\", \"generate k8s manifest\", \"deploy app to kubernetes\", or \"create service and ",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "creating-kubernetes-deployments",
+      "description": "Use when generating Kubernetes deployment manifests and services. Trigger with phrases like \"create kubernetes deployment\", \"generate k8s manifest\", \"deploy app to kubernetes\", or \"create service and ",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "",
       "branch": "main",
       "category": "devops",
@@ -18140,6 +18043,18 @@
       "stars": 0,
       "install": "vasic-digital/SuperAgent/skills/plugins/saas-packs/customerio-pack/customerio-advanced-troubleshooting",
       "source": "github.com/vasic-digital/SuperAgent"
+    },
+    {
+      "name": "cynara-policy-checker",
+      "description": "Queries Cynara database and validates runtime privilege policies. Coordinates access control decisions across system services.",
+      "repo": "plurigrid/asi",
+      "path": "skills/cynara-policy-checker",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/skills/cynara-policy-checker",
+      "source": "github.com/plurigrid/asi"
     },
     {
       "name": "d20-players",
@@ -19537,18 +19452,6 @@
       "name": "deployment-configs",
       "description": "Production deployment configurations for Celery workers and beat schedulers across Docker, Kubernetes, and systemd environments. Use when deploying Celery to production, containerizing workers, orches",
       "repo": "vanman2024/ai-dev-marketplace",
-      "path": "plugins/redis/skills/deployment-configs",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "vanman2024/ai-dev-marketplace/plugins/redis/skills/deployment-configs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "deployment-configs",
-      "description": "Production deployment configurations for Celery workers and beat schedulers across Docker, Kubernetes, and systemd environments. Use when deploying Celery to production, containerizing workers, orches",
-      "repo": "vanman2024/ai-dev-marketplace",
       "path": "",
       "branch": "main",
       "category": "devops",
@@ -19895,18 +19798,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "devops",
-      "description": "Deploy to Cloudflare (Workers, R2, D1), Docker, GCP (Cloud Run, GKE), Kubernetes (kubectl, Helm). Use for serverless, containers, CI/CD, GitOps, security audit.",
-      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
-      "path": ".opencode/skills/devops",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/.opencode/skills/devops",
-      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
-    },
-    {
       "name": "devops-agent",
       "description": "Infrastructure, deployment, and operations automation",
       "repo": "az9713/moltbot",
@@ -19917,6 +19808,24 @@
       "stars": 0,
       "install": "az9713/moltbot/src/skills/bundled/devops-agent",
       "source": "github.com/az9713/moltbot"
+    },
+    {
+      "name": "devops-automator",
+      "description": "Expert DevOps engineer for CI/CD, IaC, Kubernetes, and deployment automation. Activate on: CI/CD, GitHub Actions, Terraform, Docker, Kubernetes, Helm, ArgoCD, GitOps, deployment pipeline, infrastructu",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/devops-automator",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "ci-cd",
+        "terraform",
+        "docker",
+        "kubernetes",
+        "gitops"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/devops-automator",
+      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "devops-bestays-infra",
@@ -20003,21 +19912,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "devops-deployer",
-      "description": "Comprehensive DevOps and deployment workflow that orchestrates infrastructure automation, CI/CD pipelines, container orchestration, and cloud deployment. Handles everything from infrastructure as code",
-      "repo": "ajianaz/skills-collection",
-      "path": "skills/devops-deployer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "devops",
-        "deployer"
-      ],
-      "stars": 0,
-      "install": "ajianaz/skills-collection/skills/devops-deployer",
-      "source": "local"
-    },
-    {
       "name": "devops-dx",
       "description": "GitHub/Railway housekeeping for CI env/secret management and DX maintenance.Use when setting or auditing GitHub Actions variables/secrets, syncing Railway env → GitHub, or fixing CI failures due to mi",
       "repo": "stars-end/agent-skills",
@@ -20068,6 +19962,24 @@
       "stars": 0,
       "install": "warpcode/dotfiles",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "devops-expert",
+      "description": "Expert-level DevOps practices, culture, automation, and continuous delivery",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/devops-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "devops",
+        "ci-cd",
+        "automation",
+        "infrastructure",
+        "culture"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/devops-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "devops-expert",
@@ -20145,22 +20057,6 @@
       ],
       "stars": 0,
       "install": "htooayelwinict/claude-config",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "devops-local-dev",
-      "description": "Manages the Bestays Docker Compose development environment including service orchestration, Makefile workflows, logs monitoring, and hot-reload development. This skill should be used when starting/sto",
-      "repo": "shredbx/demo-3d-model",
-      "path": ".claude/skills/devops-local-dev",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "devops",
-        "local",
-        "dev"
-      ],
-      "stars": 0,
-      "install": "shredbx/demo-3d-model/.claude/skills/devops-local-dev",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -20496,6 +20392,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "distributed-systems",
+      "description": "Distributed systems tools including NATS messaging, libp2p networking, and Temporal workflows",
+      "repo": "FlexNetOS/ripple-env",
+      "path": ".claude/skills/distributed-systems",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "FlexNetOS/ripple-env/.claude/skills/distributed-systems",
+      "source": "github.com/FlexNetOS/ripple-env"
+    },
+    {
       "name": "dnd-5e-rules",
       "description": "This skill provides guidance on finding and using D&D 5e rules for campaign content creation.",
       "repo": "JoernStoehler/dnd-claude-code",
@@ -20790,18 +20698,6 @@
     {
       "name": "docker-expert",
       "description": "Docker containerization expert with deep knowledge of multi-stage builds, image optimization, container security, Docker Compose orchestration, and production deployment patterns. Use PROACTIVELY for ",
-      "repo": "AxelMrak/ai",
-      "path": "skills/docker-expert",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "AxelMrak/ai/skills/docker-expert",
-      "source": "github.com/AxelMrak/ai"
-    },
-    {
-      "name": "docker-expert",
-      "description": "Docker containerization expert with deep knowledge of multi-stage builds, image optimization, container security, Docker Compose orchestration, and production deployment patterns. Use PROACTIVELY for ",
       "repo": "claudiodearaujo/IzaCenter",
       "path": ".gemini/skills/docker-expert",
       "branch": "main",
@@ -20810,6 +20706,18 @@
       "stars": 0,
       "install": "claudiodearaujo/IzaCenter/.gemini/skills/docker-expert",
       "source": "github.com/claudiodearaujo/IzaCenter"
+    },
+    {
+      "name": "docker-expert",
+      "description": "Docker containerization expert with deep knowledge of multi-stage builds, image optimization, container security, Docker Compose orchestration, and production deployment patterns. Use PROACTIVELY for ",
+      "repo": "AxelMrak/ai",
+      "path": "skills/docker-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/skills/docker-expert",
+      "source": "github.com/AxelMrak/ai"
     },
     {
       "name": "docker-infra",
@@ -21295,20 +21203,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "dokkado",
-      "description": "Five-phase reasoning protocol based on Musashi's Book of Five Rings. Ground (morphemic extraction), Water (pattern matching), Fire (unified derivation), Wind (predictions), Void (meta-closure). Use fo",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": ".claude/skills/dokkado",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "dokkado"
-      ],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework/.claude/skills/dokkado",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "dokploy-mcp",
       "description": "AI-driven deployment management using Dokploy MCP server for projects, applications, and databases",
       "repo": "enuno/claude-command-and-control",
@@ -21711,18 +21605,6 @@
       "stars": 0,
       "install": "nathan-a-king/writing-infrastructure",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "editorial-ops",
-      "description": "Use when planning multi-channel editorial calendars, enforcing publishing cadences, and coordinating distribution workflows across GTM teams.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/content-marketing/skills/editorial-ops",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/content-marketing/skills/editorial-ops",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "educator-teacher",
@@ -22170,18 +22052,6 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/account-management/skills/exec-briefing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "exec-briefing-kit",
-      "description": "Template for packaging revenue analytics into concise exec/board narratives.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/revenue-analytics/skills/exec-briefing-kit",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/revenue-analytics/skills/exec-briefing-kit",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -23384,21 +23254,6 @@
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frequency-lookup",
-      "description": "Look up frequency allocations, band plans, and known stations for radio services (marine, aviation, amateur, broadcast, NOAA weather). Use when finding frequencies to monitor, verifying band allocatio",
-      "repo": "TobiasWooldridge/WaveCap-SDR",
-      "path": ".claude/skills/frequency-lookup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "frequency",
-        "lookup"
-      ],
-      "stars": 0,
-      "install": "TobiasWooldridge/WaveCap-SDR/.claude/skills/frequency-lookup",
-      "source": "local"
     },
     {
       "name": "fto-analyst",
@@ -25029,6 +24884,25 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "grafana-expert",
+      "description": "Expert-level Grafana dashboards, visualization, data sources, alerting, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/grafana-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "grafana",
+        "dashboards",
+        "visualization",
+        "monitoring",
+        "observability",
+        "alerting"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/grafana-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    },
+    {
       "name": "grammar-cheatsheet",
       "description": "Expert in creating visual grammar cheatsheets for Kabardian language with morphological breakdowns and corpus examples. Generates cheatsheets with ASCII-tree morpheme visualization (like verb_translat",
       "repo": "panagoa/kbd_translate",
@@ -25329,18 +25203,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "headless-runner",
-      "description": "Run Claude Code in headless/programmatic mode for automation, CI/CD, and agent workflows. Use when user asks about headless mode, programmatic execution, scripting Claude, or automating Claude workflo",
-      "repo": "sunholo-data/ailang",
-      "path": ".claude/skills/headless-runner",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "sunholo-data/ailang/.claude/skills/headless-runner",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "health-nutrition-expert",
       "description": "Apply cutting-edge 2025 nutrition science on longevity, metabolic health, gut microbiome, and evidence-based dietary patterns for optimal vitality and disease prevention",
       "repo": "frankxai/claude-code-config",
@@ -25551,6 +25413,30 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "heroku",
+      "description": "Deploy apps, manage dynos, and monitor resources on Heroku",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/heroku",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/heroku",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
+      "name": "hetzner-provisioner",
+      "description": "Provisions infrastructure on Hetzner Cloud with Terraform/Pulumi. Generates IaC code for CX11/CX21/CX31 instances, managed Postgres, SSL configuration, Docker deployment. Activates for deploy on Hetzn",
+      "repo": "anton-abyzov/specweave",
+      "path": "plugins/specweave-infrastructure/skills/hetzner-provisioner",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/plugins/specweave-infrastructure/skills/hetzner-provisioner",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26866,6 +26752,18 @@
       "source": "local"
     },
     {
+      "name": "install-workflow",
+      "description": "Create GitHub Actions workflows for automated package building and distribution. Use in package phase to automate .mojopkg building and release creation.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/install-workflow",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/install-workflow",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "intent-analyzer",
       "description": "Advanced intent interpretation system that analyzes user requests using cognitive science principles and extrapolates logical volition. Use when user requests are ambiguous, when deeper understanding ",
       "repo": "DNYoussef/ai-chrome-extension",
@@ -27050,6 +26948,25 @@
       "stars": 0,
       "install": "pcortes/swarm-attack/.claude/skills/issue-validator",
       "source": "local"
+    },
+    {
+      "name": "istio-expert",
+      "description": "Expert-level Istio service mesh management, traffic control, security, and observability for Kubernetes",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/istio-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "istio",
+        "service-mesh",
+        "kubernetes",
+        "microservices",
+        "mtls",
+        "traffic-management"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/istio-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "istio-traffic-management",
@@ -27542,15 +27459,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "kafka-iac-deployment",
-      "description": "Infrastructure as Code (IaC) deployment expert for Apache Kafka. Guides Terraform deployments across Apache Kafka (KRaft mode), AWS MSK, Azure Event Hubs. Activates for terraform, iac, infrastructure ",
+      "name": "kafka-kubernetes",
+      "description": "Kubernetes deployment expert for Apache Kafka. Guides K8s deployments using Helm charts, operators (Strimzi, Confluent), StatefulSets, and production best practices. Activates for kubernetes, k8s, hel",
       "repo": "anton-abyzov/specweave",
-      "path": "plugins/specweave-kafka/skills/kafka-iac-deployment",
+      "path": "plugins/specweave-kafka/skills/kafka-kubernetes",
       "branch": "main",
       "category": "devops",
       "tags": [],
       "stars": 0,
-      "install": "anton-abyzov/specweave/plugins/specweave-kafka/skills/kafka-iac-deployment",
+      "install": "anton-abyzov/specweave/plugins/specweave-kafka/skills/kafka-kubernetes",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27941,18 +27858,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "kubernetes-deployment-creator",
-      "description": "Kubernetes Deployment Creator - Auto-activating skill for DevOps Advanced.Triggers on: kubernetes deployment creator, kubernetes deployment creatorPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "kubernetes-essentials",
       "description": "Quick reference for Kubernetes core concepts and kubectl commands. This skill should be used as a refresher for basic K8s operations including pods, deployments, services, configmaps, secrets, and nam",
       "repo": "mjunaidca/mjs-agent-skills",
@@ -27963,6 +27868,25 @@
       "stars": 0,
       "install": "mjunaidca/mjs-agent-skills/docs/taskflow-vault/skills/engineering/kubernetes-essentials",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "kubernetes-expert",
+      "description": "Expert-level Kubernetes cluster management, deployment strategies, networking, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/kubernetes-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "kubernetes",
+        "k8s",
+        "containers",
+        "orchestration",
+        "devops",
+        "cloud-native"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/kubernetes-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "kubernetes-helm-deployment",
@@ -28551,6 +28475,25 @@
       "stars": 0,
       "install": "trounceabout/skills-library",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "linkerd-expert",
+      "description": "Expert-level Linkerd service mesh management, traffic control, reliability, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/linkerd-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "linkerd",
+        "service-mesh",
+        "kubernetes",
+        "microservices",
+        "mtls",
+        "observability"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/linkerd-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "linkerd-patterns",
@@ -29875,18 +29818,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "minikube",
-      "description": "Manages local Kubernetes clusters using Minikube for development and testing. This skill should be used when setting up local K8s environments, enabling addons, configuring networking, and deploying a",
-      "repo": "mjunaidca/mjs-agent-skills",
-      "path": "docs/taskflow-vault/skills/engineering/minikube",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "mjunaidca/mjs-agent-skills/docs/taskflow-vault/skills/engineering/minikube",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "minikube-local-development",
       "description": "Complete guide for local Kubernetes development with Minikube: installation, configuration, image management, addons, networking, and troubleshooting for efficient local development workflows.",
       "repo": "mub7865/Hackathone-2",
@@ -29944,18 +29875,6 @@
       "tags": [],
       "stars": 0,
       "install": "joe-re/eyes-on-claude-code",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ml-deployment-helper",
-      "description": "Prepares ML models for production deployment with containerization, API creation, monitoring setup, and A/B testing. Activates for \"deploy model\", \"production deployment\", \"model API\", \"containerize m",
-      "repo": "anton-abyzov/specweave",
-      "path": "plugins/specweave-ml/skills/ml-deployment-helper",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave/plugins/specweave-ml/skills/ml-deployment-helper",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30061,6 +29980,27 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "moai-domain-adb",
+      "description": "Comprehensive ADB (Android Debug Bridge) automation skill for game bot development,\ndevice management, computer vision integration, and Tauri-Python orchestration.\nProvides modular expertise for build",
+      "repo": "rdmptv/AdbAutoPlayer",
+      "path": ".claude/skills/moai-domain-adb",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "android",
+        "automation",
+        "game-bot",
+        "device-management",
+        "computer-vision",
+        "tauri",
+        "adb-cli",
+        "testing"
+      ],
+      "stars": 0,
+      "install": "rdmptv/AdbAutoPlayer/.claude/skills/moai-domain-adb",
+      "source": "github.com/rdmptv/AdbAutoPlayer"
+    },
+    {
       "name": "moai-domain-devops",
       "description": "CI/CD pipelines, Docker 27, Kubernetes 1.32, and infrastructure as code.",
       "repo": "kivo360/quickhooks",
@@ -30075,26 +30015,6 @@
       "stars": 0,
       "install": "kivo360/quickhooks/.claude/skills/moai-domain-devops",
       "source": "local"
-    },
-    {
-      "name": "mobile-testing",
-      "description": "Comprehensive mobile testing for iOS and Android platforms including gestures, sensors, permissions, device fragmentation, and performance. Use when testing native apps, hybrid apps, or mobile web, en",
-      "repo": "proffesor-for-testing/sentinel-api-testing",
-      "path": ".claude/skills/mobile-testing",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "mobile",
-        "ios",
-        "android",
-        "appium",
-        "gestures",
-        "device-fragmentation",
-        "sensors"
-      ],
-      "stars": 0,
-      "install": "proffesor-for-testing/sentinel-api-testing/.claude/skills/mobile-testing",
-      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
     },
     {
       "name": "mobile-testing",
@@ -30115,6 +30035,26 @@
       "stars": 0,
       "install": "proffesor-for-testing/agentic-qe/.claude/skills/mobile-testing",
       "source": "github.com/proffesor-for-testing/agentic-qe"
+    },
+    {
+      "name": "mobile-testing",
+      "description": "Comprehensive mobile testing for iOS and Android platforms including gestures, sensors, permissions, device fragmentation, and performance. Use when testing native apps, hybrid apps, or mobile web, en",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": ".claude/skills/mobile-testing",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "mobile",
+        "ios",
+        "android",
+        "appium",
+        "gestures",
+        "device-fragmentation",
+        "sensors"
+      ],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/.claude/skills/mobile-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
     },
     {
       "name": "modal-serverless-gpu",
@@ -30244,15 +30184,48 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "monaco-payslip-calculator",
-      "description": "Calculate Monaco payslips (bulletin de salaire) with social security contributions, taxes, and net salary. Use when user requests Monaco payslip calculations, salary breakdowns for Monaco employees, o",
-      "repo": "silvainfm/paie_reflex",
-      "path": ".claude/skills/monaco-payslip-calculator",
+      "name": "modern-auth-2026",
+      "description": "Modern authentication implementation for 2026 - passkeys (WebAuthn), OAuth (Google, Apple), magic links, and cross-device sync. Use for passwordless-first authentication, social login setup, Supabase ",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/modern-auth-2026",
       "branch": "main",
       "category": "devops",
-      "tags": [],
+      "tags": [
+        "authentication",
+        "passkeys",
+        "webauthn",
+        "oauth",
+        "passwordless",
+        "supabase",
+        "mfa",
+        "social-login"
+      ],
       "stars": 0,
-      "install": "silvainfm/paie_reflex/.claude/skills/monaco-payslip-calculator",
+      "install": "erichowens/some_claude_skills/.claude/skills/modern-auth-2026",
+      "source": "github.com/erichowens/some_claude_skills"
+    },
+    {
+      "name": "moe-training",
+      "description": "Train Mixture of Experts (MoE) models using DeepSpeed or HuggingFace. Use when training large-scale models with limited compute (5× cost reduction vs dense models), implementing sparse architectures l",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "19-emerging-techniques/moe-training",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "Emerging Techniques",
+        "MoE",
+        "Mixture Of Experts",
+        "Sparse Models",
+        "DeepSpeed",
+        "Expert Parallelism",
+        "Mixtral",
+        "DeepSeek",
+        "Routing",
+        "Load Balancing",
+        "Efficient Training"
+      ],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/19-emerging-techniques/moe-training",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30569,34 +30542,6 @@
       "stars": 0,
       "install": "cornmanwtf/ABANG-COLEK/skills/devops-infra/multi-region-deployment",
       "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
-      "name": "multi-stage-pipeline",
-      "description": "Create multi-stage Azure Pipelines with deployment gates and approvals. Use when implementing complex deployment pipelines with multiple environments.",
-      "repo": "ntaksh42/agents",
-      "path": ".claude/skills/multi-stage-pipeline",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "multi",
-        "stage",
-        "pipeline"
-      ],
-      "stars": 0,
-      "install": "ntaksh42/agents/.claude/skills/multi-stage-pipeline",
-      "source": "local"
-    },
-    {
-      "name": "multiplicity-orchestration",
-      "description": "Run multiple AI instances in parallel, coordinate their execution, manage timing and dependencies",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": ".claude/skills/multiplicity-orchestration",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework/.claude/skills/multiplicity-orchestration",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "music-discover",
@@ -30936,6 +30881,24 @@
       "stars": 0,
       "install": "agentgptsmith/MonadFramework/.claude/skills/Nexus-MC/nexus-graph-visualizer",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "nginx-expert",
+      "description": "Expert-level Nginx configuration, reverse proxy, load balancing, SSL/TLS, caching, and performance tuning",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/nginx-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "nginx",
+        "web-server",
+        "reverse-proxy",
+        "load-balancer",
+        "ssl"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/nginx-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "ngx-brand-voice",
@@ -31775,18 +31738,6 @@
       "name": "openwebf-release",
       "description": "DEPRECATED umbrella Skill (backward compatibility). Use only when release work spans deployment + cache headers + versioning + rollback. Prefer focused `openwebf-release-cdn-deploy` and `openwebf-rele",
       "repo": "archview-ai/webf-plugin",
-      "path": "webf-plugin/skills/openwebf-release-versioning-rollback",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-release-versioning-rollback",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "openwebf-release",
-      "description": "DEPRECATED umbrella Skill (backward compatibility). Use only when release work spans deployment + cache headers + versioning + rollback. Prefer focused `openwebf-release-cdn-deploy` and `openwebf-rele",
-      "repo": "archview-ai/webf-plugin",
       "path": "",
       "branch": "main",
       "category": "devops",
@@ -32236,18 +32187,6 @@
       "source": "local"
     },
     {
-      "name": "packaging-framework",
-      "description": "Use to structure pricing/packaging proposals with clear fences and value pillars.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/pricing-strategy/skills/packaging-framework",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/pricing-strategy/skills/packaging-framework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "paddle",
       "description": "Integrates billing and subscriptions with Paddle merchant of record platform. Use when selling SaaS subscriptions with checkout overlays, pricing pages, and subscription management.",
       "repo": "mgd34msu/goodvibes-plugin",
@@ -32443,6 +32382,18 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pci-dss-validator",
+      "description": "Pci Dss Validator - Auto-activating skill for Security Advanced.Triggers on: pci dss validator, pci dss validatorPart of the Security Advanced skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -33539,18 +33490,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "predictive-skill-loading",
-      "description": "Anticipates and pre-loads optimal skills before task execution based on pattern matching and historical success rates",
-      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-      "path": "skills/predictive-skill-loading",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/skills/predictive-skill-loading",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "presentation-master",
       "description": "World-class presentation creation embodying principles from Garr Reynolds, Nancy Duarte, Guy Kawasaki, Seth Godin, and TED",
       "repo": "krishagel/geoffrey",
@@ -33677,30 +33616,6 @@
       "tags": [],
       "stars": 0,
       "install": "tikazyq/agentic-spec-forge/AGENTIC_SPEC_FORGE/spec_stage_skill/common_normal/principle-kiss",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "principle-soc",
-      "description": "实现关注点分离，确保不同职责模块化和边界清晰。当需要架构分层设计、模块职责划分、横切关注点处理时使用。覆盖层次分离、功能分离、横切关注点三大维度，提供分离检查清单和耦合问题的诊断修复方法。",
-      "repo": "tikazyq/agentic-spec-forge",
-      "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/common_advanced/principle-soc",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "tikazyq/agentic-spec-forge/AGENTIC_SPEC_FORGE/spec_stage_skill/common_advanced/principle-soc",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "principle-solid",
-      "description": "应用面向对象设计五大原则（单一职责、开闭、里氏替换、接口隔离、依赖倒置），系统化评审类与模块设计质量。当需要评审架构设计、重构现有代码、审查类职责划分时使用。支持多层次检查清单和违反原则的诊断修复。",
-      "repo": "tikazyq/agentic-spec-forge",
-      "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/common_advanced/principle-solid",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "tikazyq/agentic-spec-forge/AGENTIC_SPEC_FORGE/spec_stage_skill/common_advanced/principle-solid",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -34632,6 +34547,23 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "quantum-expert",
+      "description": "Expert-level quantum computing, Qiskit, quantum algorithms, and quantum information",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/scientific/quantum-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "quantum-computing",
+        "qiskit",
+        "quantum-algorithms",
+        "quantum-information"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/scientific/quantum-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    },
+    {
       "name": "query-grafana-tempo",
       "description": "Query and explore distributed traces in Grafana Tempo. Use when a user asks to pull tracing data for analysis.",
       "repo": "narqo/dotfiles",
@@ -34678,6 +34610,18 @@
       "stars": 0,
       "install": "johannesfritz/autonomous-orchestration",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "quora",
+      "description": "Enables Claude to manage Quora questions, answers, and knowledge sharing",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/quora",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/quora",
+      "source": "github.com/Andrejones92/canifi-life-os"
     },
     {
       "name": "quotefix",
@@ -35285,6 +35229,18 @@
     },
     {
       "name": "render",
+      "description": "Check deployments, manage services, monitor databases, and view logs on Render",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/render",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/render",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
+      "name": "render",
       "description": "Comprehensive guide for Render.com deployment and infrastructure management. Use when deploying apps to Render, configuring render.yaml Blueprints, managing web services/workers/cron jobs, setting up ",
       "repo": "eibrahimov/claude-skills",
       "path": "",
@@ -35296,18 +35252,6 @@
       "stars": 0,
       "install": "eibrahimov/claude-skills",
       "source": "local"
-    },
-    {
-      "name": "render",
-      "description": "Check deployments, manage services, monitor databases, and view logs on Render",
-      "repo": "Andrejones92/canifi-life-os",
-      "path": "skills/render",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Andrejones92/canifi-life-os/skills/render",
-      "source": "github.com/Andrejones92/canifi-life-os"
     },
     {
       "name": "request-tracing",
@@ -35404,6 +35348,24 @@
       "stars": 0,
       "install": "taiyousan15/taisun_agent/.claude/skills/research-cited-report",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "research-expert",
+      "description": "Expert-level research methodology, academic writing, statistical analysis, and scientific investigation",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/scientific/research-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "research",
+        "methodology",
+        "statistics",
+        "academic-writing",
+        "experimental-design"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/scientific/research-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "research-methodology",
@@ -35879,6 +35841,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "run-precommit",
+      "description": "Run pre-commit hooks locally or in CI to validate code quality before committing. Use to ensure commits meet quality standards and CI will pass.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/run-precommit",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/run-precommit",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "runbook-authoring",
       "description": "Author operational runbooks for incident response and troubleshooting",
       "repo": "melodic-software/claude-code-plugins",
@@ -35976,6 +35950,18 @@
       "stars": 0,
       "install": "anntnzrb/.claude",
       "source": "local"
+    },
+    {
+      "name": "s3",
+      "description": "AWS S3 object storage for bucket management, object operations, and access control. Use when creating buckets, uploading files, configuring lifecycle policies, setting up static websites, managing per",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "skills/s3",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/skills/s3",
+      "source": "GitHub Search API"
     },
     {
       "name": "s3-bucket-policy",
@@ -36260,18 +36246,6 @@
       ],
       "stars": 0,
       "install": "AgentSecOps/SecOpsAgentKit",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sc-ci-automation",
-      "description": "Run CI quality gates with optional auto-fix and PR creation.",
-      "repo": "randlee/synaptic-canvas",
-      "path": "packages/sc-ci-automation/skills/sc-ci-automation",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "randlee/synaptic-canvas/packages/sc-ci-automation/skills/sc-ci-automation",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37217,6 +37191,25 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "setup-maestro-cluster",
+      "description": "Sets up a long-running Maestro cluster environment using Azure ARO-HCP infrastructure with both service and management clusters",
+      "repo": "openshift-online/maestro",
+      "path": ".claude/skills/setup-maestro-cluster",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "azure",
+        "aks",
+        "maestro",
+        "deployment",
+        "cluster",
+        "aro-hcp"
+      ],
+      "stars": 0,
+      "install": "openshift-online/maestro/.claude/skills/setup-maestro-cluster",
+      "source": "github.com/openshift-online/maestro"
+    },
+    {
       "name": "setup-oadp-aws",
       "description": "Configure OADP for AWS with S3 storage, EBS snapshots, IAM policies, and support for standard clusters and ROSA (Red Hat OpenShift Service on AWS).",
       "repo": "mpryc/ai-agents-and-skills",
@@ -37553,18 +37546,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "similarity",
-      "description": "Elementos visualmente similares se perciben como relacionados. Use cuando",
-      "repo": "vjrivmon/Setup-Software-IA",
-      "path": ".claude/skills/ux-ui/gestalt/similarity",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "vjrivmon/Setup-Software-IA/.claude/skills/ux-ui/gestalt/similarity",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "skill-aws-knowledge-tool",
       "description": "CLI tool for querying AWS Knowledge MCP Server",
       "repo": "dnvriend/aws-knowledge-tool",
@@ -37731,6 +37712,18 @@
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/systems-design/skills/slo-sli-error-budget",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "smack-label-orchestrator",
+      "description": "Manages SMACK label assignments across apps and kernel. Coordinates mandatory access control labels with process isolation.",
+      "repo": "plurigrid/asi",
+      "path": "skills/smack-label-orchestrator",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/skills/smack-label-orchestrator",
+      "source": "github.com/plurigrid/asi"
     },
     {
       "name": "smoke-test",
@@ -37937,29 +37930,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "speculative-decoding",
-      "description": "Accelerate LLM inference using speculative decoding, Medusa multiple heads, and lookahead decoding techniques. Use when optimizing inference speed (1.5-3.6× speedup), reducing latency for real-time ap",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "19-emerging-techniques/speculative-decoding",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "Emerging Techniques",
-        "Speculative Decoding",
-        "Medusa",
-        "Lookahead Decoding",
-        "Fast Inference",
-        "Draft Models",
-        "Tree Attention",
-        "Parallel Generation",
-        "Latency Reduction",
-        "Inference Optimization"
-      ],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs/19-emerging-techniques/speculative-decoding",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "speed-monitoring",
       "description": "Performance monitoring and regression prevention. Lighthouse CI, performance budgets, Core Web Vitals monitoring, alerting. Keep sites fast over time.",
       "repo": "Soborbo/claudeskills",
@@ -38132,6 +38102,25 @@
       "stars": 0,
       "install": "ArcInstitute/SRAgent",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "sre-expert",
+      "description": "Expert-level site reliability engineering, SLOs, incident management, and operational excellence",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/sre-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "sre",
+        "reliability",
+        "monitoring",
+        "incident-management",
+        "slo",
+        "observability"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/sre-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "sre-incident-response",
@@ -38527,6 +38516,26 @@
       "stars": 0,
       "install": "britt/claude-code-skills",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "supabase-admin",
+      "description": "Supabase administration, RLS policies, migrations, and schema design. Use for database architecture, Row Level Security, performance tuning, auth integration. Activate on \"Supabase\", \"RLS\", \"migration",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/supabase-admin",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "supabase",
+        "rls",
+        "database",
+        "postgres",
+        "migration",
+        "schema",
+        "security"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/supabase-admin",
+      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "supabase-cost-tuning",
@@ -39424,6 +39433,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "terraform-expert",
+      "description": "Expert-level Terraform infrastructure as code, modules, state management, and production best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/devops/terraform-expert",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "terraform",
+        "infrastructure-as-code",
+        "iac",
+        "devops",
+        "automation"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/devops/terraform-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    },
+    {
       "name": "terraform-iac",
       "description": "Author and operate Terraform with safe plans, reviews, and drift control",
       "repo": "DNYoussef/context-cascade",
@@ -39838,6 +39865,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "tiktok",
+      "description": "Enables Claude to manage TikTok content, engagement, and analytics through browser automation",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/tiktok",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/tiktok",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
       "name": "time-stepping",
       "description": "Plan and control time-step policies for simulations. Use when coupling CFL/physics limits with adaptive stepping, ramping initial transients, or scheduling outputs/checkpoints for long runs.",
       "repo": "HeshamFS/materials-simulation-skills",
@@ -39908,6 +39947,18 @@
       "stars": 0,
       "install": "dylantarre/animation-principles",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "tizen-certification-coordinator",
+      "description": "Orchestrates Tizen certification workflow. Coordinates TCT test execution, compliance verification, and certification documentation.",
+      "repo": "plurigrid/asi",
+      "path": "skills/tizen-certification-coordinator",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/skills/tizen-certification-coordinator",
+      "source": "github.com/plurigrid/asi"
     },
     {
       "name": "tk-find",
@@ -40003,6 +40054,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "trace",
+      "description": "Root cause analysis for complex bugs. Use when initial fix fails or incident is severe. Traces Effect → Cause → Root with confidence levels and prevention hierarchy.",
+      "repo": "saadshahd/moo.md",
+      "path": "hope/skills/trace",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/hope/skills/trace",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -40604,21 +40667,6 @@
       "source": "local"
     },
     {
-      "name": "unsloth-qlora",
-      "description": "Advanced 4-bit quantization techniques using Unsloth and BitsAndBytes for extreme VRAM efficiency (triggers: QLoRA, 4-bit, load_in_4bit, bnb-4bit, VRAM optimization, dynamic quantization).",
-      "repo": "cuba6112/skillfactory",
-      "path": "skills/unsloth-qlora",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "unsloth",
-        "qlora"
-      ],
-      "stars": 0,
-      "install": "cuba6112/skillfactory/skills/unsloth-qlora",
-      "source": "local"
-    },
-    {
       "name": "unsloth-tokenizer",
       "description": "Analyze, compare, and work with tokenizers using Unsloth tools. Compare different tokenizers, analyze token efficiency, and integrate with Unsloth models. For SuperBPE training, see the 'superbpe' ski",
       "repo": "ScientiaCapital/unsloth-mcp-server",
@@ -41023,6 +41071,18 @@
       "source": "local"
     },
     {
+      "name": "validate-workflow",
+      "description": "Validate GitHub Actions workflow files for syntax, best practices, and correctness. Use before committing workflow changes or when workflows fail.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/validate-workflow",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/validate-workflow",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "validating-cors-policies",
       "description": "Validate CORS policies for security issues and misconfigurations. Use when reviewing cross-origin resource sharing. Trigger with 'validate CORS', 'check CORS policy', or 'review cross-origin'.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -41032,18 +41092,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/cors-policy-validator/skills/validating-cors-policies",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "validating-pci-dss-compliance",
-      "description": "Validate PCI-DSS compliance for payment card data security. Use when auditing payment systems. Trigger with 'validate PCI-DSS', 'check payment security', or 'audit card data'.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41455,6 +41503,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "vertical-solution-templates",
+      "description": "Library of reusable solution briefs, architecture, and pricing frames per industry.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "plugins/b2b-saas/skills/vertical-solution-templates",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/plugins/b2b-saas/skills/vertical-solution-templates",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "vibe-calibration-protocol",
       "description": "Translate consciousness navigation into user's native language. Use when need to match user's frequency (technical/poetic/practical/mystical) without losing truth depth.",
       "repo": "nikhilvallishayee/universal-pattern-space",
@@ -41851,18 +41911,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "weaviate-local-setup",
-      "description": "Set up and manage a local Weaviate instance using Docker",
-      "repo": "saskinosie/weaviate-claude-skills",
-      "path": "weaviate-local-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "saskinosie/weaviate-claude-skills/weaviate-local-setup",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "web",
       "description": "Use to browse or verify external info—run web searches, open pages, drive Chrome via CDP tools, and cite sources when facts may be outdated, niche, or user-requested.",
       "repo": "gakonst/dotfiles",
@@ -42007,38 +42055,21 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "when-analyzing-user-intent-use-intent-analyzer",
-      "description": "Advanced intent interpretation system using cognitive science principles and probabilistic intent mapping",
+      "name": "when-developing-ml-models-use-ml-expert",
+      "description": "Specialized ML model development, training, and deployment workflow",
       "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/utilities/when-analyzing-user-intent-use-intent-analyzer",
+      "path": ".claude/skills/machine-learning/when-developing-ml-models-use-ml-expert",
       "branch": "main",
       "category": "devops",
       "tags": [
-        "intent-analysis",
-        "cognitive-science",
-        "disambiguation",
-        "user-understanding"
+        "ml",
+        "training",
+        "deployment",
+        "model-development",
+        "neural-networks"
       ],
       "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/utilities/when-analyzing-user-intent-use-intent-analyzer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "when-mapping-dependencies-use-dependency-mapper",
-      "description": "Comprehensive dependency mapping, analysis, and visualization tool for software projects",
-      "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/dependencies/when-mapping-dependencies-use-dependency-mapper",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "dependencies",
-        "graph-analysis",
-        "security",
-        "visualization",
-        "mece"
-      ],
-      "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/dependencies/when-mapping-dependencies-use-dependency-mapper",
+      "install": "DNYoussef/ai-chrome-extension/.claude/skills/machine-learning/when-developing-ml-models-use-ml-expert",
       "source": "SkillsMP + GitHub Raw"
     },
     {

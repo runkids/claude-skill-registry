@@ -1,0 +1,13 @@
+{
+  "name": "ultrawork",
+  "description": "Multi-agent orchestration for Claude Code with 5 execution modes: Autopilot (autonomous), Ultrapilot (3-5x parallel), Swarm (coordinated agents), Pipeline (sequential chains), Ecomode (token-efficient",
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "category": "other",
+  "tags": [],
+  "stars": 2257,
+  "source": "",
+  "github_path": "skills/ultrawork",
+  "github_branch": "main",
+  "dir_name": "ultrawork-yeachan-heo-oh-my-claudecode",
+  "downloaded_at": "2026-02-05T01:45:12.163192Z"
+}

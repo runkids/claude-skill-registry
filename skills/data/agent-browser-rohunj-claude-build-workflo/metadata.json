@@ -1,0 +1,13 @@
+{
+  "name": "agent-browser",
+  "description": "Automated workflow for building apps with Claude Code. Describe what you want, answer questions, let it build autonomously.",
+  "repo": "rohunj/claude-build-workflow",
+  "category": "other",
+  "tags": [],
+  "stars": 211,
+  "source": "",
+  "github_path": "skills/agent-browser",
+  "github_branch": "main",
+  "dir_name": "agent-browser-rohunj-claude-build-workflo",
+  "downloaded_at": "2026-02-05T01:45:13.635401Z"
+}

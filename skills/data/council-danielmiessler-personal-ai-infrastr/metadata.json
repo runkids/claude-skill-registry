@@ -1,0 +1,13 @@
+{
+  "name": "council",
+  "description": "Agentic AI Infrastructure for magnifying HUMAN capabilities.",
+  "repo": "danielmiessler/Personal_AI_Infrastructure",
+  "category": "other",
+  "tags": [],
+  "stars": 5704,
+  "source": "",
+  "github_path": "Packs/pai-council-skill/src/skills/Council",
+  "github_branch": "main",
+  "dir_name": "council-danielmiessler-personal-ai-infrastr",
+  "downloaded_at": "2026-02-05T01:45:12.161253Z"
+}
