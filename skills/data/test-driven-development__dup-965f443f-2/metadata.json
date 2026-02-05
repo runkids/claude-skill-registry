@@ -1,0 +1,17 @@
+{
+  "name": "test-driven-development",
+  "description": "TDD discipline with RED-GREEN-REFACTOR cycle. Ensures tests genuinely verify behavior",
+  "repo": "obra/superpowers",
+  "category": "testing",
+  "tags": [
+    "tdd",
+    "testing",
+    "red-green-refactor"
+  ],
+  "stars": 0,
+  "source": "",
+  "github_path": "skills/test-driven-development",
+  "github_branch": "main",
+  "dir_name": "test-driven-development__dup-965f443f-2",
+  "downloaded_at": "2026-02-05T06:18:21.861951Z"
+}

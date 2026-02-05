@@ -1,0 +1,13 @@
+{
+  "name": "gh-post-issue-update",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/github/gh-post-issue-update",
+  "github_branch": "main",
+  "dir_name": "gh-post-issue-update__dup-32298aa1",
+  "downloaded_at": "2026-02-05T06:23:05.022484Z"
+}

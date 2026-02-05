@@ -1,0 +1,13 @@
+{
+  "name": "azure-pipelines-tasks",
+  "description": "",
+  "repo": "lbussell/agent-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/lbussell/agent-skills",
+  "github_path": "skills/azure-pipelines-tasks",
+  "github_branch": "main",
+  "dir_name": "azure-pipelines-tasks",
+  "downloaded_at": "2026-02-05T06:24:39.017181Z"
+}

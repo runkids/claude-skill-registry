@@ -1,7 +1,7 @@
 {
   "category": "product",
-  "count": 1051,
-  "updated_at": "2026-02-05T06:10:36.117014Z",
+  "count": 1074,
+  "updated_at": "2026-02-05T06:37:28.665664Z",
   "skills": [
     {
       "name": "skill-creator",
@@ -374,22 +374,6 @@
       "name": "one-pager-prd",
       "description": "Use when proposing new features/products, documenting product requirements, creating concise specs for stakeholder alignment, pitching initiatives, scoping projects before detailed design, capturing u",
       "repo": "lyndonkl/claude",
-      "path": "skills/one-pager-prd",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "one",
-        "pager",
-        "prd"
-      ],
-      "stars": 8,
-      "install": "lyndonkl/claude/skills/one-pager-prd",
-      "source": "local"
-    },
-    {
-      "name": "one-pager-prd",
-      "description": "Use when proposing new features/products, documenting product requirements, creating concise specs for stakeholder alignment, pitching initiatives, scoping projects before detailed design, capturing u",
-      "repo": "lyndonkl/claude",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -400,6 +384,22 @@
       ],
       "stars": 8,
       "install": "lyndonkl/claude",
+      "source": "local"
+    },
+    {
+      "name": "one-pager-prd",
+      "description": "Use when proposing new features/products, documenting product requirements, creating concise specs for stakeholder alignment, pitching initiatives, scoping projects before detailed design, capturing u",
+      "repo": "lyndonkl/claude",
+      "path": "skills/one-pager-prd",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "one",
+        "pager",
+        "prd"
+      ],
+      "stars": 8,
+      "install": "lyndonkl/claude/skills/one-pager-prd",
       "source": "local"
     },
     {
@@ -585,19 +585,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "plan-implementation",
-      "description": "Break down feature specifications into manageable implementation phases with TDD vertical slices. Creates actionable task lists for immediate development. Use when you have a feature spec and need a c",
-      "repo": "ovation22/TripleDerby",
-      "path": "",
+      "name": "create-pull-request",
+      "description": "Create GitHub pull requests with proper issue linking, comprehensive descriptions, and quality metrics for WescoBar project",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": ".claude/skills/git-workflows/create-pull-request",
       "branch": "main",
       "category": "product",
       "tags": [
-        "plan",
-        "implementation"
+        "bidi"
       ],
       "stars": 3,
-      "install": "ovation22/TripleDerby",
-      "source": "local"
+      "install": "kazunori279/gcp-blogs/.claude/skills/bidi",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "plan-implementation",
@@ -612,6 +611,21 @@
       ],
       "stars": 3,
       "install": "ovation22/TripleDerby/.claude/skills/plan-implementation",
+      "source": "local"
+    },
+    {
+      "name": "ddd-context-generator",
+      "description": "Generate complete DDD bounded context with all 4 layers (Domain, Application, Infrastructure, Presentation). Use when user wants to create new business capability, scaffold complete context with CRUD,",
+      "repo": "moasadi/ddd-bun-api-boilerplate",
+      "path": "",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "plan",
+        "implementation"
+      ],
+      "stars": 3,
+      "install": "ovation22/TripleDerby",
       "source": "local"
     },
     {
@@ -650,22 +664,6 @@
       "name": "git-branch-manager",
       "description": "Create, switch, and manage git branches with proper handling of uncommitted changes. Use when creating feature branches, switching contexts, or cleaning up after merges.",
       "repo": "EdanStarfire/claudecode_webui",
-      "path": ".claude/skills/git-branch-manager",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "git",
-        "branch",
-        "manager"
-      ],
-      "stars": 2,
-      "install": "EdanStarfire/claudecode_webui/.claude/skills/git-branch-manager",
-      "source": "local"
-    },
-    {
-      "name": "git-branch-manager",
-      "description": "Create, switch, and manage git branches with proper handling of uncommitted changes. Use when creating feature branches, switching contexts, or cleaning up after merges.",
-      "repo": "EdanStarfire/claudecode_webui",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -676,6 +674,22 @@
       ],
       "stars": 2,
       "install": "EdanStarfire/claudecode_webui",
+      "source": "local"
+    },
+    {
+      "name": "git-branch-manager",
+      "description": "Create, switch, and manage git branches with proper handling of uncommitted changes. Use when creating feature branches, switching contexts, or cleaning up after merges.",
+      "repo": "EdanStarfire/claudecode_webui",
+      "path": ".claude/skills/git-branch-manager",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "git",
+        "branch",
+        "manager"
+      ],
+      "stars": 2,
+      "install": "EdanStarfire/claudecode_webui/.claude/skills/git-branch-manager",
       "source": "local"
     },
     {
@@ -754,18 +768,18 @@
       "source": "local"
     },
     {
-      "name": "product-analyst",
-      "description": "Track user metrics and provide data-driven insights for product decisions. Use when measuring product health, analyzing user behavior, conducting cohort analysis, or optimizing key metrics. Covers acq",
+      "name": "product-analytics",
+      "description": "Measure what matters with proper event tracking, funnels, cohorts, and metrics. Use when setting up analytics, tracking features, or understanding behavior.",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "skills/product-analyst",
+      "path": "skills/product-analytics",
       "branch": "main",
       "category": "product",
       "tags": [
         "product",
-        "analyst"
+        "analytics"
       ],
       "stars": 2,
-      "install": "daffy0208/ai-dev-standards/skills/product-analyst",
+      "install": "daffy0208/ai-dev-standards/skills/product-analytics",
       "source": "local"
     },
     {
@@ -2058,37 +2072,16 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "artifact-collector",
-      "description": "Use this skill when users need to collect, manage, or analyze forensic artifacts such as files, memory dumps, Windows Event Logs, Mac Unified Logs, or network packet captures (PCAP) from endpoints.",
-      "repo": "tekgrunt/boot-test",
-      "path": ".claude-plugin/plugins/limacharlie-skills/skills/artifact-collector",
+      "name": "ask",
+      "description": "Present a multiple-choice question to the user using AskUserQuestion tool",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/ask",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
-      "install": "tekgrunt/boot-test/.claude-plugin/plugins/limacharlie-skills/skills/artifact-collector",
+      "install": "Tony363/SuperClaude/.claude/skills/ask",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "arweave-ao-cookbook",
-      "description": "Build decentralized applications on AO - a permanent, decentralized compute platform using actor model for parallel processes with native message-passing and permanent storage on Arweave",
-      "repo": "enuno/claude-command-and-control",
-      "path": "skills-templates/arweave-ao-cookbook",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "arweave",
-        "ao",
-        "decentralized-compute",
-        "smart-contracts",
-        "blockchain",
-        "lua",
-        "permanent-storage",
-        "distributed-systems"
-      ],
-      "stars": 0,
-      "install": "enuno/claude-command-and-control/skills-templates/arweave-ao-cookbook",
-      "source": "github.com/enuno/claude-command-and-control"
     },
     {
       "name": "aspnet-core",
@@ -2499,6 +2492,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "bigcommerce",
+      "description": "BigCommerce API patterns and enterprise features",
+      "repo": "violetio/violet-ai-plugins",
+      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "billing-reporter",
       "description": "Use this skill when users need help analyzing LimaCharlie billing, investigating usage costs, comparing trends across organizations, or understanding what's driving their expenses.",
       "repo": "tekgrunt/boot-test",
@@ -2878,24 +2883,24 @@
       "name": "celebration-animation-generator",
       "description": "This skill generates self-contained p5.js celebration animations for educational MicroSims. Use this skill when users request creating new celebration animations, particle effects, reward animations, ",
       "repo": "dmccreary/claude-skills",
-      "path": "skills/archived/celebration-animation-generator",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "dmccreary/claude-skills/skills/archived/celebration-animation-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "celebration-animation-generator",
-      "description": "This skill generates self-contained p5.js celebration animations for educational MicroSims. Use this skill when users request creating new celebration animations, particle effects, reward animations, ",
-      "repo": "dmccreary/claude-skills",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "dmccreary/claude-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "celebration-animation-generator",
+      "description": "This skill generates self-contained p5.js celebration animations for educational MicroSims. Use this skill when users request creating new celebration animations, particle effects, reward animations, ",
+      "repo": "dmccreary/claude-skills",
+      "path": "skills/archived/celebration-animation-generator",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "dmccreary/claude-skills/skills/archived/celebration-animation-generator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3103,18 +3108,6 @@
       "name": "claude-optimization",
       "description": "Maximizing Claude Code capabilities and efficiency.Use when helping users discover features, optimize workflows, or improve their Claude Code experience.",
       "repo": "Phauks/Grimbound",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "Phauks/Grimbound",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "claude-optimization",
-      "description": "Maximizing Claude Code capabilities and efficiency.Use when helping users discover features, optimize workflows, or improve their Claude Code experience.",
-      "repo": "Phauks/Grimbound",
       "path": ".claude/skills/claude-optimization",
       "branch": "main",
       "category": "product",
@@ -3152,6 +3145,18 @@
       "description": "Load when user says \"done\", \"finish\", \"complete\", \"close\", \"wrap up\", \"end session\", or any system skill/project completes",
       "repo": "abdullahbeam/nexus-design-abdullah",
       "path": "00-system/skills/system/close-session",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "abdullahbeam/nexus-design-abdullah/00-system/skills/system/close-session",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "cloudflare-full-stack-scaffold",
+      "description": "Production-ready starter project for React + Cloudflare Workers + Hono with core services(D1, KV, R2, Workers AI) and optional advanced features (Clerk Auth, AI Chat, Queues, Vectorize).Complete with ",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "skills/cloudflare-full-stack-scaffold",
       "branch": "main",
       "category": "product",
       "tags": [],
@@ -3253,18 +3258,6 @@
       "tags": [],
       "stars": 0,
       "install": "wedsamuel1230/arduino-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "codex-plan-review",
-      "description": "Send implementation plan to Codex for critique and validation. Use PROACTIVELY after you produce a non-trivial plan (including after /plan mode) unless the user opts out, or when the user says review ",
-      "repo": "antorsae/dual-agent",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "antorsae/dual-agent",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4357,18 +4350,6 @@
       "name": "discord-sync",
       "description": "Sync Discord messages to local storage. Use when user asks to sync, pull, fetch, or download Discord messages.",
       "repo": "lycfyi/community-agent-plugin",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "lycfyi/community-agent-plugin",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "discord-sync",
-      "description": "Sync Discord messages to local storage. Use when user asks to sync, pull, fetch, or download Discord messages.",
-      "repo": "lycfyi/community-agent-plugin",
       "path": "plugins/discord-user-connector/skills/discord-sync",
       "branch": "main",
       "category": "product",
@@ -4570,15 +4551,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "empathy-mapping",
-      "description": "Create structured visualizations of stakeholder perspectives (says, thinks, does, feels) to build deep understanding. Use when conducting user research or validating assumptions.",
-      "repo": "solvaholic/design-team",
-      "path": ".github/skills/empathy-mapping",
+      "name": "engineering-features-for-machine-learning",
+      "description": "Create, select, and transform features to improve machine learning model performance. Handles feature scaling, encoding, and importance analysis. Use when asked to \"engineer features\" or \"select featu",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
-      "install": "solvaholic/design-team/.github/skills/empathy-mapping",
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4591,18 +4572,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/feature-engineering-toolkit/skills/engineering-features-for-machine-learning",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "engineering-features-for-machine-learning",
-      "description": "Create, select, and transform features to improve machine learning model performance. Handles feature scaling, encoding, and importance analysis. Use when asked to \"engineer features\" or \"select featu",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4855,24 +4824,24 @@
       "name": "experiment-scaffold",
       "description": "Create a new experiment workspace directory: initialize git, write an AGENTS.md goal doc, and create references/ with index.md + notes/links markdown plus GitHub repos cloned under references/repos (g",
       "repo": "prateek/dotfiles",
-      "path": ".codex/skills/experiment-scaffold",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "prateek/dotfiles/.codex/skills/experiment-scaffold",
-      "source": "GitHub Search API"
-    },
-    {
-      "name": "experiment-scaffold",
-      "description": "Create a new experiment workspace directory: initialize git, write an AGENTS.md goal doc, and create references/ with index.md + notes/links markdown plus GitHub repos cloned under references/repos (g",
-      "repo": "prateek/dotfiles",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "prateek/dotfiles",
+      "source": "GitHub Search API"
+    },
+    {
+      "name": "experiment-scaffold",
+      "description": "Create a new experiment workspace directory: initialize git, write an AGENTS.md goal doc, and create references/ with index.md + notes/links markdown plus GitHub repos cloned under references/repos (g",
+      "repo": "prateek/dotfiles",
+      "path": ".codex/skills/experiment-scaffold",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "prateek/dotfiles/.codex/skills/experiment-scaffold",
       "source": "GitHub Search API"
     },
     {
@@ -5357,24 +5326,24 @@
       "name": "forms-inputs",
       "description": "Use when animating form fields, inputs, textareas, selects, or interactive form elements to improve usability and feedback",
       "repo": "dylantarre/animation-principles",
-      "path": "skills/07-by-ui-element/forms-inputs",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "dylantarre/animation-principles/skills/07-by-ui-element/forms-inputs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "forms-inputs",
-      "description": "Use when animating form fields, inputs, textareas, selects, or interactive form elements to improve usability and feedback",
-      "repo": "dylantarre/animation-principles",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "forms-inputs",
+      "description": "Use when animating form fields, inputs, textareas, selects, or interactive form elements to improve usability and feedback",
+      "repo": "dylantarre/animation-principles",
+      "path": "skills/07-by-ui-element/forms-inputs",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "dylantarre/animation-principles/skills/07-by-ui-element/forms-inputs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5660,18 +5629,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "gmacko-init-plan",
-      "description": "Use when (1) PROJECT_MANIFEST.json exists and you need to generate INITIAL_PLAN.md, (2) user wants a detailed implementation roadmap, (3) translating manifest into actionable milestones. Generates com",
-      "repo": "gmackie/vercel-expo-app-template",
-      "path": ".opencode/skill/gmacko-init-plan",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "gmackie/vercel-expo-app-template/.opencode/skill/gmacko-init-plan",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "go-to-market-playbooks",
       "description": "Master product launches, positioning, messaging, and GTM strategies. Use when planning launches, entering markets, or positioning products.",
       "repo": "slgoodrich/agents",
@@ -5783,24 +5740,24 @@
       "name": "grafana-loki-logcli",
       "description": "Query and explore logs in Grafana Loki via the logcli command-line tool. Use when a user asks to pull logs for analysis.",
       "repo": "narqo/dotfiles",
-      "path": "agents/skills/grafana-loki-logcli",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "narqo/dotfiles/agents/skills/grafana-loki-logcli",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "grafana-loki-logcli",
-      "description": "Query and explore logs in Grafana Loki via the logcli command-line tool. Use when a user asks to pull logs for analysis.",
-      "repo": "narqo/dotfiles",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "narqo/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "grafana-loki-logcli",
+      "description": "Query and explore logs in Grafana Loki via the logcli command-line tool. Use when a user asks to pull logs for analysis.",
+      "repo": "narqo/dotfiles",
+      "path": "agents/skills/grafana-loki-logcli",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "narqo/dotfiles/agents/skills/grafana-loki-logcli",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6164,6 +6121,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "hydration-safety",
+      "description": "Next.js SSR hydration patterns and best practices. Use when fixing hydration mismatches, implementing client-only features, or working with localStorage/browser APIs.",
+      "repo": "omerakben/omer-akben",
+      "path": ".claude/skills/hydration-safety-skill",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "omerakben/omer-akben/.claude/skills/hydration-safety-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "icons-badges",
       "description": "Use when animating icons, badges, avatars, status indicators, or small visual elements to add personality and feedback",
       "repo": "dylantarre/animation-principles",
@@ -6348,6 +6317,18 @@
       "description": "Improve existing agent skills based on user feedback and best practices. Use when the user wants to fix, enhance, or refactor an existing skill. Gathers user feedback first, then applies technical ana",
       "repo": "taisukeoe/agentic-ai-skills-creator",
       "path": "plugins/skills-helper/skills/improving-skills",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "taisukeoe/agentic-ai-skills-creator/plugins/skills-helper/skills/improving-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "imsg-ingest",
+      "description": "Primary iMessage interface. Full-featured CLI for message export, conversation management, contact resolution, and thread state. Use when user mentions \"imessage\", \"imsg\", \"text message\", \"iphone mess",
+      "repo": "rohunvora/cool-claude-skills",
+      "path": "skills/imsg-ingest",
       "branch": "main",
       "category": "product",
       "tags": [],
@@ -6925,47 +6906,23 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "langchain4j-ai-services-patterns",
-      "description": "Build declarative AI Services with LangChain4j using interface-based patterns, annotations, memory management, tools integration, and advanced application patterns. Use when implementing type-safe AI-",
+      "name": "langchain4j-rag-implementation-patterns",
+      "description": "Implement Retrieval-Augmented Generation (RAG) systems with LangChain4j. Build document ingestion pipelines, embedding stores, vector search strategies, and knowledge-enhanced AI applications. Use whe",
       "repo": "giuseppe-trisciuoglio/developer-kit",
-      "path": "skills/langchain4j/langchain4j-ai-services-patterns",
+      "path": "skills/langchain4j/langchain4j-rag-implementation-patterns",
       "branch": "main",
       "category": "product",
       "tags": [
         "langchain4j",
-        "ai-services",
-        "annotations",
-        "declarative",
-        "tools",
-        "memory",
-        "function-calling",
-        "llm",
+        "rag",
+        "retrieval-augmented-generation",
+        "embedding",
+        "vector-search",
+        "document-ingestion",
         "java"
       ],
       "stars": 0,
-      "install": "giuseppe-trisciuoglio/developer-kit/skills/langchain4j/langchain4j-ai-services-patterns",
-      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
-    },
-    {
-      "name": "langchain4j-tool-function-calling-patterns",
-      "description": "Tool and function calling patterns with LangChain4j. Define tools, handle function calls, and integrate with LLM agents. Use when building agentic applications that interact with tools.",
-      "repo": "giuseppe-trisciuoglio/developer-kit",
-      "path": "skills/langchain4j/langchain4j-tool-function-calling-patterns",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "langchain4j",
-        "tools",
-        "function-calling",
-        "@Tool",
-        "ToolProvider",
-        "ToolExecutor",
-        "dynamic-tools",
-        "parameter-descriptions",
-        "java"
-      ],
-      "stars": 0,
-      "install": "giuseppe-trisciuoglio/developer-kit/skills/langchain4j/langchain4j-tool-function-calling-patterns",
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/langchain4j/langchain4j-rag-implementation-patterns",
       "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
@@ -7080,24 +7037,24 @@
       "name": "laravel-multi-tenancy",
       "description": "Multi-tenant application architecture patterns. Use when working with multi-tenant systems, tenant isolation, or when user mentions multi-tenancy, tenants, tenant scoping, tenant isolation, multi-tena",
       "repo": "leeovery/claude-laravel",
-      "path": "skills/laravel-multi-tenancy",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "leeovery/claude-laravel/skills/laravel-multi-tenancy",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "laravel-multi-tenancy",
-      "description": "Multi-tenant application architecture patterns. Use when working with multi-tenant systems, tenant isolation, or when user mentions multi-tenancy, tenants, tenant scoping, tenant isolation, multi-tena",
-      "repo": "leeovery/claude-laravel",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "leeovery/claude-laravel",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "laravel-multi-tenancy",
+      "description": "Multi-tenant application architecture patterns. Use when working with multi-tenant systems, tenant isolation, or when user mentions multi-tenancy, tenants, tenant scoping, tenant isolation, multi-tena",
+      "repo": "leeovery/claude-laravel",
+      "path": "skills/laravel-multi-tenancy",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "leeovery/claude-laravel/skills/laravel-multi-tenancy",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7176,24 +7133,24 @@
       "name": "launch-execution",
       "description": "Launch coordination skill for managing launch checklists, stakeholder alignment,and day-of execution for product and feature launches.",
       "repo": "LerianStudio/ring",
-      "path": ".archive/pmm-team/skills/launch-execution",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "LerianStudio/ring/.archive/pmm-team/skills/launch-execution",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "launch-execution",
-      "description": "Launch coordination skill for managing launch checklists, stakeholder alignment,and day-of execution for product and feature launches.",
-      "repo": "LerianStudio/ring",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "LerianStudio/ring",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "launch-execution",
+      "description": "Launch coordination skill for managing launch checklists, stakeholder alignment,and day-of execution for product and feature launches.",
+      "repo": "LerianStudio/ring",
+      "path": ".archive/pmm-team/skills/launch-execution",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "LerianStudio/ring/.archive/pmm-team/skills/launch-execution",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7736,22 +7693,6 @@
       "name": "mechinterp-crossmodel-matcher",
       "description": "Match SAE features between Ultra (24K) and Full (2K) models based on activation patterns and token overlap",
       "repo": "cesaregarza/SplatNLP",
-      "path": ".claude/skills/mechinterp-crossmodel-matcher",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "mechinterp",
-        "crossmodel",
-        "matcher"
-      ],
-      "stars": 0,
-      "install": "cesaregarza/SplatNLP/.claude/skills/mechinterp-crossmodel-matcher",
-      "source": "local"
-    },
-    {
-      "name": "mechinterp-crossmodel-matcher",
-      "description": "Match SAE features between Ultra (24K) and Full (2K) models based on activation patterns and token overlap",
-      "repo": "cesaregarza/SplatNLP",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -7762,6 +7703,22 @@
       ],
       "stars": 0,
       "install": "cesaregarza/SplatNLP",
+      "source": "local"
+    },
+    {
+      "name": "mechinterp-crossmodel-matcher",
+      "description": "Match SAE features between Ultra (24K) and Full (2K) models based on activation patterns and token overlap",
+      "repo": "cesaregarza/SplatNLP",
+      "path": ".claude/skills/mechinterp-crossmodel-matcher",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "mechinterp",
+        "crossmodel",
+        "matcher"
+      ],
+      "stars": 0,
+      "install": "cesaregarza/SplatNLP/.claude/skills/mechinterp-crossmodel-matcher",
       "source": "local"
     },
     {
@@ -8236,27 +8193,6 @@
       "name": "mycarrierpackets-api",
       "description": "This skill should be used when the user asks to 'integrate with MyCarrierPackets', 'set up MCP API', 'onboard carriers', 'Intellivite invitation', 'monitor carriers', 'Assure Advantage', 'get carrier ",
       "repo": "linehaul-ai/linehaulai-claude-marketplace",
-      "path": "plugins/mycarrierpackets-api/skills/mycarrierpackets-api",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "mcp",
-        "mycarrierpackets",
-        "carrier",
-        "tms",
-        "api",
-        "oauth2",
-        "monitoring",
-        "intellivite"
-      ],
-      "stars": 0,
-      "install": "linehaul-ai/linehaulai-claude-marketplace/plugins/mycarrierpackets-api/skills/mycarrierpackets-api",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mycarrierpackets-api",
-      "description": "This skill should be used when the user asks to 'integrate with MyCarrierPackets', 'set up MCP API', 'onboard carriers', 'Intellivite invitation', 'monitor carriers', 'Assure Advantage', 'get carrier ",
-      "repo": "linehaul-ai/linehaulai-claude-marketplace",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -8272,6 +8208,27 @@
       ],
       "stars": 0,
       "install": "linehaul-ai/linehaulai-claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mycarrierpackets-api",
+      "description": "This skill should be used when the user asks to 'integrate with MyCarrierPackets', 'set up MCP API', 'onboard carriers', 'Intellivite invitation', 'monitor carriers', 'Assure Advantage', 'get carrier ",
+      "repo": "linehaul-ai/linehaulai-claude-marketplace",
+      "path": "plugins/mycarrierpackets-api/skills/mycarrierpackets-api",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "mcp",
+        "mycarrierpackets",
+        "carrier",
+        "tms",
+        "api",
+        "oauth2",
+        "monitoring",
+        "intellivite"
+      ],
+      "stars": 0,
+      "install": "linehaul-ai/linehaulai-claude-marketplace/plugins/mycarrierpackets-api/skills/mycarrierpackets-api",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8353,24 +8310,24 @@
       "name": "new-youtube-video-skill",
       "description": "Creates a new YouTube video project with comprehensive research, competitor analysis, folder structure, and todo.md for progress tracking. Uses Playwright MCP to fetch vidIQ stats, analyze competitors",
       "repo": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-",
-      "path": ".claude/skills/new-youtube-video-skill",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-/.claude/skills/new-youtube-video-skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "new-youtube-video-skill",
-      "description": "Creates a new YouTube video project with comprehensive research, competitor analysis, folder structure, and todo.md for progress tracking. Uses Playwright MCP to fetch vidIQ stats, analyze competitors",
-      "repo": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "new-youtube-video-skill",
+      "description": "Creates a new YouTube video project with comprehensive research, competitor analysis, folder structure, and todo.md for progress tracking. Uses Playwright MCP to fetch vidIQ stats, analyze competitors",
+      "repo": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-",
+      "path": ".claude/skills/new-youtube-video-skill",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "SGobet/AI-Powered-YouTube-Workflow-TO-SHARE-/.claude/skills/new-youtube-video-skill",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8697,18 +8654,6 @@
       "name": "openwebf-release-versioning-rollback",
       "description": "Design versioning, cache busting, progressive rollout, and rollback for remote WebF bundles. Use when the user mentions version pinning, cache busting, force update, rollback, feature flags, or staged",
       "repo": "archview-ai/webf-plugin",
-      "path": "",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "archview-ai/webf-plugin",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "openwebf-release-versioning-rollback",
-      "description": "Design versioning, cache busting, progressive rollout, and rollback for remote WebF bundles. Use when the user mentions version pinning, cache busting, force update, rollback, feature flags, or staged",
-      "repo": "archview-ai/webf-plugin",
       "path": "webf-plugin/skills/openwebf-release-versioning-rollback",
       "branch": "main",
       "category": "product",
@@ -8841,24 +8786,24 @@
       "name": "parquet-optimization",
       "description": "Proactively analyzes Parquet file operations and suggests optimization improvements for compression, encoding, row group sizing, and statistics. Activates when users are reading or writing Parquet fil",
       "repo": "EmilLindfors/claude-marketplace",
-      "path": "plugins/rust-data-engineering/skills/parquet-optimization",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "EmilLindfors/claude-marketplace/plugins/rust-data-engineering/skills/parquet-optimization",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "parquet-optimization",
-      "description": "Proactively analyzes Parquet file operations and suggests optimization improvements for compression, encoding, row group sizing, and statistics. Activates when users are reading or writing Parquet fil",
-      "repo": "EmilLindfors/claude-marketplace",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "EmilLindfors/claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "parquet-optimization",
+      "description": "Proactively analyzes Parquet file operations and suggests optimization improvements for compression, encoding, row group sizing, and statistics. Activates when users are reading or writing Parquet fil",
+      "repo": "EmilLindfors/claude-marketplace",
+      "path": "plugins/rust-data-engineering/skills/parquet-optimization",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "EmilLindfors/claude-marketplace/plugins/rust-data-engineering/skills/parquet-optimization",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8902,6 +8847,18 @@
       "description": "Master performance management, goal-setting, OKRs, reviews, feedback, and metrics for engineering teams",
       "repo": "pluginagentmarketplace/custom-plugin-engineering-manager",
       "path": "skills/performance-management",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "pluginagentmarketplace/custom-plugin-engineering-manager/skills/performance-management",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "performance-monitoring",
+      "description": "Set up application monitoring, logging, error tracking, and performance metrics tracking. Use when implementing monitoring or debugging production issues.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": ".claude/skills/performance-monitoring",
       "branch": "main",
       "category": "product",
       "tags": [],
@@ -9162,6 +9119,18 @@
       "name": "policyengine-analysis",
       "description": "Common analysis patterns for PolicyEngine research repositories (CRFB, newsletters, dashboards, impact studies)",
       "repo": "PolicyEngine/policyengine-claude",
+      "path": "skills/analysis/policyengine-analysis-skill",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/skills/analysis/policyengine-analysis-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "policyengine-analysis",
+      "description": "Common analysis patterns for PolicyEngine research repositories (CRFB, newsletters, dashboards, impact studies)",
+      "repo": "PolicyEngine/policyengine-claude",
       "path": "",
       "branch": "main",
       "category": "product",
@@ -9174,24 +9143,24 @@
       "name": "political-attack-neutralization",
       "description": "Neutralize workplace political attacks using the MOAR framework from Gartner research",
       "repo": "cameronsjo/claude-marketplace",
-      "path": "plugins/political-attack-neutralization/skills/political-attack-neutralization",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "cameronsjo/claude-marketplace/plugins/political-attack-neutralization/skills/political-attack-neutralization",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "political-attack-neutralization",
-      "description": "Neutralize workplace political attacks using the MOAR framework from Gartner research",
-      "repo": "cameronsjo/claude-marketplace",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "cameronsjo/claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "political-attack-neutralization",
+      "description": "Neutralize workplace political attacks using the MOAR framework from Gartner research",
+      "repo": "cameronsjo/claude-marketplace",
+      "path": "plugins/political-attack-neutralization/skills/political-attack-neutralization",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "cameronsjo/claude-marketplace/plugins/political-attack-neutralization/skills/political-attack-neutralization",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9711,24 +9680,24 @@
       "name": "production-gate",
       "description": "프로덕션 배포 게이트 확인. Use when:(1) 프로덕션 배포 가능 여부 확인, (2) 미완료 테스트 이슈 체크,(3) 배포 준비 상태 리포트.",
       "repo": "semicolon-devteam/semo",
-      "path": "semo-system/semo-skills/production-gate",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "semicolon-devteam/semo/semo-system/semo-skills/production-gate",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "production-gate",
-      "description": "프로덕션 배포 게이트 확인. Use when:(1) 프로덕션 배포 가능 여부 확인, (2) 미완료 테스트 이슈 체크,(3) 배포 준비 상태 리포트.",
-      "repo": "semicolon-devteam/semo",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "semicolon-devteam/semo",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "production-gate",
+      "description": "프로덕션 배포 게이트 확인. Use when:(1) 프로덕션 배포 가능 여부 확인, (2) 미완료 테스트 이슈 체크,(3) 배포 준비 상태 리포트.",
+      "repo": "semicolon-devteam/semo",
+      "path": "semo-system/semo-skills/production-gate",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "semicolon-devteam/semo/semo-system/semo-skills/production-gate",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10005,24 +9974,24 @@
       "name": "qa-discussion",
       "description": "Conducts structured Q&A discussions with users, handling multiple choice, single choice, and open-ended questions one at a time - tracks progress, validates answers, and provides summary reports for c",
       "repo": "zenobi-us/dotfiles",
-      "path": "ai/files/skills/superpowers/qa-discussion",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "zenobi-us/dotfiles/ai/files/skills/superpowers/qa-discussion",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "qa-discussion",
-      "description": "Conducts structured Q&A discussions with users, handling multiple choice, single choice, and open-ended questions one at a time - tracks progress, validates answers, and provides summary reports for c",
-      "repo": "zenobi-us/dotfiles",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "qa-discussion",
+      "description": "Conducts structured Q&A discussions with users, handling multiple choice, single choice, and open-ended questions one at a time - tracks progress, validates answers, and provides summary reports for c",
+      "repo": "zenobi-us/dotfiles",
+      "path": "ai/files/skills/superpowers/qa-discussion",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "zenobi-us/dotfiles/ai/files/skills/superpowers/qa-discussion",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10089,24 +10058,24 @@
       "name": "quarterly-review",
       "description": "Conduct a quarterly review of your overall research mission and direction. This is a user-level review stored in ~/.researchAssistant/. Use when the user types /quarterly_review, every 3 months, after",
       "repo": "braselog/researchAssistant",
-      "path": ".ra/skills/quarterly-review",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "braselog/researchAssistant/.ra/skills/quarterly-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "quarterly-review",
-      "description": "Conduct a quarterly review of your overall research mission and direction. This is a user-level review stored in ~/.researchAssistant/. Use when the user types /quarterly_review, every 3 months, after",
-      "repo": "braselog/researchAssistant",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "braselog/researchAssistant",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "quarterly-review",
+      "description": "Conduct a quarterly review of your overall research mission and direction. This is a user-level review stored in ~/.researchAssistant/. Use when the user types /quarterly_review, every 3 months, after",
+      "repo": "braselog/researchAssistant",
+      "path": ".ra/skills/quarterly-review",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "braselog/researchAssistant/.ra/skills/quarterly-review",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10395,24 +10364,24 @@
       "name": "repo-recap",
       "description": "Generate a 2025 year-in-review visualization for a repository. Use when user asks for \"repo recap\", \"年間レポート\", \"yearly summary\", \"2025 recap\", or wants to see repository statistics and contributions. (",
       "repo": "him0/him0-claude-marketplace",
-      "path": "repo-recap/skills/repo-recap",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "him0/him0-claude-marketplace/repo-recap/skills/repo-recap",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "repo-recap",
-      "description": "Generate a 2025 year-in-review visualization for a repository. Use when user asks for \"repo recap\", \"年間レポート\", \"yearly summary\", \"2025 recap\", or wants to see repository statistics and contributions. (",
-      "repo": "him0/him0-claude-marketplace",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "him0/him0-claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "repo-recap",
+      "description": "Generate a 2025 year-in-review visualization for a repository. Use when user asks for \"repo recap\", \"年間レポート\", \"yearly summary\", \"2025 recap\", or wants to see repository statistics and contributions. (",
+      "repo": "him0/him0-claude-marketplace",
+      "path": "repo-recap/skills/repo-recap",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "him0/him0-claude-marketplace/repo-recap/skills/repo-recap",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10998,24 +10967,24 @@
       "name": "self-enhance",
       "description": "Framework for improving Claude configuration (skills, agents, commands). Use when analyzing work patterns, proposing new skills, identifying knowledge gaps, reviewing Claude setup, or when user asks t",
       "repo": "keenranger/dotfiles",
-      "path": "claude/skills/self-enhance",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "keenranger/dotfiles/claude/skills/self-enhance",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "send-message",
-      "description": "Send messages via Sinch Conversation API over WhatsApp, SMS, RCS, Messenger, Viber, Instagram, Telegram, and other channels. Use when the user wants to send a message, text someone, send a WhatsApp me",
-      "repo": "sinch/sinch-plugins",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "sinch/sinch-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "self-enhance",
+      "description": "Framework for improving Claude configuration (skills, agents, commands). Use when analyzing work patterns, proposing new skills, identifying knowledge gaps, reviewing Claude setup, or when user asks t",
+      "repo": "keenranger/dotfiles",
+      "path": "claude/skills/self-enhance",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "keenranger/dotfiles/claude/skills/self-enhance",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -11202,24 +11171,24 @@
       "name": "shared-space",
       "description": "Manages shared ledgers for family or team collaboration, including shared account summaries, spending statistics, and member settlements. Use when user asks about shared expenses, family ledger, team ",
       "repo": "kylesean/augo",
-      "path": "server/app/skills/shared-space",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "kylesean/augo/server/app/skills/shared-space",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "shared-space",
-      "description": "Manages shared ledgers for family or team collaboration, including shared account summaries, spending statistics, and member settlements. Use when user asks about shared expenses, family ledger, team ",
-      "repo": "kylesean/augo",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "kylesean/augo",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "shared-space",
+      "description": "Manages shared ledgers for family or team collaboration, including shared account summaries, spending statistics, and member settlements. Use when user asks about shared expenses, family ledger, team ",
+      "repo": "kylesean/augo",
+      "path": "server/app/skills/shared-space",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "kylesean/augo/server/app/skills/shared-space",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -11730,24 +11699,24 @@
       "name": "stakeholder-ops",
       "description": "Use to coordinate approvals, communications, and accountability across teams for feedback programs.",
       "repo": "gtmagents/gtm-agents",
-      "path": "plugins/customer-feedback-orchestration/skills/stakeholder-ops",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/customer-feedback-orchestration/skills/stakeholder-ops",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "stakeholder-ops",
-      "description": "Use to coordinate approvals, communications, and accountability across teams for feedback programs.",
-      "repo": "gtmagents/gtm-agents",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "stakeholder-ops",
+      "description": "Use to coordinate approvals, communications, and accountability across teams for feedback programs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "plugins/customer-feedback-orchestration/skills/stakeholder-ops",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/plugins/customer-feedback-orchestration/skills/stakeholder-ops",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12242,24 +12211,24 @@
       "name": "telegram-bot-management",
       "description": "Telegram bot production management, monitoring, and troubleshooting. Use when user mentions telegram bot, claude-orchestrator, bot status, bot restart, or bot monitoring.",
       "repo": "terrylica/cc-skills",
-      "path": "plugins/devops-tools/skills/telegram-bot-management",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "terrylica/cc-skills/plugins/devops-tools/skills/telegram-bot-management",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "telegram-bot-management",
-      "description": "Telegram bot production management, monitoring, and troubleshooting. Use when user mentions telegram bot, claude-orchestrator, bot status, bot restart, or bot monitoring.",
-      "repo": "terrylica/cc-skills",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "terrylica/cc-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "telegram-bot-management",
+      "description": "Telegram bot production management, monitoring, and troubleshooting. Use when user mentions telegram bot, claude-orchestrator, bot status, bot restart, or bot monitoring.",
+      "repo": "terrylica/cc-skills",
+      "path": "plugins/devops-tools/skills/telegram-bot-management",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "terrylica/cc-skills/plugins/devops-tools/skills/telegram-bot-management",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12506,24 +12475,24 @@
       "name": "urgency-action",
       "description": "Use when creating animations that prompt immediate user action, highlight time-sensitivity, or drive conversions.",
       "repo": "dylantarre/animation-principles",
-      "path": "skills/06-by-emotional-outcome/urgency-action",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "dylantarre/animation-principles/skills/06-by-emotional-outcome/urgency-action",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "urgency-action",
-      "description": "Use when creating animations that prompt immediate user action, highlight time-sensitivity, or drive conversions.",
-      "repo": "dylantarre/animation-principles",
       "path": "",
       "branch": "main",
       "category": "product",
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "urgency-action",
+      "description": "Use when creating animations that prompt immediate user action, highlight time-sensitivity, or drive conversions.",
+      "repo": "dylantarre/animation-principles",
+      "path": "skills/06-by-emotional-outcome/urgency-action",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "dylantarre/animation-principles/skills/06-by-emotional-outcome/urgency-action",
       "source": "SkillsMP + GitHub Raw"
     },
     {

@@ -1,7 +1,7 @@
 {
   "category": "data",
-  "count": 2589,
-  "updated_at": "2026-02-05T06:10:35.160877Z",
+  "count": 2577,
+  "updated_at": "2026-02-05T06:37:27.954843Z",
   "skills": [
     {
       "name": "electron-chromium-upgrade-electron-electron",
@@ -521,18 +521,6 @@
       "stars": 191,
       "install": "mbruhler/claude-orchestration/skills/using-templates",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "deduplication-dadbodgeoff-drift",
-      "description": "Event deduplication with canonical selection, reputation scoring, and hash-based grouping for multi-source data aggregation. Handles both ID-based and content-based deduplication.",
-      "repo": "dadbodgeoff/drift",
-      "path": "skills/deduplication",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 169,
-      "install": "dadbodgeoff/drift/skills/deduplication",
-      "source": "github.com/dadbodgeoff/drift"
     },
     {
       "name": "adapter-factory",
@@ -9448,6 +9436,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent-ops-context-map",
+      "description": "Analyze the codebase to create a concise, LLM-optimized structured overview in .agent/map.md.",
+      "repo": "weholt/script-cast",
+      "path": ".github/skills/agent-ops-context-map",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "weholt/script-cast/.github/skills/agent-ops-context-map",
+      "source": "github.com/weholt/script-cast"
+    },
+    {
       "name": "agent-ops-prove-your-worth",
       "description": "Ruthlessly audit project features for justification. Challenge every feature to prove its value with evidence or face removal. Uses MCP tools for research.",
       "repo": "weholt/script-cast",
@@ -11919,26 +11919,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "bsee-sodir-extraction",
-      "description": "Extract and process energy data from BSEE (Gulf of Mexico) and SODIR (Norway) regulatory databases",
-      "repo": "vamseeachanta/digitalmodel",
-      "path": ".claude/skills/data-analysis/bsee-sodir-extraction",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "bsee",
-        "sodir",
-        "energy-data",
-        "oil-gas",
-        "offshore",
-        "web-scraping",
-        "api"
-      ],
-      "stars": 0,
-      "install": "vamseeachanta/digitalmodel/.claude/skills/data-analysis/bsee-sodir-extraction",
-      "source": "github.com/vamseeachanta/digitalmodel"
-    },
-    {
       "name": "bsl-model-builder",
       "description": "Build BSL semantic models with dimensions, measures, joins, and YAML config. Use for creating/modifying data models.",
       "repo": "boringdata/boring-semantic-layer",
@@ -12353,18 +12333,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "case-analyzer",
-      "description": "Analyzes legal case facts and identifies viable legal theories, causes of action, and evidentiary requirements. Use when conducting case intake, strategy development, or initial legal analysis.",
-      "repo": "enuno/claude-command-and-control",
-      "path": "skills/case-analyzer",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "enuno/claude-command-and-control/skills/case-analyzer",
-      "source": "github.com/enuno/claude-command-and-control"
-    },
-    {
       "name": "cass-search",
       "description": "Search past AI sessions with CASS. Use when looking for past solutions, searching session history, finding how something was done before, or when the user mentions \"cass\", \"history\", or \"past sessions",
       "repo": "eaasxt/Farmhand",
@@ -12580,22 +12548,6 @@
       "stars": 0,
       "install": "meicanhong/meicanhong.github.io/.claude/skills/chat2blog",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "chatbot-analytics",
-      "description": "Implement AI chatbot analytics and conversation monitoring. Use when adding conversation metrics, tracking AI usage, measuring user engagement with chat, or building conversation dashboards. Activates",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/chatbot-analytics",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "analytics",
-        "chatbot",
-        "ai-metrics"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/chatbot-analytics",
-      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "chatbot-api",
@@ -13729,24 +13681,6 @@
       "stars": 0,
       "install": "nategarelik/composition",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "computer-vision-helper",
-      "description": "Assist with image analysis, object detection, and visual AI tasks",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/computer-vision-helper",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "computer-vision",
-        "image-analysis",
-        "object-detection",
-        "visual-AI",
-        "deep-learning"
-      ],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/computer-vision-helper",
-      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "conceptual-modeling",
@@ -15425,36 +15359,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "data-pipeline-builder",
-      "description": "Build orchestration pipelines with idempotency.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/data-pipeline-builder",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/data-pipeline-builder",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
-      "name": "data-pipeline-engineer",
-      "description": "Expert data engineer for ETL/ELT pipelines, streaming, data warehousing. Activate on: data pipeline, ETL, ELT, data warehouse, Spark, Kafka, Airflow, dbt, data modeling, star schema, streaming data, b",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/data-pipeline-engineer",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "etl",
-        "spark",
-        "kafka",
-        "airflow",
-        "data-warehouse"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/data-pipeline-engineer",
-      "source": "github.com/erichowens/some_claude_skills"
-    },
-    {
       "name": "data-processing-workflows",
       "description": "Polibaseのデータ処理ワークフローとパイプラインを説明します。議事録処理、Web scraping、政治家データ収集、話者マッチングなどの処理フロー、依存関係、実行順序を理解する際にアクティベートされます。",
       "repo": "trust-chain-organization/sagebase",
@@ -15610,18 +15514,6 @@
       "stars": 0,
       "install": "DanSnow/data-visualize/.claude/skills/data-viz-insight",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "data-warehouse-designer",
-      "description": "Design dimensional models and fact tables.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/data-warehouse-designer",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/data-warehouse-designer",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "data-warehousing",
@@ -18126,6 +18018,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "evaluate-model",
+      "description": "Measure model performance on test datasets. Use when assessing accuracy, precision, recall, and other metrics.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/evaluate-model",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/evaluate-model",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "evaluation-harness",
       "description": "Builds repeatable evaluation systems with golden datasets, scoring rubrics, pass/fail thresholds, and regression reports. Use for \"LLM evaluation\", \"testing AI systems\", \"quality assurance\", or \"model",
       "repo": "patricio0312rev/skillset",
@@ -18594,18 +18498,6 @@
       "stars": 0,
       "install": "pcortes/swarm-attack",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "feature-store-builder",
-      "description": "Version features for offline and online serving.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/feature-store-builder",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/feature-store-builder",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "fetch-favicons",
@@ -20562,24 +20454,6 @@
       "source": "local"
     },
     {
-      "name": "hr-network-analyst",
-      "description": "Professional network graph analyst identifying Gladwellian superconnectors, mavens, and influence brokers using betweenness centrality, structural holes theory, and multi-source network reconstruction",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/hr-network-analyst",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "network",
-        "superconnectors",
-        "influence",
-        "graph-theory",
-        "hr"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/hr-network-analyst",
-      "source": "github.com/erichowens/some_claude_skills"
-    },
-    {
       "name": "hti-fallback-guard",
       "description": "In this repo, avoid sloppy fallback logic. Prefer explicit failures, narrow error handling, and clearly marked TODOs over fake success paths.",
       "repo": "moviesR/hti-zen-harness",
@@ -20745,18 +20619,6 @@
       "stars": 0,
       "install": "ItamarS3917/ict-mnq-trading-system",
       "source": "local"
-    },
-    {
-      "name": "identify-architecture",
-      "description": "Analyze ML model architecture from papers and code. Use when understanding model structure for implementation.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/identify-architecture",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/identify-architecture",
-      "source": "github.com/mvillmow/ProjectOdyssey"
     },
     {
       "name": "imggen",
@@ -22518,18 +22380,6 @@
       "source": "local"
     },
     {
-      "name": "lint-code",
-      "description": "Check code for style and quality issues. Use when validating code before commits.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-1/lint-code",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-1/lint-code",
-      "source": "github.com/mvillmow/ProjectOdyssey"
-    },
-    {
       "name": "list-skills",
       "description": "List all available skills in Nexus with descriptions. Load when user says \"list skills\", \"show skills\", \"what skills\", \"available skills\", \"skill list\", \"all skills\", or asks what they can do with Nex",
       "repo": "abdullahbeam/nexus-design-abdullah",
@@ -22607,24 +22457,6 @@
       "stars": 0,
       "install": "Soborbo/claudeskills/llm-optimization",
       "source": "local"
-    },
-    {
-      "name": "llm-prompt-optimizer",
-      "description": "Optimize prompts for better LLM outputs through systematic analysis and refinement",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/llm-prompt-optimizer",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "prompt-engineering",
-        "optimization",
-        "LLM",
-        "AI",
-        "performance"
-      ],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/llm-prompt-optimizer",
-      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "llmn",
@@ -24525,24 +24357,6 @@
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-mongodb/skills/mongodb-atlas-setup",
       "source": "local"
-    },
-    {
-      "name": "mongodb-expert",
-      "description": "Expert-level MongoDB database design, aggregation pipelines, indexing, replication, and production operations",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/mongodb-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "mongodb",
-        "nosql",
-        "database",
-        "aggregation",
-        "performance"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/mongodb-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
     },
     {
       "name": "mongodb-find-queries",
@@ -28438,25 +28252,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "redis-expert",
-      "description": "Expert-level Redis for caching, pub/sub, data structures, and high-performance applications",
-      "repo": "personamanagmentlayer/pcl",
-      "path": "stdlib/data/redis-expert",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "redis",
-        "cache",
-        "pubsub",
-        "inmemory",
-        "keyvalue",
-        "nosql"
-      ],
-      "stars": 0,
-      "install": "personamanagmentlayer/pcl/stdlib/data/redis-expert",
-      "source": "github.com/personamanagmentlayer/pcl"
-    },
-    {
       "name": "redpanda-migrator",
       "description": "Generate Redpanda Migrator YAML configuration files for migrating data between Kafka-compatible clusters. Use when users request migration configurations for Kafka, Redpanda, Confluent Cloud, AWS MSK,",
       "repo": "ajurcenk/claude_code_redpanda_migrator_cfg_gen_agent_skiils",
@@ -31389,6 +31184,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "startup-portrait",
+      "description": "Transform team photos into professional startup portraits using fal.ai Nano Banana Pro image-to-image API.",
+      "repo": "vm0-ai/vm0-cookbooks",
+      "path": "210-startup-portrait/startup-portrait-volume/skills/brightdata-instagram",
+      "branch": "main",
+      "category": "data",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0-cookbooks/210-startup-portrait/startup-portrait-volume/skills/brightdata-instagram",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "state-flow-visualizer",
       "description": "Analyze and visualize state flow in LangGraph pipelines. Use when debugging state mutations, tracing data flow between nodes, identifying orphan state keys, detecting read/write dependencies, or gener",
       "repo": "KeepitSimpleAnalytics/tic_dashboard",
@@ -32341,24 +32148,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "taiyo-analyzer",
-      "description": "太陽スタイル分析・スコアリングエンジン - 176パターンに基づくコンテンツ品質分析と改善提案",
-      "repo": "taiyousan15/taisun_agent",
-      "path": ".claude/skills/taiyo-analyzer/skill.md",
-      "branch": "main",
-      "category": "data",
-      "tags": [
-        "copywriting",
-        "analysis",
-        "scoring",
-        "taiyo-style",
-        "optimization"
-      ],
-      "stars": 0,
-      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-analyzer/skill.md",
-      "source": "github.com/taiyousan15/taisun_agent"
-    },
-    {
       "name": "tam-calculator",
       "description": "Calculate Total Addressable Market (TAM), Serviceable Addressable Market (SAM), and Serviceable Obtainable Market (SOM) using top-down, bottom-up, and value-theory approaches with credible data source",
       "repo": "majesticlabs-dev/majestic-marketplace",
@@ -32901,18 +32690,6 @@
       "stars": 0,
       "install": "az9713/tiger-intelligence/plugins/tiger-leads/skills/tiger-dependency-map",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "time-series-database",
-      "description": "Configure retention and downsampling.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/data-analytics/time-series-database",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/data-analytics/time-series-database",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "timeline-generator",
@@ -33903,30 +33680,6 @@
       "tags": [],
       "stars": 0,
       "install": "fractary/claude-plugins/plugins/faber-agent/skills/validate-artifact",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "validate-inputs",
-      "description": "Check function inputs for correctness and safety. Use when implementing defensive programming.",
-      "repo": "mvillmow/ProjectOdyssey",
-      "path": ".claude/skills/tier-2/validate-inputs",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/validate-inputs",
-      "source": "github.com/mvillmow/ProjectOdyssey"
-    },
-    {
-      "name": "validate-journey",
-      "description": "Validates CDP journey YAML configurations against tdx schema requirements. Use when reviewing journey structure, checking step types and parameters, verifying segment references, or troubleshooting jo",
-      "repo": "treasure-data/td-skills",
-      "path": "tdx-skills/validate-journey",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 0,
-      "install": "treasure-data/td-skills/tdx-skills/validate-journey",
       "source": "SkillsMP + GitHub Raw"
     },
     {

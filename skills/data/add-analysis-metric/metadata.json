@@ -1,0 +1,13 @@
+{
+  "name": "add-analysis-metric",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": ".claude-plugin/skills/add-analysis-metric",
+  "github_branch": "main",
+  "dir_name": "add-analysis-metric",
+  "downloaded_at": "2026-02-05T06:23:04.915994Z"
+}

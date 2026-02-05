@@ -1,0 +1,13 @@
+{
+  "name": "fix-pydantic-required-fields",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": ".claude-plugin/skills/fix-pydantic-required-fields",
+  "github_branch": "main",
+  "dir_name": "fix-pydantic-required-fields",
+  "downloaded_at": "2026-02-05T06:23:05.058031Z"
+}

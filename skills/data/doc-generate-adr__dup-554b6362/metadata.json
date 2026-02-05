@@ -1,0 +1,13 @@
+{
+  "name": "doc-generate-adr",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/documentation/doc-generate-adr",
+  "github_branch": "main",
+  "dir_name": "doc-generate-adr__dup-554b6362",
+  "downloaded_at": "2026-02-05T06:23:05.181881Z"
+}

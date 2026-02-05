@@ -1,0 +1,13 @@
+{
+  "name": "install-workflow",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/cicd/install-workflow",
+  "github_branch": "main",
+  "dir_name": "install-workflow__dup-0664d039",
+  "downloaded_at": "2026-02-05T06:23:05.305840Z"
+}

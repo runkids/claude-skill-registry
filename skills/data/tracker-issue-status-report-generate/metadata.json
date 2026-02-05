@@ -1,0 +1,13 @@
+{
+  "name": "tracker-issue-status-report-generate",
+  "description": "",
+  "repo": "redhat-best-practices-for-k8s/telco-bot",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/redhat-best-practices-for-k8s/telco-bot",
+  "github_path": ".claude/skills/tracker-issue-status-report-generate",
+  "github_branch": "main",
+  "dir_name": "tracker-issue-status-report-generate",
+  "downloaded_at": "2026-02-05T06:24:39.029095Z"
+}

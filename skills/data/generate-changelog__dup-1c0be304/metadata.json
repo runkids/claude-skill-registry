@@ -1,0 +1,13 @@
+{
+  "name": "generate-changelog",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/other/tier-2/generate-changelog",
+  "github_branch": "main",
+  "dir_name": "generate-changelog__dup-1c0be304",
+  "downloaded_at": "2026-02-05T06:23:05.122725Z"
+}

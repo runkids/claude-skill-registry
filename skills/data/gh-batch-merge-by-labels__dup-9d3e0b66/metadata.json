@@ -1,0 +1,13 @@
+{
+  "name": "gh-batch-merge-by-labels",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/github/gh-batch-merge-by-labels",
+  "github_branch": "main",
+  "dir_name": "gh-batch-merge-by-labels__dup-9d3e0b66",
+  "downloaded_at": "2026-02-05T06:23:05.125749Z"
+}

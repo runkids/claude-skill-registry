@@ -1,0 +1,13 @@
+{
+  "name": "phase-plan-generate",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/workflow/phase-plan-generate",
+  "github_branch": "main",
+  "dir_name": "phase-plan-generate__dup-d260ad1c",
+  "downloaded_at": "2026-02-05T06:23:05.025159Z"
+}

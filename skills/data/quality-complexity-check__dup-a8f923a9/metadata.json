@@ -1,0 +1,13 @@
+{
+  "name": "quality-complexity-check",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/quality/quality-complexity-check",
+  "github_branch": "main",
+  "dir_name": "quality-complexity-check__dup-a8f923a9",
+  "downloaded_at": "2026-02-05T06:23:05.252447Z"
+}

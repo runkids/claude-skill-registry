@@ -1,7 +1,7 @@
 {
   "category": "official",
   "count": 25,
-  "updated_at": "2026-02-05T06:10:35.466764Z",
+  "updated_at": "2026-02-05T06:37:28.052807Z",
   "skills": [
     {
       "name": "claude-opus-4-5-migration-anthropics-claude-code",
@@ -43,20 +43,6 @@
       ],
       "stars": 47860,
       "install": "anthropics/claude-code/plugins/frontend-design/skills/frontend-design",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docx",
-      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
-      "repo": "anthropics/skills",
-      "path": "skills/docx",
-      "branch": "main",
-      "category": "official",
-      "tags": [
-        "docx"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/docx",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -260,6 +246,18 @@
       "stars": 0,
       "install": "anthropics/skills/skills/doc-coauthoring",
       "source": "Anthropic Official"
+    },
+    {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "branch": "main",
+      "category": "official",
+      "tags": [],
+      "stars": 0,
+      "install": "anthropics/skills/skills/docx",
+      "source": "https://github.com/anthropics/skills"
     },
     {
       "name": "examples-auto-run",

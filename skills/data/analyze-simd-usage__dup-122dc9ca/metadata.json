@@ -1,0 +1,13 @@
+{
+  "name": "analyze-simd-usage",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/mojo/analyze-simd-usage",
+  "github_branch": "main",
+  "dir_name": "analyze-simd-usage__dup-122dc9ca",
+  "downloaded_at": "2026-02-05T06:23:04.986366Z"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "worktree-cleanup",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/worktree/worktree-cleanup",
+  "github_branch": "main",
+  "dir_name": "worktree-cleanup__dup-8e7b0b1b",
+  "downloaded_at": "2026-02-05T06:23:04.984646Z"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "quality-fix-formatting",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/quality/quality-fix-formatting",
+  "github_branch": "main",
+  "dir_name": "quality-fix-formatting__dup-cdc12ec3",
+  "downloaded_at": "2026-02-05T06:23:05.100927Z"
+}

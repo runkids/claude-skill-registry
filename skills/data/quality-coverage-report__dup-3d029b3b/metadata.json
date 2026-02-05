@@ -1,0 +1,13 @@
+{
+  "name": "quality-coverage-report",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/quality/quality-coverage-report",
+  "github_branch": "main",
+  "dir_name": "quality-coverage-report__dup-3d029b3b",
+  "downloaded_at": "2026-02-05T06:23:05.114501Z"
+}

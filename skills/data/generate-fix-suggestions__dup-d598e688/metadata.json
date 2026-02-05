@@ -1,0 +1,13 @@
+{
+  "name": "generate-fix-suggestions",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": "tests/claude-code/shared/skills/other/generate-fix-suggestions",
+  "github_branch": "main",
+  "dir_name": "generate-fix-suggestions__dup-d598e688",
+  "downloaded_at": "2026-02-05T06:23:05.214806Z"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "containerize-e2e-experiments",
+  "description": "",
+  "repo": "HomericIntelligence/ProjectScylla",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/HomericIntelligence/ProjectScylla",
+  "github_path": ".claude-plugin/skills/containerize-e2e-experiments",
+  "github_branch": "main",
+  "dir_name": "containerize-e2e-experiments",
+  "downloaded_at": "2026-02-05T06:23:05.141179Z"
+}
