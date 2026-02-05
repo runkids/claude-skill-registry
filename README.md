@@ -6,10 +6,10 @@
 > This repo will transition to a lightweight entry point while the skill archive lives in the data repo.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmajiayu000%2Fclaude-skill-registry%2Fmain%2Fdocs%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmajiayu000.github.io%2Fclaude-skill-registry-core%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
-  <a href="https://skills-registry-web.vercel.app"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
+  <a href="https://majiayu000.github.io/claude-skill-registry-core/"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
 > The most comprehensive Claude Code skills registry — updated daily with the latest skills
@@ -19,7 +19,7 @@
 The largest searchable index of Claude Code skills, aggregated from GitHub and community sources.
 
 **Three ways to use:**
-1. **[Web Search](https://skills-registry-web.vercel.app/)** - Fast browser-based search
+1. **[Web Search](https://majiayu000.github.io/claude-skill-registry-core/)** - Fast browser-based search
 2. **[sk CLI](https://github.com/majiayu000/caude-skill-manager)** - Terminal package manager
 3. **API** - Direct JSON access
 
@@ -35,7 +35,7 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 
 ### Option 1: Web Search
 
-Visit [https://skills-registry-web.vercel.app/](https://skills-registry-web.vercel.app/)
+Visit [https://majiayu000.github.io/claude-skill-registry-core/](https://majiayu000.github.io/claude-skill-registry-core/)
 
 ### Option 2: CLI (sk)
 
@@ -55,14 +55,14 @@ sk install anthropics/skills/skills/docx
 ### Option 3: Direct API
 
 ```bash
-# Lightweight search index (~1MB gzip)
-curl https://skills-registry-web.vercel.app/search-index.json
+# Lightweight search index (gzip-compressed)
+curl https://majiayu000.github.io/claude-skill-registry-core/search-index.json
 
 # Full registry
-curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/registry.json
+curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry-core/main/registry.json
 
 # Specific category
-curl https://skills-registry-web.vercel.app/categories/development.json
+curl https://majiayu000.github.io/claude-skill-registry-core/categories/development.json
 ```
 
 ---
@@ -170,8 +170,8 @@ claude-skill-registry/
 
 ### In Progress
 
-- [x] **Lightweight search index** (~1MB vs 17MB)
-- [x] **Web search UI** (Vercel + GitHub Pages)
+- [x] **Lightweight search index** (gzip-compressed; see stats.json)
+- [x] **Web search UI** (GitHub Pages, core)
 - [x] **GitHub Pages deployment** (enabled)
 
 ### Planned
