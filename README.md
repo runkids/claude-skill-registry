@@ -1,10 +1,10 @@
 # Claude Skills Registry
 
-> **Notice (2026‑02‑05):** Split in progress — this repo is now a lightweight entry point.  
+> **Notice (2026‑02‑05):** Split in progress — **main repo stays full** (scripts + complete skills archive).  
 > **Core repo (index + site):** https://github.com/majiayu000/claude-skill-registry-core  
-> **Data repo (skill archive):** https://github.com/majiayu000/claude-skill-registry-data  
-> **Counts:** The badge shows the live index count. The browsable archive currently has **74,213** `SKILL.md` files (data repo, 2026‑02‑05).  
-> **Why it’s lower than ~90k:** earlier numbers included registry-only entries and legacy duplicate copies; the archive is deduplicated.
+> **Data repo (dedup archive):** https://github.com/majiayu000/claude-skill-registry-data  
+> **Counts (2026‑02‑05):** main repo **104,172** `SKILL.md` files (legacy + new layout); data repo **74,219**; main `skills/data` **48,636**.  
+> **Why not ~90k?** the ~90k number came from index/registry entries + legacy duplicates, not a 1:1 count of archived files.
 
 <p align="center">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmajiayu000.github.io%2Fclaude-skill-registry-core%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
@@ -27,7 +27,7 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 ## Highlights
 
 - **Massive Skill Index** - Deduplicated, quality collection (see badge for live count)
-- **12 Categories** - Development, Testing, DevOps, Design, and more
+- **Rich Categories** - Development, Testing, DevOps, Design, and more
 - **Daily Updates** - Automated crawling and validation
 - **Quality Indexed** - Metadata, descriptions, and star counts
 - **Fast Client-Side Search** - Small index for fast search

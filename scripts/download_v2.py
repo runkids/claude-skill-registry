@@ -31,6 +31,8 @@ from typing import Dict, List, Optional, Set, Tuple
 
 import aiohttp
 
+from utils import normalize_name, ensure_unique_dir, build_skill_key
+
 from registry_normalization import (
     canonicalize_category,
     normalize_github_path,
@@ -48,15 +50,6 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
-
-
-def normalize_name(name: str) -> str:
-    """Normalize skill dir names: lowercase, hyphens, max 64 chars."""
-    if not name:
-        return "unknown"
-    name = re.sub(r"[^a-z0-9]+", "-", str(name).lower())
-    name = re.sub(r"-+", "-", name).strip("-")
-    return name[:64] if name else "unknown"
 
 
 def get_repo_suffix(repo: str) -> str:
@@ -219,14 +212,10 @@ def extract_location_from_raw_url(url: str) -> tuple[str, str]:
         return "main", ""
 
 
-def choose_dir_name(base_name: str, repo: str, output_dir: Path) -> str:
-    """Pick a directory name under skills/data without renaming existing dirs."""
+def choose_dir_name(base_name: str, repo: str, output_dir: Path, key: str) -> str:
+    """Pick a case-safe directory name under skills/data."""
     base_name = normalize_name(base_name)
-    if not (output_dir / base_name).exists():
-        return base_name
-    # Conflict: add repo suffix
-    suffix = get_repo_suffix(repo)
-    return f"{base_name}-{suffix}"
+    return ensure_unique_dir(output_dir, base_name, key).name
 
 
 async def download_skill(
@@ -253,7 +242,8 @@ async def download_skill(
         return False
 
     base_name = normalize_name(name)
-    dir_name = choose_dir_name(base_name, repo, output_dir)
+    key = build_skill_key(repo, normalized_path, name=base_name, category=skill.get("category", ""))
+    dir_name = choose_dir_name(base_name, repo, output_dir, key)
     skill_dir = output_dir / dir_name
     skill_file = skill_dir / "SKILL.md"
 

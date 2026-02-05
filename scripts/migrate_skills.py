@@ -12,27 +12,19 @@ Handles conflicts with smart suffix (Option A):
 """
 
 import json
-import re
 import shutil
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Tuple
 import logging
 
+from utils import normalize_name, ensure_unique_dir, build_skill_key
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Official repos get priority
 OFFICIAL_REPOS = {"anthropics/skills", "anthropics/claude-code"}
-
-
-def normalize_name(name: str) -> str:
-    """Normalize skill name."""
-    if not name:
-        return "unknown"
-    name = re.sub(r'[^a-z0-9]+', '-', name.lower())
-    name = re.sub(r'-+', '-', name).strip('-')
-    return name[:64] if name else "unknown"
 
 
 def get_repo_suffix(repo: str) -> str:
@@ -136,8 +128,9 @@ def plan_migration(skills: List[dict], skills_dir: Path) -> Dict[str, List[Tuple
             if len(skill_list) == 1:
                 # No conflict - use simple name
                 skill = skill_list[0]
-                # Target is skills/{category}/{base_name}
-                target_dir = skills_dir / category / base_name
+                # Target is skills/{category}/{base_name} (case-safe)
+                key = build_skill_key(skill.get("repo", ""), str(skill.get("path", "")), name=base_name, category=category)
+                target_dir = ensure_unique_dir(skills_dir / category, base_name, key)
                 plan[category].append((skill["path"], target_dir, "no conflict"))
             else:
                 # Conflict! Sort by priority
@@ -153,7 +146,8 @@ def plan_migration(skills: List[dict], skills_dir: Path) -> Dict[str, List[Tuple
 
                 # First one gets simple name
                 first = sorted_skills[0]
-                target_dir = skills_dir / category / base_name
+                key = build_skill_key(first.get("repo", ""), str(first.get("path", "")), name=base_name, category=category)
+                target_dir = ensure_unique_dir(skills_dir / category, base_name, key)
                 plan[category].append((
                     first["path"],
                     target_dir,
@@ -164,7 +158,8 @@ def plan_migration(skills: List[dict], skills_dir: Path) -> Dict[str, List[Tuple
                 for skill in sorted_skills[1:]:
                     suffix = get_repo_suffix(skill["repo"])
                     suffixed_name = f"{base_name}-{suffix}"
-                    target_dir = skills_dir / category / suffixed_name
+                    key = build_skill_key(skill.get("repo", ""), str(skill.get("path", "")), name=suffixed_name, category=category)
+                    target_dir = ensure_unique_dir(skills_dir / category, suffixed_name, key)
                     plan[category].append((
                         skill["path"],
                         target_dir,
