@@ -1,9 +1,10 @@
 # Claude Skills Registry
 
-> **Notice (2026‑02‑04):** This repository is being split into **Core + Data**.
-> - **Core repo:** https://github.com/majiayu000/claude-skill-registry-core  
-> - **Data repo:** https://github.com/majiayu000/claude-skill-registry-data  
-> This repo will transition to a lightweight entry point while the skill archive lives in the data repo.
+> **Notice (2026‑02‑05):** Split in progress — this repo is now a lightweight entry point.  
+> **Core repo (index + site):** https://github.com/majiayu000/claude-skill-registry-core  
+> **Data repo (skill archive):** https://github.com/majiayu000/claude-skill-registry-data  
+> **Counts:** The badge shows the live index count. The browsable archive currently has **74,213** `SKILL.md` files (data repo, 2026‑02‑05).  
+> **Why it’s lower than ~90k:** earlier numbers included registry-only entries and legacy duplicate copies; the archive is deduplicated.
 
 <p align="center">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmajiayu000.github.io%2Fclaude-skill-registry-core%2Fstats.json&query=%24.total_skills&label=Skills&color=purple&style=flat-square" alt="Skills">
@@ -118,44 +119,32 @@ interface SkillMini {
 
 ---
 
-## Directory Structure
+## Split Layout (Current)
 
 ```
-claude-skill-registry/
-├── registry.json           # Full registry (all skills)
-├── docs/                   # GitHub Pages
-│   ├── index.html          # Web search UI
-│   ├── search-index.json   # Lightweight search index
-│   ├── featured.json       # Top 100 skills
-│   └── categories/         # Category indexes
-├── sources/                # Data sources
-│   ├── anthropic.json
-│   ├── community.json
-│   └── skillsmp.json
-├── scripts/                # Build scripts
-│   ├── build_search_index.py
-│   ├── discover_by_topic.py
-│   ├── security_scanner.py
-│   └── ...
-└── skills/                 # SKILL.md files (data)
+claude-skill-registry/           # Entry point (this repo)
+claude-skill-registry-core/      # registry.json + docs/ + scripts/
+claude-skill-registry-data/      # <category>/<skill>/SKILL.md
 ```
 
 ---
 
 ## Categories
 
-| Category | Code | Count | Description |
-|----------|------|-------|-------------|
-| `development` | `dev` | 15,000+ | Development tools, frameworks |
-| `data` | `dat` | 8,000+ | Data processing, analysis |
-| `design` | `des` | 5,000+ | UI/UX design, frontend |
-| `testing` | `tst` | 4,000+ | Testing, QA, automation |
-| `devops` | `ops` | 3,000+ | DevOps, CI/CD, infrastructure |
-| `documents` | `doc` | 2,000+ | Document creation (docx, pdf) |
-| `productivity` | `pro` | 1,500+ | Productivity and automation |
-| `product` | `prd` | 1,000+ | Product management |
-| `security` | `sec` | 800+ | Security, auditing |
-| `marketing` | `mkt` | 500+ | Marketing, content, SEO |
+Category counts are published in the core index (`categories/*.json`). Here are the standard codes:
+
+| Category | Code | Description |
+|----------|------|-------------|
+| `development` | `dev` | Development tools, frameworks |
+| `data` | `dat` | Data processing, analysis |
+| `design` | `des` | UI/UX design, frontend |
+| `testing` | `tst` | Testing, QA, automation |
+| `devops` | `ops` | DevOps, CI/CD, infrastructure |
+| `documents` | `doc` | Document creation (docx, pdf) |
+| `productivity` | `pro` | Productivity and automation |
+| `product` | `prd` | Product management |
+| `security` | `sec` | Security, auditing |
+| `marketing` | `mkt` | Marketing, content, SEO |
 
 ---
 
@@ -163,7 +152,8 @@ claude-skill-registry/
 
 ### Current Status
 
-- [x] **74,648 unique skills indexed** (deduplicated; see badge for live count)
+- [x] **Index count** tracked by the badge (core `registry.json`)
+- [x] **Archive size:** 74,213 `SKILL.md` files (data repo, 2026‑02‑05)
 - [x] **Daily auto-update** via GitHub Actions
 - [x] **Security scanning** for all skills
 - [x] **sk CLI** for installation
