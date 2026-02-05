@@ -1,8 +1,8 @@
 {
   "category": "testing",
   "code": "tst",
-  "count": 3822,
-  "updated_at": "2026-02-04T09:01:54.113988Z",
+  "count": 3984,
+  "updated_at": "2026-02-05T01:48:45.510287Z",
   "skills": [
     {
       "name": "frontend-testing-langgenius-dify",
@@ -295,18 +295,6 @@
       "source": "github.com/snarktank/ralph"
     },
     {
-      "name": "browser-automation-civitai-civitai",
-      "description": "Browser automation via HTTP server. Supports multiple concurrent sessions for multi-user testing, saved flows, and profile-based auth persistence.",
-      "repo": "civitai/civitai",
-      "path": ".claude/skills/browser-automation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 6994,
-      "install": "civitai/civitai/.claude/skills/browser-automation",
-      "source": "github.com/civitai/civitai"
-    },
-    {
       "name": "backend-dev-guidelines",
       "description": "Comprehensive backend development guide for Node.js/Express/TypeScript microservices. Use when creating routes, controllers, services, repositories, middleware, or working with Express APIs, Prisma da",
       "repo": "diet103/claude-code-infrastructure-showcase",
@@ -546,6 +534,18 @@
       "source": "github.com/hashintel/hash"
     },
     {
+      "name": "add-nodebridge-handler",
+      "description": "Use this skill when adding a new NodeBridge handler to src/nodeBridge.ts, including updating types in src/nodeBridge.types.ts and optionally testing with scripts/test-nodebridge.ts",
+      "repo": "neovateai/neovate-code",
+      "path": ".claude/skills/add-nodebridge-handler",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1393,
+      "install": "neovateai/neovate-code/.claude/skills/add-nodebridge-handler",
+      "source": "github.com/neovateai/neovate-code"
+    },
+    {
       "name": "external-model-selection",
       "description": "Choose optimal external AI models for code analysis, bug investigation, and architectural decisions. Use when consulting multiple LLMs via claudish, comparing model perspectives, or investigating comp",
       "repo": "MadAppGang/dingo",
@@ -602,6 +602,18 @@
       "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
     },
     {
+      "name": "dart-test",
+      "description": "DART testing patterns - unit tests, integration tests, CI validation",
+      "repo": "dartsim/dart",
+      "path": ".claude/skills/dart-test",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1046,
+      "install": "dartsim/dart/.claude/skills/dart-test",
+      "source": "github.com/dartsim/dart"
+    },
+    {
       "name": "descriptions",
       "description": "Load or unload skills into the agent's memory.",
       "repo": "letta-ai/letta-code",
@@ -627,6 +639,22 @@
       ],
       "stars": 817,
       "install": "glittercowboy/taches-cc-resources/skills/debug-like-expert",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "data-stats-analysis",
+      "description": "Perform statistical tests, hypothesis testing, correlation analysis, and multiple testing corrections using scipy and statsmodels. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
+      "repo": "Starlitnightly/omicverse",
+      "path": ".claude/skills/data-stats-analysis",
+      "branch": "master",
+      "category": "testing",
+      "tags": [
+        "data",
+        "stats",
+        "analysis"
+      ],
+      "stars": 783,
+      "install": "Starlitnightly/omicverse/.claude/skills/data-stats-analysis",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -831,6 +859,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "contextvar-opportunity-finder",
+      "description": "Detect explicit user_id parameters in functions to identify potential opportunities for using ambient context. This is an investigation tool that flags instances for human review, not a prescriptive a",
+      "repo": "taylorsatula/mira-OSS",
+      "path": ".claude/skills/contextvar-opportunity-finder",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "contextvar",
+        "opportunity",
+        "finder"
+      ],
+      "stars": 334,
+      "install": "taylorsatula/mira-OSS/.claude/skills/contextvar-opportunity-finder",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "add-provider",
       "description": "Guide for adding new AI providers to ClaudeBar using TDD patterns. Use this skill when:(1) Adding a new AI assistant provider (like Antigravity, Cursor, etc.)(2) Creating a usage probe for a CLI tool",
       "repo": "tddworks/ClaudeBar",
@@ -905,6 +949,20 @@
       ],
       "stars": 310,
       "install": "modu-ai/moai-adk/.claude/skills/moai-lang-python",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "setup",
+      "description": "This skill should be used when user encounters \"Azure MCP error\", \"Azure authentication failed\", \"az login required\", \"Azure CLI not found\", or needs help configuring Azure MCP integration.",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "plugins/tavily-tools/skills/setup",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "setup"
+      ],
+      "stars": 275,
+      "install": "fcakyon/claude-codex-settings/plugins/tavily-tools/skills/setup",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1329,6 +1387,49 @@
       "stars": 109,
       "install": "jezweb/claude-skills/skills/clerk-auth",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "cloudflare-worker-base",
+      "description": "Set up Cloudflare Workers with Hono routing, Vite plugin, and Static Assets using production-tested patterns.Prevents 8 errors: export syntax, routing conflicts, HMR crashes, gradual rollout asset mis",
+      "repo": "jezweb/claude-skills",
+      "path": "skills/cloudflare-worker-base",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "cloudflare",
+        "worker",
+        "base"
+      ],
+      "stars": 109,
+      "install": "jezweb/claude-skills/skills/cloudflare-worker-base",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "cloudflare-workflows",
+      "description": "Build durable workflows with Cloudflare Workflows (GA April 2025). Features step.do, step.sleep, waitForEvent,Vitest testing, and runs for hours to days with automatic retries and state persistence.Us",
+      "repo": "jezweb/claude-skills",
+      "path": "skills/cloudflare-workflows",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "cloudflare",
+        "workflows"
+      ],
+      "stars": 109,
+      "install": "jezweb/claude-skills/skills/cloudflare-workflows",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "bio-basecalling-gptomics-bioskills",
+      "description": "Convert raw Nanopore signal data (FAST5/POD5) to nucleotide sequences using Dorado basecaller. Covers model selection, GPU acceleration, modified base detection, and quality filtering. Use when proces",
+      "repo": "GPTomics/bioSkills",
+      "path": "long-read-sequencing/basecalling",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 108,
+      "install": "GPTomics/bioSkills/long-read-sequencing/basecalling",
+      "source": "github.com/GPTomics/bioSkills"
     },
     {
       "name": "mcp-cli",
@@ -1837,6 +1938,40 @@
       ],
       "stars": 103,
       "install": "proffesor-for-testing/agentic-qe/.claude/skills/n8n-security-testing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "n8n-trigger-testing-strategies",
+      "description": "Webhook testing, schedule validation, event-driven triggers, and polling mechanism testing for n8n workflows. Use when testing how workflows are triggered.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": ".claude/skills/n8n-trigger-testing-strategies",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "n8n",
+        "trigger",
+        "testing",
+        "strategies"
+      ],
+      "stars": 103,
+      "install": "proffesor-for-testing/agentic-qe/.claude/skills/n8n-trigger-testing-strategies",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "n8n-workflow-testing-fundamentals",
+      "description": "Comprehensive n8n workflow testing including execution lifecycle, node connection patterns, data flow validation, and error handling strategies. Use when testing n8n workflow automation applications.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": ".claude/skills/n8n-workflow-testing-fundamentals",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "n8n",
+        "workflow",
+        "testing",
+        "fundamentals"
+      ],
+      "stars": 103,
+      "install": "proffesor-for-testing/agentic-qe/.claude/skills/n8n-workflow-testing-fundamentals",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2358,19 +2493,35 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "github-actions-testing",
-      "description": "Expert guidance for testing and validating GitHub Actions workflows before deployment - catches cache errors, path issues, monorepo dependencies, and service container problems that local testing miss",
+      "name": "adding-new-ai-format",
+      "description": "Step-by-step guide for adding support for a new AI editor format to PRPM - covers types, converters, schemas, CLI, webapp, and testing",
       "repo": "pr-pm/prpm",
-      "path": ".claude/skills/github-actions-testing",
+      "path": ".claude/skills/adding-new-ai-format",
       "branch": "main",
       "category": "testing",
       "tags": [
-        "github",
-        "actions",
-        "testing"
+        "adding",
+        "new",
+        "format"
       ],
       "stars": 70,
-      "install": "pr-pm/prpm/.claude/skills/github-actions-testing",
+      "install": "pr-pm/prpm/.claude/skills/adding-new-ai-format",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "npm-trusted-publishing",
+      "description": "Use when setting up npm publishing with GitHub Actions - provides trusted publishing with OIDC, provenance attestations, and monorepo configuration",
+      "repo": "pr-pm/prpm",
+      "path": ".claude/skills/npm-trusted-publishing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "npm",
+        "trusted",
+        "publishing"
+      ],
+      "stars": 70,
+      "install": "pr-pm/prpm/.claude/skills/npm-trusted-publishing",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2639,6 +2790,18 @@
       "tags": [],
       "stars": 48,
       "install": "majiayu000/claude-skill-registry/skills/data/claude-speak",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "clawdhub",
+      "description": "Use the ClawdHub CLI to search, install, update, and publish agent skills from clawdhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "skills/data/clawdhub",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry/skills/data/clawdhub",
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
@@ -3226,21 +3389,6 @@
       "source": "local"
     },
     {
-      "name": "testing-principles",
-      "description": "Language-agnostic testing principles including TDD, test quality, coverage standards, and test design patterns. Use when writing tests, designing test strategies, or reviewing test quality.",
-      "repo": "shinpr/claude-code-workflows",
-      "path": "skills/testing-principles",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "testing",
-        "principles"
-      ],
-      "stars": 44,
-      "install": "shinpr/claude-code-workflows/skills/testing-principles",
-      "source": "local"
-    },
-    {
       "name": "resolve",
       "description": "Resolve disagreements between agents or approaches using test-based adjudication. Use when agents disagree, when multiple valid approaches exist, when the user asks \"which approach\", or when making ar",
       "repo": "Mburdo/knowledge_and_vibes",
@@ -3389,18 +3537,18 @@
       "source": "local"
     },
     {
-      "name": "starwards-monorepo",
-      "description": "npm workspace monorepo workflow for Starwards - build order, module dependencies, watch mode, testing across modules, and avoiding common monorepo pitfalls; core builds first always",
+      "name": "starwards-tdd",
+      "description": "Test-driven development for Starwards - write the test first, watch it fail, write minimal code to pass; includes Jest unit tests, Playwright E2E tests, Colyseus state sync, @gameField decorators, Twe",
       "repo": "starwards/starwards",
-      "path": ".claude/skills/starwards-monorepo",
+      "path": ".claude/skills/starwards-tdd",
       "branch": "master",
       "category": "testing",
       "tags": [
         "starwards",
-        "monorepo"
+        "tdd"
       ],
       "stars": 35,
-      "install": "starwards/starwards/.claude/skills/starwards-monorepo",
+      "install": "starwards/starwards/.claude/skills/starwards-tdd",
       "source": "local"
     },
     {
@@ -3416,21 +3564,6 @@
       ],
       "stars": 35,
       "install": "starwards/starwards/.claude/skills/starwards-verification",
-      "source": "local"
-    },
-    {
-      "name": "testing-blocks",
-      "description": "Guide for testing code changes in AEM Edge Delivery projects including blocks, scripts, and styles. Use this skill after making code changes and before opening a pull request to validate functionality",
-      "repo": "adobe/helix-website",
-      "path": ".claude/skills/testing-blocks",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "testing",
-        "blocks"
-      ],
-      "stars": 35,
-      "install": "adobe/helix-website/.claude/skills/testing-blocks",
       "source": "local"
     },
     {
@@ -3757,6 +3890,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "aws-cloudfront-cdn",
+      "description": "Distribute content globally using CloudFront with caching, security headers, WAF integration, and origin configuration. Use for low-latency content delivery.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "skills/aws-cloudfront-cdn",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "aws",
+        "cloudfront",
+        "cdn"
+      ],
+      "stars": 25,
+      "install": "aj-geddes/useful-ai-prompts/skills/aws-cloudfront-cdn",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "competitor-analysis",
       "description": "Analyze competitive landscape to identify strengths, weaknesses, opportunities, and threats. Inform product strategy and positioning based on market insights.",
       "repo": "aj-geddes/useful-ai-prompts",
@@ -3996,6 +4145,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "feature-flag-system",
+      "description": "Implement feature flags (toggles) for controlled feature rollouts, A/B testing, canary deployments, and kill switches. Use when deploying new features gradually, testing in production, or managing fea",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "skills/feature-flag-system",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "feature",
+        "flag",
+        "system"
+      ],
+      "stars": 25,
+      "install": "aj-geddes/useful-ai-prompts/skills/feature-flag-system",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "frontend-testing",
       "description": "Implement comprehensive frontend testing using Jest, Vitest, React Testing Library, and Cypress. Use when building robust test suites for UI and integration tests.",
       "repo": "aj-geddes/useful-ai-prompts",
@@ -4011,19 +4176,19 @@
       "source": "local"
     },
     {
-      "name": "git-hooks-setup",
-      "description": "Implement Git hooks using Husky, pre-commit, and custom scripts. Enforce code quality, linting, and testing before commits and pushes.",
+      "name": "gcp-cloud-run",
+      "description": "Deploy containerized applications on Google Cloud Run with automatic scaling, traffic management, and service mesh integration. Use for container-based serverless computing.",
       "repo": "aj-geddes/useful-ai-prompts",
-      "path": "skills/git-hooks-setup",
+      "path": "skills/gcp-cloud-run",
       "branch": "main",
       "category": "testing",
       "tags": [
-        "git",
-        "hooks",
-        "setup"
+        "gcp",
+        "cloud",
+        "run"
       ],
       "stars": 25,
-      "install": "aj-geddes/useful-ai-prompts/skills/git-hooks-setup",
+      "install": "aj-geddes/useful-ai-prompts/skills/gcp-cloud-run",
       "source": "local"
     },
     {
@@ -4084,6 +4249,21 @@
       ],
       "stars": 25,
       "install": "aj-geddes/useful-ai-prompts/skills/penetration-testing",
+      "source": "local"
+    },
+    {
+      "name": "process-mapping",
+      "description": "Visualize and document current and future business processes. Identify inefficiencies, dependencies, and improvement opportunities through detailed process mapping and analysis.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "skills/process-mapping",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "process",
+        "mapping"
+      ],
+      "stars": 25,
+      "install": "aj-geddes/useful-ai-prompts/skills/process-mapping",
       "source": "local"
     },
     {
@@ -4351,22 +4531,6 @@
       ],
       "stars": 23,
       "install": "0xBigBoss/claude-code/.claude/skills/axe-ios-simulator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "caro-shell-helper",
-      "description": "Use when users need help generating safe, tested POSIX shell commands from natural language descriptions. Guides users through command generation, safety validation, and execution workflows using Caro",
-      "repo": "wildcard/caro",
-      "path": ".claude/skills/caro-shell-helper",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "caro",
-        "shell",
-        "helper"
-      ],
-      "stars": 23,
-      "install": "wildcard/caro/.claude/skills/caro-shell-helper",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -4768,6 +4932,20 @@
       "source": "local"
     },
     {
+      "name": "syrupy",
+      "description": "Use syrupy for pytest snapshot testing to ensure the immutability of computed results, manage snapshots, customize serialization, and handle complex data structures with built-in matchers and filters.",
+      "repo": "anam-org/metaxy",
+      "path": ".claude/skills/syrupy",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "syrupy"
+      ],
+      "stars": 18,
+      "install": "anam-org/metaxy/.claude/skills/syrupy",
+      "source": "local"
+    },
+    {
       "name": "tabletest",
       "description": "Write effective TableTest-style tests for data-driven testing in JUnit using either Java or Kotlin. The table format makes tests more readable, maintainable, and collaborative - treating test data as",
       "repo": "nchaugen/tabletest",
@@ -4780,6 +4958,18 @@
       "stars": 18,
       "install": "nchaugen/tabletest",
       "source": "local"
+    },
+    {
+      "name": "agent-browser-default-anton-dotfiles",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "default-anton/dotfiles",
+      "path": "pi/agent/skills/agent-browser",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 17,
+      "install": "default-anton/dotfiles/pi/agent/skills/agent-browser",
+      "source": "github.com/default-anton/dotfiles"
     },
     {
       "name": "api-connector",
@@ -5065,6 +5255,22 @@
       "source": "local"
     },
     {
+      "name": "create-unit-test",
+      "description": "Create and run unit tests following the project's architecture and guidelines (Robolectric, naming, location).",
+      "repo": "AnySoftKeyboard/janus",
+      "path": ".claude/skills/create-unit-test",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "create",
+        "unit",
+        "test"
+      ],
+      "stars": 15,
+      "install": "AnySoftKeyboard/janus/.claude/skills/create-unit-test",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "methodology-bootstrapping",
       "description": "Apply Bootstrapped AI Methodology Engineering (BAIME) to develop project-specific methodologies through systematic Observe-Codify-Automate cycles with dual-layer value functions (instance quality + me",
       "repo": "yaleh/meta-cc",
@@ -5184,6 +5390,21 @@
       ],
       "stars": 13,
       "install": "withzombies/hyperpowers",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "api-testing",
+      "description": "Write and run API tests with Vitest for endpoints, middleware, and integrations. Use when testing API functionality, request/response validation, error handling.",
+      "repo": "sgcarstrends/sgcarstrends",
+      "path": ".claude/skills/api-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "api",
+        "testing"
+      ],
+      "stars": 13,
+      "install": "sgcarstrends/sgcarstrends/.claude/skills/api-testing",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5521,6 +5742,21 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "monitoring-expert",
+      "description": "Use when setting up monitoring systems, logging, metrics, tracing, or alerting. Invoke for dashboards, Prometheus/Grafana, load testing, profiling, capacity planning. Keywords: monitoring, observabili",
+      "repo": "Jeffallan/claude-skills",
+      "path": "skills/monitoring-expert",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "monitoring",
+        "expert"
+      ],
+      "stars": 12,
+      "install": "Jeffallan/claude-skills/skills/monitoring-expert",
+      "source": "local"
+    },
+    {
       "name": "nuxt",
       "description": "Use when working on Nuxt 4+ projects - provides server routes, file-based routing, middleware patterns, Nuxt-specific composables, and configuration with latest docs. Covers h3 v1 helpers (validation,",
       "repo": "onmax/nuxt-skills",
@@ -5591,6 +5827,21 @@
       ],
       "stars": 12,
       "install": "BellaBe/lean-os/.claude/skills/reasoning-dialectical",
+      "source": "local"
+    },
+    {
+      "name": "test-master",
+      "description": "Use when writing tests, creating test strategies, or building automation frameworks. Invoke for unit tests, integration tests, E2E, coverage analysis, performance testing, security testing. Keywords:",
+      "repo": "Jeffallan/claude-skills",
+      "path": "skills/test-master",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "test",
+        "master"
+      ],
+      "stars": 12,
+      "install": "Jeffallan/claude-skills/skills/test-master",
       "source": "local"
     },
     {
@@ -5820,22 +6071,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "agent-market-researcher",
-      "description": "Expert market researcher specializing in market analysis, consumer insights, and competitive intelligence. Masters market sizing, segmentation, and trend analysis with focus on identifying opportuniti",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-market-researcher",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "agent",
-        "market",
-        "researcher"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-market-researcher",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "agent-payment-integration",
       "description": "Expert payment integration specialist mastering payment gateway integration, PCI compliance, and financial transaction processing. Specializes in secure payment flows, multi-currency support, and frau",
       "repo": "Tony363/SuperClaude",
@@ -5900,6 +6135,38 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent-performance-engineer",
+      "description": "Expert performance engineer specializing in system optimization, bottleneck identification, and scalability engineering. Masters performance testing, profiling, and tuning across applications, databas",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/agent-performance-engineer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "agent",
+        "performance",
+        "engineer"
+      ],
+      "stars": 10,
+      "install": "Tony363/SuperClaude/.claude/skills/agent-performance-engineer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent-sre-engineer",
+      "description": "Expert Site Reliability Engineer balancing feature velocity with system stability through SLOs, automation, and operational excellence. Masters reliability engineering, chaos testing, and toil reducti",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/DEPRECATED/agent-sre-engineer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "agent",
+        "sre",
+        "engineer"
+      ],
+      "stars": 10,
+      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-sre-engineer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "agent-test-automator",
       "description": "Expert test automation engineer specializing in building robust test frameworks, CI/CD integration, and comprehensive test coverage. Masters multiple automation tools and frameworks with focus on main",
       "repo": "Tony363/SuperClaude",
@@ -5932,19 +6199,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "api-test-generator",
-      "description": "Generate comprehensive API endpoint tests for REST and GraphQL APIs.",
-      "repo": "matteocervelli/llms",
-      "path": ".claude/skills/api-test-generator",
+      "name": "agent-ux-researcher",
+      "description": "Expert UX researcher specializing in user insights, usability testing, and data-driven design decisions. Masters qualitative and quantitative research methods to uncover user needs, validate designs,",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/DEPRECATED/agent-ux-researcher",
       "branch": "main",
       "category": "testing",
       "tags": [
-        "api",
-        "test",
-        "generator"
+        "agent",
+        "researcher"
       ],
       "stars": 10,
-      "install": "matteocervelli/llms/.claude/skills/api-test-generator",
+      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-ux-researcher",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5991,6 +6257,22 @@
       ],
       "stars": 10,
       "install": "rysweet/MicrosoftHackathon2025-AgenticCoding/.claude/skills/collaboration/creating-pull-requests",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "e2e-test-writer",
+      "description": "Write comprehensive end-to-end tests using Playwright with page object",
+      "repo": "matteocervelli/llms",
+      "path": ".claude/skills/e2e-test-writer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "e2e",
+        "test",
+        "writer"
+      ],
+      "stars": 10,
+      "install": "matteocervelli/llms/.claude/skills/e2e-test-writer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6183,6 +6465,22 @@
       "source": "local"
     },
     {
+      "name": "permission-test-skill",
+      "description": "Permission test. Use for testing.",
+      "repo": "matteocervelli/llms",
+      "path": ".claude/skills/permission-test-skill",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "permission",
+        "test",
+        "skill"
+      ],
+      "stars": 10,
+      "install": "matteocervelli/llms/.claude/skills/permission-test-skill",
+      "source": "local"
+    },
+    {
       "name": "pr-creator",
       "description": "Create comprehensive pull requests with detailed descriptions, test plans,",
       "repo": "matteocervelli/llms",
@@ -6318,6 +6616,22 @@
       "source": "local"
     },
     {
+      "name": "whitelist-bypass-skill",
+      "description": "Bypass attempt. Use for security testing.",
+      "repo": "matteocervelli/llms",
+      "path": ".claude/skills/whitelist-bypass-skill",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "whitelist",
+        "bypass",
+        "skill"
+      ],
+      "stars": 10,
+      "install": "matteocervelli/llms/.claude/skills/whitelist-bypass-skill",
+      "source": "local"
+    },
+    {
       "name": "effect-regex",
       "description": "Expert regex pattern generation, optimization, testing, and explanation using deterministic AST-based construction. Use when user needs to create, test, optimize, or understand regex patterns, parse C",
       "repo": "PaulJPhilp/effect-regex",
@@ -6377,6 +6691,22 @@
       ],
       "stars": 8,
       "install": "lyndonkl/claude",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent-test-delegation",
+      "description": "Test agent delegation patterns to verify hierarchy and escalation paths. Use after modifying agent structure.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/agent-test-delegation",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "agent",
+        "test",
+        "delegation"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/agent-test-delegation",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6549,6 +6879,22 @@
       "stars": 8,
       "install": "jackspace/ClaudeSkillz/skills/docker-helper",
       "source": "github.com/jackspace/ClaudeSkillz"
+    },
+    {
+      "name": "extract-test-failures",
+      "description": "Extract and summarize test failures from logs. Use to quickly understand what tests failed and why.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/extract-test-failures",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "extract",
+        "test",
+        "failures"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/extract-test-failures",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "forecast-premortem",
@@ -6733,6 +7079,22 @@
       "source": "local"
     },
     {
+      "name": "mojo-test-runner",
+      "description": "Run Mojo tests using mojo test command. Use when executing tests or verifying test coverage.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/mojo-test-runner",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "mojo",
+        "test",
+        "runner"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/mojo-test-runner",
+      "source": "local"
+    },
+    {
       "name": "morphological-analysis-triz",
       "description": "Use when need systematic innovation through comprehensive solution space exploration, resolving technical contradictions (speed vs precision, strength vs weight, cost vs quality), generating novel pro",
       "repo": "lyndonkl/claude",
@@ -6762,6 +7124,22 @@
       ],
       "stars": 8,
       "install": "lyndonkl/claude",
+      "source": "local"
+    },
+    {
+      "name": "phase-test-tdd",
+      "description": "Generate test files and coordinate test-driven development (TDD). Use when creating tests before implementation or during test phase.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/phase-test-tdd",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "phase",
+        "test",
+        "tdd"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/phase-test-tdd",
       "source": "local"
     },
     {
@@ -7007,6 +7385,22 @@
       "source": "local"
     },
     {
+      "name": "test-diff-analyzer",
+      "description": "Analyze test differences between runs to identify flaky tests and consistency issues. Use to find tests that fail intermittently.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/test-diff-analyzer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "test",
+        "diff",
+        "analyzer"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/test-diff-analyzer",
+      "source": "local"
+    },
+    {
       "name": "code-patterns",
       "description": "Universal code patterns and best practices for dx-toolkit (Bun APIs, testing, error handling, type guards)",
       "repo": "youdotcom-oss/dx-toolkit",
@@ -7198,6 +7592,21 @@
       "source": "local"
     },
     {
+      "name": "tzurot-testing",
+      "description": "Use when writing tests, debugging test failures, mocking dependencies, or using fake timers. Covers Vitest patterns, mock factories, and promise rejection handling.",
+      "repo": "lbds137/tzurot",
+      "path": ".claude/skills/tzurot-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "tzurot",
+        "testing"
+      ],
+      "stars": 7,
+      "install": "lbds137/tzurot/.claude/skills/tzurot-testing",
+      "source": "local"
+    },
+    {
       "name": "ui-patterns",
       "description": "Plaited UI patterns for templates, behavioral elements, and styling. Use when creating bElements or FunctionalTemplates, writing stories for testing, using createStyles, building form controls, or coo",
       "repo": "plaited/plaited",
@@ -7330,6 +7739,22 @@
       ],
       "stars": 6,
       "install": "nozomi-koborinai/koborin-ai",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "claude-permissions-update",
+      "description": "Sync auto-approved permissions from all community-patterns directories (including community-patterns-2, -3, etc.) to the shared project settings. Shows new permissions for review before adding.",
+      "repo": "jkomoros/community-patterns",
+      "path": ".claude/skills/claude-permissions-update",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "claude",
+        "permissions",
+        "update"
+      ],
+      "stars": 6,
+      "install": "jkomoros/community-patterns/.claude/skills/claude-permissions-update",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -7474,21 +7899,6 @@
       "stars": 6,
       "install": "SprocketLab/slop-code-bench",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "issue-filing",
-      "description": "File framework issues after exhausting other approaches. Document complex problems with multiple failed attempts for framework authors. REQUIRES user permission. Use only after checking docs, communit",
-      "repo": "jkomoros/community-patterns",
-      "path": ".claude/skills/issue-filing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "issue",
-        "filing"
-      ],
-      "stars": 6,
-      "install": "jkomoros/community-patterns/.claude/skills/issue-filing",
-      "source": "local"
     },
     {
       "name": "reclassify-tests",
@@ -7740,23 +8150,6 @@
       "stars": 6,
       "install": "wayne930242/Reflexive-Claude-Code/plugins/ACE-core/skills/write-subagent",
       "source": "local"
-    },
-    {
-      "name": "advanced-clean-hexagonal-architecture",
-      "description": "Apply Clean Architecture and Hexagonal (Ports & Adapters) patterns for domain isolation and testability. Use when designing system boundaries, creating ports/adapters, or structuring domain-driven app",
-      "repo": "leaderiop/hex-di",
-      "path": ".claude/skills/advanced-clean-hexagonal-architecture",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "advanced",
-        "clean",
-        "hexagonal",
-        "architecture"
-      ],
-      "stars": 5,
-      "install": "leaderiop/hex-di/.claude/skills/advanced-clean-hexagonal-architecture",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "browser-daemon",
@@ -8082,6 +8475,37 @@
       "source": "local"
     },
     {
+      "name": "matlab-test-generator",
+      "description": "Create comprehensive MATLAB unit tests using the MATLAB Testing Framework. Use when generating test files, test cases, unit tests, test suites, or when the user requests testing for MATLAB code, funct",
+      "repo": "matlab/skills",
+      "path": "skills/matlab-test-generator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "matlab",
+        "test",
+        "generator"
+      ],
+      "stars": 5,
+      "install": "matlab/skills/skills/matlab-test-generator",
+      "source": "local"
+    },
+    {
+      "name": "packages-testing",
+      "description": "Your approach to handling packages testing. Use this skill when working on files where packages testing comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": ".claude/skills/packages-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "packages",
+        "testing"
+      ],
+      "stars": 5,
+      "install": "leaderiop/hex-di/.claude/skills/packages-testing",
+      "source": "local"
+    },
+    {
       "name": "perplexity-research",
       "description": "Use when conducting web research with Perplexity API - covers authentication, search strategies, structured output generation, and integration patterns for Claude-interpretable results",
       "repo": "dbmcco/claude-agent-toolkit",
@@ -8094,6 +8518,21 @@
       ],
       "stars": 5,
       "install": "dbmcco/claude-agent-toolkit/skills/perplexity-research",
+      "source": "local"
+    },
+    {
+      "name": "playwright-dotnet",
+      "description": "Guide for E2E testing with Playwright for .NET using Microsoft.Playwright.MSTest.v4 integration",
+      "repo": "NotMyself/claude-stack-dotnet",
+      "path": ".claude/skills/playwright-dotnet",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "playwright",
+        "dotnet"
+      ],
+      "stars": 5,
+      "install": "NotMyself/claude-stack-dotnet/.claude/skills/playwright-dotnet",
       "source": "local"
     },
     {
@@ -8158,22 +8597,6 @@
       "source": "local"
     },
     {
-      "name": "test-fixture-generator",
-      "description": "Automated test fixture generation for Vigil Guard's 8-file test suite. Use for TDD workflow, malicious/benign payload creation, 3-branch detection testing, bypass scenario testing, and maintaining tes",
-      "repo": "tbartel74/Vigil-Code",
-      "path": ".claude/skills/test-fixture-generator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "test",
-        "fixture",
-        "generator"
-      ],
-      "stars": 5,
-      "install": "tbartel74/Vigil-Code/.claude/skills/test-fixture-generator",
-      "source": "local"
-    },
-    {
       "name": "testing-type-testing",
       "description": "Your approach to handling testing type testing. Use this skill when working on files where testing type testing comes into play.",
       "repo": "leaderiop/hex-di",
@@ -8190,21 +8613,6 @@
       "source": "local"
     },
     {
-      "name": "testing-vitest",
-      "description": "Your approach to handling testing vitest. Use this skill when working on files where testing vitest comes into play.",
-      "repo": "leaderiop/hex-di",
-      "path": ".claude/skills/testing-vitest",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "testing",
-        "vitest"
-      ],
-      "stars": 5,
-      "install": "leaderiop/hex-di/.claude/skills/testing-vitest",
-      "source": "local"
-    },
-    {
       "name": "typescript-testing",
       "description": "TypeScript/JavaScript testing practices with Bun's test runner. Activate when working with bun test, .test.ts, .test.js, .spec.ts, .spec.js, testing TypeScript/JavaScript, bunfig.toml, testing configu",
       "repo": "ilude/claude-code-config",
@@ -8217,6 +8625,22 @@
       ],
       "stars": 5,
       "install": "ilude/claude-code-config/skills/typescript-testing",
+      "source": "local"
+    },
+    {
+      "name": "vigil-testing-e2e",
+      "description": "End-to-end testing with Vitest for Vigil Guard v2.0.0 detection engine. Use when writing tests, debugging test failures, managing fixtures, validating 3-branch detection, working with 8 test files, an",
+      "repo": "tbartel74/Vigil-Code",
+      "path": ".claude/skills/vigil-testing-e2e",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "vigil",
+        "testing",
+        "e2e"
+      ],
+      "stars": 5,
+      "install": "tbartel74/Vigil-Code/.claude/skills/vigil-testing-e2e",
       "source": "local"
     },
     {
@@ -8398,6 +8822,39 @@
       ],
       "stars": 4,
       "install": "existential-birds/beagle",
+      "source": "local"
+    },
+    {
+      "name": "hammer-benchmark-regression",
+      "description": "Runs performance benchmarks for SDL3 HammerEngine and detects regressions by comparing metrics against baseline. Use when testing performance-sensitive changes to AI, collision, pathfinding, particle",
+      "repo": "Ronin15/SDL3_HammerEngine_Template",
+      "path": ".claude/skills/hammer-benchmark-regression",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "hammer",
+        "benchmark",
+        "regression"
+      ],
+      "stars": 4,
+      "install": "Ronin15/SDL3_HammerEngine_Template/.claude/skills/hammer-benchmark-regression",
+      "source": "local"
+    },
+    {
+      "name": "hammer-test-suite-generator",
+      "description": "Generates complete test suite infrastructure (test scripts, functional tests, benchmark tests, output directories, CMake integration) for a new SDL3 HammerEngine system or manager following project co",
+      "repo": "Ronin15/SDL3_HammerEngine_Template",
+      "path": ".claude/skills/hammer-test-suite-generator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "hammer",
+        "test",
+        "suite",
+        "generator"
+      ],
+      "stars": 4,
+      "install": "Ronin15/SDL3_HammerEngine_Template/.claude/skills/hammer-test-suite-generator",
       "source": "local"
     },
     {
@@ -9027,6 +9484,21 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "feature-implement",
+      "description": "Systematic approach to implementing new features in the Rust memory system following project conventions. Use when adding new functionality with proper testing and documentation.",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": ".claude/skills/feature-implement",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "feature",
+        "implement"
+      ],
+      "stars": 3,
+      "install": "d-o-hub/rust-self-learning-memory/.claude/skills/feature-implement",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "flutter-tester",
       "description": "A comprehensive Flutter testing skill for creating, writing, and analyzing tests in any Flutter project. Provides guidance on test structure, mocking patterns, Riverpod testing, widget testing, and in",
       "repo": "Harishwarrior/flutter-claude-skills",
@@ -9147,21 +9619,6 @@
       "source": "local"
     },
     {
-      "name": "jest-testing",
-      "description": "Use when writing Jest tests - covers testing patterns for interpreters, parsers, and async code",
-      "repo": "mcclowes/lea",
-      "path": ".claude/skills/jest-testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "jest",
-        "testing"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea/.claude/skills/jest-testing",
-      "source": "local"
-    },
-    {
       "name": "pricing-tiers",
       "description": "ReleaseWatch subscription tiers, pricing strategy, and Pro feature definitions. Use when discussing pricing plans, comparing tiers, implementing tier-gated features, or setting up Polar integration.",
       "repo": "ruchernchong/release-watch",
@@ -9223,6 +9680,22 @@
       ],
       "stars": 3,
       "install": "cbgbt/bottlerocket-forest",
+      "source": "local"
+    },
+    {
+      "name": "quality-unit-testing",
+      "description": "Write high-quality Rust unit tests following best practices. Use when writing new tests, reviewing test code, or improving test quality. Emphasizes clear naming, AAA pattern, isolation, and deployment",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": ".claude/skills/quality-unit-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "quality",
+        "unit",
+        "testing"
+      ],
+      "stars": 3,
+      "install": "d-o-hub/rust-self-learning-memory/.claude/skills/quality-unit-testing",
       "source": "local"
     },
     {
@@ -9313,6 +9786,22 @@
       ],
       "stars": 3,
       "install": "alexanderop/workoutTracker/.claude/skills/vue-composable-testing",
+      "source": "local"
+    },
+    {
+      "name": "vue-integration-testing",
+      "description": "Write Vue 3 integration tests using Vitest Browser Mode and Page Objects. Use proactively whenever adding tests for views, components with routing, user flows, or features that span multiple component",
+      "repo": "alexanderop/workoutTracker",
+      "path": ".claude/skills/vue-integration-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "vue",
+        "integration",
+        "testing"
+      ],
+      "stars": 3,
+      "install": "alexanderop/workoutTracker/.claude/skills/vue-integration-testing",
       "source": "local"
     },
     {
@@ -9507,6 +9996,38 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "chaos-engineering-setup",
+      "description": "Implement chaos engineering practices and tools for resilience testing",
+      "repo": "Dexploarer/hyper-forge",
+      "path": ".claude/skills/chaos-engineering-setup",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "chaos",
+        "engineering",
+        "setup"
+      ],
+      "stars": 2,
+      "install": "Dexploarer/hyper-forge/.claude/skills/chaos-engineering-setup",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "claude-allow-stop",
+      "description": "Return to normal stop behavior. Use PROACTIVELY after completing all tasks in continuous work mode, when work is committed and tests pass, or when reaching natural stopping point. User can invoke with",
+      "repo": "ManuelKugelmann/BitBot",
+      "path": ".bitbot/internal/bitbot-config/.claude/skills/claude-allow-stop",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "claude",
+        "allow",
+        "stop"
+      ],
+      "stars": 2,
+      "install": "ManuelKugelmann/BitBot/.bitbot/internal/bitbot-config/.claude/skills/claude-allow-stop",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "claude-mobile-ios-testing",
       "description": "Use when testing iOS apps on simulator, capturing screenshots for validation gates, automating UI testing with expo-mcp and xc-mcp, or verifying visual correctness - combines expo-mcp autonomous testi",
       "repo": "krzemienski/claude-mobile-expo",
@@ -9618,34 +10139,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "constraint-preflight",
-      "description": "Pre-flight verification for scheduling constraint development. Use when adding, modifying, or testing constraints to ensure they are properly implemented, exported, registered, and tested before commi",
+      "name": "coverage-reporter",
+      "description": "Generate and analyze test coverage reports. Use to identify coverage gaps, track coverage trends, and ensure quality thresholds are met.",
       "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-      "path": ".claude/skills/constraint-preflight",
+      "path": ".claude/skills/coverage-reporter",
       "branch": "main",
       "category": "testing",
       "tags": [
-        "constraint",
-        "preflight"
+        "coverage",
+        "reporter"
       ],
       "stars": 2,
-      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/constraint-preflight",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "content-strategic-review",
-      "description": "Comprehensive content strategy review from reader's perspective. Acts as Chief Web Editor + Technical Writer to audit site clarity, practical information completeness, instructional quality, informati",
-      "repo": "RogueRope/docs",
-      "path": ".claude/skills/content-strategic-review",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "content",
-        "strategic",
-        "review"
-      ],
-      "stars": 2,
-      "install": "RogueRope/docs/.claude/skills/content-strategic-review",
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/coverage-reporter",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -9737,6 +10242,22 @@
       "stars": 2,
       "install": "JasonPaff/head-shakers/.claude/skills/e2e-testing",
       "source": "github.com/JasonPaff/head-shakers"
+    },
+    {
+      "name": "eval-test-skill",
+      "description": "Git branch cleanup utility. Lists and deletes branches that have been merged to main. Use when user wants to clean up old branches, delete merged branches, or tidy up their git repository.",
+      "repo": "otrebu/all-agents",
+      "path": ".claude/skills/eval-test-skill",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "eval",
+        "test",
+        "skill"
+      ],
+      "stars": 2,
+      "install": "otrebu/all-agents/.claude/skills/eval-test-skill",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "event-driven",
@@ -10028,6 +10549,21 @@
       "source": "local"
     },
     {
+      "name": "lighthouse-ci-integrator",
+      "description": "Integrates Lighthouse CI for automated performance testing, Core Web Vitals tracking, and regression detection in CI/CD pipelines. Use when user asks to \"setup Lighthouse CI\", \"add performance testing",
+      "repo": "Dexploarer/hyper-forge",
+      "path": ".claude/skills/lighthouse-ci-integrator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "lighthouse",
+        "integrator"
+      ],
+      "stars": 2,
+      "install": "Dexploarer/hyper-forge/.claude/skills/lighthouse-ci-integrator",
+      "source": "local"
+    },
+    {
       "name": "macos-game-testing",
       "description": "Test the Nathaniel macOS game. Use when asked to test the macOS version, verify changes work on Mac, run sanity tests on desktop, or when the user says \"test macOS\", \"run on mac\", \"verify mac build\".",
       "repo": "ruarfff/Nathaniel",
@@ -10297,21 +10833,6 @@
       "source": "local"
     },
     {
-      "name": "testing-automation",
-      "description": "Automated testing workflow that orchestrates unit, integration, and E2E tests with CI/CD integration",
-      "repo": "aegntic/claudeism",
-      "path": ".claude/skills/testing-automation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "testing",
-        "automation"
-      ],
-      "stars": 2,
-      "install": "aegntic/claudeism/.claude/skills/testing-automation",
-      "source": "local"
-    },
-    {
       "name": "testing-framework-helper",
       "description": "Generates comprehensive test suites with unit tests, integration tests, and E2E tests for various frameworks (Jest, Pytest, Vitest, etc.). Use when writing tests.",
       "repo": "Dexploarer/hyper-forge",
@@ -10340,6 +10861,21 @@
       ],
       "stars": 2,
       "install": "tumma72/GMailArchiver/.claude/skills/testing-guidelines",
+      "source": "local"
+    },
+    {
+      "name": "testing-helper",
+      "description": "Create comprehensive tests for elizaOS plugins, characters, and actions. Triggers on \"create tests\", \"test elizaOS plugin\", or \"write agent tests\"",
+      "repo": "Dexploarer/hyper-forge",
+      "path": ".claude/skills/testing-helper",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "helper"
+      ],
+      "stars": 2,
+      "install": "Dexploarer/hyper-forge/.claude/skills/testing-helper",
       "source": "local"
     },
     {
@@ -10654,6 +11190,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "acceptance-criteria-verification",
+      "description": "Use after implementing features - verifies each acceptance criterion with structured testing and posts verification reports to the GitHub issue",
+      "repo": "troykelly/claude-skills",
+      "path": "skills/acceptance-criteria-verification",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "acceptance",
+        "criteria",
+        "verification"
+      ],
+      "stars": 1,
+      "install": "troykelly/claude-skills/skills/acceptance-criteria-verification",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "adaptive-temporal-analysis-integration",
       "description": "Integrate adaptive temporal analysis for drift detection.",
       "repo": "starwreckntx/IRP__METHODOLOGIES-",
@@ -10758,6 +11310,22 @@
       ],
       "stars": 1,
       "install": "tatat/agents-playground/skills/api-integration",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "api-response-mocker",
+      "description": "Generate realistic mock API responses with fake data. Use for testing, prototyping, or creating sample data for frontend development.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "api-response-mocker",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "api",
+        "response",
+        "mocker"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/api-response-mocker",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -10963,6 +11531,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "better-auth-python",
+      "description": "Better Auth JWT verification for Python/FastAPI backends. Use when integrating Python APIs with a Better Auth TypeScript server via JWT tokens. Covers JWKS verification, FastAPI dependencies, SQLModel",
+      "repo": "Syedaashnaghazanfar/full-stack-todo-app",
+      "path": ".claude/skills/better-auth-python",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "better",
+        "auth",
+        "python"
+      ],
+      "stars": 1,
+      "install": "Syedaashnaghazanfar/full-stack-todo-app/.claude/skills/better-auth-python",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "billing-system-expert",
       "description": "Expert knowledge on Stripe integration, subscription plans (Glow Up, Viral Surge, Fame Flex), trial logic, plan enforcement, webhooks, and billing synchronization. Use this skill when user asks about",
       "repo": "Sanchay-T/influencer-platform-app",
@@ -11132,6 +11716,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "check-live-stations",
+      "description": "Analyze live weather station integrations, validate data sources, and identify spots missing live conditions",
+      "repo": "pwittchen/varun.surf",
+      "path": ".claude/skills/check-live-stations",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "check",
+        "live",
+        "stations"
+      ],
+      "stars": 1,
+      "install": "pwittchen/varun.surf/.claude/skills/check-live-stations",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "ci-cd-workflows",
       "description": "Guide for GitHub Actions workflows, test orchestration, parallel testing, adapter builds, releases, and CI/CD configuration. Use when working with .github/workflows/, versions.json, or troubleshooting",
       "repo": "ai-debugger-inc/aidb",
@@ -11252,6 +11852,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "cognitive-baseline-eval",
+      "description": "Execute the Joseph Cognitive Baseline v2.1 (JC B-v2.1) 5-Scenario Test Suite to quantify AI alignment, friction maintenance, and protocol adherence.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "skills/cognitive-baseline-eval",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "cognitive",
+        "baseline",
+        "eval"
+      ],
+      "stars": 1,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/skills/cognitive-baseline-eval",
+      "source": "local"
+    },
+    {
       "name": "commit-helper-fwdslsh-crosstrain",
       "description": "Generates clear, conventional commit messages from git diffs. Use when writing commit messages or reviewing staged changes.",
       "repo": "fwdslsh/crosstrain",
@@ -11262,6 +11878,21 @@
       "stars": 1,
       "install": "fwdslsh/crosstrain/.claude/skills/commit-helper",
       "source": "github.com/fwdslsh/crosstrain"
+    },
+    {
+      "name": "competitive-cartographer",
+      "description": "Strategic analyst that maps competitive landscapes, identifies white space opportunities, and provides positioning recommendations. Use when users need competitive analysis, market positioning strateg",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/competitive-cartographer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "competitive",
+        "cartographer"
+      ],
+      "stars": 1,
+      "install": "erichowens/some_claude_skills/.claude/skills/competitive-cartographer",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "context-testing-infrastructure",
@@ -11644,6 +12275,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "ecosystem",
+      "description": "JavaScript ecosystem including npm, build tools (Webpack, Vite), testing (Jest, Vitest), linting, and CI/CD integration.",
+      "repo": "pluginagentmarketplace/custom-plugin-javascript",
+      "path": "skills/ecosystem",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "ecosystem"
+      ],
+      "stars": 1,
+      "install": "pluginagentmarketplace/custom-plugin-javascript/skills/ecosystem",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "email-templates",
       "description": "Create branded transactional email templates using React Email and Resend. Use when implementing features that send user notifications, confirmations, or updates. Ensures consistent styling, proper st",
       "repo": "Reodor-Studios/create-reodor-app",
@@ -11851,22 +12496,6 @@
       ],
       "stars": 1,
       "install": "heimeshoff/Cinemarco",
-      "source": "local"
-    },
-    {
-      "name": "gandalf-the-prompt",
-      "description": "Audits prompts and skills against Claude best practices. Finds clarity issues, structural problems, and enhancement opportunities. Provides fixes and grades.",
-      "repo": "fotescodev/portfolio",
-      "path": ".claude/skills/gandalf-the-prompt",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "gandalf",
-        "the",
-        "prompt"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/.claude/skills/gandalf-the-prompt",
       "source": "local"
     },
     {
@@ -12338,6 +12967,37 @@
       "source": "local"
     },
     {
+      "name": "managing-hms-versions",
+      "description": "Manages HEC-HMS version differences (3.x vs 4.x), handles Python 2/3 compatibility,detects HMS installations, and generates version-appropriate Jython scripts. Use whenworking with legacy HMS 3.x proj",
+      "repo": "gpt-cmdr/hms-commander",
+      "path": ".claude/skills/managing-hms-versions",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "managing",
+        "hms",
+        "versions"
+      ],
+      "stars": 1,
+      "install": "gpt-cmdr/hms-commander/.claude/skills/managing-hms-versions",
+      "source": "local"
+    },
+    {
+      "name": "market-analyst",
+      "description": "Synthesize multiple sentiment analyses to identify market trends, gaps, opportunities, and predict likely hits. Cross-analyzes patterns to find underserved markets and highlight unique innovations.",
+      "repo": "natea/fitfinder",
+      "path": ".claude/skills/market-analyst",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "market",
+        "analyst"
+      ],
+      "stars": 1,
+      "install": "natea/fitfinder/.claude/skills/market-analyst",
+      "source": "local"
+    },
+    {
       "name": "mcp-config",
       "description": "Configure MCP servers including Context7 and Playwright. Use when the user asks about MCP configuration, setting up Context7, configuring Playwright MCP, or managing MCP servers for this project.",
       "repo": "jarrettmeyer/jarrettmeyer.github.io",
@@ -12365,6 +13025,21 @@
       ],
       "stars": 1,
       "install": "jarrettmeyer/jarrettmeyer.github.io",
+      "source": "local"
+    },
+    {
+      "name": "memory-integration",
+      "description": "Use to maintain context across sessions - integrates episodic-memory for conversation recall and mcp__memory knowledge graph for persistent facts",
+      "repo": "troykelly/claude-skills",
+      "path": "skills/memory-integration",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "memory",
+        "integration"
+      ],
+      "stars": 1,
+      "install": "troykelly/claude-skills/skills/memory-integration",
       "source": "local"
     },
     {
@@ -12439,6 +13114,21 @@
       ],
       "stars": 1,
       "install": "kyupid/mxql-for-claude-code",
+      "source": "local"
+    },
+    {
+      "name": "nextjs-middleware",
+      "description": "When you need to run code before a request completes: auth checks, redirects, headers, A/B testing. **Version Context**: Next.js 16.0+ uses `proxy.ts` (replaces `middleware.ts` from v15 and earlier).",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": ".claude/skills/nextjs-middleware",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "nextjs",
+        "middleware"
+      ],
+      "stars": 1,
+      "install": "CoderMariusz/MonoPilot/.claude/skills/nextjs-middleware",
       "source": "local"
     },
     {
@@ -13210,6 +13900,22 @@
       "name": "shannon-execution-verifier",
       "description": "Comprehensive post-build verification of Shannon Framework's application outputs using three-layermethodology: Flow Verification (execution trace analysis), Artifact Verification (physical outputinspe",
       "repo": "krzemienski/shannon-framework",
+      "path": ".claude/skills/shannon-execution-verifier",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "shannon",
+        "execution",
+        "verifier"
+      ],
+      "stars": 1,
+      "install": "krzemienski/shannon-framework/.claude/skills/shannon-execution-verifier",
+      "source": "local"
+    },
+    {
+      "name": "shannon-execution-verifier",
+      "description": "Comprehensive post-build verification of Shannon Framework's application outputs using three-layermethodology: Flow Verification (execution trace analysis), Artifact Verification (physical outputinspe",
+      "repo": "krzemienski/shannon-framework",
       "path": "",
       "branch": "main",
       "category": "testing",
@@ -13236,6 +13942,21 @@
       ],
       "stars": 1,
       "install": "cblecker/claude-skills",
+      "source": "local"
+    },
+    {
+      "name": "skill-documentarian",
+      "description": "Documentation expert for Claude Skills. Maintains showcase website sync, manages skill tags and taxonomy, creates blog-style artifacts, and preserves skill usage for posterity. DOWNLOAD & USE THIS SKI",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/skill-documentarian",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "skill",
+        "documentarian"
+      ],
+      "stars": 1,
+      "install": "erichowens/some_claude_skills/.claude/skills/skill-documentarian",
       "source": "local"
     },
     {
@@ -13379,21 +14100,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-spring-boot",
-      "source": "local"
-    },
-    {
-      "name": "statistical-analyzer",
-      "description": "Perform statistical hypothesis testing, regression analysis, ANOVA, and t-tests with plain-English interpretations and visualizations.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "statistical-analyzer",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "statistical",
-        "analyzer"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/statistical-analyzer",
       "source": "local"
     },
     {
@@ -13798,18 +14504,6 @@
     },
     {
       "name": "test-skill",
-      "description": "Valid skills element",
-      "repo": "mickdarling/dollhouse-portfolio",
-      "path": "skills/skill.md",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 1,
-      "install": "mickdarling/dollhouse-portfolio/skills/skill.md",
-      "source": "github.com/mickdarling/dollhouse-portfolio"
-    },
-    {
-      "name": "test-skill",
       "description": "answers with the secret",
       "repo": "uptownhr/claude-code-agent",
       "path": ".claude/skills/test-skill",
@@ -13822,6 +14516,18 @@
       "stars": 1,
       "install": "uptownhr/claude-code-agent/.claude/skills/test-skill",
       "source": "local"
+    },
+    {
+      "name": "test-skill",
+      "description": "Valid skills element",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "skills/skill.md",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "mickdarling/dollhouse-portfolio/skills/skill.md",
+      "source": "github.com/mickdarling/dollhouse-portfolio"
     },
     {
       "name": "test-strategy",
@@ -13912,6 +14618,68 @@
       ],
       "stars": 1,
       "install": "aaddrick/gh-cli-search",
+      "source": "local"
+    },
+    {
+      "name": "testing-jest",
+      "description": "Apply when writing unit tests with Jest: assertions, mocking, async tests, and test organization.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": ".claude/skills/testing-jest",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "jest"
+      ],
+      "stars": 1,
+      "install": "CoderMariusz/MonoPilot/.claude/skills/testing-jest",
+      "source": "local"
+    },
+    {
+      "name": "testing-msw",
+      "description": "Apply when mocking API calls in tests or development: intercepting requests, simulating error states, and testing loading states.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": ".claude/skills/testing-msw",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "msw"
+      ],
+      "stars": 1,
+      "install": "CoderMariusz/MonoPilot/.claude/skills/testing-msw",
+      "source": "local"
+    },
+    {
+      "name": "testing-playwright",
+      "description": "Apply when writing end-to-end tests: user flows, cross-browser testing, visual regression, and API testing.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": ".claude/skills/testing-playwright",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "playwright"
+      ],
+      "stars": 1,
+      "install": "CoderMariusz/MonoPilot/.claude/skills/testing-playwright",
+      "source": "local"
+    },
+    {
+      "name": "testing-react-testing-lib",
+      "description": "Apply when testing React components: rendering, user interactions, and accessibility-focused testing.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": ".claude/skills/testing-react-testing-lib",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "react",
+        "testing",
+        "lib"
+      ],
+      "stars": 1,
+      "install": "CoderMariusz/MonoPilot/.claude/skills/testing-react-testing-lib",
       "source": "local"
     },
     {
@@ -14047,6 +14815,21 @@
       ],
       "stars": 1,
       "install": "specvital/web",
+      "source": "local"
+    },
+    {
+      "name": "typo3-testing",
+      "description": "Agent Skill: TYPO3 extension testing (unit, functional, E2E, architecture, mutation). Use when setting up test infrastructure, writing tests, configuring PHPUnit, or CI/CD. By Netresearch.",
+      "repo": "netresearch/typo3-testing-skill",
+      "path": "skills/typo3-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "typo3",
+        "testing"
+      ],
+      "stars": 1,
+      "install": "netresearch/typo3-testing-skill/skills/typo3-testing",
       "source": "local"
     },
     {
@@ -14303,6 +15086,39 @@
       ],
       "stars": 1,
       "install": "torosent/crankfire",
+      "source": "local"
+    },
+    {
+      "name": "writing-implementation-test-pseudocode",
+      "description": "Use when adding test pseudocode to user stories or implementation guides - creates MEDIUM-IMPLEMENTATION abstraction showing test structure with Vitest terminology, placeholder comments for logic, and",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": ".claude/skills/writing-implementation-test-pseudocode",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "writing",
+        "implementation",
+        "test",
+        "pseudocode"
+      ],
+      "stars": 1,
+      "install": "WesleyMFrederick/cc-workflows/.claude/skills/writing-implementation-test-pseudocode",
+      "source": "local"
+    },
+    {
+      "name": "writing-slash-commands",
+      "description": "Use when creating or editing slash commands - applies TDD to slash command documentation by testing with SlashCommand tool and subagents before deployment, preventing inverted logic and untested condi",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": ".claude/skills/writing-slash-commands",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "writing",
+        "slash",
+        "commands"
+      ],
+      "stars": 1,
+      "install": "WesleyMFrederick/cc-workflows/.claude/skills/writing-slash-commands",
       "source": "local"
     },
     {
@@ -14712,6 +15528,18 @@
       "tags": [],
       "stars": 0,
       "install": "JamesPrial/claudefiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "acceptance-criteria-writing",
+      "description": "Given-When-Then 形式の受け入れ基準を整理し、テスト可能な完了条件の定義を支援するスキル。要件の明確化、シナリオ設計、検証手順を一貫して整理する。Anchors:• Software Requirements (Karl Wiegers) / 適用: 要件分析・仕様化 / 目的: テスト可能な要件定義の手法• BDD in Action (John Ferguson Smart) /",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "docs/99-claude/skills/acceptance-criteria-writing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "daishiman/AIWorkflowOrchestrator/docs/99-claude/skills/acceptance-criteria-writing",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15264,6 +16092,18 @@
       "source": "github.com/janekm/reviews"
     },
     {
+      "name": "ag-grid-patterns",
+      "description": "AG-Grid v34 integration patterns for TMNL. Invoke when implementing data grids, custom cell renderers, themes, or grid-based UI. Provides canonical file locations and pattern precedents.",
+      "repo": "creatifcoding/gbg",
+      "path": "packages/tmnl/.claude/skills/ag-grid-patterns",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/packages/tmnl/.claude/skills/ag-grid-patterns",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "agent-browser",
       "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
       "repo": "Kjdragan/universal_agent",
@@ -15444,6 +16284,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "agentuity-cli-cloud-deployment-undeploy",
+      "description": "Undeploy the latest deployment. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/examples",
+      "path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-undeploy",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/examples/training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-undeploy",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "agentuity-cli-cloud-session-get",
       "description": "Get details about a specific session. Requires authentication. Use for Agentuity cloud platform operations",
       "repo": "agentuity/examples",
@@ -15600,6 +16452,18 @@
       "source": "github.com/raia-ai/raia-v2-docs"
     },
     {
+      "name": "ai-agents",
+      "description": "Production-grade AI agent patterns with MCP integration, agentic RAG, handoff orchestration, multi-layer guardrails, and observability (modern best practices)",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-agents",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/ai-agents",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "ai-engineer",
       "description": "LLM application and RAG system specialist. Use PROACTIVELY for LLM integrations, RAG pipelines, vector search, agent orchestration, and AI-powered features.",
       "repo": "kriscard/kriscard-claude-plugins",
@@ -15609,6 +16473,18 @@
       "tags": [],
       "stars": 0,
       "install": "kriscard/kriscard-claude-plugins/plugins/ai-development/skills/ai-engineer",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "ai-llm-inference",
+      "description": "Operational patterns for LLM inference (recent advances): vLLM with 24x throughput gains, FP8/FP4 quantization (30-50% cost reduction), FlashInfer kernels, advanced fusions, PagedAttention, continuous",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-llm-inference",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/ai-llm-inference",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15836,6 +16712,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "analyzing-mempool",
+      "description": "Monitor blockchain mempools for pending transactions, front-running, and MEV opportunities.Use when monitoring pending blockchain transactions.Trigger with phrases like \"check mempool\", \"scan pending",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/crypto/mempool-analyzer/skills/analyzing-mempool",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/crypto/mempool-analyzer/skills/analyzing-mempool",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "analyzing-tam",
       "description": "Calculates Total Addressable Market (TAM), Serviceable Addressable Market (SAM), and Serviceable Obtainable Market (SOM) using multiple methodologies including top-down, bottom-up, and value theory ap",
       "repo": "jesseotremblay/claude-skills",
@@ -15956,6 +16844,36 @@
       "stars": 0,
       "install": "theflysurfer/claude-skills-marketplace",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "apdex-score-calculator",
+      "description": "Apdex Score Calculator - Auto-activating skill for Performance Testing.Triggers on: apdex score calculator, apdex score calculatorPart of the Performance Testing skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/10-performance-testing/apdex-score-calculator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/apdex-score-calculator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "api-architect",
+      "description": "Expert API designer for REST, GraphQL, gRPC architectures. Activate on: API design, REST API, GraphQL schema, gRPC service, OpenAPI, Swagger, API versioning, endpoint design, rate limiting, OAuth flow",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/api-architect",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "api",
+        "rest",
+        "graphql",
+        "grpc",
+        "architecture"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/api-architect",
+      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "api-client-generator",
@@ -16314,6 +17232,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "architecture-paradigms",
+      "description": "Interactive selector and implementation planner for architecture paradigms.Triggers: architecture selection, pattern comparison, system design, ADR creation,architecture decision, paradigm evaluation,",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/archetypes/skills/architecture-paradigms",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "architecture",
+        "patterns",
+        "selection",
+        "implementation",
+        "adr"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/archetypes/skills/architecture-paradigms",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "architecture-patterns",
       "description": "AI-friendly architecture patterns for TypeScript projects including Domain-Driven Design, Clean Architecture, Hexagonal Architecture, and Page Object Model testing patterns",
       "repo": "AdamManuel-dev/claude-code-ext",
@@ -16339,18 +17275,6 @@
       "stars": 0,
       "install": "pborenstein/plinth/docs/archive/TESTING-LAUNCHD-SKILL.md",
       "source": "github.com/pborenstein/plinth"
-    },
-    {
-      "name": "arguments-test",
-      "description": "Test skill for argument substitution",
-      "repo": "maxvaega/skillkit",
-      "path": "tests/fixtures/skills/arguments-test-skill",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "maxvaega/skillkit/tests/fixtures/skills/arguments-test-skill",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "arguments-test",
@@ -16434,6 +17358,18 @@
       "tags": [],
       "stars": 0,
       "install": "dwmkerr/ark-claude-code-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "artillery-config-generator",
+      "description": "Artillery Config Generator - Auto-activating skill for Performance Testing.Triggers on: artillery config generator, artillery config generatorPart of the Performance Testing skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/10-performance-testing/artillery-config-generator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/artillery-config-generator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17633,6 +18569,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "bottleneck-identifier",
+      "description": "Bottleneck Identifier - Auto-activating skill for Performance Testing.Triggers on: bottleneck identifier, bottleneck identifierPart of the Performance Testing skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/10-performance-testing/bottleneck-identifier",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/bottleneck-identifier",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "boundary-value-analysis",
+      "description": "境界値分析と同値分割によるテストケース設計を体系化するスキル。入力領域の分類、境界値抽出、エッジケース追加、組み合わせ最適化を行い、最小のテスト数で検証精度を高める。Anchors:• The Pragmatic Programmer / 適用: テスト設計 / 目的: 実践的改善と品質維持• Software Testing (Glenford J. Myers) / 適用: 境界値設計 / 目",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "docs/99-claude/skills/boundary-value-analysis",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "daishiman/AIWorkflowOrchestrator/docs/99-claude/skills/boundary-value-analysis",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "box-factory-uv-scripts",
       "description": "UV-specific patterns for single-file Python scripts using inline metadata (PEP 723). Use when creating Python hooks, standalone utilities, or executable scripts in UV-managed projects.",
       "repo": "racurry/neat-little-package",
@@ -18157,6 +19117,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "calculate-coverage",
+      "description": "Measure test coverage and identify untested code. Use when assessing test completeness.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/calculate-coverage",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/calculate-coverage",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "calculator-helper",
       "description": "Performs mathematical calculations and conversions. Use when user asks to \"calculate\", \"compute\", \"what is the result of\", \"convert units\", or needs math help.",
       "repo": "Dexploarer/claudius-skills",
@@ -18590,6 +19562,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "circuit-breaker-setup",
+      "description": "Circuit Breaker Setup - Auto-activating skill for API Integration.Triggers on: circuit breaker setup, circuit breaker setupPart of the API Integration skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/16-api-integration/circuit-breaker-setup",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/circuit-breaker-setup",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "clarification-protocol",
       "description": "Generate targeted clarifying questions (2-3 max) that challenge vague requirements and extract missing context. Use after request-analyzer identifies clarification needs, before routing to specialist",
       "repo": "alirezarezvani/claude-cto-team",
@@ -18812,6 +19796,22 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "cloudflare-cron-triggers",
+      "description": "Complete knowledge domain for Cloudflare Cron Triggers - scheduled execution of Workers usingcron expressions for periodic tasks, maintenance jobs, and automated workflows.Use when: scheduling Workers",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "skills/cloudflare-cron-triggers",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "cloudflare",
+        "cron",
+        "triggers"
+      ],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/skills/cloudflare-cron-triggers",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "cloudflare-mcp-server",
       "description": "Use this skill when building Model Context Protocol (MCP) servers on Cloudflare Workers. This skill should be used when deploying remote MCP servers with TypeScript, implementing OAuth authentication",
       "repo": "jackspace/ClaudeSkillz",
@@ -18890,6 +19890,24 @@
       "stars": 0,
       "install": "TheBushidoCollective/han",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "code-necromancer",
+      "description": "Systematic framework for resurrecting and modernizing legacy codebases through archaeology, resurrection, and rejuvenation phases. Activate on \"legacy code\", \"inherited codebase\", \"no documentation\",",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/code-necromancer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "legacy",
+        "modernization",
+        "technical-debt",
+        "archaeology",
+        "refactoring"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/code-necromancer",
+      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "code-review",
@@ -18997,19 +20015,17 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "code-validation-sandbox",
-      "description": "Validate code examples across the 4-Layer Teaching Method with intelligent strategy selection.Use when validating Python/Node/Rust code in book chapters. NOT for production deployment testing.",
-      "repo": "92Bilal26/TaskPilotAI",
-      "path": ".claude/skills/code-validation-sandbox",
+      "name": "coder",
+      "description": "Implementation Agent: Full TDD workflow in a single context window. Writes tests, implements code, and iterates until all tests pass.",
+      "repo": "pcortes/swarm-attack",
+      "path": ".claude/skills/coder",
       "branch": "main",
       "category": "testing",
       "tags": [
-        "code",
-        "validation",
-        "sandbox"
+        "coder"
       ],
       "stars": 0,
-      "install": "92Bilal26/TaskPilotAI/.claude/skills/code-validation-sandbox",
+      "install": "pcortes/swarm-attack/.claude/skills/coder",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -19167,6 +20183,33 @@
       "stars": 0,
       "install": "UBAIDRAZA1/UBAIDRAZA1-Todo-Web-Application/.gemini/skills/command-orchestration",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "command-placement-priority",
+      "description": "コマンドの配置場所と優先順位（プロジェクト/ユーザー/MCP、名前空間、競合解決）を整理し、配置判断と移行方針を支援するスキル。配置基準、優先順位ルール、移行フローを一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 配置判断の実務 / 目的: 運用の一貫性確保• Priority Resolu",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "docs/99-claude/skills/command-placement-priority",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "daishiman/AIWorkflowOrchestrator/docs/99-claude/skills/command-placement-priority",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "commissioning-reports",
+      "description": "Building commissioning workflows including MBCx procedures, testing protocols, report generation, and energy conservation measure verification following ASHRAE Guideline 0 and NEBB standards",
+      "repo": "mbcoalson/skills",
+      "path": ".claude/skills/commissioning-reports",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "commissioning",
+        "reports"
+      ],
+      "stars": 0,
+      "install": "mbcoalson/skills/.claude/skills/commissioning-reports",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "community-advocacy-toolkit",
@@ -19973,6 +21016,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "connection-pooling-config",
+      "description": "Connection Pooling Config - Auto-activating skill for API Integration.Triggers on: connection pooling config, connection pooling configPart of the API Integration skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/16-api-integration/connection-pooling-config",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/connection-pooling-config",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "connector-config",
       "description": "Writes connector_config for segment/journey activations using `tdx connection schema <type>` to discover available fields. Use when configuring activations - always run schema command first to see con",
       "repo": "treasure-data/td-skills",
@@ -20110,6 +21165,18 @@
       "stars": 0,
       "install": "proffesor-for-testing/sentinel-api-testing/.claude/skills/context-driven-testing",
       "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    },
+    {
+      "name": "context-mapping",
+      "description": "Map relationships between bounded contexts using DDD context mapping patterns. Use when defining upstream/downstream relationships, integration strategies (ACL, OHS, PL), or generating Context Mapper",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/enterprise-architecture/skills/context-mapping",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/enterprise-architecture/skills/context-mapping",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "continental-philosophy-specialist",
@@ -20979,6 +22046,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "cross-service-integration",
+      "description": "Quick decision guide for cross-service communication patterns. For implementation details, use the backend-message-bus skill.",
+      "repo": "duc01226/EasyPlatform",
+      "path": ".claude/skills/arch-cross-service-integration",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/.claude/skills/arch-cross-service-integration",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "crypto-research",
       "description": "Comprehensive cryptocurrency market research and analysis using specialized AI agents. Analyzes market data, price trends, news sentiment, technical indicators, macro correlations, and investment oppo",
       "repo": "stevengonsalvez/agents-in-a-box",
@@ -21076,6 +22155,18 @@
       "tags": [],
       "stars": 0,
       "install": "olehsvyrydov/AI-development-team/claude/skills/quality/testing/bdd/cucumber-bdd",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "cucumber-gherkin",
+      "description": "Comprehensive BDD testing with Cucumber and Gherkin syntax. Use when writing feature files (.feature), step definitions, hooks, or implementing Behaviour-Driven Development. Covers Gherkin keywords (F",
+      "repo": "el-feo/ai-context",
+      "path": "plugins/ruby-rails/skills/cucumber-gherkin",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "el-feo/ai-context/plugins/ruby-rails/skills/cucumber-gherkin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -21550,6 +22641,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "debate-hall",
+      "description": "Wind/Wall/Door multi-perspective debate orchestration using debate-hall-mcp tools. Use when facilitating structured debates, architectural decisions, or multi-perspective analysis.",
+      "repo": "elevanaltd/debate-hall-mcp",
+      "path": "skills/debate-hall",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "elevanaltd/debate-hall-mcp/skills/debate-hall",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "debug",
       "description": "Investigate and fix a bug systematically",
       "repo": "WhatIfWeDigDeeper/claude-template",
@@ -21829,6 +22932,18 @@
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "dependency-security-scanning",
+      "description": "依存関係の脆弱性スキャン、CVE評価、レポート作成を体系化するスキル。SCAの運用と修正計画の整理を支援する。Anchors:• OWASP Dependency-Check / 適用: 依存スキャン / 目的: 検出の標準化• CVSS v3.1 Specification / 適用: 重大度評価 / 目的: 優先度の整合性• Web Application Security / 適用: 脅威評",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "docs/99-claude/skills/dependency-security-scanning",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "daishiman/AIWorkflowOrchestrator/docs/99-claude/skills/dependency-security-scanning",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -22114,6 +23229,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "disciplined-design",
+      "description": "Phase 2 of disciplined development. Creates implementation plans based onapproved research. Specifies file changes, function signatures, test strategy,and step sequence. Requires human approval before",
+      "repo": "terraphim/codex-skills",
+      "path": "skills/disciplined-design",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "terraphim/codex-skills/skills/disciplined-design",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "disciplined-verification",
+      "description": "Phase 4 of disciplined development. Verifies implementation against designthrough unit and integration testing. Builds traceability matrices, trackscoverage, and loops defects back to originating left",
+      "repo": "terraphim/codex-skills",
+      "path": "skills/disciplined-verification",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "terraphim/codex-skills/skills/disciplined-verification",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "discord-integration",
       "description": "Use when sending Discord messages or encountering bot permission errors - provides three-tier integration methods with automatic fallback (MCP → REST API → Gateway); prevents wasted time on OAuth scop",
       "repo": "Nice-Wolf-Studio/wolf-skills-marketplace",
@@ -22313,6 +23452,18 @@
       "tags": [],
       "stars": 0,
       "install": "paunchygent/skriptoteket",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "distribution-search",
+      "description": "Guidance for finding probability distributions that satisfy specific statistical constraints such as KL divergence targets. This skill should be used when tasks involve constructing probability distri",
+      "repo": "letta-ai/skills",
+      "path": "letta/benchmarks/trajectory-only/distribution-search",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/distribution-search",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -23343,6 +24494,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "embedding-strategies",
+      "description": "Select and optimize embedding models for semantic search and RAG applications. Use when choosing embedding models, implementing chunking strategies, or optimizing embedding quality for specific domain",
+      "repo": "wshobson/agents",
+      "path": "plugins/llm-application-dev/skills/embedding-strategies",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "wshobson/agents/plugins/llm-application-dev/skills/embedding-strategies",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "emerging-specialty-skills",
       "description": "Master emerging technologies including blockchain, cybersecurity, QA testing, and specialized tech roles. Stay ahead with cutting-edge technologies.",
       "repo": "pluginagentmarketplace/custom-plugin-nextjs",
@@ -23433,6 +24596,21 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "energyplus-assistant",
+      "description": "Use this skill when analyzing EnergyPlus IDF building energy models, including QA/QC validation, HVAC topology analysis, ECM testing, or running simulations. Supports fast validation without Docker (d",
+      "repo": "mbcoalson/skills",
+      "path": ".claude/skills/energyplus-assistant",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "energyplus",
+        "assistant"
+      ],
+      "stars": 0,
+      "install": "mbcoalson/skills/.claude/skills/energyplus-assistant",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "entitlements-management",
       "description": "Use when implementing feature gating, quota enforcement, and plan-based access control. Covers entitlements vs feature flags, quota systems, and integration with subscription tiers.",
       "repo": "melodic-software/claude-code-plugins",
@@ -23514,6 +24692,18 @@
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "error-mapping-helper",
+      "description": "Error Mapping Helper - Auto-activating skill for API Integration.Triggers on: error mapping helper, error mapping helperPart of the API Integration skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/16-api-integration/error-mapping-helper",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/error-mapping-helper",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -23629,6 +24819,18 @@
       "stars": 0,
       "install": "maxxentropy/claude-tools",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "evaluate-model",
+      "description": "Measure model performance on test datasets. Use when assessing accuracy, precision, recall, and other metrics.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/evaluate-model",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/evaluate-model",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "evaluating-machine-learning-models",
@@ -23899,6 +25101,18 @@
       "tags": [],
       "stars": 0,
       "install": "metabench/copilot-dl-news",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "expertise-manager",
+      "description": "Route, calibrate, and continuously improve specialist coverage across domains.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/specialists/expertise-manager",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/specialists/expertise-manager",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25320,6 +26534,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "fosmvvm-viewmodel-test-generator",
+      "description": "Generate comprehensive ViewModel tests with multi-locale translation verification. Use when creating test coverage for ViewModels, especially those with localization.",
+      "repo": "foscomputerservices/FOSUtilities",
+      "path": ".claude/skills/fosmvvm-viewmodel-test-generator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "foscomputerservices/FOSUtilities/.claude/skills/fosmvvm-viewmodel-test-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "foss-license-advisor",
       "description": "Expert assistant in free and open-source licenses (FOSS). Helps users choose the most suitable free/open license for their creations through a guided questionnaire. Use when user asks about open-sourc",
       "repo": "s-celles/ai-config",
@@ -25651,6 +26877,24 @@
       "stars": 0,
       "install": "sihu-dev/qetta",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "fullstack-debugger",
+      "description": "Expert debugger for Next.js + Cloudflare Workers + Supabase stacks. Systematic troubleshooting for auth, caching, workers, RLS, CORS, and build issues. Activate on: 'debug', 'not working', 'error', 'b",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/fullstack-debugger",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "debugging",
+        "nextjs",
+        "cloudflare-workers",
+        "supabase",
+        "troubleshooting"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/fullstack-debugger",
+      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "fullstack-testing",
@@ -26118,6 +27362,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "generate-fix-suggestions",
+      "description": "Generate fix suggestions based on error patterns and best practices. Use when analyzing failures to get actionable remediation steps.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/generate-fix-suggestions",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/generate-fix-suggestions",
+      "source": "github.com/mvillmow/ProjectOdyssey"
+    },
+    {
       "name": "generate-missing-tests",
       "description": "Homeostatic actuator auto-generating missing tests for requirements with low coverage. Creates unit tests, edge cases, and error cases for REQ-* without sufficient test coverage. Use when validate-tes",
       "repo": "foolishimp/ai_sdlc_method",
@@ -26166,6 +27422,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "generate-tests",
+      "description": "Create test cases for functions and modules. Use when implementing TDD or improving coverage.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/generate-tests",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/generate-tests",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "generating-agents-md",
       "description": "Generates or updates an AGENTS.md file by scanning a repository for structure, commands, tests, and conventions. Use when a user asks to create or improve `AGENTS.md` for a repository.",
       "repo": "srtab/daiv",
@@ -26175,6 +27443,18 @@
       "tags": [],
       "stars": 0,
       "install": "srtab/daiv",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "generating-tdd-tests",
+      "description": "RGRCサイクルとBaby Steps方法論を用いたTDD。トリガー: TDD, テスト駆動開発, Red-Green-Refactor, Baby Steps, test generation, テスト生成, テスト設計, テストケース, boundary value, 境界値分析, coverage, カバレッジ, unit test",
+      "repo": "thkt/claude-config",
+      "path": ".ja/skills/generating-tdd-tests",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "thkt/claude-config/.ja/skills/generating-tdd-tests",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26434,6 +27714,18 @@
       "source": "local"
     },
     {
+      "name": "github-sync",
+      "description": "Two-way synchronization between SpecWeave specs and GitHub Projects (push & pull by default). Activates ONLY when user asks questions about GitHub integration or needs help configuring GitHub sync. Do",
+      "repo": "anton-abyzov/specweave",
+      "path": "plugins/specweave-github/skills/github-sync",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/plugins/specweave-github/skills/github-sync",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "global-tech-stack",
       "description": "Understand and apply the n8n community node tech stack including TypeScript strict mode, Node.js v22+, n8n-workflow package, and build tools. Use this skill when setting up new n8n node projects, conf",
       "repo": "dpietersz/n8n-nodes-pleo",
@@ -26601,6 +27893,20 @@
       "stars": 0,
       "install": "Zate/cc-plugins",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "go-reviewer",
+      "description": "WHEN: Go project review, error handling, goroutines, interfaces, testingWHAT: Error handling patterns + Concurrency safety + Interface design + Testing + Idiomatic GoWHEN NOT: Go API frameworks → go-a",
+      "repo": "physics91/claude-vibe",
+      "path": "skills/django-reviewer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "reviewer"
+      ],
+      "stars": 0,
+      "install": "physics91/claude-vibe/skills/django-reviewer",
+      "source": "local"
     },
     {
       "name": "go-reviewer",
@@ -27236,6 +28542,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "harness-ci",
+      "description": "Harness CI (Continuous Integration) for container-native builds with test intelligence, caching, parallelization, and build infrastructure management",
+      "repo": "Lobbi-Docs/claude",
+      "path": "plugins/jira-orchestrator/skills/harness-ci",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/plugins/jira-orchestrator/skills/harness-ci",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "harshjudge",
       "description": "AI-native E2E testing orchestration for Claude Code. Use when creating, running, or managing end-to-end test scenarios with visual evidence capture. Activates for tasks involving E2E tests, browser au",
       "repo": "HuskyDanny/HarshJudge",
@@ -27248,6 +28566,18 @@
       "stars": 0,
       "install": "HuskyDanny/HarshJudge",
       "source": "local"
+    },
+    {
+      "name": "heap-dump-analyzer",
+      "description": "Heap Dump Analyzer - Auto-activating skill for Performance Testing.Triggers on: heap dump analyzer, heap dump analyzerPart of the Performance Testing skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/10-performance-testing/heap-dump-analyzer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/heap-dump-analyzer",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "hello-world",
@@ -27340,6 +28670,34 @@
       "tags": [],
       "stars": 0,
       "install": "tianguzhe/zsh-config",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "hipaa-compliance",
+      "description": "Ensure HIPAA compliance when handling PHI (Protected Health Information). Use when writing code that accesses user health data, check-ins, journal entries, or any sensitive information. Activates for",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/hipaa-compliance",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "hipaa",
+        "compliance",
+        "security"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/hipaa-compliance",
+      "source": "github.com/erichowens/some_claude_skills"
+    },
+    {
+      "name": "hive",
+      "description": "TD Hive SQL with TD-specific functions and Hive-only features (lateral view, explode, MAPJOIN hint). Use when Trino memory errors occur or for Hive-specific syntax.",
+      "repo": "treasure-data/td-skills",
+      "path": "sql-skills/trino-to-hive-migration",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "treasure-data/td-skills/sql-skills/trino-to-hive-migration",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27502,6 +28860,18 @@
       "stars": 0,
       "install": "Emz1998/nexly-notes",
       "source": "local"
+    },
+    {
+      "name": "html-injection-testing",
+      "description": "This skill should be used when the user asks to \"test for HTML injection\", \"inject HTML into web pages\", \"perform HTML injection attacks\", \"deface web applications\", or \"test content injection vulnera",
+      "repo": "zebbern/claude-code-guide",
+      "path": "skills/html-injection-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "zebbern/claude-code-guide/skills/html-injection-testing",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "http-client-config",
@@ -27754,6 +29124,18 @@
       "stars": 0,
       "install": "gtmagents/gtm-agents",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "idor-testing",
+      "description": "This skill should be used when the user asks to",
+      "repo": "zebbern/claude-code-guide",
+      "path": "skills/idor-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "zebbern/claude-code-guide/skills/idor-testing",
+      "source": "GitHub Search API"
     },
     {
       "name": "image-gen",
@@ -29510,6 +30892,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "language-specialists",
+      "description": "Route language-specific engineering work to the right specialist and maintain language playbooks.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/specialists/language-specialists",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/specialists/language-specialists",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "laravel-dusk",
       "description": "Laravel Dusk - Browser automation and testing API for Laravel applications. Use when writing browser tests, automating UI testing, testing JavaScript interactions, or implementing end-to-end tests in",
       "repo": "rawveg/skillsforge-marketplace",
@@ -29720,6 +31114,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "lead-hunter",
+      "description": "THE MOST CRITICAL FEATURE FOR HODGES & FOOSHEE REALTY. Ultimate distressed property intelligence system tracking 22 distress signals across financial, life event, property, legal, and market categorie",
+      "repo": "AIBPM42/hodgesfooshee-site-spark",
+      "path": ".claude/skills/lead-hunter",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AIBPM42/hodgesfooshee-site-spark/.claude/skills/lead-hunter",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "learn-integrations",
       "description": "Learn about Nexus integrations and MCP. Load when user mentions: learn integrations, what is MCP, connect tools, integration tutorial, add integration, external tools, API connections, third party, ho",
       "repo": "abdullahbeam/nexus-design-abdullah",
@@ -29825,6 +31231,18 @@
       "tags": [],
       "stars": 0,
       "install": "tekgrunt/boot-test",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "linear-mcp-integration",
+      "description": "Use Linear MCP server functions to interact with Linear issues, projects, teams, and comments. Use when: (1) Fetching issue requirements and acceptance criteria from Linear, (2) Validating PR changes",
+      "repo": "lambda-curry/devagent",
+      "path": ".cursor/skills/linear-mcp-integration",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "lambda-curry/devagent/.cursor/skills/linear-mcp-integration",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30029,6 +31447,35 @@
       ],
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-ai-red-teaming",
+      "source": "local"
+    },
+    {
+      "name": "llm-testing",
+      "description": "Testing patterns for LLM-based applications. Use when testing AI/ML integrations, mocking LLM responses, testing async timeouts, or validating structured outputs from LLMs.",
+      "repo": "yonatangross/skillforge-claude-plugin",
+      "path": "skills/llm-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "yonatangross/skillforge-claude-plugin/skills/llm-testing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "ln-500-story-quality-gate",
+      "description": "Story quality validation coordinator with gates",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-500-story-quality-gate",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "quality",
+        "validation",
+        "gates",
+        "linear"
+      ],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-500-story-quality-gate",
       "source": "local"
     },
     {
@@ -30281,18 +31728,6 @@
       "stars": 0,
       "install": "NEXTAltair/LoRAIro",
       "source": "local"
-    },
-    {
-      "name": "lorcana-test-generation",
-      "description": "Generate basic happy-path tests for Lorcana card abilities. Tests verify ability behavior only - NO property validation tests. Use when implementing or updating card tests. Effects are tested separate",
-      "repo": "TheCardGoat/tcg-engines",
-      "path": ".claude/skills/lorcana-test-generation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheCardGoat/tcg-engines/.claude/skills/lorcana-test-generation",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "lovable-prompts",
@@ -30794,6 +32229,30 @@
       "tags": [],
       "stars": 0,
       "install": "git-qiaozq/claude-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mcmc-sampling-stan",
+      "description": "Guidance for Bayesian MCMC sampling tasks using RStan. This skill applies when implementing hierarchical Bayesian models, configuring Stan/RStan for MCMC inference, or working with posterior distribut",
+      "repo": "letta-ai/skills",
+      "path": "letta/benchmarks/trajectory-only/mcmc-sampling-stan",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/mcmc-sampling-stan",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mcp-2025-patterns",
+      "description": "Current best practices for Model Context Protocol server design, implementation, and integration. Updated patterns for 2025 MCP ecosystem including multi-server orchestration, security, and performanc",
+      "repo": "frankxai/ai-architect",
+      "path": "skills/mcp-2025-patterns",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/ai-architect/skills/mcp-2025-patterns",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31816,6 +33275,18 @@
       "name": "mock-generator",
       "description": "Mock Generator - Auto-activating skill for Test Automation.Triggers on: mock generator, mock generatorPart of the Test Automation skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/15-api-development/api-mock-generator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/15-api-development/api-mock-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mock-generator",
+      "description": "Mock Generator - Auto-activating skill for Test Automation.Triggers on: mock generator, mock generatorPart of the Test Automation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "",
       "branch": "main",
       "category": "testing",
@@ -31890,18 +33361,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-ml/skills/model-evaluator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "model-registry",
-      "description": "Centralized model versioning, staging, and lifecycle management. Activates for \"model registry\", \"model versioning\", \"model staging\", \"deploy to production\", \"rollback model\", \"model metadata\", \"model",
-      "repo": "anton-abyzov/specweave",
-      "path": "plugins/specweave-ml/skills/model-registry",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave/plugins/specweave-ml/skills/model-registry",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -32119,6 +33578,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "moodle-ai-integration",
+      "description": "Integrate with Moodle AI Subsystem (4.5+). Create custom Actions, Providers, and Placements for AI-powered features.",
+      "repo": "astoeffer/plugin-marketplace",
+      "path": "plugins/moodle-dev-pro/skills/moodle-ai-integration",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "astoeffer/plugin-marketplace/plugins/moodle-dev-pro/skills/moodle-ai-integration",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "moonbit-refactoring",
       "description": "Refactor MoonBit codebases by minimizing public APIs, modularizing packages, converting free functions to methods/chaining, using ArrayView/StringView pattern matching, adding Dafny-style loop specs,",
       "repo": "bobzhang/moonbit-refactoring",
@@ -32319,18 +33790,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "mutation-test-runner",
-      "description": "Mutation Test Runner - Auto-activating skill for Test Automation.Triggers on: mutation test runner, mutation test runnerPart of the Test Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/testing/mutation-test-runner/skills/running-mutation-tests",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/testing/mutation-test-runner/skills/running-mutation-tests",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "mvp-launcher",
       "description": "Rapid MVP validation and launch framework following Y Combinator and lean startup principles. Use when user wants to validate a business idea, launch an MVP, define product strategy, calculate unit ec",
       "repo": "merllinsbeard/ai-claude-skills-collection",
@@ -32512,46 +33971,6 @@
       "stars": 0,
       "install": "awjames6875/skills-factory",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "n8n-trigger-testing-strategies",
-      "description": "Webhook testing, schedule validation, event-driven triggers, and polling mechanism testing for n8n workflows. Use when testing how workflows are triggered.",
-      "repo": "proffesor-for-testing/agentic-qe",
-      "path": ".claude/skills/n8n-trigger-testing-strategies",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "n8n",
-        "triggers",
-        "webhook",
-        "schedule",
-        "cron",
-        "polling",
-        "testing"
-      ],
-      "stars": 0,
-      "install": "proffesor-for-testing/agentic-qe/.claude/skills/n8n-trigger-testing-strategies",
-      "source": "github.com/proffesor-for-testing/agentic-qe"
-    },
-    {
-      "name": "n8n-workflow-testing-fundamentals",
-      "description": "Comprehensive n8n workflow testing including execution lifecycle, node connection patterns, data flow validation, and error handling strategies. Use when testing n8n workflow automation applications.",
-      "repo": "proffesor-for-testing/agentic-qe",
-      "path": ".claude/skills/n8n-workflow-testing-fundamentals",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "n8n",
-        "workflow",
-        "automation",
-        "testing",
-        "data-flow",
-        "nodes",
-        "triggers"
-      ],
-      "stars": 0,
-      "install": "proffesor-for-testing/agentic-qe/.claude/skills/n8n-workflow-testing-fundamentals",
-      "source": "github.com/proffesor-for-testing/agentic-qe"
     },
     {
       "name": "nativephp-livewire-integration",
@@ -34144,6 +35563,18 @@
       "name": "openwebf-app-testing-vitest",
       "description": "Set up and improve WebF app tests with Vitest and React Testing Library. Use when the user mentions Vitest, React Testing Library, unit tests, component tests, “testing trophy”, or asks to add/fix tes",
       "repo": "archview-ai/webf-plugin",
+      "path": "webf-plugin/skills/openwebf-app-testing-vitest",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-app-testing-vitest",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-app-testing-vitest",
+      "description": "Set up and improve WebF app tests with Vitest and React Testing Library. Use when the user mentions Vitest, React Testing Library, unit tests, component tests, “testing trophy”, or asks to add/fix tes",
+      "repo": "archview-ai/webf-plugin",
       "path": "",
       "branch": "main",
       "category": "testing",
@@ -34955,6 +36386,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "performance-baseline-creator",
+      "description": "Performance Baseline Creator - Auto-activating skill for Performance Testing.Triggers on: performance baseline creator, performance baseline creatorPart of the Performance Testing skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/10-performance-testing/performance-baseline-creator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/performance-baseline-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "performance-engineer",
       "description": "Expert performance engineer specializing in system optimization, bottleneck identification, and scalability engineering. Masters performance testing, profiling, and tuning across applications, databas",
       "repo": "zenobi-us/dotfiles",
@@ -35482,6 +36925,25 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "plan-writing-gherkin-criteria",
+      "description": "Guide for writing Gherkin acceptance criteria using Given-When-Then syntax for testable requirements. Covers scenario structure, background blocks, scenario outlines with examples tables, common patte",
+      "repo": "wahidyankf/open-sharia-enterprise",
+      "path": ".claude/skills/plan-writing-gherkin-criteria",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "gherkin",
+        "acceptance-criteria",
+        "given-when-then",
+        "bdd",
+        "testing",
+        "user-stories"
+      ],
+      "stars": 0,
+      "install": "wahidyankf/open-sharia-enterprise/.claude/skills/plan-writing-gherkin-criteria",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "planning-production-docs",
       "description": "Creates comprehensive PRDs, tech specs, task breakdowns, testing plans, and production checklists with proper task sequencing and MCP testing integration. Use when planning new features, structuring d",
       "repo": "amo-tech-ai/event-studio",
@@ -35900,6 +37362,23 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "playwright-skill",
+      "description": "Browser automation with Playwright - Claude writes and executes custom scripts",
+      "repo": "lackeyjb/playwright-skill",
+      "path": "skills/playwright-skill",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "playwright",
+        "browser",
+        "automation",
+        "testing"
+      ],
+      "stars": 0,
+      "install": "lackeyjb/playwright-skill/skills/playwright-skill",
+      "source": ""
+    },
+    {
       "name": "playwright-test-architecture",
       "description": "Use when setting up Playwright test projects and organizing test suites with proper configuration and project structure.",
       "repo": "TheBushidoCollective/han",
@@ -35972,6 +37451,18 @@
       "tags": [],
       "stars": 0,
       "install": "JamesPrial/claudefiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "plugin-test",
+      "description": "Run comprehensive tests on plugin components using the modular test runner. Validates hooks, agents, skills, and plugin structure across all PopKit plugin packages.",
+      "repo": "jrc1883/popkit-claude",
+      "path": "packages/popkit-core/skills/pop-plugin-test",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-plugin-test",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -36118,6 +37609,18 @@
       "name": "policyengine-testing-patterns",
       "description": "PolicyEngine testing patterns - YAML test structure, naming conventions, period handling, and quality standards",
       "repo": "PolicyEngine/policyengine-claude",
+      "path": "skills/technical-patterns/policyengine-testing-patterns-skill",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/skills/technical-patterns/policyengine-testing-patterns-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "policyengine-testing-patterns",
+      "description": "PolicyEngine testing patterns - YAML test structure, naming conventions, period handling, and quality standards",
+      "repo": "PolicyEngine/policyengine-claude",
       "path": "",
       "branch": "main",
       "category": "testing",
@@ -36172,18 +37675,6 @@
       "tags": [],
       "stars": 0,
       "install": "YL08140921/unson-os-market-research",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "postgis",
-      "description": "MANDATORY when working with geographic data, spatial queries, geometry operations, or location-based features - enforces PostGIS 3.6.1 best practices including ST_CoverageClean, SFCGAL 3D functions, a",
-      "repo": "troykelly/claude-skills",
-      "path": "skills/postgis",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "troykelly/claude-skills/skills/postgis",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -36611,6 +38102,18 @@
       "source": "local"
     },
     {
+      "name": "project-specification",
+      "description": "Transform project brief into detailed, testable specifications using spec-driven development methodology",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/attune/skills/project-specification",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/attune/skills/project-specification",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "project-testing",
       "description": "\"Custom test patterns and fixtures for {project}. Covers E2E, integration, and specialized testing requirements.\"",
       "repo": "Consiliency/treesitter-chunker",
@@ -36749,6 +38252,24 @@
       "source": "local"
     },
     {
+      "name": "proof-of-work",
+      "description": "Enforces \"prove before claim\" discipline - validation, testing, and evidencerequirements before declaring work complete.Triggers: completion, finished, done, working, should work, configured,ready to",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/imbue/skills/proof-of-work",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "validation",
+        "testing",
+        "proof",
+        "definition-of-done",
+        "acceptance-criteria"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/imbue/skills/proof-of-work",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "property-based-test-generator",
       "description": "Generates property-based tests using Hypothesis (Python), fast-check (JavaScript/TypeScript), or QuickCheck (Haskell). Use when user asks to \"generate property tests\", \"create hypothesis tests\", \"add",
       "repo": "Dexploarer/claudius-skills",
@@ -36798,18 +38319,6 @@
     },
     {
       "name": "property-based-testing",
-      "description": "Generate invariant and edge-case tests.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "skills/testing-quality/property-based-testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK/skills/testing-quality/property-based-testing",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
-    },
-    {
-      "name": "property-based-testing",
       "description": "How to make a good property-based test. Use when writing any property-based test.",
       "repo": "Smaug123/gospel",
       "path": "",
@@ -36823,6 +38332,18 @@
       "stars": 0,
       "install": "Smaug123/gospel",
       "source": "local"
+    },
+    {
+      "name": "property-based-testing",
+      "description": "Generate invariant and edge-case tests.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "skills/testing-quality/property-based-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/skills/testing-quality/property-based-testing",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
     },
     {
       "name": "property-testing-guide",
@@ -36846,6 +38367,18 @@
       "tags": [],
       "stars": 0,
       "install": "EmilLindfors/claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "proposal-writer",
+      "description": "Create winning sales proposals and SOWs with executive summaries, scope of work, pricing strategies, timelines, and closing elements that convert prospects to customers.",
+      "repo": "majesticlabs-dev/majestic-marketplace",
+      "path": "plugins/majestic-sales/skills/proposal-writer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-sales/skills/proposal-writer",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37164,6 +38697,23 @@
       "tags": [],
       "stars": 0,
       "install": "majesticlabs-dev/majestic-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pytest-config",
+      "description": "Standardized pytest configuration for plugin development with shared test patterns.Triggers: pytest configuration, conftest, fixtures, test setupUse when: setting up pytest for plugin development or c",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/leyline/skills/pytest-config",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "pytest",
+        "testing",
+        "configuration",
+        "fixtures"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/leyline/skills/pytest-config",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37486,6 +39036,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "python-specialist",
+      "description": "Deliver production-quality Python solutions with framework-aware patterns and tests.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/specialists/python-specialist",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/specialists/python-specialist",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "python-test-strategy",
       "description": "Python unit testing patterns for pytest, including test file structure, fixtures, mocks, and coverage strategy. Use when asked to write tests (unit/integration) for any Python module, function, class,",
       "repo": "MacHu-GWU/sanhe-claude-code-plugins",
@@ -37549,6 +39111,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "qa-agent-testing",
+      "description": "Reusable QA harness for testing LLM agents and personas. Defines test suites with must-ace tasks, refusal edge cases, scoring rubrics, and regression protocols. Use when validating agent behavior, tes",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-agent-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/qa-agent-testing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "qa-automation",
       "description": "Write E2E tests using Playwright with Cucumber/Gherkin for this project. Use when creating tests, writing test cases, testing UI flows, API testing, or when user mentions e2e, playwright, cucumber, gh",
       "repo": "Andrew1326/Andrew1326",
@@ -37606,6 +39180,36 @@
       "tags": [],
       "stars": 0,
       "install": "cwoodruff/morespeakers-com/.claude/skills/qa-engineer",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "qa-expert",
+      "description": "Expert-level quality assurance, testing strategies, automation, and QA processes",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "stdlib/qa/qa-expert",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "qa",
+        "testing",
+        "test-automation",
+        "quality-assurance",
+        "selenium"
+      ],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/stdlib/qa/qa-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    },
+    {
+      "name": "qa-observability",
+      "description": "Production observability and performance engineering with OpenTelemetry, distributed tracing, metrics, logging, SLO/SLI design, capacity planning, performance profiling, APM integration, and observabi",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-observability",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/qa-observability",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37702,6 +39306,18 @@
       "tags": [],
       "stars": 0,
       "install": "jpoutrin/product-forge",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "qa-testing-strategy",
+      "description": "Test strategy, QA patterns, and automation practices across unit, integration, E2E, performance, BDD, and security testing with modern frameworks (Jest, Vitest, Playwright, k6, Cucumber).",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-strategy",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/qa-testing-strategy",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37837,6 +39453,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "qwen-delegation",
+      "description": "Qwen CLI delegation workflow implementing delegation-core for Alibaba's Qwen models.Triggers: qwen cli, qwen delegation, alibaba qwen, qwen batch, multi-file analysis,qwen summarization, qwen extracti",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/conjure/skills/qwen-delegation",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "qwen",
+        "cli",
+        "delegation",
+        "alibaba",
+        "large-context"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/conjure/skills/qwen-delegation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "radulator-qa-tester",
       "description": "Automated QA testing for Radulator's 18 medical calculators across radiology, hepatology/liver, and urology specialties. Tests accuracy, collects browser diagnostics, generates Playwright tests, and m",
       "repo": "momomojo/Radulator",
@@ -37968,6 +39602,18 @@
       "tags": [],
       "stars": 0,
       "install": "patricio0312rev/skillset",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "rc-manager",
+      "description": "Manages Release Candidate (RC) workflows including pre-release tagging, RC lifecycle (alpha/beta/rc), testing validation, RC promotion to production, rollback procedures, and channel-based releases. H",
+      "repo": "anton-abyzov/specweave",
+      "path": "plugins/specweave-release/skills/rc-manager",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/plugins/specweave-release/skills/rc-manager",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -38189,6 +39835,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "refactoring-surgeon",
+      "description": "Expert code refactoring specialist for improving code quality without changing behavior. Activate on: refactor, code smell, technical debt, legacy code, cleanup, simplify, extract method, extract clas",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/refactoring-surgeon",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "refactoring",
+        "code-smells",
+        "solid",
+        "dry",
+        "cleanup"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/refactoring-surgeon",
+      "source": "github.com/erichowens/some_claude_skills"
+    },
+    {
       "name": "reference-educational-template",
       "description": "[REPLACE] Teach concepts and demonstrate patterns with examples. Use when [REPLACE with specific triggers].",
       "repo": "djankies/claude-configs",
@@ -38246,6 +39910,18 @@
       "tags": [],
       "stars": 0,
       "install": "LerianStudio/ring",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "regulatory-templates-gate2",
+      "description": "Gate 2 sub-skill - validates uncertain mappings from Gate 1 and confirmsall field specifications through testing.",
+      "repo": "LerianStudio/ring",
+      "path": "finops-team/skills/regulatory-templates-gate2",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "LerianStudio/ring/finops-team/skills/regulatory-templates-gate2",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -38334,6 +40010,18 @@
       "tags": [],
       "stars": 0,
       "install": "Official-MoonDao/LORS",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "request-interceptor-creator",
+      "description": "Request Interceptor Creator - Auto-activating skill for API Integration.Triggers on: request interceptor creator, request interceptor creatorPart of the API Integration skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/16-api-integration/request-interceptor-creator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/request-interceptor-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -38844,6 +40532,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "reviewing-testability",
+      "description": "TypeScript/Reactアプリケーション向けテスト可能なコード設計パターン。 トリガー: テスタビリティ, testability, テスト可能, テストしやすい, モック, mock, 純粋関数, pure function, 依存性注入, dependency injection, DI, 副作用, side effect, 副作用分離, テスト困難, hard to test.",
+      "repo": "thkt/claude-config",
+      "path": ".ja/skills/reviewing-testability",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "thkt/claude-config/.ja/skills/reviewing-testability",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "reviewing-vitest-config",
       "description": "Review Vitest configuration for deprecated patterns and best practices. Use when reviewing test configuration or vitest setup.",
       "repo": "djankies/claude-configs",
@@ -39313,6 +41013,26 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "run-e2e-tests",
+      "description": "Runs end-to-end or upgrade tests on existing long-running Maestro clusters deployed in Azure AKS",
+      "repo": "openshift-online/maestro",
+      "path": ".claude/skills/run-e2e-tests",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "azure",
+        "aks",
+        "maestro",
+        "e2e",
+        "testing",
+        "upgrade",
+        "kubernetes"
+      ],
+      "stars": 0,
+      "install": "openshift-online/maestro/.claude/skills/run-e2e-tests",
+      "source": "github.com/openshift-online/maestro"
+    },
+    {
       "name": "run-integration-tests",
       "description": "Run integration tests validating cross-component requirements and system behavior. Executes BDD scenarios, API tests, and end-to-end tests. Use to validate integrated system or as pre-deployment quali",
       "repo": "foolishimp/ai_sdlc_method",
@@ -39540,6 +41260,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "running-mutation-tests",
+      "description": "Execute mutation testing to evaluate test suite effectiveness.Use when performing specialized testing.Trigger with phrases like \"run mutation tests\", \"test the tests\", or \"validate test effectiveness\"",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/testing/mutation-test-runner/skills/running-mutation-tests",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/testing/mutation-test-runner/skills/running-mutation-tests",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -39957,6 +41689,21 @@
       "source": "local"
     },
     {
+      "name": "screenshot-eval",
+      "description": "Evaluate browser screenshots and page state for errors. Use when verifying features work correctly, detecting error conditions, or validating UI state during browser testing.",
+      "repo": "krazyuniks/guitar-tone-shootout",
+      "path": ".claude/skills/screenshot-eval",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "screenshot",
+        "eval"
+      ],
+      "stars": 0,
+      "install": "krazyuniks/guitar-tone-shootout/.claude/skills/screenshot-eval",
+      "source": "local"
+    },
+    {
       "name": "script-bugfix",
       "description": "Debug and fix complex scripts by isolating side effects, extracting core logic into a controlled environment, validating behavior there, then reintegrating with minimal changes. Use this when scripts",
       "repo": "tizee/dotfiles",
@@ -40063,20 +41810,6 @@
       "stars": 0,
       "install": "atusy/agentic-scrum/claude-plugins/agentic-scrum/skills/scrum-event-sprint-retrospective",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "scvitools",
-      "description": "Comprehensive skill for scvi-tools - Deep probabilistic models for single-cell omics analysis. Use for scVI, scANVI, totalVI, MultiVI models, single-cell RNA-seq integration, batch correction, differe",
-      "repo": "Ketomihine/my_skills",
-      "path": "scvitools-docs-truly-complete",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "scvitools"
-      ],
-      "stars": 0,
-      "install": "Ketomihine/my_skills/scvitools-docs-truly-complete",
-      "source": "local"
     },
     {
       "name": "scvitools",
@@ -40557,6 +42290,18 @@
       "source": "local"
     },
     {
+      "name": "server-sent-events-setup",
+      "description": "Server Sent Events Setup - Auto-activating skill for API Integration.Triggers on: server sent events setup, server sent events setupPart of the API Integration skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/16-api-integration/server-sent-events-setup",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/server-sent-events-setup",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "service-architecture-patterns",
       "description": "Modular design pattern for external service integrations (CAPTCHA, payment, SMS, file storage, analytics). Use when implementing third-party services, designing service abstractions, or reviewing serv",
       "repo": "SlavaMelanko/smela-back",
@@ -40602,6 +42347,24 @@
       "tags": [],
       "stars": 0,
       "install": "SammySnake-d/ai-frontend-scaffold",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "service-registry",
+      "description": "Registry pattern for managing external service connections, configurations,and health checks.Triggers: service registry, service discovery, health checks, service configuration,multi-service integrati",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/leyline/skills/service-registry",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "services",
+        "registry",
+        "execution",
+        "health-checks",
+        "integration"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/leyline/skills/service-registry",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41056,6 +42819,21 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "skill-audit",
+      "description": "Audits skills for discoverability and triggering effectiveness. Use when analyzing skill descriptions, checking trigger phrase coverage, validating progressive disclosure, reviewing SKILL.md structure",
+      "repo": "philoserf/claude-code-setup",
+      "path": "skills/skill-audit",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "skill",
+        "audit"
+      ],
+      "stars": 0,
+      "install": "philoserf/claude-code-setup/skills/skill-audit",
+      "source": "local"
+    },
+    {
       "name": "skill-creator-ceshine-ceshine-agent-skills",
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends the agent's capabilities with specialized knowledge, wor",
       "repo": "ceshine/ceshine-agent-skills",
@@ -41493,6 +43271,18 @@
       "tags": [],
       "stars": 0,
       "install": "AaronAbuUsama/alpha-arena",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "smtp-penetration-testing",
+      "description": "This skill should be used when the user asks to \"perform SMTP penetration testing\", \"enumerate email users\", \"test for open mail relays\", \"grab SMTP banners\", \"brute force email credentials\", or \"asse",
+      "repo": "zebbern/claude-code-guide",
+      "path": "skills/smtp-penetration-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "zebbern/claude-code-guide/skills/smtp-penetration-testing",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -42060,6 +43850,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "specification-management",
+      "description": "Initialize and manage specification directories with auto-incrementing IDs. Use when creating new specs, checking spec status, tracking user decisions, or managing the docs/specs/ directory structure.",
+      "repo": "rsmdt/the-startup",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "rsmdt/the-startup",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "specification-phase",
       "description": "\"Standard Operating Procedure for /specify phase. Covers classification, research depth, clarification strategy, and roadmap integration.\"",
       "repo": "marcusgoll/robinhood-algo-trading-bot",
@@ -42084,6 +43886,18 @@
       "tags": [],
       "stars": 0,
       "install": "rsmdt/the-startup/plugins/start/skills/specification-validation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "specification-validation",
+      "description": "Validate specifications, implementations, or understanding for completeness,consistency, and correctness. Use when checking spec quality, comparingimplementation against design, validating file conten",
+      "repo": "rsmdt/the-startup",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "rsmdt/the-startup",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -42314,6 +44128,40 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "spring-boot-test-patterns",
+      "description": "Comprehensive testing patterns for Spring Boot applications including unit, integration, slice, and container-based testing with JUnit 5, Mockito, Testcontainers, and performance optimization. Use whe",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/spring-boot/spring-boot-test-patterns",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "spring-boot",
+        "java",
+        "testing",
+        "junit5",
+        "mockito",
+        "testcontainers",
+        "integration-testing",
+        "unit-testing",
+        "test-slices"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/spring-boot/spring-boot-test-patterns",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "spring-boot-testing",
+      "description": "Spring Boot 4 testing strategies and patterns. Use when writing unit tests, slice tests (@WebMvcTest, @DataJpaTest), integration tests, Testcontainers with @ServiceConnection, security testing (@WithM",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "plugins/spring-boot/skills/spring-boot-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/plugins/spring-boot/skills/spring-boot-testing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "spring-kafka-integration",
       "description": "[Extends backend-developer] Kafka specialist for Spring/Reactor. Use for Kafka producers/consumers, DLT, retry mechanisms, transactional outbox, event sourcing. Covers Spring Kafka 4.x and Reactor Kaf",
       "repo": "olehsvyrydov/AI-development-team",
@@ -42457,6 +44305,54 @@
       "tags": [],
       "stars": 0,
       "install": "korallis/Amp-OS/profiles/default/skills/standards-testing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "startup-business-models",
+      "description": "Revenue model design, unit economics, pricing strategy, and monetization optimization",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/startup-business-models",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/startup-business-models",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "startup-idea-validation",
+      "description": "Systematic 9-dimension validation machine for testing ideas before building. Covers problem severity, market sizing, timing, competitive moats, unit economics, founder-market fit, technical feasibilit",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/startup-idea-validation",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/startup-idea-validation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "startup-review-mining",
+      "description": "THE GOLD MINE: Systematic extraction of pain points, feature gaps, switching triggers, and opportunities from ALL review sources (G2, Capterra, TrustRadius, App Store, Play Store, Reddit, Hacker News,",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/startup-review-mining",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/startup-review-mining",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "startup-trend-prediction",
+      "description": "Analyze 2-3 year historical trends in technology, market, and business models to predict 1-2 years ahead. Uses pattern recognition, adoption curves, and cycle analysis to identify timing windows and e",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/startup-trend-prediction",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/startup-trend-prediction",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -44485,6 +46381,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "temporal-python-testing",
+      "description": "Test Temporal workflows with pytest, time-skipping, and mocking strategies. Covers unit testing, integration testing, replay testing, and local development setup. Use when implementing Temporal workfl",
+      "repo": "wshobson/agents",
+      "path": "plugins/backend-development/skills/temporal-python-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "wshobson/agents/plugins/backend-development/skills/temporal-python-testing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "temporal-workflow-guidelines",
       "description": "Comprehensive guide for developing Temporal.io workflows and activities in the A4C-AppSuite.Covers Workflow-First architecture, deterministic workflow design, event-driven activities,saga compensation",
       "repo": "Analytics4Change/A4C-AppSuite",
@@ -44982,6 +46890,22 @@
       "stars": 0,
       "install": "daishiman/AIWorkflowOrchestrator/docs/99-claude/skills/test-doubles",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "test-driven-development",
+      "description": "TDD discipline with RED-GREEN-REFACTOR cycle. Ensures tests genuinely verify behavior",
+      "repo": "obra/superpowers",
+      "path": "skills/test-driven-development",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "tdd",
+        "testing",
+        "red-green-refactor"
+      ],
+      "stars": 0,
+      "install": "obra/superpowers/skills/test-driven-development",
+      "source": ""
     },
     {
       "name": "test-e2e-account",
@@ -46118,18 +48042,6 @@
       "source": "local"
     },
     {
-      "name": "testing",
-      "description": "Testing strategy orchestrator. Use when discussing test types, test order, or choosing how to test something. Auto-apply for general testing questions.",
-      "repo": "joshribakoff/surfsim",
-      "path": ".claude/skills/testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "joshribakoff/surfsim/.claude/skills/testing",
-      "source": "github.com/joshribakoff/surfsim"
-    },
-    {
       "name": "testing-agent",
       "description": "Testing and quality validation for Flutter code.USE WHEN: creating tests, verifying coverage, running E2E tests,validating code quality, checking test coverage thresholds.Minimum coverage: 80% overall",
       "repo": "weppa-cloud/bukeer-flutter",
@@ -46393,6 +48305,18 @@
       "stars": 0,
       "install": "bgrober/indie-stack",
       "source": "GitHub Search API"
+    },
+    {
+      "name": "testing-flutter",
+      "description": ". Use when writing tests, reviewing test coverage, or setting up testing.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "Dev/i18n/de/Flutter/skills/testing-flutter",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft/Dev/i18n/de/Flutter/skills/testing-flutter",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "testing-fundamentals",
@@ -46751,6 +48675,18 @@
       "source": "local"
     },
     {
+      "name": "testing-quality",
+      "description": "Coordinate research-focused testing and quality validation with clear constraints, gates, and confidence ceilings.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/quality/testing-quality",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/quality/testing-quality",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "testing-quality-assurance",
       "description": "Автоматизация тестирования и проверки качества кода",
       "repo": "ikeniborn/familyBudget",
@@ -46767,6 +48703,23 @@
       ],
       "stars": 0,
       "install": "ikeniborn/familyBudget",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "testing-quality-standards",
+      "description": "Shared testing quality metrics and standards for cross-plugin use. Referencedby pensive:test-review and parseltongue:python-testing.Triggers: testing standards, quality metrics, coverage thresholds, t",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/leyline/skills/testing-quality-standards",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "quality",
+        "standards",
+        "metrics"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/leyline/skills/testing-quality-standards",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -46807,6 +48760,18 @@
       "stars": 0,
       "install": "Spycner/Klassenzeit/.claude/skills/testing-standards",
       "source": "local"
+    },
+    {
+      "name": "testing-strategies",
+      "description": "Provides test design patterns, coverage strategies, and best practices for comprehensive test suite development",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "skills/testing-strategies",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/skills/testing-strategies",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "testing-strategy",
@@ -47217,6 +49182,18 @@
       "tags": [],
       "stars": 0,
       "install": "korallis/Droidz/droidz_installer/payloads/droid_cli/default/skills/threat-hunting",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "throughput-calculator",
+      "description": "Throughput Calculator - Auto-activating skill for Performance Testing.Triggers on: throughput calculator, throughput calculatorPart of the Performance Testing skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/10-performance-testing/throughput-calculator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/10-performance-testing/throughput-calculator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -47858,6 +49835,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "unify",
+      "description": "Validate spec-implementation-test alignment and convergence. Checks spec completeness, implementation conformance, test coverage, and contract consistency. Use after implementation and tests are compl",
+      "repo": "matthew-plusprogramming/monorepo",
+      "path": ".claude/skills/unify",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "matthew-plusprogramming/monorepo/.claude/skills/unify",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "unit-test",
       "description": "Guide for writing unit tests with Vitest. Use when writing tests for service functions, pure logic, or webhook handlers. Covers TDD Red-Green-Refactor cycle, Arrange-Act-Assert pattern, anti-patterns,",
       "repo": "wodsmith/thewodapp",
@@ -47871,6 +49860,24 @@
       "stars": 0,
       "install": "wodsmith/thewodapp/.claude/skills/unit-test",
       "source": "local"
+    },
+    {
+      "name": "unit-test-application-events",
+      "description": "Testing Spring application events (ApplicationEvent) with @EventListener and ApplicationEventPublisher. Test event publishing, listening, and async event handling in Spring Boot applications. Use when",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-application-events",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "application-events",
+        "event-driven",
+        "listeners",
+        "publishers"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-application-events",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
       "name": "unit-test-bean-validation",
@@ -47926,6 +49933,42 @@
       "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
+      "name": "unit-test-config-properties",
+      "description": "Unit tests for @ConfigurationProperties classes with @ConfigurationPropertiesTest. Use when validating application configuration binding and validation.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-config-properties",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "configuration-properties",
+        "spring-profiles",
+        "property-binding"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-config-properties",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "unit-test-controller-layer",
+      "description": "Unit tests for REST controllers using MockMvc and @WebMvcTest. Test request/response mapping, validation, and exception handling. Use when testing web layer endpoints in isolation.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-controller-layer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "mockito",
+        "unit-testing",
+        "controller",
+        "rest",
+        "mockmvc"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-controller-layer",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
       "name": "unit-test-ddd",
       "description": "Spring Boot Unit 테스트 작성. JUnit5+Mockito, domain 패키지별 구조, entity는 common/entity, service는 {domain}/service. 네이밍 test_{대상}_{시나리오}_{예상결과}. Entity 직접 반환 금지 (DTO만). Fail Fast - 모든 필드/타입/예외 엄격 검증, 예상외 결과는 실",
       "repo": "SolidCitadel/UniSync",
@@ -47956,6 +49999,24 @@
       "stars": 0,
       "install": "SolidCitadel/UniSync",
       "source": "local"
+    },
+    {
+      "name": "unit-test-exception-handler",
+      "description": "Unit tests for @ExceptionHandler and @ControllerAdvice for global exception handling. Use when validating error response formatting and HTTP status codes.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-exception-handler",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "exception-handler",
+        "controller-advice",
+        "error-handling",
+        "mockmvc"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-exception-handler",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
       "name": "unit-test-generation",
@@ -47990,6 +50051,24 @@
       "source": "local"
     },
     {
+      "name": "unit-test-json-serialization",
+      "description": "Unit tests for JSON serialization/deserialization with Jackson and @JsonTest. Use when validating JSON mapping, custom serializers, and date format handling.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-json-serialization",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "json-test",
+        "jackson",
+        "serialization",
+        "deserialization"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-json-serialization",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
       "name": "unit-test-mapper-converter",
       "description": "Unit tests for mappers and converters (MapStruct, custom mappers). Test object transformation logic in isolation. Use when ensuring correct data transformation between DTOs and domain objects.",
       "repo": "giuseppe-trisciuoglio/developer-kit",
@@ -48006,6 +50085,79 @@
       ],
       "stars": 0,
       "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-mapper-converter",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "unit-test-parameterized",
+      "description": "Parameterized testing patterns with @ParameterizedTest, @ValueSource, @CsvSource. Run single test method with multiple input combinations. Use when testing multiple scenarios with similar logic.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-parameterized",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "parameterized-test",
+        "value-source",
+        "csv-source",
+        "method-source"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-parameterized",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "unit-test-scheduled-async",
+      "description": "Unit tests for scheduled and async tasks using @Scheduled and @Async. Mock task execution and timing. Use when validating asynchronous operations and scheduling behavior.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-scheduled-async",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "scheduled",
+        "async",
+        "concurrency",
+        "completablefuture"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-scheduled-async",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "unit-test-security-authorization",
+      "description": "Unit tests for Spring Security with @PreAuthorize, @Secured, @RolesAllowed. Test role-based access control and authorization policies. Use when validating security configurations and access control lo",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-security-authorization",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "spring-security",
+        "authorization",
+        "roles",
+        "preauthorize",
+        "mockmvc"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-security-authorization",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "unit-test-service-layer",
+      "description": "Unit tests for service layer with Mockito. Test business logic in isolation by mocking dependencies. Use when validating service behaviors and business logic without database or external services.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-service-layer",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "mockito",
+        "unit-testing",
+        "service-layer",
+        "business-logic"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-service-layer",
       "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
@@ -48039,6 +50191,43 @@
       "stars": 0,
       "install": "manx/PomodoroTimeTracker",
       "source": "local"
+    },
+    {
+      "name": "unit-test-utility-methods",
+      "description": "Unit tests for utility/helper classes and static methods. Test pure functions and helper logic. Use when validating utility code correctness.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-utility-methods",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "unit-testing",
+        "utility",
+        "static-methods",
+        "pure-functions"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-utility-methods",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    },
+    {
+      "name": "unit-test-wiremock-rest-api",
+      "description": "Unit tests for external REST APIs using WireMock to mock HTTP endpoints. Use when testing service integrations with external APIs.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "skills/junit-test/unit-test-wiremock-rest-api",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "junit-5",
+        "wiremock",
+        "unit-testing",
+        "rest-api",
+        "mocking",
+        "http-stubbing"
+      ],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-wiremock-rest-api",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
     },
     {
       "name": "unit-test-writing",
@@ -48914,6 +51103,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "validate-coverage-threshold",
+      "description": "Validate test coverage meets minimum thresholds (default 80% overall, 80% statements, 75% branches, 80% functions). Parses coverage reports from coverage/coverage-summary.json or test output. Returns",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": ".claude/skills/quality/validate-coverage-threshold",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/.claude/skills/quality/validate-coverage-threshold",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "validate-localization-coverage",
       "description": "Generate a coverage report for all localization files using the project's check-i18n tool. Use when auditing translation completeness or identifying languages needing attention.",
       "repo": "ericfitz/tmi-ux",
@@ -48971,6 +51172,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "validating-api-schemas",
+      "description": "Validate API schemas against OpenAPI, JSON Schema, and GraphQL specifications.Use when validating API schemas and contracts.Trigger with phrases like \"validate API schema\", \"check OpenAPI spec\", or \"v",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/api-development/api-schema-validator/skills/validating-api-schemas",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/api-development/api-schema-validator/skills/validating-api-schemas",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -49160,6 +51373,18 @@
       "tags": [],
       "stars": 0,
       "install": "ZempTime/zemptime-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "veo-reference-video",
+      "description": "Generate video with consistent subject appearance using reference images via fal.ai Veo 3.1. Use when the user wants to create a video featuring specific people, objects, or characters that should loo",
+      "repo": "bluewaves-creations/bluewaves-skills",
+      "path": "plugins/fal-media/skills/veo-reference-video",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "bluewaves-creations/bluewaves-skills/plugins/fal-media/skills/veo-reference-video",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -49747,6 +51972,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "voice-apply",
+      "description": "Applies a voice profile to transform content. Use when user asks to write in a specific voice, match a tone, apply a style, or transform content to sound like a particular voice profile.",
+      "repo": "jmagly/ai-writing-guide",
+      "path": "plugins/voice/skills/voice-apply",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jmagly/ai-writing-guide/plugins/voice/skills/voice-apply",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "voice-system-expert",
       "description": "Use when working with Quetrex's voice interface, OpenAI Realtime API, WebRTC, or echo cancellation. Knows Quetrex's specific voice architecture decisions and patterns. CRITICAL - prevents breaking wor",
       "repo": "Barnhardt-Enterprises-Inc/quetrex-plugin",
@@ -49823,6 +52060,18 @@
       "stars": 0,
       "install": "xiaoland/agents",
       "source": "local"
+    },
+    {
+      "name": "wcag-accessibility",
+      "description": "WCAG 2.1 AA/AAA accessibility compliance specialist for ARIA attributes, keyboard navigation, screen reader testing, color contrast validation, semantic HTML, and automated a11y testing with axe-core/",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/security/compliance/wcag-accessibility",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/security/compliance/wcag-accessibility",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "wcag-compliance-checker",
@@ -50396,6 +52645,30 @@
       "source": "local"
     },
     {
+      "name": "wheels-test-generator",
+      "description": "Generate TestBox BDD test specs for Wheels models, controllers, and integration tests. Use when creating tests for models (validations, associations), controllers (actions, filters), or integration wo",
+      "repo": "wheels-dev/wheels",
+      "path": ".claude/skills/wheels-test-generator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/.claude/skills/wheels-test-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "when-auditing-code-style-use-style-audit",
+      "description": "Code style and conventions audit with auto-fix capabilities for comprehensive style enforcement",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": ".claude/skills/testing-quality/when-auditing-code-style-use-style-audit",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/.claude/skills/testing-quality/when-auditing-code-style-use-style-audit",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    },
+    {
       "name": "when-reviewing-code-comprehensively-use-code-review-assistant",
       "description": "Comprehensive PR review with multi-agent swarm specialization for security, performance, style, tests, and documentation",
       "repo": "DNYoussef/ai-chrome-extension",
@@ -50405,7 +52678,7 @@
       "tags": [],
       "stars": 0,
       "install": "DNYoussef/ai-chrome-extension/.claude/skills/testing-quality/when-reviewing-code-comprehensively-use-code-review-assistant",
-      "source": "github.com/DNYoussef/ai-chrome-extension"
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "when-verifying-quality-use-verification-quality",
@@ -50612,6 +52885,26 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "workflow-improvement",
+      "description": "Retrospective workflow evaluation and improvement of skills, agents, commands, and hooks.Triggers: workflow improvement, retrospective, workflow efficiencyUse when: workflow felt slow, confusing, or n",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/sanctum/skills/workflow-improvement",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "workflow",
+        "retrospective",
+        "efficiency",
+        "commands",
+        "agents",
+        "skills",
+        "hooks"
+      ],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/sanctum/skills/workflow-improvement",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "workflows-work",
       "description": "This skill should be used when executing work plans, specifications, or todo files systematically while maintaining quality and shipping complete features.",
       "repo": "nbbaier/compound-engineering-amp",
@@ -50802,6 +53095,18 @@
       "stars": 0,
       "install": "mikkelkrogsholm/wp-plugins",
       "source": "local"
+    },
+    {
+      "name": "wpf-mvvm",
+      "description": "Build and maintain WPF MVVM patterns using CommunityToolkit.Mvvm for a .NET 8 widget-host app. Use when creating ViewModels, commands, observable state, validation, view bindings, and viewmodel-first",
+      "repo": "YosrBennagra/3SC",
+      "path": ".github/skills/wpf-mvvm",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "YosrBennagra/3SC/.github/skills/wpf-mvvm",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "write-playwright-test",

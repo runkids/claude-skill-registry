@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-04T09:01:54.539833Z",
+  "updated_at": "2026-02-05T01:48:46.106580Z",
   "count": 100,
   "skills": [
     {
@@ -282,18 +282,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "analytics-events",
-      "description": "Add product analytics events to track user interactions in the Metabase frontend",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/analytics-events",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 45687,
-      "install": "metabase/metabase/.claude/skills/analytics-events",
-      "source": "github.com/metabase/metabase"
-    },
-    {
       "name": "typescript-write-metabase-metabase",
       "description": "Write TypeScript and JavaScript code following Metabase coding standards and best practices. Use when developing or refactoring TypeScript/JavaScript code.",
       "repo": "metabase/metabase",
@@ -316,33 +304,6 @@
       "stars": 44845,
       "install": "tldraw/tldraw/.claude/skills/skill-creator",
       "source": "github.com/tldraw/tldraw"
-    },
-    {
-      "name": "write-issue-tldraw-tldraw",
-      "description": "Writing and maintaining GitHub issues for the tldraw repository. Use when creating new issues, editing issue titles/bodies, triaging issues, or cleaning up issue metadata (types, labels).",
-      "repo": "tldraw/tldraw",
-      "path": ".claude/skills/write-issue",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 44845,
-      "install": "tldraw/tldraw/.claude/skills/write-issue",
-      "source": "github.com/tldraw/tldraw"
-    },
-    {
-      "name": "clojure-review",
-      "description": "Review Clojure and ClojureScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing Clojure/Clo",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/clojure-review",
-      "branch": "master",
-      "category": "development",
-      "tags": [
-        "clojure",
-        "review"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/clojure-review",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "clojure-write",
@@ -501,15 +462,15 @@
       "source": "github.com/medusajs/medusa"
     },
     {
-      "name": "cookbook-audit-anthropics-claude-cookbooks",
-      "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
+      "name": "applying-brand-guidelines-anthropics-claude-cookbooks",
+      "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
       "repo": "anthropics/claude-cookbooks",
-      "path": ".claude/skills/cookbook-audit",
+      "path": "skills/custom_skills/applying-brand-guidelines",
       "branch": "main",
-      "category": "security",
+      "category": "documents",
       "tags": [],
       "stars": 31757,
-      "install": "anthropics/claude-cookbooks/.claude/skills/cookbook-audit",
+      "install": "anthropics/claude-cookbooks/skills/custom_skills/applying-brand-guidelines",
       "source": "github.com/anthropics/claude-cookbooks"
     },
     {
@@ -534,6 +495,18 @@
       "tags": [],
       "stars": 29211,
       "install": "remotion-dev/remotion/.claude/skills/pr",
+      "source": "github.com/remotion-dev/remotion"
+    },
+    {
+      "name": "writing-docs-remotion-dev-remotion",
+      "description": "Guides for writing and editing Remotion documentation. Use when adding docs pages, editing MDX files in packages/docs, or writing documentation content.",
+      "repo": "remotion-dev/remotion",
+      "path": ".claude/skills/writing-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 29211,
+      "install": "remotion-dev/remotion/.claude/skills/writing-docs",
       "source": "github.com/remotion-dev/remotion"
     },
     {
@@ -562,22 +535,6 @@
       "stars": 26628,
       "install": "wshobson/agents/plugins/llm-application-dev/skills/rag-implementation",
       "source": "github.com/wshobson/agents"
-    },
-    {
-      "name": "create-skill-file",
-      "description": "Guides Claude in creating well-structured SKILL.md files following best practices. Provides clear guidelines for naming, structure, and content organization to make skills easy to discover and execute",
-      "repo": "labring/FastGPT",
-      "path": ".claude/skills/create-skill-file",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "create",
-        "skill",
-        "file"
-      ],
-      "stars": 26350,
-      "install": "labring/FastGPT/.claude/skills/create-skill-file",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "category",
@@ -724,6 +681,20 @@
       "source": "github.com/affaan-m/everything-claude-code"
     },
     {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "branch": "main",
+      "category": "official",
+      "tags": [
+        "docx"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/docx",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "internal-comms",
       "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
       "repo": "anthropics/skills",
@@ -751,6 +722,20 @@
       ],
       "stars": 24530,
       "install": "anthropics/skills/skills/mcp-builder",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "branch": "main",
+      "category": "official",
+      "tags": [
+        "pdf"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/pdf",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -785,22 +770,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "fetch-unresolved-comments",
-      "description": "Fetch unresolved PR review comments using GitHub GraphQL API, filtering out resolved and outdated feedback.",
-      "repo": "mlflow/mlflow",
-      "path": ".claude/skills/fetch-unresolved-comments",
-      "branch": "master",
-      "category": "development",
-      "tags": [
-        "fetch",
-        "unresolved",
-        "comments"
-      ],
-      "stars": 23068,
-      "install": "mlflow/mlflow/.claude/skills/fetch-unresolved-comments",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "reviewing-code-jlowin-fastmcp",
       "description": "Review code for quality, maintainability, and correctness. Use when reviewing pull requests, evaluating code changes, or providing feedback on implementations. Focuses on API design, patterns, and act",
       "repo": "jlowin/fastmcp",
@@ -825,18 +794,6 @@
       "source": "github.com/nextlevelbuilder/ui-ux-pro-max-skill"
     },
     {
-      "name": "agent-memory-yamadashy-repomix",
-      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
-      "repo": "yamadashy/repomix",
-      "path": ".claude/skills/agent-memory",
-      "branch": "main",
-      "category": "other",
-      "tags": [],
-      "stars": 21427,
-      "install": "yamadashy/repomix/.claude/skills/agent-memory",
-      "source": "github.com/yamadashy/repomix"
-    },
-    {
       "name": "guide",
       "description": "Repomix bietet einen sofort einsatzbereiten Repomix Explorer Skill, der KI-Codierungsassistenten ermöglicht, Codebasen mit der Repomix CLI zu analysieren und zu erkunden.",
       "repo": "yamadashy/repomix",
@@ -859,6 +816,21 @@
       "stars": 21427,
       "install": "yamadashy/repomix/website/client/src/fr/guide/repomix-explorer-skill.md",
       "source": "github.com/yamadashy/repomix"
+    },
+    {
+      "name": "agent-memory",
+      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+      "repo": "yamadashy/repomix",
+      "path": ".claude/skills/agent-memory",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [
+        "agent",
+        "memory"
+      ],
+      "stars": 20912,
+      "install": "yamadashy/repomix/.claude/skills/agent-memory",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "browser-extension-developer",
@@ -1006,6 +978,18 @@
       "source": "github.com/davila7/claude-code-templates"
     },
     {
+      "name": "task-execution-engine",
+      "description": "CLI tool for configuring and monitoring Claude Code",
+      "repo": "davila7/claude-code-templates",
+      "path": "cli-tool/components/skills/development/task-execution-engine",
+      "branch": "main",
+      "category": "other",
+      "tags": [],
+      "stars": 18218,
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/development/task-execution-engine",
+      "source": ""
+    },
+    {
       "name": "react-email",
       "description": "Create beautiful, responsive HTML emails using React components with React Email. Build transactional emails with modern components, support internationalization, and integrate with email service prov",
       "repo": "resend/react-email",
@@ -1045,24 +1029,24 @@
       "name": "qiuzhi",
       "description": "指导Claude按照二哥的风格撰写求职类文章，包括公司薪资爆料、年终奖盘点、求职攻略、offer选择建议等内容。",
       "repo": "itwanger/toBeBetterJavaer",
-      "path": ".claude/skills/qiuzhi",
-      "branch": "main",
-      "category": "other",
-      "tags": [],
-      "stars": 16619,
-      "install": "itwanger/toBeBetterJavaer/.claude/skills/qiuzhi",
-      "source": "github.com/itwanger/toBeBetterJavaer"
-    },
-    {
-      "name": "qiuzhi",
-      "description": "指导Claude按照二哥的风格撰写求职类文章，包括公司薪资爆料、年终奖盘点、求职攻略、offer选择建议等内容。",
-      "repo": "itwanger/toBeBetterJavaer",
       "path": "",
       "branch": "main",
       "category": "other",
       "tags": [],
       "stars": 16619,
       "install": "itwanger/toBeBetterJavaer",
+      "source": "github.com/itwanger/toBeBetterJavaer"
+    },
+    {
+      "name": "qiuzhi",
+      "description": "指导Claude按照二哥的风格撰写求职类文章，包括公司薪资爆料、年终奖盘点、求职攻略、offer选择建议等内容。",
+      "repo": "itwanger/toBeBetterJavaer",
+      "path": ".claude/skills/qiuzhi",
+      "branch": "main",
+      "category": "other",
+      "tags": [],
+      "stars": 16619,
+      "install": "itwanger/toBeBetterJavaer/.claude/skills/qiuzhi",
       "source": "github.com/itwanger/toBeBetterJavaer"
     },
     {
@@ -1100,18 +1084,6 @@
       "stars": 15831,
       "install": "udecode/plate/.claude/commands/sync-testing-skill.md",
       "source": "github.com/udecode/plate"
-    },
-    {
-      "name": "agent-builder-shareai-lab-learn-claude-code",
-      "description": "|",
-      "repo": "shareAI-lab/learn-claude-code",
-      "path": "skills/agent-builder",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 15149,
-      "install": "shareAI-lab/learn-claude-code/skills/agent-builder",
-      "source": "github.com/shareAI-lab/learn-claude-code"
     },
     {
       "name": "mcp-builder-shareai-lab-learn-claude-code",
@@ -1200,36 +1172,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "peer-review",
-      "description": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.",
-      "repo": "davila7/claude-code-templates",
-      "path": "cli-tool/components/skills/scientific/peer-review",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "peer",
-        "review"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/peer-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "research-grants",
-      "description": "Write competitive research proposals for NSF, NIH, DOE, and DARPA. Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, and",
-      "repo": "davila7/claude-code-templates",
-      "path": "cli-tool/components/skills/scientific/research-grants",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "research",
-        "grants"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/research-grants",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "research-lookup",
       "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
       "repo": "davila7/claude-code-templates",
@@ -1297,6 +1239,54 @@
       "stars": 12799,
       "install": "ruvnet/claude-flow/v3/@claude-flow/cli/.claude/skills/worker-integration/skill.md",
       "source": "github.com/ruvnet/claude-flow"
+    },
+    {
+      "name": "skill-creator-prowler-cloud-prowler",
+      "description": ">",
+      "repo": "prowler-cloud/prowler",
+      "path": "skills/skill-creator",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 12795,
+      "install": "prowler-cloud/prowler/skills/skill-creator",
+      "source": "github.com/prowler-cloud/prowler"
+    },
+    {
+      "name": "g2-legend-expert",
+      "description": "Expert skill for G2 legend development - provides comprehensive knowledge about legend rendering implementation, component architecture, layout algorithms, and interaction handling. Use when implement",
+      "repo": "antvis/G2",
+      "path": ".claude/skills/g2-legend-expert",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 12513,
+      "install": "antvis/G2/.claude/skills/g2-legend-expert",
+      "source": "github.com/antvis/G2"
+    },
+    {
+      "name": "g2-translation-guidelines",
+      "description": "Guidelines for translating G2 documentation, including terminology consistency, hyperlink adjustments, and file naming conventions for multilingual documentation. Use when need to translate documents.",
+      "repo": "antvis/G2",
+      "path": ".claude/skills/g2-translation",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 12513,
+      "install": "antvis/G2/.claude/skills/g2-translation",
+      "source": "github.com/antvis/G2"
+    },
+    {
+      "name": "g2-unit-testing-skills",
+      "description": "Guidelines and best practices for writing unit tests in the G2 visualization library, covering directory structure, testing patterns, and implementation guidelines. Use when need to generate test.",
+      "repo": "antvis/G2",
+      "path": ".claude/skills/g2-testing",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 12513,
+      "install": "antvis/G2/.claude/skills/g2-testing",
+      "source": "github.com/antvis/G2"
     }
   ]
 }

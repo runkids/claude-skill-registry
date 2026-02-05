@@ -1,8 +1,8 @@
 {
   "category": "marketing",
   "code": "mkt",
-  "count": 446,
-  "updated_at": "2026-02-04T09:01:54.166094Z",
+  "count": 486,
+  "updated_at": "2026-02-05T01:48:45.570819Z",
   "skills": [
     {
       "name": "social-media",
@@ -287,6 +287,66 @@
       "source": "github.com/nuun888/MZ"
     },
     {
+      "name": "content-analysis",
+      "description": "Analyze text content using both traditional NLP and LLM-enhanced methods. Extract sentiment, topics, keywords, and insights from various content types including social media posts, articles, reviews,",
+      "repo": "liangdabiao/claude-data-analysis-ultra-main",
+      "path": ".claude/skills/content-analysis",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "content",
+        "analysis"
+      ],
+      "stars": 32,
+      "install": "liangdabiao/claude-data-analysis-ultra-main/.claude/skills/content-analysis",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "sentiment-analysis",
+      "description": "Classify text sentiment using NLP techniques, lexicon-based analysis, and machine learning for opinion mining, brand monitoring, and customer feedback analysis",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "skills/sentiment-analysis",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "sentiment",
+        "analysis"
+      ],
+      "stars": 25,
+      "install": "aj-geddes/useful-ai-prompts/skills/sentiment-analysis",
+      "source": "local"
+    },
+    {
+      "name": "browsing-bluesky",
+      "description": "Browse Bluesky content via API and firehose - search posts, fetch user activity, sample trending topics, read feeds and lists. Use for Bluesky research, user monitoring, trend analysis, feed reading,",
+      "repo": "oaustegard/claude-skills",
+      "path": "browsing-bluesky",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "browsing",
+        "bluesky"
+      ],
+      "stars": 21,
+      "install": "oaustegard/claude-skills/browsing-bluesky",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "simple-fetch",
+      "description": "Basic MCP skill demonstrating CLI-based execution pattern for fetching URL content",
+      "repo": "yoloshii/mcp-code-execution-enhanced",
+      "path": ".claude/skills/simple-fetch",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "simple",
+        "fetch"
+      ],
+      "stars": 15,
+      "install": "yoloshii/mcp-code-execution-enhanced/.claude/skills/simple-fetch",
+      "source": "local"
+    },
+    {
       "name": "reddit-social-media-strategist",
       "description": "Expert Reddit Social Media Strategist with deep knowledge of Reddit's culture, algorithms, community dynamics, and engagement strategies. This skill should be used when creating Reddit content strateg",
       "repo": "maxvaega/awesome-skills",
@@ -347,6 +407,38 @@
       ],
       "stars": 12,
       "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-marketing/skills/brand-voice",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent-content-marketer",
+      "description": "Expert content marketer specializing in content strategy, SEO optimization, and engagement-driven marketing. Masters multi-channel content creation, analytics, and conversion optimization with focus o",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/DEPRECATED/agent-content-marketer",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "agent",
+        "content",
+        "marketer"
+      ],
+      "stars": 10,
+      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-content-marketer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent-seo-specialist",
+      "description": "Expert SEO strategist specializing in technical SEO, content optimization, and search engine rankings. Masters both on-page and off-page optimization, structured data implementation, and performance m",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/DEPRECATED/agent-seo-specialist",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "agent",
+        "seo",
+        "specialist"
+      ],
+      "stars": 10,
+      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-seo-specialist",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1081,6 +1173,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "copywriter",
+      "description": "Expert in writing compelling copy for web, marketing, and product",
+      "repo": "daffy0208/ai-dev-standards",
+      "path": "skills/copywriter",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "copywriter"
+      ],
+      "stars": 2,
+      "install": "daffy0208/ai-dev-standards/skills/copywriter",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "go-to-market-planner",
       "description": "Plan product launches and go-to-market strategy. Use when launching products, entering new markets, or planning marketing campaigns. Covers positioning, channels, messaging, and launch execution.",
       "repo": "daffy0208/ai-dev-standards",
@@ -1143,6 +1249,22 @@
       "source": "local"
     },
     {
+      "name": "blog-post-optimizer",
+      "description": "Analyze blog posts for SEO, readability, headline quality, and content structure. Generate meta tags and optimization recommendations with scoring.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "blog-post-optimizer",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "blog",
+        "post",
+        "optimizer"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/blog-post-optimizer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "browser",
       "description": "Web scraping using shot-scraper. Read web pages, extract content, interact with websites.",
       "repo": "ciallo-agent/ciallo-agent",
@@ -1202,6 +1324,36 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "cv-content-editor",
+      "description": "Edit and update existing CV content using the knowledge base as source of truth. Use when user wants to modify case studies, update experience, refine variants, or improve existing content.",
+      "repo": "fotescodev/portfolio",
+      "path": ".claude/skills/cv-content-editor",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "content",
+        "editor"
+      ],
+      "stars": 1,
+      "install": "fotescodev/portfolio/.claude/skills/cv-content-editor",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "cv-content-manager",
+      "description": "Create, edit, and sync CV content using the knowledge base as source of truth. Unified skill for case studies, blog posts, experience updates, and variant content. Replaces cv-content-generator and cv",
+      "repo": "fotescodev/portfolio",
+      "path": ".claude/skills/cv-content-manager",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "content",
+        "manager"
+      ],
+      "stars": 1,
+      "install": "fotescodev/portfolio/.claude/skills/cv-content-manager",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "discord-send-message",
       "description": "Send messages to Discord channels via the Discord API. Use this skill when the user wants to send text messages, notifications, or formatted content to a Discord channel.",
       "repo": "Nice-Wolf-Studio/agent-discord-skills",
@@ -1231,6 +1383,24 @@
       ],
       "stars": 1,
       "install": "Nice-Wolf-Studio/agent-discord-skills",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "event-detection-temporal-intelligence-expert",
+      "description": "Expert in temporal event detection, spatio-temporal clustering (ST-DBSCAN), and photo context understanding. Use for detecting photo events, clustering by time/location, shareability prediction, place",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/event-detection-temporal-intelligence-expert",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "event",
+        "detection",
+        "temporal",
+        "intelligence",
+        "expert"
+      ],
+      "stars": 1,
+      "install": "erichowens/some_claude_skills/.claude/skills/event-detection-temporal-intelligence-expert",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1386,6 +1556,36 @@
       "source": "local"
     },
     {
+      "name": "qr-code-generator",
+      "description": "Generate QR codes with URLs and UTM tracking. Exports PNG/SVG with captions. Use for single codes, batch generation, or marketing campaigns with tracking parameters.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "qr-code-generator",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "code",
+        "generator"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/qr-code-generator",
+      "source": "local"
+    },
+    {
+      "name": "roi-calculator",
+      "description": "Calculate ROI for marketing campaigns, investments, and business decisions. Includes break-even analysis, payback period, and comparative ROI.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "roi-calculator",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "roi",
+        "calculator"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/roi-calculator",
+      "source": "local"
+    },
+    {
       "name": "running-marketing-campaigns",
       "description": "Plans, creates, and optimizes digital marketing campaigns including content strategy, social media, email marketing, SEO, and AI visibility (GEO). Generates UTM parameters and tracking URLs. Helps dev",
       "repo": "SpillwaveSolutions/running-marketing-campaigns-agent-skill",
@@ -1477,6 +1677,21 @@
       "source": "local"
     },
     {
+      "name": "substack-note",
+      "description": "Generate high-performing Substack notes that drive engagement and newsletter growth. Use when the user wants to create Substack notes, needs content ideas for notes, or wants to repurpose content into",
+      "repo": "az9713/ai-co-writing-claude-skills",
+      "path": ".claude/skills/substack-note",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "substack",
+        "note"
+      ],
+      "stars": 1,
+      "install": "az9713/ai-co-writing-claude-skills/.claude/skills/substack-note",
+      "source": "local"
+    },
+    {
       "name": "thought-leadership",
       "description": "Create thought leadership content including long-form articles, essays, and opinion pieces. Use when the user needs authoritative content, wants to establish expertise, or needs to articulate a unique",
       "repo": "az9713/ai-co-writing-claude-skills",
@@ -1523,6 +1738,22 @@
       ],
       "stars": 1,
       "install": "houfu/blog-alt-counsel",
+      "source": "local"
+    },
+    {
+      "name": "version-changelog-patterns",
+      "description": "When checking if skill content matches current library/framework version.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": ".claude/skills/version-changelog-patterns",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "version",
+        "changelog",
+        "patterns"
+      ],
+      "stars": 1,
+      "install": "CoderMariusz/MonoPilot/.claude/skills/version-changelog-patterns",
       "source": "local"
     },
     {
@@ -1594,6 +1825,24 @@
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "ad-copy-writer",
+      "description": "Write high-converting advertising copy for paid media campaigns",
+      "repo": "eddiebe147/claude-settings",
+      "path": "skills/ad-copy-writer",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "advertising",
+        "paid-media",
+        "copywriting",
+        "ppc",
+        "social-ads"
+      ],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/skills/ad-copy-writer",
+      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "add-embedding-support",
@@ -2189,6 +2438,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "brand-identity-designer",
+      "description": "Comprehensive brand identity system including brand strategy, visual identity (colors, typography, logo direction), messaging architecture (taglines, boilerplates), and tone of voice guidelines with b",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/brand-identity-designer",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/brand-identity-designer",
+      "source": "github.com/maigentic/stratarts"
+    },
+    {
       "name": "brand-voice-therapy",
       "description": "Apply Jesse's confident-but-vulnerable voice to all content. Use when writing service pages, blog posts, CTAs, emails, or checking if content sounds like Jesse. Reference: /docs/branding/voice/BRAND-V",
       "repo": "jhcynamon1/NextStepTherapySite-v2",
@@ -2440,6 +2701,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "community-building-strategist",
+      "description": "Comprehensive community building strategy including platform selection, channel structure, member journey mapping, engagement ladder tactics, community programming rituals, moderation guidelines, laun",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/community-building-strategist",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/community-building-strategist",
+      "source": "github.com/maigentic/stratarts"
+    },
+    {
       "name": "comp-scout-analyze",
       "description": "Generate strategic analysis for competition entries and auto-persist to GitHub issue. Identifies winning tone, themes, and angles based on sponsor type and brand voice.",
       "repo": "discreteds/competition-scout",
@@ -2626,6 +2899,18 @@
       "stars": 0,
       "install": "ShunsukeHayashi/Miyabi",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "content-marketing-strategist",
+      "description": "Comprehensive content marketing strategy including content pillars, 90-day editorial calendar, distribution strategy, SEO optimization, and repurposing playbook using Content Pillars, Hub-and-Spoke, a",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/content-marketing-strategist",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/content-marketing-strategist",
+      "source": "github.com/maigentic/stratarts"
     },
     {
       "name": "content-optimization",
@@ -3067,6 +3352,24 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "diagramming-expert",
+      "description": "Master of text-based visual communication using ASCII art, Unicode box-drawing, and structured diagram notation. Creates clear, maintainable diagrams for systems, processes, hierarchies, relationships",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/diagramming-expert",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "diagrams",
+        "ascii",
+        "visualization",
+        "architecture",
+        "documentation"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/diagramming-expert",
+      "source": "github.com/erichowens/some_claude_skills"
+    },
+    {
       "name": "digest-content",
       "description": "对文章/转录/报告文本做结构化摘要，归档到主题档案（可选）并写入 U1 的长期记忆（mem0-memory）。",
       "repo": "haizhouyuan/codexreadpublic",
@@ -3221,6 +3524,30 @@
       "stars": 0,
       "install": "erichowens/some_claude_skills/.claude/skills/email-composer",
       "source": "github.com/erichowens/some_claude_skills"
+    },
+    {
+      "name": "email-marketing-architect",
+      "description": "Comprehensive email marketing strategy including drip campaigns, segmentation, automation workflows, copywriting guidelines, deliverability best practices, and 90-day implementation roadmap with full-",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/email-marketing-architect",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/email-marketing-architect",
+      "source": "github.com/maigentic/stratarts"
+    },
+    {
+      "name": "embed-content",
+      "description": "Use when you need to manage project embeddings - embed skills, agents, commands, and MCP tools for semantic discovery. Handles rate limiting, incremental updates, and status reporting. Do NOT use if y",
+      "repo": "jrc1883/popkit-claude",
+      "path": "packages/popkit-core/skills/pop-embed-content",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-embed-content",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "embed-content",
@@ -3504,6 +3831,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "growth-hacking-playbook",
+      "description": "Comprehensive growth hacking strategy including growth loops, AARRR pirate metrics, channel prioritization (Bullseye), viral mechanics (K-factor), ICE experiment scoring, and 90-day experimentation ro",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/growth-hacking-playbook",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/growth-hacking-playbook",
+      "source": "github.com/maigentic/stratarts"
+    },
+    {
       "name": "heading-tree",
       "description": "Generates H1-H4 heading structure for a page. SEO-optimized hierarchy. Stateless, deterministic.",
       "repo": "Soborbo/claudeskills",
@@ -3572,6 +3911,18 @@
       "stars": 0,
       "install": "Eddale/powerhouse-lab/skills/hook-stack-evaluator",
       "source": "local"
+    },
+    {
+      "name": "hootsuite",
+      "description": "Manage enterprise social media with Hootsuite's comprehensive management platform.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/hootsuite",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/hootsuite",
+      "source": "github.com/Andrejones92/canifi-life-os"
     },
     {
       "name": "id-generator",
@@ -3718,6 +4069,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "infographic-outline-creator",
+      "description": "Infographic Outline Creator - Auto-activating skill for Visual Content.Triggers on: infographic outline creator, infographic outline creatorPart of the Visual Content skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/18-visual-content/infographic-outline-creator",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/infographic-outline-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "internal-linking",
       "description": "Plans internal link structure using content silos. Outputs link map with SEO priority. Does not create links.",
       "repo": "Soborbo/claudeskills",
@@ -3806,6 +4169,24 @@
       "stars": 0,
       "install": "Andrejones92/canifi-life-os/skills/klaviyo",
       "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
+      "name": "knot-theory-educator",
+      "description": "Expert in visualizing and explaining braid theory, knot mathematics, and topological concepts for educational purposes. Use for creating interactive visualizations, explainer cards, step-wise animatio",
+      "repo": "erichowens/some_claude_skills",
+      "path": ".claude/skills/knot-theory-educator",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "knots",
+        "topology",
+        "braid-theory",
+        "visualization",
+        "education"
+      ],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/.claude/skills/knot-theory-educator",
+      "source": "github.com/erichowens/some_claude_skills"
     },
     {
       "name": "kobo-translation",
@@ -4049,18 +4430,6 @@
     },
     {
       "name": "marketing",
-      "description": "Marketing strategist - identifies target audiences, creates compelling content, and optimizes messaging for GabeDA business intelligence platform. Specializes in B2B SaaS positioning for LATAM markets",
-      "repo": "Brownbull/khujta_ai_business",
-      "path": ".claude/skills/marketing/Skill.md",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "Brownbull/khujta_ai_business/.claude/skills/marketing/Skill.md",
-      "source": "github.com/Brownbull/khujta_ai_business"
-    },
-    {
-      "name": "marketing",
       "description": "Frameworks, strategies, and templates for planning and executing marketing campaigns. Use this skill for market research, crafting messages, segmentation, and analyzing results.",
       "repo": "DegrassiAaron/influencerai-monorepo",
       "path": ".claude/skills/marketing",
@@ -4072,6 +4441,18 @@
       "stars": 0,
       "install": "DegrassiAaron/influencerai-monorepo/.claude/skills/marketing",
       "source": "local"
+    },
+    {
+      "name": "marketing-ai-search-optimization",
+      "description": "Operational AI search engine optimization (AEO/GEO/LLMO) for ranking in ChatGPT, Perplexity, Claude, Gemini, and other LLM-powered search platforms with technical setup, content strategies, and measur",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/marketing-ai-search-optimization",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-ai-search-optimization",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "marketing-content-guidelines",
@@ -4122,6 +4503,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "marketing-leads-generation",
+      "description": "Operational lead generation systems for ICP/offers, outbound cadences, LinkedIn/social selling, landing fixes, lead scoring, analytics, and experiment cadence with strict compliance hygiene.",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/marketing-leads-generation",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-leads-generation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "marketing-ops-hub",
       "description": "This skill should be used when starting the work day for marketing and PR work, planning content production, managing campaigns, organizing media relations, or coordinating multi-platform content dist",
       "repo": "synapz-org/marketing-ops-hub",
@@ -4147,6 +4540,18 @@
       "tags": [],
       "stars": 0,
       "install": "vasilyu1983/AI-Agents-public",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "marketing-social-media",
+      "description": "Operational social media marketing system with templates, checklists, execution patterns, and decision trees for SMMA growth, paid social, content creation, offer building, and lead generation.",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/marketing-social-media",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-social-media",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4329,6 +4734,18 @@
       "stars": 0,
       "install": "eternnoir/claude-tool",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "moz",
+      "description": "Research SEO metrics and domain authority with Moz's SEO tools.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/moz",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/moz",
+      "source": "github.com/Andrejones92/canifi-life-os"
     },
     {
       "name": "nanobanana",
@@ -4765,6 +5182,36 @@
       "source": "local"
     },
     {
+      "name": "presentation-slide-outliner",
+      "description": "Presentation Slide Outliner - Auto-activating skill for Visual Content.Triggers on: presentation slide outliner, presentation slide outlinerPart of the Visual Content skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/18-visual-content/presentation-slide-outliner",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/presentation-slide-outliner",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pricing-page-optimizer",
+      "description": "Optimize pricing page presentation for maximum conversion",
+      "repo": "eddiebe147/claude-settings",
+      "path": "skills/pricing-page-optimizer",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "pricing",
+        "conversion-optimization",
+        "saas-pricing",
+        "monetization",
+        "pricing-strategy"
+      ],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/skills/pricing-page-optimizer",
+      "source": "github.com/eddiebe147/claude-settings"
+    },
+    {
       "name": "process-flow-generator",
       "description": "Process Flow Generator - Auto-activating skill for Visual Content.Triggers on: process flow generator, process flow generatorPart of the Visual Content skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -4877,6 +5324,24 @@
       "stars": 0,
       "install": "reedom/claude-code-commands",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "referral-program-designer",
+      "description": "Design viral referral programs that drive customer acquisition",
+      "repo": "eddiebe147/claude-settings",
+      "path": "skills/referral-program-designer",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "referral-marketing",
+        "viral-growth",
+        "customer-acquisition",
+        "word-of-mouth",
+        "growth-marketing"
+      ],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/skills/referral-program-designer",
+      "source": "github.com/eddiebe147/claude-settings"
     },
     {
       "name": "regulatory-review-checklist",
@@ -5034,6 +5499,18 @@
       "source": "local"
     },
     {
+      "name": "sendinblue",
+      "description": "Manage email, SMS, and chat marketing with Brevo's all-in-one platform.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "skills/sendinblue",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/skills/sendinblue",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
       "name": "seo-audit",
       "description": "Comprehensive SEO and GEO audit methodology covering technical SEO, on-page optimization, content quality, E-E-A-T signals, and AI citation readiness. Use for thorough content and site audits.",
       "repo": "majesticlabs-dev/majestic-marketplace",
@@ -5168,6 +5645,18 @@
       "stars": 0,
       "install": "Zura1555/agents",
       "source": "local"
+    },
+    {
+      "name": "seo-content-planner",
+      "description": "Comprehensive SEO content strategy including keyword research, content cluster architecture, technical SEO audit, on-page optimization guidelines, 90-day content calendar, link building strategy, and",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/seo-content-planner",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/seo-content-planner",
+      "source": "github.com/maigentic/stratarts"
     },
     {
       "name": "seo-guidelines",
@@ -5344,24 +5833,6 @@
       "source": "local"
     },
     {
-      "name": "skill-documentarian",
-      "description": "Documentation expert for Claude Skills showcase website. Maintains skill-to-website sync, manages tag taxonomy and badges, creates blog-style artifacts, and preserves multi-skill collaborations for po",
-      "repo": "erichowens/some_claude_skills",
-      "path": ".claude/skills/skill-documentarian",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "documentation",
-        "skills",
-        "sync",
-        "artifacts",
-        "metadata"
-      ],
-      "stars": 0,
-      "install": "erichowens/some_claude_skills/.claude/skills/skill-documentarian",
-      "source": "github.com/erichowens/some_claude_skills"
-    },
-    {
       "name": "SKILL.md",
       "description": "Create comprehensive marketing content for themes, plugins, and web products. Generates organized folder structure with product descriptions, feature highlights, social media posts, email campaigns, v",
       "repo": "vapvarun/claude-backup",
@@ -5480,6 +5951,18 @@
       "stars": 0,
       "install": "tatat/agents-playground",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "social-media-strategist",
+      "description": "Comprehensive social media strategy including platform selection matrix, platform-specific content strategies, content pillars, 90-day content calendar, engagement tactics, influencer partnerships, an",
+      "repo": "maigentic/stratarts",
+      "path": "skills/marketing-growth/social-media-strategist",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/skills/marketing-growth/social-media-strategist",
+      "source": "github.com/maigentic/stratarts"
     },
     {
       "name": "social-media-strategy-advisor",
@@ -5602,6 +6085,40 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "taiyo-rewriter",
+      "description": "既存コンテンツを太陽スタイルに変換するリライトスキル。文章構造・語尾・キラーワード・心理トリガーを最適化して成約率を向上。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": ".claude/skills/taiyo-rewriter",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "rewrite",
+        "optimization",
+        "taiyo-style",
+        "copywriting"
+      ],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-rewriter",
+      "source": "github.com/taiyousan15/taisun_agent"
+    },
+    {
+      "name": "taiyo-style-bullet",
+      "description": "太陽スタイル完全準拠のブレット（箇条書き）・ベネフィットリスト生成。特徴→ベネフィット変換で購買意欲を最大化。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": ".claude/skills/taiyo-style-bullet",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "bullet",
+        "benefit",
+        "taiyo-style",
+        "copywriting"
+      ],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-style-bullet",
+      "source": "github.com/taiyousan15/taisun_agent"
+    },
+    {
       "name": "taiyo-style-headline",
       "description": "太陽スタイル完全準拠のヘッドライン・キャッチコピー生成。開封率・クリック率・注目率を最大化する衝撃的な見出しを作成。",
       "repo": "taiyousan15/taisun_agent",
@@ -5619,6 +6136,23 @@
       "source": "github.com/taiyousan15/taisun_agent"
     },
     {
+      "name": "taiyo-style-lp",
+      "description": "太陽スタイル完全準拠のLP（ランディングページ）作成・最適化。成約率4.3倍を実現する構造・心理トリガー・キラーワード配置の完全ガイド。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": ".claude/skills/taiyo-style-lp",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "lp",
+        "landing-page",
+        "taiyo-style",
+        "conversion-optimization"
+      ],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-style-lp",
+      "source": "github.com/taiyousan15/taisun_agent"
+    },
+    {
       "name": "taiyo-style-ps",
       "description": "太陽スタイル完全準拠の追伸（P.S.）生成。成約率を最後の一押しで最大化する追伸パターン集。",
       "repo": "taiyousan15/taisun_agent",
@@ -5633,6 +6167,57 @@
       ],
       "stars": 0,
       "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-style-ps",
+      "source": "github.com/taiyousan15/taisun_agent"
+    },
+    {
+      "name": "taiyo-style-sales-letter",
+      "description": "太陽スタイル完全準拠のセールスレター作成。176パターン・80項目チェックリスト・taiyo-analyzer連携による品質保証付き。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": ".claude/skills/taiyo-style-sales-letter",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "sales-letter",
+        "copywriting",
+        "taiyo-style",
+        "high-conversion"
+      ],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-style-sales-letter",
+      "source": "github.com/taiyousan15/taisun_agent"
+    },
+    {
+      "name": "taiyo-style-step-mail",
+      "description": "太陽スタイル完全準拠のステップメール作成。6つの教育要素×心理トリガー×感情ジェットコースターで開封率・成約率を最大化。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": ".claude/skills/taiyo-style-step-mail",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "step-mail",
+        "email-marketing",
+        "taiyo-style",
+        "automation"
+      ],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-style-step-mail",
+      "source": "github.com/taiyousan15/taisun_agent"
+    },
+    {
+      "name": "taiyo-style-vsl",
+      "description": "太陽スタイル完全準拠のVSL（ビデオセールスレター）台本作成。15章構造×心理トリガー×感情曲線で視聴完了率・成約率を最大化。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": ".claude/skills/taiyo-style-vsl",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "vsl",
+        "video-sales-letter",
+        "taiyo-style",
+        "script"
+      ],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/.claude/skills/taiyo-style-vsl",
       "source": "github.com/taiyousan15/taisun_agent"
     },
     {

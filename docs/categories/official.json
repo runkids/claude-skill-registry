@@ -2,7 +2,7 @@
   "category": "official",
   "code": "off",
   "count": 25,
-  "updated_at": "2026-02-04T09:01:54.211750Z",
+  "updated_at": "2026-02-05T01:48:45.629194Z",
   "skills": [
     {
       "name": "claude-opus-4-5-migration-anthropics-claude-code",
@@ -47,6 +47,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "branch": "main",
+      "category": "official",
+      "tags": [
+        "docx"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/docx",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "internal-comms",
       "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
       "repo": "anthropics/skills",
@@ -74,6 +88,20 @@
       ],
       "stars": 24530,
       "install": "anthropics/skills/skills/mcp-builder",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "branch": "main",
+      "category": "official",
+      "tags": [
+        "pdf"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/pdf",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -235,18 +263,6 @@
       "source": "Anthropic Official"
     },
     {
-      "name": "docx",
-      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
-      "repo": "anthropics/skills",
-      "path": "skills/docx",
-      "branch": "main",
-      "category": "official",
-      "tags": [],
-      "stars": 0,
-      "install": "anthropics/skills/skills/docx",
-      "source": "https://github.com/anthropics/skills"
-    },
-    {
       "name": "examples-auto-run",
       "description": "Run python examples in auto mode with logging, rerun helpers, and background control.",
       "repo": "openai/openai-agents-python",
@@ -281,18 +297,6 @@
       "stars": 0,
       "install": "openai/openai-agents-python/.codex/skills/openai-knowledge",
       "source": "github.com/openai/openai-agents-python"
-    },
-    {
-      "name": "pdf",
-      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
-      "repo": "anthropics/skills",
-      "path": "skills/pdf",
-      "branch": "main",
-      "category": "official",
-      "tags": [],
-      "stars": 0,
-      "install": "anthropics/skills/skills/pdf",
-      "source": "https://github.com/anthropics/skills"
     },
     {
       "name": "skill-installer",
