@@ -1,0 +1,13 @@
+{
+  "name": "archive-task",
+  "description": "Atomically update todo.md and changelog.md when completing a task",
+  "repo": "cowwoc/styler",
+  "category": "productivity",
+  "tags": [
+    "archive",
+    "task"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills",
+  "dir_name": "archive-task"
+}

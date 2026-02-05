@@ -1,0 +1,9 @@
+{
+  "name": "confluence-to-md",
+  "repo": "i9wa4/dotfiles",
+  "category": "documents",
+  "description": "Confluence ページを Markdown に変換するスキル - draw.io 図、画像、コードブロック、テーブルを適切に処理",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:17.624342Z",
+  "dir_name": "confluence-to-md"
+}

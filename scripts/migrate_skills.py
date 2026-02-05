@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-Migrate Skills - Reorganize from flat structure to category-based structure
+Migrate Skills - Unify to a single flat archive under skills/data
 
-From: skills/data/{skill-name}/SKILL.md
-To:   skills/{category}/{skill-name}/SKILL.md
+From: skills/{category|flat}/{skill-name}/SKILL.md
+To:   skills/data/{skill-name}/SKILL.md
 
-Handles conflicts with smart suffix (Option A):
-- First skill gets simple name
-- Conflicts get repo suffix: {name}-{owner}-{repo}
-- Priority: official > higher stars > first-come
+Handles conflicts with stable suffix:
+- First skill keeps simple name
+- Conflicts get __dup-<hash> suffix (case-safe)
 """
 
 import json
@@ -111,60 +110,55 @@ def plan_migration(skills: List[dict], skills_dir: Path) -> Dict[str, List[Tuple
 
     Returns: {category: [(source_path, target_path, reason), ...]}
     """
-    # Group by category and name
-    # {category: {base_name: [skill_info, ...]}}
-    grouped: Dict[str, Dict[str, List[dict]]] = defaultdict(lambda: defaultdict(list))
+    # Group by name only (flat target)
+    grouped: Dict[str, List[dict]] = defaultdict(list)
 
     for skill in skills:
-        category = normalize_name(skill["category"]) or "other"
         base_name = normalize_name(skill["name"])
-        grouped[category][base_name].append(skill)
+        grouped[base_name].append(skill)
 
     # Plan moves
     plan: Dict[str, List[Tuple[Path, Path, str]]] = defaultdict(list)
 
-    for category, names in grouped.items():
-        for base_name, skill_list in names.items():
-            if len(skill_list) == 1:
-                # No conflict - use simple name
-                skill = skill_list[0]
-                # Target is skills/{category}/{base_name} (case-safe)
-                key = build_skill_key(skill.get("repo", ""), str(skill.get("path", "")), name=base_name, category=category)
-                target_dir = ensure_unique_dir(skills_dir / category, base_name, key)
-                plan[category].append((skill["path"], target_dir, "no conflict"))
-            else:
-                # Conflict! Sort by priority
-                # Priority: official > stars > first-come
-                sorted_skills = sorted(
-                    skill_list,
-                    key=lambda s: (
-                        s["repo"] in OFFICIAL_REPOS,  # Official first
-                        s["stars"],  # Then by stars
-                    ),
-                    reverse=True
-                )
+    for base_name, skill_list in grouped.items():
+        if len(skill_list) == 1:
+            # No conflict - use simple name
+            skill = skill_list[0]
+            key = build_skill_key(skill.get("repo", ""), str(skill.get("path", "")), name=base_name, category=skill.get("category", ""))
+            target_dir = ensure_unique_dir(skills_dir / "data", base_name, key)
+            plan["data"].append((skill["path"], target_dir, "no conflict"))
+        else:
+            # Conflict! Sort by priority
+            sorted_skills = sorted(
+                skill_list,
+                key=lambda s: (
+                    s["repo"] in OFFICIAL_REPOS,  # Official first
+                    s["stars"],  # Then by stars
+                ),
+                reverse=True
+            )
 
-                # First one gets simple name
-                first = sorted_skills[0]
-                key = build_skill_key(first.get("repo", ""), str(first.get("path", "")), name=base_name, category=category)
-                target_dir = ensure_unique_dir(skills_dir / category, base_name, key)
-                plan[category].append((
-                    first["path"],
+            # First one gets simple name
+            first = sorted_skills[0]
+            key = build_skill_key(first.get("repo", ""), str(first.get("path", "")), name=base_name, category=first.get("category", ""))
+            target_dir = ensure_unique_dir(skills_dir / "data", base_name, key)
+            plan["data"].append((
+                first["path"],
+                target_dir,
+                f"winner: {first['stars']} stars, {first['repo']}"
+            ))
+
+            # Others get suffix
+            for skill in sorted_skills[1:]:
+                suffix = get_repo_suffix(skill["repo"])
+                suffixed_name = f"{base_name}-{suffix}"
+                key = build_skill_key(skill.get("repo", ""), str(skill.get("path", "")), name=suffixed_name, category=skill.get("category", ""))
+                target_dir = ensure_unique_dir(skills_dir / "data", suffixed_name, key)
+                plan["data"].append((
+                    skill["path"],
                     target_dir,
-                    f"winner: {first['stars']} stars, {first['repo']}"
+                    f"conflict suffix: {skill['stars']} stars"
                 ))
-
-                # Others get suffix
-                for skill in sorted_skills[1:]:
-                    suffix = get_repo_suffix(skill["repo"])
-                    suffixed_name = f"{base_name}-{suffix}"
-                    key = build_skill_key(skill.get("repo", ""), str(skill.get("path", "")), name=suffixed_name, category=category)
-                    target_dir = ensure_unique_dir(skills_dir / category, suffixed_name, key)
-                    plan[category].append((
-                        skill["path"],
-                        target_dir,
-                        f"conflict suffix: {skill['stars']} stars"
-                    ))
 
     return plan
 

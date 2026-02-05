@@ -165,14 +165,14 @@ def import_skill(skill_file: Path, skills_dir: Path, repo_name: str, stats: dict
     if not category or category == "unknown":
         category = guess_category(str(skill_file), content)
 
-    # Target directory (case-safe)
+    # Target directory (case-safe, unified layout under skills/data)
     rel_path = ""
     try:
         rel_path = str(skill_file.relative_to(skill_file.parents[2])).replace("\\", "/")
     except Exception:
         rel_path = str(skill_file.name)
     key = build_skill_key(repo_name, rel_path, name=skill_name, category=category)
-    target_dir = ensure_unique_dir(skills_dir / category, skill_name, key)
+    target_dir = ensure_unique_dir(skills_dir / "data", skill_name, key)
     target_file = target_dir / "SKILL.md"
 
     if target_file.exists():

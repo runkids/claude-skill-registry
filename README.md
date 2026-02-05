@@ -3,7 +3,7 @@
 > **Notice (2026‑02‑05):** Split in progress — **main repo stays full** (scripts + complete skills archive).  
 > **Core repo (index + site):** https://github.com/majiayu000/claude-skill-registry-core  
 > **Data repo (dedup archive):** https://github.com/majiayu000/claude-skill-registry-data  
-> **Counts (2026‑02‑05):** main repo **104,172** `SKILL.md` files (legacy + new layout); data repo **74,219**; main `skills/data` **48,636**.  
+> **Counts (2026‑02‑05):** main repo **104,172** `SKILL.md` files (统一到 `skills/data`); data repo **74,219**.  
 > **Why not ~90k?** the ~90k number came from index/registry entries + legacy duplicates, not a 1:1 count of archived files.
 
 <p align="center">
