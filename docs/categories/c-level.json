@@ -2,21 +2,9 @@
   "category": "c-level",
   "code": "oth",
   "count": 4,
-  "updated_at": "2026-02-05T17:30:40.129217Z",
+  "updated_at": "2026-02-06T07:02:01.634543Z",
   "skills": [
     {
-      "name": "cto-advisor",
-      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology e",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "c-level",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/cto-advisor",
-      "source": "github.com/claude-skills"
-    },
-    {
       "name": "ceo-advisor",
       "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Includes strategy analyzer, financial scenario modeling, board governance framework",
       "repo": "",
@@ -50,6 +38,18 @@
       "tags": [],
       "stars": 0,
       "install": "unknown/ceo-advisor",
+      "source": "github.com/claude-skills"
+    },
+    {
+      "name": "cto-advisor",
+      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology e",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/cto-advisor",
       "source": "github.com/claude-skills"
     }
   ]

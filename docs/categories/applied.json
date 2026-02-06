@@ -2,11 +2,11 @@
   "category": "applied",
   "code": "oth",
   "count": 5,
-  "updated_at": "2026-02-05T17:30:40.128522Z",
+  "updated_at": "2026-02-06T07:02:01.633422Z",
   "skills": [
     {
-      "name": "81-pipecat",
-      "description": "Create your Pipecat skill from official documentation, then learn to improve it throughout the chapter",
+      "name": "80-livekit-agents",
+      "description": "Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter",
       "repo": "panaversity/agentfactory",
       "path": "",
       "branch": "main",
@@ -17,8 +17,8 @@
       "source": "github.com/panaversity/agentfactory"
     },
     {
-      "name": "80-livekit-agents",
-      "description": "Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter",
+      "name": "81-pipecat",
+      "description": "Create your Pipecat skill from official documentation, then learn to improve it throughout the chapter",
       "repo": "panaversity/agentfactory",
       "path": "",
       "branch": "main",

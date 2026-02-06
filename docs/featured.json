@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-05T17:30:41.777340Z",
+  "updated_at": "2026-02-06T07:02:03.384984Z",
   "count": 100,
   "skills": [
     {
@@ -51,30 +51,6 @@
       "source": "github.com/vercel/next.js"
     },
     {
-      "name": "skill-creator",
-      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
-      "repo": "langgenius/dify",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 127079,
-      "install": "langgenius/dify",
-      "source": "github.com/langgenius/dify"
-    },
-    {
-      "name": "frontend-testing-langgenius-dify",
-      "description": "Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review",
-      "repo": "langgenius/dify",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 127079,
-      "install": "langgenius/dify",
-      "source": "github.com/langgenius/dify"
-    },
-    {
       "name": "skill-creator-langgenius-dify",
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
       "repo": "langgenius/dify",
@@ -87,7 +63,31 @@
       "source": "github.com/langgenius/dify"
     },
     {
+      "name": "skill-creator",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "langgenius/dify",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 127079,
+      "install": "langgenius/dify",
+      "source": "github.com/langgenius/dify"
+    },
+    {
       "name": "frontend-testing",
+      "description": "Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review",
+      "repo": "langgenius/dify",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 127079,
+      "install": "langgenius/dify",
+      "source": "github.com/langgenius/dify"
+    },
+    {
+      "name": "frontend-testing-langgenius-dify",
       "description": "Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review",
       "repo": "langgenius/dify",
       "path": "",
@@ -123,68 +123,6 @@
       "source": "github.com/pytorch/pytorch"
     },
     {
-      "name": "add-uint-support",
-      "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
-      "repo": "pytorch/pytorch",
-      "path": ".claude/skills/add-uint-support",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "add",
-        "uint",
-        "support"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch/.claude/skills/add-uint-support",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "skill-writer",
-      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
-      "repo": "pytorch/pytorch",
-      "path": ".claude/skills/skill-writer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "skill",
-        "writer"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch/.claude/skills/skill-writer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "add-uint-support",
-      "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
-      "repo": "pytorch/pytorch",
-      "path": ".claude/skills/add-uint-support",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "add",
-        "uint",
-        "support"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch/.claude/skills/add-uint-support",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "skill-writer",
-      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
-      "repo": "pytorch/pytorch",
-      "path": ".claude/skills/skill-writer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "skill",
-        "writer"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch/.claude/skills/skill-writer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "at-dispatch-v2",
       "description": "Convert PyTorch AT_DISPATCH macros to AT_DISPATCH_V2 format in ATen C++ code. Use when porting AT_DISPATCH_ALL_TYPES_AND*, AT_DISPATCH_FLOATING_TYPES*, or other dispatch macros to the new v2 API. For",
       "repo": "pytorch/pytorch",
@@ -196,6 +134,68 @@
       ],
       "stars": 95362,
       "install": "pytorch/pytorch/.claude/skills/at-dispatch-v2",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill-writer",
+      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/skill-writer",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "skill",
+        "writer"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/skill-writer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "add-uint-support",
+      "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/add-uint-support",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "add",
+        "uint",
+        "support"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/add-uint-support",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "add-uint-support",
+      "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/add-uint-support",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "add",
+        "uint",
+        "support"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/add-uint-support",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill-writer",
+      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/skill-writer",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "skill",
+        "writer"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/skill-writer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -211,18 +211,6 @@
       "source": "github.com/home-assistant/core"
     },
     {
-      "name": "browser-use",
-      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or",
-      "repo": "browser-use/browser-use",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 76633,
-      "install": "browser-use/browser-use",
-      "source": "github.com/browser-use/browser-use"
-    },
-    {
       "name": "browser-use-browser-use-browser-use",
       "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or",
       "repo": "browser-use/browser-use",
@@ -235,32 +223,20 @@
       "source": "github.com/browser-use/browser-use"
     },
     {
-      "name": "fact-check",
-      "description": "Verify technical accuracy of JavaScript concept pages by checking code examples, MDN/ECMAScript compliance, and external resources to prevent misinformation",
-      "repo": "leonardomso/33-js-concepts",
+      "name": "browser-use",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or",
+      "repo": "browser-use/browser-use",
       "path": "",
       "branch": "main",
-      "category": "development",
+      "category": "testing",
       "tags": [],
-      "stars": 66182,
-      "install": "leonardomso/33-js-concepts",
-      "source": "github.com/leonardomso/33-js-concepts"
+      "stars": 76633,
+      "install": "browser-use/browser-use",
+      "source": "github.com/browser-use/browser-use"
     },
     {
-      "name": "write-concept",
-      "description": "Write or review JavaScript concept documentation pages for the 33 JavaScript Concepts project, following strict structure and quality guidelines",
-      "repo": "leonardomso/33-js-concepts",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 66182,
-      "install": "leonardomso/33-js-concepts",
-      "source": "github.com/leonardomso/33-js-concepts"
-    },
-    {
-      "name": "seo-review",
-      "description": "Perform a focused SEO audit on JavaScript concept pages to maximize search visibility, featured snippet optimization, and ranking potential",
+      "name": "resource-curator",
+      "description": "Find, evaluate, and maintain high-quality external resources for JavaScript concept documentation, including auditing for broken and outdated links",
       "repo": "leonardomso/33-js-concepts",
       "path": "",
       "branch": "main",
@@ -283,8 +259,32 @@
       "source": "github.com/leonardomso/33-js-concepts"
     },
     {
-      "name": "resource-curator",
-      "description": "Find, evaluate, and maintain high-quality external resources for JavaScript concept documentation, including auditing for broken and outdated links",
+      "name": "write-concept",
+      "description": "Write or review JavaScript concept documentation pages for the 33 JavaScript Concepts project, following strict structure and quality guidelines",
+      "repo": "leonardomso/33-js-concepts",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 66182,
+      "install": "leonardomso/33-js-concepts",
+      "source": "github.com/leonardomso/33-js-concepts"
+    },
+    {
+      "name": "fact-check",
+      "description": "Verify technical accuracy of JavaScript concept pages by checking code examples, MDN/ECMAScript compliance, and external resources to prevent misinformation",
+      "repo": "leonardomso/33-js-concepts",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 66182,
+      "install": "leonardomso/33-js-concepts",
+      "source": "github.com/leonardomso/33-js-concepts"
+    },
+    {
+      "name": "seo-review",
+      "description": "Perform a focused SEO audit on JavaScript concept pages to maximize search visibility, featured snippet optimization, and ranking potential",
       "repo": "leonardomso/33-js-concepts",
       "path": "",
       "branch": "main",
@@ -412,18 +412,6 @@
       "source": "github.com/metabase/metabase"
     },
     {
-      "name": "write-issue",
-      "description": "Writing and maintaining GitHub issues for the tldraw repository. Use when creating new issues, editing issue titles/bodies, triaging issues, or cleaning up issue metadata (types, labels).",
-      "repo": "tldraw/tldraw",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 44845,
-      "install": "tldraw/tldraw",
-      "source": "github.com/tldraw/tldraw"
-    },
-    {
       "name": "skill-creator-tldraw-tldraw",
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
       "repo": "tldraw/tldraw",
@@ -446,6 +434,78 @@
       "stars": 44845,
       "install": "tldraw/tldraw",
       "source": "github.com/tldraw/tldraw"
+    },
+    {
+      "name": "write-issue",
+      "description": "Writing and maintaining GitHub issues for the tldraw repository. Use when creating new issues, editing issue titles/bodies, triaging issues, or cleaning up issue metadata (types, labels).",
+      "repo": "tldraw/tldraw",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 44845,
+      "install": "tldraw/tldraw",
+      "source": "github.com/tldraw/tldraw"
+    },
+    {
+      "name": "docs-review",
+      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/docs-review",
+      "branch": "master",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "review"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/docs-review",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docs-review",
+      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/docs-review",
+      "branch": "master",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "review"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/docs-review",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docs-write",
+      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/docs-write",
+      "branch": "master",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "write"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/docs-write",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docs-write",
+      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/docs-write",
+      "branch": "master",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "write"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/docs-write",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "clojure-review",
@@ -493,66 +553,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docs-review",
-      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/docs-review",
-      "branch": "master",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "review"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/docs-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docs-review",
-      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/docs-review",
-      "branch": "master",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "review"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/docs-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docs-write",
-      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/docs-write",
-      "branch": "master",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "write"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/docs-write",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docs-write",
-      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/docs-write",
-      "branch": "master",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "write"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/docs-write",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "git-workflow",
       "description": "Git workflow guidance for commits, branches, and pull requests",
       "repo": "agno-agi/agno",
@@ -577,8 +577,56 @@
       "source": "github.com/agno-agi/agno"
     },
     {
-      "name": "api-ref-doc",
-      "description": "You are an expert technical writer specializing in API documentation for the Medusa ecommerce platform.",
+      "name": "resources-doc",
+      "description": "You are an expert technical writer specializing in reference documentation for the Medusa ecommerce platform.",
+      "repo": "medusajs/medusa",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 31827,
+      "install": "medusajs/medusa",
+      "source": "github.com/medusajs/medusa"
+    },
+    {
+      "name": "ui-component-doc",
+      "description": "You are an expert technical writer specializing in UI component library documentation for the Medusa UI design system.",
+      "repo": "medusajs/medusa",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 31827,
+      "install": "medusajs/medusa",
+      "source": "github.com/medusajs/medusa"
+    },
+    {
+      "name": "resources-doc",
+      "description": "You are an expert technical writer specializing in reference documentation for the Medusa ecommerce platform.",
+      "repo": "medusajs/medusa",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 31827,
+      "install": "medusajs/medusa",
+      "source": "github.com/medusajs/medusa"
+    },
+    {
+      "name": "ui-component-doc",
+      "description": "You are an expert technical writer specializing in UI component library documentation for the Medusa UI design system.",
+      "repo": "medusajs/medusa",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 31827,
+      "install": "medusajs/medusa",
+      "source": "github.com/medusajs/medusa"
+    },
+    {
+      "name": "how-to",
+      "description": "You are an expert technical writer specializing in focused, task-oriented how-to guides for the Medusa ecommerce platform.",
       "repo": "medusajs/medusa",
       "path": "",
       "branch": "main",
@@ -601,8 +649,8 @@
       "source": "github.com/medusajs/medusa"
     },
     {
-      "name": "recipe",
-      "description": "You are an expert technical writer specializing in architectural pattern documentation for the Medusa ecommerce platform.",
+      "name": "api-ref-doc",
+      "description": "You are an expert technical writer specializing in API documentation for the Medusa ecommerce platform.",
       "repo": "medusajs/medusa",
       "path": "",
       "branch": "main",
@@ -613,8 +661,8 @@
       "source": "github.com/medusajs/medusa"
     },
     {
-      "name": "how-to",
-      "description": "You are an expert technical writer specializing in focused, task-oriented how-to guides for the Medusa ecommerce platform.",
+      "name": "recipe",
+      "description": "You are an expert technical writer specializing in architectural pattern documentation for the Medusa ecommerce platform.",
       "repo": "medusajs/medusa",
       "path": "",
       "branch": "main",
@@ -637,54 +685,6 @@
       "source": "github.com/medusajs/medusa"
     },
     {
-      "name": "resources-doc",
-      "description": "You are an expert technical writer specializing in reference documentation for the Medusa ecommerce platform.",
-      "repo": "medusajs/medusa",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 31827,
-      "install": "medusajs/medusa",
-      "source": "github.com/medusajs/medusa"
-    },
-    {
-      "name": "ui-component-doc",
-      "description": "You are an expert technical writer specializing in UI component library documentation for the Medusa UI design system.",
-      "repo": "medusajs/medusa",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 31827,
-      "install": "medusajs/medusa",
-      "source": "github.com/medusajs/medusa"
-    },
-    {
-      "name": "resources-doc",
-      "description": "You are an expert technical writer specializing in reference documentation for the Medusa ecommerce platform.",
-      "repo": "medusajs/medusa",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 31827,
-      "install": "medusajs/medusa",
-      "source": "github.com/medusajs/medusa"
-    },
-    {
-      "name": "ui-component-doc",
-      "description": "You are an expert technical writer specializing in UI component library documentation for the Medusa UI design system.",
-      "repo": "medusajs/medusa",
-      "path": "",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 31827,
-      "install": "medusajs/medusa",
-      "source": "github.com/medusajs/medusa"
-    },
-    {
       "name": "commit-helper",
       "description": "Help create git commits and PRs with properly formatted messages and release notes following CockroachDB conventions. Use when committing changes or creating pull requests.",
       "repo": "cockroachdb/cockroach",
@@ -707,6 +707,18 @@
       "stars": 31777,
       "install": "cockroachdb/cockroach",
       "source": "github.com/cockroachdb/cockroach"
+    },
+    {
+      "name": "applying-brand-guidelines",
+      "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
+      "repo": "anthropics/claude-cookbooks",
+      "path": "",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 31757,
+      "install": "anthropics/claude-cookbooks",
+      "source": "github.com/anthropics/claude-cookbooks"
     },
     {
       "name": "cookbook-audit-anthropics-claude-cookbooks",
@@ -733,18 +745,6 @@
       "source": "github.com/anthropics/claude-cookbooks"
     },
     {
-      "name": "applying-brand-guidelines",
-      "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
-      "repo": "anthropics/claude-cookbooks",
-      "path": "",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 31757,
-      "install": "anthropics/claude-cookbooks",
-      "source": "github.com/anthropics/claude-cookbooks"
-    },
-    {
       "name": "turborepo",
       "description": "|",
       "repo": "vercel/turborepo",
@@ -757,24 +757,24 @@
       "source": "github.com/vercel/turborepo"
     },
     {
-      "name": "make-pr",
-      "description": "Open a pull request for the current feature",
-      "repo": "remotion-dev/remotion",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 29211,
-      "install": "remotion-dev/remotion",
-      "source": "github.com/remotion-dev/remotion"
-    },
-    {
       "name": "writing-docs",
       "description": "Guides for writing and editing Remotion documentation. Use when adding docs pages, editing MDX files in packages/docs, or writing documentation content.",
       "repo": "remotion-dev/remotion",
       "path": "",
       "branch": "main",
       "category": "documents",
+      "tags": [],
+      "stars": 29211,
+      "install": "remotion-dev/remotion",
+      "source": "github.com/remotion-dev/remotion"
+    },
+    {
+      "name": "make-pr",
+      "description": "Open a pull request for the current feature",
+      "repo": "remotion-dev/remotion",
+      "path": "",
+      "branch": "main",
+      "category": "development",
       "tags": [],
       "stars": 29211,
       "install": "remotion-dev/remotion",
@@ -876,102 +876,6 @@
       "source": "github.com/ComposioHQ/awesome-claude-skills"
     },
     {
-      "name": "project-guidelines-example-affaan-m-everything-claude-cod",
-      "description": "This is an example of a project-specific skill. Use this as a template for your own projects.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "continuous-learning-affaan-m-everything-claude-cod",
-      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "tdd-workflow-affaan-m-everything-claude-cod",
-      "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "security-review-affaan-m-everything-claude-cod",
-      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "backend-patterns-affaan-m-everything-claude-cod",
-      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "frontend-patterns-affaan-m-everything-claude-cod",
-      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "eval-harness-affaan-m-everything-claude-cod",
-      "description": "A formal evaluation framework for Claude Code sessions, implementing eval-driven development (EDD) principles.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
-      "name": "coding-standards-affaan-m-everything-claude-cod",
-      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
-      "repo": "affaan-m/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "development",
-      "tags": [],
-      "stars": 24605,
-      "install": "affaan-m/everything-claude-code",
-      "source": "github.com/affaan-m/everything-claude-code"
-    },
-    {
       "name": "clickhouse-io-affaan-m-everything-claude-cod",
       "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
       "repo": "affaan-m/everything-claude-code",
@@ -1008,6 +912,218 @@
       "source": "github.com/affaan-m/everything-claude-code"
     },
     {
+      "name": "coding-standards-affaan-m-everything-claude-cod",
+      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "continuous-learning-affaan-m-everything-claude-cod",
+      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "security-review-affaan-m-everything-claude-cod",
+      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "project-guidelines-example-affaan-m-everything-claude-cod",
+      "description": "This is an example of a project-specific skill. Use this as a template for your own projects.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "eval-harness-affaan-m-everything-claude-cod",
+      "description": "A formal evaluation framework for Claude Code sessions, implementing eval-driven development (EDD) principles.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "frontend-patterns-affaan-m-everything-claude-cod",
+      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "backend-patterns-affaan-m-everything-claude-cod",
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "tdd-workflow-affaan-m-everything-claude-cod",
+      "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
+    {
+      "name": "internal-comms",
+      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
+      "repo": "anthropics/skills",
+      "path": "skills/internal-comms",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "internal",
+        "comms"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/internal-comms",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "internal-comms",
+      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
+      "repo": "anthropics/skills",
+      "path": "skills/internal-comms",
+      "branch": "main",
+      "category": "devops",
+      "tags": [
+        "internal",
+        "comms"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/internal-comms",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "pdf"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/pdf",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "pdf"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/pdf",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "docx"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/docx",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "docx"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/docx",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "anthropics/skills",
+      "path": "skills/webapp-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "webapp",
+        "testing"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/webapp-testing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "anthropics/skills",
+      "path": "skills/webapp-testing",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "webapp",
+        "testing"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/webapp-testing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "mcp-builder",
       "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
       "repo": "anthropics/skills",
@@ -1067,122 +1183,6 @@
       ],
       "stars": 24530,
       "install": "anthropics/skills/skills/web-artifacts-builder",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "internal-comms",
-      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
-      "repo": "anthropics/skills",
-      "path": "skills/internal-comms",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "internal",
-        "comms"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/internal-comms",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "internal-comms",
-      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
-      "repo": "anthropics/skills",
-      "path": "skills/internal-comms",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "internal",
-        "comms"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/internal-comms",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "webapp-testing",
-      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
-      "repo": "anthropics/skills",
-      "path": "skills/webapp-testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "webapp",
-        "testing"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/webapp-testing",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "webapp-testing",
-      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
-      "repo": "anthropics/skills",
-      "path": "skills/webapp-testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "webapp",
-        "testing"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/webapp-testing",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docx",
-      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
-      "repo": "anthropics/skills",
-      "path": "skills/docx",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docx"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/docx",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "pdf",
-      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
-      "repo": "anthropics/skills",
-      "path": "skills/pdf",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "pdf"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/pdf",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "pdf",
-      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
-      "repo": "anthropics/skills",
-      "path": "skills/pdf",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "pdf"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/pdf",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docx",
-      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
-      "repo": "anthropics/skills",
-      "path": "skills/docx",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docx"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills/skills/docx",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1226,6 +1226,18 @@
       "source": "github.com/nextlevelbuilder/ui-ux-pro-max-skill"
     },
     {
+      "name": "agent-memory",
+      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+      "repo": "yamadashy/repomix",
+      "path": "",
+      "branch": "main",
+      "category": "other",
+      "tags": [],
+      "stars": 21427,
+      "install": "yamadashy/repomix",
+      "source": "github.com/yamadashy/repomix"
+    },
+    {
       "name": "guide",
       "description": "Repomix bietet einen sofort einsatzbereiten Repomix Explorer Skill, der KI-Codierungsassistenten ermöglicht, Codebasen mit der Repomix CLI zu analysieren und zu erkunden.",
       "repo": "yamadashy/repomix",
@@ -1250,46 +1262,18 @@
       "source": "github.com/yamadashy/repomix"
     },
     {
-      "name": "agent-memory",
-      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+      "name": "website-maintainer",
+      "description": "Use this skill when working on the Repomix documentation website in `website/` directory, including VitePress configuration, multi-language content, or translation workflows.",
       "repo": "yamadashy/repomix",
-      "path": "",
+      "path": ".claude/skills/website-maintainer",
       "branch": "main",
-      "category": "other",
-      "tags": [],
-      "stars": 21427,
-      "install": "yamadashy/repomix",
-      "source": "github.com/yamadashy/repomix"
-    },
-    {
-      "name": "lint-fixer",
-      "description": "Use this skill to run npm run lint and fix linting issues. Triggers on fixing lint errors after code changes or validating code against project style guidelines.",
-      "repo": "yamadashy/repomix",
-      "path": ".claude/skills/lint-fixer",
-      "branch": "main",
-      "category": "development",
+      "category": "documents",
       "tags": [
-        "lint",
-        "fixer"
+        "website",
+        "maintainer"
       ],
       "stars": 20912,
-      "install": "yamadashy/repomix/.claude/skills/lint-fixer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "browser-extension-developer",
-      "description": "Use this skill when developing or maintaining browser extension code in the `browser/` directory, including Chrome/Firefox/Edge compatibility, content scripts, background scripts, or i18n updates.",
-      "repo": "yamadashy/repomix",
-      "path": ".claude/skills/browser-extension-developer",
-      "branch": "main",
-      "category": "development",
-      "tags": [
-        "browser",
-        "extension",
-        "developer"
-      ],
-      "stars": 20912,
-      "install": "yamadashy/repomix/.claude/skills/browser-extension-developer",
+      "install": "yamadashy/repomix/.claude/skills/website-maintainer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1305,6 +1289,21 @@
       ],
       "stars": 20912,
       "install": "yamadashy/repomix/.claude/skills/website-maintainer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent-memory",
+      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+      "repo": "yamadashy/repomix",
+      "path": ".claude/skills/agent-memory",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [
+        "agent",
+        "memory"
+      ],
+      "stars": 20912,
+      "install": "yamadashy/repomix/.claude/skills/agent-memory",
       "source": "SkillsMP Synced Skills"
     }
   ]

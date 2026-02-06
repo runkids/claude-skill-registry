@@ -2,20 +2,8 @@
   "category": "extended",
   "code": "oth",
   "count": 4,
-  "updated_at": "2026-02-05T17:30:41.125020Z",
+  "updated_at": "2026-02-06T07:02:02.536933Z",
   "skills": [
-    {
-      "name": "agent-ops-install",
-      "description": "Install AgentOps into a new or existing project. Handles .agent/ setup and .github/ merging.",
-      "repo": "weholt/script-cast",
-      "path": "",
-      "branch": "main",
-      "category": "extended",
-      "tags": [],
-      "stars": 1,
-      "install": "weholt/script-cast",
-      "source": "github.com/weholt/script-cast"
-    },
     {
       "name": "agent-ops-install",
       "description": "Install AgentOps into a new or existing project. Handles .agent/ setup and .github/ merging.",
@@ -31,6 +19,18 @@
     {
       "name": "agent-ops-build",
       "description": "Language-aware build orchestration that detects project language and runs appropriate build pipeline",
+      "repo": "weholt/script-cast",
+      "path": "",
+      "branch": "main",
+      "category": "extended",
+      "tags": [],
+      "stars": 1,
+      "install": "weholt/script-cast",
+      "source": "github.com/weholt/script-cast"
+    },
+    {
+      "name": "agent-ops-install",
+      "description": "Install AgentOps into a new or existing project. Handles .agent/ setup and .github/ merging.",
       "repo": "weholt/script-cast",
       "path": "",
       "branch": "main",

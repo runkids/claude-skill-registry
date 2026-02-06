@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-05T17:28:46.481030Z",
+  "updated_at": "2026-02-06T07:01:03.051590Z",
   "categories": [
     {
       "name": "adb-meta-automation",
@@ -27,6 +27,10 @@
     },
     {
       "name": "analysis-methods",
+      "count": 1
+    },
+    {
+      "name": "api",
       "count": 1
     },
     {
@@ -63,11 +67,15 @@
     },
     {
       "name": "data",
-      "count": 10391
+      "count": 32964
+    },
+    {
+      "name": "data-access",
+      "count": 1
     },
     {
       "name": "design",
-      "count": 4540
+      "count": 3155
     },
     {
       "name": "design-principles",
@@ -75,7 +83,7 @@
     },
     {
       "name": "development",
-      "count": 13109
+      "count": 10885
     },
     {
       "name": "development-code",
@@ -87,7 +95,7 @@
     },
     {
       "name": "devops",
-      "count": 2291
+      "count": 2456
     },
     {
       "name": "docs",
@@ -99,7 +107,7 @@
     },
     {
       "name": "documents",
-      "count": 1475
+      "count": 1653
     },
     {
       "name": "domains",
@@ -138,10 +146,6 @@
       "count": 1
     },
     {
-      "name": "github-skills",
-      "count": 1
-    },
-    {
       "name": "integration",
       "count": 2
     },
@@ -155,7 +159,7 @@
     },
     {
       "name": "marketing",
-      "count": 273
+      "count": 388
     },
     {
       "name": "meta",
@@ -167,7 +171,7 @@
     },
     {
       "name": "other",
-      "count": 46056
+      "count": 25859
     },
     {
       "name": "performance",
@@ -183,11 +187,11 @@
     },
     {
       "name": "product",
-      "count": 591
+      "count": 855
     },
     {
       "name": "productivity",
-      "count": 821
+      "count": 880
     },
     {
       "name": "programming-languages",
@@ -207,7 +211,7 @@
     },
     {
       "name": "security",
-      "count": 513
+      "count": 519
     },
     {
       "name": "security-compliance",
@@ -246,12 +250,16 @@
       "count": 1
     },
     {
+      "name": "template",
+      "count": 1
+    },
+    {
       "name": "test",
       "count": 1
     },
     {
       "name": "testing",
-      "count": 2426
+      "count": 2870
     },
     {
       "name": "testing-methodologies",
