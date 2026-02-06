@@ -1,0 +1,140 @@
+name: Publish Merged Artifact (From Core)
+
+on:
+  repository_dispatch:
+    types: [publish_from_core]
+  workflow_dispatch:
+    inputs:
+      core_repo:
+        description: Core repository (owner/name)
+        required: false
+        default: majiayu000/claude-skill-registry-core
+      core_sha:
+        description: Core commit SHA
+        required: true
+      data_repo:
+        description: Data repository (owner/name)
+        required: false
+        default: ""
+      data_sha:
+        description: Data commit SHA
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-main-artifact
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve publish refs
+        id: refs
+        env:
+          PAYLOAD_CORE_REPO: ${{ github.event.client_payload.core_repo }}
+          PAYLOAD_CORE_SHA: ${{ github.event.client_payload.core_sha }}
+          PAYLOAD_DATA_REPO: ${{ github.event.client_payload.data_repo }}
+          PAYLOAD_DATA_SHA: ${{ github.event.client_payload.data_sha }}
+          INPUT_CORE_REPO: ${{ github.event.inputs.core_repo }}
+          INPUT_CORE_SHA: ${{ github.event.inputs.core_sha }}
+          INPUT_DATA_REPO: ${{ github.event.inputs.data_repo }}
+          INPUT_DATA_SHA: ${{ github.event.inputs.data_sha }}
+          DEFAULT_DATA_REPO: ${{ vars.REGISTRY_DATA_REPO }}
+        run: |
+          core_repo="${PAYLOAD_CORE_REPO:-$INPUT_CORE_REPO}"
+          core_sha="${PAYLOAD_CORE_SHA:-$INPUT_CORE_SHA}"
+          data_repo="${PAYLOAD_DATA_REPO:-$INPUT_DATA_REPO}"
+          data_sha="${PAYLOAD_DATA_SHA:-$INPUT_DATA_SHA}"
+
+          if [ -z "$data_repo" ]; then
+            data_repo="$DEFAULT_DATA_REPO"
+          fi
+
+          if [ -z "$core_repo" ] || [ -z "$core_sha" ] || [ -z "$data_repo" ] || [ -z "$data_sha" ]; then
+            echo "Missing required publish refs."
+            echo "core_repo=$core_repo"
+            echo "core_sha=$core_sha"
+            echo "data_repo=$data_repo"
+            echo "data_sha=$data_sha"
+            exit 1
+          fi
+
+          echo "core_repo=$core_repo" >> "$GITHUB_OUTPUT"
+          echo "core_sha=$core_sha" >> "$GITHUB_OUTPUT"
+          echo "data_repo=$data_repo" >> "$GITHUB_OUTPUT"
+          echo "data_sha=$data_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout pinned core
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.refs.outputs.core_repo }}
+          ref: ${{ steps.refs.outputs.core_sha }}
+          token: ${{ secrets.MAIN_REPO_TOKEN != '' && secrets.MAIN_REPO_TOKEN || github.token }}
+          path: _sources/core
+          fetch-depth: 1
+
+      - name: Checkout pinned data
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.refs.outputs.data_repo }}
+          ref: ${{ steps.refs.outputs.data_sha }}
+          token: ${{ secrets.DATA_REPO_TOKEN != '' && secrets.DATA_REPO_TOKEN || github.token }}
+          path: _sources/data
+          fetch-depth: 1
+
+      - name: Move source repos to temp dirs
+        id: srcpaths
+        run: |
+          CORE_DIR="$RUNNER_TEMP/publish-core"
+          DATA_DIR="$RUNNER_TEMP/publish-data"
+          rm -rf "$CORE_DIR" "$DATA_DIR"
+          mv _sources/core "$CORE_DIR"
+          mv _sources/data "$DATA_DIR"
+          rm -rf _sources
+          echo "core_dir=$CORE_DIR" >> "$GITHUB_OUTPUT"
+          echo "data_dir=$DATA_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild main from pinned refs
+        run: |
+          bash "${{ steps.srcpaths.outputs.core_dir }}/scripts/sync_main_repo.sh" \
+            --core "${{ steps.srcpaths.outputs.core_dir }}" \
+            --data "${{ steps.srcpaths.outputs.data_dir }}" \
+            --main "$GITHUB_WORKSPACE"
+
+      - name: Write provenance manifest
+        run: |
+          mkdir -p provenance
+          cat > provenance/merge-source.json <<EOF
+          {
+            "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "core_repo": "${{ steps.refs.outputs.core_repo }}",
+            "core_sha": "${{ steps.refs.outputs.core_sha }}",
+            "data_repo": "${{ steps.refs.outputs.data_repo }}",
+            "data_sha": "${{ steps.refs.outputs.data_sha }}"
+          }
+          EOF
+
+      - name: Commit and push publish result
+        env:
+          CORE_SHA: ${{ steps.refs.outputs.core_sha }}
+          DATA_SHA: ${{ steps.refs.outputs.data_sha }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No main artifact changes"
+            exit 0
+          fi
+
+          git commit -m "chore: publish merged artifact core@${CORE_SHA:0:12} data@${DATA_SHA:0:12}"
+          git push
