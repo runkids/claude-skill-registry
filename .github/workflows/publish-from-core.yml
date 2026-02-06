@@ -137,4 +137,16 @@ jobs:
           fi
 
           git commit -m "chore: publish merged artifact core@${CORE_SHA:0:12} data@${DATA_SHA:0:12}"
-          git push
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Push succeeded on attempt $attempt"
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              wait_time=$((attempt * 20))
+              echo "Push failed (attempt $attempt). Retrying in ${wait_time}s..."
+              sleep "$wait_time"
+            fi
+          done
+          echo "Push failed after 3 attempts."
+          exit 1
