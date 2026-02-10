@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-06T07:01:03.051590Z",
+  "updated_at": "2026-02-10T08:39:13.714814Z",
   "categories": [
     {
       "name": "adb-meta-automation",
@@ -50,10 +50,6 @@
       "count": 1
     },
     {
-      "name": "business-productivity",
-      "count": 1
-    },
-    {
       "name": "c-level",
       "count": 2
     },
@@ -83,7 +79,7 @@
     },
     {
       "name": "development",
-      "count": 10885
+      "count": 10875
     },
     {
       "name": "development-code",
@@ -103,7 +99,7 @@
     },
     {
       "name": "document-processing",
-      "count": 2
+      "count": 1
     },
     {
       "name": "documents",
@@ -171,7 +167,7 @@
     },
     {
       "name": "other",
-      "count": 25859
+      "count": 26995
     },
     {
       "name": "performance",
