@@ -48,10 +48,25 @@ DANGEROUS_PATTERNS = {
     'system_prompt': r'system[\s_-]?prompt',
 }
 
+COMPILED_DANGEROUS_PATTERNS = {
+    name: re.compile(pattern, re.IGNORECASE)
+    for name, pattern in DANGEROUS_PATTERNS.items()
+}
+
 # Sensitive file paths
 SENSITIVE_PATHS = [
     '/etc/passwd', '/etc/shadow', '~/.ssh', '~/.aws',
     '/proc/', '/sys/', '$HOME/.env', '.env',
+]
+
+INJECTION_PATTERNS = [
+    re.compile(r'ignore\s+(all\s+)?(previous|prior|above)\s+(instructions|prompts)', re.IGNORECASE),
+    re.compile(r'disregard\s+(everything|all)', re.IGNORECASE),
+    re.compile(r'forget\s+(previous|all)', re.IGNORECASE),
+    re.compile(r'new\s+instructions?:', re.IGNORECASE),
+    re.compile(r'system\s*:\s*you\s+are', re.IGNORECASE),
+    re.compile(r'</system>', re.IGNORECASE),
+    re.compile(r'<\|im_start\|>', re.IGNORECASE),
 ]
 
 
@@ -179,9 +194,9 @@ class SecurityScanner:
         """Scan for dangerous code patterns"""
         lines = content.split('\n')
 
-        for pattern_name, pattern in DANGEROUS_PATTERNS.items():
+        for pattern_name, pattern in COMPILED_DANGEROUS_PATTERNS.items():
             for line_num, line in enumerate(lines, 1):
-                if re.search(pattern, line, re.IGNORECASE):
+                if pattern.search(line):
                     critical_patterns = {
                         'eval',
                         'exec',
@@ -243,23 +258,12 @@ class SecurityScanner:
 
     def _detect_prompt_injection(self, content: str):
         """Detect potential prompt injection attempts"""
-        # Check for instructions that try to override system behavior
-        injection_indicators = [
-            r'ignore\s+(all\s+)?(previous|prior|above)\s+(instructions|prompts)',
-            r'disregard\s+(everything|all)',
-            r'forget\s+(previous|all)',
-            r'new\s+instructions?:',
-            r'system\s*:\s*you\s+are',
-            r'</system>',
-            r'<\|im_start\|>',
-        ]
-
-        for pattern in injection_indicators:
-            if re.search(pattern, content, re.IGNORECASE):
+        for pattern in INJECTION_PATTERNS:
+            if pattern.search(content):
                 self.issues.append({
                     'severity': 'warning',
                     'type': 'prompt_injection',
-                    'message': f'Potential prompt injection detected: {pattern}'
+                    'message': f'Potential prompt injection detected: {pattern.pattern}'
                 })
 
     def generate_report(self) -> str:
@@ -284,9 +288,57 @@ class SecurityScanner:
         return '\n'.join(report)
 
 
-def scan_directory(skills_dir: Path, output_file: Path = None, quiet: bool = False) -> Dict:
+def resolve_scan_file_list(skills_dir: Path, file_list_path: Path) -> List[Path]:
+    """
+    Resolve a newline-delimited file list into SKILL.md paths under skills_dir.
+    Lines may be absolute or relative paths.
+    """
+    if not file_list_path.exists():
+        return []
+
+    skills_root = skills_dir.resolve()
+    selected = []
+    seen = set()
+
+    for raw in file_list_path.read_text(encoding='utf-8', errors='ignore').splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+
+        candidate = Path(line)
+        if not candidate.is_absolute():
+            candidate = skills_dir / candidate
+        candidate = candidate.resolve()
+
+        try:
+            candidate.relative_to(skills_root)
+        except ValueError:
+            # Ignore paths outside scan root for safety.
+            continue
+
+        if candidate.name != "SKILL.md":
+            continue
+        if not candidate.exists() or not candidate.is_file():
+            continue
+
+        key = str(candidate)
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(candidate)
+
+    return selected
+
+
+def scan_directory(
+    skills_dir: Path,
+    output_file: Path = None,
+    quiet: bool = False,
+    selected_files: List[Path] = None,
+) -> Dict:
     """Scan all skills in a directory"""
     scanner = SecurityScanner()
+    skills_root = skills_dir.resolve()
     results = {
         'total': 0,
         'passed': 0,
@@ -294,13 +346,19 @@ def scan_directory(skills_dir: Path, output_file: Path = None, quiet: bool = Fal
         'skills': []
     }
 
-    for skill_file in skills_dir.rglob('SKILL.md'):
+    if selected_files is None:
+        scan_targets = skills_dir.rglob('SKILL.md')
+    else:
+        scan_targets = selected_files
+
+    for skill_file in scan_targets:
+        skill_file = skill_file.resolve()
         results['total'] += 1
 
         is_safe, issues = scanner.scan_file(skill_file)
 
         skill_result = {
-            'path': str(skill_file.relative_to(skills_dir)),
+            'path': str(skill_file.relative_to(skills_root)),
             'safe': is_safe,
             'issues': issues
         }
@@ -310,11 +368,12 @@ def scan_directory(skills_dir: Path, output_file: Path = None, quiet: bool = Fal
         if is_safe:
             results['passed'] += 1
             if not quiet:
-                print(f"✓ {skill_file.relative_to(skills_dir)}")
+                print(f"✓ {skill_file.relative_to(skills_root)}")
         else:
             results['failed'] += 1
-            print(f"✗ {skill_file.relative_to(skills_dir)}")
-            print(scanner.generate_report())
+            if not quiet:
+                print(f"✗ {skill_file.relative_to(skills_root)}")
+                print(scanner.generate_report())
 
     # Save results
     if output_file:
@@ -336,7 +395,11 @@ def main():
         action='store_true',
         help='Always exit 0 after writing report (for CI reporting mode)',
     )
-    parser.add_argument('--quiet', action='store_true', help='Only print failures + summary')
+    parser.add_argument('--quiet', action='store_true', help='Only print summary')
+    parser.add_argument(
+        '--file-list',
+        help='Optional newline-delimited list of SKILL.md paths to scan (absolute or relative to path)',
+    )
 
     args = parser.parse_args()
 
@@ -359,7 +422,13 @@ def main():
 
     elif path.is_dir():
         # Scan directory
-        results = scan_directory(path, args.output, quiet=args.quiet)
+        selected_files = None
+        if args.file_list:
+            selected_files = resolve_scan_file_list(path, Path(args.file_list))
+            if not args.quiet:
+                print(f"Using file list: {len(selected_files)} file(s)")
+
+        results = scan_directory(path, args.output, quiet=args.quiet, selected_files=selected_files)
 
         print(f"\n{'='*60}")
         print(f"Total: {results['total']}")
