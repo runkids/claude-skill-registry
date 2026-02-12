@@ -1,0 +1,20 @@
+{
+  "category": "design-principles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-02-05T17:30:40.858766Z",
+  "skills": [
+    {
+      "name": "affordances",
+      "description": "Los objetos deben sugerir cómo se usan. Use cuando diseñe botones, controles interactivos, o cualquier elemento que invite a la acción.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "",
+      "branch": "main",
+      "category": "design-principles",
+      "tags": [],
+      "stars": 1,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

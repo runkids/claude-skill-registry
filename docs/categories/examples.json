@@ -1,0 +1,20 @@
+{
+  "category": "examples",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-02-05T17:30:41.124876Z",
+  "skills": [
+    {
+      "name": "safe-agent-selective",
+      "description": "Agent with selective Gemini safety settings for specific categories",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "examples",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

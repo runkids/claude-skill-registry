@@ -1,0 +1,32 @@
+{
+  "category": "test",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-02-05T17:30:41.719648Z",
+  "skills": [
+    {
+      "name": "test-skill",
+      "description": "Valid skills element",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "",
+      "branch": "main",
+      "category": "test",
+      "tags": [],
+      "stars": 1,
+      "install": "mickdarling/dollhouse-portfolio",
+      "source": "github.com/mickdarling/dollhouse-portfolio"
+    },
+    {
+      "name": "test-skill",
+      "description": "Valid skills element",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "",
+      "branch": "main",
+      "category": "test",
+      "tags": [],
+      "stars": 1,
+      "install": "mickdarling/dollhouse-portfolio",
+      "source": "github.com/mickdarling/dollhouse-portfolio"
+    }
+  ]
+}

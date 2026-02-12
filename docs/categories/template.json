@@ -1,0 +1,20 @@
+{
+  "category": "template",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-02-05T17:30:41.719303Z",
+  "skills": [
+    {
+      "name": ".template",
+      "description": "<Brief description of what this skill does and when to use it. Include trigger keywords for agent discovery.>",
+      "repo": "pproenca/dot-skills",
+      "path": "",
+      "branch": "main",
+      "category": "template",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/dot-skills",
+      "source": "github.com/pproenca/dot-skills"
+    }
+  ]
+}
