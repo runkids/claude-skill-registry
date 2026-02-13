@@ -2,11 +2,11 @@
   "category": "analysis",
   "code": "oth",
   "count": 3,
-  "updated_at": "2026-02-05T17:30:40.128098Z",
+  "updated_at": "2026-02-13T01:53:33.023055Z",
   "skills": [
     {
-      "name": "agent-ops-article-verification",
-      "description": "Systematically deconstruct written content into verifiable claims, validate each using search/documentation, and facilitate informed discussion through structured interviewing.",
+      "name": "agent-ops-reality-audit-majiayu000-claude-skill-regist",
+      "description": "Aggressive evidence-based audit to verify project claims match implementation reality",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -17,8 +17,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "agent-ops-reality-audit-majiayu000-claude-skill-regist",
-      "description": "Aggressive evidence-based audit to verify project claims match implementation reality",
+      "name": "agent-ops-article-verification",
+      "description": "Systematically deconstruct written content into verifiable claims, validate each using search/documentation, and facilitate informed discussion through structured interviewing.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",

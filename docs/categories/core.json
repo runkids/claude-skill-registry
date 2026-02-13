@@ -2,11 +2,11 @@
   "category": "core",
   "code": "oth",
   "count": 6,
-  "updated_at": "2026-02-05T17:30:40.135038Z",
+  "updated_at": "2026-02-13T01:53:33.025344Z",
   "skills": [
     {
-      "name": "agent-ops-spec",
-      "description": "Manage specification documents in .agent/specs/. Use when user provides requirements, acceptance criteria, or feature descriptions that need to be tracked and validated against implementation.",
+      "name": "agent-ops-testing",
+      "description": "Test strategy, execution, and coverage analysis. Use when designing tests, running test suites, or analyzing test results beyond baseline checks.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -17,8 +17,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "agent-ops-state",
-      "description": "Maintain .agent state files. Use at session start, after meaningful steps, and before concluding: read/update constitution/memory/focus/issues/baseline consistently.",
+      "name": "agent-ops-spec",
+      "description": "Manage specification documents in .agent/specs/. Use when user provides requirements, acceptance criteria, or feature descriptions that need to be tracked and validated against implementation.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -65,8 +65,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "agent-ops-testing",
-      "description": "Test strategy, execution, and coverage analysis. Use when designing tests, running test suites, or analyzing test results beyond baseline checks.",
+      "name": "agent-ops-state",
+      "description": "Maintain .agent state files. Use at session start, after meaningful steps, and before concluding: read/update constitution/memory/focus/issues/baseline consistently.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
