@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 497,
-  "updated_at": "2026-02-19T01:49:25.375956Z",
+  "count": 519,
+  "updated_at": "2026-02-20T01:45:52.380477Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -353,6 +353,22 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
+      "name": "api-security-testing",
+      "description": "API security testing guide covering OWASP API Security Top 10, JWT attacks, OAuth vulnerabilities, GraphQL security, and API fuzzing techniques.",
+      "repo": "xenitV1/claude-code-maestro",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "api",
+        "security",
+        "testing"
+      ],
+      "stars": 47,
+      "install": "xenitV1/claude-code-maestro",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "nodejs-best-practices",
       "description": "Node.js best practices including error handling, async patterns, security, and project structure.",
       "repo": "xenitV1/claude-code-maestro",
@@ -453,6 +469,21 @@
       ],
       "stars": 31,
       "install": "robbyt/claude-skills/.claude/skills/marketplace-audit",
+      "source": "local"
+    },
+    {
+      "name": "marketplace-audit",
+      "description": "Display plugin versions from marketplace.json. Use when user asks to \"audit versions\", \"show plugin versions\", \"list marketplace versions\", or wants to see the current state of plugin versioning.",
+      "repo": "robbyt/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "marketplace",
+        "audit"
+      ],
+      "stars": 31,
+      "install": "robbyt/claude-skills",
       "source": "local"
     },
     {
@@ -1023,21 +1054,6 @@
       "name": "security-guardian",
       "description": "Expert en sécurité applicative pour détecter les vulnérabilités, auditer le code, et guider les bonnes pratiques de sécurité. OWASP Top 10, authentification, autorisation, cryptographie, gestion de se",
       "repo": "Bikach/skills-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "security",
-        "guardian"
-      ],
-      "stars": 7,
-      "install": "Bikach/skills-claude-code",
-      "source": "local"
-    },
-    {
-      "name": "security-guardian",
-      "description": "Expert en sécurité applicative pour détecter les vulnérabilités, auditer le code, et guider les bonnes pratiques de sécurité. OWASP Top 10, authentification, autorisation, cryptographie, gestion de se",
-      "repo": "Bikach/skills-claude-code",
       "path": "security-guardian",
       "branch": "main",
       "category": "security",
@@ -1047,6 +1063,21 @@
       ],
       "stars": 7,
       "install": "Bikach/skills-claude-code/security-guardian",
+      "source": "local"
+    },
+    {
+      "name": "security-guardian",
+      "description": "Expert en sécurité applicative pour détecter les vulnérabilités, auditer le code, et guider les bonnes pratiques de sécurité. OWASP Top 10, authentification, autorisation, cryptographie, gestion de se",
+      "repo": "Bikach/skills-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "security",
+        "guardian"
+      ],
+      "stars": 7,
+      "install": "Bikach/skills-claude-code",
       "source": "local"
     },
     {
@@ -1115,21 +1146,6 @@
       "name": "argocd-audit",
       "description": "Audits ArgoCD Application manifests and raw K8s resources for anti-patterns, security issues, and best practice violations. Use when asked to audit, review, or check ArgoCD/GitOps quality. Generates a",
       "repo": "huseyindeniz/gitops-lab",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "argocd",
-        "audit"
-      ],
-      "stars": 4,
-      "install": "huseyindeniz/gitops-lab",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "argocd-audit",
-      "description": "Audits ArgoCD Application manifests and raw K8s resources for anti-patterns, security issues, and best practice violations. Use when asked to audit, review, or check ArgoCD/GitOps quality. Generates a",
-      "repo": "huseyindeniz/gitops-lab",
       "path": ".claude/skills/argocd-audit",
       "branch": "main",
       "category": "security",
@@ -1154,6 +1170,21 @@
       ],
       "stars": 4,
       "install": "costiash/CognivAgent/.claude/skills/querying-gpt52",
+      "source": "local"
+    },
+    {
+      "name": "querying-gpt52",
+      "description": "Queries GPT-5.2 for high-reasoning code analysis, root-cause bug fixing, and complex coding questions. Provides P0-P3 prioritized analysis reports, architecture audits, and security reviews with confi",
+      "repo": "costiash/CognivAgent",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "querying",
+        "gpt52"
+      ],
+      "stars": 4,
+      "install": "costiash/CognivAgent",
       "source": "local"
     },
     {
@@ -1214,6 +1245,21 @@
       ],
       "stars": 4,
       "install": "jpoley/jp-spec-kit",
+      "source": "local"
+    },
+    {
+      "name": "terraform-audit",
+      "description": "Audits Terraform code for anti-patterns, security issues, and best practice violations. Use when asked to audit, review, or check terraform code quality. Generates a comprehensive report under reports",
+      "repo": "huseyindeniz/gitops-lab",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "terraform",
+        "audit"
+      ],
+      "stars": 4,
+      "install": "huseyindeniz/gitops-lab",
       "source": "local"
     },
     {
@@ -1370,24 +1416,24 @@
       "name": "docs-audit",
       "description": "> Triggers (ANY of these should invoke this skill):",
       "repo": "sane-apps/SaneProcess",
-      "path": ".claude/skills/docs-audit/SKILL.md",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 2,
-      "install": "sane-apps/SaneProcess/.claude/skills/docs-audit/SKILL.md",
-      "source": "github.com/sane-apps/SaneProcess"
-    },
-    {
-      "name": "docs-audit",
-      "description": "> Triggers (ANY of these should invoke this skill):",
-      "repo": "sane-apps/SaneProcess",
       "path": "",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 2,
       "install": "sane-apps/SaneProcess",
+      "source": "github.com/sane-apps/SaneProcess"
+    },
+    {
+      "name": "docs-audit",
+      "description": "> Triggers (ANY of these should invoke this skill):",
+      "repo": "sane-apps/SaneProcess",
+      "path": ".claude/skills/docs-audit/SKILL.md",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 2,
+      "install": "sane-apps/SaneProcess/.claude/skills/docs-audit/SKILL.md",
       "source": "github.com/sane-apps/SaneProcess"
     },
     {
@@ -1579,21 +1625,6 @@
       "name": "graphql-security",
       "description": "Secure GraphQL APIs - authentication, authorization, rate limiting, and validation",
       "repo": "pluginagentmarketplace/custom-plugin-graphql",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "graphql",
-        "security"
-      ],
-      "stars": 1,
-      "install": "pluginagentmarketplace/custom-plugin-graphql",
-      "source": "local"
-    },
-    {
-      "name": "graphql-security",
-      "description": "Secure GraphQL APIs - authentication, authorization, rate limiting, and validation",
-      "repo": "pluginagentmarketplace/custom-plugin-graphql",
       "path": "skills/graphql-security",
       "branch": "main",
       "category": "security",
@@ -1603,6 +1634,21 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-graphql/skills/graphql-security",
+      "source": "local"
+    },
+    {
+      "name": "graphql-security",
+      "description": "Secure GraphQL APIs - authentication, authorization, rate limiting, and validation",
+      "repo": "pluginagentmarketplace/custom-plugin-graphql",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "graphql",
+        "security"
+      ],
+      "stars": 1,
+      "install": "pluginagentmarketplace/custom-plugin-graphql",
       "source": "local"
     },
     {
@@ -1660,6 +1706,21 @@
       "stars": 1,
       "install": "Psycarlo/expo-template/.claude/skills/react-native-best-practices/SKILL.md",
       "source": "github.com/Psycarlo/expo-template"
+    },
+    {
+      "name": "redis-security",
+      "description": "Master Redis security - authentication, ACL, TLS encryption, network hardening, and production security best practices",
+      "repo": "pluginagentmarketplace/custom-plugin-redis",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "redis",
+        "security"
+      ],
+      "stars": 1,
+      "install": "pluginagentmarketplace/custom-plugin-redis",
+      "source": "local"
     },
     {
       "name": "redis-security",
@@ -1974,6 +2035,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "app-sharing",
+      "description": "Manage Glide app access, privacy, authentication, and publishing.Use when configuring who can access an app, setting up sign-in methods,publishing apps, inviting users, or configuring Row Owners for d",
+      "repo": "glideapps/glide-code",
+      "path": "glide/skills/app-sharing",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "glideapps/glide-code/glide/skills/app-sharing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "arifos-workflow-fag",
       "description": "Activate arifOS Full Autonomy Governance mode. Use when the user types /fag, asks to enter full autonomy governance, or wants the pre-flight checklist and authority boundaries before making changes.",
       "repo": "ariffazil/arifOS",
@@ -2105,6 +2178,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "audit-security-dependencies",
+      "description": "Use when adding packages, bumping versions, or responding to security alerts. Enforces supply chain security and vulnerability remediation.",
+      "repo": "JackSmack1971/claude-code-learning-flywheel",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "JackSmack1971/claude-code-learning-flywheel",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "audit-skill",
       "description": "Comprehensive audit capabilities for security, code quality, module structure, compliance, and performance analysis. Use this skill when performing security audits, code reviews, vulnerability assessm",
       "repo": "jgtolentino/insightpulse-odoo",
@@ -2144,6 +2229,18 @@
       "name": "auth-bypass",
       "description": "认证绕过漏洞检测与利用。当目标存在登录功能、权限控制、JWT/Session 认证时使用。包括 IDOR、越权访问等。",
       "repo": "yhy0/CHYing-agent",
+      "path": "chying_agent/skills/auth-bypass",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "yhy0/CHYing-agent/chying_agent/skills/auth-bypass",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "auth-bypass",
+      "description": "认证绕过漏洞检测与利用。当目标存在登录功能、权限控制、JWT/Session 认证时使用。包括 IDOR、越权访问等。",
+      "repo": "yhy0/CHYing-agent",
       "path": "",
       "branch": "main",
       "category": "security",
@@ -2153,15 +2250,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "auth-bypass",
-      "description": "认证绕过漏洞检测与利用。当目标存在登录功能、权限控制、JWT/Session 认证时使用。包括 IDOR、越权访问等。",
-      "repo": "yhy0/CHYing-agent",
-      "path": "chying_agent/skills/auth-bypass",
+      "name": "auth-comprehensive",
+      "description": "Production-grade authentication & authorization covering JWT, cookies, sessions, hashing, MFA, OAuth2, RBAC, and permissions across all frameworks (Next.js, Express.js, FastAPI, Django, Spring, etc.).",
+      "repo": "SHAJAR5110/Hackathon-II-phase2",
+      "path": "",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
-      "install": "yhy0/CHYing-agent/chying_agent/skills/auth-bypass",
+      "install": "SHAJAR5110/Hackathon-II-phase2",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2270,6 +2367,18 @@
       "tags": [],
       "stars": 0,
       "install": "raythurnvoid/experiment--t3-chat/.cursor/skills/auth-system",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "auth-system",
+      "description": "Auth system (Clerk + Convex + anonymous JWT) guidelines and planned permissions/upgrade behavior.",
+      "repo": "raythurnvoid/experiment--t3-chat",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "raythurnvoid/experiment--t3-chat",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2452,6 +2561,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "better-auth-integrator",
+      "description": "Implement full Better Auth registration/login with JWT tokens and protect routes when authentication is mentioned",
+      "repo": "khawajanaqeeb/Q4-hackathon2-todo",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "khawajanaqeeb/Q4-hackathon2-todo",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "better-auth-setup",
       "description": "Guide implementation of OAuth 2.1 / OIDC authentication using Better Auth with the OIDC Provider plugin. Use this skill when setting up centralized authentication for multiple apps, implementing SSO a",
       "repo": "mjunaidca/mjs-agent-skills",
@@ -2473,6 +2594,18 @@
       "tags": [],
       "stars": 0,
       "install": "mjunaidca/mjs-agent-skills/docs/taskflow-vault/skills/engineering/better-auth-sso",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "better-t-stack",
+      "description": "Patterns and best practices for Better-T-Stack projects (TanStack Router, Hono, Drizzle, tRPC, Better Auth)",
+      "repo": "ignitabull18/product-dev-os",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "ignitabull18/product-dev-os",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2582,6 +2715,18 @@
       "stars": 0,
       "install": "Rwb3n/haios/docs/checkpoints/2025-12-05-SESSION-31-memory-agent-skill.md",
       "source": "github.com/Rwb3n/haios"
+    },
+    {
+      "name": "claude-code-knowledge",
+      "description": "Access official Claude Code documentation including comprehensive guides on hooks, MCP servers, agent skills, slash commands, settings, CLI reference, security, memory, plugins, and troubleshooting. U",
+      "repo": "codethread/claude-code-plugins",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "codethread/claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "claude-code-knowledge",
@@ -2899,18 +3044,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "csrf-protection-validator",
-      "description": "Csrf Protection Validator - Auto-activating skill for Security Fundamentals.Triggers on: csrf protection validator, csrf protection validatorPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/security/csrf-protection-validator/skills/validating-csrf-protection",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/csrf-protection-validator/skills/validating-csrf-protection",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cursor-compliance-audit",
       "description": "Compliance and security auditing for Cursor usage. Triggers on \"cursor compliance\",\"cursor audit\", \"cursor security review\", \"cursor soc2\", \"cursor gdpr\".",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -3090,6 +3223,23 @@
       "name": "detecting-signed-unsigned-conversion",
       "description": "Detects unsafe signed/unsigned integer conversions that can lead to integer overflow and security check bypasses. Use when analyzing integer operations, comparisons, or investigating conversion-relate",
       "repo": "waiwai24/BinaryX-Agent",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "detecting",
+        "signed",
+        "unsigned",
+        "conversion"
+      ],
+      "stars": 0,
+      "install": "waiwai24/BinaryX-Agent",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "detecting-signed-unsigned-conversion",
+      "description": "Detects unsafe signed/unsigned integer conversions that can lead to integer overflow and security check bypasses. Use when analyzing integer operations, comparisons, or investigating conversion-relate",
+      "repo": "waiwai24/BinaryX-Agent",
       "path": ".claude/skills/detecting-signed-unsigned-conversion",
       "branch": "main",
       "category": "security",
@@ -3107,24 +3257,24 @@
       "name": "dialogue-refiner",
       "description": "Analyzes and refines dialogue for authentic character voices, natural flow, subtext, and emotional impact. Use this to elevate conversations from functional to compelling.",
       "repo": "IzmaIkhlaque/AIDD-30-days-challenge-",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "IzmaIkhlaque/AIDD-30-days-challenge-",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "dialogue-refiner",
-      "description": "Analyzes and refines dialogue for authentic character voices, natural flow, subtext, and emotional impact. Use this to elevate conversations from functional to compelling.",
-      "repo": "IzmaIkhlaque/AIDD-30-days-challenge-",
       "path": "task9/.claude/skills/dialogue-refiner",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "IzmaIkhlaque/AIDD-30-days-challenge-/task9/.claude/skills/dialogue-refiner",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "dialogue-refiner",
+      "description": "Analyzes and refines dialogue for authentic character voices, natural flow, subtext, and emotional impact. Use this to elevate conversations from functional to compelling.",
+      "repo": "IzmaIkhlaque/AIDD-30-days-challenge-",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "IzmaIkhlaque/AIDD-30-days-challenge-",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3270,6 +3420,18 @@
       "stars": 0,
       "install": "hammadurrehman2006/the_evolution_of_todo/.claude/skills/fastapi-security-expert",
       "source": "local"
+    },
+    {
+      "name": "fastapi-zero-to-hero",
+      "description": "Complete FastAPI API development framework for Python. Provides comprehensive assistance for building APIs with routing, authentication (JWT, OAuth2, Better Auth), Pydantic models, database integratio",
+      "repo": "suhaibshaikh03/Agent-Native-Cloud-Development",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "suhaibshaikh03/Agent-Native-Cloud-Development",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "festival-operations",
@@ -3431,24 +3593,24 @@
       "name": "google-docs-sheets",
       "description": "Export Google Docs and Google Sheets (spreadsheets) to Markdown files or stdout. Use when asked to fetch, download, or ingest Google Docs/Sheets content for summarization, analysis, or context loading",
       "repo": "mir/maratai",
-      "path": "opencode/skill/google-docs-sheets",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mir/maratai/opencode/skill/google-docs-sheets",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "google-docs-sheets",
-      "description": "Export Google Docs and Google Sheets (spreadsheets) to Markdown files or stdout. Use when asked to fetch, download, or ingest Google Docs/Sheets content for summarization, analysis, or context loading",
-      "repo": "mir/maratai",
       "path": "",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "mir/maratai",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "google-docs-sheets",
+      "description": "Export Google Docs and Google Sheets (spreadsheets) to Markdown files or stdout. Use when asked to fetch, download, or ingest Google Docs/Sheets content for summarization, analysis, or context loading",
+      "repo": "mir/maratai",
+      "path": "opencode/skill/google-docs-sheets",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "mir/maratai/opencode/skill/google-docs-sheets",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3714,6 +3876,18 @@
       "source": "local"
     },
     {
+      "name": "iot-telnet-shell-telnetshell",
+      "description": "Use telnet to interact with IoT device shells for pentesting operations including device enumeration, vulnerability discovery, credential testing, and post-exploitation. Use when the user needs to int",
+      "repo": "consigcody94/bounty-buddy",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "consigcody94/bounty-buddy",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "iot-uart-console-picocom",
       "description": "Use picocom to interact with IoT device UART consoles for pentesting operations including device enumeration, vulnerability discovery, bootloader manipulation, and gaining root shells. Use when the us",
       "repo": "BrownFineSecurity/picocom-claude-skill",
@@ -3827,6 +4001,18 @@
       "tags": [],
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-nodejs/skills/jwt-authentication",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "jwt-authentication",
+      "description": "Implement secure JWT (JSON Web Token) authentication in Node.js applications with access/refresh tokens and role-based access control",
+      "repo": "pluginagentmarketplace/custom-plugin-nodejs",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "pluginagentmarketplace/custom-plugin-nodejs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4396,24 +4582,24 @@
       "name": "owasp-security-review",
       "description": "Security review and implementation support based on OWASP Cheat Sheet Series. Use for code review requests, security-related implementation/research, and vulnerability checks. Covers security topics s",
       "repo": "ayuzaka/agent-plugins",
-      "path": "owasp-security-review/skills/owasp-security-review",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "ayuzaka/agent-plugins/owasp-security-review/skills/owasp-security-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "owasp-security-review",
-      "description": "Security review and implementation support based on OWASP Cheat Sheet Series. Use for code review requests, security-related implementation/research, and vulnerability checks. Covers security topics s",
-      "repo": "ayuzaka/agent-plugins",
       "path": "",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "ayuzaka/agent-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "owasp-security-review",
+      "description": "Security review and implementation support based on OWASP Cheat Sheet Series. Use for code review requests, security-related implementation/research, and vulnerability checks. Covers security topics s",
+      "repo": "ayuzaka/agent-plugins",
+      "path": "owasp-security-review/skills/owasp-security-review",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "ayuzaka/agent-plugins/owasp-security-review/skills/owasp-security-review",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4606,24 +4792,24 @@
       "name": "pr-to-ticket",
       "description": "File Linear tickets from PR review feedback and notify the PR author. Use when asked to file a ticket from PR comments, create a ticket from PR feedback, ticket PR concerns, or create a Linear ticket ",
       "repo": "franchiseai/claude-code-plugins",
-      "path": "plugins/pr-to-ticket/skills/pr-to-ticket",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "franchiseai/claude-code-plugins/plugins/pr-to-ticket/skills/pr-to-ticket",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pr-to-ticket",
-      "description": "File Linear tickets from PR review feedback and notify the PR author. Use when asked to file a ticket from PR comments, create a ticket from PR feedback, ticket PR concerns, or create a Linear ticket ",
-      "repo": "franchiseai/claude-code-plugins",
       "path": "",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "franchiseai/claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pr-to-ticket",
+      "description": "File Linear tickets from PR review feedback and notify the PR author. Use when asked to file a ticket from PR comments, create a ticket from PR feedback, ticket PR concerns, or create a Linear ticket ",
+      "repo": "franchiseai/claude-code-plugins",
+      "path": "plugins/pr-to-ticket/skills/pr-to-ticket",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "franchiseai/claude-code-plugins/plugins/pr-to-ticket/skills/pr-to-ticket",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4714,24 +4900,24 @@
       "name": "rabbitmq-master",
       "description": "Ultimate RabbitMQ expertise skill for production-grade message broker architecture, implementation, and operations. Top 0.01% knowledge covering: (1) Advanced messaging patterns - Dead Letter Exchange",
       "repo": "mOdrA40/claude-codex-skills-directory",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mOdrA40/claude-codex-skills-directory",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "rabbitmq-master",
-      "description": "Ultimate RabbitMQ expertise skill for production-grade message broker architecture, implementation, and operations. Top 0.01% knowledge covering: (1) Advanced messaging patterns - Dead Letter Exchange",
-      "repo": "mOdrA40/claude-codex-skills-directory",
       "path": "rabbitmq-mastery-skill",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "mOdrA40/claude-codex-skills-directory/rabbitmq-mastery-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "rabbitmq-master",
+      "description": "Ultimate RabbitMQ expertise skill for production-grade message broker architecture, implementation, and operations. Top 0.01% knowledge covering: (1) Advanced messaging patterns - Dead Letter Exchange",
+      "repo": "mOdrA40/claude-codex-skills-directory",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "mOdrA40/claude-codex-skills-directory",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4860,24 +5046,24 @@
       "name": "reverse-proxy",
       "description": "Manage incoming internet traffic and reverse proxy configuration on the home network gateway. Configure Caddy, OAuth2 authentication, fail2ban security, and traffic routing.",
       "repo": "lakowske/network-admin",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "lakowske/network-admin",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reverse-proxy",
-      "description": "Manage incoming internet traffic and reverse proxy configuration on the home network gateway. Configure Caddy, OAuth2 authentication, fail2ban security, and traffic routing.",
-      "repo": "lakowske/network-admin",
       "path": "skills/reverse-proxy",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "lakowske/network-admin/skills/reverse-proxy",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "reverse-proxy",
+      "description": "Manage incoming internet traffic and reverse proxy configuration on the home network gateway. Configure Caddy, OAuth2 authentication, fail2ban security, and traffic routing.",
+      "repo": "lakowske/network-admin",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "lakowske/network-admin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4896,24 +5082,24 @@
       "name": "reviewing-security",
       "description": "OWASP API Security Top 10 (2023) と Rust セキュリティベストプラクティス。脆弱性検出。Use when: セキュリティ、脆弱性、OWASP、認証、認可、監査を依頼された時。",
       "repo": "ryuichi1208/dotfiles",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "ryuichi1208/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reviewing-security",
-      "description": "OWASP API Security Top 10 (2023) と Rust セキュリティベストプラクティス。脆弱性検出。Use when: セキュリティ、脆弱性、OWASP、認証、認可、監査を依頼された時。",
-      "repo": "ryuichi1208/dotfiles",
       "path": "mac/claude/skills/reviewing-security",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "ryuichi1208/dotfiles/mac/claude/skills/reviewing-security",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "reviewing-security",
+      "description": "OWASP API Security Top 10 (2023) と Rust セキュリティベストプラクティス。脆弱性検出。Use when: セキュリティ、脆弱性、OWASP、認証、認可、監査を依頼された時。",
+      "repo": "ryuichi1208/dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "ryuichi1208/dotfiles",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4950,6 +5136,18 @@
       "tags": [],
       "stars": 0,
       "install": "Microck/ordinary-claude-skills/skills_all/rr-solidity",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "sandbox-configuration",
+      "description": "Central authority for Claude Code sandboxing and isolation. Covers sandboxed bash tool, /sandbox command, filesystem isolation (blocked access, custom paths), network isolation (domain restrictions, p",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/claude-ecosystem/skills/sandbox-configuration",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/sandbox-configuration",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5245,18 +5443,6 @@
       "tags": [],
       "stars": 0,
       "install": "IgorWarzocha/Opencode-Workflows/agents/security-reviewer/.opencode/skill/security-convex",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "security-convex",
-      "description": "Convex security audit patterns. Load when reviewing Convex apps (convex/ directory present). Covers query/mutation auth, row-level security, public vs authenticated functions, validators, and Convex-s",
-      "repo": "IgorWarzocha/Opencode-Workflows",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "IgorWarzocha/Opencode-Workflows",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5587,6 +5773,22 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "security-scanning-suite",
+      "description": "Comprehensive security analysis including SAST, DAST, dependency scanning, secret detection, and vulnerability assessment. Use for security audits, CVE tracking, compliance checks, and preventing vuln",
+      "repo": "doctorduke/claude-config",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "security",
+        "scanning",
+        "suite"
+      ],
+      "stars": 0,
+      "install": "doctorduke/claude-config",
+      "source": "local"
+    },
+    {
       "name": "security-sentinel",
       "description": "Use when working with authentication, API routes, user input, or sensitive data. Audits code for security vulnerabilities based on OWASP Top 10. Critical for payment processing, auth systems, and data",
       "repo": "Barnhardt-Enterprises-Inc/quetrex-plugin",
@@ -5647,6 +5849,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "securityinput-validation",
+      "description": "Input Validation security skill",
+      "repo": "mgreenly/ikigai",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "mgreenly/ikigai",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "senior-secops",
       "description": "Comprehensive SecOps skill for application security, vulnerability management, compliance, and secure development practices. Includes security scanning, vulnerability assessment, compliance checking, ",
       "repo": "davila7/claude-code-templates",
@@ -5686,6 +5900,18 @@
       "source": "local"
     },
     {
+      "name": "session-management-ssg-ssr",
+      "description": "Expert skill for implementing session management in SSG (Static Site Generation) and SSR (Server-Side Rendering) contexts. Covers stateless authentication with JWT, database session management, client",
+      "repo": "MuhammedSuhaib/LevelUpSpeckit-Plus",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "MuhammedSuhaib/LevelUpSpeckit-Plus",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "shared-setup-patterns",
       "description": "Shared configuration patterns for project setup commands. Provides security hooks, Claude framework structure templates, and framework detection patterns used across multiple setup commands.",
       "repo": "applied-artificial-intelligence/claude-code-toolkit",
@@ -5719,6 +5945,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/04-security-advanced/siem-rule-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "sinatra-security",
+      "description": "Security best practices for Sinatra applications including input validation, CSRF protection, and authentication patterns. Use when hardening applications or conducting security reviews.",
+      "repo": "geoffjay/claude-plugins",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "geoffjay/claude-plugins",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5779,6 +6017,18 @@
       "tags": [],
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-blockchain/skills/smart-contract-security",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "smart-contract-security",
+      "description": "Master smart contract security with auditing, vulnerability detection, and incident response",
+      "repo": "pluginagentmarketplace/custom-plugin-blockchain",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "pluginagentmarketplace/custom-plugin-blockchain",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6084,6 +6334,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "use-goodreads-export",
+      "description": "Search and query Goodreads library from CSV export. Use when the user asks about books, TBR (to-be-read), reading lists, book searches, or mentions Goodreads. Also use for queries about book ratings, ",
+      "repo": "stbenjam/claude-nine",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "stbenjam/claude-nine",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "using-security-architect",
       "description": "Routes to security architecture skills - threat modeling, controls, compliance, authorization",
       "repo": "tachyon-beep/skillpacks",
@@ -6108,6 +6370,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "validating-csrf-protection",
+      "description": "Validate CSRF protection implementations for security gaps. Use when reviewing form security or state-changing operations. Trigger with 'validate CSRF', 'check CSRF protection', or 'review token secur",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/security/csrf-protection-validator/skills/validating-csrf-protection",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/csrf-protection-validator/skills/validating-csrf-protection",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "vercel-security-basics",
       "description": "Apply Vercel security best practices for secrets and access control.Use when securing API keys, implementing least privilege access,or auditing Vercel security configuration.Trigger with phrases like ",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -6117,18 +6391,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/vercel-pack/skills/vercel-security-basics",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "violetconnect-bigcommerce",
-      "description": "BigCommerce OAuth, embedded app JWT validation, and pre-registration patterns for VioletConnect",
-      "repo": "violetio/violet-ai-plugins",
-      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6246,24 +6508,24 @@
       "name": "vulnerability-validation",
       "description": "Validate security findings from commit-security-scan by assessing exploitability, filtering false positives, and generating proof-of-concept exploits. Use after running commit-security-scan to confirm",
       "repo": "Factory-AI/skills",
-      "path": "skills/vulnerability-validation",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Factory-AI/skills/skills/vulnerability-validation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vulnerability-validation",
-      "description": "Validate security findings from commit-security-scan by assessing exploitability, filtering false positives, and generating proof-of-concept exploits. Use after running commit-security-scan to confirm",
-      "repo": "Factory-AI/skills",
       "path": "",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "Factory-AI/skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "vulnerability-validation",
+      "description": "Validate security findings from commit-security-scan by assessing exploitability, filtering false positives, and generating proof-of-concept exploits. Use after running commit-security-scan to confirm",
+      "repo": "Factory-AI/skills",
+      "path": "skills/vulnerability-validation",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "Factory-AI/skills/skills/vulnerability-validation",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6409,6 +6671,22 @@
       "name": "wordpress-security-patterns",
       "description": "WordPress security best practices and vulnerability prevention patterns. Use when reviewing WordPress code for security issues, writing secure WordPress code, or checking for common vulnerabilities li",
       "repo": "mattcowan/claude-wordpress-utilities",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "wordpress",
+        "security",
+        "patterns"
+      ],
+      "stars": 0,
+      "install": "mattcowan/claude-wordpress-utilities",
+      "source": "local"
+    },
+    {
+      "name": "wordpress-security-patterns",
+      "description": "WordPress security best practices and vulnerability prevention patterns. Use when reviewing WordPress code for security issues, writing secure WordPress code, or checking for common vulnerabilities li",
+      "repo": "mattcowan/claude-wordpress-utilities",
       "path": "skills/wordpress-security-patterns",
       "branch": "main",
       "category": "security",
@@ -6446,6 +6724,18 @@
       "stars": 0,
       "install": "CrazySwami/wordpress-dev-skills/skills/wp-orchestrator",
       "source": "local"
+    },
+    {
+      "name": "writing-agent-skills",
+      "description": "Author and structure effective Agent Skills. Use when creating new skills, refining existing ones, or auditing skill structure and best practices.",
+      "repo": "kylehughes/knapsack",
+      "path": "",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "kylehughes/knapsack",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "writing-agent-skills",

@@ -1,7 +1,7 @@
 {
   "category": "marketing",
-  "count": 310,
-  "updated_at": "2026-02-19T01:49:26.030477Z",
+  "count": 388,
+  "updated_at": "2026-02-20T01:45:52.862654Z",
   "skills": [
     {
       "name": "social-media",
@@ -43,6 +43,22 @@
       ],
       "stars": 1318,
       "install": "parcadei/Continuous-Claude-v2/.claude/skills/firecrawl-scrape",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "card-news-generator",
+      "description": "Create 600x600 Instagram-style card news series automatically with optional background images. User provides topic, colors, and optional images - Claude generates content and creates multiple cards wi",
+      "repo": "bear2u/my-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "card",
+        "news",
+        "generator"
+      ],
+      "stars": 575,
+      "install": "bear2u/my-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -331,6 +347,23 @@
       "source": "local"
     },
     {
+      "name": "reddit-social-media-strategist",
+      "description": "Expert Reddit Social Media Strategist with deep knowledge of Reddit's culture, algorithms, community dynamics, and engagement strategies. This skill should be used when creating Reddit content strateg",
+      "repo": "maxvaega/awesome-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "reddit",
+        "social",
+        "media",
+        "strategist"
+      ],
+      "stars": 13,
+      "install": "maxvaega/awesome-skills",
+      "source": "local"
+    },
+    {
       "name": "seo",
       "description": "SEO audit and optimization skill for Meryll Dindin's personal portfolio website. Activates when discussing meta tags, Schema.org, structured data, personal branding SEO, search optimization, or conten",
       "repo": "merylldindin/helix",
@@ -423,6 +456,23 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/cold-email-sequence-generator",
+      "source": "local"
+    },
+    {
+      "name": "cold-email-sequence-generator",
+      "description": "Generate personalized cold email sequences (7-14 emails) with A/B test subject lines, follow-up timing recommendations, and integrated social proof. Creates multi-touch campaigns optimized for respons",
+      "repo": "OneWave-AI/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "cold",
+        "email",
+        "sequence",
+        "generator"
+      ],
+      "stars": 10,
+      "install": "OneWave-AI/claude-skills",
       "source": "local"
     },
     {
@@ -601,6 +651,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "article-title-optimizer",
+      "description": "This skill analyzes article content in-depth and generates optimized, marketable titles in the format 'Title: Subtitle' (10-12 words maximum). The skill should be used when users request title optimiz",
+      "repo": "rawveg/skillsforge-marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "article",
+        "title",
+        "optimizer"
+      ],
+      "stars": 8,
+      "install": "rawveg/skillsforge-marketplace",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "content-brief-generator",
       "description": "Generate comprehensive content briefs for writers, ensuring clarity, alignment, and strategic content creation across all formats.",
       "repo": "jamesrochabrun/skills",
@@ -620,6 +686,20 @@
       "name": "intercom",
       "description": "Intercom REST API for managing customer conversations, contacts, messages, and support tickets. Use this skill to send messages, manage contacts, handle conversations, and access help center content.",
       "repo": "vm0-ai/vm0-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "intercom"
+      ],
+      "stars": 8,
+      "install": "vm0-ai/vm0-skills",
+      "source": "local"
+    },
+    {
+      "name": "intercom",
+      "description": "Intercom REST API for managing customer conversations, contacts, messages, and support tickets. Use this skill to send messages, manage contacts, handle conversations, and access help center content.",
+      "repo": "vm0-ai/vm0-skills",
       "path": "intercom",
       "branch": "main",
       "category": "marketing",
@@ -628,6 +708,21 @@
       ],
       "stars": 8,
       "install": "vm0-ai/vm0-skills/intercom",
+      "source": "local"
+    },
+    {
+      "name": "netresearch-branding",
+      "description": "Agent Skill: Apply Netresearch brand identity. MANDATORY for Netresearch projects. Include: (1) [n] logo, (2) colors #2F99A4/#FF4D00/#585961, (3) Raleway+Open Sans fonts.",
+      "repo": "netresearch/claude-code-marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "netresearch",
+        "branding"
+      ],
+      "stars": 8,
+      "install": "netresearch/claude-code-marketplace",
       "source": "local"
     },
     {
@@ -648,6 +743,23 @@
       "source": "local"
     },
     {
+      "name": "translation-reframing-audience-shift",
+      "description": "Use when content must be translated between audiences with different expertise, context, or goals while preserving accuracy but adapting presentation. Invoke when technical content needs business fram",
+      "repo": "lyndonkl/claude",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "translation",
+        "reframing",
+        "audience",
+        "shift"
+      ],
+      "stars": 8,
+      "install": "lyndonkl/claude",
+      "source": "local"
+    },
+    {
       "name": "writing-linkedin-posts",
       "description": "Create engaging, authentic LinkedIn posts like a Top Voice. Use this skill when asked to write LinkedIn content, social media posts for LinkedIn, professional thought leadership content, or help with ",
       "repo": "jamesgray007/hoai-course",
@@ -664,14 +776,15 @@
       "source": "local"
     },
     {
-      "name": "writing-x-posts",
-      "description": "Create engaging X (Twitter) posts and threads that drive engagement and grow audience. Use this skill when asked to write X/Twitter content, create threads, craft viral tweets, or help with X engageme",
+      "name": "writing-linkedin-posts",
+      "description": "Create engaging, authentic LinkedIn posts like a Top Voice. Use this skill when asked to write LinkedIn content, social media posts for LinkedIn, professional thought leadership content, or help with ",
       "repo": "jamesgray007/hoai-course",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [
         "writing",
+        "linkedin",
         "posts"
       ],
       "stars": 8,
@@ -812,6 +925,22 @@
       "source": "local"
     },
     {
+      "name": "linkedin-announcement-generator",
+      "description": "This skill generates professional LinkedIn announcement text for intelligent textbooks by analyzing book metrics, chapter content, and learning resources to create engaging posts with key statistics, ",
+      "repo": "dmccreary/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "linkedin",
+        "announcement",
+        "generator"
+      ],
+      "stars": 4,
+      "install": "dmccreary/claude-skills",
+      "source": "local"
+    },
+    {
       "name": "book-marketing",
       "description": "Diagnose book marketing copy problems and generate platform-optimized blurbs, descriptions, taglines, and query pitches. Use when marketing copy feels weak, when descriptions aren't converting, or whe",
       "repo": "jwynia/the-kepler-testimonies",
@@ -859,21 +988,6 @@
       "name": "youtube-kr-subtitle",
       "description": "Download YouTube videos, extract English subtitles, translate them to Korean using Claude's own translation capabilities (with video context and web search), and burn Korean subtitles into the video. ",
       "repo": "Koomook/claude-skill-youtube-kr-subtitle",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "youtube",
-        "subtitle"
-      ],
-      "stars": 3,
-      "install": "Koomook/claude-skill-youtube-kr-subtitle",
-      "source": "local"
-    },
-    {
-      "name": "youtube-kr-subtitle",
-      "description": "Download YouTube videos, extract English subtitles, translate them to Korean using Claude's own translation capabilities (with video context and web search), and burn Korean subtitles into the video. ",
-      "repo": "Koomook/claude-skill-youtube-kr-subtitle",
       "path": ".claude/skills/youtube-kr-subtitle",
       "branch": "main",
       "category": "marketing",
@@ -883,6 +997,21 @@
       ],
       "stars": 3,
       "install": "Koomook/claude-skill-youtube-kr-subtitle/.claude/skills/youtube-kr-subtitle",
+      "source": "local"
+    },
+    {
+      "name": "youtube-kr-subtitle",
+      "description": "Download YouTube videos, extract English subtitles, translate them to Korean using Claude's own translation capabilities (with video context and web search), and burn Korean subtitles into the video. ",
+      "repo": "Koomook/claude-skill-youtube-kr-subtitle",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "youtube",
+        "subtitle"
+      ],
+      "stars": 3,
+      "install": "Koomook/claude-skill-youtube-kr-subtitle",
       "source": "local"
     },
     {
@@ -898,6 +1027,21 @@
       ],
       "stars": 2,
       "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics/.claude/skills/blog-planner",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "blog-planner",
+      "description": "Help plan engaging blog posts: research topics, create outlines, suggest headlines, and draft compelling introductions. Use when user asks to plan or write blog content.",
+      "repo": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "blog",
+        "planner"
+      ],
+      "stars": 2,
+      "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -958,22 +1102,6 @@
       ],
       "stars": 2,
       "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics/.claude/skills/study-notes-creator",
-      "source": "local"
-    },
-    {
-      "name": "study-notes-creator",
-      "description": "Creates well-organized study notes from any content. Use when the user asks for study notes, learning summaries, revision materials, or wants to understand a topic for studying.",
-      "repo": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "study",
-        "notes",
-        "creator"
-      ],
-      "stars": 2,
-      "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
       "source": "local"
     },
     {
@@ -1083,6 +1211,22 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "discord-send-message",
+      "description": "Send messages to Discord channels via the Discord API. Use this skill when the user wants to send text messages, notifications, or formatted content to a Discord channel.",
+      "repo": "Nice-Wolf-Studio/agent-discord-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "discord",
+        "send",
+        "message"
+      ],
+      "stars": 1,
+      "install": "Nice-Wolf-Studio/agent-discord-skills",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "event-detection-temporal-intelligence-expert",
       "description": "Expert in temporal event detection, spatio-temporal clustering (ST-DBSCAN), and photo context understanding. Use for detecting photo events, clustering by time/location, shareability prediction, place",
       "repo": "erichowens/some_claude_skills",
@@ -1179,17 +1323,19 @@
       "source": "local"
     },
     {
-      "name": "podcast",
-      "description": "Creates audio podcasts from text using browser text-to-speech. Use when user mentions podcast, audio conversation, dialogue, spoken content, voice narration, audio book, or text-to-speech generation. ",
-      "repo": "sgasser/claude-skill-podcast",
+      "name": "obsidian-refine-content",
+      "description": "Obsidian vault의 기존 파일 내용을 분석하고, 사용자 확인 후 템플릿에 맞춰 정리/보완합니다. 틀린 부분은 수정하되 최종 문서에는 언급하지 않고 깔끔하게 완성합니다.",
+      "repo": "jun9898/claude-skills",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [
-        "podcast"
+        "obsidian",
+        "refine",
+        "content"
       ],
       "stars": 1,
-      "install": "sgasser/claude-skill-podcast",
+      "install": "jun9898/claude-skills",
       "source": "local"
     },
     {
@@ -1204,6 +1350,20 @@
       ],
       "stars": 1,
       "install": "sgasser/claude-skill-podcast/podcast",
+      "source": "local"
+    },
+    {
+      "name": "podcast",
+      "description": "Creates audio podcasts from text using browser text-to-speech. Use when user mentions podcast, audio conversation, dialogue, spoken content, voice narration, audio book, or text-to-speech generation. ",
+      "repo": "sgasser/claude-skill-podcast",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "podcast"
+      ],
+      "stars": 1,
+      "install": "sgasser/claude-skill-podcast",
       "source": "local"
     },
     {
@@ -1283,6 +1443,21 @@
       "source": "local"
     },
     {
+      "name": "seo-mastery",
+      "description": "Comprehensive SEO optimization skill based on Google's official guidelines. Covers technical SEO, content SEO, structured data, Core Web Vitals, E-E-A-T strategies, practical code generation, and site",
+      "repo": "kpab/seo-mastery-agent-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "seo",
+        "mastery"
+      ],
+      "stars": 1,
+      "install": "kpab/seo-mastery-agent-skills",
+      "source": "local"
+    },
+    {
       "name": "seo-mastery-jp",
       "description": "包括的なSEO最適化スキル（日本語版）。Googleの公式ガイドラインに基づく技術SEO、コンテンツSEO、構造化データ、Core Web Vitals、E-E-A-T対策を網羅し、実践的なコード生成とサイト監査ワークフローを提供",
       "repo": "kpab/seo-mastery-agent-skills",
@@ -1295,21 +1470,6 @@
       ],
       "stars": 1,
       "install": "kpab/seo-mastery-agent-skills/.claude/skills/seo-mastery-jp",
-      "source": "local"
-    },
-    {
-      "name": "seo-mastery-jp",
-      "description": "包括的なSEO最適化スキル（日本語版）。Googleの公式ガイドラインに基づく技術SEO、コンテンツSEO、構造化データ、Core Web Vitals、E-E-A-T対策を網羅し、実践的なコード生成とサイト監査ワークフローを提供",
-      "repo": "kpab/seo-mastery-agent-skills",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "seo",
-        "mastery"
-      ],
-      "stars": 1,
-      "install": "kpab/seo-mastery-agent-skills",
       "source": "local"
     },
     {
@@ -1340,6 +1500,23 @@
       ],
       "stars": 1,
       "install": "az9713/ai-co-writing-claude-skills/.claude/skills/thought-leadership",
+      "source": "local"
+    },
+    {
+      "name": "using-ghost-admin-api",
+      "description": "Comprehensive draft and post access, creating, editing and analysis. When Claude needs to work with the Ghost Admin API to access content published on alt-counsel.com as Houfu's partner.",
+      "repo": "houfu/blog-alt-counsel",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "using",
+        "ghost",
+        "admin",
+        "api"
+      ],
+      "stars": 1,
+      "install": "houfu/blog-alt-counsel",
       "source": "local"
     },
     {
@@ -1392,6 +1569,30 @@
       "source": "local"
     },
     {
+      "name": "SKILL.md",
+      "description": "Create comprehensive marketing content for themes, plugins, and web products. Generates organized folder structure with product descriptions, feature highlights, social media posts, email campaigns, v",
+      "repo": "vapvarun/claude-backup",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vapvarun/claude-backup",
+      "source": "github.com/vapvarun/claude-backup"
+    },
+    {
+      "name": "a11y-annotation-generator",
+      "description": "Adds accessibility annotations (ARIA labels, roles, alt text) to make web content accessible. Use when user asks to \"add accessibility\", \"make accessible\", \"add aria labels\", \"wcag compliance\", or \"sc",
+      "repo": "Dexploarer/claudius-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/claudius-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "a11y-annotation-generator",
       "description": "Adds accessibility annotations (ARIA labels, roles, alt text) to make web content accessible. Use when user asks to \"add accessibility\", \"make accessible\", \"add aria labels\", \"wcag compliance\", or \"sc",
       "repo": "Dexploarer/claudius-skills",
@@ -1422,22 +1623,6 @@
       "name": "add-embedding-support",
       "description": "Add Qdrant embedding support to v3 WordPress components for RAG chatbot. Implements component-level content chunking for searchable, structured embeddings. Use when adding embedding to new or existing",
       "repo": "vendi-advertising/vendi-starter-theme",
-      "path": ".claude/skills/add-embedding-support",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "add",
-        "embedding",
-        "support"
-      ],
-      "stars": 0,
-      "install": "vendi-advertising/vendi-starter-theme/.claude/skills/add-embedding-support",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "add-embedding-support",
-      "description": "Add Qdrant embedding support to v3 WordPress components for RAG chatbot. Implements component-level content chunking for searchable, structured embeddings. Use when adding embedding to new or existing",
-      "repo": "vendi-advertising/vendi-starter-theme",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -1448,6 +1633,22 @@
       ],
       "stars": 0,
       "install": "vendi-advertising/vendi-starter-theme",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "add-embedding-support",
+      "description": "Add Qdrant embedding support to v3 WordPress components for RAG chatbot. Implements component-level content chunking for searchable, structured embeddings. Use when adding embedding to new or existing",
+      "repo": "vendi-advertising/vendi-starter-theme",
+      "path": ".claude/skills/add-embedding-support",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "add",
+        "embedding",
+        "support"
+      ],
+      "stars": 0,
+      "install": "vendi-advertising/vendi-starter-theme/.claude/skills/add-embedding-support",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1485,6 +1686,21 @@
       "stars": 0,
       "install": "insightfulaf/InsightfulAffiliate_NextGenCopyAI",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "annotate-talk",
+      "description": "Create annotated blog posts from technical talks with slides. Use when asked to convert a video presentation to a blog post, create written content from a talk, or annotate slides with transcript.",
+      "repo": "rajshah4/my-agent-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "annotate",
+        "talk"
+      ],
+      "stars": 0,
+      "install": "rajshah4/my-agent-skills",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "annotate-talk",
@@ -1661,24 +1877,24 @@
       "name": "bible-tools",
       "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
       "repo": "cevr/bible-tools",
-      "path": ".claude/skills/bible-tools",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "cevr/bible-tools/.claude/skills/bible-tools",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bible-tools",
-      "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
-      "repo": "cevr/bible-tools",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "cevr/bible-tools",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "bible-tools",
+      "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
+      "repo": "cevr/bible-tools",
+      "path": ".claude/skills/bible-tools",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "cevr/bible-tools/.claude/skills/bible-tools",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1724,6 +1940,18 @@
       "name": "blog-post-outline-generator",
       "description": "Generates structured blog post outlines with SEO-optimized headings, key points, and content flow. Use when planning blog content, creating editorial calendars, or structuring long-form articles. Supp",
       "repo": "fracabu/claude-skill-factory",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "fracabu/claude-skill-factory",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "blog-post-outline-generator",
+      "description": "Generates structured blog post outlines with SEO-optimized headings, key points, and content flow. Use when planning blog content, creating editorial calendars, or structuring long-form articles. Supp",
+      "repo": "fracabu/claude-skill-factory",
       "path": "generated_skills/blog-post-outline-generator",
       "branch": "main",
       "category": "marketing",
@@ -1731,6 +1959,21 @@
       "stars": 0,
       "install": "fracabu/claude-skill-factory/generated_skills/blog-post-outline-generator",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "blog-proofreading",
+      "description": "Check blog posts for flow, broken links, and formatting issues. Technical review for content ready to publish.Trigger phrases: \"proofread\", \"check links\", \"formatting\", \"technical review\", \"check form",
+      "repo": "fgrehm/fabiorehm.com",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "blog",
+        "proofreading"
+      ],
+      "stars": 0,
+      "install": "fgrehm/fabiorehm.com",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "blog-proofreading",
@@ -1820,6 +2063,36 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "business-glossary",
+      "description": "Comprehensive glossary of business and marketing terms used at realtor.com. Includes definitions for KPIs, campaign types, metrics, business concepts, analytical terminology, and tools. Use when you n",
+      "repo": "MoveRDC/claude-skills-marketing",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "business",
+        "glossary"
+      ],
+      "stars": 0,
+      "install": "MoveRDC/claude-skills-marketing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "campaign-analyzer",
+      "description": "Analyze processed D&D sessions to extract and summarize campaign knowledge including NPCs, locations, quests, items, and factions. Use when the user wants to review campaign content, find specific ent",
+      "repo": "Gambitnl/Video_chunking",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "campaign",
+        "analyzer"
+      ],
+      "stars": 0,
+      "install": "Gambitnl/Video_chunking",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "campaign-analyzer",
       "description": "Analyze processed D&D sessions to extract and summarize campaign knowledge including NPCs, locations, quests, items, and factions. Use when the user wants to review campaign content, find specific ent",
       "repo": "Gambitnl/Video_chunking",
@@ -1859,6 +2132,33 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "category-management",
+      "description": "Manage blog categories including CRUD operations, slug generation, and category assignment. Use when working with categories, category forms, slugs, or organizing blog content by category.",
+      "repo": "doitsu2014/my-blogs-rsbuild",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "doitsu2014/my-blogs-rsbuild",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "chapter-formatting",
+      "description": "Enforce consistent chapter formatting, numbering conventions, and structural alignment across the entire textbook. Use when creating new chapters, reviewing existing content for consistency, or establ",
+      "repo": "maneeshanif/Textbook_hackhathon",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "chapter",
+        "formatting"
+      ],
+      "stars": 0,
+      "install": "maneeshanif/Textbook_hackhathon",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "chapter-formatting",
       "description": "Enforce consistent chapter formatting, numbering conventions, and structural alignment across the entire textbook. Use when creating new chapters, reviewing existing content for consistency, or establ",
       "repo": "maneeshanif/Textbook_hackhathon",
@@ -1883,6 +2183,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/chart-js-config-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "check-images",
+      "description": "Analyze and validate images on web pages. Use when users ask to check image alt tags, verify image accessibility, find missing alt attributes, audit image SEO, or check image optimization. Detects mis",
+      "repo": "leobrival/serum-plugins-official",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "leobrival/serum-plugins-official",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -1981,6 +2293,21 @@
       "name": "content-editing",
       "description": "Comprehensive editing checklist and procedures covering grammar and style rules, fact-checking, consistency verification, and readability metrics. Use when reviewing drafts, ensuring quality, or prepa",
       "repo": "Azeem-2/final-docusarus",
+      "path": ".claude/skills/content-editing",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "content",
+        "editing"
+      ],
+      "stars": 0,
+      "install": "Azeem-2/final-docusarus/.claude/skills/content-editing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "content-editing",
+      "description": "Comprehensive editing checklist and procedures covering grammar and style rules, fact-checking, consistency verification, and readability metrics. Use when reviewing drafts, ensuring quality, or prepa",
+      "repo": "Azeem-2/final-docusarus",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -1993,19 +2320,16 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "content-editing",
-      "description": "Comprehensive editing checklist and procedures covering grammar and style rules, fact-checking, consistency verification, and readability metrics. Use when reviewing drafts, ensuring quality, or prepa",
-      "repo": "Azeem-2/final-docusarus",
-      "path": ".claude/skills/content-editing",
+      "name": "content-factory",
+      "description": "Generate SEO-optimized blog articles using the Content Factory pipeline",
+      "repo": "MLAI-AUS-Inc/roo",
+      "path": "",
       "branch": "main",
       "category": "marketing",
-      "tags": [
-        "content",
-        "editing"
-      ],
+      "tags": [],
       "stars": 0,
-      "install": "Azeem-2/final-docusarus/.claude/skills/content-editing",
-      "source": "SkillsMP Synced Skills"
+      "install": "MLAI-AUS-Inc/roo",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "content-generation",
@@ -2029,6 +2353,18 @@
       "tags": [],
       "stars": 0,
       "install": "uukuguy/claude-agent-framework",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "content-ingestion",
+      "description": "Ingest web content into Kurt. Map sitemaps to discover URLs, then fetch content selectively.",
+      "repo": "boringdata/kurt-demo",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "boringdata/kurt-demo",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2056,6 +2392,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "content-marketing-and-social-media-strategy",
+      "description": "6-month content calendar, multi-platform SNS strategy, and YouTube channel optimization. Use when creating content strategies or growing social media presence.",
+      "repo": "ShunsukeHayashi/Miyabi",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "ShunsukeHayashi/Miyabi",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "content-optimization",
       "description": "Optimize content for SEO, engagement, and conversion across multiple platforms. Analyzes content structure, readability, keyword density, and provides actionable recommendations for blog posts, landin",
       "repo": "kuse-ai/kuse-skills",
@@ -2065,6 +2413,18 @@
       "tags": [],
       "stars": 0,
       "install": "kuse-ai/kuse-skills/content-optimization",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "content-optimization",
+      "description": "Optimize content for SEO, engagement, and conversion across multiple platforms. Analyzes content structure, readability, keyword density, and provides actionable recommendations for blog posts, landin",
+      "repo": "kuse-ai/kuse-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "kuse-ai/kuse-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2083,24 +2443,24 @@
       "name": "content-pipeline",
       "description": "Create and manage content for blogs, social media, video, and newsletters. USE THIS SKILL when user says \"create blog post\", \"write social post\", \"content calendar\", \"repurpose content\", \"video script",
       "repo": "zircote/.github",
-      "path": ".github/skills/content-pipeline",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "zircote/.github/.github/skills/content-pipeline",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "content-pipeline",
-      "description": "Create and manage content for blogs, social media, video, and newsletters. USE THIS SKILL when user says \"create blog post\", \"write social post\", \"content calendar\", \"repurpose content\", \"video script",
-      "repo": "zircote/.github",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "zircote/.github",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "content-pipeline",
+      "description": "Create and manage content for blogs, social media, video, and newsletters. USE THIS SKILL when user says \"create blog post\", \"write social post\", \"content calendar\", \"repurpose content\", \"video script",
+      "repo": "zircote/.github",
+      "path": ".github/skills/content-pipeline",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "zircote/.github/.github/skills/content-pipeline",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2113,6 +2473,18 @@
       "tags": [],
       "stars": 0,
       "install": "miles990/claude-software-skills/domain-applications/content-platforms",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "content-platforms",
+      "description": "CMS, blogging platforms, and content management patterns",
+      "repo": "miles990/claude-software-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "miles990/claude-software-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2194,6 +2566,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "conversion-psychology",
+      "description": "Psychology of conversion for sponsored content. Includes emotional triggers, social proof, scarcity, urgency, and persuasion principles for video marketing. Auto-activates when discussing conversions,",
+      "repo": "mike-coulbourn/claude-vibes",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "mike-coulbourn/claude-vibes",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "copilot-agent-coordinator",
       "description": "Automatically assigns GitHub issues to appropriate GitHub Copilot agents based on issue type, labels, and content. Triggers on \"assign agent\", \"who should work on this\", \"route this issue\", or after c",
       "repo": "cstarlea/agent-skill-orchestrator",
@@ -2229,21 +2613,6 @@
       "name": "create-content",
       "description": "Create new pages or notes in the readme-pages project. Use when the user asks to create, add, or write a new page, note, article, or blog post. This skill handles file creation with proper frontmatter",
       "repo": "ThomasRohde/readme-pages",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "create",
-        "content"
-      ],
-      "stars": 0,
-      "install": "ThomasRohde/readme-pages",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "create-content",
-      "description": "Create new pages or notes in the readme-pages project. Use when the user asks to create, add, or write a new page, note, article, or blog post. This skill handles file creation with proper frontmatter",
-      "repo": "ThomasRohde/readme-pages",
       "path": ".claude/skills/create-content",
       "branch": "main",
       "category": "marketing",
@@ -2253,6 +2622,21 @@
       ],
       "stars": 0,
       "install": "ThomasRohde/readme-pages/.claude/skills/create-content",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "create-content",
+      "description": "Create new pages or notes in the readme-pages project. Use when the user asks to create, add, or write a new page, note, article, or blog post. This skill handles file creation with proper frontmatter",
+      "repo": "ThomasRohde/readme-pages",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "create",
+        "content"
+      ],
+      "stars": 0,
+      "install": "ThomasRohde/readme-pages",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2316,6 +2700,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "cva-healthcare-seo",
+      "description": "Healthcare SEO strategy for Brazilian medical and wellness professionals. Includes specialized keyword research (dermatology, psychology, nutrition), professional content templates, local SEO optimiza",
+      "repo": "joaopelegrino/hello-word-closure",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "joaopelegrino/hello-word-closure",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "d2-diagram-creator",
       "description": "D2 Diagram Creator - Auto-activating skill for Visual Content.Triggers on: d2 diagram creator, d2 diagram creatorPart of the Visual Content skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -2350,6 +2746,22 @@
       "stars": 0,
       "install": "haizhouyuan/codexreadpublic",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "direct-mail-strategist",
+      "description": "Expert direct mail marketing strategist for writing compelling copy, designing high-converting mail pieces, and developing measurement strategies. Use when planning direct mail campaigns, writing mail",
+      "repo": "ckorhonen/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "direct",
+        "mail",
+        "strategist"
+      ],
+      "stars": 0,
+      "install": "ckorhonen/claude-skills",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "direct-mail-strategist",
@@ -2392,6 +2804,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "diverse-content-gen",
+      "description": "Agent workflow for generating highly diverse creative content using Verbalized Sampling (VS) technique. Use when user requests multiple variations, brainstorming, creative ideas, or when standard prom",
+      "repo": "rfxlamia/flow",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "rfxlamia/flow",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "emacs-buffer",
       "description": "Use when manipulating Emacs buffers - provides elisp patterns for listing, switching, creating, killing, and working with buffer contents",
       "repo": "jingtaozf/emacs-claude-agent",
@@ -2404,6 +2828,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "emacs-buffer",
+      "description": "Use when manipulating Emacs buffers - provides elisp patterns for listing, switching, creating, killing, and working with buffer contents",
+      "repo": "jingtaozf/emacs-claude-agent",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jingtaozf/emacs-claude-agent",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "embed-content",
+      "description": "Use when you need to manage project embeddings - embed skills, agents, commands, and MCP tools for semantic discovery. Handles rate limiting, incremental updates, and status reporting. Do NOT use if y",
+      "repo": "jrc1883/popkit-claude",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "embed-content",
       "description": "Use when you need to manage project embeddings - embed skills, agents, commands, and MCP tools for semantic discovery. Handles rate limiting, incremental updates, and status reporting. Do NOT use if y",
       "repo": "jrc1883/popkit-claude",
@@ -2413,6 +2861,18 @@
       "tags": [],
       "stars": 0,
       "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-embed-content",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "entrance-animations",
+      "description": "Use when elements need to appear on screen - page loads, modals opening, items being added, content reveals, or any \"coming into view\" animation.",
+      "repo": "dylantarre/animation-principles",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "dylantarre/animation-principles",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2449,6 +2909,18 @@
       "tags": [],
       "stars": 0,
       "install": "nickytonline/advent-of-ai-2025/day-14/festival-marketing",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "festival-marketing",
+      "description": "Marketing and communications expertise from Elena covering last-minute requests, emergency protocols, channel selection, and timeline management for festival communications",
+      "repo": "nickytonline/advent-of-ai-2025",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "nickytonline/advent-of-ai-2025",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2567,6 +3039,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "google-search-console",
+      "description": "Google Search Console API 통합 스킬. 검색 성과 분석, URL 검사, 사이트맵 관리, 사이트 인증 지원. \"GSC\", \"서치콘솔\", \"검색 성과\", \"SEO 분석\" 키워드로 활성화.",
+      "repo": "jiunbae/agent-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jiunbae/agent-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "graphviz-dot-generator",
       "description": "Graphviz Dot Generator - Auto-activating skill for Visual Content.Triggers on: graphviz dot generator, graphviz dot generatorPart of the Visual Content skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -2576,6 +3060,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/graphviz-dot-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "grey-haven-creative-writing",
+      "description": "Professional writing assistance for blogs, research articles, fiction, essays, and marketing copy. Use when users want to write, edit, or improve any form of written content. Triggers: 'write a blog',",
+      "repo": "greyhaven-ai/claude-code-config",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "greyhaven-ai/claude-code-config",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2649,12 +3145,36 @@
       "name": "idea-synthesis",
       "description": "Looplia writer skill for generating content ideas with personalization.Reads user profile for context. Generates hooks, angles, and thought-provoking questions.Use after media-reviewer to transform an",
       "repo": "memorysaver/looplia-core",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "memorysaver/looplia-core",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "idea-synthesis",
+      "description": "Looplia writer skill for generating content ideas with personalization.Reads user profile for context. Generates hooks, angles, and thought-provoking questions.Use after media-reviewer to transform an",
+      "repo": "memorysaver/looplia-core",
       "path": "plugins/looplia-writer/skills/idea-synthesis",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "memorysaver/looplia-core/plugins/looplia-writer/skills/idea-synthesis",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "image-composer",
+      "description": "Creative direction for branded images - compose visual briefs for social media, lifestyle, marketing, and web imagery",
+      "repo": "chufeng-huang-sipaway/sip-videogen",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "chufeng-huang-sipaway/sip-videogen",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2667,6 +3187,18 @@
       "tags": [],
       "stars": 0,
       "install": "asmith7013/coachingPlatform/.claude/skills/question-types/implement-text-response-question",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "implement-text-response-question",
+      "description": "Create D3 questions focused on written explanations and reflections of static content (text, images, diagrams). For video-based questions, use implement-video-question instead.",
+      "repo": "asmith7013/coachingPlatform",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "asmith7013/coachingPlatform",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2703,6 +3235,18 @@
       "tags": [],
       "stars": 0,
       "install": "antvis/Infographic/.skills/infographic-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "infographic-creator",
+      "description": "Create beautiful infographics based on the given text content. Use this when users request creating infographics.",
+      "repo": "antvis/Infographic",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "antvis/Infographic",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2745,6 +3289,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "internationalizing-websites",
+      "description": "Adds multi-language support to Next.js websites with proper SEO configuration including hreflang tags, localized sitemaps, and language-specific content. Use when adding new languages, setting up i18n",
+      "repo": "littleben/awesomeAgentskills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "littleben/awesomeAgentskills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "jellyfin-library-scan",
+      "description": "Triggers and monitors Jellyfin library scans, shows scan progress, displays newly added content, and verifies library statistics. Use this after adding new media, when content doesn't appear in Jellyf",
+      "repo": "theflysurfer/claude-skills-marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "theflysurfer/claude-skills-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "json-prompting-for-nano-banana",
       "description": "Converts natural language descriptions into structured JSON schemas for Nano Banana Pro (Gemini 3 Pro Image). Use when creating marketing images, UI mockups, diagrams, data visualizations, or social m",
       "repo": "jawhnycooke/claude-plugins",
@@ -2754,6 +3322,18 @@
       "tags": [],
       "stars": 0,
       "install": "jawhnycooke/claude-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "kobo-translation",
+      "description": "Translation and localization guidelines for KoboToolbox content in French, Spanish, and Arabic. Use when translating KoboToolbox materials including: (1) Academy courses and educational content, (2) U",
+      "repo": "joshuaberetta/kobo-translation-test",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "joshuaberetta/kobo-translation-test",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2784,18 +3364,6 @@
       "name": "kobo-translation-es",
       "description": "Translation and localization guidelines for KoboToolbox content from English to Spanish. Use when translating KoboToolbox materials including: (1) Academy courses and educational content, (2) User int",
       "repo": "joshuaberetta/kobo-translation-test",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "joshuaberetta/kobo-translation-test",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kobo-translation-es",
-      "description": "Translation and localization guidelines for KoboToolbox content from English to Spanish. Use when translating KoboToolbox materials including: (1) Academy courses and educational content, (2) User int",
-      "repo": "joshuaberetta/kobo-translation-test",
       "path": "skills/kobo-translation-es",
       "branch": "main",
       "category": "marketing",
@@ -2814,6 +3382,18 @@
       "tags": [],
       "stars": 0,
       "install": "joshuaberetta/kobo-translation-test/skills/kobo-translation-fr",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "large-skill",
+      "description": "Large skill with extensive content and supplementary files",
+      "repo": "feiskyer/koder",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "feiskyer/koder",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2841,6 +3421,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "lighthouse-optimization",
+      "description": "Optimize web applications to achieve 95%+ Lighthouse scores across all categories. Use when optimizing performance, accessibility, best practices, or SEO for web applications.",
+      "repo": "wchklaus97/remind-me-pwa",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "wchklaus97/remind-me-pwa",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "linkedin-post-maker",
       "description": "Creates engaging LinkedIn posts on any topic with proper formatting, hooks, and CTAs. Use when the user asks to create, generate, or write a LinkedIn post, social media content for LinkedIn, or profes",
       "repo": "alijilani-dev/Claude",
@@ -2856,21 +3448,6 @@
       "name": "localization-urdu",
       "description": "Provide per-chapter Urdu translation toggle and manage translated content delivery. Use when translating chapters, caching translations, or implementing language toggles.",
       "repo": "maneeshanif/Textbook_hackhathon",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "localization",
-        "urdu"
-      ],
-      "stars": 0,
-      "install": "maneeshanif/Textbook_hackhathon",
-      "source": "local"
-    },
-    {
-      "name": "localization-urdu",
-      "description": "Provide per-chapter Urdu translation toggle and manage translated content delivery. Use when translating chapters, caching translations, or implementing language toggles.",
-      "repo": "maneeshanif/Textbook_hackhathon",
       "path": ".claude/skills/localization-urdu",
       "branch": "main",
       "category": "marketing",
@@ -2881,6 +3458,18 @@
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon/.claude/skills/localization-urdu",
       "source": "local"
+    },
+    {
+      "name": "make-note",
+      "description": "Create well-structured notes in Obsidian with intelligent tag suggestions. Use when the user asks to create a note, make a note, or save content to Obsidian. Scans existing vault for common tags and p",
+      "repo": "glnds/claude-config",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "glnds/claude-config",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "make-note",
@@ -2933,6 +3522,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "marketing-content-guidelines",
+      "description": "Social media content creation framework for MYCURE products. Auto-activates for social media posts, marketing campaigns, brand voice content, Instagram/LinkedIn/Twitter/Facebook posts. Includes Hook-B",
+      "repo": "mycurelabs/easyjoey.com",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "mycurelabs/easyjoey.com",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "marketing-experimentation",
       "description": "Systematic marketing experimentation process - discover concepts, generate hypotheses, coordinate multiple experiments, synthesize results, generate next-iteration ideas through rigorous validation cy",
       "repo": "tilmon-engineering/claude-skills",
@@ -2942,6 +3543,18 @@
       "tags": [],
       "stars": 0,
       "install": "tilmon-engineering/claude-skills/plugins/datapeeker/skills/marketing-experimentation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "marketing-experimentation",
+      "description": "Systematic marketing experimentation process - discover concepts, generate hypotheses, coordinate multiple experiments, synthesize results, generate next-iteration ideas through rigorous validation cy",
+      "repo": "tilmon-engineering/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "tilmon-engineering/claude-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2994,6 +3607,18 @@
       "tags": [],
       "stars": 0,
       "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-social-media",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "marketing-strategist",
+      "description": "Expert in product positioning, messaging, go-to-market strategy, and customer-focused communication",
+      "repo": "viamin/aidp",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "viamin/aidp",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3054,6 +3679,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "meme-generation",
+      "description": "Generate relevant memes using the memegen.link API. Use this skill when users request memes, want to add humor to content, or need visual aids for social media. Supports hundreds of popular meme templ",
+      "repo": "franklinbaldo/egregora",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "franklinbaldo/egregora",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "metadata",
       "description": "HTML metadata and head content. Use when writing or reviewing page head sections including SEO, social sharing, performance hints, and bot control.",
       "repo": "ProfPowell/project-template",
@@ -3068,6 +3705,20 @@
       "source": "local"
     },
     {
+      "name": "metadata",
+      "description": "HTML metadata and head content. Use when writing or reviewing page head sections including SEO, social sharing, performance hints, and bot control.",
+      "repo": "ProfPowell/project-template",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "metadata"
+      ],
+      "stars": 0,
+      "install": "ProfPowell/project-template",
+      "source": "local"
+    },
+    {
       "name": "mixmi-curation-model",
       "description": "Complete curation and streaming economics including playlists, radio, mixed content, revenue calculations, and the two-economy system (creation vs curation)",
       "repo": "djchikk/mixmi-alpha-fresh",
@@ -3077,6 +3728,18 @@
       "tags": [],
       "stars": 0,
       "install": "djchikk/mixmi-alpha-fresh/docs/archive/mixmi-curation-model",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mixmi-curation-model",
+      "description": "Complete curation and streaming economics including playlists, radio, mixed content, revenue calculations, and the two-economy system (creation vs curation)",
+      "repo": "djchikk/mixmi-alpha-fresh",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "djchikk/mixmi-alpha-fresh",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3121,6 +3784,18 @@
       "name": "nb-notebook-manager",
       "description": "Searches, retrieves, and manages notes and bookmarks using the nb command-line tool. Primary use case is finding and retrieving existing content, with secondary support for creating new items and orga",
       "repo": "benswift/.dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "benswift/.dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "nb-notebook-manager",
+      "description": "Searches, retrieves, and manages notes and bookmarks using the nb command-line tool. Primary use case is finding and retrieving existing content, with secondary support for creating new items and orga",
+      "repo": "benswift/.dotfiles",
       "path": "claude/skills/nb-notebook-manager",
       "branch": "main",
       "category": "marketing",
@@ -3128,21 +3803,6 @@
       "stars": 0,
       "install": "benswift/.dotfiles/claude/skills/nb-notebook-manager",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nestmind-marketing",
-      "description": "Marketing strategy and copywriting guidance for NestMind, a privacy-first iOS knowledge management app. Use when creating website copy, landing pages, App Store descriptions, marketing materials, soci",
-      "repo": "nestmind-app/docs",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "nestmind",
-        "marketing"
-      ],
-      "stars": 0,
-      "install": "nestmind-app/docs",
-      "source": "local"
     },
     {
       "name": "nestmind-marketing",
@@ -3160,6 +3820,21 @@
       "source": "local"
     },
     {
+      "name": "nestmind-marketing",
+      "description": "Marketing strategy and copywriting guidance for NestMind, a privacy-first iOS knowledge management app. Use when creating website copy, landing pages, App Store descriptions, marketing materials, soci",
+      "repo": "nestmind-app/docs",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "nestmind",
+        "marketing"
+      ],
+      "stars": 0,
+      "install": "nestmind-app/docs",
+      "source": "local"
+    },
+    {
       "name": "network-diagram-generator",
       "description": "Network Diagram Generator - Auto-activating skill for Visual Content.Triggers on: network diagram generator, network diagram generatorPart of the Visual Content skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -3169,6 +3844,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/network-diagram-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "nextjs-metadata",
+      "description": "Next.js Metadata API for SEO, OpenGraph tags, structured data, and social sharing. Use when implementing metadata, SEO, or social media previews.",
+      "repo": "jovermier/cc-stack-marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jovermier/cc-stack-marketplace",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3199,6 +3886,18 @@
       "source": "local"
     },
     {
+      "name": "obsi-moc-manager",
+      "description": "Standards for recursively managing Maps of Content (MOCs) across a directory tree.",
+      "repo": "lastdays03/claude_skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "lastdays03/claude_skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "off-page-seo",
       "description": "站外 SEO 分析和策略专家。分析外链质量和数量、竞争对手外链策略、品牌提及、社交信号等。提供 9 种外链建设策略（客座博客、断链建设、摩天大楼技术、HARO、行业目录、品牌提及、图片外链、社交信号、外链跟踪）。包含外链质量评估标准、跟踪管理系统和可执行的行动计划。",
       "repo": "huifer/claude-code-seo",
@@ -3214,12 +3913,36 @@
       "name": "optimizing-seo",
       "description": "オーガニック検索流入を高めるためのSEO施策を設計・実行します。キーワード戦略、オンページ最適化、構造化データ、内部リンク計画、テクニカルSEOを提供します。検索順位向上、サイトクローラビリティ改善が必要な場合に使用してください。",
       "repo": "sekka/dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "sekka/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "optimizing-seo",
+      "description": "オーガニック検索流入を高めるためのSEO施策を設計・実行します。キーワード戦略、オンページ最適化、構造化データ、内部リンク計画、テクニカルSEOを提供します。検索順位向上、サイトクローラビリティ改善が必要な場合に使用してください。",
+      "repo": "sekka/dotfiles",
       "path": "home/.claude/skills/optimizing-seo",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "sekka/dotfiles/home/.claude/skills/optimizing-seo",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "org",
+      "description": "Org-mode file manipulation using Emacs batch mode. USE WHEN you need to programmatically read, parse, or modify org-mode files (.org) for TODOs, notes, or other structured content.",
+      "repo": "vdemeester/home",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vdemeester/home",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3233,6 +3956,21 @@
       "stars": 0,
       "install": "djacobsmeyer/hold-the-line",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "page-structure",
+      "description": "Generates section list for a page. Deterministic mapping. Does not write content.",
+      "repo": "Soborbo/claudeskills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "page",
+        "structure"
+      ],
+      "stars": 0,
+      "install": "Soborbo/claudeskills",
+      "source": "local"
     },
     {
       "name": "page-structure",
@@ -3302,6 +4040,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "pedagogy-quality-gate",
+      "description": "Reviews educational quality and learning effectiveness of textbook content.",
+      "repo": "hamzashakoor119/Physical-AI-Robotics-Book",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "hamzashakoor119/Physical-AI-Robotics-Book",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "performing-social-engineering",
+      "description": "Conduct phishing campaigns, credential harvesting, pretexting, and social engineering attacks using tools like Gophish, SET, and custom techniques. Use when performing social engineering assessments o",
+      "repo": "trilwu/secskills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "trilwu/secskills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "personalization-logic",
       "description": "Use when defining dynamic content rules, tokens, and conditional offers inside nurture programs.",
       "repo": "gtmagents/gtm-agents",
@@ -3332,21 +4094,6 @@
       "name": "platform-mechanics",
       "description": "Convert verified algorithmic research into structured, machine-readable frameworks describing how social media platforms rank, reward, and penalize content. Provides factual, updatable platform rules ",
       "repo": "alavida-ai/noncitizen",
-      "path": ".claude/skills/platform-mechanics",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "platform",
-        "mechanics"
-      ],
-      "stars": 0,
-      "install": "alavida-ai/noncitizen/.claude/skills/platform-mechanics",
-      "source": "local"
-    },
-    {
-      "name": "platform-mechanics",
-      "description": "Convert verified algorithmic research into structured, machine-readable frameworks describing how social media platforms rank, reward, and penalize content. Provides factual, updatable platform rules ",
-      "repo": "alavida-ai/noncitizen",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -3356,6 +4103,21 @@
       ],
       "stars": 0,
       "install": "alavida-ai/noncitizen",
+      "source": "local"
+    },
+    {
+      "name": "platform-mechanics",
+      "description": "Convert verified algorithmic research into structured, machine-readable frameworks describing how social media platforms rank, reward, and penalize content. Provides factual, updatable platform rules ",
+      "repo": "alavida-ai/noncitizen",
+      "path": ".claude/skills/platform-mechanics",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "platform",
+        "mechanics"
+      ],
+      "stars": 0,
+      "install": "alavida-ai/noncitizen/.claude/skills/platform-mechanics",
       "source": "local"
     },
     {
@@ -3369,6 +4131,22 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/plotly-chart-generator",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "podcast-asset-generator",
+      "description": "\"Automated generation of promotional assets for podcast episodes from transcripts. Use when the user provides a podcast episode transcript (markdown file) and needs: (1) a one-paragraph episode summar",
+      "repo": "noahrasheta/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "podcast",
+        "asset",
+        "generator"
+      ],
+      "stars": 0,
+      "install": "noahrasheta/claude-skills",
+      "source": "local"
     },
     {
       "name": "presentation-slide-outliner",
@@ -3422,6 +4200,21 @@
       "name": "queue-management",
       "description": "Manage the content processing queue for batch content consumption. Use when user mentions queue, batch later, save for later, process queue, or wants to add multiple items for later analysis.",
       "repo": "az9713/cerebro",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "queue",
+        "management"
+      ],
+      "stars": 0,
+      "install": "az9713/cerebro",
+      "source": "local"
+    },
+    {
+      "name": "queue-management",
+      "description": "Manage the content processing queue for batch content consumption. Use when user mentions queue, batch later, save for later, process queue, or wants to add multiple items for later analysis.",
+      "repo": "az9713/cerebro",
       "path": ".claude/skills/queue-management",
       "branch": "main",
       "category": "marketing",
@@ -3455,6 +4248,30 @@
       "tags": [],
       "stars": 0,
       "install": "promobase/openpromo",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "reedom-ghcreate-draft-pr",
+      "description": "Prepare complete PR content ready for creation via reedom-gh:pr-maker agent.",
+      "repo": "reedom/claude-code-commands",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "reedom/claude-code-commands",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "regulatory-review-checklist",
+      "description": "Step-by-step checklist for routing healthcare marketing assets through legal, medical, and privacy approvals.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3518,6 +4335,18 @@
       "stars": 0,
       "install": "Andrejones92/canifi-life-os/skills/screaming-frog/SKILL.md",
       "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
+      "name": "search-content",
+      "description": "Search and navigate knowledge base using README.md indexes, pattern matching, and directory tree analysis. Use when user searches for files, topics, mentions \"where is\", \"find\", \"search for\", or asks ",
+      "repo": "eternnoir/claude-tool",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "eternnoir/claude-tool",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "search-content",
@@ -3599,6 +4428,22 @@
       "source": "local"
     },
     {
+      "name": "seo-competitor-intelligence",
+      "description": "Reverse-engineer top-ranking competitor pages to identify content gaps and create \"beat the competition\" briefs. Analyzes content structure, schema markup, E-E-A-T signals, local SEO, and generates ac",
+      "repo": "jhcynamon1/NextStepTherapySite-v2",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "seo",
+        "competitor",
+        "intelligence"
+      ],
+      "stars": 0,
+      "install": "jhcynamon1/NextStepTherapySite-v2",
+      "source": "local"
+    },
+    {
       "name": "seo-content",
       "description": "Creates search-optimized articles that rank well and read naturally for humans. This skill should be used when writing blog posts, pillar content, guides, or any content where organic search traffic i",
       "repo": "Salesably/salesably-marketplace",
@@ -3620,6 +4465,18 @@
       "tags": [],
       "stars": 0,
       "install": "Manuelvillarvieites/energy-company/.claude/skills/seo-content-optimization",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "seo-content-optimization",
+      "description": "Optimize page content for target keywords. Use per page after building to integrate keywords naturally into headings, text, and i18n files. Reads docs/seo-analysis.md for keyword targets. Triggers on ",
+      "repo": "Manuelvillarvieites/energy-company",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Manuelvillarvieites/energy-company",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3665,6 +4522,21 @@
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/seo-guidelines",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "seo-metadata",
+      "description": "Dynamic metadata generation per locale with canonical URLs, Open Graph tags, Twitter cards, and hreflang alternates. Use when implementing page metadata, setting up SEO for multilingual sites, or conf",
+      "repo": "canatufkansu/claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "seo",
+        "metadata"
+      ],
+      "stars": 0,
+      "install": "canatufkansu/claude-skills",
+      "source": "local"
     },
     {
       "name": "seo-metadata",
@@ -3724,6 +4596,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "seo-specialist",
+      "description": "Expert SEO strategist specializing in technical SEO, content optimization, and search engine rankings. Masters both on-page and off-page optimization, structured data implementation, and performance m",
+      "repo": "zenobi-us/dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "zenobi-us/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "seongjin-nano-banana",
+      "description": "Generate PPT slide images from JSON slide outlines using Gemini Image Generation API (gemini-3-pro-image-preview). Use when creating presentation slides from JSON, generating slide images in batch, or",
+      "repo": "tjdwls101010/Seongjin_Obsidian-ClaudeCode",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "tjdwls101010/Seongjin_Obsidian-ClaudeCode",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "site-crawler",
       "description": "Crawl and extract content from websites",
       "repo": "mindmorass/reflex",
@@ -3733,6 +4629,18 @@
       "tags": [],
       "stars": 0,
       "install": "mindmorass/reflex/plugins/reflex/skills/site-crawler",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "site-crawler",
+      "description": "Crawl and extract content from websites",
+      "repo": "mindmorass/reflex",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "mindmorass/reflex",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3754,24 +4662,24 @@
       "name": "smart-content-creator",
       "description": "Transform reading notes and insights into polished, authentic content (blogs, social media, visualizations) that preserves your unique voice and avoids AI-style writing. Creates content that sounds un",
       "repo": "ginobefun/smart-content-creator-skill",
-      "path": "",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "ginobefun/smart-content-creator-skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "smart-content-creator",
-      "description": "Transform reading notes and insights into polished, authentic content (blogs, social media, visualizations) that preserves your unique voice and avoids AI-style writing. Creates content that sounds un",
-      "repo": "ginobefun/smart-content-creator-skill",
       "path": "src/smart-content-creator",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "ginobefun/smart-content-creator-skill/src/smart-content-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "smart-content-creator",
+      "description": "Transform reading notes and insights into polished, authentic content (blogs, social media, visualizations) that preserves your unique voice and avoids AI-style writing. Creates content that sounds un",
+      "repo": "ginobefun/smart-content-creator-skill",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "ginobefun/smart-content-creator-skill",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3802,12 +4710,36 @@
       "name": "social-media-manager",
       "description": "Create social media content strategies and engaging posts",
       "repo": "tatat/agents-playground",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "tatat/agents-playground",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "social-media-manager",
+      "description": "Create social media content strategies and engaging posts",
+      "repo": "tatat/agents-playground",
       "path": "skills/social-media-manager",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "tatat/agents-playground/skills/social-media-manager",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "social-media-strategy-advisor",
+      "description": "Social media expert for platform strategies, content creation, engagement, and growth tactics",
+      "repo": "sandraschi/advanced-memory-mcp",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "sandraschi/advanced-memory-mcp",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3862,6 +4794,18 @@
       "name": "svg-icon-generator",
       "description": "Svg Icon Generator - Auto-activating skill for Visual Content.Triggers on: svg icon generator, svg icon generatorPart of the Visual Content skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "svg-icon-generator",
+      "description": "Svg Icon Generator - Auto-activating skill for Visual Content.Triggers on: svg icon generator, svg icon generatorPart of the Visual Content skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/18-visual-content/svg-icon-generator",
       "branch": "main",
       "category": "marketing",
@@ -3883,6 +4827,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "tacosdedatos-seo",
+      "description": "Mexico-first Spanish SEO for technical content. Use when: (1) Writing or optimizingSpanish technical content, (2) Choosing between regional Spanish variants,(3) Deciding when to use English vs Spanish",
+      "repo": "chekos/bns-marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "chekos/bns-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "td-attribution",
       "description": "Marketing attribution modeling and analysis",
       "repo": "teradata-labs/claude-cookbooks",
@@ -3892,6 +4848,18 @@
       "tags": [],
       "stars": 0,
       "install": "teradata-labs/claude-cookbooks/skills/analytics/td-attribution",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "td-attribution",
+      "description": "Marketing attribution modeling and analysis",
+      "repo": "teradata-labs/claude-cookbooks",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "teradata-labs/claude-cookbooks",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3964,6 +4932,18 @@
       "name": "thymer-capture",
       "description": "Capture notes, logs, and journal entries to Thymer. Use when user says \"note this\", \"log this\", \"capture this\", \"add to journal\", \"inbox this\", \"save this conversation\", or wants to save content to th",
       "repo": "riclib/thymer-inbox",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "riclib/thymer-inbox",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "thymer-capture",
+      "description": "Capture notes, logs, and journal entries to Thymer. Use when user says \"note this\", \"log this\", \"capture this\", \"add to journal\", \"inbox this\", \"save this conversation\", or wants to save content to th",
+      "repo": "riclib/thymer-inbox",
       "path": "skill",
       "branch": "main",
       "category": "marketing",
@@ -3973,15 +4953,15 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "thymer-capture",
-      "description": "Capture notes, logs, and journal entries to Thymer. Use when user says \"note this\", \"log this\", \"capture this\", \"add to journal\", \"inbox this\", \"save this conversation\", or wants to save content to th",
-      "repo": "riclib/thymer-inbox",
+      "name": "translate-article",
+      "description": "Translate MDX articles between English and Japanese for global engineers. Use when the user says \"translate this article\", \"convert to Japanese/English\", or asks to localize content in `src/content/do",
+      "repo": "nozomi-koborinai/koborin-ai",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
-      "install": "riclib/thymer-inbox",
+      "install": "nozomi-koborinai/koborin-ai",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4036,21 +5016,6 @@
       "name": "video-processing",
       "description": "Use when processing YouTube videos, extracting subtitles, parsing VTT files, analyzing video content, generating timestamps, or creating video summaries",
       "repo": "aixier/n8n-automation-hub",
-      "path": ".claude/skills/video-processing",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "video",
-        "processing"
-      ],
-      "stars": 0,
-      "install": "aixier/n8n-automation-hub/.claude/skills/video-processing",
-      "source": "local"
-    },
-    {
-      "name": "video-processing",
-      "description": "Use when processing YouTube videos, extracting subtitles, parsing VTT files, analyzing video content, generating timestamps, or creating video summaries",
-      "repo": "aixier/n8n-automation-hub",
       "path": "",
       "branch": "main",
       "category": "marketing",
@@ -4060,6 +5025,21 @@
       ],
       "stars": 0,
       "install": "aixier/n8n-automation-hub",
+      "source": "local"
+    },
+    {
+      "name": "video-processing",
+      "description": "Use when processing YouTube videos, extracting subtitles, parsing VTT files, analyzing video content, generating timestamps, or creating video summaries",
+      "repo": "aixier/n8n-automation-hub",
+      "path": ".claude/skills/video-processing",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "video",
+        "processing"
+      ],
+      "stars": 0,
+      "install": "aixier/n8n-automation-hub/.claude/skills/video-processing",
       "source": "local"
     },
     {
@@ -4080,24 +5060,24 @@
       "name": "web-load2",
       "description": "Loads and extracts all content from web URLs. Use when the user asks to fetch, load, or retrieve content from a website or URL.",
       "repo": "workromancer/my-claude-settings",
-      "path": "skills/web-load2",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "workromancer/my-claude-settings/skills/web-load2",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "web-load2",
-      "description": "Loads and extracts all content from web URLs. Use when the user asks to fetch, load, or retrieve content from a website or URL.",
-      "repo": "workromancer/my-claude-settings",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "workromancer/my-claude-settings",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "web-load2",
+      "description": "Loads and extracts all content from web URLs. Use when the user asks to fetch, load, or retrieve content from a website or URL.",
+      "repo": "workromancer/my-claude-settings",
+      "path": "skills/web-load2",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "workromancer/my-claude-settings/skills/web-load2",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4128,24 +5108,24 @@
       "name": "website-crawler",
       "description": "Crawl and ingest websites into whorl. Use when scraping a personal site, blog, or extracting web content for the knowledge base.",
       "repo": "Uzay-G/whorl",
-      "path": "skills/website-crawler",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "Uzay-G/whorl/skills/website-crawler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "website-crawler",
-      "description": "Crawl and ingest websites into whorl. Use when scraping a personal site, blog, or extracting web content for the knowledge base.",
-      "repo": "Uzay-G/whorl",
       "path": "",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
       "install": "Uzay-G/whorl",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "website-crawler",
+      "description": "Crawl and ingest websites into whorl. Use when scraping a personal site, blog, or extracting web content for the knowledge base.",
+      "repo": "Uzay-G/whorl",
+      "path": "skills/website-crawler",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Uzay-G/whorl/skills/website-crawler",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4164,6 +5144,21 @@
       "source": "local"
     },
     {
+      "name": "wordpress-admin",
+      "description": "Full WordPress site management - create pages/posts, configure SEO (Yoast), upload media, manage settings. Use when creating content, setting up SEO, or managing any WordPress site.",
+      "repo": "CrazySwami/wordpress-dev-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "wordpress",
+        "admin"
+      ],
+      "stars": 0,
+      "install": "CrazySwami/wordpress-dev-skills",
+      "source": "local"
+    },
+    {
       "name": "world-bible-validator",
       "description": "Validate TraitorSim content for World Bible lore consistency, detect forbidden real-world brand leakage, and ensure in-universe brand usage. Use when checking personas, narratives, game content, or wh",
       "repo": "rickoslyder/TraitorSim",
@@ -4177,6 +5172,22 @@
       ],
       "stars": 0,
       "install": "rickoslyder/TraitorSim/.claude/skills/world-bible-validator",
+      "source": "local"
+    },
+    {
+      "name": "world-bible-validator",
+      "description": "Validate TraitorSim content for World Bible lore consistency, detect forbidden real-world brand leakage, and ensure in-universe brand usage. Use when checking personas, narratives, game content, or wh",
+      "repo": "rickoslyder/TraitorSim",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [
+        "world",
+        "bible",
+        "validator"
+      ],
+      "stars": 0,
+      "install": "rickoslyder/TraitorSim",
       "source": "local"
     },
     {
@@ -4224,6 +5235,18 @@
       "stars": 0,
       "install": "proclama2022/dobusinessinitaly",
       "source": "local"
+    },
+    {
+      "name": "youtube-video-hook",
+      "description": "Skill for creating optimized YouTube video opening hooks (first 5-30 seconds) that maximize viewer retention and watch time. Use when planning video scripts, reviewing video openings, or optimizing ex",
+      "repo": "kenneth-liao/ai-launchpad-marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "kenneth-liao/ai-launchpad-marketplace",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "youtube-video-hook",

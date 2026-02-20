@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-19T01:49:26.044802Z",
+  "updated_at": "2026-02-20T01:45:52.873482Z",
   "categories": [
     {
       "name": "adb-meta-automation",
@@ -30,6 +30,10 @@
       "count": 1
     },
     {
+      "name": "api",
+      "count": 1
+    },
+    {
       "name": "applied",
       "count": 3
     },
@@ -46,10 +50,6 @@
       "count": 1
     },
     {
-      "name": "business-productivity",
-      "count": 1
-    },
-    {
       "name": "c-level",
       "count": 2
     },
@@ -63,15 +63,23 @@
     },
     {
       "name": "data",
-      "count": 9228
+      "count": 32964
+    },
+    {
+      "name": "data-access",
+      "count": 1
     },
     {
       "name": "design",
-      "count": 4057
+      "count": 3153
+    },
+    {
+      "name": "design-principles",
+      "count": 1
     },
     {
       "name": "development",
-      "count": 12320
+      "count": 10847
     },
     {
       "name": "development-code",
@@ -83,7 +91,7 @@
     },
     {
       "name": "devops",
-      "count": 2344
+      "count": 2456
     },
     {
       "name": "docs",
@@ -95,7 +103,7 @@
     },
     {
       "name": "documents",
-      "count": 1604
+      "count": 1653
     },
     {
       "name": "domains",
@@ -147,7 +155,7 @@
     },
     {
       "name": "marketing",
-      "count": 310
+      "count": 388
     },
     {
       "name": "meta",
@@ -159,7 +167,7 @@
     },
     {
       "name": "other",
-      "count": 58538
+      "count": 37053
     },
     {
       "name": "performance",
@@ -175,11 +183,11 @@
     },
     {
       "name": "product",
-      "count": 569
+      "count": 855
     },
     {
       "name": "productivity",
-      "count": 910
+      "count": 880
     },
     {
       "name": "programming-languages",
@@ -199,7 +207,7 @@
     },
     {
       "name": "security",
-      "count": 497
+      "count": 519
     },
     {
       "name": "security-compliance",
@@ -247,11 +255,11 @@
     },
     {
       "name": "testing",
-      "count": 3219
+      "count": 2870
     },
     {
       "name": "testing-methodologies",
-      "count": 1
+      "count": 2
     },
     {
       "name": "travel",
