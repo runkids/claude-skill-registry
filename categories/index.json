@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-22T01:48:46.997976Z",
+  "updated_at": "2026-02-22T07:51:44.697737Z",
   "categories": [
     {
       "name": "adb-meta-automation",
@@ -79,7 +79,7 @@
     },
     {
       "name": "development",
-      "count": 10847
+      "count": 10841
     },
     {
       "name": "development-code",
@@ -167,7 +167,7 @@
     },
     {
       "name": "other",
-      "count": 37151
+      "count": 42375
     },
     {
       "name": "performance",
