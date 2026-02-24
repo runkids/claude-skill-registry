@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-02-23T01:49:56.404700Z",
-  "total_skills": 173339,
-  "raw_skill_count": 173339,
-  "dedup_skill_count": 99106,
+  "updated_at": "2026-02-24T01:48:06.379188Z",
+  "total_skills": 173342,
+  "raw_skill_count": 173342,
+  "dedup_skill_count": 99205,
   "categories": 73,
   "featured_count": 100,
-  "index_size_bytes": 34388610,
-  "index_size_gzip_bytes": 10309138
+  "index_size_bytes": 34389086,
+  "index_size_gzip_bytes": 10309256
 }
