@@ -1,7 +1,7 @@
 {
   "category": "document-processing",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.968925Z",
+  "updated_at": "2026-02-24T07:25:39.111291Z",
   "skills": [
     {
       "name": "xlsx",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 0,
       "install": "szweibel/claude-skills/xlsx/SKILL.md",
-      "source": "github.com/szweibel/claude-skills"
+      "source": "github.com/szweibel/claude-skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

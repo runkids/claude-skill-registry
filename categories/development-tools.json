@@ -1,7 +1,7 @@
 {
   "category": "development-tools",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.968549Z",
+  "updated_at": "2026-02-24T07:25:39.110818Z",
   "skills": [
     {
       "name": "claude-agent-ts-sdk",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 0,
       "install": "szweibel/claude-skills/claude-agent-ts-sdk/SKILL.md.backup",
-      "source": "github.com/szweibel/claude-skills"
+      "source": "github.com/szweibel/claude-skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

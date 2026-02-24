@@ -1,7 +1,7 @@
 {
   "category": "context-management",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.967969Z",
+  "updated_at": "2026-02-24T07:25:39.110226Z",
   "skills": [
     {
       "name": "claude-code-tips",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 1,
       "install": "januff/claude-code-tips/Claude Code Tips/2025-12-26-handoff-skill.md",
-      "source": "github.com/januff/claude-code-tips"
+      "source": "github.com/januff/claude-code-tips",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

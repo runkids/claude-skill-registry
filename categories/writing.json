@@ -1,7 +1,7 @@
 {
   "category": "writing",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.967198Z",
+  "updated_at": "2026-02-24T07:25:39.109446Z",
   "skills": [
     {
       "name": "blog-post-writer",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 6,
       "install": "eddiebe147/claude-settings/skills/blog-post-writer/SKILL.md",
-      "source": "github.com/eddiebe147/claude-settings"
+      "source": "github.com/eddiebe147/claude-settings",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

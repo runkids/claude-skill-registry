@@ -1,7 +1,7 @@
 {
   "category": "meta",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.967390Z",
+  "updated_at": "2026-02-24T07:25:39.109615Z",
   "skills": [
     {
       "name": "skill-creator",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 6,
       "install": "enuno/claude-command-and-control/.claude/skills/skill-creator/SKILL.md",
-      "source": "github.com/enuno/claude-command-and-control"
+      "source": "github.com/enuno/claude-command-and-control",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

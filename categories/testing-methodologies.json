@@ -1,7 +1,7 @@
 {
   "category": "testing-methodologies",
   "count": 2,
-  "updated_at": "2026-02-24T01:47:02.963182Z",
+  "updated_at": "2026-02-24T07:25:39.105357Z",
   "skills": [
     {
       "name": "api-testing-patterns",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 140,
       "install": "proffesor-for-testing/agentic-qe/.claude/skills/api-testing-patterns/SKILL.md",
-      "source": "github.com/proffesor-for-testing/agentic-qe"
+      "source": "github.com/proffesor-for-testing/agentic-qe",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "quality-metrics-proffesor-for-testing-agentic-",
@@ -25,7 +30,12 @@
       "tags": [],
       "stars": 140,
       "install": "proffesor-for-testing/agentic-qe/.claude/skills/quality-metrics/SKILL.md",
-      "source": "github.com/proffesor-for-testing/agentic-qe"
+      "source": "github.com/proffesor-for-testing/agentic-qe",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "category": "test",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.968242Z",
+  "updated_at": "2026-02-24T07:25:39.110522Z",
   "skills": [
     {
       "name": "test-skill",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 1,
       "install": "mickdarling/dollhouse-portfolio/skills/skill.md",
-      "source": "github.com/mickdarling/dollhouse-portfolio"
+      "source": "github.com/mickdarling/dollhouse-portfolio",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

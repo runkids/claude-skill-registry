@@ -1,7 +1,7 @@
 {
   "category": "performance",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.968641Z",
+  "updated_at": "2026-02-24T07:25:39.110990Z",
   "skills": [
     {
       "name": "database-optimizer",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 0,
       "install": "Masked-Kunsiquat/crm-orbit2/.codex/skills/database-optimizer/SKILL.md",
-      "source": "github.com/Masked-Kunsiquat/crm-orbit2"
+      "source": "github.com/Masked-Kunsiquat/crm-orbit2",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "category": "bash",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.968151Z",
+  "updated_at": "2026-02-24T07:25:39.110424Z",
   "skills": [
     {
       "name": "state-directory-manager",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 1,
       "install": "vamseeachanta/workspace-hub/.claude/skills/bash/state-directory-manager/SKILL.md",
-      "source": "github.com/vamseeachanta/workspace-hub"
+      "source": "github.com/vamseeachanta/workspace-hub",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

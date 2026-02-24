@@ -1,7 +1,7 @@
 {
   "category": "marketing",
   "count": 388,
-  "updated_at": "2026-02-24T01:47:02.957859Z",
+  "updated_at": "2026-02-24T07:25:39.098979Z",
   "skills": [
     {
       "name": "social-media",
@@ -16,7 +16,12 @@
       ],
       "stars": 3797,
       "install": "EpicenterHQ/epicenter/skills/social-media",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "baoyu-slide-deck-jimliu-baoyu-skills",
@@ -28,7 +33,12 @@
       "tags": [],
       "stars": 2371,
       "install": "JimLiu/baoyu-skills/skills/baoyu-slide-deck/SKILL.md",
-      "source": "github.com/JimLiu/baoyu-skills"
+      "source": "github.com/JimLiu/baoyu-skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "firecrawl-scrape",
@@ -43,7 +53,12 @@
       ],
       "stars": 1318,
       "install": "parcadei/Continuous-Claude-v2/.claude/skills/firecrawl-scrape",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "card-news-generator",
@@ -59,7 +74,12 @@
       ],
       "stars": 575,
       "install": "bear2u/my-skills",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "card-news-generator",
@@ -75,7 +95,12 @@
       ],
       "stars": 575,
       "install": "bear2u/my-skills/skills/card-news-generator",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "card-news-generator-v2",
@@ -91,7 +116,12 @@
       ],
       "stars": 575,
       "install": "bear2u/my-skills/.claude/skills/card-news-generator-v2",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "brave-search",
@@ -106,7 +136,12 @@
       ],
       "stars": 430,
       "install": "steipete/clawdis",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "reddit-fetch",
@@ -121,7 +156,12 @@
       ],
       "stars": 374,
       "install": "ykdojo/claude-code-tips/skills/reddit-fetch",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "reddit-fetch",
@@ -136,7 +176,12 @@
       ],
       "stars": 374,
       "install": "ykdojo/claude-code-tips",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "article-extractor",
@@ -151,7 +196,12 @@
       ],
       "stars": 91,
       "install": "michalparkola/tapestry-skills-for-claude-code/article-extractor",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "ship-learn-next",
@@ -167,7 +217,12 @@
       ],
       "stars": 91,
       "install": "michalparkola/tapestry-skills-for-claude-code/ship-learn-next",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "newsletter-publisher",
@@ -182,7 +237,12 @@
       ],
       "stars": 55,
       "install": "spences10/scottspence.com/.claude/skills/newsletter-publisher",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "newsletter-publisher",
@@ -197,7 +257,12 @@
       ],
       "stars": 55,
       "install": "spences10/scottspence.com",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "domain-name-brainstormer",
@@ -213,7 +278,12 @@
       ],
       "stars": 49,
       "install": "korallis/Droidz/droidz_installer/payloads/droid_cli/default/skills/domain-name-brainstormer",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-fundamentals",
@@ -228,7 +298,12 @@
       ],
       "stars": 47,
       "install": "xenitV1/claude-code-maestro/skills/seo-fundamentals",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "competitor-analysis",
@@ -243,7 +318,12 @@
       ],
       "stars": 45,
       "install": "aaron-he-zhu/seo-geo-claude-skills/research/competitor-analysis",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "readme",
@@ -255,7 +335,12 @@
       "tags": [],
       "stars": 33,
       "install": "nuun888/MZ/README/RandomSkill.md",
-      "source": "github.com/nuun888/MZ"
+      "source": "github.com/nuun888/MZ",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "readme-nuun888-mz",
@@ -267,7 +352,12 @@
       "tags": [],
       "stars": 33,
       "install": "nuun888/MZ/README/StationarySkill.md",
-      "source": "github.com/nuun888/MZ"
+      "source": "github.com/nuun888/MZ",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-analysis",
@@ -282,7 +372,12 @@
       ],
       "stars": 32,
       "install": "liangdabiao/claude-data-analysis-ultra-main/.claude/skills/content-analysis",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "sentiment-analysis",
@@ -297,7 +392,12 @@
       ],
       "stars": 25,
       "install": "aj-geddes/useful-ai-prompts/skills/sentiment-analysis",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "browsing-bluesky",
@@ -312,7 +412,12 @@
       ],
       "stars": 21,
       "install": "oaustegard/claude-skills/browsing-bluesky",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "simple-fetch",
@@ -327,7 +432,12 @@
       ],
       "stars": 15,
       "install": "yoloshii/mcp-code-execution-enhanced/.claude/skills/simple-fetch",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "reddit-social-media-strategist",
@@ -344,7 +454,12 @@
       ],
       "stars": 13,
       "install": "maxvaega/awesome-skills/reddit-social-media-strategist",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "reddit-social-media-strategist",
@@ -361,7 +476,12 @@
       ],
       "stars": 13,
       "install": "maxvaega/awesome-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo",
@@ -375,7 +495,12 @@
       ],
       "stars": 13,
       "install": "merylldindin/helix/.claude/skills/seo",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "brand-voice",
@@ -390,7 +515,12 @@
       ],
       "stars": 12,
       "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-marketing/skills/brand-voice",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "agent-content-marketer",
@@ -406,7 +536,12 @@
       ],
       "stars": 10,
       "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-content-marketer",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "agent-seo-specialist",
@@ -422,7 +557,12 @@
       ],
       "stars": 10,
       "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-seo-specialist",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "athlete-social-media-manager",
@@ -439,7 +579,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/athlete-social-media-manager",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cold-email-sequence-generator",
@@ -456,7 +601,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/cold-email-sequence-generator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cold-email-sequence-generator",
@@ -473,7 +623,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "competitor-content-analyzer",
@@ -489,7 +644,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/competitor-content-analyzer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-repurposer",
@@ -504,7 +664,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/content-repurposer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "landing-page-copywriter",
@@ -520,7 +685,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/landing-page-copywriter",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "podcast-studio",
@@ -535,7 +705,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/podcast-studio",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-keyword-cluster-builder",
@@ -552,7 +727,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/seo-keyword-cluster-builder",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-selling-content-generator",
@@ -569,7 +749,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/social-selling-content-generator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "storytelling-synthesizer",
@@ -584,7 +769,12 @@
       ],
       "stars": 10,
       "install": "rysweet/MicrosoftHackathon2025-AgenticCoding/.claude/skills/storytelling-synthesizer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "webinar-content-repurposer",
@@ -600,7 +790,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/webinar-content-repurposer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "webinar-to-content-multiplier",
@@ -616,7 +811,12 @@
       ],
       "stars": 10,
       "install": "OneWave-AI/claude-skills/webinar-to-content-multiplier",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "applying-brand-guidelines",
@@ -632,7 +832,12 @@
       ],
       "stars": 8,
       "install": "jamesgray007/hoai-course/.claude/skills/applying-brand-guidelines",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "article-title-optimizer",
@@ -648,7 +853,12 @@
       ],
       "stars": 8,
       "install": "rawveg/skillsforge-marketplace/article-title-optimizer",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "article-title-optimizer",
@@ -664,7 +874,12 @@
       ],
       "stars": 8,
       "install": "rawveg/skillsforge-marketplace",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-brief-generator",
@@ -680,7 +895,12 @@
       ],
       "stars": 8,
       "install": "jamesrochabrun/skills/skills/content-brief-generator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "intercom",
@@ -694,7 +914,12 @@
       ],
       "stars": 8,
       "install": "vm0-ai/vm0-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "intercom",
@@ -708,7 +933,12 @@
       ],
       "stars": 8,
       "install": "vm0-ai/vm0-skills/intercom",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "netresearch-branding",
@@ -723,7 +953,12 @@
       ],
       "stars": 8,
       "install": "netresearch/claude-code-marketplace",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "translation-reframing-audience-shift",
@@ -740,7 +975,12 @@
       ],
       "stars": 8,
       "install": "lyndonkl/claude/skills/translation-reframing-audience-shift",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "translation-reframing-audience-shift",
@@ -757,7 +997,12 @@
       ],
       "stars": 8,
       "install": "lyndonkl/claude",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "writing-linkedin-posts",
@@ -773,7 +1018,12 @@
       ],
       "stars": 8,
       "install": "jamesgray007/hoai-course/.claude/skills/writing-linkedin-posts",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "writing-linkedin-posts",
@@ -789,7 +1039,12 @@
       ],
       "stars": 8,
       "install": "jamesgray007/hoai-course",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "writing-x-posts",
@@ -804,7 +1059,12 @@
       ],
       "stars": 8,
       "install": "jamesgray007/hoai-course/.claude/skills/writing-x-posts",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "astro-content",
@@ -819,7 +1079,12 @@
       ],
       "stars": 6,
       "install": "nozomi-koborinai/koborin-ai/.claude/skills/astro-content",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog",
@@ -833,7 +1098,12 @@
       ],
       "stars": 6,
       "install": "kaihendry/dabase.com/.claude/skills/blog",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "shownotes",
@@ -847,7 +1117,12 @@
       ],
       "stars": 6,
       "install": "forcequit/shownotes-skill/shownotes",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "shownotes",
@@ -861,7 +1136,12 @@
       ],
       "stars": 6,
       "install": "forcequit/shownotes-skill",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "authoring-analysis",
@@ -876,7 +1156,12 @@
       ],
       "stars": 5,
       "install": "ddttom/webcomponents-with-eds/.claude/skills/authoring-analysis",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "page-decomposition",
@@ -891,7 +1176,12 @@
       ],
       "stars": 5,
       "install": "ddttom/webcomponents-with-eds/.claude/skills/page-decomposition",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "brainstorming-skill",
@@ -906,7 +1196,12 @@
       ],
       "stars": 4,
       "install": "Jamie-BitFlight/claude_skills/plugins/brainstorming-skill/skills/brainstorming-skill",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "linkedin-announcement-generator",
@@ -922,7 +1217,12 @@
       ],
       "stars": 4,
       "install": "dmccreary/claude-skills/skills/linkedin-announcement-generator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "linkedin-announcement-generator",
@@ -938,7 +1238,12 @@
       ],
       "stars": 4,
       "install": "dmccreary/claude-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "book-marketing",
@@ -953,7 +1258,12 @@
       ],
       "stars": 3,
       "install": "jwynia/the-kepler-testimonies/.claude/skills/book-marketing",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "confluence",
@@ -967,7 +1277,12 @@
       ],
       "stars": 3,
       "install": "vrslev/dotfiles/home/.pi/agent/skills/confluence",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-optimization",
@@ -982,7 +1297,12 @@
       ],
       "stars": 3,
       "install": "vapvarun/claude-backup/skills/seo-optimization",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "youtube-kr-subtitle",
@@ -997,7 +1317,12 @@
       ],
       "stars": 3,
       "install": "Koomook/claude-skill-youtube-kr-subtitle/.claude/skills/youtube-kr-subtitle",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "youtube-kr-subtitle",
@@ -1012,7 +1337,12 @@
       ],
       "stars": 3,
       "install": "Koomook/claude-skill-youtube-kr-subtitle",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-planner",
@@ -1027,7 +1357,12 @@
       ],
       "stars": 2,
       "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics/.claude/skills/blog-planner",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-planner",
@@ -1042,7 +1377,12 @@
       ],
       "stars": 2,
       "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "copywriter",
@@ -1056,7 +1396,12 @@
       ],
       "stars": 2,
       "install": "daffy0208/ai-dev-standards/skills/copywriter",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "go-to-market-planner",
@@ -1071,7 +1416,12 @@
       ],
       "stars": 2,
       "install": "daffy0208/ai-dev-standards/skills/go-to-market-planner",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "skyrim-archive",
@@ -1086,7 +1436,12 @@
       ],
       "stars": 2,
       "install": "SpookyPirate/spookys-automod-toolkit/.claude/skills/skyrim-archive",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "study-notes-creator",
@@ -1102,7 +1457,12 @@
       ],
       "stars": 2,
       "install": "abdul-ahad-26/physical-ai-and-humanoid-robotics/.claude/skills/study-notes-creator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-post-optimizer",
@@ -1118,7 +1478,12 @@
       ],
       "stars": 1,
       "install": "dkyazzentwatwa/chatgpt-skills/blog-post-optimizer",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "browser",
@@ -1132,7 +1497,12 @@
       ],
       "stars": 1,
       "install": "ciallo-agent/ciallo-agent/skills/browser",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "conversion-copywriting",
@@ -1147,7 +1517,12 @@
       ],
       "stars": 1,
       "install": "CleanExpo/Unite-Hub/.claude/skills/conversion-copywriting",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "creative-writer",
@@ -1162,7 +1537,12 @@
       ],
       "stars": 1,
       "install": "tatat/agents-playground/skills/creative-writer",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cv-content-editor",
@@ -1177,7 +1557,12 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/cv-content-editor",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cv-content-manager",
@@ -1192,7 +1577,12 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/cv-content-manager",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "discord-send-message",
@@ -1208,7 +1598,12 @@
       ],
       "stars": 1,
       "install": "Nice-Wolf-Studio/agent-discord-skills/discord-send-message",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "discord-send-message",
@@ -1224,7 +1619,12 @@
       ],
       "stars": 1,
       "install": "Nice-Wolf-Studio/agent-discord-skills",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "event-detection-temporal-intelligence-expert",
@@ -1242,7 +1642,12 @@
       ],
       "stars": 1,
       "install": "erichowens/some_claude_skills/.claude/skills/event-detection-temporal-intelligence-expert",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "fetch-public-notes",
@@ -1258,7 +1663,12 @@
       ],
       "stars": 1,
       "install": "dsebastien/concept-cards/.claude/skills/fetch-public-notes",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "fetch-public-notes",
@@ -1274,7 +1684,12 @@
       ],
       "stars": 1,
       "install": "dsebastien/concept-cards",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "getting-feedback",
@@ -1289,7 +1704,12 @@
       ],
       "stars": 1,
       "install": "houfu/blog-alt-counsel/.claude/skills/getting-feedback",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-fundamentals",
@@ -1304,7 +1724,12 @@
       ],
       "stars": 1,
       "install": "leduclinh7141/aitykit-marketing",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "obsidian-refine-content",
@@ -1320,7 +1745,12 @@
       ],
       "stars": 1,
       "install": "jun9898/claude-skills/obsidian-refine-content",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "obsidian-refine-content",
@@ -1336,7 +1766,12 @@
       ],
       "stars": 1,
       "install": "jun9898/claude-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "podcast",
@@ -1350,7 +1785,12 @@
       ],
       "stars": 1,
       "install": "sgasser/claude-skill-podcast/podcast",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "podcast",
@@ -1364,7 +1804,12 @@
       ],
       "stars": 1,
       "install": "sgasser/claude-skill-podcast",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "qr-code-generator",
@@ -1379,7 +1824,12 @@
       ],
       "stars": 1,
       "install": "dkyazzentwatwa/chatgpt-skills/qr-code-generator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "roi-calculator",
@@ -1394,7 +1844,12 @@
       ],
       "stars": 1,
       "install": "dkyazzentwatwa/chatgpt-skills/roi-calculator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "running-marketing-campaigns",
@@ -1410,7 +1865,12 @@
       ],
       "stars": 1,
       "install": "SpillwaveSolutions/running-marketing-campaigns-agent-skill",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "semantic-html",
@@ -1425,7 +1885,12 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-html/skills/semantic-html",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-mastery",
@@ -1440,7 +1905,12 @@
       ],
       "stars": 1,
       "install": "kpab/seo-mastery-agent-skills/.claude/skills/seo-mastery",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-mastery",
@@ -1455,7 +1925,12 @@
       ],
       "stars": 1,
       "install": "kpab/seo-mastery-agent-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-mastery-jp",
@@ -1470,7 +1945,12 @@
       ],
       "stars": 1,
       "install": "kpab/seo-mastery-agent-skills/.claude/skills/seo-mastery-jp",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "substack-note",
@@ -1485,7 +1965,12 @@
       ],
       "stars": 1,
       "install": "az9713/ai-co-writing-claude-skills/.claude/skills/substack-note",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "thought-leadership",
@@ -1500,7 +1985,12 @@
       ],
       "stars": 1,
       "install": "az9713/ai-co-writing-claude-skills/.claude/skills/thought-leadership",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "using-ghost-admin-api",
@@ -1517,7 +2007,12 @@
       ],
       "stars": 1,
       "install": "houfu/blog-alt-counsel",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "using-ghost-admin-api",
@@ -1534,7 +2029,12 @@
       ],
       "stars": 1,
       "install": "houfu/blog-alt-counsel/.claude/skills/using-ghost-admin-api",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "version-changelog-patterns",
@@ -1550,7 +2050,12 @@
       ],
       "stars": 1,
       "install": "CoderMariusz/MonoPilot/.claude/skills/version-changelog-patterns",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "youtube-transcript-analyzer",
@@ -1566,7 +2071,12 @@
       ],
       "stars": 1,
       "install": "TechNickAI/python-template/.claude/skills/youtube-transcript-analyzer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "SKILL.md",
@@ -1578,7 +2088,12 @@
       "tags": [],
       "stars": 0,
       "install": "vapvarun/claude-backup",
-      "source": "github.com/vapvarun/claude-backup"
+      "source": "github.com/vapvarun/claude-backup",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "a11y-annotation-generator",
@@ -1590,7 +2105,12 @@
       "tags": [],
       "stars": 0,
       "install": "Dexploarer/claudius-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "a11y-annotation-generator",
@@ -1602,7 +2122,12 @@
       "tags": [],
       "stars": 0,
       "install": "Dexploarer/claudius-skills/examples/intermediate/accessibility-skills/a11y-annotation-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "accessibility-readability",
@@ -1617,7 +2142,12 @@
       ],
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon/.claude/skills/accessibility-readability",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "add-embedding-support",
@@ -1633,7 +2163,12 @@
       ],
       "stars": 0,
       "install": "vendi-advertising/vendi-starter-theme",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "add-embedding-support",
@@ -1649,7 +2184,12 @@
       ],
       "stars": 0,
       "install": "vendi-advertising/vendi-starter-theme/.claude/skills/add-embedding-support",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "aeo-optimizer",
@@ -1661,7 +2201,12 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/aeo-optimizer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "affiliate-compliance-check",
@@ -1673,7 +2218,12 @@
       "tags": [],
       "stars": 0,
       "install": "insightfulaf/InsightfulAffiliate_NextGenCopyAI/.github/skills/affiliate-compliance-check",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "affiliate-compliance-check",
@@ -1685,7 +2235,12 @@
       "tags": [],
       "stars": 0,
       "install": "insightfulaf/InsightfulAffiliate_NextGenCopyAI",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "annotate-talk",
@@ -1700,7 +2255,12 @@
       ],
       "stars": 0,
       "install": "rajshah4/my-agent-skills",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "annotate-talk",
@@ -1715,7 +2275,12 @@
       ],
       "stars": 0,
       "install": "rajshah4/my-agent-skills/skills/annotate-talk",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "apex",
@@ -1727,7 +2292,12 @@
       "tags": [],
       "stars": 0,
       "install": "olehsvyrydov/AI-development-team/claude/skills/marketing/apex",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "api-flow-diagram-creator",
@@ -1739,7 +2309,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/api-flow-diagram-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "architecture-diagram-creator",
@@ -1751,7 +2326,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/architecture-diagram-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "art",
@@ -1763,7 +2343,12 @@
       "tags": [],
       "stars": 0,
       "install": "edheltzel/atlas/claudecode/.claude/skills/Art",
-      "source": "GitHub Search API"
+      "source": "GitHub Search API",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "article-analysis",
@@ -1778,7 +2363,12 @@
       ],
       "stars": 0,
       "install": "az9713/cerebro/.claude/skills/article-analysis",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "asset-approval",
@@ -1790,7 +2380,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/partner-co-marketing-orchestration/skills/asset-approval",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "astro-i18n",
@@ -1805,7 +2400,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills/astro-i18n",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "astro-seo",
@@ -1820,7 +2420,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills/astro-seo",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "attention-management",
@@ -1832,7 +2437,12 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles/skills/12-by-problem-type/attention-management",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "auditing-shareable-content",
@@ -1844,7 +2454,12 @@
       "tags": [],
       "stars": 0,
       "install": "oalders/dot-files/claude/skills/auditing-shareable-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "auditing-shareable-content",
@@ -1856,7 +2471,12 @@
       "tags": [],
       "stars": 0,
       "install": "oalders/dot-files",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "auth-personalization",
@@ -1871,7 +2491,12 @@
       ],
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon/.claude/skills/auth-personalization",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "bible-tools",
@@ -1883,7 +2508,12 @@
       "tags": [],
       "stars": 0,
       "install": "cevr/bible-tools",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "bible-tools",
@@ -1895,7 +2525,12 @@
       "tags": [],
       "stars": 0,
       "install": "cevr/bible-tools/.claude/skills/bible-tools",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-commenter",
@@ -1907,7 +2542,12 @@
       "tags": [],
       "stars": 0,
       "install": "hekmon8/mybacklinks-tools",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-commenter",
@@ -1919,7 +2559,12 @@
       "tags": [],
       "stars": 0,
       "install": "hekmon8/mybacklinks-tools/skills/blog-commenter-skill",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-creator",
@@ -1934,7 +2579,12 @@
       ],
       "stars": 0,
       "install": "AayushBaniya2006/blinkfund/.claude/skills/blog-creator",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-post-outline-generator",
@@ -1946,7 +2596,12 @@
       "tags": [],
       "stars": 0,
       "install": "fracabu/claude-skill-factory",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-post-outline-generator",
@@ -1958,7 +2613,12 @@
       "tags": [],
       "stars": 0,
       "install": "fracabu/claude-skill-factory/generated_skills/blog-post-outline-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-proofreading",
@@ -1973,7 +2633,12 @@
       ],
       "stars": 0,
       "install": "fgrehm/fabiorehm.com",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-proofreading",
@@ -1988,7 +2653,12 @@
       ],
       "stars": 0,
       "install": "fgrehm/fabiorehm.com/.claude/skills/blog-proofreading",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "blog-voice-review",
@@ -2004,7 +2674,12 @@
       ],
       "stars": 0,
       "install": "fgrehm/fabiorehm.com/.claude/skills/blog-voice-review",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "bluesky-post-crafter",
@@ -2016,7 +2691,12 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/bluesky-post-crafter",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "book-backmatter-generator",
@@ -2032,7 +2712,12 @@
       ],
       "stars": 0,
       "install": "wmiles81/backmatter-generator",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "brand-guardrails",
@@ -2044,7 +2729,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/social-scheduler-orchestration/skills/brand-guardrails",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "brand-voice-therapy",
@@ -2060,7 +2750,12 @@
       ],
       "stars": 0,
       "install": "jhcynamon1/NextStepTherapySite-v2/.claude/skills/brand-voice-therapy",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "business-glossary",
@@ -2075,7 +2770,12 @@
       ],
       "stars": 0,
       "install": "MoveRDC/claude-skills-marketing",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "campaign-analyzer",
@@ -2090,7 +2790,12 @@
       ],
       "stars": 0,
       "install": "Gambitnl/Video_chunking",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "campaign-analyzer",
@@ -2105,7 +2810,12 @@
       ],
       "stars": 0,
       "install": "Gambitnl/Video_chunking/.claude/skills/campaign-analyzer",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "carousels-sliders",
@@ -2117,7 +2827,12 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles/skills/07-by-ui-element/carousels-sliders",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "category-management",
@@ -2129,7 +2844,12 @@
       "tags": [],
       "stars": 0,
       "install": "doitsu2014/my-blogs-rsbuild/admin_side/.claude/skills/category-management",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "category-management",
@@ -2141,7 +2861,12 @@
       "tags": [],
       "stars": 0,
       "install": "doitsu2014/my-blogs-rsbuild",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "chapter-formatting",
@@ -2156,7 +2881,12 @@
       ],
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "chapter-formatting",
@@ -2171,7 +2901,12 @@
       ],
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon/.claude/skills/chapter-formatting",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "chart-js-config-creator",
@@ -2183,7 +2918,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/chart-js-config-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "check-images",
@@ -2195,7 +2935,12 @@
       "tags": [],
       "stars": 0,
       "install": "leobrival/serum-plugins-official",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "check-images",
@@ -2207,7 +2952,12 @@
       "tags": [],
       "stars": 0,
       "install": "leobrival/serum-plugins-official/plugins/html-checker/skills/check-images",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "check-meta",
@@ -2219,7 +2969,12 @@
       "tags": [],
       "stars": 0,
       "install": "leobrival/serum-plugins-official/plugins/html-checker/skills/check-meta",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "co-marketing-governance",
@@ -2231,7 +2986,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/partnership-development/skills/co-marketing-governance",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "comp-scout-analyze",
@@ -2247,7 +3007,12 @@
       ],
       "stars": 0,
       "install": "discreteds/competition-scout",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "comp-scout-analyze",
@@ -2263,7 +3028,12 @@
       ],
       "stars": 0,
       "install": "discreteds/competition-scout/skills/comp-scout-analyze",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "contagious-stepps",
@@ -2275,7 +3045,12 @@
       "tags": [],
       "stars": 0,
       "install": "kasperjunge/30-minute-vibe-coding-challenge/plugins/contagious-stepps/skills/contagious-stepps",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "contagious-stepps",
@@ -2287,7 +3062,12 @@
       "tags": [],
       "stars": 0,
       "install": "kasperjunge/30-minute-vibe-coding-challenge",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-editing",
@@ -2302,7 +3082,12 @@
       ],
       "stars": 0,
       "install": "Azeem-2/final-docusarus/.claude/skills/content-editing",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-editing",
@@ -2317,7 +3102,12 @@
       ],
       "stars": 0,
       "install": "Azeem-2/final-docusarus",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-factory",
@@ -2329,7 +3119,12 @@
       "tags": [],
       "stars": 0,
       "install": "MLAI-AUS-Inc/roo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-generation",
@@ -2341,7 +3136,12 @@
       "tags": [],
       "stars": 0,
       "install": "uukuguy/claude-agent-framework/examples/production/03_marketing_content/.claude/skills/content-generation",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-generation",
@@ -2353,7 +3153,12 @@
       "tags": [],
       "stars": 0,
       "install": "uukuguy/claude-agent-framework",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-ingestion",
@@ -2365,7 +3170,12 @@
       "tags": [],
       "stars": 0,
       "install": "boringdata/kurt-demo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-manager",
@@ -2377,7 +3187,12 @@
       "tags": [],
       "stars": 0,
       "install": "novemberde/novemberde.github.io/.claude/skills/content-manager",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-marketer",
@@ -2389,7 +3204,12 @@
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles/ai/files/skills/experts/business-product/content-marketer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-marketing-and-social-media-strategy",
@@ -2401,7 +3221,12 @@
       "tags": [],
       "stars": 0,
       "install": "ShunsukeHayashi/Miyabi",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-optimization",
@@ -2413,7 +3238,12 @@
       "tags": [],
       "stars": 0,
       "install": "kuse-ai/kuse-skills/content-optimization",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-optimization",
@@ -2425,7 +3255,12 @@
       "tags": [],
       "stars": 0,
       "install": "kuse-ai/kuse-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-performance-analyzer",
@@ -2437,7 +3272,12 @@
       "tags": [],
       "stars": 0,
       "install": "fracabu/claude-skill-factory/generated_skills/content-performance-analyzer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-pipeline",
@@ -2449,7 +3289,12 @@
       "tags": [],
       "stars": 0,
       "install": "zircote/.github",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-pipeline",
@@ -2461,7 +3306,12 @@
       "tags": [],
       "stars": 0,
       "install": "zircote/.github/.github/skills/content-pipeline",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-platforms",
@@ -2473,7 +3323,12 @@
       "tags": [],
       "stars": 0,
       "install": "miles990/claude-software-skills/domain-applications/content-platforms",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-platforms",
@@ -2485,7 +3340,12 @@
       "tags": [],
       "stars": 0,
       "install": "miles990/claude-software-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-polish",
@@ -2497,7 +3357,12 @@
       "tags": [],
       "stars": 0,
       "install": "mickdarling/dollhouse-portfolio",
-      "source": "GitHub Search API"
+      "source": "GitHub Search API",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-strategist",
@@ -2512,7 +3377,12 @@
       ],
       "stars": 0,
       "install": "dasalazarr/andes",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-strategist",
@@ -2527,7 +3397,12 @@
       ],
       "stars": 0,
       "install": "dasalazarr/andes/skills/content-strategist",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-strategy-planner",
@@ -2539,7 +3414,12 @@
       "tags": [],
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp/skills/creative/content-strategy-planner",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "content-variants",
@@ -2551,7 +3431,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/personalization-engine/skills/content-variants",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "conversion-psychology",
@@ -2563,7 +3448,12 @@
       "tags": [],
       "stars": 0,
       "install": "mike-coulbourn/claude-vibes/plugins/vibes/skills/conversion-psychology",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "conversion-psychology",
@@ -2575,7 +3465,12 @@
       "tags": [],
       "stars": 0,
       "install": "mike-coulbourn/claude-vibes",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "copilot-agent-coordinator",
@@ -2591,7 +3486,12 @@
       ],
       "stars": 0,
       "install": "cstarlea/agent-skill-orchestrator/.claude/skills/copilot-agent-coordinator",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "copilot-agent-coordinator",
@@ -2607,7 +3507,12 @@
       ],
       "stars": 0,
       "install": "cstarlea/agent-skill-orchestrator",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "create-content",
@@ -2622,7 +3527,12 @@
       ],
       "stars": 0,
       "install": "ThomasRohde/readme-pages/.claude/skills/create-content",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "create-content",
@@ -2637,7 +3547,12 @@
       ],
       "stars": 0,
       "install": "ThomasRohde/readme-pages",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "create-page",
@@ -2649,7 +3564,12 @@
       "tags": [],
       "stars": 0,
       "install": "saintgo7/app-hospital-yoyang/.claude/skills/create-page",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "create-page",
@@ -2661,7 +3581,12 @@
       "tags": [],
       "stars": 0,
       "install": "saintgo7/app-hospital-yoyang",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "create-script",
@@ -2673,7 +3598,12 @@
       "tags": [],
       "stars": 0,
       "install": "kedbin/chatterbox-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "creating-content",
@@ -2685,7 +3615,12 @@
       "tags": [],
       "stars": 0,
       "install": "sekka/dotfiles/home/.claude/skills/creating-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cva-healthcare-seo",
@@ -2697,7 +3632,12 @@
       "tags": [],
       "stars": 0,
       "install": "joaopelegrino/hello-word-closure/.claude-plugin/clojure-vertex-adk/skills/cva-healthcare-seo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cva-healthcare-seo",
@@ -2709,7 +3649,12 @@
       "tags": [],
       "stars": 0,
       "install": "joaopelegrino/hello-word-closure",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "d2-diagram-creator",
@@ -2721,7 +3666,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/d2-diagram-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "digest-content",
@@ -2733,7 +3683,12 @@
       "tags": [],
       "stars": 0,
       "install": "haizhouyuan/codexreadpublic/skills-src/digest-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "digest-content",
@@ -2745,7 +3700,12 @@
       "tags": [],
       "stars": 0,
       "install": "haizhouyuan/codexreadpublic",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "direct-mail-strategist",
@@ -2761,7 +3721,12 @@
       ],
       "stars": 0,
       "install": "ckorhonen/claude-skills",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "direct-mail-strategist",
@@ -2777,7 +3742,12 @@
       ],
       "stars": 0,
       "install": "ckorhonen/claude-skills/skills/direct-mail-strategist",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "distribution-checklist",
@@ -2789,7 +3759,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/content-pipeline-orchestration/skills/distribution-checklist",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "diverse-content-gen",
@@ -2801,7 +3776,12 @@
       "tags": [],
       "stars": 0,
       "install": "rfxlamia/flow/creative-studio/00-diverse-content-gen",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "diverse-content-gen",
@@ -2813,7 +3793,12 @@
       "tags": [],
       "stars": 0,
       "install": "rfxlamia/flow",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "emacs-buffer",
@@ -2825,7 +3810,12 @@
       "tags": [],
       "stars": 0,
       "install": "jingtaozf/emacs-claude-agent/.claude/skills/emacs-buffer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "emacs-buffer",
@@ -2837,7 +3827,12 @@
       "tags": [],
       "stars": 0,
       "install": "jingtaozf/emacs-claude-agent",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "embed-content",
@@ -2849,7 +3844,12 @@
       "tags": [],
       "stars": 0,
       "install": "jrc1883/popkit-claude",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "embed-content",
@@ -2861,7 +3861,12 @@
       "tags": [],
       "stars": 0,
       "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-embed-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "entrance-animations",
@@ -2873,7 +3878,12 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "entrance-animations",
@@ -2885,7 +3895,12 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles/skills/05-by-animation-type/entrance-animations",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "feedback",
@@ -2897,7 +3912,12 @@
       "tags": [],
       "stars": 0,
       "install": "boringdata/kurt-demo/.claude/skills/feedback-skill",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "festival-marketing",
@@ -2909,7 +3929,12 @@
       "tags": [],
       "stars": 0,
       "install": "nickytonline/advent-of-ai-2025/day-14/festival-marketing",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "festival-marketing",
@@ -2921,7 +3946,12 @@
       "tags": [],
       "stars": 0,
       "install": "nickytonline/advent-of-ai-2025",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "fetch-web",
@@ -2933,7 +3963,12 @@
       "tags": [],
       "stars": 0,
       "install": "michalvavra/agents",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "focus-ai-brand",
@@ -2948,7 +3983,12 @@
       ],
       "stars": 0,
       "install": "The-Focus-AI/focus-ai-brand/skills/focus-ai-brand",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "focus-ai-brand",
@@ -2963,7 +4003,12 @@
       ],
       "stars": 0,
       "install": "The-Focus-AI/focus-ai-brand",
-      "source": "SkillsMP Synced Skills"
+      "source": "SkillsMP Synced Skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "gemini-image",
@@ -2978,7 +4023,12 @@
       ],
       "stars": 0,
       "install": "johnlindquist/claude/skills/gemini-image",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "gemini-image-generator",
@@ -2994,7 +4044,12 @@
       ],
       "stars": 0,
       "install": "yonggao/claude-plugins/skills/gemini-image-generator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "gemini-video-understanding",
@@ -3010,7 +4065,12 @@
       ],
       "stars": 0,
       "install": "ferdousbhai/gemini-video-understanding",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "github",
@@ -3024,7 +4084,12 @@
       ],
       "stars": 0,
       "install": "getlarge/claude-aip-plugins/.claude/skills/github",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "google-search-console",
@@ -3036,7 +4101,12 @@
       "tags": [],
       "stars": 0,
       "install": "jiunbae/agent-skills/integrations/google-search-console",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "google-search-console",
@@ -3048,7 +4118,12 @@
       "tags": [],
       "stars": 0,
       "install": "jiunbae/agent-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "graphviz-dot-generator",
@@ -3060,7 +4135,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/graphviz-dot-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "grey-haven-creative-writing",
@@ -3072,7 +4152,12 @@
       "tags": [],
       "stars": 0,
       "install": "greyhaven-ai/claude-code-config",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "heading-tree",
@@ -3087,7 +4172,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills/heading-tree",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "hn-filter",
@@ -3099,7 +4189,12 @@
       "tags": [],
       "stars": 0,
       "install": "haibchen/configs/dotfiles/.claude/skills/hacker_news",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "hn-filter",
@@ -3111,7 +4206,12 @@
       "tags": [],
       "stars": 0,
       "install": "haibchen/configs",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "hook-stack-evaluator",
@@ -3127,7 +4227,12 @@
       ],
       "stars": 0,
       "install": "Eddale/powerhouse-lab/skills/hook-stack-evaluator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "id-generator",
@@ -3139,7 +4244,12 @@
       "tags": [],
       "stars": 0,
       "install": "memorysaver/looplia-core/plugins/looplia-writer/skills/id-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "idea-synthesis",
@@ -3151,7 +4261,12 @@
       "tags": [],
       "stars": 0,
       "install": "memorysaver/looplia-core",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "idea-synthesis",
@@ -3163,7 +4278,12 @@
       "tags": [],
       "stars": 0,
       "install": "memorysaver/looplia-core/plugins/looplia-writer/skills/idea-synthesis",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "image-composer",
@@ -3175,7 +4295,12 @@
       "tags": [],
       "stars": 0,
       "install": "chufeng-huang-sipaway/sip-videogen",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "implement-text-response-question",
@@ -3187,7 +4312,12 @@
       "tags": [],
       "stars": 0,
       "install": "asmith7013/coachingPlatform/.claude/skills/question-types/implement-text-response-question",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "implement-text-response-question",
@@ -3199,7 +4329,12 @@
       "tags": [],
       "stars": 0,
       "install": "asmith7013/coachingPlatform",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "implement-video-question",
@@ -3211,7 +4346,12 @@
       "tags": [],
       "stars": 0,
       "install": "asmith7013/coachingPlatform/.claude/skills/question-types/implement-video-question",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "index-sheriff",
@@ -3223,7 +4363,12 @@
       "tags": [],
       "stars": 0,
       "install": "EmberwildGameBible/The_Emberwild_Archive-/.codex/skills/index-sheriff",
-      "source": "GitHub Search API"
+      "source": "GitHub Search API",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "infographic-creator",
@@ -3235,7 +4380,12 @@
       "tags": [],
       "stars": 0,
       "install": "antvis/Infographic/.skills/infographic-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "infographic-creator",
@@ -3247,7 +4397,12 @@
       "tags": [],
       "stars": 0,
       "install": "antvis/Infographic",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "infographic-outline-creator",
@@ -3259,7 +4414,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/infographic-outline-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "internal-linking",
@@ -3274,7 +4434,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills/internal-linking",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "internationalizing-websites",
@@ -3286,7 +4451,12 @@
       "tags": [],
       "stars": 0,
       "install": "littleben/awesomeAgentskills/internationalizing-websites",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "internationalizing-websites",
@@ -3298,7 +4468,12 @@
       "tags": [],
       "stars": 0,
       "install": "littleben/awesomeAgentskills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "jellyfin-library-scan",
@@ -3310,7 +4485,12 @@
       "tags": [],
       "stars": 0,
       "install": "theflysurfer/claude-skills-marketplace",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "json-prompting-for-nano-banana",
@@ -3322,7 +4502,12 @@
       "tags": [],
       "stars": 0,
       "install": "jawhnycooke/claude-plugins",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "kobo-translation",
@@ -3334,7 +4519,12 @@
       "tags": [],
       "stars": 0,
       "install": "joshuaberetta/kobo-translation-test",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "kobo-translation",
@@ -3346,7 +4536,12 @@
       "tags": [],
       "stars": 0,
       "install": "joshuaberetta/kobo-translation-test/skills/kobo-translation",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "kobo-translation-ar",
@@ -3358,7 +4553,12 @@
       "tags": [],
       "stars": 0,
       "install": "joshuaberetta/kobo-translation-test/skills/kobo-translation-ar",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "kobo-translation-es",
@@ -3370,7 +4570,12 @@
       "tags": [],
       "stars": 0,
       "install": "joshuaberetta/kobo-translation-test/skills/kobo-translation-es",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "kobo-translation-fr",
@@ -3382,7 +4587,12 @@
       "tags": [],
       "stars": 0,
       "install": "joshuaberetta/kobo-translation-test/skills/kobo-translation-fr",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "large-skill",
@@ -3394,7 +4604,12 @@
       "tags": [],
       "stars": 0,
       "install": "feiskyer/koder",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "large-skill",
@@ -3406,7 +4621,12 @@
       "tags": [],
       "stars": 0,
       "install": "feiskyer/koder/tests/fixtures/skills/large-skill",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "lighthouse-optimization",
@@ -3418,7 +4638,12 @@
       "tags": [],
       "stars": 0,
       "install": "wchklaus97/remind-me-pwa/.cursor/skills/lighthouse-optimization",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "lighthouse-optimization",
@@ -3430,7 +4655,12 @@
       "tags": [],
       "stars": 0,
       "install": "wchklaus97/remind-me-pwa",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "linkedin-post-maker",
@@ -3442,7 +4672,12 @@
       "tags": [],
       "stars": 0,
       "install": "alijilani-dev/Claude/skills/linkedin-post-generator/.claude/skills/linkedin-post-maker",
-      "source": "GitHub Search API"
+      "source": "GitHub Search API",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "localization-urdu",
@@ -3457,7 +4692,12 @@
       ],
       "stars": 0,
       "install": "maneeshanif/Textbook_hackhathon/.claude/skills/localization-urdu",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "make-note",
@@ -3469,7 +4709,12 @@
       "tags": [],
       "stars": 0,
       "install": "glnds/claude-config",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "make-note",
@@ -3481,7 +4726,12 @@
       "tags": [],
       "stars": 0,
       "install": "glnds/claude-config/skills/make-note",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing",
@@ -3495,7 +4745,12 @@
       ],
       "stars": 0,
       "install": "DegrassiAaron/influencerai-monorepo/.claude/skills/marketing",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-ai-search-optimization",
@@ -3507,7 +4762,12 @@
       "tags": [],
       "stars": 0,
       "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-ai-search-optimization",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-content-guidelines",
@@ -3519,7 +4779,12 @@
       "tags": [],
       "stars": 0,
       "install": "mycurelabs/easyjoey.com/.claude/skills/_content/marketing-content-guidelines",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-content-guidelines",
@@ -3531,7 +4796,12 @@
       "tags": [],
       "stars": 0,
       "install": "mycurelabs/easyjoey.com",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-experimentation",
@@ -3543,7 +4813,12 @@
       "tags": [],
       "stars": 0,
       "install": "tilmon-engineering/claude-skills/plugins/datapeeker/skills/marketing-experimentation",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-experimentation",
@@ -3555,7 +4830,12 @@
       "tags": [],
       "stars": 0,
       "install": "tilmon-engineering/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-leads-generation",
@@ -3567,7 +4847,12 @@
       "tags": [],
       "stars": 0,
       "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-leads-generation",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-ops-hub",
@@ -3583,7 +4868,12 @@
       ],
       "stars": 0,
       "install": "synapz-org/marketing-ops-hub",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-seo-technical",
@@ -3595,7 +4885,12 @@
       "tags": [],
       "stars": 0,
       "install": "vasilyu1983/AI-Agents-public",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-social-media",
@@ -3607,7 +4902,12 @@
       "tags": [],
       "stars": 0,
       "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/marketing-social-media",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-strategist",
@@ -3619,7 +4919,12 @@
       "tags": [],
       "stars": 0,
       "install": "viamin/aidp",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-sync",
@@ -3634,7 +4939,12 @@
       ],
       "stars": 0,
       "install": "skinred78/neuro-db-2/.claude/skills/marketing-sync",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "marketing-sync",
@@ -3649,7 +4959,12 @@
       ],
       "stars": 0,
       "install": "skinred78/neuro-db-2",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "media-understanding",
@@ -3664,7 +4979,12 @@
       ],
       "stars": 0,
       "install": "ferdousbhai/media-understanding",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "meme-generation",
@@ -3676,7 +4996,12 @@
       "tags": [],
       "stars": 0,
       "install": "franklinbaldo/egregora/.claude/skills/meme-generation",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "meme-generation",
@@ -3688,7 +5013,12 @@
       "tags": [],
       "stars": 0,
       "install": "franklinbaldo/egregora",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "metadata",
@@ -3702,7 +5032,12 @@
       ],
       "stars": 0,
       "install": "ProfPowell/project-template/.claude/skills/metadata",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "metadata",
@@ -3716,7 +5051,12 @@
       ],
       "stars": 0,
       "install": "ProfPowell/project-template",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "mixmi-curation-model",
@@ -3728,7 +5068,12 @@
       "tags": [],
       "stars": 0,
       "install": "djchikk/mixmi-alpha-fresh/docs/archive/mixmi-curation-model",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "mixmi-curation-model",
@@ -3740,7 +5085,12 @@
       "tags": [],
       "stars": 0,
       "install": "djchikk/mixmi-alpha-fresh",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "modals-dialogs",
@@ -3752,7 +5102,12 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles/skills/07-by-ui-element/modals-dialogs",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "move-content",
@@ -3764,7 +5119,12 @@
       "tags": [],
       "stars": 0,
       "install": "eternnoir/claude-tool/akashicrecords/skills/move-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nanobanana",
@@ -3778,7 +5138,12 @@
       ],
       "stars": 0,
       "install": "johnpsasser/nanobanana",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nb-notebook-manager",
@@ -3790,7 +5155,12 @@
       "tags": [],
       "stars": 0,
       "install": "benswift/.dotfiles",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nb-notebook-manager",
@@ -3802,7 +5172,12 @@
       "tags": [],
       "stars": 0,
       "install": "benswift/.dotfiles/claude/skills/nb-notebook-manager",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nestmind-marketing",
@@ -3817,7 +5192,12 @@
       ],
       "stars": 0,
       "install": "nestmind-app/docs/.claude/skills/nestmind-marketing",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nestmind-marketing",
@@ -3832,7 +5212,12 @@
       ],
       "stars": 0,
       "install": "nestmind-app/docs",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "network-diagram-generator",
@@ -3844,7 +5229,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/network-diagram-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nextjs-metadata",
@@ -3856,7 +5246,12 @@
       "tags": [],
       "stars": 0,
       "install": "jovermier/cc-stack-marketplace",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "nextjs-metadata",
@@ -3868,7 +5263,12 @@
       "tags": [],
       "stars": 0,
       "install": "jovermier/cc-stack-marketplace/plugins/cc-nextjs/skills/nextjs-metadata",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "notebooklm-superskill",
@@ -3883,7 +5283,12 @@
       ],
       "stars": 0,
       "install": "ainergiz/notebooklm-superskill",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "obsi-moc-manager",
@@ -3895,7 +5300,12 @@
       "tags": [],
       "stars": 0,
       "install": "lastdays03/claude_skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "off-page-seo",
@@ -3907,7 +5317,12 @@
       "tags": [],
       "stars": 0,
       "install": "huifer/claude-code-seo/skills/off-page-seo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "optimizing-seo",
@@ -3919,7 +5334,12 @@
       "tags": [],
       "stars": 0,
       "install": "sekka/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "optimizing-seo",
@@ -3931,7 +5351,12 @@
       "tags": [],
       "stars": 0,
       "install": "sekka/dotfiles/home/.claude/skills/optimizing-seo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "org",
@@ -3943,7 +5368,12 @@
       "tags": [],
       "stars": 0,
       "install": "vdemeester/home",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "outlining-books",
@@ -3955,7 +5385,12 @@
       "tags": [],
       "stars": 0,
       "install": "djacobsmeyer/hold-the-line",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "page-structure",
@@ -3970,7 +5405,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "page-structure",
@@ -3985,7 +5425,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills/page-structure",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "pakkt-product-expert",
@@ -3997,7 +5442,12 @@
       "tags": [],
       "stars": 0,
       "install": "Rinshin-Jalal/pakkt",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "pakkt-product-expert",
@@ -4009,7 +5459,12 @@
       "tags": [],
       "stars": 0,
       "install": "Rinshin-Jalal/pakkt/.claude/skills/pakkt-expert",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "partitaiva-style-translator",
@@ -4025,7 +5480,12 @@
       ],
       "stars": 0,
       "install": "proclama2022/dobusinessinitaly/.claude/skills/partitaiva-style-translator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "pedagogy-quality-gate",
@@ -4037,7 +5497,12 @@
       "tags": [],
       "stars": 0,
       "install": "hamzashakoor119/Physical-AI-Robotics-Book/.claude/skills/pedagogy-quality-gate",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "pedagogy-quality-gate",
@@ -4049,7 +5514,12 @@
       "tags": [],
       "stars": 0,
       "install": "hamzashakoor119/Physical-AI-Robotics-Book",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "performing-social-engineering",
@@ -4061,7 +5531,12 @@
       "tags": [],
       "stars": 0,
       "install": "trilwu/secskills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "personalization-logic",
@@ -4073,7 +5548,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/lead-nurture-orchestration/skills/personalization-logic",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "pipeline-tracker",
@@ -4088,7 +5568,12 @@
       ],
       "stars": 0,
       "install": "nathan-a-king/writing-infrastructure/pipeline-tracker",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "platform-mechanics",
@@ -4103,7 +5588,12 @@
       ],
       "stars": 0,
       "install": "alavida-ai/noncitizen",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "platform-mechanics",
@@ -4118,7 +5608,12 @@
       ],
       "stars": 0,
       "install": "alavida-ai/noncitizen/.claude/skills/platform-mechanics",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "plotly-chart-generator",
@@ -4130,7 +5625,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/plotly-chart-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "podcast-asset-generator",
@@ -4146,7 +5646,12 @@
       ],
       "stars": 0,
       "install": "noahrasheta/claude-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "presentation-slide-outliner",
@@ -4158,7 +5663,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/presentation-slide-outliner",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "process-flow-generator",
@@ -4170,7 +5680,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/process-flow-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "prompt-writing",
@@ -4182,7 +5697,12 @@
       "tags": [],
       "stars": 0,
       "install": "bcasci/hustler-marketplace/prompting_plugin/skills/prompt-writing",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "publishing-process",
@@ -4194,7 +5714,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/seo-workflow-orchestration/skills/publishing-process",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "queue-management",
@@ -4209,7 +5734,12 @@
       ],
       "stars": 0,
       "install": "az9713/cerebro",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "queue-management",
@@ -4224,7 +5754,12 @@
       ],
       "stars": 0,
       "install": "az9713/cerebro/.claude/skills/queue-management",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "radar",
@@ -4236,7 +5771,12 @@
       "tags": [],
       "stars": 0,
       "install": "promobase/openpromo/.claude/skills/radar",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "radar",
@@ -4248,7 +5788,12 @@
       "tags": [],
       "stars": 0,
       "install": "promobase/openpromo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "reedom-ghcreate-draft-pr",
@@ -4260,7 +5805,12 @@
       "tags": [],
       "stars": 0,
       "install": "reedom/claude-code-commands",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "regulatory-review-checklist",
@@ -4272,7 +5822,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "regulatory-review-checklist",
@@ -4284,7 +5839,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/healthcare-marketing/skills/regulatory-review-checklist",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "resend",
@@ -4298,7 +5858,12 @@
       ],
       "stars": 0,
       "install": "nathanielcrowell12-spec/photo-vault/.claude/skills/resend",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "routing-logic",
@@ -4310,7 +5875,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/sales-handoff-orchestration/skills/routing-logic",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "rss-fetch",
@@ -4322,7 +5892,12 @@
       "tags": [],
       "stars": 0,
       "install": "vm0-ai/vm0-cookbooks/204-content-farm/claude-content-farm/skills/rss-fetch",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "screaming-frog",
@@ -4334,7 +5909,12 @@
       "tags": [],
       "stars": 0,
       "install": "Andrejones92/canifi-life-os/skills/screaming-frog/SKILL.md",
-      "source": "github.com/Andrejones92/canifi-life-os"
+      "source": "github.com/Andrejones92/canifi-life-os",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "search-content",
@@ -4346,7 +5926,12 @@
       "tags": [],
       "stars": 0,
       "install": "eternnoir/claude-tool",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "search-content",
@@ -4358,7 +5943,12 @@
       "tags": [],
       "stars": 0,
       "install": "eternnoir/claude-tool/akashicrecords/skills/search-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "section-skeleton",
@@ -4373,7 +5963,12 @@
       ],
       "stars": 0,
       "install": "Soborbo/claudeskills/section-skeleton",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-audit",
@@ -4385,7 +5980,12 @@
       "tags": [],
       "stars": 0,
       "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-marketing/skills/seo-audit",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-auditor",
@@ -4397,7 +5997,12 @@
       "tags": [],
       "stars": 0,
       "install": "huifer/claude-code-seo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-auditor",
@@ -4409,7 +6014,12 @@
       "tags": [],
       "stars": 0,
       "install": "huifer/claude-code-seo/skills/seo-auditor",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-competitor-intelligence",
@@ -4425,7 +6035,12 @@
       ],
       "stars": 0,
       "install": "jhcynamon1/NextStepTherapySite-v2/.claude/skills/seo-competitor-intelligence",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-competitor-intelligence",
@@ -4441,7 +6056,12 @@
       ],
       "stars": 0,
       "install": "jhcynamon1/NextStepTherapySite-v2",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-content",
@@ -4453,7 +6073,12 @@
       "tags": [],
       "stars": 0,
       "install": "Salesably/salesably-marketplace/marketing-skills/skills/seo-content",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-content-optimization",
@@ -4465,7 +6090,12 @@
       "tags": [],
       "stars": 0,
       "install": "Manuelvillarvieites/energy-company/.claude/skills/seo-content-optimization",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-content-optimization",
@@ -4477,7 +6107,12 @@
       "tags": [],
       "stars": 0,
       "install": "Manuelvillarvieites/energy-company",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-content-optimizer",
@@ -4493,7 +6128,12 @@
       ],
       "stars": 0,
       "install": "Zura1555/agents/.claude/skills/seo-content-optimizer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-content-optimizer",
@@ -4509,7 +6149,12 @@
       ],
       "stars": 0,
       "install": "Zura1555/agents",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-guidelines",
@@ -4521,7 +6166,12 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/seo-guidelines",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-metadata",
@@ -4536,7 +6186,12 @@
       ],
       "stars": 0,
       "install": "canatufkansu/claude-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-metadata",
@@ -4551,7 +6206,12 @@
       ],
       "stars": 0,
       "install": "canatufkansu/claude-skills/seo-metadata",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-optimizer",
@@ -4566,7 +6226,12 @@
       ],
       "stars": 0,
       "install": "yoshiwatanabe/agent-patterns/.claude/skills/seo-optimizer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-researcher",
@@ -4581,7 +6246,12 @@
       ],
       "stars": 0,
       "install": "proclama2022/dobusinessinitaly/.claude/skills/seo-researcher",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-specialist",
@@ -4593,7 +6263,12 @@
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles/ai/files/skills/experts/specialized-domains/seo-specialist",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seo-specialist",
@@ -4605,7 +6280,12 @@
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "seongjin-nano-banana",
@@ -4617,7 +6297,12 @@
       "tags": [],
       "stars": 0,
       "install": "tjdwls101010/Seongjin_Obsidian-ClaudeCode",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "site-crawler",
@@ -4629,7 +6314,12 @@
       "tags": [],
       "stars": 0,
       "install": "mindmorass/reflex/plugins/reflex/skills/site-crawler",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "site-crawler",
@@ -4641,7 +6331,12 @@
       "tags": [],
       "stars": 0,
       "install": "mindmorass/reflex",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "site-scaffold",
@@ -4656,7 +6351,12 @@
       ],
       "stars": 0,
       "install": "ProfPowell/project-template/.claude/skills/site-scaffold",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "smart-content-creator",
@@ -4668,7 +6368,12 @@
       "tags": [],
       "stars": 0,
       "install": "ginobefun/smart-content-creator-skill/src/smart-content-creator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "smart-content-creator",
@@ -4680,7 +6385,12 @@
       "tags": [],
       "stars": 0,
       "install": "ginobefun/smart-content-creator-skill",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-calendar-system",
@@ -4692,7 +6402,12 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/social-media-marketing/skills/social-calendar-system",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-media-caption-writer",
@@ -4704,7 +6419,12 @@
       "tags": [],
       "stars": 0,
       "install": "fracabu/claude-skill-factory/generated_skills/social-media-caption-writer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-media-manager",
@@ -4716,7 +6436,12 @@
       "tags": [],
       "stars": 0,
       "install": "tatat/agents-playground",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-media-manager",
@@ -4728,7 +6453,12 @@
       "tags": [],
       "stars": 0,
       "install": "tatat/agents-playground/skills/social-media-manager",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-media-strategy-advisor",
@@ -4740,7 +6470,12 @@
       "tags": [],
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "social-media-strategy-advisor",
@@ -4752,7 +6487,12 @@
       "tags": [],
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp/skills/creative/social-media-strategy-advisor",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "story-driven-youtube-seo-writer",
@@ -4764,7 +6504,12 @@
       "tags": [],
       "stars": 0,
       "install": "eirichmond/claude-yt-assist",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "story-driven-youtube-seo-writer",
@@ -4776,7 +6521,12 @@
       "tags": [],
       "stars": 0,
       "install": "eirichmond/claude-yt-assist/skills/story-driven-youtube-seo-writer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "substack-post-crafter",
@@ -4788,7 +6538,12 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/substack-post-crafter",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "svg-icon-generator",
@@ -4800,7 +6555,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "svg-icon-generator",
@@ -4812,7 +6572,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/svg-icon-generator",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "tacosdedatos-seo",
@@ -4824,7 +6589,12 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/tacosdedatos-seo",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "tacosdedatos-seo",
@@ -4836,7 +6606,12 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "td-attribution",
@@ -4848,7 +6623,12 @@
       "tags": [],
       "stars": 0,
       "install": "teradata-labs/claude-cookbooks/skills/analytics/td-attribution",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "td-attribution",
@@ -4860,7 +6640,12 @@
       "tags": [],
       "stars": 0,
       "install": "teradata-labs/claude-cookbooks",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "tech",
@@ -4872,7 +6657,12 @@
       "tags": [],
       "stars": 0,
       "install": "rawkode-academy/rawkode-academy/.claude/skills/tech",
-      "source": "GitHub Search API"
+      "source": "GitHub Search API",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "tech",
@@ -4884,7 +6674,12 @@
       "tags": [],
       "stars": 0,
       "install": "rawkode-academy/rawkode-academy",
-      "source": "GitHub Search API"
+      "source": "GitHub Search API",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "technical-diagram-analyzer",
@@ -4896,7 +6691,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/technical-diagram-analyzer",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "template-creator",
@@ -4911,7 +6711,12 @@
       ],
       "stars": 0,
       "install": "kowalah-dev/kowalah-marketing/.claude/skills/template-creator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "thread-analysis",
@@ -4926,7 +6731,12 @@
       ],
       "stars": 0,
       "install": "az9713/cerebro/.claude/skills/thread-analysis",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "thymer-capture",
@@ -4938,7 +6748,12 @@
       "tags": [],
       "stars": 0,
       "install": "riclib/thymer-inbox",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "thymer-capture",
@@ -4950,7 +6765,12 @@
       "tags": [],
       "stars": 0,
       "install": "riclib/thymer-inbox/skill",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "translate-article",
@@ -4962,7 +6782,12 @@
       "tags": [],
       "stars": 0,
       "install": "nozomi-koborinai/koborin-ai",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "translate-article",
@@ -4974,7 +6799,12 @@
       "tags": [],
       "stars": 0,
       "install": "nozomi-koborinai/koborin-ai/.claude/skills/translate-article",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "urdf-templates",
@@ -4986,7 +6816,12 @@
       "tags": [],
       "stars": 0,
       "install": "zeeshan080/ai-native-robotics/.claude/skills/urdf-templates",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "user-journey-mapper",
@@ -4998,7 +6833,12 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/user-journey-mapper",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "user-profile-reader",
@@ -5010,7 +6850,12 @@
       "tags": [],
       "stars": 0,
       "install": "memorysaver/looplia-core/plugins/looplia-writer/skills/user-profile-reader",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "video-processing",
@@ -5025,7 +6870,12 @@
       ],
       "stars": 0,
       "install": "aixier/n8n-automation-hub",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "video-processing",
@@ -5040,7 +6890,12 @@
       ],
       "stars": 0,
       "install": "aixier/n8n-automation-hub/.claude/skills/video-processing",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "vision",
@@ -5054,7 +6909,12 @@
       ],
       "stars": 0,
       "install": "Wesley1600/ClaudeCodeFrameWork/.claude/skills/vision",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "web-load2",
@@ -5066,7 +6926,12 @@
       "tags": [],
       "stars": 0,
       "install": "workromancer/my-claude-settings",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "web-load2",
@@ -5078,7 +6943,12 @@
       "tags": [],
       "stars": 0,
       "install": "workromancer/my-claude-settings/skills/web-load2",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "website-copy-standards",
@@ -5090,7 +6960,12 @@
       "tags": [],
       "stars": 0,
       "install": "adnanmueller/am-dev-plugins/plugins/website-copy-standards",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "website-copy-standards",
@@ -5102,7 +6977,12 @@
       "tags": [],
       "stars": 0,
       "install": "adnanmueller/am-dev-plugins",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "website-crawler",
@@ -5114,7 +6994,12 @@
       "tags": [],
       "stars": 0,
       "install": "Uzay-G/whorl",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "website-crawler",
@@ -5126,7 +7011,12 @@
       "tags": [],
       "stars": 0,
       "install": "Uzay-G/whorl/skills/website-crawler",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "wordpress-admin",
@@ -5141,7 +7031,12 @@
       ],
       "stars": 0,
       "install": "CrazySwami/wordpress-dev-skills/skills/wordpress-admin",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "wordpress-admin",
@@ -5156,7 +7051,12 @@
       ],
       "stars": 0,
       "install": "CrazySwami/wordpress-dev-skills",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "world-bible-validator",
@@ -5172,7 +7072,12 @@
       ],
       "stars": 0,
       "install": "rickoslyder/TraitorSim/.claude/skills/world-bible-validator",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "world-bible-validator",
@@ -5188,7 +7093,12 @@
       ],
       "stars": 0,
       "install": "rickoslyder/TraitorSim",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "writer",
@@ -5202,7 +7112,12 @@
       ],
       "stars": 0,
       "install": "krishagel/geoffrey/skills/writer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "yourbusinessinitaly-content-writer",
@@ -5218,7 +7133,12 @@
       ],
       "stars": 0,
       "install": "proclama2022/dobusinessinitaly/.claude/skills/yourbusinessinitaly-content-writer",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "yourbusinessinitaly-content-writer",
@@ -5234,7 +7154,12 @@
       ],
       "stars": 0,
       "install": "proclama2022/dobusinessinitaly",
-      "source": "local"
+      "source": "local",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "youtube-video-hook",
@@ -5246,7 +7171,12 @@
       "tags": [],
       "stars": 0,
       "install": "kenneth-liao/ai-launchpad-marketplace",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "youtube-video-hook",
@@ -5258,7 +7188,12 @@
       "tags": [],
       "stars": 0,
       "install": "kenneth-liao/ai-launchpad-marketplace/yt-content-strategist/skills/youtube-video-hook",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "youtube-wisdom",
@@ -5270,7 +7205,12 @@
       "tags": [],
       "stars": 0,
       "install": "sammcj/agentic-coding/Claude/skills/youtube-wisdom",
-      "source": "SkillsMP + GitHub Raw"
+      "source": "SkillsMP + GitHub Raw",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

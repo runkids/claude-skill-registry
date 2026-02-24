@@ -2,7 +2,7 @@
   "category": "devops",
   "code": "ops",
   "count": 5307,
-  "updated_at": "2026-02-24T01:48:05.306489Z",
+  "updated_at": "2026-02-24T07:26:40.363756Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -22197,7 +22197,7 @@
       "name": "azure-env-builder",
       "description": "エンタープライズ Azure 環境構築スキル。AVM 活用、VM アプリ初期化、App Service/AKS/Container Apps へのアプリデプロイ、サービス間設定連携、CI/CD 生成をサポート。Hub-Spoke, AKS, AI Foundry 等の複合アーキテクチャに対応。Bicep MCP と Microsoft Learn Docs MCP で最新スキーマを取得。",
       "repo": "aktsmm/Agent-Skills",
-      "path": "",
+      "path": "azure-env-builder",
       "branch": "main",
       "category": "devops",
       "tags": [
@@ -22206,7 +22206,7 @@
         "builder"
       ],
       "stars": 0,
-      "install": "aktsmm/Agent-Skills",
+      "install": "aktsmm/Agent-Skills/azure-env-builder",
       "source": "SkillsMP Synced Skills"
     },
     {

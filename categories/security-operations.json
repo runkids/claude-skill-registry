@@ -1,7 +1,7 @@
 {
   "category": "security-operations",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.966241Z",
+  "updated_at": "2026-02-24T07:25:39.108464Z",
   "skills": [
     {
       "name": "secops-hunt",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 48,
       "install": "majiayu000/claude-skill-registry/skills/data/hunt/SKILL.md",
-      "source": "github.com/majiayu000/claude-skill-registry"
+      "source": "github.com/majiayu000/claude-skill-registry",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "category": "github-integration",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.966921Z",
+  "updated_at": "2026-02-24T07:25:39.109135Z",
   "skills": [
     {
       "name": "github-multi-repo",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 20,
       "install": "mattnigh/skills_collection/collection/pacphi__ampel__claude__skills__github-multi-repo__SKILL.md",
-      "source": "github.com/mattnigh/skills_collection"
+      "source": "github.com/mattnigh/skills_collection",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

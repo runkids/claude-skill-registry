@@ -1,7 +1,7 @@
 {
   "category": "ai-ml",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.966831Z",
+  "updated_at": "2026-02-24T07:25:39.109040Z",
   "skills": [
     {
       "name": "flow-nexus-neural",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 20,
       "install": "mattnigh/skills_collection/collection/whrit__agent-flow__claude__skills__flow-nexus-neural__SKILL.md",
-      "source": "github.com/mattnigh/skills_collection"
+      "source": "github.com/mattnigh/skills_collection",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

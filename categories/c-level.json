@@ -1,7 +1,7 @@
 {
   "category": "c-level",
   "count": 2,
-  "updated_at": "2026-02-24T01:47:02.968443Z",
+  "updated_at": "2026-02-24T07:25:39.110708Z",
   "skills": [
     {
       "name": "ceo-advisor",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 0,
       "install": "unknown/ceo-advisor",
-      "source": "github.com/claude-skills"
+      "source": "github.com/claude-skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "cto-advisor",
@@ -25,7 +30,12 @@
       "tags": [],
       "stars": 0,
       "install": "unknown/cto-advisor",
-      "source": "github.com/claude-skills"
+      "source": "github.com/claude-skills",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

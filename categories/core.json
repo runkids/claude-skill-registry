@@ -1,7 +1,7 @@
 {
   "category": "core",
   "count": 3,
-  "updated_at": "2026-02-24T01:47:02.964274Z",
+  "updated_at": "2026-02-24T07:25:39.106468Z",
   "skills": [
     {
       "name": "agent-ops-spec",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 48,
       "install": "majiayu000/claude-skill-registry/skills/data/agent-ops-spec/SKILL.md",
-      "source": "github.com/majiayu000/claude-skill-registry"
+      "source": "github.com/majiayu000/claude-skill-registry",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "agent-ops-state",
@@ -25,7 +30,12 @@
       "tags": [],
       "stars": 48,
       "install": "majiayu000/claude-skill-registry/skills/data/agent-ops-state/SKILL.md",
-      "source": "github.com/majiayu000/claude-skill-registry"
+      "source": "github.com/majiayu000/claude-skill-registry",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     },
     {
       "name": "agent-ops-testing",
@@ -37,7 +47,12 @@
       "tags": [],
       "stars": 48,
       "install": "majiayu000/claude-skill-registry/skills/data/agent-ops-testing/SKILL.md",
-      "source": "github.com/majiayu000/claude-skill-registry"
+      "source": "github.com/majiayu000/claude-skill-registry",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

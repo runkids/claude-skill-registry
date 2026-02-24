@@ -1,7 +1,7 @@
 {
   "category": "planning",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.967013Z",
+  "updated_at": "2026-02-24T07:25:39.109251Z",
   "skills": [
     {
       "name": "brainstorming-technickai-ai-coding-config",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 16,
       "install": "TechNickAI/ai-coding-config/plugins/core/skills/brainstorming/SKILL.md",
-      "source": "github.com/TechNickAI/ai-coding-config"
+      "source": "github.com/TechNickAI/ai-coding-config",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

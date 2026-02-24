@@ -1,7 +1,7 @@
 {
   "category": "string",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.967581Z",
+  "updated_at": "2026-02-24T07:25:39.109810Z",
   "skills": [
     {
       "name": "string",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 3,
       "install": "dot-do/mdx/schema/schema.org.ai/Skill.mdx",
-      "source": "github.com/dot-do/mdx"
+      "source": "github.com/dot-do/mdx",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

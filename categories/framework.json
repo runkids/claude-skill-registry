@@ -1,7 +1,7 @@
 {
   "category": "framework",
   "count": 1,
-  "updated_at": "2026-02-24T01:47:02.966739Z",
+  "updated_at": "2026-02-24T07:25:39.108948Z",
   "skills": [
     {
       "name": "example-framework-skill",
@@ -13,7 +13,12 @@
       "tags": [],
       "stars": 20,
       "install": "mattnigh/skills_collection/collection/danielseltzer__code-analysis-tools__claude__skills__examples-good-self-contained-skill__SKILL.md",
-      "source": "github.com/mattnigh/skills_collection"
+      "source": "github.com/mattnigh/skills_collection",
+      "author": "",
+      "source_url": "",
+      "license": "",
+      "distribution": "",
+      "permission_note": ""
     }
   ]
 }

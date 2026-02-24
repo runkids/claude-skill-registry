@@ -2,7 +2,7 @@
   "category": "product",
   "code": "prd",
   "count": 1073,
-  "updated_at": "2026-02-24T01:48:06.243001Z",
+  "updated_at": "2026-02-24T07:26:41.290085Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -10549,7 +10549,7 @@
       "name": "skill-finder",
       "description": "Full-featured Agent Skills management: Search 35+ skills, install locally, star favorites, update from sources. Supports tag search (#azure #bicep), category filtering, and similar skill recommendatio",
       "repo": "aktsmm/Agent-Skills",
-      "path": "",
+      "path": "skill-finder",
       "branch": "main",
       "category": "product",
       "tags": [
@@ -10557,7 +10557,7 @@
         "finder"
       ],
       "stars": 0,
-      "install": "aktsmm/Agent-Skills",
+      "install": "aktsmm/Agent-Skills/skill-finder",
       "source": "local"
     },
     {
