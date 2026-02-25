@@ -1,8 +1,8 @@
 {
   "category": "product",
   "code": "prd",
-  "count": 1073,
-  "updated_at": "2026-02-24T07:26:41.290085Z",
+  "count": 1074,
+  "updated_at": "2026-02-25T01:53:54.504749Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -10791,6 +10791,21 @@
       "stars": 0,
       "install": "ddarmon/llmn/.claude/skills/multiperiod",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill-finder",
+      "description": "Full-featured Agent Skills management: Search 35+ skills, install locally, star favorites, update from sources. Supports tag search (#azure #bicep), category filtering, and similar skill recommendatio",
+      "repo": "aktsmm/Agent-Skills",
+      "path": "",
+      "branch": "master",
+      "category": "product",
+      "tags": [
+        "skill",
+        "finder"
+      ],
+      "stars": 0,
+      "install": "aktsmm/Agent-Skills",
+      "source": "local"
     },
     {
       "name": "mcp-configuration-management",
