@@ -2,11 +2,11 @@
   "category": "quality",
   "code": "oth",
   "count": 4,
-  "updated_at": "2026-02-25T01:53:54.540284Z",
+  "updated_at": "2026-02-26T01:47:45.431729Z",
   "skills": [
     {
-      "name": "risk-profile-majiayu000-claude-skill-regist",
-      "description": "Number of P0 (critical) tests required",
+      "name": "quality-gate",
+      "description": "Path to Markdown report (for human review)",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -17,8 +17,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "quality-gate",
-      "description": "Path to Markdown report (for human review)",
+      "name": "risk-profile-majiayu000-claude-skill-regist",
+      "description": "Number of P0 (critical) tests required",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",

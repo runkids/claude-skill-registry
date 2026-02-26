@@ -2,8 +2,20 @@
   "category": "core",
   "code": "oth",
   "count": 6,
-  "updated_at": "2026-02-25T01:53:52.739722Z",
+  "updated_at": "2026-02-26T01:47:43.655733Z",
   "skills": [
+    {
+      "name": "agent-ops-testing",
+      "description": "Test strategy, execution, and coverage analysis. Use when designing tests, running test suites, or analyzing test results beyond baseline checks.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "core",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
     {
       "name": "agent-ops-spec",
       "description": "Manage specification documents in .agent/specs/. Use when user provides requirements, acceptance criteria, or feature descriptions that need to be tracked and validated against implementation.",
@@ -43,18 +55,6 @@
     {
       "name": "agent-ops-spec",
       "description": "Manage specification documents in .agent/specs/. Use when user provides requirements, acceptance criteria, or feature descriptions that need to be tracked and validated against implementation.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "core",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "agent-ops-testing",
-      "description": "Test strategy, execution, and coverage analysis. Use when designing tests, running test suites, or analyzing test results beyond baseline checks.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",

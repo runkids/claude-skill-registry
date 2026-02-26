@@ -1,7 +1,7 @@
 {
   "category": "testing-methodologies",
-  "count": 2,
-  "updated_at": "2026-02-25T01:52:53.199681Z",
+  "count": 1,
+  "updated_at": "2026-02-26T01:46:47.100185Z",
   "skills": [
     {
       "name": "api-testing-patterns",
@@ -13,23 +13,6 @@
       "tags": [],
       "stars": 140,
       "install": "proffesor-for-testing/agentic-qe/.claude/skills/api-testing-patterns/SKILL.md",
-      "source": "github.com/proffesor-for-testing/agentic-qe",
-      "author": "",
-      "source_url": "",
-      "license": "",
-      "distribution": "",
-      "permission_note": ""
-    },
-    {
-      "name": "quality-metrics-proffesor-for-testing-agentic-",
-      "description": "Measure quality effectively with actionable metrics. Use when establishing quality dashboards, defining KPIs, or evaluating test effectiveness.",
-      "repo": "proffesor-for-testing/agentic-qe",
-      "path": ".claude/skills/quality-metrics/SKILL.md",
-      "branch": "main",
-      "category": "testing-methodologies",
-      "tags": [],
-      "stars": 140,
-      "install": "proffesor-for-testing/agentic-qe/.claude/skills/quality-metrics/SKILL.md",
       "source": "github.com/proffesor-for-testing/agentic-qe",
       "author": "",
       "source_url": "",

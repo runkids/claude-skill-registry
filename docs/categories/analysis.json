@@ -2,20 +2,8 @@
   "category": "analysis",
   "code": "oth",
   "count": 3,
-  "updated_at": "2026-02-25T01:53:52.737555Z",
+  "updated_at": "2026-02-26T01:47:43.653107Z",
   "skills": [
-    {
-      "name": "agent-ops-docker-review",
-      "description": "Docker image reviews, optimization, and step-building guidance. Analyzes Dockerfiles for best practices, security issues, and anti-patterns.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "analysis",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
     {
       "name": "agent-ops-reality-audit-majiayu000-claude-skill-regist",
       "description": "Aggressive evidence-based audit to verify project claims match implementation reality",
@@ -31,6 +19,18 @@
     {
       "name": "agent-ops-article-verification",
       "description": "Systematically deconstruct written content into verifiable claims, validate each using search/documentation, and facilitate informed discussion through structured interviewing.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "analysis",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent-ops-docker-review",
+      "description": "Docker image reviews, optimization, and step-building guidance. Analyzes Dockerfiles for best practices, security issues, and anti-patterns.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
